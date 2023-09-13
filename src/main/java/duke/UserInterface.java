@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.Objects;
 import dukeexception.CorruptedFileException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,13 +29,14 @@ public class UserInterface {
     }
     public void init(String userImagePath, String dukeImagePath) throws CorruptedFileException {
         try {
-            this.userImg = new Image(this.getClass().getResourceAsStream(userImagePath));
-            this.dukeImg = new Image(this.getClass().getResourceAsStream(dukeImagePath));
+            assert(userImagePath != null && dukeImagePath != null); //Means the arguments are passed wrongly.
+            this.userImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(userImagePath)));
+            this.dukeImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(dukeImagePath)));
         } catch (NullPointerException e) {
             throw new CorruptedFileException();
         }
     }
-    public Scene sceneMaker() {
+    public Scene makeScene() {
         spawnUiElements();
         setUiSettings();
         setAnchorPaneSettings();
@@ -47,7 +49,8 @@ public class UserInterface {
     public void input() {
         String input = userInput.getText();
         Label inputLabel = new Label(input);
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(inputLabel, new ImageView(userImg)));
+        DialogBox userDialog = DialogBox.getUserDialog(inputLabel, new ImageView(userImg));
+        dialogContainer.getChildren().add(userDialog);
         duke.handle(input);
         userInput.clear();
     }
@@ -58,7 +61,8 @@ public class UserInterface {
      */
     public void output(String output) {
         Label dukeLabel = new Label(output);
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeLabel, new ImageView(dukeImg)));
+        DialogBox dukeDialog = DialogBox.getDukeDialog(dukeLabel, new ImageView(dukeImg));
+        dialogContainer.getChildren().add(dukeDialog);
     }
 
     private void spawnUiElements() {
@@ -68,6 +72,7 @@ public class UserInterface {
         userInput = new TextField();
         sendButton = new Button("Send");
     }
+
     private void setUiSettings() {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -86,9 +91,9 @@ public class UserInterface {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
     }
+
     private void addUiFunctionality() {
         sendButton.setOnMouseClicked((event) -> input());
         userInput.setOnAction((event) -> input());
     }
-
 }

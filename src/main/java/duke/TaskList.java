@@ -79,8 +79,7 @@ public class TaskList {
         }
         if (isToBeMarked) {
             taskList.get(targetIndex).markDone();
-        }
-        if (!isToBeMarked) {
+        } else {
             taskList.get(targetIndex).markUndone();
         }
         writeToDisk();

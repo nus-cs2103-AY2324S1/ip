@@ -19,8 +19,8 @@ public class Duke extends Application {
     private final Parser parser;
     private final UserInterface ui;
     private String filePath;
-    String userImagePath;
-    String dukeImagePath;
+    private String userImagePath;
+    private String dukeImagePath;
     private String logo;
     /**
      * Creates a new Duke instance.
@@ -35,7 +35,7 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setScene(ui.sceneMaker());
+        stage.setScene(ui.makeScene());
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Luke");
@@ -94,28 +94,6 @@ public class Duke extends Application {
     public boolean corruptedFileHandle() {
         return true;
     }
-//        ui.output("File not properly formatted;\n"
-//                + "Clear corrupted file Y/N?");
-//        while (true) {
-//            String input = ui.input();
-//            ui.output(input);
-//            if (input.equals("Y")) {
-//                try {
-//                    storage.clear();
-//                    ui.output("File cleared.");
-//                } catch (IOException e) {
-//                    ui.output("Error in clearing! Shutting down.");
-//                    return true;
-//                }
-//                return false;
-//            } else if (input.equals("N")) {
-//                ui.output("Understood. Shutting down.");
-//                return true;
-//            } else {
-//                ui.output("Bad input. Input Y/N");
-//            }
-//        }
-//    }
 
     public void handle(String input) {
         try {
