@@ -141,8 +141,8 @@ public class Storage {
         assert text != null;
 
         try {
-            FileWriter fw = new FileWriter("data" + File.separator + "archive.txt", false);
-            fw.write(text);
+            FileWriter fw = new FileWriter("data" + File.separator + "archive.txt", true);
+            fw.write(text + "\n");
             fw.close();
         } catch (Exception e) {
             System.out.println("Sorry... Unable to store tasks...");
