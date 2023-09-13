@@ -30,6 +30,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+        assert !list.equals(null): "list has been initialised";
         String message = list.unmark(this.getIndex());
         //        ui.print(message);
         return message;
