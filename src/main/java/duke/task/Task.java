@@ -57,6 +57,8 @@ public class Task {
             } else if (type.equals("todo")) {
                 return new Todo(description);
             } else {
+                assert type.equals("event") : "Type should be Event";
+
                 String[] splitDesc = description.split(" /from ", 2);
                 String[] splitDesc2 = splitDesc[1].split(" /to ", 2);
                 return new Event(splitDesc[0], splitDesc2[0], splitDesc2[1]);

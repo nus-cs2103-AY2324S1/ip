@@ -42,6 +42,7 @@ public class Parser {
             CommandWord commandWord = CommandWord.valueOf(input.split(" ")[0].toUpperCase());
 
             String[] splitTask = input.split(" ", 2);
+
             switch (commandWord) {
             case BYE:
                 return new ByeCommand();
