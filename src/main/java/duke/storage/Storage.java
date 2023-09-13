@@ -37,8 +37,6 @@ public class Storage {
             String scanned = sc.nextLine();
             String[] singleTaskArray = scanned.split(" / ");
 
-            //do a checking <------
-
             Task task;
             switch (singleTaskArray[0]) {
             case "T":
@@ -57,6 +55,8 @@ public class Storage {
             if (singleTaskArray[1].equals("1")) {
                 task.mark();
             }
+            assert singleTaskArray[1].equals("0") ||
+                    singleTaskArray[1].equals("1") : "Wrong marking format in storage";
 
             readFile.add(task);
         }
