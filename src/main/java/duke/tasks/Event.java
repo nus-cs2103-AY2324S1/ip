@@ -11,7 +11,7 @@ public class Event extends Task{
     }
 
     /**
-     * Method that checks if the input is valid.
+     * Checks if the input is valid.
      *
      * @throws DukeException if input is invalid.
      */
@@ -23,7 +23,7 @@ public class Event extends Task{
     }
 
     /**
-     * Method to format input.
+     * Formats start and end time of event.
      *
      * @param descr the task description.
      * @return reformatted String version of task.
@@ -47,7 +47,7 @@ public class Event extends Task{
     }
 
     /**
-     * Method that reformats events to be ready to be written into tasks.txt.
+     * Reformats events to be ready to be written into tasks.txt.
      *
      * @return the reformatted event.
      */
@@ -72,7 +72,7 @@ public class Event extends Task{
     }
 
     /**
-     * Method that converts task to string.
+     * Converts task to string.
      *
      * @return formatted String version of the task
      */

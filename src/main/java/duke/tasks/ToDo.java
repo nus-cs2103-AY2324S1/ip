@@ -10,10 +10,9 @@ public class ToDo extends Task{
     }
 
     /**
-     * Method that checks that 1. task contains deadline, 2. deadline in specified format.
+     * Checks that the task is a valid ToDo with a task description.
      *
-     * @return reformatted deadline
-     * @throws DukeException when input is invalid.
+     * @throws DukeException if input is invalid.
      */
     public void checkValidity() throws DukeException {
         String[] descrArr = descr.split(" "); //you get 0: taskName, 1: description

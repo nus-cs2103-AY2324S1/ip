@@ -10,7 +10,6 @@ import duke.exceptions.DukeException;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static final String line = "___________________________________________";
     private static ArrayList<Task> taskList;
     private Ui ui = new Ui();
 
@@ -31,6 +30,7 @@ public class TaskList {
      * Method to handle TODOs.
      *
      * @param descr the task description
+     * @return the String that is printed when a ToDo is created.
      */
     public String handleTodo(String descr) {
         String res = null;
@@ -51,6 +51,7 @@ public class TaskList {
      * Method to handle Events.
      *
      * @param descr the task description
+     * @return the String that is printed when a new Event is added.
      */
     public String handleEvent(String descr) {
         String res = null;
@@ -71,6 +72,7 @@ public class TaskList {
      * Method to handle Deadlines.
      *
      * @param descr the task description
+     * @return the String that is printed when a new Deadline is added.
      */
     public String handleDeadline(String descr) {
         String res;
@@ -91,6 +93,7 @@ public class TaskList {
      * Method to mark task.
      *
      * @param task the task being marked
+     * @return the String that is printed when a task is marked.
      * @throws DukeException if input is invalid.
      */
     public String mark(String task) throws DukeException {
@@ -103,13 +106,13 @@ public class TaskList {
 
         String index = parts[1];
         int taskIndex = 0;
-        assert taskIndex < taskList.size() || taskIndex > 0 : "Invalid index";
-        if (taskIndex > taskList.size() || taskIndex < 0) {
-            throw new IndexOutOfBoundsException("Please enter a valid index.");
-        }
-
         try {
             taskIndex = Integer.parseInt(index) - 1;
+            boolean indexIsValid = taskIndex < taskList.size() || taskIndex > 0;
+            assert indexIsValid : "Invalid index";
+            if (!indexIsValid) {
+                throw new IndexOutOfBoundsException("Please enter a valid index.");
+            }
         } catch (NumberFormatException e) {
             res = "Please enter a valid index.";
         }
@@ -134,7 +137,7 @@ public class TaskList {
     }
 
     /**
-     * Method deletes task from taskList.
+     * Deletes task from taskList.
      *
      * @param task The instructions containing index of task to be deleted.
      * @throws DukeException if input is invalid.
@@ -152,10 +155,12 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid index."); //e.g. delete hi
         }
-        if (taskIndex > taskList.size() || taskIndex < 0) {
+        boolean indexIsValid = taskIndex < taskList.size() || taskIndex > 0;
+        assert indexIsValid : "Index is invalid";
+        if (!indexIsValid) {
             throw new DukeException("Please enter a valid index.");
         }
-        Task deletedTask = taskList.get(Integer.parseInt(index) - 1);
+        Task deletedTask = taskList.get(taskIndex);
         taskList.remove(deletedTask);
 
         res = "Deleted the following task: \n";
@@ -164,7 +169,7 @@ public class TaskList {
     }
 
     /**
-     * Method to find relevant tasks.
+     * Finds relevant tasks.
      *
      * @param task the input that specifies what to find.
      * @throws DukeException if the input is invalid.
@@ -180,7 +185,8 @@ public class TaskList {
         String output;
 
         for (Task existingTask : taskList) {
-            if (existingTask.toString().contains(relevantWord)) {
+            boolean wordIsRelevant = existingTask.toString().contains(relevantWord);
+            if (wordIsRelevant) {
                 resultList.add(existingTask);
             }
         }
@@ -208,57 +214,6 @@ public class TaskList {
                 res += i + "." + taskList.get(i - 1) + "\n";
             }
             return res;
-        }
-    }
-
-    /**
-     * Method to handle inputs.
-     *
-     * Entry point linking terminal to system.
-     *
-     * @throws DukeException if input is invalid or double marking/ unmarking
-     */
-    public String handleInput(String task) {
-        KeywordEnum keywordEnum = KeywordEnum.assign(task);
-
-            switch(keywordEnum) {
-            case LIST:
-                try {
-                    return printList();
-                } catch (DukeException e) {
-                    return e.getMessage();
-                }
-            case BYE:
-                    return this.ui.printOutro();
-            case TODO:
-                return handleTodo(task);
-            case DEADLINE:
-                return handleDeadline(task);
-            case EVENT:
-                return handleEvent(task);
-            case DELETE:
-                try {
-                    return delete(task);
-                } catch (DukeException e) {
-                    return e.getMessage();
-                }
-            case MARK:
-            case UNMARK:
-                try {
-                    return mark(task);
-                } catch (IndexOutOfBoundsException e) {
-                    return e.getMessage();
-                } catch (DukeException dukeException) {
-                    return dukeException.getMessage();
-                }
-            case FIND:
-                try {
-                    return find(task);
-                } catch (DukeException e) {
-                    return e.getMessage();
-                }
-            default:
-                return "This is not a valid task.";
         }
     }
 }

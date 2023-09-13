@@ -67,8 +67,12 @@ public class Duke {
                 } catch (DukeException e) {
                     return e.getMessage();
                 }
+            case INVALID:
+                String invalidCaseOutput = "This is not a valid task.";
+                return invalidCaseOutput;
             default:
-                return "This is not a valid task.";
+                String defaultOutput = null;
+                return defaultOutput;
         }
     }
 }

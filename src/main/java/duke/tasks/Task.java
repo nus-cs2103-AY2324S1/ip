@@ -38,7 +38,7 @@ public abstract class Task {
     }
 
     /**
-     * Method that converts task to string.
+     * Converts task to string.
      *
      * @return formatted String version of the task
      */

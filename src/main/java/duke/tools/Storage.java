@@ -20,23 +20,12 @@ public class Storage {
     private ArrayList<Task> taskList = new ArrayList<>();
     private Parser parser = new Parser();
 
-    /**
-    public Storage(String filePath) {
-        this.filePath = filePath;
-    }
-     */
-
-    /**
-     * Method to return the taskList.
-     *
-     * @return taskList the task list.
-     */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
     /**
-     * Method to write tasks frm ArrayList data structure into .txt file.
+     * Writes tasks from ArrayList data structure into .txt file.
      *
      * @param taskList the data structure that contains task objects
      */
@@ -63,7 +52,7 @@ public class Storage {
     }
 
     /**
-     * Method to read tasks from .txt file to ArrayList data structure.
+     * Reads tasks from .txt file to ArrayList data structure.
      */
     public void read() {
         this.savedFile = new File(filePath);
@@ -90,9 +79,8 @@ public class Storage {
                     break;
                 case "D":
                     String deadline = taskArr[3];
-
-                    Deadline newDeadline = new Deadline(description + "/by " + deadline);
-
+                    String deadlineDetails = description + "/by " + deadline;
+                    Deadline newDeadline = new Deadline(deadlineDetails);
                     if (status.equals("1")) {
                         Task deadlineTask = (Task) newDeadline;
                         deadlineTask.markDone();
@@ -103,10 +91,9 @@ public class Storage {
                     break;
                 case "E":
                     String date = taskArr[3];
-
                     String[] parts = date.split("to");
-                    Event newEvent = new Event(description + "/from " + parts[0].trim() + "/to " + parts[1].trim());
-
+                    String eventDetails = description + "/from " + parts[0].trim() + "/to " + parts[1].trim();
+                    Event newEvent = new Event(eventDetails);
                     if (status.equals("1")) {
                         Task eventTask = (Task) newEvent;
                         eventTask.markDone();
@@ -117,21 +104,17 @@ public class Storage {
                     break;
                 default:
                     throw new DukeException("You have no tasks yet today!");
-            }
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("No such file");
-
             try {
                 if (savedFile.createNewFile()) {
                     System.out.println("File created: " + savedFile.getAbsolutePath());
-                } else {
-                    System.out.println("File already exists.");
                 }
             } catch (IOException exc) {
                 System.err.println("An error occurred: " + e.getMessage());
             }
-
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
