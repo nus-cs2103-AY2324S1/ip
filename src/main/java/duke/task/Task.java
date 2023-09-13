@@ -3,7 +3,7 @@ package duke.task;
 /**
  * A Task class to represent tasks
  */
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone;
     private final TaskType type;
@@ -47,6 +47,22 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Returns description of task
+     */
+    public String getType() {
+        return this.type.toString();
+    }
+
+    /**
+     * Abstract method to check if two tasks are equal.
+     *
+     * @param otherTask the task to compare to
+     * @return true if the tasks are equal, false otherwise
+     */
+    public abstract boolean isEqual(Task otherTask);
+
 
     /**
      * Returns String representing the task

@@ -31,6 +31,23 @@ public class Deadline extends Task {
     }
 
     /**
+     * Check if two Event tasks are equal.
+     *
+     * @param otherTask the task to compare to
+     * @return true if the tasks are equal, false otherwise
+     */
+    @Override
+    public boolean isEqual(Task otherTask) {
+        if (otherTask instanceof Deadline) {
+            Deadline otherDeadline = (Deadline) otherTask;
+            return this.getDescription().equalsIgnoreCase(otherDeadline.getDescription()) &&
+                    this.getType().equalsIgnoreCase(otherDeadline.getType()) &&
+                    this.getBy().equalsIgnoreCase(otherDeadline.getBy());
+        }
+        return false;
+    }
+
+    /**
      * Returns String representing the deadline
      *
      * @return String representing deadline

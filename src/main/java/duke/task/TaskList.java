@@ -130,7 +130,7 @@ public class TaskList extends ArrayList<Task>{
             if (index >= 0 && index < tasks.size()) {
                 tasks.get(index).markUndone();
             } else {
-                throw new DukeException("☹ OOPS!!! Task not found.");
+                throw new DukeException("Task not found.");
             }
         } catch (DukeException e) {
             e.getMessage();
@@ -151,5 +151,15 @@ public class TaskList extends ArrayList<Task>{
             }
         }
         return matchingTasks;
+    }
+
+    public boolean containsDuplicate(Task taskToAdd) {
+        boolean flag = false;
+        for (Task task : tasks) {
+            if (task.isEqual(taskToAdd)) {
+                flag = true;
+            }
+        }
+        return flag;
     }
 }

@@ -43,6 +43,24 @@ public class Event extends Task {
     }
 
     /**
+     * Check if two Event tasks are equal.
+     *
+     * @param otherTask the task to compare to
+     * @return true if the tasks are equal, false otherwise
+     */
+    @Override
+    public boolean isEqual(Task otherTask) {
+        if (otherTask instanceof Event) {
+            Event otherEvent = (Event) otherTask;
+            return this.getDescription().equalsIgnoreCase(otherEvent.getDescription()) &&
+                    this.getType().equalsIgnoreCase(otherEvent.getType()) &&
+                    this.getFrom().equalsIgnoreCase(otherEvent.getFrom()) &&
+                    this.getTo().equalsIgnoreCase(otherEvent.getTo());
+        }
+        return false;
+    }
+
+    /**
      * Returns String representing the event
      *
      * @return String representing event

@@ -9,7 +9,6 @@ import duke.task.Todo;
  * Parses user input to create the appropriate command for Duke.
  */
 public class Parser {
-
     /**
      * Parses the user input and returns the corresponding Duke command.
      *
