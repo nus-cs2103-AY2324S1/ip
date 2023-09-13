@@ -111,10 +111,7 @@ public class Commands {
      * @return Returns true same, false otherwise.
      */
     public boolean checkCommand(CommandEnum command) {
-        if (this.primaryCommand == command) {
-            return true;
-        }
-        return false;
+        return this.primaryCommand == command;
     }
     /**
      * Executes the action or throws a DukeException.
@@ -143,11 +140,11 @@ public class Commands {
         case LIST:
             return taskList.listTasks();
 
-        case TODO:
-            return taskList.addToDo(this.taskDescription, print);
-
         case FIND:
             return taskList.find(this.taskDescription);
+
+        case TODO:
+            return taskList.addToDo(this.taskDescription, print);
 
         case MARK:
             return taskList.markOrUnmark(this.index, true, print);
@@ -172,41 +169,14 @@ public class Commands {
      */
     public boolean compareTime(Commands c) {
         try {
-            if (this.dateTime.isBefore(c.dateTime)) {
-                return true;
-            }
+            return this.dateTime.isBefore(c.dateTime);
         } catch (NullPointerException e) {
             return false;
         }
-        return false;
     }
 
-    /**
-     * Compares this object to another object.
-     *
-     * @param obj An object.
-     * @return Returns true if both objects are equivalent, false if otherwise.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj instanceof Commands) {
-            Commands b = (Commands) obj;
-            if (b.primaryCommand == this.primaryCommand
-                    && b.dateTime == this.dateTime
-                    && b.index == this.index
-                    && b.taskDescription == this.taskDescription) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private static class TwoCommands extends Commands {
-        private CommandEnum backUpSecondaryCommand;
-        private String backUpSecondaryString;
         private Commands secondaryCommand;
 
         private TwoCommands(CommandEnum command, String str, Commands secondaryCommand) {
@@ -228,33 +198,9 @@ public class Commands {
                 return null;
             }
         }
-
-        /**
-         * @inheritDoc
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj instanceof Commands.TwoCommands) {
-                Commands.TwoCommands b = (Commands.TwoCommands) obj;
-                if (super.equals(b)
-                        && b.backUpSecondaryCommand == this.backUpSecondaryCommand
-                        && this.backUpSecondaryString.equals(b.backUpSecondaryString)
-                        && this.secondaryCommand.equals(b.secondaryCommand)) {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 
     private static class ThreeCommands extends Commands {
-        private CommandEnum backUpSecondaryCommand;
-        private String backUpSecondaryDescription;
-        private CommandEnum backUpTertiaryCommand;
-        private String backUpTertiaryDescription;
         private Commands phaseTwo;
         private Commands phaseThree;
 
@@ -278,27 +224,6 @@ public class Commands {
             default:
                 return null;
             }
-        }
-
-        /**
-         * @inheritDoc
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj instanceof Commands.ThreeCommands) {
-                Commands.ThreeCommands b = (Commands.ThreeCommands) obj;
-                if (super.equals(b) && b.backUpSecondaryCommand == this.backUpSecondaryCommand
-                        && this.backUpSecondaryDescription.equals(b.backUpSecondaryDescription)
-                        && b.backUpTertiaryCommand == this.backUpTertiaryCommand
-                        && this.backUpTertiaryDescription.equals(b.backUpTertiaryDescription)
-                        && this.phaseTwo.equals(b.phaseTwo) && this.phaseThree.equals(b.phaseThree)) {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }
