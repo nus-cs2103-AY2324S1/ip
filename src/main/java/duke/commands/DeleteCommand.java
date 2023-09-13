@@ -31,10 +31,13 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NoIndexException {
+
+        // Removes everything except the index to delete
         String desc = fullCommand.replaceAll("[^0-9]", "");
         if (desc.equals("")) {
             throw new NoIndexException("No Index");
         }
+
         int index = Integer.parseInt(desc);
 
         if (tasks.size() < index || index < 1) {

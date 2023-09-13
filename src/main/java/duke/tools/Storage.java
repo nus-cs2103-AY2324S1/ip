@@ -46,6 +46,7 @@ public class Storage {
         // scan for the storage file
         try {
             Scanner s = new Scanner(file);
+
             while (s.hasNext()) {
 
                 String curr = s.nextLine();
@@ -56,17 +57,18 @@ public class Storage {
                 // check for the correct format - minimum 3 different segments
                 if ((!segments[0].equals("T") && !segments[0].equals("D")
                         && !segments[0].equals("E")) || segments.length < 3) {
-                    s.close(); // need to close scanner otherwise cannot replace file
+                    // Close the file to allow replacement
+                    s.close();
                     throw new UnrecognisedFormatException();
                 }
 
                 boolean isDone = segments[1].equals("1");
 
-                if (segments[0].equals("T")) { // To do task
+                if (segments[0].equals("T")) { // To Do
                     tasks.add(new ToDo(segments[2], isDone));
-                } else if (segments[0].equals("D")) { // Duke.Tasks.Deadline task
+                } else if (segments[0].equals("D")) { // Deadline
                     tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
-                } else { // Duke.Tasks.Event task
+                } else if (segments[0].equals("E")) { // Event
                     String[] times = segments[3].split("--");
 
                     assert times.length == 2 : "Format is not correct";
@@ -75,6 +77,8 @@ public class Storage {
                             LocalDateTime.parse(times[0]),
                             LocalDateTime.parse(times[1]),
                             isDone));
+                } else {
+                    throw new UnrecognisedFormatException();
                 }
 
             }

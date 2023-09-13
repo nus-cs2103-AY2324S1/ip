@@ -35,6 +35,7 @@ public class CheckCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        //Removes the command type from the entire command
         String content = fullCommand.replaceAll("^\\s*check\\s*", "");
         LocalDateTime dateTime = LocalDateTime.parse(content, formatter);
         return ui.printScheduledTasks(tasks, dateTime);

@@ -12,7 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * The `MainWindow` class serves as the controller for the main application window. It provides the layout and
+ * functionality for the user interface.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -26,23 +27,33 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
+    // Images representing the user and Respironix for dialog display.
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/user1.jpg")));
     private final Image dukeImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/user2.jpg")));
 
+    /**
+     * Initializes the controller after FXML elements are loaded. Binds the scroll pane's vertical value to
+     * the height of the dialog container for auto-scrolling.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Duke instance for the MainWindow.
+     *
+     * @param d The Duke instance to set.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by processing it, displaying a user dialog, and Duke's reply in the dialog container.
+     * Clears the user input field after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -59,4 +70,5 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 }
+
 

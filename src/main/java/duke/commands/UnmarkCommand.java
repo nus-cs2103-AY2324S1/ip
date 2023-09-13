@@ -31,6 +31,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NoIndexException {
+        // Removes everything from the command except the index to unmark
         String desc = fullCommand.replaceAll("[^0-9]", "");
         if (desc.equals("")) {
             throw new NoIndexException("No Index");

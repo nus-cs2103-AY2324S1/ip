@@ -79,9 +79,6 @@ public class Ui {
      * @param size The number of tasks after adding.
      */
     public void showAddMessage(Task task, int size) {
-
-        StringBuilder str = new StringBuilder();
-
         System.out.println("Got it!. I've added this task:");
         System.out.println(INDENTATION + task);
         System.out.printf("Now you have %d tasks in the list%n", size);
