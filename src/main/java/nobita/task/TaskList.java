@@ -75,6 +75,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Rrturn all tasks in ArrayList.
+     *
      * @return An ArrayList that contains all tasks.
      */
     public ArrayList<Task> getAllTasks() {
