@@ -23,23 +23,138 @@ public class ChatCommand {
      * A command operation, representing an identified operation for a command.
      */
     public enum Operation {
-        ADD_TODO,
-        ADD_DEADLINE,
-        ADD_EVENT,
-        DELETE,
+        ADD_TODO, ADD_DEADLINE, ADD_EVENT, DELETE,
+        MARK_COMPLETE, UNMARK_COMPLETE,
+        LIST, SEARCH, EXIT,
+        UNKNOWN;
 
-        MARK_COMPLETE,
-        UNMARK_COMPLETE,
+        /**
+         * An internal lookup cache for mapping string names to commands.
+         */
+        private static Map<String, Operation> nameToCommandLookupCache = null;
 
-        LIST,
-        SEARCH,
-        EXIT,
+        /**
+         * Obtains the operation from the given command name or alias.
+         *
+         * @param name The name or alias that refers to the operation.
+         * @return The operation represented the given name.
+         */
+        public static Operation fromCommandName(String name) {
+            if (nameToCommandLookupCache == null) {
+                // Pre-compute the lookup cache if it is not yet initialized.
+                nameToCommandLookupCache = new HashMap<>();
+                for (Operation op : ChatCommand.Operation.class.getEnumConstants()) {
+                    for (String n : op.getSupportedNameAliases()) {
+                        nameToCommandLookupCache.put(n, op);
+                    }
+                }
+            }
 
-        UNKNOWN
+            return nameToCommandLookupCache.getOrDefault(name, UNKNOWN);
+        }
+
+        /**
+         * Obtains the supported name aliases to invoke this command.
+         *
+         * @return The supported name aliases as an array of strings.
+         */
+        public String[] getSupportedNameAliases() {
+            switch (this) {
+            case ADD_TODO:
+                return new String[] { "todo" };
+            case ADD_DEADLINE:
+                return new String[] { "deadline" };
+            case ADD_EVENT:
+                return new String[] { "event" };
+            case DELETE:
+                return new String[] { "delete", "remove" };
+            case MARK_COMPLETE:
+                return new String[] { "mark", "done", "complete" };
+            case UNMARK_COMPLETE:
+                return new String[] { "unmark", "undone", "incomplete" };
+            case LIST:
+                return new String[] { "list" };
+            case SEARCH:
+                return new String[] { "find", "search" };
+            case EXIT:
+                return new String[] { "bye", "exit" };
+            case UNKNOWN:
+            default:
+                break;
+            }
+            return new String[] {};
+        }
+
+
+
+        /**
+         * Returns a user-friendly high-level description of the operation.
+         *
+         * @return A string representing a description of the operation.
+         */
+        public String getDescription() {
+            switch (this) {
+            case ADD_TODO:
+                return "Adds a todo with the given title.";
+            case ADD_DEADLINE:
+                return "Adds a deadline with the given title and due by date.";
+            case ADD_EVENT:
+                return "Adds a deadline with the given title and date range.";
+            case DELETE:
+                return "Deletes the referenced task.";
+            case MARK_COMPLETE:
+                return "Marks the referenced task as complete.";
+            case UNMARK_COMPLETE:
+                return "Sets the referenced task as incomplete.";
+            case LIST:
+                return "Lists all available tasks.";
+            case SEARCH:
+                return "Finds all available tasks with the given search term.";
+            case EXIT:
+                return "Stops the conversation.";
+            case UNKNOWN:
+            default:
+                return "Unknown command.";
+            }
+        }
+
+        /**
+         * Returns the syntax allowed for the given command, as a <i>format string</i>.
+         *
+         * <p>
+         * Specifically, this method returns a string that should be used with {@link String#format} with one
+         * argument to substitute with the command name.
+         * </p>
+         *
+         * @return The syntax allowed for the given command as a <i>format string</i>.
+         */
+        public String getSyntaxDescriptionAsFormatString() {
+            switch (this) {
+            case ADD_TODO:
+                return "%s [task title]";
+            case ADD_DEADLINE:
+                return "%s [deadline title] --by [deadline in ISO8601]";
+            case ADD_EVENT:
+                return "%s [event title] --from [start date in ISO8601] --to [end date in ISO8601]";
+            case DELETE:
+            case MARK_COMPLETE:
+            case UNMARK_COMPLETE:
+                return "%s [task number]";
+            case SEARCH:
+                return "%s [search terms]";
+            case LIST:
+            case EXIT:
+                return "%s";
+            case UNKNOWN:
+            default:
+                return "%s [..?]";
+            }
+        }
+
+
     }
 
     private final String name;
-    private Operation type = null;
     private final String data;
     private final Map<String, String> params = new HashMap<>();
 
@@ -147,7 +262,7 @@ public class ChatCommand {
     /**
      * Internal method to extract the data string from the word parts, given the index to end the search once reached.
      *
-     * @param words A reference to the original partitioned words.
+     * @param words        A reference to the original partitioned words.
      * @param dataEndIndex The index that marks the end of the data component, exclusive.
      * @return A string representing the full data component.
      */
@@ -168,7 +283,7 @@ public class ChatCommand {
      * Internal method to extract a map of the parameters from the word parts of an instruction, given the starting
      * index to search from.
      *
-     * @param words A reference to the original partitioned words.
+     * @param words               A reference to the original partitioned words.
      * @param parameterStartIndex The index to start the search from, inclusive.
      * @return A map reflecting the newly extracted parameters as key-value pairs.
      */
@@ -211,7 +326,6 @@ public class ChatCommand {
     }
 
 
-
     /**
      * Obtains the name of the given command.
      *
@@ -227,42 +341,7 @@ public class ChatCommand {
      * @return The operation of the given command.
      */
     public Operation getOperation() {
-        if (this.type != null) {
-            return this.type;
-        }
-
-        switch (this.name) {
-        case "todo":
-            return this.type = Operation.ADD_TODO;
-        case "event":
-            return this.type = Operation.ADD_EVENT;
-        case "deadline":
-            return this.type = Operation.ADD_DEADLINE;
-
-        case "delete":
-            return this.type = Operation.DELETE;
-
-        case "mark":
-            return this.type = Operation.MARK_COMPLETE;
-        case "unmark":
-            return this.type = Operation.UNMARK_COMPLETE;
-
-        case "list":
-            return this.type = Operation.LIST;
-
-        case "find":
-        case "search":
-            return this.type = Operation.SEARCH;
-
-        case "bye":
-        case "exit":
-            return this.type = Operation.EXIT;
-
-        default:
-            break;
-        }
-
-        return this.type = Operation.UNKNOWN;
+        return Operation.fromCommandName(this.getName());
     }
 
     /**
