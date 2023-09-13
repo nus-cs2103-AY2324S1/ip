@@ -1,6 +1,8 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import duke.utility.Storage;
 import duke.utility.Ui;
@@ -140,17 +142,15 @@ public class TaskList {
      * @param ui      The user interface for displaying messages.
      */
     public void findTasks(String keyword, Ui ui) {
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (Task task : this.tasks) {
-            if (task.toString().contains(keyword)) {
-                foundTasks.add(task);
-            }
-        }
-        if (foundTasks.size() == 0) {
-            System.out.println();
-            ui.printMessage("No matching tasks found.");
+        List<Task> foundTasks = tasks.stream()
+                .filter(task -> task.toString().contains(keyword))
+                .collect(Collectors.toList());
+
+        if (foundTasks.isEmpty()) {
+            ui.printMessage("\nNo matching tasks found.");
             return;
         }
+
         ui.printMessage("Here are the matching tasks in your list:\n");
         for (int i = 0; i < foundTasks.size(); i++) {
             ui.printMessage(i + 1 + "." + foundTasks.get(i));
