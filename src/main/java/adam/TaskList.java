@@ -1,5 +1,7 @@
 package adam;
 
+import adam.exception.AdamException;
+import adam.exception.NumberException;
 import adam.tasks.Deadline;
 import adam.tasks.Event;
 import adam.tasks.Task;
@@ -29,7 +31,10 @@ public class TaskList {
      *
      * @param num Number thatinidcates the index inside the array.
      */
-    public String deleteTask(int num) {
+    public String deleteTask(int num, String[] tokens) {
+        if (tokens.length != 2) {
+            throw new NumberException();
+        }
         Task curr = tasks.get(num-1);
         tasks.remove(num-1);
         return ui.delete(curr, tasks.size());
@@ -90,7 +95,10 @@ public class TaskList {
      *
      * @param number Number of index that is going to be marked.
      */
-    public String markAsDone(int number) {
+    public String markAsDone(int number, String[] tokens) {
+        if (tokens.length != 2) {
+            throw new NumberException();
+        }
         Task curr = tasks.get(number - 1);
         curr.markAsDone();
         assert curr.getStatusIcon().equals("X") : "This task should be unmarked";
@@ -102,7 +110,10 @@ public class TaskList {
      *
      * @param number Number of index that is going to be unmarked.
      */
-    public String unmarkAsDone(int number) {
+    public String unmarkAsDone(int number, String[] tokens) {
+        if (tokens.length != 2) {
+            throw new NumberException();
+        }
         Task curr = tasks.get(number - 1);
         curr.unmarkAsDone();
         assert curr.getStatusIcon().equals(" ") : "This task should be unmarked";
@@ -168,5 +179,18 @@ public class TaskList {
             }
             return sentence;
         }
+    }
+
+    public String tagTask(int number, String[] tokens) {
+        if(tokens.length < 3) {
+            throw new AdamException();
+        }
+        String description = "";
+        for(int i = 2 ; i < tokens.length; i++) {
+            description = tokens[i] + " ";
+        }
+        Task curr = tasks.get(number - 1);
+        curr.tag(description);
+        return ui.tag(description);
     }
 }
