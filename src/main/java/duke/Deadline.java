@@ -55,4 +55,11 @@ public class Deadline extends Task {
     public boolean isOnDate(LocalDate date) {
         return date.isEqual(this.by.toLocalDate());
     }
+
+    @Override
+    public boolean isBetween(LocalDate left, LocalDate right) {
+        LocalDate deadlineDate = this.by.toLocalDate();
+        return deadlineDate.isEqual(left) || deadlineDate.isEqual(right) ||
+                (deadlineDate.isAfter(left) && deadlineDate.isBefore(right));
+    }
 }

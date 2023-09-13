@@ -45,4 +45,9 @@ public class ToDo extends Task {
     public boolean isOnDate(LocalDate date) {
         return false;
     }
+
+    @Override
+    public boolean isBetween(LocalDate left, LocalDate right) {
+        return false;
+    }
 }

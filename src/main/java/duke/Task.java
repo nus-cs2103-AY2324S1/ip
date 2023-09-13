@@ -104,4 +104,6 @@ public abstract class Task implements Savable {
      * @return A boolean representation of whether the task is on a given date.
      */
     public abstract boolean isOnDate(LocalDate date);
+
+    public abstract boolean isBetween(LocalDate left, LocalDate right);
 }
