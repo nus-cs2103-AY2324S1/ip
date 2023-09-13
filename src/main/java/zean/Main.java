@@ -25,8 +25,8 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("Zean");
             fxmlLoader.<MainWindow>getController().setZean(zean);
-            if (!this.zean.getInitErrorMsg().isEmpty()) {
-                fxmlLoader.<MainWindow>getController().showMessage(this.zean.getInitErrorMsg());
+            if (!this.zean.getInitMsg().isEmpty()) {
+                fxmlLoader.<MainWindow>getController().showMessage(this.zean.getInitMsg());
             }
             stage.show();
         } catch (IOException e) {
