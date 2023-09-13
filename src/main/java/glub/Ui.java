@@ -10,13 +10,6 @@ import glub.task.TaskList;
  */
 public class Ui {
     /**
-     * Print horizontal line.
-     */
-    public static void printHorizontalLine() {
-        System.out.println("_________________________________________________");
-    }
-
-    /**
      * Displays welcome message.
      */
     public static String greet() {
