@@ -33,50 +33,22 @@ public class Parser {
             InvalidCommandException, MissingTaskException {
         fullCommand = fullCommand.trim();
 
+        // command is bye or list
         if (fullCommand.startsWith("bye") || fullCommand.startsWith("list")) {
-            if (fullCommand.equals(ExitCommand.COMMAND_WORD)) {
-                return new ExitCommand(-1);
-            }
-
-            if (fullCommand.equals(ListCommand.COMMAND_WORD)) {
-                return new ListCommand(-1);
-            }
-
-            throw new WrongUseOfCommandException();
+            return handleIndexlessCommand(fullCommand);
         }
 
+        // command is mark, unmark, delete, due or find
         if (fullCommand.startsWith("mark") || fullCommand.startsWith("unmark")
                 || fullCommand.startsWith("delete") || fullCommand.startsWith("due")
                 || fullCommand.startsWith("find")) {
-            try {
-                String[] res = fullCommand.split(" ", 2);
-                String taskType = res[0].strip();
-
-                if (taskType.equals(DueCommand.COMMAND_WORD)) {
-                    return new DueCommand(-1, LocalDate.parse(res[1].strip()));
-                }
-
-                if (taskType.equals(FindCommand.COMMAND_WORD)) {
-                    return new FindCommand(-1, res[1].strip());
-                }
-
-                int index = Integer.parseInt(res[1].strip());
-
-                switch (taskType) {
-                case MarkCommand.COMMAND_WORD:
-                    return new MarkCommand(index);
-                case UnmarkCommand.COMMAND_WORD:
-                    return new UnmarkCommand(index);
-                case DeleteCommand.COMMAND_WORD:
-                    return new DeleteCommand(index);
-                default:
-                    break;
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new MissingIndexException(fullCommand);
+            Command res = handleIndexCommands(fullCommand);
+            if (res != null) {
+                return res;
             }
         }
 
+        // command is adding new Task
         if (fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) {
             if (fullCommand.equals("todo") || fullCommand.equals("deadline") || fullCommand.equals("event")) {
                 throw new MissingTaskException(fullCommand);
@@ -86,5 +58,61 @@ public class Parser {
         }
 
         throw new InvalidCommandException(fullCommand);
+    }
+
+    /**
+     * Parses all commands with an Index trailing behind.
+     * @param fullCommand
+     * @return Command to execute at Index
+     * @throws MissingIndexException
+     */
+    private static Command handleIndexCommands(String fullCommand) throws MissingIndexException {
+        try {
+            String[] res = fullCommand.split(" ", 2);
+            String taskType = res[0].strip();
+
+            if (taskType.equals(DueCommand.COMMAND_WORD)) {
+                return new DueCommand(-1, LocalDate.parse(res[1].strip()));
+            }
+
+            if (taskType.equals(FindCommand.COMMAND_WORD)) {
+                return new FindCommand(-1, res[1].strip());
+            }
+
+            int index = Integer.parseInt(res[1].strip());
+
+            switch (taskType) {
+            case MarkCommand.COMMAND_WORD:
+                return new MarkCommand(index);
+            case UnmarkCommand.COMMAND_WORD:
+                return new UnmarkCommand(index);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommand(index);
+            default:
+                break;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingIndexException(fullCommand);
+        }
+
+        return null;
+    }
+
+    /**
+     * Parses all commands without an Index specified.
+     * @param fullCommand
+     * @return Command to execute
+     * @throws WrongUseOfCommandException
+     */
+    private static Command handleIndexlessCommand(String fullCommand) throws WrongUseOfCommandException {
+        if (fullCommand.equals(ExitCommand.COMMAND_WORD)) {
+            return new ExitCommand(-1);
+        }
+
+        if (fullCommand.equals(ListCommand.COMMAND_WORD)) {
+            return new ListCommand(-1);
+        }
+
+        throw new WrongUseOfCommandException();
     }
 }

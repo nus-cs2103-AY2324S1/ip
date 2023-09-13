@@ -37,7 +37,9 @@ public class Task {
             task.toggleIsDone(isCompleted);
 
             return task;
-        } else if (line.startsWith("D")) {
+        }
+
+        if (line.startsWith("D")) {
             String[] parts = line.split("\\|");
             boolean isCompleted = parts[1].trim().equals("1");
             String description = parts[2].trim();
@@ -48,7 +50,9 @@ public class Task {
             task.toggleIsDone(isCompleted);
 
             return task;
-        } else if (line.startsWith("E")) {
+        }
+
+        if (line.startsWith("E")) {
             String[] parts = line.split("\\|");
             boolean isCompleted = parts[1].trim().equals("1");
             String description = parts[2].trim();
@@ -58,9 +62,9 @@ public class Task {
             task.toggleIsDone(isCompleted);
 
             return task;
-        } else {
-            throw new IOException("Corrupted File. What you doin' bruh...");
         }
+
+        throw new IOException("Corrupted File. What you doin' bruh...");
     }
 
     /**
