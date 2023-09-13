@@ -47,6 +47,8 @@ public class Parser {
     private static final String INVALID_ARGS_EVENT_MESSAGE = "Invalid arguments for event\n"
             + "Please follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>";
 
+    private static final String TOO_MANY_ARGS_MESSAGE = "Invalid Command! Too many arguments!";
+
 
     /**
      * Parses the user input and returns the corresponding Command object.
@@ -55,26 +57,25 @@ public class Parser {
      * @return The corresponding Command object.
      */
     public static Command parse(String input) {
+        //Validate input is in correct format
         Matcher m = COMMAND_PATTERN.matcher(input.trim());
-
         if (!m.matches()) {
             return new InvalidCommand("Invalid Command Format");
         }
 
+        //Split input into type and args
         CommandType type = parseType(m.group(1));
         String args = m.group(2).trim();
 
+        return parseToCommand(type, args);
+    }
+
+    private static Command parseToCommand(CommandType type, String args) {
         switch (type) {
         case bye:
-            if (!args.isEmpty()) {
-                return new InvalidCommand("Invalid Command! Too many arguments!");
-            }
-            return new ByeCommand();
+            return handleBye(args);
         case list:
-            if (!args.isEmpty()) {
-                return new InvalidCommand("Invalid Command! Too many arguments!");
-            }
-            return new ListCommand();
+            return handleList(args);
         case mark:
             return handleMark(args);
         case unmark:
@@ -100,6 +101,20 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             return CommandType.INVALID;
         }
+    }
+
+    private static Command handleBye(String args) {
+        if (!args.isEmpty()) {
+            return new InvalidCommand(TOO_MANY_ARGS_MESSAGE);
+        }
+        return new ByeCommand();
+    }
+
+    private static Command handleList(String args) {
+        if (!args.isEmpty()) {
+            return new InvalidCommand(TOO_MANY_ARGS_MESSAGE);
+        }
+        return new ListCommand();
     }
 
     private static Command handleMark(String args) {
@@ -184,14 +199,14 @@ public class Parser {
         StringBuilder sb = new StringBuilder();
         for (CommandType cmd : CommandType.values()) {
             if (CommandType.INVALID.equals(cmd)) {
-                // Skip INVALID when listing all the valid commands
+                //Skips INVALID when listing all the valid commands
                 continue;
             }
 
             sb.append(cmd.toString());
             sb.append(", ");
         }
-        sb.setLength(sb.length() - 2); // Remove extra ", " at the end
+        sb.setLength(sb.length() - 2); //Removes extra ", " at the end
         String msg = String.format("Invalid Command Keyword!%nHere is a list of valid commands: %s", sb);
         return new InvalidCommand(msg);
     }

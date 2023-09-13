@@ -90,7 +90,7 @@ public class Storage {
         for (String line : lines) {
             Matcher m = TASK_PATTERN.matcher(line);
 
-            if (!m.find()) {
+            if (!m.matches()) {
                 throw new JoeException(CORRUPT_TASK_FILE_MSG);
             }
 
