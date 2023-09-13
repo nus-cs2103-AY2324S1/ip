@@ -1,4 +1,5 @@
 import dan.exceptions.DanException;
+import dan.exceptions.DanStorageException;
 import dan.task.*;
 
 import java.io.*;
@@ -22,10 +23,10 @@ public class Storage {
         try {
             new File(savePath).createNewFile();
         } catch (IOException e) {
-            throw new DanException("");
+            throw new DanException("一般来讲这个不可能发生的");
         }
     }
-    public TaskList load() {
+    public TaskList load() throws DanException {
         tasks = new TaskList(100);
         File f = new File(savePath);
         Scanner sc = null;
@@ -38,26 +39,32 @@ public class Storage {
             }
             return tasks;
         } catch (IOException e) {
-            throw new DanException("No Storage Found");
+            throw new DanStorageException("No Storage Found");
         } finally {
             sc.close();
         }
     }
 
-    public void addTask(String text)
-            throws IndexOutOfBoundsException, NumberFormatException, NullPointerException {
-        String[] task = text.split(",");
-        Task t = null;
-        int isDone = Integer.parseInt(task[2]);
-        switch (task[0]) {
-            case "toDo":
-                t = new ToDo(task[1], isDone); break;
-            case "deadline":
-                t = new Deadline(task[1], isDone, task[3]); break;
-            case "event":
-                t = new Event(task[1], isDone, task[3], task[4]); break;
+    public void addTask(String text) throws DanException {
+        try {
+            String[] task = text.split(",");
+            Task t = null;
+            int isDone = Integer.parseInt(task[2]);
+            switch (task[0]) {
+                case "toDo":
+                    t = new ToDo(task[1], isDone);
+                    break;
+                case "deadline":
+                    t = new Deadline(task[1], isDone, task[3]);
+                    break;
+                case "event":
+                    t = new Event(task[1], isDone, task[3], task[4]);
+                    break;
+            }
+            tasks.add(t);
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
+            throw new DanStorageException("Storage File Destroyed");
         }
-        tasks.add(t);
     }
 
     public void checkChange(TaskList tasks) {
@@ -76,12 +83,12 @@ public class Storage {
                 writer.write(tasks.get(i).saveToString() + "\n");
             }
         } catch (IOException e) {
-            throw new DanException("");
+            throw new DanException("一般来讲不会发生的");
         } finally {
             try {
                 writer.close();
             } catch (IOException e) {
-                throw new DanException("");
+                throw new DanException("一般来讲也不会发生的，但是万一发生了也保不准");
             }
         }
     }
