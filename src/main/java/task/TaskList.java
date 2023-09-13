@@ -65,6 +65,10 @@ public class TaskList {
         return new TaskList(updatedTasks);
     }
 
+    public boolean isTaskPresent(Task t) {
+        return this.tasks.contains(t);
+    }
+
     /**
      * Returns a new task list with unmarked task.
      *

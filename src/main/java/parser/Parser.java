@@ -54,11 +54,13 @@ public class Parser {
             );
             task = new Event(eventTokens[0], eventTokens[1], eventTokens[2]);
             break;
-        // Task.Todo is the default case
+        // Todo is the default case
         default:
             task = new Todo(input);
         }
         TaskList newTaskList = taskList.addTask(task);
+        boolean isAdded = newTaskList.isTaskPresent(task);
+        assert isAdded;
         ui.addTaskSuccessful(task, taskList);
         return newTaskList;
     }
@@ -73,6 +75,8 @@ public class Parser {
     private TaskList deleteTask(int taskNumber, TaskList taskList) {
         Task toDelete = taskList.getTask(taskNumber);
         TaskList newTaskList = taskList.deleteTask(toDelete);
+        boolean isDeleted = !newTaskList.isTaskPresent(toDelete);
+        assert isDeleted;
         ui.deleteTaskSuccessful(toDelete, newTaskList);
         return newTaskList;
     }
