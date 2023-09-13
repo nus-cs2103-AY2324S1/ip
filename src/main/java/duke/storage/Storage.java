@@ -14,6 +14,7 @@ import java.util.Scanner;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.FixedDurationTask;
 import duke.task.Task;
 import duke.task.ToDo;
 import duke.ui.Ui;
@@ -123,6 +124,15 @@ public class Storage {
                         taskParts[4].trim().replace("to", ""));
                 tasks.add(event);
                 event.markStatusFromFile(taskStatus);
+                break;
+            case "F":
+                String[] durationParts = taskParts[3].replace("needs", "").trim().split(" ");
+
+                Task fixedDuration = new FixedDurationTask(taskParts[2].trim(),
+                        Integer.parseInt(durationParts[0].trim()),
+                        durationParts[1].trim());
+                tasks.add(fixedDuration);
+                fixedDuration.markStatusFromFile(taskStatus);
                 break;
             default:
                 throw new DukeException("Invalid task type in file: " + taskType);
