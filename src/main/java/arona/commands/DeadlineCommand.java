@@ -12,7 +12,7 @@ import arona.ui.Ui;
  * new deadline task with the specified description and due date, adds it to the task list,
  * saves it to storage, and displays a confirmation message to the user interface.
  */
-public class DeadlineCommand extends Command {
+public class DeadlineCommand extends Command implements UndoableCommand {
     private Storage storage;
     private DeadlineTask deadlineTask;
 
@@ -45,5 +45,32 @@ public class DeadlineCommand extends Command {
         taskList.getTasks().add(deadlineTask);
         storage.saveTask(deadlineTask);
         return ui.showTaskAdded(deadlineTask, taskList.getTasks().size());
+    }
+
+    /**
+     * Reverses the "Deadline" action by removing the last added task from the task list
+     * and storage, and displaying a confirmation message to the user.
+     *
+     * @return A string message indicating the result of the undo operation.
+     */
+    @Override
+    public String undo() {
+        int lastIndex = taskList.getTasks().size() - 1;
+        if (lastIndex >= 0) {
+            taskList.getTasks().remove(lastIndex);
+            storage.deleteTask(lastIndex);
+        }
+        return ui.showUndoDeadlineCommand(deadlineTask);
+    }
+
+    /**
+     * Retrieves the task index associated with this "Deadline" command.
+     * As "Deadline" tasks don't have a specific task index, this method returns -1.
+     *
+     * @return The task index, which is -1 for "Deadline" tasks.
+     */
+    @Override
+    public int getTaskIndex() {
+        return -1;
     }
 }

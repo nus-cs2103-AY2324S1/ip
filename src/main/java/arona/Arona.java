@@ -1,5 +1,7 @@
 package arona;
 
+import java.util.Stack;
+
 import arona.commands.Command;
 import arona.parser.Parser;
 import arona.storage.Storage;
@@ -15,6 +17,7 @@ public class Arona {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Stack<Command> commandHistory = new Stack<>();
 
     /**
      * Initializes a new instance of the Arona application with the specified file path for data storage.
@@ -37,8 +40,8 @@ public class Arona {
 
         String[] inputTokens = Parser.parseUserInput(input);
         String command = Parser.getCommand(inputTokens);
-        Command cmd = Parser.parseCommand(command, inputTokens, tasks, ui, storage);
-
+        Command cmd = Parser.parseCommand(command, inputTokens, tasks, ui, storage, commandHistory);
+        commandHistory.push(cmd);
         return cmd.execute();
     }
 }

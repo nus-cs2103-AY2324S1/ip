@@ -10,7 +10,7 @@ import arona.ui.Ui;
  * creates a new to-do task with the specified description, adds it to the task
  * list, saves it in storage, and displays a confirmation message.
  */
-public class ToDoCommand extends Command {
+public class ToDoCommand extends Command implements UndoableCommand {
     private Storage storage;
     private ToDoTask todoTask;
 
@@ -41,5 +41,33 @@ public class ToDoCommand extends Command {
         taskList.getTasks().add(todoTask);
         storage.saveTask(todoTask);
         return ui.showTaskAdded(todoTask, taskList.getTasks().size());
+    }
+
+
+    /**
+     * Reverses the "To-Do" action by removing the last added task from the task list
+     * and storage, and displaying a confirmation message to the user.
+     *
+     * @return A string message indicating the result of the undo operation.
+     */
+    @Override
+    public String undo() {
+        int lastIndex = taskList.getTasks().size() - 1;
+        if (lastIndex >= 0) {
+            taskList.getTasks().remove(lastIndex);
+            storage.deleteTask(lastIndex);
+        }
+        return ui.showUndoToDoCommand(todoTask);
+    }
+
+    /**
+     * Retrieves the task index associated with this "To-Do" command.
+     * As "To-Do" tasks don't have a specific task index, this method returns -1.
+     *
+     * @return The task index, which is -1 for "To-Do" tasks.
+     */
+    @Override
+    public int getTaskIndex() {
+        return -1;
     }
 }

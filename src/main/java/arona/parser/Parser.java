@@ -3,6 +3,7 @@ package arona.parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.Stack;
 
 import arona.commands.Command;
 import arona.commands.DeadlineCommand;
@@ -14,7 +15,8 @@ import arona.commands.InvalidCommand;
 import arona.commands.ListCommand;
 import arona.commands.MarkCommand;
 import arona.commands.ToDoCommand;
-import arona.commands.UnMarkCommand;
+import arona.commands.UndoCommand;
+import arona.commands.UnmarkCommand;
 import arona.exception.IllegalArgumentAronaException;
 import arona.storage.Storage;
 import arona.task.TaskList;
@@ -217,21 +219,22 @@ public class Parser {
     /**
      * Parses the user input into the command to be executed.
      *
-     * @param command     The command in String.
-     * @param inputTokens The descriptions of the command.
-     * @param tasks       The list of tasks.
-     * @param ui          The user interface for displaying messages.
-     * @param storage     The storage responsible for loading and saving tasks.
-     *
+     * @param command       The command in String.
+     * @param inputTokens   The descriptions of the command.
+     * @param tasks         The list of tasks.
+     * @param ui            The user interface for displaying messages.
+     * @param storage       The storage responsible for loading and saving tasks.
+     * @param commandHistory A stack to keep track of command history for undo.
      * @return The command to be executed.
      */
-    public static Command parseCommand(String command, String[] inputTokens, TaskList tasks, Ui ui, Storage storage) {
+    public static Command parseCommand(String command, String[] inputTokens, TaskList tasks,
+                                       Ui ui, Storage storage, Stack<Command> commandHistory) {
         try {
             switch (command) {
             case "list":
                 return new ListCommand(tasks, ui);
             case "unmark":
-                return new UnMarkCommand(tasks, ui, storage, getTaskIndex(inputTokens));
+                return new UnmarkCommand(tasks, ui, storage, getTaskIndex(inputTokens));
             case "mark":
                 return new MarkCommand(tasks, ui, storage, getTaskIndex(inputTokens));
             case "todo":
@@ -244,6 +247,8 @@ public class Parser {
                 return new DeleteCommand(tasks, ui, storage, getTaskIndex(inputTokens));
             case "find":
                 return new FindCommand(tasks, ui, getKeyWord(inputTokens));
+            case "undo":
+                return new UndoCommand(tasks, ui, storage, commandHistory);
             default:
                 return new InvalidCommand(tasks, ui);
             }
