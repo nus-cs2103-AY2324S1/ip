@@ -51,7 +51,7 @@ public class TaskList {
 
             System.out.printf("     You have %d tasks now. Here is your task list:\n", listOfTasks.size());
             for (int i = 0; i < listOfTasks.size(); i++) {
-                //System.out.printf("     %d.%s\n", i + 1, listOfTasks.get(i).toString());
+                System.out.printf("     %d.%s\n", i + 1, listOfTasks.get(i).toString());
                 message.append("\t").append(i + 1).append(".").append(listOfTasks.get(i)).append("\n");
             }
             return message.toString();
@@ -77,6 +77,7 @@ public class TaskList {
 
             if (deleteIndex >= 0 && deleteIndex < listOfTasks.size()) {
                 Task removedTask = listOfTasks.remove(deleteIndex); //Actual ask can be todo, deadline, or event
+                assert !listOfTasks.contains(removedTask) : "Task should have been removed!";
                 message.append("Noted. I've removed this task:\n");
                 message.append(String.format("%s\n", removedTask.toString()));
                 message.append(String.format("Now you have %d task(s) in the list.\n", listOfTasks.size()));
@@ -114,6 +115,7 @@ public class TaskList {
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsDone();
+            assert listOfTasks.get(taskIndex).getStatus() : "Task must be marked done.";
             storage.clearAllData();
             storage.updateData();
             message.append("Nice! I've marked this Task as done:\n");
@@ -139,6 +141,7 @@ public class TaskList {
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsNotDone();
+            assert !listOfTasks.get(taskIndex).getStatus() : "Task must be marked NOT done yet.";
             storage.clearAllData();
             storage.updateData();
             message.append("Ok. I've marked this Task as NOT done yet:\n");
@@ -200,6 +203,7 @@ public class TaskList {
                 System.out.println("\t You currently have no tasks so I can't find any matching tasks :/.");
                 return "\t You currently have no tasks so I can't find any matching tasks :/.";
             }
+            assert !listOfTasks.isEmpty() : "There is no tasks to find.";
 
             int taskCount = 0;
             StringBuilder matchingTasks = new StringBuilder(String.format(
@@ -215,13 +219,13 @@ public class TaskList {
             if (taskCount > 0) {
                 return matchingTasks.toString();
             } else {
+                assert (taskCount == 0) : "There should be 0 matching tasks";
                 return String.format("\t Hm there are no matching tasks with '%s'. "
                         + "Try with another keyword.", matchingKeyword);
             }
         } finally {
             printHorizontalLine();
         }
-
     }
 
 }
