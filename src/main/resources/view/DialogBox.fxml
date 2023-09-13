@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.shape.Circle?>
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <FlowPane fx:id="dialog" styleClass="chat-bubble">
+            <padding>
+                <Insets top="15.0" right="10.0" bottom="15.0" left="10.0" />
+            </padding>
+        </FlowPane>
+        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" >
+            <clip>
+                <Circle centerX="49.5" centerY="49.5" radius="49.5" />
+            </clip>
+        </ImageView>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+    </padding>
+</fx:root>

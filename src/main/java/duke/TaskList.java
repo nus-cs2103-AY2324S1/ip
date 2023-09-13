@@ -1,0 +1,123 @@
+package duke;
+
+import duke.task.Task;
+
+import java.util.ArrayList;
+
+public class TaskList {
+    private ArrayList<Task> tasks;
+
+
+    /**
+     * Constructor.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Alternative constructor.
+     *
+     * @param tasks Array list that already store tasks inside.
+     */
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    /**
+     * Returns the number of the tasks inside array list.
+     *
+     * @return The number of the tasks inside array list.
+     */
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
+     * Returns the task at the index i.
+     *
+     * @param i Index of the task list that going to be access.
+     * @return The task at the index i.
+     * @throws DukeException If the index i out of the bound.
+     */
+    public Task getTask(int i) throws DukeException {
+        if (i < 0 || i >= size()) {
+            throw new DukeException("Index out the bounds, try another index");
+        }
+        return tasks.get(i);
+    }
+
+    /**
+     * Adds task into the task list.
+     *
+     * @param task Task that going to be added into task list.
+     */
+    public void addTask(Task task) throws DukeException {
+        detectDuplicate(task);
+        tasks.add(task);
+    }
+
+    /**
+     * Marks the task as done.
+     *
+     * @param i Index of the task that going to be mark as done.
+     * @throws DukeException If index i out of the bounds.
+     */
+    public void markTask(int i) throws DukeException {
+        if (i < 0 || i >= size()) {
+            throw new DukeException("Index out the bounds, try another index");
+        }
+        tasks.get(i).mark();
+    }
+
+    /**
+     * Unmarks the task as not done.
+     *
+     * @param i Index of the task that going to be unmark as not done.
+     * @throws DukeException If index in out of the bounds.
+     */
+    public void unmarkTask(int i) throws DukeException {
+        if (i < 0 || i >= size()) {
+            throw new DukeException("Index out the bounds, try another index");
+        }
+        tasks.get(i).unmark();
+    }
+
+    /**
+     * Deletes the task at index i.
+     *
+     * @param i Index of the task that going to be deleted.
+     * @throws DukeException If index out the bounds.
+     */
+    public void deleteTask(int i) throws DukeException {
+        if (i < 0 || i >= size()) {
+            throw new DukeException("Index out the bounds, try another index");
+        }
+        tasks.remove(i);
+    }
+
+    /**
+     * Finds all the tasks which contain the keyword.
+     *
+     * @param keyword The keyword to be found.
+     * @return The task list contains all the tasks which contains the keywords.
+     */
+    public TaskList findTasks(String keyword) {
+        ArrayList<Task> newTaskList = new ArrayList<>();
+        for (Task task: tasks) {
+            if (task.isContains(keyword)) {
+                newTaskList.add(task);
+            }
+        }
+        assert newTaskList != null: "The new task list should not be null";
+        return new TaskList(newTaskList);
+    }
+
+    public void detectDuplicate(Task newTask) throws DukeException{
+        for (Task t: tasks) {
+            if (t.equals(newTask)) {
+                throw new DukeException("This task already inside task list!");
+            }
+        }
+    }
+}

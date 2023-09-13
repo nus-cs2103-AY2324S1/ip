@@ -1,0 +1,32 @@
+todo
+todo borrow book
+deadline
+deadline return book
+deadline return book /by Sunday
+event project meeting
+event project meeting /from Mon 2pm to 4pm
+event project meeting /from Mon 2pm /to 4pm
+deadline do homework /by no idea :-p
+todo sleeping 10 hours
+list
+
+delete
+delete -1
+delete 100
+delete 5
+delete sleeping 10 hours
+
+mark everything
+mark 1 2 3 4
+mark 1
+mark 2
+list
+
+unmark 1 2
+unmark 2
+list
+unmark 1
+list
+
+Exit
+exit
