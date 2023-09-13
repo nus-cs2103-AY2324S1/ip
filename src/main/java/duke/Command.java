@@ -13,9 +13,9 @@ import java.util.Map;
  */
 public class Command {
     private static final HashMap<String, Cmd> COMMAND_MAP = new HashMap<>(
-        Map.of("todo", Cmd.TODO, "event", Cmd.EVENT, "mark", Cmd.MARK,
-            "unmark", Cmd.UNMARK, "list", Cmd.LIST, "bye", Cmd.EXIT,
-            "deadline", Cmd.DEADLINE, "delete", Cmd.DELETE, "find", Cmd.FIND)
+            Map.of("todo", Cmd.TODO, "event", Cmd.EVENT, "mark", Cmd.MARK,
+                    "unmark", Cmd.UNMARK, "list", Cmd.LIST, "bye", Cmd.EXIT,
+                    "deadline", Cmd.DEADLINE, "delete", Cmd.DELETE, "find", Cmd.FIND)
     );
 
     private enum Cmd {
@@ -62,12 +62,15 @@ public class Command {
      * @throws DukeException If command is invalid.
      */
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        Task task = null;
+        Task task;
+        assert tasks != null : "tasks should not be null";
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
         switch (this.action) {
         case INVALID:
             throw new DukeException("Command given is invalid! You must start with a "
-                + "todo/event/deadline to add tasks, "
-                + "or list/mark/unmark/bye for other purposes");
+                    + "todo/event/deadline to add tasks, "
+                    + "or list/mark/unmark/bye for other purposes");
         case EXIT:
             return true;
         case LIST:
@@ -94,16 +97,16 @@ public class Command {
         case MARK:
             if (this.description == null) {
                 throw new DukeException("You must enter a number to indicate the task to "
-                    + "mark");
+                        + "mark");
             }
             try {
                 task = tasks.doTask(Integer.parseInt(this.description) - 1);
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid task number. Please enter a valid number to "
-                    + "mark/unmark");
+                        + "mark/unmark");
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The task number you are trying to mark "
-                    + "does not exist yet.");
+                        + "does not exist yet.");
             }
             ui.display("    I've marked this task as done:");
             ui.display("    " + task);
@@ -111,16 +114,16 @@ public class Command {
         case UNMARK:
             if (this.description == null) {
                 throw new DukeException("You must enter a number to indicate the task to "
-                    + "unmark");
+                        + "unmark");
             }
             try {
                 task = tasks.undoTask(Integer.parseInt(this.description) - 1);
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid task number. Please enter a valid number to "
-                    + "mark/unmark");
+                        + "mark/unmark");
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The task number you are trying to unmark "
-                    + "does not exist yet.");
+                        + "does not exist yet.");
             }
             ui.display("    I've marked this task as not done yet:");
             ui.display("    " + task);
@@ -128,16 +131,16 @@ public class Command {
         case DELETE:
             if (this.description == null) {
                 throw new DukeException("You must enter a number to indicate the task to "
-                    + "delete");
+                        + "delete");
             }
             try {
                 task = tasks.deleteTask(Integer.parseInt(this.description) - 1);
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid task number. Please enter a valid number to "
-                    + "mark/unmark");
+                        + "mark/unmark");
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The task number you are trying to delete "
-                    + "does not exist yet.");
+                        + "does not exist yet.");
             }
             ui.display("    Noted. I've removed this task:");
             break;
@@ -152,8 +155,8 @@ public class Command {
         case EVENT:
             if (this.description == null || this.date1 == null || this.date2 == null) {
                 throw new DukeException("Invalid format for adding an event! "
-                    + "Please enter in this format:\n"
-                    + "event [description] /from [date] /to [date]");
+                        + "Please enter in this format:\n"
+                        + "event [description] /from [date] /to [date]");
             }
             try {
                 task = new Event(this.description, this.date1, this.date2);
@@ -166,8 +169,8 @@ public class Command {
         case DEADLINE:
             if (this.description == null || this.date1 == null) {
                 throw new DukeException("Invalid format for adding a deadline! "
-                    + "Please enter in this format:\n"
-                    + "deadline [description] /by [date]");
+                        + "Please enter in this format:\n"
+                        + "deadline [description] /by [date]");
             }
             try {
                 task = new Deadline(this.description, this.date1);
@@ -183,7 +186,7 @@ public class Command {
         }
         if (task == null) {
             throw new DukeException("There might be an error somewhere. The task was not "
-                + "extracted properly.");
+                    + "extracted properly.");
         }
         ui.display("    " + task);
         ui.display("    You currently have " + tasks.getSize() + " tasks in the list.");
@@ -191,7 +194,7 @@ public class Command {
             storage.save(tasks.saveToStorage());
         } catch (IOException e) {
             throw new DukeException(
-                "Something went wrong while trying to save the tasks to the disk!");
+                    "Something went wrong while trying to save the tasks to the disk!");
         }
         return false;
     }
@@ -207,24 +210,24 @@ public class Command {
         }
 
         Command o = (Command) other;
-        boolean result = true;
+        boolean isEqual = true;
         if (this.date1 == null) {
-            result &= (o.date1 == null);
+            isEqual &= (o.date1 == null);
         } else {
-            result &= (this.date1.equals(o.date1));
+            isEqual &= (this.date1.equals(o.date1));
         }
         if (this.date2 == null) {
-            result &= (o.date2 == null);
+            isEqual &= (o.date2 == null);
         } else {
-            result &= (this.date2.equals(o.date2));
+            isEqual &= (this.date2.equals(o.date2));
         }
         if (this.description == null) {
-            result &= (o.description == null);
+            isEqual &= (o.description == null);
         } else {
-            result &= (this.description.equals(o.description));
+            isEqual &= (this.description.equals(o.description));
         }
-        result &= (this.action == o.action);
+        isEqual &= (this.action == o.action);
 
-        return result;
+        return isEqual;
     }
 }
