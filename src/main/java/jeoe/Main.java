@@ -22,11 +22,16 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assert jeoe != null : "jeoe program should not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader != null : "fxml loader has to exist";
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "anchor pane has to exist";
             Scene scene = new Scene(ap);
+            assert scene != null : "a scene has to exist";
             stage.setScene(scene);
+            assert stage != null : "a stage has to exist";
             fxmlLoader.<MainWindow>getController().setJeoe(jeoe);
             stage.show();
         } catch (IOException e) {

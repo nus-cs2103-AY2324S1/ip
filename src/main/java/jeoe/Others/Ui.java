@@ -64,13 +64,11 @@ public class Ui {
     // when it switched to GUI
     /** Returns the opening string of the Jeoe program. */
     public String getOpeningString() {
-        String openingStr = "____________________________________________________________\n"
-                + " Hello! I'm JEOE\n"
+        String openingStr = " Hello! I'm JEOE\n"
                 + " What can I do for you?\n"
                 + " type :\n"
                 + " list => to list out items in storage\n"
-                + " _Anything else_ => store in storage\n"
-                + "____________________________________________________________\n";
+                + " _Anything else_ => store in storage\n";
         return openingStr;
     }
 
