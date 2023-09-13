@@ -25,7 +25,8 @@ public class Parser {
      */
     public String parseInput(String input) throws BrunoException {
         try {
-            TaskType type = TaskType.valueOf(input.split(" ")[0].toUpperCase());
+            String taskName = input.split(" ")[0].toUpperCase();
+            TaskType type = TaskType.valueOf(taskName);
             switch (type) {
             case BYE:
                 return "bye";

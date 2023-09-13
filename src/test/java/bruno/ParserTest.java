@@ -21,7 +21,7 @@ public class ParserTest {
     @Test void testParse_normalInput_correctOutputGenerated() {
         try {
             String task = "todo work";
-            assertEquals("Woof. I have added this task:\n[T][ ] work\nNow you have 1 task in your tasks.",
+            assertEquals("Woof. I have added this task:\n[T][ ] work\nNow you have 1 task in your list.",
                     parser.parseInput(task));
         } catch (BrunoException e) {
             fail();

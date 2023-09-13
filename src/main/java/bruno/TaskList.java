@@ -44,15 +44,18 @@ public class TaskList {
         if (task.split(" ").length == 1) {
             throw new BrunoEmptyException(task.split(" ")[0]);
         }
+        String note = "";
+        String description = "";
         if (task.contains("/n")) {
-            String note = task.split("/n")[1];
-            tasks.add(new ToDo(task.substring(task.indexOf(" ") + 1, task.indexOf('/')), note));
+            note = task.split("/n")[1];
+            description = task.substring(task.indexOf(" ") + 1, task.indexOf('/'));
         } else {
-            tasks.add(new ToDo(task.substring(task.indexOf(" ") + 1), ""));
+            description = task.substring(task.indexOf(" ") + 1);
         }
-        String taskInfo = "Woof. I have added this task:\n" + tasks.get(tasks.size() - 1).getString();
+        Task todo = new ToDo(description, note);
+        tasks.add(todo);
         storage.writeToFile(this);
-        return taskInfo;
+        return ui.displayAddMessage(this);
     }
 
     /**
@@ -62,23 +65,26 @@ public class TaskList {
      * @throws BrunoException Thrown if user does not provide description or deadline date/time.
      */
     public String addDeadline(String task) throws BrunoException {
-        if (task.split(" ").length == 1 || task.indexOf('/') == 9) {
+        if (task.split(" ").length == 1 || task.indexOf('/') == ("deadline".length() + 1)) {
             throw new BrunoEmptyException(task.split(" ")[0]);
         }
         if (!task.substring(task.indexOf("deadline") + 1).contains("/by")) {
             throw new BrunoMissingDeadlineException();
         }
+        String description = task.substring(task.indexOf(' ') + 1, task.indexOf("/by") - 1);
+        ;
+        String by = "";
+        String note = "";
         if (task.contains("/n")) {
-            String note = task.substring(task.indexOf("/n") + 3);
-            tasks.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf("/by") - 1),
-                    task.substring(task.indexOf("/by") + 4, task.indexOf("/n") - 1), note));
+            by = task.substring(task.indexOf("/by") + 4, task.indexOf("/n") - 1);
+            note = task.substring(task.indexOf("/n") + 3);
         } else {
-            tasks.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
-                    task.substring(task.lastIndexOf('/') + 4), ""));
+            by = task.substring(task.lastIndexOf('/') + 4);
         }
+        Task deadline = new Deadline(description, by, note);
+        tasks.add(deadline);
         storage.writeToFile(this);
-        String taskInfo = "Woof. I have added this task:\n" + tasks.get(tasks.size() - 1).getString();
-        return taskInfo;
+        return ui.displayAddMessage(this);
     }
 
     /**
@@ -88,26 +94,26 @@ public class TaskList {
      * @throws BrunoException Thrown if the user does not provide description or start/end time.
      */
     public String addEvent(String task) throws BrunoException {
-        if (task.split(" ").length == 1 || task.indexOf('/') == 6) {
+        if (task.split(" ").length == 1 || task.indexOf('/') == ("event".length() + 1)) {
             throw new BrunoEmptyException(task.split(" ")[0]);
         }
         if (!task.substring(task.indexOf("event") + 1).contains("/from") || !task.substring(
                 task.indexOf("event") + 1).contains("/to")) {
             throw new BrunoMissingEventException();
         }
+        String description = task.substring(task.indexOf(' ') + 1, task.indexOf("/from") - 1);
+        String from = task.substring(task.indexOf("from") + 5, task.lastIndexOf("/to") - 1);
+        String to = "";
+        String note = "";
         if (task.contains("/n")) {
-            String note = task.substring(task.indexOf("/n") + 3);
-            tasks.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf("/from") - 1),
-                    task.substring(task.indexOf("from") + 5, task.lastIndexOf("/to") - 1),
-                    task.substring(task.indexOf("to") + 3, task.indexOf("/n") - 1), note));
+            to = task.substring(task.indexOf("to") + 3, task.indexOf("/n") - 1);
+            note = task.substring(task.indexOf("/n") + 3);
         } else {
-            tasks.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf("/from") - 1),
-                    task.substring(task.indexOf("from") + 5, task.lastIndexOf("/to") - 1),
-                    task.substring(task.indexOf("to") + 3), ""));
+            to = task.substring(task.indexOf("to") + 3);
         }
-        storage.writeToFile(this);
-        String taskInfo = "Woof. I have added this task:\n" + tasks.get(tasks.size() - 1).getString();
-        return taskInfo;
+        Task event = new Event(description, from, to, note);
+        tasks.add(event);
+        return ui.displayAddMessage(this);
     }
 
     /**
@@ -117,24 +123,12 @@ public class TaskList {
      * @throws BrunoException Thrown if the user tries to mark an invalid task.
      */
     public String markTask(String task) throws BrunoException {
-        String markVal = task.split(" ")[1];
-        try {
-            int a = Integer.parseInt(markVal);
-        } catch (NumberFormatException e) {
-            throw new BrunoIntegerMismatchException("mark");
-        }
-        if (Integer.parseInt(markVal) > tasks.size()) {
-            throw new BrunoIndexOutOfBoundsException("mark");
-        }
-        if (Integer.parseInt(markVal) < 0) {
-            throw new BrunoNegativeArgException("mark");
-        }
-        tasks.get(Integer.parseInt(markVal) - 1).markAsDone();
+        String[] parsedTask = task.split(" ");
+        checkArgs(parsedTask[1], parsedTask[0], tasks.size());
+        int markVal = Integer.parseInt(parsedTask[1]);
+        tasks.get(markVal - 1).markAsDone();
         storage.writeToFile(this);
-        String taskInfo =
-                "Woof Woof! I have marked the task as done.\n" + tasks.get(Integer.parseInt(markVal) - 1)
-                        .getString();
-        return taskInfo;
+        return ui.displayMarkMessage(this, markVal);
     }
 
     /**
@@ -144,23 +138,12 @@ public class TaskList {
      * @throws BrunoException Thrown if user tries to unmark an invalid task.
      */
     public String unmarkTask(String task) throws BrunoException {
-        String unmarkVal = task.split(" ")[1];
-        try {
-            int a = Integer.parseInt(unmarkVal);
-        } catch (NumberFormatException e) {
-            throw new BrunoIntegerMismatchException("mark");
-        }
-        if (Integer.parseInt(unmarkVal) > tasks.size()) {
-            throw new BrunoIndexOutOfBoundsException("unmark");
-        }
-        if (Integer.parseInt(unmarkVal) < 0) {
-            throw new BrunoNegativeArgException("unmark");
-        }
-        tasks.get(Integer.parseInt(unmarkVal) - 1).unMark();
+        String[] parsedTask = task.split(" ");
+        checkArgs(parsedTask[1], parsedTask[0], tasks.size());
+        int unmarkVal = Integer.parseInt(parsedTask[1]);
+        tasks.get(unmarkVal - 1).unMark();
         storage.writeToFile(this);
-        String taskInfo = "OK, I have marked the task as not done yet.\n" + tasks.get(
-                Integer.parseInt(unmarkVal) - 1).getString();
-        return taskInfo;
+        return ui.displayUnmarkMessage(this, unmarkVal);
     }
 
     /**
@@ -170,42 +153,37 @@ public class TaskList {
      * @throws BrunoException Thrown if user tries to delete an invalid task.
      */
     public String deleteTask(String task) throws BrunoException {
-        String deleteVal = task.split(" ")[1];
-        try {
-            int a = Integer.parseInt(deleteVal);
-        } catch (NumberFormatException e) {
-            throw new BrunoIntegerMismatchException("mark");
-        }
-        if (Integer.parseInt(deleteVal) > tasks.size()) {
-            throw new BrunoIndexOutOfBoundsException("delete");
-        }
-        if (Integer.parseInt(deleteVal) < 0) {
-            throw new BrunoNegativeArgException("delete");
-        }
-        String s1 = tasks.get(Integer.parseInt(deleteVal) - 1).getString();
-        tasks.remove(Integer.parseInt(deleteVal) - 1);
+        String[] parsedTask = task.split(" ");
+        checkArgs(parsedTask[1], parsedTask[0], tasks.size());
+        int deleteVal = Integer.parseInt(parsedTask[1]);
+        String taskString = tasks.get(deleteVal - 1).getString();
+        tasks.remove(deleteVal - 1);
         storage.writeToFile(this);
-        String taskInfo = "I have removed this task from your tasks:\n" + s1;
-        return taskInfo;
+        return ui.displayDeleteMessage(taskString);
     }
 
     /**
      * Displays the number of tasks in the tasks.
      */
     public String displayListSum() {
-        String taskInfo = "Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " "
-                + "in your "
-                + "tasks.";
-        return taskInfo;
+        return "Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " " + "in your "
+                + "list.";
     }
 
     /**
      * Displays the tasks of tasks.
      */
     public String displayList() {
-        String taskInfo = "Here are the tasks in your tasks:\n\n";
+        String taskInfo = "";
         for (int i = 0; i < tasks.size(); i++) {
-            taskInfo += (i + 1) + ". " + tasks.get(i).getString() + ((i != tasks.size() - 1) ? "\n\n" : "");
+            String taskString = tasks.get(i).getString();
+            String terminator = (i != tasks.size() - 1) ? "\n\n" : "";
+            taskInfo += (i + 1) + ". " + taskString + terminator;
+        }
+        if (tasks.isEmpty()) {
+            taskInfo = "You have no tasks to do.";
+        } else {
+            taskInfo = "Here is the list of your tasks:\n" + taskInfo;
         }
         return taskInfo;
     }
@@ -217,27 +195,17 @@ public class TaskList {
      * @throws DateTimeException Thrown if date input by the user is not correct format.
      */
     public String showSchedule(String task) throws DateTimeException {
+        String date = task.split(" ")[1];
         String taskInfo = "";
         int counter = 0;
-        LocalDate d = LocalDate.parse(task.split(" ")[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate d = LocalDate.parse(date, format);
         for (Task t : tasks) {
-            if (t instanceof Deadline) {
-                if (d.isEqual(((Deadline) t).getBy().toLocalDate())) {
-                    taskInfo += (++counter) + ". " + t.getString() + "\n";
-                }
-            } else if (t instanceof Event) {
-                if ((d.isAfter(((Event) t).getFrom().toLocalDate())
-                        && d.isBefore(((Event) t).getBy().toLocalDate()))
-                        || d.isEqual(((Event) t).getFrom().toLocalDate())
-                        || d.isEqual(((Event) t).getBy().toLocalDate())) {
-                    taskInfo += (++counter) + ". " + t.getString() + "\n";
-                }
+            if (checkDate(t, d)) {
+                taskInfo += (++counter) + ". " + t.getString() + "\n";
             }
         }
-        if (counter == 0) {
-            ui.displayMessage("You have no deadlines or events on this date.");
-        }
-        return taskInfo;
+        return ui.displaySchedule(taskInfo, counter);
     }
 
     /**
@@ -249,41 +217,43 @@ public class TaskList {
         String taskInfo = "";
         String keyWord = task.split(" ")[1];
         int counter = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            String description = tasks.get(i).getDescription();
+        for (Task t : tasks) {
+            String description = t.getDescription();
             if (description.contains(keyWord)) {
-                taskInfo += (++counter) + ". " + tasks.get(i).getString() + "\n";
+                String taskString = t.getString();
+                taskInfo += (++counter) + ". " + taskString + "\n";
             }
         }
-        if (counter == 0) {
-            taskInfo += "There are no items matching your search.";
-        } else {
-            taskInfo = "Here are the tasks matching your search:\n" + taskInfo;
-        }
-        return taskInfo;
+        return ui.displaySearch(taskInfo, counter);
     }
 
     /**
      * Adds a note to an existing task from the list of tasks.
+     *
      * @param task User input for the note to be added.
      */
     public String addNote(String task) throws BrunoException {
-        String noteVal = task.split(" ")[1];
+        String[] parsedTask = task.split(" ");
+        checkArgs(parsedTask[1], parsedTask[0], tasks.size());
+        int noteVal = Integer.parseInt(parsedTask[1]);
+        String note = task.substring(task.indexOf(parsedTask[1]) + parsedTask[1].length() + 1);
+        tasks.get(noteVal - 1).setNote(note);
+        storage.writeToFile(this);
+        return ui.displayNoteMessage(this, noteVal);
+    }
+
+    private static void checkArgs(String val, String task, int size) throws BrunoException {
         try {
-            int a = Integer.parseInt(noteVal);
+            int a = Integer.parseInt(val);
         } catch (NumberFormatException e) {
-            throw new BrunoIntegerMismatchException("note");
+            throw new BrunoIntegerMismatchException(task);
         }
-        if (Integer.parseInt(noteVal) > tasks.size()) {
+        if (Integer.parseInt(val) > size) {
             throw new BrunoIndexOutOfBoundsException("note");
         }
-        if (Integer.parseInt(noteVal) < 0) {
+        if (Integer.parseInt(val) < 0) {
             throw new BrunoNegativeArgException("note");
         }
-        String note = task.substring(task.indexOf(noteVal) + noteVal.length() + 1);
-        tasks.get(Integer.parseInt(noteVal) - 1).setNote(note);
-        storage.writeToFile(this);
-        return "I have added note to the task:\n" + tasks.get(Integer.parseInt(noteVal) - 1).getString();
     }
 
     public void setList(List<Task> list) {
@@ -292,5 +262,18 @@ public class TaskList {
 
     public List<Task> getList() {
         return this.tasks;
+    }
+
+    private static boolean checkDate(Task t, LocalDate d) {
+        if (t instanceof Deadline) {
+            LocalDate by = ((Deadline) t).getBy().toLocalDate();
+            return d.isEqual(by);
+        } else if (t instanceof Event) {
+            LocalDate from = ((Event) t).getFrom().toLocalDate();
+            LocalDate by = ((Event) t).getBy().toLocalDate();
+            return (d.isAfter(from) && d.isBefore(by));
+        } else {
+            return false;
+        }
     }
 }

@@ -12,6 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
@@ -25,10 +27,10 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
     @FXML
-    private javafx.scene.shape.Rectangle rectangle;
+    private Rectangle rectangle;
 
     @FXML
-    private javafx.scene.layout.StackPane outline;
+    private StackPane outline;
 
     DialogBox(String text, Image img) {
         try {
@@ -43,7 +45,8 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
         rectangle.getStyleClass().add("rectangle");
-        rectangle.setHeight(dialog.getBoundsInLocal().getHeight() + 20);
+        double dialogBoxHeight = dialog.getBoundsInLocal().getHeight();
+        rectangle.setHeight(dialogBoxHeight + 20);
     }
 
     /**
