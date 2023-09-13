@@ -32,7 +32,7 @@ public class Event extends Task {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         if (!Parser.isValidDate(from, formatter) || !Parser.isValidDate(to, formatter)) {
-            throw new InvalidDateTimeException();
+            throw new InvalidDateTimeException("OOPS!!! The datetime has to be in this format: dd-MM-yyyy HH:mm.");
         }
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
@@ -53,6 +53,15 @@ public class Event extends Task {
                 this.description,
                 this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
                 this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+    }
+
+    /**
+     * Getter function for From DateTime.
+     *
+     * @return from DateTime of the event.
+     */
+    public LocalDateTime getFromDateTime() {
+        return this.from;
     }
 
     /**
