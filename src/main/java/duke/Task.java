@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public class Task {
     private String name;
-    private Boolean done;
+    private Boolean isDone;
     private String input;
 
     /**
@@ -20,16 +20,23 @@ public class Task {
 
     public Task(String name, String input) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
         this.input = input;
     }
 
     /**
-     * A method that changes the done flag.
+     * A method that sets the done flag to true.
      */
 
-    public void toggleDone() {
-        this.done = !this.done;
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * A method that sets the done flag to false.
+     */
+    public void setNotDone() {
+        this.isDone = false;
     }
 
     /**
@@ -39,7 +46,7 @@ public class Task {
      */
 
     public boolean getDone() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
@@ -85,7 +92,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        if (!this.done) {
+        if (!this.isDone) {
             return "[ ] " + this.name;
         } else {
             return "[X] " + this.name;
