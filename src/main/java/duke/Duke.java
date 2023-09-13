@@ -1,8 +1,6 @@
 package duke;
 
-import duke.gui.MainWindow;
 import duke.task.TaskList;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -12,12 +10,12 @@ import java.io.IOException;
  * Represents an intelligent chat robot that helps a person to keep track of various things with encouraging quotes.
  */
 public class Duke {
+    private static final String SAVING_ERROR_MSG = "⚠ Oops! Something wrong when closing:(";
+    private static final String BYE_MSG = "Bye!\n\"Beware the barrenness of a busy life.\"";
     private Parser parser;
     private Storage storage;
     private TaskList tasks;
     private Stage stage;
-    public String SAVING_ERROR_MSG = "⚠ Oops! Something wrong when closing:(";
-    public String BYE_MSG = "Bye!\n\"Beware the barrenness of a busy life.\"";
 
     /**
      * Initializes the chat robot. Establishes task list and parser.
@@ -50,7 +48,7 @@ public class Duke {
         }
     }
 
-    public void close(){
+    public void close() {
         this.stage.close();
     }
 

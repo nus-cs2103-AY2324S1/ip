@@ -15,6 +15,9 @@ import javafx.util.Duration;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String WELCOME_MSG = "Hi! This is your intelligent friend L.\n\"Dream big.\"\n"
+            + "What can I do for you today?";
+    private static final String BYE_MSG = "Bye!\n\"Beware the barrenness of a busy life.\"";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -26,9 +29,10 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
-    private String WELCOME_MSG = "Hi! This is your intelligent friend L.\n\"Dream big.\"\n"
-            + "What can I do for you today?";
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -54,7 +58,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        if (response.equals(duke.BYE_MSG)){
+        if (response.equals(BYE_MSG)) {
             // Close the window after 5 seconds
             PauseTransition pause = new PauseTransition(Duration.seconds(5));
             pause.setOnFinished(event -> duke.close());

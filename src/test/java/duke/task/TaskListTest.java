@@ -10,7 +10,7 @@ public class TaskListTest {
     @Test
     public void markTask_negativeIndex_exceptionThrown() {
         try {
-            assertEquals("⚠ OOPS!!! The task index is out of range.", new TaskList().markTask(-1,true));
+            assertEquals("⚠ OOPS!!! The task index is out of range.", new TaskList().markTask(-1, true));
             fail();
         } catch (Exception e) {
             assertEquals("task not found", e.getMessage());
