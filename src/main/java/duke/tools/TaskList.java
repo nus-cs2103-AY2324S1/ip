@@ -73,7 +73,12 @@ public class TaskList {
     public String retrieveForStorage() {
         StringBuilder textForStorage = new StringBuilder();
         for (Task task : tasks) {
-            textForStorage.append(task.formatForStorage()).append("\n");
+
+            String storedTask = task.formatForStorage();
+
+            assert storedTask != null;
+
+            textForStorage.append(storedTask).append("\n");
         }
         return textForStorage.toString();
     }

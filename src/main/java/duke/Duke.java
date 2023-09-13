@@ -67,6 +67,9 @@ public class Duke {
         while (!isExit && ui.checkForCommand()) { // need to check whether scanner has a next line
             try {
                 String fullCommand = ui.readCommand();
+
+                assert fullCommand != null;
+
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
 
@@ -80,7 +83,7 @@ public class Duke {
     }
 
     /**
-     * Main method to start the chat bot.
+     * Main method to start the chat bot in the terminal.
      */
     public static void main(String[] args) {
         new Duke(DIR_NAME + File.separator + FILE_NAME).run();
@@ -97,7 +100,7 @@ public class Duke {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return "Respironix heard unknown command: " + input;
         }
 

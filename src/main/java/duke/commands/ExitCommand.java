@@ -28,6 +28,7 @@ public class ExitCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         isExit = true;
+        assert tasks.retrieveForStorage() != null;
         storage.writeFile(tasks.retrieveForStorage());
         ui.showOutro();
         return "See you around!";
