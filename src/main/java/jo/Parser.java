@@ -181,11 +181,14 @@ public class Parser {
 
         // Command is in the INT_COMMAND enumeration
         } else if (isInEnum(instruction, INT_COMMAND.class)) {
-            String[] values = parts[1].split(", ");
+            String[] values = parts[1].split(",");
             int[] taskIndices = new int[values.length];
 
             // Parse each value to an integer and store in the taskIndices array
             for (int i = 0; i < values.length; i++) {
+                if (!values[i].trim().matches("[0-9]+")) {
+                    throw new JoException("Please specify valid index/indices using integers.");
+                }
                 taskIndices[i] = Integer.parseInt(values[i].trim()) - 1;
             }
 
