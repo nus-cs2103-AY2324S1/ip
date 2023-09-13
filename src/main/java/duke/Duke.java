@@ -9,13 +9,15 @@ import java.io.IOException;
 /**
  * Represents an intelligent chat robot that helps a person to keep track of various things with encouraging quotes.
  */
-public class Duke{
+public class Duke {
     private Parser parser;
     private Storage storage;
     private TaskList tasks;
-
     private Stage stage;
 
+    /**
+     * Initializes the chat robot. Establishes task list and parser.
+     */
     public Duke(Stage stage) {
         this.stage = stage;
         storage = new Storage("data/duke.txt");
@@ -29,7 +31,7 @@ public class Duke{
 
     public String getResponse(String input) {
         try {
-            String output= parser.parse(input);
+            String output = parser.parse(input);
             if (!parser.isRunning()) {
                 try {
                     storage.save(tasks);
@@ -47,11 +49,7 @@ public class Duke{
     public void close(){
         this.stage.close();
     }
-
-//    public void showLoadingError() {
-//        System.out.println("Generating new chat session...");
-//    }
-
+  
     private String showSavingError() {
         return "⚠ Oops! Something wrong when closing:(";
     }
