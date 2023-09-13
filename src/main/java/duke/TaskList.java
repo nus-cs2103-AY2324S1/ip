@@ -2,6 +2,9 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.task.Task;
 
@@ -76,10 +79,9 @@ public class TaskList {
      * @return A formatted string representing the tasks in the list.
      */
     public String toString() {
-        String botOutput = "";
-        for (int i = 1; i <= this.taskArrayList.size(); i++) {
-            botOutput = botOutput + i + "." + " " + this.taskArrayList.get(i - 1) + "\n    ";
-        }
+        String botOutput = IntStream.range(0, this.taskArrayList.size())
+                .mapToObj(i -> (i + 1) + ". " + this.taskArrayList.get(i))
+                .collect(Collectors.joining("\n    "));
         return botOutput;
     }
 
@@ -90,15 +92,14 @@ public class TaskList {
      */
     public TaskList dueWithinWeek() {
         TaskList listWeek = new TaskList();
-        for (Task t: this.taskArrayList) {
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        listWeek.taskArrayList = this.taskArrayList.stream().filter(t -> {
             LocalDateTime taskDueDate = t.getUrgencyDate();
-            LocalDateTime currentDate = LocalDateTime.now();
             long daysDifference = ChronoUnit.DAYS.between(currentDate, taskDueDate);
-            // Check if the task's due date is within one week of the current date (7 days)
-            if (daysDifference >= 0 && daysDifference <= DAYS_IN_A_WEEK) {
-                listWeek.addTask(   t);
-            }
-        }
+            return daysDifference >= 0 && daysDifference <= DAYS_IN_A_WEEK;
+        }).collect(Collectors.toCollection(ArrayList:: new));
+
         return listWeek;
     }
 
@@ -109,15 +110,14 @@ public class TaskList {
      */
     public TaskList dueWithinMonth() {
         TaskList listMonth = new TaskList();
-        for (Task t: this.taskArrayList) {
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        listMonth.taskArrayList = this.taskArrayList.stream().filter(t -> {
             LocalDateTime taskDueDate = t.getUrgencyDate();
-            LocalDateTime currentDate = LocalDateTime.now();
             long daysDifference = ChronoUnit.DAYS.between(currentDate, taskDueDate);
-            // Check if the task's due date is within one week of the current date (7 days)
-            if (daysDifference >= 0 && daysDifference <= DAYS_IN_A_MONTH) {
-                listMonth.addTask(t);
-            }
-        }
+            return daysDifference >= 0 && daysDifference <= DAYS_IN_A_MONTH;
+        }).collect(Collectors.toCollection(ArrayList:: new));
+
         return listMonth;
     }
 
