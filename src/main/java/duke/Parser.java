@@ -9,6 +9,7 @@ import command.FindCommand;
 import command.InvalidCommand;
 import command.ListCommand;
 import command.MarkCommand;
+import command.SortCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
 
@@ -46,25 +47,27 @@ public class Parser {
         assert keyword != null : "There should be a command";
         switch (keyword) {
         case MARK:
-            return new MarkCommand(taskList, ui, storage);
+            return new MarkCommand();
         case UNMARK:
-            return new UnmarkCommand(taskList, ui, storage);
+            return new UnmarkCommand();
         case LIST:
-            return new ListCommand(taskList, ui, storage);
+            return new ListCommand();
         case TODO:
-            return new TodoCommand(taskList, ui, storage);
+            return new TodoCommand();
         case DEADLINE:
-            return new DeadlineCommand(taskList, ui, storage);
+            return new DeadlineCommand();
         case EVENT:
-            return new EventCommand(taskList, ui, storage);
+            return new EventCommand();
         case FIND:
-            return new FindCommand(taskList, ui, storage);
+            return new FindCommand();
+        case SORT:
+            return new SortCommand();
         case DELETE:
-            return new DeleteCommand(taskList, ui, storage);
+            return new DeleteCommand();
         case BYE:
-            return new ByeCommand(taskList, ui, storage);
+            return new ByeCommand();
         default:
-            return new InvalidCommand(taskList, ui, storage);
+            return new InvalidCommand();
         }
     }
 }

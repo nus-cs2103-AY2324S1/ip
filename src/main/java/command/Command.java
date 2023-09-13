@@ -10,21 +10,6 @@ import exception.DukeException;
  * the chatbot.
  */
 public abstract class Command {
-    private TaskList taskList;
-    private Ui ui;
-    private Storage storage;
-
-    /**
-     * The constructor of Command.
-     *
-     * @param taskList The task list which the command would modify when tasked.
-     * @param ui The ui of the chatbot to read the input of the user.
-     */
-    public Command(TaskList taskList, Ui ui, Storage storage) {
-        this.taskList = taskList;
-        this.ui = ui;
-        this.storage = storage;
-    }
 
     /**
      * Runs the command the user inputted in the chatbot.

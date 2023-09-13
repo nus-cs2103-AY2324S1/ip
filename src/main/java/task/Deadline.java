@@ -1,47 +1,49 @@
 package task;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+
+import utils.DateTimeFormat;
 
 /**
  * Deadline is a Task that has a date/time which this task should be completed by.
  */
 public class Deadline extends Task {
-    protected LocalDate byDate;
-    protected LocalTime byTime;
-    protected String by;
+    protected String byString;
 
     /**
      * The constructor of Deadline.
      *
-     * @param description the deadline description.
-     * @param byDate the date of the deadline.
-     * @param byTime the time of the deadline.
+     * @param description The deadline description.
+     * @param byString The string representation of the by datetime.
      */
-    public Deadline(String description, LocalDate byDate, LocalTime byTime) {
+    public Deadline(String description, String byString) {
         super(description);
-        this.byDate = byDate;
-        this.byTime = byTime;
-        this.by = byDate.toString() + " " + byTime.toString();
+        this.byString = byString;
     }
 
     /**
      * The constructor of Deadline with specified status.
      *
      * @param description The deadline description.
-     * @param byDate The date of the deadline.
-     * @param byTime The time of the deadline.
+     * @param byString The string representation of the by datetime.
      * @param isDone The status of the deadline.
      */
-    public Deadline(String description, LocalDate byDate, LocalTime byTime, boolean isDone) {
+    public Deadline(String description, String byString, boolean isDone) {
         super(description, isDone);
-        this.byDate = byDate;
-        this.byTime = byTime;
-        this.by = byDate.toString() + " " + byTime.toString();
+        this.byString = byString;
+    }
+
+    /**
+     * To get the date and time of the deadline.
+     *
+     * @return The LocalDateTime object of the date and time of the deadline.
+     */
+    public LocalDateTime getByDateTime() {
+        return DateTimeFormat.toLocalDateTime(this.byString);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + byString + ")";
     }
 }

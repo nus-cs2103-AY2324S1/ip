@@ -1,8 +1,13 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import task.Deadline;
+import task.Event;
 import task.Task;
+import utils.DeadlineSortingComparator;
+import utils.EventSortingComparator;
 
 /**
  * TaskList represent the list of tasks of the user.
@@ -20,32 +25,15 @@ public class TaskList {
     }
 
     /**
-     * To print out all the tasks in the user's list of tasks.
-     */
-    public String listTasks() {
-        if (taskList.isEmpty()) {
-            return "There are currently no tasks in your list.";
-        } else {
-            int i = 1;
-            String listMessage = "Here are the tasks in your list: \n";
-            for (Task t : this.taskList) {
-                listMessage += i + ". " + t.toString() + "\n";
-                i++;
-            }
-            return listMessage;
-        }
-    }
-
-    /**
      * Marks the specific task in the user's list of tasks as completed.
      *
      * @param num The index of the task which is to be mark as completed.
      * @return The message of paimonbot to indicate the task is marked.
      */
-    public String markTask(int num) {
+    public Task markTask(int num) {
         Task t = taskList.get(num - 1);
         t.markDone();
-        return "Nice! I've marked this task as done: \n" + t;
+        return t;
     }
 
     /**
@@ -54,23 +42,19 @@ public class TaskList {
      * @param num The index of the task which is to be mark as incomplete.
      * @return The message of paimonbot to indicate the task is unmarked.
      */
-    public String unmarkTask(int num) {
+    public Task unmarkTask(int num) {
         Task t = taskList.get(num - 1);
         t.markUndone();
-        return "Nice! I've un-marked this task: \n" + t;
+        return t;
     }
 
     /**
      * Adds the task into the user's list of tasks.
      *
      * @param task The task to be added.
-     * @return The message of paimonbot to indicate a task is added.
      */
-    public String addTask(Task task) {
+    public void addTask(Task task) {
         this.taskList.add(task);
-        return "Got it. Task successfully added: \n"
-                + task.toString()
-                + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -79,11 +63,9 @@ public class TaskList {
      * @param num The index of the task to be deleted.
      * @return The message of paimonbot to indicate the task is deleted.
      */
-    public String deleteTask(int num) {
+    public Task deleteTask(int num) {
         Task deletedTask = taskList.remove(num - 1);
-        return "Noted. I've removed this task: \n"
-                + deletedTask.toString()
-                + "\nNow you have " + taskList.size() + " tasks in the list.";
+        return deletedTask;
     }
 
     /**
@@ -92,21 +74,82 @@ public class TaskList {
      * @param keyword The keyword the user wants to search for in the tasks.
      * @return The message of paimonbot to indicate the tasks with the keyword given.
      */
-    public String findTask(String keyword) {
+    public ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
         if (taskList.isEmpty()) {
-            return "You have no tasks in your list yet :O";
+            return matchingTasks;
         } else {
-            String findMessage = "Here are the matching tasks in your list: \n";
-            int i = 1;
             for (Task t : this.taskList) {
                 String taskString = t.toString();
                 if (taskString.contains(keyword)) {
-                    findMessage += i + ". " + taskString + "\n";
-                    i++;
+                    matchingTasks.add(t);
                 }
             }
-            return findMessage;
+            return matchingTasks;
         }
+    }
+
+    /**
+     * To sort the Deadline objects in ascending order of their LocalDateTimes.
+     *
+     * @return The sorted ArrayList of Deadline objects.
+     */
+    public ArrayList<Deadline> sortDeadlines() {
+        ArrayList<Deadline> sortedDeadlines = getDeadlineList();
+        Collections.sort(sortedDeadlines, new DeadlineSortingComparator());
+        return sortedDeadlines;
+    }
+
+    /**
+     * To sort the Event objects in ascending order of their LocalDateTimes.
+     *
+     * @return The sorted ArrayList of Event objects.
+     */
+    public ArrayList<Event> sortEvents() {
+        ArrayList<Event> sortedEvents = getEventList();
+        Collections.sort(sortedEvents, new EventSortingComparator());
+        return sortedEvents;
+    }
+
+    /**
+     * Get the list of Deadline objects from the ArrayList of Tasks.
+     *
+     * @return The list of Deadline objects.
+     */
+    public ArrayList<Deadline> getDeadlineList() {
+        ArrayList<Deadline> deadlineList = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                deadlineList.add((deadline));
+            }
+        }
+        return deadlineList;
+    }
+
+    /**
+     * Get the list of Event objects from the ArrayList of Tasks.
+     *
+     * @return The list of Event objects.
+     */
+    public ArrayList<Event> getEventList() {
+        ArrayList<Event> eventList = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task instanceof Event) {
+                Event event = (Event) task;
+                eventList.add(event);
+            }
+        }
+        return eventList;
+    }
+
+    /**
+     * To find the size of the ArrayList of Task objects.
+     *
+     * @return The size of the ArrayList of Task objects.
+     */
+    public int size() {
+        return this.taskList.size();
     }
 
     /**

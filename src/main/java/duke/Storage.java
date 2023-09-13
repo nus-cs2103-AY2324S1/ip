@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,10 +72,7 @@ public class Storage {
                     int lastByIndex = description.indexOf(")");
                     String deadlineDescription = description.substring(0, byIndex - 1);
                     String by = description.substring(byIndex + 5, lastByIndex);
-                    String[] dateTimeArr = by.split(" ");
-                    LocalDate byDate = LocalDate.parse(dateTimeArr[0]);
-                    LocalTime byTime = LocalTime.parse(dateTimeArr[1]);
-                    Deadline d = new Deadline(deadlineDescription, byDate, byTime, isDone);
+                    Deadline d = new Deadline(deadlineDescription, by, isDone);
                     tasks.add(d);
                     break;
                 case 'E':
@@ -87,13 +82,7 @@ public class Storage {
                     String eventDescription = description.substring(0, fromIndex - 1);
                     String start = description.substring(fromIndex + 7, toIndex - 1);
                     String end = description.substring(toIndex + 4, lastToIndex);
-                    String[] startArr = start.split(" ");
-                    LocalDate startDate = LocalDate.parse(startArr[0]);
-                    LocalTime startTime = LocalTime.parse(startArr[1]);
-                    String[] endArr = end.split(" ");
-                    LocalDate endDate = LocalDate.parse(endArr[0]);
-                    LocalTime endTime = LocalTime.parse(endArr[1]);
-                    Event e = new Event(eventDescription, startDate, startTime, endDate, endTime, isDone);
+                    Event e = new Event(eventDescription, start, end, isDone);
                     tasks.add(e);
                     break;
                 default:
