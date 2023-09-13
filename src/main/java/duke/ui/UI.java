@@ -66,6 +66,15 @@ public class UI {
     }
 
     /**
+     * Displays a message indicating the snoozing of a task.
+     *
+     * @param t The task that was snoozed.
+     */
+    public String snooze(Task t) {
+        return "Noted. I've snoozed this task:\n" + t + "\n";
+    }
+
+    /**
      * Displays a list of tasks that match the search criteria.
      * If the provided list is empty, a message indicating no matching tasks is displayed.
      *

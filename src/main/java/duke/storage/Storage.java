@@ -73,20 +73,32 @@ public class Storage {
     private Task existTasks(String s) throws DukeException{
         String[] temp = s.split(" \\| ");
         int n = temp.length;
-        assert n >= 2 : "Task should have at least 2 parts";
+        assert n >= 3 : "Task should have at least 2 parts";
         Task t;
-        if (n == 2) {
-            t = Task.of(temp[1]);
-        } else if (n == 3) {
-            t = Task.of(temp[1], LocalDate.parse(temp[2]));
-        } else if (n == 4) {
-            t = Task.of(temp[1], LocalDate.parse(temp[2]), LocalDate.parse(temp[3]));
-        } else {
-            throw new DukeException("Error in loading tasks");
+        try {
+            if (n == 3) {
+                t = Task.of(temp[2]);
+            } else if (n == 4) {
+                t = Task.of(temp[2], LocalDate.parse(temp[3]));
+            } else if (n == 5) {
+                t = Task.of(temp[2], LocalDate.parse(temp[3]), LocalDate.parse(temp[4]));
+            } else {
+                throw new DukeException("Error in parsing loading tasks");
+            }
+        } catch ( DukeException e) {
+            throw new DukeException(e.getMessage());
         }
 
         if (Objects.equals(temp[0], "1")) {
             t.mark();
+        } else if (!Objects.equals(temp[0], "0")) {
+            throw new DukeException("Error in marking loading tasks");
+        }
+
+        if (Objects.equals(temp[1], "1")) {
+            t.snooze();
+        } else if (!Objects.equals(temp[1], "0")) {
+            throw new DukeException("Error in snoozing loading tasks");
         }
         return t;
     }

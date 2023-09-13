@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public abstract class Task {
     private final String name;
     private boolean isMarked;
+    private boolean isSnoozed;
 
     /**
      * Constructs a Task with the given name.
@@ -18,6 +19,7 @@ public abstract class Task {
     public Task(String name) {
         this.name = name;
         this.isMarked = false;
+        this.isSnoozed = false;
     }
 
     /**
@@ -81,6 +83,14 @@ public abstract class Task {
         }
     }
 
+    public boolean snooze() {
+        if (isSnoozed) {
+            return false;
+        } else {
+            this.isSnoozed = true;
+            return true;
+        }
+    }
     /**
      * Returns the state of the task (done or not done) as a string representation.
      *
@@ -96,8 +106,15 @@ public abstract class Task {
      * @return The text representation of the task.
      */
     public String getText() {
-        int state = isMarked ? 1 : 0;
-        return state + " | " + name;
+        int mark = isMarked ? 1 : 0;
+        int snooze = isSnoozed ? 1 : 0;
+        return mark + " | "
+                + snooze + " | "
+                + name;
+    }
+
+    protected boolean isSnoozed() {
+        return isSnoozed;
     }
 
     /**

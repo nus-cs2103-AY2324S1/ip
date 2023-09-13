@@ -43,11 +43,14 @@ class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString()
-                + " (from: "
-                + timeFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: "
-                + timeTo.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + ")";
+        String res = "[E]" + super.toString();
+        return  isSnoozed()
+                ? res + " (snoozed)"
+                : res
+                    + " (from: "
+                    + timeFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + " to: "
+                    + timeTo.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + ")";
     }
 }
