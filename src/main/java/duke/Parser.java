@@ -7,6 +7,7 @@ import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.SortCommand;
 import duke.command.UnmarkCommand;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
@@ -23,7 +24,7 @@ public class Parser {
      * Enum to identify types of commands.
      */
     public enum CommandType {
-        LIST, DELETE, MARK, UNMARK, ADD, UNKNOWN, BYE, FIND
+        LIST, DELETE, MARK, UNMARK, ADD, UNKNOWN, BYE, FIND, SORT
     }
 
     /**
@@ -82,6 +83,10 @@ public class Parser {
         case FIND:
             String keyword = userInput.substring(5).trim();
             return new FindCommand(keyword);
+
+        case SORT:
+            return new SortCommand();
+
         case BYE:
             return new ExitCommand();
 
@@ -111,6 +116,8 @@ public class Parser {
             return CommandType.MARK;
         } else if (userInput.startsWith("find")) {
             return CommandType.FIND;
+        } else if (userInput.startsWith("sort")) {
+            return CommandType.SORT;
         } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
             return CommandType.ADD;
         } else {

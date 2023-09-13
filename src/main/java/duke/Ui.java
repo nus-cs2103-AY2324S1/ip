@@ -107,6 +107,18 @@ public class Ui {
     }
 
     /**
+     * Prints the list of tasks sorted by date.
+     *
+     * @param tasks The list of tasks sorted by date.
+     */
+    public String showSortedTasks(TaskList tasks) {
+        String message = tasks.stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
+        return "Here are your deadlines sorted" + ":\n" + message;
+    }
+
+    /**
      * Prints the current number of tasks in the list.
      *
      * @param taskList The current task list.

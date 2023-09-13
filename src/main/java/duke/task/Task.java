@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a generic task.
  */
-public class Task {
+public abstract class Task {
 
     /**
      * The description of the task.

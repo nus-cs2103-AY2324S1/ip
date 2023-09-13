@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import duke.task.Deadline;
 import duke.task.Task;
 
 /**
@@ -104,6 +105,18 @@ public class TaskList implements Iterable<Task> {
 
     public Stream<Task> stream() {
         return tasks.stream();
+    }
+
+    /**
+     * Sorts the deadlines in the task list.
+     */
+    public void sortDeadlines() {
+        tasks.sort((task1, task2) -> {
+            if (task1 instanceof Deadline && task2 instanceof Deadline) {
+                return ((Deadline) task1).getDueDate().compareTo(((Deadline) task2).getDueDate());
+            }
+            return 0;
+        });
     }
 
     /**
