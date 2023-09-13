@@ -1,12 +1,18 @@
+package dan.task;
+
 import java.util.ArrayList;
 
-public class MyList extends ArrayList<Task> {
-    public MyList() {}
+public class TaskList extends ArrayList<Task> {
+    /** Fields */
+    public int storageChanged = 0;
 
-    public MyList(int initialCapacity) {
+    /** Constructors */
+    public TaskList() {}
+    public TaskList(int initialCapacity) {
         super(initialCapacity);
     }
 
+    /** Methods */
     @Override
     public String toString() {
         StringBuffer rt = new StringBuffer();
@@ -15,4 +21,5 @@ public class MyList extends ArrayList<Task> {
         }
         return rt.toString();
     }
+
 }

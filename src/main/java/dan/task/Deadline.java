@@ -1,3 +1,7 @@
+package dan.task;
+
+import dan.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

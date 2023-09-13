@@ -1,6 +1,9 @@
+package dan.task;
+
+import dan.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Event extends Task {
     // fields
