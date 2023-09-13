@@ -155,11 +155,15 @@ public class Parser {
      * @throws MonkeException If no arguments provided or arguments not in (task) /by (datetime) format.
      */
     public static DeadlineCommand parseDeadline(String args) throws MonkeException {
+        // Splits arguments into description and deadline
         String[] tmp = args.split(" /by ", 2);
+
+        // Check if arguments given is in correct format
         if (tmp.length < 2 || tmp[0].isBlank() || tmp[1].isBlank()) {
             throw new MonkeException("You must format your deadline like this:\n" +
                     "\t\tdeadline <task> /by <deadline>");
         }
+
         String description = tmp[0];
         String dateString = tmp[1];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
