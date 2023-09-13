@@ -39,6 +39,8 @@ public class Duke {
         try {
             taskList = storage.readFromFile();
 
+            assert taskList != null;
+
             String userInput = input;
             Action action = Action.valueOf(userInput.split(" ")[0].toUpperCase());
 
@@ -60,6 +62,9 @@ public class Duke {
                 }
 
                 Task toBeMarked = taskList.getTaskAt(markIndex - 1);
+
+                assert toBeMarked != null;
+
                 toBeMarked.mark();
                 response = "Nice! I've marked this task as done:\n" + toBeMarked.toString();
                 break;
@@ -73,6 +78,9 @@ public class Duke {
                 }
 
                 Task toBeUnmarked = taskList.getTaskAt(unmarkIndex - 1);
+
+                assert toBeUnmarked != null;
+
                 toBeUnmarked.unmark();
                 response = "OK, I've marked this task as not done yet:\n" + toBeUnmarked.toString();
                 break;
@@ -85,13 +93,19 @@ public class Duke {
                 }
 
                 Task toBeDeleted = taskList.getTaskAt(deleteIndex - 1);
+
+                assert toBeDeleted != null;
+
                 taskList.deleteTaskAt(deleteIndex - 1);
                 response = "Noted. I've removed this task:\n" + toBeDeleted.toString()
                         + "\nNow you have " + taskList.getNumberOfTasks() + " tasks in the list.";
                 break;
 
             case FIND:
-                TaskList filtered = parser.getTaskList(userInput, taskList);
+                TaskList filtered = taskList.getFilteredTaskList(userInput);
+
+                assert filtered != null;
+
                 response = "Here are the matching tasks in your list:\n" + filtered.toString();
                 break;
 

@@ -1,8 +1,8 @@
 package duke;
 
-import java.util.ArrayList;
-
 import duke.tasks.Task;
+
+import java.util.ArrayList;
 
 /**
  * Implementation for the task list
@@ -80,6 +80,24 @@ public class TaskList {
             }
         }
         return s.toString();
+    }
+
+    /**
+     * Returns task list filtered using the keyword.
+     *
+     * @param userInput User input in String format.
+     * @return Filtered TaskList.
+     */
+    public TaskList getFilteredTaskList(String userInput) {
+        TaskList filtered = new TaskList();
+        String keyword = userInput.substring(5);
+
+        for (int i = 0; i < this.getNumberOfTasks(); i++) {
+            if (this.getTaskAt(i).containsKeyword(keyword)) {
+                filtered.addToList(this.getTaskAt(i));
+            }
+        }
+        return filtered;
     }
 
     @Override
