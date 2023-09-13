@@ -49,6 +49,14 @@ public abstract class Task {
     }
 
     /**
+     * Updates the details of the task.
+     *
+     * @param field The field to update.
+     * @param details The new details.
+     */
+    public abstract void updateDetails(String field, String details) throws DukeException;
+
+    /**
      * Converts the task to a string format suitable for saving to a data file.
      *
      * @return A string representation of the task for data storage.

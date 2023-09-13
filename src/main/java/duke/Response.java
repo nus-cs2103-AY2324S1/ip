@@ -106,7 +106,7 @@ public class Response {
     }
 
     /**
-     * Displays an exception message to the console.
+     * Displays an exception message.
      *
      * @param message The exception message to be displayed.
      */
@@ -115,7 +115,7 @@ public class Response {
     }
 
     /**
-     * Reads a user command from the console.
+     * Reads a user command.
      *
      * @return The user command entered by the user.
      */
@@ -125,7 +125,7 @@ public class Response {
     }
 
     /**
-     * Prints the list of found tasks to the console.
+     * Displays the list of found tasks.
      *
      * @param taskList The TaskList to be displayed.
      */
@@ -143,5 +143,15 @@ public class Response {
             }
         }
         return response.toString();
+    }
+
+    /**
+     * Displays the list of tasks.
+     *
+     * @param task The task that was updated.
+     */
+    public String printUpdated(Task task) {
+        return ("OK, I've updated this task:\n"
+                + task + "\n");
     }
 }

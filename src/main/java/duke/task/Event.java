@@ -29,6 +29,21 @@ public class Event extends Task {
     }
 
     @Override
+    public void updateDetails(String field, String details) throws DukeException {
+        if (field.equals("desc")) {
+            this.description = details;
+        } else if (field.equals("from")) {
+            LocalDate newDate = parseDate(details);
+            this.from = newDate;
+        } else if (field.equals("to")) {
+            LocalDate newDate = parseDate(details);
+            this.to = newDate;
+        } else {
+            throw new DukeException("OOPS!!! Only /desc /from /to flags allowed.");
+        }
+    }
+
+    @Override
     public String toData() {
         String done = String.valueOf(this.isDone ? 1 : 0);
         return "E | " + done + " | " + this.description + " | " + this.from + " | " + this.to;
