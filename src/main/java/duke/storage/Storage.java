@@ -170,10 +170,13 @@ public class Storage {
 
         ArrayList<String> output = new ArrayList<>();
 
+
         for (Task task : taskArrayList) {
             String input = task.getParsed();
             output.add(input);
         }
+
+        assert output.size() == taskArrayList.size(): "Not All Data in Task Array being formatted into Output";
         return output;
 
     }
