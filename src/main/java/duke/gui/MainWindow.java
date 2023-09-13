@@ -23,18 +23,17 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Duke duke;
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
+    private String WELCOME_MSG = "Hi! This is your intelligent friend L.\n\"Dream big.\"\n"
+            + "What can I do for you today?";
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog("Hi! This is your intelligent friend L.\n\"Dream big.\"\n"
-                        + "What can I do for you today?", dukeImage)
+                DialogBox.getDukeDialog(WELCOME_MSG, dukeImage)
         );
     }
 
@@ -55,7 +54,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        if (response.equals("Bye!\n\"Beware the barrenness of a busy life.\"")){
+        if (response.equals(duke.BYE_MSG)){
             // Close the window after 5 seconds
             PauseTransition pause = new PauseTransition(Duration.seconds(5));
             pause.setOnFinished(event -> duke.close());
