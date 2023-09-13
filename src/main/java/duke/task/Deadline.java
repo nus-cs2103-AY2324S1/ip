@@ -1,44 +1,37 @@
 package duke.task;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import duke.exception.KoraException;
+import duke.parser.DateTimeParser;
 
 public class Deadline extends Task {
-    private DateTimeFormatter outFormatter;
-    private DateTimeFormatter saveFormatter;
+    private DateTimeParser dtParser;
+    private final String saveString;
+    private final String outString;
     public Deadline(String details, String time) throws KoraException {
         super(details);
         super.setTaskType(TaskType.D.toString());
-        outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
-        saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        try {
-            byTime = LocalDateTime.parse(time, saveFormatter);
-        } catch (DateTimeParseException e) {
-            throw new KoraException("The date format should be yyyy-MM-dd HH-mm!");
-        }
-
+        byTime = time;
+        dtParser = new DateTimeParser();
+        saveString = dtParser.saveFormatted(byTime);
+        outString = dtParser.outFormatted(byTime);
     }
 
     @Override
     public String getTime() {
-        return byTime.format(saveFormatter);
+        return saveString;
     }
 
     @Override
     public String saveFormat() {
         String output;
-        output = super.saveFormat() + "/ " + byTime.format(saveFormatter);
+        output = super.saveFormat() + "/ " + saveString;
         return output;
     }
 
     @Override
     public String toString() {
         String output;
-        output = super.toString() + "(" + "by: " + byTime.format(outFormatter) + ")";
+        output = super.toString() + "(" + "by: " + outString + ")";
         return output;
     }
 }
