@@ -1,6 +1,8 @@
 package duke;
 
 import duke.task.TaskList;
+import javafx.stage.Stage;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -12,12 +14,14 @@ public class Duke{
     private Storage storage;
     private TaskList tasks;
 
-    public Duke() {
+    private Stage stage;
+
+    public Duke(Stage stage) {
+        this.stage = stage;
         storage = new Storage("data/duke.txt");
         try {
             tasks = new TaskList(storage.loadFile());
         } catch (FileNotFoundException e) {
-            //TODO: create a new file when saving
             tasks = new TaskList();
         }
         parser = new Parser(tasks);
@@ -32,13 +36,16 @@ public class Duke{
                 } catch (IOException e) {
                     return showSavingError();
                 }
-                return "8888";
-                //TODO: exit
+                return "Bye!\n\"Beware the barrenness of a busy life.\"";
             }
             return output;
         } catch (DukeException e) {
             return handleException(e);
         }
+    }
+
+    public void close(){
+        this.stage.close();
     }
 
 //    public void showLoadingError() {

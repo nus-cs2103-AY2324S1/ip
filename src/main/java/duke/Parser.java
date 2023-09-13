@@ -33,7 +33,7 @@ public class Parser {
     /**
      * Parses the user input and returns the corresponding message.
      *
-     * @param repeat the user input.
+     * @param inputs the user inputs.
      * @throws DukeException if the user input is invalid.
      */
     public String parse(String... inputs) throws DukeException {
@@ -54,10 +54,9 @@ public class Parser {
             int taskIndex = Integer.parseInt(markMatcher.group(2));
             if (action.equals("delete")) {
                 return this.tasks.deleteTask(taskIndex);
-            } else {
-                boolean isDone = markMatcher.group(1).equals("mark");
-                return this.tasks.markTask(taskIndex, isDone);
             }
+            boolean isDone = markMatcher.group(1).equals("mark");
+            return this.tasks.markTask(taskIndex, isDone);
         } else if (taskMatcher.matches()) {
             return this.tasks.addTask(TaskType.valueOf(taskMatcher.group(1).toUpperCase()), taskMatcher.group(2));
         } else if (repeat.contains("list") || repeat.contains("List")) {

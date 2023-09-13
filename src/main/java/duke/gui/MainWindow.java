@@ -1,6 +1,7 @@
 package duke.gui;
 
 import duke.Duke;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -30,6 +32,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog("Hi! This is your intelligent friend L.\n\"Dream big.\"\n"
+                        + "What can I do for you today?", dukeImage)
+        );
     }
 
     public void setDuke(Duke d) {
@@ -49,6 +55,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (response.equals("Bye!\n\"Beware the barrenness of a busy life.\"")){
+            // Close the window after 5 seconds
+            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            pause.setOnFinished(event -> duke.close());
+            pause.play();
+        }
     }
 }
 

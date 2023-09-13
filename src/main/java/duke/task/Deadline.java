@@ -19,17 +19,19 @@ public class Deadline extends Task {
         this.taskType = TaskType.DEADLINE;
         Pattern pattern = Pattern.compile("(\\d{4}-\\d{2}-\\d{2})");
         Matcher matcher = pattern.matcher(by);
-        if (matcher.find()) {
+        if (!matcher.find()) {
+            this.byDescription = by;
+        } else {
             this.by = LocalDate.parse(matcher.group(1));
             this.byDescription = by.replaceFirst(matcher.group(1), "");
-        } else {
-            this.byDescription = by;
         }
+        assert this.description != null : "description should not be null";
     }
 
     public Deadline(String description, String by, boolean isDone) {
         this(description, by);
         this.isDone = isDone;
+        assert this.description != null : "description should not be null";
     }
 
     /**
