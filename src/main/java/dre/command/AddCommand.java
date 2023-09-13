@@ -28,8 +28,8 @@ public class AddCommand extends Command {
      * @param storage The storage object to update stored tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
-        ui.showAddedTask(task, tasks.size());
+        return ui.generateAddedTaskString(task, tasks.size());
     }
 }

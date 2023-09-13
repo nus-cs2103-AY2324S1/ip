@@ -28,12 +28,12 @@ public class UnmarkCommand extends Command {
      * @param storage The storage object to update stored tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.unmark(index);
-            ui.showUnmarkedTask(tasks.getTask(index));
+            return ui.generateUnmarkedTaskString(tasks.getTask(index));
         } catch (DreException e) {
-            ui.showError(e.getMessage());
+            return ui.generateErrorString(e.getMessage());
         }
     }
 }

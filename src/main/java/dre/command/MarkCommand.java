@@ -29,12 +29,12 @@ public class MarkCommand extends Command {
      * @throws DreException If there's an error marking the task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DreException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DreException {
         try {
             tasks.mark(index);
-            ui.showMarkedTask(tasks.getTask(index));
+            return ui.generateMarkedTaskString(tasks.getTask(index));
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Invalid dre.task index.");
+            return ui.generateErrorString("Invalid task index.");
         }
     }
 }

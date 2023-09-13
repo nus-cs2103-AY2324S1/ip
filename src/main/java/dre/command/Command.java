@@ -19,7 +19,7 @@ public abstract class Command {
      * @param storage The storage object to update stored tasks.
      * @throws DreException If there's an error executing the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DreException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DreException;
 
     /**
      * Indicates whether this command causes the application to exit.

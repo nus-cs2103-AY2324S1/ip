@@ -17,11 +17,11 @@ public class ListCommand extends Command {
      * @param storage The storage object (unused for this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            ui.showTasks(tasks);
+            return ui.generateTasksString(tasks);
         } catch (DreException e) {
-            ui.showError(e.getMessage());
+            return ui.generateErrorString(e.getMessage());
         }
     }
 }

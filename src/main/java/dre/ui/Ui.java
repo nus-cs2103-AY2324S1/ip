@@ -13,8 +13,8 @@ public class Ui {
     /**
      * Displays an error message indicating issues with loading tasks from storage.
      */
-    public void showLoadingError() {
-        System.out.println("Error reading tasks from file.");
+    public String generateLoadingErrorString() {
+        return "Error reading tasks from file.";
     }
 
     /**
@@ -22,106 +22,101 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println(message);
-    }
-
-    /**
-     * Displays a line separator in the user interface.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String generateErrorString(String message) {
+        return message;
     }
 
     /**
      * Displays the welcome message to the user upon starting the application.
      */
-    public void showWelcome() {
-        showLine();
-        System.out.println("Hello! I'm Dre");
-        System.out.println("What can I do for you?");
-        showLine();
+    public String showWelcome() {
+        return "Hello! I'm Dre\n" +
+                "What can I do for you?";
     }
 
     /**
      * Displays the goodbye message to the user upon exiting the application.
      */
-    public void showGoodbye() {
-        showLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        showLine();
+    public String showGoodbye() {
+//        showLine();
+//        System.out.println("Bye. Hope to see you again soon!");
+//        showLine();
+
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays the tasks present in the user's task list.
+     * Generates a representation of the tasks present in the user's task list.
      *
      * @param tasks The task list to be displayed.
+     * @return String representation of the tasks.
      * @throws DreException If there is an error while processing the task list.
      */
-    public void showTasks(TaskList tasks) throws DreException {
-        System.out.println("Here are the tasks in your list:");
+    public String generateTasksString(TaskList tasks) throws DreException {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println((i) + ". " + tasks.getTask(i));
+            sb.append(i).append(". ").append(tasks.getTask(i)).append("\n");
         }
+        return sb.toString();
     }
 
     /**
-     * Displays a message indicating a task has been unmarked.
+     * Generates a message indicating a task has been unmarked.
      *
      * @param task The task that was unmarked.
+     * @return String representation of the unmarked task message.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("Ok! I've marked this task as undone:");
-        System.out.println(task);
+    public String generateUnmarkedTaskString(Task task) {
+        return "Ok! I've marked this task as undone:\n" + task;
     }
 
     /**
-     * Displays a message indicating a task has been deleted.
+     * Generates a message indicating a task has been deleted.
      *
      * @param task The task that was deleted.
+     * @return String representation of the deleted task message.
      */
-    public void showDeletedTask(Task task) {
-        System.out.println("Task deleted:");
-        System.out.println(task);
+    public String generateDeletedTaskString(Task task) {
+        return "Task deleted:\n" + task;
     }
 
     /**
-     * Displays a message indicating a task has been added.
+     * Generates a message indicating a task has been added.
      *
      * @param task The task that was added.
      * @param totalTasks The total number of tasks in the task list after addition.
+     * @return String representation of the added task message.
      */
-    public void showAddedTask(Task task, int totalTasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    public String generateAddedTaskString(Task task, int totalTasks) {
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + totalTasks + " tasks in the list.";
     }
 
     /**
-     * Displays a message indicating a task has been marked as done.
+     * Generates a message indicating a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return String representation of the marked task message.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+    public String generateMarkedTaskString(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
-     * Displays a message indicating the tasks that match the search.
+     * Generates a message indicating the tasks that match the search.
      *
      * @param tasks The tasks that match the search description.
+     * @return String representation of the tasks that match the search.
      * @throws DreException If there is an error while processing the task list.
      */
-    public void showFoundTasks(TaskList tasks) throws DreException {
+    public String generateFoundTasksString(TaskList tasks) throws DreException {
         if (tasks.size() < 1) {
-            System.out.println("Sorry, no tasks match that description.");
-            return;
+            return "Sorry, no tasks match that description.";
         }
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println((i) + "." + tasks.getTask(i));
+            sb.append(i).append(". ").append(tasks.getTask(i)).append("\n");
         }
+        return sb.toString();
     }
 
     /**

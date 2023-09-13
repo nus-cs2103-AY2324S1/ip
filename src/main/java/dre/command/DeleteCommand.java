@@ -28,12 +28,13 @@ public class DeleteCommand extends Command {
      * @param storage The storage object to update stored tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            ui.showDeletedTask(tasks.getTask(index));
             tasks.deleteTask(index);
+            return ui.generateDeletedTaskString(tasks.getTask(index));
         } catch (DreException e) {
-            ui.showError(e.getMessage());
+            e.printStackTrace();
+            return ui.generateErrorString(e.getMessage());
         }
     }
 }

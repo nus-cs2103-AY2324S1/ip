@@ -31,8 +31,8 @@ public class FindCommand extends Command {
      * @throws DreException If there are issues during the command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DreException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DreException {
         TaskList foundTasks = tasks.findTasksByKeyword(keyword);
-        ui.showFoundTasks(foundTasks);
+        return ui.generateFoundTasksString(foundTasks);
     }
 }
