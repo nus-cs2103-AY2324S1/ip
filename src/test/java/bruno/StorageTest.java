@@ -47,7 +47,7 @@ public class StorageTest {
     @Test void testWriteToFile_normalInput_writtenToFile() {
         File file = new File(dirPath + fileName);
         List<Task> list = new ArrayList<>();
-        list.add(new ToDo("work"));
+        list.add(new ToDo("work", ""));
         taskList.setList(list);
         storage.writeToFile(taskList);
         assertTrue(file.exists());
@@ -65,9 +65,9 @@ public class StorageTest {
     @Test void testLoadFile_normalInput_fileLoaded() {
         try {
             List<Task> tasks = new ArrayList<>();
-            tasks.add(new ToDo("work"));
-            tasks.add(new Deadline("quiz", "2023-08-29 18:00"));
-            tasks.add(new Event("hackathon", "2023-08-31 18:00", "2023-09-01 18:00"));
+            tasks.add(new ToDo("work", ""));
+            tasks.add(new Deadline("quiz", "2023-08-29 18:00", ""));
+            tasks.add(new Event("hackathon", "2023-08-31 18:00", "2023-09-01 18:00", ""));
             taskList.setList(tasks);
             storage.writeToFile(taskList);
             storage.loadFile(taskList);
