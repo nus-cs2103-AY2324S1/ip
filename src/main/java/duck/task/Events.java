@@ -1,5 +1,6 @@
 package duck.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -51,6 +52,10 @@ public class Events extends Task {
 
     public String type() {
         return "E";
+    }
+
+    public LocalDate getRawDate() {
+        return this.start.toLocalDate();
     }
 
     public String getDate() {

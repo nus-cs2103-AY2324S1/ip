@@ -91,6 +91,10 @@ public class Parser {
                 ArrayList<Task> temp = taskList.find(str.substring(5));
                 result = io.displaySearchResults(temp);
                 break;
+            case "view":
+                ArrayList<Task> tempList = taskList.checkSchedule(str.substring(5));
+                result = io.displayScheduledTasks(tempList);
+                break;
             default:
                 throw new DuckException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

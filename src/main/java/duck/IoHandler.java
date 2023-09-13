@@ -2,6 +2,7 @@ package duck;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duck.task.Events;
 import duck.task.Task;
 import duck.task.TaskList;
 
@@ -69,6 +70,18 @@ public class IoHandler {
         result.append("Here are the matching tasks in your list: \n");
         for (int i = 0; i < list.size(); i++) {
             result.append(i + 1).append(".").append(list.get(i)).append("\n");
+        }
+        return result.toString();
+    }
+    public String displayScheduledTasks(ArrayList<Task> ls) {
+        StringBuilder result = new StringBuilder();
+        String message = "Hi!, Following are your scheduled Tasks for the day\n";
+        result.append(message);
+        if (ls.size() == 0) {
+            return "No Scheduled Tasks for the Date";
+        }
+        for (int i = 0; i < ls.size(); i++) {
+            result.append(i + 1).append(".").append(ls.get(i)).append("\n");
         }
         return result.toString();
     }
