@@ -69,12 +69,12 @@ public class TaskList {
      * @param ui
      * @param storage
      */
-    public void todo(String str, Ui ui, Storage storage){
+    public void todo(String str, Ui ui, Storage storage) throws DukeException {
         str = str.substring(5);
         if (str.isEmpty())
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! The description of a todo cannot be empty.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         list.add(new Todo(str));
         storage.addToFile("T,0,"+str);
         ui.print("____________________________________________________________\n" +
