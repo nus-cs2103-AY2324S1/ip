@@ -7,11 +7,20 @@ import java.nio.file.Path;
 import brandon.chatbot.tasks.Task;
 import brandon.chatbot.tasks.TaskList;
 
+/**
+ * Stores the task list on the hard disk.
+ */
 public class Storage {
     private Path path;
     public Storage(Path path) {
         this.path = path;
     }
+
+    /**
+     * Saves tasks in the task list by creating a file.
+     * @param tasks
+     * @throws IOException
+     */
     public void save(TaskList tasks) throws IOException {
         try {
             if (!Files.exists(path)) {

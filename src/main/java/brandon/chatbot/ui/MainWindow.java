@@ -2,6 +2,8 @@ package brandon.chatbot.ui;
 
 import brandon.chatbot.DialogBox;
 import brandon.chatbot.Duke;
+import brandon.chatbot.commands.HelpCommand;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,13 +13,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import brandon.chatbot.commands.HelpCommand;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    private final static String welcomeMessage = "Hello... I am ekuD... \n\n";
+    private static final String WELCOME_MESSAGE = "Hello... I am ekuD... \n\n";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -31,11 +32,15 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
+    /**
+     * Initializes the scene with welcome and a help message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(welcomeMessage + HelpCommand.HELP_MESSAGE, dukeImage)
+                DialogBox.getDukeDialog(WELCOME_MESSAGE + HelpCommand.HELP_MESSAGE, dukeImage)
         );
     }
 
@@ -66,5 +71,4 @@ public class MainWindow extends AnchorPane {
         Stage stage = (Stage) dialogContainer.getScene().getWindow();
         stage.close();
     }
-
 }

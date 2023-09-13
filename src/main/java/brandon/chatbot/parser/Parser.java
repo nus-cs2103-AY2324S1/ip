@@ -3,7 +3,18 @@ package brandon.chatbot.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import brandon.chatbot.commands.*;
+import brandon.chatbot.commands.AddDeadlineCommand;
+import brandon.chatbot.commands.AddEventCommand;
+import brandon.chatbot.commands.AddTodoCommand;
+import brandon.chatbot.commands.Command;
+import brandon.chatbot.commands.DeleteCommand;
+import brandon.chatbot.commands.ExitCommand;
+import brandon.chatbot.commands.FindCommand;
+import brandon.chatbot.commands.HelpCommand;
+import brandon.chatbot.commands.ListCommand;
+import brandon.chatbot.commands.MarkCommand;
+import brandon.chatbot.commands.UnknownCommand;
+import brandon.chatbot.commands.UnmarkCommand;
 import brandon.chatbot.common.DukeException;
 
 /**

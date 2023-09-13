@@ -10,6 +10,7 @@ public class Event extends Task {
     private String endTime;
 
     /**
+     * Constructs an Event.
      *
      * @param title of the event.
      * @param startTime of the event.
