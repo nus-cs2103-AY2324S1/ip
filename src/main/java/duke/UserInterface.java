@@ -19,7 +19,7 @@ public class UserInterface {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
-
+    private Button sendButton;
     private final Duke duke;
     private Image userImg;
     private Image dukeImg;
@@ -34,48 +34,14 @@ public class UserInterface {
             throw new CorruptedFileException();
         }
     }
-
     public Scene sceneMaker() {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        Button sendButton = new Button("Send");
-
+        spawnUiElements();
+        setUiSettings();
+        setAnchorPaneSettings();
+        addUiFunctionality();
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        Scene scene = new Scene(mainLayout);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        // You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> input());
-        userInput.setOnAction((event) -> input());
-        return scene;
+        return new Scene(mainLayout);
     }
 
     public void input() {
@@ -93,6 +59,36 @@ public class UserInterface {
     public void output(String output) {
         Label dukeLabel = new Label(output);
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeLabel, new ImageView(dukeImg)));
+    }
+
+    private void spawnUiElements() {
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+        userInput = new TextField();
+        sendButton = new Button("Send");
+    }
+    private void setUiSettings() {
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        userInput.setPrefWidth(325.0);
+        sendButton.setPrefWidth(55.0);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+    private void setAnchorPaneSettings() {
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
+    private void addUiFunctionality() {
+        sendButton.setOnMouseClicked((event) -> input());
+        userInput.setOnAction((event) -> input());
     }
 
 }

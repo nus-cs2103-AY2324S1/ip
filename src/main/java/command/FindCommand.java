@@ -6,9 +6,12 @@ import dukeexception.FailureInExecuteException;
 import task.Task;
 
 public class FindCommand implements Executable {
-    private String keyword;
-
-    public void setSearch(String keyword) {
+    private final String keyword;
+    /**
+     * Generates a new find command.
+     * @param keyword the keyword to be searched.
+     */
+    public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 

@@ -11,15 +11,13 @@ import dukeexception.FailureInExecuteException;
  */
 public class MarkCommand implements Executable {
     private final boolean isToBeMarked;
-    private int targetIndex;
+    private final int targetIndex;
 
-    public MarkCommand(boolean isToBeMarked) {
+    public MarkCommand(boolean isToBeMarked, int index) {
         this.isToBeMarked = isToBeMarked;
+        this.targetIndex = index;
     }
 
-    public void setMark(int targetIndex) {
-        this.targetIndex = targetIndex;
-    }
 
     /**
      * Executes the marking/unmarking of a given task.
@@ -37,6 +35,7 @@ public class MarkCommand implements Executable {
         } catch (IOException e) {
             throw new FailureInExecuteException(e.getMessage());
         }
+        ui.output("marked task " + targetIndex);
         return false;
     }
 }

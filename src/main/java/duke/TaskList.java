@@ -15,9 +15,7 @@ import task.ToDo;
  * A tasklist that stores a group of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
-    private int counter;
-
+    private final ArrayList<Task> taskList;
     private final Storage storage;
 
     /**
@@ -26,7 +24,6 @@ public class TaskList {
      */
     public TaskList(Storage storage) {
         taskList = new ArrayList<>();
-        counter = -1;
         this.storage = storage;
     }
 
@@ -36,8 +33,7 @@ public class TaskList {
      * @throws CorruptedFileException if the file cannot be interpreted.
      */
     public void loadFromDisk() throws IOException, CorruptedFileException {
-        taskList = stringListToTaskList(storage.loadFromDisk());
-        counter = taskList.size() - 1;
+        taskList.addAll(stringListToTaskList(storage.loadFromDisk()));
     }
 
     /**
@@ -56,7 +52,6 @@ public class TaskList {
      */
     public void addTask(Task task) throws IOException {
         taskList.add(task);
-        counter += 1;
         writeToDisk();
     }
 
@@ -67,21 +62,19 @@ public class TaskList {
      * @throws IOException if the index exists and was deleted, but we cannot write the change to disk.
      */
     public boolean removeTask(int index) throws IOException {
-        if (index > counter) {
+        if (index > taskList.size()) {
             return false;
         }
         taskList.remove(index);
-        counter -= 1;
         writeToDisk();
         return true;
     }
     public void clear() throws IOException {
         taskList.clear();
-        counter = -1;
         writeToDisk();
     }
     public boolean setMark(int targetIndex, boolean isToBeMarked) throws IOException {
-        if (targetIndex > counter || targetIndex < 0) {
+        if (targetIndex > taskList.size() || targetIndex < 0) {
             return false;
         }
         if (isToBeMarked) {
@@ -152,12 +145,15 @@ public class TaskList {
      * @return a string representation of the list.
      */
     public String listString() {
-        if (counter == -1) {
+        if (taskList.size() == 0) {
             return ("No list, silly!");
         } else {
             StringBuilder res = new StringBuilder("Here's the list so far.");
-            for (int i = 0; i < counter + 1; i++) {
-                res.append("\n").append(i + 1).append(". ").append(taskList.get(i));
+            for (int i = 0; i < taskList.size(); i++) {
+                res.append("\n");
+                res.append(i + 1);
+                res.append(". ");
+                res.append(taskList.get(i));
             }
             return res.toString();
         }

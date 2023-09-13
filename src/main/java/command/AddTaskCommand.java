@@ -31,6 +31,7 @@ public class AddTaskCommand implements Executable {
             throw new FailureInExecuteException(e.getMessage());
         }
         ui.output("Added successfully!");
+        ui.output(task.toString());
         return false;
     }
 }
