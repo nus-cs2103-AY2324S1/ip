@@ -25,23 +25,18 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the data file and returns them as an ArrayList.
-     *
-     * @return An ArrayList of Task objects.
-     * @throws DukeException If there is an error reading the data file or parsing the tasks.
+     * Creates a new directory or file if either has not existed yet.
      */
     private void createFile(String fileName) {
         try {
             Path dataDirectoryPath = Path.of(".", "data");
 
-            // Create directory because it doesn't exist
             if (!Files.exists(dataDirectoryPath)) {
                 Files.createDirectories(dataDirectoryPath);
             }
 
             Path dataPath = dataDirectoryPath.resolve(fileName);
 
-            // Create duke.txt if it doesn't exist
             if (!Files.exists(dataPath)) {
                 Files.createFile(dataPath);
             }
@@ -66,7 +61,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (IOException | DukeException e) {
-            System.err.println(e.getMessage());
+            throw new DukeException(e.getMessage());
         }
         return tasks;
     }
@@ -76,7 +71,7 @@ public class Storage {
      *
      * @param updatedTasks The TaskList containing the updated tasks.
      */
-    public void saveToFile(TaskList updatedTasks) {
+    public void saveToFile(TaskList updatedTasks) throws DukeException {
         try {
             if (updatedTasks == null) {
                 return;
@@ -89,7 +84,7 @@ public class Storage {
 
             Files.write(dataPath, lines);
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            throw new DukeException(e.getMessage());
         }
     }
 }

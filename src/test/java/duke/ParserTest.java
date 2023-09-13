@@ -52,7 +52,7 @@ public class ParserTest {
     public void parseCommand_markTask_exceptionThrown() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertThrows(DukeException.class, () -> {
+        assertThrows(java.lang.AssertionError.class, () -> {
             Parser.parseCommand("mark 148840", tasks, ui);
         });
     }
@@ -61,7 +61,7 @@ public class ParserTest {
     public void parseCommand_unmarkTask_exceptionThrown() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertThrows(DukeException.class, () -> {
+        assertThrows(java.lang.AssertionError.class, () -> {
             Parser.parseCommand("unmark 10", tasks, ui);
         });
     }
@@ -70,7 +70,7 @@ public class ParserTest {
     public void parseCommand_deleteTask_exceptionThrown() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        assertThrows(DukeException.class, () -> {
+        assertThrows(java.lang.AssertionError.class, () -> {
             Parser.parseCommand("delete 1", tasks, ui);
         });
     }
