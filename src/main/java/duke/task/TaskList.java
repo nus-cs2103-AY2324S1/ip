@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import duke.DukeException;
+
 /**
  * Represents a list of tasks (todos/deadlines/events).
  */
@@ -78,6 +80,28 @@ public class TaskList {
                 .map(Task::toSaveFormatString)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * Updates a Task with a specified index.
+     *
+     * @param i The index of the Task to update within the TaskList.
+     * @param updateType The part of the Task to be updated.
+     * @param newValue The new value to put into the updated Task (as a String).
+     */
+    public void updateTask(int i, UpdateType updateType, String newValue) throws DukeException {
+        this.tasks.get(i - 1).update(updateType, newValue);
+    }
+
+    /**
+     * Clones a Task and adds it to the back of the TaskList.
+     *
+     * @param i The index of the Task to clone within the TaskList.
+     */
+    public void cloneTask(int i) {
+        Task toClone = tasks.get(i - 1).clone();
+        tasks.add(toClone);
+    }
+
 
     /**
      * Marks a Task with a specified index as done.
