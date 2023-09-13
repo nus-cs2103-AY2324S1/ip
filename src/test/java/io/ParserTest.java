@@ -1,13 +1,16 @@
 package io;
 
-import exceptions.ParserException;
+
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import exceptions.ParserException;
+
 
 public class ParserTest {
 
