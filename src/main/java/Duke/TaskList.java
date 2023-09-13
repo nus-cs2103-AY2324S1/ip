@@ -12,6 +12,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage = new Storage(); //take tasks from Duke.Storage.
 
+
     /**
      * Constructor that tries to retrieve any previously stored tasks.
      * Returns empty ArrayList when there is nothing in file.
@@ -49,8 +50,9 @@ public class TaskList {
             tasks.remove(index);
             return removedTask;
         }
-
     }
+
+
 
     /**
      * Unmarks Task in specified index of tasks.
