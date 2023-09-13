@@ -34,6 +34,7 @@ public class Tired {
      */
     String getResponse(String input) {
         if (input.trim().equals("bye")) {
+            storage.saveToFile(tasks);
             return ui.showGoodbyeMessage();
         }
         try {
