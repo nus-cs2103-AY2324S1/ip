@@ -1,7 +1,7 @@
 package Commands;
+import OOP.Storage;
 import OOP.TaskList;
 import OOP.Ui;
-import OOP.Storage;
 
 /** The interface that allows for the Command pattern which is based on requests. */
 public interface Command {

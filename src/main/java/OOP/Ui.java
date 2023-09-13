@@ -1,9 +1,13 @@
 package OOP;
 
-import Tasks.Task;
-
 import java.util.Scanner;
 
+import Tasks.Task;
+
+
+/**
+ * Ui class handles the text that is outputted in the GUI.
+ */
 public class Ui {
     /** The Scanner object used to read user input */
     private Scanner scanner;

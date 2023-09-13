@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Task is an abstract class which has a name and could be done or not done.
+ */
 public abstract class Task {
 
     /** The name of the task */

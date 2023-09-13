@@ -3,6 +3,8 @@ import OOP.TaskList;
 import OOP.Ui;
 import OOP.Storage;
 import Duke.DukeException;
+import Tasks.Task;
+
 public class MarkTaskCommand implements Command {
     /** The index of the task to be marked as done within the TaskList. */
     private int id;
@@ -23,6 +25,7 @@ public class MarkTaskCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.markTask(id);
+            assert tasks.getTask(id).isDone();
             return ui.printTaskMarkedMessage(tasks.getTask(id));
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "

@@ -23,6 +23,7 @@ public class UnmarkTaskCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.unmarkTask(id);
+            assert !tasks.getTask(id).isDone();
             return ui.printTaskUnmarkedMessage(tasks.getTask(id));
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "

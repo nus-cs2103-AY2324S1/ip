@@ -2,8 +2,11 @@ package Commands;
 import OOP.TaskList;
 import OOP.Ui;
 import OOP.Storage;
-import Tasks.Task;
 import Tasks.Event;
+
+/**
+ * The command which encapsulates the data for adding an Event.
+ */
 public class AddEventCommand implements Command {
     /** The event to be added to the TaskList upon execution.*/
     private Event event;
@@ -17,6 +20,7 @@ public class AddEventCommand implements Command {
      */
     public AddEventCommand(String eventName, String eventStart, String eventEnd) {
         this.event = new Event(eventName, false, eventStart, eventEnd);
+        assert !this.event.isDone();
     }
 
     public Event getEvent() {

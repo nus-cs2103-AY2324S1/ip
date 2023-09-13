@@ -66,7 +66,6 @@ public class Duke {
         Command command;
         String responseString;
         try {
-            // ui.printDivider();
             command = Parser.parseCommand(input);
             // need commands to return messageStrings so that they can be returned here and displayed.
             responseString = command.execute(tasks, ui, storage);
@@ -85,8 +84,6 @@ public class Duke {
      * Greets the user and runs the chatbot.
      */
     public void run() {
-        // ui.printGreeting(this.name);
-        // runCommandLoopUntilExitCommand();
         Launcher.main(new String[0]);
     }
 }

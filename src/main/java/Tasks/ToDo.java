@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * ToDo is a Task in its simplest form - either done or not done.
+ */
 public class ToDo extends Task {
 
     /**
@@ -22,6 +25,7 @@ public class ToDo extends Task {
      */
     public String toString(boolean isWritten) {
         String completionStr = super.isDone() ? "1" : "0";
+        assert completionStr.equals("1") == super.isDone();
         return "T" + " | " + completionStr + " | " + super.getName();
     }
 }

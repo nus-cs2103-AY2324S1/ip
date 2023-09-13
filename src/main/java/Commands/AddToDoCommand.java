@@ -14,6 +14,7 @@ public class AddToDoCommand implements Command {
      */
     public AddToDoCommand(String name) {
         this.toDo = new ToDo(name, false);
+        assert !this.toDo.isDone();
     }
 
     public ToDo getTodo() {

@@ -16,6 +16,7 @@ public class AddDeadlineCommand implements Command {
     public AddDeadlineCommand(String deadlineName, String deadlineString) {
         Deadline deadline = Storage.parseDeadlineFromString(deadlineName, deadlineString);
         this.deadline = deadline;
+        assert !deadline.isDone();
     }
 
     public Deadline getDeadline() {
