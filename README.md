@@ -31,7 +31,7 @@ public class Main {
 }
 ```
 
-Here's what you'll be greeted by upon starting up ChatterBot:
+Here's what you'll be greeted by upon starting up ChatterBot: 
 `System.out.println("Hello! I'm " + logo + "\nWhat can I do for you?");`
 
 What are you waiting for? Use it now!
