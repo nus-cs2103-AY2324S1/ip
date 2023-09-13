@@ -58,7 +58,7 @@ public class EventCommand extends Command {
      * @param ui Ui handling output to users.
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
-    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager)  {
+    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
         String eventDescription = eventArr[0];
         String[] eventArr2 = eventArr[1].split(" /to "); // eventArr2 have the from & to
         String from = eventArr2[0];
