@@ -44,7 +44,9 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws UnknownCommandException {
         // Use Regex to extract the first word even with preceding whitespace
-        Operations command = Operations.valueOf(fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
+        String op = fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase();
+
+        Operations command = Operations.valueOf(op);
 
         switch (command) {
         case TODO:

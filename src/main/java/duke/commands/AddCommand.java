@@ -49,12 +49,17 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NoDescriptionException,
             UnknownTimeException, BackwardsTimeException, UnknownCommandException {
-        Parser.Operations operation = Parser.Operations.valueOf(
-                fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase());
+
+        // Remove all words except the command
+        String op = fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase();
+
+        Parser.Operations operation = Parser.Operations.valueOf(op);
+
         Task task;
 
         switch (operation) {
         case TODO:
+            //Removes the command type from the entire command
             String desc = fullCommand.replaceAll("^\\s*todo\\s*", "");
             if (desc.equals("")) {
                 throw new NoDescriptionException("todo");
@@ -65,8 +70,10 @@ public class AddCommand extends Command {
             ui.showAddMessage(task, tasks.size());
             return "Added " + task;
         case DEADLINE:
+            //Removes the command type from the entire command
             String deadlineTime = fullCommand.replaceAll("^\\s*deadline\\s*", "");
 
+            // Separates into the description and the deadline
             String[] strings = deadlineTime.split(" /by ");
 
             if (deadlineTime.equals("")) {
@@ -82,12 +89,16 @@ public class AddCommand extends Command {
             ui.showAddMessage(task, tasks.size());
             return "Added " + task;
         case EVENT:
+            //Removes the command type from the entire command
             String content = fullCommand.replaceAll("^\\s*event\\s*", "");
             if (content.equals("")) {
                 throw new NoDescriptionException("event");
             }
 
+            // Separates the command into the description and the times
             String[] descTime = content.split(" /from ");
+
+            // Separates into the start time and end time
             String[] times = descTime[1].split(" /to ");
 
             if (times.length == 1) {

@@ -41,9 +41,9 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        // scan for the storage file
         try {
             Scanner s = new Scanner(file);
+
             while (s.hasNext()) {
 
                 String curr = s.nextLine();
@@ -52,22 +52,25 @@ public class Storage {
                 // check for the correct format - minimum 3 different segments
                 if ((!segments[0].equals("T") && !segments[0].equals("D")
                         && !segments[0].equals("E")) || segments.length < 3) {
-                    s.close(); // need to close scanner otherwise cannot replace file
+                    // Close the file to allow replacement
+                    s.close();
                     throw new UnrecognisedFormatException();
                 }
 
                 boolean isDone = segments[1].equals("1");
 
-                if (segments[0].equals("T")) { // To do task
+                if (segments[0].equals("T")) { // To Do
                     tasks.add(new ToDo(segments[2], isDone));
-                } else if (segments[0].equals("D")) { // Duke.Tasks.Deadline task
+                } else if (segments[0].equals("D")) { // Deadline
                     tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
-                } else { // Duke.Tasks.Event task
+                } else if (segments[0].equals("E")) { // Event
                     String[] times = segments[3].split("--");
                     tasks.add(new Event(segments[2],
                             LocalDateTime.parse(times[0]),
                             LocalDateTime.parse(times[1]),
                             isDone));
+                } else {
+                    throw new UnrecognisedFormatException();
                 }
 
             }
@@ -80,7 +83,7 @@ public class Storage {
                     System.out.println("Sorry, file does not exist. Creating now...");
                 }
             } catch (Exception error) {
-                System.out.println(error);
+                System.out.println(error.getMessage());
                 System.out.println("Error... Unable to create files");
             }
 

@@ -30,6 +30,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+        // Removes the command type from the full command
         String content = fullCommand.replaceAll("^\\s*find\\s*", "");
         return ui.printRelatedTasks(tasks, content);
     }
