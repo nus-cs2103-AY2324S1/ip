@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -249,6 +250,73 @@ public class TaskList {
         }
 
         return foundTasks;
+    }
+
+    /**
+     * Returns a list of tasks that matches the task type parameter
+     *
+     * @param taskType The type of the task to list
+     * @return The ArrayList of tasks that match the task type parameter
+     */
+    public ArrayList<Task> listSpecificTaskType(TaskType taskType) throws DukeException {
+        ArrayList<Task> specificTaskList = new ArrayList<>();
+
+        Task taskTypeClass;
+        switch (taskType) {
+            case TODO:
+                taskTypeClass = new Todo(null);
+                break;
+            case DEADLINE:
+                taskTypeClass = new Deadline(null, null);
+                break;
+            case EVENT:
+                taskTypeClass = new Event(null, null, null);
+                break;
+            default:
+                throw new DukeException("Task type must be Todo, Deadline or Event!");
+        }
+
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).getClass() == taskTypeClass.getClass()) {
+                specificTaskList.add(this.tasks.get(i));
+            }
+        }
+
+        return specificTaskList;
+    }
+
+    /**
+     * Returns a list of tasks that are marked done already
+     *
+     * @return The ArrayList of tasks that are marked done already
+     */
+    public ArrayList<Task> listDoneTasks() {
+        ArrayList<Task> doneTasks = new ArrayList<>();
+
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).getIsDone()) {
+                doneTasks.add(this.tasks.get(i));
+            }
+        }
+
+        return doneTasks;
+    }
+
+    /**
+     * Returns the percentage of tasks in the task list which are done already
+     *
+     * @return The percentage of tasks in the task list which are done already
+     */
+    public double statePercentOfTasksDone() {
+        double totalNumOfTasks = this.getNumTasks();
+        double numOfTasksDone = this.listDoneTasks().size();
+        double percentValue = numOfTasksDone / totalNumOfTasks * 100;
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        String formattedNumber = df.format(percentValue);
+        double roundedPercentValue = Double.parseDouble(formattedNumber);
+
+        return roundedPercentValue;
     }
 
     /**
