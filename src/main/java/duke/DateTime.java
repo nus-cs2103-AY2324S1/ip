@@ -30,6 +30,9 @@ public class DateTime {
     public DateTime(String dt) throws DateTimeParseException {
         String[] splt = dt.split(" ");
 
+        // Assert that the splitting results in at most 2 parts (date and time).
+        assert splt.length >= 1 && splt.length <= 2 : "Invalid date-time format";
+
         if (splt.length == 1) {
             this.ld = LocalDate.parse(splt[0], dateFormatter);
         } else if (splt.length == 2) {
@@ -48,6 +51,9 @@ public class DateTime {
      * @return The formatted date string.
      */
     public String getFormattedDate() {
+        // Assert that ld is not null before formatting.
+        assert this.ld != null : "Trying to format a null date";
+
         return this.ld.format(DateTimeFormatter.ofPattern("MM-d-yyyy"));
     }
 
@@ -69,6 +75,9 @@ public class DateTime {
      * @return The formatted string of date-time.
      */
     public String toString() {
+        // Assert that ld is not null before converting to string.
+        assert this.ld != null : "Trying to convert a null date to string";
+
         return getFormattedDate()
                 + ((this.lt == null) ? "" : " " + getFormattedTime());
     }

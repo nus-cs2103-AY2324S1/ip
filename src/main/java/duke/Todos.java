@@ -11,6 +11,10 @@ public class Todos extends Task {
      */
     public Todos(String description) {
         super(description);
+
+        // Assert that the description is not null or empty.
+        assert description != null && !description.trim().isEmpty()
+                : "Description should not be null or empty";
     }
 
     /**
@@ -20,6 +24,10 @@ public class Todos extends Task {
      */
     @Override
     public String getSavingFormat() {
+        // Assert that the description is not null or empty before saving.
+        assert description != null && !description.trim().isEmpty()
+                : "Description should not be null or empty when saving";
+
         return "[T] | [" + getStatusIcon() + "] | " + description;
     }
 

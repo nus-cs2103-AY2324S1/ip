@@ -15,7 +15,9 @@ public class TaskList {
      * Marks a task as done based on its index.
      * @param i The index (1-based) of the task to be marked as done.
      */
-    public String mark(int i) { //need handling
+    public String mark(int i) {
+        assert i > 0 && i <= tasks.size() : "Task index out of bounds!";
+
         tasks.get(i - 1).setDone();
         return "Nice! I've marked this task as done:\n  "
                 + tasks.get(i - 1).toString();
@@ -26,6 +28,8 @@ public class TaskList {
      * @param i The index (1-based) of the task to be marked as not done.
      */
     public String unmark(int i) {
+        assert i > 0 && i <= tasks.size() : "Task index out of bounds!";
+
         tasks.get(i - 1).setNotDone();
         return "OK, I've marked this task as not done yet:\n  "
                 + tasks.get(i - 1).toString();
@@ -35,6 +39,8 @@ public class TaskList {
      * Lists all the tasks currently in the TaskList.
      */
     public String list() {
+        assert counter == tasks.size() : "Mismatch between counter and task list size!";
+
         if (counter == 0) {
             return "There is no task in your list yet.\n";
         } else {
@@ -51,6 +57,8 @@ public class TaskList {
      * @param t The task to be added.
      */
     public String addTask(Task t) {
+        assert t != null : "Task should not be null!";
+
         tasks.add(t);
         counter += 1;
         saveTask(t);
@@ -63,6 +71,8 @@ public class TaskList {
      * @param index The index (1-based) of the task to be removed.
      */
     public String removeTask(int index) {
+        assert index > 0 && index <= tasks.size() : "Task index out of bounds!";
+
         String temp = tasks.get(index - 1).toString();
         tasks.remove(index - 1);
         counter -= 1;
@@ -75,6 +85,8 @@ public class TaskList {
      * @param t The task to be saved.
      */
     public String saveTask(Task t) {
+        assert t != null : "Task should not be null!";
+
         return TaskMaster.storage.write(t.getSavingFormat());
     }
 
@@ -83,6 +95,8 @@ public class TaskList {
      * @param key The keyword to search for within the ArrayList.
      */
     public String findTask(String key) {
+        assert key != null && !key.trim().isEmpty() : "Search key should not be null or empty!";
+
         ArrayList<String> lines = new ArrayList<>();
         for (Task task : tasks) {
             if (task.toString().contains(key)) {
@@ -105,6 +119,8 @@ public class TaskList {
      * @param key The keyword to search for within the storage.
      */
     public String readTask(String key) {
+        assert key != null && !key.trim().isEmpty() : "Search key should not be null or empty!";
+
         if (TaskMaster.storage == null) {
             return "There is no previously saved task!\n";
         } else {
