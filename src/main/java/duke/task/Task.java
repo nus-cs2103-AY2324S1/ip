@@ -37,7 +37,7 @@ public abstract class Task {
      *
      * @param willDisplayMessage Whether to display a message indicating the task was marked as not done.
      */
-    public void unmarkAsDone(boolean willDisplayMessage) {
+    public void unmarkAsDone(boolean willDisplayMessage, Ui ui) {
         this.isDone = false;
         if (willDisplayMessage) {
             System.out.println("\nNice! I've unmarked this task as done:\n  " + this + "\n");

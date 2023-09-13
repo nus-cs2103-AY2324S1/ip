@@ -129,7 +129,7 @@ public class TaskList {
 
         Task task = this.tasks.get(taskNumber - 1);
         assert task != null : "Task should not be null";
-        task.unmarkAsDone(true);
+        task.unmarkAsDone(true, ui);
         storage.modifyTask(taskNumber, task);
     }
 
