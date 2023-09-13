@@ -5,6 +5,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Command used to perform task deletion operations.
  * @author juzzztinsoong
  */
 public class DeleteCommand extends Command {

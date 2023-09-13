@@ -5,6 +5,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Command used to perform find operations.
  * @author juzzztinsoong
  */
 public class FindCommand extends Command {

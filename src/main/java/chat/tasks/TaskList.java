@@ -9,6 +9,7 @@ import chat.exceptions.InvalidNumberException;
 import chat.exceptions.NoSuchEntryException;
 
 /**
+ * Stores the list of tasks and handles all task operations.
  * @author juzzztinsoong
  */
 public class TaskList {
@@ -77,25 +78,26 @@ public class TaskList {
         try {
             if (index < 0 || index + 1 > list.size()) {
                 throw new NoSuchEntryException();
-            } else {
-                // Mark this task as done.
-                if (isDone) {
-                    if (list.get(index).isDone) {
-                        return "This task is already marked as done!\n" + list.get(index).toString();
-                    } else {
-                        list.get(index).setDone(true);
-                        return "This task is now marked as done!\n" + list.get(index).toString();
-                    }
+            } 
+            
+            // Mark this task as done.
+            if (isDone) {
+                if (list.get(index).isDone) {
+                    return "This task is already marked as done!\n" + list.get(index).toString();
                 } else {
-                    // Mark this task as not done.
-                    if (!list.get(index).isDone) {
-                        return "This task is already marked as not done!\n" + list.get(index).toString();
-                    } else {
-                        list.get(index).setDone(false);
-                        return "This task is now marked as not done!\n" + list.get(index).toString();
-                    }
+                    list.get(index).setDone(true);
+                    return "This task is now marked as done!\n" + list.get(index).toString();
                 }
+            } 
+            
+            // Mark this task as not done.
+            if (!list.get(index).isDone) {
+                return "This task is already marked as not done!\n" + list.get(index).toString();
+            } else {
+                list.get(index).setDone(false);
+                return "This task is now marked as not done!\n" + list.get(index).toString();
             }
+
         } catch (NumberFormatException e) {
             throw new InvalidNumberException();
         }
@@ -113,12 +115,13 @@ public class TaskList {
         try {
             if (index < 0 || index + 1 > list.size()) {
                 throw new NoSuchEntryException();
-            } else {
-                String tempString = list.get(index).toString();
-                list.remove(index);
-                return String.format("I've removed this task:\n%s\nNow you have %d task(s) in the list.", tempString,
-                        list.size());
-            }
+            } 
+            
+            String tempString = list.get(index).toString();
+            list.remove(index);
+            return String.format("I've removed this task:\n%s\nNow you have %d task(s) in the list.", tempString,
+                    list.size());
+
         } catch (NumberFormatException e) {
             throw new InvalidNumberException();
         }
@@ -165,10 +168,6 @@ public class TaskList {
         return returnString;
     }
 
-    public boolean isEmpty() {
-        return list.size() == 0;
-    }
-
     /**
      * Removes and retreives the first item in the list to save to file.
      * @return String containing the file
@@ -179,6 +178,10 @@ public class TaskList {
             tempList[i] = list.get(i).toFileString();
         }
         return tempList;
+    }
+
+    public boolean isEmpty() {
+        return list.size() == 0;
     }
 
     public int getSize() {

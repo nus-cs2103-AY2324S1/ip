@@ -5,6 +5,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Command used to mark tasks as done or not done.
  * @author juzzztinsoong
  */
 public class MarkDoneCommand extends Command {

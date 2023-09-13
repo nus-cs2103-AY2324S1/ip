@@ -8,6 +8,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Command used to perform deadline operations.
  * @author juzzztinsoong
  */
 public class DeadlineCommand extends TaskCommand {

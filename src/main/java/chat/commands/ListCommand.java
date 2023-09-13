@@ -4,6 +4,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Command used to perform list operations.
  * @author juzzztinsoong
  */
 public class ListCommand extends Command {

@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
+ * DialogBox Controller for Chat GUI.
  * @author juzzztinsoong
  */
 public class DialogBox extends HBox {
