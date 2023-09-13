@@ -7,6 +7,7 @@ import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.ReminderCommand;
 import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 
@@ -41,6 +42,8 @@ public class Parser {
             return new DeleteCommand();
         case "find":
             return new FindCommand();
+        case "reminders":
+            return new ReminderCommand();
         default:
             throw new DukeException("Unknown Command!");
         }

@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 
 
@@ -141,6 +143,24 @@ public class TaskList {
             if (tasks.get(i).contains(keyword)) {
                 stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
                 stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Find the nearest deadline or event.
+     *
+     * @return list of the nearest task.
+     * @throws DukeException
+     */
+    public String findNearest() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof Deadline || tasks.get(i) instanceof Event) {
+                stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
+                break;
             }
         }
         return stringBuilder.toString();
