@@ -1,12 +1,15 @@
 package command;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 
-import java.util.ArrayList;
-
+/**
+ * A command to generate statistics on the tasks.
+ */
 public class StatisticsCommand extends Command {
     /**
      * Command to get statistics on tasks.

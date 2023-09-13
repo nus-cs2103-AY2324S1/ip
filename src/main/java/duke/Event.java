@@ -64,7 +64,7 @@ public class Event extends Task {
     @Override
     public boolean isBetween(LocalDate left, LocalDate right) {
         LocalDate toDate = this.to.toLocalDate();
-        return this.getDone() && (toDate.isEqual(left) || toDate.isEqual(right) ||
-                (toDate.isAfter(left) && toDate.isBefore(right)));
+        return this.getDone() && (toDate.isEqual(left) || toDate.isEqual(right)
+                || (toDate.isAfter(left) && toDate.isBefore(right)));
     }
 }
