@@ -38,7 +38,7 @@ public class Ui {
     public static String showTaskAdded(Task task, int totalTasks) {
         return "Got it! I've added this task:\n"
                 + "  " + task + "\n"
-                + "Now you have " + totalTasks + (totalTasks == 1 ? " task" : " tasks")
+                + "Now you have " + totalTasks + (totalTasks <= 1 ? " task" : " tasks")
                 + " in the list.\n";
     }
 
@@ -52,7 +52,7 @@ public class Ui {
     public static String showTaskRemoved(Task task, int totalTasks) {
         return "Sure thing! I've removed this task:\n"
                 + "  " + task + "\n"
-                + "Now you have " + totalTasks + (totalTasks == 1 ? " task" : " tasks")
+                + "Now you have " + totalTasks + (totalTasks <= 1 ? " task" : " tasks")
                 + " in the list.\n";
     }
 
@@ -120,5 +120,75 @@ public class Ui {
             }
             return message.toString();
         }
+    }
+
+    /**
+     * Returns a message indicating that there is no valid command to undo.
+     *
+     * @return A string indicating that there is nothing to undo.
+     */
+    public static String showCannotUndo() {
+        return "Hmm... There is no valid command I can undo.\n";
+    }
+
+    /**
+     * Returns a message indicating that a delete command has been undone.
+     *
+     * @param task The task that was added back.
+     * @return A string indicating the success of undoing a delete command.
+     */
+    public static String showUndoDeleteCommand(String task) {
+        return "Okay... I've re-added back this task:\n"
+                + "    " + task;
+    }
+
+    /**
+     * Returns a message indicating that a mark command has been undone.
+     *
+     * @return A string indicating the success of undoing a mark command.
+     */
+    public static String showUndoMarkCommand(Task task) {
+        return "Okay... I've re-updated the task to be not done.\n"
+                + "    " + task;
+    }
+
+    /**
+     * Returns a message indicating that an unmark command has been undone.
+     *
+     * @return A string indicating the success of undoing an unmark command.
+     */
+    public static String showUndoUnmarkCommand(Task task) {
+        return "Okay... I've re-updated the task to be done.\n"
+                + "    " + task;
+    }
+
+    /**
+     * Returns a message indicating that a to-do command has been undone.
+     *
+     * @return A string indicating the success of undoing a to-do command.
+     */
+    public static String showUndoToDoCommand(Task task) {
+        return "Okay... I've deleted the recently added task:\n"
+                + "    " + task;
+    }
+
+    /**
+     * Returns a message indicating that an event command has been undone.
+     *
+     * @return A string indicating the success of undoing an event command.
+     */
+    public static String showUndoEventCommand(Task task) {
+        return "Okay... I've deleted the recently added task.\n"
+                + "    " + task;
+    }
+
+    /**
+     * Returns a message indicating that a deadline command has been undone.
+     *
+     * @return A string indicating the success of undoing a deadline command.
+     */
+    public static String showUndoDeadlineCommand(Task task) {
+        return "Okay... I've deleted the recently added task:\n"
+                + "    " + task;
     }
 }

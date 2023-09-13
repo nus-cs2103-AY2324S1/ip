@@ -9,7 +9,7 @@ import arona.ui.Ui;
  * the specified task as done, updates its status in storage, and displays a
  * confirmation message.
  */
-public class MarkCommand extends Command {
+public class MarkCommand extends Command implements UndoableCommand {
     private Storage storage;
     private int taskIndex;
 
@@ -43,5 +43,27 @@ public class MarkCommand extends Command {
         taskList.getTasks().get(taskIndex).mark();
         storage.updateTaskStatusAsMarked(taskIndex);
         return ui.showTaskMarkedAsDone(taskList.getTasks().get(taskIndex));
+    }
+
+    /**
+     * Reverses the mark action by unmarking the specified task in the task list,
+     * updating its status in storage, and displaying the result to the user.
+     *
+     * @return A string message indicating the result of the undo operation.
+     */
+    @Override
+    public String undo() {
+        taskList.getTasks().get(taskIndex).unMark();
+        storage.updateTaskStatusAsUnmarked(taskIndex);
+        return ui.showUndoMarkCommand(taskList.getTasks().get(taskIndex));
+    }
+
+    /**
+     * Retrieves the task index associated with this MarkCommand.
+     *
+     * @return The task index.
+     */
+    public int getTaskIndex() {
+        return taskIndex;
     }
 }

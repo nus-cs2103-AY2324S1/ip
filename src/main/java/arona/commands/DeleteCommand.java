@@ -10,9 +10,10 @@ import arona.ui.Ui;
  * specified task from the task list, deletes it from storage, and displays a
  * confirmation message to the user interface.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements UndoableCommand {
     private Storage storage;
     private int taskIndex;
+    private Task deletedTask;
 
     /**
      * Initializes a new instance of the DeleteCommand class with the specified
@@ -40,9 +41,33 @@ public class DeleteCommand extends Command {
         if (taskIndex < 0 || taskIndex >= taskList.getTasks().size()) {
             return ui.showTaskDoesNotExist();
         }
+
         Task task = taskList.getTasks().get(taskIndex);
+        deletedTask = task; // Store the deleted task for potential undo
         taskList.getTasks().remove(taskIndex);
         storage.deleteTask(taskIndex);
         return ui.showTaskRemoved(task, taskList.getTasks().size());
+    }
+
+
+    /**
+     * Reverses the "Delete" action by restoring the previously deleted task to the task list,
+     * updating the task list and storage, and displaying a confirmation message.
+     *
+     * @return A string message indicating the result of the undo operation.
+     */
+    @Override
+    public String undo() {
+        taskList.getTasks().add(taskIndex, deletedTask);
+        return ui.showUndoDeleteCommand(deletedTask.toString());
+    }
+
+    /**
+     * Retrieves the task index associated with this DeleteCommand.
+     *
+     * @return The task index.
+     */
+    public int getTaskIndex() {
+        return taskIndex;
     }
 }
