@@ -46,6 +46,7 @@ public class AddEvent extends Command {
                 LocalDate dFrom = LocalDate.parse(temp[1].substring(5));
                 LocalDate dTo = LocalDate.parse(temp[2].substring(3));
                 Task newTask = lst.addTask(temp[0].substring(1), dFrom, dTo);
+                assert newTask != null : "Task should not be null";
 
                 storage.addToFile(newTask);
                 return io.addTask(newTask, lst);

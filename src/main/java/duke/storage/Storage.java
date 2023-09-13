@@ -73,6 +73,7 @@ public class Storage {
     private Task existTasks(String s) throws DukeException{
         String[] temp = s.split(" \\| ");
         int n = temp.length;
+        assert n >= 2 : "Task should have at least 2 parts";
         Task t;
         if (n == 2) {
             t = Task.of(temp[1]);

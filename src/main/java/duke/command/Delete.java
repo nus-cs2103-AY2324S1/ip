@@ -37,7 +37,9 @@ public class Delete extends Command {
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         try {
             int index = CommonMethods.getIndex(str);
+            assert index >= 0 : "Index should be non-negative";
             Task t = lst.delete(index);
+            assert t != null : "Task should not be null";
             storage.changeFile(lst);
             return io.delete(t);
         } catch (IOException iE) {

@@ -43,6 +43,7 @@ public class AddDeadline extends Command {
             try {
                 LocalDate d = LocalDate.parse(temp[1]);
                 Task newTask = lst.addTask(temp[0].substring(1), d);
+                assert newTask != null : "Task should not be null";
 
                 storage.addToFile(newTask);
                 return io.addTask(newTask, lst);
