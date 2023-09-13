@@ -69,4 +69,14 @@ public class TaskList {
         return removedTask;
     }
 
+    public TaskList findTasks(String taskKeywords) {
+        TaskList searchResults = new TaskList();
+        for (int i = 0; i < this.getSize(); i++) {
+            Task task = this.getTask(i);
+            if (task.containKeywords(taskKeywords)) {
+                searchResults.addTask(task);
+            }
+        }
+        return searchResults;
+    }
 }

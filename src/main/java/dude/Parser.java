@@ -47,6 +47,9 @@ public class Parser {
             c = new AddEventCommand(taskDescription, fromDateTime, toDateTime);
             // if (userInputDetails.length == 1) {
             // System.out.println("OOPS!!! The description of an event cannot be empty.");
+        } else if (commandType.equals("find")) {
+            String searchKeywords = commandDetails[1].trim();
+            c = new FindCommand(searchKeywords);
         } else {
             c = new UnknownCommand();
         }
