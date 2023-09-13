@@ -1,9 +1,11 @@
 package command;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import helper.Storage;
 import helper.Ui;
+import task.Task;
 import task.TaskList;
 
 /**
@@ -34,7 +36,17 @@ public class DueCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
         assert !list.equals(null): "list has been initialised";
-        String message = list.dueOn(dueDate);
-        return message;
+        List<Task> dueList = list.dueOn(dueDate);
+        StringBuilder message = new StringBuilder();
+
+        if (dueList.isEmpty()) {
+            message.append("Nothing to see here...");
+        } else {
+            message.append("ALERT!! Due on " + dueDate);
+            for (Task t : dueList) {
+                message.append("\n" + t.toString());
+            }
+        }
+        return message.toString();
     }
 }

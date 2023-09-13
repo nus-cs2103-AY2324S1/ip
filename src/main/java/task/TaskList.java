@@ -99,28 +99,17 @@ public class TaskList {
     }
 
     /**
-     * Returns a String representation of the list of Task due on the
-     * LocalDate specified by the User.
+     * Returns the list of Task due on the LocalDate specified by the User.
      * @param due
-     * @return a String representation of the list of Task due
+     * @return a list of Task due
      */
-    public String dueOn(LocalDate due) {
+    public List<Task> dueOn(LocalDate due) {
         List<Task> dueList = list.stream()
                 .filter(task -> (task instanceof Deadline))
                 .filter(deadline -> ((Deadline) deadline).by.equals(due))
                 .collect(Collectors.toList());
 
-        if (dueList.isEmpty()) {
-            return "Nothing to see here...";
-        } else {
-            StringBuilder s = new StringBuilder("ALERT!! Due on " + due);
-
-            for (Task t : dueList) {
-                s.append("\n" + t.toString());
-            }
-
-            return s.toString();
-        }
+        return dueList;
     }
 
     /**
