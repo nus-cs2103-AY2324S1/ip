@@ -3,6 +3,7 @@ package roo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import roo.RooException;
 
@@ -20,8 +21,8 @@ public class Event extends Task {
      * @param end End date and time of the event with dd-MM-yyyy HH:mm format.
      * @throws RooException If the dates are empty or consist only of spaces.
      */
-    public Event(String task, String start, String end) throws RooException {
-        super(task, false);
+    public Event(String task, String start, String end, ArrayList<String> tags) throws RooException {
+        super(task, false, tags);
         this.check(task, start, end);
     }
 
@@ -34,8 +35,8 @@ public class Event extends Task {
      * @param isFinish The completion status of the task.
      * @throws RooException If the dates are empty or consist only of spaces.
      */
-    public Event(String task, String start, String end, boolean isFinish) throws RooException {
-        super(task, isFinish);
+    public Event(String task, String start, String end, boolean isFinish, ArrayList<String> tags) throws RooException {
+        super(task, isFinish, tags);
         this.check(task, start, end);
     }
 

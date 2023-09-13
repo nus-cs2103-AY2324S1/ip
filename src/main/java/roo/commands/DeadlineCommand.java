@@ -1,15 +1,20 @@
 package roo.commands;
 
+import java.util.ArrayList;
+
+import roo.task.Deadline;
 import roo.TaskList;
 import roo.Ui;
 import roo.RooException;
-import roo.task.*;
 
 public class DeadlineCommand extends Command {
     private String input;
+    private ArrayList<String> tags;
 
-    public DeadlineCommand(String input) {
+
+    public DeadlineCommand(String input, ArrayList<String> tags) {
         this.input = input;
+        this.tags = tags;
     }
 
     @Override
@@ -20,7 +25,7 @@ public class DeadlineCommand extends Command {
                         + "\"deadline task_description /by dd-MM-yyyy HH:mm (deadline)\"\n";
             }
             String tk = input.substring(8, input.indexOf("/") - 1);
-            return ui.add(new Deadline(tk, input.substring(input.indexOf("/by") + 4)));
+            return ui.add(new Deadline(tk, input.substring(input.indexOf("/by") + 4), this.tags));
         } catch (RooException exception) {
             return exception.getMessage();
         }

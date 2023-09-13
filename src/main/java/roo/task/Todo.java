@@ -1,6 +1,7 @@
 package roo.task;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import roo.RooException;
 
@@ -14,8 +15,8 @@ public class Todo extends Task {
      * @param task The description of the todo task.
      * @throws RooException If the task description is empty or consists only of spaces.
      */
-    public Todo(String task) throws RooException {
-        super(task, false);
+    public Todo(String task, ArrayList<String> tags) throws RooException {
+        super(task, false, tags);
     }
 
     /**
@@ -24,8 +25,8 @@ public class Todo extends Task {
      * @param isFinish The completion status of the task.
      * @throws RooException If the task description is empty or consists only of spaces.
      */
-    public Todo(String task, boolean isFinish) throws RooException {
-        super(task, isFinish);
+    public Todo(String task, boolean isFinish, ArrayList<String> tags) throws RooException {
+        super(task, isFinish, tags);
     }
 
     /**

@@ -1,15 +1,19 @@
 package roo.commands;
 
+import java.util.ArrayList;
+
+import roo.task.Event;
 import roo.TaskList;
 import roo.Ui;
 import roo.RooException;
-import roo.task.*;
 
 public class EventCommand extends Command {
     private String input;
+    private ArrayList<String> tags;
 
-    public EventCommand(String input) {
+    public EventCommand(String input, ArrayList<String> tags) {
         this.input = input;
+        this.tags = tags;
     }
 
     @Override
@@ -23,7 +27,7 @@ public class EventCommand extends Command {
             String ts = input.substring(5, input.indexOf("/from") - 1);
             String start = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
             String end = input.substring(input.indexOf("/to") + 4);
-            return ui.add(new Event(ts, start, end));
+            return ui.add(new Event(ts, start, end, this.tags));
         } catch (RooException exception) {
             return exception.getMessage();
         }

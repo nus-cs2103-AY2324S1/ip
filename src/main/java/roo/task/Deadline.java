@@ -3,8 +3,9 @@ package roo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
-import roo.*;
+import roo.RooException;
 
 /**
  * Represents a task with deadline.
@@ -18,8 +19,8 @@ public class Deadline extends Task {
      * @param date Deadline of the task with dd-MM-yyyy HH:mm format.
      * @throws RooException If the date is empty or consists only of spaces.
      */
-    public Deadline(String task, String date) throws RooException {
-        super(task, false);
+    public Deadline(String task, String date, ArrayList<String> tags) throws RooException {
+        super(task, false, tags);
         this.check(task, date);
     }
 
@@ -30,8 +31,8 @@ public class Deadline extends Task {
      * @param isFinish The completion status of the task.
      * @throws RooException If the date is empty or consists only of spaces.
      */
-    public Deadline(String task, String date, boolean isFinish) throws RooException {
-        super(task, isFinish);
+    public Deadline(String task, String date, boolean isFinish, ArrayList<String> tags) throws RooException {
+        super(task, isFinish, tags);
         this.check(task, date);
     }
 

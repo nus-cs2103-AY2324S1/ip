@@ -1,6 +1,7 @@
 package roo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import roo.task.Task;
 
@@ -94,6 +95,11 @@ public class Ui {
     public String delete(int index) {
         return "Okay!! Task \"" + tasks.delete(index) + "\" removed :) "
                 + "You still have " + (tasks.size()) + " tasks in the list\n";
+    }
+
+    public String tag(int index, ArrayList<String> input) {
+        tasks.tag(index, input);
+        return "Okay, tag added to " + tasks.taskDetails(index);
     }
 
     /**
