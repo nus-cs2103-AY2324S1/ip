@@ -1,0 +1,22 @@
+a
+b
+deadline /by today
+todo sleep
+list
+unmark 1
+event festival /from today /to tommorow
+mark 2
+mark 3
+mark my answer
+list
+unmark 3
+list
+deadline
+todo
+deadline a /by x
+event
+event /to y
+list
+delete 2
+list
+bye
