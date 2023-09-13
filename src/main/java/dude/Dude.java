@@ -1,16 +1,23 @@
 package dude;
 
+import java.io.FileNotFoundException;
+
 import dude.command.Command;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+/**
+ * Dude is a programme that allows users to manage their tasks.
+ */
 
 public class Dude {
 
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
-    static int nTasks = 0;
+
+    /**
+     * Constructor for Dude that takes in a file path to storage file.
+     * @param filePath Path to storage file.
+     */
 
     public Dude(String filePath) {
         this.ui = new Ui();
@@ -24,6 +31,9 @@ public class Dude {
         }
     }
 
+    /**
+     * Method that runs the Dude programme.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -41,7 +51,12 @@ public class Dude {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    /**
+     * Main method for Dude. Start the programme here.
+     * @param args
+     */
+
+    public static void main(String[] args) {
         new Dude("data/dude.txt").run();
     }
 }

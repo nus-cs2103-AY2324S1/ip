@@ -1,8 +1,8 @@
 package dude;
 
-import dude.task.Task;
-
 import java.util.ArrayList;
+
+import dude.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -73,6 +73,11 @@ public class TaskList {
         return removedTask;
     }
 
+    /**
+     * Finds tasks in list that contain specified keyword(s).
+     *
+     * @param taskKeywords Keywords used to search for tasks.
+     */
     public TaskList findTasks(String taskKeywords) {
         TaskList searchResults = new TaskList();
         for (int i = 0; i < this.getSize(); i++) {

@@ -3,14 +3,18 @@ package dude.command;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
-import dude.task.ToDo;
 
-import java.io.IOException;
-
+/**
+ * Represents a command that finds tasks by keywords.
+ */
 public class FindCommand extends Command {
 
     private String searchKeywords;
 
+    /**
+     * Creates a Find Command that finds tasks by specified keywords.
+     * @param searchKeywords Keywords used in search for tasks.
+     */
     public FindCommand(String searchKeywords) {
         this.searchKeywords = searchKeywords;
     }

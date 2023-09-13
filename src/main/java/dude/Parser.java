@@ -1,24 +1,25 @@
 package dude;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import dude.command.AddDeadlineCommand;
 import dude.command.AddEventCommand;
 import dude.command.AddToDoCommand;
 import dude.command.Command;
 import dude.command.DeleteCommand;
 import dude.command.ExitCommand;
+import dude.command.FindCommand;
 import dude.command.ListCommand;
 import dude.command.MarkCommand;
 import dude.command.UnknownCommand;
 import dude.command.UnmarkCommand;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Represents a parser that parses user input and deals with making sense of the user command.
  */
 public class Parser {
-    private static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
      * Parses the user's input and returns the corresponding command.
@@ -31,7 +32,7 @@ public class Parser {
         String commandType = commandDetails[0];
         Command c;
 
-        if (commandType.equals("bye")){
+        if (commandType.equals("bye")) {
             c = new ExitCommand();
         } else if (commandType.equals("list")) {
             c = new ListCommand();

@@ -1,12 +1,12 @@
 package dude.command;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
 import dude.task.Event;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
 
 /**
  * Represents a command that adds an Event task.
@@ -16,6 +16,12 @@ public class AddEventCommand extends Command {
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
+    /**
+     * Creates an Add Event Command to add an event to the list.
+     * @param taskDescription Short description of event to be added.
+     * @param fromDateTime Starting time of event.
+     * @param toDateTime Ending time of event.
+     */
     public AddEventCommand(String taskDescription, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         this.taskDescription = taskDescription;
         this.fromDateTime = fromDateTime;

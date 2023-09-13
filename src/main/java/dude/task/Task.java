@@ -34,14 +34,14 @@ public class Task {
         return "task";
     }
 
-    public String saveTask () {
+    public String saveTask() {
         return this.description;
     }
-  
-    public boolean containKeywords(String keywords){
+
+    public boolean containKeywords(String keywords) {
         return this.description.contains(keywords);
     }
-  
+
     /**
      * Returns a formatted string representation of the task.
      *

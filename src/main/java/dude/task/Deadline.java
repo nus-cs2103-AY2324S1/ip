@@ -10,7 +10,7 @@ import java.util.Locale;
  * and <code>LocalDateTime</code> due time.
  */
 public class Deadline extends Task {
-    LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructs a new Deadline object with the specified description and due time.

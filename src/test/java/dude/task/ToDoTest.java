@@ -1,11 +1,12 @@
 package dude.task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
     @Test
-    public void createDeadlineTest(){
+    public void createDeadlineTest() {
         String description = "Homework";
         ToDo todo = new ToDo(description);
         String expected = "[T][ ] Homework";
