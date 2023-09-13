@@ -78,9 +78,7 @@ public class Parser {
                 } else {
                     throw new DukeException("Please add the task name");
                 }
-            } catch (DukeUnknownCommandException e) {
-                throw new DukeNullPointerException("The format for the command is: deadline task /by date&time");
-            } catch (NullPointerException e) {
+            } catch (DukeUnknownCommandException | NullPointerException e) {
                 throw new DukeNullPointerException("The format for the command is: deadline task /by date&time");
             }
 
@@ -104,15 +102,12 @@ public class Parser {
                 } else {
                     throw new DukeException("Please add the task name");
                 }
-            } catch (DukeUnknownCommandException e) {
-                throw new DukeNullPointerException("The format for the command is: "
-                        + "event task /from startDayDateTime /to endDayDateTime");
-            } catch (NullPointerException e) {
+            } catch (DukeUnknownCommandException | NullPointerException e) {
                 throw new DukeNullPointerException("The format for the command is: "
                         + "event task /from startDayDateTime /to endDayDateTime");
             }
         default:
-
+            // Throw error after default as it functions as a return too.
         }
         throw new DukeUnknownCommandException("Unknown command");
     }
@@ -142,8 +137,6 @@ public class Parser {
             return Commands.CommandEnum.FROM;
         case ("to"):
             return Commands.CommandEnum.TO;
-        case ("sort"):
-            return Commands.CommandEnum.SORT;
         case ("find"):
             return Commands.CommandEnum.FIND;
         default:
