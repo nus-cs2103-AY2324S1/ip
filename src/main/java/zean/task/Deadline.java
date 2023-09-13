@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import zean.exception.DukeException;
+import zean.exception.ZeanException;
 
 /**
  * The class representing a deadline task.
@@ -17,30 +17,16 @@ public class Deadline extends Task {
     /**
      * Constructor for the deadline task.
      *
+     * @param bool The completion status of the deadline task.
      * @param description The description of the deadline task.
      * @param by The due date of the deadline task.
      */
-    public Deadline(String description, String by) throws DukeException {
-        super(description.strip());
+    public Deadline(String bool, String description, String by) throws ZeanException {
+        super(bool, description.strip());
         try {
             this.by = LocalDate.parse(by.strip());
         } catch (DateTimeParseException e) {
-            throw new DukeException("The date is invalid!");
-        }
-    }
-
-    /**
-     * Constructor for the deadline task.
-     *
-     * @param bool The completion status of the deadline task.
-     * @param description The description of the deadline task.
-     * @param by The due date of the deadline task in the format YYYY-MM-DD.
-     */
-    public Deadline(String bool, String description, String by) {
-        super(description.strip());
-        this.by = LocalDate.parse(by.strip());
-        if (Integer.parseInt(bool) == 1) {
-            this.isDone = true;
+            throw new ZeanException("The date is invalid!");
         }
     }
 

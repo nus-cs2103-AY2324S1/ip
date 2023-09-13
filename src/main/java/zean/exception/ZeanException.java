@@ -5,9 +5,9 @@ package zean.exception;
  *
  * @author Zhong Han
  */
-public class DukeException extends RuntimeException {
+public class ZeanException extends RuntimeException {
 
-    public DukeException(String message) {
+    public ZeanException(String message) {
         super(message);
     }
 

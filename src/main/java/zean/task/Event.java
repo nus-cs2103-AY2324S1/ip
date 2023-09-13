@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import zean.exception.DukeException;
+import zean.exception.ZeanException;
 
 /**
  * The class that represents an event task.
@@ -22,33 +22,16 @@ public class Event extends Task {
      * @param from The start time/date of the event task.
      * @param to The end time/date of the event task.
      */
-    public Event(String description, String from, String to) throws DukeException {
-        super(description.strip());
+    public Event(String bool, String description, String from, String to) throws ZeanException {
+        super(bool, description.strip());
         try {
             this.from = LocalDate.parse(from.strip());
             this.to = LocalDate.parse(to.strip());
             if (this.to.isBefore(this.from)) {
-                throw new DukeException("The end date is before the start date!");
+                throw new ZeanException("The end date is before the start date!");
             }
         } catch (DateTimeParseException e) {
-            throw new DukeException("The date is invalid!");
-        }
-    }
-
-    /**
-     * Constructor for the event task.
-     *
-     * @param bool The completion status of the event task.
-     * @param description The description of the event task.
-     * @param from The due date of the deadline task in the format YYYY-MM-DD.
-     * @param to The due date of the deadline task in the format YYYY-MM-DD.
-     */
-    public Event(String bool, String description, String from, String to) {
-        super(description.strip());
-        this.from = LocalDate.parse(from.strip());
-        this.to = LocalDate.parse(to.strip());
-        if (Integer.parseInt(bool) == 1) {
-            this.isDone = true;
+            throw new ZeanException("The date is invalid!");
         }
     }
 

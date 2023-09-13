@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import zean.exception.DukeException;
+import zean.exception.ZeanException;
 
 /**
  * The main class for the chatbot.
@@ -17,7 +17,7 @@ public class Zean {
     private TaskList tasks;
     private Storage storage;
 
-    private String initErrorMsg = "";
+    private String initMsg = "";
 
     /**
      * Empty constructor.
@@ -36,21 +36,24 @@ public class Zean {
         try {
             this.storage = new Storage(filePath);
             this.tasks = new TaskList(this.storage);
+            if (!this.storage.getCreateFileMsg().isBlank()) {
+                this.initMsg = this.storage.getCreateFileMsg();
+            }
         } catch (FileNotFoundException e) {
-            this.initErrorMsg = "OOPS! Something went wrong with the file."
+            this.initMsg = "OOPS! Something went wrong with the file."
                     + "\nShutting down now...";
         } catch (IOException e) {
-            this.initErrorMsg = "OOPS! The file cannot be created.\nShutting down now...";
+            this.initMsg = "OOPS! The file cannot be created.\nShutting down now...";
         } catch (SecurityException e) {
-            this.initErrorMsg = "OOPS! The file cannot be written due to invalid access."
+            this.initMsg = "OOPS! The file cannot be written due to invalid access."
                     + "\nShutting down now...";
-        } catch (DukeException e) {
-            this.initErrorMsg = e.getMessage();
+        } catch (ZeanException e) {
+            this.initMsg = e.getMessage();
         }
     }
 
-    public String getInitErrorMsg() {
-        return this.initErrorMsg;
+    public String getInitMsg() {
+        return this.initMsg;
     }
 
     /**
@@ -67,7 +70,7 @@ public class Zean {
             }
             try {
                 this.ui.printOutput(Parser.parse(input, this.tasks));
-            } catch (DukeException e) {
+            } catch (ZeanException e) {
                 this.ui.showError(e.getMessage());
             }
         }
@@ -89,7 +92,7 @@ public class Zean {
         }
         try {
             output = Parser.parse(input, this.tasks);
-        } catch (DukeException e) {
+        } catch (ZeanException e) {
             output = e.getMessage();
         }
         return output;

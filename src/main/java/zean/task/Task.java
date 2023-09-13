@@ -1,5 +1,7 @@
 package zean.task;
 
+import zean.exception.ZeanException;
+
 /**
  * The class that represents a task.
  *
@@ -12,11 +14,16 @@ public class Task {
     /**
      * Constructor for the task.
      *
+     * @param bool The completion status of the event task.
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String bool, String description) {
+        boolean isValidDoneStatus = Integer.parseInt(bool) == 0 || Integer.parseInt(bool) == 1;
+        if (!isValidDoneStatus) {
+            throw new ZeanException("Invalid format of data!");
+        }
         this.description = description;
-        this.isDone = false;
+        this.isDone = Integer.parseInt(bool) == 1;
     }
 
     /**

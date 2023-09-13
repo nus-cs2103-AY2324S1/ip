@@ -2,7 +2,7 @@ package zean;
 
 import java.util.ArrayList;
 
-import zean.exception.DukeException;
+import zean.exception.ZeanException;
 import zean.task.Deadline;
 import zean.task.Event;
 import zean.task.Task;
@@ -46,7 +46,7 @@ public class TaskList {
      * @return The output to be printed on the console.
      */
     public String add(String description) {
-        Todo task = new Todo(description);
+        Todo task = new Todo("0", description);
         this.tasks.add(task);
         this.count++;
         this.storage.addToDisk(task);
@@ -61,7 +61,7 @@ public class TaskList {
      * @return The output to be printed on the console.
      */
     public String add(String description, String by) {
-        Deadline task = new Deadline(description, by);
+        Deadline task = new Deadline("0", description, by);
         this.tasks.add(task);
         this.count++;
         this.storage.addToDisk(task);
@@ -77,7 +77,7 @@ public class TaskList {
      * @return The output to be printed on the console.
      */
     public String add(String description, String from, String to) {
-        Event task = new Event(description, from, to);
+        Event task = new Event("0", description, from, to);
         this.tasks.add(task);
         this.count++;
         this.storage.addToDisk(task);
@@ -96,13 +96,12 @@ public class TaskList {
     public String list() {
         if (this.count == 0) {
             return "There are currently no tasks in your list:\n";
-        } else {
-            StringBuilder output = new StringBuilder("As requested, here are the tasks in your list:\n");
-            for (int i = 0; i < this.count; i++) {
-                output.append(String.format("%d.%s\n", i + 1, this.tasks.get(i)));
-            }
-            return output.toString();
         }
+        StringBuilder output = new StringBuilder("As requested, here are the tasks in your list:\n");
+        for (int i = 0; i < this.count; i++) {
+            output.append(String.format("%d.%s\n", i + 1, this.tasks.get(i)));
+        }
+        return output.toString();
     }
 
     /**
@@ -110,11 +109,11 @@ public class TaskList {
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @return The output to be printed on the console.
-     * @throws DukeException An exception related to the chatbot.
+     * @throws ZeanException An exception related to the chatbot.
      */
-    public String markTaskDone(int index) throws DukeException {
+    public String markTaskDone(int index) throws ZeanException {
         if (index > this.count || index <= 0) {
-            throw new DukeException("Hmm, this task does not exist :|");
+            throw new ZeanException("Hmm, this task does not exist :|");
         }
         String taskOutput = this.tasks.get(index - 1).markTaskDone();
         this.storage.rewriteToDisk(this.tasks);
@@ -126,11 +125,11 @@ public class TaskList {
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @return The output to be printed on the console.
-     * @throws DukeException An exception related to the chatbot.
+     * @throws ZeanException An exception related to the chatbot.
      */
     public String markTaskNotDone(int index) {
         if (index > this.count || index <= 0) {
-            throw new DukeException("Hmm, this task does not exist :|");
+            throw new ZeanException("Hmm, this task does not exist :|");
         }
         String taskOutput = this.tasks.get(index - 1).markTaskNotDone();
         this.storage.rewriteToDisk(this.tasks);
@@ -151,11 +150,11 @@ public class TaskList {
      *
      * @param index The index of the task seen by the user, which starts from 1.
      * @return The output to be printed on the console.
-     * @throws DukeException An exception related to the chatbot.
+     * @throws ZeanException An exception related to the chatbot.
      */
-    public String deleteTask(int index) throws DukeException {
+    public String deleteTask(int index) throws ZeanException {
         if (index < 1 || index > this.count) {
-            throw new DukeException("Hmm, this task does not exist :|");
+            throw new ZeanException("Hmm, this task does not exist :|");
         }
         this.tasks.remove(index - 1);
         this.count--;
@@ -178,12 +177,11 @@ public class TaskList {
         });
         if (subList.isEmpty()) {
             return "There are no matching tasks in your list.";
-        } else {
-            StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < subList.size(); i++) {
-                output.append(String.format("%d.%s\n", i + 1, subList.get(i)));
-            }
-            return output.toString();
         }
+        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < subList.size(); i++) {
+            output.append(String.format("%d.%s\n", i + 1, subList.get(i)));
+        }
+        return output.toString();
     }
 }
