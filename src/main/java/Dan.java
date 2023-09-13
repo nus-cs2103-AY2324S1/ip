@@ -1,4 +1,5 @@
 import dan.command.Command;
+import dan.command.ExitCommand;
 import dan.exceptions.DanException;
 import dan.task.TaskList;
 
@@ -16,7 +17,7 @@ public class Dan {
             storage = new Storage(filePath);
             tasks = storage.load();
         } catch (DanException e) {
-            ui.showLoadingError();
+            ui.showError(e);
             tasks = new TaskList();
             storage.init(tasks);
         }
@@ -32,16 +33,19 @@ public class Dan {
     public void run() {
         ui.hello();
         chat();
-        ui.goodbye();
     }
 
     private void chat() {
-        Command command;
-        while (true) {
-            command = ui.getCommand();
-            command.op(tasks);
-            storage.checkChange(tasks);
-            ui.afterCommand(command, tasks);
+        Command command = null;
+        while (!(command instanceof ExitCommand)) {
+            try {
+                command = ui.getCommand();
+                command.op(tasks);
+                storage.checkChange(tasks);
+                ui.afterCommand(command, tasks);
+            } catch (DanException e) {
+                ui.showError(e);
+            }
         }
     }
 
