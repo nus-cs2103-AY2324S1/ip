@@ -29,7 +29,6 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-
             return new MarkCommand(checkNumber(commands[1]));
         case "unmark":
             return new UnmarkCommand(checkNumber(commands[1]));

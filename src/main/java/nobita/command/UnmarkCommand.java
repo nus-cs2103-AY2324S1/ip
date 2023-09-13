@@ -40,6 +40,7 @@ public class UnmarkCommand extends Command{
         if (tasks.checkIndexWithinRange(index)) {
             throw new NobitaException("Selected task number not in list");
         }
+        assert index > 0 && index <= tasks.getTasksSize() : "Index should be within tasks range";
         Task task = tasks.markIncomplete(index);
         String outputMessage = "OK, I've marked this task as not done yet:\n" + task;
         ui.showMessage(outputMessage);
