@@ -30,6 +30,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        assert this.filePath != null; // This ensures that there is a valid path to the file.
     }
 
     /**

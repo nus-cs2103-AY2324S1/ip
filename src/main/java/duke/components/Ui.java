@@ -18,6 +18,7 @@ public class Ui {
      */
     public Ui() {
         scanner = new Scanner(System.in);
+        assert scanner != null; // This ensures that the Scanner instance is instantiated properly.
     }
 
     /**
