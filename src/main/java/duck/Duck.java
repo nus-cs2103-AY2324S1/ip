@@ -1,7 +1,9 @@
+
 package duck;
 
-
+import duck.task.TaskList;
 import duck.ui.DialogBox;
+import duck.ui.Ui;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -15,8 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import duck.task.TaskList;
-import duck.ui.Ui;
+
 
 /**
  * This class is command-line application responsible for managing tasks.
