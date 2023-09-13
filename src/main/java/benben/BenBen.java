@@ -27,26 +27,15 @@ public class BenBen {
             tasks = new TaskList();
         }
     }
-
+    
     /**
      * Creates a Todo task in the list with the specific description
      *
      * @param str the string command from the user
      * @throws BenBenException when  the command from the user is of the wrong format
      */
-    public String todo(String str) throws BenBenException{
-        String[] strSplit = str.split("\\s+");
-        String des = "";
-        for (int i =  1; i < strSplit.length; i++) {
-            des = des + " " + strSplit[i];
-        }
-        des = des.trim();
-
-        if (des.length() == 0) {
-            throw new BenBenException("Please follow the format: todo todo details");
-        }
-
-        Task t = new Todo(des);
+    public String todo(String str) {
+        Task t = Parser.parseTodo(str);
         tasks.add(t);
         storage.write(tasks);
         return ui.showAdd(t.toString(), tasks.size());
@@ -58,31 +47,8 @@ public class BenBen {
      * @param str the string command from the user
      * @throws BenBenException when  the command from the user is of the wrong format
      */
-    public String deadline(String str) throws BenBenException{
-        String[] strSplit = str.split("\\s+");
-        String des = "";
-        String ddl = "";
-        boolean isDes = true;
-        for (int i =  1; i < strSplit.length; i++) {
-            if (strSplit[i].equals("/by")) {
-                isDes = false;
-                continue;
-            }
-
-            if (isDes) {
-                des = des + " " + strSplit[i];
-            } else {
-                ddl = ddl + " " + strSplit[i];
-            }
-        }
-        des = des.trim();
-        ddl = ddl.trim();
-
-        if (des.length() == 0 || ddl.length() == 0 ) {
-            throw new BenBenException("Please follow the format: deadline deadline details /by yyyy/mm/dd");
-        }
-
-        Task t = new Deadline(des, ddl);
+    public String deadline(String str) throws BenBenException {
+        Task t = Parser.parseDeadline(str);
         tasks.add(t);
         storage.write(tasks);
         return ui.showAdd(t.toString(), tasks.size());
@@ -95,41 +61,7 @@ public class BenBen {
      * @throws BenBenException when  the command from the user is of the wrong format
      */
     public String event (String str) throws BenBenException{
-        String[] strSplit = str.split("\\s+");
-        String des = "";
-        String start = "";
-        String end = "";
-        boolean isDes = true;
-        boolean isStart = false;
-        for (int i =  1; i < strSplit.length; i++) {
-            if (strSplit[i].equals("/from")) {
-                isDes = false;
-                isStart = true;
-                continue;
-            }
-            if (strSplit[i].equals("/to")) {
-                isStart = false;
-                continue;
-            }
-
-
-            if (isDes && !isStart) {
-                des = des + " " + strSplit[i];
-            } else if (!isDes && isStart) {
-                start = start + " " + strSplit[i];
-            } else {
-                end = end + " " + strSplit[i];
-            }
-        }
-        des = des.trim();
-        start = start.trim();
-        end = end.trim();
-
-        if (des.length() == 0 || start.length() == 0 || end.length() == 0 ) {
-            throw new BenBenException("Please follow the format: event event details /from yyyy-MM-dd HH-mm /to yyyy-MM-dd HH-mm");
-        }
-
-        Task t = new Event(des, start, end);
+        Task t = Parser.parseEvent(str);
         tasks.add(t);
         storage.write(tasks);
         return ui.showAdd(t.toString(), tasks.size());

@@ -55,56 +55,16 @@ public class Storage {
             this.file = new File(filePath);
             if (!file.exists()) {
                 boolean isCreated = file.createNewFile();
+                assert isCreated == true;
                 return list;
             }
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 boolean canRead = false;
-                String task = sc.nextLine();
-                //System.out.println(task);
-                String[] strSplit = task.split("\\|");
-
-                for (int i = 0; i < strSplit.length; i++) {
-                    strSplit[i] = strSplit[i].trim();
-                }
-                if (strSplit[0].startsWith("T") && strSplit.length == 3) {
-                    Task nextTask = new Todo(strSplit[2]);
-                    if (strSplit[1].startsWith("1")) {
-                        nextTask.mark();
-                        list.add(nextTask);
-                        canRead = true;
-                    } else if (strSplit[1].startsWith("0")) {
-                        list.add(nextTask);
-                        canRead = true;
-                    }
-
-                }
-                if (strSplit[0].startsWith("D") && strSplit.length == 4) {
-                    Task nextTask = new Deadline(strSplit[2], strSplit[3]);
-                    if (strSplit[1].startsWith("1")) {
-                        nextTask.mark();
-                        list.add(nextTask);
-                        canRead = true;
-                    } else if (strSplit[1].startsWith("0")) {
-                        list.add(nextTask);
-                        canRead = true;
-                    }
-                }
-                if (strSplit[0].startsWith("E") && strSplit.length == 5) {
-                    Task nextTask = new Event(strSplit[2], strSplit[3], strSplit[4]);
-                    if (strSplit[1].startsWith("1")) {
-                        nextTask.mark();
-                        list.add(nextTask);
-                        canRead = true;
-                    } else if (strSplit[1].startsWith("0")) {
-                        list.add(nextTask);
-                        canRead = true;
-                    }
-
-                }
-                if (!canRead) {
-                    throw new BenBenException("The file content is corrupted, please report this to admin");
-                }
+                String ln = sc.nextLine();
+                String[] strSplit = Parser.getArrayFromFile(ln);
+                Task task = Parser.parseFromFile(strSplit);
+                list.add(task);
             }
             sc.close();
             return list;
