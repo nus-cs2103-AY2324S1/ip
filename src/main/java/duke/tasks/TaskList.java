@@ -152,17 +152,18 @@ public class TaskList {
 
     public String getTasksAsText(SortType sortType, SortOrder sortOrder) {
         // assume ASC by default
-        ArrayList<Task> result = new ArrayList<>(this.list);
+        ArrayList<Task> result = new ArrayList<>();
 
         switch (sortType) {
         case ID: {
             // default case: sorted by ID
             // don't do anything
-
+            result = new ArrayList<>(this.list);
             break;
         }
         case NAME: {
             // sort by name
+            result = new ArrayList<>(this.list);
             result.sort(Comparator.comparing(Task::getName));
             break;
         }

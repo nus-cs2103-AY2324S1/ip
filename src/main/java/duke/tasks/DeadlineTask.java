@@ -49,6 +49,6 @@ public class DeadlineTask extends TimedTask {
 
     @Override
     public int compareTo(TimedTask o) {
-        return 0;
+        return this.getStart().compareTo(o.getStart());
     }
 }

@@ -33,7 +33,7 @@ public class Parser {
     private static final String FROM_EMPTY = "\uD83D\uDE21 Missing from!";
     private static final String TO_EMPTY = "\uD83D\uDE21 Missing to!";
     private static final String TIME_FORMAT_ERROR = "\uD83D\uDE21 Time format invalid!";
-    private static final String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD";
+    private static final String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD HH:mm";
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 

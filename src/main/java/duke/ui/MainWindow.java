@@ -76,7 +76,7 @@ public class MainWindow extends AnchorPane {
 
             duke.save();
         } catch (DukeException e) {
-            String response = e.getMessage();
+            String response = e.getErrorMessage();
 
             assert !response.isEmpty() : " Error message is blank!";
             dialogContainer.getChildren().addAll(
