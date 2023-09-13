@@ -62,11 +62,18 @@ public class Task {
             return "| 0 | " + this.description;
         }
     }
+
+    /**
+     * Marks the completion status of the task as done.
+     */
     public void markAsDone() {
         assert !this.isDone : "isDone should be not done";
         this.isDone = true;
     }
 
+    /**
+     * Marks the completion status of the task as not done.
+     */
     public void markAsUndone() {
         assert this.isDone : "isDone should be done";
         this.isDone = false;

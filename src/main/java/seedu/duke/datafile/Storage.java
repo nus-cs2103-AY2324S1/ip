@@ -135,7 +135,6 @@ public class Storage {
                         }
                         break;
                     default:
-                        System.out.println("zhewei!!!");
                         throw new LemonException("Failure to load file!");
                     }
                 }

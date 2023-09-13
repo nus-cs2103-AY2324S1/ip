@@ -36,7 +36,7 @@ public class Ui {
     }
 
     /**
-     * Displays a message after marking a task as done.
+     * Returns the message after marking a task as done.
      *
      * @param toMarkTask The task that was marked as done.
      * @param tasks The TaskList object containing the task list.
@@ -50,11 +50,11 @@ public class Ui {
     }
 
     /**
-     * Displays a message after unmarking a task as undone.
+     * Returns the message after unmarking a task as undone.
      *
      * @param toUnmarkTask The task that was marked as undone.
      * @param tasks The TaskList object containing the task list.
-     *
+     * @return String of the message to display indicating task is completed.
      */
     public String unmarkPrint(String toUnmarkTask, TaskList tasks) {
         String output = "";
@@ -64,10 +64,11 @@ public class Ui {
     }
 
     /**
-     * Displays a message after deleting a task.
+     * Returns the message after deleting a task.
      *
      * @param toDeleteTask The task that was deleted.
      * @param tasks The TaskList object containing the task list without the deleted task.
+     * @return String of the message to display indicating the task been deleted.
      */
     public String deletePrint(String toDeleteTask, TaskList tasks) {
         String output = "";
@@ -77,7 +78,7 @@ public class Ui {
     }
 
     /**
-     * Displays a message after adding a task.
+     * Returns the message after adding a task.
      *
      * @param toAddTask The task that was added.
      * @param tasks The TaskList object containing the task list with the added task.
@@ -87,6 +88,18 @@ public class Ui {
         output += ("Got it. I've added this task: " + toAddTask);
         output += System.lineSeparator();
         output += ("Now you have " + tasks.getTasksSize() + " tasks in the list." + System.lineSeparator());
+        return output;
+    }
+
+    /**
+     * Returns the message after rescheduling a deadline task.
+     * @param changeDeadlineTask task to change
+     * @param tasks
+     * @return represen
+     */
+    public String rescheduleDeadline(String changeDeadlineTask, TaskList tasks) {
+        String output = "";
+        output += ("Got it. I've rescheduled this task: " + System.lineSeparator() + changeDeadlineTask);
         return output;
     }
 

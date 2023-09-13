@@ -35,7 +35,8 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
-        FIND
+        FIND,
+        RESCHEDULE
     }
 
     /**
@@ -66,7 +67,6 @@ public class Parser {
                         String taskDescription = tasks.markTask(indexToMark - 1);
                         tasksData.saveTasks(tasks.getTaskList());
                         return ui.markPrint(taskDescription, tasks);
-
                     } catch (IndexOutOfBoundsException e) {
                         throw new InvalidTaskIndexException("");
                     }
@@ -143,7 +143,28 @@ public class Parser {
                         throw new KeywordNotFoundException("No Tasks found!");
                     }
                     return ui.listMatching(matchingTasks);
+                case RESCHEDULE:
+                    try {
+                        System.out.println("rescheduling!");
+                        String[] indexTask = input.split(" ", 2);
+                        if (indexTask.length < 2) {
+                            throw new LemonException("Please include a task number & date to reschedule to!");
+                        }
+                        String[] getRescheduleTask = indexTask[1].split(" /to ", 2);
 
+                        if (getRescheduleTask.length < 2) {
+                            throw new LemonException("Please include a date to reschedule to with /to!");
+                        }
+                        int indexToReschedule = Integer.valueOf(getRescheduleTask[0]) - 1;
+                        String rescheduleDate = getRescheduleTask[1];
+                        tasks.rescheduleTask(indexToReschedule, rescheduleDate);
+                        System.out.println(rescheduleDate);
+                        tasksData.saveTasks(tasks.getTaskList());
+                        String rescheduleTaskDescription = tasks.getTask(indexToReschedule).toString();
+                        return ui.rescheduleDeadline(rescheduleTaskDescription, tasks);
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new InvalidTaskIndexException("");
+                    }
                 default:
                     throw new InvalidTaskException(" " + input + " ");
                 }

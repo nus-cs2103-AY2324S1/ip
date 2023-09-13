@@ -2,7 +2,10 @@ package seedu.duke.tasklist;
 
 import java.util.ArrayList;
 
+import seedu.duke.exceptions.InvalidDeadlineException;
 import seedu.duke.exceptions.InvalidTaskIndexException;
+import seedu.duke.exceptions.LemonException;
+import seedu.duke.tasks.Deadline;
 import seedu.duke.tasks.Task;
 
 /**
@@ -48,7 +51,6 @@ public class TaskList {
 
     /**
      * Unmarks a task at the specified index as undone.
-     *
      * @param index The index of the task to be marked as undone.
      * @return String representation of the task that was marked as undone.
      * @throws InvalidTaskIndexException If the provided index is invalid.
@@ -60,6 +62,30 @@ public class TaskList {
             return toMark.toString();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException("");
+        }
+    }
+
+    /**
+     * Edit the deadline date of a Deadline Task.
+     * @param index the index of the task
+     * @param newDeadline the new deadline to change to
+     * @return String representation of the task that was edited.
+     * @throws InvalidTaskIndexException thrown when provided index is invalid
+     * @throws InvalidDeadlineException thrown when the provided date is invalid
+     */
+    public void rescheduleTask(Integer index, String newDeadline) throws LemonException {
+        try {
+            Task toMark = tasks.get(index);
+            if (toMark instanceof Deadline) {
+                Deadline toMarkDeadline = ((Deadline) toMark);
+                toMarkDeadline.changeDeadline(newDeadline);
+            } else {
+                throw new LemonException("Only deadline tasks can be rescheduled!");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskIndexException("");
+        } catch (LemonException e) {
+            throw new LemonException(e.getMessage());
         }
     }
 
@@ -84,6 +110,7 @@ public class TaskList {
         tasks.remove(taskToDelete);
         return taskToDelete.toString();
     }
+
 
     /**
      * Returns the number of tasks in the task list.

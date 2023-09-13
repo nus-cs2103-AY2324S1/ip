@@ -43,10 +43,8 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadFile());
-            System.out.println("mavis");
         } catch (LemonException e) {
             ui.showLoadingError();
-            System.out.println(e.getMessage() + "sean");
             tasks = new TaskList();
         }
     }
@@ -60,10 +58,8 @@ public class Duke {
         storage = new Storage();
         try {
             tasks = new TaskList(storage.loadFile());
-            System.out.println("mavis");
         } catch (LemonException e) {
             ui.showLoadingError();
-            System.out.println(e.getMessage() + "sean");
             tasks = new TaskList();
         }
     }
@@ -76,9 +72,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
         while (isRunning) {
-            //System.out.println("in while loop");
             String input = scanner.nextLine();
-            //System.out.println("Received input: " + input); // Provide feedback to the user
             if (input.equalsIgnoreCase("bye")) {
                 isRunning = false;
             } else {

@@ -46,6 +46,20 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * To change the deadline to the new deadline indicated by user.
+     * @param newDeadline date to change deadline of task to.
+     * @throws InvalidDeadlineException thrown when newDeadline is not
+     *          in the correct format.
+     */
+    public void changeDeadline(String newDeadline) throws InvalidDeadlineException {
+        try {
+            this.by = LocalDate.parse(newDeadline);
+        } catch (DateTimeException e) {
+            throw new InvalidDeadlineException("Invalid data");
+        }
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
