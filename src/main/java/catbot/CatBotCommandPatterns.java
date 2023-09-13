@@ -24,7 +24,7 @@ public class CatBotCommandPatterns {
 
         @Override
         public CommandPattern<Integer> generateUsingDefault(Consumer<String> invalidInput) {
-            return new CommandPattern<Integer>() {
+            return new CommandPattern<>() {
                 @Override
                 public void ifParsableElseDefault(String args, Consumer<Integer> consumer) {
                     try {
@@ -40,6 +40,7 @@ public class CatBotCommandPatterns {
 
     //region Slash Arguments Pattern
     private static final SlashArgumentPatternGenerator slashPatternGenerator = new SlashArgumentPatternGenerator();
+
     public static CommandPatternGenerator<NamedParameterMap> getSlashPatternGenerator() {
         return slashPatternGenerator;
     }
@@ -48,9 +49,10 @@ public class CatBotCommandPatterns {
 
         @Override
         public CommandPattern<NamedParameterMap> generateUsingDefault(Consumer<String> ignored) {
-            return new CommandPattern<NamedParameterMap>() {
+            return new CommandPattern<>() {
 
                 private final Parser slashParser = Parser.with("/", true);
+
                 @Override
                 public void ifParsableElseDefault(String args, Consumer<NamedParameterMap> consumer) {
                     consumer.accept(slashParser.parse(args));
@@ -60,4 +62,24 @@ public class CatBotCommandPatterns {
     }
     //endregion
 
+    //region String Pattern
+    private static final StringPatternGenerator stringPatternGenerator = new StringPatternGenerator();
+
+    public static CommandPatternGenerator<String> getStringPatternGenerator() {
+        return stringPatternGenerator;
+    }
+
+    private static class StringPatternGenerator implements CommandPatternGenerator<String> {
+
+        @Override
+        public CommandPattern<String> generateUsingDefault(Consumer<String> ignored) {
+            return new CommandPattern<>() {
+                @Override
+                public void ifParsableElseDefault(String args, Consumer<String> consumer) {
+                    consumer.accept(args);
+                }
+            };
+        }
+    }
+    //endregion
 }
