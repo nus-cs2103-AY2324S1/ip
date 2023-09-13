@@ -103,7 +103,7 @@ public class TaskList {
                 throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
             } catch (DateTimeParseException ex) {
                 throw new GlubException(
-                        "Invalid start/end format! Please ensure they are in dd/MM/yyyy HH:mm format!\n");
+                        "Invalid start/end format! Please ensure they are in dd-MM-yyyy HHmm format!\n");
             }
             break;
         default:
