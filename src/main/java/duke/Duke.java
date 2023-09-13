@@ -35,8 +35,7 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
-        //The container for the content of the chat to scroll.
+        // Step 1. Setting up required components
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -52,7 +51,7 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
+        // Step 2. Formatting the window to look as expected
         stage.setTitle("ChadGPT");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -82,7 +81,7 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //Part 3. Add functionality to handle user input.
+        // Part 3. Add functionality to handle user input.
         readFromData();
 
         sendButton.setOnMouseClicked((event) -> {
@@ -93,7 +92,7 @@ public class Duke extends Application {
             handleUserInput();
         });
 
-        //Scroll down to the end every time dialogContainer's height changes.
+        // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
