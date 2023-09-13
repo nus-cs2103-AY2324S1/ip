@@ -1,5 +1,8 @@
 package bob;
 
+/**
+ * Represents an exception for Bob
+ */
 public class BobException extends Exception {
     protected String message;
 

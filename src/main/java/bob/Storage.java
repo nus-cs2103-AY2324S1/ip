@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    String filePath;
+    private String filePath;
 
     /**
      * Constructor for Storage class.
@@ -26,7 +26,7 @@ public class Storage {
     /**
      * Loads file content and re-initialises task if file exists, else creates new file.
      *
-     * @return ArrayList</Task> the list of tasks that were recorded in the existing file, else an empty list.
+     * @return the arraylist of tasks that were recorded in the existing file, else an empty list.
      * @throws BobException
      */
     public ArrayList<Task> load() throws BobException {
@@ -34,6 +34,12 @@ public class Storage {
         File file = new File(filePath);
         file.getParentFile().mkdirs(); //creates parent directories if not existing
 
+        list = createFile(list, file);
+
+        return list;
+    }
+
+    private ArrayList<Task> createFile(ArrayList<Task> list, File file) {
         //creates file if file doesn't exist, else reads file and re-initialises tasks
         try {
             if (file.createNewFile()) {
@@ -43,46 +49,15 @@ public class Storage {
                 assert list.size() == 0;
             } else {
                 //file exists
-                //read the file and re-initiate the list of tasks
+                //reads the file and re-initiates the list of tasks
                 Scanner s = new Scanner(file);
+                String currInput = "";
                 int index = 0;
 
                 while (s.hasNext()) {
-                    char[] charArray = s.nextLine().toCharArray();
-                    String taskName = "";
-                    String dateOne = ""; //would be either a by (deadline) or a from (event)
-                    String dateTwo = ""; //would be a to (event)
-                    int firstDate = charArray.length;
-                    int secondDate = charArray.length;
-
-                    for (int i = 4; i < charArray.length; i++) {
-                        if (charArray[i] != ',' && i < firstDate) {
-                            taskName += charArray[i];
-                        }
-
-                        if (charArray[i] == ',' && firstDate == secondDate) {
-                            firstDate = i;
-                        } else if (charArray[i] == ',' && firstDate != secondDate) {
-                            secondDate = i;
-                        }
-
-                        if (i > firstDate && i < secondDate) {
-                            dateOne += charArray[i];
-                        } else if (i > secondDate) {
-                            dateTwo += charArray[i];
-                        }
-                    }
-
-                    if (charArray[0] == 'T') {
-                        list.add(new Todo(taskName));
-                    } else if (charArray[0] == 'D') {
-                        LocalDate d1 = LocalDate.parse(dateOne);
-                        list.add(new Deadline(taskName, d1));
-                    } else if (charArray[0] == 'E') {
-                        LocalDate d1 = LocalDate.parse(dateOne);
-                        LocalDate d2 = LocalDate.parse(dateTwo);
-                        list.add(new Event(taskName, d1, d2));
-                    }
+                    currInput = s.nextLine();
+                    readFile(list, currInput);
+                    char[] charArray = currInput.toCharArray();
 
                     if (charArray[2] == '1') {
                         list.get(index).markAsDone();
@@ -97,6 +72,44 @@ public class Storage {
         }
 
         return new ArrayList<Task>();
+    }
+
+    private void readFile(ArrayList<Task> list, String input) {
+        char[] charArray = input.toCharArray();
+        String taskName = "";
+        String dateOne = ""; //would be either a due date (deadline) or a start date (event)
+        String dateTwo = ""; //would be an end date (event)
+        int firstDate = charArray.length;
+        int secondDate = charArray.length;
+
+        for (int i = 4; i < charArray.length; i++) {
+            if (charArray[i] != ',' && i < firstDate) {
+                taskName += charArray[i];
+            }
+
+            if (charArray[i] == ',' && firstDate == secondDate) {
+                firstDate = i;
+            } else if (charArray[i] == ',' && firstDate != secondDate) {
+                secondDate = i;
+            }
+
+            if (i > firstDate && i < secondDate) {
+                dateOne += charArray[i];
+            } else if (i > secondDate) {
+                dateTwo += charArray[i];
+            }
+        }
+
+        if (charArray[0] == 'T') {
+            list.add(new Todo(taskName));
+        } else if (charArray[0] == 'D') {
+            LocalDate d1 = LocalDate.parse(dateOne);
+            list.add(new Deadline(taskName, d1));
+        } else if (charArray[0] == 'E') {
+            LocalDate d1 = LocalDate.parse(dateOne);
+            LocalDate d2 = LocalDate.parse(dateTwo);
+            list.add(new Event(taskName, d1, d2));
+        }
     }
 
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
@@ -128,11 +141,11 @@ public class Storage {
         for (int i = 0; i < list.size(); i++) {
             try {
                 if (list.get(i) instanceof Todo) {
-                    appendToFile(filePath, list.get(i).getTaskType() + "," + list.get(i).getStatusInt() +
-                            "," + list.get(i).getDescription() + System.lineSeparator());
+                    appendToFile(filePath, list.get(i).getTaskType() + "," + list.get(i).getStatusInt()
+                            + "," + list.get(i).getDescription() + System.lineSeparator());
                 } else if (list.get(i) instanceof Deadline) {
-                    appendToFile(filePath, list.get(i).getTaskType() + "," + list.get(i).getStatusInt() +
-                            "," + list.get(i).getDescription() + "," + list.get(i).getBy() + System.lineSeparator());
+                    appendToFile(filePath, list.get(i).getTaskType() + "," + list.get(i).getStatusInt()
+                            + "," + list.get(i).getDescription() + "," + list.get(i).getBy() + System.lineSeparator());
                 } else if (list.get(i) instanceof Event) {
                     appendToFile(filePath, list.get(i).getTaskType() + "," + list.get(i).getStatusInt() + ","
                             + list.get(i).getDescription() + "," + list.get(i).getFrom() + "," + list.get(i).getTo()

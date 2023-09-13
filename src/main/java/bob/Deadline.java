@@ -8,22 +8,22 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected LocalDate by;
+    protected LocalDate dueDate;
 
     /**
      * Constructor for the Deadline class.
      *
      * @param description the name/description of the deadline.
-     * @param by the due date for this task.
+     * @param dueDate the due date for this task.
      */
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate dueDate) {
         super(description);
-        this.by = by;
+        this.dueDate = dueDate;
     }
 
     @Override
     public String getBy() {
-        return by.toString();
+        return dueDate.toString();
     }
 
     @Override
@@ -39,6 +39,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

@@ -17,8 +17,7 @@ public class Parser {
      */
     public boolean isMark(String input) {
         char[] charArray = input.toCharArray();
-        if (charArray[0] == 'm' && charArray[1] == 'a' && charArray[2] == 'r' && charArray[3] == 'k'
-                && Character.isWhitespace(charArray[4]) && Character.isDigit(charArray[5])) {
+        if (input.startsWith("mark") && Character.isWhitespace(charArray[4]) && Character.isDigit(charArray[5])) {
             return true;
         }
         return false;
@@ -44,9 +43,7 @@ public class Parser {
      */
     public boolean isDelete(String input) {
         char[] charArray = input.toCharArray();
-        if (charArray[0] == 'd' && charArray[1] == 'e' && charArray[2] == 'l' && charArray[3] == 'e' &&
-                charArray[4] == 't' && charArray[5] == 'e' && Character.isWhitespace(charArray[6]) &&
-                Character.isDigit(charArray[7])) {
+        if (input.startsWith("delete") && Character.isWhitespace(charArray[6]) && Character.isDigit(charArray[7])) {
             return true;
         }
         return false;
@@ -72,8 +69,7 @@ public class Parser {
      */
     public boolean isFind(String input) {
         char[] charArray = input.toCharArray();
-        if (charArray[0] == 'f' && charArray[1] == 'i' && charArray[2] == 'n' && charArray[3] == 'd'
-                && Character.isWhitespace(charArray[4])) {
+        if (input.startsWith("find") && Character.isWhitespace(charArray[4]) && Character.isDigit(charArray[5])) {
             return true;
         }
         return false;
