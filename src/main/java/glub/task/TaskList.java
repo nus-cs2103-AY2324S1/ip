@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import glub.Glub;
 import glub.GlubException;
 import glub.Storage;
 import glub.Ui;
@@ -41,18 +40,19 @@ public class TaskList {
         for (int i = 0; i < taskDetails.size(); i++) {
             String task = taskDetails.get(i);
             String[] data = task.split("\\|");
+            String tag = data[2];
             boolean isDone = data[1].equals("X");
             switch (data[0]) {
             case "T":
-                addTask(String.format("%s", data[2]), "todo", isDone);
+                addTask(String.format("%s", data[3]), "todo", isDone, tag);
                 break;
             case "D":
-                addTask(String.format("%s /by %s", data[2], data[3]),
-                        "deadline", isDone);
+                addTask(String.format("%s /by %s", data[3], data[4]),
+                        "deadline", isDone, tag);
                 break;
             case "E":
-                addTask(String.format("%s /from %s /to %s", data[2], data[3], data[4]),
-                        "event", isDone);
+                addTask(String.format("%s /from %s /to %s", data[3], data[4], data[5]),
+                        "event", isDone, tag);
                 break;
             default:
             }
@@ -96,7 +96,7 @@ public class TaskList {
      * @param isDone Status of task.
      * @throws GlubException If input is invalid.
      */
-    public void addTask(String task, String taskType, boolean isDone) throws GlubException {
+    public void addTask(String task, String taskType, boolean isDone, String tag) throws GlubException {
         assert taskType != null : "taskType should not be null";
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         if (task.equals("")) {
@@ -104,14 +104,14 @@ public class TaskList {
         }
         switch (taskType) {
         case "todo":
-            taskList.add(new ToDo(task, isDone));
+            taskList.add(new ToDo(task, isDone, tag));
             break;
         case "deadline":
             String[] deadlinePortions = task.split("/");
             String deadlineDesc = deadlinePortions[0];
             try {
                 LocalDateTime deadlineDateTime = parseTaskDateTime(deadlinePortions[0], "deadline")[0];
-                taskList.add(new Deadline(deadlineDesc, isDone, deadlineDateTime));
+                taskList.add(new Deadline(deadlineDesc, isDone, tag, deadlineDateTime));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
             } catch (DateTimeParseException ex) {
@@ -125,7 +125,7 @@ public class TaskList {
                 LocalDateTime[] dateTimes = parseTaskDateTime(eventPortions[1], "event");
                 LocalDateTime startDateTime = dateTimes[0];
                 LocalDateTime endDateTime = dateTimes[1];
-                taskList.add(new Event(eventDesc, isDone, startDateTime, endDateTime));
+                taskList.add(new Event(eventDesc, isDone, tag, startDateTime, endDateTime));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
             } catch (DateTimeParseException ex) {

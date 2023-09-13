@@ -11,16 +11,18 @@ public class Task {
     private String task;
     /** Status of task. */
     private boolean isDone;
-    private String tag = "";
+    private String tag;
 
     /**
-     * Constructor of a task.
+     * Constructor of a task with a tag.
      * @param task Task description.
      * @param isDone Task status.
+     * @param tag Task tag.
      */
-    public Task(String task, boolean isDone) {
+    public Task(String task, boolean isDone, String tag) {
         this.task = task;
         this.isDone = isDone;
+        this.tag = tag;
     }
 
     /**

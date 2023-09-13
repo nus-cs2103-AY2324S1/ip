@@ -48,7 +48,7 @@ public class Parser {
         case "todo":
         case "deadline":
         case "event":
-            taskList.addTask(args, command, false);
+            taskList.addTask(args, command, false, "");
             storage.saveTasks(taskList.getTaskList());
             return Ui.printAddMsg(taskList.getTaskList());
         case "find":

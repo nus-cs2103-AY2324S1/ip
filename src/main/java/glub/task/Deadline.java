@@ -9,13 +9,14 @@ public class Deadline extends Task {
     private LocalDateTime deadline;
 
     /**
-     * Constructor for deadline.
+     * Constructor for deadline with tag.
      * @param task Task description.
      * @param isDone Task status.
+     * @param tag Task tag.
      * @param deadline Date and time of deadline.
      */
-    public Deadline(String task, boolean isDone, LocalDateTime deadline) {
-        super(task, isDone);
+    public Deadline(String task, boolean isDone, String tag, LocalDateTime deadline) {
+        super(task, isDone, tag);
         this.deadline = deadline;
     }
 

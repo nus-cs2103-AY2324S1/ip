@@ -10,14 +10,15 @@ public class Event extends Task {
     private LocalDateTime end;
 
     /**
-     * Constructor for the event.
+     * Constructor for the event with tag.
      * @param task Task description.
      * @param isDone Task status.
+     * @param tag Task tag.
      * @param start Start of event.
      * @param end End of event.
      */
-    public Event(String task, boolean isDone, LocalDateTime start, LocalDateTime end) {
-        super(task, isDone);
+    public Event(String task, boolean isDone, String tag, LocalDateTime start, LocalDateTime end) {
+        super(task, isDone, tag);
         this.start = start;
         this.end = end;
     }
