@@ -45,6 +45,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws JoException {
         ArrayList<Task> taskList = new ArrayList<>();
+
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
@@ -57,16 +58,16 @@ public class Storage {
 
                 if (taskType.equals("T")) {
                     taskList.add(new Task(task[2].trim(), isDone));
+
                 } else if (taskType.equals("D")) {
                     taskList.add(new Deadline(task[2].trim(), isDone, LocalDate.parse(task[3].trim())));
+
                 } else if (taskType.equals("E")) {
                     taskList.add(
-                            new Event(
-                                    task[2].trim(),
-                                    isDone,
-                                    LocalDate.parse(task[3].trim()),
-                                    LocalDate.parse(task[4].trim())
-                            )
+                            new Event(task[2].trim(),
+                                      isDone,
+                                      LocalDate.parse(task[3].trim()),
+                                      LocalDate.parse(task[4].trim()))
                     );
                 }
             }

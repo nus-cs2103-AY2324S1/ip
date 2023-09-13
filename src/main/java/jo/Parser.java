@@ -22,6 +22,9 @@ import jo.task.Task;
  */
 public class Parser {
 
+    /**
+     * Commands that act on a String (e.g. description of task)
+     */
     protected enum STRING_COMMAND {
         todo {
             public Command perform(String input) {
@@ -147,51 +150,55 @@ public class Parser {
      * @throws JoException If there is an error parsing the command.
      */
     public static Command parse(String input) throws JoException {
-        if (input.equalsIgnoreCase("bye")) {
-            return new ExitCommand();
+        String trimmedInput = input.trim();
+        String[] parts = trimmedInput.split(" ", 2);
+        String instruction = parts[0].trim();
 
-        } else if (input.trim().isEmpty()) {
+        if (trimmedInput.isEmpty()) {
             throw new JoException("The command cannot be empty.");
 
-        } else if (input.equals("list")) {
-            return new ListCommand();
-
-        } else if (isInEnum(input.trim(), STRING_COMMAND.class)) {
+        } else if (isInEnum(trimmedInput, STRING_COMMAND.class)) {
             throw new JoException(String.format("The description of a %s cannot be empty.", input.trim()));
 
-        } else if (isInEnum(input, INT_COMMAND.class)) {
+        } else if (isInEnum(trimmedInput, INT_COMMAND.class)) {
             throw new JoException(String.format("Please specify a valid task number to %s.", input.trim()));
 
-        } else {
-            String[] parts = input.split(" ", 2);
-            String instruction = parts[0].trim();
+        } else if (trimmedInput.equals("list")) {
+            return new ListCommand();
 
-            if (isInEnum(instruction, STRING_COMMAND.class)) {
-                for (STRING_COMMAND t : STRING_COMMAND.values()) {
-                    if (t.name().equals(instruction)) {
-                        return t.perform(input.split(" ", 2)[1].trim());
-                    }
-                }
-            } else if (isInEnum(instruction, INT_COMMAND.class)) {
-                for (INT_COMMAND c : INT_COMMAND.values()) {
-                    if (c.name().equals(instruction)) {
-                        String[] values = parts[1].split(",");
-                        int[] taskIndices = new int[values.length];
+        } else if (trimmedInput.equalsIgnoreCase("bye")) {
+            return new ExitCommand();
 
-                        // Parse each value to an integer and store in the taskIndices array
-                        for (int i = 0; i < values.length; i++) {
-                            if (!values[i].trim().matches("[0-9]+")) {
-                                throw new JoException("Please specify valid index/indices using integers.");
-                            }
-                            taskIndices[i] = Integer.parseInt(values[i].trim()) - 1;
-                        }
-                        return c.perform(taskIndices);
-                    }
+        // Command is in the STRING_COMMAND enumeration
+        } else if (isInEnum(instruction, STRING_COMMAND.class)) {
+            String description = parts[1].trim();
+
+            for (STRING_COMMAND t : STRING_COMMAND.values()) {
+                if (t.name().equals(instruction)) {
+                    return t.perform(description);
                 }
-            } else {
-                throw new JoException("I'm sorry, but I don't know what that means :-(");
             }
+
+        // Command is in the INT_COMMAND enumeration
+        } else if (isInEnum(instruction, INT_COMMAND.class)) {
+            String[] values = parts[1].split(", ");
+            int[] taskIndices = new int[values.length];
+
+            // Parse each value to an integer and store in the taskIndices array
+            for (int i = 0; i < values.length; i++) {
+                taskIndices[i] = Integer.parseInt(values[i].trim()) - 1;
+            }
+
+            for (INT_COMMAND c : INT_COMMAND.values()) {
+                if (c.name().equals(instruction)) {
+                    return c.perform(taskIndices);
+                }
+            }
+
+        } else {
+            throw new JoException("I'm sorry, but I don't know what that means :-(");
         }
+
         return new ExitCommand();
     }
 }

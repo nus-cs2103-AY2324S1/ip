@@ -42,7 +42,7 @@ public class CheckCommand extends Command {
      * @return `false` since checking tasks by deadline does not exit the application.
      */
     @Override
-    public boolean isExit() {
+    public boolean isExitCommand() {
         return false;
     }
 }

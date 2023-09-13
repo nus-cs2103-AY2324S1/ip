@@ -29,7 +29,7 @@ public class ListCommand extends Command {
      * @return `false` since listing tasks does not exit the application.
      */
     @Override
-    public boolean isExit() {
+    public boolean isExitCommand() {
         return false;
     }
 }
