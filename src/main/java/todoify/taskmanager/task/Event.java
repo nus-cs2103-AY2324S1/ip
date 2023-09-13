@@ -63,16 +63,21 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+
+        String formattedStartTimestamp = this.startTimestamp == null
+                ? null
+                : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getStartTimestamp());
+
+        String formattedEndTimestamp = this.endTimestamp == null
+                ? null
+                : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getEndTimestamp());
+
         return String.format(
                 "<E> %s %s (from: %s, to: %s)",
                 this.getCompletedIndicatorString(),
                 this.getTitle(),
-                this.startTimestamp == null
-                        ? null
-                        : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getStartTimestamp()),
-                this.endTimestamp == null
-                        ? null
-                        : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getEndTimestamp())
+                formattedStartTimestamp,
+                formattedEndTimestamp
         );
     }
 }

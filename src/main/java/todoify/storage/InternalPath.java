@@ -53,7 +53,7 @@ public class InternalPath {
      * @return The path after removing the last path component.
      * @throws NegativeArraySizeException if there are no more components in the path to strip.
      */
-    public InternalPath excludingLastComponent() {
+    public InternalPath getByExcludingLastComponent() {
         String[] pathComponents = Arrays.copyOf(this.components, this.components.length - 1);
         return new InternalPath(pathComponents);
     }
@@ -64,7 +64,7 @@ public class InternalPath {
      * @param component The new component to append to the end of the path.
      * @return The path after adding the new last path component.
      */
-    public InternalPath appendingLastComponent(String component) {
+    public InternalPath getByAppendingLastComponent(String component) {
         String[] pathComponents = Arrays.copyOf(this.components, this.components.length + 1);
         pathComponents[pathComponents.length - 1] = component;
         return new InternalPath(pathComponents);

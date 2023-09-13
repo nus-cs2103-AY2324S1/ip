@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
 import todoify.chatbot.ChatMessage;
 import todoify.chatbot.Chatbot;
 import todoify.util.EpochConverter;
@@ -19,8 +18,8 @@ import todoify.util.EpochConverter;
  */
 public class ChatBubble extends HBox {
 
-    private Chatbot chatbot;
-    private ChatMessage message;
+    private final Chatbot chatbot;
+    private final ChatMessage message;
 
     @FXML
     private ImageView senderImageView;

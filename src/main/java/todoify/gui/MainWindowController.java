@@ -14,7 +14,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import todoify.Main;
 import todoify.chatbot.ChatMessage;
 import todoify.chatbot.Chatbot;

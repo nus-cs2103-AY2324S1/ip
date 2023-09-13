@@ -13,7 +13,9 @@ import java.time.format.FormatStyle;
  */
 public final class EpochConverter {
 
-    private EpochConverter() {}
+    private EpochConverter() {
+        // A utility class constructor should not be used.
+    }
 
     /**
      * Converts the given date-time string to number representing seconds since the Unix epoch.

@@ -1,7 +1,6 @@
 package todoify;
 
 import javafx.application.Application;
-
 import todoify.gui.MainWindowController;
 import todoify.stdio.MainTextUi;
 
