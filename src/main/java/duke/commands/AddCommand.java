@@ -66,9 +66,7 @@ public class AddCommand extends Command {
             }
 
             task = new ToDo(desc);
-            tasks.add(task);
-            ui.showAddMessage(task, tasks.size());
-            return "Added " + task;
+            break;
         case DEADLINE:
             //Removes the command type from the entire command
             String deadlineTime = fullCommand.replaceAll("^\\s*deadline\\s*", "");
@@ -85,9 +83,7 @@ public class AddCommand extends Command {
 
             task = new Deadline(strings[0],
                     LocalDateTime.parse(strings[1], formatter));
-            tasks.add(task);
-            ui.showAddMessage(task, tasks.size());
-            return "Added " + task;
+            break;
         case EVENT:
             //Removes the command type from the entire command
             String content = fullCommand.replaceAll("^\\s*event\\s*", "");
@@ -115,11 +111,15 @@ public class AddCommand extends Command {
             }
 
             task = new Event(descTime[0], start, end);
-            tasks.add(task);
-            ui.showAddMessage(task, tasks.size());
-            return "Added " + task;
+            break;
         default:
             throw new UnknownCommandException(fullCommand);
         }
+
+        tasks.add(task);
+        assert tasks.retrieveForStorage() != null;
+        storage.writeFile(tasks.retrieveForStorage());
+        ui.showAddMessage(task, tasks.size());
+        return "Added " + task;
     }
 }
