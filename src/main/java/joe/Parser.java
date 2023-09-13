@@ -104,7 +104,11 @@ public class Parser {
 
     private static Command handleMark(String args) {
         try {
-            int idx = parseIndexArgs(args);
+            int idx = parseArgsForIndex(args);
+
+            //Index should be at least 1
+            assert idx >= 1;
+
             return new MarkCommand(idx);
         } catch (JoeException e) {
             return new InvalidCommand(INVALID_ARGS_MARK_MESSAGE);
@@ -113,7 +117,11 @@ public class Parser {
 
     private static Command handleUnmark(String args) {
         try {
-            int idx = parseIndexArgs(args);
+            int idx = parseArgsForIndex(args);
+
+            //Index should be at least 1
+            assert idx >= 1;
+
             return new UnmarkCommand(idx);
         } catch (JoeException e) {
             return new InvalidCommand(INVALID_ARGS_UNMARK_MESSAGE);
@@ -127,6 +135,7 @@ public class Parser {
         if (!m.matches()) {
             return new InvalidCommand(INVALID_ARGS_TODO_MESSAGE);
         }
+
         return new TodoCommand(m.group(1));
     }
 
@@ -154,6 +163,7 @@ public class Parser {
         if (!m.matches()) {
             return new InvalidCommand(INVALID_ARGS_EVENT_MESSAGE);
         }
+
         try {
             LocalDateTime from = LocalDateTime.parse(m.group(2), DateTimeFormatter.ofPattern(DATETIME_FORMAT));
             LocalDateTime to = LocalDateTime.parse(m.group(3), DateTimeFormatter.ofPattern(DATETIME_FORMAT));
@@ -166,7 +176,11 @@ public class Parser {
 
     private static Command handleDelete(String args) {
         try {
-            int idx = parseIndexArgs(args);
+            int idx = parseArgsForIndex(args);
+
+            //Index should be at least 1
+            assert idx >= 1;
+
             return new DeleteCommand(idx);
         } catch (JoeException e) {
             return new InvalidCommand(INVALID_ARGS_DELETE_MESSAGE);
@@ -196,7 +210,7 @@ public class Parser {
         return new InvalidCommand(msg);
     }
 
-    private static int parseIndexArgs(String args) throws JoeException {
+    private static int parseArgsForIndex(String args) throws JoeException {
         Pattern indexPattern = Pattern.compile("^(\\d+)$");
         Matcher m = indexPattern.matcher(args.trim());
 
@@ -204,7 +218,12 @@ public class Parser {
             throw new JoeException(FAILED_TO_PARSE_INDEX_MESSAGE);
         }
 
-        String idx = m.group(1);
-        return Integer.parseInt(idx);
+        int idx = Integer.parseInt(m.group(1));
+
+        if (idx < 1) {
+            throw new JoeException(FAILED_TO_PARSE_INDEX_MESSAGE);
+        }
+
+        return idx;
     }
 }

@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 
 import joe.Storage;
 import joe.TaskList;
+import joe.exceptions.JoeException;
 import joe.tasks.EventTask;
 
 /**
  * Represents a command to add an event task to the task list.
  */
 public class EventCommand extends Command {
+    private static final String START_IS_AFTER_END_ERR_MSG = "Please ensure that start datetime is after end datetime";
     private final String taskDetails;
     private final LocalDateTime from;
     private final LocalDateTime to;
@@ -34,9 +36,22 @@ public class EventCommand extends Command {
      * @param storage The storage for saving and loading tasks.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) throws JoeException {
+        int startSize = tasks.size();
+
+        if (to.isBefore(from)) {
+            throw new JoeException(START_IS_AFTER_END_ERR_MSG);
+        }
+
+        //Ensures that end datetime is at least start datetime
+        assert to.isAfter(from) || to.isEqual(from);
+
         EventTask newTask = new EventTask(taskDetails, from, to);
         tasks.add(newTask);
+
+        //Asserts that one task is added
+        int endSize = tasks.size();
+        assert endSize - startSize == 1;
 
         storage.saveToFile(tasks);
 

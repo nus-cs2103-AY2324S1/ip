@@ -29,12 +29,18 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws JoeIndexOutOfBoundsException {
+        int startSize = tasks.size();
+
         if (idx < 1 || idx > tasks.size()) {
             throw new JoeIndexOutOfBoundsException(idx);
         }
 
         Task deletedTask = tasks.get(idx - 1);
         tasks.remove(idx - 1);
+
+        //Asserts that one task is removed
+        int endSize = tasks.size();
+        assert endSize - startSize == -1;
 
         storage.saveToFile(tasks);
 

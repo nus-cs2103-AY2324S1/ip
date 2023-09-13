@@ -32,8 +32,15 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        int startSize = tasks.size();
+
         DeadlineTask newTask = new DeadlineTask(taskDetails, by);
         tasks.add(newTask);
+
+        //Asserts that one task is added
+        int endSize = tasks.size();
+        assert endSize - startSize == 1;
+
         storage.saveToFile(tasks);
         return (
                 String.format(
