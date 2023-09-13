@@ -33,10 +33,11 @@ public class Tired {
      * @return The response message generated based on the input.
      */
     String getResponse(String input) {
-        if (input.trim().equals("bye")) {
-            return ui.showGoodbyeMessage();
-        }
         try {
+            if (input.trim().equals("bye")) {
+                storage.saveToFile(tasks);
+                return ui.showGoodbyeMessage();
+            }
             return Parser.parseCommand(input, tasks, ui);
         } catch (DukeException e) {
             return ui.showError(e.getMessage());

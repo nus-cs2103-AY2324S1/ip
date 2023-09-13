@@ -22,6 +22,7 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) throws DukeException {
         super(description, TaskType.EVENT);
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.start = LocalDateTime.parse(start, formatter);
         this.end = LocalDateTime.parse(end, formatter);
