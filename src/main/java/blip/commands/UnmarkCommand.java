@@ -1,9 +1,10 @@
 package blip.commands;
 
-import blip.ui.*;
-import blip.tasks.*;
-import blip.storage.*;
-import blip.exceptions.*;
+import blip.ui.BlipUI;
+import blip.tasks.TaskList;
+import blip.tasks.Task;
+import blip.storage.BlipStorage;
+import blip.exceptions.WrongNumberException;
 
 /**
  * Represents the unmark command to unmark task as not done.

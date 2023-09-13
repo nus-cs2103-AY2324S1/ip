@@ -1,12 +1,11 @@
 package blip;
 
-import java.util.Scanner;
-import blip.ui.*;
-import blip.tasks.*;
-import blip.storage.*;
-import blip.parser.*;
-import blip.exceptions.*;
-import blip.commands.*;
+import blip.ui.BlipUI;
+import blip.tasks.TaskList;
+import blip.storage.BlipStorage;
+import blip.parser.BlipParser;
+import blip.exceptions.BlipException;
+import blip.commands.Command;
 
 
 /**
@@ -46,10 +45,10 @@ public class Blip {
         this.storage = new BlipStorage(filePath);
         this.parser = new BlipParser();
         try {
-            tasks = storage.loadFile();
+            this.tasks = storage.loadFile();
         } catch (BlipException e) {
             ui.showLoadingErr();
-            tasks = new TaskList();
+            this.tasks = new TaskList();
         }
     }
 
@@ -66,25 +65,6 @@ public class Blip {
         return command.execute(tasks, ui, storage);
     }
 
-
-    /**
-     * Runs the Blip ChatBot.
-     */
-    public void run() {
-        ui.showIntro();
-        Scanner scanIn = new Scanner(System.in);
-
-        while (true) {
-            String userInput;
-            userInput = scanIn.nextLine();
-            Command command = parser.parse(userInput);
-            if (command instanceof ByeCommand) {
-                command.execute(tasks, ui, storage);
-                break;
-            }
-            command.execute(tasks, ui, storage);
-        }
-    }
 
     /**
      * Main for Blip ChatBot where it runs Blip.

@@ -1,8 +1,9 @@
 package blip.commands;
 
-import blip.ui.*;
-import blip.tasks.*;
-import blip.storage.*;
+import blip.ui.BlipUI;
+import blip.tasks.TaskList;
+import blip.tasks.ToDo;
+import blip.storage.BlipStorage;
 
 /**
  * Represents the to do command to add to do task.

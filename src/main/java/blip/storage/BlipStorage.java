@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import blip.exceptions.*;
-import blip.tasks.*;
+import blip.exceptions.BlipException;
+import blip.exceptions.DateTimeFormatException;
+import blip.tasks.TaskList;
+import blip.tasks.Task;
 
 /**
  * Represents a storage for Blip ChatBot.

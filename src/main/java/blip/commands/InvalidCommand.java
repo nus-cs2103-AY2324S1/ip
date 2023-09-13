@@ -1,9 +1,8 @@
 package blip.commands;
 
-import blip.ui.*;
-import blip.tasks.*;
-import blip.storage.*;
-
+import blip.ui.BlipUI;
+import blip.tasks.TaskList;
+import blip.storage.BlipStorage;
 /**
  * Represents the invalid command.
  */
@@ -46,10 +45,10 @@ public class InvalidCommand extends Command {
      * @return boolean true if the input contains any command words at all, false otherwise
      */
     public boolean containsCommands(String input) {
-        input = input.toLowerCase();
-        if (description.contains("bye ") || description.contains("list ") || description.contains("mark ")
-                || description.contains("unmark ") || description.contains("delete ") || description.contains("todo ")
-                || description.contains("deadline ") || description.contains("event ")) {
+        String inputLowerCase = input.toLowerCase();
+        if (inputLowerCase.contains("bye ") || inputLowerCase.contains("list ") || inputLowerCase.contains("mark ")
+                || inputLowerCase.contains("unmark ") || inputLowerCase.contains("delete ") || inputLowerCase.contains("todo ")
+                || inputLowerCase.contains("deadline ") || inputLowerCase.contains("event ")) {
             return true;
         } else {
             return false;

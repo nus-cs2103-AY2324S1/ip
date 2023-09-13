@@ -1,9 +1,8 @@
 package blip.commands;
 
-import blip.ui.*;
-import blip.tasks.*;
-import blip.storage.*;
-
+import blip.ui.BlipUI;
+import blip.tasks.TaskList;
+import blip.storage.BlipStorage;
 /**
  * Represents a Command for Blip.
  */
