@@ -20,22 +20,15 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Duke extends Application {
-    private Ui ui;
-
+    private Ui ui = new Ui();
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
 
     private Scene scene;
-    private AnchorPane mainLayout = new AnchorPane();
-
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-    public Duke() {
-        ui = new Ui();
-    }
 
     /**
      * Initializes the primary stage and sets up the user interface components for the chatbot.
@@ -46,6 +39,7 @@ public class Duke extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assertImage();
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -113,6 +107,13 @@ public class Duke extends Application {
         });
     }
 
+    private void assertImage() {
+        // Use assert to check for failing of loading images
+        assert user != null : "User image is not loaded properly.";
+        assert duke != null : "Duke image is not loaded properly.";
+    }
+
+
     /**
      * Creates a label with the given text and enables word wrap.
      * This label is typically used for displaying messages in the chat interface.
@@ -134,6 +135,9 @@ public class Duke extends Application {
      * an exit sequence after a short delay.
      */
     private void handleUserInput() {
+        // Check for null user input
+        assert userInput.getText() != null : "User input field is not initialized.";
+
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         DialogBox userDialog = DialogBox.getUserDialog(userText, new ImageView(user));
@@ -163,6 +167,7 @@ public class Duke extends Application {
      * @return A string response based on the user input.
      */
     private String getResponse(String input) {
+        assert input != null && !input.trim().isEmpty() : "Input command is null or empty.";
         if (input.equals("bye")) {
             return this.ui.saybye();
         }

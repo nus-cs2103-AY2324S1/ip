@@ -25,6 +25,11 @@ public class Events extends Task {
      */
     public Events(String description, String start, String end) {
         super(description);
+
+        assert description != null && !description.trim().isEmpty() : "Description should not be null or empty";
+        assert start != null && !start.trim().isEmpty() : "Start time should not be null or empty";
+        assert end != null && !end.trim().isEmpty() : "End time should not be null or empty";
+
         this.start = start;
         this.end = end;
         this.dtStart = new DateTime(start);
@@ -38,6 +43,10 @@ public class Events extends Task {
      */
     @Override
     public String getSavingFormat() {
+        // Assert that all necessary data members are not null before formatting.
+        assert start != null && !start.trim().isEmpty() : "Start time should not be null or empty when saving";
+        assert end != null && !end.trim().isEmpty() : "End time should not be null or empty when saving";
+
         return "[E] | [" + getStatusIcon() + "] | "
                 + description + " | " + start + " | " + end;
     }
