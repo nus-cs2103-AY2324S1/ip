@@ -150,7 +150,6 @@ public class BouncyBob extends Application {
      * @param userInputSplits    The parsed user input.
      * @param taskList The task list.
      */
-<<<<<<< HEAD
     private static void addTaskAndPrint(String[] userInputSplits, TaskList taskList) {
         TaskType taskType = Parser.getTaskType(userInputSplits[0]);
         assert taskType != TaskType.UNKNOWN : "Unknown task type encountered.";
