@@ -67,8 +67,8 @@ public class TaskList {
      * @param index  The index of the task.
      */
     public void markTaskAsDone(int index) {
-    Task task = tasks.get(index);
-    task.markAsDone();
+        Task task = tasks.get(index);
+        task.markAsDone();
     }
 
     /**

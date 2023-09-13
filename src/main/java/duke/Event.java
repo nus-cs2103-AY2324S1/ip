@@ -32,7 +32,7 @@ public class Event extends Task {
             }
         } catch (DateTimeParseException e) {
             System.out.println("Error parsing date and time: " + dateTimeString);
-            return null; // You may want to handle this case differently
+            return null;
         }
         return null;
     }
