@@ -10,6 +10,7 @@ public class Parser {
     //instead of just printing it out, return a string to the GUI.
     public static String readInput(String userInput, TaskList taskList) {
         if(!userInput.equals(exitWord)) {
+            //check if userInput is not the exitWord (assert)
             String[] words = userInput.split(" ");
             if (userInput.equals("list")) {
                 if (taskList.getSize() == 0) {

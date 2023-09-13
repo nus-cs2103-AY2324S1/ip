@@ -19,7 +19,8 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return this.getStatusIcon() + this.description; //checking if this is even used. its alw overridden.
+        //return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -40,6 +41,8 @@ public class Task {
                 throw new GmanException("Haha nice going... This task is already done, bozo!");
             }
             isDone = true;
+            //assert isDone == false : "hi ur assert is working!";
+            assert this.getStatusIcon() == "[X]" : "The status icon is wrong!";
         } catch (GmanException e) {
             System.out.println(e.getMessage());
         }
@@ -54,6 +57,7 @@ public class Task {
                 throw new GmanException("Hey... this task was never done in the first place!");
             }
             isDone = false;
+            assert this.getStatusIcon() == "[]" : "The status icon is wrong!";
         } catch (GmanException e) {
             System.out.println(e.getMessage());
         }
