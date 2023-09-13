@@ -161,6 +161,11 @@ public class Sidtacphi {
                 } catch (DateTimeParseException e) {
                     throw new SidInvalidFormatException("Please put in your dates in YYYY-MM-DD format.");
                 }
+
+                if (end.isBefore(start)) {
+                    throw new SidInvalidFormatException("Please make sure your starting date is before your ending date.");
+                }
+
                 taskList.add(new Event(inputArgs[0], start, end));
             } else {
                 throw new SidInvalidFormatException("Please put in the starting and ending date " 
