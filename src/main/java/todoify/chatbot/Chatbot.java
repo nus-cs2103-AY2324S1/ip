@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import todoify.chatbot.exception.ChatbotException;
 import todoify.chatbot.exception.ChatbotRuntimeException;
@@ -217,6 +220,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 break;
 
             case LIST:
+            case HELP:
             case EXIT:
                 this.processCommandAssertNoData(chatCommand);
                 break;
@@ -355,6 +359,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
     private void processCommandAssertNoData(ChatCommand chatCommand) throws ChatbotCommandException {
         switch (chatCommand.getOperation()) {
         case LIST:
+        case HELP:
         case EXIT:
             break;
         default:
@@ -372,9 +377,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             ));
         }
 
+        StringBuilder builder;
         switch (chatCommand.getOperation()) {
         case LIST:
-            StringBuilder builder = new StringBuilder();
+            builder = new StringBuilder();
 
             if (this.taskManager.getTaskCount() > 0) {
                 builder.append("Here are your tasks, glhf! :)");
@@ -389,6 +395,37 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                         builder.append(". ");
                         builder.append(integerTaskPair.getValue().toString());
                     });
+
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
+            break;
+
+        case HELP:
+            builder = new StringBuilder();
+            builder.append("No problem. Here's a summary of all possible command names and their functions!\n\n");
+
+            for (ChatCommand.Operation op : ChatCommand.Operation.values()) {
+
+                var aliases = op.getSupportedNameAliases();
+                var quotedAliases = Arrays.stream(aliases)
+                        .map(s -> '"' + s + '"')
+                        .collect(Collectors.toList());
+                        
+                if (quotedAliases.size() == 0) {
+                    continue;
+                }
+
+                String commandTitle = String.join(", ", quotedAliases);
+                String commandDescription = op.getDescription();
+                String commandSyntax = String.format(op.getSyntaxDescriptionAsFormatString(), aliases[0]);
+
+                builder.append(String.format("    %s\n", commandTitle));
+                builder.append(String.format("        %s\n", commandDescription));
+                builder.append(String.format("        Format: \"%s\"\n", commandSyntax));
+                builder.append('\n');
+            }
+
+            builder.append("Commands listed with multiple names above are synonyms and can be used interchangeably.\n");
+            builder.append("Hope this helps! :)");
 
             this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
             break;
