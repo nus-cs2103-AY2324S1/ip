@@ -37,7 +37,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        dialog.setPadding(new Insets(10));
+        dialog.setPadding(new Insets(0, 20, 0, 20));
         displayPicture.setImage(img);
     }
 

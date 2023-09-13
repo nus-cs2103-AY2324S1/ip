@@ -52,7 +52,7 @@ public class Parser {
     }
 
     /**
-     * Checks if the input is a "unmark" command.
+     * Checks if the input is an "unmark" command.
      *
      * @param input The user input.
      * @return True if the input is a "mark" command, false otherwise.
@@ -81,6 +81,8 @@ public class Parser {
      * @throws DukeException If there is an error in processing the command.
      */
     public static String parseCommand(String input, TaskList tasks, Ui ui) throws DukeException {
+
+        assert ui != null;
 
         if (!isValidCommand(input)) {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
@@ -154,6 +156,7 @@ public class Parser {
         String end = parts[4].trim();
         Task task = null;
 
+        assert taskStatus.equals("0") || taskStatus.equals("1");
 
         switch (taskType) {
         case "T":
@@ -185,21 +188,24 @@ public class Parser {
      */
     public static Task parseStringToTask(String input) throws DukeException {
         TaskType taskType;
+
+        assert input != null;
+
         String[] parts = input.split("/");
         String taskDetails = parts[0].trim();
 
         if (taskDetails.startsWith("todo")) {
             taskType = TaskType.TODO;
-            taskDetails = taskDetails.substring(4).trim();
+            taskDetails = taskDetails.replace("todo", "").trim();
         } else if (taskDetails.startsWith("deadline")) {
             taskType = TaskType.DEADLINE;
-            taskDetails = taskDetails.substring(8).trim();
+            taskDetails = taskDetails.replace("deadline", "").trim();
         } else {
             taskType = TaskType.EVENT;
-            taskDetails = taskDetails.substring(5).trim();
+            taskDetails = taskDetails.replace("event", "").trim();
         }
 
-        Task newTask = null;
+        Task newTask;
         switch (taskType) {
         case TODO:
             newTask = new ToDo(taskDetails);
