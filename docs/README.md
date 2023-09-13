@@ -1,4 +1,4 @@
-# Duke Project Pro
+# Duke Project Pro (Project name)
 > “Your mind is for having ideas, not holding them.” – David Allen
 
 DukePro frees your mind of having to remember things you need to do. It's,
@@ -22,6 +22,7 @@ Adds a task to remind users what to do
 
 
 Format : `task TASK` 
+
 | Examples | 
 | --- |
 | `task Study CS2103T` | 
@@ -32,6 +33,7 @@ Adds an event to remind users of a one-time activity
 
 
 Format : `event NAME /from DAY TIME /to DAY TIME` where `TIME` is in this format `[NUMBER][am/pm]` 
+
 | Examples | 
 | --- |
 | `event Supernova /from Mon 2pm /to Tue 2pm` | 
@@ -43,6 +45,7 @@ Adds a deadline to remind users to do something before the due date
 
 
 Format : `deadline NAME /by DD/MM/YYYY` 
+
 | Examples | 
 | --- |
 | `deadline return book /by 02/12/2019` | 
@@ -127,21 +130,3 @@ Format : `bye`
 
 ___
 
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
