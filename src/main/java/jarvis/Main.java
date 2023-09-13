@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
     private Jarvis jarvis = new Jarvis();
 
     @Override
@@ -25,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJarvis(jarvis);
             stage.show();
+            assert false;
         } catch (IOException e) {
             e.printStackTrace();
         }
