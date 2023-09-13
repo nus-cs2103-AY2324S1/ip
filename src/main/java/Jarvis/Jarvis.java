@@ -27,7 +27,6 @@ public class Jarvis {
         // getting the file path to the save file
         String home = System.getProperty("user.home");
         Path pathToSaveFile = Paths.get(home, "Desktop", "CS2103T", "IP", "data", fileName);
-        boolean isFileExists = Files.exists(pathToSaveFile);
 
         assert !pathToSaveFile.toString().isEmpty() : "pathToSaveFile in Jarvis() does not contain a file path";
 
@@ -38,9 +37,9 @@ public class Jarvis {
 
     public String getResponse(String input) {
         try {
-            return Parser.parseCommand(storage, tasks, input);
+            return parser.parseCommand(storage, tasks, input);
         } catch (IncorrectJarvisCommandException e) {
-            return Ui.getListOfCommands(Parser.validCommands, e);
+            return Ui.getListOfCommands(parser.validCommands, e);
         } catch (InvalidTaskNumberException e) {
             return Ui.respond(e.getMessage() + "\n" +
                     "    There are currently " + tasks.countTask() + " tasks in the list.");

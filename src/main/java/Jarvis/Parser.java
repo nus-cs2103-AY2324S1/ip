@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * </p>
  */
 public class Parser {
-    protected static ArrayList<String> validCommands; // list of valid commands
+    protected ArrayList<String> validCommands; // list of valid commands
 
     /**
      * Constructs a new Parser object.
@@ -44,7 +44,7 @@ public class Parser {
      * @return the valid command that the user inputted, an empty string otherwise.
      */
     // checks if command is valid and throws Jarvis.IncorrectJarvisCommandException
-    private static String isValidCommand(String inputCommand) {
+    private String isValidCommand(String inputCommand) {
 
         assert !inputCommand.isEmpty() : "inputCommand parameter in isValidCommand() is an empty string";
 
@@ -81,7 +81,7 @@ public class Parser {
      * @param validInputCommand the valid command which the user inputted
      */
     // identifies which command has wrong formatting and prints feedback to user
-    public static String isWrongFormat(String inputCommand, String validInputCommand) {
+    public String isWrongFormat(String inputCommand, String validInputCommand) {
 
         assert !inputCommand.isEmpty() : "inputCommand parameter in isWrongFormat() is an empty string";
         assert !validInputCommand.isEmpty() : "validInputCommand parameter in isWrongFormat() is an empty string";
@@ -141,7 +141,7 @@ public class Parser {
      * @throws InvalidTaskNumberException If the task number is out of the range of the number of tasks.
      * @throws WrongJarvisCommandFormatException If the command is correct but its formatted incorrectly.
      */
-    public static String parseCommand(Storage storage, TaskList tasks, String userInput) throws
+    public String parseCommand(Storage storage, TaskList tasks, String userInput) throws
             IncorrectJarvisCommandException, InvalidTaskNumberException, WrongJarvisCommandFormatException {
 
         Pattern todoPattern = Pattern.compile("(todo) (.+)");

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Ui {
     private static final String name = "Jarvis";
-    private static final String line = "____________________________________________________________";
     private static final String greeting = "Good day Sir! I'm ";
     private static final String question = "How can I help you today Sir?";
     private static final String signOff = "Good bye Sir!";
