@@ -48,18 +48,18 @@ public class Storage {
             Task task;
             String[] taskDetails = sc.nextLine().split(" , ");
             switch (taskDetails[0]) {
-                case "T":
-                    task = new Todo(taskDetails[2], taskDetails[1].equals(DONE));
-                    break;
-                case "D":
-                    task = new Deadline(taskDetails[2], taskDetails[3], taskDetails[1].equals(DONE));
-                    break;
-                case "E":
-                    task = new Event(taskDetails[2], taskDetails[3], taskDetails[4], taskDetails[1].equals(DONE));
-                    break;
-                default:
-                    task = null;
-                    break;
+            case "T":
+                task = new Todo(taskDetails[2], taskDetails[1].equals(DONE));
+                break;
+            case "D":
+                task = new Deadline(taskDetails[2], taskDetails[3], taskDetails[1].equals(DONE));
+                break;
+            case "E":
+                task = new Event(taskDetails[2], taskDetails[3], taskDetails[4], taskDetails[1].equals(DONE));
+                break;
+            default:
+                task = null;
+                break;
             }
             tasks.add(task);
         }
