@@ -84,9 +84,9 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Print all tasks that matches the query.
-     * @param query The query to compare with all tasks name.
      *
-     * @Return A TaskList containing all match tasks.
+     * @param query The query to compare with all tasks name.
+     * @return A TaskList containing all match tasks.
      */
     public TaskList findTask(String query) {
         TaskList matchedQuery = new TaskList();
@@ -100,6 +100,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Check if a task index is within the tasklist.
+     *
      * @param ind The task index to be checked.
      * @return True if task index fall within the tasklist, False otherwise.
      */
