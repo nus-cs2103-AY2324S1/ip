@@ -28,6 +28,18 @@ public class Todo extends Task {
     }
 
     /**
+     * Checks if this task has a conflict with another task.
+     * Always returns false as a conflict cannot be encountered with a Todo Task
+     *
+     * @param t The task to check for conflicts with.
+     * @return {@code false} No conflicts with todo tasks
+     */
+    @Override
+    public boolean hasConflictWith(Task t) {
+        return false;
+    }
+
+    /**
      * Returns the name of task to be done.
      *
      * @return Name of task to be done

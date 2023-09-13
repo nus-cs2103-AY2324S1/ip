@@ -18,6 +18,17 @@ public class Deadline extends Task {
         this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
+    /**
+     * Checks if this task has a conflict with another task.
+     * Always returns false as a conflict cannot be encountered with a Deadline Task
+     *
+     * @param t The task to check for conflicts with.
+     * @return {@code false} No conflicts with deadline tasks
+     */
+    @Override
+    public boolean hasConflictWith(Task t) {
+        return false;
+    }
 
     @Override
     public Deadline mark() {

@@ -58,6 +58,18 @@ public abstract class Task {
         return String.format("%s | %s", this.isMarked ? "1" : "0", this.name);
     }
 
+    /**
+     * Checks if this task has a conflict with another task.
+     *
+     * @param t The task to check for conflicts with.
+     * @return true if there is a conflict, false otherwise.
+     */
+
+    public boolean hasConflictWith(Task t) {
+        return false;
+    }
+
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

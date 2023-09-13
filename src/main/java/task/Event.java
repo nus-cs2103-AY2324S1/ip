@@ -47,6 +47,18 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean hasConflictWith(Task t) {
+        // Only events can conflict with other events
+        if (!(t instanceof Event)) {
+            return false;
+        }
+        Event other = (Event) t;
+        boolean isStartTimeBeforeEndTime = this.start.isBefore(other.end);
+        boolean isEndTimeAfterStartTime = this.end.isAfter(other.start);
+        return isStartTimeBeforeEndTime && isEndTimeAfterStartTime;
+    }
+
+    @Override
     public String saveTask() {
         return String.format("E | %s | %s | %s", super.saveTask(),
                 this.start.format(INPUT_FORMATTER), this.end.format(INPUT_FORMATTER));
