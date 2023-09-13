@@ -15,6 +15,9 @@ public class Task {
      * @param type type of task
      */
     public Task(String description, String type) {
+        assert description != null : "Description should not be null";
+        assert type != null : "Type should not be null";
+
         this.description = description;
         this.type = type;
     }
@@ -31,15 +34,20 @@ public class Task {
     }
 
     public String getType() {
-        return this.type;
+        assert type != null : "Type should not be null";
+        return type;
     }
 
     public String getDescription() {
-        return this.description;
+        assert description != null : "Type should not be null";
+        return description;
     }
 
     @Override
     public String toString() {
+        assert description != null : "Description should not be null";
+        assert type != null : "Type should not be null";
+
         return String.format("[%s][%s] %s", this.type, done ? "X" : " ", this.description);
     }
 

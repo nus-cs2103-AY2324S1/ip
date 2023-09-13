@@ -20,6 +20,7 @@ public class Command {
      * @param targetIndex takes in a target task index
      */
     public Command(int targetIndex) {
+        assert targetIndex >= 0 : "Target index should be non-negative";
         this.setTargetIndex(targetIndex);
     }
 
@@ -39,6 +40,7 @@ public class Command {
     }
 
     public void setTaskList(TaskList taskList) {
+        assert taskList != null : "Task list should not be null";
         this.taskList = taskList;
     }
 
@@ -56,7 +58,7 @@ public class Command {
      * @return index of target task
      */
     public int getIndex() {
-        return this.targetIndex;
+        return targetIndex;
     }
 
     /**

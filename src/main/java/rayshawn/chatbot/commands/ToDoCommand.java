@@ -28,7 +28,8 @@ public class ToDoCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        System.out.println(toAdd.toString());
+        assert taskList != null : "Task list should not be null";
+
         taskList.addTask(toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS + getTaskListCount(taskList.getAllTasks()),

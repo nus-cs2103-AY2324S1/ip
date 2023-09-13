@@ -29,12 +29,16 @@ public class EventCommand extends Command {
      * @throws ChatBotException if any of the data is invalid
      */
     public EventCommand(String description, String start, String end) throws ChatBotException {
+        assert description != null : "Description should not be null";
+        assert start != null : "Start time should not be null";
+        assert end != null : "End time should not be null";
         String[] temp = start.split(" ");
         this.toAdd = new Event(description, temp[0], temp[1], end);
     }
 
     @Override
     public CommandResult execute() {
+        assert taskList != null : "Task list should not be null";
         taskList.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS + getTaskListCount(taskList.getAllTasks()),
                 toAdd, taskList.getAllTasks()));
