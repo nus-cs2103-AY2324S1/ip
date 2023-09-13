@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Lemon.png"));
 
+    /**
+     * To initialise the window of the chatbot with scroll pane.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -41,7 +44,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one as the user and capturing input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one as the user and capturing input
+     * and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -56,6 +60,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Method to display welcome message of chatbot.
+     */
     public void displayGreeting() {
         DialogBox greeting = DialogBox.getDukeDialog(ui.welcomeMessage(), dukeImage);
         dialogContainer.getChildren().add(greeting);

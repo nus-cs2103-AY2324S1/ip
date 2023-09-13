@@ -11,7 +11,6 @@ import seedu.duke.exceptions.InvalidDeadlineException;
  * A child class of duke.Tasks, it represents  tasks with a deadline.
  */
 public class Deadline extends Task {
-
     protected LocalDate by;
 
     /**
@@ -36,7 +35,7 @@ public class Deadline extends Task {
      * @param description the Deadline task's description
      * @param by the deadline of the task
      * @param isDone the completion status of the task
-     * @throws InvalidDeadlineException
+     * @throws InvalidDeadlineException thrown when deadline is not in correct format.
      */
     public Deadline(String description, String by, boolean isDone) throws InvalidDeadlineException {
         super(description, isDone);

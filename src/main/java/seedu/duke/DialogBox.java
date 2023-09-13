@@ -4,18 +4,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+/**
+ * Creates a Dialog Box in chatbot, for both user's input &
+ * the response.
+ */
 public class DialogBox extends HBox {
 
     private Text text;
     private ImageView displayPicture;
 
+    /**
+     * Constructor for a Dialog Box.
+     * @param l String that represents the user's input or response chatbot.
+     * @param iv Image of user or Lemon.
+     */
     public DialogBox(String l, Image iv) {
         text = new Text(l);
         ImageView imageView = new ImageView();

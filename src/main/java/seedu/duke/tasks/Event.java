@@ -11,7 +11,6 @@ import seedu.duke.exceptions.InvalidEventException;
 
 public class Event extends Task {
 
-
     protected LocalDate start;
     protected LocalDate end;
 
