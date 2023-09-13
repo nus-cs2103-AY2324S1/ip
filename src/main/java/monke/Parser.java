@@ -8,6 +8,7 @@ import monke.commands.ExitCommand;
 import monke.commands.FindCommand;
 import monke.commands.ListCommand;
 import monke.commands.MarkCommand;
+import monke.commands.SnoozeCommand;
 import monke.commands.TodoCommand;
 import monke.commands.UnmarkCommand;
 import monke.tasks.Deadline;
@@ -91,6 +92,8 @@ public class Parser {
             return new ExitCommand();
         case FindCommand.COMMAND_WORD:
             return parseFindCommand(args);
+        case SnoozeCommand.COMMAND_WORD:
+            return parseSnoozeCommand(args);
         default:
             throw new MonkeException("OOGA??!! I'm sorry, but I don't know what that means :-(");
         }
@@ -235,5 +238,21 @@ public class Parser {
             throw new MonkeException("OOGA BOOGA!! Provide a keyword to search");
         }
         return new FindCommand(args);
+    }
+
+    public static SnoozeCommand parseSnoozeCommand(String args) throws MonkeException {
+        if (args.isBlank()) {
+            throw new MonkeException("OOGA BOOGA!! Please provide a list number");
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            String[] splitArgs = args.split(" ", 2);
+            String listNum = splitArgs[0];
+            String dateString = splitArgs[1];
+            LocalDateTime date = LocalDateTime.parse(dateString, formatter);
+            return new SnoozeCommand(listNum, date);
+        } catch (DateTimeParseException e) {
+            throw new MonkeException("Format your deadline in yyyy-MM-dd HHmm format");
+        }
     }
 }
