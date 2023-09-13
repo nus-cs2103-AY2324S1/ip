@@ -3,7 +3,7 @@ package emiya.commands;
 import emiya.emiyaexception.EmptyDeadlineException;
 import emiya.emiyaexception.InvalidDateException;
 import emiya.emiyaexception.NoByException;
-import emiya.emiyaexception.WrongDateFormatException;
+import emiya.emiyaexception.WrongDateTimeFormatException;
 import emiya.parser.Parser;
 import emiya.storage.Storage;
 import emiya.task.Deadline;
@@ -31,12 +31,12 @@ public class DeadlineCommand {
      *     but does not input in task details.
      * @throws NoByException An exception that is thrown when the user does not include /by in their deadline command.
      * @throws InvalidDateException An exception that is thrown when the user input contains an invalid date.
-     * @throws WrongDateFormatException An exception that is thrown when the date that the user gives
+     * @throws WrongDateTimeFormatException An exception that is thrown when the date that the user gives
      *     is in the wrong format.
      */
     public static String createDeadline(String taskDetails, Parser parser, TaskList taskList, Storage storage,
             Ui ui, String fileName, String dirName) throws EmptyDeadlineException,
-            NoByException, InvalidDateException, WrongDateFormatException {
+            NoByException, InvalidDateException, WrongDateTimeFormatException {
         if (taskDetails.equals("")) {
             throw new EmptyDeadlineException();
         }

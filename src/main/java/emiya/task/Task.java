@@ -25,7 +25,7 @@ public abstract class Task {
      * Returns a String that indicates what type of task it is.
      * @return Returns a String that indicates what type of task it is.
      */
-    public abstract String typeOfString();
+    public abstract String printTypeOfTask();
 
     /**
      * Returns a String that indicates whether the task is completed or not.

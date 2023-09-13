@@ -17,7 +17,7 @@ public class ParserTest {
         Integer[] position = new Integer[1];
         String input = "todo finish homework";
         String[] expectedOutput = {"todo", "finish homework"};
-        assertArrayEquals(expectedOutput, parser.parseToRemoveUnknownCommands(position, input));
+        assertArrayEquals(expectedOutput, parser.parseToRemoveUnknownCommands(input));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseForDate_correctlyFormattedInput_generateExpectedOutput() throws InvalidDateException, WrongDateFormatException{
+    public void parseForDate_correctlyFormattedInput_generateExpectedOutput() throws InvalidDateException, WrongDateTimeFormatException {
         Parser parser = new Parser();
         String input = "2023-09-01 1500";
         String[] expectedOutput = {"2023-09-01", "15", "00"};
@@ -50,7 +50,7 @@ public class ParserTest {
         Integer[] position = new Integer[1];
         String input = "invalid";
         try {
-            parser.parseToRemoveUnknownCommands(position, input);
+            parser.parseToRemoveUnknownCommands(input);
             fail("Expected UnknownCommandException to be thrown");
         } catch (UnknownCommandException e) {
             // Test passed
@@ -99,14 +99,14 @@ public class ParserTest {
         String input = "2023/09/01 1500";
         try {
             parser.parseForDate(input);
-            fail("Expected WrongDateFormatException to be thrown");
-        } catch (WrongDateFormatException e) {
+            fail("Expected WrongDateTimeFormatException to be thrown");
+        } catch (WrongDateTimeFormatException e) {
             // Test passed
         }
     }
 
     @Test
-    public void parseForDate_invalidDateInput_exceptionThrown() throws WrongDateFormatException {
+    public void parseForDate_invalidDateInput_exceptionThrown() throws WrongDateTimeFormatException {
         Parser parser = new Parser();
         String input = "2023-13-01 1500";
         try {

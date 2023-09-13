@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import emiya.datehandler.DateHandler;
 import emiya.emiyaexception.InvalidDateException;
-import emiya.emiyaexception.WrongDateFormatException;
+import emiya.emiyaexception.WrongDateTimeFormatException;
 
 /**
  * A class representing the Deadline tasks that the user can create.
@@ -15,7 +15,7 @@ public class Deadline extends Task {
     private LocalDateTime localDateTime = null;
 
     public Deadline(boolean isCompleted, String nameOfTask, String dateOfDeadline)
-            throws WrongDateFormatException, InvalidDateException {
+            throws WrongDateTimeFormatException, InvalidDateException {
         super(isCompleted, nameOfTask);
         this.localDateTime = DateHandler.determineDateTime(dateOfDeadline);
         this.dateOfDeadline = dateOfDeadline;
@@ -31,7 +31,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String typeOfString() {
+    public String printTypeOfTask() {
         return "D ";
     }
 

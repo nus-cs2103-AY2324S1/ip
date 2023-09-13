@@ -4,7 +4,7 @@ import emiya.emiyaexception.EmptyEventException;
 import emiya.emiyaexception.InvalidDateException;
 import emiya.emiyaexception.NoFromException;
 import emiya.emiyaexception.NoToException;
-import emiya.emiyaexception.WrongDateFormatException;
+import emiya.emiyaexception.WrongDateTimeFormatException;
 import emiya.parser.Parser;
 import emiya.storage.Storage;
 import emiya.task.Event;
@@ -33,15 +33,17 @@ public class EventCommand {
      * @throws NoFromException An exception that is thrown when the user does not use /from in their event command.
      * @throws NoToException An exception that is thrown when the user does not use /to in their event command.
      * @throws InvalidDateException An exception that is thrown when the user input contains an invalid date.
-     * @throws WrongDateFormatException An exception that is thrown when the date that the user gives is
+     * @throws WrongDateTimeFormatException An exception that is thrown when the date that the user gives is
      *     in the wrong format.
      */
     public static String createEvent(String taskDetails, Parser parser, TaskList taskList, Storage storage,
                                       Ui ui, String fileName, String dirName) throws EmptyEventException,
-            NoFromException, NoToException, InvalidDateException, WrongDateFormatException {
+            NoFromException, NoToException, InvalidDateException, WrongDateTimeFormatException {
         if (taskDetails.equals("")) {
             throw new EmptyEventException();
         }
+
+        // parsedEventDetails are in the order of nameOfTask, start date, end date
         String[] parsedEventDetails = parser.parseForEvent(taskDetails);
         Event event = new Event(false, parsedEventDetails[0], parsedEventDetails[1], parsedEventDetails[2]);
         taskList.add(event);

@@ -8,7 +8,7 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 import emiya.emiyaexception.InvalidDateException;
-import emiya.emiyaexception.WrongDateFormatException;
+import emiya.emiyaexception.WrongDateTimeFormatException;
 
 
 /**
@@ -24,11 +24,12 @@ public class DateHandler {
      * @param strFormat The String input collected from the user
      * @return A LocalDateTime object that contains information about the date and time
      *     specified by the user.
-     * @throws WrongDateFormatException If the date given by the user is in the wrong format.
+     * @throws WrongDateTimeFormatException If the date given by the user is in the wrong format.
      * @throws InvalidDateException If the date given by the user is invalid.
      */
     public static LocalDateTime determineDateTime(String strFormat)
-            throws WrongDateFormatException, InvalidDateException {
+            throws WrongDateTimeFormatException, InvalidDateException {
+        // after parsing, array will be in format: [date, hour, min]
         String[] parsedDate = parseForDate(strFormat);
 
         assert parsedDate.length == 3: "If program reaches this point, parsedDate should contain the date and time" +
