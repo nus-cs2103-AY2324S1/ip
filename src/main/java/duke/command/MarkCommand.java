@@ -40,8 +40,12 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, InvalidTaskNumberException {
-        if (index >= tasks.getSize() || index < 0) throw new InvalidTaskNumberException();
+        if (!isValidIndex(index, tasks)) {
+            throw new InvalidTaskNumberException();
+        }
+
         Task task = tasks.getTaskAtIndex(index);
+
         if (isMark) {
             task.markTask();
             ui.showMark(task);
@@ -49,6 +53,7 @@ public class MarkCommand extends Command {
             task.unmarkTask();
             ui.showUnmark(task);
         }
+
         storage.update(tasks.getTasks());
     }
 }

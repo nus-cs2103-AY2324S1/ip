@@ -36,6 +36,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException {
         File f = new File(filePath);
+
         if (!f.exists()) {
             f.createNewFile();
         }

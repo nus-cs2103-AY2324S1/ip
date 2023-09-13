@@ -11,16 +11,7 @@ import duke.task.Task;
  * The FindCommand is a class representing a command to find tasks containing the keyword.
  */
 public class FindCommand extends Command {
-    private String keyword;
-
-    /**
-     * Constructs a FindCommand object with the specified task.
-     *
-     * @param task The task associated with the command.
-     */
-    public FindCommand(Task task) {
-        super(task);
-    }
+    private final String keyword;
 
     /**
      * Constructs a FindCommand object with the keyword to search for.
@@ -41,6 +32,6 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMatch(tasks.filterTasks(task -> task.contains(this.keyword)));
+        ui.showMatch(tasks.filterTasks(task -> task.contains(keyword)));
     }
 }
