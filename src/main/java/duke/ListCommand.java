@@ -3,7 +3,7 @@ package duke;
 /**
  * Lists all the tasks in task list
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     public ListCommand() {}
 
@@ -12,8 +12,4 @@ public class ListCommand extends Command{
         return ui.showTaskList(tasks);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

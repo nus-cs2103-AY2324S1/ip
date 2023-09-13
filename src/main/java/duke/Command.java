@@ -15,9 +15,4 @@ public abstract class Command {
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 
-    /**
-     * Checks if command is exit command
-     * @return true if it is exit command
-     */
-    public abstract boolean isExit();
 }

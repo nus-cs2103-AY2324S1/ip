@@ -3,7 +3,7 @@ package duke;
 /**
  * Finds tasks by searching for a keyword.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private final String KEYWORD;
     public FindCommand(String word) {
         KEYWORD = word;
@@ -22,8 +22,4 @@ public class FindCommand extends Command{
         return ui.showMatchingTasks(results);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
