@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import duke.Duke;
 import duke.exceptions.DukeException;
 import duke.tasks.Commands;
 import duke.tasks.DeadlineTask;
@@ -43,7 +44,7 @@ public class UiTest {
         taskList.markAsUnDone(2);
         taskList.markAsDone(3);
 
-        Ui.printResult(Commands.LIST, null, taskList);
+        Ui.printResult(Commands.LIST, null, taskList, new Duke());
 
         assertEquals(taskList.toString().trim(), outputStreamCaptor.toString().trim());
 

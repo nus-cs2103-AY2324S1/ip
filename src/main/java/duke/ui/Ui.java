@@ -3,6 +3,7 @@ package duke.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.Duke;
 import duke.exceptions.UnknownCommandException;
 import duke.parser.Parser;
 import duke.storage.Storage;
@@ -33,7 +34,7 @@ public class Ui {
     /**
      * Begins interaction with the user
      */
-    public void beginLogging() {
+    public void beginLogging(Duke duke) {
         printDivider();
         String entranceMsg = "Hello! I'm Elon Musk.\n"
                 + "What can I do for you?";
@@ -54,8 +55,8 @@ public class Ui {
                     break;
                 }
 
-                ArrayList<Task> modifiedTasks = Parser.parseInput(inputString, taskList);
-                printResult(Parser.getInputCommand(inputString), modifiedTasks, taskList);
+                ArrayList<Task> modifiedTasks = Parser.parseInput(inputString, taskList, duke);
+                printResult(Parser.getInputCommand(inputString), modifiedTasks, taskList, duke);
 
                 storage.saveTasks(taskList);
                 printDivider();
@@ -74,20 +75,23 @@ public class Ui {
      * @param modifiedTasks The tasks that were modified in the input
      * @param taskList      the task container
      */
-    public static void printResult(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList)
+    public static void printResult(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList, Duke duke)
             throws UnknownCommandException {
-        System.out.println(getResponseMessage(command, modifiedTasks, taskList));
+        System.out.println(getResponseMessage(command, modifiedTasks, taskList, duke));
     }
 
     /**
      * Gets the text that a user should see, either in GUI or in command line.
      *
-     * @param command The user's command
+     * @param command       The user's command
      * @param modifiedTasks The list of tasks that were modified by the user
-     * @param taskList The total list of tasks
+     * @param taskList      The total list of tasks
      * @return a response message to be displayed
      */
-    public static String getResponseMessage(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList)
+    public static String getResponseMessage(Commands command,
+                                            ArrayList<Task> modifiedTasks,
+                                            TaskList taskList,
+                                            Duke duke)
             throws UnknownCommandException {
         String result = "";
         switch (command) {
@@ -112,16 +116,22 @@ public class Ui {
             break;
         }
         case LIST: {
-            result = taskList.toString();
+            result = taskList.getTasksAsText(duke.getSortType(), duke.getSortOrder());
             break;
         }
         case FIND: {
             if (modifiedTasks.isEmpty()) {
                 result = ("Couldn't find any matching tasks!");
             } else {
-                result = "I found " + modifiedTasks.size() + " matching tasks:" + "\n" + new TaskList(modifiedTasks);
+                result = "I found " + modifiedTasks.size() + " matching tasks:" + "\n"
+                        + new TaskList(modifiedTasks).getTasksAsText(duke.getSortType(), duke.getSortOrder());
 
             }
+            break;
+        }
+        case SORT: {
+            result = "Sorting order has been changed to " + duke.getSort() + "\n"
+                    + taskList.getTasksAsText(duke.getSortType(), duke.getSortOrder());
             break;
         }
         case BYE: {
@@ -135,6 +145,7 @@ public class Ui {
 
         return result;
     }
+
 
     /**
      * Prints a simple divider line to the screen.

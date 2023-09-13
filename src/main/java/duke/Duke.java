@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
+import duke.tasks.SortOrder;
+import duke.tasks.SortType;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 import javafx.scene.image.Image;
@@ -25,6 +27,9 @@ public class Duke {
     private Image userAvatar = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeAvatar = new Image(this.getClass().getResourceAsStream("/images/elonmusk.jpg"));
 
+    private SortType sortType = SortType.ID;
+    private SortOrder sortOrder = SortOrder.ASC;
+
     /**
      * Constructor for our chatbot.
      */
@@ -41,7 +46,7 @@ public class Duke {
      * Begins the chatbot.
      */
     private void run() {
-        ui.beginLogging();
+        ui.beginLogging(this);
     }
 
     public static void main(String[] args) {
@@ -66,6 +71,44 @@ public class Duke {
      */
     public TaskList getTaskList() {
         return this.listContainer;
+    }
+
+    /**
+     * Sets the default sort order.
+     *
+     * @param type the sort type entered by the user
+     * @param order the sort order. Either ASC or DESC
+     */
+    public void setSort(SortType type, SortOrder order) {
+        this.sortType = type;
+        this.sortOrder = order;
+    }
+
+    /**
+     * Gets the current sorting order as a string.
+     *
+     * @return sorted order for the user to read
+     */
+    public String getSort() {
+        return this.sortOrder + " " + this.sortType;
+    }
+
+    /**
+     * Gets the sort type
+     *
+     * @return enum
+     */
+    public SortType getSortType() {
+        return sortType;
+    }
+
+    /**
+     * Gets the sort order
+     *
+     * @return enum
+     */
+    public SortOrder getSortOrder() {
+        return sortOrder;
     }
 }
 

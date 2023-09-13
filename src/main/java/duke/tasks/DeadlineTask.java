@@ -8,9 +8,7 @@ import java.time.format.DateTimeFormatter;
  * <p>
  * Stores the deadline as a LocalDateTime.
  */
-public class DeadlineTask extends Task {
-    private LocalDateTime deadlineDateTime;
-
+public class DeadlineTask extends TimedTask {
     /**
      * Constructor for a Deadline Task.
      *
@@ -18,8 +16,7 @@ public class DeadlineTask extends Task {
      * @param deadlineDateTime The deadline
      */
     public DeadlineTask(String itemName, LocalDateTime deadlineDateTime) {
-        super(itemName);
-        this.deadlineDateTime = deadlineDateTime;
+        super(itemName, deadlineDateTime, deadlineDateTime);
 
     }
 
@@ -30,8 +27,7 @@ public class DeadlineTask extends Task {
      * @param deadlineDateTime The deadline
      */
     public DeadlineTask(int id, String itemName, LocalDateTime deadlineDateTime) {
-        super(id, itemName);
-        this.deadlineDateTime = deadlineDateTime;
+        super(id, itemName, deadlineDateTime, deadlineDateTime);
 
     }
 
@@ -42,12 +38,17 @@ public class DeadlineTask extends Task {
 
     @Override
     public String encodeTask() {
-        return super.encodeTask() + " | " + deadlineDateTime;
+        return super.encodeTask() + " | " + this.getStart();
     }
 
     @Override
     public String toString() {
         return super.toString()
-                + " (by: " + this.deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
+                + " (by: " + this.getStart().format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
+    }
+
+    @Override
+    public int compareTo(TimedTask o) {
+        return 0;
     }
 }

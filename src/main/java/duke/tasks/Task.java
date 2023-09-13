@@ -46,7 +46,7 @@ public abstract class Task {
         }
 
         Task otherListItem = (Task) o;
-        return otherListItem.itemName.equals(this.itemName) && otherListItem.isDone == this.isDone;
+        return otherListItem.id == (this.id);
     }
 
     /**
