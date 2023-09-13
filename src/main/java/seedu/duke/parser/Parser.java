@@ -55,7 +55,7 @@ public class Parser {
                 switch (command) {
                 case LIST:
                     if (tasks.getTasksSize() < 1) {
-                        System.out.println("No tasks??" );
+                        System.out.println("No tasks??");
                         throw new NoTasksException("");
                     }
                     return ui.listAll(tasks);

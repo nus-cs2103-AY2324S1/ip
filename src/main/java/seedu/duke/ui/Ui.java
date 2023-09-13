@@ -32,7 +32,7 @@ public class Ui {
      * @return String of the error message.
      */
     public String showLoadingError() {
-        return("Error loading storage file!");
+        return ("Error loading storage file!");
     }
 
     /**

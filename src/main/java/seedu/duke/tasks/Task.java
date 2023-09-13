@@ -63,10 +63,12 @@ public class Task {
         }
     }
     public void markAsDone() {
+        assert !this.isDone : "isDone should be not done";
         this.isDone = true;
     }
 
     public void markAsUndone() {
+        assert this.isDone : "isDone should be done";
         this.isDone = false;
     }
 
