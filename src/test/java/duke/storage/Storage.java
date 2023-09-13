@@ -171,7 +171,7 @@ public class Storage {
         ArrayList<String> output = new ArrayList<>();
 
         for (Task task : taskArrayList) {
-            String input = task.getParsed();
+            String input = task.getParsedTask();
             output.add(input);
         }
         return output;

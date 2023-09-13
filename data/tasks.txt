@@ -1,3 +1,0 @@
-T;help;false
-T;tets;true
-T;hehe;false

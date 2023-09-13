@@ -52,9 +52,8 @@ public class Deadline extends Task{
      *
      * @return The parsed data of the task.
      */
-    @Override
-    public String getParsed() {
-        String result = super.getParsed() + ";" + this.dueDate;
+    public String getParsedTask() {
+        String result = super.getParsedTask() + ";" + this.dueDate;
         return result;
     }
 

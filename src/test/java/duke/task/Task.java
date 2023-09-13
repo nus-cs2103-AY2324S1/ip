@@ -89,10 +89,6 @@ public class Task {
      */
     public void mark() {
         checked = true;
-        System.out.println(Duke.HORIZONTAL_LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(getStatusText());
-        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
     /**
@@ -100,11 +96,6 @@ public class Task {
      */
     public void unmark(){
         checked = false;
-        System.out.println(Duke.HORIZONTAL_LINE);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(getStatusText());
-        System.out.println(Duke.HORIZONTAL_LINE);
-
     }
 
     /**
@@ -121,7 +112,7 @@ public class Task {
      *
      * @return The parsed data of the task.
      */
-    public String getParsed() {
+    public String getParsedTask() {
         String result = this.type + ";" + this.text + ";" + this.checked;
         return result;
     }
