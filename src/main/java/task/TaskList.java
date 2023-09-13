@@ -49,6 +49,7 @@ public class TaskList {
             throw new DukeException("Out of bounds..");
         }
 
+        assert idx > 0 : "index is within bounds of the list";
         Task task = this.list.get(idx - 1);
         task.toggleIsDone(true);
         updateFile();
@@ -69,6 +70,7 @@ public class TaskList {
             throw new DukeException("Out of bounds..");
         }
 
+        assert idx > 0 : "index is within bounds of the list";
         Task task = this.list.remove(idx - 1);
         updateFile();
 
@@ -88,6 +90,7 @@ public class TaskList {
             throw new DukeException("Out of bounds..");
         }
 
+        assert idx > 0 : "index is within bounds of the list";
         Task task = this.list.get(idx - 1);
         task.toggleIsDone(false);
         updateFile();

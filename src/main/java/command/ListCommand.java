@@ -27,6 +27,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
+        assert !list.equals(null): "list has been initialised";
         String message = list.print();
         return message;
     }
