@@ -16,6 +16,7 @@ import java.util.Scanner;
  * Storage class handles loading and saving tasks to a file.
  */
 public class Storage {
+    private static final String DONE = "1";
     private String filePath;
 
     /**
@@ -35,6 +36,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IOException {
         File f = new File(filePath);
+
         if (!f.exists()) {
             f.createNewFile();
         }
@@ -47,18 +49,18 @@ public class Storage {
             Task task;
             String[] taskDetails = sc.nextLine().split(" , ");
             switch (taskDetails[0]) {
-                case "T":
-                    task = new Todo(taskDetails[2], taskDetails[1].equals("1"));
-                    break;
-                case "D":
-                    task = new Deadline(taskDetails[2], taskDetails[3], taskDetails[1].equals("1"));
-                    break;
-                case "E":
-                    task = new Event(taskDetails[2], taskDetails[3], taskDetails[4], taskDetails[1].equals("1"));
-                    break;
-                default:
-                    task = null;
-                    break;
+            case "T":
+                task = new Todo(taskDetails[2], taskDetails[1].equals(DONE));
+                break;
+            case "D":
+                task = new Deadline(taskDetails[2], taskDetails[3], taskDetails[1].equals(DONE));
+                break;
+            case "E":
+                task = new Event(taskDetails[2], taskDetails[3], taskDetails[4], taskDetails[1].equals(DONE));
+                break;
+            default:
+                task = null;
+                break;
             }
             tasks.add(task);
         }

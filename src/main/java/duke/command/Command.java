@@ -37,12 +37,7 @@ public class Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, InvalidTaskNumberException {
     }
 
-    /**
-     * Checks if the command is an exit command.
-     *
-     * @return true if the command represents an exit command.
-     */
-    public boolean isExit() {
-        return false;
+    boolean isValidIndex(int index, TaskList tasks) {
+        return index >= tasks.getSize() || index < 0;
     }
 }
