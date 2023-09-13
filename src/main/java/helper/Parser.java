@@ -2,15 +2,7 @@ package helper;
 
 import java.time.LocalDate;
 
-import command.AddCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.DueCommand;
-import command.ExitCommand;
-import command.FindCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.UnmarkCommand;
+import command.*;
 import exception.InvalidCommandException;
 import exception.MissingIndexException;
 import exception.MissingTaskException;
@@ -34,7 +26,8 @@ public class Parser {
         fullCommand = fullCommand.trim();
 
         // command is bye or list
-        if (fullCommand.startsWith("bye") || fullCommand.startsWith("list")) {
+        if (fullCommand.startsWith("bye") || fullCommand.startsWith("list")
+                || fullCommand.startsWith("remind")) {
             return handleIndexlessCommand(fullCommand);
         }
 
@@ -111,6 +104,10 @@ public class Parser {
 
         if (fullCommand.equals(ListCommand.COMMAND_WORD)) {
             return new ListCommand(-1);
+        }
+
+        if (fullCommand.equals(RemindCommand.COMMAND_WORD)) {
+            return new RemindCommand(-1);
         }
 
         throw new WrongUseOfCommandException();
