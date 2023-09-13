@@ -23,8 +23,8 @@ public class Event extends Task {
     public Event(String description, String period) {
         super(description);
         int indexTo = period.lastIndexOf("/to");
-        this.from = super.parseDate(period.substring(6, indexTo - 1), "from");
-        this.to = super.parseDate(period.substring(indexTo + 4), "to");
+        this.from = super.dukeTimeParser.parseDate(period.substring(6, indexTo - 1), "from");
+        this.to = super.dukeTimeParser.parseDate(period.substring(indexTo + 4), "to");
     }
 
     /**
@@ -38,8 +38,8 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
-        this.from = super.parseDate(from, "from");
-        this.to = super.parseDate(to, "to");
+        this.from = super.dukeTimeParser.parseDate(from, "from");
+        this.to = super.dukeTimeParser.parseDate(to, "to");
     }
 
     /**
@@ -72,7 +72,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]"
                 + super.toString()
-                + " (from: " + super.formatDate(this.from)
-                + " to: " + super.formatDate(this.to) + ")";
+                + " (from: " + super.dukeTimeParser.formatDate(this.from)
+                + " to: " + super.dukeTimeParser.formatDate(this.to) + ")";
     }
 }

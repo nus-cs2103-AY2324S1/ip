@@ -22,7 +22,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = super.parseDate(by, "by");
+        this.by = super.dukeTimeParser.parseDate(by, "by");
     }
 
     /**
@@ -35,7 +35,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
-        this.by = super.parseDate(by, "by");
+        this.by = super.dukeTimeParser.parseDate(by, "by");
     }
 
     /**
@@ -58,6 +58,6 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]"
                 + super.toString()
-                + " (by: " + super.formatDate(this.by) + ")";
+                + " (by: " + super.dukeTimeParser.formatDate(this.by) + ")";
     }
 }
