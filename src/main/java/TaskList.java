@@ -100,14 +100,12 @@ public class TaskList {
             } else {
                 task.toggle();
                 String updatedTaskString = "";
-                try {
+                if (task instanceof Deadline) {
                     updatedTaskString = ((Deadline) task).toFileString();
-                } catch (ClassCastException e) {
-                    try {
-                        updatedTaskString = ((Todo) task).toFileString();
-                    } catch (ClassCastException f) {
-                        updatedTaskString = ((Event) task).toFileString();
-                    }
+                } else if (task instanceof Todo) {
+                    updatedTaskString = ((Todo) task).toFileString();
+                } else if (task instanceof Event) {
+                    updatedTaskString = ((Event) task).toFileString();
                 }
                 storage.updateTask(taskIndex, updatedTaskString);
                 if (task.getStatusIcon().equals("[X] ")) {
