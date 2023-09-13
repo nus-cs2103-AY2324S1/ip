@@ -19,7 +19,8 @@ public class Parser {
      */
     public static Command parse(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
-        String commandType = parts[0].toLowerCase();
+        String commandType = parts[0];
+        assert isValidCommandType(commandType) : "Invalid command type";
 
         switch (commandType) {
         case "bye":
@@ -157,8 +158,20 @@ public class Parser {
      * @param date The date string to be validated.
      * @return True if the date string is in the valid format, false otherwise.
      */
+
     private static boolean isValidDateFormat(String date) {
         String dateFormatPattern = "\\d{4}-\\d{2}-\\d{2}";
         return date.matches(dateFormatPattern);
+    }
+
+    private static boolean isValidCommandType(String commandType) {
+        // Define a list of valid command types
+        String[] validCommandTypes = {"bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "find"};
+        for (String validType : validCommandTypes) {
+            if (validType.equals(commandType)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
