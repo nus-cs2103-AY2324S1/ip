@@ -27,7 +27,7 @@ public class StatisticsCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        return null;
+        return ui.getStatisticsMessage(tasks);
     }
 
     @Override

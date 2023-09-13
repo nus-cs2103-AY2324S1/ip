@@ -159,7 +159,7 @@ public class TaskList {
         }
         LocalDateTime now = LocalDateTime.now();
         LocalDate today = now.toLocalDate();
-        LocalDate leftBound = today.minusDays(days);
+        LocalDate leftBound = today.minusDays(days - 1);
         int count = 0;
         for (Task task: tasks) {
             if (task.isBetween(leftBound, today)) {

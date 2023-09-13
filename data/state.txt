@@ -5,3 +5,8 @@ todo / 1 / join sports club
 event / 0 / tutorial / 2023-08-27 1200 / 2023-08-27 1400
 deadline / 0 / chem homework / 2023-08-06 1600
 todo / 1 / run
+deadline / 1 / math homework / 2023-09-13 1800
+deadline / 1 / mathhomework / 2023-09-10 1900
+deadline / 0 / mathhomework / 2023-09-09 2000
+deadline / 0 / mathhomework / 2023-09-06 1400
+deadline / 1 / mathhomework / 2023-09-05 1500
