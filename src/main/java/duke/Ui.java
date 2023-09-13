@@ -6,8 +6,8 @@ import java.util.Arrays;
  * Starts the UI
  */
 public class Ui {
-    private static String line = "\t____________________________________________________________\n";
-    private static String exitMessage = line + "\tBye. Hope to see you again\n" + line;
+    private static final String line = "\t____________________________________________________________\n";
+    private static final String exitMessage = line + "\tBye. Hope to see you again\n" + line;
     protected TaskList tasks;
 
     /**
@@ -23,6 +23,7 @@ public class Ui {
      * Starts the UI interaction with the user.
      */
     public String startUi(String echo) {
+        System.out.println(echo);
         try {
             String[] words = echo.split(" ");
             if (echo.equalsIgnoreCase("list")) {

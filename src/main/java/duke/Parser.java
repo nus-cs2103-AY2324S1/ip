@@ -18,6 +18,7 @@ public class Parser {
      * @return A string suitable to create a new deadline task
      */
     public static String convertDeadlineFormat(String input) {
+        assert input.contains("/by");
         Pattern pattern = Pattern.compile("by: (\\w{3} \\d{2} \\d{4}, \\d{2}:\\d{2})");
         Matcher matcher = pattern.matcher(input);
 
@@ -41,6 +42,8 @@ public class Parser {
      */
     public static String convertEventFormat(String input) {
         // Define a regular expression pattern to match the date and time strings
+        assert input.contains("/to");
+        assert input.contains("/from");
         Pattern pattern = Pattern.compile("\\((from: ([^)]+) to: ([^)]+))\\)");
         Matcher matcher = pattern.matcher(input);
 
