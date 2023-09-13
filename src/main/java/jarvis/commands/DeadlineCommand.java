@@ -2,18 +2,17 @@ package jarvis.commands;
 
 import java.time.LocalDateTime;
 
-import jarvis.parser.Parser;
-import jarvis.storage.Storage;
-import jarvis.gui.Ui;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidIndexException;
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.gui.Ui;
+import jarvis.parser.Parser;
+import jarvis.storage.Storage;
 import jarvis.tasks.Deadline;
 import jarvis.tasks.TaskList;
 
 /**
  * Represents a command to add a "Deadline" task in the Jarvis app.
- * 
  */
 public class DeadlineCommand implements Command {
 
@@ -34,7 +33,7 @@ public class DeadlineCommand implements Command {
      * @throws InvalidTaskFormatException If the task format is invalid.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public String execute(TaskList taskList, Ui ui, Storage storage)
             throws InvalidIndexException, InvalidTaskFormatException {
         if (userInput.equalsIgnoreCase("deadline")) {
             throw new InvalidTaskFormatException(null);
@@ -49,13 +48,14 @@ public class DeadlineCommand implements Command {
                 Deadline deadline = new Deadline(taskTitle, formattedDueDate, false);
                 taskList.addTask(deadline);
                 storage.saveTasks(taskList.getTaskList());
-                ui.printResponse("Yes Master! I've added this task: \n" + "\t" + deadline.toString() + "\n" +
-                        "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
+                return ui.printResponse("Yes Master! I've added this task: \n" + "\t" + deadline.toString() + "\n"
+                        + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
             } catch (InvalidDateTimeFormatException e) {
                 System.err.println(e.getMessage());
             }
         } else {
             throw new InvalidIndexException(null);
         }
+        return null;
     }
 }

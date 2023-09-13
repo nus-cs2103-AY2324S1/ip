@@ -2,8 +2,8 @@ package jarvis.commands;
 
 import java.util.ArrayList;
 
-import jarvis.storage.Storage;
 import jarvis.gui.Ui;
+import jarvis.storage.Storage;
 import jarvis.tasks.Task;
 import jarvis.tasks.TaskList;
 
@@ -21,12 +21,12 @@ public class ListCommand implements Command {
      * @param storage  The Storage for saving tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (taskList.isEmpty()) {
-            ui.printResponse("Congratulations Master! There is no task at the moment!");
+            return ui.printResponse("Congratulations Master! There is no task at the moment!");
         } else {
             ArrayList<Task> tasks = taskList.getTaskList();
-            ui.printTasks(tasks);
+            return ui.printTasks(tasks);
         }
     }
 }

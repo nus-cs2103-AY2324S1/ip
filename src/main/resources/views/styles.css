@@ -9,12 +9,12 @@
 /* Customize the user input text field */
 #userInput {
     -fx-background-color: #ecf0f1;
-    -fx-font-size: 18px;
+    -fx-font-size: 12px;
 }
 
 /* Add padding between DialogBox elements */
 .dialog-box {
-    -fx-padding: 10px;
+    -fx-padding: 5px;
 }
 
 /* Add padding between ImageView and Label */

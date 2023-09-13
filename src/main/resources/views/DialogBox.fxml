@@ -10,12 +10,13 @@
          alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
          prefWidth="400.0" spacing="10.0" xmlns:profiler="http://javafx.com/javafx/17" styleClass="dialog-box">
     <children>
+        <Label fx:id="dialog" text="Label" wrapText="true" styleClass="dialog-label"/>
         <ImageView fx:id="displayPicture" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
             <clip>
                 <Circle centerX="30.0" centerY="30.0" radius="30.0"/>
             </clip>
         </ImageView>
-        <Label fx:id="dialog" text="Label" wrapText="true" styleClass="dialog-label"/>
+<!--        <Label fx:id="dialog" text="Label" wrapText="true" styleClass="dialog-label"/>-->
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />

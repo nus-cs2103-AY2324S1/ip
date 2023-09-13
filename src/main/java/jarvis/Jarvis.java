@@ -34,34 +34,18 @@ public class Jarvis {
      *
      * @param userInput The input provided by the user through CLI.
      */
-    public void respond(final String userInput) {
+    public String respond(final String userInput) {
         try {
             Command command = Parser.parseCommand(userInput);
-            command.execute(taskList, ui, storage);
+            return command.execute(taskList, ui, storage);
         } catch (JarvisException e) {
             ui.printError(e.getMessage());
         }
+        return null;
     }
 
     public String echo(String input) {
         return input;
     }
-
-//    public static void main(String[] args) {
-//        Jarvis jarvis = new Jarvis();
-//        jarvis.start();
-//
-//        Scanner scanner = new Scanner(System.in);
-//        String userInput;
-//
-//        try {
-//            while (true) {
-//                userInput = scanner.nextLine();
-//                jarvis.respond(userInput);
-//            }
-//        } finally {
-//            scanner.close();
-//        }
-//      }
 }
 

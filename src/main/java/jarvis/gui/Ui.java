@@ -9,61 +9,53 @@ import jarvis.tasks.Task;
  */
 public class Ui {
 
-
     /**
      * ASCII Art Generated from <a href="http://patorjk.com/software/taag/">...</a>
      */
-    private static final String LOGO =
-    "\t    ██  █████  ██████  ██    ██ ██ ███████ \n" +
-    "\t    ██ ██   ██ ██   ██ ██    ██ ██ ██      \n" +
-    "\t    ██ ███████ ██████  ██    ██ ██ ███████ \n" +
-    "\t██  ██ ██   ██ ██   ██  ██  ██  ██      ██ \n" +
-    "\t█████  ██   ██ ██   ██   ████   ██ ███████ \n";
+    private static final String LOGO = "\t        ██  █████  ██████  ██    ██ ██ ███████ \n"
+        + "\t    ██ ██   ██ ██   ██ ██    ██ ██ ██      \n"
+        + "\t    ██ ███████ ██████  ██    ██ ██ ███████\n"
+        + "\t██  ██ ██   ██ ██   ██  ██  ██  ██      ██ \n"
+        + "\t█████  ██   ██ ██   ██   ████   ██ ███████ \n";
 
+    private static final String LOGO_TEST =
+            "\t┏┳┏┓┳┓┓┏┳┏┓\n" +
+            "\t   ┃┣┫┣┫┃┃┃┗┓\n" +
+            "\t┗┛┛┗┛┗┗┛┻┗┛\n";
 
     public static final String DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
 
     public String printIntro() {
-        String introMessage = "    Hi Master! I'm your personal assistant: JARVIS! \n"
-                +  "\n" + LOGO + "\n" + "    How can I serve you today? \n";
-        return introMessage;
+        return "Hi Master! I'm your personal assistant: JARVIS! \n"
+                + "\n" + LOGO_TEST + "\n" + "    How can I serve you today? \n";
     }
 
-    public void printResponse(String response) {
-        breakLine();
-        System.out.println("    " + response);
-        breakLine();
+    public String printResponse(String response) {
+        return response;
     }
 
-    public void printBye() {
-        breakLine();
-        System.out.println("    Bye Master. It has been my honour to serve you!");
-        breakLine();
+    public String printBye() {
+        return "Bye Master. It has been my honour to serve you!";
     }
     
-    public void printTasks(ArrayList<Task> tasks) {
-        breakLine();
-        System.out.println("    Tasks:\n");
+    public String printTasks(ArrayList<Task> tasks) {
+        String outputString;
+        outputString = "    Tasks:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println("    " + (i + 1) + ". " +
-                    task.toString());
+            outputString += (i + 1) + ". " + task.toString();
         }
-        breakLine();
+        return outputString;
     }
 
-    public void printTaskStatus(Task task) {
-        breakLine();
-        System.out.println("    Understood Master. I've marked this task as " + 
-                                (task.isCompleted() ? "completed" : "uncompleted") + "\n" +
-                                "\t" + task.toString());
-        breakLine();
+    public String printTaskStatus(Task task) {
+        return "Understood Master. I've marked this task as "
+                + (task.isCompleted() ? "completed" : "uncompleted") + "\n"
+                + "\t" + task.toString();
     }
 
-    public void printError(String error) {
-        breakLine();
-        System.err.println(error + "\n");
-        breakLine();
+    public String printError(String error) {
+        return error + "\n";
     }
 
     public static String breakLine() {

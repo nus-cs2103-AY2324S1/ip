@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = jarvis.echo(input);
+        String response = jarvis.respond(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJarvisDialog(response, jarvisImage)

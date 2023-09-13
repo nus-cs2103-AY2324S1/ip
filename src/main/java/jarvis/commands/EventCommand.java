@@ -2,12 +2,12 @@ package jarvis.commands;
 
 import java.time.LocalDateTime;
 
-import jarvis.parser.Parser;
-import jarvis.storage.Storage;
-import jarvis.gui.Ui;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidIndexException;
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.gui.Ui;
+import jarvis.parser.Parser;
+import jarvis.storage.Storage;
 import jarvis.tasks.Event;
 import jarvis.tasks.TaskList;
 
@@ -32,7 +32,7 @@ public class EventCommand implements Command {
      * @throws InvalidTaskFormatException If the task format is invalid.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public String execute(TaskList taskList, Ui ui, Storage storage)
             throws InvalidIndexException, InvalidTaskFormatException {
         if (userInput.equalsIgnoreCase("event")) {
             throw new InvalidTaskFormatException(null);
@@ -50,14 +50,15 @@ public class EventCommand implements Command {
                 Event event = new Event(taskTitle, formattedFromTime, formattedToTime, false);
                 taskList.addTask(event);
                 storage.saveTasks(taskList.getTaskList());
-                ui.printResponse("Yes Master! I've added this task: \n" + "\t" + event.toString() + "\n" +
-                        "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
+                return ui.printResponse("Yes Master! I've added this task: \n" + "\t" + event.toString() + "\n"
+                        + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
             } catch (InvalidDateTimeFormatException e) {
                 System.err.println(e.getMessage());
             }
         } else {
             throw new InvalidIndexException(null);
         }
+        return null;
     }
 
 }

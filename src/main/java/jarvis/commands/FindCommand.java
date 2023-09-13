@@ -2,10 +2,9 @@ package jarvis.commands;
 
 import java.util.ArrayList;
 
-import jarvis.storage.Storage;
-import jarvis.gui.Ui;
-
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.gui.Ui;
+import jarvis.storage.Storage;
 import jarvis.tasks.Task;
 import jarvis.tasks.TaskList;
 
@@ -20,16 +19,16 @@ public class FindCommand implements Command {
         this.userInput = userInput;
     }
 
-     /**
+    /**
      * Executes the FindCommand to search for tasks containing the specified keyword in their titles.
      *
      * @param taskList The TaskList containing the tasks to search within.
-     * @param ui The Ui to display responses and results.
-     * @param storage The Storage for saving tasks (not used in this command).
+     * @param ui       The Ui to display responses and results.
+     * @param storage  The Storage for saving tasks (not used in this command).
      * @throws InvalidTaskFormatException If an invalid task format is encountered.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskFormatException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskFormatException {
         if (userInput.equalsIgnoreCase("event")) {
             throw new InvalidTaskFormatException(null);
         }
@@ -46,9 +45,9 @@ public class FindCommand implements Command {
             }
         }
         if (foundTasks.isEmpty()) {
-            ui.printResponse("No matching task is found, Master. Please check your spelling or use another word");
+            return ui.printResponse("No matching task is found, Master. Please check your spelling or use another word");
         } else {
-            ui.printTasks(foundTasks);
+            return ui.printTasks(foundTasks);
         }
     }
 }
