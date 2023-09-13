@@ -20,6 +20,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String date) throws DukeException {
         super(description, TaskType.DEADLINE);
+
+        assert date != null;
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.date = LocalDateTime.parse(date, formatter);
 
