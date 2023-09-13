@@ -71,18 +71,21 @@ public class Parser {
      */
 
     public static String handleMark(String input, TaskList taskList, Boolean isLoading) {
+        assert !input.equals("") : "inputs shouldn't be empty string!";
         String[] parts = input.split(" ");
         if (parts.length == 2) {
             try {
                 int index = Integer.parseInt(parts[1]);
                 Task thisTask = taskList.getTask(index);
-                taskList.getTask(index).toggleDone();
-                Storage.save(taskList); // save in file
-                if (thisTask.getDone()) {
+                if (parts[0].equals("mark")) {
+                    taskList.getTask(index).setDone();
                     return Ui.printDone(thisTask);
-                } else {
+                }
+                if (parts[0].equals("unmark")) {
+                    taskList.getTask(index).setNotDone();
                     return Ui.printNotDone(thisTask);
                 }
+                Storage.save(taskList);
             } catch (IndexOutOfBoundsException ex) {
                 Ui.outOfBounds();
             } catch (NumberFormatException e) {
@@ -100,12 +103,17 @@ public class Parser {
      */
 
     public static String handleDelete(String input, TaskList taskList) {
+        assert !input.equals("") : "inputs shouldn't be empty string!";
         String[] parts1 = input.split(" ");
+        try {
         int index = Integer.parseInt(parts1[1]);
         String deleted = String.valueOf(taskList.getTask(index - 1));
         taskList.remove(index - 1);
         Storage.save(taskList); // save in file
-        return Ui.removeTask(deleted, taskList);
+        return Ui.removeTask(deleted, taskList);]
+        } catch (NumberFormatException ex) {
+            return Ui.numberFormat();
+        }
     }
 
     /**
@@ -116,6 +124,7 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
     public static String handleTodo(String input, TaskList taskList, Boolean isLoading) {
+        assert !input.equals("") : "inputs shouldn't be empty string!";
         String[] arr0 = input.split("todo ");
         if (arr0.length == 1) {
             return Ui.toDoExcept();
@@ -154,6 +163,7 @@ public class Parser {
      */
 
     public static String handleDeadline(String input, TaskList taskList, Boolean isLoading) {
+        assert !input.equals("") : "inputs shouldn't be empty string!";
         try {
             String[] arr1 = input.split("/by "); // 0: deadline + name , 1: date
             String[] arr2 = arr1[0].split("deadline ");
