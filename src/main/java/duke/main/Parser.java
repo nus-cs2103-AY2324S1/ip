@@ -63,7 +63,9 @@ public class Parser {
 
             case "deadline":
                 details = commandDetails.split(" /by ");
-                if (details.length < 2) throw new NoDueDateException();
+                if (details.length < 2) {
+                    throw new NoDueDateException();
+                }
                 task = details[0];
                 String duedate = details[1];
                 Deadline deadline = new Deadline(task, duedate, false);
@@ -71,10 +73,14 @@ public class Parser {
 
             case "event":
                 details = commandDetails.split(" /from ");
-                if(details.length < 2) throw new NoEventStartException();
+                if(details.length < 2) {
+                    throw new NoEventStartException();
+                }
                 task = details[0];
                 String[] timeDetails = details[1].split(" /to ");
-                if(timeDetails.length < 2) throw new NoEventEndException();
+                if(timeDetails.length < 2) {
+                    throw new NoEventEndException();
+                }
                 String start = timeDetails[0];
                 String end = timeDetails[1];
                 Event event = new Event(task, start, end, false);
