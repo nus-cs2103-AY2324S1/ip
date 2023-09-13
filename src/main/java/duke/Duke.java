@@ -1,6 +1,8 @@
 package duke;
 
 import duke.task.TaskList;
+import javafx.stage.Stage;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -11,11 +13,13 @@ public class Duke {
     private Parser parser;
     private Storage storage;
     private TaskList tasks;
+    private Stage stage;
 
     /**
      * Initializes the chat robot. Establishes task list and parser.
      */
-    public Duke() {
+    public Duke(Stage stage) {
+        this.stage = stage;
         storage = new Storage("data/duke.txt");
         try {
             tasks = new TaskList(storage.loadFile());

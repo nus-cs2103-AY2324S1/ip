@@ -33,7 +33,7 @@ public class Parser {
     /**
      * Parses the user input and returns the corresponding message.
      *
-     * @param inputs the user input.
+     * @param inputs the user inputs.
      * @throws DukeException if the user input is invalid.
      */
     public String parse(String... inputs) throws DukeException {
