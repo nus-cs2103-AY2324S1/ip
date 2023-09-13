@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import duke.tasks.Task;
@@ -81,7 +82,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the number of tasks in the taskList..
+     * Returns the number of tasks in the taskList.
      *
      * @return The length of the taskList.
      */
@@ -112,6 +113,27 @@ public class TaskList {
             }
         }
         return filteredList;
+    }
+
+    /**
+     * Updates description of a specified task from taskList.
+     *
+     * @param taskIndex Index of task to be updated.
+     * @param taskInformation New description.
+     */
+    public void updateDescription(int taskIndex, String taskInformation) {
+        taskList.get(taskIndex).updateTaskDescription(taskInformation);
+    }
+
+    /**
+     * Updates date of a specified task from taskList.
+     *
+     * @param taskIndex Index of task to be updated.
+     * @param fieldToUpdate Date field to be updated.
+     * @param newDate New date.
+     */
+    public void updateDate(int taskIndex, String fieldToUpdate, LocalDateTime newDate) {
+        taskList.get(taskIndex).updateDate(fieldToUpdate, newDate);
     }
 
 }

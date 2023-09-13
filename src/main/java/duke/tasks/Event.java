@@ -22,6 +22,31 @@ public class Event extends Task {
     }
 
     /**
+     * Updates description of task
+     *
+     * @param newDescription New description.
+     */
+    @Override
+    public void updateTaskDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
+     * Updates a date field of task.
+     *
+     * @param fieldToUpdate Field that is to be updated.
+     * @param newDate New date.
+     */
+    @Override
+    public void updateDate(String fieldToUpdate, LocalDateTime newDate) {
+        if (fieldToUpdate.equals("from")) {
+            this.from = newDate;
+        } else {
+            this.to = newDate;
+        }
+    }
+
+    /**
      * Represents Event task in string format.
      *
      * @return String representation of Event task.

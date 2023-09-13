@@ -56,6 +56,9 @@ public class Parser {
         } else if (fullCommand.contains("find")) {
             return handleFind(fullCommand, taskList);
 
+        } else if (fullCommand.contains("update")) {
+            return handleUpdate(fullCommand, taskList);
+
         } else {
             throw new DukeException("Un-fur-tunately I don't know what you mean :-(");
         }
@@ -166,6 +169,81 @@ public class Parser {
         }
     }
 
+    private static Command handleUpdate(String fullCommand, ArrayList<Task> taskList) throws DukeException {
+        String taskInfo = fullCommand.substring(6);
+
+        if (taskInfo.isBlank()) {
+            throw new DukeException("More information is needed to update a task.");
+
+        } else {
+            String[] unparsedInfoArray = taskInfo.split("/");
+            int taskIndex = Integer.parseInt(unparsedInfoArray[0].trim()) - 1;
+            Task task = taskList.get(taskIndex);
+
+            if (task instanceof ToDo) {
+                return handleToDoUpdate(taskIndex, unparsedInfoArray);
+
+            } else if (task instanceof Deadline) {
+                return handleDeadlineUpdate(taskIndex, unparsedInfoArray);
+
+            } else if (task instanceof Event) {
+                return handleEventUpdate(taskIndex, unparsedInfoArray);
+
+            } else {
+                throw new DukeException("Incorrect information in input.");
+            }
+        }
+    }
+
+    private static Command handleToDoUpdate(int taskIndex, String[] unparsedInfoArray) throws DukeException {
+        String[] unparsedFieldUpdate = unparsedInfoArray[1].split("is ");
+        String fieldToUpdate = unparsedFieldUpdate[0].trim();
+        String newDescription = unparsedFieldUpdate[1].trim();
+        if (fieldToUpdate.equals("description")) {
+            return new UpdateDescriptionCommand(taskIndex, newDescription);
+        } else {
+            throw new DukeException("Field to be updated is incorrect.");
+        }
+    }
+
+    private static Command handleDeadlineUpdate(int taskIndex, String[] unparsedInfoArray) throws DukeException {
+        String fieldToUpdate = "";
+        String[] unparsedFieldUpdate = unparsedInfoArray[1].split("is ");
+        String update = unparsedFieldUpdate[1].trim();
+        if (unparsedFieldUpdate[0].trim().equals("description") && !update.isBlank()) {
+            fieldToUpdate = "description";
+            return new UpdateDescriptionCommand(taskIndex, update);
+        } else if (unparsedFieldUpdate[0].trim().equals("by") && !update.isBlank()) {
+            fieldToUpdate = "by";
+            LocalDateTime newDate = parseDateTime(update);
+            return new UpdateDateCommand(taskIndex, fieldToUpdate, newDate);
+
+        } else {
+            throw new DukeException("Field to be updated is incorrect.");
+        }
+    }
+
+    private static Command handleEventUpdate(int taskIndex, String[] unparsedInfoArray) throws DukeException {
+        String fieldToUpdate = "";
+        String[] unparsedFieldUpdate = unparsedInfoArray[1].split("is ");
+        String update = unparsedFieldUpdate[1].trim();
+        if (unparsedFieldUpdate[0].trim().equals("description") && !update.isBlank()) {
+            fieldToUpdate = "description";
+            return new UpdateDescriptionCommand(taskIndex, update);
+
+        } else if (unparsedFieldUpdate[0].trim().equals("from") && !update.isBlank()) {
+            fieldToUpdate = "from";
+            LocalDateTime newDate = parseDateTime(update);
+            return new UpdateDateCommand(taskIndex, fieldToUpdate, newDate);
+
+        } else if (unparsedFieldUpdate[0].trim().equals("to") && !update.isBlank()) {
+            fieldToUpdate = "to";
+            LocalDateTime newDate = parseDateTime(update);
+            return new UpdateDateCommand(taskIndex, fieldToUpdate, newDate);
+        } else {
+            throw new DukeException("Field to be updated is incorrect.");
+        }
+    }
 
     /**
      * Parses string input of date into LocalDateTime.
@@ -188,5 +266,7 @@ public class Parser {
         return userInput.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 }
+
+
 
 

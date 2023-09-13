@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import duke.tasks.Task;
 
@@ -23,24 +22,9 @@ public class Ui {
     }
 
     /**
-     * Reads user's input/command.
-     *
-     * @return String representing user command.
-     */
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-    /**
-     * Prints line divider.
-     */
-    public String showLine() {
-        return "________________________________________";
-    }
-
-    /**
      * Prints welcome message when user begins running application.
+     *
+     * @return String message.
      */
     public String showWelcome() {
         return "Hello I'm Barkley\n" + logo + "Howl can I help you?";
@@ -48,6 +32,8 @@ public class Ui {
 
     /**
      * Prints goodbye message when user exits application.
+     *
+     * @return String message.
      */
     public String showExit() {
         return "Goodbye! Have a paw-some day :-) \n" + logo;
@@ -57,6 +43,7 @@ public class Ui {
      * Prints exception message.
      *
      * @param e Exception that has arisen.
+     * @return String message.
      */
     public String showError(DukeException e) {
         return e.getMessage();
@@ -64,6 +51,8 @@ public class Ui {
 
     /**
      * Prints error message for when date/time is not written correctly.
+     *
+     * @return String message.
      */
     public String showDateTimeParseError() {
         return "Error! Date/time should be in 'dd-mm-yyy hh:mm' format";
@@ -74,6 +63,7 @@ public class Ui {
      *
      * @param task Task to be added.
      * @param taskListLength Number of tasks that exist.
+     * @return String message.
      */
     public String showAdd(Task task, int taskListLength) {
         return "Woof luck with your new task: \n" + task.toString() + "You now have "
@@ -85,6 +75,7 @@ public class Ui {
      *
      * @param task Task to be deleted.
      * @param taskListLength Number of tasks that exist.
+     * @return String message.
      */
     public String showDelete(Task task, int taskListLength) {
         return "Okay! Another dog-gone task down:  \n" + task.toString() + "\n"
@@ -95,6 +86,7 @@ public class Ui {
      * Prints message to inform user that a task has been marked as done.
      *
      * @param task Task to be marked.
+     * @return String message.
      */
     public String showMark(Task task) {
         return "Furtastic job completing this task: \n" + task.toString();
@@ -104,6 +96,7 @@ public class Ui {
      * Prints message to inform user that a task has been marked as undone.
      *
      * @param task Task to be marked.
+     * @return String message.
      */
     public String showUnmark(Task task) {
         return "That's ruff! I've unmarked this task:  \n" + task.toString();
@@ -113,6 +106,7 @@ public class Ui {
      * Prints all existing tasks.
      *
      * @param taskList List of tasks to be displayed.
+     * @return String message.
      */
     public String showList(ArrayList<Task> taskList) {
         String listOfTasks = "";
@@ -127,6 +121,7 @@ public class Ui {
      *
      * @param taskList Initial list of tasks to be filtered.
      * @param keyword String keyword used to filter tasks.
+     * @return String message.
      */
     public String showFindCommandList(ArrayList<Task> taskList, String keyword) {
         if (taskList.isEmpty()) {
@@ -138,6 +133,16 @@ public class Ui {
             }
             return "The following tasks contain '" + keyword + "' :" + listOfTasks;
         }
+    }
+
+    /**
+     * Prints message to inform user task has been updated.
+     *
+     * @param task Task that has been updated.
+     * @return String message.
+     */
+    public String showUpdate(Task task) {
+        return "The following task has been updated: \n" + task.toString();
     }
 
 }

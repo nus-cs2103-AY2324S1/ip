@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task object.
  */
@@ -47,6 +49,24 @@ public abstract class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Updates description of task
+     *
+     * @param newDescription New description.
+     */
+    public void updateTaskDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
+     * Updates a date field of task.
+     *
+     * @param fieldToUpdate Field that is to be updated.
+     * @param newDate New date.
+     */
+    public void updateDate(String fieldToUpdate, LocalDateTime newDate) {
     }
 
     /**

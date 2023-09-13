@@ -13,6 +13,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Updates description of task
+     *
+     * @param newDescription New description.
+     */
+    @Override
+    public void updateTaskDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
      * Represents ToDo task in string format.
      *
      * @return String representation of ToDo task.
