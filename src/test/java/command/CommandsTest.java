@@ -235,7 +235,7 @@ public class CommandsTest {
             try {
                 final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
                 System.setOut(new PrintStream(outContent));
-                assertEquals(cmdi[i], taskList.delete(1, true));
+                assertEquals(cmdi[i], taskList.delete(1));
             } catch (DukeNumberFormatException e) {
                 assertEquals("Place a number after the command", e.getMessage());
             } catch (DukeException e) {
