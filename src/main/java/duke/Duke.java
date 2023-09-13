@@ -5,6 +5,7 @@ import duke.data.exception.CCException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
+import duke.ui.Gui;
 import duke.ui.Ui;
 
 import javafx.application.Application;
@@ -19,7 +20,7 @@ import java.util.Scanner;
  * It initializes and coordinates the application's components, such as the UI, parser, storage, and task list.
  * The class also defines the main method for launching the application and the main loop for user interaction.
  */
-public class Duke extends Application {
+public class Duke {
 
     public static final String PATH = "src/main/data/task-list.txt";
     private TaskList tasks;
@@ -47,14 +48,6 @@ public class Duke extends Application {
         duke.run();
     }
 
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
-    }
 
     /**
      * Initiates the main loop of the Duke application.
