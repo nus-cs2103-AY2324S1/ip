@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class TaskListTest {
     TaskList tasks = new TaskList();
-    Task todo = new ToDo("todo go on a hike");
+    Task todo = new ToDo("go on a hike");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     Task deadline = new Deadline("assignment submission",
             LocalDateTime.parse("2023-09-11 2359", formatter));
@@ -23,6 +23,8 @@ public class TaskListTest {
     public void testGetTask(){
         this.tasks.addTask(todo);
         int initialLen = tasks.getSize();
+        System.out.println(todo.taskString());
+        System.out.println(this.tasks.getTask(tasks.getSize() - 1).taskString());
         assert this.tasks.getTask(tasks.getSize() - 1).taskString()
                 .equals(todo.taskString());
         //to check that the length of the list is not changes by the get method

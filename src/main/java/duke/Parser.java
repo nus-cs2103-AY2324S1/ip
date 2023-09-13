@@ -115,7 +115,7 @@ public class Parser {
                 throw new DeadlineCommandUseException(str);
             }
             String workToDo = str.substring(9, index);
-            workToDo.trim();
+            workToDo = workToDo.trim();
             Task task = new Deadline(workToDo, LocalDateTime.parse(deadline, formatter));
             tasks.addTask(task);
             temp = Ui.printAddTask(task, tasks);
@@ -132,7 +132,7 @@ public class Parser {
             String fromWhen;
             String toWhen;
             String workToDo = str.substring(6, firstIndex);
-            workToDo.trim();
+            workToDo = workToDo.trim();
             String afterFirstIndex = str.substring(firstIndex + 6);
             if (!afterFirstIndex.contains("/to ")) { //to check the input of /to after /from
                 throw new EventCommandUseException(str);
@@ -182,15 +182,18 @@ public class Parser {
                 Storage.saveTasks("src/data/Duke.txt", tasks);
                 return Ui.printBye();
             }
-            if (str.startsWith("mark ") || str.startsWith("unmark ")
+            else if (str.equals("help")) {
+                return Ui.printHelp();
+            }
+            else if (str.startsWith("mark ") || str.startsWith("unmark ")
                     || str.startsWith("delete ")) {
                 updateList(str, tasks);
             }
-            else if(str.startsWith("todo") || str.startsWith("deadline")
+            else if (str.startsWith("todo") || str.startsWith("deadline")
                     || str.startsWith("event")) {
                 addTasks(str, tasks);
             }
-            else if(str.equals("list") || str.startsWith("find ")) {
+            else if (str.equals("list") || str.startsWith("find ")) {
                 returnList(str, tasks);
             } else {
                 throw new InvalidInputException(str);

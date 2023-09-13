@@ -8,7 +8,7 @@ import duke.task.Task;
  */
 public class Ui{
     static String hello = "Hello muggle! I'm " + "Harry Potter!" + "\n" + "Introducing the Wizarding World Organizer: Your Trusted Guide" +
-            " to Efficient & Effective Magical Planning!";
+            " to Efficient & Effective Magical Planning! Type 'help' to find out more about my capabilities!";
     static String bye = "\t" + "Expelliarmus! Hope to see you again muggle! :D";
 
     /**
@@ -90,6 +90,22 @@ public class Ui{
         return"Accio error! I don't understand what the input means D:" +
                 " Please input a valid date in the format yyyy-MM-dd HHmm " +
                 "(the time in the 24-hour format).";
+    }
+
+    public static String printHelp() {
+        return "No worries, muggle! Harry Potter is here to help :D Accio Help Guide! \n"
+                + "Here are the commands for use: \n"
+                + "1. help: shows this list of commands\n"
+                + "2. mark<index>: marks task at <index> in the list as done \n"
+                + "3. unmark<index>: marks task at <index> in the list as not done \n"
+                + "4. delete<index>: deletes task at <index> in the list\n"
+                + "5. list: shows the existing list of tasks\n"
+                + "6. find <keyword>: returns a new list of tasks containing the matching keyword\n"
+                + "7. todo <task>: specify the task to be added in the list with no start or end date\n"
+                + "8. deadline <task> /by <yyyy-MM-dd HHmm>: specify the task to be added with a specific deadline\n"
+                + "9. event <task> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>: specify the event to be added with both start & end dates\n"
+                + "10. bye: displays a goodbye message";
+
     }
 
     /**

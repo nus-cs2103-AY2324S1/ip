@@ -43,7 +43,7 @@ public class TaskList{
      * @return The retrieved task.
      */
     public Task getTask(int index){
-        assert index < this.tasks.size() && index > 0;
+        assert index < this.tasks.size() && index >= 0;
         return this.tasks.get(index);
     }
 
