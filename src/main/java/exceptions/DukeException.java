@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * The `DukeException` class represents a custom exception specific to the Duke application.
+ * The `DukeException` class represents a custom exception specific to the Woof application.
  * It is used to indicate exceptional situations or errors within the application.
  */
 public class DukeException extends RuntimeException {

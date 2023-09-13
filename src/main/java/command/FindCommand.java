@@ -5,12 +5,9 @@ import parser.Parser;
 import tasks.TaskList;
 
 /**
- * The `FindCommand` class represents a command to search for tasks based on a keyword in the Duke application.
+ * The `FindCommand` class represents a command to search for tasks based on a keyword in the Woof application.
  */
 public class FindCommand extends Command {
-    private final boolean valid;
-    private String keyword;
-
     /**
      * Constructs a `FindCommand` with the given raw command.
      *
@@ -18,29 +15,25 @@ public class FindCommand extends Command {
      */
     public FindCommand(String rawCommand) {
         super(rawCommand);
-        this.valid = validate(rawCommand);
     }
 
     /**
      * Validates the `FindCommand` based on the raw command input.
      *
      * @param rawCommand The raw command input by the user.
-     * @return `true` if the command is valid, `false` otherwise.
+     * @return An empty string if the command is valid, or an error message if it's invalid.
      */
-    public static boolean validate(String rawCommand) {
+    public static String validate(String rawCommand) {
         String[] args = Parser.getArgs(rawCommand);
         if (args.length != 2) {
-            return false;
+            return "Invalid number of arguments for find command.";
         }
 
-        return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.FIND);
-    }
-
-    private void deconstruct(String rawCommand) {
-        if (!this.valid) {
-            return;
+        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.FIND)) {
+            return "Invalid command word for find command.";
         }
-        this.keyword = Parser.getArgs(rawCommand)[1];
+
+        return ""; // Return an empty string if the command is valid
     }
 
     /**
@@ -48,11 +41,16 @@ public class FindCommand extends Command {
      *
      * @param taskList The task list in which to search for tasks.
      */
-    public void execute(TaskList taskList) {
-        if (!this.valid) {
-            return;
+    public String execute(TaskList taskList) {
+        String rawCommand = super.getRawCommand();
+        String validationError = validate(rawCommand);
+        if (isValidationError(validationError)) {
+            return validationError;
         }
-        this.deconstruct(super.getRawCommand());
-        taskList.findTask(this.keyword);
+
+        String[] args = Parser.getArgs(rawCommand);
+        String keyword = args[1];
+        return taskList.findTask(keyword);
     }
+
 }

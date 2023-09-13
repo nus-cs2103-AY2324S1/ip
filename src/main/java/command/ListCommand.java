@@ -24,15 +24,19 @@ public class ListCommand extends Command {
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
-     * @return `true` if the command is valid, `false` otherwise.
+     * @return An empty string if the command is valid, or an error message if it's invalid.
      */
-    public static boolean validate(String rawCommand) {
+    public static String validate(String rawCommand) {
         String[] args = Parser.getArgs(rawCommand);
         if (args.length != 1) {
-            return false;
+            return "Invalid number of arguments for list command.";
         }
 
-        return CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.LIST);
+        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.LIST)) {
+            return "Invalid command word for list command.";
+        }
+
+        return ""; // Return an empty string if the command is valid
     }
 
     /**
@@ -41,10 +45,12 @@ public class ListCommand extends Command {
      *
      * @param taskList The task list from which tasks are listed.
      */
-    public void execute(TaskList taskList) {
-        if (!validate(super.getRawCommand())) {
-            return;
+    public String execute(TaskList taskList) {
+        String validationError = validate(super.getRawCommand());
+        if (isValidationError(validationError)) {
+            return validationError;
         }
-        taskList.listAllTasks();
+        return taskList.listAllTasks();
     }
+
 }

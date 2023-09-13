@@ -6,7 +6,7 @@ import java.util.Objects;
 import enums.TaskType;
 
 /**
- * The `EventTask` class represents an event task with a specific start and end date in the Duke application.
+ * The `EventTask` class represents an event task with a specific start and end date in the Woof application.
  * It extends the `Task` class and includes the event date range information.
  */
 public class EventTask extends Task {
@@ -39,8 +39,10 @@ public class EventTask extends Task {
      * @return A string representation of the event date range.
      */
     public String getEventRange() {
-        return String.format(" (from: %s to %s)",
+        return String.format("%s~From: %s%s~To  : %s",
+                getTabSpace(),
                 startDate.format(super.getDateTimeformatter()),
+                getTabSpace(),
                 endDate.format(super.getDateTimeformatter()));
     }
 

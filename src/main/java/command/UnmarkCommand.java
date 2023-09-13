@@ -26,19 +26,24 @@ public class UnmarkCommand extends Command {
      *
      * @param rawCommand The raw command string.
      * @param taskList   The task list against which to validate the task index.
-     * @return `true` if the command is valid, `false` otherwise.
+     * @return An empty string if the command is valid, or an error message if it's invalid.
      */
-    public static boolean validate(String rawCommand, TaskList taskList) {
+    public static String validate(String rawCommand, TaskList taskList) {
         String[] args = Parser.getArgs(rawCommand);
         if (args.length != 2) {
-            return false;
+            return "Invalid number of arguments for unmark command.";
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.UNMARK)) {
-            return false;
+            return "Invalid command word for unmark command.";
         }
 
-        return taskList.validateTaskIndex(args[1]);
+        String taskListValidationError = taskList.validateTaskIndex(args[1]);
+        if (taskList.isValidationError(taskListValidationError)) {
+            return taskListValidationError;
+        }
+
+        return ""; // Return an empty string if the command is valid
     }
 
     /**
@@ -47,13 +52,13 @@ public class UnmarkCommand extends Command {
      *
      * @param taskList The task list in which the task is marked as undone.
      */
-    public void execute(TaskList taskList) {
-        String rawCommand = super.getRawCommand();
-        if (!validate(rawCommand, taskList)) {
-            return;
+    public String execute(TaskList taskList) {
+        String validationError = validate(super.getRawCommand(), taskList);
+        if (isValidationError(validationError)) {
+            return validationError;
         }
-        String[] args = Parser.getArgs(rawCommand);
+        String[] args = Parser.getArgs(super.getRawCommand());
         String taskIndex = args[1];
-        taskList.markTaskUndone(taskIndex);
+        return taskList.markTaskUndone(taskIndex);
     }
 }

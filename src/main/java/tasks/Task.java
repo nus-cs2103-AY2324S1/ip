@@ -3,10 +3,10 @@ package tasks;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import duke.Duke;
+import woof.Woof;
 
 /**
- * The `Task` class represents a task in the Duke application.
+ * The `Task` class represents a task in the Woof application.
  */
 public abstract class Task {
     /**
@@ -26,11 +26,12 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description.trim();
+        formatDescriptionWithLineBreaks();
         this.isDone = false;
     }
 
     public DateTimeFormatter getDateTimeformatter() {
-        return Duke.getDateTimeFormatter();
+        return Woof.getDateTimeFormatter();
     }
 
     /**
@@ -40,6 +41,37 @@ public abstract class Task {
      */
     private String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
+    }
+
+    /**
+     * Adds line breaks with tabs to the description text to ensure lines do not exceed 36 characters.
+     */
+    protected void formatDescriptionWithLineBreaks() {
+        int currentLineLength = 0;
+        int maxLineLength = 36;
+        StringBuilder formattedDescription = new StringBuilder();
+
+        for (int i = 0; i < this.description.length(); i++) {
+            char currentChar = this.description.charAt(i);
+            if (currentLineLength >= maxLineLength) {
+                formattedDescription.append(getTabSpace());
+                currentLineLength = 0;
+            }
+            if (currentLineLength != 0 || currentChar != ' ') {
+                formattedDescription.append(currentChar);
+            }
+            currentLineLength++;
+        }
+        this.description = formattedDescription.toString();
+    }
+
+    /**
+     * Gets a tab space for doing to the next line of a task
+     *
+     * @return The tab space "            ".
+     */
+    protected String getTabSpace() {
+        return "\n" + " ".repeat(12);
     }
 
     /**

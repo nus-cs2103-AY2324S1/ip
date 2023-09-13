@@ -6,7 +6,7 @@ import java.util.Objects;
 import enums.TaskType;
 
 /**
- * The `DeadlineTask` class represents a task with a specific deadline in the Duke application.
+ * The `DeadlineTask` class represents a task with a specific deadline in the Woof application.
  * It extends the `Task` class and includes the deadline information.
  */
 public class DeadlineTask extends Task {
@@ -32,7 +32,7 @@ public class DeadlineTask extends Task {
      * @return A string representation of the deadline date.
      */
     public String getDeadline() {
-        return String.format(" (by: %s)", endDate.format(super.getDateTimeformatter()));
+        return String.format("%s~By: %s", getTabSpace(), endDate.format(super.getDateTimeformatter()));
     }
 
     /**

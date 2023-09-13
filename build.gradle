@@ -3,6 +3,7 @@ plugins {
     id 'checkstyle'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 checkstyle {
@@ -17,6 +18,11 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
+javafx {
+    version = "17.0.7"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 test {
@@ -34,11 +40,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("woof.Woof")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "woof"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

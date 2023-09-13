@@ -5,7 +5,7 @@ import java.util.Objects;
 import enums.TaskType;
 
 /**
- * The `TodoTask` class represents a "Todo" task in the Duke application.
+ * The `TodoTask` class represents a "Todo" task in the Woof application.
  * It is a specific type of task that has no specific due date or event range.
  */
 public class TodoTask extends Task {

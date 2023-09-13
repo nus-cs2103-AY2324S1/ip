@@ -1,8 +1,7 @@
 package command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -33,11 +32,11 @@ public class TodoCommandTest {
     @Test
     public void testValidate() {
         // Arrange, Act, Assert
-        assertTrue(TodoCommand.validate("todo some task"));
+        assertEquals("", TodoCommand.validate("todo some task"));
 
-        assertFalse(TodoCommand.validate("todo"));
-        assertFalse(TodoCommand.validate("event some task"));
-        assertFalse(TodoCommand.validate("deadline some task"));
+        assertNotEquals("", TodoCommand.validate("todo"));
+        assertNotEquals("", TodoCommand.validate("event some task"));
+        assertNotEquals("", TodoCommand.validate("deadline some task"));
     }
 
     @Test

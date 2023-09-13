@@ -1,8 +1,7 @@
 package command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,11 +11,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.Duke;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.TaskList;
 import tasks.TodoTask;
+import woof.Woof;
 
 public class ListCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -37,21 +36,21 @@ public class ListCommandTest {
     @Test
     public void testValidate() {
         // Arrange, Act, Assert
-        assertTrue(ListCommand.validate("list"));
+        assertEquals("", ListCommand.validate("list"));
 
-        assertFalse(ListCommand.validate("/list"));
-        assertFalse(ListCommand.validate("list some argument"));
-        assertFalse(ListCommand.validate("todo"));
-        assertFalse(ListCommand.validate("event some task"));
-        assertFalse(ListCommand.validate("deadline some task"));
+        assertNotEquals("", ListCommand.validate("/list"));
+        assertNotEquals("", ListCommand.validate("list some argument"));
+        assertNotEquals("", ListCommand.validate("todo"));
+        assertNotEquals("", ListCommand.validate("event some task"));
+        assertNotEquals("", ListCommand.validate("deadline some task"));
     }
 
     @Test
     public void testExecuteListsTasks() {
         // Arrange
         TaskList taskList = new TaskList(null);
-        LocalDate startDate = LocalDate.parse("2023-01-01", Duke.getDateTimeFormatter());
-        LocalDate endDate = LocalDate.parse("2023-12-31", Duke.getDateTimeFormatter());
+        LocalDate startDate = LocalDate.parse("2023-01-01", Woof.getDateTimeFormatter());
+        LocalDate endDate = LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter());
         taskList.addTask(new TodoTask("Task 1"));
         taskList.addTask(new DeadlineTask("Task 2", endDate));
         taskList.addTask(new EventTask("Task 3", startDate, endDate));
@@ -59,22 +58,18 @@ public class ListCommandTest {
         ListCommand listCommand = new ListCommand("list");
         String expectedOutput = "Here are the tasks in your list:" + System.lineSeparator()
                 + "  1. [T][ ] Task 1" + System.lineSeparator()
-                + "  2. [D][ ] Task 2 (by: 2023-12-31)" + System.lineSeparator()
-                + "  3. [E][ ] Task 3 (from: 2023-01-01 to 2023-12-31)" + System.lineSeparator()
+                + "  2. [D][ ] Task 2" + System.lineSeparator()
+                + "            ~By: 2023-12-31" + System.lineSeparator()
+                + "  3. [E][ ] Task 3" + System.lineSeparator()
+                + "            ~From: 2023-01-01" + System.lineSeparator()
+                + "            ~To  : 2023-12-31" + System.lineSeparator()
                 + "You have 3 tasks in the task list." + System.lineSeparator();
 
-        // Redirecting System.out to capture console output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
         // Act
-        listCommand.execute(taskList);
-
-        // Restore System.out
-        System.setOut(System.out);
+        String actualOutput = listCommand.execute(taskList);
 
         // Assert
-        assertEquals(expectedOutput, outContent.toString());
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
@@ -85,17 +80,10 @@ public class ListCommandTest {
         String expectedOutput = "Here are the tasks in your list:" + System.lineSeparator()
                 + "You have 0 tasks in the task list." + System.lineSeparator();
 
-        // Redirecting System.out to capture console output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
         // Act
-        listCommand.execute(taskList);
-
-        // Restore System.out
-        System.setOut(System.out);
+        String actualOutput = listCommand.execute(taskList);
 
         // Assert
-        assertEquals(expectedOutput, outContent.toString());
+        assertEquals(expectedOutput, actualOutput);
     }
 }

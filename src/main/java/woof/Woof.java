@@ -1,4 +1,4 @@
-package duke;
+package woof;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,39 +12,43 @@ import tasks.TaskList;
 import ui.Ui;
 
 /**
- * The `Duke` class is the main class for the Duke application.
- * It handles user interactions and the core functionality of the application.
+ * The `Woof` class is the main class for the Woof CLI application.
+ * It handles user interactions and the core functionality of the CLI application.
  */
-public class Duke {
+public class Woof {
     /**
-     * The main entry point for the Duke application.
+     * The main entry point for the Woof CLI application.
      *
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        runDuke();
+        runWoofCli();
     }
 
     /**
-     * Runs the Duke application, allowing the user to interact with it via the command line.
+     * Runs the Woof CLI application, allowing the user to interact with it via the command line.
      */
-    public static void runDuke() {
+    public static void runWoofCli() {
         Scanner scanner = new Scanner(System.in);
-        Ui.helloWorld();
+        System.out.println(Ui.getHelloWorldMessage());
         boolean isConversing = true;
         while (isConversing) {
-            String rawCommand = Ui.getUserInput(scanner);
             TaskList taskList = TaskFileHandler.readFromFile();
-            Ui.getBotMessage();
+
+            System.out.println(Ui.getUserTitle());
+            String rawCommand = Ui.getUserInput(scanner);
+
+            System.out.println(Ui.getBotTitle());
             Command command = Parser.parse(rawCommand);
-            command.execute(taskList);
-            TaskFileHandler.saveToFile(taskList);
+            System.out.print(command.execute(taskList));
+
             isConversing = !command.isByeCommand();
+            TaskFileHandler.saveToFile(taskList);
         }
     }
 
     /**
-     * Validates a date-time string using the duke date-time formatter.
+     * Validates a date-time string using the application date-time formatter.
      *
      * @param string The date-time string to validate.
      * @return `true` if the string is a valid date-time, `false` otherwise.
