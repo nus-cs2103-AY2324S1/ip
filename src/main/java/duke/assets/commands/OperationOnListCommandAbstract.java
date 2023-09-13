@@ -47,13 +47,26 @@ public abstract class OperationOnListCommandAbstract extends CommandAbstract {
      * @param taskList the task list to operate on
      */
     @Override
-    protected abstract void completeOperation(TaskList taskList);
+    protected abstract String completeOperation(TaskList taskList);
 
     /**
-     * Prints the appropriate dialogue from the chatbot to the terminal
+     * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
+     * response as a string
+     *
+     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any uncaught edge cases
      */
     @Override
-    public void printChatbotLine() {
-        return;
+    protected String findException() {
+        Pattern commandRegex = Pattern.compile("^(mark|unmark|delete)\\s\\d+$", Pattern.CASE_INSENSITIVE);
+        Matcher inputMatcher = commandRegex.matcher(this.input);
+        if (!inputMatcher.find()) {
+            inputMatcher.reset();
+            Pattern inputStartRegex = Pattern.compile("^(mark|unmark|delete)\\s", Pattern.CASE_INSENSITIVE);
+            if (inputMatcher.usePattern(inputStartRegex).find()) {
+                return "Ensure that you have included the index value of the task you would like to"
+                        + "alter";
+            }
+        }
+        return UNHANDLED_EXCEPTION_STRING;
     }
 }

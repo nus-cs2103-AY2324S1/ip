@@ -15,6 +15,7 @@ import duke.dukeexceptions.StateCannotBeAlteredException;
 public class TaskList {
     private static final String HORIZONTAL = "------------------------------------------------------------"
             + "---------------------------";
+    private static final String UNHANDLED_EXCEPTION_STRING = "Error: unexpected uncaught exception in task list";
     private final ArrayList<TaskAbstract> taskList;
     private int numberOfTasks;
 
@@ -40,20 +41,23 @@ public class TaskList {
      * Marks a task at the specified index as complete
      *
      * @param index the index of the task to be marked
+     * @return appropriate chatbot response to request
      */
-    public void markTaskAt(int index) {
+    public String markTaskAt(int index) {
         if (index < 0 || index >= this.numberOfTasks) {
             if (this.numberOfTasks == 0) {
-                System.out.println("ChadGPT: Please add at least one task to your list first :)");
+                return "Please add at least one task to your list first :)";
             } else {
-                System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
+                return ("Ensure the index is of in the range 1 - " + this.numberOfTasks);
             }
         } else {
             try {
                 this.taskList.get(index).completeTask();
-                System.out.println("ChadGPT: Great, I'll mark task!");
+                return "Great, I'll mark the task!";
             } catch (StateCannotBeAlteredException exp) {
-                System.out.println("ChadGPT: Task is already complete :-)");
+                return "Task is already complete :-)";
+            } catch (Exception e) { // Other unhandled exceptions that have not been considered
+                return UNHANDLED_EXCEPTION_STRING;
             }
         }
     }
@@ -62,21 +66,23 @@ public class TaskList {
      * Marks a task at the specified index as incomplete
      *
      * @param index the index of the task to be unmarked
+     * @return appropriate chatbot response string
      */
-    public void unmarkTaskAt(int index) {
+    public String unmarkTaskAt(int index) {
         if (index < 0 || index >= this.numberOfTasks) {
             if (this.numberOfTasks == 0) {
-                System.out.println("ChadGPT: Please add at least one task to your list first :)");
+                return "Please add at least one task to your list first.";
             } else {
-                System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
+                return ("Ensure the index is of in the range 1 - " + this.numberOfTasks);
             }
-        } else {
-            try {
-                this.taskList.get(index).undo();
-                System.out.println("ChadGPT: I'll unmark it for now but do remember to complete it!");
-            } catch (StateCannotBeAlteredException exp) {
-                System.out.println("ChadGPT: Task is already incomplete :-)");
-            }
+        }
+        try {
+            this.taskList.get(index).undo();
+            return "I'll unmark it for now but do remember to complete it!";
+        } catch (StateCannotBeAlteredException exp) {
+            return "Task is already incomplete :-)";
+        } catch (Exception e) { // Other unhandled exceptions that have not been considered
+            return UNHANDLED_EXCEPTION_STRING;
         }
     }
 
@@ -84,18 +90,19 @@ public class TaskList {
      * Deletes a task at the specified index from the task list
      *
      * @param index the index of the task to be deleted
+     * @return appropriate chatbot response string
      */
-    public void deleteTaskAt(int index) {
+    public String deleteTaskAt(int index) {
         if (index < 0 || index >= this.numberOfTasks) {
             if (this.numberOfTasks == 0) {
-                System.out.println("ChadGPT: Can't delete from an empty list :(");
+                return "Can't delete from an empty list :(";
             } else {
-                System.out.println("ChadGPT: Ensure the index is of in the range 1 - " + this.numberOfTasks);
+                return ("Ensure the index is of in the range 1 - " + this.numberOfTasks);
             }
         } else {
-            System.out.println("ChadGPT: Deleted!");
             this.taskList.remove(index);
             this.numberOfTasks--;
+            return "Deleted!";
         }
     }
 
@@ -104,7 +111,7 @@ public class TaskList {
      */
     public void writeToFile() {
         try {
-            File myFile = new File("./duke.txt");
+            File myFile = new File("./src/main/java/duke/data/duke.txt");
             FileWriter fw = new FileWriter(myFile);
             PrintWriter pw = new PrintWriter(fw);
             for (TaskAbstract t : this.taskList) {
@@ -131,14 +138,20 @@ public class TaskList {
     }
 
     /**
-     * Prints the status of all tasks in the task list
+     * Gets the status of all tasks in the task list
+     *
+     * @return all the status of the tasks compiled into a single string
      */
-    public void listTasks() {
+    public String listTasks() {
+        if (numberOfTasks == 0) {
+            return "No tasks to list, did you forget to add them perhaps?";
+        }
+        String baseString = "Here you go!";
         int counter = 0;
         for (TaskAbstract t : this.taskList) {
-            System.out.print("    " + ++counter + ". ");
-            t.printStatus();
+            baseString += ("\n    " + ++counter + ". " + t.getStatus());
         }
+        return baseString;
     }
 
     /**
@@ -151,15 +164,18 @@ public class TaskList {
 
     /**
      * Find and prints the tasks that contain the given token in their task descriptions
+     *
      * @param token token to be found in task description
+     * @return list of task matching the user input token as a string
      */
-    public void find(String token) {
+    public String find(String token) {
         boolean hasMatch = false;
+        String baseString = "No matches unfortunately :(";
 
         // Check if there is at least 1 task with description matching to token
         for (TaskAbstract t : this.taskList) {
             if (t.hasToken(token)) {
-                System.out.println("ChadGPT: Found them!");
+                baseString = "Found them!";
                 hasMatch = true;
                 break;
             }
@@ -169,12 +185,10 @@ public class TaskList {
             int counter = 0;
             for (TaskAbstract t : this.taskList) {
                 if (t.hasToken(token)) {
-                    System.out.print("    " + ++counter + ". ");
-                    t.printStatus();
+                    baseString += ("\n    " + ++counter + ". " + t.getStatus());
                 }
             }
-        } else {
-            System.out.println("ChadGPT: No matches unfortunately :(");
         }
+        return baseString;
     }
 }

@@ -24,10 +24,10 @@ public class Todo extends TaskAbstract {
     }
 
     /**
-     * Prints the status of the todo task
+     * Get the status of the todo task as a string
      */
     @Override
-    public void printStatus() {
-        System.out.printf("[T][%s] %s\n", this.isDone ? "X" : " ", this.description);
+    public String getStatus() {
+        return String.format("[T][%s] %s\n", this.isDone ? "X" : " ", this.description);
     }
 }

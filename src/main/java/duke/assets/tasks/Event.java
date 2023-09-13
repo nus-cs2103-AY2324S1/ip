@@ -103,11 +103,11 @@ public class Event extends TaskAbstract {
     }
 
     /**
-     * Prints the status of the event task
+     * Get the status of the event task as a string
      */
     @Override
-    public void printStatus() {
-        System.out.printf("[E][%s] %s (from: %s to: %s)\n", this.isDone ? "X" : " ", this.description, this
+    public String getStatus() {
+        return String.format("[E][%s] %s (from: %s to: %s)\n", this.isDone ? "X" : " ", this.description, this
                 .getStartDateTimeForPrinting(), this.getEndDateTimeForPrinting());
     }
 }

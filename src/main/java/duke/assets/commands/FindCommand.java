@@ -11,6 +11,7 @@ import duke.assets.storage.TaskList;
 public class FindCommand extends CommandAbstract {
     /**
      * Constructs a find command
+     *
      * @param input input command from user
      */
     public FindCommand(String input) {
@@ -18,15 +19,8 @@ public class FindCommand extends CommandAbstract {
     }
 
     /**
-     * Print the chatbot dialogue invoked from this command
-     */
-    @Override
-    public void printChatbotLine() { // Printing is done by task list instead
-        return;
-    }
-
-    /**
      * Checks if the command is of appropriate formatting
+     *
      * @param tasklist the task list to find tokens in
      * @return true if command is of appropriate formatting, false otherwise
      */
@@ -39,11 +33,24 @@ public class FindCommand extends CommandAbstract {
 
     /**
      * Completes the search operation
+     *
      * @param tasklist the task list to search for the specific token in
+     * @return appropriate bot response string
      */
     @Override
-    protected void completeOperation(TaskList tasklist) {
+    protected String completeOperation(TaskList tasklist) {
         String token = this.input.split("^((?i)(find))\\s")[1];
-        tasklist.find(token);
+        return tasklist.find(token);
+    }
+
+    /**
+     * Unused method as command has no possible exceptions that are not already caught by the task list in the
+     * completeOperation method
+     *
+     * @return UNHANDLED_EXCEPTION_STRING if there are any edge cases not considered
+     */
+    @Override
+    protected String findException() {
+        return UNHANDLED_EXCEPTION_STRING;
     }
 }

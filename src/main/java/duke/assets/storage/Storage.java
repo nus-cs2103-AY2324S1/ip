@@ -1,9 +1,7 @@
 package duke.assets.storage;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
 
 import duke.assets.parser.Parser;
@@ -25,27 +23,11 @@ public class Storage {
     }
 
     /**
-     * Writes the current task list to a file
-     */
-    public void writeToFile() {
-        try {
-            File myFile = new File("./src/main/java/duke/data/duke.txt");
-            FileWriter fw = new FileWriter(myFile);
-            PrintWriter pw = new PrintWriter(fw);
-            pw.print(tasklist.saveToFileFormat());
-            pw.close();
-        } catch (IOException e) {
-            System.out.println("ChadGPT: Unfortunately there was an unexpected error when reading your data file.");
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Reads data from a file and adds it to the task list
      *
      * @return true if the file was read successfully, false otherwise
      */
-    public boolean readFromFile() {
+    public boolean readFromFile() throws IOException, CorruptDataException {
         try {
             File myFile = new File("./src/main/java/duke/data/duke.txt");
             myFile.createNewFile();
@@ -57,22 +39,20 @@ public class Storage {
             }
             return true;
         } catch (IOException e) {
-            System.out.println("ChadGPT: Unfortunately there was an unexpected error when reading your data file.");
-            e.printStackTrace();
-        } catch (CorruptDataException corruptDataExcept) {
-            System.out.println("ChadGPT: Data is corrupt at: \"" + corruptDataExcept.getCorruptLine()
-                    + "\". Please fix and press enter to proceed, or type the command \"exit\" to quit program");
+            throw e;
+        } catch (CorruptDataException e) {
             tasklist.clearList();
+            throw e;
         }
-        return false;
     }
 
     /**
      * Passes a user command to the parser to be executed
      *
      * @param nextLine the user command to be executed
+     * @return appropriate chatbot response to user query
      */
-    public void passUserCommand(String nextLine) {
-        this.parser.passUserCommand(nextLine, tasklist);
+    public String passUserCommand(String nextLine) {
+        return this.parser.passUserCommand(nextLine, tasklist);
     }
 }

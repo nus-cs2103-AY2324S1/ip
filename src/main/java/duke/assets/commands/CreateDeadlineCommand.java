@@ -55,34 +55,47 @@ public class CreateDeadlineCommand extends CommandAbstract {
     private boolean isValid() {
         Pattern inputRegex = Pattern.compile(INPUT_DEADLINE_REGEX_STRING, Pattern.CASE_INSENSITIVE);
         Matcher inputMatcher = inputRegex.matcher(this.input);
-        if (!inputMatcher.find()) {
-            findException();
-            return false;
-        }
-        return true;
+        return inputMatcher.find();
     }
 
     /**
-     * Handles exceptions that occur when validating the input command
+     * * Completes the operation specified by the input command on the specified task list
+     *
+     * @param tasklist the task list to operate on
      */
-    private void findException() {
+    @Override
+    protected String completeOperation(TaskList tasklist) {
+        String information = this.input.split(" /by ")[0].split("^(?i)(deadline)\\s")[1];
+        String dateAndTime = this.input.split(" /by ")[1];
+        TaskAbstract newTask = new Deadline(information, dateAndTime);
+        if (this.isDone) {
+            newTask.completeNewTask();
+        }
+        tasklist.addTask(newTask);
+        return "ChadGPT: Gotcha, I have added the task to the list.";
+    }
+
+    /**
+     * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
+     * response as a string
+     *
+     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any uncaught edge cases
+     */
+    protected String findException() {
         String[] delimitedBySlash = this.input.split("/");
 
         try { // Checks if user input included description about the task
             String information = delimitedBySlash[0].split(" ")[1];
         } catch (IndexOutOfBoundsException indexExcept) {
-            System.out.println("ChadGPT: Please include description about the task you would like to add.");
-            return;
+            return "Please include description about the task you would like to add.";
         }
 
         try { // Checks if user input included date details according to format specified
             String endDate = delimitedBySlash[1].substring(3);
         } catch (StringIndexOutOfBoundsException stringExcept) {
-            System.out.println("ChadGPT: Please ensure your deadline date is included.");
-            return;
+            return "Please ensure your deadline date is included.";
         } catch (IndexOutOfBoundsException indexExcept) {
-            System.out.println("ChadGPT: Please include the deadline date of your task after \"/by\" command.");
-            return;
+            return "Please include the deadline date of your task after \"/by\" command.";
         }
 
         try { // Checks if it is possible to parse the user specified date into date time objects.
@@ -98,33 +111,10 @@ public class CreateDeadlineCommand extends CommandAbstract {
                         .substring(2));
             }
         } catch (NumberFormatException numberExcept) {
-            System.out.println("ChadGPT: Please ensure the time of your deadline is in numerical format.");
+            return "Please ensure the time of your deadline is in numerical format.";
         } catch (IndexOutOfBoundsException | IllegalArgumentException formatExcept) {
-            System.out.println("ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd.");
+            return "ChadGPT: Ensure that deadline date follows the following format: yyyy-mm-dd.";
         }
-    }
-
-    /**
-     * Completes the operation specified by the input command on the specified task list
-     *
-     * @param tasklist the task list to operate on
-     */
-    @Override
-    protected void completeOperation(TaskList tasklist) {
-        String information = this.input.split(" /by ")[0].split("^(?i)(deadline)\\s")[1];
-        String dateAndTime = this.input.split(" /by ")[1];
-        TaskAbstract newTask = new Deadline(information, dateAndTime);
-        if (this.isDone) {
-            newTask.completeNewTask();
-        }
-        tasklist.addTask(newTask);
-    }
-
-    /**
-     * Prints the appropriate dialogue from the chatbot to the terminal
-     */
-    @Override
-    public void printChatbotLine() {
-        System.out.print("ChadGPT: Gotcha, I have added the task to the list.\n" + HORIZONTAL);
+        return UNHANDLED_EXCEPTION_STRING;
     }
 }

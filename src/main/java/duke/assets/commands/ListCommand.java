@@ -45,18 +45,20 @@ public class ListCommand extends CommandAbstract {
      * Completes the operation specified by the input command on the specified task list
      *
      * @param taskList the task list to operate on
+     * @return appropriate bot response string
      */
     @Override
-    protected void completeOperation(TaskList taskList) {
-        System.out.println("ChadGPT: Here are your tasks: ");
-        taskList.listTasks();
+    protected String completeOperation(TaskList taskList) {
+        return taskList.listTasks();
     }
 
     /**
-     * Prints the appropriate dialogue from the chatbot to the terminal
+     * Unused method as command has no possible exceptions that are not already caught by parser
+     *
+     * @return UNHANDLED_EXCEPTION_STRING if there are any edge cases not considered
      */
     @Override
-    public void printChatbotLine() {
-        return;
+    protected String findException() {
+        return UNHANDLED_EXCEPTION_STRING;
     }
 }

@@ -1,5 +1,9 @@
 package duke.assets.commands;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,17 +51,20 @@ public class ByeCommand extends CommandAbstract {
      * @param taskList the task list to operate on
      */
     @Override
-    protected void completeOperation(TaskList taskList) {
+    protected String completeOperation(TaskList taskList) {
         taskList.writeToFile();
-        System.out.print("ChadGPT: Bye. Hope to see you again soon!\n" + HORIZONTAL);
+        String botReply = "Bye! Hope to see you again soon.";
         System.exit(0);
+        return botReply;
     }
 
     /**
-     * Prints the appropriate dialogue from the chatbot to the terminal
+     * Unused method as command has no possible exceptions that are not already caught by parser
+     *
+     * @return UNHANDLED_EXCEPTION_STRING if there are any edge cases not considered
      */
     @Override
-    public void printChatbotLine() {
-        System.out.println("ChadGPT: Bye! See you again!");
+    protected String findException() {
+        return UNHANDLED_EXCEPTION_STRING;
     }
 }
