@@ -11,7 +11,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Mark command.
  */
-public class MarkCommand {
+public class MarkCommand implements Command {
 
     /**
      * Marks the task within the task list at the specified position as completed.
@@ -47,5 +47,13 @@ public class MarkCommand {
         taskList.get(pos - 1).setMarked();
         storage.writeToFileFromTaskList(taskList, fileName, dirName);
         return ui.markedMessage(pos, taskList);
+    }
+
+    @Override
+    public String giveHelpDescription() {
+        return "Mark: This command marks any task in the list as completed!!\n"
+                + "The format for the input is as follows:\n"
+                + "mark INDEX,\n"
+                + "where INDEX is the position of the task within the list.\n";
     }
 }

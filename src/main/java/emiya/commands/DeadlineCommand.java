@@ -13,7 +13,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Deadline command.
  */
-public class DeadlineCommand {
+public class DeadlineCommand implements Command {
 
     /**
      * Creates a Deadline task object and adds the task into the task list.
@@ -49,5 +49,14 @@ public class DeadlineCommand {
         } else {
             return ui.addedPluralMessage(deadline, taskList);
         }
+    }
+
+    @Override
+    public String giveHelpDescription() {
+        return "Deadline: This command creates a Deadline to help you keep track of any tasks with a deadline!\n"
+                + "The format for the input is as follows:\n"
+                + "deadline NAME_OF_TASK /by DATE_TIME,\n"
+                + "where DATE_TIME is in the format YYYY-MM-DD TTTT.\n"
+                + "Note that the time given has to be in 24 hour format!\n";
     }
 }

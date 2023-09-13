@@ -12,7 +12,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Delete command.
  */
-public class DeleteCommand {
+public class DeleteCommand implements Command {
 
     /**
      * Removes a Task from the TaskList instance, at a specified position within the TaskList.
@@ -53,5 +53,13 @@ public class DeleteCommand {
         } else {
             return ui.deletedPluralMessage(task, taskList);
         }
+    }
+
+    @Override
+    public String giveHelpDescription() {
+        return "Delete: This command deletes any task!\n"
+                + "The format for the input is as follows:\n"
+                + "delete INDEX,\n"
+                + "where INDEX is the position of the task within the list.\n";
     }
 }

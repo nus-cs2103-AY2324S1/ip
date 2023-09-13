@@ -9,7 +9,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Todo command.
  */
-public class TodoCommand {
+public class TodoCommand implements Command {
 
     /**
      * Creates a Todo task object and adds the task into the task list.
@@ -38,5 +38,13 @@ public class TodoCommand {
         } else {
             return ui.addedPluralMessage(todo, taskList);
         }
+    }
+
+
+    @Override
+    public String giveHelpDescription() {
+        return "Todo: This command creates a Todo task to help you keep track of any tasks you need to get done!\n"
+                + "The format for the input is as follows:\n"
+                + "todo NAME_OF_TASK.\n";
     }
 }

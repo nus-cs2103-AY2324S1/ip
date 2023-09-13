@@ -14,7 +14,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Event command.
  */
-public class EventCommand {
+public class EventCommand implements Command {
 
     /**
      * Creates an Event task object and adds the task into the task list.
@@ -53,5 +53,14 @@ public class EventCommand {
         } else {
             return ui.addedPluralMessage(event, taskList);
         }
+    }
+
+    @Override
+    public String giveHelpDescription() {
+        return "Event: This command creates an Event to help you keep track of any tasks with a start and end date!\n"
+                + "The format for the input is as follows:\n"
+                + "event NAME_OF_TASK /from START_TIME /to END_TIME,\n"
+                + "where START_TIME and END_TIME is in the format YYYY-MM-DD TTTT.\n"
+                + "Note that the time given has to be in 24 hour format!\n";
     }
 }

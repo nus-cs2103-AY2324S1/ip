@@ -11,7 +11,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Unmark command.
  */
-public class UnmarkCommand {
+public class UnmarkCommand implements Command {
 
     /**
      * Marks the task within the task list at the specified position as not completed.
@@ -48,5 +48,13 @@ public class UnmarkCommand {
         storage.writeToFileFromTaskList(taskList, fileName, dirName);
         return ui.unmarkedMessage(pos, taskList);
 
+    }
+
+    @Override
+    public String giveHelpDescription() {
+        return "Unmark: This command marks any task in the list as incomplete!!\n"
+                + "The format for the input is as follows:\n"
+                + "unmark INDEX,\n"
+                + "where INDEX is the position of the task within the list.\n";
     }
 }

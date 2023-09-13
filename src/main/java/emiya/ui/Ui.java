@@ -8,15 +8,9 @@ import emiya.task.TaskList;
  */
 public class Ui {
 
-    public static final String WELCOME_MESSAGE = "Hello! I'm Emiya\n"
-            + "What can I do for you?\n";
-
-    public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!\n";
-
-    public static final String UBW = "Unknown to death nor known to life\n";
-
-    public static final String DEAD = "People die if they are killed!\n";
-
+    public static final String WELCOME_MESSAGE = "Hello! I'm Emiya!\n"
+            + "What can I do for you?\n"
+            + "If any help is required, input \"help\" into the user input box below, then press enter!\n";
 
     public Ui() {
 
