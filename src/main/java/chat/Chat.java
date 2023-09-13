@@ -7,6 +7,7 @@ import chat.utils.Parser;
 import chat.utils.Storage;
 
 /**
+ * Contains the chat application, initializes storage and returns response to GUI.
  * @author juzzztinsoong
  */
 public class Chat {
@@ -31,9 +32,9 @@ public class Chat {
     }
 
     /**
-     * Interacts with chat, sends command and receives output.
+     * Receives and processes user input and returns output to GUI.
      * @param input entered by user.
-     * @return output from chat.
+     * @return output from application.
      */
     public String getResponse(String input) {
         String reply = "";

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
+ * A task with description, completeness, and a due date/time.
  * @author juzzztinsoong
  */
 public class Deadline extends Task {
@@ -31,8 +32,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s %s)", getStatusIcon(), description, (
-            byDate != null ? byDate : ""), (byTime != null ? byTime : ""));
+        String byDateString = byDate != null ? byDate.toString() : "";
+        String byTimeString = byTime != null ? byTime.toString() : "";
+        return String.format("[D][%s] %s (by: %s %s)", getStatusIcon(), description, byDateString, byTimeString);
     }
 
     /**
@@ -44,7 +46,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("D # %d # %s # %s %s", (isDone ? 1 : 0), description, (
-            byDate != null ? byDate : ""), (byTime != null ? byTime : ""));
+        String byDateString = byDate != null ? byDate.toString() : "";
+        String byTimeString = byTime != null ? byTime.toString() : "";
+        return String.format("D # %d # %s # %s %s", getDoneInt(), description, byDateString, byTimeString);
     }
 }

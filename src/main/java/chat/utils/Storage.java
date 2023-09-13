@@ -16,6 +16,7 @@ import chat.exceptions.ChatException;
 import chat.tasks.TaskList;
 
 /**
+ * Handles all tasklist data operations such as reading and writing to file.
  * @author juzzztinsoong
  */
 public class Storage {

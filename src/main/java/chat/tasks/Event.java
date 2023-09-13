@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
+ * A task that has a description, completeness, start date/time and end date/time.
  * @author juzzztinsoong
  */
 public class Event extends Task {
@@ -38,9 +39,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s %s to: %s %s)", getStatusIcon(), description, (
-            fromDate != null ? fromDate : ""), (fromTime != null ? fromTime : ""), (
-                toDate != null ? toDate : ""), (toTime != null ? toTime : ""));
+        String fromDateString = fromDate != null ? fromDate.toString() : "";
+        String fromTimeString = fromTime != null ? fromTime.toString() : "";
+        String toDateString = toDate != null ? toDate.toString() : "";
+        String toTimeString = toTime != null ? toTime.toString() : "";
+        return String.format("[E][%s] %s (from: %s %s to: %s %s)", getStatusIcon(), description, fromDateString, fromTimeString, toDateString, toTimeString);
     }
 
     /**
@@ -52,8 +55,10 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("E # %d # %s # %s %s # %s %s", (isDone ? 1 : 0), description, (
-            fromDate != null ? fromDate : ""), (fromTime != null ? fromTime : ""), (
-                toDate != null ? toDate : ""), (toTime != null ? toTime : ""));
+        String fromDateString = fromDate != null ? fromDate.toString() : "";
+        String fromTimeString = fromTime != null ? fromTime.toString() : "";
+        String toDateString = toDate != null ? toDate.toString() : "";
+        String toTimeString = toTime != null ? toTime.toString() : "";
+        return String.format("E # %d # %s # %s %s # %s %s", getDoneInt(), description, fromDateString, fromTimeString, toDateString, toTimeString);
     }
 }

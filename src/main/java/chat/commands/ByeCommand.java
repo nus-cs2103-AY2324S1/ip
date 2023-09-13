@@ -5,6 +5,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Command that causes application to exit.
  * @author juzzztinsoong
  */
 public class ByeCommand extends Command {

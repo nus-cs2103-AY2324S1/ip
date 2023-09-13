@@ -4,6 +4,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Abstract Command class that all task handling commands inherit from.
  * @author juzzztinsoong
  */
 public abstract class TaskCommand extends Command {

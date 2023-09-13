@@ -13,11 +13,13 @@ import chat.commands.ListCommand;
 import chat.commands.MarkDoneCommand;
 import chat.commands.TodoCommand;
 import chat.exceptions.ChatException;
+import chat.exceptions.IncorrectFileFormatException;
 import chat.exceptions.IncorrectFormatException;
 import chat.exceptions.InvalidCommandException;
 import chat.exceptions.InvalidNumberException;
 
 /**
+ * Handles all command parsing capabilities used by Chat.
  * @author juzzztinsoong
  */
 public class Parser {
@@ -99,31 +101,31 @@ public class Parser {
         String[] parsedInput = parseInput(input);
         LocalDate date;
         LocalTime time;
-        String i1 = parsedInput[0].trim();
-        String i2 = parsedInput[1].trim();
+        String s1 = parsedInput[0].trim();
+        String s2 = parsedInput[1].trim();
 
         // Matches both halves of the input to the date.
-        if (i1.matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
-            date = LocalDate.parse(i1.substring(6, 10) + "-" + i1.substring(3, 5) + "-" + i1.substring(0, 2));
-        } else if (i2.matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
-            date = LocalDate.parse(i2.substring(6, 10) + "-" + i2.substring(3, 5) + "-" + i2.substring(0, 2));
-        } else if (i1.matches("[0-9]{4}.[0-9]{2}.[0-9]{2}")) {
-            date = LocalDate.parse(i1.substring(0, 4) + "-" + i1.substring(5, 7) + "-" + i1.substring(8, 10));
-        } else if (i2.matches("[0-9]{4}.[0-9]{2}.[0-9]{2}")) {
-            date = LocalDate.parse(i2.substring(0, 4) + "-" + i2.substring(5, 7) + "-" + i2.substring(8, 10));
+        if (s1.matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
+            date = LocalDate.parse(s1.substring(6, 10) + "-" + s1.substring(3, 5) + "-" + s1.substring(0, 2));
+        } else if (s2.matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
+            date = LocalDate.parse(s2.substring(6, 10) + "-" + s2.substring(3, 5) + "-" + s2.substring(0, 2));
+        } else if (s1.matches("[0-9]{4}.[0-9]{2}.[0-9]{2}")) {
+            date = LocalDate.parse(s1.substring(0, 4) + "-" + s1.substring(5, 7) + "-" + s1.substring(8, 10));
+        } else if (s2.matches("[0-9]{4}.[0-9]{2}.[0-9]{2}")) {
+            date = LocalDate.parse(s2.substring(0, 4) + "-" + s2.substring(5, 7) + "-" + s2.substring(8, 10));
         } else {
             date = null;
         }
 
         // Matches both halves of the input to the time.
-        if (i1.matches("[0-9]{2}.[0-9]{2}.[0-9]{2}")) {
-            time = LocalTime.parse(i1.substring(0, 2) + ":" + i1.substring(3, 5) + ":" + i1.substring(6, 8));
-        } else if (i2.matches("[0-9]{2}.[0-9]{2}.[0-9]{2}")) {
-            time = LocalTime.parse(i2.substring(0, 2) + ":" + i2.substring(3, 5) + ":" + i2.substring(6, 8));
-        } else if (i1.matches("[0-9]{2}.[0-9]{2}")) {
-            time = LocalTime.parse(i1.substring(0, 2) + ":" + i1.substring(3, 5) + ":00");
-        } else if (i2.matches("[0-9]{2}.[0-9]{2}")) {
-            time = LocalTime.parse(i2.substring(0, 2) + ":" + i2.substring(3, 5) + ":00");
+        if (s1.matches("[0-9]{2}.[0-9]{2}.[0-9]{2}")) {
+            time = LocalTime.parse(s1.substring(0, 2) + ":" + s1.substring(3, 5) + ":" + s1.substring(6, 8));
+        } else if (s2.matches("[0-9]{2}.[0-9]{2}.[0-9]{2}")) {
+            time = LocalTime.parse(s2.substring(0, 2) + ":" + s2.substring(3, 5) + ":" + s2.substring(6, 8));
+        } else if (s1.matches("[0-9]{2}.[0-9]{2}")) {
+            time = LocalTime.parse(s1.substring(0, 2) + ":" + s1.substring(3, 5) + ":00");
+        } else if (s2.matches("[0-9]{2}.[0-9]{2}")) {
+            time = LocalTime.parse(s2.substring(0, 2) + ":" + s2.substring(3, 5) + ":00");
         } else {
             time = null;
         }
@@ -148,10 +150,8 @@ public class Parser {
         // Returns a new ToDoCommand object.
         if (input.equals("")) {
             throw new IncorrectFormatException();
-        } else {
-            return new TodoCommand(input, isDone);
         }
-
+        return new TodoCommand(input, isDone);
     }
 
     /**
@@ -165,21 +165,20 @@ public class Parser {
     public static DeadlineCommand parseDeadline(String input, boolean isDone) throws IncorrectFormatException {
         int index = input.indexOf(" /by ");
 
+        if (index < 0) {
+            throw new IncorrectFormatException();
+        }
+        
         // Returns a new DeadlineCommand object.
-        if (index > -1) {
+        try {
             String[] parsedInput = input.split(" /by ", 2);
+            String description = parsedInput[0];
+            DateTimeWrapper dates = parseDate(parsedInput[1]);
+            LocalDate byDate = dates.date;
+            LocalTime byTime = dates.time;
 
-            try {
-                String description = parsedInput[0];
-                DateTimeWrapper dates = parseDate(parsedInput[1]);
-                LocalDate byDate = dates.date;
-                LocalTime byTime = dates.time;
-
-                return new DeadlineCommand(description, isDone, byDate, byTime);
-            } catch (Exception e) {
-                throw new IncorrectFormatException();
-            }
-        } else {
+            return new DeadlineCommand(description, isDone, byDate, byTime);
+        } catch (Exception e) {
             throw new IncorrectFormatException();
         }
     }
@@ -196,42 +195,41 @@ public class Parser {
         int indexFrom = input.indexOf(" /from ");
         int indexTo = input.indexOf(" /to ");
 
-        // Returns a new EventCommand object.
-        if (indexFrom > -1 && indexTo > -1) {
-            String[] parsedInput = { input.substring(0, indexFrom), input.substring(indexFrom + 7, indexTo),
-                    input.substring(indexTo + 5, input.length()) };
-
-            try {
-                String description = parsedInput[0];
-                DateTimeWrapper fromDateTime = parseDate(parsedInput[1]);
-                DateTimeWrapper toDateTime = parseDate(parsedInput[2]);
-                LocalDate fromDate = fromDateTime.date;
-                LocalTime fromTime = fromDateTime.time;
-                LocalDate toDate = toDateTime.date;
-                LocalTime toTime = toDateTime.time;
-
-                // Smart date guesser for incomplete date formats e.g.
-                // 1/1/2023 12:00 to 16:00 will be assumed to be 1/1/2023 12:00 to 1/1/2023 16:00.
-                if (toDate == null && fromDate != null) {
-                    toDate = fromDate;
-                }
-                if (toDate != null && fromDate == null) {
-                    fromDate = toDate;
-                }
-                if (fromTime == null && toTime != null) {
-                    fromTime = toTime;
-                }
-                if (fromTime != null && toTime == null) {
-                    toTime = fromTime;
-                }
-
-                return new EventCommand(description, isDone, fromDate, fromTime, toDate, toTime);
-            } catch (Exception e) {
-                throw new IncorrectFormatException();
-            }
-        } else {
+        if (indexFrom < 0 || indexTo < 0) {
             throw new IncorrectFormatException();
         }
+
+        // Returns a new EventCommand object.
+        try {
+            String[] parsedInput = { input.substring(0, indexFrom), input.substring(indexFrom + 7, indexTo),
+                input.substring(indexTo + 5, input.length()) };
+            String description = parsedInput[0];
+            DateTimeWrapper fromDateTime = parseDate(parsedInput[1]);
+            DateTimeWrapper toDateTime = parseDate(parsedInput[2]);
+            LocalDate fromDate = fromDateTime.date;
+            LocalTime fromTime = fromDateTime.time;
+            LocalDate toDate = toDateTime.date;
+            LocalTime toTime = toDateTime.time;
+
+            // Smart date guesser for incomplete date formats e.g.
+            // 1/1/2023 12:00 to 16:00 will be assumed to be 1/1/2023 12:00 to 1/1/2023 16:00.
+            if (toDate == null && fromDate != null) {
+                toDate = fromDate;
+            }
+            if (toDate != null && fromDate == null) {
+                fromDate = toDate;
+            }
+            if (fromTime == null && toTime != null) {
+                fromTime = toTime;
+            }
+            if (fromTime != null && toTime == null) {
+                toTime = fromTime;
+            }
+
+            return new EventCommand(description, isDone, fromDate, fromTime, toDate, toTime);
+        } catch (Exception e) {
+            throw new IncorrectFormatException();
+        } 
     }
 
     /**
@@ -242,21 +240,25 @@ public class Parser {
      *         parsing the input.
      * @throws ChatException if file line has invalid format.
      */
-    public static Command parseFileContent(String input) throws ChatException {
+    public static Command parseFileContent(String input) throws IncorrectFileFormatException {
         String[] parsedContent = input.split(" # ");
         boolean isDone = Integer.parseInt(parsedContent[1]) == 1;
 
-        if (parsedContent.length == 3 && parsedContent[0].charAt(0) == 'T') {
-            // Parse as Todo.
-            return parseTodo(parsedContent[2], isDone);
-        } else if (parsedContent.length == 4 && parsedContent[0].charAt(0) == 'D') {
-            // Parse as Deadline.
-            return parseDeadline(parsedContent[2] + " /by " + parsedContent[3], isDone);
-        } else if (parsedContent.length == 5 && parsedContent[0].charAt(0) == 'E') {
-            // Parse as Event.
-            return parseEvent(parsedContent[2] + " /from " + parsedContent[3] + " /to " + parsedContent[4], isDone);
-        } else {
-            throw new ChatException("Invalid file format");
+        try {
+            if (parsedContent.length == 3 && parsedContent[0].charAt(0) == 'T') {
+                // Parse as Todo.
+                return parseTodo(parsedContent[2], isDone);
+            } else if (parsedContent.length == 4 && parsedContent[0].charAt(0) == 'D') {
+                // Parse as Deadline.
+                return parseDeadline(parsedContent[2] + " /by " + parsedContent[3], isDone);
+            } else if (parsedContent.length == 5 && parsedContent[0].charAt(0) == 'E') {
+                // Parse as Event.
+                return parseEvent(parsedContent[2] + " /from " + parsedContent[3] + " /to " + parsedContent[4], isDone);
+            } else {
+                throw new IncorrectFileFormatException();
+            }
+        } catch (IncorrectFormatException e) {
+            throw new IncorrectFileFormatException();
         }
     }
 
@@ -274,35 +276,31 @@ public class Parser {
         String[] parsedInput = parseInput(input);
         String command = parsedInput[0].trim();
         String args = parsedInput[1].trim();
+        Enum commandtype = map(command);
 
-        try {
-            Enum commandtype = map(command);
-            // Returns a command object for the command type.
-            switch (commandtype) {
-            case BYE:
-                return new ByeCommand();
-            case LIST:
-                return new ListCommand();
-            case MARK:
-                return new MarkDoneCommand(true, parseIndex(args));
-            case UNMARK:
-                return new MarkDoneCommand(false, parseIndex(args));
-            case TODO:
-                return parseTodo(args, false);
-            case DEADLINE:
-                return parseDeadline(args, false);
-            case EVENT:
-                return parseEvent(args, false);
-            case DELETE:
-                return new DeleteCommand(parseIndex(args));
-            case FIND:
-                return new FindCommand(args);
-            default:
-                throw new InvalidCommandException();
-            }
-        } catch (ChatException e) {
-            throw e;
-        }
+        // Returns a command object for the command type.
+        switch (commandtype) {
+        case BYE:
+            return new ByeCommand();
+        case LIST:
+            return new ListCommand();
+        case MARK:
+            return new MarkDoneCommand(true, parseIndex(args));
+        case UNMARK:
+            return new MarkDoneCommand(false, parseIndex(args));
+        case TODO:
+            return parseTodo(args, false);
+        case DEADLINE:
+            return parseDeadline(args, false);
+        case EVENT:
+            return parseEvent(args, false);
+        case DELETE:
+            return new DeleteCommand(parseIndex(args));
+        case FIND:
+            return new FindCommand(args);
+        default:
+            throw new InvalidCommandException();
+        } 
     }
 
     /**

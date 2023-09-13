@@ -5,6 +5,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Command used to perform todo operations.
  * @author juzzztinsoong
  */
 public class TodoCommand extends TaskCommand {

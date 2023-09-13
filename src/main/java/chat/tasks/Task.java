@@ -1,6 +1,7 @@
 package chat.tasks;
 
 /**
+ * Abstract Task class that all Task-type objects inherit from.
  * @author juzzztinsoong
  */
 public abstract class Task {
@@ -18,6 +19,10 @@ public abstract class Task {
      */
     protected String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    protected int getDoneInt() {
+        return (isDone ? 1 : 0);
     }
 
     /**

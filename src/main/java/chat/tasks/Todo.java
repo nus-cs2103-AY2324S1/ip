@@ -1,6 +1,7 @@
 package chat.tasks;
 
 /**
+ * A task that only has a description and completeness.
  * @author juzzztinsoong
  */
 public class Todo extends Task {
@@ -28,6 +29,6 @@ public class Todo extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("T # %d # %s", (isDone ? 1 : 0), description);
+        return String.format("T # %d # %s", getDoneInt(), description);
     }
 }

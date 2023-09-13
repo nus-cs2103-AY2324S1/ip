@@ -1,6 +1,7 @@
 package chat.utils;
 
 /**
+ * Enumerates the commands used by chat, streamlines parsing.
  * @author juzzztinsoong
  */
 public enum Enum {

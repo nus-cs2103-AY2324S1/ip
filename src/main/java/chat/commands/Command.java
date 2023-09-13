@@ -5,6 +5,7 @@ import chat.tasks.TaskList;
 import chat.utils.Storage;
 
 /**
+ * Abstract command class that all commands inherit from.
  * @author juzzztinsoong
  */
 public abstract class Command {

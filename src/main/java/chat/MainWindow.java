@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * Main Window Controller for Chat.
  * @author juzzztinsoong
  */
 public class MainWindow extends AnchorPane {
@@ -52,10 +53,8 @@ public class MainWindow extends AnchorPane {
         if (!chat.hasExited()) {
             String input = userInput.getText();
             String response = chat.getResponse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getChatDialog(response, chatImage)
-            );
+            dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+            dialogContainer.getChildren().add(DialogBox.getChatDialog(response, chatImage));
             userInput.clear();
         }
     }
