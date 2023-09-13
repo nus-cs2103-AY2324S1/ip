@@ -26,6 +26,7 @@ public class Event extends Task {
         // inside this array has 3 elements
         // first is taskName, second element is start, third element is end time
         super(strs[0]);
+        assert strs.length >= 3;
         // assume that strs[1] follow the format 25/12/2019 1800
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
