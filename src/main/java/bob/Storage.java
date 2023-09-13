@@ -40,6 +40,7 @@ public class Storage {
                 //file is created
                 System.out.println("Hello! I'm Bob");
                 System.out.println("What can I do for you?");
+                assert list.size() == 0;
             } else {
                 //file exists
                 //read the file and re-initiate the list of tasks

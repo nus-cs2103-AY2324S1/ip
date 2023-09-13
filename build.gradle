@@ -54,14 +54,16 @@ test {
 }
 
 application {
-    //mainClass.set("java.bob.Bob")
-    mainClass.set("bob.main.Launcher")
+    mainClass.set("bob.Bob")
+    //mainClass.set("bob.main.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "bob"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+
+    archiveFileName = 'bob.jar'
 }
 
 run{

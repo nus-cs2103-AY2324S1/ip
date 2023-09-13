@@ -31,6 +31,7 @@ public class Parser {
      * @return int the index of marked task.
      */
     public int getMarkDigit(String input) {
+        assert isMark(input);
         char[] charArray = input.toCharArray();
         return Character.getNumericValue(charArray[5]);
     }
@@ -58,6 +59,7 @@ public class Parser {
      * @return int the number of the task to be deleted.
      */
     public int getDeleteDigit(String input) {
+        assert isDelete(input);
         char[] charArray = input.toCharArray();
         return Character.getNumericValue(charArray[7]);
     }
@@ -84,6 +86,7 @@ public class Parser {
      * @return String the keyword to find.
      */
     public String findKeyword(String input) {
+        assert isFind(input);
         char[] charArray = input.toCharArray();
         String str = "";
 
