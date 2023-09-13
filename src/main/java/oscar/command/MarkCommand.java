@@ -16,7 +16,6 @@ public class MarkCommand extends Command {
      * @param details Task number to be marked.
      */
     public MarkCommand(String details) {
-        super(false);
         this.details = details;
     }
 

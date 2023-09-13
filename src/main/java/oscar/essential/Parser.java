@@ -27,6 +27,7 @@ public class Parser {
         String[] splits = fullCommand.split(" ", 2);
         String command = splits[0].toLowerCase();
         String details = fullCommand.length() > command.length() ? splits[1] : "";
+
         switch (command) {
         // Exit programme if user enters "bye" command
         case "bye":

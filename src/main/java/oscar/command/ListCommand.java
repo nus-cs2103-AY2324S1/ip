@@ -11,7 +11,6 @@ public class ListCommand extends Command {
      * Instantiates a list command.
      */
     public ListCommand() {
-        super(false);
     }
 
     /**
