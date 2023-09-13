@@ -1,6 +1,7 @@
 package dan.task;
 
 import dan.exceptions.DanException;
+import dan.exceptions.DanOperateException;
 
 public class Task {
     // fields
@@ -17,13 +18,13 @@ public class Task {
             if (isDone == false) {
                 isDone = true;
             } else {                        /* if the task is already marked */
-                throw new DanException("Already marked!");
+                throw new DanOperateException("Marked");
             }
         } else {                        /* to unmark task */
             if (isDone == true) {
                 isDone = false;
             } else {                        /* if the task is already unmarked */
-                throw new DanException("Already unmarked");
+                throw new DanOperateException("Unmarked");
             }
         }
     }
