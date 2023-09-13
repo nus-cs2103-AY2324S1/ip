@@ -121,7 +121,6 @@ public class Storage {
      */
     public Task formatStringToTask(String line) {
         String[] split = line.split(" \\| ", 4);
-        
         // Corrupted File
         if (split.length < 3) {
             System.out.println("Error!");

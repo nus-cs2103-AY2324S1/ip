@@ -10,6 +10,11 @@ import duke.ui.Ui;
 public class FindCommand extends Command {
     private final String keyword;
 
+    /**
+     * Constructor
+     *
+     * @param keyword the keyword to search for
+     */
     public FindCommand(String keyword) {
         assert !keyword.isBlank() : "Keyword cannot be empty";
         this.keyword = keyword;
@@ -18,7 +23,7 @@ public class FindCommand extends Command {
     /**
      * The keyword to search for
      *
-     * @return
+     * @return the keyword to search for
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
