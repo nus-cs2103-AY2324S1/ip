@@ -25,6 +25,21 @@ public class Deadline extends Task {
         this.by = byDate.toString() + " " + byTime.toString();
     }
 
+    /**
+     * The constructor of Deadline with specified status.
+     *
+     * @param description The deadline description.
+     * @param byDate The date of the deadline.
+     * @param byTime The time of the deadline.
+     * @param isDone The status of the deadline.
+     */
+    public Deadline(String description, LocalDate byDate, LocalTime byTime, boolean isDone) {
+        super(description, isDone);
+        this.byDate = byDate;
+        this.byTime = byTime;
+        this.by = byDate.toString() + " " + byTime.toString();
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

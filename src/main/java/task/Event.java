@@ -34,6 +34,27 @@ public class Event extends Task {
         this.end = endDate.toString() + " " + endTime.toString();
     }
 
+    /**
+     * The constructor of Event with specified status.
+     *
+     * @param description The event description.
+     * @param startDate The start date of the event.
+     * @param startTime The start time of the event.
+     * @param endDate The end date of the event.
+     * @param endTime The end time of the event.
+     * @param isDone The status of the event.
+     */
+    public Event(String description, LocalDate startDate, LocalTime startTime,
+                 LocalDate endDate, LocalTime endTime, boolean isDone) {
+        super(description, isDone);
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.start = startDate.toString() + " " + startTime.toString();
+        this.end = endDate.toString() + " " + endTime.toString();
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";

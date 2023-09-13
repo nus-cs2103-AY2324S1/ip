@@ -64,13 +64,12 @@ public class Storage {
                 char taskType = input.charAt(1);
                 boolean isDone = input.charAt(4) == 'X';
                 String description = input.split("] ")[1];
-                if (taskType == 'T') {
-                    Todo t = new Todo(description);
-                    if (isDone) {
-                        t.markDone();
-                    }
+                switch (taskType) {
+                case 'T':
+                    Todo t = new Todo(description, isDone);
                     tasks.add(t);
-                } else if (taskType == 'D') {
+                    break;
+                case 'D':
                     int byIndex = description.indexOf("(by: ");
                     int lastByIndex = description.indexOf(")");
                     String deadlineDescription = description.substring(0, byIndex - 1);
@@ -78,12 +77,10 @@ public class Storage {
                     String[] dateTimeArr = by.split(" ");
                     LocalDate byDate = LocalDate.parse(dateTimeArr[0]);
                     LocalTime byTime = LocalTime.parse(dateTimeArr[1]);
-                    Deadline d = new Deadline(deadlineDescription, byDate, byTime);
-                    if (isDone) {
-                        d.markDone();
-                    }
+                    Deadline d = new Deadline(deadlineDescription, byDate, byTime, isDone);
                     tasks.add(d);
-                } else if (taskType == 'E') {
+                    break;
+                case 'E':
                     int fromIndex = description.indexOf("(from: ");
                     int toIndex = description.indexOf("to: ");
                     int lastToIndex = description.indexOf(")");
@@ -96,12 +93,11 @@ public class Storage {
                     String[] endArr = end.split(" ");
                     LocalDate endDate = LocalDate.parse(endArr[0]);
                     LocalTime endTime = LocalTime.parse(endArr[1]);
-                    Event e = new Event(eventDescription, startDate, startTime, endDate, endTime);
-                    if (isDone) {
-                        e.markDone();
-                    }
+                    Event e = new Event(eventDescription, startDate, startTime, endDate, endTime, isDone);
                     tasks.add(e);
-                } else {
+                    break;
+                default:
+                    assert false : taskType;
                     System.out.println("An error has occurred: Unknown task type");
                 }
             }

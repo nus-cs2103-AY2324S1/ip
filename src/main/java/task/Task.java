@@ -11,11 +11,22 @@ public class Task {
     /**
      * The constructor of Task.
      *
-     * @param description the task description.
+     * @param description The task description.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * The constructor of Task with specified status.
+     *
+     * @param description The task description.
+     * @param isDone The status of the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     /**
