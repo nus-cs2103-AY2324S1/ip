@@ -37,7 +37,7 @@ public class TaskList {
      * @param index The index of the task to be removed.
      */
     public void remove(int index) {
-        assert  index >= 0 : "index should be >= 0";
+        assert index >= 0 : "index should be >= 0";
         tasks.remove(index);
     }
 
@@ -47,7 +47,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void mark(int index) {
-        assert  index >= 0 : "index should be >= 0";
+        assert index >= 0 : "index should be >= 0";
         tasks.get(index).mark();
     }
 
@@ -57,7 +57,7 @@ public class TaskList {
      * @param index The index of the task to be unmarked.
      */
     public void unmark(int index) {
-        assert  index >= 0 : "index should be >= 0";
+        assert index >= 0 : "index should be >= 0";
         tasks.get(index).unmark();
     }
 
@@ -107,7 +107,7 @@ public class TaskList {
      * @return all task on the date.
      * @throws DukeException
      */
-    public String getbyDate(String date) throws DukeException {
+    public String getByDate(String date) throws DukeException {
         LocalDate targetDate;
         try {
             targetDate = LocalDate.parse(date);

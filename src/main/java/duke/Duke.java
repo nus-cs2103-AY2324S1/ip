@@ -176,28 +176,6 @@ public class Duke extends Application {
         return ui.getLastMsg();
     }
 
-    /*
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        Storage.readTask(tasks, ui);
-
-        while (!isExit) {
-            try {
-                String userInput = ui.readInput();
-                ui.showLine();
-                Command command = Parser.parse(userInput);
-                isExit = command.execute(this.tasks, ui);
-                Storage.writeTask(tasks, ui); // Store to file
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-     */
-
     /**
      * DialogBox.
      */

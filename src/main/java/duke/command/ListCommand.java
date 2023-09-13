@@ -21,7 +21,7 @@ public class ListCommand implements Command {
         String msg = ui.getLastMsg();
         String[] parts = msg.toLowerCase().split("\\s+");
         if (parts.length >= 2) { // If the date is provided
-            ui.respond(tasks.getbyDate(parts[1]));
+            ui.respond(tasks.getByDate(parts[1]));
         } else {
             ui.respond(tasks.toString());
         }

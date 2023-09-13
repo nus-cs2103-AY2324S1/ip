@@ -23,60 +23,83 @@ public class Storage {
      */
     public static void readTask(TaskList tasks, Ui ui) {
         try {
-            File directory = new File("./data");
-            File file = new File(filePath);
-
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-
-            if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    ui.showError("Error creating new file: " + e.getMessage());
-                }
-            }
-
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                Task task;
-
-                String line = scanner.nextLine();
-                String[] parts = line.split("\\|");
-                String taskType = parts[0];
-                boolean isDone = parts[1].equals("true");
-                String description = parts[2];
-
-                switch (taskType) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    String date = parts[3];
-                    task = new Deadline(description, date);
-                    break;
-                case "E":
-                    String from = parts[3];
-                    String to = parts[4];
-                    task = new Event(description, from, to);
-                    break;
-                default:
-                    continue;
-                }
-
-                if (isDone) {
-                    task.mark();
-                }
-
-                tasks.add(task);
-            }
-            scanner.close();
+            File file = checkFileExist(ui);
+            readFile(tasks, file);
         } catch (FileNotFoundException e) {
             ui.showError(e.getMessage());
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         }
+    }
+
+    /**
+     * Check if file exist.
+     * Create new if it does not exist.
+     *
+     * @param ui To show error message.
+     * @return file.
+     */
+    private static File checkFileExist(Ui ui) {
+        File directory = new File("./data");
+        File file = new File(filePath);
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                ui.showError("Error creating new file: " + e.getMessage());
+            }
+        }
+        return file;
+    }
+
+    /**
+     * Read the file and store it in tasklist.
+     *
+     * @param tasks List of tasks.
+     * @param file To read.
+     * @throws FileNotFoundException When file not found.
+     * @throws DukeException When failes to save on list.
+     */
+    private static void readFile(TaskList tasks, File file) throws FileNotFoundException, DukeException {
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            Task task;
+
+            String line = scanner.nextLine();
+            String[] parts = line.split("\\|");
+            String taskType = parts[0];
+            boolean isDone = parts[1].equals("true");
+            String description = parts[2];
+
+            switch (taskType) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                String date = parts[3];
+                task = new Deadline(description, date);
+                break;
+            case "E":
+                String from = parts[3];
+                String to = parts[4];
+                task = new Event(description, from, to);
+                break;
+            default:
+                continue;
+            }
+
+            if (isDone) {
+                task.mark();
+            }
+
+            tasks.add(task);
+        }
+        scanner.close();
     }
 
 
