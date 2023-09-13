@@ -27,11 +27,11 @@ public class ParserTest {
     @Test
     public void execute_validInput_success() {
         try {
-            when(taskListMock.add("test", CommandType.TODO))
+            when(taskListMock.addTask("test", CommandType.TODO))
                     .thenReturn("add method called with todo task");
-            when(taskListMock.add("test", CommandType.DEADLINE, "2020-08-25 00:00"))
+            when(taskListMock.addTask("test", CommandType.DEADLINE, "2020-08-25 00:00"))
                     .thenReturn("add method called with deadline task");
-            when(taskListMock.delete(1)).thenReturn("delete method called");
+            when(taskListMock.deleteTask(1)).thenReturn("delete method called");
 
             assertEquals("add method called with todo task", parser.execute("todo", "test"));
             assertEquals("add method called with deadline task",

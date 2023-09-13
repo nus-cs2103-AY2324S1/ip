@@ -15,7 +15,7 @@ import services.tasklist.tasks.Todo;
 
 public class TaskList implements ITaskList {
     /** The list of tasks. */
-    protected List<Task> taskList;
+    protected List<Task> tasks;
     protected IStorage repo;
     /** The number of tasks in the list. */
     protected int taskCount;
@@ -24,23 +24,22 @@ public class TaskList implements ITaskList {
      * Creates a new TaskList object with the given Storage object and Ui object.
      *
      * @param repo   the Storage object that stores the list of tasks in a data file.
-     * @param textUi the Ui object that prints the formatted task list to the user.
      */
     public TaskList(IStorage repo) {
         this.repo = repo;
         try {
-            taskList = repo.load();
-            taskCount = taskList.size();
+            tasks = repo.load();
+            taskCount = tasks.size();
         } catch (JarvisException e) {
             // Fix the problem here in the future.
             // System.out.println(e.toString() + "\nA temporary session is opened for you.");
-            taskList = new ArrayList<>();
+            tasks = new ArrayList<>();
             taskCount = 0;
         }
     }
 
     @Override
-    public String add(String description, CommandType taskType, String... args) throws JarvisException {
+    public String addTask(String description, CommandType taskType, String... args) throws JarvisException {
         Task newTask;
         // this if block is unnecessary currently (is never reached), but it may be useful in the future.
         if (description.isEmpty()) {
@@ -60,9 +59,9 @@ public class TaskList implements ITaskList {
             // the program should never reach this point.
             throw new JarvisException("Default case reached.");
         }
-        taskList.add(newTask);
+        tasks.add(newTask);
         taskCount++;
-        repo.save(taskList);
+        repo.save(tasks);
         return "added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.";
     }
 
@@ -75,21 +74,21 @@ public class TaskList implements ITaskList {
      * @throws IndexOutOfRangeException if the task number is out of range.
      */
     @Override
-    public String delete(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
+    public String deleteTask(int taskNumber) throws SaveToFileException, IndexOutOfRangeException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
-        Task deletedTask = taskList.get(taskNumber - 1);
-        taskList.remove(taskNumber - 1);
+        Task deletedTask = tasks.get(taskNumber - 1);
+        tasks.remove(taskNumber - 1);
         taskCount--;
-        repo.save(taskList);
+        repo.save(tasks);
         return "removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.";
     }
 
     @Override
-    public String find(String keyword) {
+    public String findTask(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : taskList) {
+        for (Task task : tasks) {
             if (task.toString().contains(keyword)) {
                 matchingTasks.add(task);
             }
@@ -120,9 +119,9 @@ public class TaskList implements ITaskList {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
-        Task task = taskList.get(taskNumber - 1);
+        Task task = tasks.get(taskNumber - 1);
         task.setDone();
-        repo.save(taskList);
+        repo.save(tasks);
         return "Check.\n\t" + task + "\n" + "Way to go, sir.";
     }
 
@@ -139,22 +138,22 @@ public class TaskList implements ITaskList {
         if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new IndexOutOfRangeException(taskNumber, taskCount);
         }
-        Task task = taskList.get(taskNumber - 1);
+        Task task = tasks.get(taskNumber - 1);
         task.setUndone();
-        repo.save(taskList);
+        repo.save(tasks);
         return "As you wish, sir.\n\t" + task;
     }
 
     @Override
-    public String show() {
+    public String showAllTasks() {
         if (taskCount == 0) {
             return "Sir, there are no tasks on your calendar.";
         }
         String result = "Sir, there are " + taskCount + " tasks on your calendar:\n";
         for (int i = 1; i < taskCount; i++) {
-            result += i + ". " + taskList.get(i - 1) + "\n";
+            result += i + ". " + tasks.get(i - 1) + "\n";
         }
-        result += taskCount + ". " + taskList.get(taskCount - 1);
+        result += taskCount + ". " + tasks.get(taskCount - 1);
         return result;
     }
 }
