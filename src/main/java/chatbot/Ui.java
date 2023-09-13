@@ -1,5 +1,6 @@
 package chatbot;
 
+import chatbot.exception.InvalidTaskNumberException;
 import chatbot.task.Task;
 
 import java.util.Scanner;
@@ -38,8 +39,9 @@ public class Ui {
      * Prints confirmation after adding task.
      *
      * @param taskList The TaskList containing the task.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
-    public void printAddConfirmation(TaskList taskList) {
+    public void printAddConfirmation(TaskList taskList) throws InvalidTaskNumberException {
         System.out.println("Got it. I've added this task:\n" + taskList.taskRep(taskList.size() - 1));
         System.out.println("Now you have " + taskList.size() + " tasks in the list.\n");
     }
@@ -49,8 +51,10 @@ public class Ui {
      *
      * @param i The index of the task that is marked as done.
      * @param taskList The TaskList containing the task.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
-    public void printMarkDoneConfirmation(int i, TaskList taskList) {
+    public void printMarkDoneConfirmation(int i, TaskList taskList) throws InvalidTaskNumberException {
+        assert i < taskList.size();
         System.out.println("Nice! I've marked this task as done:\n" + taskList.taskRep(i) + "\n");
     }
 
@@ -59,8 +63,10 @@ public class Ui {
      *
      * @param i The index of the task that is marked as undone.
      * @param taskList The TaskList containing the task.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
-    public void printMarkUndoneConfirmation(int i, TaskList taskList) {
+    public void printMarkUndoneConfirmation(int i, TaskList taskList) throws InvalidTaskNumberException {
+        assert i < taskList.size();
         System.out.println("OK, I've marked this task as not done yet:\n" + taskList.taskRep(i) + "\n");
     }
 
@@ -69,8 +75,10 @@ public class Ui {
      *
      * @param i The index of the task that is deleted.
      * @param taskList The TaskList containing the task.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
-    public void printDeleteConfirmation(int i, TaskList taskList) {
+    public void printDeleteConfirmation(int i, TaskList taskList) throws InvalidTaskNumberException {
+        assert i < taskList.size();
         System.out.println("Noted. I've removed this task:\n" + taskList.taskRep(i) + "\n");
     }
 
@@ -78,8 +86,9 @@ public class Ui {
      * Lists out all the tasks in taskList.
      *
      * @param taskList The TaskList to list tasks from.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
-    public void listTasks(TaskList taskList) {
+    public void listTasks(TaskList taskList) throws InvalidTaskNumberException {
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
             int num = i + 1;
@@ -93,8 +102,9 @@ public class Ui {
      *
      * @param keyword The keyword to match with.
      * @param taskList The TaskList to print.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
-    public void listMatchingTasks(String keyword, TaskList taskList) {
+    public void listMatchingTasks(String keyword, TaskList taskList) throws InvalidTaskNumberException {
         if (taskList.size() > 0) {
             System.out.println("Here are the matching tasks in your list:\n");
             for (int i = 0; i < taskList.size(); i++) {
