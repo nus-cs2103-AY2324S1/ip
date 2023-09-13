@@ -8,12 +8,15 @@ public class DateConverter {
     private static String DATE_REGEX = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}";
 
     public static boolean isCorrectFormat(String dateTimeString) {
+        assert dateTimeString != null : "dateTimeString input cannot be null";
         Pattern pattern = Pattern.compile(DATE_REGEX);
         Matcher matcher = pattern.matcher(dateTimeString);
         return matcher.matches();
     }
 
     public static LocalDateTime convertToDateTime(String dateTimeString) throws DateTimeFormatException {
+        assert dateTimeString != null : "dateTimeString input cannot be null";
+
         if (isCorrectFormat(dateTimeString)) {
             dateTimeString = dateTimeString.trim();
             String[] dateTimeParts = dateTimeString.split(" ");

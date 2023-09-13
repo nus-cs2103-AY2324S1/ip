@@ -1,18 +1,12 @@
 package blip.parser;
 
 import blip.exceptions.*;
-import blip.ui.*;
 import blip.commands.*;
 
 /**
  * Represents a parser that will parse user inputs that are Strings.
  */
 public class BlipParser {
-    /**
-     * The Blip ChatBot user interface that prints messages to the user.
-     */
-    private BlipUI ui = new BlipUI();
-
     /**
      * Parses string to an int to get the task index to do commands on.
      * @param input The string input to parse into int index
@@ -21,6 +15,7 @@ public class BlipParser {
      */
     public static int parseToGetIndex (String input) throws EmptyTaskNumberException {
         String[] components = input.split("\\s+", 2);
+        assert components.length >= 2 : "Invalid input format for parseToGetIndex";
         // Missing Index.
         if (components.length < 2 || components[1].equals("")) {
             throw new EmptyTaskNumberException("!!! Missing Task Number !!!");
@@ -37,6 +32,7 @@ public class BlipParser {
      */
     public static String parseToDoInfo (String input) throws EmptyDescriptionException {
         String[] components = input.split("\\s+", 2);
+        assert components.length >= 2 : "Invalid input format for parseToDoInfo";
         // Missing To Do Description.
         if (components.length < 2 || components[1].equals("")) {
             throw new EmptyDescriptionException("!!! Missing TO DO Description !!!\n");
@@ -52,11 +48,14 @@ public class BlipParser {
      */
     public static String[] parseDeadlineInfo (String input) throws EmptyDescriptionException {
             String[] test = input.split("\\s+", 2);
+            assert test.length >= 2 : "Invalid input format for parseDeadlineInfo";
+
             // Missing Deadline Description.
             if (test.length < 2 || test[1].equals("")) {
                 throw new EmptyDescriptionException("!!! Missing DEADLINE Description !!!");
             }
             String[] components = test[1].split("\\s*/by\\s*");
+            assert components.length >= 2 : "Invalid input format for parseDeadlineInfo";
             if (components.length < 2 || components[1].equals("")) {
                 throw new EmptyDescriptionException("!!! Missing DEADLINE Date Time !!!");
             }
@@ -74,11 +73,14 @@ public class BlipParser {
      */
     public static String[] parseEventInfo (String input) throws EmptyDescriptionException {
         String[] test = input.split("\\s+", 2);
+        assert test.length >= 2 : "Invalid input format for parseEventInfo";
+
         // Missing Event Description.
         if (test.length < 2 || test[1].equals("")) {
             throw new EmptyDescriptionException("!!! Missing EVENT Description !!!");
         }
         String[] components = test[1].split(" /from | /to ");
+        assert test.length >= 3 : "Invalid input format for parseEventInfo";
         if (components.length < 3 || components[1].equals("") || components[2].equals("")) {
             throw new EmptyDescriptionException("!!! Missing EVENT Start/End Date Time !!!");
         }
@@ -95,6 +97,8 @@ public class BlipParser {
      */
     public static String parseFindInfo (String input) throws EmptyDescriptionException {
         String[] components = input.split("\\s+", 2);
+        assert components.length >= 2 : "Invalid input format for parseFindInfo";
+
         // Missing Find Description.
         if (components.length < 2 || components[1].equals("")) {
             throw new EmptyDescriptionException("!!! Missing FIND Description !!!\n");
