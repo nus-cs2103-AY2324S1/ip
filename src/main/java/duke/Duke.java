@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import duke.task.Task;
+import javafx.util.Pair;
 
 /**
  * Duke is a task management bot that helps you keep track of your tasks.
@@ -145,6 +146,40 @@ public class Duke {
                 assert x != null : "retrieved task x cannot be null";
 
                 botOutput += x;
+            } catch (ParserException p) {
+                // Handle parsing exceptions.
+                botOutput = p.getMessage();
+            }
+        } else if (userInput.startsWith(Command.TAG)) {
+            botOutput = botOutput + "Noted. I've added tags to this task: \n    ";
+            try {
+                Pair<Integer, String[]> p = parser.parseTag(userInput, this.tasks);
+                int taskNo = p.getKey();
+                String[] tags = p.getValue();
+                Task x = this.tasks.getTask(taskNo - 1);
+                x.addTags(tags);
+
+                assert x != null : "retrieved task x cannot be null";
+
+                botOutput += x;
+            } catch (ParserException p) {
+                // Handle parsing exceptions.
+                botOutput = p.getMessage();
+            }
+
+        } else if (userInput.startsWith(Command.DOAFTER)) {
+            botOutput = botOutput + "Noted. I've added dependency to this task: \n    ";
+            try {
+                Pair<Integer, Integer> p = parser.parseDoAfter(userInput, this.tasks);
+                int childTaskNo = p.getKey();
+                int parentTaskNo = p.getValue();
+                Task child = this.tasks.getTask(childTaskNo - 1);
+                Task parent = this.tasks.getTask(parentTaskNo - 1);
+                child.setParentTask(parent);
+                assert child != null : "retrieved task child cannot be null";
+                assert parent != null : "retrieved task parent cannot be null";
+
+                botOutput += child;
             } catch (ParserException p) {
                 // Handle parsing exceptions.
                 botOutput = p.getMessage();
