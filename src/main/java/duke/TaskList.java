@@ -143,7 +143,7 @@ public class TaskList {
     public void saveState(Storage storage) throws StorageException {
         ArrayList<String> stringRepresentation = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
-            stringRepresentation.add(this.tasks.get(i).toSaveStateString());
+            stringRepresentation.add(this.tasks.get(i).formatStringToSave());
         }
         storage.saveData(stringRepresentation);
     }

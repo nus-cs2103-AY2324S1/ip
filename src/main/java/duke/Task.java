@@ -73,7 +73,7 @@ public abstract class Task {
      *
      * @return A string representing the task to be saved.
      */
-    public abstract String toSaveStateString();
+    public abstract String formatStringToSave();
 
     /**
      * Returns the done state of the task.

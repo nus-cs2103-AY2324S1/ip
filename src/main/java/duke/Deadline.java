@@ -40,7 +40,7 @@ public class Deadline extends Task {
      * @return A string representing the deadline to be saved.
      */
     @Override
-    public String toSaveStateString() {
+    public String formatStringToSave() {
         String[] state = new String[]{ "deadline", this.getDone() ? "1" : "0", this.getTaskName(),
                 this.by.format(Duke.DATE_TIME_INPUT_FORMATTER) };
         return String.join(" / ", state);

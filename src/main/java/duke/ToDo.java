@@ -31,7 +31,7 @@ public class ToDo extends Task {
      * @return A string representing the todo to be saved.
      */
     @Override
-    public String toSaveStateString() {
+    public String formatStringToSave() {
         String[] state = new String[]{ "todo", this.getDone() ? "1" : "0", this.getTaskName() };
         return String.join(" / ", state);
     }
