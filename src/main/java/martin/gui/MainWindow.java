@@ -39,20 +39,25 @@ public class MainWindow extends Application {
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
-         scrollPane = new ScrollPane();
-         dialogContainer = new VBox();
-         scrollPane.setContent(dialogContainer);
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
 
-         userInput = new TextField();
-         sendButton = new Button("Send");
+        userInput = new TextField();
+        sendButton = new Button("Send");
 
-         AnchorPane mainLayout = new AnchorPane();
-         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        assert scrollPane != null : "ScrollPane should be initialized.";
+        assert dialogContainer != null : "DialogContainer should be initialized.";
+        assert userInput != null : "UserInput TextField should be initialized.";
+        assert sendButton != null : "SendButton should be initialized.";
 
-         scene = new Scene(mainLayout);
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-         stage.setScene(scene);
-         stage.show();
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
@@ -113,7 +118,15 @@ public class MainWindow extends Application {
      */
     private void handleUserInput() throws IOException {
         String input = userInput.getText();
+        assert input != null : "User input should not be null.";
+
+        if (input.trim().isEmpty()) {
+            showErrorDialog("Input cannot be empty.");
+            return;
+        }
+        
         String response = getResponse(input);
+        assert response != null : "Response from Martin should not be null.";
         
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, hikaruImage),
