@@ -15,17 +15,17 @@ import duke.ui.UI;
 public class Remark extends Command {
 
     /** To indicate this command is for marking or unmarking */
-    private final int state;
+    private final boolean isMark;
 
     /**
      * Constructs a Remark command with the given input string and state.
      *
-     * @param s The input string containing the task number.
-     * @param state The state indicating whether to mark (0) or unmark (1) the task.
+     * @param str The input string containing the task number.
+     * @param isMark The state indicating whether to mark or unmark the task.
      */
-    public Remark(String s, int state) {
-        super(s);
-        this.state = state;
+    public Remark(String str, boolean isMark) {
+        super(str);
+        this.isMark = isMark;
     }
 
     /**
@@ -41,15 +41,17 @@ public class Remark extends Command {
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         try {
-            int index = CommonMethods.getIndex(s);
-            if (state == 0) {
+            int index = CommonMethods.getIndex(str);
+            if (isMark) {
+                Task t = lst.mark(index);
+                storage.changeFile(lst);
+                return io.unmark(t);
+            } else if(!isMark) {
                 Task t = lst.unmark(index);
                 storage.changeFile(lst);
                 return io.mark(t);
             } else {
-                Task t = lst.mark(index);
-                storage.changeFile(lst);
-                return io.unmark(t);
+                throw new DukeException("Error in remark task");
             }
         } catch (IOException ignored) {
             return ignored.getMessage();

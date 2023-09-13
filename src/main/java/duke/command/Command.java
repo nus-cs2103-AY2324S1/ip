@@ -12,7 +12,7 @@ import duke.ui.UI;
 public abstract class Command {
 
     /** The input string associated with the command in detail. */
-    final String s;
+    final String str;
 
     /**
      * Constructs a Command with the given input string.
@@ -20,7 +20,7 @@ public abstract class Command {
      * @param s The input string associated with the command in detail.
      */
     protected Command(String s) {
-        this.s = s;
+        this.str = s;
     }
 
     /**
@@ -29,18 +29,8 @@ public abstract class Command {
      *
      * @param lst The task list to operate on.
      * @param ui The user interface handling input and output.
-     * @param s The storage handler for reading and storing task data.
+     * @param storage The storage handler for reading and storing task data.
      * @throws DukeException If there is an error while executing the command.
      */
-    public abstract String execute(TaskList lst, UI ui, Storage s) throws DukeException;
-
-    /**
-     * Checks if this command is an exit command.
-     * Subclasses can override this method to indicate whether the command is used to exit the application.
-     *
-     * @return {@code true} if the command is an exit command, {@code false} otherwise.
-     */
-    public boolean isExit() {
-        return false;
-    }
+    public abstract String execute(TaskList lst, UI ui, Storage storage) throws DukeException;
 }

@@ -14,10 +14,10 @@ public class Unknown extends Command {
     /**
      * Constructs an Unknown command with the given input string.
      *
-     * @param s The input string containing the unknown command.
+     * @param str The input string containing the unknown command.
      */
-    public Unknown(String s) {
-        super(s);
+    public Unknown(String str) {
+        super(str);
     }
 
     /**
@@ -26,11 +26,11 @@ public class Unknown extends Command {
      *
      * @param lst The task list (not used in this command).
      * @param io The user interface (not used in this command).
-     * @param s The storage handler (not used in this command).
+     * @param storage The storage handler (not used in this command).
      * @throws DukeException Always thrown with the unknown command string.
      */
     @Override
-    public String execute(TaskList lst, UI io, Storage s) {
-        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+    public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
+        throw new DukeException(str);
     }
 }

@@ -114,7 +114,7 @@ public class TaskList extends ArrayList<Task> {
      * @return An ArrayList containing tasks that match the search query.
      */
     public ArrayList<Task> find(String s) {
-        if (s.equals("") || s.equals(" ")) {
+        if (s.isEmpty() || s.equals(" ")) {
             return new ArrayList<>();
         } else {
             ArrayList<Task> res = new ArrayList<>();

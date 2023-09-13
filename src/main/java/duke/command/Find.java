@@ -14,10 +14,10 @@ public class Find extends Command {
     /**
      * Constructs a Find command with the specified search query.
      *
-     * @param s The search query to find matching tasks.
+     * @param str The search query to find matching tasks.
      */
-    public Find(String s) {
-        super(s);
+    public Find(String str) {
+        super(str);
     }
 
     /**
@@ -30,6 +30,6 @@ public class Find extends Command {
      */
     @Override
     public String execute(TaskList lst, UI ui, Storage storage) throws DukeException {
-        return ui.showMatch(lst.find(s));
+        return ui.showMatch(lst.find(str));
     }
 }

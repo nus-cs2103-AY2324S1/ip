@@ -19,10 +19,10 @@ public class AddEvent extends Command {
     /**
      * Constructs an AddEvent command with the given input string.
      *
-     * @param s The input string containing the task description and event time.
+     * @param str The input string containing the task description and event time.
      */
-    public AddEvent(String s) {
-        super(s);
+    public AddEvent(String str) {
+        super(str);
     }
 
 
@@ -38,18 +38,15 @@ public class AddEvent extends Command {
      */
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
-        if (s.isEmpty() || s.equals(" ")) {
+        if (str.isEmpty() || str.equals(" ")) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
-        } else if (!s.matches(" \\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*")) {
-            throw new DukeException(
-                    "OOPS!!! Please follow the following pattern to add a task:\n  "
-                            + "deadline <task name> /by <deadline>\n");
-        } else {
-            String[] temp = s.split(" /");
+        } else if(str.matches(" \\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*")){
+            String[] temp = str.split(" /");
             try {
                 LocalDate dFrom = LocalDate.parse(temp[1].substring(5));
                 LocalDate dTo = LocalDate.parse(temp[2].substring(3));
                 Task newTask = lst.addTask(temp[0].substring(1), dFrom, dTo);
+
                 storage.addToFile(newTask);
                 return io.addTask(newTask, lst);
             } catch (DateTimeException e) {
@@ -57,7 +54,10 @@ public class AddEvent extends Command {
                         "OOPS!!! Please follow the following pattern to input the time:\n  "
                                 + "event <task name> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n");
             }
-
+        } else {
+            throw new DukeException(
+                    "OOPS!!! Please follow the following pattern to add a task:\n  "
+                            + "deadline <task name> /by <deadline>\n");
         }
     }
 }

@@ -18,7 +18,7 @@ import duke.tasklist.TaskList;
  * This class handles loading tasks from and saving tasks to a file.
  */
 public class Storage {
-    private final String filePath;
+    private final String FILEPATH;
     private String home = System.getProperty("user.home");
 
     /**
@@ -27,7 +27,7 @@ public class Storage {
      * @param filePath The file path for storing task data.
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
+        FILEPATH = filePath;
     }
 
     /**
@@ -37,30 +37,28 @@ public class Storage {
      * @throws DukeException If there is an error while loading tasks.
      */
     public Collection<Task> load() throws DukeException {
-        boolean directoryExists = new java.io.File(home + "\\Documents\\ip\\data").exists();
-        if (!directoryExists) {
-            java.nio.file.Path path = java.nio.file.Paths.get(home,
-                    "Desktop", "NUS", "Y2", "CS2103T", "ip", "data");
-            directoryExists = java.nio.file.Files.exists(path);
-            if (!directoryExists) {
-                throw new DukeException("There is no 'data' folder, please create one");
-            }
+        boolean directoryExistsWIn = new java.io.File(home + "\\Documents\\ip\\data").exists();
+        java.nio.file.Path path = java.nio.file.Paths.get(home,
+                "Desktop", "NUS", "Y2", "CS2103T", "ip", "data");
+        boolean directoryExistsMac = java.nio.file.Files.exists(path);
+
+        if (!directoryExistsWIn && !directoryExistsMac) {
+            throw new DukeException("There is no 'data' folder, please create one");
         }
-        File f = new File(filePath);
+        File f = new File(FILEPATH);
 
         try {
-            ArrayList<Task> lst = new ArrayList<Task>();
-            if (f.exists()) {
-                Scanner s = new Scanner(f);
-                while (s.hasNext()) {
-                    String temp = s.nextLine();
-                    lst.add(existTasks(temp));
-                }
-                return lst;
-            } else {
+            ArrayList<Task> lst = new ArrayList<>();
+            if (!f.exists()) {
                 f.createNewFile();
                 return lst;
             }
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String temp = s.nextLine();
+                lst.add(existTasks(temp));
+            }
+            return lst;
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
         }
@@ -72,7 +70,7 @@ public class Storage {
      * @param s The data string representing a task.
      * @return A Task object based on the data string.
      */
-    private Task existTasks(String s) {
+    private Task existTasks(String s) throws DukeException{
         String[] temp = s.split(" \\| ");
         int n = temp.length;
         Task t;
@@ -80,8 +78,10 @@ public class Storage {
             t = Task.of(temp[1]);
         } else if (n == 3) {
             t = Task.of(temp[1], LocalDate.parse(temp[2]));
-        } else {
+        } else if (n == 4) {
             t = Task.of(temp[1], LocalDate.parse(temp[2]), LocalDate.parse(temp[3]));
+        } else {
+            throw new DukeException("Error in loading tasks");
         }
 
         if (Objects.equals(temp[0], "1")) {
@@ -97,9 +97,9 @@ public class Storage {
      * @throws IOException If there is an error while writing to the file.
      */
     public void changeFile(TaskList lst) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(FILEPATH);
         fw.write("");
-        fw = new FileWriter(filePath, true);
+        fw = new FileWriter(FILEPATH, true);
         for (Task curr : lst) {
             fw.write(curr.getText() + "\n");
         }
@@ -114,7 +114,7 @@ public class Storage {
      */
     public void addToFile(Task t) throws DukeException {
         try {
-            FileWriter fw = new FileWriter(filePath, true);
+            FileWriter fw = new FileWriter(FILEPATH, true);
             fw.write(t.getText() + "\n");
             fw.close();
         } catch (IOException iE) {

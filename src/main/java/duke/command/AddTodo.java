@@ -17,10 +17,10 @@ public class AddTodo extends Command {
     /**
      * Constructs an AddTodo command with the given input string.
      *
-     * @param s The input string containing the task description.
+     * @param str The input string containing the task description.
      */
-    public AddTodo(String s) {
-        super(s);
+    public AddTodo(String str) {
+        super(str);
     }
 
     /**
@@ -35,12 +35,17 @@ public class AddTodo extends Command {
      */
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
-        if (s.isEmpty() || s.equals(" ")) {
+        if (str.isEmpty() || str.equals(" ")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-        } else {
-            Task newTask = lst.addTask(s);
+        } else if (str.matches(" \\S.*\\s.*")) {
+            Task newTask = lst.addTask(str.substring(1));
+
             storage.addToFile(newTask);
             return io.addTask(newTask, lst);
+        } else {
+            throw new DukeException(
+                    "OOPS!!! Please follow the following pattern to add a task:\n  "
+                            + "todo <task name>\n");
         }
     }
 }

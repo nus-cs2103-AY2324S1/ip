@@ -17,10 +17,10 @@ public class Delete extends Command {
     /**
      * Constructs a Delete command with the given input string.
      *
-     * @param s The input string containing the task number.
+     * @param str The input string containing the task number.
      */
-    public Delete(String s) {
-        super(s);
+    public Delete(String str) {
+        super(str);
     }
 
     /**
@@ -36,7 +36,7 @@ public class Delete extends Command {
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         try {
-            int index = CommonMethods.getIndex(s);
+            int index = CommonMethods.getIndex(str);
             Task t = lst.delete(index);
             storage.changeFile(lst);
             return io.delete(t);

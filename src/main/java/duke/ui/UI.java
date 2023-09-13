@@ -11,31 +11,6 @@ import duke.tasklist.TaskList;
  * This class manages user input and output, providing methods for displaying messages and tasks.
  */
 public class UI {
-    private final Scanner sc;
-
-    /**
-     * Constructs a UI object with a scanner to read user input.
-     */
-    public UI() {
-        sc = new Scanner(System.in);
-    }
-
-    /**
-     * Displays a message to the user.
-     *
-     * @param s The message to be displayed.
-     */
-    public String showMessage(String s) {
-        return s;
-    }
-
-    /**
-     * Displays a horizontal line separator.
-     */
-    public String showLine() {
-        return "____________________________________________________________\n";
-    }
-
     /**
      * Displays a message indicating the addition of a task.
      *

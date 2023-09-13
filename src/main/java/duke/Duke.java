@@ -24,20 +24,11 @@ public class Duke {
     private TaskList tasks;
     private final UI ui;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
     public Duke() {
         ui = new UI();
         storage = new Storage("data/duke.txt");
         try {
             tasks = new TaskList(storage.load());
-//            ui.showWelcome();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             tasks = new TaskList();
