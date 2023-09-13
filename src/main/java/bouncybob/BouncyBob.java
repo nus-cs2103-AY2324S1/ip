@@ -19,10 +19,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import bouncybob.gui.TaskCell;
-import bouncybob.task.Deadlines;
-import bouncybob.task.Events;
+import bouncybob.task.Deadline;
+import bouncybob.task.Event;
 import bouncybob.task.Task;
-import bouncybob.task.ToDos;
+import bouncybob.task.ToDo;
 import bouncybob.util.Parser;
 import bouncybob.util.TaskFileHandler;
 import bouncybob.util.TaskList;
@@ -161,7 +161,7 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'todo' cannot be empty.");
                 }
-                newTask = new ToDos(taskName);
+                newTask = new ToDo(taskName);
                 break;
             case DEADLINE:
                 taskName = Parser.removeAction(parts);
@@ -173,7 +173,7 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'deadline' cannot be empty.");
                 }
-                newTask = new Deadlines(taskName, datetime);
+                newTask = new Deadline(taskName, datetime);
                 break;
             case EVENT:
                 taskName = Parser.removeAction(parts);
@@ -185,7 +185,7 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'event' cannot be empty.");
                 }
-                newTask = new Events(taskName, fromTo[0], fromTo[1]);
+                newTask = new Event(taskName, fromTo[0], fromTo[1]);
                 break;
             case UNKNOWN:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
@@ -212,7 +212,7 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'todo' cannot be empty.");
                 }
-                newTask = new ToDos(taskName);
+                newTask = new ToDo(taskName);
                 break;
             case DEADLINE:
                 taskName = Parser.removeAction(parts);
@@ -224,7 +224,7 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'deadline' cannot be empty.");
                 }
-                newTask = new Deadlines(taskName, datetime);
+                newTask = new Deadline(taskName, datetime);
                 break;
             case EVENT:
                 taskName = Parser.removeAction(parts);
@@ -236,7 +236,7 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'event' cannot be empty.");
                 }
-                newTask = new Events(taskName, fromTo[0], fromTo[1]);
+                newTask = new Event(taskName, fromTo[0], fromTo[1]);
                 break;
             case UNKNOWN:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);

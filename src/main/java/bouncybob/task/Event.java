@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents an event task in the BouncyBob application.
  */
-public class Events extends Task {
+public class Event extends Task {
     private String from;
     private String to;
     private LocalDateTime parsedFrom;
@@ -19,7 +19,7 @@ public class Events extends Task {
      * @param from The start time of the event.
      * @param to   The end time of the event.
      */
-    public Events(String name, String from, String to) {
+    public Event(String name, String from, String to) {
         super(name);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.parsedFrom = LocalDateTime.parse(from, formatter);
