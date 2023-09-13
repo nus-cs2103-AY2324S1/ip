@@ -2,6 +2,8 @@ package services.tasklist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import command.CommandType;
 import services.bizerrors.EmptyArgumentException;
@@ -88,22 +90,18 @@ public class TaskList implements ITaskList {
 
     @Override
     public String find(String keyword) {
-        List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : taskList) {
-            if (task.toString().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
+        List<Task> matchingTasks = taskList.stream()
+                .filter(task -> task.toString().contains(keyword))
+                .collect(Collectors.toList());
 
         int count = matchingTasks.size();
         if (count == 0) {
             return "Sir, there are no matching tasks on your calendar.";
         }
         String result = "Sir, there are " + count + " matching tasks on your calendar:\n";
-        for (int i = 1; i < count; i++) {
-            result += i + ". " + matchingTasks.get(i - 1) + "\n";
-        }
-        result += count + ". " + matchingTasks.get(count - 1);
+        result += IntStream.range(1, count + 1)
+                .mapToObj(i -> i + ". " + matchingTasks.get(i - 1))
+                .collect(Collectors.joining("\n"));
         return result;
     }
 
@@ -151,10 +149,9 @@ public class TaskList implements ITaskList {
             return "Sir, there are no tasks on your calendar.";
         }
         String result = "Sir, there are " + taskCount + " tasks on your calendar:\n";
-        for (int i = 1; i < taskCount; i++) {
-            result += i + ". " + taskList.get(i - 1) + "\n";
-        }
-        result += taskCount + ". " + taskList.get(taskCount - 1);
+        result += IntStream.range(1, taskCount + 1)
+                .mapToObj(i -> i + ". " + taskList.get(i - 1))
+                .collect(Collectors.joining("\n"));
         return result;
     }
 }
