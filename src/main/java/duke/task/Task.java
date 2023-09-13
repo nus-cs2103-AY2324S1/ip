@@ -1,0 +1,109 @@
+package duke.task;
+
+import duke.exception.DukeException;
+import duke.exception.EmptyTaskDescException;
+import duke.exception.NoCommandFoundException;
+
+/**
+ * Represents a task with a name and completion status.
+ */
+public abstract class Task {
+    private final String name;
+    private boolean completed = false;
+
+    /**
+     * Constructor for a Task instance.
+     * @param name The name/description of the task.
+     * @throws EmptyTaskDescException If the name is empty.
+     */
+    public Task(String name) throws EmptyTaskDescException {
+        if (name.isBlank()) {
+            throw new EmptyTaskDescException("Name cannot be blank.");
+        }
+        this.name = name;
+    }
+
+    /**
+     * Parses a task from a line of text.
+     *
+     * @param line The line of text containing task information.
+     * @return A Task object parsed from the input line.
+     * @throws DukeException If there's an issue with parsing the task.
+     */
+    public static Task parse(String line)
+            throws DukeException {
+        String[] components = line.split(":", 2);
+        TaskType taskType = components[0].equals("todo") ? TaskType.TODO
+                          : components[0].equals("deadline") ? TaskType.DEADLINE
+                          : TaskType.EVENT;
+        String content = components[1];
+        switch (taskType) {
+        case TODO:
+            return Todo.parseSaveFormat(content);
+        case DEADLINE:
+            return Deadline.parseSaveFormat(content);
+        case EVENT:
+            return Event.parseSaveFormat(content);
+        default:
+            throw new NoCommandFoundException(taskType.name());
+        }
+    }
+
+    public boolean containsString(String content) {
+        return name.contains(content);
+    }
+
+    /**
+     * The different types of tasks.
+     */
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+    /**
+     * Creates a Task object based on the provided content and task type.
+     *
+     * @param task The content of the task.
+     * @param taskType The type of the task.
+     * @return A Task object of the specified type.
+     * @throws DukeException If there's an issue with creating the task.
+     */
+    public static Task of(String task, TaskType taskType)
+            throws DukeException {
+        switch (taskType) {
+        case TODO:
+            return new Todo(task);
+        case DEADLINE:
+            return new Deadline(task);
+        case EVENT:
+            return new Event(task);
+        default:
+            throw new NoCommandFoundException(taskType.name());
+        }
+    }
+    public void setCompleted() {
+        completed = true;
+    }
+    public void setUncompleted() {
+        completed = false;
+    }
+    public String getName() {
+        return name;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Task && ((Task) obj).name.equals(name);
+    }
+
+    @Override
+    public String toString() {
+
+        return completed ? "[X] " + name : "[ ] " + name;
+
+    }
+
+    public String toSaveFormat() {
+        return name + "|" + completed;
+    }
+}
