@@ -3,6 +3,8 @@ package Duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Stores the list of tasks in ArrayList and carries out the functions.
@@ -36,6 +38,38 @@ public class TaskList {
             ui.print(j + "." + list.get(i) + "");
         }
         ui.showLine();
+    }
+
+    public void sortDeadline(Ui ui){
+        ui.showLine();
+        ArrayList<Deadline> deadlines = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i) instanceof Deadline)
+                deadlines.add((Deadline) list.get(i));
+        }
+        Collections.sort(deadlines);
+        for (int i = 0; i < deadlines.size(); i++) {
+            int j = i + 1;
+            ui.print(j + "." + deadlines.get(i) + "");
+        }
+        ui.showLine();
+
+    }
+
+    public void sortEvent(Ui ui){
+        ui.showLine();
+        ArrayList<Event> events = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i) instanceof Event)
+                events.add((Event) list.get(i));
+        }
+        Collections.sort(events);
+        for (int i = 0; i < events.size(); i++) {
+            int j = i + 1;
+            ui.print(j + "." + events.get(i) + "");
+        }
+        ui.showLine();
+
     }
 
     /**

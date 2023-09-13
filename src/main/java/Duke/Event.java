@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Class to generate Events.
  * Extends task.
  */
-public class Event extends Task{
+public class Event extends Task implements Comparable{
 
     private LocalDate from;
     private LocalDate to;
@@ -30,5 +30,11 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " +
                 from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
                 " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Event e = (Event) o;
+        return this.from.compareTo(e.from);
     }
 }

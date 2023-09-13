@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Class to create and store deadlines.
  * Extends Task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task implements Comparable{
     private LocalDate by;
 
     /**
@@ -23,5 +23,11 @@ public class Deadline extends Task{
     }
     public String toString(){
         return "[D]"+super.toString() +" (by: "+by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))+")";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Deadline d= (Deadline) o;
+        return this.by.compareTo(d.by);
     }
 }
