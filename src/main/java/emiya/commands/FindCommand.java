@@ -8,7 +8,7 @@ import emiya.task.TaskList;
 /**
  * A class that represents the Find command.
  */
-public class FindCommand {
+public class FindCommand implements Command{
 
     /**
      * Finds tasks in the task list that contain a specific input from the user.
@@ -29,5 +29,13 @@ public class FindCommand {
         } else {
             return taskList.find(word);
         }
+    }
+
+    @Override
+    public String giveHelpDescription() {
+        return "Find: This command finds any task that contains a given keyword!\n"
+                + "The format for the input is as follows:\n"
+                + "find WORD,\n"
+                + "where WORD is the word of interest.\n";
     }
 }

@@ -6,11 +6,13 @@ import emiya.commands.DeadlineCommand;
 import emiya.commands.DeleteCommand;
 import emiya.commands.EventCommand;
 import emiya.commands.FindCommand;
+import emiya.commands.HelpCommand;
 import emiya.commands.MarkCommand;
 import emiya.commands.TodoCommand;
 import emiya.commands.UnmarkCommand;
 import emiya.emiyaexception.EmiyaException;
 import emiya.emiyaexception.UnknownCommandException;
+import emiya.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -52,6 +54,10 @@ public class MainWindow extends AnchorPane {
     public void createEmiyaInstance() {
         emiya = new Emiya("data", "emiya.txt");
         emiya.loadList();
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getEmiyaDialog(Ui.WELCOME_MESSAGE, dukeImage)
+        );
     }
 
     /**
@@ -98,6 +104,9 @@ public class MainWindow extends AnchorPane {
                 break;
             case FIND:
                 response = FindCommand.find(taskDetails, emiya.getTaskList());
+                break;
+            case HELP:
+                response = HelpCommand.help();
                 break;
             default:
                 throw new UnknownCommandException();

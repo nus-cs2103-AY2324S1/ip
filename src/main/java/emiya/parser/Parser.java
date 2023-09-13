@@ -37,8 +37,8 @@ public class Parser {
         // this part splits the input into 2 parts, depending on whitespace (if possible)
         String[] partsOfInput = input.split("\\s+", 2);
 
-        if (partsOfInput[0].equals("list") || partsOfInput.length == 1) {
-            partsOfInput = new String[] {"list" , ""};
+        if (partsOfInput.length == 1) {
+            partsOfInput = new String[] {partsOfInput[0] , ""};
         }
 
         boolean isNotAKeyword = !enumContainsKeyword(partsOfInput[0].toUpperCase());
