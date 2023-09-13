@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Abstract class that different types of Tasks inherit from.
  */
-public abstract class Task {
+public abstract class Task implements Savable {
     /**
      * format of output.
      */
@@ -67,13 +67,6 @@ public abstract class Task {
             return "[ ] " + taskName;
         }
     }
-
-    /**
-     * Returns a string representation of the task to be saved.
-     *
-     * @return A string representing the task to be saved.
-     */
-    public abstract String formatStringToSave();
 
     /**
      * Returns the done state of the task.

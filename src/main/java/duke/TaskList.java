@@ -141,11 +141,7 @@ public class TaskList {
      * @param storage storage object to save the tasks.
      */
     public void saveState(Storage storage) throws StorageException {
-        ArrayList<String> stringRepresentation = new ArrayList<>();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            stringRepresentation.add(this.tasks.get(i).formatStringToSave());
-        }
-        storage.saveData(stringRepresentation);
+        storage.saveData(this.tasks);
     }
 
     @Override
