@@ -104,6 +104,8 @@ public class Event extends TaskAbstract {
 
     /**
      * Get the status of the event task as a string
+     *
+     * @return status of the event task as a string
      */
     @Override
     public String getStatus() {

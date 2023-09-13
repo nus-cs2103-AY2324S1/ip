@@ -36,10 +36,10 @@ public class Parser {
      * @throws InvalidCommandException if the input command is invalid
      */
     private CommandAbstract createUserCommand(String input) throws InvalidCommandException {
-        try {
+        try { // Identify invalid commands without whitespaces
             String command = input.split(" ")[0];
-        } catch (IndexOutOfBoundsException exp) {
-            throw new InvalidCommandException("ChadGPT: Please input a valid command.\n");
+        } catch (IndexOutOfBoundsException indexOutOfBoundsExcept) {
+            throw new InvalidCommandException("Please input a valid command.");
         }
 
         switch (input.split(" ")[0].toLowerCase()) {
@@ -72,14 +72,16 @@ public class Parser {
      *
      * @param input the input command string
      * @param tasklist the task list to operate on
+     * @return appropriate chatbot response, exception details or UNHANDLED_EXCEPTION_STRING if
+     * there are unhandled edge cases
      */
     public String passUserCommand(String input, TaskList tasklist) {
         try {
             CommandAbstract command = createUserCommand(input);
             return command.execute(tasklist);
-        } catch (InvalidCommandException e) {
-            return e.getBotMessage();
-        } catch (Exception e) {
+        } catch (InvalidCommandException invalidCommandExcept) {
+            return invalidCommandExcept.getBotMessage();
+        } catch (Exception uncaughtExcept) {
             return UNHANDLED_EXCEPTION_STRING;
         }
     }
@@ -96,6 +98,7 @@ public class Parser {
         Pattern deadlineRegex = Pattern.compile(DEADLINE_REGEX_STRING);
         Pattern eventRegex = Pattern.compile(EVENT_REGEX_STRING);
         Matcher dataMatcher = dataRegex.matcher(input);
+
         if (dataMatcher.find()) {
             String[] delimited = input.split(" \\| ");
             boolean isDone = delimited[1].equals("1");
@@ -131,14 +134,15 @@ public class Parser {
      * @param input the input data string extracted from memory
      * @param tasklist the task list to operate on
      * @return appropriate chatbot response string, or UNHANDLED_EXCEPTION_STRING for any edge cases not caught
+     * @throws CorruptDataException if the input data is corrupt
      */
     public String passDataCommand(String input, TaskList tasklist) throws CorruptDataException {
         try {
             CommandAbstract command = createDataCommand(input);
             return command.execute(tasklist);
-        } catch (CorruptDataException exp) {
-            throw exp;
-        } catch (Exception e) {
+        } catch (CorruptDataException corruptDataExcept) {
+            throw corruptDataExcept;
+        } catch (Exception uncaughtExcept) {
             return UNHANDLED_EXCEPTION_STRING;
         }
     }

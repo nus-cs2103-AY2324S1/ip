@@ -67,6 +67,8 @@ public class Deadline extends TaskAbstract {
 
     /**
      * Get the current status of the deadline task as a string
+     *
+     * @return status of the deadline task as a string
      */
     @Override
     public String getStatus() {

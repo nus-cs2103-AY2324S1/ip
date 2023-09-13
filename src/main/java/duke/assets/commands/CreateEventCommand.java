@@ -60,6 +60,7 @@ public class CreateEventCommand extends CommandAbstract {
      * Completes the operation specified by the input command on the specified task list
      *
      * @param tasklist the task list to operate on
+     * @return appropriate chatbot response to user query, or UNHANDLED_EXCEPTION_STRING for unhandled edge cases
      */
     @Override
     protected String completeOperation(TaskList tasklist) {
@@ -79,7 +80,7 @@ public class CreateEventCommand extends CommandAbstract {
      * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
      * response as a string
      *
-     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any uncaught edge cases
+     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any unhandled edge cases
      */
     protected String findException() {
         String[] delimitedBySlash = this.input.split("/");

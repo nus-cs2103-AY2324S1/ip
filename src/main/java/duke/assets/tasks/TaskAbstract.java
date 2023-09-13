@@ -21,6 +21,7 @@ public abstract class TaskAbstract {
 
     /**
      * Marks the task as complete
+     *
      * @throws StateCannotBeAlteredException if task is already complete
      */
     public void completeTask() throws StateCannotBeAlteredException {
@@ -33,6 +34,7 @@ public abstract class TaskAbstract {
 
     /**
      * Mark the task as incomplete
+     *
      * @throws StateCannotBeAlteredException if task is already incomplete
      */
     public void undo() throws StateCannotBeAlteredException {
@@ -52,6 +54,7 @@ public abstract class TaskAbstract {
 
     /**
      * Checks if the task description contains the given token
+     *
      * @param token token to be checked against
      * @return true if task description contains token, false otherwise
      */
@@ -60,21 +63,15 @@ public abstract class TaskAbstract {
     }
 
     /**
-     * Helper function to check if task is complete
-     *
-     * @return true if task is complete, false otherwise
-     */
-    public boolean isComplete() {
-        return isDone;
-    }
-
-    /**
      * Get status of the task as a string
+     *
+     * @return status of the task a string
      */
     public abstract String getStatus();
 
     /**
      * Formats the task into a string that is ready for saving into memory
+     *
      * @return formatted string that is ready for saving into memory
      */
     public abstract String saveToTextFormat();
