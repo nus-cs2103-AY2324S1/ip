@@ -5,8 +5,15 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Adapted from Partial Solution provided by https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
- * A child class of Tasks to create tasks that need to be done before a specific date/time.
- * e.g., submit report by 2023-04-12 15:00.
+ * .
+ * The {@code Deadline} class represents a specific type of task called "deadline" in a task management application.
+ * It is a child class of the {@code Task} class and inherits its properties and methods.
+ * .
+ * A deadline task is a task that needs to be completed before a specific date and time. It includes a task description,
+ * a boolean flag indicating whether the task is done or not, and date/time information specifying the task's deadline.
+ * .
+ * This class provides a constructor to create a deadline task and overrides methods to customize its
+ * string representation using {@code toString()} and data representation using {@code getData()}.
  */
 public class Deadline extends Task {
 
