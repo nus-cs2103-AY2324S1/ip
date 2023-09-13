@@ -1,9 +1,5 @@
-T | 0 | eat
-T | 0 | yay it works!
-T | 0 | eat
-T | 0 | eat
-T | 0 | testing
-D | 0 | this | 2023-02-02
-T | 0 | eat
-D | 0 | 2103 | 2020-12-12
-
+T | 0 | eat lunch
+T | 0 | red velvet
+D | 0 | frozen  | 2020-12-10
+E | 0 | itzy superior  | 2020-12-12 | 2020-12-12
+E | 0 | yoasobi superior  | 2020-12-12 | 2020-12-12
