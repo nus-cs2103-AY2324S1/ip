@@ -341,11 +341,10 @@ public class DukeTaskList {
     private ArrayList<Task> getMatchingTasks(String query) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         assert this.tasks != null;
-        for (Task currentTask : this.tasks) {
-            if (currentTask.getDescription().contains(query)) {
-                matchingTasks.add(currentTask);
-            }
-        }
+        this.tasks
+                .stream()
+                .filter((currentTask) -> currentTask.getDescription().contains(query))
+                .forEach(matchingTasks::add);
         return matchingTasks;
     }
 
