@@ -35,8 +35,9 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the bot's response to the GUI.
+     * @param input the user's input
+     * @return the bot's response
      */
     public String getResponse(String input) {
         return Parser.parseCommand(input, this.taskList);

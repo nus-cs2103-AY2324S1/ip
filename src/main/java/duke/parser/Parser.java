@@ -13,11 +13,12 @@ public class Parser {
 
     /**
      * Select command to run.
-     * @param input The user's input.
+     * @param rawInput The user's input.
      * @param taskList The list of tasks.
      */
-    public static String parseCommand(String input, TaskList taskList) {
+    public static String parseCommand(String rawInput, TaskList taskList) {
         StringBuilder output = new StringBuilder();
+        String input = rawInput.toLowerCase();
         try {
             String trimmedInput = input.trim();
             if (input.equals("list")) {
