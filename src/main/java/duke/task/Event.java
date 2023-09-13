@@ -31,8 +31,8 @@ public class Event extends Task{
      * @param endDate The endDate of the task.
      * @param checked The status of whether the task is checked (completed) or not.
      */
-    public Event(String text, LocalDateTime startDate, LocalDateTime endDate, boolean checked) {
-        super(text,checked);
+    public Event(String text, LocalDateTime startDate, LocalDateTime endDate, boolean checked,Tag tag) {
+        super(text,checked,tag);
         super.getText();
         super.setType("E");
         this.startDate = startDate;

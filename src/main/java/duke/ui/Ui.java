@@ -4,7 +4,6 @@ import duke.Duke;
 import duke.task.*;
 import duke.parser.*;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ui {
@@ -29,8 +28,8 @@ public class Ui {
         Parser input = new Parser(acceptInput(scanner));
         //Repeating Asking User if Not Equals Bye
         String command = input.getCommand();
-        while(!command.equals("bye")) {
-            switch(command) {
+        while (!command.equals("bye")) {
+            switch (command) {
                 case "help":
                     helpFunction();
                     break;
@@ -42,9 +41,9 @@ public class Ui {
                     break;
                 case "delete":
                     int deleteIndex = input.processDeleteIndex();
-                    if(deleteIndex >= 0) {
+                    if (deleteIndex >= 0) {
                         taskArray.removeTask(deleteIndex - 1);
-                    }else{
+                    } else {
                         printInvalidArgIndex();
                         continue;
                     }
@@ -52,9 +51,9 @@ public class Ui {
 
                 case "mark":
                     int markIndex = input.processMarkIndex();
-                    if(markIndex >= 0) {
+                    if (markIndex >= 0) {
                         taskArray.get(markIndex - 1).mark();
-                    }else{
+                    } else {
                         printInvalidArgIndex();
                         continue;
                     }
@@ -62,9 +61,9 @@ public class Ui {
 
                 case "unmark":
                     int unmarkIndex = input.processUnmarkIndex();
-                    if(unmarkIndex >= 0) {
+                    if (unmarkIndex >= 0) {
                         taskArray.get(unmarkIndex - 1).unmark();
-                    }else{
+                    } else {
                         printInvalidArgIndex();
                         continue;
                     }
@@ -72,27 +71,27 @@ public class Ui {
 
                 case "todo":
                     Task toDo = input.processToDo();
-                    if(toDo == null) {
+                    if (toDo == null) {
                         printInsufficientArgToDo();
-                    }else{
+                    } else {
                         taskArray.add(toDo);
                     }
                     break;
 
                 case "deadline":
                     Task deadlineTask = input.processDeadline();
-                    if(deadlineTask == null) {
+                    if (deadlineTask == null) {
                         printInsufficientArgDeadline();
-                    }else{
+                    } else {
                         taskArray.add(deadlineTask);
                     }
                     break;
 
                 case "event":
                     Task eventTask = input.processEvent();
-                    if(eventTask == null) {
+                    if (eventTask == null) {
                         printInsufficientArgEvent();
-                    }else{
+                    } else {
                         taskArray.add(eventTask);
                     }
                     break;
@@ -118,7 +117,7 @@ public class Ui {
         //Repeating Asking User if Not Equals Bye
         String command = input.getCommand();
 
-        switch(command) {
+        switch (command) {
             case "help":
                 return helpFunction();
             case "list":
@@ -128,49 +127,72 @@ public class Ui {
             case "delete":
                 int deleteIndex = input.processDeleteIndex();
 
-                if(deleteIndex >= 0) {
+                if (deleteIndex >= 0) {
                     return oriTaskArray.removeTask(deleteIndex - 1);
-                }else{
+                } else {
                     return printInvalidArgIndex();
                 }
+            case "addTag":
+                int addingTaskIndex = input.processTagGetTaskIndex();
+                Tag tagForAddTag = input.processGetTag();
+                if (addingTaskIndex == -1 || tagForAddTag == null) {
+                    return printInvalidAddTagArg();
+                }
+
+                return oriTaskArray.get(addingTaskIndex).setTag(tagForAddTag);
+            case "removeTag":
+                int removingTaskIndex = input.processTagGetTaskIndex();
+                if (removingTaskIndex == -1) {
+                    return printInvalidRemoveTagIndex();
+                }
+
+                return oriTaskArray.get(removingTaskIndex).removeTag();
+
+            case "listTag":
+                Tag tagForListTag = input.processListTag();
+                if (tagForListTag == null) {
+                    return printInvalidListTaskArg();
+                }
+
+                return oriTaskArray.printByTag(tagForListTag);
 
             case "mark":
                 int markIndex = input.processMarkIndex();
-                if(markIndex >= 0) {
+                if (markIndex >= 0) {
                     return oriTaskArray.get(markIndex - 1).mark();
-                }else{
+                } else {
                     return printInvalidArgIndex();
                 }
 
             case "unmark":
                 int unmarkIndex = input.processUnmarkIndex();
-                if(unmarkIndex >= 0) {
+                if (unmarkIndex >= 0) {
                     return oriTaskArray.get(unmarkIndex - 1).unmark();
-                }else{
+                } else {
                     return printInvalidArgIndex();
                 }
 
             case "todo":
                 Task toDo = input.processToDo();
-                if(toDo == null) {
+                if (toDo == null) {
                     return printInsufficientArgToDo();
-                }else{
+                } else {
                     return oriTaskArray.add(toDo);
                 }
 
             case "deadline":
                 Task deadlineTask = input.processDeadline();
-                if(deadlineTask == null) {
+                if (deadlineTask == null) {
                     return printInsufficientArgDeadline();
-                }else{
+                } else {
                     return oriTaskArray.add(deadlineTask);
                 }
 
             case "event":
                 Task eventTask = input.processEvent();
-                if(eventTask == null) {
+                if (eventTask == null) {
                     return printInsufficientArgEvent();
-                }else{
+                } else {
                     return oriTaskArray.add(eventTask);
                 }
             case "bye":
@@ -266,8 +288,17 @@ public class Ui {
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 
+    public String printInvalidRemoveTagIndex() {
+        return "OOPS!!! The argument for the removeTag is invalid! \n Please use this format instead : removeTag [taskIndex] [tagName]";
+    }
+    public String printInvalidAddTagArg() {
+        return "OOPS!!! The argument for the addTag is invalid! \n Please use this format instead : addTag [taskIndex] [tagName]";
+    }
 
+    public static String printInvalidListTaskArg(){
+        return "OOPS!!! The argument for the listTag is invalid or your tag is invalid! \n Please use this format instead : listTag [tagName]";
 
+    }
 
 
 

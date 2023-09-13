@@ -5,6 +5,8 @@ public class Task {
     private String type = "";
     private boolean checked;
 
+    private Tag tag = null;
+
 
     /**
      * Creates a new Task object with the given text and sets checked status to false.
@@ -27,6 +29,13 @@ public class Task {
         this.text = text;
         this.checked = checked;
     }
+
+    public Task(String text,boolean checked, Tag tag) {
+        this.text = text;
+        this.checked = checked;
+        this.tag = tag;
+    }
+
 
 
     /**
@@ -77,8 +86,14 @@ public class Task {
      * @return The formatted text of the task.
      */
     public String getTypeCheckedText() {
-        String result = getType() + getChecked() + " " + getText();
+        String result;
+        if(tag == null) {
+            result = getType() + getChecked() + " " + getText();
+            return result;
+        }
+        result = getType() + getChecked() + "#" + tag.getTagName() + " " + getText();
         return result;
+
     }
 
     /**
@@ -92,7 +107,7 @@ public class Task {
     /**
      * Unmarks the task as completed.
      */
-    public String unmark(){
+    public String unmark() {
         checked = false;
         return "OK, I've marked this task as not done yet:\n" + getStatusText();
     }
@@ -112,10 +127,31 @@ public class Task {
      * @return The parsed data of the task.
      */
     public String getParsedTask() {
-        String result = this.type + ";" + this.text + ";" + this.checked;
+        String result = this.type + ";" + this.text + ";" + this.checked + ";" + this.tag.getTagName();
         return result;
     }
 
+    public String setTag(String tagName) {
+        this.tag = Tag.generateTag(tagName);
+        return "Tag : " + tag.getTagName() + " has been setup!";
+
+    }
+    public String setTag(Tag tag) {
+        this.tag = tag;
+        return "Tag : " + tag.getTagName() + " has been setup!";
+    }
+    public Tag getTag() {
+        return getTag();
+    }
+
+    public boolean containsTag(Tag tag) {
+        return this.tag == tag;
+    }
+
+    public String removeTag() {
+        this.tag = null;
+        return "Tag is successfully being removed!";
+    }
 
 
 }
