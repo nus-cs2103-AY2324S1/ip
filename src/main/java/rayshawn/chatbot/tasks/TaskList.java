@@ -14,18 +14,22 @@ public class TaskList {
     }
 
     public TaskList(List<Task> taskList) {
+        assert taskList != null : "taskList should not be null";
         this.list = new ArrayList<>(taskList);
     }
 
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         this.list.add(task);
     }
 
     public Task getTask(int index) {
+        assert index >= 0 && index < list.size() : "Index out of bounds";
         return list.get(index);
     }
 
     public void removeTask(int index) {
+        assert index >= 0 && index < list.size() : "Index out of bounds";
         list.remove(index);
     }
 

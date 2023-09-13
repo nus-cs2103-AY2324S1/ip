@@ -25,11 +25,14 @@ public class DeadlineCommand extends Command {
      * @throws ChatBotException if any of the data is invalid
      */
     public DeadlineCommand(String description, String date) throws ChatBotException {
+        assert description != null : "Description should not be null";
+        assert date != null : "Date should not be null";
         this.toAdd = new Deadline(description, date);
     }
 
     @Override
     public CommandResult execute() {
+        assert taskList != null : "Task list should not be null";
         taskList.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS + getTaskListCount(taskList.getAllTasks()),
                 toAdd, taskList.getAllTasks()));

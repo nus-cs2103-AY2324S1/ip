@@ -17,6 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String task, String date) {
         super(task, "D");
+        assert date != null : "Date should not be null";
         this.date = LocalDate.parse(date);
     }
 
@@ -26,6 +27,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        assert date != null : "Date should not be null";  // Assertion 1
         return super.toString() + " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

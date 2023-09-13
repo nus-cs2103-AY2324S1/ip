@@ -27,6 +27,8 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
+            assert taskList != null : "TaskList should not be null";
+            assert getIndex() >= 1 && getIndex() <= taskList.count() : "Invalid task index";
             final Task task = taskList.getTask(getIndex() - 1);
             if (task.isDone()) {
                 return new CommandResult(MESSAGE_REPEATED);

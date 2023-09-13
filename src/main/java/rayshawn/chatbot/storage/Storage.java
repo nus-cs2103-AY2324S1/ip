@@ -58,6 +58,7 @@ public class Storage {
         } catch (IOException e) {
             throw new StorageOperationException("Error writing to file: " + path);
         }
+        assert Files.exists(path) : "File does not exist after saving: " + path;
     }
 
     /**

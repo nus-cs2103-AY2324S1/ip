@@ -22,6 +22,10 @@ public class Event extends Task {
      */
     public Event(String task, String date, String start, String end) {
         super(task, "E");
+
+        assert date != null : "Date should not be null";
+        assert start != null : "Start time should not be null";
+        assert end != null : "End time should not be null";
         this.date = LocalDate.parse(date);
         this.start = LocalTime.parse(start, DateTimeFormatter.ofPattern("ha"));
         this.end = LocalTime.parse(end, DateTimeFormatter.ofPattern("ha"));
@@ -41,10 +45,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+        assert date != null : "Date should not be null";
+        assert start != null : "Start time should not be null";
+        assert end != null : "End time should not be null";
+
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h a");
         return super.toString() + " (from: "
-                + this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                + " " + this.start.format(timeFormat) + " to: " + this.end.format(timeFormat) + ")";
+                + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                + " " + start.format(timeFormat) + " to: " + end.format(timeFormat) + ")";
 
     }
 }

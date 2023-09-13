@@ -18,6 +18,7 @@ public class CommandResult {
      * @param feedbackToUser message to be shown to the user
      */
     public CommandResult(String feedbackToUser) {
+        assert feedbackToUser != null : "Feedback message should not be null";
         this.feedbackToUser = feedbackToUser;
         this.tasks = null;
     }
@@ -29,6 +30,7 @@ public class CommandResult {
      * @param tasks list of task that was produced by the command
      */
     public CommandResult(String feedbackToUser, List<Task> tasks) {
+        assert feedbackToUser != null : "Feedback message should not be null";
         this.feedbackToUser = feedbackToUser;
         this.tasks = tasks;
     }

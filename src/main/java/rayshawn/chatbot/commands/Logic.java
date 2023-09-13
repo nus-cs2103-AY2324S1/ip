@@ -23,6 +23,10 @@ public class Logic {
         } catch (Storage.InvalidStorageFilePathException | Storage.StorageOperationException e) {
             throw new RuntimeException(e);
         }
+
+        assert storage != null : "Storage should not be null";
+        assert tasks != null : "TaskList should not be null";
+        assert parser != null : "Parser should not be null";
     }
 
     public Command getCommand(String commandText) {
