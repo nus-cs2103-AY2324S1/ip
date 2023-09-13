@@ -30,7 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString()
+        return "\u23F0 " + super.toString()
                 + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
     }
 
@@ -41,5 +41,9 @@ public class Deadline extends Task {
     @Override
     public String toFile() {
         return "D" + super.toFile() + " | " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+    }
+
+    public boolean isDue() {
+        return this.deadline.isAfter(LocalDateTime.now());
     }
 }

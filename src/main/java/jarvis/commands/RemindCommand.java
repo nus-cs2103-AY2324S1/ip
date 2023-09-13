@@ -5,21 +5,22 @@ import jarvis.tasks.TaskList;
 import jarvis.ui.Ui;
 
 /**
- * Represents the ListCommand Class.
- * Responsible for handling display list operation.
+ * RemindCommand Class
+ * Responsible for reminders on deadlines.
  *
  * @author Shishir
  */
-public class ListCommand extends Command {
+public class RemindCommand extends Command {
 
     /**
-     * Executes the required command.
+     * Returns a string representation of all pending deadlines.
      * @param tasks List of all the tasks.
      * @param ui Ui for interacting with the user.
      * @param storage Storage of the tasks.
+     * @return String representation of all pending deadlines.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.showList(tasks.size()) + "\n\n" + tasks.toString();
+        return tasks.getDeadlines();
     }
 }

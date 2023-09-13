@@ -41,7 +41,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + (this.completed ? "X" : " ") + "] " + this.description;
+        return (this.completed ? "\u2611" : "\u2610") + " " + this.description;
     }
 
     /**

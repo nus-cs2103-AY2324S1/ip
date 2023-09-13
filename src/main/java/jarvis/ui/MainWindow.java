@@ -36,13 +36,16 @@ public class MainWindow extends AnchorPane {
     /** Initialises the container for holding messages. */
     @FXML
     public void initialize() {
+        setJarvis(new Jarvis());
         this.dialogContainer.setVvalue(1.0);
         this.dialogBox.heightProperty().addListener((observable) -> this.dialogContainer.setVvalue(1.0));
         this.dialogContainer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.dialogContainer.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         this.dialogBox.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        this.dialogBox.getChildren().add(DialogBox.getDukeDialog("Greetings, I am Jarvis! How may I assist you"
+        this.dialogBox.getChildren().add(DialogBox.getJarvisDialog("Greetings, I am Jarvis! How may I assist you"
                 + " today?", this.jarvisImg));
+        String reminder = this.jarvis.getResponse("remind");
+        this.dialogBox.getChildren().add(DialogBox.getJarvisDialog(reminder, this.jarvisImg));
     }
 
     /**
@@ -56,7 +59,7 @@ public class MainWindow extends AnchorPane {
         textField.clear();
         dialogBox.getChildren().addAll(
                 DialogBox.getUserDialog(input, this.userImg),
-                DialogBox.getDukeDialog(response, this.jarvisImg)
+                DialogBox.getJarvisDialog(response, this.jarvisImg)
         );
         if (input.equals("bye")) {
             Platform.exit();
@@ -75,10 +78,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets duke object to give object.
-     * @param d Duke Object responsible for interaction with user.
+     * Sets jarvis object to give object.
+     * @param d Jarvis Object responsible for interaction with user.
      */
-    public void setDuke(Jarvis d) {
+    public void setJarvis(Jarvis d) {
         this.jarvis = d;
     }
 
