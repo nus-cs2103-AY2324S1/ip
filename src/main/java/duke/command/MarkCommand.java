@@ -52,4 +52,16 @@ public class MarkCommand implements Command {
     public void loadTask(TaskList tasks) {
         //Do nothing
     }
+
+    /**
+     * Undoes the task from the command details and unmark the task.
+     *
+     * @param tasks The list of tasks to which the task will be unmark.
+     * @return The command to be executed.
+     * @throws DukeException If an error occurs during command execution.
+     */
+    @Override
+    public Command undoTask(TaskList tasks) throws DukeException {
+        return new UnmarkCommand(this.taskDetail);
+    }
 }

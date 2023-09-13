@@ -12,6 +12,7 @@ import duke.ui.Ui;
  */
 public class TodoCommand implements Command {
     private final String taskDetail;
+    private int indexTask;
 
     /**
      * Constructs a TodoCommand with the specified details.
@@ -20,6 +21,7 @@ public class TodoCommand implements Command {
      */
     public TodoCommand(String detail) {
         this.taskDetail = detail;
+        this.indexTask = 0;
     }
 
     /**
@@ -38,6 +40,7 @@ public class TodoCommand implements Command {
         } else {
             Task curr = new Todo(this.taskDetail);
             tasks.add(curr);
+            this.indexTask = tasks.size();
             ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr + "\n"
                     + "Now you have " + tasks.size() + " tasks in the list.");
             storage.editData(tasks);
@@ -54,5 +57,17 @@ public class TodoCommand implements Command {
         assert tasks != null;
         Task curr = new Todo(this.taskDetail);
         tasks.add(curr);
+    }
+
+    /**
+     * Undoes the task from the command details and remove it to the task list.
+     *
+     * @param tasks The list of tasks to which the task will be deleted.
+     * @return Command the command to be executed.
+     * @throws DukeException If an error occurs during command execution.
+     */
+    @Override
+    public Command undoTask(TaskList tasks) throws DukeException {
+        return new DeleteCommand(Integer.toString(this.indexTask));
     }
 }

@@ -3,6 +3,7 @@ package duke;
 import java.time.DateTimeException;
 
 import duke.command.Command;
+import duke.command.UndoCommand;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -41,8 +42,9 @@ public class Duke {
     public void run(String... inputs) {
         for (String input : inputs) {
             try {
-                Command c = Parser.parse(input.trim());
-                c.execute(tasks, ui, storage);
+                Command command = Parser.parse(input.trim());
+                command.execute(tasks, ui, storage);
+                UndoCommand.saveCommand(command);
             } catch (DukeException | DateTimeException e) {
                 ui.showError(e.getMessage());
             }

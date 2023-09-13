@@ -1,2 +1,0 @@
-0 todo readbook
-0 todo borrowbook

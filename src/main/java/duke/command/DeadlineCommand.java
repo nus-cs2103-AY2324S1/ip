@@ -12,14 +12,16 @@ import duke.ui.Ui;
  */
 public class DeadlineCommand implements Command {
     private final String taskDetail;
+    private int indexTask;
 
     /**
-     * Constructs a DeadlineCommand with the specified details.
+     * Constructs a DeadlineCommand with the specified details and save the command.
      *
      * @param detail The details of the deadline task.
      */
     public DeadlineCommand(String detail) {
         this.taskDetail = detail;
+        this.indexTask = 0;
     }
 
     /**
@@ -34,11 +36,12 @@ public class DeadlineCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (taskDetail.equals("")) {
-            throw new DukeException("OOPS!!! The description of a deadline cannot be empty.\n");
+            throw new DukeException("Error 404!!! The description of a deadline cannot be empty.\n");
         } else {
             String[] partDeadline = taskDetail.split("/by");
             Task curr = new Deadline(partDeadline[0], partDeadline[1].trim());
             tasks.add(curr);
+            this.indexTask = tasks.size();
             ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr + "\n"
                     + "Now you have " + tasks.size() + " tasks in the list.");
             storage.editData(tasks);
@@ -56,5 +59,17 @@ public class DeadlineCommand implements Command {
         String[] partDeadline = taskDetail.split("/by");
         Task curr = new Deadline(partDeadline[0], partDeadline[1].trim());
         tasks.add(curr);
+    }
+
+    /**
+     * Undoes the task from the command details and remove it to the task list.
+     *
+     * @param tasks The list of tasks to which the task will be deleted.
+     * @return The command to be executed.
+     * @throws DukeException If an error occurs during command execution.
+     */
+    @Override
+    public Command undoTask(TaskList tasks) throws DukeException {
+        return new DeleteCommand(Integer.toString(this.indexTask));
     }
 }

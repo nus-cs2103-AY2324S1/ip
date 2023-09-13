@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -33,5 +34,17 @@ public class ListCommand implements Command {
     @Override
     public void loadTask(TaskList tasks) {
         //Do nothing
+    }
+
+    /**
+     * Does nothing.
+     *
+     * @param tasks The list of tasks.
+     * @return The command to be executed.
+     * @throws DukeException If an error occurs during command execution.
+     */
+    @Override
+    public Command undoTask(TaskList tasks) throws DukeException {
+        return new EmptyCommand();
     }
 }

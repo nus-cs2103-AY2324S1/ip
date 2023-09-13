@@ -10,7 +10,9 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
+import duke.command.UndoCommand;
 import duke.command.UnmarkCommand;
+
 
 /**
  * Parses user input to create corresponding Command objects for Duke.
@@ -51,8 +53,10 @@ public class Parser {
             return new DeleteCommand(details);
         case "find":
             return new FindCommand(details);
+        case "undo":
+            return new UndoCommand();
         default:
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("Error 404!!! I'm sorry, but I don't know what that means...");
         }
     }
 }

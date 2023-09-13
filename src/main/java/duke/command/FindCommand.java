@@ -3,6 +3,7 @@ package duke.command;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import duke.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -37,10 +38,15 @@ public class FindCommand implements Command {
         List<Task> filteredTasks = tasks.stream()
                 .filter(task -> task.getName().contains(this.taskDetail))
                 .collect(Collectors.toList());
-        for (int i = 0; i < filteredTasks.size(); i++) {
-            output.append("\n").append(i + 1).append(".").append(tasks.get(i).toString());
+
+        if (filteredTasks.size() == 0) {
+            ui.sendMessage("Sorry, there is no matching tasks in your list.");
+        } else {
+            for (int i = 0; i < filteredTasks.size(); i++) {
+                output.append("\n").append(i + 1).append(".").append(tasks.get(i).toString());
+            }
+            ui.sendMessage(output.toString());
         }
-        ui.sendMessage(output.toString());
     }
 
     /**
@@ -51,5 +57,17 @@ public class FindCommand implements Command {
     @Override
     public void loadTask(TaskList tasks) {
         //Do nothing
+    }
+
+    /**
+     * Does nothing.
+     *
+     * @param tasks The list of tasks.
+     * @return The command to be executed.
+     * @throws DukeException If an error occurs during command execution.
+     */
+    @Override
+    public Command undoTask(TaskList tasks) throws DukeException {
+        return new EmptyCommand();
     }
 }

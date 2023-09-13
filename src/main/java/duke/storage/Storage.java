@@ -45,7 +45,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("OOPS!! Unable to save data safely.");
+            throw new DukeException("Error 404!!! Unable to save data safely.");
         }
     }
 
@@ -75,7 +75,7 @@ public class Storage {
             new File(filePath);
             return loadedTask;
         } catch (IOException e) {
-            throw new DukeException("OOPS!! Unable to read saved data safely.");
+            throw new DukeException("Error 404!!! Unable to read saved data safely.");
         }
     }
 }

@@ -26,4 +26,13 @@ public interface Command {
      * @param tasks The list of tasks to which task data can be added.
      */
     void loadTask(TaskList tasks);
+
+    /**
+     * Reverts the effect of the executed command.
+     *
+     * @param tasks The list of tasks to which task data can be reverted.
+     * @return The command to be executed.
+     * @throws DukeException If an error occurs during command execution.
+     */
+    Command undoTask(TaskList tasks) throws DukeException;
 }

@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -22,7 +23,7 @@ public class ByeCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         assert tasks != null && storage != null;
-        ui.sendMessage("Bye. Happy to be able to serve you!!!\nShutting down...");
+        ui.sendMessage("Bye-bye. Happy to be able to serve you!!!\nShutting down...");
         closeChatbot();
     }
 
@@ -31,9 +32,7 @@ public class ByeCommand implements Command {
      */
     public void closeChatbot() {
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
-        pause.setOnFinished(event -> {
-            Platform.exit();
-        });
+        pause.setOnFinished(event -> Platform.exit());
         pause.play();
     }
 
@@ -45,5 +44,17 @@ public class ByeCommand implements Command {
     @Override
     public void loadTask(TaskList tasks) {
         //Do nothing
+    }
+
+    /**
+     * Does nothing.
+     *
+     * @param tasks The list of tasks.
+     * @return The command to be executed.
+     * @throws DukeException If an error occurs during command execution.
+     */
+    @Override
+    public Command undoTask(TaskList tasks) throws DukeException {
+        return new EmptyCommand();
     }
 }

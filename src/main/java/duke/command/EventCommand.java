@@ -13,6 +13,7 @@ import duke.ui.Ui;
 
 public class EventCommand implements Command {
     private final String taskDetail;
+    private int indexTask;
 
     /**
      * Constructs an EventCommand with the specified details.
@@ -21,6 +22,7 @@ public class EventCommand implements Command {
      */
     public EventCommand(String detail) {
         this.taskDetail = detail;
+        this.indexTask = 0;
     }
 
     /**
@@ -41,6 +43,7 @@ public class EventCommand implements Command {
             String[] partTo = partFrom[1].split("/to");
             Task curr = new Event(partFrom[0], partTo[0].trim(), partTo[1].trim());
             tasks.add(curr);
+            this.indexTask = tasks.size();
             ui.sendMessage("Got it. I've added this task:\n" + "\t" + curr + "\n"
                     + "Now you have " + tasks.size() + " tasks in the list.");
             storage.editData(tasks);
@@ -59,5 +62,16 @@ public class EventCommand implements Command {
         String[] partTo = partFrom[1].split("/to");
         Task curr = new Event(partFrom[0], partTo[0].trim(), partTo[1].trim());
         tasks.add(curr);
+    }
+
+    /**
+     * Undoes the task from the command details and remove it to the task list.
+     *
+     * @param tasks The list of tasks to which the task will be deleted.
+     * @throws DukeException If an error occurs during command execution.
+     */
+    @Override
+    public Command undoTask(TaskList tasks) throws DukeException {
+        return new DeleteCommand(Integer.toString(this.indexTask));
     }
 }
