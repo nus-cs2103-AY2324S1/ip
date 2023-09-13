@@ -69,19 +69,6 @@ public class Parser {
         return parsedInputToCommand(parsedInput);
     }
 
-    /**
-     * Returns parsed input from the file.
-     *
-     * @param input Input from file.
-     * @throws InvalidCommandException If the input is not of the recognised form.
-     */
-    public static ArrayList<String> parseFileInput(String input) throws InvalidCommandException {
-        ArrayList<String> parsedInput = new ArrayList<>();
-        String[] split = input.split(DELIMITER_INPUT);
-        Collections.addAll(parsedInput, split);
-        return parsedInput;
-    }
-
     private static Command parsedInputToCommand(ArrayList<String> parsedInput) throws InvalidCommandException {
         if (parsedInput.size() < 1) {
             throw new InvalidCommandException("Command cannot be empty");
