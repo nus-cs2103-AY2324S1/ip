@@ -28,8 +28,8 @@ public class Parser {
 
         static {
             for (Operations op : values()) {
-                assert op.toString().equals(op.toString().toUpperCase()) :
-                        "Enum values must be in uppercase";
+                assert op.toString().equals(op.toString().toUpperCase())
+                        : "Enum values must be in uppercase";
             }
         }
 
