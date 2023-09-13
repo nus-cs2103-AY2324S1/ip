@@ -269,7 +269,7 @@ public class Parser {
      * @throws ChatException to pass error message along to CLI.
      */
     public static Command parse(String input) throws ChatException {
-        assert input != null : "Input should not be blank";
+        assert input != null : "Input should not be null";
         
         String[] parsedInput = parseInput(input);
         String command = parsedInput[0].trim();
