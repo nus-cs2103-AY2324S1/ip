@@ -55,7 +55,7 @@ public class Task {
      *
      * @return The format of the task in the text file.
      */
-    public String contentLine() {
+    public String showContentLine() {
         return "/" + getStatusIcon() + "/" + this.description;
     }
 

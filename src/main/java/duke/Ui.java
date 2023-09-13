@@ -7,7 +7,7 @@ public class Ui {
     /**
      * Displays the information of the application and greet the user.
      */
-    public static String welcomeMessage() {
+    public static String showWelcomeMessage() {
 
         String logo = "____        _        \n"
                 + "\t|  _ \\ _   _| | _____ \n"
@@ -20,9 +20,9 @@ public class Ui {
     }
 
     /**
-     * Displays the farewell message when the application is terminated.
+     * Displays the showFarewell message when the application is terminated.
      */
-    public static String farewell() {
+    public static String showFarewell() {
 
         String result = showLine() + "\n Bye. Hope to see you again soon! \n" + showLine();
         return result;

@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
 
         duke = d;
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.welcomeMessage(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.showWelcomeMessage(), dukeImage));
     }
 
     /**
@@ -69,7 +69,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog("bye", userImage),
-                DialogBox.getDukeDialog(Ui.farewell(), dukeImage)
+                DialogBox.getDukeDialog(Ui.showFarewell(), dukeImage)
         );
         userInput.clear();
         Timeline exitTimeline = new Timeline(new KeyFrame(

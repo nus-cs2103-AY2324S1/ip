@@ -33,8 +33,8 @@ public class Deadline extends Task {
      * @return The format of the task in the text file.
      */
     @Override
-    public String contentLine() {
-        return "D" + super.contentLine() + "/" + this.dueDate.toString();
+    public String showContentLine() {
+        return "D" + super.showContentLine() + "/" + this.dueDate.toString();
     }
 
 

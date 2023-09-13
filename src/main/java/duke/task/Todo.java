@@ -18,8 +18,8 @@ public class Todo extends Task {
      * @return The format of the task in the text file.
      */
     @Override
-    public String contentLine() {
-        return "T" + super.contentLine();
+    public String showContentLine() {
+        return "T" + super.showContentLine();
     }
 
     /**
