@@ -6,8 +6,10 @@ package anto;
 public class InvalidDateTimeException extends AntoException {
     /**
      * Creates an Invalid DateTime Exception.
+     *
+     * @param msg Message of InvalidDateTimeException.
      */
-    public InvalidDateTimeException() {
-        super("InvalidDateException: OOPS!!! The datetime has to be in this format: dd-MM-yyyy HH:mm.");
+    public InvalidDateTimeException(String msg) {
+        super("InvalidDateException: " + msg);
     }
 }

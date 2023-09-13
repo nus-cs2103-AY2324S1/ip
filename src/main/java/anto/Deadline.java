@@ -26,7 +26,7 @@ public class Deadline extends Task {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         if (!Parser.isValidDate(by, formatter)) {
-            throw new InvalidDateTimeException();
+            throw new InvalidDateTimeException("OOPS!!! The datetime has to be in this format: dd-MM-yyyy HH:mm.");
         }
         this.by = LocalDateTime.parse(by, formatter);
     }

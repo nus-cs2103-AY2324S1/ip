@@ -196,4 +196,29 @@ public class Ui {
 
         return String.join("\n", stringOutputArr);
     }
+
+    /**
+     * Print the events of the date given in the arraylist.
+     *
+     * @param eventsOnDate ArrayList of events on the date.
+     * @param dateStr Date in string format.
+     * @return String with events on the date.
+     */
+    public String printEventsOnDate(ArrayList<Event> eventsOnDate, String dateStr) {
+        if (eventsOnDate.size() == 0) {
+            return "There are no events on this date.";
+        }
+
+        ArrayList<String> stringOutputArr = new ArrayList<>();
+        stringOutputArr.add(String.format("Here are the events on %s:", dateStr));
+
+        int length = eventsOnDate.size();
+
+        for (int i = 0; i < length; i++) {
+            stringOutputArr.add(String.format("%d. %s",
+                    i + 1, eventsOnDate.get(i)));
+        }
+
+        return String.join("\n", stringOutputArr);
+    }
 }

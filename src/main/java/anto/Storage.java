@@ -38,7 +38,7 @@ public class Storage {
      * @return ArrayList of Tasks representing data.
      * @throws AntoException Throws exception if there is an IO Exception.
      */
-    public ArrayList<Task> loadSave() throws AntoException {
+    public ArrayList<Task> loadSave(Calendar calendar) throws AntoException {
         try {
             assert this.ui != null;
             assert this.antoFile != null;
@@ -50,22 +50,26 @@ public class Storage {
                 taskList = new ArrayList<>();
                 this.ui.printNoSavedFile();
             } else {
-                taskList = this.loadFileIntoArrayList();
+                taskList = this.loadFileIntoArrayList(calendar);
                 this.ui.printSavedFileFound(taskList);
             }
+
             return taskList;
         } catch (java.io.IOException e) {
             throw new AntoException("OOPS!!! IOException");
         }
     }
 
-    private ArrayList<Task> loadFileIntoArrayList() throws FileNotFoundException, AntoException {
+    private ArrayList<Task> loadFileIntoArrayList(Calendar calendar) throws FileNotFoundException, AntoException {
         assert antoFile != null;
         ArrayList<Task> taskList = new ArrayList<>();
         Scanner sc = new Scanner(antoFile);
 
         while (sc.hasNextLine()) {
             String currLine = sc.nextLine();
+            if (currLine.isEmpty()) {
+                continue;
+            }
             String[] currLineArr = currLine.split(Pattern.quote(" | "));
 
             Task newTask;
@@ -78,6 +82,8 @@ public class Storage {
                 break;
             case "E":
                 newTask = new Event(currLineArr[2], currLineArr[3], currLineArr[4]);
+                // It is safe to typecast to Event because newTask is created as an Event here
+                calendar.addToCalendar((Event) newTask);
                 break;
             default:
                 throw new AntoException("OOPS!!! File text is in wrong format");

@@ -1,5 +1,6 @@
 package anto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -12,6 +13,7 @@ public class Parser {
 
     private Ui ui;
     private TaskList taskList;
+    private Calendar calendar;
 
     /**
      * Creates a Parser class.
@@ -19,9 +21,10 @@ public class Parser {
      * @param ui Ui class that handles printing to command line.
      * @param taskList TaskList with all the current tasks.
      */
-    public Parser(Ui ui, TaskList taskList) {
+    public Parser(Ui ui, TaskList taskList, Calendar calendar) {
         this.ui = ui;
         this.taskList = taskList;
+        this.calendar = calendar;
     }
 
     /**
@@ -50,6 +53,8 @@ public class Parser {
                 return this.deleteCommand(input);
             } else if (input.startsWith("find")) {
                 return this.findCommand(input);
+            } else if (input.startsWith("View schedule")) {
+                return this.viewScheduleCommand(input);
             } else {
                 throw new AntoException("OOPS!!! I'm sorry, but I don't know what that means :(");
             }
@@ -168,10 +173,13 @@ public class Parser {
             String from = arrBack[0];
             String to = arrBack[1];
 
-            Task newTask = new Event(taskDesc, from, to);
+            Event newTask = new Event(taskDesc, from, to);
 
             assert this.taskList != null;
             this.taskList.addToList(newTask);
+
+            // Add event to calendar
+            this.calendar.addToCalendar(newTask);
 
             assert this.ui != null;
             return this.ui.printAdded(newTask);
@@ -202,6 +210,12 @@ public class Parser {
         assert this.taskList != null;
         Task removedTask = this.taskList.deleteTask(index);
 
+        // Delete task from Calendar if task is event
+        if (removedTask instanceof Event) {
+            // It is safe to type cast because the type of removedTask is checked beforehand
+            this.calendar.removeFromCalendar((Event) removedTask);
+        }
+
         assert this.ui != null;
         return this.ui.printDelete(removedTask);
     }
@@ -219,6 +233,27 @@ public class Parser {
 
         assert this.ui != null;
         return this.ui.printFoundTasks(foundTasks);
+    }
+
+    private String viewScheduleCommand(String input) throws InvalidParametersException, InvalidDateTimeException {
+        try {
+            String[] arr = input.split(" ");
+            String dateStr = arr[2];
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            //convert String to LocalDate
+            LocalDate localDate = LocalDate.parse(dateStr, formatter);
+
+            assert this.calendar != null;
+            ArrayList<Event> eventsOnDate = this.calendar.getEventsOnDate(localDate);
+
+            assert this.ui != null;
+            return this.ui.printEventsOnDate(eventsOnDate, dateStr);
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            throw new InvalidParametersException("OOPS!!! The date given must be valid.");
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("OOPS!!! The datetime has to be in this format: dd-MM-yyyy.");
+        }
     }
 
     /**

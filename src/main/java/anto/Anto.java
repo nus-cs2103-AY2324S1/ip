@@ -13,6 +13,7 @@ public class Anto {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+    private Calendar calendar;
 
     /**
      * Creates an Anto chatbot with default filePath.
@@ -21,16 +22,18 @@ public class Anto {
         String filePath = System.getProperty("user.dir") + "/data/anto.txt";
 
         ui = new Ui();
+        calendar = new Calendar();
         storage = new Storage(ui, filePath);
         try {
-            tasks = new TaskList(storage.loadSave(), storage);
+            tasks = new TaskList(storage.loadSave(calendar), storage);
             ui.setTaskList(tasks);
         } catch (AntoException e) {
             ui.printError(e);
             tasks = new TaskList(new ArrayList<>(), storage);
             ui.setTaskList(tasks);
+            calendar = new Calendar();
         }
-        parser = new Parser(ui, tasks);
+        parser = new Parser(ui, tasks, calendar);
     }
 
     /**
@@ -40,12 +43,16 @@ public class Anto {
      */
     public Anto(String filePath) {
         ui = new Ui();
+        calendar = new Calendar();
         storage = new Storage(ui, filePath);
         try {
-            tasks = new TaskList(storage.loadSave(), storage);
+            tasks = new TaskList(storage.loadSave(calendar), storage);
             ui.setTaskList(tasks);
         } catch (AntoException e) {
             ui.printError(e);
+            tasks = new TaskList(new ArrayList<>(), storage);
+            ui.setTaskList(tasks);
+            calendar = new Calendar();
         }
     }
 
