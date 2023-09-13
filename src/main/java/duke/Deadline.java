@@ -29,4 +29,27 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    /**
+     * An accessor method to retrieve the end date of a dealine.
+     *
+     * @return the String representation of the end date.
+     */
+    public String getBy() { return this.by; }
+
+    /**
+     * Check if the input task is equals to the current Deadline instance.
+     *
+     * @param newTask The task to be compared to
+     * @return True if the both task are the same
+     */
+    @Override
+    public boolean isDuplicate(Task newTask) {
+        if (newTask instanceof Deadline) {
+            Deadline addTask = (Deadline) newTask;
+            return addTask.getDescription().equals(this.description)
+                    && addTask.getBy().equals(this.by);
+        }
+        return false;
+    }
 }

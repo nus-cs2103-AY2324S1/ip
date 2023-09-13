@@ -39,7 +39,7 @@ public class TaskListTest {
         String test3 = "todo";
         assertThrows(EmptyTaskException.class, () -> taskList.addTask(test3));
 
-        String test4 = "dealine Finish Meeting /by";
+        String test4 = "deadline Finish Meeting /by";
         assertThrows(EmptyDateException.class, () -> taskList.addTask(test4));
 
         String test5 = "event Meeting /from Mon 2pm";

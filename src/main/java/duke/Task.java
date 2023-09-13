@@ -4,7 +4,7 @@ package duke;
  * The duke.Task class represents a basic task with a description and status to determine if task is done.
  * Tasks can be marked as done or undone.
  */
-public class Task {
+abstract public class Task {
     protected String description;
     protected boolean isDone;
 
@@ -58,4 +58,11 @@ public class Task {
         return ("[" + getStatusIcon() + "] " + this.description);
     }
 
+    /**
+     * Check if the input task is equals to the current Task instance.
+     *
+     * @param newTask The task to be compared to
+     * @return True if the both task are the same
+     */
+    abstract public boolean isDuplicate(Task newTask);
 }

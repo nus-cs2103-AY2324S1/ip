@@ -36,6 +36,20 @@ public class TaskList {
     }
 
     /**
+     *
+     * @param addTask
+     * @return
+     */
+    public boolean isDuplicate(Task addTask) {
+        for (Task task: this.tasks) {
+            if(task.isDuplicate(addTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a new task to the task list.
      *
      * @param userInput The user's input.
@@ -44,6 +58,10 @@ public class TaskList {
      */
     public String addTask(String userInput) throws DukeException {
         Task newTask = createNewTask(userInput);
+        if (isDuplicate(newTask)) {
+            return (newTask + " is already in the list.\nYou have "
+                    + this.tasks.size() + " tasks in the list.");
+        }
         this.tasks.add(newTask);
         assert !this.tasks.isEmpty(): "TasksList should not be empty";
         return ("Got it. I've added this task:\n " + newTask
