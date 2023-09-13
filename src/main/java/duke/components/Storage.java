@@ -65,6 +65,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Unable to create file!!");
         }
+        assert dataFile.exists() : "Data file does not exist";
         return dataFile;
     }
 
