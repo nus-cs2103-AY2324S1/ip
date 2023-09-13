@@ -67,7 +67,9 @@ public class CatBot {
 
         // User creating new tasks (with SlashPattern)
 
-        BiConsumer<String, BiFunction<NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap>, Optional<Task>>>
+        BiConsumer<String, BiFunction<
+                NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap>,
+                Optional<Task>>>
                 createTaskIfValidElseWarn = (args, bifunction) -> slashPattern.ifParsableElseDefault(args,
                         namedParameterMap -> bifunction.apply(
                                 namedParameterMap,

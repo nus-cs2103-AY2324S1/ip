@@ -1,6 +1,7 @@
 package catbot.internal;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Set;
 
 public class NamedParameterMap {
@@ -33,8 +34,25 @@ public class NamedParameterMap {
     /**
      * @param parameterName  key with which the specified value is to be associated
      * @param parameterValue value to be associated with the specified key
+     * @return this, for pipelining
      */
-    public void addNamedParameter(String parameterName, String parameterValue) {
+    public NamedParameterMap addNamedParameter(String parameterName, String parameterValue) {
         parameters.put(parameterName, parameterValue);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // full credit to IntelliJ, which is smarter than I am
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NamedParameterMap that = (NamedParameterMap) o;
+        return Objects.equals(parameters, that.parameters);
+    }
+
+    @Override
+    public int hashCode() {
+        // full credit to IntelliJ, which is smarter than I am
+        return Objects.hash(parameters);
     }
 }

@@ -19,6 +19,10 @@ public class CommandMap {
     }
 
     public void run(String command, String argument) {
-        commandMap.getOrDefault(command, defaultCommand).run(argument);
+        if (commandMap.containsKey(command)) {
+            commandMap.get(command).run(argument);
+        } else {
+            defaultCommand.run(command);
+        }
     }
 }
