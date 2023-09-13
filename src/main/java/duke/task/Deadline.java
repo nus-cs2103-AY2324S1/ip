@@ -66,4 +66,8 @@ public class Deadline extends Task {
         return this.by != null ? super.toTxt() + this.description + " | " + this.by + this.byDescription : super.toTxt()
                 + this.description + " | " + this.byDescription;
     }
+
+    public LocalDate getByDate() {
+        return this.by;
+    }
 }

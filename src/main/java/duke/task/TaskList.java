@@ -3,6 +3,8 @@ package duke.task;
 import duke.DukeException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -146,5 +148,47 @@ public class TaskList {
         String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
         return "I've successfully deleted this task:\n" + task + "\nNow you have " + size + taskInTotal
                 + "\n\"Ride the waves.\"";
+    }
+
+    /**
+     * Returns the reminder of upcoming deadlines.
+     * @return
+     */
+    public String getReminder() {
+        String result = "Upcoming deadlines:\n";
+        ArrayList<Deadline> deadlines = new ArrayList<>();
+        System.out.println(tasks);
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).taskType == TaskType.DEADLINE && !tasks.get(i).isDone) {
+                System.out.println("yes");
+                System.out.println(tasks.get(i));
+                Deadline task = (Deadline) tasks.get(i);
+                deadlines.add(task);
+            }
+        }
+
+        // Sort the deadlines list based on byDate
+        Collections.sort(deadlines, new Comparator<Deadline>() {
+            @Override
+            public int compare(Deadline d1, Deadline d2) {
+                if (d1.getByDate() == null && d2.getByDate() == null) {
+                    return 0;
+                } else if (d1.getByDate() == null) {
+                    return 1;
+                } else if (d2.getByDate() == null) {
+                    return -1;
+                } else {
+                    return d1.getByDate().compareTo(d2.getByDate());
+                }
+            }
+        });
+
+        System.out.println(deadlines);
+        System.out.println(deadlines.size());
+
+        for (int i = 0; i < deadlines.size(); i++) {
+            result += (i + 1) + " " + deadlines.get(i) + "\n";
+        }
+        return result + "\"One thing at a time.\"";
     }
 }
