@@ -1,23 +1,22 @@
 package io;
 
-import exceptions.ParserException;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDate;
-import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.Test;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
 
 
 public class UiTest {
 
     @Test
-    public void displayTask_Deadlineobj_output() {
+    public void displayTask_deadline_output() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         String name = "hello ";
         Deadline input = new Deadline(name, date);
@@ -27,7 +26,7 @@ public class UiTest {
     }
 
     @Test
-    public void displayTask_Eventobj_output() {
+    public void displayTask_event_output() {
         String name = "hello ";
         String start = "mon";
         String end = "sun";
