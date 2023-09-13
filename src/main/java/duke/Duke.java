@@ -2,16 +2,13 @@ package duke;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -25,11 +22,9 @@ import javafx.stage.Stage;
  */
 public class Duke extends Application {
     /**
-     * Common text elements to be reused by the chatbot, such as the chatbot name,
-     * and the horizontal line element.
+     * Common text elements to be reused by the chatbot, such as the chatbot name
      */
-    private static final String name = "JOHNATHAN CENATOR\n";
-    private static final String horizontalLine = "-------------------------------\n";
+    private static final String NAME = "JOHNATHAN CENATOR\n";
 
     /**
      * Store tasks in a separate class
@@ -181,7 +176,7 @@ public class Duke extends Application {
      */
     private static String greet() {
         return "YOU DIDN'T SEE\n"
-                + name
+                + NAME
                 + "COMING DID YOU!?\n";
     }
 
@@ -292,7 +287,6 @@ public class Duke extends Application {
      * @return a message indicating the task to be marked or an error message
      */
     private static String mark(String toMark) {
-        System.out.print(horizontalLine);
         try {
             Task task = taskStorage.get(Parser.parseMark(toMark));
 
@@ -324,7 +318,6 @@ public class Duke extends Application {
      * @return a message indicating the task to be unmarked or an error message
      */
     private static String unmark(String toUnmark) {
-        System.out.print(horizontalLine);
         try {
             Task task = taskStorage.get(Parser.parseUnmark(toUnmark));
 
@@ -356,7 +349,6 @@ public class Duke extends Application {
      * @return a message indicating the task to be deleted or an error message
      */
     private static String delete(String toDelete) {
-        System.out.print(horizontalLine);
         try {
             int index = Parser.parseDelete(toDelete);
             Task deletedTask = taskStorage.get(index);

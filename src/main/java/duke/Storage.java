@@ -127,7 +127,7 @@ public class Storage {
             out += count++ + ". " + task.toString() + "\n";
         }
       
-        // Assert there should be more tasks listed than the size of the task array
+        // Assert there should not be more tasks listed than the size of the task array
         assert (count <= taskArray.size() + 1);
 
         return out;
@@ -150,7 +150,7 @@ public class Storage {
             out += count++ + ". " + task.toString() + "\n";
         }
 
-        // Assert there should be more tasks listed than the size of the task array
+        // Assert there should not be more tasks listed than the size of the task array
         assert (count <= taskArray.size() + 1);
 
         return out;
