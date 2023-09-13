@@ -1,8 +1,5 @@
 package duke;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-
 import duke.exceptions.DukeDateTimeParseException;
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeParseException;
@@ -10,6 +7,9 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
+
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 
 /**
  * Implementation for the parser.
@@ -93,24 +93,5 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new DukeDateTimeParseException();
         }
-    }
-
-    /**
-     * Returns task list filtered using the keyword.
-     *
-     * @param userInput User input in String format.
-     * @param taskList TaskList to filter.
-     * @return Filtered TaskList.
-     */
-    public TaskList getTaskList(String userInput, TaskList taskList) {
-        TaskList filtered = new TaskList();
-        String keyword = userInput.substring(5);
-
-        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
-            if (taskList.getTaskAt(i).containsKeyword(keyword)) {
-                filtered.addToList(taskList.getTaskAt(i));
-            }
-        }
-        return filtered;
     }
 }
