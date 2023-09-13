@@ -4,7 +4,10 @@ import duke.task.TaskList;
 import duke.utility.Storage;
 import duke.utility.Ui;
 
-public class ExitCommand extends Command{
+/**
+ * Represents a command to exit the program.
+ */
+public class ExitCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Storage storage, Ui ui) {

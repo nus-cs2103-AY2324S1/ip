@@ -89,7 +89,7 @@ public class TaskList {
         ui.printMessage("\nHere are the tasks in your list:\n");
 
         for (int i = 0; i < this.tasks.size(); i++) {
-            ui.printMessage( (i+1)  + "." + this.tasks.get(i) + "\n");
+            ui.printMessage(i + 1 + "." + this.tasks.get(i) + "\n");
         }
 
         ui.printMessage("\n");
