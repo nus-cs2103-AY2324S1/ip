@@ -35,6 +35,11 @@ public class BouncyBob extends Application {
 
     private TaskList taskList = new TaskList();
 
+    /**
+     * Starts the BouncyBob application.
+     *
+     * @param stage The stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         Label titleLabel = new Label("BouncyBob's List");
@@ -46,6 +51,7 @@ public class BouncyBob extends Application {
         rootLayout.setPadding(new Insets(20));
 
         Scene scene = new Scene(rootLayout, 800, 800);
+
         stage.setTitle("BouncyBob To-Do List Manager");
         stage.setScene(scene);
         stage.show();
@@ -148,6 +154,7 @@ public class BouncyBob extends Application {
         TaskType taskType = Parser.getTaskType(parts[0]);
         String taskName = "";
         Task newTask = null;
+
         switch (taskType) {
             case TODO:
                 taskName = Parser.removeAction(parts);
@@ -183,6 +190,7 @@ public class BouncyBob extends Application {
             case UNKNOWN:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
+
         taskList.addTask(newTask);
         Ui.printTaskCount(taskList.size() - 1, newTask);  // Adjusted to size of ArrayList
     }
@@ -197,6 +205,7 @@ public class BouncyBob extends Application {
         TaskType taskType = Parser.getTaskType(parts[0]);
         String taskName = "";
         Task newTask = null;
+
         switch (taskType) {
             case TODO:
                 taskName = Parser.removeAction(parts);
@@ -232,6 +241,7 @@ public class BouncyBob extends Application {
             case UNKNOWN:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
+
         return newTask;
     }
 
@@ -244,6 +254,7 @@ public class BouncyBob extends Application {
     public static void modifyTask(String[] parts, TaskList taskList) {
         Action action = Parser.getAction(parts[0]);
         int index = Integer.parseInt(parts[1]); // Adjust for 0-based index
+
         switch(action) {
             case MARK:
                 taskList.getTask(index).setDone();
@@ -282,7 +293,6 @@ public class BouncyBob extends Application {
             } else if (userInput.equals("list")) {
                 Ui.printDatabase(taskList);  // Adjusted for ArrayList
             } else if (parts[0].equals("find")) {
-                // find
                 String subString = Parser.removeAction(parts);
                 TaskList subTaskList = taskList.getSubTaskList(subString);
                 Ui.printDatabase(subTaskList);
