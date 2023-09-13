@@ -17,7 +17,7 @@ public interface ITaskList {
      * @return the description of the task added and the number of tasks in the list.
      * @throws JarvisException if the task cannot be added.
      */
-    String add(String description, CommandType taskType, String... args) throws JarvisException;
+    String addTask(String description, CommandType taskType, String... args) throws JarvisException;
 
     /**
      * Deletes a task from the task list with the given task number.
@@ -26,7 +26,7 @@ public interface ITaskList {
      * @return the description of the task deleted and the number of tasks in the list.
      * @throws JarvisException if the task cannot be deleted.
      */
-    String delete(int taskNumber) throws JarvisException;
+    String deleteTask(int taskNumber) throws JarvisException;
 
     /**
      * Finds tasks that contain the given keyword.
@@ -34,7 +34,7 @@ public interface ITaskList {
      * @param keyword the keyword to be searched.
      * @return the list of tasks that contain the given keyword.
      */
-    String find(String keyword);
+    String findTask(String keyword);
 
     /**
      * Marks a task as done with the given task number.
@@ -59,5 +59,5 @@ public interface ITaskList {
      *
      * @return the task list and each task's description.
      */
-    String show();
+    String showAllTasks();
 }
