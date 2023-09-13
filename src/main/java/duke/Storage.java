@@ -60,6 +60,7 @@ public class Storage {
      * @throws IOException If there was an error writing into the file.
      */
     public void save(String content) throws IOException {
+        assert this.file != null : "file should have been initialised and should not be null";
         FileWriter fw = new FileWriter(file);
         fw.write(content);
         fw.close();

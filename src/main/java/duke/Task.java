@@ -12,6 +12,7 @@ public abstract class Task {
     protected boolean isDone;
 
     protected Task(String task) {
+        assert task != null : "task input cannot be empty";
         this.task = task;
         this.isDone = false;
     }

@@ -23,6 +23,7 @@ public class Event extends Task {
      */
     public Event(String task, String fromTime, String toTime) throws DateTimeParseException {
         super(task);
+        assert fromTime != null && toTime != null : "fromTime and toTime input cannot be empty";
         this.fromTime = LocalDate.parse(fromTime);
         this.toTime = LocalDate.parse(toTime);
     }
