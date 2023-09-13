@@ -35,6 +35,7 @@ public class TaskList {
      * @param task Task object, can be deadline, to-do or events
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 
@@ -45,6 +46,7 @@ public class TaskList {
      * @return Task that was removed
      */
     public Task removeTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Invalid index";
         return tasks.remove(index);
     }
 
