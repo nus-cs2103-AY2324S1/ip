@@ -65,7 +65,8 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("The input provided was invalid. :( OOPS!!! I'm sorry, but I don't know what that means :-("
-                            + "\nMy supported commands are: list, mark, unmark, todo, deadline, event, find, bye.",
+                            + "\nMy supported commands are: list, mark, unmark, "
+                            + "todo, deadline, event, find, load, bye.",
                     e.getMessage());
         }
     }

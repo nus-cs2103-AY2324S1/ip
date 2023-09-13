@@ -10,6 +10,7 @@ import carbonbot.command.DeleteCommand;
 import carbonbot.command.ExitCommand;
 import carbonbot.command.FindCommand;
 import carbonbot.command.ListCommand;
+import carbonbot.command.LoadCommand;
 import carbonbot.command.MarkCommand;
 import carbonbot.exception.CarbonException;
 import carbonbot.exception.CarbonInputParseException;
@@ -30,6 +31,7 @@ public class Parser {
     private static final String UNMARK_COMMAND = "unmark";
     private static final String DELETE_COMMAND = "delete";
     private static final String FIND_COMMAND = "find";
+    private static final String LOAD_COMMAND = "load";
 
     /**
      * Parses the user input and returns the corresponding Command to be executed
@@ -59,15 +61,22 @@ public class Parser {
             return new DeleteCommand(getIntegerArgument(fullCommand));
         case FIND_COMMAND:
             return parseFindCommand(fullCommand);
+        case LOAD_COMMAND:
+            return parseLoadCommand(fullCommand);
         default:
             throw new CarbonInputParseException(":( OOPS!!! I'm sorry, but I don't know what that means :-("
-                    + "\nMy supported commands are: list, mark, unmark, todo, deadline, event, find, bye.");
+                    + "\nMy supported commands are: list, mark, unmark, todo, deadline, event, find, load, bye.");
         }
     }
 
     private static Command parseFindCommand(String fullCommand) {
         String keyword = fullCommand.substring(FIND_COMMAND.length()).trim();
         return new FindCommand(keyword);
+    }
+
+    private static Command parseLoadCommand(String fullCommand) {
+        String path = fullCommand.substring(LOAD_COMMAND.length()).trim();
+        return new LoadCommand(path);
     }
 
     private static Command parseTodoCommand(String fullCommand) throws CarbonInputParseException {

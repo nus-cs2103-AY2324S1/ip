@@ -18,7 +18,7 @@ import carbonbot.task.TaskDeserializer;
  * Storage provides operations to write and read from the disk.
  */
 public class Storage {
-    private final String filePath;
+    private String filePath;
 
     /**
      * Constructs a Storage to interact with the file at the provided file path.
@@ -63,6 +63,20 @@ public class Storage {
     }
 
     /**
+     * Updates the file path the storage uses.
+     */
+    public void setFilePath(String filePath) throws CarbonStorageException {
+        String oldFilePath = this.filePath;
+        this.filePath = filePath;
+        try {
+            load();
+        } catch (IOException ioe) {
+            this.filePath = oldFilePath;
+            throw new CarbonStorageException(ioe.getMessage());
+        }
+    }
+
+    /**
      * Loads the data from the file.
      *
      * @return The lines in the file in a List.
@@ -72,6 +86,7 @@ public class Storage {
         // Returns an empty list if the file does not exist
         File file = new File(filePath);
         if (!file.exists()) {
+            file.createNewFile();
             return new ArrayList<>();
         }
 

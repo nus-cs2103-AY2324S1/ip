@@ -9,7 +9,7 @@ import carbonbot.task.Task;
  * TaskList contains the task list and provides operations to interact with the tasks in the list.
  */
 public class TaskList {
-    private final List<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Constructs an empty list of tasks.
@@ -59,6 +59,14 @@ public class TaskList {
         } else {
             throw new IndexOutOfBoundsException("The task list does not contain the given index.");
         }
+    }
+
+    /**
+     * Sets this task list to contain the tasks from the provided TaskList.
+     * @param taskList TaskList to copy the tasks from
+     */
+    public void setTaskList(TaskList taskList) {
+        this.tasks = taskList.tasks;
     }
 
     /**
