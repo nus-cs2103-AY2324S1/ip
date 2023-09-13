@@ -1,5 +1,8 @@
 package aichan.command;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 import aichan.Storage;
 import aichan.TaskList;
 import aichan.Ui;
@@ -11,7 +14,6 @@ import aichan.task.Task;
  */
 public class FindCommand extends Command {
     private String[] keywords;
-    private int numberOfKeywords;
 
     /**
      * Constructs a FindCommand object.
@@ -21,7 +23,6 @@ public class FindCommand extends Command {
      */
     public FindCommand(String... keywords) {
         this.keywords = keywords;
-        this.numberOfKeywords = keywords.length;
     }
 
     /**
@@ -40,20 +41,16 @@ public class FindCommand extends Command {
 
         for (int i = 1; i <= size; i++) {
             Task task = tasks.getTask(i);
-
-            for (int keywordIndex = 0; keywordIndex < numberOfKeywords; keywordIndex++) {
-                String keyword = keywords[keywordIndex];
-                if (keyword.equals("")) {
-                    break;
-                }
-
-                if (task.hasKeyword(keyword)) {
-                    response = response + i + "." + task.toString() + "\n";
-                    matchingTaskNumber++;
-                    break;
-                }
+            Stream<String> keywordsStream = Arrays.stream(keywords).filter(keyword -> !keyword.isEmpty());
+            boolean taskHasKeyword = keywordsStream.filter(keyword -> keyword != "")
+                    .anyMatch(keyword -> task.hasKeyword(keyword));
+            if (taskHasKeyword) {
+                response = response + i + "." + task.toString() + "\n";
+                matchingTaskNumber++;
             }
+
         }
+
         if (matchingTaskNumber == 0) {
             response = response + "------None task matches the keyword------";
         }
