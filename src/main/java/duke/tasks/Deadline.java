@@ -3,6 +3,8 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.components.Status;
+
 /**
  * Encapsulates a Deadline. Contains the task description, completion status
  * and date of deadline.
@@ -14,11 +16,11 @@ public class Deadline extends Task {
     /**
      * Class constructor for Deadline.
      *
-     * @param status 0 for uncompleted, 1 or other numbers for completed.
+     * @param status either DONE or NOT_DONE.
      * @param task   task description.
      * @param date   deadline of the task.
      */
-    public Deadline(int status, String task, LocalDateTime date) {
+    public Deadline(Status status, String task, LocalDateTime date) {
         super(status, task);
         this.date = date;
     }

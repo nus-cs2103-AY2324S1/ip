@@ -3,12 +3,12 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import duke.components.Status;
 import duke.exceptions.InvalidStartEndException;
 import duke.stubs.StorageStub;
 import duke.stubs.TaskListStub;
@@ -18,22 +18,21 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
-
 public class TaskListTest {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     @BeforeEach
     public void loadTasks() {
         try {
-            tasks.add(new ToDo(0, "cookies"));
-            tasks.add(new ToDo(0, "bake cookies"));
-            tasks.add(new ToDo(0, "eat cookies"));
-            tasks.add(new Deadline(0, "bake more cookies", LocalDateTime.now()));
-            tasks.add(new Deadline(0, "watch lecture", LocalDateTime.now()));
-            tasks.add(new Deadline(0, "lecture quiz", LocalDateTime.now()));
-            tasks.add(new Event(0, "cookie marathon", LocalDateTime.now(),
+            tasks.add(new ToDo(Status.NOT_DONE, "cookies"));
+            tasks.add(new ToDo(Status.NOT_DONE, "bake cookies"));
+            tasks.add(new ToDo(Status.NOT_DONE, "eat cookies"));
+            tasks.add(new Deadline(Status.NOT_DONE, "bake more cookies", LocalDateTime.now()));
+            tasks.add(new Deadline(Status.NOT_DONE, "watch lecture", LocalDateTime.now()));
+            tasks.add(new Deadline(Status.NOT_DONE, "lecture quiz", LocalDateTime.now()));
+            tasks.add(new Event(Status.NOT_DONE, "cookie marathon", LocalDateTime.now(),
                     LocalDateTime.now().plusHours(10)));
-            tasks.add(new Event(0, "cookie baking class", LocalDateTime.now(),
+            tasks.add(new Event(Status.NOT_DONE, "cookie baking class", LocalDateTime.now(),
                     LocalDateTime.now().plusHours(10)));
         } catch (InvalidStartEndException e) {
             System.out.println(e.getMessage());
@@ -118,7 +117,6 @@ public class TaskListTest {
         StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String result = list.listTasks(list.findMatches(LocalDateTime.now().toString()));
         ArrayList<Task> expectedList = new ArrayList<>();
 

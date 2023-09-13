@@ -3,6 +3,7 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.components.Status;
 import duke.exceptions.InvalidStartEndException;
 
 /**
@@ -17,13 +18,13 @@ public class Event extends Task {
     /**
      * Class constructor for Event.
      *
-     * @param status 0 for uncompleted, 1 or other numbers for completed.
+     * @param status either DONE or NOT_DONE.
      * @param task   task description.
      * @param start  start datetime.
      * @param end    end datetime.
      * @throws InvalidStartEndException if start after end.
      */
-    public Event(int status, String task, LocalDateTime start, LocalDateTime end) throws InvalidStartEndException {
+    public Event(Status status, String task, LocalDateTime start, LocalDateTime end) throws InvalidStartEndException {
         super(status, task);
         if (start.isAfter(end)) {
             throw new InvalidStartEndException();

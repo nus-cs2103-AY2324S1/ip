@@ -8,11 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exceptions.DataCorruptedException;
+import duke.exceptions.DukeException;
 import duke.exceptions.InvalidStartEndException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -32,19 +32,6 @@ public class Storage {
      */
     public Storage(String path) {
         this.path = path;
-    }
-
-    /**
-     * Converts a string of the format YYYY-MM-dd HH:mm to a LocalDateTime object.
-     *
-     * @param str a datetime string.
-     * @return the corresponding LocalDateTime object.
-     * @throws DateTimeParseException if str is not of the correct format.
-     */
-    public static LocalDateTime convertToDateTime(String str) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-        return dateTime;
     }
 
     /**
@@ -69,9 +56,40 @@ public class Storage {
     }
 
     /**
-     * Retrieves the tasks stored in the ./data/duke.txt file.
-     * Converts each task string into their corresponding Task object.
-     * Tasks are then added to an ArrayList.
+     * Converts the task text in the data file to a Task.
+     *
+     * @param taskDetails details of the task.
+     * @return the Task equivalent.
+     * @throws DataCorruptedException   when text is not of the task format.
+     * @throws InvalidStartEndException when start greater than end time in event.
+     */
+    public Task convertToTask(String[] taskDetails) throws DataCorruptedException,
+            InvalidStartEndException {
+        String type = taskDetails[0];
+        int intStatus = Integer.parseInt(taskDetails[1]);
+        Status status = Status.convertToStatus(intStatus);
+        String desc = taskDetails[2];
+
+        switch (type) {
+        case "T":
+            return new ToDo(status, desc);
+
+        case "D":
+            LocalDateTime date = Parser.convertToDateTime(taskDetails[3]);
+            return new Deadline(status, desc, date);
+
+        case "E":
+            LocalDateTime start = Parser.convertToDateTime(taskDetails[3]);
+            LocalDateTime end = Parser.convertToDateTime(taskDetails[4]);
+            return new Event(status, desc, start, end);
+
+        default:
+            throw new DataCorruptedException();
+        }
+    }
+
+    /**
+     * Retrieves the tasks stored in the data file, and returns them in an arraylist.
      *
      * @return an ArrayList of Task objects.
      */
@@ -86,40 +104,12 @@ public class Storage {
             Scanner sc = new Scanner(dataFile);
             while (sc.hasNextLine()) {
                 String task = sc.nextLine();
-                if (task.isBlank()) {
-                    break;
-                }
-                // | is a special symbol
                 String[] taskDetails = task.split(" " + "\\|" + " ");
-                String type = taskDetails[0];
-                int status = Integer.parseInt(taskDetails[1]);
-                String desc = taskDetails[2];
-
-                switch (type) {
-                case "T":
-                    ToDo toDo = new ToDo(status, desc);
-                    list.add(toDo);
-                    break;
-
-                case "D":
-                    LocalDateTime date = convertToDateTime(taskDetails[3]);
-                    Deadline deadline = new Deadline(status, desc, date);
-                    list.add(deadline);
-                    break;
-
-                case "E":
-                    LocalDateTime start = convertToDateTime(taskDetails[3]);
-                    LocalDateTime end = convertToDateTime(taskDetails[4]);
-                    Event event = new Event(status, desc, start, end);
-                    list.add(event);
-                    break;
-
-                default:
-                    //do not add to list if string is not of the correct form
-                }
+                Task toAdd = convertToTask(taskDetails);
+                list.add(toAdd);
             }
             sc.close();
-        } catch (IOException | InvalidStartEndException e) {
+        } catch (IOException | DukeException e) {
             System.out.println(e.getMessage());
         }
         return list;
@@ -150,6 +140,7 @@ public class Storage {
                 writer.newLine();
                 writer.flush();
             }
+
             writer.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());

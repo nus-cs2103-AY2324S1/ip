@@ -1,7 +1,6 @@
 package duke.controllers;
 
 import duke.Duke;
-import duke.controllers.DialogBox;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

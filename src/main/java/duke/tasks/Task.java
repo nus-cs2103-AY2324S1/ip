@@ -1,11 +1,13 @@
 package duke.tasks;
 
+import duke.components.Status;
+
 /**
  * Encapsulates a Task. Contains methods that allows users to interact with a Task
  * object, such as marking, unmarking or deleting tasks.
  */
 public abstract class Task {
-    private int status;
+    private Status status;
     private String task;
 
     /**
@@ -14,7 +16,7 @@ public abstract class Task {
      * @param status 0 for uncompleted, 1 or other number for completed.
      * @param task   task description.
      */
-    public Task(int status, String task) {
+    public Task(Status status, String task) {
         this.status = status;
         this.task = task;
     }
@@ -27,34 +29,32 @@ public abstract class Task {
      * @return true if the task is marked successfully.
      */
     public boolean canMark() {
-        if (this.status == 0) {
-            this.status = 1;
+        if (this.status == Status.NOT_DONE) {
+            this.status = Status.DONE;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
      * Marks this task as uncompleted.
      *
-     * @return true if task is unmarked.
+     * @return true if task is unmarked successfully.
      */
     public boolean canUnMark() {
-        if (this.status != 0) {
-            this.status = 0;
+        if (this.status == Status.DONE) {
+            this.status = Status.NOT_DONE;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
      * Returns the status of the task.
      *
-     * @return 0 if uncompleted, 1 or other number for completed.
+     * @return a task is either DONE or NOT_DONE.
      */
-    public int getStatus() {
+    public Status getStatus() {
         return this.status;
     }
 
@@ -74,7 +74,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (status == 0) {
+        if (this.status == Status.NOT_DONE) {
             return "[ ] " + task;
         } else {
             return "[X] " + task;

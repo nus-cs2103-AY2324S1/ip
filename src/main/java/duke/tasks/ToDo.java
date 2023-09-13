@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.components.Status;
+
 /**
  * Encapsulates a ToDo. Contains the task description, and
  * completion status.
@@ -9,10 +11,10 @@ public class ToDo extends Task {
     /**
      * Class constructor for ToDo.
      *
-     * @param status 0 for uncompleted, 1 or other numbers for completed.
+     * @param status either DONE or NOT_DONE.
      * @param task   task description.
      */
-    public ToDo(int status, String task) {
+    public ToDo(Status status, String task) {
         super(status, task);
     }
 
