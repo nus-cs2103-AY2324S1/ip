@@ -93,24 +93,10 @@ public class Duke extends Application {
         ImageView userImageView = new ImageView(user);
         ImageView dukeImageView = new ImageView(duke);
 
-//        CircleClip clip = new CircleClip(40, 40, 40);
-//        CircleClip clip2 = new CircleClip(40, 40, 40);
-//        clip.clip(userImageView);
-//        clip2.clip(dukeImageView);
-
-        Circle clip = new Circle();
-        Circle clip2 = new Circle();
-
-        clip.setCenterX(40); // Adjust the center coordinates as needed
-        clip.setCenterY(40);
-        clip.setRadius(40); // Adjust the radius to control the size of the circle
-
-        clip2.setCenterX(40); // Adjust the center coordinates as needed
-        clip2.setCenterY(40);
-        clip2.setRadius(40); // Adjust the radius to control the size of the circle
-
-        userImageView.setClip(clip);
-        dukeImageView.setClip(clip2);
+        CircleClip clip = new CircleClip(40, 40, 40);
+        CircleClip clip2 = new CircleClip(40, 40, 40);
+        clip.clip(userImageView);
+        clip2.clip(dukeImageView);
 
         DialogBox userDialog = DialogBox.getUserDialog(userText, userImageView, userInputText);
         DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText, dukeImageView, responseText);
@@ -192,12 +178,9 @@ public class Duke extends Application {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-        Circle clip = new Circle();
-        clip.setCenterX(40); // Adjust the center coordinates as needed
-        clip.setCenterY(40);
-        clip.setRadius(40); // Adjust the radius to control the size of the circle
+        CircleClip clip = new CircleClip(40, 40, 40);
         ImageView dukeImageView = new ImageView(duke);
-        dukeImageView.setClip(clip);
+        clip.clip(dukeImageView);
         String welMessage = "Hello! I'm DukeBot\n" + "What can I do for you?\n";
         Label welcomeMessage = new Label(welMessage);
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImageView, welMessage));
