@@ -40,6 +40,10 @@ public class Duke {
             System.out.println("There was an issue accessing my nyanory :c");
         }
         this.taskList.setParser(this.parser);
+        assert this.ui != null;
+        assert this.databaseController != null;
+        assert this.parser != null;
+        assert this.taskList != null;
     }
 
     /**

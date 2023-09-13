@@ -21,6 +21,7 @@ public class DukeParser {
      */
     public DukeParser(DukeTaskList taskListUtility) {
         this.ui = new DukeUi();
+        assert taskListUtility != null;
         this.taskListUtility = taskListUtility;
     }
 
@@ -63,8 +64,10 @@ public class DukeParser {
             return this.taskListUtility.handleFind(input);
         }
         if (createdTask instanceof InvalidTask) {
+            assert !createdTask.isValid();
             return createdTask.getDescription();
         } else {
+            assert createdTask.isValid();
             return this.ui.echoTaskAdded(createdTask, this.taskListUtility.getTasks().size());
         }
     }
@@ -76,6 +79,7 @@ public class DukeParser {
      * @return the length of the tasklist
      */
     public int getTaskListSize() {
+        assert this.taskListUtility != null;
         return this.taskListUtility.getTasks().size();
     }
 
@@ -88,6 +92,7 @@ public class DukeParser {
      * @return an integer if parsing was successful, null otherwise
      */
     public Integer parseString(String numberString) {
+        assert !numberString.isEmpty();
         int res = 0;
         // trim and trailing spaces
         numberString = numberString.trim();

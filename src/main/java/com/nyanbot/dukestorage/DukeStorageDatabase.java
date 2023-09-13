@@ -85,6 +85,7 @@ public class DukeStorageDatabase {
     public void saveTaskList() throws IOException {
         // get the file
         File database = new File(FILE_PATH);
+        assert database.exists();
         // delete the file
         database.delete();
         // create new database

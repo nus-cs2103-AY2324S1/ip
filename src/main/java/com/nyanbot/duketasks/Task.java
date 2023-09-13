@@ -202,6 +202,7 @@ public class Task {
      * @return the modified LocalDateTime object
      */
     private LocalDateTime addYear(LocalDateTime time) {
+        assert time != null : "time should be not null";;
         LocalDateTime now = LocalDateTime.now();
         int yearsElapsed = now.getYear() - DEFAULT_DATE.getYear();
         // update the year
@@ -216,6 +217,7 @@ public class Task {
      * @return the modified LocalDateTime object
      */
     private LocalDateTime addDay(LocalDateTime time) {
+        assert time != null : "time should be not null";;
         LocalDateTime now = LocalDateTime.now();
         int defaultDay = DEFAULT_DATE.getDayOfWeek().getValue();
         int timeDay = time.getDayOfWeek().getValue();
@@ -237,6 +239,7 @@ public class Task {
      *         set to 23 and minute field set to 59
      */
     private LocalDateTime addTime(LocalDateTime time) {
+        assert time != null : "time should be not null";;
         return time.withHour(23).withMinute(59);
     }
 
@@ -248,6 +251,7 @@ public class Task {
      * @return the string form of the LocalDateTime object
      */
     protected String formatDate(LocalDateTime time) {
+        assert time != null : "time should be not null";
         return time.format(DateTimeFormatter.ofPattern("MMM dd yyyy',' H.mma"));
     }
 
