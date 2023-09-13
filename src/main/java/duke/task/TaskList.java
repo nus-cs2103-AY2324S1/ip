@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -12,9 +14,7 @@ import duke.DukeException;
  */
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
-    private Hashtable<String, ArrayList<Task>> deadlinesDateTable = new Hashtable<>();
-    private Hashtable<String, ArrayList<Task>> eventsStartDateTable = new Hashtable<>();
-    private Hashtable<String, ArrayList<Task>> eventsEndDateTable = new Hashtable<>();
+    private final Hashtable<LocalDate, ArrayList<Task>> datesTable = new Hashtable<>();
     private int size = 0;
 
     /**
@@ -35,7 +35,7 @@ public class TaskList {
                 addDeadlineDateToTable(deadline);
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                addEventDateToTable(event);
+                addEventDatesToTable(event);
             }
         }
     }
@@ -58,53 +58,47 @@ public class TaskList {
 
     /**
      * Returns the string of deadline tasks due by a certain date.
-     * @param date The date to search for
+     * @param dateString The date to search for
      * @return The string of deadline tasks
      */
-    public String getDeadlineDateTasks(String date) {
-        String output = "";
-        if (deadlinesDateTable.containsKey(date)) {
-            output = taskListToString(deadlinesDateTable.get(date));
-        }
-        if (output.isBlank()) {
-            return "No tasks on this date";
-        } else {
-            return output;
-        }
-    }
-
-    /**
-     * Returns the string of event tasks starting on a certain date.
-     * @param date The date to search for
-     * @return The string of event tasks
-     */
-    public String getEventStartDateTasks(String date) {
-        String output = "";
-        if (eventsStartDateTable.containsKey(date)) {
-            output = taskListToString(eventsStartDateTable.get(date));
-        }
-
-        if (output.isBlank()) {
-            return "No tasks on this date";
-        } else {
-            return output;
+    public String getTasksOnDate(String dateString) throws DukeException {
+        try {
+            LocalDate date = LocalDate.parse(dateString);
+            String output = "";
+            if (datesTable.containsKey(date)) {
+                output = taskListToString(datesTable.get(date));
+            }
+            if (output.isBlank()) {
+                return "No tasks on this date";
+            } else {
+                return output;
+            }
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Date is not in the correct format YYYY-MM-DD");
         }
     }
 
-    /**
-     * Returns the string of event tasks ending on a certain date.
-     * @param date The date to search for
-     * @return The string of event tasks
-     */
-    public String getEventEndDateTasks(String date) {
-        String output = "";
-        if (eventsEndDateTable.containsKey(date)) {
-            output = taskListToString(eventsEndDateTable.get(date));
+    public String getNextFreeDates() {
+        LocalDate date = LocalDate.now();
+        ArrayList<String> datesList = new ArrayList<>();
+        int limit = 1000;
+        while (limit > 0 && datesList.size() < 5) {
+            if (!datesTable.containsKey(date)) {
+                String dateString = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                datesList.add(dateString);
+            }
+            date = date.plusDays(1);
+            --limit;
         }
-        if (output.isBlank()) {
-            return "No tasks on this date";
+        if (!datesTable.containsKey(date)) {
+            String output = String.format("Your %d closest free dates are:\n", datesList.size());
+            StringBuilder outputBuilder = new StringBuilder(output);
+            for (String s : datesList) {
+                outputBuilder.append(String.format("- %s\n", s));
+            }
+            return outputBuilder.toString();
         } else {
-            return output;
+            return "You are a very busy person, unable to find a free date within the nearest 1000 days!";
         }
     }
 
@@ -254,31 +248,34 @@ public class TaskList {
         } catch (DateTimeParseException e) {
             throw new DukeException("Date is not in the correct format YYYY-MM-DD");
         }
-        addEventDateToTable(task);
+        addEventDatesToTable(task);
         list.add(task);
         size++;
         return task;
     }
 
     private void addDeadlineDateToTable(Deadline deadline) {
-        String dueDate = deadline.dueDate.toString();
-        if (!deadlinesDateTable.containsKey(dueDate)) {
-            deadlinesDateTable.put(dueDate, new ArrayList<>());
+        LocalDate dueDate = deadline.dueDate;
+        if (!datesTable.containsKey(dueDate)) {
+            datesTable.put(dueDate, new ArrayList<>());
         }
-        deadlinesDateTable.get(dueDate).add(deadline);
+        datesTable.get(dueDate).add(deadline);
     }
 
-    private void addEventDateToTable(Event event) {
-        String dateFrom = event.dateFrom.toString();
-        String dateTo = event.dateTo.toString();
-        if (!eventsStartDateTable.containsKey(dateFrom)) {
-            eventsStartDateTable.put(dateFrom, new ArrayList<>());
+    private void addEventDatesToTable(Event event) {
+        LocalDate dateFrom = event.dateFrom;
+        LocalDate dateTo = event.dateTo;
+        while (dateTo.isAfter(dateFrom)) {
+            if (!datesTable.containsKey(dateFrom)) {
+                datesTable.put(dateFrom, new ArrayList<>());
+            }
+            datesTable.get(dateFrom).add(event);
+            dateFrom = dateFrom.plusDays(1);
         }
-        if (!eventsEndDateTable.containsKey(dateTo)) {
-            eventsEndDateTable.put(dateTo, new ArrayList<>());
+        if (!datesTable.containsKey(dateTo)) {
+            datesTable.put(dateTo, new ArrayList<>());
         }
-        eventsStartDateTable.get(dateFrom).add(event);
-        eventsEndDateTable.get(dateTo).add(event);
+        datesTable.get(dateTo).add(event);
     }
 
     /**

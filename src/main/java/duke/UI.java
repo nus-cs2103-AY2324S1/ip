@@ -77,15 +77,6 @@ public class UI {
     }
 
     /**
-     * Displays a specified list of tasks.
-     * @param tasks The string representing the specified list of tasks
-     * @return The response string
-     */
-    public String displayTasks(String tasks) {
-        return tasks.toString();
-    }
-
-    /**
      * Displays the DukeException
      * @param exception The DukeException to be displayed
      * @return The response string
