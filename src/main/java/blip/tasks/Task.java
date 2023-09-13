@@ -70,6 +70,7 @@ public abstract class Task {
      */
     public static Task loadTaskFromFile(String lineToLoad) throws DateTimeFormatException {
         String[] taskComponents = lineToLoad.split(" \\| ");
+        assert taskComponents.length >= 3 : "Invalid task format in data file for this line: " + lineToLoad;
         String taskType = taskComponents[0];
         boolean isDone = taskComponents[1].equals("1");
         String taskDescription = taskComponents[2];

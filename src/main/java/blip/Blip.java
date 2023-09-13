@@ -40,6 +40,7 @@ public class Blip {
      * @param filePath The data file path for tasks
      */
     public Blip(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.ui = new BlipUI();
         this.storage = new BlipStorage(filePath);
         this.parser = new BlipParser();
@@ -59,6 +60,7 @@ public class Blip {
      * @return String representation of execution of user input
      */
     public String getResponse(String input) {
+        assert input != null : "Input cannot be null";
         Command command = parser.parse(input);
         return command.execute(tasks, ui, storage);
     }

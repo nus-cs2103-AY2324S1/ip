@@ -24,6 +24,7 @@ public class BlipStorage {
      * @param filePath The data file path for storage
      */
     public BlipStorage(String filePath) {
+        assert filePath != null : "filePath input cannot be null";
         this.filePath = filePath;
     }
 
