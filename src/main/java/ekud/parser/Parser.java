@@ -42,6 +42,7 @@ public class Parser {
      * @throws EkudException Either invalid commands or illegal arguments for the commands.
      */
     public String parseAndExecute(TaskList taskList, String ... userInputs) throws EkudException {
+        assert userInputs.length != 0 : "Should supply 2 userInput arguments for parseAndExecute()";
         String userCommand = userInputs[0];
         String userArgs = userInputs[1];
         Command command = Command.getCommand(userCommand); // Command enum
