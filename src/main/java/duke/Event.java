@@ -28,8 +28,8 @@ public class Event extends Task {
         super(name);
         this.from = from;
         this.to = to;
-        assert this.from != null: "from of Event should not be null";
-        assert this.to != null: "to of Event should not be null";
+        assert this.from != null : "from of Event should not be null";
+        assert this.to != null : "to of Event should not be null";
     }
 
     /**
@@ -49,7 +49,7 @@ public class Event extends Task {
      * @return A string representing the event to be saved.
      */
     @Override
-    public String toSaveStateString() {
+    public String formatStringToSave() {
         String[] state = new String[]{ "event", this.getDone() ? "1" : "0", this.getTaskName(),
                 this.from.format(Duke.DATE_TIME_INPUT_FORMATTER), this.to.format(Duke.DATE_TIME_INPUT_FORMATTER) };
         return String.join(" / ", state);

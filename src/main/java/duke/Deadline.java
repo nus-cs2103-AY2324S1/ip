@@ -21,7 +21,7 @@ public class Deadline extends Task {
     public Deadline(String name, LocalDateTime by) {
         super(name);
         this.by = by;
-        assert this.by != null: "by of Deadline should not be null";
+        assert this.by != null : "by of Deadline should not be null";
     }
 
     /**
@@ -40,7 +40,7 @@ public class Deadline extends Task {
      * @return A string representing the deadline to be saved.
      */
     @Override
-    public String toSaveStateString() {
+    public String formatStringToSave() {
         String[] state = new String[]{ "deadline", this.getDone() ? "1" : "0", this.getTaskName(),
                 this.by.format(Duke.DATE_TIME_INPUT_FORMATTER) };
         return String.join(" / ", state);

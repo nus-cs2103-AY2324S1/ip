@@ -48,7 +48,7 @@ public class TaskList {
      * @return Task added to the list.
      */
     public Task add(Task task) {
-        assert task != null: "Task to be added must not be null";
+        assert task != null : "Task to be added must not be null";
         this.tasks.add(task);
         return task;
     }
@@ -65,19 +65,8 @@ public class TaskList {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.remove(index);
-        assert task != null: "Task to be removed cannot be found";
+        assert task != null : "Task to be removed cannot be found";
         return task;
-    }
-
-
-    /**
-     * Prints all tasks in the list.
-     */
-    public void printContents() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i + 1) + "." + this.tasks.get(i));
-        }
     }
 
     /**
@@ -124,7 +113,7 @@ public class TaskList {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.get(index);
-        assert task != null: "Task to be marked cannot be found";
+        assert task != null : "Task to be marked cannot be found";
         task.markAsDone();
         return task;
     }
@@ -141,7 +130,7 @@ public class TaskList {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.get(index);
-        assert task != null: "Task to be unmarked cannot be found";
+        assert task != null : "Task to be unmarked cannot be found";
         task.markAsUndone();
         return task;
     }
@@ -152,11 +141,7 @@ public class TaskList {
      * @param storage storage object to save the tasks.
      */
     public void saveState(Storage storage) throws StorageException {
-        ArrayList<String> stringRepresentation = new ArrayList<>();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            stringRepresentation.add(this.tasks.get(i).toSaveStateString());
-        }
-        storage.saveData(stringRepresentation);
+        storage.saveData(this.tasks);
     }
 
     @Override

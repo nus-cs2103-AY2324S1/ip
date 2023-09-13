@@ -22,7 +22,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        assert this.filePath != null: "filePath of Storage should not be null";
+        assert this.filePath != null : "filePath of Storage should not be null";
     }
 
     /**
@@ -32,8 +32,8 @@ public class Storage {
      * @throws IOException If the named file exists but is a directory rather than a regular file, does not exist
      *      but cannot be created, or cannot be opened for any other reason
      */
-    public void saveData(ArrayList<String> data) throws StorageException {
-        assert data != null: "data to be saved to file should not be null";
+    public void saveData(ArrayList<? extends Savable> data) throws StorageException {
+        assert data != null : "data to be saved to file should not be null";
         try {
             String[] splitFilePath = filePath.split("/");
             String directories = String.join("/", Arrays.copyOfRange(splitFilePath, 0,
@@ -48,7 +48,7 @@ public class Storage {
 
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < data.size(); i++) {
-                fw.write(data.get(i) + "\n");
+                fw.write(data.get(i).formatStringToSave() + "\n");
             }
             fw.close();
         } catch (IOException e) {

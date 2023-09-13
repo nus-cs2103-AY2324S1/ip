@@ -35,6 +35,7 @@ public class TaskListTest {
         assertEquals(event, tasks.remove(0));
     }
 
+    @Test
     public void remove_indexOutOfRange_exceptionThrown() {
         TaskList tasks = new TaskList();
 
