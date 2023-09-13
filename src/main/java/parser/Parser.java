@@ -133,6 +133,7 @@ public class Parser {
         // This splits the input string into two to isolate the first token as an action
         String[] tokens = command.split(" ", 2);
         String action = tokens[0];
+
         switch (action) {
         case "list":
             displayTasks(taskList);
@@ -161,6 +162,7 @@ public class Parser {
         default:
             throw new InvalidInputException();
         }
+
         return taskList;
     }
 

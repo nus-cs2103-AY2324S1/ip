@@ -5,6 +5,7 @@ import task.Event;
 import task.Task;
 import task.TaskList;
 import task.Todo;
+import ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +37,7 @@ public class BocchiLoader {
         String type = tokens[INDEX_TYPE].trim();
         String name = tokens[INDEX_NAME].trim();
         Boolean marked = tokens[INDEX_MARKED].trim().equals("1");
+
         switch (type) {
         case "T":
             return new Todo(name, marked);
@@ -50,18 +52,25 @@ public class BocchiLoader {
         }
     }
 
-    public TaskList loadTaskList() throws FileNotFoundException {
-        File f = new File(this.filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        TaskList taskList = new TaskList();
-        while (s.hasNext()) {
-            try {
-                Task task = parseDataToEvent(s.nextLine());
-                taskList = taskList.addTask(task);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+    public TaskList loadTaskList(Ui ui) {
+        try {
+            File f = new File(this.filePath); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            TaskList taskList = new TaskList();
+
+            while (s.hasNext()) {
+                try {
+                    Task task = parseDataToEvent(s.nextLine());
+                    taskList = taskList.addTask(task);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
+            ui.loadSuccessful();
+            return taskList;
+        } catch (FileNotFoundException e) {
+            ui.loadUnsuccessful();
+            return new TaskList();
         }
-        return taskList;
     }
 }
