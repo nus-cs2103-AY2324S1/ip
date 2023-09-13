@@ -44,6 +44,14 @@ public abstract class Task {
     }
 
     /**
+     * Getter for label.
+     * @return String representing label.
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * Represents whether a task has been done or not.

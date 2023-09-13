@@ -6,9 +6,11 @@ import chatbot.commands.AddToDo;
 import chatbot.commands.Bye;
 import chatbot.commands.Command;
 import chatbot.commands.CommandType;
+import chatbot.commands.DeleteDuplicates;
 import chatbot.commands.DeleteItem;
 import chatbot.commands.DisplayList;
 import chatbot.commands.FindTask;
+import chatbot.commands.ListDuplicates;
 import chatbot.commands.MarkItem;
 import chatbot.commands.ShowError;
 import chatbot.commands.UnmarkItem;
@@ -68,6 +70,12 @@ public class Parser {
 
         case FIND:
             return new FindTask(inputStrings[1], CommandType.FIND);
+
+        case LIST_DUPLICATE:
+            return new ListDuplicates(input, CommandType.LIST_DUPLICATE);
+
+        case DELETE_DUPLICATE:
+            return new DeleteDuplicates(input, CommandType.DELETE_DUPLICATE);
 
         default:
             return new ShowError("", CommandType.SHOWERROR,

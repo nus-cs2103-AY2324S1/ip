@@ -38,7 +38,7 @@ public class DeleteItem extends Command {
 
             return ui.print(new String[] {"I knew you couldn't finish it. Or maybe you did. I don't care. Deleted:",
                 deletedTask.toString(),
-                "Now you have an overwhelming " + (tasks.getLength() - 1)
+                "Now you have an overwhelming " + (tasks.getLength())
                 + " things to do"
                 });
         } catch (NumberFormatException e) {

@@ -1,6 +1,8 @@
 package chatbot.task;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import chatbot.exceptions.InvalidDescriptionException;
 import chatbot.exceptions.InvalidIndexException;
@@ -86,6 +88,45 @@ public class TaskList {
 
         default:
             break;
+        }
+    }
+
+    /**
+     * Detects if there are duplicate tasks in the list.
+     * @param labelString the label of the task to check for duplicates.
+     * @return true if there are duplicates, false otherwise.
+     */
+    public boolean detectDuplicate(String labelString) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            if (tasks.get(i).getLabel().equals(labelString)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets the duplicate tasks in the list.
+     * @return ArrayList of duplicate tasks.
+     */
+    public ArrayList<Task> getDuplicateTasks() {
+        ArrayList<Task> duplicateTasks = new ArrayList<>();
+        Set<String> uniqueTasks = new HashSet<>();
+        for (Task task : tasks) {
+            if (!uniqueTasks.add(task.getLabel())) {
+                duplicateTasks.add(task);
+            }
+        }
+        return duplicateTasks;
+    }
+
+    /**
+     * Deletes the duplicate tasks in the list.
+     */
+    public void deleteDuplicates() {
+        ArrayList<Task> duplicateTasks = getDuplicateTasks();
+        for (Task task : duplicateTasks) {
+            tasks.remove(task);
         }
     }
 

@@ -29,11 +29,17 @@ public class AddEvent extends Command {
             tasks.addTask(input, TaskType.EVENT);
             storage.saveTasks(tasks);
 
-            return ui.print(new String[] {
-                "What? You ain't finishing it. Added: ",
-                tasks.getTask(tasks.getLength()).toString(),
-                "Now you have an overwhelming " + tasks.getLength() + " things to do."
-            });
+            String[] output = new String[5];
+
+            if (tasks.detectDuplicate(tasks.getTask(tasks.getLength()).getLabel())) {
+                output[0] = "You already have this task in your list. Stop adding duplicates.";
+            }
+
+            output[1] = "What? You ain't finishing it. Added: ";
+            output[2] = tasks.getTask(tasks.getLength()).toString();
+            output[3] = "Now you have an overwhelming " + tasks.getLength() + " things to do.";
+
+            return ui.print(output);
         } catch (InvalidDescriptionException e) {
             return ui.showError(e);
         }

@@ -15,7 +15,9 @@ public enum CommandType {
     ADD_EVENT("event"),
     DELETE("delete"),
     FIND("find"),
-    SHOWERROR("");
+    SHOWERROR(""),
+    LIST_DUPLICATE("listduplicate"),
+    DELETE_DUPLICATE("deleteduplicate");
 
     private final String input;
 
