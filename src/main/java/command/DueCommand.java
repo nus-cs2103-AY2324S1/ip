@@ -34,7 +34,6 @@ public class DueCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
         String message = list.dueOn(dueDate);
-        //        ui.print(message);
         return message;
     }
 }

@@ -36,11 +36,7 @@ public class Storage {
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                Task task = Task.fromString(line);
-                list.add(task);
-            }
+            readToList(list, bufferedReader);
 
             bufferedReader.close();
             fileReader.close();
@@ -52,6 +48,7 @@ public class Storage {
                 directory.mkdirs();
             } else {
                 File file = new File(filePath);
+
                 try {
                     file.createNewFile();
                 } catch (IOException e1) {
@@ -64,6 +61,14 @@ public class Storage {
             System.out.println(e.getMessage());
         } finally {
             return list;
+        }
+    }
+
+    private static void readToList(List<Task> list, BufferedReader bufferedReader) throws IOException {
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            Task task = Task.fromString(line);
+            list.add(task);
         }
     }
 }

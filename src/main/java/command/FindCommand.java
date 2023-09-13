@@ -33,7 +33,6 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
         String message = list.find(substring);
-        //        ui.print(message);
         return message;
     }
 }

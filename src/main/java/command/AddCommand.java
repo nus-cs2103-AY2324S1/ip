@@ -38,12 +38,16 @@ public class AddCommand extends Command {
      */
     private Task parseTask(String input) throws InvalidCommandException {
         try {
+            // Task is todo
             if (input.startsWith("todo")) {
                 String description = input.split("todo", 2)[1].strip();
                 ToDo todo = new ToDo(description);
 
                 return todo;
-            } else if (input.startsWith("deadline")) {
+            }
+
+            // Task is deadline
+            if (input.startsWith("deadline")) {
                 String[] parts = input.split("deadline", 2);
                 String description = parts[1].split("/by", 2)[0].strip();
                 String by = parts[1].split("/by", 2)[1].strip();
@@ -51,16 +55,17 @@ public class AddCommand extends Command {
                 Deadline deadline = new Deadline(description, date);
 
                 return deadline;
-            } else {
-                String[] parts = input.split("event", 2);
-                String description = parts[1].split("/from", 2)[0].strip();
-                String time = parts[1].split("/from", 2)[1];
-                String from = time.split("/to", 2)[0].strip();
-                String to = time.split("/to", 2)[1].strip();
-                Event event = new Event(description, from, to);
-
-                return event;
             }
+
+            // Task is event
+            String[] parts = input.split("event", 2);
+            String description = parts[1].split("/from", 2)[0].strip();
+            String time = parts[1].split("/from", 2)[1];
+            String from = time.split("/to", 2)[0].strip();
+            String to = time.split("/to", 2)[1].strip();
+            Event event = new Event(description, from, to);
+
+            return event;
         } catch (Exception e) {
             throw new InvalidCommandException("Wrong way to use the command bruv!");
         }
@@ -77,7 +82,6 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String message = list.add(parseTask(this.task));
-        //        ui.print(message);
         return message;
     }
 }

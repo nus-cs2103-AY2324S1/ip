@@ -31,7 +31,6 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String message = list.mark(this.getIndex());
-        //        ui.print(message);
         return message;
     }
 }
