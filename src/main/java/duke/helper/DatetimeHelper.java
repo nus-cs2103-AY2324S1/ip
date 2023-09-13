@@ -2,6 +2,10 @@ package duke.helper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import duke.exception.EmptyFieldException;
+import duke.exception.InvalidDatetimeFormatException;
 
 /** A helper class containing methods to help parse and format string datetimes. */
 public class DatetimeHelper {
@@ -56,5 +60,27 @@ public class DatetimeHelper {
      */
     public static String commandFormat(LocalDateTime datetime) {
         return datetime.format(DateTimeFormatter.ofPattern(inputFormat));
+    }
+
+    /**
+     * Parses a string datetime.
+     *
+     * @param input the string datetime
+     * @param fieldName the name of the field
+     * @param object the name of the object
+     * @return a LocalDateTime of the input
+     * @throws EmptyFieldException when input == ""
+     * @throws InvalidDatetimeFormatException when input is not a valid datetime format
+     */
+    public static LocalDateTime parseField(String input, String fieldName, String object) {
+        if (input.isEmpty()) {
+            throw new EmptyFieldException(object, fieldName);
+        }
+        try {
+            return parse(input);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDatetimeFormatException(fieldName, object);
+        }
+
     }
 }

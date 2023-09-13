@@ -17,9 +17,9 @@ import duke.task.TaskList;
 /** The chatbot Duke */
 public class Duke {
 
-    private final String BOT_NAME = "GOAT";
-    private final String FILEPATH = "data/";
-    private final String SAVEFILE_NAME = "save.txt";
+    private static final String BOT_NAME = "GOAT";
+    private static final String FILEPATH = "data/";
+    private static final String SAVEFILE_NAME = "save.txt";
 
     private final Scanner in = new Scanner(System.in);
     private final TaskList taskList = new TaskList();

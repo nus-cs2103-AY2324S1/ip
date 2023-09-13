@@ -1,8 +1,6 @@
 package duke.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.Optional;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidDatetimeFormatException;
@@ -27,15 +25,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isMarked, String by) {
         super(description, isMarked, 'D');
+        this.by = DatetimeHelper.parseField(by, "by", "deadline");
 
-        if (by.isEmpty()) {
-            throw new DukeException("The by of a deadline cannot be empty.");
-        }
-        try {
-            this.by = DatetimeHelper.parse(by);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDatetimeFormatException("by", "deadline");
-        }
     }
 
     /**
@@ -59,14 +50,8 @@ public class Deadline extends Task {
         return String.format("%s /by %s", super.toCommand(), DatetimeHelper.commandFormat(by));
     }
 
-    /**
-     * Returns if the Deadline should be filtered
-     *
-     * @param before the comparison date
-     * @return returns if Deadline is by before
-     */
     @Override
-    public boolean filter(Optional<LocalDateTime> before) {
-        return before.filter((datetime) -> datetime.isBefore(by)).isEmpty(); // if is empty return true
+    protected boolean before(LocalDateTime before) {
+        return by.isBefore(before);
     }
 }
