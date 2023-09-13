@@ -54,6 +54,7 @@ public class Duke extends Application{
 
         scene = new Scene(mainLayout);
 
+        assert scene != null : "scene must be instantiated before stage can set scene";
         stage.setScene(scene);
         stage.show();
 
@@ -111,7 +112,6 @@ public class Duke extends Application{
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
         return textToAdd;
@@ -125,6 +125,7 @@ public class Duke extends Application{
     private void handleUserInput() {
         String input = userInput.getText();
         String dukeProcessedText = getResponse(input);
+        assert dukeProcessedText.length() > 0 : "processed text should not be empty";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInput.getText(), userImage),
                 DialogBox.getDukeDialog(dukeProcessedText, dukeImage)
@@ -135,6 +136,7 @@ public class Duke extends Application{
     public String getResponse(String input) {
         String dukeProcessedText;
         String[] parsedText = Parser.parse(input, tasks);
+        assert parsedText.length > 0 : "parsed text should not be an empty array";
         switch(parsedText[0]) {
             case "mark" :
                 dukeProcessedText = tasks.markTask(Integer.parseInt(parsedText[1]));
@@ -183,19 +185,11 @@ public class Duke extends Application{
     /**
      * Runs the Duke application, handling user interactions and task management.
      */
-    public void run() {
-        ui.printIntro();
-        while (true) {
-            String input = ui.getInput();
-        }
-    }
-
-    /**
-     * The entry point for running the Duke application.
-     *
-     * @param args The command-line arguments.
-     */
-//    public static void main(String[] args) {
-//        new Duke().run();
+//    public void run() {
+//        ui.printIntro();
+//        while (true) {
+//            String input = ui.getInput();
+//        }
 //    }
 }
+
