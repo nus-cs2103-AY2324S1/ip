@@ -72,6 +72,8 @@ public class Printer {
         System.out.println(line);
 
         reset();
+        assert(messages.isEmpty());
+        assert(error.isEmpty());
     }
 
     private void reset() {
@@ -87,6 +89,9 @@ public class Printer {
         }
         String s = String.join("\n", messages.toArray(new String[0]));
         reset();
+
+        assert(messages.isEmpty());
+        assert(error.isEmpty());
         return s;
     }
 }
