@@ -19,16 +19,21 @@ public class Parser {
      * @throws DukeException If there's an error during parsing.
      */
     public static Command parse(String fullCommand) throws DukeException {
-        Command c;
         String[] splitCommand = fullCommand.split(" ", 2);
         String headCommand = splitCommand[0];
         String commandDetails;
 
-        if (headCommand.equals("bye")) return new ExitCommand(null);
+        if (headCommand.equals("bye")) {
+            return new ExitCommand(null);
+        }
 
-        if (headCommand.equals("list")) return new ListCommand(null);
+        if (headCommand.equals("list")) {
+            return new ListCommand(null);
+        }
 
-        if (splitCommand.length < 2) throw new EmptyTaskException();
+        if (splitCommand.length < 2) {
+            throw new EmptyTaskException();
+        }
 
         commandDetails = splitCommand[1];
         String task;

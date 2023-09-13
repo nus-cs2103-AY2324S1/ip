@@ -1,13 +1,11 @@
 package duke.command;
 
-import duke.exception.InvalidTaskNumberException;
 import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
+
 import duke.task.Task;
 
-import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * The FindCommand is a class representing a command to find tasks containing the keyword.

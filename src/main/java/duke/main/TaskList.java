@@ -35,7 +35,8 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
-        this.tasks.add(task);
+        assert tasks != null : "Tasks list should be initialised";
+        tasks.add(task);
     }
 
     /**
@@ -44,6 +45,7 @@ public class TaskList {
      * @param task The task to be removed.
      */
     public void remove(Task task) {
+        assert tasks.contains(task) : "Task to be removed needs to be in tasks list";
         tasks.remove(task);
     }
 
@@ -53,6 +55,7 @@ public class TaskList {
      * @return A List containing the tasks.
      */
     public List<Task> getTasks() {
+        assert tasks != null : "Tasks list should be initialised";
         return tasks;
     }
 
@@ -82,6 +85,6 @@ public class TaskList {
      * @return A list of tasks meeting the given predicate.
      */
     public List<Task> filterTasks(Predicate<? super Task> predicate) {
-        return this.tasks.stream().filter(predicate).collect(Collectors.<Task>toList());
+        return tasks.stream().filter(predicate).collect(Collectors.<Task>toList());
     }
 }

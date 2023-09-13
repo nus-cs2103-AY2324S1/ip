@@ -1,8 +1,13 @@
 package duke.command;
 
-import duke.main.*;
-import duke.exception.*;
-import duke.task.*;
+import duke.exception.InvalidTaskNumberException;
+
+import duke.main.Storage;
+import duke.main.TaskList;
+import duke.main.Ui;
+
+import duke.task.Task;
+
 import java.io.IOException;
 
 /**
@@ -35,8 +40,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, InvalidTaskNumberException {
-        if (this.index >= tasks.getSize() || this.index < 0) throw new InvalidTaskNumberException();
-        Task task = tasks.getTaskAtIndex(this.index);
+        if (index >= tasks.getSize() || index < 0) throw new InvalidTaskNumberException();
+        Task task = tasks.getTaskAtIndex(index);
         if (isMark) {
             task.markTask();
             ui.showMark(task);

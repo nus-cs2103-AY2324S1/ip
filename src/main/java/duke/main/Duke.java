@@ -20,6 +20,7 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
+        assert !FILE_PATH.isEmpty() : "There should be a valid filepath";
         storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());

@@ -1,8 +1,13 @@
 package duke.command;
 
-import duke.main.*;
-import duke.exception.*;
-import duke.task.*;
+import duke.exception.InvalidTaskNumberException;
+
+import duke.main.Storage;
+import duke.main.TaskList;
+import duke.main.Ui;
+
+import duke.task.Task;
+
 import java.io.IOException;
 
 /**
