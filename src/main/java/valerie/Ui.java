@@ -108,7 +108,7 @@ public class Ui {
         ArrayList<String> matchingTasksMessage = new ArrayList<>();
         matchingTasksMessage.add("Here are the matching tasks in your list:");
         for (int i = 0; i < matchingTasks.getSize(); i++) {
-            String str = String.format("            %d.%s", i + 1, matchingTasks.getTask(i));
+            String str = String.format("%d. %s", i + 1, matchingTasks.getTask(i));
             matchingTasksMessage.add(str);
         }
         return matchingTasksMessage;
