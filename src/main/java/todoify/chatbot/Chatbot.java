@@ -382,14 +382,13 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 builder.append("Oh nice! You have no tasks! :>");
             }
 
-            int count = 1;
-            for (Task task : this.taskManager.getTasks()) {
-                builder.append("\n");
-                builder.append(count);
-                builder.append(". ");
-                builder.append(task.toString());
-                count++;
-            }
+            this.taskManager.getTaskIndexedStream()
+                    .forEach(integerTaskPair -> {
+                        builder.append("\n");
+                        builder.append(integerTaskPair.getKey() + 1);
+                        builder.append(". ");
+                        builder.append(integerTaskPair.getValue().toString());
+                    });
 
             this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
             break;
@@ -491,16 +490,20 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
             builder.append("Alright, here's the matching tasks I found:");
 
-            int count = 1;
-            for (Task task : this.taskManager.getTasks()) {
-                if (task.getTitle().toLowerCase().contains(chatCommand.getData().toLowerCase())) {
-                    builder.append("\n");
-                    builder.append(count);
-                    builder.append(". ");
-                    builder.append(task);
-                }
-                count++;
-            }
+            this.taskManager.getTaskIndexedStream()
+                    .filter(integerTaskPair -> integerTaskPair.getValue()
+                            .getTitle()
+                            .toLowerCase()
+                            .contains(
+                                    chatCommand.getData().toLowerCase()
+                            )
+                    )
+                    .forEach(integerTaskPair -> {
+                        builder.append("\n");
+                        builder.append(integerTaskPair.getKey() + 1);
+                        builder.append(". ");
+                        builder.append(integerTaskPair.getValue().toString());
+                    });
 
             builder.append("\nThat's it!");
 
