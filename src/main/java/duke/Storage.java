@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -39,14 +40,21 @@ public class Storage {
         return false;
     }
 
-    private Scanner createOrGetFile() throws DukeException {
+    private boolean createFile() throws DukeException {
         File f = new File(this.filePath);
         try {
-            if (!f.createNewFile()) {
-            }
-            return new Scanner(f);
+            return f.createNewFile();
         } catch (IOException e) {
             throw new DukeException("HEYHEY! Seems like I couldn't create the file for you. "
+                    + "Please manually add the file!");
+        }
+    }
+    private Scanner getFile() throws DukeException {
+        File f = new File(this.filePath);
+        try {
+            return new Scanner(f);
+        } catch (FileNotFoundException e) {
+            throw new DukeException("HMMMMMM! The file should be created for you but there could be an issue. "
                     + "Please manually add the file!");
         }
     }
@@ -62,38 +70,12 @@ public class Storage {
      */
     public ArrayList<Task> loadFile() {
         createDirectory();
+        createFile();
 
-        Scanner s = createOrGetFile();
         assert new File(filePath).exists();
 
-        ArrayList<Task> taskArray = new ArrayList<>();
+        return goThroughFile(getFile());
 
-        while (s.hasNext()) {
-            String[] line = s.nextLine().trim().split(" \\| ", 3);
-
-            switch (line[0]) {
-            case "T":
-                taskArray.add(new Todo(line[2]));
-                break;
-            case "D":
-                String[] remainLine = line[2].split(" \\| ", 2);
-                taskArray.add(new Deadline(remainLine[0], undoDateFormatInputFile(remainLine[1])));
-                break;
-            case "E":
-                String[] remainingLine = line[2].split(" \\| ", 2);
-                String[] getDateTime = remainingLine[1].split(" to ");
-                taskArray.add(new Event(remainingLine[0],
-                        undoDateFormatInputFile(getDateTime[0]), undoDateFormatInputFile(getDateTime[1])));
-                break;
-            default:
-                // There will be no default case as the file can only take on the 3 values above
-            }
-
-            if (line[1].equals("X")) {
-                taskArray.get(taskArray.size() - 1).markDone();
-            }
-        }
-        return taskArray;
     }
 
     /**
@@ -140,5 +122,36 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("UHOH! Something went wrong when attempting to write to file!");
         }
+    }
+
+    public ArrayList<Task> goThroughFile(Scanner s) {
+        ArrayList<Task> taskArray = new ArrayList<>();
+        while (s.hasNext()) {
+            String[] line = s.nextLine().trim().split(" \\| ", 3);
+
+            switch (line[0]) {
+            case "T":
+                taskArray.add(new Todo(line[2]));
+                break;
+            case "D":
+                String[] remainLine = line[2].split(" \\| ", 2);
+                taskArray.add(new Deadline(remainLine[0], undoDateFormatInputFile(remainLine[1])));
+                break;
+            case "E":
+                String[] remainingLine = line[2].split(" \\| ", 2);
+                String[] getDateTime = remainingLine[1].split(" to ");
+                taskArray.add(new Event(remainingLine[0],
+                        undoDateFormatInputFile(getDateTime[0]), undoDateFormatInputFile(getDateTime[1])));
+                break;
+            default:
+                // There will be no default case as the file can only take on the 3 values above
+            }
+
+            if (line[1].equals("X")) {
+                taskArray.get(taskArray.size() - 1).markDone();
+            }
+        }
+        s.close();
+        return taskArray;
     }
 }
