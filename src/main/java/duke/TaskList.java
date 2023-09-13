@@ -20,7 +20,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import javafx.beans.InvalidationListener;
+
 
 /**
  * Represents an archive of tasks in the Duke application.
@@ -103,12 +103,17 @@ public class TaskList {
      */
     public String addTask(String[] input) throws InvalidInputException, InvalidDateFormatException {
         Task added = null;
-        if (input[0].equals("todo")) {
-            added = new Todo(input[1], false);
-        } else if (input[0].equals("deadline")) {
-            added = new Deadline(input[1], parseDate(input[2]), false);
-        } else if (input[0].equals("event")) {
-            added = new Event(input[0], parseDate(input[1]), parseDate(input[2]), false);
+        String taskType = input[0];
+        String title = input[1];
+        if (taskType.equals("todo")) {
+            added = new Todo(title, false);
+        } else if (taskType.equals("deadline")) {
+            String by = input[2];
+            added = new Deadline(title, parseDate(by), false);
+        } else if (taskType.equals("event")) {
+            String from = input[2];
+            String to = input[3];
+            added = new Event(title, parseDate(from), parseDate(to), false);
         }
         if (added != null) {
             list.add(added);

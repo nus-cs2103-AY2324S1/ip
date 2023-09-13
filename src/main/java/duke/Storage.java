@@ -47,12 +47,12 @@ public class Storage {
             Files.createDirectories(Paths.get("data"));
             f.createNewFile();
             Scanner s = new Scanner(f);
-            list = new ArrayList<Task>();
+            list = new ArrayList<>();
             while (s.hasNext()) {
                 loadTask(s.nextLine(), list);
             }
         } catch (IOException e) {
-            list = new ArrayList<Task>();
+            list = new ArrayList<>();
         }
         return list;
     }
