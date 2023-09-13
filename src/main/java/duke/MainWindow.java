@@ -28,11 +28,14 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Genos.png"));
 
+    /**
+     * Initialises the JavaFX GUI. Sets up the window of chatbox and adds the welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-            DialogBox.getDukeDialog(Messages.greeting, dukeImage)
+            DialogBox.getDukeDialog(Messages.GREETING, dukeImage)
         );
     }
 

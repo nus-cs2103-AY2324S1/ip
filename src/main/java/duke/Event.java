@@ -36,8 +36,9 @@ public class Event extends Task {
      */
     @Override
     public boolean isOnDate(LocalDate date) {
-        return (date.isAfter(this.fromTime) || date.isEqual(this.fromTime))
-            && (date.isBefore(this.toTime) || date.isEqual(this.toTime));
+        boolean isAfterFromTime = date.isAfter(this.fromTime) || date.isEqual(this.fromTime);
+        boolean isBeforeToTime = date.isBefore(this.toTime) || date.isEqual(this.toTime);
+        return isAfterFromTime && isBeforeToTime;
     }
 
     @Override
@@ -48,8 +49,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return Event.TYPE + super.toString() + " (from: "
-            + this.fromTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-            + " to: " + this.toTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + this.fromTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.toTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override

@@ -30,6 +30,7 @@ public class Parser {
             // add description
             result.add(parts[0]);
         }
+        // parse dates if present
         if (parts.length >= 2) {
             // if able to reach here, the command must be for deadline or Event
             // attempt to split the string after description

@@ -42,9 +42,6 @@ public class TaskList {
         return this.tasks.remove(taskNum);
     }
 
-    // mark task at index taskNum as done
-    // returns false if index out of bounds else true.
-
     /**
      * Marks the task at a given index as done.
      *

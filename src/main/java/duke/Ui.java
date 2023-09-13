@@ -31,7 +31,7 @@ public class Ui {
      * @param msg The message to display.
      */
     public void display(String msg) {
-        this.response += this.response = msg + "\n";
+        this.response += msg + "\n";
     }
 
     /**
@@ -40,8 +40,8 @@ public class Ui {
      */
     public String respond() {
         assert this.response != null : "The response generated should not be null";
-        String res = this.response;
+        String response = this.response;
         this.response = "";
-        return res;
+        return response;
     }
 }
