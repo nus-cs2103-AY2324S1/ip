@@ -118,6 +118,27 @@ public class TaskList {
     }
 
     /**
+     * Updates a task in the task list.
+     *
+     * @param taskId    The ID of the task to be updated (1-based index).
+     * @param arguments The new arguments for the task.
+     * @return A response message indicating the task has been updated.
+     * @throws SanaException If the specified task ID is out of bounds or if there's an error updating the task.
+     */
+    public String updateTasksList(int taskId, String arguments) throws SanaException {
+        if (taskId > tasksList.size() || taskId <= 0) {
+            throw new SanaException("No such task!");
+        }
+        Task oldTask = tasksList.get(taskId - 1);
+        Task newTask = oldTask.updateTask(arguments);
+
+        tasksList.remove(taskId - 1);
+        tasksList.add(taskId - 1, newTask);
+
+        return ("OK, I've updated this task to:\n" + newTask);
+    }
+
+    /**
      * Retrieves a task with the specified identifier from the task list.
      *
      * @param id The unique identifier of the task to retrieve.
