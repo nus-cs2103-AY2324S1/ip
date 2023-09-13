@@ -24,7 +24,6 @@ public class TaskList implements ITaskList {
      * Creates a new TaskList object with the given Storage object and Ui object.
      *
      * @param repo   the Storage object that stores the list of tasks in a data file.
-     * @param textUi the Ui object that prints the formatted task list to the user.
      */
     public TaskList(IStorage repo) {
         this.repo = repo;
@@ -41,11 +40,9 @@ public class TaskList implements ITaskList {
 
     @Override
     public String add(String description, CommandType taskType, String... args) throws JarvisException {
+        assert !description.isEmpty() : "description should not be empty";
+
         Task newTask;
-        // this if block is unnecessary currently (is never reached), but it may be useful in the future.
-        if (description.isEmpty()) {
-            throw new EmptyArgumentException(taskType.toString().toLowerCase());
-        }
         switch (taskType) {
         case TODO:
             newTask = new Todo(description);
@@ -58,7 +55,7 @@ public class TaskList implements ITaskList {
             break;
         default:
             // the program should never reach this point.
-            throw new JarvisException("Default case reached.");
+            throw new JarvisException("Unknown task type.");
         }
         taskList.add(newTask);
         taskCount++;
