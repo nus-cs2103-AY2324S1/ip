@@ -38,11 +38,13 @@ public class Ui {
     public void showMarkedTask(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.printf(task.toString());
+        System.out.println();
         // task is already done?
     }
     public void showUnmarkedTask(Task task) {
         System.out.println("Nice! I've marked this task as as not done yet:");
         System.out.printf(task.toString());
+        System.out.println();
         // task is already undone?
     }
     public void showDeletedTask(Task task, int nTasks) {
