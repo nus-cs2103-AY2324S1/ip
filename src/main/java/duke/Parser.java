@@ -59,8 +59,10 @@ public class Parser {
             return this.tasks.markTask(taskIndex, isDone);
         } else if (taskMatcher.matches()) {
             return this.tasks.addTask(TaskType.valueOf(taskMatcher.group(1).toUpperCase()), taskMatcher.group(2));
-        } else if (repeat.contains("list") || repeat.contains("List")) {
+        } else if (repeat.equals("list") || repeat.equals("List")) {
             return this.tasks.getTasks();
+        } else if (repeat.equals("reminder")) {
+            return this.tasks.getReminder();
         } else {
             throw new DukeException("undefined");
         }

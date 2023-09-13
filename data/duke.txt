@@ -2,3 +2,7 @@ TODO | 0 | hihi
 TODO | 0 | test
 TODO | 0 | test
 TODO | 0 | test??
+DEADLINE | 0 | test1 | hi
+DEADLINE | 0 | test2 | yes
+DEADLINE | 0 | test3 | 2023-12-12date 
+DEADLINE | 0 | test4 | 2004-01-20date 
