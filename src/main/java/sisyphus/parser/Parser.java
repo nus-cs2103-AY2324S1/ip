@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 import sisyphus.SisyphusException;
 import sisyphus.storage.Storage;
-import sisyphus.ui.Ui;
 import sisyphus.task.Deadline;
 import sisyphus.task.Event;
 import sisyphus.task.TaskList;
 import sisyphus.task.ToDo;
+import sisyphus.ui.Ui;
 
 /**
  * Parser class that processes the main logic flow to parse different commands.
@@ -40,12 +40,14 @@ public class Parser {
      * @param taskList
      * @param storage
      * @param ui
+     * @return output string from UI
      * @throws SisyphusException
      */
-    public void runCommand(String fullCommand, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
+    public String runCommand(String fullCommand, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         String[] inputArray;
         String command;
         String params = "";
+        String output = "";
 
         inputArray = fullCommand.split(" ", 2);
         command = inputArray[0];
@@ -60,7 +62,7 @@ public class Parser {
             break;
         }
         case ("list"): {
-            ui.printTasks(taskList);
+            output = ui.printTasks(taskList);
             break;
         }
         case ("mark"): {
@@ -73,7 +75,7 @@ public class Parser {
                 throw new SisyphusException("You must include a valid task number. "
                         + "Use list to see what is valid.");
             }
-            ui.printMarkTask(taskList, index);
+            output = ui.printMarkTask(taskList, index);
             break;
         }
         case ("unmark"): {
@@ -86,14 +88,14 @@ public class Parser {
                 throw new SisyphusException("You must include a valid task number. "
                         + "Use list to see what is valid.");
             }
-            ui.printUnmarkTask(taskList, index);
+            output = ui.printUnmarkTask(taskList, index);
             break;
         }
         case ("delete"): {
             int index;
             try {
                 index = Integer.parseInt(params.split(" ")[0]) - 1;
-                ui.printDeleteTask(taskList, index);
+                output = ui.printDeleteTask(taskList, index);
                 taskList.deleteTask(index);
                 storage.writeFile(taskList);
             } catch (Exception e) {
@@ -110,7 +112,7 @@ public class Parser {
             ToDo todoTask = new ToDo(params);
             taskList.addTask(todoTask);
             storage.writeFile(taskList);
-            ui.printAddTodo(taskList);
+            output = ui.printAddTodo(taskList);
             break;
         }
         case ("deadline"): {
@@ -129,7 +131,7 @@ public class Parser {
             Deadline deadlineTask = new Deadline(description, deadlineDate);
             taskList.addTask(deadlineTask);
             storage.writeFile(taskList);
-            ui.printAddDeadline(taskList);
+            output = ui.printAddDeadline(taskList);
             break;
         }
         case ("event"): {
@@ -150,19 +152,22 @@ public class Parser {
             Event eventTask = new Event(description, from, to);
             taskList.addTask(eventTask);
             storage.writeFile(taskList);
-            ui.printAddEvent(taskList);
+            output = ui.printAddEvent(taskList);
             break;
         }
         case ("find"): {
             TaskList matchingTaskList = taskList.findMatchingTasks(params);
-            ui.printMatchingTasks(matchingTaskList, params);
+            output = ui.printMatchingTasks(matchingTaskList, params);
             break;
         }
         default: {
+            output = "Enter a valid command. Available comments are "
+                    + "bye, find, list, event, deadline, todo, mark, unmark, delete.";
             throw new SisyphusException("Enter a valid command. Available comments are "
                     + "bye, find, list, event, deadline, todo, mark, unmark, delete.");
         }
         }
+        return output;
 
     }
 }
