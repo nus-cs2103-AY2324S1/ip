@@ -24,10 +24,11 @@ public class Storage{
     /**
      * Saves the tasks in the task list to the specified file path.
      * @param filePath The path to the file where tasks will be saved.
-     * @param tasks    The task list to be saved.
+     * //@param tasks    The task list to be saved.
      * @throws FileNotFoundException If the specified file is not found.
      */
     public static void saveTasks(String filePath, TaskList tasks) throws FileNotFoundException{
+        assert !filePath.equals("");
         try {
             createDirectoryIfNotExists(filePath);
 
@@ -61,6 +62,7 @@ public class Storage{
      * @return A TaskList containing the loaded tasks.
      */
     public static TaskList loadTasks(String filePath) {
+        assert !filePath.equals("");
         TaskList taskList = new TaskList();
         try {
             createDirectoryIfNotExists(filePath);

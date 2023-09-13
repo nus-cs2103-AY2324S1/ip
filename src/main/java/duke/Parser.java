@@ -10,6 +10,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.ui.Ui;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -36,6 +37,7 @@ public class Parser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             if (str.equals("bye")) {
+                Storage.saveTasks("src/data/Duke.txt", tasks);
                 return Ui.printBye();
             }
             if (!str.equals("list")) {
@@ -145,8 +147,8 @@ public class Parser {
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
             return Ui.printException();
-        } catch (InvalidInputException | EventCommandUseException |
-                 DeadlineCommandUseException | ToDoCommandUseException e) {
+        } catch (InvalidInputException | EventCommandUseException | DeadlineCommandUseException |
+                 ToDoCommandUseException | FileNotFoundException e) {
             return Ui.printException(e.getMessage());
         }
     }

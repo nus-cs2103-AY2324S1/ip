@@ -32,6 +32,7 @@ public class TaskList{
      * @return The removed task.
      */
     public Task removeTask(int index){
+        assert index < this.tasks.size() && index >= 0;
         return this.tasks.remove(index);
     }
 
@@ -42,6 +43,7 @@ public class TaskList{
      * @return The retrieved task.
      */
     public Task getTask(int index){
+        assert index < this.tasks.size() && index > 0;
         return this.tasks.get(index);
     }
 
