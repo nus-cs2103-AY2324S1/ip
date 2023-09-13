@@ -1,3 +1,4 @@
-event project meeting /from Mon 2pm /to 4pm,false
-event yooo /from mon 2pm /to 3pm,true
-todo feed dog,false
+event project meeting /from Mon 2pm /to 4pm,true
+event yooo /from mon 2pm /to 3pm,false
+todo few,false
+deadline project meeting /by 2022-12-12,false
