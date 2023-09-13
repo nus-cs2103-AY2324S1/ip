@@ -146,11 +146,13 @@ public class BouncyBob extends Application {
      */
     private static void addTaskAndPrint(String[] parts, TaskList taskList) {
         TaskType taskType = Parser.getTaskType(parts[0]);
+        assert taskType != TaskType.UNKNOWN : "Unknown task type encountered.";
         String taskName = "";
         Task newTask = null;
         switch (taskType) {
             case TODO:
                 taskName = Parser.removeAction(parts);
+                assert !taskName.trim().isEmpty() : "Task name is unexpectedly empty.";
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'todo' cannot be empty.");
                 }
@@ -158,11 +160,14 @@ public class BouncyBob extends Application {
                 break;
             case DEADLINE:
                 taskName = Parser.removeAction(parts);
+                assert !taskName.trim().isEmpty() : "Task name is unexpectedly empty.";
                 String datetime = Parser.extractDatetime(taskName);
+                assert !datetime.trim().isEmpty() : "Datetime is unexpectedly empty.";
                 if (datetime.trim().isEmpty()) {
                     throw new IllegalArgumentException("/by cannot be empty!");
                 }
                 taskName = Parser.getTaskDeadline(taskName);
+                assert !taskName.trim().isEmpty() : "Task name is unexpectedly empty.";
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'deadline' cannot be empty.");
                 }
@@ -195,6 +200,7 @@ public class BouncyBob extends Application {
      */
     private static Task createTask(String[] parts) {
         TaskType taskType = Parser.getTaskType(parts[0]);
+        assert taskType != TaskType.UNKNOWN : "Unknown task type encountered.";
         String taskName = "";
         Task newTask = null;
         switch (taskType) {
@@ -275,6 +281,7 @@ public class BouncyBob extends Application {
             System.out.println("Enter something:");
             String userInput = scanner.nextLine();
             String[] parts = userInput.split(" ");
+            assert parts.length > 0 : "User input is unexpectedly empty.";
 
             if (userInput.equals("bye")) {
                 Ui.printBye();
