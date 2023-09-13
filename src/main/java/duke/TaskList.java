@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 
+import exception.InvalidCommandException;
 import exception.InvalidIndexException;
 import task.Deadline;
 import task.Event;
@@ -88,9 +89,13 @@ public class TaskList {
         default:
         }
 
-        return "Got it. I've added this task:\n"
-                + taskList.get(taskList.size() - 1).toString()
-                + "\nNow you have " + (taskList.size()) + " tasks in the list.";
+        int size  = taskList.size();
+
+        String taskDesc = taskList.get(taskList.size() - 1).toString();
+        String addTaskDesc = String.format(
+                "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", taskDesc, size);
+
+        return addTaskDesc;
     }
 
     /**
@@ -100,35 +105,30 @@ public class TaskList {
      * @param ind The task to edit.
      * @return The string description of the edit being made.
      */
-    public String editTask(String taskType, int ind) throws InvalidIndexException {
+    public String editTask(String taskType, int ind) throws InvalidIndexException, InvalidCommandException {
 
         if (!isValidIndex(ind)) {
             throw new InvalidIndexException();
         }
 
-        String editDesc = "";
-
         switch (taskType) {
         case "mark":
             taskList.get(ind - 1).markTask();
-            editDesc += "Nice! I've marked this task as done:\n" + taskList.get(ind - 1).toString();
-            break;
+            return "Nice! I've marked this task as done:\n" + taskList.get(ind - 1).toString();
 
         case "unmark":
             taskList.get(ind - 1).unmarkTask();
-            editDesc += "OK, I've marked this task as not done yet:\n" + taskList.get(ind - 1).toString();
-            break;
+            return "OK, I've marked this task as not done yet:\n" + taskList.get(ind - 1).toString();
 
         case "delete":
-            editDesc += "Noted. I've removed this task:\n" + taskList.get(ind - 1).toString();
+            String editDesc = "Noted. I've removed this task:\n" + taskList.get(ind - 1).toString();
             taskList.remove(ind - 1);
             editDesc += "\nNow you have " + taskList.size() + " tasks in the list.";
-            break;
+            return editDesc;
 
         default:
+            throw new InvalidCommandException("No such edit command");
         }
-
-        return editDesc;
     }
 
     /**
