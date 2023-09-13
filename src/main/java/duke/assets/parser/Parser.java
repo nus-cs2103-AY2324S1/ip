@@ -26,6 +26,7 @@ public class Parser {
             + "($| [0-2][0-9][0-5][0-9]$)";
     private static final String EVENT_REGEX_STRING = "^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}"
             + "( [0-2][0-9][0-5][0-9] | )- \\d{4}-\\d{2}-\\d{2}($| [0-2][0-9][0-5][0-9]$)";
+    private static final String UNHANDLED_EXCEPTION_STRING = "Error: unexpected uncaught exception in Parser";
 
     /**
      * Creates a user command object from the given input command string
@@ -63,7 +64,7 @@ public class Parser {
         default:
             // fall-through
         }
-        throw new InvalidCommandException("ChadGPT: Please input a valid command.\n");
+        throw new InvalidCommandException("Please input a valid command.");
     }
 
     /**
@@ -72,13 +73,14 @@ public class Parser {
      * @param input the input command string
      * @param tasklist the task list to operate on
      */
-    public void passUserCommand(String input, TaskList tasklist) {
+    public String passUserCommand(String input, TaskList tasklist) {
         try {
             CommandAbstract command = createUserCommand(input);
-            command.execute(tasklist);
-            command.printChatbotLine();
-        } catch (InvalidCommandException exp) {
-            System.out.print(exp.getBotMessage());
+            return command.execute(tasklist);
+        } catch (InvalidCommandException e) {
+            return e.getBotMessage();
+        } catch (Exception e) {
+            return UNHANDLED_EXCEPTION_STRING;
         }
     }
 
@@ -130,12 +132,14 @@ public class Parser {
      * @param tasklist the task list to operate on
      * @throws CorruptDataException if the input data is corrupt
      */
-    public void passDataCommand(String input, TaskList tasklist) throws CorruptDataException {
+    public String passDataCommand(String input, TaskList tasklist) throws CorruptDataException {
         try {
             CommandAbstract command = createDataCommand(input);
-            command.execute(tasklist);
-        } catch (InvalidCommandException exp) {
-            throw new CorruptDataException(input);
+            return command.execute(tasklist);
+        } catch (CorruptDataException exp) {
+            throw exp;
+        } catch (Exception e) {
+            return UNHANDLED_EXCEPTION_STRING;
         }
     }
 }

@@ -60,20 +60,29 @@ public class CreateTodoCommand extends CommandAbstract {
      * @param tasklist the task list to operate on
      */
     @Override
-    protected void completeOperation(TaskList tasklist) {
+    protected String completeOperation(TaskList tasklist) {
         String information = this.input.split("^((?i)(todo))\\s")[1];
         TaskAbstract newTask = new Todo(information);
         if (this.isDone) {
             newTask.completeNewTask();
         }
         tasklist.addTask(newTask);
+        return "ChadGPT: No problem! Just remember to do your task before the deadline.";
     }
 
     /**
-     * Prints the appropriate dialogue from the chatbot to the terminal
+     * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
+     * response as a string
+     *
+     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any uncaught edge cases
      */
     @Override
-    public void printChatbotLine() {
-        System.out.print("ChadGPT: No problem! Just remember to do your task before the deadline ;).\n");
+    protected String findException() {
+        Pattern commandRegex = Pattern.compile("^todo .+", Pattern.CASE_INSENSITIVE);
+        Matcher inputMatcher = commandRegex.matcher(this.input);
+        if (!inputMatcher.find()) {
+            return "Please provide a description about your task.";
+        }
+        return UNHANDLED_EXCEPTION_STRING;
     }
 }

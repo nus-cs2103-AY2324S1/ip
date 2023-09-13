@@ -22,7 +22,7 @@ public class MarkCommand extends OperationOnListCommandAbstract {
      * @param tasklist the task list to operate on
      */
     @Override
-    protected void completeOperation(TaskList tasklist) {
-        tasklist.markTaskAt(Integer.parseInt(input.split(" ")[1]) - 1);
+    protected String completeOperation(TaskList tasklist) {
+        return tasklist.markTaskAt(Integer.parseInt(input.split(" ")[1]) - 1);
     }
 }

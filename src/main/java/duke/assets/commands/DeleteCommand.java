@@ -20,9 +20,10 @@ public class DeleteCommand extends OperationOnListCommandAbstract {
      * Completes the operation specified by the input command on the specified task list
      *
      * @param tasklist the task list to operate on
+     * @return appropriate bot response string
      */
     @Override
-    protected void completeOperation(TaskList tasklist) {
-        tasklist.deleteTaskAt(Integer.parseInt(input.split(" ")[1]) - 1);;
+    protected String completeOperation(TaskList tasklist) {
+        return tasklist.deleteTaskAt(Integer.parseInt(input.split(" ")[1]) - 1);
     }
 }

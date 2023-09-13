@@ -69,9 +69,9 @@ public abstract class TaskAbstract {
     }
 
     /**
-     * Print status of the task
+     * Get status of the task as a string
      */
-    public abstract void printStatus();
+    public abstract String getStatus();
 
     /**
      * Formats the task into a string that is ready for saving into memory

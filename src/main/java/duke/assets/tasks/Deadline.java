@@ -66,11 +66,11 @@ public class Deadline extends TaskAbstract {
     }
 
     /**
-     * Print the current status of the deadline task to the terminal
+     * Get the current status of the deadline task as a string
      */
     @Override
-    public void printStatus() {
-        System.out.printf("[D][%s] %s (by: %s)\n", this.isDone ? "X" : " ",
+    public String getStatus() {
+        return String.format("[D][%s] %s (by: %s)\n", this.isDone ? "X" : " ",
                 this.description, this.getDateTimeForPrinting());
     }
 }

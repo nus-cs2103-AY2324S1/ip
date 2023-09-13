@@ -7,26 +7,13 @@ import duke.dukeexceptions.InvalidCommandException;
  * An abstract command class that is parent of all possible commands for the chatbot
  */
 public abstract class CommandAbstract {
-
-    /**
-     * A horizontal line used for formatting output
-     */
+    // Constants
     protected static final String HORIZONTAL = "------------------------------------------------------------"
             + "---------------------------";
-
-    /**
-     * A regular expression for validating dates in the format yyyy/MM/dd or yyyy-MM-dd
-     */
     protected static final String VALID_DATE_REGEX_STRING = "(\\d{4}/\\d{2}/\\d{2}|\\d{4}-\\d{2}-\\d{2})";
-
-    /**
-     * A regular expression for validating times in the format HHmm
-     */
     protected static final String VALID_TIME_REGEX_STRING = "[0-2][0-9][0-5][0-9]";
-
-    /**
-     * The input command string
-     */
+    protected static final String UNHANDLED_EXCEPTION_STRING = "Error: unexpected uncaught exception in command";
+    // Non-Constants
     protected String input;
 
     /**
@@ -42,20 +29,15 @@ public abstract class CommandAbstract {
      * Executes the given input command on the specified task list
      *
      * @param tasklist the task list to operate on
-     * @throws InvalidCommandException if the input command has an invalid format
+     * @return appropriate chatbot response to user query
      */
-    public void execute(TaskList tasklist) throws InvalidCommandException {
+    public String execute(TaskList tasklist) {
         if (isValid(tasklist)) {
-            completeOperation(tasklist);
+            return completeOperation(tasklist);
         } else {
-            throw new InvalidCommandException();
+            return findException();
         }
     }
-
-    /**
-     * Prints the appropriate dialogue from the chatbot to the terminal
-     */
-    public abstract void printChatbotLine();
 
     /**
      * Determines whether the input command is valid for the specified task list
@@ -70,5 +52,13 @@ public abstract class CommandAbstract {
      *
      * @param tasklist the task list to operate on
      */
-    protected abstract void completeOperation(TaskList tasklist);
+    protected abstract String completeOperation(TaskList tasklist);
+
+    /**
+     * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
+     * response as a string
+     *
+     * @return string of the appropriate bot response, or UNHANDLED_STRING_EXCEPTION for uncaught edge cases
+     */
+    protected abstract String findException();
 }
