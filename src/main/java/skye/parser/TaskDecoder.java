@@ -23,7 +23,10 @@ public class TaskDecoder {
      */
     public Task decode(String line) throws DukeException {
         String[] data = line.split("\\|");
+        assert data.length > 0;
+
         String taskType = data[0].trim();
+
         switch (taskType) {
         case "D":
             if (data.length == 4) {
