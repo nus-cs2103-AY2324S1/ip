@@ -78,6 +78,8 @@ public class TaskList {
                 Task removedTask = listOfTasks.remove(deleteIndex);
                 storage.clearAllData();
                 storage.updateData();
+              
+                assert !listOfTasks.contains(removedTask) : "Task should have been removed!";
 
                 message.append("Noted. I've removed this task:\n");
                 message.append(String.format("%s\n", removedTask.toString()));
@@ -114,6 +116,9 @@ public class TaskList {
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsDone();
+          
+            assert listOfTasks.get(taskIndex).getStatus() : "Task must be marked done.";
+          
             storage.clearAllData();
             storage.updateData();
 
@@ -140,6 +145,9 @@ public class TaskList {
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsNotDone();
+          
+            assert !listOfTasks.get(taskIndex).getStatus() : "Task must be marked NOT done yet.";
+          
             storage.clearAllData();
             storage.updateData();
 
@@ -201,6 +209,7 @@ public class TaskList {
             System.out.println("\t You currently have no tasks so I can't find any matching tasks :/.");
             return "\t You currently have no tasks so I can't find any matching tasks :/.";
         }
+        assert !listOfTasks.isEmpty() : "There is no tasks to find.";
 
         int taskCount = 0;
         StringBuilder matchingTasks = new StringBuilder(String.format(
@@ -211,15 +220,14 @@ public class TaskList {
                 taskCount++;
             }
         }
-
+      
         //Output matching tasks
         if (taskCount > 0) {
             return matchingTasks.toString();
         } else {
+            assert (taskCount == 0) : "There should be 0 matching tasks";
             return String.format("\t Hm there are no matching tasks with '%s'. "
                     + "Try with another keyword.", matchingKeyword);
         }
-
     }
-
 }
