@@ -16,6 +16,7 @@ public class TaskList extends ArrayList<Task>{
      * @param tasks The list of tasks to initialize the TaskList.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "TasksList must not be null";
         this.tasks = tasks;
     }
 
@@ -70,6 +71,7 @@ public class TaskList extends ArrayList<Task>{
      * @throws DukeException If the index is out of bounds.
      */
     public Task getTask(int index) throws DukeException {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         if (index >= 0 && index < tasks.size()) {
             return tasks.get(index);
         } else {
@@ -84,6 +86,7 @@ public class TaskList extends ArrayList<Task>{
      * @throws DukeException If the index is out of bounds.
      */
     public void deleteTask(int index) throws DukeException {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         try {
             if (index >= 0 && index < tasks.size()) {
                 tasks.remove(index);
@@ -101,6 +104,7 @@ public class TaskList extends ArrayList<Task>{
      * @throws DukeException If the index is out of bounds.
      */
     public void markTaskAsDone(int index) throws DukeException {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         // Mark task as done
         try {
             if (index >= 0 && index < tasks.size()) {
@@ -120,6 +124,7 @@ public class TaskList extends ArrayList<Task>{
      * @throws DukeException If the index is out of bounds.
      */
     public void markTaskAsUndone(int index) throws DukeException {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         // Mark task as undone
         try {
             if (index >= 0 && index < tasks.size()) {
