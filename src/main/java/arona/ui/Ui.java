@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import arona.task.Task;
 import arona.task.TaskList;
-import java.util.ArrayList;
 
 /**
  * The UI class handles user interface-related functionality in the GUI.
@@ -37,9 +36,10 @@ public class Ui {
      * @return A formatted string confirming the addition of a task.
      */
     public static String showTaskAdded(Task task, int totalTasks) {
-        return "Got it! I've added this task:\n" +
-                "  " + task + "\n" +
-                "Now you have " + totalTasks + (totalTasks == 1 ? " task" : " tasks") + " in the list.\n";
+        return "Got it! I've added this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + totalTasks + (totalTasks == 1 ? " task" : " tasks")
+                + " in the list.\n";
     }
 
     /**
@@ -50,9 +50,10 @@ public class Ui {
      * @return A formatted string confirming the removal of a task.
      */
     public static String showTaskRemoved(Task task, int totalTasks) {
-        return "Sure thing! I've removed this task:\n" +
-                "  " + task + "\n" +
-                "Now you have " + totalTasks + (totalTasks == 1 ? " task" : " tasks") + " in the list.\n";
+        return "Sure thing! I've removed this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + totalTasks + (totalTasks == 1 ? " task" : " tasks")
+                + " in the list.\n";
     }
 
     /**
