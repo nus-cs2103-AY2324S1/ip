@@ -34,7 +34,7 @@ public class TaskArray {
         String output ="";
         for (int i = 0; i < taskArrayList.size(); i++ ) {
             int index = i + 1;
-            output += "\n"+index +": " + taskArrayList.get(i).getTypeCheckedText();
+            output += "\n" + index + ": " + taskArrayList.get(i).getTypeCheckedText();
         }
         return output;
     }
@@ -47,7 +47,7 @@ public class TaskArray {
     public String add(Task task) {
         taskArrayList.add(task);
         String word = "Got it. I've added this task:\n" + task.getTypeCheckedText();
-        word += "\nNow you have "+ getTaskCount()+" tasks in the list.";
+        word += "\nNow you have " + getTaskCount()+" tasks in the list.";
         return word;
     }
 
@@ -77,20 +77,19 @@ public class TaskArray {
      */
     public String removeTask(int index) {
         String output = "";
-        if (index < 0 && index >=taskArrayList.size()) {
+        if (index < 0 && index >= taskArrayList.size()) {
             output = "Invalid Index";
             return output;
         }
         Task removingTask = taskArrayList.get(index);
         taskArrayList.remove(index);
-        output = "Noted. I've removed this task:\n" + removingTask.getTypeCheckedText() +"\nNow you have "+ getTaskCount()+" tasks in the list.";
+        output = "Noted. I've removed this task:\n" + removingTask.getTypeCheckedText() + "\nNow you have " + getTaskCount() + " tasks in the list.";
         return output;
     }
 
     public String printFind(String arg) {
 
         ArrayList<Task> tempTaskArraylist = new ArrayList<>();
-
 
         for (Task task : taskArrayList) {
             if (task.getText().contains(arg)) {
@@ -101,7 +100,7 @@ public class TaskArray {
         String output = "Here are the matching tasks in your list:";
         for (int i = 0; i < tempTaskArraylist.size(); i++) {
             int index = i + 1;
-            output += ("\n" + index+"."+ tempTaskArraylist.get(i).getTypeCheckedText());
+            output += ("\n" + index + "." + tempTaskArraylist.get(i).getTypeCheckedText());
         }
 
         return output;
