@@ -19,6 +19,9 @@ public class Martin {
         } catch (Exception e) {
             tasks = new TaskList();
         }
+
+        assert tasks != null : "Tasks should be initialized.";
+        assert parser != null : "Parser should be initialized.";
     }
 
     /**
@@ -29,9 +32,12 @@ public class Martin {
      * @throws IOException
      */
     public String getResponse(String input) throws IOException {
+        assert input != null : "Input to getResponse should not be null.";
+
         try {
             Command cmd = parser.parse(input);
-            return cmd.execute();  // Assuming execute() returns a String
+            assert cmd != null : "Parsed command should not be null.";
+            return cmd.execute(); 
         } catch (Exception e) {
             return e.getMessage();
         } finally {
