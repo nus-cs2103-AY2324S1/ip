@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * TaskList
  */
 public class TaskList {
-    private static String line = "\t____________________________________________________________\n";
+    private static final String line = "\t____________________________________________________________\n";
     protected ArrayList<Task> strList;
 
     /**
@@ -38,7 +38,6 @@ public class TaskList {
      * @param description description of the todo task
      * @param isDone boolean to mark is the task is done or not
      * @param readingFile boolean to check if readingFile or not
-     * @throws EmptyDescriptionException
      */
     public String toDoHandler(String description, boolean isDone, boolean readingFile)
             throws EmptyDescriptionException {
@@ -59,7 +58,6 @@ public class TaskList {
      * @param description description of the todo task
      * @param isDone boolean to mark is the task is done or not
      * @param readingFile boolean to check if readingFile or not
-     * @throws EmptyDescriptionException
      */
     public String deadlineHandler(String description, boolean isDone, boolean readingFile) throws
             EmptyDescriptionException {
@@ -144,6 +142,7 @@ public class TaskList {
             throw new NotANumberException();
         } else {
             int index = Character.getNumericValue(number) - 1;
+            assert index <= strList.size() : "That index does not exist";
             Task t = strList.get(index);
             t.markTask();
             System.out.println(line);
@@ -166,6 +165,7 @@ public class TaskList {
             throw new NotANumberException();
         } else {
             int index = Character.getNumericValue(number) - 1;
+            assert index <= strList.size() : "That index does not exist";
             Task t = strList.get(index);
             t.unmarkTask();
             System.out.println(line);
@@ -188,6 +188,7 @@ public class TaskList {
             throw new NotANumberException();
         } else {
             int index = Character.getNumericValue(number) - 1;
+            assert index <= strList.size() : "That index does not exist";
             Task t = strList.remove(index);
             System.out.println(line);
             String message = "Noted. I've removed this task: " + "\n";
