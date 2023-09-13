@@ -23,8 +23,8 @@ public class CheeChat {
     protected String getResponse(String input) {
         String output = "";
         try {
-            Command c = Parser.parse(input);
-            output += c.execute(tasks, ui, storage);
+            Command command = Parser.parse(input);
+            output += command.executeTask(tasks, ui, storage);
         } catch (Exception e) {
             output = e.getMessage();
         }
