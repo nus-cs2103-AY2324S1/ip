@@ -54,7 +54,7 @@ application {
 }
 
 shadowJar {
-    mainClassName = "duke.Duke"
+    mainClassName = "duke.Main"
     archiveBaseName = "duke"
     archiveClassifier = null
     archiveFileName = 'duke.jar'

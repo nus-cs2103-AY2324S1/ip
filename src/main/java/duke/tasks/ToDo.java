@@ -17,6 +17,7 @@ public class ToDo extends Task{
      */
     public void checkValidity() throws DukeException {
         String[] descrArr = descr.split(" "); //you get 0: taskName, 1: description
+        assert descrArr.length > 2 : "Missing todo details";
         if (descrArr.length < 2) {
             throw new DukeException("You are missing todo details");
         }

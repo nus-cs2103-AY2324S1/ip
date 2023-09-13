@@ -23,8 +23,10 @@ public class Deadline extends Task{
      * @throws DukeException when input is invalid.
      */
     public String checkValidity() throws DukeException {
-        String[] descrArr = descr.split("/by "); //you get 0: taskName, 1: deadline
+        String[] descrArr = descr.split("/by ");
         String res;
+
+        assert descrArr.length > 2 : "Missing details of deadline";
         if (descrArr.length < 2) {
             throw new DukeException("You are missing details of the the deadline!");
         }
@@ -58,7 +60,7 @@ public class Deadline extends Task{
      * @return the reformatted deadline.
      */
     public String writtenFormat() {
-        String res = "Invalid Deadline";
+        String res;
         try {
             String[] parts = this.descr.split("/by");
             String eventType = "deadline";
@@ -77,11 +79,11 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        String res = "Invalid Deadline";
+        String res;
         try {
             res = "[D]" + super.toString() + " (by: " + checkValidity() + ")";
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            res = e.getMessage();
         }
         return res;
     }

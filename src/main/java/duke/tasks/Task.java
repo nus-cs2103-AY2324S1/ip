@@ -13,6 +13,7 @@ public abstract class Task {
 
 
     public void markDone() throws DukeException {
+        assert !isDone : "Can't do a 'done' task!";
         if (isDone) {
             throw new DukeException("This task is already marked done!");
         } else {
@@ -21,6 +22,7 @@ public abstract class Task {
     }
 
     public void markUndone() throws DukeException {
+        assert isDone : "Can't mark an undone task as 'done'";
         if (!isDone) {
             throw new DukeException("This task is already marked undone!");
         } else {
@@ -41,6 +43,7 @@ public abstract class Task {
      * @return formatted String version of the task
      */
     public String toString() {
+        assert this.descr.split(" ").length > 1 : "Invalid task description";
         String keyword = this.descr.split(" ")[0];
         String taskDescription = this.descr.substring(keyword.length()).trim();
         return "[" + marking() + "] " + taskDescription;
