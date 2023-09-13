@@ -23,7 +23,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.setTitle("Jarvis, Your Personal Task Manager!");
-            fxmlLoader.<MainWindow>getController().setDuke(jarvis);
+            fxmlLoader.<MainWindow>getController().setJarvis(jarvis);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

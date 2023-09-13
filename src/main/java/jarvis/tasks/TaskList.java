@@ -93,10 +93,38 @@ public class TaskList {
         StringBuilder filteredString = new StringBuilder();
         for (Task t : this.tasks) {
             if (t.contains(name)) {
-                filteredString.append(count).append(") ").append(t.toString()).append("\n");
+                filteredString.append(count).append(") ").append(t.toString()).append("\n\n");
+                count++;
             }
         }
         return filteredString.toString();
+    }
+
+    public String getDeadlines() {
+        int count = 1;
+        int count1 = 1;
+        StringBuilder deadlineString = new StringBuilder("Just a friendly reminder, you have the following deadlines"
+                + " due soon! \n\n");
+        StringBuilder passedDeadlineString = new StringBuilder("The following tasks have passed the due date!\n\n");
+        for (Task t : this.tasks) {
+            if (t instanceof Deadline) {
+                Deadline d = (Deadline) t;
+                if (d.isDue() && !d.isCompleted()) {
+                    deadlineString.append(count).append(") ").append(d.toString()).append("\n");
+                    count++;
+                } else if (!d.isDue() && !d.isCompleted()) {
+                    passedDeadlineString.append(count1).append(") ").append(d.toString()).append("\n");
+                    count1++;
+                }
+            }
+        }
+        return count == 1 && count1 == 1
+                ? "You have no passed/current deadlines! Good Job!"
+                : count == 1 && count1 != 1
+                    ? passedDeadlineString.toString()
+                    : count != 1 && count1 == 1
+                        ? deadlineString.toString()
+                        : deadlineString.toString() + "\n" + passedDeadlineString.toString();
     }
 
     /**
@@ -106,7 +134,7 @@ public class TaskList {
     public String toString() {
         StringBuilder taskString = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
-            taskString.append(i + 1).append(") ").append(tasks.get(i).toString()).append("\n");
+            taskString.append(i + 1).append(") ").append(tasks.get(i).toString()).append("\n\n");
         }
         return taskString.toString();
     }

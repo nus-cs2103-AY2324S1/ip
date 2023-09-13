@@ -4,14 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import jarvis.commands.AddCommand;
-import jarvis.commands.Command;
-import jarvis.commands.DeleteCommand;
-import jarvis.commands.ExitCommand;
-import jarvis.commands.FindCommand;
-import jarvis.commands.IncorrectCommand;
-import jarvis.commands.ListCommand;
-import jarvis.commands.MarkCommand;
+import jarvis.commands.*;
 
 /**
  * Represents the Parser Class.
@@ -36,34 +29,28 @@ public class Parser {
     public static Command parse(String fullCommand) {
 
         String[] split = fullCommand.split(" ", 2);
-        Command c = null;
 
         switch(split[0]) {
         case "bye":
-            c = parseExit(split);
-            break;
+            return parseExit(split);
         case "list":
-            c = parseList(split);
-            break;
+            return parseList(split);
         case "mark":
         case "unmark":
-            c = parseMark(split);
-            break;
+            return parseMark(split);
         case "todo":
         case "deadline":
         case "event":
-            c = parseTask(split);
-            break;
+            return parseTask(split);
         case "delete":
-            c = parseDelete(split);
-            break;
+            return parseDelete(split);
         case "find":
-            c = parseFind(split);
-            break;
+            return parseFind(split);
+        case "remind":
+            return parseRemind(split);
         default:
-            c = new IncorrectCommand(INVALID_COMMAND);
+            return new IncorrectCommand(INVALID_COMMAND);
         }
-        return c;
     }
 
     private static Command parseMark(String[] split) {
@@ -200,5 +187,12 @@ public class Parser {
         } catch (DateTimeParseException e) {
             return new IncorrectCommand(INVALID_DATE);
         }
+    }
+
+    private static Command parseRemind(String[] split) {
+        if (split.length != 1) {
+            return new IncorrectCommand(INVALID_COMMAND);
+        }
+        return new RemindCommand();
     }
 }

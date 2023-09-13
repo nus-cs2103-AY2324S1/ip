@@ -20,8 +20,8 @@ public class Ui {
      * @param task Newly added task.
      */
     public String showAdd(int size, Task task) {
-        return "Added the following task to the list.\n"
-                + size + ") " + task.toString() + "\n"
+        return "Added the following task to the list.\n\n"
+                + size + ") " + task.toString() + "\n\n"
                 + "You currently have " + size + " tasks in your list.\n";
     }
 
@@ -34,11 +34,11 @@ public class Ui {
     public String showStatus(int index, Task task, boolean isMark) {
         String message;
         if (isMark) {
-            message = "The following task is marked as complete:\n";
+            message = "The following task is marked as complete:\n\n";
         } else {
-            message = "The following task has been unmarked:\n";
+            message = "The following task has been unmarked:\n\n";
         }
-        return message + index + ") " + task.toString() + "\n"
+        return message + index + ") " + task.toString() + "\n\n"
                 + "Is there anything else I can assist you with?";
     }
 
@@ -70,4 +70,5 @@ public class Ui {
     public String showFind(String word) {
         return "Finding tasks that contain the entered keyword (" + word + ")";
     }
+
 }
