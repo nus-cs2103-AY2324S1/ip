@@ -16,7 +16,6 @@ public class UnmarkCommand extends Command {
      * @param details Task number to be marked.
      */
     public UnmarkCommand(String details) {
-        super(false);
         this.details = details;
     }
 

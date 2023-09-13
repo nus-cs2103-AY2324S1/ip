@@ -18,7 +18,6 @@ public class TodoCommand extends Command {
      * @param details Description of todo task.
      */
     public TodoCommand(String details) {
-        super(false);
         this.details = details;
     }
 

@@ -21,7 +21,6 @@ public class DeadlineCommand extends Command {
      * @param details Description of deadline task.
      */
     public DeadlineCommand(String details) {
-        super(false);
         this.details = details;
     }
 
@@ -39,6 +38,7 @@ public class DeadlineCommand extends Command {
         String description = validatedDetails[0];
         String deadline = validatedDetails[1];
         LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMAT);
+
         Task newDeadline = new Deadline(description, deadlineDateTime);
         tasks.add(newDeadline);
         storage.save(tasks);

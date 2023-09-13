@@ -3,7 +3,6 @@ package oscar.ui;
 import java.util.Objects;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -15,8 +14,6 @@ import oscar.Oscar;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    @FXML
-    private Button sendButton;
     @FXML
     private ScrollPane scrollPane;
     @FXML

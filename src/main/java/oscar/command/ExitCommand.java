@@ -8,13 +8,6 @@ import oscar.essential.TaskList;
  */
 public class ExitCommand extends Command {
     /**
-     * Instantiates an exit command.
-     */
-    public ExitCommand() {
-        super(true);
-    }
-
-    /**
      * Displays message when terminating Oscar.
      *
      * @param tasks   ArrayList of tasks.
