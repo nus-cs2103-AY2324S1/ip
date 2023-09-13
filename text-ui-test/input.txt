@@ -40,4 +40,16 @@ list /before 2023-09-15 1200
 find
 find t
 find orts
+snooze
+snooze a
+snooze 1
+snooze 2
+snooze 2 /by a
+snooze 2 /by 2023-06-07 1400
+snooze 6
+snooze 6 /by a
+snooze 6 /by 2023-09-17 1700
+snooze 6 /by 2023-09-16 1500
+snooze 6 /by 2023-09-17 1400 /to a 
+snooze 6 /by 2023-09-17 1800 /to 2023-09-18 1200
 bye

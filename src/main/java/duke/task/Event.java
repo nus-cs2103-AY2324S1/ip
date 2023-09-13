@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidDatetimeFormatException;
@@ -29,10 +30,10 @@ public class Event extends Task {
 
         this.from = DatetimeHelper.parseField(from, "from", "event");
         this.to = DatetimeHelper.parseField(to, "to", "event");
-        validateFields();
+        validateFields(this.from, this.to);
     }
 
-    private void validateFields() {
+    private void validateFields(LocalDateTime from, LocalDateTime to) {
         if (from.isAfter(to)) {
             throw new DukeException("The from of an event must be before its to");
         }
@@ -65,5 +66,25 @@ public class Event extends Task {
     @Override
     protected boolean before(LocalDateTime before) {
         return from.isBefore(before);
+    }
+
+    @Override
+    public void edit(Map<String, String> arguments) {
+        if ((!arguments.containsKey("from")) && (!arguments.containsKey("to"))) {
+            throw new DukeException("event requires a from or/and to argument");
+        }
+
+        LocalDateTime from = this.from;
+        LocalDateTime to = this.to;
+        if (arguments.containsKey("from")) {
+            from = DatetimeHelper.parseField(arguments.get("from"), "from", "event");
+        }
+        if (arguments.containsKey("to")) {
+            to = DatetimeHelper.parseField(arguments.get("to"), "to", "event");
+        }
+
+        validateFields(from, to);
+        this.from = from;
+        this.to = to;
     }
 }

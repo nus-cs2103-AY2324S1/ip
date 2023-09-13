@@ -133,4 +133,6 @@ public abstract class Task {
             }
         };
     }
+
+    public abstract void edit(Map<String, String> arguments);
 }

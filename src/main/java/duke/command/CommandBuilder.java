@@ -109,6 +109,8 @@ public class CommandBuilder {
             return new DeleteCommand(out, taskList, savefile, name);
         case Command.FIND:
             return new FindCommand(out, taskList, savefile, name);
+        case Command.SNOOZE:
+            return new SnoozeCommand(out, taskList, savefile, name, arguments);
         default:
             return new UnidentifiedCommand(out, taskList, savefile);
         }

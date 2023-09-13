@@ -1,5 +1,9 @@
 package duke.task;
 
+import java.util.Map;
+
+import duke.exception.DukeException;
+
 /** Represents a Todo task */
 public class Todo extends Task {
     /**
@@ -11,5 +15,10 @@ public class Todo extends Task {
      */
     public Todo(String description, boolean isMarked) {
         super(description, isMarked, 'T');
+    }
+
+    @Override
+    public void edit(Map<String, String> arguments) {
+        throw new DukeException("todo cannot be snoozed");
     }
 }

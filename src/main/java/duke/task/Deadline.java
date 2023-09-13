@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidDatetimeFormatException;
@@ -53,5 +54,15 @@ public class Deadline extends Task {
     @Override
     protected boolean before(LocalDateTime before) {
         return by.isBefore(before);
+    }
+
+    @Override
+    public void edit(Map<String, String> arguments) {
+        if (!arguments.containsKey("by")) {
+            throw new DukeException("deadline requires a by argument");
+        }
+        if (arguments.containsKey("by")) {
+            by = DatetimeHelper.parseField(arguments.get("by"), "by", "deadline");
+        }
     }
 }

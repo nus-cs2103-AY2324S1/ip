@@ -21,6 +21,7 @@ public abstract class Command {
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
     public static final String FIND = "find";
+    public static final String SNOOZE = "snooze";
 
     protected Printer out;
     protected TaskList taskList;
