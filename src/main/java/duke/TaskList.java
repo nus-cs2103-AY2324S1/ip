@@ -108,12 +108,18 @@ public class TaskList {
     public Task add(String command) throws LukeException {
         Task task;
         switch (command.split(" ")[0]) {
+        case "t":
+            // Fallthrough
         case "todo":
             task = Todo.createTodo(command);
             break;
+        case "d":
+            // Fallthrough
         case "deadline":
             task = Deadline.createDeadline(command);
             break;
+        case "e":
+            // Fallthrough
         case "event":
             task = Event.createEvent(command);
             break;

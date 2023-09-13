@@ -99,9 +99,15 @@ public class Duke {
                 return ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
             case "delete":
                 return ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
+            case "t":
+                // Fallthrough
             case "todo":
                 // Fallthrough
+            case "d":
+                // Fallthrough
             case "deadline":
+                // Fallthrough
+            case "e":
                 // Fallthrough
             case "event":
                 return ui.displayMessage("added : " + tasks.add(command));
