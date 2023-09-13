@@ -4,18 +4,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+/**
+ * To create a dialog box shown on GUI
+ */
 public class DialogBox extends HBox {
 
     private Text text;
     private ImageView displayPicture;
 
+    /**
+     * Constructor of a dialog box
+     * @param l message input by user or response
+     * @param iv the image of Lemon or User
+     */
     public DialogBox(String l, Image iv) {
         text = new Text(l);
         ImageView imageView = new ImageView();
