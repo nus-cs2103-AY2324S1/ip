@@ -26,18 +26,17 @@ public class Parser {
     }
 
     /**
-     *  Return input that has been pre-processed become sliced Array
+     * Return input that has been pre-processed become sliced Array
      *
      * @return inputArray
      */
     public String[] parseInput() {
-
         return inputArray;
     }
 
 
     /**
-     *  Return command after parsing the input
+     * Return command after parsing the input
      *
      * @return the command to be done : todo deadline
      */
@@ -47,7 +46,7 @@ public class Parser {
     }
 
     /**
-     *  Return index after parsing the input like for mark/unmark index based on user
+     * Return index after parsing the input like for mark/unmark index based on user
      *
      * @return the index has been registered
      */
@@ -56,7 +55,7 @@ public class Parser {
     }
 
     public Task processEvent() {
-        if(inputArray.length <= 2) {
+        if (inputArray.length <= 2) {
             return null;
         }
 
@@ -66,16 +65,15 @@ public class Parser {
 
         String endDate = "";
         String startDate = "";
-
         boolean gotFrom = false;
         boolean gotTo = false;
-
-        for(int i = 0; i < inputArray.length; i++) {
-            if(inputArray[i].equals("/from") && startIndex == -1) {
+        //Extracting Task, date for /from and /to
+        for (int i = 0; i < inputArray.length; i++) {
+            if (inputArray[i].equals("/from") && startIndex == -1) {
                 startIndex = i;
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i ));
                 gotFrom = true;
-            } else if(inputArray[i].equals("/to") && startIndex != -1) {
+            } else if (inputArray[i].equals("/to") && startIndex != -1) {
                 endDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 startDate = String.join(" ", Arrays.copyOfRange(inputArray, startIndex + 1, i));
                 gotTo = true;
@@ -92,17 +90,11 @@ public class Parser {
             Task newTask = new Event(extractedTask,formattedStartDate,formattedEndDate);
             return newTask;
 
-
         } catch(Exception e) {
             return null;
-
         }
-
-
-
     }
 
-        //Using format given by textbook dd-mm-yyyy HHmm example :"02/12/2019 1800"
     /**
      * Convert the LocalDateTime based on String formatted input
      *
@@ -124,36 +116,31 @@ public class Parser {
      * @return Deadline Task
      */
     public Task processDeadline() {
-        if(inputArray.length <= 2) {
+        if (inputArray.length <= 2) {
             return null;
         }
 
         String dueDate = "";
         String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
 
-        boolean existBy = false;
-        for(int i = 0; i < inputArray.length; i++) {
+        for (int i = 0; i < inputArray.length; i++) {
             if(inputArray[i].equals("/by")) {
                 dueDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i));
                 existBy = true;
+
                 break;
             }
         }
 
         assert existBy: "There is no '/by' in the deadline";
-
         try{
-
             LocalDateTime formattedDeadlineDate = convertDateTime(dueDate);
             Task newTask = new Deadline(extractedTask,formattedDeadlineDate);
             return newTask;
-
         } catch(Exception e) {
             return null;
-
         }
-
     }
 
     /**
@@ -162,24 +149,21 @@ public class Parser {
      * @return Todo Task
      */
     public Task processToDo() {
-        if(inputArray.length <= 1) {
+        if (inputArray.length <= 1) {
             return null;
         }
 
         String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
         Task newTask = new ToDo(extractedTask);
-
         return newTask;
     }
 
     public String getExtracted() {
 
-        if(inputArray.length <= 1) {
+        if (inputArray.length <= 1) {
             return "";
         }
-
         String extractedWord = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
-
         return extractedWord;
     }
 
@@ -195,7 +179,7 @@ public class Parser {
             //from string to index
             int index = Integer.parseInt(getIndex());
             return index;
-        }catch(Exception e) {
+        } catch (Exception e) {
             return -1;
         }
     }
@@ -208,7 +192,7 @@ public class Parser {
         try {
             int index = Integer.parseInt(getIndex());
             return index;
-        }catch(Exception e) {
+        } catch (Exception e) {
             return -1;
         }
     }
@@ -218,16 +202,16 @@ public class Parser {
      * @return Integer Index to be deleted
      */
     public int processDeleteIndex() {
-        if(inputArray.length != 2) {
+        if (inputArray.length != 2) {
             return -1;
-        }else{
-            try {
-                int index = Integer.parseInt(getIndex());
-                return index;
-            }catch(Exception e){
-                return -1;
-            }
         }
+        try {
+            int index = Integer.parseInt(getIndex());
+            return index;
+        } catch (Exception e) {
+            return -1;
+        }
+
     }
 
 
