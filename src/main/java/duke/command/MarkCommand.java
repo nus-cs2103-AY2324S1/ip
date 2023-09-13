@@ -2,9 +2,9 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * The MarkCommand class represents a command for marking tasks as done or undone in the task list.

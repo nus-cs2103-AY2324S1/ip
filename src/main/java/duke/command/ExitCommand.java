@@ -1,8 +1,8 @@
 package duke.command;
 
 import duke.Storage;
-import duke.Ui;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * The ExitCommand class represents a command for exiting the Duke chatbot application.

@@ -2,10 +2,10 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.TaskType;
+import duke.ui.Ui;
 
 /**
  * The AddCommand class represents a command for adding tasks to the task list.

@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 
 /**
@@ -43,6 +44,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setMinHeight(Region.USE_PREF_SIZE);
         displayPicture.setImage(img);
         displayPicture.setClip(new Circle(50, 50, 50));
     }

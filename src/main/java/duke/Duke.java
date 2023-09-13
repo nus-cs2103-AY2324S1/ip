@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * The Duke class represents the main controller of the Duke chatbot application.
@@ -11,9 +12,9 @@ import duke.task.TaskList;
 public class Duke {
     private static TaskList taskList;
 
-    private Storage storage;
+    private static Storage storage;
 
-    private Parser parser;
+    private static Parser parser;
 
     /**
      * Constructs a Duke instance with the specified file path for data storage.

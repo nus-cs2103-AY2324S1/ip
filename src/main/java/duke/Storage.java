@@ -20,10 +20,10 @@ import duke.task.Todo;
  * @author Selwyn
  */
 public class Storage {
-    /** The file used for storage. */
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+
     private File file;
 
-    /** The full path of the file. */
     private String filePath;
 
     /**
@@ -79,7 +79,6 @@ public class Storage {
      */
     public ArrayList<Task> retrieveTasks() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
-        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
         try {
             Scanner scanner = new Scanner(this.file);
@@ -91,42 +90,8 @@ public class Storage {
                 String taskDoneStatus = taskDescArr[1];
                 String taskDetails = taskDescArr[2];
 
-                Task taskToAdd;
-
-                switch(taskTitle) {
-                case("[T]"):
-                    taskToAdd = new Todo(taskDetails);
-                    if (taskDoneStatus.equals("[X]")) {
-                        taskToAdd.markDone();
-                    }
-                    taskList.add(taskToAdd);
-                    break;
-                case("[D]"):
-                    String[] taskDetailsArr = taskDetails.split("\\(by:", 2);
-                    taskToAdd = new Deadline(taskDetailsArr[0].trim(),
-                            LocalDateTime.parse(taskDetailsArr[1].split("\\)")[0].trim(),
-                                    dateTimeFormat));
-                    if (taskDoneStatus.equals("[X]")) {
-                        taskToAdd.markDone();
-                    }
-                    taskList.add(taskToAdd);
-                    break;
-                case("[E]"):
-                    String[] taskDetailsArrOne = taskDetails.split("\\(from:", 2);
-                    String taskDetailsForEvent = taskDetailsArrOne[0];
-                    String[] taskDetailsArrTwo = taskDetailsArrOne[1].split("to:", 2);
-                    taskToAdd = new Event(taskDetailsForEvent.trim(),
-                            LocalDateTime.parse(taskDetailsArrTwo[0].trim(), dateTimeFormat),
-                            LocalDateTime.parse(taskDetailsArrTwo[1].split("\\)")[0].trim(),
-                                    dateTimeFormat));
-                    if (taskDoneStatus.equals("[X]")) {
-                        taskToAdd.markDone();
-                    }
-                    taskList.add(taskToAdd);
-                    break;
-                default:
-                    throw new DukeException("File is corrupted!");
-                }
+                Task taskToAdd = retrieveSpecificTask(taskTitle, taskDetails, taskDoneStatus);
+                taskList.add(taskToAdd);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found!");
@@ -135,5 +100,46 @@ public class Storage {
         }
 
         return taskList;
+    }
+
+    /**
+     * Retrieves a specific type of task based on its title, details, and done status.
+     *
+     * @param taskTitle The title of the task.
+     * @param taskDetails The details of the task.
+     * @param taskDoneStatus The done status of the task.
+     * @return A Task object corresponding to the provided information.
+     * @throws DukeException If the file is corrupted or the task cannot be created.
+     */
+    public Task retrieveSpecificTask(String taskTitle, String taskDetails, String taskDoneStatus) throws DukeException {
+        Task taskToReturn;
+        switch(taskTitle) {
+        case("[T]"):
+            taskToReturn = new Todo(taskDetails);
+            break;
+        case("[D]"):
+            String[] deadlineNameAndDueDate = taskDetails.split("\\(by:", 2);
+            String deadlineName = deadlineNameAndDueDate[0];
+            String deadlineDueDate = deadlineNameAndDueDate[1];
+            taskToReturn = new Deadline(deadlineName.trim(),
+            LocalDateTime.parse(deadlineDueDate.split("\\)")[0].trim(), DATE_TIME_FORMATTER));
+            break;
+        case("[E]"):
+            String[] eventNameAndDuration = taskDetails.split("\\(from:", 2);
+            String eventName = eventNameAndDuration[0];
+            String[] eventDuration = eventNameAndDuration[1].split("to:", 2);
+            taskToReturn = new Event(eventName.trim(),
+            LocalDateTime.parse(eventDuration[0].trim(), DATE_TIME_FORMATTER),
+            LocalDateTime.parse(eventDuration[1].split("\\)")[0].trim(), DATE_TIME_FORMATTER));
+            break;
+        default:
+            throw new DukeException("File is corrupted!");
+        }
+
+        if (taskDoneStatus.equals("[X]")) {
+            taskToReturn.markDone();
+        }
+
+        return taskToReturn;
     }
 }
