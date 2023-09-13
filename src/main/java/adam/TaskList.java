@@ -1,6 +1,6 @@
 package adam;
 
-import adam.exception.AdamException;
+import adam.exception.NoTagException;
 import adam.exception.NumberException;
 import adam.tasks.Deadline;
 import adam.tasks.Event;
@@ -183,7 +183,7 @@ public class TaskList {
 
     public String tagTask(int number, String[] tokens) {
         if(tokens.length < 3) {
-            throw new AdamException();
+            throw new NoTagException();
         }
         String description = "";
         for(int i = 2 ; i < tokens.length; i++) {
