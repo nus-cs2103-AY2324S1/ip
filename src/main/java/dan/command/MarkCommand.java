@@ -34,12 +34,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String getType() {
-        return type;
-    }
-
-    @Override
     public String toString() {
         return currTask.toString();
+    }
+
+    public static String getType() {
+        return type;
     }
 }
