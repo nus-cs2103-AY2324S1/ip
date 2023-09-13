@@ -104,4 +104,13 @@ public class Ui {
             return stringBuilder.toString();
         }
     }
+
+    /**
+     * Displays a message stating that the task list is in the archive.
+     *
+     * @return A string stating the location of the archived file.
+     */
+    public String showArchiveMessage() {
+        return ("Your task list has been successfully archived in ./data/archive.txt.");
+    }
 }

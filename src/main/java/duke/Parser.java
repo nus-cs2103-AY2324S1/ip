@@ -176,7 +176,7 @@ public class Parser {
     public static String parseCommand(String input, TaskList tasks, Ui ui) throws DukeException {
 
         assert ui != null;
-      
+
         if (isListCommand(input)) {
             return showTaskList(tasks, ui);
         } else if (isFindCommand(input)) {
@@ -217,7 +217,7 @@ public class Parser {
         assert taskStatus.equals("0") || taskStatus.equals("1");
 
         Task task;
-      
+
         switch (taskType) {
         case "T":
             task = new ToDo(taskDescription);

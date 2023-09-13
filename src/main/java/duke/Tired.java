@@ -9,6 +9,7 @@ enum TaskType {
  */
 public class Tired {
     private Storage storage;
+    private Storage archive;
     private TaskList tasks;
     private Ui ui;
 
@@ -18,6 +19,7 @@ public class Tired {
     public Tired() {
         ui = new Ui();
         storage = new Storage("duke.txt");
+        archive = new Storage("archive.txt");
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -34,10 +36,18 @@ public class Tired {
      */
     String getResponse(String input) {
         try {
+            if (input.trim().equals("archive list")) {
+                archive.saveToFile(tasks);
+                tasks = new TaskList();
+                storage.saveToFile(tasks);
+                return ui.showArchiveMessage();
+            }
+
             if (input.trim().equals("bye")) {
                 storage.saveToFile(tasks);
                 return ui.showGoodbyeMessage();
             }
+
             return Parser.parseCommand(input, tasks, ui);
         } catch (DukeException e) {
             return ui.showError(e.getMessage());
