@@ -263,17 +263,17 @@ public class TaskList {
 
         Task taskTypeClass;
         switch (taskType) {
-            case TODO:
-                taskTypeClass = new Todo(null);
-                break;
-            case DEADLINE:
-                taskTypeClass = new Deadline(null, null);
-                break;
-            case EVENT:
-                taskTypeClass = new Event(null, null, null);
-                break;
-            default:
-                throw new DukeException("Task type must be Todo, Deadline or Event!");
+        case TODO:
+            taskTypeClass = new Todo(null);
+            break;
+        case DEADLINE:
+            taskTypeClass = new Deadline(null, null);
+            break;
+        case EVENT:
+            taskTypeClass = new Event(null, null, null);
+            break;
+        default:
+            throw new DukeException("Task type must be Todo, Deadline or Event!");
         }
 
         for (int i = 0; i < this.tasks.size(); i++) {
