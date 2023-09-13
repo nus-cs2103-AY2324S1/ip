@@ -21,10 +21,10 @@ public class ToDoTask extends Task {
      * Constructs a ToDoTask with the specified description and completion status.
      *
      * @param description The task's description.
-     * @param done Whether the task is completed.
+     * @param isDone Whether the task is completed.
      */
-    public ToDoTask(String description, Boolean done) {
-        super(description, done);
+    public ToDoTask(String description, Boolean isDone) {
+        super(description, isDone);
     }
 
     @Override

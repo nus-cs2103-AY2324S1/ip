@@ -32,18 +32,20 @@ public class EventTask extends Task {
      * @param description The task's description.
      * @param from The task's starting date and time.
      * @param to The task's ending date and time.
-     * @param done Whether the task is completed.
+     * @param isDone Whether the task is completed.
      */
-    public EventTask(String description, LocalDateTime from, LocalDateTime to, Boolean done) {
-        super(description, done);
+    public EventTask(String description, LocalDateTime from, LocalDateTime to, Boolean isDone) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
-                + " " + "to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+        String fromFormatted = from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        String toFormatted = to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        return "[E]" + super.toString() + " (from: " + fromFormatted
+                + " " + "to: " + toFormatted + ")";
     }
 
     /**
@@ -61,9 +63,9 @@ public class EventTask extends Task {
             return true;
         }
         if (obj instanceof EventTask) {
-            return super.equals(obj)
-                    && ((EventTask) obj).from.equals(this.from)
-                    && ((EventTask) obj).to.equals(this.to);
+            boolean hasSameFrom = ((EventTask) obj).from.equals(this.from);
+            boolean hasSameTo = ((EventTask) obj).to.equals(this.to);
+            return super.equals(obj) && hasSameFrom && hasSameTo;
         }
         return false;
     }

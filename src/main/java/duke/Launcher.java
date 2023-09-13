@@ -10,6 +10,9 @@ public class Launcher {
         Application.launch(Main.class, args);
     }
 
+    /**
+     * Exits the application.
+     */
     public static void exit() {
         System.exit(0);
     }

@@ -36,10 +36,10 @@ public abstract class Task {
      * Marks or unmarks the task as done.
      * Marks the task as done if the specified boolean is true, and unmarks the task as done if otherwise.
      *
-     * @param done Whether the task has been completed.
+     * @param isDone Whether the task has been completed.
      */
-    public void markTaskCompleted(boolean done) {
-        this.isDone = done;
+    public void markTaskCompleted(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
@@ -75,7 +75,9 @@ public abstract class Task {
             return true;
         }
         if (obj instanceof Task) {
-            return ((Task) obj).description.equals(this.description) && ((Task) obj).isDone == this.isDone;
+            boolean hasSameDescription = ((Task) obj).description.equals(this.description);
+            boolean hasSameStatus = ((Task) obj).isDone == this.isDone;
+            return hasSameDescription && hasSameStatus;
         }
         return false;
     }
