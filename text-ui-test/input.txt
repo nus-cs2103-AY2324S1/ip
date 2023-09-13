@@ -1,0 +1,10 @@
+list
+todo read book
+event study /from 2pm /to 4pm
+deadline submit /by 12 Aug
+list
+mark 2
+list
+unmark 2
+list
+bye
