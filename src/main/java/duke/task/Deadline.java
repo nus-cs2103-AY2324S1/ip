@@ -1,13 +1,13 @@
 package duke.task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a given deadline.
  */
 public class Deadline extends Task {
-    protected LocalDate byDate;
+    protected LocalDateTime byDate;
 
     /**
      * Constructor for Deadline class.
@@ -15,7 +15,7 @@ public class Deadline extends Task {
      * @param description The given description for the deadline.
      * @param byDate The given deadline.
      */
-    public Deadline(String description, LocalDate byDate) {
+    public Deadline(String description, LocalDateTime byDate) {
         super(description);
         this.byDate = byDate;
 
@@ -32,7 +32,7 @@ public class Deadline extends Task {
         String taskType = "[D]";
         String status = "[" + (super.isDone ? "X" : " ") + "]";
         String description = " " + super.description + " ";
-        String deadline = "(by: " + this.byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        String deadline = "(by: " + this.byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
 
         return taskType + status + description + deadline;
     }
