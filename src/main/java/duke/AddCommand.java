@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Adds a task to the task list
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 
     /** Description of the task */
     private final String TASK_TO_ADD;
@@ -17,16 +17,21 @@ public class AddCommand extends Command{
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            if (TASK_TO_ADD.startsWith("todo ")) {
-                if (TASK_TO_ADD.length() < 6) throw new IncompleteInputException("todo");
+            if (TASK_TO_ADD.startsWith("todo")) {
+                if (TASK_TO_ADD.length() < 6) {
+                    throw new IncompleteInputException("todo");
+                }
                 String des = TASK_TO_ADD.substring(5);
                 Todo todo = new Todo(des);
                 tasks.add(todo);
                 return ui.showTaskAdded(todo, tasks.total());
 
-            } else if (TASK_TO_ADD.startsWith("deadline ")) {
+            } else if (TASK_TO_ADD.startsWith("deadline")) {
                 String[] words = TASK_TO_ADD.split("/");
-                if (words.length != 2 || words[0].length() < 10 || words[1].length() < 4) {
+                boolean isValidTask = words.length != 2;
+                boolean isDesEmpty = words[0].length() < 10;
+                boolean isDateEmpty = words[1].length() < 4;
+                if (isValidTask || isDesEmpty || isDateEmpty) {
                     throw new IncompleteInputException("deadline");
                 }
                 String des = words[0].substring(9);
@@ -39,7 +44,11 @@ public class AddCommand extends Command{
 
             } else if (TASK_TO_ADD.startsWith("event ")) {
                 String[] words = TASK_TO_ADD.split("/");
-                if (words.length != 3 || words[0].length() < 7 || words[1].length() < 6 || words[2].length() < 4) {
+                boolean isValidTask = words.length != 3;
+                boolean isDesEmpty = words[0].length() < 7;
+                boolean isFromEmpty = words[1].length() < 6;
+                boolean isToEmpty = words[2].length() < 4;
+                if (isValidTask || isDesEmpty || isFromEmpty || isToEmpty) {
                     throw new IncompleteInputException("deadline");
                 }
                 String des = words[0].substring(6);
@@ -59,8 +68,4 @@ public class AddCommand extends Command{
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

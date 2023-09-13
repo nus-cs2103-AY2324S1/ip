@@ -3,7 +3,7 @@ package duke;
 /**
  * Deletes a task from  the task list
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     /** Index of the task in task list */
     private final int INDEX;
@@ -19,8 +19,4 @@ public class DeleteCommand extends Command{
         return ui.showDeleted(t, tasks.total());
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
