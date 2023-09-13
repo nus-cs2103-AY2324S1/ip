@@ -1,6 +1,7 @@
 package rua.task;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Represents a Task. A Task object corresponds to
@@ -9,27 +10,43 @@ import java.time.LocalDate;
  */
 public class Task {
     protected final String description;
-    protected final Boolean isMarked;
+    protected Boolean isMarked;
+    protected ArrayList<String> tags;
 
     /**
-     * Constructs a Task object.
+     * Constructs a Task object (assuming no tag).
      *
      * @param description A String to describe the task.
-     * @param marked A boolean to indicate whether it is marked.
+     * @param isMarked A boolean to indicate whether it is marked.
      */
-    Task(String description, Boolean marked) {
+    Task(String description, Boolean isMarked) {
         this.description = description;
-        this.isMarked = marked;
+        this.isMarked = isMarked;
+        this.tags = new ArrayList<>();
     }
 
     /**
-     * Constructs a Task object (assuming unmarked).
+     * Constructs a Task object (assuming unmarked and no tag).
      *
      * @param description A String to describe the task.
      */
     Task(String description) {
         this.description = description;
         this.isMarked = false;
+        this.tags = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a Task object.
+     *
+     * @param description A String to describe the task.
+     * @param isMarked A boolean to indicate whether it is marked.
+     * @param tags An arraylist of tags.
+     */
+    Task(String description, Boolean isMarked, ArrayList<String> tags) {
+        this.description = description;
+        this.isMarked = isMarked;
+        this.tags = tags;
     }
 
     /**
@@ -48,6 +65,15 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns the ArrayList of tags of the Task.
+     *
+     * @return A ArrayList of tags.
+     */
+    public ArrayList<String> getTags() {
+        return this.tags;
     }
 
     /**
@@ -75,7 +101,8 @@ public class Task {
      * @return A new Task object with the same description but it is marked.
      */
     public Task setMarked() {
-        return new Task(this.description, true);
+        this.isMarked = true;
+        return this;
     }
 
     /**
@@ -84,7 +111,35 @@ public class Task {
      * @return A new Task object with the same description but it is unmarked.
      */
     public Task setUnmarked() {
-        return new Task(this.description, false);
+        this.isMarked = false;
+        return this;
+    }
+
+    public Task addTags(ArrayList<String> newTags) {
+        this.tags.addAll(newTags);
+        return this;
+    }
+
+    public Task clearTags() {
+        this.tags.clear();
+        return this;
+    }
+
+    public String deleteTags(ArrayList<String> discardedTags) {
+        String deleteMessage = "";
+        boolean isAllContained = true;
+        for (String tag : discardedTags) {
+            if (!this.tags.remove(tag)) {
+                deleteMessage += tag + " ";
+                isAllContained = false;
+            }
+        }
+        if (isAllContained) {
+            return "Successfully delete all required tags";
+        } else {
+            deleteMessage += "tags not found, other required tags have been deleted. \n";
+            return  deleteMessage;
+        }
     }
 
     /**
@@ -118,6 +173,7 @@ public class Task {
     @Override
     public String toString() {
         final String markStatus = this.isMarked ? "X" : " ";
-        return "[" + markStatus + "] " + this.description;
+        final String tagStatus = tags.toString();
+        return "[" + markStatus + "] " + tagStatus + " " + this.description;
     }
 }

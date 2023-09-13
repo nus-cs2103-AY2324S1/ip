@@ -1,6 +1,8 @@
 package rua.common;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import rua.command.AddCommand;
 import rua.command.ClearCommand;
@@ -57,6 +59,8 @@ public class Parser {
         case "unmark":
             output = createMarkEventCommand(inputs, false);
             break;
+        case "tag":
+
         case "delete":
             checkEmptyDescription(inputs, "Delete");
             int indexDelete = Integer.parseInt(inputs[1]);
@@ -85,7 +89,16 @@ public class Parser {
 
     private static AddCommand createAddTodoCommand(String[] inputs) throws EmptyDescriptionException{
         checkEmptyDescription(inputs, "Todo");
-        Todo newTodo = new Todo(inputs[1]);
+        String[] tagInfos = inputs[1].split(" #");
+        Todo newTodo;
+        if (tagInfos.length == 1) {
+            newTodo = new Todo(inputs[1]);
+        } else {
+            ArrayList<String> tags = new ArrayList<>();
+            Collections.addAll(tags, tagInfos);
+            tags.remove(0);
+            newTodo = new Todo(tagInfos[0], false, tags);
+        }
         return new AddCommand(newTodo);
     }
 
@@ -94,9 +107,20 @@ public class Parser {
         checkEmptyDescription(inputs, "Deadline");
         String[] infos = inputs[1].split(" /by ", 2);
         checkEmptyDescription(infos, "Deadline");
-        final LocalDate dueDate = LocalDate.parse(infos[1]);
-        Deadline newDdl = new Deadline(infos[0], dueDate);
-        return new AddCommand(newDdl);
+
+        String[] tagInfos = infos[1].split(" #");
+        final LocalDate dueDate = LocalDate.parse(tagInfos[0]);
+        final String deadlineDescription = infos[0];
+        Deadline newDeadline;
+        if (tagInfos.length == 1) {
+            newDeadline = new Deadline(deadlineDescription, dueDate);
+        } else {
+            ArrayList<String> tags = new ArrayList<>();
+            Collections.addAll(tags, tagInfos);
+            tags.remove(0);
+            newDeadline = new Deadline(deadlineDescription, dueDate, false, tags);
+        }
+        return new AddCommand(newDeadline);
     }
 
     private static AddCommand createAddEventCommand(String[] inputs)
@@ -106,9 +130,20 @@ public class Parser {
         checkEmptyDescription(infosEvent, "Event");
         String[] durations = infosEvent[1].split(" /to ", 2);
         checkEmptyDescription(durations, "Event");
+
+        String[] tagInfos = durations[1].split(" #");
         final LocalDate fromDate = LocalDate.parse(durations[0]);
-        final LocalDate toDate = LocalDate.parse(durations[1]);
-        Event newEvent = new Event(infosEvent[0], fromDate, toDate);
+        final LocalDate toDate = LocalDate.parse(tagInfos[0]);
+        final String eventDescription = infosEvent[0];
+        Event newEvent;
+        if (tagInfos.length == 1) {
+            newEvent = new Event(eventDescription, fromDate, toDate);;
+        } else {
+            ArrayList<String> tags = new ArrayList<>();
+            Collections.addAll(tags, tagInfos);
+            tags.remove(0);
+            newEvent = new Event(eventDescription, fromDate, toDate, false, tags);
+        }
         return new AddCommand(newEvent);
     }
 
