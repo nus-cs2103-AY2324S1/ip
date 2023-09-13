@@ -1,16 +1,12 @@
 package duke.util;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.io.FileNotFoundException;
 
 public class Storage {
@@ -63,7 +59,7 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String task = scanner.nextLine();
-                Task instance = Storage.readFile(task);
+                Task instance = Storage.readLine(task);
                 tasks.add(instance);
             }
         } catch (FileNotFoundException e) {
@@ -79,41 +75,16 @@ public class Storage {
      * @param nextLine The command String.
      * @return The Task according to the user input.
      */
-    public static Task readFile(String nextLine) {
-        String next = nextLine.substring(3);
+    public static Task readLine(String nextLine) {
+        String description = nextLine.substring(3);
         Task task;
         if(nextLine.startsWith("[T]")) {
-            String desc = next.substring(4);
-            assert desc.length() > 0 : "description should not be empty";
-            task = new Todo(desc);
+            return Parser.parseFileTodo(description);
         } else if (nextLine.startsWith("[D]")) {
-            int endDesc = next.indexOf("(by: ");
-            String desc = next.substring(4, endDesc);
-            int len = next.length();
-            String time = next.substring(endDesc + 5, len - 1);
-            assert time.equals("") : "time should not be empty";
-            LocalDate d1 = LocalDate.parse(time);
-            task = new Deadline(desc, d1);
+            return Parser.parseFileDeadline(description);
         } else {
-            int endDesc = next.indexOf("(from: ");
-            String desc = next.substring(4, endDesc);
-            int endFrom = next.indexOf("to: ");
-            String from = next.substring(endDesc + 7, endFrom - 1);
-            assert from.equals("") : "from value should not be empty";
-            String to = next.substring(endFrom + 4, next.length() - 1);
-            assert to.equals("") : "to value should not be empty";
-            LocalDate d1 = LocalDate.parse(from);
-            LocalDate d2 = LocalDate.parse(to);
-            task = new Event(desc, d1, d2);
+            return Parser.parseFileEvent(description);
         }
-        Task toReturn;
-        if (next.startsWith("[X]")) {
-            toReturn = task.getDescription(true);
-            assert toReturn.getStatusIcon().equals("X") : "task should be marked";
-        } else {
-            toReturn = task.getDescription(false);
-            assert toReturn.getStatusIcon().equals(" ") : "task should be unmarked";
-        }
-        return toReturn;
     }
 }
+

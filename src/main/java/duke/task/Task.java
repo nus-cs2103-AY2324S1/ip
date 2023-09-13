@@ -25,11 +25,9 @@ public class Task {
     /**
      * Edits the status of the Task.
      * @param status Boolean value that represents whether the task is marked as done or undone.
-     * @return The Task that has been marked or unmarked as done.
      */
-    public Task getDescription(boolean status) {
+    public void setStatus(boolean status) {
         isDone = status;
-        return this;
     }
 
 

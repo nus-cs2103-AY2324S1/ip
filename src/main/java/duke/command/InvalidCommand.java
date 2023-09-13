@@ -13,7 +13,7 @@ public class InvalidCommand extends Command {
      * @param storage The Storage instance that will update the file.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String executeTask(TaskList taskList, Ui ui, Storage storage) {
         return ui.printInvalidMessage();
     }
 

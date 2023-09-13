@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
      * @param storage The Storage instance that will update the file.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String executeTask(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.unmark(num);
         String toBeWritten = taskList.toString();
         storage.write(toBeWritten);

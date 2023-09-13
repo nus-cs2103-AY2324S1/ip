@@ -4,16 +4,16 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 public class TaskList {
-    private ArrayList<Task> arr;
+    private ArrayList<Task> array;
 
     /**
      * Constructor of class TaskList.
-     * @param arr The input ArrayList that stores the past tasks that were stored
+     * @param array The input ArrayList that stores the past tasks that were stored
      *            in a file if there were any.
      */
-    public TaskList(ArrayList<Task> arr) {
+    public TaskList(ArrayList<Task> array) {
         // arr is given from the duke.util.Storage.load()
-        this.arr = arr;
+        this.array = array;
     }
 
     /**
@@ -22,13 +22,13 @@ public class TaskList {
      * @return An ArrayList containing the tasks containing the keyword.
      */
     public ArrayList<Task> find(String keyword) {
-        ArrayList<Task> containsKey = new ArrayList<>();
-        for (Task task : this.arr) {
+        ArrayList<Task> tasksContainingkey = new ArrayList<>();
+        for (Task task : this.array) {
             if (task.toString().contains(keyword)) {
-                containsKey.add(task);
+                tasksContainingkey.add(task);
             }
         }
-        return containsKey;
+        return tasksContainingkey;
     }
 
     /**
@@ -37,7 +37,7 @@ public class TaskList {
      */
 
     public void add(Task instance) {
-        this.arr.add(instance);
+        this.array.add(instance);
     }
 
     /**
@@ -46,11 +46,11 @@ public class TaskList {
      * @return The Task that got deleted.
      */
     public Task delete(int num) {
-        if (num >= this.arr.size()) {
+        if (num >= this.array.size()) {
             return null;
         }
-        Task task = this.arr.get(num);
-        this.arr.remove(num);
+        Task task = this.array.get(num);
+        this.array.remove(num);
         return task;
     }
 
@@ -60,7 +60,8 @@ public class TaskList {
      * @return the marked Task.
      */
     public Task mark(int num) {
-        return arr.get(num).getDescription(true);
+        array.get(num).setStatus(true);
+        return array.get(num);
     }
 
     /**
@@ -69,7 +70,8 @@ public class TaskList {
      * @return the unmarked Task.
      */
     public Task unmark(int num){
-        return arr.get(num).getDescription(false);
+        array.get(num).setStatus(false);
+        return array.get(num);
     }
 
     /**
@@ -77,7 +79,7 @@ public class TaskList {
      * @return The number of Tasks in the TaskList.
      */
     public int size() {
-        return this.arr.size();
+        return this.array.size();
     }
 
     /**
@@ -86,7 +88,7 @@ public class TaskList {
      */
 
     public String getTaskDescription(int index) {
-        return this.arr.get(index).toString();
+        return this.array.get(index).toString();
     }
 
 
@@ -96,7 +98,7 @@ public class TaskList {
      */
     public String toWrite() {
         String toBeWritten = "";
-        for (Task task : this.arr) {
+        for (Task task : this.array) {
             toBeWritten = toBeWritten.concat(task.toWrite());
             toBeWritten += System.lineSeparator();
         }
