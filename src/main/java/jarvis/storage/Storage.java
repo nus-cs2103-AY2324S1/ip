@@ -8,8 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import jarvis.parser.Parser;
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.parser.Parser;
 import jarvis.tasks.Task;
 
 /**
