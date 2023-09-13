@@ -39,6 +39,7 @@ public class Ui {
      * Clears out the existing response once this method is called.
      */
     public String respond() {
+        assert this.response != null : "The response generated should not be null";
         String res = this.response;
         this.response = "";
         return res;

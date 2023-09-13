@@ -14,12 +14,13 @@ public class Deadline extends Task {
     /**
      * Creates the deadline object.
      *
-     * @param task Task description.
+     * @param task     Task description.
      * @param deadline deadline of the object.
      * @throws DateTimeParseException
      */
     public Deadline(String task, String deadline) throws DateTimeParseException {
         super(task);
+        assert deadline != null : "deadline input cannot be empty!";
         this.deadline = LocalDate.parse(deadline);
     }
 
@@ -42,7 +43,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return Deadline.TYPE + super.toString() + " (by: " + this.deadline.format(
-                DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+            DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override

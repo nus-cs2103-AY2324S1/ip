@@ -62,6 +62,9 @@ public class Command {
      * @throws DukeException If command is invalid.
      */
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        assert tasks != null : "tasks should not be null";
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
         Task task = null;
         switch (this.action) {
         case INVALID:
