@@ -165,6 +165,7 @@ public class Parser {
         } else {
             String[] parts = input.split(" ", 2);
             String instruction = parts[0].trim();
+
             if (isInEnum(instruction, STRING_COMMAND.class)) {
                 for (STRING_COMMAND t : STRING_COMMAND.values()) {
                     if (t.name().equals(instruction)) {
@@ -174,11 +175,14 @@ public class Parser {
             } else if (isInEnum(instruction, INT_COMMAND.class)) {
                 for (INT_COMMAND c : INT_COMMAND.values()) {
                     if (c.name().equals(instruction)) {
-                        String[] values = parts[1].split(", ");
+                        String[] values = parts[1].split(",");
                         int[] taskIndices = new int[values.length];
 
                         // Parse each value to an integer and store in the taskIndices array
                         for (int i = 0; i < values.length; i++) {
+                            if (!values[i].trim().matches("[0-9]+")) {
+                                throw new JoException("Please specify valid index/indices using integers.");
+                            }
                             taskIndices[i] = Integer.parseInt(values[i].trim()) - 1;
                         }
                         return c.perform(taskIndices);
