@@ -24,7 +24,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * When called, the program will exit.
+     * Exits the program when called.
      *
      * @return true
      */

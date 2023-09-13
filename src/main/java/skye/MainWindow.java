@@ -37,6 +37,8 @@ public class MainWindow extends AnchorPane {
         AnchorPane.setBottomAnchor(scrollPane, userInput.getPrefHeight());
         // Set the right anchor of userInput to be userInput width - sendButton width
         AnchorPane.setRightAnchor(userInput, sendButton.getPrefWidth());
+        // Set spacing of 10 between children of dialogContainer
+        dialogContainer.setSpacing(10);
     }
 
     public void setSkye(Skye s) {
