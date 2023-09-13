@@ -1,5 +1,7 @@
 package chat.tasks;
 
+import static java.util.Comparator.comparing;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -149,6 +151,53 @@ public class TaskList {
             }
         }
         return String.format("There were no tasks containing %s.", description);
+    }
+
+    public String sortName() throws ChatException {
+        System.err.println("hi");
+        if (list.isEmpty()) {
+            throw new NoSuchEntryException();
+        }
+        ArrayList<Task> newList = list;
+        newList.sort(comparing(Task::getFirstChar));
+        list = newList;
+        return this.toString() + "\nTasks have been sorted by name.";
+    }
+
+    public String sortDate() throws ChatException {
+        if (list.isEmpty()) {
+            throw new NoSuchEntryException();
+        }
+        ArrayList<Task> newList = list;
+        newList.sort(comparing(Task::getFirstDate));
+        list = newList;
+        return this.toString() + "\nTasks have been sorted by date.";
+    }
+
+    public String sortType() throws ChatException {
+        if (list.isEmpty()) {
+            throw new NoSuchEntryException();
+        }
+
+        ArrayList<Task> newList = new ArrayList<>();
+        for (Task entry : list) {
+            if (entry instanceof Todo) {
+                newList.add(entry);
+            }
+        }
+        for (Task entry : list) {
+            if (entry instanceof Deadline) {
+                newList.add(entry);
+            }
+        }
+        for (Task entry : list) {
+            if (entry instanceof Event) {
+                newList.add(entry);
+            }
+        }
+
+        list = newList;
+        return this.toString() + "\nTasks have been sorted by type.";
     }
 
     /**

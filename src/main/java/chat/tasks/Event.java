@@ -1,7 +1,9 @@
 package chat.tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 
 /**
  * A task that has a description, completeness, start date/time and end date/time.
@@ -60,5 +62,12 @@ public class Event extends Task {
         String toDateString = toDate != null ? toDate.toString() : "";
         String toTimeString = toTime != null ? toTime.toString() : "";
         return String.format("E # %d # %s # %s %s # %s %s", getDoneInt(), description, fromDateString, fromTimeString, toDateString, toTimeString);
+    }
+
+    @Override
+    public long getFirstDate() {
+        LocalDate tempDate = fromDate != null ? fromDate : LocalDate.of(1970,1,1);
+        LocalTime tempTime = fromTime != null ? fromTime : LocalTime.of(0,0);
+        return LocalDateTime.of(tempDate, tempTime).toEpochSecond(ZoneOffset.UTC);
     }
 }

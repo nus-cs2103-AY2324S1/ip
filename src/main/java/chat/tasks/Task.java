@@ -52,4 +52,12 @@ public abstract class Task {
     public String toFileString() {
         return String.format("  # %d # %s", (isDone ? 1 : 0), description);
     }
+
+    public char getFirstChar() {
+        return description.charAt(0);
+    }
+
+    public long getFirstDate() {
+        return 0;
+    }
 }

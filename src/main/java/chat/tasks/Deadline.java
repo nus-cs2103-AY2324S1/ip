@@ -1,7 +1,9 @@
 package chat.tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 
 /**
  * A task with description, completeness, and a due date/time.
@@ -49,5 +51,12 @@ public class Deadline extends Task {
         String byDateString = byDate != null ? byDate.toString() : "";
         String byTimeString = byTime != null ? byTime.toString() : "";
         return String.format("D # %d # %s # %s %s", getDoneInt(), description, byDateString, byTimeString);
+    }
+
+    @Override
+    public long getFirstDate() {
+        LocalDate tempDate = byDate != null ? byDate : LocalDate.of(1970,1,1);
+        LocalTime tempTime = byTime != null ? byTime : LocalTime.of(0,0);
+        return LocalDateTime.of(tempDate, tempTime).toEpochSecond(ZoneOffset.UTC);
     }
 }
