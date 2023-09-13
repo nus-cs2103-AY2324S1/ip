@@ -23,7 +23,7 @@ public class Ui {
      * Prints welcoming message on the screen.
      */
     public String showWelcome() {
-        return "Hello! I'm Qi"
+        return "Hello! I'm Qi\n"
             + "What can I do for you?";
     }
 

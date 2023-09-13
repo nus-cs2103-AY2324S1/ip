@@ -67,6 +67,10 @@ public class Qi {
             return "Qi:\n" + e.getMessage();
         }
     }
+
+    public String showWelcome() {
+        return this.ui.showWelcome();
+    }
 }
 
 
