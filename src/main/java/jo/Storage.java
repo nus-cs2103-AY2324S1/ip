@@ -30,7 +30,6 @@ public class Storage {
         this.f = new File(filePath);
         if (!this.f.exists()) {
             try {
-                // Create a new file
                 this.f.createNewFile();
             } catch (IOException e) {
                 throw new JoException(e.getMessage());
@@ -46,24 +45,26 @@ public class Storage {
      */
     public ArrayList<Task> load() throws JoException {
         ArrayList<Task> taskList = new ArrayList<>();
+
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String[] task = s.nextLine().split("\\|");
                 String taskType = task[0].trim();
                 boolean isDone = task[1].trim().equals("1");
+
                 if (taskType.equals("T")) {
                     taskList.add(new Task(task[2].trim(), isDone));
+
                 } else if (taskType.equals("D")) {
                     taskList.add(new Deadline(task[2].trim(), isDone, LocalDate.parse(task[3].trim())));
+
                 } else if (taskType.equals("E")) {
                     taskList.add(
-                            new Event(
-                                    task[2].trim(),
-                                    isDone,
-                                    LocalDate.parse(task[3].trim()),
-                                    LocalDate.parse(task[4].trim())
-                            )
+                            new Event(task[2].trim(),
+                                      isDone,
+                                      LocalDate.parse(task[3].trim()),
+                                      LocalDate.parse(task[4].trim()))
                     );
                 }
             }
