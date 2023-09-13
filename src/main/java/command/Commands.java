@@ -121,28 +121,23 @@ public class Commands {
      * Executes the action or throws a DukeException.
      *
      * @param taskList The list of tasks that the action will be executed in.
-     * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
+     * @return Returns a string representing the task done, or an error or null.
      * @throws DukeException The exception thrown when encountering any problems in executing.
      */
     public String execute(ListOfTask taskList) throws DukeException {
-        return execute(taskList, 0, null);
+        return execute(taskList, true);
     }
 
     /**
      * Executes the action or throws a DukeException.
      *
      * @param taskList The list of tasks that the action will be executed in.
-     * @param lineNumber Line Number of the command when reading from the save file.
-     * @param error The command reading from the save file.
-     * @return Returns 0 if the 'bye' command is executed, returns 1 if any other command is successfully executed.
+     * @return Returns a string representing the task done, or an error or null.
      * @throws DukeException The exception thrown when encountering any problems in executing.
      */
-    public String execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
-        boolean load = true;
-        if (lineNumber == 0 && error == null) {
-            load = false;
-        }
+    public String execute(ListOfTask taskList, boolean print) throws DukeException {
         switch (this.primaryCommand) {
+
         case BYE:
             return Ui.exit();
 
@@ -150,7 +145,7 @@ public class Commands {
             return taskList.listTasks();
 
         case TODO:
-            if (!load) {
+            if (print) {
                 return taskList.addToDo(this.taskDescription, true);
             } else {
                 return taskList.addToDo(this.taskDescription, false);
@@ -163,21 +158,21 @@ public class Commands {
         //    break;
 
         case MARK:
-            if (!load) {
+            if (print) {
                 return taskList.markOrUnmark(this.index, true, true);
             } else {
                 return taskList.markOrUnmark(this.index, true, false);
             }
 
         case UNMARK:
-            if (!load) {
+            if (print) {
                 return taskList.markOrUnmark(this.index, false, true);
             } else {
                 return taskList.markOrUnmark(this.index, false, false);
             }
 
         case DELETE:
-            if (!load) {
+            if (print) {
                 return taskList.delete(this.index, true);
             } else {
                 return taskList.delete(this.index, false);
@@ -248,15 +243,11 @@ public class Commands {
          * @inheritDoc
          */
         @Override
-        public String execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
-            boolean load = true;
-            if (lineNumber == 0 && error == null) {
-                load = false;
-            }
+        public String execute(ListOfTask taskList, boolean print) throws DukeException {
             switch (super.primaryCommand) {
 
             case DEADLINE:
-                if (!load) {
+                if (print) {
                     return taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, true);
                 } else {
                     return taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, false);
@@ -315,15 +306,11 @@ public class Commands {
          * @inheritDoc
          */
         @Override
-        public String execute(ListOfTask taskList, int lineNumber, String error) throws DukeException {
-            boolean load = true;
-            if (lineNumber == 0 && error == null) {
-                load = false;
-            }
+        public String execute(ListOfTask taskList, boolean print) throws DukeException {
             switch (super.primaryCommand) {
 
             case EVENT:
-                if (!load) {
+                if (print) {
                     return taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
                             this.phaseThree.dateTime, true);
                 } else {

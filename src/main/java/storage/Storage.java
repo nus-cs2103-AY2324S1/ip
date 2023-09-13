@@ -22,8 +22,9 @@ public class Storage {
      * Saves the list to a specific file.
      *
      * @param listOfTask The task list to save.
+     * @return Returns null if no errors or a string representing the error.
      */
-    public static void save(ArrayList<Task> listOfTask) {
+    public static String save(ArrayList<Task> listOfTask) {
         File writeData = new File("./src/data/duke.txt");
         try {
             writeData.createNewFile();
@@ -35,12 +36,13 @@ public class Storage {
                         writer.write("mark " + (listOfTask.indexOf(x) + 1) + "\n");
                     }
                 } catch (IOException e) {
-                    System.out.println("You do not have access to write to your save file");
+                    // Do nothing.
                 }
             });
             writer.close();
+            return null;
         } catch (IOException e) {
-            System.out.println("You do not have access to save your file");
+            return "You do not have access to save your file";
         }
     }
 
@@ -49,8 +51,7 @@ public class Storage {
      *
      * @param taskList The task list that tasks are loaded into.
      * @param startLine The line number to start loading from.
-     * @return Returns false if it is unable to load and the user does not want to be able to save the task list.
-     *     True if otherwise.
+     * @return Returns a string of null or errors that occur in the loading of the file.
      */
     public static String load(ListOfTask taskList, int startLine, String errorCarryForward) {
         File saveData = new File("./src/data/duke.txt");
@@ -71,15 +72,16 @@ public class Storage {
                 }
                 Parser cmd = new Parser(command);
                 Commands action = cmd.parse();
-                action.execute(taskList, startLine, error);
+                action.execute(taskList, false);
                 startLine++;
             }
             readData.close();
         } catch (DukeException e) {
             startLine++;
-            load(taskList, startLine, errorCarryForward + "line " + startLine + " corrupted: " + error + "\n");
+            return load(taskList, startLine, errorCarryForward
+                    + "line " + startLine + " corrupted: " + error + "\n");
         } catch (IOException f) {
-                return "You do not have access to create a save file";
+            return "You do not have access to create a save file";
         }
         return errorCarryForward;
     }

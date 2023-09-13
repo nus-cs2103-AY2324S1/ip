@@ -1,7 +1,5 @@
 package ui;
 
-import java.util.Scanner;
-
 /**
  * This class deals with the next user input and contains some standard prints.
  */
@@ -12,15 +10,6 @@ public class Ui {
      */
     public Ui() {
 
-    }
-
-    /**
-     * Scans the next input of the user.
-     * @return The input of the user.
-     */
-    public String nextInput() {
-        Scanner scanObj = new Scanner(System.in);
-        return scanObj.nextLine();
     }
 
     /**

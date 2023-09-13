@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import ui.Ui;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -28,12 +27,21 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/profile-picture-default.png"));
     private Image luxionImage = new Image(this.getClass().getResourceAsStream("/images/Luxion.png"));
 
+
+    /**
+     * Initialize the GUI with the greeting by duke.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.greet(),luxionImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.greet(), luxionImage));
     }
 
+    /**
+     * Loads the controller of the main window to be this instance of duke.
+     *
+     * @param d The instance of duke that will be set as the main window for the application.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }

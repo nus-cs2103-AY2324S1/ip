@@ -20,7 +20,6 @@ public class Duke {
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static ListOfTask taskList = new ListOfTask();
     private static Ui ui = new Ui();
-    private static boolean isExit = false;
 
     /**
      * This starts the Duke chatbot.
@@ -31,11 +30,22 @@ public class Duke {
         greet();
     }
 
+    /**
+     * Greets the user and loads the duke from the save file.
+     *
+     * @return Returns the greeting as well as the list of errors while loading, if any.
+     */
     public static String greet() {
-        String str = Storage.load(taskList, 1, null);
-        return ui.greet() + ((str == null) ? "" : str);
+        String str = Storage.load(taskList, 1, "");
+        return ui.greet() + str;
     }
 
+    /**
+     * Takes the user input as the command and executes it.
+     *
+     * @param command The user input string.
+     * @return The string show the completion of a command or an error to show the command has an error.
+     */
     public static String nextCommand(String command) {
         try {
             Parser cmd = new Parser(command);
