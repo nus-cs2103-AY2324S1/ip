@@ -36,6 +36,7 @@ public class Parser {
         String isDone = tmp[1];
         String description = tmp[2];
         Task task;
+        assert taskType != null;
         switch (taskType) {
         case "T":
             task = new Todo(description);
@@ -179,6 +180,7 @@ public class Parser {
      * @throws MonkeException If no arguments provided or arguments not in (task) /from (start) /to (end) format.
      */
     public static EventCommand parseEvent(String args) throws MonkeException {
+        assert args != null;
         String[] tmp = args.split(" /from ", 2);
         String description = tmp[0];
         if (tmp.length < 2 || tmp[0].isBlank() || tmp[1].isBlank()) {
@@ -192,6 +194,8 @@ public class Parser {
         }
         String start = tmp2[0];
         String end = tmp2[1];
+        assert start != null;
+        assert end != null;
         return new EventCommand(description, start, end);
     }
 
