@@ -20,6 +20,7 @@ public class MarkCommand extends OperationOnListCommandAbstract {
      * Completes the operation specified by the input command on the specified task list
      *
      * @param tasklist the task list to operate on
+     * @return string of appropriate bot response
      */
     @Override
     protected String completeOperation(TaskList tasklist) {

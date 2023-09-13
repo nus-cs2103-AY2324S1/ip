@@ -13,16 +13,10 @@ import duke.assets.tasks.TaskAbstract;
  * Represents a command to create a new deadline task
  */
 public class CreateDeadlineCommand extends CommandAbstract {
-
-    /**
-     * A regular expression for validating the input command string
-     */
+    // Constants
     private static final String INPUT_DEADLINE_REGEX_STRING = String.format("^deadline .+ /by %s($| %s$)",
             VALID_DATE_REGEX_STRING, VALID_TIME_REGEX_STRING);
-
-    /**
-     * A flag indicating whether the new task is already completed
-     */
+    // Non-Constants
     private final boolean isDone;
 
     /**

@@ -11,10 +11,6 @@ import duke.assets.tasks.Todo;
  * Represents a command to create a new todo task
  */
 public class CreateTodoCommand extends CommandAbstract {
-
-    /**
-     * A flag indicating whether the new task is already completed
-     */
     private final boolean isDone;
 
     /**
@@ -58,6 +54,7 @@ public class CreateTodoCommand extends CommandAbstract {
      * Completes the operation specified by the input command on the specified task list
      *
      * @param tasklist the task list to operate on
+     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any unhandled edge cases
      */
     @Override
     protected String completeOperation(TaskList tasklist) {
@@ -74,7 +71,7 @@ public class CreateTodoCommand extends CommandAbstract {
      * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
      * response as a string
      *
-     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any uncaught edge cases
+     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any unhandled edge cases
      */
     @Override
     protected String findException() {

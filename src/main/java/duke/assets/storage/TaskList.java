@@ -107,7 +107,7 @@ public class TaskList {
     }
 
     /**
-     * Writes the task list to a file
+     * Writes the task list to a file (save to memory)
      */
     public void writeToFile() {
         try {
@@ -121,20 +121,6 @@ public class TaskList {
         } catch (IOException e) {
             System.out.println("ChadGPT: Please check if your I/O is working as intended.");
         }
-    }
-
-    /**
-     * Returns the task list in text format for saving to file
-     *
-     * @return the task list in text format for saving to file
-     */
-    public String saveToFileFormat() {
-        String returnString = "";
-        for (TaskAbstract t : taskList) {
-            returnString += t.saveToTextFormat();
-            returnString += "\n";
-        }
-        return returnString;
     }
 
     /**
@@ -181,6 +167,7 @@ public class TaskList {
             }
         }
 
+        // Construct string with task status of all tasks matching token
         if (hasMatch) {
             int counter = 0;
             for (TaskAbstract t : this.taskList) {

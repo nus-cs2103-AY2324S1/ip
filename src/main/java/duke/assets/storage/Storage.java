@@ -26,6 +26,8 @@ public class Storage {
      * Reads data from a file and adds it to the task list
      *
      * @return true if the file was read successfully, false otherwise
+     * @throws IOException if there was an issue with I/O, which cannot be handled by the program
+     * @throws CorruptDataException if data file is corrupted
      */
     public boolean readFromFile() throws IOException, CorruptDataException {
         try {
@@ -38,11 +40,11 @@ public class Storage {
                 dataParser.passDataCommand(nextLine, tasklist);
             }
             return true;
-        } catch (IOException e) {
-            throw e;
-        } catch (CorruptDataException e) {
+        } catch (IOException inputOutputExcept) {
+            throw inputOutputExcept;
+        } catch (CorruptDataException corruptDataExcept) {
             tasklist.clearList();
-            throw e;
+            throw corruptDataExcept;
         }
     }
 

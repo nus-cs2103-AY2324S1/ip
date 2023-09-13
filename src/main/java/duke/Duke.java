@@ -1,10 +1,7 @@
 package duke;
 
 import java.io.IOException;
-import java.util.Scanner;
-import java.lang.Thread;
 
-import duke.assets.commands.CommandAbstract;
 import duke.assets.storage.Storage;
 import duke.assets.ui.DialogBox;
 import duke.dukeexceptions.CorruptDataException;
@@ -21,22 +18,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
-
-
 /**
  * The main class for the ChadGPT chatbot application.
  */
 public class Duke extends Application {
-    static final String LOGO = "\n   _____ _    _          _____   _____ _____ _______ \n"
-            + "  / ____| |  | |   /\\   |  __ \\ / ____|  __ \\__   __|\n"
-            + " | |    | |__| |  /  \\  | |  | | |  __| |__) | | |   \n"
-            + " | |    |  __  | / /\\ \\ | |  | | | |_ |  ___/  | |   \n"
-            + " | |____| |  | |/ ____ \\| |__| | |__| | |      | |   \n"
-            + "  \\_____|_|  |_/_/    \\_\\_____/ \\_____|_|      |_|   \n";
-    static final String HORIZONTAL = "----------------------------------------------------------"
-            + "-----------------------------";
-
     private final Storage storage = new Storage();
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -47,13 +32,6 @@ public class Duke extends Application {
             "/images/userAvatar.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream(
             "/images/botAvatar.png"));
-
-    /**
-     * Print the logo and necessary formatting into terminal at startup
-     */
-    private void printAtStartup() {
-        System.out.println(HORIZONTAL + LOGO + HORIZONTAL);
-    }
 
     @Override
     public void start(Stage stage) {
@@ -120,9 +98,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Method to create dialog boxes for user and chatbot, given some user input
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
@@ -136,18 +112,29 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Private helper method to get the text response for the chatbot
+     *
+     * @param input appropriate text response
+     * @return full text response for the chatbot
      */
     private String getResponse(String input) {
         return "ChadGPT: " + input;
     }
 
+    /**
+     * Private helper method to help create a DialogueBox by the chatbot without user prompt
+     *
+     * @param message text to be displayed by chatbot
+     */
     private void dukeMessage(String message) {
         Label dukeText = new Label(getResponse(message));
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
     }
 
+    /**
+     * Read data file to retrieve saved tasks from memory, in the case of unsuccessful retrieval,
+     * highlights the corrupt input and prompts user to restart the program
+     */
     private void readFromData() {
         try {
             storage.readFromFile();
@@ -164,27 +151,6 @@ public class Duke extends Application {
             dukeMessage("Unkown exception. Please restart the program.");
             sendButton.setDisable(false);
             userInput.setDisable(false);
-        }
-    }
-
-    private void exitChatbot(long delay) {
-        try {
-            Thread.sleep(delay * 1000);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        } finally {
-            System.exit(-1);
-        }
-    }
-
-    private void handleCorruptDataUserInput() {
-        String userInputString = userInput.getText();
-        Label userText = new Label(userInputString);
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(userText, new ImageView(user)));
-        userInput.clear();
-        if (userInputString.equals("exit")) {
-            dukeMessage("Alright! See you again soon. This window will close in 5 seconds");
-            exitChatbot(5);
         }
     }
 }

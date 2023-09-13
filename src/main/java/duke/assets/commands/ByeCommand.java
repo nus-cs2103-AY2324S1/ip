@@ -1,9 +1,5 @@
 package duke.assets.commands;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +45,7 @@ public class ByeCommand extends CommandAbstract {
      * Completes the operation specified by the input command on the specified task list
      *
      * @param taskList the task list to operate on
+     * @return the appropriate chatbot reply
      */
     @Override
     protected String completeOperation(TaskList taskList) {

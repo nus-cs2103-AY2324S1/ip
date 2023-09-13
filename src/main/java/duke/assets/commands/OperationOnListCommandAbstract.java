@@ -45,6 +45,7 @@ public abstract class OperationOnListCommandAbstract extends CommandAbstract {
      * Completes the operation specified by the input command on the specified task list
      *
      * @param taskList the task list to operate on
+     * @return string of appropriate bot response, or UNHANDLED_EXCEPTION_STRING for any unhandled edge cases
      */
     @Override
     protected abstract String completeOperation(TaskList taskList);
@@ -53,7 +54,7 @@ public abstract class OperationOnListCommandAbstract extends CommandAbstract {
      * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
      * response as a string
      *
-     * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any uncaught edge cases
+     * @return string of appropriate bot response, or UNHANDLED_EXCEPTION_STRING for any unhandled edge cases
      */
     @Override
     protected String findException() {

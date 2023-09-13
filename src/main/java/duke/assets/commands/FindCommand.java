@@ -35,7 +35,7 @@ public class FindCommand extends CommandAbstract {
      * Completes the search operation
      *
      * @param tasklist the task list to search for the specific token in
-     * @return appropriate bot response string
+     * @return string of appropriate bot response
      */
     @Override
     protected String completeOperation(TaskList tasklist) {

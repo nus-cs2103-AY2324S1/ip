@@ -1,7 +1,6 @@
 package duke.assets.commands;
 
 import duke.assets.storage.TaskList;
-import duke.dukeexceptions.InvalidCommandException;
 
 /**
  * An abstract command class that is parent of all possible commands for the chatbot
@@ -51,6 +50,8 @@ public abstract class CommandAbstract {
      * Completes the operation specified by the input command on the specified task list
      *
      * @param tasklist the task list to operate on
+     * @return the appropriate chatbot response to the user query, or UNHANDLED_STRING_EXCEPTION for unhandled
+     * edge cases
      */
     protected abstract String completeOperation(TaskList tasklist);
 
@@ -58,7 +59,7 @@ public abstract class CommandAbstract {
      * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
      * response as a string
      *
-     * @return string of the appropriate bot response, or UNHANDLED_STRING_EXCEPTION for uncaught edge cases
+     * @return string of the appropriate bot response, or UNHANDLED_STRING_EXCEPTION for unhandled edge cases
      */
     protected abstract String findException();
 }

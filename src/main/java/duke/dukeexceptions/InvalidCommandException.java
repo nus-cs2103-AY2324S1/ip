@@ -7,14 +7,6 @@ public class InvalidCommandException extends Exception {
     private final String message;
 
     /**
-     * Constructs an InvalidCommandException with an empty message
-     */
-    public InvalidCommandException() {
-        super();
-        this.message = "";
-    }
-
-    /**
      * Constructs an InvalidCommandException with the given message
      *
      * @param message the message to be displayed

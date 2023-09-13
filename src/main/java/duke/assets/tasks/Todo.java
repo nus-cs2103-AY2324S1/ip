@@ -25,6 +25,8 @@ public class Todo extends TaskAbstract {
 
     /**
      * Get the status of the todo task as a string
+     *
+     * @return status of the todo task as a string
      */
     @Override
     public String getStatus() {
