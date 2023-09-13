@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Joe joe;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image joeImage = new Image(this.getClass().getResourceAsStream("/images/joever2.jpg"));
+    private Image joeImage = new Image(this.getClass().getResourceAsStream("/images/joever.jpg"));
 
     /**
      * Initializes the main window.
