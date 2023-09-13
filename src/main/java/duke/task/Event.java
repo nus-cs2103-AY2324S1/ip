@@ -1,14 +1,14 @@
 package duke.task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event with a given start and end date.
  */
 public class Event extends Task {
-    protected LocalDate fromDate;
-    protected LocalDate toDate;
+    protected LocalDateTime fromDate;
+    protected LocalDateTime toDate;
 
     /**
      * Constructor for Event class.
@@ -16,7 +16,7 @@ public class Event extends Task {
      * @param fromDate The start date for the Event.
      * @param toDate The end date for the Event.
      */
-    public Event(String description, LocalDate fromDate, LocalDate toDate) {
+    public Event(String description, LocalDateTime fromDate, LocalDateTime toDate) {
         super(description);
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -35,8 +35,8 @@ public class Event extends Task {
         String taskType = "[E]";
         String status = "[" + (this.isDone ? "X" : " ") + "]";
         String description = " " + super.description + " ";
-        String duration = "(from: " + this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: " + this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        String duration = "(from: " + this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
+                + " to: " + this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
 
         return taskType + status + description + duration;
     }
