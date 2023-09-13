@@ -247,6 +247,9 @@ public class Parser {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             String[] splitArgs = args.split(" ", 2);
+            if (splitArgs.length < 2) {
+                throw new MonkeException("You must provide a date to postpone! OOGA BOOGAA!!!!!");
+            }
             String listNum = splitArgs[0];
             String dateString = splitArgs[1];
             LocalDateTime date = LocalDateTime.parse(dateString, formatter);

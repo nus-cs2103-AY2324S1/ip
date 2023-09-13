@@ -23,7 +23,7 @@ public class SnoozeCommand extends Command {
     public String execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
         Task task = tasks.getTask(taskNum);
         if (!(task instanceof Deadline)) {
-            throw new MonkeException("You can only snooze a deadline!");
+            throw new MonkeException("You can only snooze a deadline! OOGA BOOGAA!!!!!!");
         }
         Deadline deadline = (Deadline) task;
         deadline.setDate(date);
