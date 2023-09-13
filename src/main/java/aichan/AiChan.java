@@ -182,23 +182,4 @@ public class AiChan extends Application {
         }
         return aiChanResponse;
     }
-
-    /*
-     * Starts the program by creating an AiChan instance.
-     * Runs the AiChan instances.
-     *
-     * @param args The command line arguments (not used).
-
-    public static void main(String[] args) {
-        new AiChan("data/tasks.txt").run();
-    }
-
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-    */
 }
