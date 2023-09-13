@@ -34,6 +34,8 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws OscarException {
+        assert tasks != null;
+        assert storage != null;
         String[] validatedDetails = validateString();
         validateDate(validatedDetails);
         String description = validatedDetails[0];
