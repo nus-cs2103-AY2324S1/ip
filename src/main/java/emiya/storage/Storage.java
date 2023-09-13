@@ -29,7 +29,7 @@ public class Storage {
      * @param dirName The name of the directory that contains the file to be accessed.
      * @return A String containing the contents of the file indicated by fileName.
      */
-    public String fileContents(String fileName, String dirName) {
+    public String getFileContents(String fileName, String dirName) {
         String path = Paths.get("").toAbsolutePath().toString();
         String pathToDataDir = Paths.get(path, dirName).toString();
         Path pathToDataDoc = Paths.get(pathToDataDir, fileName);
@@ -130,7 +130,7 @@ public class Storage {
      * @throws InvalidDateException When the date received from the fileContent
      *     is invalid.
      */
-    public void fillListWithFileContent(TaskList taskList, String fileContent)
+    public boolean fillListWithFileContent(TaskList taskList, String fileContent)
             throws WrongDateFormatException, InvalidDateException {
         String[] tasksStrArr = fileContent.split("\n");
 
@@ -160,5 +160,7 @@ public class Storage {
                 taskList.add(new Event(isCompletedBool, taskDetails, firstDate, secondDate));
             }
         }
+
+        return taskList.size() > 0;
     }
 }

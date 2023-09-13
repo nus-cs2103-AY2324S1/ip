@@ -56,12 +56,20 @@ public class Emiya {
      * Load the contents of the specified file into the task list.
      */
     public void loadList() {
+
+        assert taskList.size() == 0 : "The TaskList instance is initialised empty and contains no tasks within.";
+
+        boolean isTaskAddedToList = false;
+
         try {
             storage.createDirectory(dirName);
             storage.createFileInDirectory(fileName, dirName);
-            storage.fillListWithFileContent(taskList, storage.fileContents(fileName, dirName));
+            isTaskAddedToList = storage.fillListWithFileContent(taskList, storage.getFileContents(fileName, dirName));
         } catch (CreateDirectoryFailException | InvalidDateException | WrongDateFormatException e) {
             System.out.println(e.getMessage());
         }
+
+        assert isTaskAddedToList ? taskList.size() > 0: taskList.size() == 0 : "The TaskList instance will now " +
+                "be filled.";
     }
 }
