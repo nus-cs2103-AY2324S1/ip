@@ -12,10 +12,12 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+    
     @Override
     public String getType() {
         return "event";
     }
+
     @Override
     public String saveTask() {
         String data = "E | ";
@@ -28,6 +30,7 @@ public class Event extends Task {
         data = data + " | " + this.from + " | " + this.to + "\n";
         return data;
     }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a", Locale.ENGLISH);

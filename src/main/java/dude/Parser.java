@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 // deals with making sense of the user command
 public class Parser {
-
     private static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
     public static Command parse(String fullCommand) {
         String[] commandDetails = fullCommand.split(" ", 2);
         String commandType = commandDetails[0];
@@ -52,5 +52,4 @@ public class Parser {
         }
         return c;
     }
-
 }

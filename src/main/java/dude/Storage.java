@@ -22,6 +22,7 @@ public class Storage {
 
     public void saveTasksToDisk(TaskList taskList) throws IOException {
         File file = new File(this.filepath);
+
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
@@ -35,6 +36,7 @@ public class Storage {
         }
 
         String data = "";
+
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             data += task.saveTask();
@@ -51,8 +53,8 @@ public class Storage {
 
     public ArrayList<Task> loadTasksFromDisk() throws FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<Task>();
-
         File file = new File(this.filepath);
+
         if (file.exists()) {
             try {
                 Scanner sc = new Scanner(file);
@@ -93,6 +95,7 @@ public class Storage {
                 System.out.println(e.getMessage());
             }
         }
+
         System.out.printf("You have %d saved tasks.\n", taskList.size());
         // TaskList tasks = new TaskList(taskList);
         return taskList;

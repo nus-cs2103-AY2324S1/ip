@@ -12,11 +12,13 @@ public class AddEventCommand extends Command {
     private String taskDescription;
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
+
     public AddEventCommand(String taskDescription, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         this.taskDescription = taskDescription;
         this.fromDateTime = fromDateTime;
         this.toDateTime = toDateTime;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {

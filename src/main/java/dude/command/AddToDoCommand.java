@@ -9,9 +9,11 @@ import java.io.IOException;
 
 public class AddToDoCommand extends Command {
     private String taskDescription;
+
     public AddToDoCommand(String taskDescription) {
         this.taskDescription = taskDescription;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
