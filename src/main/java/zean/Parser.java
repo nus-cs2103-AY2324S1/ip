@@ -60,6 +60,7 @@ public class Parser {
         default:
             throw new ZeanException("OOPS!!! I'm sorry, but I don't understand what that means :-(");
         }
+        assert !output.isBlank();
         return output;
     }
 

@@ -17,6 +17,7 @@ public class Todo extends Task {
      */
     public Todo(String bool, String description) {
         super(bool, description.strip());
+        assert description != null;
         if (Integer.parseInt(bool) == 1) {
             this.isDone = true;
         }

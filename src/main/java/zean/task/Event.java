@@ -18,12 +18,14 @@ public class Event extends Task {
     /**
      * Constructor for the event task.
      *
+     * @param bool The completion status of the event task.
      * @param description The description of the event task.
-     * @param from The start time/date of the event task.
-     * @param to The end time/date of the event task.
+     * @param from The due date of the deadline task in the format YYYY-MM-DD.
+     * @param to The due date of the deadline task in the format YYYY-MM-DD.
      */
     public Event(String bool, String description, String from, String to) throws ZeanException {
         super(bool, description.strip());
+        assert description != null;
         try {
             this.from = LocalDate.parse(from.strip());
             this.to = LocalDate.parse(to.strip());
