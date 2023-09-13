@@ -31,7 +31,8 @@ public class Event extends Task {
      */
     public static Event createEvent(String command) throws LukeException {
         Matcher matcher = PATTERN_COMMAND_CREATE_EVENT.matcher(command);
-        matcher.find();
+        boolean found = matcher.find();
+        assert(found);
 
         String taskName = matcher.group("taskName");
         if (taskName == null || taskName.isBlank()) {
