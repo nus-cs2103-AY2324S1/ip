@@ -35,9 +35,10 @@ public class Event extends Task {
         try {
             this.startTime = LocalDateTime.parse(startTime, formatter);
             this.endTime = LocalDateTime.parse(endTime, formatter);
-            if (this.startTime.isAfter(this.endTime)) {
-                throw new BenBenException("The end time should be later than the start time!");
-            }
+            assert this.startTime.isAfter(this.endTime);
+//            if (this.startTime.isAfter(this.endTime)) {
+//                throw new BenBenException("The end time should be later than the start time!");
+//            }
         } catch (DateTimeParseException e) {
             throw new BenBenException("The date and time is of the wrong format! Please use yyyy-MM-dd HH:mm");
         }

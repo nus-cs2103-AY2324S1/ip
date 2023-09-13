@@ -27,7 +27,5 @@ public abstract class Task {
         return this.description;
     }
 
-    public abstract String getLog() ;
-
-
+    public abstract String getLog();
 }

@@ -55,15 +55,15 @@ public class Storage {
             this.file = new File(filePath);
             if (!file.exists()) {
                 boolean isCreated = file.createNewFile();
+                assert isCreated == true;
                 return list;
             }
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 boolean canRead = false;
                 String task = sc.nextLine();
-                //System.out.println(task);
                 String[] strSplit = task.split("\\|");
-
+                assert strSplit.length >= 3;
                 for (int i = 0; i < strSplit.length; i++) {
                     strSplit[i] = strSplit[i].trim();
                 }
