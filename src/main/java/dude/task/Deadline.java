@@ -6,14 +6,17 @@ import java.util.Locale;
 
 public class Deadline extends Task {
     LocalDateTime by;
+
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
+
     @Override
     public String getType() {
         return "deadline";
     }
+
     @Override
     public String saveTask() {
         String data = "D | ";
@@ -26,6 +29,7 @@ public class Deadline extends Task {
         data = data + " | " + this.by + "\n"; // ISO-8601 e.g. 2023-09-06T14:30
         return data;
     }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a", Locale.ENGLISH);

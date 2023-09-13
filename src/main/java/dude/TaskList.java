@@ -33,6 +33,7 @@ public class TaskList {
         task.setDone(true);
         return task;
     }
+
     public Task unmarkTask(int index) {
         Task task = taskList.get(index);
         task.setDone(false);
@@ -40,7 +41,6 @@ public class TaskList {
     }
 
     // add
-
     public void addTask(Task task) {
         taskList.add(task);
     }

@@ -2,15 +2,15 @@ package dude.task;
 
 public class Task {
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     public String getDescription() {
@@ -18,7 +18,7 @@ public class Task {
     }
 
     public void setDone(boolean done) {
-        this.done = done;
+        this.isDone = done;
     }
 
     public String getType() {

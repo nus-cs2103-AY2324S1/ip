@@ -15,6 +15,7 @@ public class Dude {
     public Dude(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+
         try {
             taskList = new TaskList(storage.loadTasksFromDisk());
         } catch (FileNotFoundException e) { // DudeException
@@ -22,6 +23,7 @@ public class Dude {
             taskList = new TaskList();
         }
     }
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
