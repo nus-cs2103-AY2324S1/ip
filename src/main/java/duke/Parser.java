@@ -13,6 +13,7 @@ import command.InvalidCommandException;
 import command.ListCommand;
 import command.MarkCommand;
 import command.OnCommand;
+import command.StatisticsCommand;
 import command.UnmarkCommand;
 
 /**
@@ -102,6 +103,9 @@ public class Parser {
         case AddCommand.COMMAND_ADD_DEADLINE:
         case AddCommand.COMMAND_ADD_EVENT:
             command = new AddCommand(parsedInput);
+            break;
+        case StatisticsCommand.COMMAND_STATISTICS:
+            command = new StatisticsCommand(parsedInput);
             break;
         default:
             throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

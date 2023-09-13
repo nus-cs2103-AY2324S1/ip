@@ -11,7 +11,7 @@ public class StatisticsCommand extends Command {
     /**
      * Command to get statistics on tasks.
      */
-    public static final String COMMAND_LIST = "stats";
+    public static final String COMMAND_STATISTICS = "stats";
 
     /**
      * Constructor for the StatisticsCommand class.
