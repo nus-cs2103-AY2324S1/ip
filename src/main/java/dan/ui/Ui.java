@@ -1,7 +1,10 @@
+package dan.ui;
+
 import dan.command.*;
 import dan.exceptions.DanException;
 import dan.exceptions.DanOperateException;
 import dan.exceptions.DanStorageException;
+import dan.parser.Parser;
 import dan.task.TaskList;
 
 import java.util.Arrays;
@@ -81,28 +84,7 @@ public class Ui {
 
     public Command getCommand() {
         String text = new Scanner(System.in).nextLine();
-        String[] texts = text.split(" ");
-        String command = texts[0].toLowerCase();
-        switch (command) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                return new MarkCommand(Integer.parseInt(texts[1]), 1);
-            case "unmark":
-                return new MarkCommand(Integer.parseInt(texts[1]), 0);
-            case "todo":
-                return new AddCommand(text, 1);
-            case "deadline":
-                return new AddCommand(text, 2);
-            case "event":
-                return new AddCommand(text, 3);
-            case "delete":
-                return new DeleteCommand(Integer.parseInt(texts[1]));
-            default:
-                throw new DanException("Invalid Command");
-        }
+        return Parser.translateCommand(text);
     }
 
     public void hello() {
