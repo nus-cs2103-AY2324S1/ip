@@ -84,12 +84,14 @@ public class Storage {
         Task task;
         if(nextLine.startsWith("[T]")) {
             String desc = next.substring(4);
+            assert desc.length() > 0 : "description should not be empty";
             task = new Todo(desc);
         } else if (nextLine.startsWith("[D]")) {
             int endDesc = next.indexOf("(by: ");
             String desc = next.substring(4, endDesc);
             int len = next.length();
             String time = next.substring(endDesc + 5, len - 1);
+            assert time.equals("") : "time should not be empty";
             LocalDate d1 = LocalDate.parse(time);
             task = new Deadline(desc, d1);
         } else {
@@ -97,7 +99,9 @@ public class Storage {
             String desc = next.substring(4, endDesc);
             int endFrom = next.indexOf("to: ");
             String from = next.substring(endDesc + 7, endFrom - 1);
+            assert from.equals("") : "from value should not be empty";
             String to = next.substring(endFrom + 4, next.length() - 1);
+            assert to.equals("") : "to value should not be empty";
             LocalDate d1 = LocalDate.parse(from);
             LocalDate d2 = LocalDate.parse(to);
             task = new Event(desc, d1, d2);
@@ -105,8 +109,10 @@ public class Storage {
         Task toReturn;
         if (next.startsWith("[X]")) {
             toReturn = task.getDescription(true);
+            assert toReturn.getStatusIcon().equals("X") : "task should be marked";
         } else {
             toReturn = task.getDescription(false);
+            assert toReturn.getStatusIcon().equals(" ") : "task should be unmarked";
         }
         return toReturn;
     }
