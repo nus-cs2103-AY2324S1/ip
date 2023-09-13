@@ -35,6 +35,21 @@ public class Event extends Task {
     }
 
     /**
+     * Returns true if the start of the event is within the desired period.
+     *
+     * @param start start date to compare to.
+     * @param end   end date to compare to.
+     * @return true if start is before the input date.
+     */
+    public boolean isWithin(LocalDateTime start, LocalDateTime end) {
+        boolean isEqualStart = this.start.isEqual(start);
+        boolean isAfterStart = this.start.isAfter(start);
+        boolean isGreaterEqual = isEqualStart || isAfterStart;
+        boolean isBeforeEnd = this.start.isBefore(end);
+        return isGreaterEqual && isBeforeEnd;
+    }
+
+    /**
      * Converts Event to the correct string format to write to data file.
      *
      * @return string to write to data file.

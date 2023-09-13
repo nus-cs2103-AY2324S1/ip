@@ -2,6 +2,8 @@ package duke.tasks;
 
 import duke.components.Status;
 
+import java.time.LocalDateTime;
+
 /**
  * Encapsulates a Task. Contains methods that allows users to interact with a Task
  * object, such as marking, unmarking or deleting tasks.
@@ -13,7 +15,7 @@ public abstract class Task {
     /**
      * Class constructor for Task.
      *
-     * @param status 0 for uncompleted, 1 or other number for completed.
+     * @param status either DONE or NOT_DONE
      * @param task   task description.
      */
     public Task(Status status, String task) {
@@ -22,6 +24,8 @@ public abstract class Task {
     }
 
     public abstract String convertTask();
+
+    public abstract boolean isWithin(LocalDateTime start, LocalDateTime end);
 
     /**
      * Marks this task as completed.

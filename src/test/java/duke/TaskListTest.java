@@ -46,9 +46,9 @@ public class TaskListTest {
         StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
-        String result = list.listTasks(list.findMatches(""));
+        String result = list.findMatches("");
         ArrayList<Task> expectedList = tasks;
-        String expected = list.listTasks(expectedList);
+        String expected = ui.showMatches(list.listTasks(expectedList));
 
         assertEquals(expected, result);
     }
@@ -59,14 +59,14 @@ public class TaskListTest {
         StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
-        String result = list.listTasks(list.findMatches("cookies"));
+        String result = list.findMatches("cookies");
         ArrayList<Task> expectedList = new ArrayList<>();
         expectedList.add(tasks.get(0));
         expectedList.add(tasks.get(1));
         expectedList.add(tasks.get(2));
         expectedList.add(tasks.get(3));
 
-        String expected = list.listTasks(expectedList);
+        String expected = ui.showMatches(list.listTasks(expectedList));
 
         assertEquals(expected, result);
     }
@@ -77,9 +77,9 @@ public class TaskListTest {
         StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
-        String result = list.listTasks(list.findMatches("math"));
+        String result = list.findMatches("math");
         ArrayList<Task> expectedList = new ArrayList<>();
-        String expected = list.listTasks(expectedList);
+        String expected = ui.showMatches(list.listTasks(expectedList));
 
         assertEquals(expected, result);
     }
@@ -90,9 +90,9 @@ public class TaskListTest {
         StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
-        String result = list.listTasks(list.findMatches("cookies   "));
+        String result = list.findMatches("cookies   ");
         ArrayList<Task> expectedList = new ArrayList<>();
-        String expected = list.listTasks(expectedList);
+        String expected = ui.showMatches(list.listTasks(expectedList));
 
         assertEquals(expected, result);
     }
@@ -103,10 +103,10 @@ public class TaskListTest {
         StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
-        String result = list.listTasks(list.findMatches("bake cookies"));
+        String result = list.findMatches("bake cookies");
         ArrayList<Task> expectedList = new ArrayList<>();
         expectedList.add(tasks.get(1));
-        String expected = list.listTasks(expectedList);
+        String expected = ui.showMatches(list.listTasks(expectedList));
 
         assertEquals(expected, result);
     }
@@ -117,10 +117,10 @@ public class TaskListTest {
         StorageStub storage = new StorageStub("./src/test/testdata.txt");
         TaskListStub list = new TaskListStub(this.tasks, storage, ui);
 
-        String result = list.listTasks(list.findMatches(LocalDateTime.now().toString()));
+        String result = list.findMatches(LocalDateTime.now().toString());
         ArrayList<Task> expectedList = new ArrayList<>();
 
-        String expected = list.listTasks(expectedList);
+        String expected = ui.showMatches(list.listTasks(expectedList));
 
         assertEquals(expected, result);
     }

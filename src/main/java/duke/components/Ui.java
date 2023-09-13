@@ -123,4 +123,17 @@ public class Ui {
             return "(・´з`・) Uh oh...there are no matching tasks!";
         }
     }
+
+    /**
+     * Prints upcoming tasks.
+     *
+     * @param tasks input upcoming tasks.
+     */
+    public String showUpcoming(String tasks) {
+        if (tasks.isBlank()) {
+            return "ヾ(´〇`)ﾉ♪♪♪ You have no upcoming tasks!";
+        }
+        String header = "(*・ω・)ﾉ Here are some upcoming tasks!\n";
+        return header + tasks;
+    }
 }
