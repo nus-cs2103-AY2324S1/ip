@@ -27,34 +27,36 @@ public class Parser {
      */
     public static Command parse(String input) throws DukeException {
         try {
-            if (!input.contains(" ")) {
-                if (input.equalsIgnoreCase("list")) {
+            if(!input.contains(" ")) {
+                switch(input.toLowerCase()) {
+                case "list":
                     return new ListCommand();
-                } else if (input.equalsIgnoreCase("bye")) {
+                case "bye":
                     return new ExitCommand();
-                } else if (input.equalsIgnoreCase("todo")
-                        || input.equalsIgnoreCase("deadline")
-                        || input.equalsIgnoreCase("event")) {
+                case "todo":
+                case "deadline":
+                case "event":
                     return new AddCommand(input);
-                } else {
-                    return new InvalidCommand(new DukeException(" Oops! I'm sorry, I don't know what that means"));
+                default:
+                    return new InvalidCommand(new DukeException(" Oops! I'm sorry, I don't know what that means..."));
                 }
             } else {
-                String task = input.substring(0, input.indexOf(" "));
-                if (task.equalsIgnoreCase("mark")) {
+                String task = input.substring(0, input.indexOf(" ")).toLowerCase();
+                switch (task) {
+                case "mark":
                     return new MarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
-                } else if (task.equalsIgnoreCase("unmark")) {
+                case "unmark":
                     return new UnmarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
-                } else if (task.equalsIgnoreCase("delete")) {
+                case "delete":
                     return new DeleteCommand(Integer.parseInt(input.split(" ")[1]) - 1);
-                } else if (task.equalsIgnoreCase("find")) {
+                case "find":
                     return new FindCommand(input.split(" ", 2)[1].trim());
-                } else {
+                default:
                     return new AddCommand(input);
                 }
             }
         } catch (Exception e) {
-            return new InvalidCommand(new DukeException(" Oops! I'm sorry, I don't know what that means"));
+            return new InvalidCommand(new DukeException(" Oops! I'm sorry, I don't know what that means..."));
         }
     }
 }

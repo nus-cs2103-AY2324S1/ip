@@ -26,12 +26,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws DukeException {
         super(description);
-        try {
-            this.from = LocalDate.parse(from);
-            this.to = LocalDate.parse(to);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format! Please input in the form of yyyy-MM-dd");
-        }
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
     }
 
     /**
