@@ -152,6 +152,7 @@ public class Duke {
     }
 
     protected String respond(String s) {
+        assert ui != null;
         try {
             switch (Parser.parseCommand(s)) {
                 case LIST:
