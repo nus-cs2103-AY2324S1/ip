@@ -2,7 +2,6 @@ package duke;
 
 import duke.ui.Ui;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -20,11 +19,7 @@ public class Duke{
         while (!str.equals("bye")) {
             Parser.chat(str, tasks);
             str = scanner.nextLine();
-        } /*try {
-            Storage.saveTasks("src/data/Duke.txt", tasks);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }*/
+        }
         scanner.close();
         Ui.printBye();
     }
