@@ -46,9 +46,6 @@ public class Duke {
         try {
             Command c = Parser.parse(input);
             response = c.execute(taskList, ui, storage);
-            if (c instanceof ByeCommand) {
-
-            }
         } catch (Exception e) {
             ui.printError(e.getMessage());
             return e.getMessage();
