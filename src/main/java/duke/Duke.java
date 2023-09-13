@@ -88,16 +88,19 @@ public class Duke extends Application {
         }
         System.out.println(userText.getText());
         String responseText = this.ui.startUi(userInputText);
-        //Label dukeText = new Label(getResponse(userInput.getText()));
         Label dukeText = new Label(getResponse(responseText));
-
-        //String responseText = getResponse(userInputText);
 
         ImageView userImageView = new ImageView(user);
         ImageView dukeImageView = new ImageView(duke);
 
+//        CircleClip clip = new CircleClip(40, 40, 40);
+//        CircleClip clip2 = new CircleClip(40, 40, 40);
+//        clip.clip(userImageView);
+//        clip2.clip(dukeImageView);
+
         Circle clip = new Circle();
         Circle clip2 = new Circle();
+
         clip.setCenterX(40); // Adjust the center coordinates as needed
         clip.setCenterY(40);
         clip.setRadius(40); // Adjust the radius to control the size of the circle
