@@ -2,13 +2,15 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+
 /**
  * A Task which has a description, when it starts and when it ends.
  *
  * The start and end is of type LocalDateTime and is used to specify when the Task begins and finishes.
  * Has a tag E.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 

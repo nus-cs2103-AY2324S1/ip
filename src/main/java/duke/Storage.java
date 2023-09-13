@@ -64,7 +64,11 @@ public class Storage {
                     String[] splitText = text.split(" ");
                     int numToDelete = Integer.parseInt(splitText[1]) - 1;
                     list.remove(numToDelete);
-                } else {
+                } else if (text.startsWith("sort")) {
+                    list.sort(new TaskTagComparator());
+                    list.sort(new TaskDateComparator());
+                }
+                else {
                     continue;
                 }
             }

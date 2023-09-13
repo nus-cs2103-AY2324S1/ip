@@ -38,7 +38,8 @@ public class Parser {
 
         } else if (text.startsWith("find")) {
             return new FindCommand();
-
+        } else if (text.startsWith("sort")) {
+                return new SortCommand();
         } else {
             throw new DukeException("I apologise, sir. But I do not understand what you mean.");
         }

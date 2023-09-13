@@ -59,4 +59,16 @@ public class Task {
     public Tag getTag() {
         return this.tag;
     }
+    public static int tagValue(Task task) {
+        switch (task.getTag()) {
+            case T:
+                return 3;
+            case D:
+                return 2;
+            case E:
+                return 1;
+            default:
+                return 0;
+        }
+    }
 }
