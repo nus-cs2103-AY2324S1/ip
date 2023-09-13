@@ -132,6 +132,7 @@ public class Parser {
 
         String deadlineDescription = matcher.group("description").trim();
         String dateString = matcher.group("deadline").trim();
+        assert !dateString.isEmpty();
 
         if (deadlineDescription.isEmpty()) {
             throw new DukeException(DukeExceptionType.DEADLINE_NO_DESCRIPTION);
@@ -158,7 +159,9 @@ public class Parser {
 
         String eventDescription = matcher.group("description").trim();
         String fromDateString = matcher.group("fromDate").trim();
+        assert !fromDateString.isEmpty();
         String toDateString = matcher.group("toDate").trim();
+        assert !toDateString.isEmpty();
 
         if (eventDescription.isEmpty()) {
             throw new DukeException(DukeExceptionType.EVENT_NO_DESCRIPTION);

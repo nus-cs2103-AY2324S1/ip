@@ -40,6 +40,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
         Task markedTask = taskList.markTask(taskNumber);
+        assert markedTask.isDone();
         storage.write(taskList.getTasks());
         return ui.showMarkedTask(markedTask);
     }

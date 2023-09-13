@@ -40,6 +40,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
         Task unmarkedTask = taskList.unmarkTask(this.taskNumber);
+        assert !unmarkedTask.isDone();
         storage.write(taskList.getTasks());
         return ui.showUnmarkedTask(unmarkedTask);
     }
