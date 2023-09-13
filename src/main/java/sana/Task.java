@@ -89,6 +89,42 @@ public abstract class Task {
     }
 
     /**
+     * Updates the current task based on the provided arguments.
+     *
+     * @param arguments The new arguments for the task.
+     * @return A new Task object representing the updated task, or null if the task type is unsupported.
+     */
+    public Task updateTask(String arguments) {
+        if (this instanceof Todo) {
+            return new Todo(arguments, isDone);
+        }
+
+        if (this instanceof Deadline) {
+            String[] parsedArguments = arguments.split("/");
+            String description = parsedArguments[0];
+
+            String[] dueBy = parsedArguments[1].split(" ", 2);
+            LocalDate dueDate = LocalDate.parse(dueBy[1]);
+            return new Deadline(description, dueDate, isDone);
+        }
+
+        if (this instanceof Event) {
+            String[] parsedArguments = arguments.split("/");
+            String description = parsedArguments[0];
+            String[] startDateArray = parsedArguments[1].split(" ", 2);
+            String[] endDateArray = parsedArguments[2].split(" ", 2);
+
+            String unparsedStartDateString = startDateArray[1];
+            String parsedStartDateString = unparsedStartDateString.substring(0, unparsedStartDateString.length() - 1);
+
+            LocalDate startDate = LocalDate.parse(parsedStartDateString);
+            LocalDate endDate = LocalDate.parse(endDateArray[1]);
+            return new Event(description, startDate, endDate, isDone);
+        }
+        return null;
+    }
+
+    /**
      * Creates a new Todo task.
      *
      * @param arguments The description of the todo task.
@@ -137,7 +173,6 @@ public abstract class Task {
 
         return new Event(description, fromDate, toDate, isDone);
     }
-
 
     /**
      * Indicates whether some other object is "equal to" this task.
