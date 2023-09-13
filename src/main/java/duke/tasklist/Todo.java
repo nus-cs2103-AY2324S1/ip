@@ -22,6 +22,7 @@ class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        String res = "[T]" + super.toString();
+        return isSnoozed() ? res + " (snoozed)" : res;
     }
 }

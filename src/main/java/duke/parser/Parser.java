@@ -9,6 +9,7 @@ import duke.command.Delete;
 import duke.command.Find;
 import duke.command.List;
 import duke.command.Remark;
+import duke.command.Snooze;
 import duke.command.Unknown;
 
 /**
@@ -41,6 +42,8 @@ public class Parser {
             return new Delete(instr.substring(6));
         case "find":
             return new Find(instr.substring(4));
+        case "snooze":
+            return new Snooze(instr.substring(6));
         case "list":
             return new List(instr);
         case "bye":

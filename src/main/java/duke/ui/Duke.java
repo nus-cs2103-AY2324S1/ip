@@ -1,9 +1,10 @@
-package duke;
+package duke.ui;
 
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
+import duke.tasklist.Task;
 import duke.tasklist.TaskList;
 import duke.ui.UI;
 
@@ -13,6 +14,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+
+import java.util.Collection;
 
 
 /**
@@ -24,14 +27,14 @@ public class Duke {
     private TaskList tasks;
     private final UI ui;
 
-    public Duke() {
+    public Duke() throws DukeException{
         ui = new UI();
         storage = new Storage("data/duke.txt");
         try {
-            tasks = new TaskList(storage.load());
+            Collection<Task> stoTasks = storage.load();
+            tasks = new TaskList(stoTasks);
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
-            tasks = new TaskList();
+            throw new DukeException(e.getMessage());
         }
     }
 

@@ -40,9 +40,12 @@ class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString()
-                + " (by: "
-                + date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + ")";
+        String res = "[D]" + super.toString();
+        return isSnoozed()
+                ? res + " (snoozed)"
+                : res
+                    + " (by: "
+                    + date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + ")";
     }
 }

@@ -143,4 +143,17 @@ public class TaskList extends ArrayList<Task> {
             throw new DukeException("OOPS!!! There is no such a task\n");
         }
     }
+
+    public Task snooze(int index) throws DukeException {
+        try {
+            Task t = get(index - 1);
+            if (t.snooze()) {
+                return t;
+            } else {
+                throw new DukeException("OOPS!!! This task has already be snoozed!\n");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! There is no such a task\n");
+        }
+    }
 }
