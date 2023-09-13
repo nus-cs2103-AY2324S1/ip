@@ -29,8 +29,10 @@ public class Storage {
      * @param filePath The path to the storage file.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.path = Paths.get(filePath);
         this.inFile = path.toFile();
+        assert inFile.exists() : "Storage file does not exist";
     }
 
 
@@ -82,6 +84,7 @@ public class Storage {
      * @param taskIndex The index of the task to be marked.
      */
     public void updateTaskStatusAsMarked(int taskIndex) {
+        assert taskIndex >= 0 : "Invalid task index";
         try {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 
@@ -122,6 +125,7 @@ public class Storage {
      * @param taskIndex The index of the task to be unmarked.
      */
     public void updateTaskStatusAsUnmarked(int taskIndex) {
+        assert taskIndex >= 0 : "Invalid task index";
         try {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 
@@ -220,6 +224,7 @@ public class Storage {
      * @param taskIndex The index of the task to be deleted.
      */
     public void deleteTask(int taskIndex) {
+        assert taskIndex >= 0 : "Invalid task index";
         try {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 
