@@ -40,9 +40,10 @@ public class DeleteCommand extends Command{
         if (tasks.checkIndexWithinRange(index)) {
             throw new NobitaException("Selected task number not in list");
         }
+        assert index > 0 && index <= tasks.getTasksSize() : "Index should be within tasks range";
         Task task = tasks.deleteTask(index);
         return "Noted. I've removed this task:\n" + task + "\nNow you have " +
-                tasks.getTotalTask() +" tasks in the list.";
+                tasks.getTasksSize() +" tasks in the list.";
     };
 
     /**
