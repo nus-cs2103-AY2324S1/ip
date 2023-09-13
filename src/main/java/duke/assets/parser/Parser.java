@@ -130,7 +130,7 @@ public class Parser {
      *
      * @param input the input data string extracted from memory
      * @param tasklist the task list to operate on
-     * @throws CorruptDataException if the input data is corrupt
+     * @return appropriate chatbot response string, or UNHANDLED_EXCEPTION_STRING for any edge cases not caught
      */
     public String passDataCommand(String input, TaskList tasklist) throws CorruptDataException {
         try {
