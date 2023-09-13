@@ -1,16 +1,16 @@
 package duke.parser;
 
 import duke.Duke;
-import duke.tasks.TaskList;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 import duke.tasks.ToDoTask;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
 
 /**
  * Encapsulates the parser that parses through the user input received by the chatbot.
@@ -150,7 +150,7 @@ public class Parser {
                             LocalDateTime deadline = LocalDateTime.parse(taskDeadline, formatter);
                             DeadlineTask newDeadlineTask = new DeadlineTask(taskDescription, deadline);
                             return handleAddTask(newDeadlineTask);
-                        } catch (DateTimeParseException e){
+                        } catch (DateTimeParseException e) {
                             return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_DateTimeParseException);
                         }
                     } else {
@@ -192,7 +192,7 @@ public class Parser {
                             LocalDateTime to = LocalDateTime.parse(taskTo, formatter);
                             EventTask newEventTask = new EventTask(taskDescription, from, to);
                             return handleAddTask(newEventTask);
-                        } catch (DateTimeParseException e){
+                        } catch (DateTimeParseException e) {
                             return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_DateTimeParseException);
                         }
                     } else {

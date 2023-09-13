@@ -42,7 +42,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) 
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
                 + " " + "to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 
@@ -61,9 +61,9 @@ public class EventTask extends Task {
             return true;
         }
         if (obj instanceof EventTask) {
-            return super.equals(obj) &&
-                    ((EventTask) obj).from.equals(this.from) &&
-                    ((EventTask) obj).to.equals(this.to);
+            return super.equals(obj)
+                    && ((EventTask) obj).from.equals(this.from)
+                    && ((EventTask) obj).to.equals(this.to);
         }
         return false;
     }

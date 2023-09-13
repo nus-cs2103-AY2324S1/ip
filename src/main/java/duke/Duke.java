@@ -5,12 +5,11 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import java.util.Scanner;
 
 /**
  * Personal assistant chatbot that can help you manage a task list.
@@ -19,6 +18,9 @@ import javafx.stage.Stage;
  * @author Wu Jingya
  */
 public class Duke extends Application {
+    public static Duke duke;
+    private static String filePath = "./data/duke.txt";
+
     private String name = "Moira";
     /** Whether the chatbot is currently accepting user input */
     private boolean isReceivingInput = false;
@@ -27,40 +29,10 @@ public class Duke extends Application {
     private Storage storage;
     private Ui ui;
     private Parser parser;
-    private static String filePath = "./data/duke.txt";
-
-    public static Duke duke;
 
     /**
-     * The main method.
-     * Initializes chatbot components and runs the main program.
-     *
-     * @param args The command line arguments.
-     **/
-    public static void main(String[] args) {
-        /*
-        scanner = new Scanner(System.in);
-        tasks = new TaskList();
-        storage = new Storage(tasks, filePath);
-        ui = new Ui(name);
-        parser = new Parser(ui);
-        run();
-         */
-    }
-
-    /*
-    private static void run() {
-        isReceivingInput = true;
-        ui.playGreeting();
-        while (isReceivingInput) {
-            String userInput = scanner.nextLine();
-            parser.parse(userInput);
-        }
-        exit();
-        scanner.close();
-    }
+     * Constructs a Duke object with no parameters.
      */
-
     public Duke() {
         scanner = new Scanner(System.in);
         tasks = new TaskList();

@@ -1,12 +1,10 @@
 package duke.storage;
 
-import duke.Duke;
-import duke.parser.Parser;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.TaskList;
 import duke.tasks.ToDoTask;
-import duke.ui.Ui;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,7 +32,7 @@ public class StorageTest {
     }
 
     @Test
-    public void loadTasksFromFile_fileNotFound_errorMessageShown(){
+    public void loadTasksFromFile_fileNotFound_errorMessageShown() {
         TaskList taskList = new TaskList();
         Storage storage = new Storage(taskList);
         storage.loadTasksFromFile(new File("./data/storage.txt"), taskList);
@@ -43,7 +40,7 @@ public class StorageTest {
     }
 
     @Test
-    public void loadTasksFromFile_fileWithMixedInput_tasksLoadedAccordingly(){
+    public void loadTasksFromFile_fileWithMixedInput_tasksLoadedAccordingly() {
         TaskList taskList = new TaskList();
         Storage storage = new Storage(taskList);
         storage.loadTasksFromFile(new File("./data/storagetest.txt"), taskList);

@@ -55,8 +55,8 @@ public class DeadlineTask extends Task {
             return true;
         }
         if (obj instanceof DeadlineTask) {
-            return super.equals(obj) &&
-                    ((DeadlineTask) obj).by.equals(this.by);
+            return super.equals(obj)
+                    && ((DeadlineTask) obj).by.equals(this.by);
         }
         return false;
     }

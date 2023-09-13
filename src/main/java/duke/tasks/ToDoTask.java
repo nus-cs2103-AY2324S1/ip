@@ -1,7 +1,5 @@
 package duke.tasks;
 
-import duke.tasks.Task;
-
 /**
  * Encapsulates a task without any time/date attached.
  * Inherits from Task class.

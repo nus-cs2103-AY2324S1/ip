@@ -12,8 +12,6 @@ import duke.tasks.TaskList;
  */
 public class Ui {
     private String botName;
-    private final static String SPACER = "--------------------------------------------------------------------------";
-
     /**
      * Constructs an Ui object with the specified chatbot name.
      *
@@ -112,6 +110,9 @@ public class Ui {
         return exceptionMessage.message;
     }
 
+    /**
+     * Enumeration for exception messages.
+     */
     public enum ExceptionMessage {
         MarkCommand_NumberFormatException(
                 "HOLD UP! Invalid input for mark/unmark command. Input must be a positive non-zero integer."),
@@ -130,7 +131,7 @@ public class Ui {
         InvalidInput(
                 "HOLD UP! What on earth do you mean??");
 
-        public String message;
+        private String message;
 
         ExceptionMessage(String message) {
             this.message = message;
