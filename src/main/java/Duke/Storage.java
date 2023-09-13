@@ -32,6 +32,7 @@ public class Storage {
             String st;
             while ((st = br.readLine()) != null){
                 String[] out=st.split(",");
+                assert out[0].equals("T") || out[0].equals("E") || out[0].equals("D");
                 switch (out[0]){
                 case "T":
                     Todo e =new Todo(out[2]);
