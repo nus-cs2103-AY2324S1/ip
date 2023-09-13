@@ -1,7 +1,6 @@
 package kiera;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;

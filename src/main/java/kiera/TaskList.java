@@ -75,6 +75,7 @@ public class TaskList {
      * @return A list of tasks of the specified type that match the specified date.
      */
     public ArrayList<Task> filterByDate(TaskType t, LocalDate d) {
+        assert t != null;
         switch (t) {
         case DEADLINE:
             return this.tasks.stream()

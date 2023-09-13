@@ -54,6 +54,7 @@ public class AddCommand extends Command {
         default:
             System.out.println("task type does not exist");
         }
+        assert tasks != null;
         storage.save(tasks);
     }
 
