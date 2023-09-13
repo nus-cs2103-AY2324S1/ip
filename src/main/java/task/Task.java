@@ -10,12 +10,16 @@ public abstract class Task {
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     protected static final DateTimeFormatter OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss");
+    private static int taskCount = 0;
     protected final String name;
     private final boolean isMarked;
+    private final int taskId;
 
     public Task(String name, boolean marked) {
         this.name = name;
         this.isMarked = marked;
+        this.taskId = taskCount;
+        taskCount++;
     }
 
     public Task(String name) {
@@ -54,6 +58,17 @@ public abstract class Task {
         return String.format("%s | %s", this.isMarked ? "1" : "0", this.name);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Task)) {
+            return false;
+        }
+        Task t = (Task) other;
+        return this.name.equals(t.name) && (this.taskId == t.taskId);
+    }
     /**
      * Returns the name of task to be done.
      *
