@@ -19,6 +19,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
+
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
     }
@@ -32,6 +34,10 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
+        assert from != null : "Starting date should not be null";
+        assert to != null : "Ending date should not be null";
+        assert !from.isAfter(to) : "Start date should not be after end date";
         this.from = from;
         this.to = to;
     }
