@@ -1,9 +1,9 @@
 package duke;
 
-import duke.parser.DateParser;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.parser.DateParser;
 
 /** Abstraction for task that have start and end dates. */
 public class Event extends Task {
@@ -39,7 +39,7 @@ public class Event extends Task {
         try {
             String[] splits = specifications.split(" ", 3);
             validateInput(splits);
-            if (splits[0].matches( "/description")) {
+            if (splits[0].matches("/description")) {
                 String newDescription = splits[1];
                 this.description = newDescription;
             }
@@ -63,13 +63,13 @@ public class Event extends Task {
             throw new IllegalArgumentException(
                     "OOPS!!! Only 1 attribute can be updated at one time.");
         }
-        if (!input[0].matches("/description") &&
-                !input[0].matches("/from") &&
-                !input[0].matches("/to")) {
-            throw new IllegalArgumentException("OOPS!!! Update of an event task description must have " +
-                    "/description <description>. " +
-                    "Update of an event task start must have /from <date>. " +
-                    "Update of an event task end must have /to <date>.");
+        if (!input[0].matches("/description")
+                && !input[0].matches("/from")
+                && !input[0].matches("/to")) {
+            throw new IllegalArgumentException("OOPS!!! Update of an event task description must have "
+                    + "/description <description>. "
+                    + "Update of an event task start must have /from <date>. "
+                    + "Update of an event task end must have /to <date>.");
         }
     }
 

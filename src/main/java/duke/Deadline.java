@@ -1,9 +1,9 @@
 package duke;
 
-import duke.parser.DateParser;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.parser.DateParser;
 
 /** Abstraction for tasks that have deadlines. */
 public class Deadline extends Task {
@@ -35,7 +35,7 @@ public class Deadline extends Task {
         try {
             String[] splits = specifications.split(" ", 3);
             validateInput(splits);
-            if (splits[0].matches( "/description")) {
+            if (splits[0].matches("/description")) {
                 String newDescription = splits[1];
                 this.description = newDescription;
             }
@@ -56,9 +56,9 @@ public class Deadline extends Task {
                     "OOPS!!! Only 1 attribute can be updated at one time.");
         }
         if (!input[0].matches("/description") && !input[0].matches("/by")) {
-            throw new IllegalArgumentException("OOPS!!! Update of a deadline task description must have " +
-                    "/description <description>. " +
-                    "Update of a deadline task deadline must have /by <date>. ");
+            throw new IllegalArgumentException("OOPS!!! Update of a deadline task description must have "
+                    + "/description <description>. "
+                    + "Update of a deadline task deadline must have /by <date>. ");
         }
     }
 

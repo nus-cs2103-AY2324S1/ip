@@ -3,7 +3,17 @@ package duke.parser;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.command.*;
+import duke.command.AddDeadlineTask;
+import duke.command.AddEventTask;
+import duke.command.AddToDoTask;
+import duke.command.Command;
+import duke.command.DeleteTask;
+import duke.command.Farewell;
+import duke.command.FindTask;
+import duke.command.Mark;
+import duke.command.PrintList;
+import duke.command.Unmark;
+import duke.command.UpdateTask;
 
 
 /** Abstraction to understand user input */
