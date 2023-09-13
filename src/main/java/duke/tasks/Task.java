@@ -80,6 +80,7 @@ public class Task {
      * @return True if the task is within the date range, false otherwise.
      */
     public boolean isWithinDateRange(LocalDateTime date) {
+        assert date != null;
         return false;
     }
 
@@ -90,6 +91,7 @@ public class Task {
      * @return True if the description contains the keyword, false otherwise.
      */
     public boolean isRelatedContent(String keyword) {
+        assert keyword != null;
         return description.contains(keyword);
     }
 

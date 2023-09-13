@@ -69,6 +69,7 @@ public class Event extends Task {
      */
     @Override
     public boolean isWithinDateRange(LocalDateTime date) {
+        assert date != null;
         return start.isBefore(date) && deadline.isAfter(date);
     }
 }

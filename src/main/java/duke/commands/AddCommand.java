@@ -94,6 +94,8 @@ public class AddCommand extends Command {
                 throw new UnknownTimeException(descTime[0]);
             }
 
+            assert times.length == 2 : "Incorrect timing format";
+
             LocalDateTime start = LocalDateTime.parse(times[0], formatter);
             LocalDateTime end = LocalDateTime.parse(times[1], formatter);
 
