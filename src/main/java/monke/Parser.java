@@ -155,11 +155,15 @@ public class Parser {
      * @throws MonkeException If no arguments provided or arguments not in (task) /by (datetime) format.
      */
     public static DeadlineCommand parseDeadline(String args) throws MonkeException {
+        // Splits arguments into description and deadline
         String[] tmp = args.split(" /by ", 2);
+
+        // Check if arguments given is in correct format
         if (tmp.length < 2 || tmp[0].isBlank() || tmp[1].isBlank()) {
             throw new MonkeException("You must format your deadline like this:\n" +
                     "\t\tdeadline <task> /by <deadline>");
         }
+
         String description = tmp[0];
         String dateString = tmp[1];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -179,13 +183,20 @@ public class Parser {
      * @throws MonkeException If no arguments provided or arguments not in (task) /from (start) /to (end) format.
      */
     public static EventCommand parseEvent(String args) throws MonkeException {
+        // Split the arguments into the description and time
         String[] tmp = args.split(" /from ", 2);
         String description = tmp[0];
+
+        // Check if arguments given is in correct format
         if (tmp.length < 2 || tmp[0].isBlank() || tmp[1].isBlank()) {
             throw new MonkeException("You must format your event like this:\n" +
                     "\t\tdeadline <task> /from <start time> /to <end time>");
         }
+
+        // Split the time into start time and end time
         String[] tmp2 = tmp[1].split(" /to ", 2);
+
+        // Check if arguments given is in correct format
         if (tmp2.length < 2 || tmp2[0].isBlank() || tmp2[1].isBlank()) {
             throw new MonkeException("You must format your event like this:\n" +
                     "\t\tdeadline <task> /from <start time> /to <end time>");
