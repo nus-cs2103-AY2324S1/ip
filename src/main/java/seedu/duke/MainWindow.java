@@ -44,8 +44,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one as the user and capturing input and
-     * the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one as the user and capturing input
+     * and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

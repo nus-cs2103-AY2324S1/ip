@@ -11,7 +11,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
- * To create a dialog box shown on GUI
+ * Creates a Dialog Box in chatbot, for both user's input &
+ * the response.
  */
 public class DialogBox extends HBox {
 
