@@ -21,38 +21,44 @@ public class Parser {
      * @return non-negative int if args is valid input, else -1.
      */
     public static int parse(String args) {
-        args = args.toLowerCase();
+        String argType = args.toLowerCase().split(" ")[0];
 
-        if (args.equals("bye")) {
+        return getCode(argType);
+    }
+
+    /**
+     * Returns an integer representing the command type based on argType.
+     *
+     * @param argType is the first word of the command input.
+     * @return an int that determines Veda should perform.
+     */
+    private static int getCode(String argType) {
+        final int errorCode = -1;
+
+        if (argType.equals("bye")) {
             //User wishes to exit the program
             return 0;
-
-        } else if (args.equals("list")) {
+        } else if (argType.equals("list")) {
             //User wishes to see his listed missions
             return 1;
-        }
-
-        args = args.split(" ")[0];
-
-        if (args.equals("mark")) {
+        } else if (argType.equals("mark")) {
             //User wishes to mark task as done
             return 2;
-        } else if (args.equals("unmark")) {
+        } else if (argType.equals("unmark")) {
             //User wishes to mark task as undone
             return 3;
-        } else if (args.equals("delete")) {
+        } else if (argType.equals("delete")) {
             //User wishes to delete a task
             return 4;
-        } else if (args.equals("todo") || args.equals("deadline") || args.equals("event")) {
+        } else if (argType.equals("todo") || argType.equals("deadline") || argType.equals("event")) {
             //User wishes to add a new task
             return 5;
-        } else if (args.equals("find")) {
+        } else if (argType.equals("find")) {
             //User wishes to find a task by a keyword
             return 6;
         }
 
-
-        return -1;
+        return errorCode;
     }
 
     /**
@@ -61,18 +67,20 @@ public class Parser {
      * @param args
      * @return an integer corresponding to the index of the task that we want.
      * @throws NumberFormatException
-     * @throws NoDescriptionException when the user did not input any additional arguments.
-     * @throws ExcessiveArgumentException when the user input more arguments than required.
+     * @throws IncorrectInputException when the user did not input any additional arguments or more arguments than
+     * required.
      */
-    public static int getTargetIndex(String args)
-            throws NumberFormatException, NoDescriptionException, ExcessiveArgumentException, IncorrectInputException {
-        if (args.split(" ").length < 2) {
+    public static int getTargetIndex(String args) throws NumberFormatException, IncorrectInputException {
+        String[] splittedArg = args.split(" ");
+        final int length = splittedArg.length;
+
+        if (length < 2) {
             throw new NoDescriptionException("There is no given task index.");
-        } else if (args.split(" ").length > 2) {
+        } else if (length > 2) {
             throw new ExcessiveArgumentException("There are too many arguments.");
         }
 
-        int targetIndex = Integer.parseInt(args.toLowerCase().split(" ")[1]) - 1;
+        int targetIndex = Integer.parseInt(splittedArg[1]) - 1;
 
         if (targetIndex < 0) {
             throw new IncorrectInputException("Index of task must be greater than 0.");

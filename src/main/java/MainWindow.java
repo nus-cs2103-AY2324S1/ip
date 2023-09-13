@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
-        //Parse and handle the user input and get a response from the sytem
+        //Parse and handle the user input and get a response from the system
         String response = veda.getResponse(input);
 
         //Update frontend to reflect the new convo
