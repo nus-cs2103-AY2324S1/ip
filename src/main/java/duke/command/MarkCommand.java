@@ -3,6 +3,7 @@ package duke.command;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.DukeException;
+import duke.task.Task;
 
 /**
  * Command that marks a specific task.
@@ -22,8 +23,9 @@ public class MarkCommand implements Command {
             String msg = ui.getLastMsg();
             String[] words = msg.toLowerCase().split("\\s+");
             int index = Integer.parseInt(words[1]) - 1;
+            Task task = tasks.get(index);
             tasks.mark(index);
-            ui.respond("Nice! I've marked this task as done: " + "\n" + tasks.get(index));
+            ui.respond("Nice! I've marked this task as done: " + "\n" + task);
         } catch (Exception e) {
             throw new DukeException("Wrong index. Try checking your list first.");
         }
