@@ -12,40 +12,14 @@ import geraldbot.person.Person;
 /**
  * Handles reading and writing persons (contacts) to the storage file.
  */
-public class ContactStorage {
-    private File file;
-
+public class ContactStorage extends Storage<Person> {
     /**
      * Constructor for ContactStorage.
      *
      * @param path The path to the storage file for contacts.
      */
     public ContactStorage(String path) {
-        this.file = new File(path);
-
-        if (!file.exists()) {
-            createFile();
-        }
-    }
-
-    /**
-     * Creates a new file for contacts if it does not exist and also creates parent directories if needed.
-     */
-    private void createFile() {
-        File parentFolder = this.file.getParentFile();
-
-        if (!parentFolder.exists()) {
-            parentFolder.mkdirs();
-        }
-
-        try {
-            if (this.file.createNewFile()) {
-                System.out.println("Contact file has been created successfully: " + this.file.getPath());
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-            System.out.println("There is an error creating the contact file.");
-        }
+        super(path);
     }
 
     /**
@@ -53,6 +27,7 @@ public class ContactStorage {
      *
      * @return An ArrayList of Person objects representing contacts.
      */
+    @Override
     public ArrayList<Person> read() {
         ArrayList<Person> contactList = new ArrayList<>();
 
@@ -121,7 +96,9 @@ public class ContactStorage {
                 if (idx != index) {
                     updatedContactList.add(currContact);
                 } else {
-                    updatedContactList.add(updatedPerson);
+                    if (updatedPerson != null) {
+                        updatedContactList.add(updatedPerson);
+                    }
                 }
 
                 idx++;

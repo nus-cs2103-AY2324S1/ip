@@ -16,20 +16,14 @@ import geraldbot.task.Todo;
 /**
  * Handles reading and writing tasks to the task storage file.
  */
-public class TaskStorage {
-    private File file;
-
+public class TaskStorage extends Storage<Task> {
     /**
-     * Constructor for Storage.
+     * Constructor for TaskStorage.
      *
      * @param path The path to the task storage file.
      */
     public TaskStorage(String path) {
-        this.file = new File(path);
-
-        if (!file.exists()) {
-            createFile();
-        }
+        super(path);
     }
 
     /**
@@ -42,36 +36,16 @@ public class TaskStorage {
     }
 
     /**
-     * Creates a new file if it does not exist and also creates parent directories if needed.
-     */
-    private void createFile() {
-        File parentFolder = this.file.getParentFile();
-
-        if (!parentFolder.exists()) {
-            parentFolder.mkdirs();
-        }
-
-        try {
-            if (this.file.createNewFile()) {
-                System.out.println("File has been created successfully: " + this.file.getPath());
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-            System.out.println("There is an error creating the file.");
-        }
-    }
-
-    /**
      * Reads tasks from the storage file.
      *
      * @return An ArrayList of Task objects.
      */
+    @Override
     public ArrayList<Task> read() {
         ArrayList<Task> taskList = new ArrayList<>();
 
         try {
             Scanner sc = new Scanner(this.file);
-
             while (sc.hasNextLine()) {
                 String[] line = sc.nextLine().split("\\|");
                 String[] task = new String[line.length];
