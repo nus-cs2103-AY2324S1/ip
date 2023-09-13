@@ -11,6 +11,18 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Deadline)) {
+            return false;
+        }
+        Deadline t = (Deadline) o;
+        return t.description.equals(this.description) && t.by.equals(this.by);
+    }
+
 
 
     @Override

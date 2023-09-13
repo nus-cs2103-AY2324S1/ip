@@ -133,8 +133,12 @@ public class Duke {
                 throw new DukeException("end earlier than start");
             }
             Task res = new Events(temp[0], from, to);
-            this.tasklist.add(res);
-            return res;
+            boolean isAdded = this.tasklist.add(res);
+            if (isAdded) {
+                return res;
+            } else {
+                throw new DukeException("Task alr added");
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Not enough params");
         } catch (DateTimeParseException e) {

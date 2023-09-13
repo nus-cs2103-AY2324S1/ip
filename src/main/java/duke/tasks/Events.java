@@ -13,6 +13,20 @@ public class Events extends Task {
         this.to = to;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Events)) {
+            return false;
+        }
+        Events t = (Events) o;
+        return t.description.equals(this.description) && t.from.equals(this.from)
+                && t.to.equals(this.to);
+    }
+
+
 
     @Override
     public String toString() {
