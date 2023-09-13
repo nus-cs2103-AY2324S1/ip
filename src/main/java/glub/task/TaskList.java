@@ -67,6 +67,7 @@ public class TaskList {
      * @throws GlubException If input is invalid.
      */
     public void addTask(String task, TaskType taskType, boolean isDone) throws GlubException {
+        assert taskType != null : "taskType should not be null";
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         if (task.equals("")) {
             throw new GlubException(String.format("OOPS!! The description of a %s cannot be empty.\n", taskType));

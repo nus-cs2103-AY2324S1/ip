@@ -28,6 +28,7 @@ public class Parser {
      * Listen to user input and execute the corresponding command.
      */
     public String parse(String input) throws GlubException {
+        assert input != null: "Input cannot be null";
         String[] parsedCommand = input.split(" ", 2);
         String command = parsedCommand[0];
             switch (command) {

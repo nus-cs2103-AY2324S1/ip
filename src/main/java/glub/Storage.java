@@ -22,6 +22,7 @@ public class Storage {
      */
     public Storage(String taskListPath) {
         this.taskListPath = taskListPath;
+        assert taskListPath != null : "taskListPath should not be null";
     }
 
     /**
