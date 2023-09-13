@@ -1,5 +1,8 @@
 package kiera.command;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import kiera.Storage;
 import kiera.TaskList;
 import kiera.Ui;
@@ -8,10 +11,6 @@ import kiera.task.Event;
 import kiera.task.Task;
 import kiera.tasktype.TaskType;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.stream.Collectors;
 
 /**
  * Command that sorts tasks based on date.
@@ -21,6 +20,12 @@ public class SortCommand extends Command {
     private TaskType t;
     private String comparable;
 
+    /**
+     * Constructor for SortCommand.
+     *
+     * @param t TYpe of task to be sorted.
+     * @param comparable Attribute to be compared.
+     */
     public SortCommand(TaskType t, String comparable) {
         this.t = t;
         this.comparable = comparable;
