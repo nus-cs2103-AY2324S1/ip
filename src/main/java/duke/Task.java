@@ -3,15 +3,16 @@ package duke;
 /**
  * Represents a tasks in the task list.
  */
-public class Task {
+public abstract class Task {
 
     protected String description;
 
     protected boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
+    public Task(String des) {
+        this.description = des;
         this.isDone = false;
+        assert description != null : "Description should not be null";
     }
 
     /**

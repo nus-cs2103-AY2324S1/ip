@@ -18,6 +18,7 @@ public class Storage {
     public Storage(String filePath) {
         file = new File(filePath);
         path = filePath;
+        assert file.exists() : "File path is invalid";
     }
 
     /**
@@ -69,6 +70,7 @@ public class Storage {
     public void save(TaskList list) throws IOException {
         if (file.delete()) {
             file = new File(path);
+            assert file.exists() : "File not created";
             for (int i = 1; i <= list.total(); i++) {
                 Task t = list.get(i - 1);
                 writeToFile(path, t.toFileString());
@@ -84,6 +86,7 @@ public class Storage {
      */
     private void writeToFile(String pathname, String textToAdd) throws IOException{
         FileWriter fw = new FileWriter(pathname, true);
+        assert fw != null : "File Writer should not be null";
         fw.write(textToAdd + System.lineSeparator());
         fw.close();
     }
