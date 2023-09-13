@@ -25,7 +25,7 @@ public class ChatCommand {
     public enum Operation {
         ADD_TODO, ADD_DEADLINE, ADD_EVENT, DELETE,
         MARK_COMPLETE, UNMARK_COMPLETE,
-        LIST, SEARCH, EXIT,
+        LIST, SEARCH, HELP, EXIT,
         UNKNOWN;
 
         /**
@@ -43,7 +43,7 @@ public class ChatCommand {
             if (nameToCommandLookupCache == null) {
                 // Pre-compute the lookup cache if it is not yet initialized.
                 nameToCommandLookupCache = new HashMap<>();
-                for (Operation op : ChatCommand.Operation.class.getEnumConstants()) {
+                for (Operation op : ChatCommand.Operation.values()) {
                     for (String n : op.getSupportedNameAliases()) {
                         nameToCommandLookupCache.put(n, op);
                     }
@@ -76,6 +76,8 @@ public class ChatCommand {
                 return new String[] { "list" };
             case SEARCH:
                 return new String[] { "find", "search" };
+            case HELP:
+                return new String[] { "help", "tutorial" };
             case EXIT:
                 return new String[] { "bye", "exit" };
             case UNKNOWN:
@@ -110,6 +112,8 @@ public class ChatCommand {
                 return "Lists all available tasks.";
             case SEARCH:
                 return "Finds all available tasks with the given search term.";
+            case HELP:
+                return "Shows the help sheet for all commands.";
             case EXIT:
                 return "Stops the conversation.";
             case UNKNOWN:
@@ -143,6 +147,7 @@ public class ChatCommand {
             case SEARCH:
                 return "%s [search terms]";
             case LIST:
+            case HELP:
             case EXIT:
                 return "%s";
             case UNKNOWN:
