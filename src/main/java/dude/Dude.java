@@ -22,6 +22,7 @@ public class Dude {
             taskList = new TaskList();
         }
     }
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

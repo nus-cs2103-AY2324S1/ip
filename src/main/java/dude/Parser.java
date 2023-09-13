@@ -1,14 +1,31 @@
 package dude;
 
-import dude.command.*;
+import dude.command.AddDeadlineCommand;
+import dude.command.AddEventCommand;
+import dude.command.AddToDoCommand;
+import dude.command.Command;
+import dude.command.DeleteCommand;
+import dude.command.ExitCommand;
+import dude.command.ListCommand;
+import dude.command.MarkCommand;
+import dude.command.UnknownCommand;
+import dude.command.UnmarkCommand;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-// deals with making sense of the user command
+/**
+ * Represents a parser that parses user input and deals with making sense of the user command.
+ */
 public class Parser {
-
     private static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+    /**
+     * Parses the user's input and returns the corresponding command.
+     *
+     * @param fullCommand The full user command input.
+     * @return A command object representing the user's intent.
+     */
     public static Command parse(String fullCommand) {
         String[] commandDetails = fullCommand.split(" ", 2);
         String commandType = commandDetails[0];

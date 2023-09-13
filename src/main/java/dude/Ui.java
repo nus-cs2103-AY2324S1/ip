@@ -1,9 +1,12 @@
 package dude;
 
-// deals with interactions with the user
 import dude.task.Task;
 
 import java.util.Scanner;
+
+/**
+ * Represents the UI of Dude and deals with interactions with the user.
+ */
 public class Ui {
     Scanner sc;
     public Ui() {

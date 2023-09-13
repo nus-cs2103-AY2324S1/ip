@@ -4,11 +4,21 @@ import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
 
+/**
+ * Represents a command that exits the programme.
+ */
 public class ExitCommand extends Command {
     public ExitCommand() {
         super.isExit = true;
     }
 
+    /**
+     * Executes the command to exit the programme.
+     *
+     * @param taskList List of tasks.
+     * @param storage Storage containing saved tasks, and saves and loads tasks.
+     * @param ui User interface of Dude.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.showFarewell();

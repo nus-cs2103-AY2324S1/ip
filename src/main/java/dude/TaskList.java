@@ -4,12 +4,17 @@ package dude;
 import dude.task.Task;
 
 import java.util.ArrayList;
+
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
+
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -27,42 +32,42 @@ public class TaskList {
         return this.taskList;
     }
 
-    // setters
+    /**
+     * Marks a task as done.
+     *
+     * @param index Index of the task to be marked as done.
+     */
     public Task markTask(int index) {
         Task task = taskList.get(index);
         task.setDone(true);
         return task;
     }
+
+    /**
+     * Marks a task as undone.
+     *
+     * @param index Index of the task to be marked as undone.
+     */
     public Task unmarkTask(int index) {
         Task task = taskList.get(index);
         task.setDone(false);
         return task;
     }
 
-    // add
-
+    /**
+     * Adds a task to the list.
+     *
+     * @param task Task to be added to the list.
+     */
     public void addTask(Task task) {
         taskList.add(task);
     }
 
-//    public void addTodo(String task) {
-//        ToDo newTask = new ToDo(task);
-//        this.addTask(newTask);
-//
-//    }
-//    public void addDeadline(String task, LocalDateTime by) {
-//        Deadline newTask = new Deadline(task, by);
-//        taskList.add(newTask);
-//        System.out.printf("Got it. I've added this task:\n%s\n", newTask.toString());
-//        System.out.printf("Now you have %d tasks in the list. \n", taskList.size());
-//    }
-//    public void addEvent(String task, LocalDateTime from, LocalDateTime to) {
-//        Event newTask = new Event(task, from, to);
-//        taskList.add(newTask);
-//        System.out.printf("Got it. I've added this task:\n%s\n", newTask.toString());
-//        System.out.printf("Now you have %d tasks in the list. \n", taskList.size());
-//    }
-
+    /**
+     * Removes a task from the list.
+     *
+     * @param index Index of the task to be removed from the list.
+     */
     public Task deleteTask(int index) {
         Task removedTask = taskList.get(index);
         taskList.remove(index);
