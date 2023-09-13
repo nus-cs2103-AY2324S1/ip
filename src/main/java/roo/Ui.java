@@ -97,8 +97,13 @@ public class Ui {
                 + "You still have " + (tasks.size()) + " tasks in the list\n";
     }
 
-    public String tag(int index, ArrayList<String> input) {
-        tasks.tag(index, input);
+    /**
+     * Add tags to a task, displays a message about the details of the task.
+     * @param index The index of the task to delete.
+     * @param inputs The tags that are to be added to the task.
+     */
+    public String tag(int index, ArrayList<String> inputs) {
+        tasks.tag(index, inputs);
         return "Okay, tag added to " + tasks.taskDetails(index);
     }
 

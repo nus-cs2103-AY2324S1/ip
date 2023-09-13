@@ -110,8 +110,13 @@ public class TaskList {
         storage.modifyFile(this.data);
     }
 
-    public void tag(int index, ArrayList<String> input) {
-        data.get(index).tag(input);
+    /**
+     * Add tags to a task and update the storage.
+     * @param index The index of the task to delete.
+     * @param inputs The tags that are to be added to the task.
+     */
+    public void tag(int index, ArrayList<String> inputs) {
+        data.get(index).tag(inputs);
         storage.modifyFile(this.data);
     }
 
