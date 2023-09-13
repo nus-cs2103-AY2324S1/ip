@@ -29,6 +29,8 @@ public class CatBot {
                 .generateUsingDefault(io::indicateInvalidInteger);
         CommandPattern<NamedParameterMap> slashPattern = CatBotCommandPatterns.getSlashPatternGenerator()
                 .generateUsingDefault(CatBotCommandPatterns.NO_DEFAULT);
+        CommandPattern<String> stringPattern = CatBotCommandPatterns.getStringPatternGenerator()
+                .generateUsingDefault(CatBotCommandPatterns.NO_DEFAULT);
 
         commands.setDefaultCommand(io::indicateInvalidCommand)
                 .addCommand("bye", args -> io.cleanup())
@@ -90,6 +92,13 @@ public class CatBot {
                         args -> createTaskIfValidElseWarn.accept(args, Task.Deadline::createIfValidElse)
                 )
         ;
+
+        // User filtering for tasks
+
+        commands.addCommand("find",
+                args -> stringPattern.ifParsableElseDefault(args,
+                        str -> io.printTaskList(taskList.find(str)))
+        );
 
     }
 

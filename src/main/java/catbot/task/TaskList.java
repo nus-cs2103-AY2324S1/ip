@@ -3,16 +3,21 @@ package catbot.task;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
     private ArrayList<Task> tasks;
-    private final String path;
+    private final TaskArrayListStorage storage;
 
     public TaskList(String path) {
-        this.path = path;
-        this.tasks = new ArrayList<>();
-        readSerializedFromFile();
+        if (path != null) {
+            this.storage = new TaskArrayListStorage(path);
+            this.tasks = storage.readSerializedFromFile();
+        } else {
+            this.storage = null;
+            this.tasks = new ArrayList<>();
+        }
     }
 
 
@@ -76,34 +81,15 @@ public class TaskList {
     }
 
     private void update() {
-        writeSerializedToFile();
+        this.storage.writeSerializedToFile(this.tasks);
     }
 
-    //region FileIO
-
-    private void writeSerializedToFile() {
-        try {
-            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path));
-            output.writeObject(this.tasks);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public TaskList find(String string) {
+        TaskList taskList = new TaskList(null);
+        taskList.tasks = new ArrayList<>(
+                tasks.stream().filter(task -> task.getDescription().contains(string)).collect(Collectors.toList())
+        );
+        return taskList;
     }
-
-    private void readSerializedFromFile() {
-        try {
-            ObjectInputStream input = new ObjectInputStream(new FileInputStream(path));
-            Object readObject = input.readObject();
-            @SuppressWarnings("unchecked")
-            ArrayList<Task> tasks = (ArrayList<Task>) readObject;
-            this.tasks = tasks;
-            input.close();
-        } catch (IOException ignored) {
-        } catch (ClassNotFoundException e) { //save corrupted
-            throw new RuntimeException(e);
-        }
-    }
-
-    //endregion
 
 }
