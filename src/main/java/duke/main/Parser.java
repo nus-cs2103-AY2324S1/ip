@@ -129,10 +129,10 @@ public class Parser {
             throw new DukeException(
                     "☹ OOPS!!! Invalid deadline format. Please use: deadline <description> /by <date and time>");
         }
-        int commandLength = "deadline ".length(); //get length of string to remove
+        int commandLength = "deadline".length(); //get length of string to remove
         String description = splitInput[0].substring(commandLength).trim();
         String dateTime = splitInput[1].trim();
-        if (dateTime.isEmpty() || description.isEmpty()) {
+        if (dateTime.isEmpty() || description.isBlank()) {
             throw new DukeException("☹ OOPS!!! Deadline description or date and time cannot be empty.");
         }
 
@@ -159,7 +159,7 @@ public class Parser {
         String startDateAndTime = splitInput[1].trim();
         String endDateAndTime = splitInput[2].trim();
 
-        if (description.isEmpty() || startDateAndTime.isEmpty() || endDateAndTime.isEmpty()) {
+        if (description.isBlank() || startDateAndTime.isBlank() || endDateAndTime.isBlank()) {
             throw new DukeException("Description and date/time cannot be empty.");
         }
 
