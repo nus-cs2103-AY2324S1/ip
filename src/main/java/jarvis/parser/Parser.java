@@ -71,7 +71,7 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(final String inputDateTime) throws InvalidDateTimeFormatException {
         List<String> inputFormats = new ArrayList<>();
-        inputFormats.add(Ui.DATE_TIME_FORMAT);
+        inputFormats.add(Ui.getDefaultDateTimeFormat());
         inputFormats.add("dd MMM yyyy HHmm");
         inputFormats.add("yyyy-MM-dd HHmm");
         inputFormats.add("dd/MM/yyyy HHmm");

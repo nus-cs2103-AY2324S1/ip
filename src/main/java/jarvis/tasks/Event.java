@@ -26,7 +26,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Ui.DATE_TIME_FORMAT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Ui.getDefaultDateTimeFormat());
         String formattedFromDateTime = fromDateTime.format(formatter);
         String formattedToDateTime = toDateTime.format(formatter);
         return "E | " + super.toString() + " | " + formattedFromDateTime + " | " + formattedToDateTime;

@@ -23,7 +23,7 @@ public class ListCommand implements Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (taskList.isEmpty()) {
-            return ui.printResponse("Congratulations Master! There is no task at the moment!");
+            return ui.printResponse("Congratulations Master!\n" + "There is no task at the moment!");
         } else {
             ArrayList<Task> tasks = taskList.getTaskList();
             return ui.printTasks(tasks);

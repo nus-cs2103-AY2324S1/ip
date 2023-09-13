@@ -40,7 +40,7 @@ public class DeadlineCommand implements Command {
         }
         int indexOfBy = userInput.indexOf("by");
 
-        if (indexOfBy != 1 && indexOfBy <= userInput.length()) {
+        if (indexOfBy != 1) {
             try {
                 String taskTitle = userInput.substring(9, indexOfBy).trim();
                 String dueDate = userInput.substring(indexOfBy + 2).trim();
@@ -51,11 +51,10 @@ public class DeadlineCommand implements Command {
                 return ui.printResponse("Yes Master! I've added this task: \n" + "\t" + deadline.toString() + "\n"
                         + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
             } catch (InvalidDateTimeFormatException e) {
-                System.err.println(e.getMessage());
+                return e.getMessage();
             }
         } else {
             throw new InvalidIndexException(null);
         }
-        return null;
     }
 }

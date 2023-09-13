@@ -19,9 +19,8 @@ public class ByeCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        String outputMessage = ui.printBye();
         storage.saveTasks(taskList.getTaskList());
         System.exit(0);
-        return outputMessage;
+        return ui.printBye();
     }
 }

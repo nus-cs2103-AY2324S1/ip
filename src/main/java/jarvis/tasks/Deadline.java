@@ -24,7 +24,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Ui.DATE_TIME_FORMAT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Ui.getDefaultDateTimeFormat());
         String formattedDueDate = dueDateTime.format(formatter);
         return "D | " + super.toString() + " | " + formattedDueDate;
     }

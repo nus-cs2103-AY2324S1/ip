@@ -53,12 +53,11 @@ public class EventCommand implements Command {
                 return ui.printResponse("Yes Master! I've added this task: \n" + "\t" + event.toString() + "\n"
                         + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
             } catch (InvalidDateTimeFormatException e) {
-                System.err.println(e.getMessage());
+                return e.getMessage();
             }
         } else {
             throw new InvalidIndexException(null);
         }
-        return null;
     }
 
 }

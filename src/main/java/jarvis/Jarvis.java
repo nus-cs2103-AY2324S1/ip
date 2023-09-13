@@ -12,7 +12,6 @@ import jarvis.tasks.TaskList;
  * It initialises and manages the core components of the application.
  * Namely: ui, storage, taskList, and commands.
  */
-@SuppressWarnings("checkstyle:CommentsIndentation")
 public class Jarvis {
 
     private TaskList taskList;
@@ -39,13 +38,8 @@ public class Jarvis {
             Command command = Parser.parseCommand(userInput);
             return command.execute(taskList, ui, storage);
         } catch (JarvisException e) {
-            ui.printError(e.getMessage());
+            return ui.printError(e.getMessage());
         }
-        return null;
-    }
-
-    public String echo(String input) {
-        return input;
     }
 }
 
