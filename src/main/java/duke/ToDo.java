@@ -20,6 +20,15 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String update(String specifications) {
+        if (specifications.isEmpty()) {
+            throw new IllegalArgumentException("OOPS!!! Update of todo task needs a description");
+        }
+        this.description = specifications;
+        return "Ok, I've updated the todo task to the following:\n" + this;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

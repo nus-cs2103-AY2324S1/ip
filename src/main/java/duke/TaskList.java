@@ -92,6 +92,7 @@ public class TaskList {
             String description = (index + 1) + ". " + item.toString() + "\n";
             printedList.append(description);
         }
+
         return printedList.toString();
     }
 

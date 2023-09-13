@@ -3,16 +3,7 @@ package duke.parser;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.command.AddDeadlineTask;
-import duke.command.AddEventTask;
-import duke.command.AddToDoTask;
-import duke.command.Command;
-import duke.command.DeleteTask;
-import duke.command.Farewell;
-import duke.command.FindTask;
-import duke.command.Mark;
-import duke.command.PrintList;
-import duke.command.Unmark;
+import duke.command.*;
 
 
 /** Abstraction to understand user input */
@@ -62,6 +53,8 @@ public class Parser {
             return new DeleteTask(this.list, specifications);
         case "find":
             return new FindTask(this.list, specifications);
+        case "update":
+            return new UpdateTask(this.list, specifications);
         default:
             throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
