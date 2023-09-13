@@ -34,64 +34,27 @@ public class Parser {
         try {
             switch (input[0]) {
             case "list":
-                stringBuilder.append(this.taskList.listTasks(this.taskList, false));
+                listCommand(stringBuilder);
                 break;
             case "mark":
             case "unmark":
-                try {
-                    int taskNum = Integer.parseInt(input[1]);
-                    storage.rewriteFile(this.taskList);
-                    stringBuilder.append(this.taskList.markOrUnmarkTask(input[0], taskNum));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("BEEPBEEP! You forgot to give a task number!");
-                } catch (NumberFormatException e) {
-                    throw new DukeException("WOIWOI! That is an invalid input!");
-                }
+                markUnmarkCommand(input, stringBuilder);
                 break;
             case "bye":
-                stringBuilder.append(Ui.getGoodbyeMessage());
-                this.isBye = true;
+                byeCommand(stringBuilder);
                 break;
             case "todo":
-                try {
-                    this.taskList.addTodoTask(input[1]);
-                    stringBuilder.append(Ui.addTaskOutput(this.taskList));
-                    storage.addLineToFile(this.taskList);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("BEEPBEEP! You forgot to give a description!");
-                }
+                toDoCommand(input, stringBuilder);
                 break;
             case "deadline":
             case "event":
-                try {
-                    String[] remainLine = input[1].split(" /", 2);
-                    this.taskList.addDeadlineOrEventTask(input[0], remainLine);
-                    stringBuilder.append(Ui.addTaskOutput(this.taskList));
-                    storage.addLineToFile(this.taskList);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("BEEPBEEP! You forgot to give a description or date/time!");
-                }
+                deadlineEventCommand(input, stringBuilder);
                 break;
             case "delete":
-                try {
-                    int taskNum = Integer.parseInt(input[1]);
-                    stringBuilder.append(this.taskList.deleteTasks(taskNum));
-                    storage.rewriteFile(this.taskList);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("BEEPBEEP! You forgot to give a task number!");
-                } catch (NumberFormatException e) {
-                    throw new DukeException("WOIWOI! That is an invalid input!");
-                }
+                deleteCommand(input, stringBuilder);
                 break;
             case "find":
-                try {
-                    if (input[1].isEmpty()) {
-                        throw new ArrayIndexOutOfBoundsException();
-                    }
-                    stringBuilder.append(this.taskList.findTasks(input[1].trim()));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("BEEPBEEP! You forgot to give a keyword for me to search!");
-                }
+                findCommand(input, stringBuilder);
                 break;
             default:
                 throw new DukeException("Can you hear the siren? "
@@ -107,5 +70,70 @@ public class Parser {
 
     public boolean isBye() {
         return this.isBye;
+    }
+
+    public void listCommand(StringBuilder stringBuilder) {
+        stringBuilder.append(this.taskList.listTasks(this.taskList, false));
+    }
+
+    public void markUnmarkCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+        try {
+            int taskNum = Integer.parseInt(input[1]);
+            storage.rewriteFile(this.taskList);
+            this.taskList.markOrUnmarkTask(input[0], taskNum, stringBuilder);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("BEEPBEEP! You forgot to give a task number!");
+        } catch (NumberFormatException e) {
+            throw new DukeException("WOIWOI! That is an invalid input!");
+        }
+    }
+
+    public void byeCommand(StringBuilder stringBuilder) {
+        stringBuilder.append(Ui.getGoodbyeMessage());
+        this.isBye = true;
+    }
+
+    public void toDoCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+        try {
+            this.taskList.addTodoTask(input[1]);
+            stringBuilder.append(Ui.addTaskOutput(this.taskList));
+            storage.addLineToFile(this.taskList);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("BEEPBEEP! You forgot to give a description!");
+        }
+    }
+
+    public void deadlineEventCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+        try {
+            String[] remainLine = input[1].split(" /", 2);
+            this.taskList.addDeadlineOrEventTask(input[0], remainLine);
+            stringBuilder.append(Ui.addTaskOutput(this.taskList));
+            storage.addLineToFile(this.taskList);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("BEEPBEEP! You forgot to give a description or date/time!");
+        }
+    }
+
+    public void deleteCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+        try {
+            int taskNum = Integer.parseInt(input[1]);
+            this.taskList.deleteTasks(taskNum, stringBuilder);
+            storage.rewriteFile(this.taskList);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("BEEPBEEP! You forgot to give a task number!");
+        } catch (NumberFormatException e) {
+            throw new DukeException("WOIWOI! That is an invalid input!");
+        }
+    }
+
+    public void findCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+        try {
+            if (input[1].isEmpty()) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            this.taskList.findTasks(input[1].trim().toUpperCase(), stringBuilder);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("BEEPBEEP! You forgot to give a keyword for me to search!");
+        }
     }
 }

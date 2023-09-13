@@ -1,6 +1,5 @@
 package duke;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -34,23 +33,20 @@ public class TaskList {
     }
 
     private LocalDateTime findDateFormatInput(String input) throws DukeException {
-        LocalDateTime dateTime = null;
         for (int i = 0; i < dateFormats.length; i++) {
             for (int j = 0; j < timeFormats.length; j++) {
                 try {
-                    dateTime = LocalDateTime.parse(input,
+                    return LocalDateTime.parse(input,
                             DateTimeFormatter.ofPattern(dateFormats[i] + " " + timeFormats[j]));
                 } catch (DateTimeParseException e) {
-                    if (dateTime == null && i == dateFormats.length - 1 && j == timeFormats.length - 1) {
-                        throw new DukeException("HOHOHO! The date/time format seems to be wrong!"
-                                + "\nPermitted formats for date: dd-mm-yyyy | yyyy-mm-dd | dd/mm/yyyy | yyyy/mm/dd"
-                                + "\nPermitted formats for time (Only 24-hours format): HH:MM | HHMM"
-                                + "\nE.g. 22/09/2023 22:00 | 2023-08-30 0100");
-                    }
+                    // Keep trying other formats, hence no throwing exceptions here
                 }
             }
         }
-        return dateTime;
+        throw new DukeException("HOHOHO! The date/time format seems to be wrong!"
+                + "\nPermitted formats for date: dd-mm-yyyy | yyyy-mm-dd | dd/mm/yyyy | yyyy/mm/dd"
+                + "\nPermitted formats for time (Only 24-hours format): HH:MM | HHMM"
+                + "\nE.g. 22/09/2023 22:00 | 2023-08-30 0100");
     }
     /**
      * Adds a Todo task into the array list containing the tasks.
@@ -79,8 +75,7 @@ public class TaskList {
      * @param taskNum the task number to be marked or unmarked.
      * @throws DukeException if task number does not exist in the array list.
      */
-    public String markOrUnmarkTask(String action, int taskNum) throws DukeException {
-        StringBuilder stringBuilder = new StringBuilder();
+    public void markOrUnmarkTask(String action, int taskNum, StringBuilder stringBuilder) throws DukeException {
         assert action.equals("mark") || action.equals("unmark");
         try {
             if (action.equals("mark")) {
@@ -90,7 +85,7 @@ public class TaskList {
                 stringBuilder.append(Ui.getTaskNotMarked(!this.taskArray.get(taskNum - 1).isDone));
                 this.taskArray.get(taskNum - 1).markNotDone();
             }
-            return stringBuilder.append(this.taskArray.get(taskNum - 1).toString()).toString();
+            stringBuilder.append(this.taskArray.get(taskNum - 1).toString());
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new DukeException("WARBLE WARBLE! This task number does not exist!");
         }
@@ -137,11 +132,11 @@ public class TaskList {
      * @param taskNum the corresponding task number to be deleted.
      * @throws DukeException if the task number does not exist.
      */
-    public String deleteTasks(int taskNum) throws DukeException {
+    public void deleteTasks(int taskNum, StringBuilder stringBuilder) throws DukeException {
         try {
             Task taskDeleted = this.taskArray.get(taskNum - 1);
             this.taskArray.remove(taskNum - 1);
-            return Ui.deleteTaskOutput(taskDeleted.toString(), this.taskArray.size());
+            stringBuilder.append(Ui.deleteTaskOutput(taskDeleted.toString(), this.taskArray.size()));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("WARBLE WARBLE, this task number does not exist!");
         }
@@ -152,15 +147,15 @@ public class TaskList {
      *
      * @param keyword the keyword to find in the tasks.
      */
-    public String findTasks(String keyword) {
+    public void findTasks(String keyword, StringBuilder stringBuilder) {
         assert keyword != null;
 
         ArrayList<Task> foundTasksArray = new ArrayList<>();
         for (int i = 0; i < this.taskArray.size(); i++) {
-            if (this.taskArray.get(i).toString().contains(keyword)) {
+            if (this.taskArray.get(i).toString().toUpperCase().contains(keyword)) {
                 foundTasksArray.add(this.taskArray.get(i));
             }
         }
-        return Ui.showTaskList(foundTasksArray, true);
+        stringBuilder.append(Ui.showTaskList(foundTasksArray, true));
     }
 }
