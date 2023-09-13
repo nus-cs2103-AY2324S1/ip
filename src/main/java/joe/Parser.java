@@ -47,6 +47,8 @@ public class Parser {
     private static final String INVALID_ARGS_EVENT_MESSAGE = "Invalid arguments for event\n"
             + "Please follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>";
 
+    private static final String TOO_MANY_ARGS_MESSAGE = "Invalid Command! Too many arguments!";
+
 
     /**
      * Parses the user input and returns the corresponding Command object.
@@ -55,26 +57,25 @@ public class Parser {
      * @return The corresponding Command object.
      */
     public static Command parse(String input) {
+        //Validate input is in correct format
         Matcher m = COMMAND_PATTERN.matcher(input.trim());
-
         if (!m.matches()) {
             return new InvalidCommand("Invalid Command Format");
         }
 
+        //Split input into type and args
         CommandType type = parseType(m.group(1));
         String args = m.group(2).trim();
 
+        return parseToCommand(type, args);
+    }
+
+    private static Command parseToCommand(CommandType type, String args) {
         switch (type) {
         case bye:
-            if (!args.isEmpty()) {
-                return new InvalidCommand("Invalid Command! Too many arguments!");
-            }
-            return new ByeCommand();
+            return handleBye(args);
         case list:
-            if (!args.isEmpty()) {
-                return new InvalidCommand("Invalid Command! Too many arguments!");
-            }
-            return new ListCommand();
+            return handleList(args);
         case mark:
             return handleMark(args);
         case unmark:
@@ -102,9 +103,27 @@ public class Parser {
         }
     }
 
+    private static Command handleBye(String args) {
+        if (!args.isEmpty()) {
+            return new InvalidCommand(TOO_MANY_ARGS_MESSAGE);
+        }
+        return new ByeCommand();
+    }
+
+    private static Command handleList(String args) {
+        if (!args.isEmpty()) {
+            return new InvalidCommand(TOO_MANY_ARGS_MESSAGE);
+        }
+        return new ListCommand();
+    }
+
     private static Command handleMark(String args) {
         try {
-            int idx = parseIndexArgs(args);
+            int idx = parseArgsForIndex(args);
+
+            //Index should be at least 1
+            assert idx >= 1;
+
             return new MarkCommand(idx);
         } catch (JoeException e) {
             return new InvalidCommand(INVALID_ARGS_MARK_MESSAGE);
@@ -113,7 +132,11 @@ public class Parser {
 
     private static Command handleUnmark(String args) {
         try {
-            int idx = parseIndexArgs(args);
+            int idx = parseArgsForIndex(args);
+
+            //Index should be at least 1
+            assert idx >= 1;
+
             return new UnmarkCommand(idx);
         } catch (JoeException e) {
             return new InvalidCommand(INVALID_ARGS_UNMARK_MESSAGE);
@@ -127,6 +150,7 @@ public class Parser {
         if (!m.matches()) {
             return new InvalidCommand(INVALID_ARGS_TODO_MESSAGE);
         }
+
         return new TodoCommand(m.group(1));
     }
 
@@ -154,6 +178,7 @@ public class Parser {
         if (!m.matches()) {
             return new InvalidCommand(INVALID_ARGS_EVENT_MESSAGE);
         }
+
         try {
             LocalDateTime from = LocalDateTime.parse(m.group(2), DateTimeFormatter.ofPattern(DATETIME_FORMAT));
             LocalDateTime to = LocalDateTime.parse(m.group(3), DateTimeFormatter.ofPattern(DATETIME_FORMAT));
@@ -166,7 +191,11 @@ public class Parser {
 
     private static Command handleDelete(String args) {
         try {
-            int idx = parseIndexArgs(args);
+            int idx = parseArgsForIndex(args);
+
+            //Index should be at least 1
+            assert idx >= 1;
+
             return new DeleteCommand(idx);
         } catch (JoeException e) {
             return new InvalidCommand(INVALID_ARGS_DELETE_MESSAGE);
@@ -184,19 +213,19 @@ public class Parser {
         StringBuilder sb = new StringBuilder();
         for (CommandType cmd : CommandType.values()) {
             if (CommandType.INVALID.equals(cmd)) {
-                // Skip INVALID when listing all the valid commands
+                //Skips INVALID when listing all the valid commands
                 continue;
             }
 
             sb.append(cmd.toString());
             sb.append(", ");
         }
-        sb.setLength(sb.length() - 2); // Remove extra ", " at the end
+        sb.setLength(sb.length() - 2); //Removes extra ", " at the end
         String msg = String.format("Invalid Command Keyword!%nHere is a list of valid commands: %s", sb);
         return new InvalidCommand(msg);
     }
 
-    private static int parseIndexArgs(String args) throws JoeException {
+    private static int parseArgsForIndex(String args) throws JoeException {
         Pattern indexPattern = Pattern.compile("^(\\d+)$");
         Matcher m = indexPattern.matcher(args.trim());
 
@@ -204,7 +233,12 @@ public class Parser {
             throw new JoeException(FAILED_TO_PARSE_INDEX_MESSAGE);
         }
 
-        String idx = m.group(1);
-        return Integer.parseInt(idx);
+        int idx = Integer.parseInt(m.group(1));
+
+        if (idx < 1) {
+            throw new JoeException(FAILED_TO_PARSE_INDEX_MESSAGE);
+        }
+
+        return idx;
     }
 }
