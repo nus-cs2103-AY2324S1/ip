@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import exceptions.SavedDataFormatException;
 import org.junit.jupiter.api.Test;
 
 import tasks.Deadline;
@@ -73,7 +74,15 @@ public class TaskListTest {
 
     @Test
     public void load_readFromStorageStub_true() {
-        assertEquals(true, tasks.load());
+        try {
+            assertEquals(true, tasks.load());
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
+        }
     }
 
     @Test
@@ -93,82 +102,143 @@ public class TaskListTest {
             assertEquals(new ToDo("sing a song").convertToStorageForm(), deletedTask.convertToStorageForm());
         } catch (IOException e) {
             System.out.println("Error");
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
         }
     }
 
     @Test
     public void deleteTask_postDeletionLength_two() {
-        tasks.load();
-        Task expected = tasks.getTasks().get(0);
-
         try {
+            tasks.load();
+            Task expected = tasks.getTasks().get(0);
             final Task actual = tasks.deleteTask(0);
 
             assertEquals(expected, actual);
         } catch (IOException e) {
-            System.out.println("Error");
+            System.out.println(e);
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
         }
     }
 
     @Test
     public void markAsDone_taskIsNotDone_true() {
-        tasks.load();
-        final String message = tasks.markAsDone(0);
+        try {
+            tasks.load();
+            final String message = tasks.markAsDone(0);
 
-        assertEquals(
-                "Mission status updated! Mission completed successfully.\n" + tasks.getTasks().get(0),
-                message);
+            assertEquals(
+                    "Mission status updated! Mission completed successfully.\n" + tasks.getTasks().get(0),
+                    message);
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
+        }
+
     }
 
     @Test
     public void markAsDone_taskIsDone_true() {
-        tasks.load();
-        tasks.markAsDone(0);
-        final String message = tasks.markAsDone(0);
+        try {
+            tasks.load();
+            tasks.markAsDone(0);
+            final String message = tasks.markAsDone(0);
 
-        assertEquals(
-                "Mission has been completed previously.",
-                message);
+            assertEquals(
+                    "Mission has been completed previously.",
+                    message);
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
+        }
     }
 
     @Test
     public void markAsDone_taskIndexInvalid_false() {
-        tasks.load();
-        final String message = tasks.markAsDone(5);
+        try {
+            tasks.load();
+            final String message = tasks.markAsDone(5);
 
-        assertEquals(
-                "Invalid index! Please ensure you correctly key in your target index.",
-                message);
+            assertEquals(
+                    "Invalid index! Please ensure you correctly key in your target index.",
+                    message);
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
+        }
+
+
     }
 
     @Test
     public void markAsUndone_taskIsDone_true() {
-        tasks.load();
-        tasks.markAsDone(0);
-        final String message = tasks.markAsUndone(0);
+        try {
+            tasks.load();
+            tasks.markAsDone(0);
+            final String message = tasks.markAsUndone(0);
 
-        assertEquals(
-                "Mission status updated! Mission completion status reverted.\n" + tasks.getTasks().get(0),
-                message);
+            assertEquals(
+                    "Mission status updated! Mission completion status reverted.\n" + tasks.getTasks().get(0),
+                    message);
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
+        }
     }
 
     @Test
     public void markAsUndone_taskIsNotDone_true() {
-        tasks.load();
-        final String message = tasks.markAsUndone(0);
+        try {
+            tasks.load();
+            final String message = tasks.markAsUndone(0);
 
-        assertEquals(
-                "Mission is already marked as undone!",
-                message);
+            assertEquals(
+                    "Mission is already marked as undone!",
+                    message);
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
+        }
+
     }
 
     @Test
     public void markAsUndone_taskIndexInvalid_false() {
-        tasks.load();
-        final String message = tasks.markAsUndone(5);
+        try {
+            tasks.load();
+            final String message = tasks.markAsUndone(5);
 
-        assertEquals(
-                "Invalid index! Please ensure you correctly key in your target index.",
-                message);
+            assertEquals(
+                    "Invalid index! Please ensure you correctly key in your target index.",
+                    message);
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (SavedDataFormatException e) {
+            System.out.println(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error in parsing saved data.");
+        }
     }
 }

@@ -1,6 +1,7 @@
 import exceptions.ExcessiveArgumentException;
 import exceptions.IncorrectInputException;
 import exceptions.NoDescriptionException;
+import exceptions.SavedDataFormatException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -16,6 +17,38 @@ public class Parser {
 
     final static String EMPTY_STRING = "";
     final static String WHITE_SPACE = " ";
+
+    /**
+     * Retrieve a task based on the taskData input.
+     *
+     * @param taskData contains the information of the task from the saved file.
+     * @return a Task based on the taskData.
+     * @throws SavedDataFormatException When the taskData has a formatting error.
+     * @throws StringIndexOutOfBoundsException When there is an error in parsing the data.
+     */
+    public static Task getTaskFromFile(String taskData)
+            throws SavedDataFormatException, StringIndexOutOfBoundsException {
+        final String splitter = "::";
+
+        char type = taskData.charAt(0);
+        String[] descriptions = taskData.split(splitter);
+
+        switch (type) {
+            case 'T':
+                return new ToDo(descriptions[2], descriptions[1].matches("1"));
+
+            case 'D':
+                //Events.Deadline
+                return new Deadline(descriptions[2], descriptions[3], descriptions[1].matches("1"));
+
+            case 'E':
+                //Events.Event
+                return new Event(descriptions[2], descriptions[3], descriptions[1].matches("1"));
+
+            default:
+                throw new SavedDataFormatException("The saved data is not properly formatted.");
+        }
+    }
 
     /**
      * Returns an int value denoting which action to be performed.

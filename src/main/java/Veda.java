@@ -1,8 +1,11 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import exceptions.IncorrectInputException;
 import exceptions.NoDescriptionException;
+import exceptions.SavedDataFormatException;
+import exceptions.UpdateDataException;
 import tasks.Task;
 
 /**
@@ -23,7 +26,16 @@ public class Veda {
      * @return String containing a welcome message for the user.
      */
     public String initialise() {
-        tasks.load();
+        try {
+            tasks.load();
+        } catch (FileNotFoundException e) {
+            return e.toString();
+        } catch (SavedDataFormatException e) {
+            return e.toString();
+        } catch (StringIndexOutOfBoundsException e) {
+            return "Error in parsing saved data.";
+        }
+
         hasNotRetrieveTask = false;
         return ui.getWelcomeMessage();
     }
@@ -111,6 +123,8 @@ public class Veda {
             return "Invalid index! Your target index is within range.";
         } catch (IOException e) {
             return "Unable to update file.";
+        } catch (UpdateDataException e) {
+            return e.toString();
         }
     }
 

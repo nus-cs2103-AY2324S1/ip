@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import exceptions.SavedDataFormatException;
+import exceptions.UpdateDataException;
 import tasks.Task;
 
 /**
@@ -28,18 +30,12 @@ public class TaskList {
      *
      * @return true if successful. Otherwise, false.
      */
-    public boolean load() {
+    public boolean load() throws FileNotFoundException, SavedDataFormatException, StringIndexOutOfBoundsException {
         if (storage.checkFileExists()) {
-            //File does exist
-            try {
-                tasks = storage.retrieveTasks();
-            } catch (FileNotFoundException e) {
-                System.out.println("Unable to find file.");
 
-                return false;
-            }
+            tasks = storage.retrieveTasks();
         } else {
-            //File does not exist
+
             storage.addFile();
         }
 
@@ -55,7 +51,7 @@ public class TaskList {
      * @throws IOException when the program is unable to write to the saved file.
      */
     public Task deleteTask(int taskIndex) throws
-            IndexOutOfBoundsException, IOException {
+            IndexOutOfBoundsException, IOException, UpdateDataException {
 
         Task task = tasks.remove(taskIndex);
         storage.updateData(tasks, false);
@@ -76,6 +72,8 @@ public class TaskList {
                 return "added in mission:\n" + task;
             } catch (IOException e) {
                 return "Error writing to file.";
+            } catch (UpdateDataException e) {
+                return e.toString();
             }
         } else {
             return "System is unable to accommodate the new mission";
@@ -98,7 +96,12 @@ public class TaskList {
             }
 
             task.updateCompletionStatus();
-            storage.updateData(tasks, false);
+
+            try {
+                storage.updateData(tasks, false);
+            } catch (UpdateDataException e) {
+                return e.toString();
+            }
 
             return "Mission status updated! Mission completed successfully.\n" + task;
 
@@ -125,7 +128,11 @@ public class TaskList {
             }
 
             task.updateCompletionStatus();
-            storage.updateData(tasks, false);
+            try {
+                storage.updateData(tasks, false);
+            } catch (UpdateDataException e) {
+                return e.toString();
+            }
 
             return "Mission status updated! Mission completion status reverted.\n" + task;
 
