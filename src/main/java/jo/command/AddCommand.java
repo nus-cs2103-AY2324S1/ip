@@ -44,7 +44,7 @@ public class AddCommand extends Command {
      * @return `false` since adding a task does not exit the application.
      */
     @Override
-    public boolean isExit() {
+    public boolean isExitCommand() {
         return false;
     }
 
