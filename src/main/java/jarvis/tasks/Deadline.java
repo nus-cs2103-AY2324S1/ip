@@ -12,6 +12,13 @@ public class Deadline extends Task {
 
     private LocalDateTime dueDateTime;
 
+    /**
+     * Initializes a new instance of the Deadline task.
+     *
+     * @param title       The title or description of the deadline task.
+     * @param dueDateTime The due date and time of the deadline.
+     * @param isCompleted A boolean indicating whether the deadline task is completed or not.
+     */
     public Deadline(String title, LocalDateTime dueDateTime, boolean isCompleted) {
         super(title, isCompleted);
         this.dueDateTime = dueDateTime;

@@ -20,7 +20,7 @@ public class Storage {
     private static final String FILE_PATH = "jarvis/data/jarvis.txt";
 
     /**
-     *
+     * Initializes a new instance of the Storage class and creates necessary directories and files.
      */
     public Storage() {
         File fileDir = new File(FILE_DIR);
@@ -54,7 +54,6 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String nextLine;
             while ((nextLine = reader.readLine()) != null) {

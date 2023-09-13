@@ -10,7 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * The MainWindow class controls the main GUI window of the Jarvis app.
+ * It controls the user interface elements and their interactions with the Jarvis chatbot.
  */
 public class MainWindow extends AnchorPane {
 
@@ -29,16 +30,28 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image jarvisImage = new Image(this.getClass().getResourceAsStream("/images/jarvis.png"));
 
+
+    /**
+     * Initializes the MainWindow and binds the scrollPane to the height of the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Jarvis instance for the MainWindow and starts the introductory conversation.
+     *
+     * @param jarvis The Jarvis chatbot instance.
+     */
     public void setJarvis(Jarvis jarvis) {
         this.jarvis = jarvis;
         startIntro();
     }
 
+    /**
+     * Starts the conversation by printing an intro message from Jarvis.
+     */
     @FXML
     private void startIntro() {
         String intro = ui.printIntro();

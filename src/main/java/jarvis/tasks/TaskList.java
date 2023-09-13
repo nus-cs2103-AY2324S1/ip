@@ -10,10 +10,10 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     /**
-     * Constructs a new TaskList with an empty list of tasks.
+     * Initializes a new instance of the TaskList with an empty list of tasks.
      */
     public TaskList() {
-        taskList = new ArrayList<Task>();
+        taskList = new ArrayList<>();
     }
 
     /**
@@ -43,7 +43,7 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
-    
+
     /**
      * Gets the task at the specified index in the task list.
      *
@@ -57,7 +57,6 @@ public class TaskList {
     /**
      * Deletes the task at the specified index in the task list.
      *
-     * @param index The index of the task to delete.
      * @return The deleted task.
      */
     public Task deleteTask(int i) {

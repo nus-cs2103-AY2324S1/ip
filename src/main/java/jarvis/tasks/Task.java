@@ -3,8 +3,7 @@ package jarvis.tasks;
 import java.time.LocalDateTime;
 
 /**
- * The Task class holds all the properties of Task objects in Jarvis
- * application.
+ * The Task class holds all the properties of Task objects in Jarvis app.
  * Represents a task with a title, completion status, and optional due date.
  */
 public class Task {
@@ -12,6 +11,12 @@ public class Task {
     private boolean isCompleted;
     private LocalDateTime dueDate;
 
+    /**
+     * Initializes a new instance of the Task.
+     *
+     * @param title       The title or description of the task.
+     * @param isCompleted A boolean indicating whether the task is completed or not.
+     */
     public Task(String title, boolean isCompleted) {
         this.title = title;
         this.isCompleted = isCompleted;
