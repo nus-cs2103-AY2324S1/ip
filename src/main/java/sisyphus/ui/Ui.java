@@ -59,8 +59,6 @@ public class Ui {
      * Greets user with name.
      */
     public static void greet() {
-        String output;
-        output = HORIZONTAL_LINE;
         System.out.println(LOGO);
         System.out.println("Hello, I'm " + NAME + ".");
         System.out.println("What can I do for you? Do you want to roll a boulder?");
@@ -83,12 +81,10 @@ public class Ui {
      * @param taskList
      */
     public static String printTasks(TaskList taskList) {
-        String output;
-        output = HORIZONTAL_LINE;
+        String output = "";
         for (int i = 0; i < taskList.getSize(); i++) {
             output += i + 1 + ". " + taskList.getTask(i) + '\n';
         }
-        output += HORIZONTAL_LINE + '\n';
         return output;
     }
 
@@ -100,8 +96,7 @@ public class Ui {
      */
     public static String printMatchingTasks(TaskList matchingTaskList, String keyword) {
         String output;
-        output = HORIZONTAL_LINE;
-        output += "Below is the list of tasks with keyword - \"" + keyword + "\" :";
+        output = "Below is the list of tasks with keyword - \"" + keyword + "\" :";
         for (int i = 0; i < matchingTaskList.getSize(); i++) {
             output += i + 1 + ". " + matchingTaskList.getTask(i) + '\n';
         }
@@ -118,8 +113,7 @@ public class Ui {
      */
     public static String printMarkTask(TaskList taskList, int index) {
         String output;
-        output = HORIZONTAL_LINE;
-        output += "The following item has been marked as done. \n";
+        output = "The following item has been marked as done. \n";
         output += taskList.getTask(index);
         return output;
     }
@@ -133,8 +127,7 @@ public class Ui {
      */
     public static String printUnmarkTask(TaskList taskList, int index) {
         String output;
-        output = HORIZONTAL_LINE;
-        output += "The following item has been unmarked and is now uncompleted. \n";
+        output = "The following item has been unmarked and is now uncompleted. \n";
         output += taskList.getTask(index);
         return output;
     }
@@ -147,8 +140,7 @@ public class Ui {
      */
     public static String printDeleteTask(TaskList taskList, int index) {
         String output;
-        output = HORIZONTAL_LINE;
-        output += "The following item has been deleted from the list. \n";
+        output = "The following item has been deleted from the list. \n";
         output += taskList.getTask(index);
         return output;
     }
@@ -161,11 +153,9 @@ public class Ui {
      */
     public static String printAddTodo(TaskList taskList) {
         String output;
-        output = HORIZONTAL_LINE;
-        output += "The following ToDo has been added. \n";
+        output = "The following ToDo has been added. \n";
         output += taskList.getLastTask() ;
-        output += "You now have " + taskList.getSize() + " items in the list.";
-        output += HORIZONTAL_LINE;
+        output += "\nYou now have " + taskList.getSize() + " items in the list. \n";
         return output;
     }
 
@@ -177,11 +167,9 @@ public class Ui {
      */
     public static String printAddDeadline(TaskList taskList) {
         String output;
-        output = HORIZONTAL_LINE;
-        output += "The following deadline has been added. \n";
+        output = "The following deadline has been added. \n";
         output += taskList.getLastTask() ;
-        output += "You now have " + taskList.getSize() + " items in the list.";
-        output += HORIZONTAL_LINE;
+        output += "\nYou now have " + taskList.getSize() + " items in the list.";
         return output;
     }
 
@@ -192,11 +180,9 @@ public class Ui {
      */
     public static String printAddEvent(TaskList taskList) {
         String output;
-        output = HORIZONTAL_LINE;
-        output += "The following event has been added. \n";
+        output = "The following event has been added. \n";
         output += taskList.getLastTask() ;
-        output += "You now have " + taskList.getSize() + " items in the list.";
-        output += HORIZONTAL_LINE;
+        output += "\nYou now have " + taskList.getSize() + " items in the list.";
         return output;
     }
 
