@@ -1,8 +1,6 @@
 package duke.task;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidDatetimeFormatException;

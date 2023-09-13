@@ -11,6 +11,7 @@ public class FormatHelper {
      * @return the article for s
      */
     public static String getArticle(String s) {
+        assert(!s.isEmpty());
         switch (s.charAt(0)) {
         case 'a':
         case 'e':
