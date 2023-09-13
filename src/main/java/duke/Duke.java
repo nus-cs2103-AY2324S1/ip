@@ -140,6 +140,9 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        if (input.trim().equalsIgnoreCase("bye")) {
+            return "Bye! Hope to see you again soon.";
+        }
         try {
             return Parser.parseCommand(input,taskList);
         } catch (Exception e) {
