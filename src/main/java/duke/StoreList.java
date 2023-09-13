@@ -154,7 +154,7 @@ public class StoreList {
     public String showSaveText() {
         String saveText = "";
         for (int i = 0; i < list.size(); i++) {
-            saveText += list.get(i).fileString() + (i + 1 == list.size() ? "" : "\n");
+            saveText += list.get(i).toFileString() + (i + 1 == list.size() ? "" : "\n");
         }
         return saveText;
     }

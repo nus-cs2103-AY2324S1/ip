@@ -69,7 +69,7 @@ public class Event extends Task {
      * @return A string representation of the task in file format.
      */
     @Override
-    public String fileString() {
+    public String toFileString() {
         return String.format(
                 "event %d %s /from %s /to %s",
                 super.isDone ? 1 : 0,
