@@ -1,9 +1,10 @@
 package duke.command;
 
-import duke.main.*;
-import duke.exception.*;
-import duke.task.*;
-import java.io.IOException;
+import duke.main.Storage;
+import duke.main.TaskList;
+import duke.main.Ui;
+
+import duke.task.Task;
 
 /**
  * The ListCommand represents the command to list the tasks in the task list.
