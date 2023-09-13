@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch",
+            "request": "launch",
+            "mainClass": "chat.Launch",
+            "projectName": "ip"
+        },
+        {
+            "type": "java",
+            "name": "bruh",
+            "request": "launch",
+            "mainClass": "chat.bruh",
+            "projectName": "ip"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "chat.Main",
+            "projectName": "ip"
+        },
+        {
+            "type": "java",
             "name": "Launcher",
             "request": "launch",
             "mainClass": "chat.Launcher",
