@@ -60,6 +60,8 @@ public class TaskList {
                 throw new DukeException("event error");
             }
             break;
+        default:
+            break;
         }
         int size = this.tasks.size();
         String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
@@ -114,7 +116,7 @@ public class TaskList {
      * @return Strings of valid tasks.
      * @throws DukeException if no task is found.
      */
-    public String findTask(String task) throws DukeException{
+    public String findTask(String task) throws DukeException {
         ArrayList<Task> foundedTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(task)) {

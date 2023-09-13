@@ -8,6 +8,12 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    /**
+     * Constructs an event task with from and to date.
+     * @param description
+     * @param from
+     * @param to
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.taskType = TaskType.EVENT;
@@ -15,6 +21,13 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Constructs an event task with from and to date and isDone.
+     * @param description
+     * @param from
+     * @param to
+     * @param isDone
+     */
     public Event(String description, String from, String to, boolean isDone) {
         this(description, from, to);
         this.isDone = isDone;

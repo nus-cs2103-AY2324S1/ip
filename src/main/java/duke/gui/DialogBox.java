@@ -39,12 +39,11 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
         Insets padding = new Insets(10);
         dialog.setPadding(padding);
-        this.setBackground(new Background(new BackgroundFill(Color.rgb(255,228,225),
+        this.setBackground(new Background(new BackgroundFill(Color.rgb(255, 228, 225),
                 new CornerRadii(20),
                 Insets.EMPTY)));
 
@@ -66,7 +65,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setBackground(new Background(new BackgroundFill(Color.rgb(230,230 ,250),
+        db.setBackground(new Background(new BackgroundFill(Color.rgb(230, 230, 250),
                 new CornerRadii(20),
                 Insets.EMPTY)));
         db.flip();

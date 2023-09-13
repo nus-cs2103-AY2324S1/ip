@@ -14,6 +14,12 @@ public class Deadline extends Task {
     protected String byDescription;
     protected LocalDate by;
 
+    /**
+     * Constructs a deadline task with by date and description. Transforms the by date to LocalDate.
+     * @param description
+     * @param by
+     * @throws DateTimeParseException
+     */
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         this.taskType = TaskType.DEADLINE;
@@ -27,6 +33,12 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Constructs a deadline task with by date, description and isDone.
+     * @param description
+     * @param by
+     * @param isDone
+     */
     public Deadline(String description, String by, boolean isDone) {
         this(description, by);
         this.isDone = isDone;
