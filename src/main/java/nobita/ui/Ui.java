@@ -68,7 +68,7 @@ public class Ui {
      * @param list The list of tasks to be printed.
      */
     public void showList(TaskList list) {
-        if (list.getTotalTask() < 1) {
+        if (list.getTasksSize() < 1) {
             System.out.println("There are no tasks to be shown.");
         }
         else {

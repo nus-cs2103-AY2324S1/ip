@@ -25,7 +25,7 @@ public class TaskList implements Iterable<Task> {
      * Getter for number of tasks.
      * @return An integer representing number of total tasks.
      */
-    public int getTotalTask() {
+    public int getTasksSize() {
         return this.tasks.size();
     }
 
@@ -121,7 +121,7 @@ public class TaskList implements Iterable<Task> {
      */
     @Override
     public String toString() {
-        if (this.getTotalTask() < 1) {
+        if (this.getTasksSize() < 1) {
             return "There are no tasks to be shown.";
         }
         int listInd = 1;
