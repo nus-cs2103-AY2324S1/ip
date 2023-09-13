@@ -34,7 +34,7 @@ public class CatBot {
 
         commands.setDefaultCommand(io::indicateInvalidCommand)
                 .addCommand("bye", args -> io.cleanup())
-                .addCommand("list", args -> io.printTaskList(taskList));
+                .addCommand("list", args -> io.displayTaskList(taskList));
 
         // User modifying existing tasks (through IntegerPattern, and Index)
         BiConsumer<String, Consumer<Integer>> runIfValidIndexElseIndicateError =
@@ -49,7 +49,7 @@ public class CatBot {
                         string -> runIfValidIndexElseIndicateError.accept(string,
                                 validIndex -> {
                                     taskList.markTask(validIndex-1);
-                                    io.printTaskModified(taskList, validIndex);
+                                    io.displayTaskModified(taskList, validIndex);
                                 }
                         )
                 )
@@ -57,20 +57,20 @@ public class CatBot {
                         string -> runIfValidIndexElseIndicateError.accept(string,
                                 validIndex -> {
                                     taskList.unmarkTask(validIndex-1);
-                                    io.printTaskModified(taskList, validIndex);
+                                    io.displayTaskModified(taskList, validIndex);
                                 }
                         )
                 )
                 .addCommand("delete",
                         string -> runIfValidIndexElseIndicateError.accept(string,
-                                validIndex -> io.printTaskDeleted(taskList.removeTask(validIndex-1))
+                                validIndex -> io.displayTaskDeleted(taskList.removeTask(validIndex-1))
                         )
                 );
 
         // User creating new tasks (with SlashPattern)
 
         BiConsumer<String, BiFunction<
-                NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap>,
+                NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap>,
                 Optional<Task>>>
                 createTaskIfValidElseWarn = (args, bifunction) -> slashPattern.ifParsableElseDefault(args,
                         namedParameterMap -> bifunction.apply(
@@ -78,7 +78,7 @@ public class CatBot {
                                 io::indicateArgumentInvalid
                         ).ifPresent(task -> {
                             taskList.addTask(task);
-                            io.printTaskAdded(taskList);
+                            io.displayTaskAdded(taskList);
                         })
                 );
 
@@ -97,17 +97,17 @@ public class CatBot {
 
         commands.addCommand("find",
                 args -> stringPattern.ifParsableElseDefault(args,
-                        str -> io.printTaskList(taskList.find(str)))
+                        str -> io.displayTaskList(taskList.find(str)))
         );
 
     }
 
     public static void main(String[] args) {
-        UserIo.CommandArgument commandArgument;
+        UserIo.CommandArgumentStruct commandArgumentStruct;
         io.initialize();
         do {
-            commandArgument = io.getNextCommand();
-            commands.run(commandArgument.getCommand(), commandArgument.getArgument());
-        } while (!Objects.equals(commandArgument.getCommand(), "bye"));
+            commandArgumentStruct = io.getNextCommand();
+            commands.run(commandArgumentStruct.getCommand(), commandArgumentStruct.getArgument());
+        } while (!Objects.equals(commandArgumentStruct.getCommand(), "bye"));
     }
 }

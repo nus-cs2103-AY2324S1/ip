@@ -6,8 +6,17 @@ import catbot.internal.NamedParameterMap;
 
 import java.util.function.Consumer;
 
-public class CatBotCommandPatterns {
+/**
+ * Class containing {@link CommandPattern CommandPatterns} and {@link CommandPatternGenerator CommandPatternGenerators}
+ * used by the CatBot Assistant.
+ */
+public abstract class CatBotCommandPatterns {
 
+    /**
+     * A consumer that throws an error when called.
+     * Intended to assert that a CommandPattern does not result in fallthrough behaviour;
+     * ie all possible inputs are handled.
+     */
     public static final Consumer<String> NO_DEFAULT = new Consumer<String>() {
         @Override
         public void accept(String s) {
@@ -16,6 +25,11 @@ public class CatBotCommandPatterns {
     };
 
     //region Integer Pattern
+
+    /**
+     * Gets a singleton instance of {@link IntegerPatternGenerator}.
+     * @return the generator.
+     */
     public static CommandPatternGenerator<Integer> getIntegerPatternGenerator() {
         return integerPatternGenerator;
     }
@@ -41,6 +55,10 @@ public class CatBotCommandPatterns {
     //region Slash Arguments Pattern
     private static final SlashArgumentPatternGenerator slashPatternGenerator = new SlashArgumentPatternGenerator();
 
+    /**
+     * Gets a singleton instance of {@link SlashArgumentPatternGenerator}.
+     * @return the generator.
+     */
     public static CommandPatternGenerator<NamedParameterMap> getSlashPatternGenerator() {
         return slashPatternGenerator;
     }
