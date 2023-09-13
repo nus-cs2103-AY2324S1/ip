@@ -31,12 +31,12 @@ public class Storage {
     public void write(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(this.filePath);
-            String content = "";
+            StringBuilder content = new StringBuilder("");
             for (int i = 0; i < tasks.size(); i++) {
                 Task t = tasks.get(i);
-                content = content + t.getLog();
+                content.append(t.getLog());
             }
-            fw.write(content);
+            fw.write(content.toString());
             fw.close();
         } catch (IOException e) {
             throw new BenBenException("Failed to write to file!" + e.getMessage());
@@ -60,7 +60,6 @@ public class Storage {
             }
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
-                boolean canRead = false;
                 String ln = sc.nextLine();
                 String[] strSplit = Parser.getArrayFromFile(ln);
                 Task task = Parser.parseFromFile(strSplit);
