@@ -208,7 +208,6 @@ public class TaskList {
         }
         }
 
-        System.out.println(result);
         if (sortOrder == SortOrder.DESC) {
             // reverse the array
             Collections.reverse(result);

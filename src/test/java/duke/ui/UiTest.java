@@ -10,14 +10,16 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.Duke;
 import duke.exceptions.DukeException;
 import duke.tasks.Commands;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
+import duke.tasks.SortOrder;
+import duke.tasks.SortType;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.TodoTask;
+
 
 
 
@@ -44,7 +46,7 @@ public class UiTest {
         taskList.markAsUnDone(2);
         taskList.markAsDone(3);
 
-        Ui.printResult(Commands.LIST, null, taskList, new Duke());
+        Ui.printResult(Commands.LIST, null, taskList, SortType.ID, SortOrder.ASC);
 
         assertEquals(taskList.toString().trim(), outputStreamCaptor.toString().trim());
 

@@ -66,7 +66,8 @@ public class MainWindow extends AnchorPane {
             String response = Ui.getResponseMessage(Parser.getInputCommand(input),
                     modifiedTasks,
                     duke.getTaskList(),
-                    duke);
+                    duke.getSortType(),
+                    duke.getSortOrder());
             assert !response.isEmpty() : " Response message is blank!";
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog((input), crop(userImage, true)),

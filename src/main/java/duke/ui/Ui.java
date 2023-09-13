@@ -8,6 +8,8 @@ import duke.exceptions.UnknownCommandException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.Commands;
+import duke.tasks.SortOrder;
+import duke.tasks.SortType;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
@@ -56,7 +58,11 @@ public class Ui {
                 }
 
                 ArrayList<Task> modifiedTasks = Parser.parseInput(inputString, taskList, duke);
-                printResult(Parser.getInputCommand(inputString), modifiedTasks, taskList, duke);
+                printResult(Parser.getInputCommand(inputString),
+                        modifiedTasks,
+                        taskList,
+                        duke.getSortType(),
+                        duke.getSortOrder());
 
                 storage.saveTasks(taskList);
                 printDivider();
@@ -75,9 +81,11 @@ public class Ui {
      * @param modifiedTasks The tasks that were modified in the input
      * @param taskList      the task container
      */
-    public static void printResult(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList, Duke duke)
+    public static void printResult(Commands command, ArrayList<Task> modifiedTasks, TaskList taskList,
+                                   SortType sortType,
+                                   SortOrder sortOrder)
             throws UnknownCommandException {
-        System.out.println(getResponseMessage(command, modifiedTasks, taskList, duke));
+        System.out.println(getResponseMessage(command, modifiedTasks, taskList, sortType, sortOrder));
     }
 
     /**
@@ -91,7 +99,8 @@ public class Ui {
     public static String getResponseMessage(Commands command,
                                             ArrayList<Task> modifiedTasks,
                                             TaskList taskList,
-                                            Duke duke)
+                                            SortType sortType,
+                                            SortOrder sortOrder)
             throws UnknownCommandException {
         String result = "";
         switch (command) {
@@ -116,7 +125,7 @@ public class Ui {
             break;
         }
         case LIST: {
-            result = taskList.getTasksAsText(duke.getSortType(), duke.getSortOrder());
+            result = taskList.getTasksAsText(sortType, sortOrder);
             break;
         }
         case FIND: {
@@ -124,14 +133,14 @@ public class Ui {
                 result = ("Couldn't find any matching tasks!");
             } else {
                 result = "I found " + modifiedTasks.size() + " matching tasks:" + "\n"
-                        + new TaskList(modifiedTasks).getTasksAsText(duke.getSortType(), duke.getSortOrder());
+                        + new TaskList(modifiedTasks).getTasksAsText(sortType, sortOrder);
 
             }
             break;
         }
         case SORT: {
-            result = "Sorting order has been changed to " + duke.getSort() + "\n"
-                    + taskList.getTasksAsText(duke.getSortType(), duke.getSortOrder());
+            result = "Sorting order has been changed to " + sortType + " " + sortOrder + "\n"
+                    + taskList.getTasksAsText(sortType, sortOrder);
             break;
         }
         case BYE: {
