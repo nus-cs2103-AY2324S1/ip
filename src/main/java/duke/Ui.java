@@ -20,9 +20,9 @@ public class Ui {
     }
 
     /**
-     * Displays the farewell message when the application is terminated.
+     * Displays the showFarewell message when the application is terminated.
      */
-    public static String farewell() {
+    public static String showFarewell() {
 
         String result = showLine() + "\n Bye. Hope to see you again soon! \n" + showLine();
         return result;

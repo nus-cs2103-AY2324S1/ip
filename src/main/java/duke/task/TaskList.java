@@ -56,7 +56,7 @@ public class TaskList {
     public void copyArrInto(ArrayList<String> here) {
 
         for (Task t : this.tasks) {
-            here.add(t.contentLine());
+            here.add(t.showContentLine());
         }
     }
 

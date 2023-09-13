@@ -1,20 +1,11 @@
 package duke.command;
 
-import duke.Ui;
 import duke.Storage;
-import duke.Parser;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidIndexException;
 import duke.exception.NoSuchCommandException;
 import duke.exception.UnmatchedArgumentException;
-import duke.task.Event;
-import duke.task.Deadline;
 import duke.task.TaskList;
-import duke.task.Task;
-import duke.task.Todo;
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public abstract class Command {
 

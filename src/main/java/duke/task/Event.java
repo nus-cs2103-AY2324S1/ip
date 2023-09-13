@@ -43,8 +43,8 @@ public class Event extends Task {
      * @return The format of the task in the text file.
      */
     @Override
-    public String contentLine() {
-        return "E" + super.contentLine() + "/" + this.start.toString() + "/" + this.end.toString();
+    public String showContentLine() {
+        return "E" + super.showContentLine() + "/" + this.start.toString() + "/" + this.end.toString();
     }
 
     /**
