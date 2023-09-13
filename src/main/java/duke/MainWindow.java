@@ -71,11 +71,13 @@ public class MainWindow extends AnchorPane {
 
 
     private void printStart() {
-        String input = "Hello, I am Bob! What can I do for you?";
+        String input = "Hello, I am Bob! A reminder to check your deadline with the list command!!";
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(input, dukeImage)
         );
+
+
     }
 
 
