@@ -12,6 +12,7 @@ public class Parser {
      * @return returns a command according to the command type.
      */
     public static Command parse(String fullCommand) {
+        System.out.println(fullCommand);
         String[] splitCommandAndArguments = fullCommand.split(" ", 2);
         String commandWord;
         String arguments = "";
@@ -40,6 +41,8 @@ public class Parser {
             return new UnmarkCommand(commandWord, arguments);
         case "find":
             return new FindCommand(commandWord, arguments);
+        case "update":
+            return new UpdateCommand(commandWord, arguments);
         default:
             return new HelpCommand(commandWord, arguments);
         }
