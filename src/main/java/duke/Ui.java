@@ -48,18 +48,18 @@ public class Ui {
                         String taskTime2 = (taskData.length > 3) ? taskData[3] : "";
 
                         switch (taskType) {
-                            case TODO:
-                                tasks.addTask(new Todo(taskDescription));
-                                break;
-                            case DEADLINE:
-                                tasks.addTask(new Deadline(taskDescription, taskTime1));
-                                break;
-                            case EVENT:
-                                tasks.addTask(new Event(taskDescription, taskTime1, taskTime2));
-                                break;
-                            default:
-                                System.out.println("Invalid task type: " + taskType);
-                                break;
+                        case TODO:
+                            tasks.addTask(new Todo(taskDescription));
+                            break;
+                        case DEADLINE:
+                            tasks.addTask(new Deadline(taskDescription, taskTime1));
+                            break;
+                        case EVENT:
+                            tasks.addTask(new Event(taskDescription, taskTime1, taskTime2));
+                            break;
+                        default:
+                            System.out.println("Invalid task type: " + taskType);
+                            break;
                         }
                     } else {
                         System.out.println("Skipping corrupted task data: " + line);
