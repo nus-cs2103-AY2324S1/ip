@@ -242,14 +242,14 @@ public class Ui {
      * Displays an error message for insufficient arguments for an event task.
      */
     public String printInsufficientArgEvent() {
-        return ("OOPS!!! The argument for the event is insufficient!");
+        return ("OOPS!!! The argument for the event is invalid! \n Please use this format instead : event [task] /from [dd/mm/yyyy HHmm] /to [dd/mm/yyyy HHmm]  ");
     }
 
     /**
      * Displays an error message for insufficient arguments for a deadline task.
      */
     public String printInsufficientArgDeadline() {
-         return "OOPS!!! The argument for the deadline is insufficient!";
+         return "OOPS!!! The argument for the deadline is invalid! \n Please use this format instead : deadline [task] /by [dd/mm/yyyy HHmm]";
     }
 
     /**

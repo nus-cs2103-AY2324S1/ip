@@ -66,18 +66,39 @@ public class Parser {
 
         String endDate = "";
         String startDate = "";
+
+        boolean gotFrom = false;
+        boolean gotTo = false;
+
         for(int i = 0; i < inputArray.length; i++) {
             if(inputArray[i].equals("/from") && startIndex == -1) {
                 startIndex = i;
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i ));
+                gotFrom = true;
             } else if(inputArray[i].equals("/to") && startIndex != -1) {
                 endDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 startDate = String.join(" ", Arrays.copyOfRange(inputArray, startIndex + 1, i));
+                gotTo = true;
             }
         }
 
-        Task newTask = new Event(extractedTask,convertDateTime(startDate),convertDateTime(endDate));
-        return newTask;
+        assert gotFrom: "There is no /from in Event";
+        assert gotTo: "There is no /to in Event";
+        assert gotFrom && gotTo: "Incomplete From and To Event";
+
+        try{
+            LocalDateTime formattedStartDate = convertDateTime(startDate);
+            LocalDateTime formattedEndDate = convertDateTime(endDate);
+            Task newTask = new Event(extractedTask,formattedStartDate,formattedEndDate);
+            return newTask;
+
+
+        } catch(Exception e) {
+            return null;
+
+        }
+
+
 
     }
 
@@ -110,17 +131,29 @@ public class Parser {
         String dueDate = "";
         String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
 
+        boolean existBy = false;
         for(int i = 0; i < inputArray.length; i++) {
             if(inputArray[i].equals("/by")) {
                 dueDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i));
-
+                existBy = true;
                 break;
             }
         }
 
-        Task newTask = new Deadline(extractedTask,convertDateTime(dueDate));
-        return newTask;
+        assert existBy: "There is no '/by' in the deadline";
+
+        try{
+
+            LocalDateTime formattedDeadlineDate = convertDateTime(dueDate);
+            Task newTask = new Deadline(extractedTask,formattedDeadlineDate);
+            return newTask;
+
+        } catch(Exception e) {
+            return null;
+
+        }
+
     }
 
     /**

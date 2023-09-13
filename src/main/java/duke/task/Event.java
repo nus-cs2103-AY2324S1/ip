@@ -47,7 +47,7 @@ public class Event extends Task{
      */
     @Override
     public String getTypeCheckedText() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy");
         String formattedStartDateTime = startDate.format(formatter);
         String formattedEndDateTime = endDate.format(formatter);
 
