@@ -1,11 +1,18 @@
 package cheems.functionalities;
 
+import cheems.gui.Main;
 import cheems.tasks.Task;
 import cheems.tasks.Event;
 import cheems.tasks.Todo;
 import cheems.tasks.Deadline;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
+
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 /**
  * Represents a task list directly interacts with the user.
@@ -168,25 +175,31 @@ public class Tasklist {
     }
 
     /**
-     * Finds and Print the tasks with corresponding keyword in their description.
+     * Fuzzy match the input with current tasks using the Levenstein algorithm.
      * @param search The array of strings that represents the keyword we need to search for.
      */
     public String findTasks(String search) {
-        ArrayList<Task> tempList = new ArrayList<>();
-        int a = 1;
-        String resp = "";
+        List<String> descriptions = list.stream()
+                .map(Task::getDescription)
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < total; i++) {
-            if (list.get(i).getDescription().contains(search)) {
-                resp += String.format("%d.%s\n", a, list.get(i));
-                a++;
-            }
+        // Atomic types are used to ensure thread safety in streams
+        AtomicReference<String> resp = new AtomicReference<>("");
+        AtomicInteger a = new AtomicInteger(1);
+
+        FuzzySearch.extractSorted(search, descriptions, 60)
+                .stream()
+                .forEach(x -> {
+                    int indexInList = x.getIndex();
+                    int currentIndex = a.getAndAdd(1);
+                    resp.getAndUpdate(prev -> prev + String.format("%d.%s\n", a.get(), list.get(indexInList)));
+                });
+
+        if (resp.get() == "") {
+            return "There is no matching tasks in your list! Type 'list' to see what tasks you have:)";
         }
 
-        if (resp == "") {
-            resp = "There is no corresponding task in your list!";
-        }
-        return resp;
+        return "We have found the following similar tasks:\n" + resp.get();
     }
 
     /**
