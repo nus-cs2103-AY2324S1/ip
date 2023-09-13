@@ -26,6 +26,7 @@ public class Event extends Task {
         try {
             this.start = LocalDate.parse(start);
             this.end = LocalDate.parse(end);
+            assert(this.start.compareTo(this.end) <= -1);
         } catch (DateTimeException e) {
             throw new InvalidEventException("Invalid date");
         }
@@ -47,6 +48,7 @@ public class Event extends Task {
         try {
             this.start = LocalDate.parse(start);
             this.end = LocalDate.parse(end);
+            assert this.start.compareTo(this.end) <= -1 : "start date should be before end date";
         } catch (DateTimeException e) {
             throw new InvalidEventException("Invalid date");
         }

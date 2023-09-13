@@ -20,9 +20,9 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Constructor for a Dialog Box.
-     * @param l String that represents the user's input or response chatbot.
-     * @param iv Image of user or Lemon.
+     * Constructor of a dialog box
+     * @param l message input by user or response
+     * @param iv the image of Lemon or User
      */
     public DialogBox(String l, Image iv) {
         text = new Text(l);

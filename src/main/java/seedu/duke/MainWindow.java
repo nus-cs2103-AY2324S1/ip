@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Lemon.png"));
 
     /**
-     * To initialise the window of the chatbot with scroll pane.
+     * Initialise the main window.
      */
     @FXML
     public void initialize() {
@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Method to display welcome message of chatbot.
+     * To display the welcome message in a dialog box when Lemon is activated.
      */
     public void displayGreeting() {
         DialogBox greeting = DialogBox.getDukeDialog(ui.welcomeMessage(), dukeImage);
