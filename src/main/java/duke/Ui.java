@@ -7,13 +7,13 @@ public class Ui {
     /**
      * Displays the information of the application and greet the user.
      */
-    public static String welcomeMessage() {
+    public static String showWelcomeMessage() {
 
         String logo = "____        _        \n"
-                + "\t|  _ \\ _   _| | _____ \n"
-                + "\t| | | | | | | |/ / _ \\\n"
-                + "\t| |_| | |_| |   <  __/\n"
-                + "\t|____/ \\__,_|_|\\_\\___|\n";
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
 
         String result = "\nHello from\n" + logo + showLine() + "\n Hello! I'm YOLO \n What can I do for you? \n" + showLine();
         return result;

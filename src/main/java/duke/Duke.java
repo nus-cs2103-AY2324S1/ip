@@ -52,15 +52,16 @@ public class Duke {
         try {
             Command c = Parser.parse(input, this.tasks.size());
             result = c.execute(tasks, storage);
+            assert result.length() > 0 : "There will always be a return value.";
         } catch (NoSuchCommandException e) {
             result = e.toString();
-        } catch (InvalidIndexException e) {
+        } catch (InvalidIndexException | NumberFormatException e) {
             result = e.toString();
         } catch (UnmatchedArgumentException e) {
             result = e.toString();
         } catch (EmptyDescriptionException e) {
             result = e.toString();
-        } catch (NumberFormatException | StringIndexOutOfBoundsException | DateTimeException e) {
+        } catch (StringIndexOutOfBoundsException | DateTimeException e) {
 
             result = Ui.showLine() + "\n\tPlease enter a proper date." + "\n\t" + e.getMessage();
             result += "\n";
