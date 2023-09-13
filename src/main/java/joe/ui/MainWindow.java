@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Joe joe;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image joeImage = new Image(this.getClass().getResourceAsStream("/images/joever2.jpg"));
+    private Image joeImage = new Image(this.getClass().getResourceAsStream("/images/joever.jpg"));
 
     /**
      * Initializes the main window.
@@ -61,6 +61,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
+        //Prevents error message when user input is empty
+        if (input.isEmpty()) {
+            return;
+        }
+
         String response = joe.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
