@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import dukeExceptions.DukeException;
+import dukeExceptions.DukeSaveException;
 import storage.Storage;
 
 /**
@@ -22,7 +23,7 @@ public class ListOfTask {
     }
 
 
-    private String addTask(Task task, boolean print) {
+    private String addTask(Task task, boolean print) throws DukeSaveException {
         assert(task != null);
         listOfTask.add(task);
         if (print) {
@@ -38,8 +39,9 @@ public class ListOfTask {
      * @param task The task that is to be added.
      * @param print True to print messages, false to not print messages.
      * @return Returns a message string if print is true and null if false.
+     * @throws DukeSaveException If Duke is unable to save the task and updated the list.
      */
-    public String addToDo(String task, boolean print) {
+    public String addToDo(String task, boolean print) throws DukeSaveException {
         return addTask(new ToDo(task), print);
     }
 
@@ -50,8 +52,9 @@ public class ListOfTask {
      * @param dayDate The deadline of the task.
      * @param print True to print messages, false to not print messages.
      * @return Returns a message string if print is true and null if false.
+     * @throws DukeSaveException If Duke is unable to save the task and updated the list.
      */
-    public String addDeadline(String task, LocalDateTime dayDate, boolean print) {
+    public String addDeadline(String task, LocalDateTime dayDate, boolean print) throws DukeSaveException {
         return addTask(new Deadline(task, dayDate), print);
     }
 
@@ -63,9 +66,10 @@ public class ListOfTask {
      * @param endDayDateTime The date and time of the end of the task.
      * @param print True to print messages, false to not print message
      * @return Returns a message string if print is true and null if false.
+     * @throws DukeSaveException If Duke is unable to save the task and updated the list.
      */
     public String addEvent(String task, LocalDateTime startDayDateTime,
-            LocalDateTime endDayDateTime, boolean print) {
+            LocalDateTime endDayDateTime, boolean print) throws DukeSaveException {
         return addTask(new Event(task, startDayDateTime, endDayDateTime), print);
     }
 
@@ -75,21 +79,24 @@ public class ListOfTask {
      * @return Returns the list of tasks if there are tasks, and a message if there are no tasks.
      */
     public String listTasks() {
-        String[] list = new String[1];
-        assert(list[0] == null);
+        String[] list = new String[1]; // Initialized arrays to use as pointers
         int[] i = new int[1];
         i[0] = 1;
-        listOfTask.forEach(x -> {
-            if (list[0] == null) {
+        assert(list[0] == null);
+
+        listOfTask.forEach(x -> {  // For each item in the array list, I am accessing the arrays above to update
+            if (list[0] == null) { // my list string and my iterator.
                 list[0] = i[0] + "." + x + "\n";
             } else {
                 list[0] += i[0] + "." + x + "\n";
             }
             i[0]++;
         });
+
         if (list[0] == null) {
             return "There is nothing in the list";
         }
+
         return list[0];
     }
 
@@ -101,22 +108,22 @@ public class ListOfTask {
      * @return Returns a string of a list of tasks found and a message if nothing is found.
      */
     public String find(String str) {
-        String[] list = new String[1];
+        String[] list = new String[1];  // Initialized arrays to use as pointers
         int[] foundCounter = new int[1];
+        int[] listIndex = new int[1];
+        listIndex[0] = 1;
         assert(foundCounter[0] == 0);
-        int[] counter = new int[1];
-        counter[0] = 1;
 
-        listOfTask.forEach(task -> {
-            if (task.getTaskDescription().contains(str)) {
-                if (list[0] == null) {
-                    list[0] = counter[0] + "." + task + "\n";
+        listOfTask.forEach(task -> {                        // For each item in the array list,
+            if (task.getTaskDescription().contains(str)) {  // I am accessing the arrays above to
+                if (list[0] == null) {                      // update my find string, my iterator and foundCounter.
+                    list[0] = listIndex[0] + "." + task + "\n";
                 } else {
-                    list[0] += counter[0] + "." + task + "\n";
+                    list[0] += listIndex[0] + "." + task + "\n";
                 }
                 foundCounter[0]++;
             }
-            counter[0]++;
+            listIndex[0]++;
         });
 
         if (foundCounter[0] == 0) {
@@ -141,11 +148,13 @@ public class ListOfTask {
             } else {
                 listOfTask.get(index - 1).setNotDone();
             }
+
             if (print) {
                 Storage.save(listOfTask);
                 return listOfTask.get(index - 1).toString();
             }
             return "";
+
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please select from index 1 to " + listOfTask.size());
         }
@@ -164,6 +173,7 @@ public class ListOfTask {
             Task removed = listOfTask.remove(index - 1);
             Storage.save(listOfTask);
             return removed + " has been deleted";
+
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please select from index 1 to " + listOfTask.size());
         }

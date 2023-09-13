@@ -36,7 +36,7 @@ public class Duke {
      * @return Returns the greeting as well as the list of errors while loading, if any.
      */
     public static String greet() {
-        String str = Storage.load(taskList, 1, "");
+        String str = Storage.load(taskList);
         return ui.greet() + str;
     }
 

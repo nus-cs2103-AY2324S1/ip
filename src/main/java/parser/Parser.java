@@ -12,6 +12,10 @@ import dukeExceptions.DukeNullPointerException;
 import dukeExceptions.DukeNumberFormatException;
 import dukeExceptions.DukeUnknownCommandException;
 
+import static command.Commands.CommandEnum.FROM;
+import static command.Commands.CommandEnum.TO;
+import static command.Commands.CommandEnum.BY;
+
 /**
  * This class takes in the user input and parses returns a Commands object.
  */
@@ -23,6 +27,7 @@ public class Parser {
 
     /**
      * Construct the Parser object.
+     *
      * @param command The string that needs to be parsed.
      */
     public Parser(String command) {
@@ -31,83 +36,91 @@ public class Parser {
 
     /**
      * Parses the string into actionable commands.
+     *
      * @return Returns a Command object.
      * @throws DukeException If the input is not a command
      */
     public Commands parse() throws DukeException {
-        Commands.CommandEnum cmd = this.mainCommand();
-        switch (cmd) {
+        Commands.CommandEnum mainCmd = this.mainCommand();
+        switch (mainCmd) {
         case BYE: case LIST:
-            return Commands.of(cmd);
+            return Commands.of(mainCmd);
 
         case TODO: case FIND:
-            if (this.secondWord() == null) {
+            if (this.secondString() == null) {
                 throw new DukeException("Please add the task name");
             } else {
-                return Commands.of(cmd, this.secondWord());
+                return Commands.of(mainCmd, this.secondString());
             }
 
         case BY: case FROM: case TO:
             try {
-                String restOfCommand = this.secondWord().trim();
+                String restOfCommand = this.secondString().trim();
                 LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
-                return Commands.of(cmd, dateTime);
+                return Commands.of(mainCmd, dateTime);
             } catch (DateTimeParseException | NullPointerException e) {
                 throw new DukeDateTimeParseException("The format for dates&time is 'dd-MM-yyyy hhmm'");
             }
 
         case MARK: case UNMARK: case DELETE:
             try {
-                int index = Integer.parseInt(this.secondWord());
-                return Commands.of(cmd, index);
+                int index = Integer.parseInt(this.secondString());
+                return Commands.of(mainCmd, index);
             } catch (NumberFormatException | NullPointerException e) {
                 throw new DukeNumberFormatException("Place a number after the command");
             }
 
         case DEADLINE:
             try {
-                String task = this.phaseParse();
+                String task = this.commandPhaseParse();
                 String command2 = this.phaseTwo();
+
                 if (task != null) {
                     Parser phaseTwo = new Parser(command2);
                     Commands c = phaseTwo.parse();
-                    if (c.checkCommand(Commands.CommandEnum.BY)) {
-                        return Commands.of(Commands.CommandEnum.DEADLINE, task, c);
+                    if (c.checkCommand(BY)) {
+                        return Commands.of(mainCmd, task, c);
+                    } else {
+                        throw new NullPointerException();  // Wrong format
                     }
-                    break;
                 } else {
-                    throw new DukeException("Please add the task name");
+                    throw new DukeException("Please add the task name");  // No task name
                 }
             } catch (DukeUnknownCommandException | NullPointerException e) {
-                throw new DukeNullPointerException("The format for the command is: deadline task /by date&time");
+                throw new DukeNullPointerException("The format for the command is: "  // Wrong format
+                        + "deadline task /by date&time");
             }
 
         case EVENT:
             try {
-                String task = this.phaseParse();
-                String command2 = this.phaseTwo();
-                String command3 = this.phaseThree();
+                String task = this.commandPhaseParse();
+                String secondaryCommand = this.phaseTwo();
+                String tertiaryCommand = this.phaseThree();
+
                 if (task != null) {
-                    Parser phaseTwo = new Parser(command2);
-                    Commands c1 = phaseTwo.parse();
-                    Parser phaseThree = new Parser(command3);
-                    Commands c2 = phaseThree.parse();
-                    if (!c1.compareTime(c2)) {
+                    Parser phaseTwo = new Parser(secondaryCommand);
+                    Commands secCmd = phaseTwo.parse();
+                    Parser phaseThree = new Parser(tertiaryCommand);
+                    Commands terCmd = phaseThree.parse();
+
+                    if (!secCmd.compareTime(terCmd)) {
                         throw new DukeFromEarlierThanToException("From must be earlier than To");
                     }
-                    if (c1.checkCommand(Commands.CommandEnum.FROM) && c2.checkCommand(Commands.CommandEnum.TO)) {
-                        return Commands.of(Commands.CommandEnum.EVENT, task, c1, c2);
+
+                    if (secCmd.checkCommand(FROM) && terCmd.checkCommand(TO)) {
+                        return Commands.of(mainCmd, task, secCmd, terCmd);
+                    } else {
+                        throw new NullPointerException();  // Wrong format
                     }
-                    break;
                 } else {
-                    throw new DukeException("Please add the task name");
+                    throw new DukeException("Please add the task name");  // No task name
                 }
             } catch (DukeUnknownCommandException | NullPointerException e) {
-                throw new DukeNullPointerException("The format for the command is: "
+                throw new DukeNullPointerException("The format for the command is: "  // Wrong format
                         + "event task /from startDayDateTime /to endDayDateTime");
             }
         default:
-            // Throw error after default as it functions as a return too.
+            // Default would be unknown command, but that is an exception, thus it will be thrown.
         }
         throw new DukeUnknownCommandException("Unknown command");
     }
@@ -144,7 +157,7 @@ public class Parser {
         }
     }
 
-    private String secondWord() {
+    private String secondString() {
         try {
             if (this.initialParse[1].equals("")) {
                 return null;
@@ -156,7 +169,7 @@ public class Parser {
         }
     }
 
-    private String phaseParse() {
+    private String commandPhaseParse() {
         try {
             this.phaseParse = this.initialParse[1].split("/");
             return phaseParse[0];

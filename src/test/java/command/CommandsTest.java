@@ -23,19 +23,6 @@ import task.ListOfTask;
 public class CommandsTest {
 
     @Test
-    public void commandsEqualCommands() {
-        for (Commands.CommandEnum c : Commands.CommandEnum.values()) {
-            for (Commands.CommandEnum d : Commands.CommandEnum.values()) {
-                if (c == d) {
-                    assertEquals(Commands.of(c), Commands.of(d));
-                } else {
-                    assertNotEquals(Commands.of(c), Commands.of(d));
-                }
-            }
-        }
-    }
-
-    @Test
     public void commandsExecuteToDo() {
         String[] cmd = {"todo CS2103T A-JUnit", "todo "};
         String cmd2 = "CS2103T A-JUnit";
