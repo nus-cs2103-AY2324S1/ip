@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import exceptions.IncorrectInputException;
-import exceptions.NoDescriptionException;
 import exceptions.SavedDataFormatException;
 import exceptions.UpdateDataException;
 import tasks.Task;

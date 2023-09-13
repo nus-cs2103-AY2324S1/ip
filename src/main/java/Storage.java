@@ -7,10 +7,7 @@ import java.util.Scanner;
 
 import exceptions.SavedDataFormatException;
 import exceptions.UpdateDataException;
-import tasks.Deadline;
-import tasks.Event;
 import tasks.Task;
-import tasks.ToDo;
 
 /**
  * Storage deals with loading tasks from the file and saving tasks in the file.
