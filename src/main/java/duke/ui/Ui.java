@@ -92,7 +92,7 @@ public class Ui {
     }
 
     /**
-     * Display the help message
+     * Display the help message (BCDExtension)
      */
     public String help() {
         return "Here are the list of commands you can use:\n"
