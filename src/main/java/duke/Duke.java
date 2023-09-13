@@ -199,11 +199,20 @@ public class Duke extends Application {
     }
      */
 
+    /**
+     * DialogBox.
+     */
     public static class DialogBox extends HBox {
 
         private Label text;
         private ImageView displayPicture;
 
+        /**
+         * Constructor.
+         *
+         * @param l Label.
+         * @param iv ImageView.
+         */
         public DialogBox(Label l, ImageView iv) {
             text = l;
             displayPicture = iv;
@@ -223,10 +232,24 @@ public class Duke extends Application {
             this.getChildren().addAll(text, displayPicture);
         }
 
+        /**
+         * getUserDialog.
+         *
+         * @param l
+         * @param iv ImageView.
+         * @return DialogBox.
+         */
         public static DialogBox getUserDialog(Label l, ImageView iv) {
             return new DialogBox(l, iv);
         }
 
+        /**
+         * GetDukeDialog.
+         *
+         * @param l Label.
+         * @param iv ImageView.
+         * @return DialogBox.
+         */
         public static DialogBox getDukeDialog(Label l, ImageView iv) {
             var db = new DialogBox(l, iv);
             db.flip();

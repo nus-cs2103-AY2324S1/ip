@@ -32,15 +32,17 @@ public class AddCommand implements Command {
             tasks.add(task);
         } else if (userInput.toLowerCase().startsWith("deadline")) {
             // Check format
-            if (!userInput.contains("/by "))
+            if (!userInput.contains("/by ")) {
                 throw new DukeException("Please use the format: deadline [description] /by [date]");
+            }
             String[] words = userInput.substring(8).split("/by", 2);
             task = new Deadline(words[0].trim(), words[1].trim());
             tasks.add(task);
         } else if (userInput.toLowerCase().startsWith("event")) {
             // Check format
-            if (!userInput.contains("/from ") || !userInput.contains("/to "))
+            if (!userInput.contains("/from ") || !userInput.contains("/to ")) {
                 throw new DukeException("Please use the format: event [description] /from [date] /to [date]");
+            }
             String[] words = userInput.substring(5).split("/from", 2);
             String description = words[0].trim();
             String[] time = words[1].split("/to");
@@ -50,8 +52,8 @@ public class AddCommand implements Command {
             tasks.add(task);
         }
 
-        ui.respond("Got it. I've added this task:" + "\n" + task.toString() +
-                "\n" + "Now you have " + tasks.size() + " tasks in the list");
+        ui.respond("Got it. I've added this task:" + "\n" + task.toString()
+                + "\n" + "Now you have " + tasks.size() + " tasks in the list");
         return false;
     }
 }

@@ -22,7 +22,7 @@ public class Ui {
      * Displays the welcome message to the user.
      */
     public String showWelcome() {
-        return "Hello! I'm Ken\n"+"What can I do for you?";
+        return "Hello! I'm Ken\n" + "What can I do for you?";
     }
 
 
@@ -40,7 +40,7 @@ public class Ui {
      */
     public String readInput() {
         System.out.println("[You]");
-        String userInput = sc.nextLine();  // Read user input
+        String userInput = sc.nextLine(); // Read user input
         history.add(userInput); // Update History
         return userInput;
     }
@@ -48,8 +48,6 @@ public class Ui {
     /**
      * Receives user input and adds it to the chat history.
      * User for GUI.
-     *
-     * @return The user input as a string.
      */
     public void readInput(String input) {
         history.add(input); // Update History
@@ -65,6 +63,11 @@ public class Ui {
         //System.out.println("[Ken]\n" + response);
     }
 
+    /**
+     * Show error message.
+     *
+     * @param error as a parameter.
+     */
     public void showError(String error) {
         history.add(error); // Update History
         //System.out.println("OOPS! " + error);

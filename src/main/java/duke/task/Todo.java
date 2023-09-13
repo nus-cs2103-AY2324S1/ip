@@ -14,7 +14,7 @@ public class Todo extends Task {
      */
     public Todo(String description) throws DukeException {
         super(description);
-        this.TaskType = TaskType.TODO;
+        this.taskType = taskType.TODO;
     }
 
     /**

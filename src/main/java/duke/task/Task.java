@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.exception.DukeException;
-
 import java.time.LocalDate;
+
+import duke.exception.DukeException;
 
 /**
  * Represents a generic task within the chat bot application.
@@ -12,7 +12,7 @@ public abstract class Task {
     /**
      * The duke.task.Task Type of the duke.task.Task.
      */
-    protected Task.TaskType TaskType;
+    protected Task.TaskType taskType;
     /**
      * The description of the task.
      */

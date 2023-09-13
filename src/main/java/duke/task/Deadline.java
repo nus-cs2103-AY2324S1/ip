@@ -1,10 +1,10 @@
 package duke.task;
 
-import duke.exception.DukeException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.exception.DukeException;
 
 /**
  * A task which holds the date which should be completed by.
@@ -25,7 +25,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String date) throws DukeException {
         super(description);
-        this.TaskType = TaskType.DEADLINE;
+        this.taskType = taskType.DEADLINE;
         try {
             this.date = LocalDate.parse(date);
         } catch (DateTimeException e) {

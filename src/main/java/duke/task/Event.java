@@ -1,10 +1,10 @@
 package duke.task;
 
-import duke.exception.DukeException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.exception.DukeException;
 
 /**
  * A task which holds the date from and to.
@@ -30,7 +30,7 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws DukeException {
         super(description);
-        this.TaskType = TaskType.EVENT;
+        this.taskType = taskType.EVENT;
         try {
             this.from = LocalDate.parse(from);
             this.to = LocalDate.parse(to);
@@ -46,7 +46,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.isDone ? "[E][X] " + this.description + " (from: " + formatDate(from) + " to: " + formatDate(to) + ")"
+        return this.isDone ? "[E][X] " + this.description + " (from: " + formatDate(from)
+                + " to: " + formatDate(to) + ")"
                 : "[E][ ] " + this.description + " (from: " + formatDate(from) + " to: " + formatDate(to) + ")";
     }
 

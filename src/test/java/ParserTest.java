@@ -1,10 +1,11 @@
-import duke.Parser;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.exception.DukeException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import duke.Parser;
+import duke.command.ExitCommand;
+import duke.exception.DukeException;
 
 public class ParserTest {
     @Test
@@ -26,7 +27,7 @@ public class ParserTest {
             Parser.parse(input);
             fail(); // Test should not reach this line
         } catch (DukeException e) {
-            assertEquals("Unknown Command!",e.getMessage());
+            assertEquals("Unknown Command!", e.getMessage());
         }
     }
 }

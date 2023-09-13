@@ -15,10 +15,9 @@ public interface Command {
      *
      * @param tasks The task list that may be modified by the command.
      * @param ui    The user interface for analyzing chat history.
-     * @return {@code true} if the program should terminate after executing this command, or
-     * {@code false} if the program should continue running.
+     * @return true if terminate, false otherwise.
+     * @throws DukeException for error.
      */
     boolean execute(TaskList tasks, Ui ui) throws DukeException;
 
 }
-
