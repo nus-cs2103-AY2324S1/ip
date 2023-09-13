@@ -13,7 +13,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Duke duke;
+    private Stage stage;
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +23,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            this.duke = new Duke(stage);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
+            assert stage != null : "stage should not be null";
+            this.stage = stage;
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

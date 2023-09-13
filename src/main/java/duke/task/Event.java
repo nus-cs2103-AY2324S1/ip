@@ -13,11 +13,13 @@ public class Event extends Task {
         this.taskType = TaskType.EVENT;
         this.from = from;
         this.to = to;
+        assert this.description != null : "description should not be null";
     }
 
     public Event(String description, String from, String to, boolean isDone) {
         this(description, from, to);
         this.isDone = isDone;
+        assert this.description != null : "description should not be null";
     }
 
     /**

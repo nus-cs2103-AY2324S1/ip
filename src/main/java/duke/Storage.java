@@ -61,8 +61,6 @@ public class Storage {
         }
     }
 
-    //TODO: update the file after each task creation/modification
-
     /**
      * Saves the specified task list to the specified file path. Create the file if necessary.
      * @throws IOException
@@ -72,7 +70,9 @@ public class Storage {
         if (txt.isEmpty()) {
             return;
         }
+        assert !txt.isEmpty() : "tasks.txt should not be empty";
         new File(filePath).createNewFile();
+        assert new File(filePath).exists() : "tasks.txt should exist";
         FileWriter fw = new FileWriter(filePath);
         fw.write(taskList.getTasksTxt());
         fw.close();
