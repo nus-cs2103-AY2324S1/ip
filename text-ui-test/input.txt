@@ -47,9 +47,9 @@ snooze 2
 snooze 2 /by a
 snooze 2 /by 2023-06-07 1400
 snooze 6
-snooze 6 /by a
-snooze 6 /by 2023-09-17 1700
-snooze 6 /by 2023-09-16 1500
-snooze 6 /by 2023-09-17 1400 /to a 
-snooze 6 /by 2023-09-17 1800 /to 2023-09-18 1200
+snooze 6 /from a
+snooze 6 /from 2023-09-17 1700
+snooze 6 /from 2023-09-16 1500
+snooze 6 /from 2023-09-17 1400 /to a 
+snooze 6 /from 2023-09-17 1800 /to 2023-09-18 1200
 bye
