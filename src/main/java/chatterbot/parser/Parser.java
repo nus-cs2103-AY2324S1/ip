@@ -22,25 +22,28 @@ public class Parser {
      * @param taskList This is the list of tasks that have been added.
      */
 
-    public static void evaluateCommand(String userMessage, Ui ui, ArrayList<Task> list, Storage storage, String file,
+    public static String evaluateCommand(String userMessage, Ui ui, ArrayList<Task> list, Storage storage, String file,
                                        TaskList taskList) {
 
+        String response = "";
+
         if (userMessage.toLowerCase().equals("bye")) {
-            ui.showGoodbyeMessage();
-            return;
+            response = ui.showGoodbyeMessage();
+            System.out.println(response);
         } else if (userMessage.toLowerCase().equals("list")) {
-            ui.showTaskList();
+            response = ui.showTaskList();
+            System.out.println(response);
         } else if (userMessage.startsWith("mark") && isInteger(userMessage.substring(5))) {
             String toMark = userMessage.substring(5);
             list.get(Integer.parseInt(toMark) - 1).setDone();
-            ui.showMarked(toMark);
+            response = ui.showMarked(toMark);
         } else if (userMessage.startsWith("unmark")) {
             String toUnmark = userMessage.substring(7);
             list.get(Integer.parseInt(toUnmark) - 1).setUndone();
-            ui.showUnmarked(toUnmark);
+            response = ui.showUnmarked(toUnmark);
         } else if (userMessage.startsWith("find")) {
             String toFind = userMessage.substring(5);
-            ui.showFoundTasks(toFind);
+            response = ui.showFoundTasks(toFind);
         } else {
             if (userMessage.startsWith("deadline")) {
                 try {
@@ -57,7 +60,7 @@ public class Parser {
                     String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
                     Deadline d = new Deadline(deadlineDescription, deadlineBy);
                     list.add(d);
-                    ui.showAddedDeadline(d);
+                    response = ui.showAddedDeadline(d);
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input!");
                 }
@@ -73,7 +76,7 @@ public class Parser {
                     }
                     Todo td = new Todo(userMessage.substring(5));
                     list.add(td);
-                    ui.showAddedTodo(td);
+                    response = ui.showAddedTodo(td);
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input! " + e.getMessage() + ".");
                 }
@@ -93,12 +96,12 @@ public class Parser {
                     String eventFrom = eventSplit[2].substring(3);
                     Event e = new Event(eventDescription, eventTo, eventFrom);
                     list.add(e);
-                    ui.showAddedEvent(e);
+                    response = ui.showAddedEvent(e);
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input!");
                 }
             } else if (userMessage.startsWith("delete") && isInteger(userMessage.substring(7))) {
-                ui.showDeleted(userMessage);
+                response = ui.showDeleted(userMessage);
                 list.remove((Integer.parseInt(userMessage.substring(7))) - 1);
                 try {
                     storage.writeToFile(file, taskList.convertToString(list));
@@ -106,9 +109,10 @@ public class Parser {
                     System.out.println("Error!");
                 }
             } else {
-                ui.showUnknownCommand(userMessage);
+                response = ui.showUnknownCommand(userMessage);
             }
         }
+        return response;
     }
 
     /**
