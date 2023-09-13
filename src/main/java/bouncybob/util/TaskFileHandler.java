@@ -73,20 +73,33 @@ public class TaskFileHandler {
                 String type = parts[0].trim();
                 boolean isDone = parts[1].trim().equals("1");
                 String name = parts[2].trim();
+                String note;
 
                 Task task = null;
                 switch (type) {
                     case "T":
                         task = new ToDo(name);
+                        if (parts.length > 3) {
+                            note = parts[3].trim();
+                            task.setNote(note);
+                        }
                         break;
                     case "D":
                         String datetime = parts[3].trim();
                         task = new Deadline(name, datetime);
+                        if (parts.length > 4) {
+                            note = parts[4].trim();
+                            task.setNote(note);
+                        }
                         break;
                     case "E":
                         String from = parts[3].trim();
                         String to = parts[4].trim();
                         task = new Event(name, from, to);
+                        if (parts.length > 5) {
+                            note = parts[5].trim();
+                            task.setNote(note);
+                        }
                         break;
                 }
                 if (task != null) {

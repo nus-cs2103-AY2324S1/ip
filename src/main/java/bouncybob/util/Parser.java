@@ -43,6 +43,8 @@ public class Parser {
                 return BouncyBob.Action.UNMARK;
             case "delete":
                 return BouncyBob.Action.DELETE;
+            case "note":
+                return BouncyBob.Action.NOTE;
             default:
                 return BouncyBob.Action.UNKNOWN;
         }
@@ -87,6 +89,16 @@ public class Parser {
         return combinedString;
     }
 
+    public static String getNoteFromCommand(String[] arr) {
+        String combinedString = "";
+        for (int i = 2; i < arr.length; i++) {
+            combinedString = combinedString + arr[i];
+            if (i != arr.length - 1) {
+                combinedString += " ";
+            }
+        }
+        return combinedString;
+    }
     /**
      * Extracts the datetime for a deadline task from the given input string.
      *
