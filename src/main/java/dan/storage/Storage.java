@@ -1,3 +1,5 @@
+package dan.storage;
+
 import dan.exceptions.DanException;
 import dan.exceptions.DanStorageException;
 import dan.task.*;
