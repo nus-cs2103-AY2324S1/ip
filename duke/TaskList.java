@@ -1,3 +1,4 @@
+package duke;
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -63,7 +64,7 @@ public class TaskList implements Serializable {
         }
     }
 
-    public ArrayList<Task> getTaskArrayList() {
+    protected ArrayList<Task> getTaskArrayList() {
         return this.taskArrayList;
     }
 

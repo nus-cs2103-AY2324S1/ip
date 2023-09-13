@@ -1,25 +1,26 @@
+package duke;
 import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
     public Ui() {
         scanner = new Scanner(System.in);
     }
-    public void greeting() {
+    protected void greeting() {
         System.out.println("Hello! I'm Lakinta "  + "\nWhat can I do for you?");
     }
 
-    public void exit() {
+    protected void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public String getUserInput() {
+    protected String getUserInput() {
         return scanner.nextLine();
     }
 
-    public void closeScanner() {
+    protected void closeScanner() {
         scanner.close();
     }
-    public void showMessage(String message) {
+    protected void showMessage(String message) {
         System.out.println(message);
     }
 }

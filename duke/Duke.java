@@ -1,10 +1,5 @@
+package duke;
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDate;
-
 
 public class Duke {
     private final String filePath = "./data/duke.txt";
