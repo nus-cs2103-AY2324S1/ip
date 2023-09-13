@@ -42,7 +42,9 @@ public class Parser {
      * @param input A line of user input.
      * @return String ArrayList containing relevant useful string tokens
      */
-    public ArrayList<String> parseUserInput(String input) {
+    public ArrayList<String> parseUserInput(String input) throws MissingByException, MissingDescriptionException,
+            MissingFromException, MissingToException, OutOfBoundIdException, NotIntegerIdException,
+            MissingIdException {
         ArrayList<String> args = new ArrayList<>();
         if (input.equals("list")) {
             // returns args <command>
@@ -84,32 +86,24 @@ public class Parser {
             // Checks if the user has entered the command properly
             // and extracts the relevant information to parse
             // then returns args <command, desc, dyDate>
-            try {
-                int byDateIndex = getByDateIndex(input);
-                String desc = input.substring(FIND_COMMAND_DEADLINE_OFFSET, byDateIndex - 1);
-                String byDate = input.substring(byDateIndex + FIND_FIELD_BY_OFFSET);
-                args.add(desc);
-                args.add(byDate);
-            } catch (MissingDescriptionException | MissingByException e) {
-                System.out.println(e.getMessage());
-            }
+            int byDateIndex = getByDateIndex(input);
+            String desc = input.substring(FIND_COMMAND_DEADLINE_OFFSET, byDateIndex - 1);
+            String byDate = input.substring(byDateIndex + FIND_FIELD_BY_OFFSET);
+            args.add(desc);
+            args.add(byDate);
         } else if (input.startsWith("event ")) {
             args.add("event");
             // Checks if the user has entered the command properly
             // and extracts the relevant information to parse
             // then returns args <command, desc, fromDate, toDate>
-            try {
-                int fromDateIndex = getFromDateIndex(input);
-                int toDateIndex = getToDateIndex(input, fromDateIndex);
-                String desc = input.substring(FIND_COMMAND_EVENT_OFFSET, fromDateIndex - 1);
-                String fromDate = input.substring(fromDateIndex + FIND_FIELD_FROM_OFFSET, toDateIndex - 1);
-                String toDate = input.substring(toDateIndex + FIND_FIELD_TO_OFFSET);
-                args.add(desc);
-                args.add(fromDate);
-                args.add(toDate);
-            } catch (MissingDescriptionException | MissingFromException | MissingToException e) {
-                System.out.println(e.getMessage());
-            }
+            int fromDateIndex = getFromDateIndex(input);
+            int toDateIndex = getToDateIndex(input, fromDateIndex);
+            String desc = input.substring(FIND_COMMAND_EVENT_OFFSET, fromDateIndex - 1);
+            String fromDate = input.substring(fromDateIndex + FIND_FIELD_FROM_OFFSET, toDateIndex - 1);
+            String toDate = input.substring(toDateIndex + FIND_FIELD_TO_OFFSET);
+            args.add(desc);
+            args.add(fromDate);
+            args.add(toDate);
         } else if (input.startsWith("find ")) {
             // Gets the search term the user wishes to find
             // and returns args <command, findTerm>
@@ -142,20 +136,17 @@ public class Parser {
      *
      * @param idString The string to be checked.
      */
-    static void checkIfValidId(String idString) {
-        try {
-            if (idString.isEmpty()) {
-                // id field is empty
-                throw new MissingIdException();
-            } else if (isNotNumber(idString)) {
-                // id field is not an integer
-                throw new NotIntegerIdException();
-            } else if (Integer.parseInt(idString) > Task.getTaskCount()) {
-                // id does not exist
-                throw new OutOfBoundIdException();
-            }
-        } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
-            System.out.println(e.getMessage());
+    static void checkIfValidId(String idString) throws MissingIdException, NotIntegerIdException,
+            OutOfBoundIdException {
+        if (idString.isEmpty()) {
+            // id field is empty
+            throw new MissingIdException();
+        } else if (isNotNumber(idString)) {
+            // id field is not an integer
+            throw new NotIntegerIdException();
+        } else if (Integer.parseInt(idString) > Task.getTaskCount()) {
+            // id does not exist
+            throw new OutOfBoundIdException();
         }
     }
 
@@ -166,13 +157,9 @@ public class Parser {
      *
      * @param description The string to be checked.
      */
-    static void checkIfDescMissing(String description) {
-        try {
-            if (description.isEmpty()) {
-                throw new MissingDescriptionException("The description of a todo cannot be empty\n");
-            }
-        } catch (MissingDescriptionException e) {
-            System.out.println(e.getMessage());
+    static void checkIfDescMissing(String description) throws MissingDescriptionException {
+        if (description.isEmpty()) {
+            throw new MissingDescriptionException("The description of a todo cannot be empty\n");
         }
     }
 
@@ -188,8 +175,7 @@ public class Parser {
         return byDateIndex;
     }
 
-    static int getFromDateIndex(String input) throws MissingFromException, MissingToException,
-            MissingDescriptionException {
+    static int getFromDateIndex(String input) throws MissingFromException {
         int fromDateIndex = input.indexOf("/from ");
         if (fromDateIndex == -1) {
             // If the "/from " block is missing, throws the MissingFromException

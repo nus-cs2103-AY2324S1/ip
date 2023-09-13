@@ -85,7 +85,7 @@ public class TaskList {
         return sb.toString();
     }
 
-    public void searchFor(String searchTerm) {
+    public String searchFor(String searchTerm) {
         StringBuilder sb = new StringBuilder();
         boolean hasMatch = false;
         for (Task currTask: taskList) {
@@ -104,6 +104,6 @@ public class TaskList {
         if (!hasMatch) {
             sb.append("I could not find anything matching '").append(searchTerm).append("' Master");
         }
-        System.out.println(sb.toString());
+        return sb.toString();
     }
 }

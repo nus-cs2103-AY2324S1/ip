@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import jeeves.Jeeves;
 
-
 /**
  * Ui is responsible for all visual interactions with the user.
  */
@@ -23,7 +22,7 @@ public class Ui extends Application {
     private static final String MESSAGE_WELCOME = "Greetings, Master. Jeeves at your service\n"
             + "How may I serve you today?\n";
 
-    private final Image jeeves = new Image(this.getClass().getResourceAsStream("/images/jeeves.jpg"));
+    private final Image jeeves = new Image(this.getClass().getResourceAsStream("/images/Jeeves.jpg"));
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private ScrollPane scrollPane;
     private VBox dialogContainer;

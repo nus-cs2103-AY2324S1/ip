@@ -53,6 +53,7 @@ application {
 
 shadowJar {
     archiveBaseName = "jeeves"
+    archiveFileName = 'jeeves.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

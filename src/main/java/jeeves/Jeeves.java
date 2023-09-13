@@ -5,6 +5,13 @@ import java.util.ArrayList;
 
 import javafx.application.Application;
 import jeeves.exception.DeletedIdException;
+import jeeves.exception.MissingByException;
+import jeeves.exception.MissingDescriptionException;
+import jeeves.exception.MissingFromException;
+import jeeves.exception.MissingIdException;
+import jeeves.exception.MissingToException;
+import jeeves.exception.NotIntegerIdException;
+import jeeves.exception.OutOfBoundIdException;
 import jeeves.parser.Parser;
 import jeeves.storage.Storage;
 import jeeves.task.Deadline;
@@ -25,7 +32,6 @@ public class Jeeves {
     private static final Storage storage = new Storage(RELATIVE_PATH_DATA_DIRECTORY, RELATIVE_PATH_DATA_FILE);
     private static final TaskList tasks = new TaskList(storage.readTasklistFromFile());
     private static final Parser parser = new Parser();
-    private static final Ui ui = new Ui();
 
     /**
      * Main process.
@@ -43,7 +49,13 @@ public class Jeeves {
      */
     public static String processInput(String inputLine) {
         // Reads the user input and parses the relevant tokens for use
-        ArrayList<String> tokens = parser.parseUserInput(inputLine);
+        ArrayList<String> tokens = null;
+        try {
+            tokens = parser.parseUserInput(inputLine);
+        } catch (MissingByException | MissingDescriptionException | MissingFromException | MissingToException |
+                 OutOfBoundIdException | NotIntegerIdException | MissingIdException e) {
+            return e.getMessage();
+        }
         String currentCommand = tokens.get(0);
         // Performs a different action depending on the input received
         // Unless a specific pre-defined command is received, the program will
@@ -109,11 +121,12 @@ public class Jeeves {
                     // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
                     throw new DeletedIdException();
                 }
-
+                
+                String deletedTask = tasks.getTask(id).toString();
                 tasks.setTask(id, null);
                 return "Understood, I have deleted the following task:\n"
                                 + "    "
-                                + tasks.getTask(id).toString()
+                                + deletedTask
                                 + "\n";
             } catch (DeletedIdException e) {
                 return e.getMessage();
@@ -145,13 +158,13 @@ public class Jeeves {
                             + newEvent
                             + "\n";
         } else if (currentCommand.equals("find")) {
-            tasks.searchFor(tokens.get(1));
+            return tasks.searchFor(tokens.get(1));
         } else if (currentCommand.equals("bye")) {
             // Before the actual termination of the program, writes the current task list to the external file.
             storage.writeTasklistToFile(tasks.getTaskListDataAsString());
 
-            // Displays the farewell message and terminates the application
-            return "I bid you farewell, Master\n";
+            // Terminates the application
+            System.exit(0);
         }
 
         // By default, informs the user that the command is not recognized.
