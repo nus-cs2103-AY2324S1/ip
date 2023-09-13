@@ -42,19 +42,19 @@ public class Storage {
      */
     public boolean createFile(String filePath) {
         File file = new File(filePath);
-        if (file.exists()) {
+        if (!file.exists()) {
+            try{
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("File created successfully.");
+
+            return false;
+        } else {
             System.out.println("File already exists.");
             return true;
         }
-
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("File created successfully.");
-
-        return false;
     }
 
     /**
@@ -66,19 +66,20 @@ public class Storage {
     public boolean createFolder(String folderPath) {
         File folder = new File(folderPath).getParentFile();
 
-        if (folder.exists()) {
+        if (!folder.exists()) {
+            boolean folderCreated = folder.mkdirs();
+            if (folderCreated) {
+                System.out.println("Folder created successfully.");
+            } else {
+                System.out.println("Failed to create folder.");
+            }
+            return false;
+
+        } else {
             System.out.println("Folder already exists.");
             return true;
 
         }
-        boolean folderCreated = folder.mkdirs();
-        if (folderCreated) {
-            System.out.println("Folder created successfully.");
-        } else {
-            System.out.println("Failed to create folder.");
-        }
-        return false;
-
     }
 
     /**
@@ -93,10 +94,9 @@ public class Storage {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            String line = reader.readLine();
-            while (line != null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 lines.add(line);
-                line = reader.readLine();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,40 +115,41 @@ public class Storage {
         ArrayList<Task> taskArrayList = new ArrayList<>();
 
         for (String input : inputList) {
-            Task newTask = inputToTask(input);
-            if (newTask != null) {
-                taskArrayList.add(newTask);
+            String[] parts = input.split(";");
+            String type = parts[0];
+            String text = parts[1];
+            boolean checked = false;
+
+            if (parts[2].equals("true")) {
+                checked = true;
             }
-        }
 
+            Task newTask;
+
+            switch (type) {
+                case "T":
+                    newTask = new ToDo(text,checked);
+                    taskArrayList.add(newTask);
+                    break;
+
+                case "E":
+                    LocalDateTime startDate = LocalDateTime.parse(parts[3]);
+                    LocalDateTime endDate = LocalDateTime.parse(parts[4]);
+                    newTask = new Event(text,startDate,endDate,checked);
+                    taskArrayList.add(newTask);
+                    break;
+
+                case "D":
+                    LocalDateTime dueDate = LocalDateTime.parse(parts[3]);
+                    newTask = new Deadline(text,dueDate,checked);
+                    taskArrayList.add(newTask);
+                    break;
+            }
+
+
+
+        }
         return new TaskArray(taskArrayList);
-    }
-
-    public Task inputToTask(String input){
-        String[] parts = input.split(";");
-        String type = parts[0];
-        String text = parts[1];
-        boolean checked = false;
-
-        if (parts[2].equals("true")) {
-            checked = true;
-        }
-
-        switch (type) {
-            case "T":
-                return new ToDo(text,checked);
-
-            case "E":
-                LocalDateTime startDate = LocalDateTime.parse(parts[3]);
-                LocalDateTime endDate = LocalDateTime.parse(parts[4]);
-                return new Event(text,startDate,endDate,checked);
-
-            case "D":
-                LocalDateTime dueDate = LocalDateTime.parse(parts[3]);
-                return new Deadline(text,dueDate,checked);
-        }
-
-        return null;
     }
 
     /**

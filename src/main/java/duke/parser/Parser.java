@@ -65,7 +65,6 @@ public class Parser {
 
         String endDate = "";
         String startDate = "";
-        //Extracting Task, date for /from and /to
         for (int i = 0; i < inputArray.length; i++) {
             if (inputArray[i].equals("/from") && startIndex == -1) {
                 startIndex = i;
@@ -81,6 +80,7 @@ public class Parser {
 
     }
 
+        //Using format given by textbook dd-mm-yyyy HHmm example :"02/12/2019 1800"
     /**
      * Convert the LocalDateTime based on String formatted input
      *
@@ -142,6 +142,7 @@ public class Parser {
         if (inputArray.length <= 1) {
             return "";
         }
+
         String extractedWord = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
         return extractedWord;
     }
@@ -183,14 +184,14 @@ public class Parser {
     public int processDeleteIndex() {
         if (inputArray.length != 2) {
             return -1;
+        } else {
+            try {
+                int index = Integer.parseInt(getIndex());
+                return index;
+            } catch (Exception e) {
+                return -1;
+            }
         }
-        try {
-            int index = Integer.parseInt(getIndex());
-            return index;
-        } catch (Exception e) {
-            return -1;
-        }
-
     }
 
 

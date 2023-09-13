@@ -50,7 +50,7 @@ public class Event extends Task{
         String formattedStartDateTime = startDate.format(formatter);
         String formattedEndDateTime = endDate.format(formatter);
 
-        String result = getType() + getChecked() + " " + getText() + " (from: " + formattedStartDateTime + " to: "+ formattedEndDateTime+")";
+        String result = getType() + getChecked() + " " + getText() + " (from: " + formattedStartDateTime + " to: "+formattedEndDateTime+")";
         return result;
     }
 
