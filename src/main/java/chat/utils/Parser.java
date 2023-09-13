@@ -11,7 +11,9 @@ import chat.commands.EventCommand;
 import chat.commands.FindCommand;
 import chat.commands.ListCommand;
 import chat.commands.MarkDoneCommand;
+import chat.commands.SortCommand;
 import chat.commands.TodoCommand;
+import chat.commands.SortCommand.sortType;
 import chat.exceptions.ChatException;
 import chat.exceptions.IncorrectFileFormatException;
 import chat.exceptions.IncorrectFormatException;
@@ -232,6 +234,19 @@ public class Parser {
         } 
     }
 
+    public static SortCommand parseSort(String input) throws IncorrectFormatException {
+        input.trim();
+        if (input.contains("name")) {
+            return new SortCommand(sortType.NAME);
+        } else if (input.contains("date")) {
+            return new SortCommand(sortType.DATE);
+        } else if (input.contains("type")) {
+            return new SortCommand(sortType.TYPE);
+        } else {
+            throw new IncorrectFormatException();
+        }
+    }
+
     /**
      * Parses a file line and returns a Command. This is a helper method for loading
      * stored data into the tasklist.
@@ -298,6 +313,8 @@ public class Parser {
             return new DeleteCommand(parseIndex(args));
         case FIND:
             return new FindCommand(args);
+        case SORT:
+            return parseSort(args);
         default:
             throw new InvalidCommandException();
         } 

@@ -14,7 +14,8 @@ public enum Enum {
     EVENT("event"),
     DELETE("delete"),
     BYE("bye"),
-    FIND("find");
+    FIND("find"),
+    SORT("sort");
 
     private String text;
 
