@@ -24,6 +24,7 @@ public class TaskList {
      * @return String that confirms the deletion of the task.
      */
     String del(Storage storage, int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index.";
         String temp = tasks.get(taskIndex).toString();
         tasks.remove(taskIndex);
         
@@ -41,6 +42,7 @@ public class TaskList {
      * @return String that confirms the addition of the Deadline task.
      */
     String addDeadline(Storage storage, String inp, String by) {
+        assert inp != null && !inp.trim().isEmpty() : "Task description cannot be empty";
         Deadline newTask = new Deadline(inp, false, by);
         String newTaskString = newTask.toFileString();
         tasks.add(newTask);
@@ -58,6 +60,7 @@ public class TaskList {
      * @return String that confirms the addition of the Event task.
      */
     String addEvent(Storage storage, String inp, String from, String to) {
+        assert inp != null && !inp.trim().isEmpty() : "Task description cannot be empty";
         Event newTask = new Event(inp, false, from, to);
         String newTaskString = newTask.toFileString();
         tasks.add(newTask);
@@ -73,6 +76,7 @@ public class TaskList {
      * @return String that confirms the addition of the Todo task.
      */
     String addTodo(Storage storage, String inp) {
+        assert inp != null && !inp.trim().isEmpty() : "Task description cannot be empty";
         Todo newTask = new Todo(inp, false);
         String newTaskString = newTask.toFileString();
         tasks.add(newTask);
@@ -126,6 +130,7 @@ public class TaskList {
      * @return String that lists all the tasks that contain the keyword.
      */
     String find(String keyword) {
+        assert keyword.trim() != null : "Keyword for task search cannot be null.";
         String temp = "Here are the matching tasks in your list:\n";
         int count = 0;
         for(int i = 0; i < tasks.size(); i++) {
@@ -162,6 +167,7 @@ public class TaskList {
      * @param task  Task to be added to the list of tasks.
      */
     void add(Task task) {
+        assert task != null : "Task to be added cannot be null.";
         this.tasks.add(task);
     }
 
