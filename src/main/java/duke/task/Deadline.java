@@ -25,6 +25,10 @@ public class Deadline extends Task {
         this.deadline = LocalDateTime.parse(deadline, formatter);
     }
 
+    public LocalDateTime getDueDate() {
+        return deadline;
+    }
+
     /**
      * Returns the string representation of the Deadline task.
      *
