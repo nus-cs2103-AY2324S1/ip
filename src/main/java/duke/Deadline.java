@@ -29,6 +29,7 @@ public class Deadline extends Task {
         if (description.trim().isEmpty()) {
             throw new DukeException("The description of a deadline task cannot be empty.");
         }
+
         if (date.trim().isEmpty()) {
             throw new DukeException("The deadline cannot be empty.");
         }

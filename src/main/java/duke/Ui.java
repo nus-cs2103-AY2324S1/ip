@@ -18,6 +18,8 @@ public class Ui {
 
     /**
      * Displays a goodbye message when the application exits.
+     *
+     * @return A goodbye message.
      */
     public String showGoodbyeMessage() {
         return "Bye. Hope to see you again soon!";
@@ -28,6 +30,7 @@ public class Ui {
      *
      * @param task The newly added task.
      * @param taskListSize The size of the task list after the addition of the new task.
+     * @return A string containing the newly added task and the number of tasks in the list.
      */
     public String showAddTask(Task task, int taskListSize) {
         return ("Got it. I've added this task:\n"
@@ -39,6 +42,7 @@ public class Ui {
      *
      * @param task The removed task.
      * @param taskListSize The size of the task list after the removal of the deleted task.
+     * @return A string containing the newly deleted task and the number of tasks in the list.
      */
     public String showDeletedTask(Task task, int taskListSize) {
         return ("Noted. I've removed this task:\n"
@@ -49,6 +53,7 @@ public class Ui {
      * Displays a confirmation message stating that task is mark done.
      *
      * @param task The task marked as done.
+     * @return A string containing the task marked as done.
      */
     public String showDone(Task task) {
         return ("Nice! I've marked this task as done:\n"
@@ -59,6 +64,7 @@ public class Ui {
      * Displays a confirmation message stating that task is mark undone.
      *
      * @param task The task marked as undone.
+     * @return A string containing the task marked as not done.
      */
     public String showUndone(Task task) {
         return ("OK, I've marked this task as not done yet:\n"
@@ -69,6 +75,7 @@ public class Ui {
      * Displays the list of tasks to the user.
      *
      * @param tasks The TaskList containing the tasks to display.
+     * @return A string containing the complete task list.
      */
     public String showTaskList(TaskList tasks) {
         if (tasks.getSize() == 0) {
@@ -81,7 +88,7 @@ public class Ui {
      * Displays the list of matching tasks found using the keyword to the user.
      *
      * @param matchingTasks The TaskList containing the tasks to display.
-     * @return
+     * @return A string containing all matching tasks.
      */
     public String showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
