@@ -32,6 +32,7 @@ public class Duke {
         this.tasks = new TaskList();
         this.parser = new Parser();
         storage.load(this.tasks);
+        assert this.ui != null : "UI cannot be a null value";
     }
 
 
