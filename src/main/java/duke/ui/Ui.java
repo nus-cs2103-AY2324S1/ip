@@ -30,6 +30,22 @@ public class Ui {
     }
 
     /**
+     *  Generates a help message.
+     * @return A help message.
+     */
+    public static String help() {
+        return "Commands:\nlist: List down all tasks."
+                + "\n1. mark x: Replace x with a number, and mark that task number as done."
+                + "\n2. unmark x: Replace x with a number, and mark that task number as not done."
+                + "\n3. delete x: Replace x with a number, and delete that task."
+                + "\n4. todo description: Replace description with your task, and add it into your list."
+                + "\n5. deadline description /by yyyy-MM-dd: Replace description and date."
+                + "\n6. event description /from yyyy-MM-dd /to yyyy-MM-dd: Replace description and date."
+                + "\n7. find description: Replace description, and find tasks matching that description."
+                + "\n8. bye: Exit the chatBot.";
+    }
+
+    /**
      * Generates a message confirming the addition of a task.
      *
      * @param task      The task that was added.

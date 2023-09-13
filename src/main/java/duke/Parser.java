@@ -28,6 +28,8 @@ public class Parser {
             return Ui.exit();
         case "list":
             return Ui.listTasks(tasklist);
+        case "help":
+            return Ui.help();
         case "find":
             if (commandSplit.length > 1) {
                 return tasklist.findTasks(commandSplit[1]);
