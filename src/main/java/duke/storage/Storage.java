@@ -52,7 +52,7 @@ public class Storage {
             }
 
             taskScanner.close();
-
+            assert list != null : "Task list should not be null";
         } catch (FileNotFoundException e) {
             // File does not exist
             try {
@@ -85,6 +85,7 @@ public class Storage {
             System.out.println("Error writing to file.");
         }
 
+        assert fw != null : "File writer should not be null";
         fw.close();
     }
 }

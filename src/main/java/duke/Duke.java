@@ -47,6 +47,7 @@ public class Duke {
     */
     public String getResponse(String input) {
         Command command = parser.parseCommand(input.trim().split(" "));
+        assert command != null : "Command should not be null";
         if (command instanceof ByeCommand){
             try {
                 command.execute(list, ui);
