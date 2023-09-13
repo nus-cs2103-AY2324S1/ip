@@ -130,4 +130,23 @@ public class Storage {
         }
 
     }
+
+    /**
+     * Writes the provided text to the archive file.
+     *
+     * @param text The text to be written to the archive file.
+     */
+    public void archiveFile(String text) {
+
+        assert text != null;
+
+        try {
+            FileWriter fw = new FileWriter("data" + File.separator + "archive.txt", false);
+            fw.write(text);
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Sorry... Unable to store tasks...");
+        }
+
+    }
 }
