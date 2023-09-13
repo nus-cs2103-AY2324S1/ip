@@ -2,7 +2,20 @@ package tasks;
 
 /**
  * Adapted from Partial Solution provided by https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
- * A Parent class of Tasks to create tasks.
+ * .
+ * The {@code Task} class represents a parent class for creating tasks in a task management application.
+ * It includes properties and methods common to all types of tasks.
+ * Tasks have two main attributes:
+ * - {@code taskDesc}: A string describing the task.
+ * - {@code isDone}: A boolean indicating whether the task is marked as done.
+ * .
+ * This class provides methods to:
+ * - Get the task description using {@code getTaskDesc()}.
+ * - Get the task's done status using {@code getStatus()}.
+ * - Mark the task as done using {@code markedAsDone()}.
+ * - Mark the task as not done using {@code markedAsUndone()}.
+ * - Get a formatted string representation of the task using {@code toString()}.
+ * - Get a formatted data string representation of the task using {@code getData()}.
  */
 public class Task {
     protected String taskDesc;

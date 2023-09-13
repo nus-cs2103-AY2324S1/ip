@@ -3,13 +3,7 @@ package helpers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import exceptions.EmptyTasksException;
-import exceptions.ErrorStorageException;
-import exceptions.InvalidArgumentException;
-import exceptions.InvalidCommandException;
-import exceptions.InvalidIndexException;
 import exceptions.InvalidTaskDescriptionException;
-import exceptions.InvalidTimeFormatException;
 import tasks.Deadline;
 import tasks.Events;
 import tasks.Task;
@@ -27,8 +21,6 @@ public class Parser {
     protected String input;
     protected Storage storage;
     protected Message message;
-
-    //TODO 1. Handle GUI exception | 2. Handle exit GUI when bye command
 
     /**
      * Constructor for Helpers.Commands to initalise the relevant parameters
@@ -48,6 +40,7 @@ public class Parser {
      * Creates a task relating to ToDo.
      *
      * @param input String of user input
+     * @return the String of task that was created
      */
     public String createToDo(String input) {
         String taskDesc = input.split(" ", 2)[1];
@@ -65,6 +58,7 @@ public class Parser {
      * Creates a task relating to Deadline.
      *
      * @param input String of user input
+     * @return the String of task that was created
      */
     public String createDeadline(String input) {
         String[] parts = input.split(" /by ", 2);
@@ -88,6 +82,7 @@ public class Parser {
      * Creates a task relating to Events.
      *
      * @param input String of user input
+     * @return the String of task that was created
      */
     public String createEvent(String input) {
         String[] parts = input.split("\\s+/from\\s+|\\s+/to\\s+");
@@ -113,6 +108,7 @@ public class Parser {
      * Marks a task as uncompleted.
      *
      * @param input String of user input
+     * @return the String of task that was marked as undone
      */
     public String unmark(String input) {
         try {
@@ -140,6 +136,7 @@ public class Parser {
      * Marks a task as completed.
      *
      * @param input String of user input
+     * @return the String of task that was marked as done
      */
     public String mark(String input) {
         try {
@@ -166,6 +163,7 @@ public class Parser {
      * Deletes a task from the task list.
      *
      * @param input String of user input
+     * @return the String representation of the task that was deleted
      */
     public String deleteTask(String input) {
         try {
@@ -190,6 +188,7 @@ public class Parser {
     /**
      * Method to filter tasks based on user input
      * @param input Regex input by user
+     * @return String of filtered tasks list
      */
     public String findTasks(String input) {
         String regex = input.split(" ", 2)[1];
@@ -202,14 +201,15 @@ public class Parser {
 
     /**
      * Execute the controllers.Duke's functions to process user's input.
-     *
+     * @param input User's text input
+     * @return MachoDuke's response in String
      */
     public String execute(String input) {
         this.input = input;
-        CommandsList command = null;
+        CommandEnum command = null;
         try {
             try {
-                command = CommandsList.valueOf(this.cmd.toUpperCase());
+                command = CommandEnum.valueOf(this.cmd.toUpperCase());
             } catch (Exception e) {
                 return message.showInvalidCommandErrorMessage(this.cmd);
             }
@@ -252,17 +252,6 @@ public class Parser {
         return "Macho there is an error processing your message, please try again!";
     }
 
-    private enum CommandsList {
-        LIST,
-        TODO,
-        MARK,
-        UNMARK,
-        DEADLINE,
-        EVENT,
-        DELETE,
-        FIND,
-        BYE
-    }
 
 
 }
