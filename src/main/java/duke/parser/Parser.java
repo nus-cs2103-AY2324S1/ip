@@ -16,6 +16,7 @@ import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.FixedDurationTask;
 import duke.task.ToDo;
 
 /**
@@ -45,7 +46,7 @@ public class Parser {
                         + "\"event TASK_DESCRIPTION /from START /to END\"");
             }
 
-            String description = splitCommand[1].split("/from")[0];
+            String description = splitCommand[1].split("/from")[0].trim();
             String[] dateAndTime = splitCommand[1].split("/from")[1].split("/to");
             return new AddCommand(new Event(description, dateAndTime[0], dateAndTime[1]));
         case "deadline":
@@ -57,6 +58,8 @@ public class Parser {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             }
             return new AddCommand(new ToDo(splitCommand[1]));
+        case "fixedDuration":
+            return parseFixedDurationTask(splitCommand[1]);
         case "mark":
         case "unmark":
         case "delete":
@@ -140,5 +143,30 @@ public class Parser {
     public static LocalTime parseTime(String time) {
         assert time != null : "Parsed time cannot be null";
         return LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+    }
+
+    /**
+     * Parses a user input string to create a FixedDurationTask object.
+     *
+     * @param stringCommand The user input string to parse.
+     * @return A Command object representing the parsed FixedDurationTask.
+     * @throws DukeException If there is an error in the user input or parsing.
+     */
+    public static Command parseFixedDurationTask(String stringCommand) throws DukeException {
+        if (!stringCommand.matches(".*/needs .* .*")) {
+            throw new DukeException("OOPS!!! The format of an event task is "
+                    + "\"fixedDuration TASK_DESCRIPTION /needs DURATION UNITS(minutes OR hours)\"");
+        }
+
+        String[] taskParts = stringCommand.split("/needs ");
+        String[] durationWithUnits = taskParts[1].split(" ");
+        int duration = Integer.parseInt(durationWithUnits[0].trim());
+        String units = durationWithUnits[1].toLowerCase().trim();
+
+        if (!units.equals("minutes") && !units.equals("hours")) {
+            throw new DukeException("OOPS!!! Invalid units. Use 'minutes' or 'hours' only.");
+        }
+
+        return new AddCommand(new FixedDurationTask(taskParts[0].trim(), duration, units));
     }
 }

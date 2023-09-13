@@ -32,6 +32,6 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return "E" + super.toFileFormat() + "| from " + this.from + " | to " + this.to + "\n";
+        return "E" + super.toFileFormat() + " | from " + this.from + " | to " + this.to + "\n";
     }
 }
