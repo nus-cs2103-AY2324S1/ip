@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import duke.exception.DukeException;
 
@@ -16,9 +17,6 @@ public class TaskList {
      */
     public TaskList() {
         tasks = new ArrayList<Task>();
-        taskCount = 0;
-        // Assertion: After initialization, task count should be 0
-        assert taskCount == 0 : "Initial task count is not zero!";
     }
 
 
@@ -29,7 +27,7 @@ public class TaskList {
      * @return True if the task index is valid, otherwise false.
      */
     public boolean isValidListIndex(int taskListIndex) {
-        return (taskListIndex >= 0 && taskListIndex < taskCount);
+        return (taskListIndex >= 0 && taskListIndex < tasks.size());
     }
 
     /**
@@ -124,13 +122,9 @@ public class TaskList {
      * @return A list of matching tasks.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+        return tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
     }
 
     /**
@@ -145,15 +139,10 @@ public class TaskList {
         if (taskCount == 0) {
             return "Horray!! No tasks in the task list!";
         } else {
-            StringBuilder taskListString = new StringBuilder("Here are the tasks in your list:\n");
-            for (int i = 0; i < taskCount; i++) {
-                try {
-                    taskListString.append((i + 1)).append(". ").append(this.getTaskDetails(i)).append("\n");
-                } catch (DukeException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            return taskListString.toString();
+            String taskListString = tasks.stream()
+                    .map(Task::toString)
+                    .collect(Collectors.joining("\n", "Here are the tasks in your list:\n", ""));
+            return taskListString;
         }
     }
 
