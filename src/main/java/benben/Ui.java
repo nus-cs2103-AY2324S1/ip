@@ -62,7 +62,6 @@ public class Ui {
         } else {
             StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i).toString());
                 sb.append("/n");
                 sb.append((i + 1) + "." + tasks.get(i).toString());
             }
