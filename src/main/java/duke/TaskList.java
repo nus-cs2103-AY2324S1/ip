@@ -54,6 +54,9 @@ public class TaskList {
         return res;
     }
 
+    /**
+     * Saves the curent state of tasks for future undo
+     */
     public void pushCurr() {
         List<Task> currTasks = new ArrayList<>();
         for (Task task : this.list) {
