@@ -34,9 +34,9 @@ public class Storage {
     protected static String filePath;
 
     /**
-     * Constructs a Storage with the specified file path
+     * Instantiates a storage with the specified file path.
      *
-     * @param filePath the file path to create a file to store user data.
+     * @param filePath The file path to create a file to store user data.
      */
     public Storage(String filePath) {
         Storage.filePath = filePath;
@@ -44,20 +44,17 @@ public class Storage {
     }
 
     /**
-     * Saves a Task into Hard Disk after it has been successfully inputted by user.
+     * Saves a task into hard disk after it has been successfully inputted by user.
      *
-     * @param task the Task that is to be saved.
-     * @param isAppend a Boolean to determine if we should add a new line in the saved text file.
-     * @throws IOException if there are errors while saving the file.
+     * @param task The task that is to be saved.
+     * @param isAppend A boolean to determine if we should add a new line in the saved text file.
+     * @throws IOException If there are errors while saving the file.
      */
     public static void saveTask(Task task, boolean isAppend) throws IOException {
-
-        FileOutputStream outputStream = new FileOutputStream(new File(filePath), isAppend);
-        //Use a BufferedWriter
+        FileOutputStream outputStream = new FileOutputStream(filePath, isAppend);
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-        String[] saved = new String[5]; // Cannot be more than 5 separate parts. 5th part is only for Event
+        String[] saved = new String[5]; // Cannot be more than 5 separate parts. 5th part is only for Event.
 
-        //saved[0]
         if (task instanceof Deadline) {
             saved[0] = "D";
             saved[3] = ((Deadline) task).getDueDate().toString();
@@ -66,11 +63,10 @@ public class Storage {
             saved[3] = ((Event) task).getStartTime().toString();
             saved[4] = ((Event) task).getEndTime().toString();
         } else {
-            //duke.task.Todo duke.task
+            // default: Todo task.
             saved[0] = "T";
         }
 
-        //saved[1] and saved[2]
         saved[1] = task.isDone ? "1" : "0";
         saved[2] = task.getDescription();
 
@@ -82,93 +78,107 @@ public class Storage {
     }
 
     /**
-     * Loads tasks saved previously from Hard Disk.
-     *
-     * @throws IOException if the file is corrupted or invalid.
-     * @throws InvalidDateException if the date format or content in the file is corrupted or invalid.
+     * Checks if the directory of storage data exists in the local computer running the programme.
+     * If there is no such directory, alert the user and create one for the user.
      */
-    public void loadTasks() throws IOException, InvalidDateException {
-        // Use FileInputStream and BufferedReader, opposite of saveTask()
-        // try-catch to check if file exists or if file is correct format
+    public void checkDirectory() {
         try {
             Path directory = Path.of("./data");
             if (!Files.exists(directory)) {
                 System.out.println("System Message: Directory 'data' does not exist. Creating one..."
                         + "You can view it under root directory after exiting the program this time.");
-                Files.createDirectories(directory); // Create the directory if it doesn't exist
+                Files.createDirectories(directory);
             } else {
                 System.out.println("System Message: Directory 'data' exists!");
             }
-
-            Path file = Path.of("./data/duke.txt");
-            if (!Files.exists(file)) {
-                System.out.println("System Message: File 'duke.txt' does not exist. Creating one..."
-                        + "You can view it under 'data' directory after exiting the program this time.");
-                Files.createFile(file); // Create the file if it doesn't exist
-            } else {
-                System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
-            }
-
-            FileInputStream inputStream = new FileInputStream(new File(filePath));
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
-            String currentLine;
-
-            try {
-                //Recall delimiter "|" and get details of the tasks and add tasks
-                while ((currentLine = bufferedReader.readLine()) != null) {
-                    if (TaskList.isValidTaskLine(currentLine)) {
-                        // Parse the line and create tasks
-                        String[] content = currentLine.split(" \\| "); // System.out.printf("Content: %s", content);
-                        String taskDescription = content[2]; // System.out.printf("Event details: %s\n", currentLine);
-                        Task taskFromHardDisk;
-
-                        // Now check which type of task it belongs to. Create the task and add task to taskList.
-                        switch(content[0]) {
-                        case "E":
-                            if (!TaskList.isValidDate(content[3]) || !TaskList.isValidDate(content[4])) {
-                                System.out.printf("Skipping line with invalid date: %s\n", currentLine);
-                            } else {
-                                taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]),
-                                        LocalDate.parse(content[4]));
-                                checkCompletionStatus(taskFromHardDisk, content[1]);
-                                listOfTasks.add(taskFromHardDisk);
-                                //Potential error for content[3]
-                            }
-                            break;
-                        case "D":
-                            if (!TaskList.isValidDate(content[3])) {
-                                System.out.printf("Skipping line with invalid date: %s\n", currentLine);
-                            } else {
-                                taskFromHardDisk = new Deadline(taskDescription, LocalDate.parse(content[3]));
-                                checkCompletionStatus(taskFromHardDisk, content[1]);
-                                listOfTasks.add(taskFromHardDisk);
-                                //Potential error for content[3]
-                            }
-                            break;
-                        default:
-                            taskFromHardDisk = new Todo(taskDescription);
-                            checkCompletionStatus(taskFromHardDisk, content[1]);
-                            listOfTasks.add(taskFromHardDisk);
-                            break;
-                        }
-
-                    } else {
-                        System.out.printf("Skipping corrupted line: %s\n", currentLine);
-                    }
-                }
-            } catch (IOException e) {
-                // Handle duke.exception while reading the file
-                System.out.printf("Error while reading file: %s", e.getMessage());
-            }
-            bufferedReader.close();
         } catch (IOException e) {
-            // Handle duke.exception while creating directory or file
             System.out.printf("Error while creating directory: %s", e.getMessage());
         }
     }
 
     /**
-     * Checks whether a Task has already been done.
+     * Checks if the file of storage data exists in the local computer running the programme.
+     * If there is no such file, alert the user and create one for the user.
+     */
+    public void checkFile() {
+        try {
+            Path file = Path.of("./data/duke.txt");
+            if (!Files.exists(file)) {
+                System.out.println("System Message: File 'duke.txt' does not exist. Creating one..."
+                        + "You can view it under 'data' directory after exiting the program this time.");
+                Files.createFile(file);
+            } else {
+                System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
+            }
+        } catch (IOException e) {
+            System.out.printf("Error while creating directory: %s", e.getMessage());
+        }
+    }
+
+    /**
+     * Loads tasks saved previously from hard disk.
+     *
+     * @throws IOException If the file is corrupted or invalid.
+     * @throws InvalidDateException If the date format or content in the file is corrupted or invalid.
+     */
+    public void loadTasks() throws IOException, InvalidDateException {
+        // Use FileInputStream and BufferedReader, opposite of saveTask().
+        // Use try-catch to check if file exists or if file is correct format.
+        checkDirectory();
+        checkFile();
+
+        FileInputStream inputStream = new FileInputStream(filePath);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
+        String currentLine;
+
+        try {
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                if (!TaskList.isValidTaskLine(currentLine)) {
+                    System.out.printf("Skipping corrupted line: %s\n", currentLine);
+                }
+
+                // Parse the line and create tasks.
+                String[] content = currentLine.split(" \\| ");
+                String taskDescription = content[2];
+                Task taskFromHardDisk;
+
+                // Check which type of task it belongs to.
+                // Create the task and add task to list of tasks.
+                switch(content[0]) {
+                case "E":
+                    if (!TaskList.isValidDate(content[3]) || !TaskList.isValidDate(content[4])) {
+                        System.out.printf("Skipping line with invalid date: %s\n", currentLine);
+                    } else {
+                        taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]),
+                                LocalDate.parse(content[4]));
+                        checkCompletionStatus(taskFromHardDisk, content[1]);
+                        listOfTasks.add(taskFromHardDisk);
+                    }
+                    break;
+                case "D":
+                    if (!TaskList.isValidDate(content[3])) {
+                        System.out.printf("Skipping line with invalid date: %s\n", currentLine);
+                    } else {
+                        taskFromHardDisk = new Deadline(taskDescription, LocalDate.parse(content[3]));
+                        checkCompletionStatus(taskFromHardDisk, content[1]);
+                        listOfTasks.add(taskFromHardDisk);
+                    }
+                    break;
+                default:
+                    taskFromHardDisk = new Todo(taskDescription);
+                    checkCompletionStatus(taskFromHardDisk, content[1]);
+                    listOfTasks.add(taskFromHardDisk);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.printf("Error while reading file: %s", e.getMessage());
+        }
+        bufferedReader.close();
+    }
+
+    /**
+     * Checks whether a task has already been done.
      *
      * @param task The task whose completion status is to be checked.
      * @param completionStatus The completion status read from memory. 0 means not done, 1 means done.
@@ -182,9 +192,9 @@ public class Storage {
     }
 
     /**
-     * Clears lines of task in Hard Disk.
+     * Clears lines of task in hard disk.
      *
-     * @throws IOException throws IO Exception if file format is invalid or corrupted.
+     * @throws IOException If file format is invalid or corrupted.
      */
     protected void clearAllData() throws IOException {
         FileOutputStream outputStream = new FileOutputStream(filePath);
@@ -193,9 +203,9 @@ public class Storage {
     }
 
     /**
-     * Updates all lines of task status in Hard Disk.
+     * Updates all lines of task status in hard disk.
      *
-     * @throws IOException throws IO Exception if file format is invalid or corrupted.
+     * @throws IOException If file format is invalid or corrupted.
      */
     protected void updateData() throws IOException {
         for (int i = 0; i < listOfTasks.size(); i++) {

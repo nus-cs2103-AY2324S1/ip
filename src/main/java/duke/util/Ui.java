@@ -18,7 +18,7 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs a new Ui instance and initializes the scanner for user input.
+     * Instantiates a new Ui instance and initializes the scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -61,7 +61,7 @@ public class Ui {
     protected String farewell() {
         StringBuilder message = new StringBuilder(printHorizontalLine());
         message.append("\nYou are closing the SeeWhyAre chat bot.")
-                .append("\nBye bye. Please use me again soon!")
+                .append("\nBye bye. Please use me again soon!\n")
                         .append(printHorizontalLine());
 
         printHorizontalLine();

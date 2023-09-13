@@ -25,9 +25,9 @@ public class TaskList {
     protected ArrayList<Task> listOfTasks;
 
     /**
-     * Constructs a TaskList with the given Storage.
+     * Instantiates a TaskList with the given storage.
      *
-     * @param storage the storage from which the list of tasks is to be created.
+     * @param storage The storage from which the list of tasks is to be created.
      */
     public TaskList(Storage storage) {
         this.storage = storage;
@@ -39,7 +39,7 @@ public class TaskList {
     }
 
     /**
-     * List out all tasks available for the user.
+     * Lists out all tasks available for the user.
      */
     protected String listAllTasks() {
         if (listOfTasks.isEmpty()) {
@@ -59,7 +59,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a Task when given valid task index.
+     * Deletes a task when given valid task index.
      */
     public String deleteTask(String deleteInput)
             throws EmptyDescriptionException, IOException {
@@ -73,19 +73,20 @@ public class TaskList {
 
         //Try parsing into integer to get deleteIndex
         try {
-            int deleteIndex = Integer.parseInt(words[1]) - 1; // Potential Error cannot parse to integer
-
+            int deleteIndex = Integer.parseInt(words[1]) - 1;
             if (deleteIndex >= 0 && deleteIndex < listOfTasks.size()) {
-                Task removedTask = listOfTasks.remove(deleteIndex); //Actual ask can be todo, deadline, or event
+                Task removedTask = listOfTasks.remove(deleteIndex);
+                storage.clearAllData();
+                storage.updateData();
+              
                 assert !listOfTasks.contains(removedTask) : "Task should have been removed!";
+
                 message.append("Noted. I've removed this task:\n");
                 message.append(String.format("%s\n", removedTask.toString()));
                 message.append(String.format("Now you have %d task(s) in the list.\n", listOfTasks.size()));
                 System.out.println("     Noted. I've removed this Task:");
-                System.out.printf("       %s\n", removedTask.toString());
+                System.out.printf("       %s\n", removedTask);
                 System.out.printf("     Now you have %d task(s) in the list.\n", listOfTasks.size());
-                storage.clearAllData();
-                storage.updateData();
             } else {
                 message.append("OOPS!!! The task index is invalid.\n");
                 message.append(String.format("You currently have %d task(s).\n", listOfTasks.size()));
@@ -101,12 +102,12 @@ public class TaskList {
     }
 
     /**
-     * Marks a given Task as done.
+     * Marks a given task as done.
      * Updates the list of tasks in the storage file.
      * Prints out an error message if index of the task given is out of range or invalid.
      *
-     * @param taskIndex the index of the Task to be marked as done.
-     * @throws IOException if there is an issue with updating the data in the storage file.
+     * @param taskIndex The index of the Task to be marked as done.
+     * @throws IOException If there is an issue with updating the data in the storage file.
      */
     protected String markTask(int taskIndex) throws IOException {
         StringBuilder message = new StringBuilder();
@@ -115,9 +116,12 @@ public class TaskList {
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsDone();
+          
             assert listOfTasks.get(taskIndex).getStatus() : "Task must be marked done.";
+          
             storage.clearAllData();
             storage.updateData();
+
             message.append("Nice! I've marked this Task as done:\n");
             message.append(String.format("\t[%s] %s\n", task.getStatusIcon(), task.getDescription()));
             System.out.println("     Nice! I've marked this Task as done:");
@@ -127,12 +131,12 @@ public class TaskList {
     }
 
     /**
-     * Marks a given Task as NOT done.
+     * Marks a given task as not done.
      * Updates the list of tasks in the storage file.
      * Prints out an error message if index of the task given is out of range or invalid.
      *
-     * @param taskIndex the index of the Task to be marked as not done yet.
-     * @throws IOException if there is an issue with updating the data in the storage file.
+     * @param taskIndex The index of the Task to be marked as not done yet.
+     * @throws IOException If there is an issue with updating the data in the storage file.
      */
     protected String unmarkTask(int taskIndex) throws IOException {
         StringBuilder message = new StringBuilder();
@@ -141,9 +145,12 @@ public class TaskList {
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsNotDone();
+          
             assert !listOfTasks.get(taskIndex).getStatus() : "Task must be marked NOT done yet.";
+          
             storage.clearAllData();
             storage.updateData();
+
             message.append("Ok. I've marked this Task as NOT done yet:\n");
             message.append(String.format("\t[%s] %s\n", task.getStatusIcon(), task.getDescription()));
             System.out.println("     Nice! I've marked this Task as done:");
@@ -156,8 +163,8 @@ public class TaskList {
      * Checks if the line representing task details saved in memory is valid.
      * This is used when we are loading the list of tasks from user's past data.
      *
-     * @param line The String representing one task that we are checking.
-     * @return True if this line is a valid Task, False otherwise.
+     * @param line The string representing one task that we are checking.
+     * @return True if this line is a valid task, False otherwise.
      */
     protected static boolean isValidTaskLine(String line) {
         String[] tokens = line.split("\\|");
@@ -171,15 +178,15 @@ public class TaskList {
             return taskType.matches("[TDE]") && completionStatus.matches("[01]") && !description.isEmpty();
         }
 
-        return false; // Line is not valid
+        return false;
     }
 
     /**
      * Checks if the date provided is a valid date and in the correct date format.
      * This is used during task creation and task loading from storage file.
      *
-     * @param testDate The Date from a task that we are checking
-     * @return True if this Date is a valid Date with the correct date Format "yyyy-MM-dd", False otherwise.
+     * @param testDate The date from a task that we are checking
+     * @return True if this date is a valid Date with the correct date Format "yyyy-MM-dd", False otherwise.
      */
     public static boolean isValidDate(String testDate) {
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -198,34 +205,29 @@ public class TaskList {
      * @param matchingKeyword The keyword given by the user to find all tasks containing it.
      */
     protected String findTask(String matchingKeyword) {
-        try {
-            if (listOfTasks.isEmpty()) {
-                System.out.println("\t You currently have no tasks so I can't find any matching tasks :/.");
-                return "\t You currently have no tasks so I can't find any matching tasks :/.";
-            }
-            assert !listOfTasks.isEmpty() : "There is no tasks to find.";
+        if (listOfTasks.isEmpty()) {
+            System.out.println("\t You currently have no tasks so I can't find any matching tasks :/.");
+            return "\t You currently have no tasks so I can't find any matching tasks :/.";
+        }
+        assert !listOfTasks.isEmpty() : "There is no tasks to find.";
 
-            int taskCount = 0;
-            StringBuilder matchingTasks = new StringBuilder(String.format(
-                    "\t Here are your tasks that contains '%s':", matchingKeyword));
-            for (Task listOfTask : listOfTasks) {
-                if (listOfTask.getDescription().contains(matchingKeyword)) {
-                    matchingTasks.append("\n\t ").append(listOfTask);
-                    taskCount++;
-                }
+        int taskCount = 0;
+        StringBuilder matchingTasks = new StringBuilder(String.format(
+                "\t Here are your tasks that contains '%s':", matchingKeyword));
+        for (Task listOfTask : listOfTasks) {
+            if (listOfTask.getDescription().contains(matchingKeyword)) {
+                matchingTasks.append("\n\t ").append(listOfTask);
+                taskCount++;
             }
-
-            //Output matching tasks
-            if (taskCount > 0) {
-                return matchingTasks.toString();
-            } else {
-                assert (taskCount == 0) : "There should be 0 matching tasks";
-                return String.format("\t Hm there are no matching tasks with '%s'. "
-                        + "Try with another keyword.", matchingKeyword);
-            }
-        } finally {
-            printHorizontalLine();
+        }
+      
+        //Output matching tasks
+        if (taskCount > 0) {
+            return matchingTasks.toString();
+        } else {
+            assert (taskCount == 0) : "There should be 0 matching tasks";
+            return String.format("\t Hm there are no matching tasks with '%s'. "
+                    + "Try with another keyword.", matchingKeyword);
         }
     }
-
 }
