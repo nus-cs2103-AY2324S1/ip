@@ -177,7 +177,7 @@ public class TaskList {
      */
     public String getUpcoming(String when) throws InvalidListFlagException {
         LocalDate today = LocalDate.now();
-        LocalDateTime start= today.atStartOfDay();
+        LocalDateTime start = today.atStartOfDay();
 
         LocalDateTime endOfPeriod;
 

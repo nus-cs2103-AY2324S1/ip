@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.components.Status;
-
 import java.time.LocalDateTime;
+
+import duke.components.Status;
 
 /**
  * Encapsulates a Task. Contains methods that allows users to interact with a Task
