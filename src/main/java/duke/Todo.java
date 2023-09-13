@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Represents a todo task in Duke.
  */
 public class Todo extends Task {
-    private static final Pattern PATTERN_COMMAND_CREATE_TODO = Pattern.compile("^todo( (?<taskName>.*))?");
+    private static final Pattern PATTERN_COMMAND_CREATE_TODO = Pattern.compile("^(todo|t)( (?<taskName>.*))?");
 
     /**
      * Constructs a Todo with the specified name.

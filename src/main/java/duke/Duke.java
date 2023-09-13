@@ -91,20 +91,36 @@ public class Duke {
     private String executeCommand(String command) {
         try {
             switch(command.split(" ")[0]) {
+            case "ls":
+                // Fallthrough
             case "list":
                 return ui.displayMessage(tasks.list());
+            case "m":
+                // Fallthrough
             case "mark":
                 return ui.displayMessage("Nice! I've marked this task as done: \n" + tasks.markAsDone(command));
+            case "um":
+                // Fallthrough
             case "unmark":
                 return ui.displayMessage("OK, I've marked this task as not done yet: \n" + tasks.markAsUndone(command));
+            case "del":
+                // Fallthrough
             case "delete":
                 return ui.displayMessage("Noted. I've removed this task: \n" + tasks.delete(command));
+            case "t":
+                // Fallthrough
             case "todo":
+                // Fallthrough
+            case "d":
                 // Fallthrough
             case "deadline":
                 // Fallthrough
+            case "e":
+                // Fallthrough
             case "event":
                 return ui.displayMessage("added : " + tasks.add(command));
+            case "f":
+                // Fallthrough
             case "find":
                 return ui.displayMessage(tasks.find(command));
             default:

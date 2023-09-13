@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  */
 public class Event extends Task {
     private static final Pattern PATTERN_COMMAND_CREATE_EVENT =
-            Pattern.compile("^event ?(?<taskName>.*?)? ?(/from (?<startTime>.*?))? ?(/to (?<endTime>.*))?$");
+            Pattern.compile("^(e|event)( (?<taskName>.*?))?( (/from (?<startTime>.*?)))?( (/to (?<endTime>.*)))?$");
 
     private String startTime;
     private String endTime;
