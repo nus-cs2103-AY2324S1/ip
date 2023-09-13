@@ -27,8 +27,14 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        int startSize = tasks.size();
+
         TodoTask newTask = new TodoTask(taskDetails);
         tasks.add(newTask);
+
+        //Asserts that one task is added
+        int endSize = tasks.size();
+        assert endSize - startSize == 1;
 
         storage.saveToFile(tasks);
 

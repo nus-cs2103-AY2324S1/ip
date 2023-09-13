@@ -110,6 +110,10 @@ public class Storage {
                 throw new JoeException(CORRUPT_TASK_FILE_MSG);
             }
         }
+
+        //Every line is correct parsed into a task
+        assert lines.size() == tasks.size();
+
         return tasks;
     }
 

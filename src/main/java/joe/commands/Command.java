@@ -2,6 +2,7 @@ package joe.commands;
 
 import joe.Storage;
 import joe.TaskList;
+import joe.exceptions.JoeException;
 import joe.exceptions.JoeIndexOutOfBoundsException;
 
 /**
@@ -18,7 +19,7 @@ public abstract class Command {
      * @throws JoeIndexOutOfBoundsException If there is an invalid index used in the command.
      */
     public abstract String execute(TaskList tasks, Storage storage)
-            throws JoeIndexOutOfBoundsException;
+            throws JoeException;
 
     /**
      * Checks if the command is an exit command.
