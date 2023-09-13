@@ -1,62 +1,64 @@
 package task;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+
+import utils.DateTimeFormat;
 
 /**
  * Event is a Task that has a start date/time and an end date/time.
  */
 public class Event extends Task {
-    protected LocalDate startDate;
-    protected LocalTime startTime;
-    protected String start;
-    protected LocalDate endDate;
-    protected LocalTime endTime;
-    protected String end;
+    protected String fromString;
+    protected String toString;
 
     /**
      * The constructor of Event.
      *
-     * @param description the event description.
-     * @param startDate the start date of the event.
-     * @param startTime the start time of the event.
-     * @param endDate the end date of the event.
-     * @param endTime the end time of the event.
+     * @param description The event description.
+     * @param fromString The string representation of the from datetime.
+     * @param toString The string representation of the to datetime.
      */
-    public Event(String description, LocalDate startDate, LocalTime startTime,
-                 LocalDate endDate, LocalTime endTime) {
+    public Event(String description, String fromString, String toString) {
         super(description);
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.start = startDate.toString() + " " + startTime.toString();
-        this.end = endDate.toString() + " " + endTime.toString();
+        this.fromString = fromString;
+        this.toString = toString;
     }
 
     /**
      * The constructor of Event with specified status.
      *
      * @param description The event description.
-     * @param startDate The start date of the event.
-     * @param startTime The start time of the event.
-     * @param endDate The end date of the event.
-     * @param endTime The end time of the event.
+     * @param fromString The string representation of the from datetime.
+     * @param toString The string representation of the to datetime.
      * @param isDone The status of the event.
      */
-    public Event(String description, LocalDate startDate, LocalTime startTime,
-                 LocalDate endDate, LocalTime endTime, boolean isDone) {
+    public Event(String description, String fromString, String toString, boolean isDone) {
         super(description, isDone);
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.start = startDate.toString() + " " + startTime.toString();
-        this.end = endDate.toString() + " " + endTime.toString();
+        this.fromString = fromString;
+        this.toString = toString;
+    }
+
+    /**
+     * To get the start date and time of the Event.
+     *
+     * @return The LocalDateTime object of the start date time of the Event.
+     */
+    public LocalDateTime getStartDateTime() {
+        return DateTimeFormat.toLocalDateTime(this.fromString);
+    }
+
+    /**
+     * To get the end date and time of the Event.
+     *
+     * @return The LocalDateTime object of the end date time of the Event.
+     */
+    public LocalDateTime getEndDateTime() {
+        return DateTimeFormat.toLocalDateTime(this.toString);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + fromString + " to: " + toString + ")";
     }
 }
+

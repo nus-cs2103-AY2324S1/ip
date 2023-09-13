@@ -25,6 +25,9 @@ public class MainWindow extends AnchorPane {
     private Image travellerImage = new Image(this.getClass().getResourceAsStream("/images/lumine.jpg"));
     private Image paimonImage = new Image(this.getClass().getResourceAsStream("/images/paimon.jpg"));
 
+    /**
+     * To initialize the GUI of the chatbot.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

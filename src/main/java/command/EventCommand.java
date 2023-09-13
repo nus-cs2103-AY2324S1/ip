@@ -1,7 +1,5 @@
 package command;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 import duke.Storage;
@@ -17,19 +15,6 @@ import task.Event;
  * The Command which indicates that the user wishes to add an event to the task list.
  */
 public class EventCommand extends Command {
-    private TaskList taskList;
-    private Ui ui;
-    private Storage storage;
-
-    /**
-     * The constructor of EventCommand.
-     *
-     * @param taskList The task list which the command would modify when tasked.
-     * @param ui The ui of the chatbot to get the input of the user.
-     */
-    public EventCommand(TaskList taskList, Ui ui, Storage storage) {
-        super(taskList, ui, storage);
-    }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException,
@@ -51,18 +36,11 @@ public class EventCommand extends Command {
                 String description = tempDescription.split(" /from ")[0];
                 String start = tempDescription.split(" /from ")[1].split(" /to ")[0];
                 String end = tempDescription.split(" /to ")[1];
-
-                String[] startArr = start.split(" ");
-                LocalDate startDate = LocalDate.parse(startArr[0]);
-                LocalTime startTime = LocalTime.parse(startArr[1]);
-                String[] endArr = end.split(" ");
-                LocalDate endDate = LocalDate.parse(endArr[0]);
-                LocalTime endTime = LocalTime.parse(endArr[1]);
-                Event event = new Event(description, startDate, startTime, endDate, endTime);
+                Event event = new Event(description, start, end);
+                taskList.addTask(event);
                 String str = ui.printAddTask(taskList, event);
                 storage.writeTasks(taskList);
                 return str;
-
             }
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException("event");
