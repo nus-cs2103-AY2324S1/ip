@@ -2,7 +2,6 @@ package catbot.io;
 
 import catbot.Parser;
 import catbot.internal.NamedParameterMap;
-import catbot.io.UserIo;
 import catbot.task.Task;
 import catbot.task.TaskList;
 
@@ -60,7 +59,7 @@ public class CatbotConsoleIO implements UserIo {
 
     private String lastUserInput = null;
     private Integer endOfCommand;
-    private final Parser parser = Parser.by(null);
+    private final Parser parser = Parser.with(null);
 
     //endregion
 
@@ -145,7 +144,7 @@ public class CatbotConsoleIO implements UserIo {
     }
 
     @Override
-    public void indicateArgumentInvalid(InvalidState invalidState, NamedParameterMap namedParameterMap) {
+    public void indicateArgumentInvalid(InvalidParameterState invalidState, NamedParameterMap namedParameterMap) {
         switch (invalidState) {
             case PARAMETER_EMPTY:
                 for (String arg : namedParameterMap.keySet()) {

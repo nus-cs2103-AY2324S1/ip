@@ -26,9 +26,9 @@ public class CatBot {
 
     private static void addSupportedCommandsToCommandMap() {
         CommandPattern<Integer> integerPattern = CatBotCommandPatterns.getIntegerPatternGenerator()
-                .generate(io::indicateInvalidInteger);
+                .generateUsingDefault(io::indicateInvalidInteger);
         CommandPattern<NamedParameterMap> slashPattern = CatBotCommandPatterns.getSlashPatternGenerator()
-                .generate(CatBotCommandPatterns.NO_DEFAULT);
+                .generateUsingDefault(CatBotCommandPatterns.NO_DEFAULT);
 
         commands.setDefaultCommand(io::indicateInvalidCommand)
                 .addCommand("bye", args -> io.cleanup())
@@ -67,7 +67,7 @@ public class CatBot {
 
         // User creating new tasks (with SlashPattern)
 
-        BiConsumer<String, BiFunction<NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidState, NamedParameterMap>, Optional<Task>>>
+        BiConsumer<String, BiFunction<NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap>, Optional<Task>>>
                 createTaskIfValidElseWarn = (args, bifunction) -> slashPattern.ifParsableElseDefault(args,
                         namedParameterMap -> bifunction.apply(
                                 namedParameterMap,

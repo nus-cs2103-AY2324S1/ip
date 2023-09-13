@@ -23,7 +23,7 @@ public class CatBotCommandPatterns {
     private static class IntegerPatternGenerator implements CommandPatternGenerator<Integer> {
 
         @Override
-        public CommandPattern<Integer> generate(Consumer<String> invalidInput) {
+        public CommandPattern<Integer> generateUsingDefault(Consumer<String> invalidInput) {
             return new CommandPattern<Integer>() {
                 @Override
                 public void ifParsableElseDefault(String args, Consumer<Integer> consumer) {
@@ -47,10 +47,10 @@ public class CatBotCommandPatterns {
     private static class SlashArgumentPatternGenerator implements CommandPatternGenerator<NamedParameterMap> {
 
         @Override
-        public CommandPattern<NamedParameterMap> generate(Consumer<String> ignored) {
+        public CommandPattern<NamedParameterMap> generateUsingDefault(Consumer<String> ignored) {
             return new CommandPattern<NamedParameterMap>() {
 
-                private final Parser slashParser = Parser.by("/", true);
+                private final Parser slashParser = Parser.with("/", true);
                 @Override
                 public void ifParsableElseDefault(String args, Consumer<NamedParameterMap> consumer) {
                     consumer.accept(slashParser.parse(args));

@@ -18,7 +18,7 @@ public class CommandMap {
         return this;
     }
 
-    public void run(String s, String args) {
-        commandMap.getOrDefault(s, defaultCommand).run(args);
+    public void run(String command, String argument) {
+        commandMap.getOrDefault(command, defaultCommand).run(argument);
     }
 }

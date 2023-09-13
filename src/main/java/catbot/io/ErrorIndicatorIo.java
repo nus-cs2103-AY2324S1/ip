@@ -9,9 +9,9 @@ public interface ErrorIndicatorIo {
     void indicateInvalidInteger(String attemptedInteger);
     void indicateInvalidIndex(int attemptedIndex, TaskList.Bounds bounds);
 
-    enum InvalidState {
+    enum InvalidParameterState {
         PARAMETER_EMPTY, PARAMETER_MISSING, NOT_A_DATE
     }
-    void indicateArgumentInvalid(InvalidState invalidState, NamedParameterMap namedParameterMap);
+    void indicateArgumentInvalid(InvalidParameterState invalidState, NamedParameterMap namedParameterMap);
 
 }

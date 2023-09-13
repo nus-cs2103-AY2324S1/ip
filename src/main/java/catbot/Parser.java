@@ -16,11 +16,11 @@ public class Parser {
         this.emptyArgument = emptyArgument;
     }
 
-    public static Parser by(String delimiter) {
-        return by(delimiter, false);
+    public static Parser with(String delimiter) {
+        return with(delimiter, false);
     }
 
-    public static Parser by(String delimiter, boolean emptyArgument) {
+    public static Parser with(String delimiter, boolean emptyArgument) {
         if (delimiter == null || delimiter.isEmpty()) {
             return new SingleParser();
         } else {
@@ -37,18 +37,19 @@ public class Parser {
 
         @Override
         public NamedParameterMap parse(String s) {
-            NamedParameterMap cmdArgs = new NamedParameterMap();
-            parseCmdArg(s, cmdArgs);
-            return cmdArgs;
+            NamedParameterMap map = new NamedParameterMap();
+            parseCommandArgumentString(s, map);
+            return map;
         }
     }
 
     public NamedParameterMap parse(String s) {
-        NamedParameterMap cmdArgs = new NamedParameterMap();
-        String[] arr = s.split(delimiter);
-        parseCmdArg(arr[0], cmdArgs, this.emptyArgument);
-        Arrays.stream(arr).skip(1).forEach(segment -> parseCmdArg(segment, cmdArgs));
-        return cmdArgs;
+        NamedParameterMap map = new NamedParameterMap();
+        String[] commandArgumentStrings = s.split(delimiter);
+        //first command potentially gets the empty argument treatment ("" -> value)
+        parseCommandArgumentString(commandArgumentStrings[0], map, this.emptyArgument);
+        Arrays.stream(commandArgumentStrings).skip(1).forEach(segment -> parseCommandArgumentString(segment, map));
+        return map;
     }
 
     //region Internal Helpers
@@ -58,20 +59,20 @@ public class Parser {
      * @param s string containing both command and argument, in that order
      * @param map to store the mapping between command and argument
      */
-    private static void parseCmdArg(String s, NamedParameterMap map) {
-        String[] cmdArg = s.split("\\s", 2);
-        if (cmdArg.length == 2) {
-            map.addNamedParameter(cmdArg[0].trim(), cmdArg[1].trim());
+    private static void parseCommandArgumentString(String s, NamedParameterMap map) {
+        String[] splitCommandArgument = s.split("\\s", 2);
+        if (splitCommandArgument.length == 2) {
+            map.addNamedParameter(splitCommandArgument[0].trim(), splitCommandArgument[1].trim());
         } else {
-            map.addNamedParameter(cmdArg[0].trim(), "");
+            map.addNamedParameter(splitCommandArgument[0].trim(), "");
         }
     }
 
-    private static void parseCmdArg(String s, NamedParameterMap map, boolean emptyArgument) {
+    private static void parseCommandArgumentString(String s, NamedParameterMap map, boolean emptyArgument) {
         if (emptyArgument) {
             map.addNamedParameter("", s.trim());
         } else {
-            parseCmdArg(s, map);
+            parseCommandArgumentString(s, map);
         }
     }
 

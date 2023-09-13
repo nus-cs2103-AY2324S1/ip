@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class NamedParameterMap {
 
-    private HashMap<String, String> parameters;
+    private final HashMap<String, String> parameters;
 
     public NamedParameterMap() {
         parameters = new HashMap<>();
@@ -30,8 +30,11 @@ public class NamedParameterMap {
         return parameters.get(key);
     }
 
-    public NamedParameterMap addNamedParameter(String parameterName, String parameterValue) {
+    /**
+     * @param parameterName  key with which the specified value is to be associated
+     * @param parameterValue value to be associated with the specified key
+     */
+    public void addNamedParameter(String parameterName, String parameterValue) {
         parameters.put(parameterName, parameterValue);
-        return this;
     }
 }

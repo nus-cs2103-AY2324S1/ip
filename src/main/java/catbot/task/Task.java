@@ -1,7 +1,7 @@
 package catbot.task;
 
 import catbot.internal.NamedParameterMap;
-import catbot.io.ErrorIndicatorIo.InvalidState;
+import catbot.io.ErrorIndicatorIo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -83,49 +83,37 @@ public abstract class Task implements Serializable {
         }
     }
 
-    private static Optional<NamedParameterMap> cloneIfPresent(NamedParameterMap map, String... arguments) {
-        NamedParameterMap newMap = new NamedParameterMap();
-        for (String arg : arguments) {
-            if (!map.containsKey(arg)) {
-                return Optional.empty();
-            } else {
-                newMap.addNamedParameter(arg, map.get(arg));
-            }
-        }
-        return Optional.of(newMap);
-    }
-
     private static class InvalidParameterState {
-        private final InvalidState state;
+        private final ErrorIndicatorIo.InvalidParameterState state;
         private final NamedParameterMap parameters;
 
-        private InvalidParameterState(InvalidState state, NamedParameterMap map) {
+        private InvalidParameterState(ErrorIndicatorIo.InvalidParameterState state, NamedParameterMap map) {
             this.state = state;
             this.parameters = map;
         }
     }
 
-    private static Optional<InvalidParameterState> stateIfTaskParametersInvalid(NamedParameterMap namedParameterMap, String... arguments) {
+    private static Optional<InvalidParameterState> invalidStateIfTaskParametersMissingOrBlank(NamedParameterMap namedParameterMap, String... arguments) {
 
         // parameters cannot be missing
         Optional<NamedParameterMap> optionalNamedParameterMap = Task.mapIfArgumentsMissing(namedParameterMap, arguments);
         if (optionalNamedParameterMap.isPresent()) {
-            return Optional.of(new InvalidParameterState(InvalidState.PARAMETER_MISSING, optionalNamedParameterMap.get()));
+            return Optional.of(new InvalidParameterState(ErrorIndicatorIo.InvalidParameterState.PARAMETER_MISSING, optionalNamedParameterMap.get()));
         }
 
         // description cannot be empty
         optionalNamedParameterMap = Task.mapIfDescriptionEmpty(namedParameterMap);
-        //noinspection OptionalIsPresent for readability
+        //noinspection OptionalIsPresent for readability, to distinguish default return value
         if (optionalNamedParameterMap.isPresent()) {
-            return Optional.of(new InvalidParameterState(InvalidState.PARAMETER_EMPTY, optionalNamedParameterMap.get()));
+            return Optional.of(new InvalidParameterState(ErrorIndicatorIo.InvalidParameterState.PARAMETER_EMPTY, optionalNamedParameterMap.get()));
         }
 
         // if all ok
         return Optional.empty();
     }
 
-    private static Optional<LocalDate> optionalDateElseMap(NamedParameterMap cmdargs, NamedParameterMap elseMap, String arg) {
-        String val = cmdargs.get(arg);
+    private static Optional<LocalDate> parseOptionalDateElseMap(NamedParameterMap map, NamedParameterMap elseMap, String arg) {
+        String val = map.get(arg);
         try {
             return Optional.of(LocalDate.parse(val));
         } catch (DateTimeParseException ignored) {
@@ -145,25 +133,24 @@ public abstract class Task implements Serializable {
 
         public static Optional<Task> createIfValidElse(
                 NamedParameterMap namedParameterMap,
-                BiConsumer<InvalidState, NamedParameterMap> invalidStateHandler
+                BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap> invalidStateHandler
         ) {
 
-            Optional<InvalidParameterState> optionalInvalidParameterState =
-                Task.stateIfTaskParametersInvalid(
+            Optional<Task.InvalidParameterState> optionalInvalidParameterState =
+                Task.invalidStateIfTaskParametersMissingOrBlank(
                         namedParameterMap,
                         ""
                 );
-
-            if (optionalInvalidParameterState.isEmpty()) {
-                return Optional.of(new Todo(
-                        namedParameterMap.get("")
-                ));
-            } else {
+            if (optionalInvalidParameterState.isPresent()) {
                 InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
                 invalidParameterState.parameters.moveToNewKey("", "description");
                 invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
                 return Optional.empty();
             }
+
+            return Optional.of(new Todo(
+                    namedParameterMap.get("")
+            ));
         }
     }
 
@@ -181,40 +168,38 @@ public abstract class Task implements Serializable {
         }
 
         public static Optional<Task> createIfValidElse(
-                NamedParameterMap namedParameterMap,
-                BiConsumer<InvalidState, NamedParameterMap> invalidStateHandler
+                NamedParameterMap map,
+                BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap> invalidStateHandler
         ) {
 
-            Optional<InvalidParameterState> optionalInvalidParameterState =
-                    Task.stateIfTaskParametersInvalid(
-                            namedParameterMap,
+            Optional<Task.InvalidParameterState> optionalInvalidParameterState =
+                    Task.invalidStateIfTaskParametersMissingOrBlank(
+                            map,
                             "", "by"
                     );
-
-            if (optionalInvalidParameterState.isEmpty()) {
-                String description = namedParameterMap.get("");
-                LocalDate date;
-                try {
-                    date = LocalDate.parse(namedParameterMap.get("by"));
-                    return Optional.of(new Deadline(description, date));
-                } catch (DateTimeParseException ignored) {
-                    NamedParameterMap invalidArgs = Task.cloneIfPresent(namedParameterMap, "by").orElseGet(() -> namedParameterMap);
-                    invalidArgs.moveToNewKey("by", "due date");
-                    invalidStateHandler.accept(InvalidState.NOT_A_DATE, invalidArgs);
-                    return Optional.empty();
-                }
-            } else {
+            if (optionalInvalidParameterState.isPresent()) {
                 InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
                 invalidParameterState.parameters.moveToNewKey("", "description");
                 invalidParameterState.parameters.moveToNewKey("by", "due date");
                 invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
                 return Optional.empty();
             }
+
+            String description = map.get("");
+            NamedParameterMap invalidArgs = new NamedParameterMap();
+            Optional<LocalDate> optionalDueDate = Task.parseOptionalDateElseMap(map, invalidArgs, "by");
+            if (optionalDueDate.isPresent()) {
+                return Optional.of(new Deadline(description, optionalDueDate.get()));
+            } else {
+                invalidArgs.moveToNewKey("by", "due date");
+                invalidStateHandler.accept(ErrorIndicatorIo.InvalidParameterState.NOT_A_DATE, invalidArgs);
+                return Optional.empty();
+            }
         }
 
         @Override
         public String toString() {
-            return super.toString() + " [due: " + formatDate(this.dueDate) + "]";
+            return super.toString() + " [due: " + Task.formatDate(this.dueDate) + "]";
         }
     }
 
@@ -239,30 +224,15 @@ public abstract class Task implements Serializable {
 
         public static Optional<Task> createIfValidElse(
                 NamedParameterMap namedParameterMap,
-                BiConsumer<InvalidState, NamedParameterMap> invalidStateHandler
+                BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap> invalidStateHandler
         ) {
 
-            Optional<InvalidParameterState> optionalInvalidParameterState =
-                    Task.stateIfTaskParametersInvalid(
+            Optional<Task.InvalidParameterState> optionalInvalidParameterState =
+                    Task.invalidStateIfTaskParametersMissingOrBlank(
                             namedParameterMap,
                             "", "from", "to"
                     );
-
-            if (optionalInvalidParameterState.isEmpty()) {
-                String description = namedParameterMap.get("");
-                NamedParameterMap invalidArgs = new NamedParameterMap();
-                Optional<LocalDate> start = Task.optionalDateElseMap(namedParameterMap, invalidArgs, "from");
-                Optional<LocalDate> end = Task.optionalDateElseMap(namedParameterMap, invalidArgs, "to");
-                if (start.isEmpty() || end.isEmpty()) {
-                    invalidArgs.moveToNewKey("", "description");
-                    invalidArgs.moveToNewKey("from", "start date");
-                    invalidArgs.moveToNewKey("to", "end date");
-                    invalidStateHandler.accept(InvalidState.NOT_A_DATE, invalidArgs);
-                    return Optional.empty();
-                } else {
-                    return Optional.of(new Event(description, start.get(), end.get()));
-                }
-            } else {
+            if (optionalInvalidParameterState.isPresent()) {
                 InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
                 invalidParameterState.parameters.moveToNewKey("", "description");
                 invalidParameterState.parameters.moveToNewKey("from", "start date");
@@ -270,18 +240,32 @@ public abstract class Task implements Serializable {
                 invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
                 return Optional.empty();
             }
+
+            String description = namedParameterMap.get("");
+            NamedParameterMap invalidArgs = new NamedParameterMap();
+            Optional<LocalDate> start = Task.parseOptionalDateElseMap(namedParameterMap, invalidArgs, "from");
+            Optional<LocalDate> end = Task.parseOptionalDateElseMap(namedParameterMap, invalidArgs, "to");
+            if (start.isEmpty() || end.isEmpty()) {
+                invalidArgs.moveToNewKey("", "description");
+                invalidArgs.moveToNewKey("from", "start date");
+                invalidArgs.moveToNewKey("to", "end date");
+                invalidStateHandler.accept(ErrorIndicatorIo.InvalidParameterState.NOT_A_DATE, invalidArgs);
+                return Optional.empty();
+            } else {
+                return Optional.of(new Event(description, start.get(), end.get()));
+            }
         }
 
         @Override
         public String toString() {
-            return super.toString() + " [from: " + formatDate(this.eventStart) + " | to: " +
-                    formatDate(this.eventEnd) + "]";
+            return super.toString() + " [from: " + Task.formatDate(this.eventStart) + " | to: " +
+                    Task.formatDate(this.eventEnd) + "]";
         }
     }
 
     //endregion
 
-    public String formatDate(LocalDate date) {
+    public static String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern(
                 date.getYear() == Year.now().getValue()?
                 "MMM d": "MMM d yyyy")
