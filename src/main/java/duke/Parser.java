@@ -62,7 +62,6 @@ public class Parser {
     public static int getTaskType(String fullCommand) {
         boolean isTodo = Pattern.compile("^todo").matcher(fullCommand).find();
         boolean isDeadline = Pattern.compile("^deadline").matcher(fullCommand).find();
-        // boolean isEvent = Pattern.compile("^event").matcher(fullCommand).find();
         return isTodo ? 0 : isDeadline ? 1 : 2;
     }
 
@@ -73,7 +72,10 @@ public class Parser {
      */
     public static int getIndex(String fullCommand) {
         // how to check if string is parseable without parsing it?
-        return Integer.parseInt(fullCommand.split(" ")[1]);
+        String[] arr = fullCommand.split(" ");
+        int out = Integer.parseInt(arr[1]);
+        assert arr.length == 2 : "arr should be of length 2";
+        return out;
     }
 
     /**
@@ -82,7 +84,9 @@ public class Parser {
      * @return string that user wants to search with regards to tasks' descriptions
      */
     public static String getString(String fullCommand) {
-        return fullCommand.split(" ", 2)[1].trim();
+        String[] arr = fullCommand.split(" ", 2);
+        assert arr.length == 2 : "arr should be of length 2";
+        return arr[1].trim();
     }
 
     /**
