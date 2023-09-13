@@ -48,7 +48,7 @@ public class TaskList {
      * @return Task added to the list.
      */
     public Task add(Task task) {
-        assert task != null: "Task to be added must not be null";
+        assert task != null : "Task to be added must not be null";
         this.tasks.add(task);
         return task;
     }
@@ -65,7 +65,7 @@ public class TaskList {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.remove(index);
-        assert task != null: "Task to be removed cannot be found";
+        assert task != null : "Task to be removed cannot be found";
         return task;
     }
 
@@ -113,7 +113,7 @@ public class TaskList {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.get(index);
-        assert task != null: "Task to be marked cannot be found";
+        assert task != null : "Task to be marked cannot be found";
         task.markAsDone();
         return task;
     }
@@ -130,7 +130,7 @@ public class TaskList {
             throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
         }
         Task task = this.tasks.get(index);
-        assert task != null: "Task to be unmarked cannot be found";
+        assert task != null : "Task to be unmarked cannot be found";
         task.markAsUndone();
         return task;
     }

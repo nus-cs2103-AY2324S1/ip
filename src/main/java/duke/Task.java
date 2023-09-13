@@ -37,7 +37,7 @@ public abstract class Task implements Savable {
     public Task(String name) {
         this.taskName = name;
         this.isDone = false;
-        assert this.taskName != null: "taskName of Task should not be null";
+        assert this.taskName != null : "taskName of Task should not be null";
     }
 
     /**
