@@ -26,15 +26,21 @@ public class Events extends Task {
     public String getExact() {
         String mmmDdYyyy = "";
         if (start.toLocalDate().equals(end.toLocalDate())) {
-            mmmDdYyyy = start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " "
-                + start.format(DateTimeFormatter.ofPattern("hh:mm a")) + " "
-                + end.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            mmmDdYyyy = getMmmDdYyyy();
         } else {
-            mmmDdYyyy = start.format(DateTimeFormatter.ofPattern("hh:mm a MMM dd yyyy")) + " to "
+            mmmDdYyyy = start.format(DateTimeFormatter.ofPattern("hh:mm a MMM dd yyyy")) + " to: "
                 + end.format(DateTimeFormatter.ofPattern("hh:mm a MMM dd yyyy"));
         }
         return mmmDdYyyy;
 
+    }
+
+    private String getMmmDdYyyy() {
+        String mmmDdYyyy;
+        mmmDdYyyy = start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " "
+            + start.format(DateTimeFormatter.ofPattern("hh:mm a")) + " "
+            + end.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        return mmmDdYyyy;
     }
 
 

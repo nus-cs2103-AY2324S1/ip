@@ -17,29 +17,6 @@ public class IoHandler {
      */
     public IoHandler() {
     }
-
-    /**
-     * Displays welcome Message.
-     */
-    public String welcomeMessage() {
-        String result = "Hello! I'm Duckbot\n\n";
-        result += "What can I do for you?";
-        return result;
-    }
-    /**
-     * Divides the paragraphs.
-     */
-    public void divider() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Reads the input from the user
-     * @return User's inputted String.
-     */
-    public String typeMessage() {
-        return sc.nextLine();
-    }
     /**
      * Displays a list of tasks to the user.
      *
@@ -74,10 +51,14 @@ public class IoHandler {
      */
     public String echoAdd(Task t, TaskList taskList) {
         StringBuilder result = new StringBuilder();
-        result.append("Got it. I've added this task:\n");
-        result.append("  ").append(t).append("\n");
+        extracted(t, result);
         result.append("Now you have ").append(taskList.size()).append(" tasks in the list.\n");
         return result.toString();
+    }
+
+    private static void extracted(Task t, StringBuilder result) {
+        result.append("Got it. I've added this task:\n");
+        result.append("  ").append(t).append("\n");
     }
 
     public String displaySearchResults(ArrayList<Task> list) {

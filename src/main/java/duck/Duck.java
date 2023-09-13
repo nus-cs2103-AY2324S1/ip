@@ -45,17 +45,6 @@ public class Duck extends Application {
         this.storage = new Storage(FILE_PATH);
         this.taskList = new TaskList(storage.load());
     }
-    /**
-     * It runs the Duck Application.
-     * Displays Contents, handle the user inputs and commands until user exits.
-     */
-    public void run() {
-//        ioHandler.welcomeMessage();
-//        boolean exit = false;
-//        while (!exit) {
-//            exit = !parser.parse(ioHandler.typeMessage(), ioHandler, taskList, storage);
-//        }
-    }
 
     @Override
     public void start(Stage stage) {
@@ -88,22 +77,17 @@ public class Duck extends Application {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
         // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
@@ -164,9 +148,5 @@ public class Duck extends Application {
     @FXML
     public String getResponse(String input) {
         return parser.parse(input, ioHandler, taskList, storage).replace("\n", "\n\n");
-    }
-
-    public static void main(String[] args) {
-        new Duck().run();
     }
 }
