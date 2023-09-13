@@ -25,14 +25,8 @@ public class Bocchi {
     public Bocchi(VBox dialogContainer) {
         this.ui = new Ui(dialogContainer);
         this.parser = new Parser(this.ui);
+        this.taskList = new BocchiLoader().loadTaskList(this.ui);
         ui.greet();
-        try {
-            this.taskList = new BocchiLoader().loadTaskList();
-            ui.loadSuccessful();
-        } catch (FileNotFoundException e) {
-            this.taskList = new TaskList();
-            ui.loadUnsuccessful();
-        }
     }
 
     /**

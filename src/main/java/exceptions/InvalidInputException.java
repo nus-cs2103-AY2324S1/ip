@@ -4,7 +4,9 @@ package exceptions;
  * Exception class for invalid inputs
  */
 public class InvalidInputException extends BocchiException {
+    static final String INVALID_INPUT_ERROR_MSG = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+
     public InvalidInputException() {
-        super("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        super(INVALID_INPUT_ERROR_MSG);
     }
 }
