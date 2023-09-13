@@ -3,6 +3,9 @@ package brandon.chatbot.commands;
 import brandon.chatbot.common.DukeException;
 import brandon.chatbot.tasks.Todo;
 
+/**
+ * Represents a command that adds a todo task into the task list.
+ */
 public class AddTodoCommand extends Command {
     public static final String ADD_SUCCESS = "ok... I'm adding..";
     private Todo toAdd;

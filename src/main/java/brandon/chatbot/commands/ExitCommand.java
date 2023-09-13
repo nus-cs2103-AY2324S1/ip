@@ -1,5 +1,8 @@
 package brandon.chatbot.commands;
 
+/**
+ * Represents a command that exits from the duke program.
+ */
 public class ExitCommand extends Command {
     public static final String COMMAND_WORD = "exit";
     @Override

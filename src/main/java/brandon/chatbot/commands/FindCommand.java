@@ -3,8 +3,11 @@ package brandon.chatbot.commands;
 import brandon.chatbot.tasks.Task;
 import brandon.chatbot.tasks.TaskList;
 
+/**
+ * Represents a command that finds a task in the task list with a given keyword.
+ */
 public class FindCommand extends Command {
-    private final static String FIND_SUCCESS = "ok... I'm finding the task...";
+    private static final String FIND_SUCCESS = "ok... I'm finding the task...";
     private String title;
 
     public FindCommand(String title) {
