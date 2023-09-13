@@ -1,9 +1,12 @@
 import java.util.Objects;
 import java.util.Scanner;
+
 import java.io.File;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -21,7 +24,7 @@ public class Sidtacphi {
     }
     
     /**
-     * The main method for the Sidtacphi class.
+     * Main method for the Sidtacphi class.
      * 
      * @param args
      */
@@ -33,7 +36,7 @@ public class Sidtacphi {
     }
 
     /**
-     * This method starts the Sidtacphi bot.
+     * Starts the Sidtacphi bot.
      */
     private static void startBot() {
         String logo = " _______  ___   ______   _______  _______  _______  _______  __   __  ___  \n"
@@ -52,13 +55,20 @@ public class Sidtacphi {
     }
 
     /**
-     * This method stops the Sidtacphi bot.
+     * Stops the Sidtacphi bot.
      */
     private static void stopBot() {
         System.out.println("\nSidtacphi: Goodbye non-Euclidean life form.");
         System.out.println("\n____________________________________________________________");
     }
 
+    /**
+     * Parses a string into an integer and returns a default value on failure.
+     * 
+     * @param text String value to be parsed to integer
+     * @param defaultVal default value to be returned if text cannot be parsed
+     * @return an integer value represented by the string
+     */
     private static int tryParseInt(String text, int defaultVal) {
         try {
           return Integer.parseInt(text);
@@ -127,7 +137,7 @@ public class Sidtacphi {
         case EVENT:
             if (input.length() < 6) {
                 throw new SidInvalidFormatException("Please input a name for your Event" 
-                + "task, along with a start and end time.");
+                        + "task, along with a start and end time.");
             } else if (input.charAt(5) == ' ') {
                 inputArgs = input.substring(6).split("\\s*/from\\s*");
                 if (inputArgs.length == 2) { 
@@ -136,11 +146,11 @@ public class Sidtacphi {
                         taskList.add(new Event(inputArgs[0], startAndEnd[0], startAndEnd[1]));
                     } else {
                         throw new SidInvalidFormatException("Please put in the starting and ending time " 
-                        + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
+                                + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
                     }
                 } else {
                     throw new SidInvalidFormatException("Please put in the starting and ending time " 
-                    + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
+                            + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
                 }
             } else {
                 throw new SidException("\"" + input + "\" is not a valid command.");
@@ -149,14 +159,14 @@ public class Sidtacphi {
         case DEADLINE:
             if (input.length() < 9) {
                 throw new SidInvalidFormatException("Please input a name for your Event" 
-                + "task, along with a start and end time.");
+                        + "task, along with a start and end time.");
             } else if (input.charAt(8) == ' ') {
                 inputArgs = input.substring(9).split("\\s*/by\\s*");
                 if (inputArgs.length == 2) { 
                     taskList.add(new Deadline(inputArgs[0], inputArgs[1]));
                 } else if (inputArgs.length == 1) {
                     throw new SidInvalidFormatException("Please write in the deadline" 
-                    + "using \"/by <time>\" for Deadline tasks. ");
+                            + "using \"/by <time>\" for Deadline tasks. ");
                 } else {
                     throw new SidInvalidFormatException("Please do not write in more than 1 deadline. ");
                 }
@@ -240,7 +250,7 @@ public class Sidtacphi {
     }
 
     /**
-     * Prints the task list.
+     * Deletes the task list.
      * 
      * @param input
      */
@@ -263,7 +273,7 @@ public class Sidtacphi {
     }
 
     /**
-     * Save current taskList as a json file.
+     * Saves current taskList as a json file.
      */
     private static void saveAsJson() {
         ObjectMapper mapper = new ObjectMapper();
@@ -280,7 +290,7 @@ public class Sidtacphi {
     }
 
     /**
-     * Read json file and save to taskList.
+     * Reads json file and save to taskList.
      */
     private static void readJson() {
         ObjectMapper mapper = new ObjectMapper();
