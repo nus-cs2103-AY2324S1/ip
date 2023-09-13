@@ -122,6 +122,7 @@ public class Parser {
 
         String dueDate = "";
         String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+        boolean existBy = false;
 
         for (int i = 0; i < inputArray.length; i++) {
             if(inputArray[i].equals("/by")) {
