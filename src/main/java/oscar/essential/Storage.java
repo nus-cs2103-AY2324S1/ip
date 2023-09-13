@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import oscar.exception.OscarException;
 
 /**
- * Class to handle loading and saving tasks from file.
+ * Class to handle loading and saving infos from file.
  */
 public class Storage {
     private final String filePath;
@@ -50,21 +50,21 @@ public class Storage {
     }
 
     /**
-     * Saves the taskList to a text file after executing a command.
+     * Saves the info list to a text file after executing a command.
      * Solution adapted by <a href="https://howtodoinjava.com/java/collections/arraylist/
      * serialize-deserialize-arraylist/">...</a>
      *
-     * @param tasks Current taskList.
-     * @throws OscarException Unable to serialise taskList.
+     * @param infos Current info list.
+     * @throws OscarException Unable to serialise info list.
      */
-    public void save(TaskList tasks) throws OscarException {
+    public void save(InfoList infos) throws OscarException {
         Path parentDir = Paths.get(filePath).getParent();
         try {
             Files.createDirectories(parentDir);
             FileOutputStream fileOutputStream = new FileOutputStream(filePath);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            tasks.save(objectOutputStream);
-            System.out.println("Oscar has saved your task list!\n");
+            infos.save(objectOutputStream);
+            System.out.println("Oscar has saved your info list!\n");
         } catch (FileNotFoundException e) {
             throw new OscarException("Sorry! File is not found.\n");
         } catch (IOException e) {

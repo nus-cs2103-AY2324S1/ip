@@ -1,4 +1,4 @@
-package oscar.task;
+package oscar.info;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Event task that contains description of event,
  * as well as start and end date/time.
  */
-public class Event extends Task {
+public class EventTask extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
 
@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param start Start date and time of event.
      * @param end End date and time of event.
      */
-    public Event(String description, LocalDateTime start, LocalDateTime end) {
+    public EventTask(String description, LocalDateTime start, LocalDateTime end) {
         super(description, "E");
         this.start = start;
         this.end = end;

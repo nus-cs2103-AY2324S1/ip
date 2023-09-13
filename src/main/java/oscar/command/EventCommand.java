@@ -3,11 +3,11 @@ package oscar.command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import oscar.essential.InfoList;
 import oscar.essential.Storage;
-import oscar.essential.TaskList;
 import oscar.exception.OscarException;
-import oscar.task.Event;
-import oscar.task.Task;
+import oscar.info.EventTask;
+import oscar.info.Task;
 
 /**
  * Command to create a new event task.
@@ -18,23 +18,23 @@ public class EventCommand extends Command {
     /**
      * Instantiates an event command.
      *
-     * @param details Description of event task.
+     * @param d Description of event task.
      */
-    public EventCommand(String details) {
-        this.details = details;
+    public EventCommand(String d) {
+        this.details = d;
     }
 
     /**
-     * Creates a new event task and save it to the task list.
+     * Creates a new event task and save it to the info list.
      *
-     * @param tasks   ArrayList of tasks.
+     * @param infos   ArrayList of infos.
      * @param storage File loading and saving handler.
      * @return String output of event task.
      * @throws OscarException Incorrect format of event command.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) throws OscarException {
-        assert tasks != null;
+    public String execute(InfoList infos, Storage storage) throws OscarException {
+        assert infos != null;
         assert storage != null;
 
 
@@ -46,10 +46,10 @@ public class EventCommand extends Command {
         LocalDateTime startDateTime = LocalDateTime.parse(start, DATE_TIME_FORMAT);
         LocalDateTime endDateTime = LocalDateTime.parse(end, DATE_TIME_FORMAT);
 
-        Task newEvent = new Event(description, startDateTime, endDateTime);
-        tasks.add(newEvent);
-        storage.save(tasks);
-        return "Oscar has added:\n" + newEvent + "\n" + tasks.listCount();
+        Task newEvent = new EventTask(description, startDateTime, endDateTime);
+        infos.add(newEvent);
+        storage.save(infos);
+        return "Oscar has added:\n" + newEvent + "\n" + infos.listCount();
     }
 
     /**

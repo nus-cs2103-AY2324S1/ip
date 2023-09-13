@@ -1,26 +1,21 @@
-package oscar.task;
-
-import java.io.Serializable;
+package oscar.info;
 
 /**
  * Task superclass that supports todo, deadline and event tasks.
  * Taken from hint.
  */
-public abstract class Task implements Serializable {
-    private final String description;
-    private final String type;
+public abstract class Task extends Info {
     private boolean isDone;
 
     /**
      * Public constructor that is invoked by subclasses when creating task.
      *
      * @param description String description of task.
-     * @param type Type of task, denoted by D for deadline, E for event and T for todo task.
+     * @param type Type of item, denoted by D for deadline, E for event and T for todo task.
      */
     public Task(String description, String type) {
-        this.description = description;
+        super(description, type);
         this.isDone = false;
-        this.type = type;
     }
 
     /**
@@ -47,21 +42,12 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Obtains description of task.
-     *
-     * @return String description of task.
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
      * Obtains string representation of task.
      *
      * @return Information of task.
      */
     @Override
     public String toString() {
-        return "[" + this.type + "][" + getStatusIcon() + "] " + this.description;
+        return "[" + this.type + "][" + getStatusIcon() + "] " + super.description;
     }
 }

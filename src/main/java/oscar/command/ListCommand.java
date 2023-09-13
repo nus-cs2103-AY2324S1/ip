@@ -1,28 +1,22 @@
 package oscar.command;
 
+import oscar.essential.InfoList;
 import oscar.essential.Storage;
-import oscar.essential.TaskList;
 
 /**
- * Command to list tasks in the task list.
+ * Command to list infos in the info list.
  */
 public class ListCommand extends Command {
     /**
-     * Instantiates a list command.
-     */
-    public ListCommand() {
-    }
-
-    /**
-     * Lists stored tasks in chronological order of addition.
+     * Lists stored infos in chronological order of addition.
      *
-     * @param tasks   ArrayList of tasks.
+     * @param infos   ArrayList of infos.
      * @param storage File loading and saving handler.
      * @return
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
-        assert tasks != null;
-        return tasks.list();
+    public String execute(InfoList infos, Storage storage) {
+        assert infos != null;
+        return infos.list();
     }
 }

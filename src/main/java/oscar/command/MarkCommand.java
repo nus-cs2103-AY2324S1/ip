@@ -1,7 +1,7 @@
 package oscar.command;
 
+import oscar.essential.InfoList;
 import oscar.essential.Storage;
-import oscar.essential.TaskList;
 import oscar.exception.OscarException;
 
 /**
@@ -13,27 +13,31 @@ public class MarkCommand extends Command {
     /**
      * Instantiates a mark command.
      *
-     * @param details Task number to be marked.
+     * @param d Task number to be marked.
      */
-    public MarkCommand(String details) {
-        this.details = details;
+    public MarkCommand(String d) {
+        this.details = d;
     }
 
     /**
      * Marks a task as done using the task number.
      *
-     * @param tasks   ArrayList of tasks.
+     * @param infos   ArrayList of infos.
      * @param storage File loading and saving handler.
      * @return String output of mark command.
      * @throws OscarException Failure to validate task number.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) throws OscarException {
-        assert tasks != null;
+    public String execute(InfoList infos, Storage storage) throws OscarException {
+        assert infos != null;
         assert storage != null;
-        int index = validateInt(details, tasks);
-        String currentTask = tasks.mark(index);
-        storage.save(tasks);
-        return "Nice! Oscar has marked this task as done:\n" + currentTask + "\n";
+        int index = validateInt(infos, details);
+        try {
+            String currentTask = infos.mark(index);
+            storage.save(infos);
+            return "Nice! Oscar has marked this task as done:\n" + currentTask + "\n";
+        } catch (OscarException e) {
+            return e.getMessage();
+        }
     }
 }

@@ -1,15 +1,15 @@
-package oscar.task;
+package oscar.info;
 
 /**
  * Todo task that contains description of task.
  */
-public class Todo extends Task {
+public class TodoTask extends Task {
     /**
      * Public constructor of todo.
      *
      * @param description Details of todo.
      */
-    public Todo(String description) {
+    public TodoTask(String description) {
         super(description, "T");
     }
 }
