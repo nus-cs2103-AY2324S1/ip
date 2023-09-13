@@ -15,7 +15,7 @@ public class Duke {
     /** Time format for the Max bot */
     public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy - HH:mm");
     /** TaskList object to store tasks */
-    private TaskList taskList;
+    private TaskList tasks;
     /** Storage object to interact with data file(s) */
     private Storage storage;
     /** Parser object to parse user input */
@@ -35,100 +35,100 @@ public class Duke {
      * Gets response from the bot.
      */
     public String getResponse(String input) {
-        String response = "";
+        String botResponse = "";
         try {
-            taskList = storage.readFromFile();
+            tasks = storage.readFromFile();
 
-            assert taskList != null;
+            assert tasks != null;
 
             String userInput = input;
             Action action = Action.valueOf(userInput.split(" ")[0].toUpperCase());
 
             switch (action) {
             case BYE:
-                response = Ui.exit();
+                botResponse = Ui.exit();
                 break;
 
             case LIST:
-                response = "Here are the tasks in your list:\n" + taskList.toString();
+                botResponse = "Here are the tasks in your list:\n" + tasks.toString();
                 break;
 
             case MARK:
                 // get index by splitting user input and get task at that index from list
-                int markIndex = Integer.parseInt(userInput.split(" ")[1]);
+                int indexToBeMarked = Integer.parseInt(userInput.split(" ")[1]);
 
-                if (markIndex < 1 || markIndex > taskList.getNumberOfTasks()) {
+                if (indexToBeMarked < 1 || indexToBeMarked > tasks.getNumberOfTasks()) {
                     throw new DukeIndexOutOfBoundsException("marked");
                 }
 
-                Task toBeMarked = taskList.getTaskAt(markIndex - 1);
+                Task toBeMarked = tasks.getTaskAt(indexToBeMarked - 1);
 
                 assert toBeMarked != null;
 
                 toBeMarked.mark();
-                response = "Nice! I've marked this task as done:\n" + toBeMarked.toString();
+                botResponse = "Nice! I've marked this task as done:\n" + toBeMarked.toString();
                 break;
 
             case UNMARK:
                 // get index by splitting user input and get task at that index from list
-                int unmarkIndex = Integer.parseInt(userInput.split(" ")[1]);
+                int indexToBeUnmarked = Integer.parseInt(userInput.split(" ")[1]);
 
-                if (unmarkIndex < 1 || unmarkIndex > taskList.getNumberOfTasks()) {
+                if (indexToBeUnmarked < 1 || indexToBeUnmarked > tasks.getNumberOfTasks()) {
                     throw new DukeIndexOutOfBoundsException("unmarked");
                 }
 
-                Task toBeUnmarked = taskList.getTaskAt(unmarkIndex - 1);
+                Task toBeUnmarked = tasks.getTaskAt(indexToBeUnmarked - 1);
 
                 assert toBeUnmarked != null;
 
                 toBeUnmarked.unmark();
-                response = "OK, I've marked this task as not done yet:\n" + toBeUnmarked.toString();
+                botResponse = "OK, I've marked this task as not done yet:\n" + toBeUnmarked.toString();
                 break;
 
             case DELETE:
-                int deleteIndex = Integer.parseInt(userInput.split(" ")[1]);
+                int indexToBeDeleted = Integer.parseInt(userInput.split(" ")[1]);
 
-                if (deleteIndex < 1 || deleteIndex > taskList.getNumberOfTasks()) {
+                if (indexToBeDeleted < 1 || indexToBeDeleted > tasks.getNumberOfTasks()) {
                     throw new DukeIndexOutOfBoundsException("deleted");
                 }
 
-                Task toBeDeleted = taskList.getTaskAt(deleteIndex - 1);
+                Task toBeDeleted = tasks.getTaskAt(indexToBeDeleted - 1);
 
                 assert toBeDeleted != null;
 
-                taskList.deleteTaskAt(deleteIndex - 1);
-                response = "Noted. I've removed this task:\n" + toBeDeleted.toString()
-                        + "\nNow you have " + taskList.getNumberOfTasks() + " tasks in the list.";
+                tasks.deleteTaskAt(indexToBeDeleted - 1);
+                botResponse = "Noted. I've removed this task:\n" + toBeDeleted.toString()
+                        + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
                 break;
 
             case FIND:
-                TaskList filtered = taskList.getFilteredTaskList(userInput);
+                TaskList filtered = tasks.getFilteredTaskList(userInput);
 
                 assert filtered != null;
 
-                response = "Here are the matching tasks in your list:\n" + filtered.toString();
+                botResponse = "Here are the matching tasks in your list:\n" + filtered.toString();
                 break;
 
             case TODO:
             case DEADLINE:
             case EVENT:
             default:
-                Task add = parser.getTask(userInput);
+                Task taskToAdd = parser.getTask(userInput);
                 try {
-                    taskList.addToList(add);
-                    response = "Got it. I've added this task:\n" + add.toString()
-                            + "\nNow you have " + taskList.getNumberOfTasks() + " tasks in the list.";
+                    tasks.addToList(taskToAdd);
+                    botResponse = "Got it. I've added this task:\n" + taskToAdd.toString()
+                            + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
                 } catch (NullPointerException e) {
                     throw new DukeException("OOPS!!! Could not add task to the list");
                 }
                 break;
             }
 
-            storage.writeToFile(taskList);
+            storage.writeToFile(tasks);
         } catch (DukeException e) {
-            response = e.getMessage();
+            botResponse = e.getMessage();
         } finally {
-            return response;
+            return botResponse;
         }
     }
 }

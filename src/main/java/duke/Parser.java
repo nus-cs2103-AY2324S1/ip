@@ -24,18 +24,18 @@ public class Parser {
      * @throws DukeException If error is encountered while parsing.
      */
     public Task getTask(String userInput) throws DukeException {
-        Task add;
+        Task task;
 
         if (userInput.startsWith("todo")) {
-            add = parseTodo(userInput);
+            task = parseTodo(userInput);
         } else if (userInput.startsWith("deadline")) {
-            add = parseDeadline(userInput);
+            task = parseDeadline(userInput);
         } else if (userInput.startsWith("event")) {
-            add = parseEvent(userInput);
+            task = parseEvent(userInput);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return add;
+        return task;
     }
 
     /**
@@ -46,13 +46,13 @@ public class Parser {
      * @throws DukeParseException If error is encountered while parsing.
      */
     public Todo parseTodo(String userInput) throws DukeParseException {
-        String description = userInput.substring(userInput.indexOf(' ') + 1);
+        String todoDescription = userInput.substring(userInput.indexOf(' ') + 1);
 
-        if (description.isEmpty() || description.equals("todo")) {
+        if (todoDescription.isEmpty() || todoDescription.equals("todo")) {
             throw new DukeParseException("todo");
         }
 
-        return new Todo(description);
+        return new Todo(todoDescription);
     }
 
     /**
@@ -64,9 +64,9 @@ public class Parser {
      */
     public Deadline parseDeadline(String userInput) throws DukeParseException {
         try {
-            String description = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
-            String by = userInput.substring(userInput.indexOf("/by") + 4);
-            return new Deadline(description, LocalDateTime.parse(by, Duke.TIME_FORMAT));
+            String deadlineDescription = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
+            String deadlineBy = userInput.substring(userInput.indexOf("/by") + 4);
+            return new Deadline(deadlineDescription, LocalDateTime.parse(deadlineBy, Duke.TIME_FORMAT));
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeParseException("deadline");
         } catch (DateTimeException e) {
@@ -83,11 +83,11 @@ public class Parser {
      */
     public Event parseEvent(String userInput) throws DukeParseException {
         try {
-            String description = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
-            String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
-            String to = userInput.substring(userInput.indexOf("/to") + 4);
-            return new Event(description, LocalDateTime.parse(from, Duke.TIME_FORMAT),
-                    LocalDateTime.parse(to, Duke.TIME_FORMAT));
+            String eventDescription = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
+            String eventFrom = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
+            String eventTo = userInput.substring(userInput.indexOf("/to") + 4);
+            return new Event(eventDescription, LocalDateTime.parse(eventFrom, Duke.TIME_FORMAT),
+                    LocalDateTime.parse(eventTo, Duke.TIME_FORMAT));
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeParseException("event");
         } catch (DateTimeException e) {

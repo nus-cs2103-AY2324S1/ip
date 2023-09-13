@@ -11,20 +11,20 @@ import java.util.stream.Collectors;
 public class TaskList {
 
     /** List of tasks */
-    private ArrayList<Task> list;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a TaskList object.
      */
     public TaskList() {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
      * Constructs a TaskList object.
      */
-    public TaskList(ArrayList<Task> list) {
-        this.list = list;
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -47,7 +47,7 @@ public class TaskList {
      * @param s Task to add to the TaskList object.
      */
     public void addToList(Task s) {
-        this.list.add(s);
+        this.tasks.add(s);
     }
 
     /**
@@ -57,7 +57,7 @@ public class TaskList {
      * @return Task object at index in the TaskList object.
      */
     public Task getTaskAt(int index) {
-        return this.list.get(index);
+        return this.tasks.get(index);
     }
 
     /**
@@ -66,7 +66,7 @@ public class TaskList {
      * @return Number of tasks in the TaskList object.
      */
     public int getNumberOfTasks() {
-        return this.list.size();
+        return this.tasks.size();
     }
 
     /**
@@ -75,15 +75,15 @@ public class TaskList {
      * @param index Index from which Task is to be deleted.
      */
     public void deleteTaskAt(int index) {
-        this.list.remove(index);
+        this.tasks.remove(index);
     }
 
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        for (int i = 0; i < this.list.size(); i++) {
-            s.append((i + 1) + "." + this.list.get(i));
-            if (i < this.list.size() - 1) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            s.append((i + 1) + "." + this.tasks.get(i));
+            if (i < this.tasks.size() - 1) {
                 s.append("\n");
             }
         }
@@ -98,7 +98,7 @@ public class TaskList {
      */
     public TaskList getFilteredTaskList(String userInput) {
         String keyword = userInput.substring(5);
-        return new TaskList(list.stream()
+        return new TaskList(tasks.stream()
                 .filter(task -> task.containsKeyword(keyword))
                 .collect(Collectors.toCollection(ArrayList<Task>::new)));
     }
