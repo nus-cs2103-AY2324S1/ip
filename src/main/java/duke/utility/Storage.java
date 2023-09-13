@@ -34,7 +34,7 @@ public class Storage {
     }
 
     /**
-     * Saves a new task into the task list in the text file.
+     * Saves a new task into the task list stored in the text file.
      *
      * @param newTask New task to save into the text file.
      */
@@ -43,7 +43,10 @@ public class Storage {
             Path path = Paths.get("C:\\Users\\Admin\\ip\\text-ui-test", "data", "task.txt");
             String taskString = newTask.toStoreString() + "\n";
 
-            // write task into text file in string format
+            // the text file should exist at the correct path if execution reaches here
+            assert Files.exists(path);
+
+            // write new task into text file in the specified string format
             Files.writeString(path, taskString, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,26 +71,24 @@ public class Storage {
         try {
             reader = new BufferedReader(new FileReader(fileToUpdate));
 
-            //Reading all the lines of input text file into oldContent
+            // reading all the lines of the original text file into oldContent
             String line = reader.readLine();
-
             while (line != null) {
                 oldContent += line + System.lineSeparator();
                 line = reader.readLine();
             }
 
-            //Replacing oldString with newString in the oldContent
+            // replacing oldString with newString in the oldContent
             String newContent = oldContent.replaceAll(oldTask, newTask);
 
-            //Rewriting the input text file with newContent
+            // rewriting the input text file with newContent
             writer = new FileWriter(fileToUpdate);
-
             writer.write(newContent);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                //Closing the resources
+                // closing the resources
                 assert reader != null;
                 reader.close();
                 assert writer != null;
@@ -113,20 +114,19 @@ public class Storage {
         try {
             reader = new BufferedReader(new FileReader(fileToUpdate));
 
-            //Reading all the lines of input text file into oldContent
             String line = reader.readLine();
-
             while (line != null) {
-                // do not copy contents if it is equals to the task to delete
-                if (!line.equals(oldTask)) {
-                    newContent += line + System.lineSeparator();
+                // do not copy over line if it is equals to the task to delete
+                if (line.equals(oldTask)) {
+                    line = reader.readLine();
+                    continue;
                 }
+                newContent += line + System.lineSeparator();
                 line = reader.readLine();
             }
 
-            //Rewriting the input text file with newContent
+            // rewriting the input text file with newContent
             writer = new FileWriter(fileToUpdate);
-
             writer.write(newContent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -159,6 +159,9 @@ public class Storage {
             if (!file.exists()) {
                 file.createNewFile();
             }
+
+            // the text file should exist at the correct path if execution reaches here
+            assert Files.exists(Path.of(this.pathString));
 
             sc = new Scanner(file);
 

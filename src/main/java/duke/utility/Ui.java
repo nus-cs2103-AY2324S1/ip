@@ -15,12 +15,12 @@ public class Ui {
     private static final String GREETING = "Hello! I'm Bobi >.<, what can I do for you?\n";
     private static final String EXIT = "Bye! Hope you have a good day today :)\n";
     private static final String ADD_TASK = "New task added to your list:\n";
-    private static String taskCount;
     private static final String LIST_TASKS = "Things you need to do: \n";
     private static final String UPDATE_TASK = "OK! Your task has now been updated to: \n";
     private static final String DELETE_TASK = "Alright! I have deleted this task from the list:\n";
     private static final String SEARCH_TASK = "Found it! Here are the matching tasks in your list:\n";
 
+    private static String taskCount;
     private final Scanner sc;
     private final TaskList taskList;
 

@@ -33,14 +33,13 @@ public class Deadline extends Task {
      * @return Formatted deadline of task as a String.
      */
     public String getDeadlineString(LocalDateTime deadline) {
+        assert deadline != null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy 'at' HH:mm");
         return deadline.format(formatter);
     }
 
     /**
-     * Returns a string format of a Deadline object.
-     *
-     * @return String format of a Deadline object.
+     * Returns a string format of a Deadline object to be displayed to the user.
      */
     @Override
     public String toString() {

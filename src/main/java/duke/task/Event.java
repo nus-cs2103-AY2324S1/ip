@@ -38,14 +38,13 @@ public class Event extends Task {
      * @return Formatted date and time of task as a String.
      */
     public String getDateTimeString(LocalDateTime dateTime) {
+        assert dateTime != null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy 'at' HH:mm");
         return dateTime.format(formatter);
     }
 
     /**
-     * Returns a string format of an Event object.
-     *
-     * @return String format of an Event object.
+     * Returns a string format of an Event object to be displayed to the user.
      */
     @Override
     public String toString() {

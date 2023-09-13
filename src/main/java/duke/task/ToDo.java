@@ -18,9 +18,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns a string format of a To-Do object.
-     *
-     * @return String format of a To-Do object.
+     * Returns a string format of a To-Do object to be displayed to the user.
      */
     @Override
     public String toString() {

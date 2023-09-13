@@ -29,14 +29,15 @@ public class Parser {
      * @throws EmptyTaskException if user did not input a task name
      */
     public static ToDo parseTodo(String input) throws EmptyTaskException {
-        String[] keyword = input.split(" ", 2);
+        String[] splitString = input.split(" ", 2);
 
         // checks if user has input a task name
-        if (keyword.length == 1 || keyword[1].equals("")) {
+        if (splitString.length == 1 || splitString[1].equals("")) {
             throw new EmptyTaskException();
         }
-        // create new To Do task from input
-        return new ToDo(false, keyword[1]);
+
+        String taskName = splitString[1];
+        return new ToDo(false, taskName);
     }
 
     /**
@@ -50,15 +51,14 @@ public class Parser {
      */
     public static Deadline parseDeadline(String input) throws MissingTimeException, EmptyTaskException, InvalidDeadlineException {
         try {
-            // split input by "/by"
             String[] firstSplit = input.split("/by");
-
             // checks if user has input a deadline
             if (firstSplit.length == 1 || firstSplit[1].equals(" ")) {
                 throw new MissingTimeException();
             }
-            // checks if user has input a task name
+
             String[] secondSplit = firstSplit[0].split(" ", 2);
+            // checks if user has input a task name
             if (secondSplit.length == 1 || secondSplit[1].equals("")) {
                 throw new EmptyTaskException();
             }
@@ -72,7 +72,7 @@ public class Parser {
                 throw new InvalidDeadlineException();
             }
 
-            // create a deadline field with input values
+            // create a LocalDateTime deadline field with input values
             int hour = Integer.parseInt(thirdSplit[2].substring(0, 2));
             int minute = Integer.parseInt(thirdSplit[2].substring(2));
             LocalDate date = LocalDate.parse(thirdSplit[1]);
@@ -97,9 +97,8 @@ public class Parser {
      */
     public static Event parseEvent(String input) throws MissingTimeException, EmptyTaskException, InvalidEventException {
         try {
-            // split input by "/from"
             String[] firstSplit = input.split("/from");
-            // checks if user has input a start field
+            // checks if start field is empty
             if (firstSplit.length == 1 || firstSplit[1].equals(" ")) {
                 throw new MissingTimeException();
             }
@@ -109,21 +108,23 @@ public class Parser {
             if (secondSplit.length == 1 || secondSplit[1].equals("")) {
                 throw new EmptyTaskException();
             }
+
             // create a name field with input value
             String name = secondSplit[1];
 
             String[] thirdSplit = firstSplit[1].split("/to");
-            // checks if user has input an end field
+            // checks if end field is empty
             if (thirdSplit.length == 1 || thirdSplit[1].equals(" ") || thirdSplit[0].equals(" ")) {
                 throw new MissingTimeException();
             }
 
             String[] startSplit = thirdSplit[0].split(" ");
-            // checks if user has input the correct start field with date and time
+            // checks if user has input a valid start field with date and time
             if (startSplit.length == 2 || startSplit[2].equals("")) {
                 throw new InvalidEventException();
             }
-            // create a start field from input values
+
+            // create a LocalDateTime start field from input values
             LocalDate startDate = LocalDate.parse(startSplit[1]);
             int startHour = Integer.parseInt(startSplit[2].substring(0, 2));
             int startMinute = Integer.parseInt(startSplit[2].substring(2));
@@ -131,18 +132,18 @@ public class Parser {
             LocalDateTime start = LocalDateTime.of(startDate, startTime);
 
             String[] endSplit = thirdSplit[1].split(" ");
-            // checks if user has input the correct end field with date and time
+            // checks if user has input a valid end field with date and time
             if (endSplit.length == 2 || endSplit[2].equals("")) {
                 throw new InvalidEventException();
             }
-            // creates an end field from input values
+
+            // creates a LocalDateTime end field from input values
             LocalDate endDate = LocalDate.parse(endSplit[1]);
             int endHour = Integer.parseInt(endSplit[2].substring(0, 2));
             int endMinute = Integer.parseInt(endSplit[2].substring(2));
             LocalTime endTime = LocalTime.of(endHour, endMinute);
             LocalDateTime end = LocalDateTime.of(endDate, endTime);
 
-            // create new Event task from variables
             return new Event(false, name, start, end);
         } catch (NumberFormatException | DateTimeException e) {
             throw new InvalidEventException();
@@ -157,12 +158,14 @@ public class Parser {
      * @throws EmptyTaskException if user did not input a task number.
      */
     public static int parseActions(String input) throws EmptyTaskException {
-        String[] keyword = input.split(" ");
+        String[] splitString = input.split(" ");
         // checks if user has input a task number
-        if (keyword.length == 1 || keyword[1].equals("")) {
+        if (splitString.length == 1 || splitString[1].equals("")) {
             throw new EmptyTaskException();
         }
-        return Integer.parseInt(keyword[1]);
+
+        int taskNumber = Integer.parseInt(splitString[1]);
+        return taskNumber;
     }
 
     /**
@@ -172,11 +175,13 @@ public class Parser {
      * @return Keyword user wish to find.
      */
     public static String parseFind(String input) throws InvalidTaskException {
-        String[] keyword = input.split(" ");
+        String[] splitString = input.split(" ");
         // checks if user has input a keyword to find
-        if (keyword.length == 1 || keyword[1].equals("")) {
+        if (splitString.length == 1 || splitString[1].equals("")) {
             throw new InvalidTaskException();
         }
-        return keyword[1];
+
+        String keywordToFind = splitString[1];
+        return keywordToFind;
     }
 }

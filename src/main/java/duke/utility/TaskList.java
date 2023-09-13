@@ -41,9 +41,11 @@ public class TaskList {
      * @throws InvalidTaskException if task number is not within the length of task list.
      */
     public Task getTask(int taskNumber) throws InvalidTaskException {
+        // checks if task number is valid
         if (taskNumber > this.tasks.size() || taskNumber == 0) {
             throw new InvalidTaskException();
         }
+
         return this.tasks.get(taskNumber - 1);
     }
 
@@ -62,7 +64,7 @@ public class TaskList {
      * @param task Task to remove.
      */
     public void deleteTask(Task task) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             if (this.tasks.get(i).equals(task)) {
                 this.tasks.remove(i);
                 break;
@@ -79,12 +81,13 @@ public class TaskList {
      * @throws FailedSearchException if no task matches the given keyword.
      */
     public TaskList searchTask(String keyword) throws FailedSearchException {
-
         // copy all contents of task list into search list
         TaskList searchList = new TaskList();
         searchList.tasks.addAll(this.tasks);
 
         int originalSize = searchList.getLength();
+        // ensures current task list is correctly copied into search list
+        assert originalSize == tasks.size();
 
         for (int i = 0; i < originalSize; i++) {
             for (int j = 0; j < searchList.getLength(); j++) {
@@ -107,22 +110,19 @@ public class TaskList {
     }
 
     /**
-     * Returns the task list in a String format.
-     *
-     * @return Task list in a String format.
+     * Returns the task list in a String format to be displayed to the user.
      */
     @Override
     public String toString() {
-        // display in numerical pointers
         String list = "";
+
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
-            if (task == null) {
-                break;
-            } else {
-                list += (i + 1) + "." + task + "\n";
-            }
+            assert task != null;
+
+            list += (i + 1) + "." + task + "\n";
         }
+
         return list;
     }
 }

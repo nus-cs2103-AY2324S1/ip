@@ -13,10 +13,10 @@ import duke.utility.Ui;
  * @author ruo-x
  */
 public class Bobi {
-    private Storage storage;
-    private TaskList list;
-    private Ui ui;
-    private Command command;
+    private final Storage storage;
+    private final TaskList list;
+    private final Ui ui;
+    private final Command command;
 
     /**
      * Constructor of a Bobi object.
@@ -26,10 +26,11 @@ public class Bobi {
         this.storage = new Storage();
         this.list = new TaskList();
 
-        // Load list of tasks stored in text file "task.txt" into the local task List
+        // load list of tasks stored in text file "task.txt" into the local task List
         storage.handleLoad(list);
+        // ensures storage has loaded list from text file into the active TaskList
+        assert list.getLength() > 0;
 
-        // Start Scanner to read user inputs
         this.ui = new Ui(list);
         this.command = new Command(storage, ui, list);
     }
@@ -79,6 +80,7 @@ public class Bobi {
             System.out.println(this.getResponse(answer));
             answer = ui.getInput();
         }
+
         System.out.println(Ui.exit());
         ui.stopScanner();
     }

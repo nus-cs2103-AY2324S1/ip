@@ -41,7 +41,6 @@ public abstract class Task {
 
     /**
      * Marks a task as done.
-     * Status of the task object is changed to true.
      */
     public void mark() {
         this.isDone = true;
@@ -49,7 +48,6 @@ public abstract class Task {
 
     /**
      * Marks a task as un-done.
-     * Status of the task object is changed to false.
      */
     public void unMark() {
         this.isDone = false;
@@ -64,11 +62,10 @@ public abstract class Task {
     public abstract String toStoreString();
 
     /**
-     * Updates the task into a String format
+     * Updates the task string in the backend
      * when there is a change in status.
-     * This newly updated string will be stored in the backend.
      *
-     * @return Updated string to be stored in backend.
+     * @return Updated task string to be stored in backend.
      */
     public abstract String toUpdateString(int newStatus);
 }

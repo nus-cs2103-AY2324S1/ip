@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Bobi")
+    mainClass.set("duke.gui.Launcher")
 }
 
 checkstyle {
@@ -54,7 +54,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "bobi"
+    archiveBaseName = "bobi-2.0"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
