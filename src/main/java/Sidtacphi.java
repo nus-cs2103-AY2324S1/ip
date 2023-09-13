@@ -1,9 +1,15 @@
 import java.util.Objects;
 import java.util.Scanner;
+
 import java.io.File;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -21,7 +27,7 @@ public class Sidtacphi {
     }
     
     /**
-     * The main method for the Sidtacphi class.
+     * Main method for the Sidtacphi class.
      * 
      * @param args
      */
@@ -33,7 +39,7 @@ public class Sidtacphi {
     }
 
     /**
-     * This method starts the Sidtacphi bot.
+     * Starts the Sidtacphi bot.
      */
     private static void startBot() {
         String logo = " _______  ___   ______   _______  _______  _______  _______  __   __  ___  \n"
@@ -52,13 +58,20 @@ public class Sidtacphi {
     }
 
     /**
-     * This method stops the Sidtacphi bot.
+     * Stops the Sidtacphi bot.
      */
     private static void stopBot() {
         System.out.println("\nSidtacphi: Goodbye non-Euclidean life form.");
         System.out.println("\n____________________________________________________________");
     }
 
+    /**
+     * Parses a string into an integer and returns a default value on failure.
+     * 
+     * @param text String value to be parsed to integer
+     * @param defaultVal default value to be returned if text cannot be parsed
+     * @return an integer value represented by the string
+     */
     private static int tryParseInt(String text, int defaultVal) {
         try {
           return Integer.parseInt(text);
@@ -127,41 +140,61 @@ public class Sidtacphi {
         case EVENT:
             if (input.length() < 6) {
                 throw new SidInvalidFormatException("Please input a name for your Event" 
-                + "task, along with a start and end time.");
-            } else if (input.charAt(5) == ' ') {
-                inputArgs = input.substring(6).split("\\s*/from\\s*");
-                if (inputArgs.length == 2) { 
-                    String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
-                    if (startAndEnd.length == 2) {
-                        taskList.add(new Event(inputArgs[0], startAndEnd[0], startAndEnd[1]));
-                    } else {
-                        throw new SidInvalidFormatException("Please put in the starting and ending time " 
-                        + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
-                    }
-                } else {
-                    throw new SidInvalidFormatException("Please put in the starting and ending time " 
-                    + "using \"/from <time>\" followed by \"/to <time>\" for Event tasks.");
-                }
-            } else {
+                        + "task, along with a start and end date.");
+            } else if (input.charAt(5) != ' ') {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             }
+
+            inputArgs = input.substring(6).split("\\s*/from\\s*");
+            if (inputArgs.length != 2) { 
+                throw new SidInvalidFormatException("Please put in the starting and ending date " 
+                        + "using \"/from <date>\" followed by \"/to <date>\" for Event tasks.");
+            }
+
+            String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
+            if (startAndEnd.length == 2) {
+                LocalDate start;
+                LocalDate end;
+                try {
+                    start = LocalDate.parse(startAndEnd[0]);
+                    end = LocalDate.parse(startAndEnd[1]);
+                } catch (DateTimeParseException e) {
+                    throw new SidInvalidFormatException("Please put in your dates in YYYY-MM-DD format.");
+                }
+
+                if (end.isBefore(start)) {
+                    throw new SidInvalidFormatException("Please make sure your starting date is before your ending date.");
+                }
+
+                taskList.add(new Event(inputArgs[0], start, end));
+            } else {
+                throw new SidInvalidFormatException("Please put in the starting and ending date " 
+                        + "using \"/from <date>\" followed by \"/to <date>\" for Event tasks.");
+            }
+
             break;
         case DEADLINE:
             if (input.length() < 9) {
                 throw new SidInvalidFormatException("Please input a name for your Event" 
-                + "task, along with a start and end time.");
-            } else if (input.charAt(8) == ' ') {
-                inputArgs = input.substring(9).split("\\s*/by\\s*");
-                if (inputArgs.length == 2) { 
-                    taskList.add(new Deadline(inputArgs[0], inputArgs[1]));
-                } else if (inputArgs.length == 1) {
-                    throw new SidInvalidFormatException("Please write in the deadline" 
-                    + "using \"/by <time>\" for Deadline tasks. ");
-                } else {
-                    throw new SidInvalidFormatException("Please do not write in more than 1 deadline. ");
-                }
-            } else {
+                        + "task, along with a start and end date.");
+            } else if (input.charAt(8) != ' ') {
                 throw new SidException("\"" + input + "\" is not a valid command.");
+            }
+
+            inputArgs = input.substring(9).split("\\s*/by\\s*");
+            if (inputArgs.length == 2) {
+                LocalDate deadline;
+                try {
+                    deadline = LocalDate.parse(inputArgs[1]);
+                } catch (DateTimeParseException e) {
+                    throw new SidInvalidFormatException("Please put in your dates in YYYY-MM-DD format.");
+                }
+                taskList.add(new Deadline(inputArgs[0], deadline));
+            } else if (inputArgs.length == 1) {
+                throw new SidInvalidFormatException("Please write in the deadline" 
+                        + "using \"/by <date>\" for Deadline tasks.");
+            } else {
+                throw new SidInvalidFormatException("Please do not write in more than 1 deadline.");
             }
             break;
         }
@@ -182,7 +215,6 @@ public class Sidtacphi {
      * @param input 
      */
     private static void markTaskAs(boolean isToMark, String input) throws SidException {
-        
         if (!isToMark) {
             if (input.length() < 7) {
                 throw new SidInvalidFormatException("Please input the task ID number to unmark.");
@@ -240,7 +272,7 @@ public class Sidtacphi {
     }
 
     /**
-     * Prints the task list.
+     * Deletes the task list.
      * 
      * @param input
      */
@@ -263,7 +295,7 @@ public class Sidtacphi {
     }
 
     /**
-     * Save current taskList as a json file.
+     * Saves current taskList as a json file.
      */
     private static void saveAsJson() {
         ObjectMapper mapper = new ObjectMapper();
@@ -280,7 +312,7 @@ public class Sidtacphi {
     }
 
     /**
-     * Read json file and save to taskList.
+     * Reads json file and save to taskList.
      */
     private static void readJson() {
         ObjectMapper mapper = new ObjectMapper();
@@ -292,6 +324,7 @@ public class Sidtacphi {
         try {
             taskList = mapper.readValue(new File("tasks.json"), new TypeReference<ArrayList<Task>>(){});
         } catch (IOException e) {
+            // If no such file exists
             new File("tasks.json");
         }
     }

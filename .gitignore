@@ -16,9 +16,11 @@ gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.jar
 
 # Cache of project
 .gradletasknamecache
+tasks.json
 
 # MacOS custom attributes files created by Finder
 .DS_Store

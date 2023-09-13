@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -7,15 +8,15 @@ import com.fasterxml.jackson.databind.SerializerProvider;
  * Event is the main class for Event task used by the Sidtacphi bot.
  */
 public class Event extends Task {
-    private String start = "";
-    private String end = "";
+    private LocalDate start;
+    private LocalDate end;
 
     /**
      * Constructor for the Event class.
      * 
      * @param name
      */
-    public Event(String name, String start, String end) {
+    public Event(String name, LocalDate start, LocalDate end) {
         super(name);
         this.start = start;
         this.end = end;
@@ -40,8 +41,8 @@ public class Event extends Task {
         jsonGenerator.writeStringField("type", "event");
         jsonGenerator.writeStringField("name", super.getName());
         jsonGenerator.writeBooleanField("isCompleted", super.isCompleted());
-        jsonGenerator.writeStringField("start", start);
-        jsonGenerator.writeStringField("end", end);
+        jsonGenerator.writeStringField("start", start.toString());
+        jsonGenerator.writeStringField("end", end.toString());
         jsonGenerator.writeEndObject();
     }
 }

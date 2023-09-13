@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -34,14 +35,14 @@ public class TaskDeserializer extends StdDeserializer<Task> {
         case "deadline":
             JsonNode deadlineNode = node.get("deadline");
             String deadline = deadlineNode.asText();
-            task = new Deadline(taskName, deadline);
+            task = new Deadline(taskName, LocalDate.parse(deadline));
             break;
         case "event":
             JsonNode startNode = node.get("start");
             String start = startNode.asText();
             JsonNode endNode = node.get("end");
             String end = endNode.asText();
-            task = new Event(taskName, start, end);
+            task = new Event(taskName, LocalDate.parse(start), LocalDate.parse(end));
             break;
         default:
             task = new Task(taskName);
