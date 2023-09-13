@@ -1,6 +1,5 @@
 package duke.ui;
 
-import java.util.Scanner;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -40,6 +39,7 @@ public class Ui {
      * @return The error message.
      */
     public String showError(String errorMessage) {
+        assert errorMessage != null : "Error message should not be null";
         return errorMessage;
     }
 
@@ -59,6 +59,8 @@ public class Ui {
         for (int i = 1; i <= taskList.getSize(); i++) {
             output += (i + ". " + taskList.getTask(i - 1) + "\n");
         }
+
+        assert output != null : "Output should not be null";
         return output;
     }
 
@@ -68,6 +70,7 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public String showMarkTaskMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "Astonishingly enough, you have managed to triumph over this mind-bogglingly simple task:\n\n"
                 + task.toString();
     }
@@ -79,6 +82,7 @@ public class Ui {
      * @return The message for when a task is unmarked.
      */
     public String showUnmarkTaskMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "You have somehow managed to fail this mind-bogglingly simple task:\n\n" + task.toString();
     }
 
@@ -89,6 +93,7 @@ public class Ui {
      * @return The message for when a todo task is added.
      */
     public String showTodoMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "This task has been reluctantly bestowed upon your ever-growing list:\n\n" + task.toString();
     }
 
@@ -99,6 +104,7 @@ public class Ui {
      * @return The message for when a deadline task is added.
      */
     public String showDeadlineMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "With your constant mediocrity, it is entirely unlikely that you will be able to meet this deadline I have just added: \n\n"
                 + task.toString();
     }
@@ -110,6 +116,7 @@ public class Ui {
      * @return The message for when an event task is added.
      */
     public String showEventMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "Looks like I will have to slow time down myself if you wish to make it to this event I just added:\n\n + "
                 + task.toString();
     }
@@ -121,6 +128,7 @@ public class Ui {
      * @return The message for when a task is deleted.
      */
     public String showDeleteMessage(Task task) {
+        assert task != null : "Task should not be null";
         return "One less annoyance to plague your feeble list. This task has been banished:\n\n" + task.toString();
     }
 
@@ -139,6 +147,7 @@ public class Ui {
      * @return The message for when the task list size changes.
      */
     public String showTaskListSizeMessage(int size, boolean growing) {
+        assert size >= 0 : "Size should not be negative";
         if (growing) {
             return "Congratulations, your pile of tasks has swelled to a whopping " + size + ".";
         } else {

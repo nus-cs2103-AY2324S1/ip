@@ -78,6 +78,9 @@ public class Parser {
      * @return A Command object.
      */
     public Command parseCommand(String... input) {
+
+        assert input.length > 0 : "Input to parser should not be empty";
+
         String[] inputComponents = input;
         String fullInput = String.join(" ", inputComponents);
         String command = inputComponents[0];

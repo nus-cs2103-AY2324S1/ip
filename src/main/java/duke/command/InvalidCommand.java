@@ -23,6 +23,8 @@ public class InvalidCommand extends Command {
      * @return The response to the user input.
      */
     public String execute(TaskList tasks, Ui ui) {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "User interface should not be null";
         return ui.showInvalidCommandMessage();
     }
 

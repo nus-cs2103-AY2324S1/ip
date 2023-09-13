@@ -22,6 +22,8 @@ public class ByeCommand extends Command {
      * @param ui    The user interface.
      */
     public String execute(TaskList tasks, Ui ui) {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "User interface should not be null";
         return ui.showEndMessage();
     }
     
