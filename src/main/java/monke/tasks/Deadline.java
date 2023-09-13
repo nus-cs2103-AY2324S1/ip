@@ -45,4 +45,8 @@ public class Deadline extends Task {
         return String.format("D | %d | %s | %s\n", this.isDone ? 1 : 0,
                 this.description, this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
 }
