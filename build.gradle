@@ -24,6 +24,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     testImplementation "org.mockito:mockito-core:3.+"
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
+    implementation 'me.xdrop:fuzzywuzzy:1.4.0'
 }
 
 test {
