@@ -16,7 +16,7 @@ public class Commands {
      * List of both primary and secondary commands.
      */
     public enum CommandEnum { BYE, LIST, TODO, DEADLINE, EVENT, MARK,
-            UNMARK, DELETE, BY, FROM, TO, SORT, FIND, UNKNOWN }
+            UNMARK, DELETE, BY, FROM, TO, FIND, UNKNOWN }
 
     private CommandEnum primaryCommand;
     private String taskDescription;
@@ -36,7 +36,6 @@ public class Commands {
         this.primaryCommand = command;
         this.index = index;
     }
-
 
     private Commands(CommandEnum command, LocalDateTime dateTime) {
         this.primaryCommand = command;
@@ -145,43 +144,24 @@ public class Commands {
             return taskList.listTasks();
 
         case TODO:
-            if (print) {
-                return taskList.addToDo(this.taskDescription, true);
-            } else {
-                return taskList.addToDo(this.taskDescription, false);
-            }
+            return taskList.addToDo(this.taskDescription, print);
 
         case FIND:
             return taskList.find(this.taskDescription);
 
-        //case SORT:
-        //    break;
-
         case MARK:
-            if (print) {
-                return taskList.markOrUnmark(this.index, true, true);
-            } else {
-                return taskList.markOrUnmark(this.index, true, false);
-            }
+            return taskList.markOrUnmark(this.index, true, print);
 
         case UNMARK:
-            if (print) {
-                return taskList.markOrUnmark(this.index, false, true);
-            } else {
-                return taskList.markOrUnmark(this.index, false, false);
-            }
+            return taskList.markOrUnmark(this.index, false, print);
 
         case DELETE:
-            if (print) {
-                return taskList.delete(this.index, true);
-            } else {
-                return taskList.delete(this.index, false);
-            }
+            return taskList.delete(this.index);
 
         default:
-
+            // No tasks to do which is impossible as the Commands that are not here will not get through Parser.
+            return null;
         }
-        return null;
     }
 
     /**
@@ -228,12 +208,7 @@ public class Commands {
         private CommandEnum backUpSecondaryCommand;
         private String backUpSecondaryString;
         private Commands secondaryCommand;
-        private TwoCommands(CommandEnum command, String str, CommandEnum backUpSecondaryCommand,
-                            String backUpSecondaryString) {
-            super(command, str);
-            this.backUpSecondaryCommand = backUpSecondaryCommand;
-            this.backUpSecondaryString = backUpSecondaryString;
-        }
+
         private TwoCommands(CommandEnum command, String str, Commands secondaryCommand) {
             super(command, str);
             this.secondaryCommand = secondaryCommand;
@@ -247,16 +222,11 @@ public class Commands {
             switch (super.primaryCommand) {
 
             case DEADLINE:
-                if (print) {
-                    return taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, true);
-                } else {
-                    return taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, false);
-                }
+                return taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, print);
 
             default:
-
+                return null;
             }
-            return null;
         }
 
         /**
@@ -287,14 +257,6 @@ public class Commands {
         private String backUpTertiaryDescription;
         private Commands phaseTwo;
         private Commands phaseThree;
-        private ThreeCommands(CommandEnum command, String str, CommandEnum command2,
-                              String str2, CommandEnum command3, String str3) {
-            super(command, str);
-            this.backUpSecondaryCommand = command2;
-            this.backUpSecondaryDescription = str2;
-            this.backUpTertiaryCommand = command3;
-            this.backUpTertiaryDescription = str3;
-        }
 
         private ThreeCommands(CommandEnum command, String str, Commands phaseTwo, Commands phaseThree) {
             super(command, str);
@@ -310,18 +272,12 @@ public class Commands {
             switch (super.primaryCommand) {
 
             case EVENT:
-                if (print) {
-                    return taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
-                            this.phaseThree.dateTime, true);
-                } else {
-                    return taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
-                            this.phaseThree.dateTime, false);
-                }
+                return taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
+                        this.phaseThree.dateTime, print);
 
             default:
-
+                return null;
             }
-            return null;
         }
 
         /**

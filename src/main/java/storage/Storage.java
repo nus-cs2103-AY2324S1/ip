@@ -54,6 +54,8 @@ public class Storage {
      * @return Returns a string of null or errors that occur in the loading of the file.
      */
     public static String load(ListOfTask taskList, int startLine, String errorCarryForward) {
+        assert(startLine > 0);
+        assert(errorCarryForward != null);
         File saveData = new File("./src/data/duke.txt");
         String error = null;
         try {
