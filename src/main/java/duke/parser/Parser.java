@@ -22,6 +22,10 @@ public class Parser {
             String trimmedInput = input.trim();
             if (input.equals("list")) {
                 output.append(taskList.listTasks());
+            } else if (input.equals("sort")) {
+                output.append(taskList.listSortedTasks());
+            } else if (input.startsWith("sort by type")) {
+                output.append(taskList.listSortedTasksByType());
             } else if (input.startsWith("mark")) {
                 String rest = trimmedInput.substring(4).trim();
                 if (rest.isEmpty()) {
