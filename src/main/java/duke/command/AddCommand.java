@@ -85,23 +85,28 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (type.equals("T")) {
+        switch (type) {
+        case "T": {
             Task tasking = new Todo(task);
             tasks.addTask(tasking);
             storage.saveTasks(tasks.getTasks());
             return ui.showTaskAdded(tasking, tasks.getSize());
-        } else if (type.equals("D")) {
+        }
+        case "D": {
             Task tasking = new Deadline(task, deadline);
             tasks.addTask(tasking);
             storage.saveTasks(tasks.getTasks());
             return ui.showTaskAdded(tasking, tasks.getSize());
-        } else if (type.equals("E")) {
+        }
+        case "E": {
             Task tasking = new Event(task, from, to);
             tasks.addTask(tasking);
             storage.saveTasks(tasks.getTasks());
             return ui.showTaskAdded(tasking, tasks.getSize());
         }
-        return null;
+        default:
+            return null;
+        }
     }
 
     @Override

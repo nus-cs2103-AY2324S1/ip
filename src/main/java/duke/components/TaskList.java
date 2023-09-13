@@ -39,12 +39,11 @@ public class TaskList {
      * @throws DukeException Indexing error.
      */
     public static void mark(int index) throws DukeException {
-        if (isValidIndex(index)) {
-            tasks.get(index).setDone();
-        } else { // Index error
+        if (!isValidIndex(index)) {
             throw new DukeException("I'm afraid the task does not exist. "
                     + "Perhaps you might want to see your list again?");
         }
+        tasks.get(index).setDone();
     }
 
     /**
@@ -54,12 +53,11 @@ public class TaskList {
      * @throws DukeException Indexing error.
      */
     public static void unmark(int index) throws DukeException {
-        if (isValidIndex(index)) {
-            tasks.get(index).setNotDone();
-        } else { // Index error
+        if (!isValidIndex(index)) {
             throw new DukeException("I'm afraid the task does not exist. "
                     + "Perhaps you might want to see your list again?");
         }
+        tasks.get(index).setNotDone();
     }
 
     /**
@@ -69,12 +67,11 @@ public class TaskList {
      * @throws DukeException Indexing error.
      */
     public void delete(int index) throws DukeException {
-        if (isValidIndex(index)) {
-            tasks.remove(index);
-        } else { // Index error
+        if (!isValidIndex(index)) {
             throw new DukeException("I'm afraid the task does not exist. "
                 + "Perhaps you might want to see your list again?");
         }
+        tasks.remove(index);
     }
 
     public static ArrayList<Task> getTasks() {
@@ -99,12 +96,11 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) { // Generates the String representation of the list
             result += i + 1 + ". " + tasks.get(i) + "\n";
         }
-        if (result != "Here are the tasks in your list:\n") {
-            return result;
-        } else { // Empty list
+        if (tasks.size() == 0) {
             return "There is nothing on your list currently. "
                     + "Perhaps you might want to add a new task?";
         }
+        return result;
     }
 
     /**
@@ -127,17 +123,17 @@ public class TaskList {
         int counter = 0;
         for (Task task : tasks) { // Generates the String representation of the list
             String description = task.getDescription();
-            if (description.contains(keyword)) {
-                counter += 1;
-                result += counter + ". " + task + "\n";
+            if (!description.contains(keyword)) {
+                continue;
             }
+            counter += 1;
+            result += counter + ". " + task + "\n";
         }
-        if (counter > 0) {
-            return result;
-        } else { // Empty list
+        if (counter == 0) {
             return "There is nothing on your list currently that matches the keyword \"" + keyword + "\". "
                     + "Perhaps you might want to add a new task or try a different keyword?";
         }
+        return result;
     }
 
 }
