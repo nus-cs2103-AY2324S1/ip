@@ -140,6 +140,24 @@ public class TaskList {
 
     }
 
+    public void updateTaskDescription(int index, String description) {
+        if (index > this.count || index <= 0) {
+            throw new ZeanException("Hmm, this task does not exist :|");
+        }
+        if (!description.isBlank()) {
+            this.tasks.get(index - 1).updateDescription(description);
+            this.storage.rewriteToDisk(this.tasks);
+        }
+    }
+
+    public void updateTaskDates(int index, String by, String from, String to) {
+        if (index > this.count || index <= 0) {
+            throw new ZeanException("Hmm, this task does not exist :|");
+        }
+        this.tasks.get(index - 1).updateDates(by, from, to);
+        this.storage.rewriteToDisk(this.tasks);
+    }
+
     private String printNumOfTasks() {
         if (this.count < 2) {
             return String.format("Now you have %d task in the list.", this.count);

@@ -7,8 +7,8 @@ import zean.exception.ZeanException;
  *
  * @author Zhong Han
  */
-public class Task {
-    protected final String description;
+public abstract class Task {
+    protected String description;
     protected boolean isDone;
 
     /**
@@ -54,6 +54,12 @@ public class Task {
         this.isDone = false;
         return "  " + this;
     }
+
+    public void updateDescription(String description) {
+        this.description = description.strip();
+    }
+
+    public abstract void updateDates(String by, String from, String to);
 
     /**
      * Returns a string representation of the task.

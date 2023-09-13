@@ -12,8 +12,8 @@ import zean.exception.ZeanException;
  * @author Zhong Han
  */
 public class Event extends Task {
-    private final LocalDate from;
-    private final LocalDate to;
+    private LocalDate from;
+    private LocalDate to;
 
     /**
      * Constructor for the event task.
@@ -35,6 +35,36 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             throw new ZeanException("The date is invalid!");
         }
+    }
+
+    public void updateDates(String by, String from, String to) {
+        if (!by.isBlank()) {
+            throw new ZeanException("Cannot update by date for event task!");
+        }
+        LocalDate fromDate = this.from;
+        LocalDate toDate = this.to;
+        if (!to.isBlank()) {
+            try {
+                toDate = LocalDate.parse(to.strip());
+            } catch (DateTimeParseException e) {
+                throw new ZeanException("The date is invalid!");
+            }
+            if (fromDate.isAfter(toDate)) {
+                throw new ZeanException("The new end date is before the start date!");
+            }
+        }
+        if (!from.isBlank()) {
+            try {
+                fromDate = LocalDate.parse(from.strip());
+            } catch (DateTimeParseException e) {
+                throw new ZeanException("The date is invalid!");
+            }
+            if (toDate.isBefore(fromDate)) {
+                throw new ZeanException("The new start date is after the end date!");
+            }
+        }
+        this.from = fromDate;
+        this.to = toDate;
     }
 
     /**

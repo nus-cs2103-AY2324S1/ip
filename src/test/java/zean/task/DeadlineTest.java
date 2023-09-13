@@ -33,4 +33,36 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("0", "test", "2024-02-29");
         assertEquals("Feb 29 2024", deadline.getDeadline());
     }
+
+    @Test
+    public void invalidDateUpdateTest() {
+        Deadline deadline = new Deadline("0", "test", "2023-09-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                deadline.updateDates("2024-02-30", "", ""));
+        assertEquals("The date is invalid!", exception.getMessage());
+    }
+
+    @Test
+    public void invalidUpdateTest1() {
+        Deadline deadline = new Deadline("0", "test", "2023-09-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                deadline.updateDates("2024-02-29", "2024-02-29", ""));
+        assertEquals("Cannot update from/to dates for deadline task!", exception.getMessage());
+    }
+
+    @Test
+    public void invalidUpdateTest2() {
+        Deadline deadline = new Deadline("0", "test", "2023-09-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                deadline.updateDates("2024-02-29", "", "2024-02-29"));
+        assertEquals("Cannot update from/to dates for deadline task!", exception.getMessage());
+    }
+
+    @Test
+    public void invalidUpdateTest3() {
+        Deadline deadline = new Deadline("0", "test", "2023-09-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                deadline.updateDates("2024-02-29", "2024-02-29", "2024-02-29"));
+        assertEquals("Cannot update from/to dates for deadline task!", exception.getMessage());
+    }
 }
