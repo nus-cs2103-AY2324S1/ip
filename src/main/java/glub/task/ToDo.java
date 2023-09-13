@@ -1,5 +1,8 @@
 package glub.task;
 
+/**
+ * Abstraction of a todo event.
+ */
 public class ToDo extends Task {
     public ToDo(String task, boolean isDone) {
         super(task, isDone);

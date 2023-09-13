@@ -43,20 +43,49 @@ public class TaskList {
             boolean isDone = data[1].equals("X");
             switch (data[0]) {
             case "T":
-                addTask(String.format("%s", data[2]), TaskType.TODO, isDone);
+                addTask(String.format("%s", data[2]), "todo", isDone);
                 break;
             case "D":
                 addTask(String.format("%s /by %s", data[2], data[3]),
-                        TaskType.DEADLINE, isDone);
+                        "deadline", isDone);
                 break;
             case "E":
                 addTask(String.format("%s /from %s /to %s", data[2], data[3], data[4]),
-                        TaskType.EVENT, isDone);
+                        "event", isDone);
                 break;
             default:
             }
         }
 
+    }
+
+    /**
+     * Parse dateString into required date format for tasks.
+     * @param dateString Input date string.
+     * @param taskType Type of task to process date for/=.
+     * @return Array containing dates.
+     * @throws GlubException If task is invalid.
+     */
+    public LocalDateTime[] parseTaskDateTime(String dateString, String taskType) throws GlubException {
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        LocalDateTime[] dateTimes = new LocalDateTime[2];
+        if (taskType.equals("deadline")) {
+            String deadline = dateString.split(" ", 2)[1];
+            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, dateTimeFormat);
+            dateTimes[0] = deadlineDateTime;
+        } else if (taskType.equals("event")) {
+            String[] startParts = dateString.split(" ");
+            String start = startParts[1] + " " + startParts[2];
+            String[] endParts = dateString.split(" ");
+            String end = endParts[1] + " " + endParts[2];
+            LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormat);
+            LocalDateTime endDateTime = LocalDateTime.parse(end, dateTimeFormat);
+            dateTimes[0] = startDateTime;
+            dateTimes[1] = endDateTime;
+        } else {
+            throw new GlubException("Invalid task!\n");
+        }
+        return dateTimes;
     }
 
     /**
@@ -73,15 +102,14 @@ public class TaskList {
             throw new GlubException(String.format("OOPS!! The description of a %s cannot be empty.\n", taskType));
         }
         switch (taskType) {
-        case TODO:
+        case "todo":
             taskList.add(new ToDo(task, isDone));
             break;
-        case DEADLINE:
+        case "deadline":
             String[] deadlinePortions = task.split("/");
             String deadlineDesc = deadlinePortions[0];
             try {
-                String deadline = deadlinePortions[1].split(" ", 2)[1];
-                LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, dateTimeFormat);
+                LocalDateTime deadlineDateTime = parseTaskDateTime(deadlinePortions[0], "deadline")[0];
                 taskList.add(new Deadline(deadlineDesc, isDone, deadlineDateTime));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
@@ -89,22 +117,19 @@ public class TaskList {
                 throw new GlubException("Invalid deadline format! Please ensure it is in dd-MM-yyyy HHmm format!\n");
             }
             break;
-        case EVENT:
+        case "event":
             String[] eventPortions = task.split("/");
             String eventDesc = eventPortions[0];
             try {
-                String[] startParts = eventPortions[1].split(" ");
-                String start = startParts[1] + " " + startParts[2];
-                String[] endParts = eventPortions[2].split(" ");
-                String end = endParts[1] + " " + endParts[2];
-                LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormat);
-                LocalDateTime endDateTime = LocalDateTime.parse(end, dateTimeFormat);
+                LocalDateTime[] dateTimes = parseTaskDateTime(eventPortions[1], "event");
+                LocalDateTime startDateTime = dateTimes[0];
+                LocalDateTime endDateTime = dateTimes[1];
                 taskList.add(new Event(eventDesc, isDone, startDateTime, endDateTime));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
             } catch (DateTimeParseException ex) {
                 throw new GlubException(
-                        "Invalid start/end format! Please ensure they are in dd/MM/yyyy HH:mm format!\n");
+                        "Invalid start/end format! Please ensure they are in dd-MM-yyyy HHmm format!\n");
             }
             break;
         default:

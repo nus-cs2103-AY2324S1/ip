@@ -2,9 +2,20 @@ package glub.task;
 
 import java.time.LocalDateTime;
 
-public class Event extends Task{
+/**
+ * Abstraction of an event that the user can create.
+ */
+public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
+
+    /**
+     * Constructor for the event.
+     * @param task Task description.
+     * @param isDone Task status.
+     * @param start Start of event.
+     * @param end End of event.
+     */
     public Event(String task, boolean isDone, LocalDateTime start, LocalDateTime end) {
         super(task, isDone);
         this.start = start;

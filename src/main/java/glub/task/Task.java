@@ -11,6 +11,12 @@ public class Task {
     private String task;
     /** Status of task. */
     private boolean isDone;
+
+    /**
+     * Constructor of a task.
+     * @param task Task description.
+     * @param isDone Task status.
+     */
     public Task(String task, boolean isDone) {
         this.task = task;
         this.isDone = isDone;

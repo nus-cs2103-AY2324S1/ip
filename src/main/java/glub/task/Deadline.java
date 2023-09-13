@@ -2,8 +2,18 @@ package glub.task;
 
 import java.time.LocalDateTime;
 
-public class Deadline extends Task{
+/**
+ * Abstraction of a deadline task.
+ */
+public class Deadline extends Task {
     private LocalDateTime deadline;
+
+    /**
+     * Constructor for deadline.
+     * @param task Task description.
+     * @param isDone Task status.
+     * @param deadline Date and time of deadline.
+     */
     public Deadline(String task, boolean isDone, LocalDateTime deadline) {
         super(task, isDone);
         this.deadline = deadline;

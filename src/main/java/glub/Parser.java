@@ -1,9 +1,6 @@
 package glub;
 
-import java.util.Scanner;
-
 import glub.task.TaskList;
-import glub.task.TaskType;
 
 /**
  * Parser that handles user inputs.
@@ -28,40 +25,34 @@ public class Parser {
      * Listen to user input and execute the corresponding command.
      */
     public String parse(String input) throws GlubException {
+        String args = "";
         assert input != null: "Input cannot be null";
         String[] parsedCommand = input.split(" ", 2);
         String command = parsedCommand[0];
-            switch (command) {
-            case "bye":
-                return Ui.sayGoodbye();
-            case "list":
-                return Ui.printListMsg(this.taskList);
-            case "mark":
-                return taskList.mark(Integer.parseInt(parsedCommand[1]));
-            case "unmark":
-                return taskList.unmark(Integer.parseInt(parsedCommand[1]));
-            case "delete":
-                return taskList.deleteTask(Integer.parseInt(parsedCommand[1]));
-            case "todo":
-                String todo = parsedCommand[1];
-                taskList.addTask(todo, TaskType.TODO, false);
-                storage.saveTasks(taskList.getTaskList());
-                return Ui.printAddMsg(taskList.getTaskList());
-            case "deadline":
-                String deadline = parsedCommand[1];
-                taskList.addTask(deadline, TaskType.DEADLINE, false);
-                storage.saveTasks(taskList.getTaskList());
-                return Ui.printAddMsg(taskList.getTaskList());
-            case "event":
-                String event = parsedCommand[1];
-                taskList.addTask(event, TaskType.EVENT, false);
-                storage.saveTasks(taskList.getTaskList());
-                return Ui.printAddMsg(taskList.getTaskList());
-            case "find":
-                String searchString = parsedCommand[1];
-                return Ui.printFindMsg(taskList, searchString);
-            default:
-                throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
-            }
+        if (parsedCommand.length > 1) {
+            args = parsedCommand[1];
+        }
+        switch (command) {
+        case "bye":
+            return Ui.sayGoodbye();
+        case "list":
+            return Ui.printListMsg(this.taskList);
+        case "mark":
+            return taskList.mark(Integer.parseInt(args));
+        case "unmark":
+            return taskList.unmark(Integer.parseInt(args));
+        case "delete":
+            return taskList.deleteTask(Integer.parseInt(args));
+        case "todo":
+        case "deadline":
+        case "event":
+            taskList.addTask(args, command, false);
+            storage.saveTasks(taskList.getTaskList());
+            return Ui.printAddMsg(taskList.getTaskList());
+        case "find":
+            return Ui.printFindMsg(taskList, args);
+        default:
+            throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
         }
     }
+}
