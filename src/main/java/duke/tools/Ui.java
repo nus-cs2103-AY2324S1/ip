@@ -6,10 +6,11 @@ public class Ui {
     /**
      * Method that prints chatbot intro
      */
-    public void intro() {
-        System.out.println(line);
-        System.out.println("Hey, I'm joyayaya! What's the move today?");
-        System.out.println(line);
+    public String printIntro() {
+        String output = line + "\n";
+        output += "Hey, I'm joyayaya! What's the move today?\n";
+        output += line;
+        return output;
     }
 
     /**
@@ -22,10 +23,11 @@ public class Ui {
     /**
      * Method to print outro.
      */
-    public static void outro() {
-        System.out.println(line);
-        System.out.println("Buh-bye! See you soon!");
-        System.out.println(line);
+    public static String printOutro() {
+        String output = line + "\n";
+        output += "Bye! CU again!\n";
+        output += line;
+        return output;
     }
 
 }

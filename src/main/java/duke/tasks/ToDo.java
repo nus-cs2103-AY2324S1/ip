@@ -28,7 +28,7 @@ public class ToDo extends Task{
      * @return the reformatted todo.
      */
     public String writtenFormat() {
-        return "T | " + super.status() + "| " + this.descr;
+        return "T | " + super.status() + " | " + this.descr;
     }
 
     /**

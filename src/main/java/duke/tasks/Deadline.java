@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import duke.Duke;
 import duke.exceptions.DukeException;
 
 import java.time.DayOfWeek;
@@ -23,17 +24,18 @@ public class Deadline extends Task{
      */
     public String checkValidity() throws DukeException {
         String[] descrArr = descr.split("/by "); //you get 0: taskName, 1: deadline
-        String date = descrArr[1];
         String res;
         if (descrArr.length < 2) {
-            throw new DukeException("You are missing the deadline");
+            throw new DukeException("You are missing details of the the deadline!");
         }
 
+        String date = descrArr[1];
         boolean isDay = false;
         try {
             DayOfWeek.valueOf(date.toUpperCase());
             isDay = true;
         } catch (IllegalArgumentException e) {
+            throw new DukeException("This is not a valid day!");
         }
 
         if (isDay) {
@@ -41,10 +43,10 @@ public class Deadline extends Task{
         } else {
             try {
                 LocalDate deadline = LocalDate.parse(date);
-                res = deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+                res = deadline.format(formatter);
             } catch (DateTimeParseException e) {
-                throw new DukeException(e.getMessage() + "\n"
-                        + "Make sure you've either inputted a valid day or in yyyy-mm-dd format (e.g. 2019-10-15)");
+                throw new DukeException("Make sure you've either inputted a valid day or in yyyy-mm-dd format (e.g. 2019-10-15)");
             }
         }
         return res;
@@ -58,13 +60,12 @@ public class Deadline extends Task{
     public String writtenFormat() {
         String res = "Invalid Deadline";
         try {
-            res = "Invalid Deadline";
             String[] parts = this.descr.split("/by");
             String eventType = "deadline";
             String eventDescription = parts[0].substring(eventType.length()).trim();
             res = "D | " + super.status() + " | " + eventDescription + " | " + checkValidity();
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            res = e.getMessage();
         }
         return res;
     }
@@ -78,7 +79,6 @@ public class Deadline extends Task{
     public String toString() {
         String res = "Invalid Deadline";
         try {
-            //String deadline = this.descr.split("/by")[1].trim();
             res = "[D]" + super.toString() + " (by: " + checkValidity() + ")";
         } catch (DukeException e) {
             System.out.println(e.getMessage());
