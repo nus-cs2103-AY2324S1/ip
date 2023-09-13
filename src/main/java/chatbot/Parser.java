@@ -147,10 +147,9 @@ public class Parser {
      *
      * @param input The user input.
      * @returns The number of the task.
-     * @throws InvalidTaskNumberException If there is no task with the task number in the taskList.
      * @throws InvalidCommandException If format of command entered is invalid.
      */
-    public int parseDelete(String input) throws InvalidTaskNumberException, InvalidCommandException {
+    public int parseDelete(String input) throws InvalidCommandException {
         int taskIndex;
         try {
             String nextInput = input.substring(7);

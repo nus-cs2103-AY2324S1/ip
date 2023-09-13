@@ -2,6 +2,7 @@ package chatbot;
 
 import chatbot.exception.InvalidCommandException;
 import chatbot.exception.InvalidFileFormatException;
+import chatbot.exception.InvalidTaskNumberException;
 import chatbot.task.Deadline;
 import chatbot.task.Event;
 import chatbot.task.Todo;
@@ -70,7 +71,7 @@ public class Storage {
     /**
      * Saves current taskList to data file.
      */
-    public void saveTasks(TaskList taskList) throws IOException {
+    public void saveTasks(TaskList taskList) throws IOException, InvalidTaskNumberException {
         FileWriter fw = new FileWriter("data/tasks.txt");
         for (int i = 0; i < taskList.size(); i++) {
             fw.write(taskList.taskRep(i) + "\n");
