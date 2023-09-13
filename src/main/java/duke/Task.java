@@ -37,6 +37,7 @@ public abstract class Task {
     public Task(String name) {
         this.taskName = name;
         this.isDone = false;
+        assert this.taskName != null: "taskName of Task should not be null";
     }
 
     /**
