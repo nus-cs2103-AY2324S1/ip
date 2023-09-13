@@ -227,7 +227,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             }
         } catch (ChatbotIrrelevantOperationException e) {
             // This will only be thrown if the code path unexpectedly processes data in a format not relevant to the
-            // operation in question.
+            // operation in question. In other words, entering this code block is likely a programmer error.
+            assert false;
             this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oops! There was an internal error.");
 
         } catch (ChatbotCommandException e) {
@@ -273,8 +274,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             break;
         default:
             throw new ChatbotIrrelevantOperationException(String.format(
-                    "The command '%s' should not have numeric "
-                            + "data only, but the internal code attempted to assert " + "that it does",
+                    "The command '%s' should not have numeric data only, "
+                            + "but the internal code attempted to assert that it does",
                     chatCommand.getName()
             ));
         }
@@ -300,6 +301,9 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                     index + 1
             ));
         }
+
+        assert index >= 0 && index < this.taskManager.getTaskCount();
+        assert task != null;
 
         // Let's see what we should do!
         if (chatCommand.getOperation() == ChatCommand.Operation.DELETE) {
@@ -356,7 +360,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         default:
             throw new ChatbotIrrelevantOperationException(String.format(
                     "The command '%s' should have included data, "
-                            + "but the internal code attempted to assert that it " + "does not.",
+                            + "but the internal code attempted to assert that it does not.",
                     chatCommand.getName()
             ));
         }
@@ -414,8 +418,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             break;
         default:
             throw new ChatbotIrrelevantOperationException(String.format(
-                    "The command '%s' should not have included "
-                            + "data, but the internal code attempted to assert that " + "it does.",
+                    "The command '%s' should not have included data, "
+                            + "but the internal code attempted to assert that it does.",
                     chatCommand.getName()
             ));
 
@@ -438,7 +442,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         case ADD_DEADLINE:
             if (!chatCommand.hasParamWithUsefulValue("by")) {
                 throw new ChatbotInvalidCommandFormatException(String.format(
-                        "The 'deadline' command requires " + "supplying '%sby <deadline>'!",
+                        "The 'deadline' command requires supplying '%sby <deadline>'!",
                         ChatCommand.PARAMETER_PREFIX
                 ));
             }
@@ -507,6 +511,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             break;
 
         default:
+            // This block should never execute. If it does, it is likely a programmer error.
+            assert false;
             throw new ChatbotCommandException("Unexpected internal error: task type was not implemented.");
         }
 

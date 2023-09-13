@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
 import todoify.chatbot.ChatMessage;
 import todoify.chatbot.Chatbot;
 import todoify.util.EpochConverter;
@@ -19,8 +18,8 @@ import todoify.util.EpochConverter;
  */
 public class ChatBubble extends HBox {
 
-    private Chatbot chatbot;
-    private ChatMessage message;
+    private final Chatbot chatbot;
+    private final ChatMessage message;
 
     @FXML
     private ImageView senderImageView;
@@ -57,6 +56,14 @@ public class ChatBubble extends HBox {
      * Reloads the UI according to the cached message instance.
      */
     public void refreshUI() {
+
+        assert this.chatbot != null;
+        assert this.message != null;
+
+        assert this.messageLabel != null;
+        assert this.timestampLabel != null;
+        assert this.senderImageView != null;
+        assert this.titleLabel != null;
 
         Image image = null;
         String title = "?";

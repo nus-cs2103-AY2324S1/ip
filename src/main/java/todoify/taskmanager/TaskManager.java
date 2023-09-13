@@ -39,7 +39,7 @@ public class TaskManager {
      * Constructs a task manager, managing a list of items representing "tasks", with a custom storage location and
      * storage handler.
      *
-     * @param storageLocation The storage location.
+     * @param storageLocation The storage location for tasks.
      * @param storageHandler  The handler for processing storage operations.
      */
     public TaskManager(InternalPath storageLocation, InternalStorage storageHandler) {
@@ -52,7 +52,7 @@ public class TaskManager {
      * Constructs a task manager, managing a list of items representing "tasks", with a custom storage location and
      * default storage handler.
      *
-     * @param storageLocation Path
+     * @param storageLocation The storage location for tasks.
      */
     public TaskManager(InternalPath storageLocation) {
         this(storageLocation, null);
@@ -150,7 +150,6 @@ public class TaskManager {
      * @throws IOException if there were any issues retrieving the data.
      */
     public void loadFromStorage() throws IOException, JsonSyntaxException {
-        Gson gson = new Gson();
         try {
             String data = this.storageHandler.loadFrom(this.storageLocation);
             JsonArray array = JsonParser.parseString(data).getAsJsonArray();
@@ -160,15 +159,14 @@ public class TaskManager {
 
             // Prepare a new set of classes, from most specific to least specific.
             // This ordering is required to match the provided JSON to a class that's as specific as possible.
-            @SuppressWarnings("unchecked")
-            Class<Task>[] availClasses = new Class[] { Event.class, Deadline.class, Todo.class };
+            List<Class<? extends Task>> availClasses = List.of(Event.class, Deadline.class, Todo.class);
 
             // Iterate through the items in the JSON array.
             for (JsonElement item : array) {
                 Task task = null;
 
                 // Iterate through possible classes and attempt to get them.
-                for (Class<Task> cls : availClasses) {
+                for (Class<? extends Task> cls : availClasses) {
                     try {
                         task = Task.fromJsonRepresentation(item, cls);
                     } catch (JsonSyntaxException | IllegalArgumentException e) {

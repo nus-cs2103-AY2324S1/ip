@@ -47,6 +47,7 @@ public class Event extends Task {
      * @return The starting timestamp as seconds since Unix epoch (1970-01-01 00:00:00 UTC).
      */
     public long getStartTimestamp() {
+        assert this.startTimestamp != null;
         return this.startTimestamp;
     }
 
@@ -56,21 +57,27 @@ public class Event extends Task {
      * @return The ending timestamp as seconds since Unix epoch (1970-01-01 00:00:00 UTC).
      */
     public long getEndTimestamp() {
+        assert this.endTimestamp != null;
         return this.endTimestamp;
     }
 
     @Override
     public String toString() {
+
+        String formattedStartTimestamp = this.startTimestamp == null
+                ? null
+                : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getStartTimestamp());
+
+        String formattedEndTimestamp = this.endTimestamp == null
+                ? null
+                : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getEndTimestamp());
+
         return String.format(
                 "<E> %s %s (from: %s, to: %s)",
                 this.getCompletedIndicatorString(),
                 this.getTitle(),
-                this.startTimestamp == null
-                        ? null
-                        : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getStartTimestamp()),
-                this.endTimestamp == null
-                        ? null
-                        : EpochConverter.getUserReadableDateTimeStringFromEpoch(this.getEndTimestamp())
+                formattedStartTimestamp,
+                formattedEndTimestamp
         );
     }
 }
