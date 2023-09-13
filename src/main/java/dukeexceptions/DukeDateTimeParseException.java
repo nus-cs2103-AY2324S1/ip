@@ -1,4 +1,4 @@
-package dukeExceptions;
+package dukeexceptions;
 
 /**
  * This Exception class if for all the LocalDateTime parse errors

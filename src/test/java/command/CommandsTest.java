@@ -1,19 +1,18 @@
 package command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
 
-import dukeExceptions.DukeDateTimeParseException;
-import dukeExceptions.DukeException;
-import dukeExceptions.DukeFromEarlierThanToException;
-import dukeExceptions.DukeNullPointerException;
-import dukeExceptions.DukeNumberFormatException;
-import dukeExceptions.DukeUnknownCommandException;
+import dukeexceptions.DukeDateTimeParseException;
+import dukeexceptions.DukeException;
+import dukeexceptions.DukeFromEarlierThanToException;
+import dukeexceptions.DukeNullPointerException;
+import dukeexceptions.DukeNumberFormatException;
+import dukeexceptions.DukeUnknownCommandException;
 import parser.Parser;
 import task.ListOfTask;
 

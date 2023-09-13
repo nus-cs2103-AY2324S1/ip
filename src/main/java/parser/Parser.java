@@ -1,20 +1,21 @@
 package parser;
 
+import static command.Commands.CommandEnum.BY;
+import static command.Commands.CommandEnum.FROM;
+import static command.Commands.CommandEnum.TO;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import command.Commands;
 import duke.Duke;
-import dukeExceptions.DukeDateTimeParseException;
-import dukeExceptions.DukeException;
-import dukeExceptions.DukeFromEarlierThanToException;
-import dukeExceptions.DukeNullPointerException;
-import dukeExceptions.DukeNumberFormatException;
-import dukeExceptions.DukeUnknownCommandException;
+import dukeexceptions.DukeDateTimeParseException;
+import dukeexceptions.DukeException;
+import dukeexceptions.DukeFromEarlierThanToException;
+import dukeexceptions.DukeNullPointerException;
+import dukeexceptions.DukeNumberFormatException;
+import dukeexceptions.DukeUnknownCommandException;
 
-import static command.Commands.CommandEnum.FROM;
-import static command.Commands.CommandEnum.TO;
-import static command.Commands.CommandEnum.BY;
 
 /**
  * This class takes in the user input and parses returns a Commands object.
@@ -43,7 +44,7 @@ public class Parser {
     public Commands parse() throws DukeException {
         Commands.CommandEnum mainCmd = this.mainCommand();
         switch (mainCmd) {
-        case BYE: case LIST:
+        case BYE: case LIST: case UNDO:
             return Commands.of(mainCmd);
 
         case TODO: case FIND:
@@ -81,13 +82,16 @@ public class Parser {
                     if (c.checkCommand(BY)) {
                         return Commands.of(mainCmd, task, c);
                     } else {
-                        throw new NullPointerException();  // Wrong format
+                        // Wrong format
+                        throw new NullPointerException();
                     }
                 } else {
-                    throw new DukeException("Please add the task name");  // No task name
+                    // No task name
+                    throw new DukeException("Please add the task name");
                 }
             } catch (DukeUnknownCommandException | NullPointerException e) {
-                throw new DukeNullPointerException("The format for the command is: "  // Wrong format
+                // Wrong format
+                throw new DukeNullPointerException("The format for the command is: "
                         + "deadline task /by date&time");
             }
 
@@ -110,13 +114,16 @@ public class Parser {
                     if (secCmd.checkCommand(FROM) && terCmd.checkCommand(TO)) {
                         return Commands.of(mainCmd, task, secCmd, terCmd);
                     } else {
-                        throw new NullPointerException();  // Wrong format
+                        // Wrong format
+                        throw new NullPointerException();
                     }
                 } else {
-                    throw new DukeException("Please add the task name");  // No task name
+                    // No task name
+                    throw new DukeException("Please add the task name");
                 }
             } catch (DukeUnknownCommandException | NullPointerException e) {
-                throw new DukeNullPointerException("The format for the command is: "  // Wrong format
+                // Wrong format
+                throw new DukeNullPointerException("The format for the command is: "
                         + "event task /from startDayDateTime /to endDayDateTime");
             }
         default:
@@ -132,6 +139,8 @@ public class Parser {
             return Commands.CommandEnum.BYE;
         case ("list"):
             return Commands.CommandEnum.LIST;
+        case ("undo"):
+            return Commands.CommandEnum.UNDO;
         case ("todo"):
             return Commands.CommandEnum.TODO;
         case ("deadline"):
