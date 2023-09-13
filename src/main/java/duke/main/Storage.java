@@ -34,8 +34,12 @@ public class Storage {
      * @throws IOException If there's an error while reading the file.
      */
     public ArrayList<Task> load() throws IOException {
-        File f = new File(this.filePath);
-        if (!f.exists()) f.createNewFile();
+        File f = new File(filePath);
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+
+        assert f.exists() : "There needs to be a output file to load from";
 
         Scanner sc = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -68,7 +72,8 @@ public class Storage {
      * @throws IOException If there's an error while writing to the file.
      */
     public void append(Task task) throws IOException {
-        FileWriter fw = new FileWriter(this.filePath, true);
+        assert !filePath.isEmpty() : "There needs to be a valid filepath";
+        FileWriter fw = new FileWriter(filePath, true);
         fw.write(task.getTaskFileString() + System.lineSeparator());
         fw.close();
     }
@@ -80,7 +85,8 @@ public class Storage {
      * @throws IOException If there's an error while writing to the file.
      */
     public void update(List<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(this.filePath);
+        assert !filePath.isEmpty() : "There needs to be a valid filepath";
+        FileWriter fw = new FileWriter(filePath);
         tasks.forEach(task -> {
             try {
                 fw.write(task.getTaskFileString() + System.lineSeparator());
