@@ -69,12 +69,12 @@ public class TaskList {
      * @param ui
      * @param storage
      */
-    public void todo(String str, Ui ui, Storage storage){
+    public void todo(String str, Ui ui, Storage storage) throws DukeException {
         str = str.substring(5);
         if (str.isEmpty())
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! The description of a todo cannot be empty.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         list.add(new Todo(str));
         storage.addToFile("T,0,"+str);
         ui.print("____________________________________________________________\n" +
@@ -90,15 +90,15 @@ public class TaskList {
      * @param ui
      * @return
      */
-    public LocalDate changeDateFormat(String input,Ui ui){
+    public LocalDate changeDateFormat(String input,Ui ui) throws DukeException {
         LocalDate date=null;
         try {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             date = LocalDate.parse(input,format);
         }catch (Exception e){
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! Improper date format.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         }
         return date;
     }
@@ -109,17 +109,17 @@ public class TaskList {
      * @param ui
      * @param storage
      */
-    public void deadline(String str, Ui ui, Storage storage){
+    public void deadline(String str, Ui ui, Storage storage) throws DukeException {
         str = str.substring(9);
         if (str.isEmpty())
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! The description of a deadline cannot be empty.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         String[] arr = str.split(" /by ");
         if (arr.length<2)
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! Insufficient parameters passed to deadline.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         LocalDate date=changeDateFormat(arr[1],ui);
         arr[1]=date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         list.add(new Deadline(arr[0], arr[1]));
@@ -137,22 +137,22 @@ public class TaskList {
      * @param ui
      * @param storage
      */
-    public void event(String str, Ui ui, Storage storage){
+    public void event(String str, Ui ui, Storage storage) throws DukeException {
         str = str.substring(6);
         if (str.isEmpty())
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! The description of a event cannot be empty.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         String[] arr = str.split(" /from ");
         if (arr.length<2)
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! Insufficient parameters passed to event.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         String[] time = arr[1].split(" /to ");
         if (time.length<2)
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! Insufficient parameters passed to event.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         LocalDate date=changeDateFormat(time[0],ui);
         time[0]=date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         date=changeDateFormat(time[1],ui);
@@ -172,14 +172,14 @@ public class TaskList {
      * @param ui
      * @param storage
      */
-    public void delete(String str, Ui ui, Storage storage){
+    public void delete(String str, Ui ui, Storage storage) throws DukeException {
         str = str.substring(7);
         String val = str.replaceAll("[^0-9]", "");
         int index = Integer.parseInt(val);
         if (str.isEmpty())
-            ui.handleError(new DukeException("\n____________________________________________________________\n" +
+            throw new DukeException("\n____________________________________________________________\n" +
                     "☹ OOPS!!! The description of a delete cannot be empty.\n" +
-                    "____________________________________________________________"));
+                    "____________________________________________________________");
         ui.showLine();
         ui.print("Noted. I've removed this task:");
         ui.print("\t" + list.get(index - 1));

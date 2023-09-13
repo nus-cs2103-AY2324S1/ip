@@ -21,31 +21,34 @@ public class Parser {
      * @param ui
      */
     public void parse(String str, TaskList list, Storage storage,Ui ui){
-            if(str.equals("bye")){
-                isExit=true;
-            }
-            else if (str.equals("list")) {
+        try {
+            if (str.equals("bye")) {
+                isExit = true;
+            } else if (str.equals("list")) {
                 list.list(ui);
             } else if (str.contains("unmark")) {
-                list.mark(false,str,ui,storage);
+                list.mark(false, str, ui, storage);
 
             } else if (str.contains("mark")) {
-                list.mark(true,str,ui,storage);
+                list.mark(true, str, ui, storage);
             } else if (str.startsWith("todo ")) {
-                list.todo(str,ui,storage);
+                list.todo(str, ui, storage);
             } else if (str.startsWith("deadline ")) {
-                list.deadline(str,ui,storage);
+                list.deadline(str, ui, storage);
             } else if (str.startsWith("event ")) {
-                list.event(str,ui,storage);
+                list.event(str, ui, storage);
             } else if (str.startsWith("delete ")) {
-                list.delete(str,ui,storage);
-            }  else if (str.startsWith("find ")) {
-                list.find(str,ui);
+                list.delete(str, ui, storage);
+            } else if (str.startsWith("find ")) {
+                list.find(str, ui);
             } else {
                 ui.handleError(new DukeException("\n____________________________________________________________\n" +
                         "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
                         "____________________________________________________________"));
             }
+        } catch (DukeException e) {
+            ui.handleError(e);
+        }
     }
 
     /**

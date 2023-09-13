@@ -33,25 +33,27 @@ public class Storage {
             while ((st = br.readLine()) != null){
                 String[] out=st.split(",");
                 switch (out[0]){
-                    case "T":
-                        Todo e =new Todo(out[2]);
-                        if(out[1].equals("1"))
-                            e.setDone();
-                        list.add(e);
-                        break;
-                    case "E":
-                        Event f =new Event(out[2],out[3],out[4]);
-                        if(out[1].equals("1"))
-                            f.setDone();
-                        list.add(f);
-                        break;
-                    case "D":
-                        Deadline g =new Deadline(out[2],out[3]);
-                        if(out[1].equals("1"))
-                            g.setDone();
-                        list.add(g);
-                        break;
+                case "T":
+                    Todo e =new Todo(out[2]);
+                    if(out[1].equals("1"))
+                        e.setDone();
+                    list.add(e);
+                    break;
+                case "E":
+                    Event f =new Event(out[2],out[3],out[4]);
+                    if(out[1].equals("1"))
+                        f.setDone();
+                    list.add(f);
+                    break;
+                case "D":
+                    Deadline g =new Deadline(out[2],out[3]);
+                    if(out[1].equals("1"))
+                        g.setDone();
+                    list.add(g);
+                    break;
 
+                default:
+                    throw new IllegalStateException("Unexpected value: " + out[0]);
                 }
             }
         }
