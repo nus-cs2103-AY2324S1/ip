@@ -1,4 +1,4 @@
-import Duke.Main;
+import duke.Main;
 import javafx.application.Application;
 
 public class Launcher {

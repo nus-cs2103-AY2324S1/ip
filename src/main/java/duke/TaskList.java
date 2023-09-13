@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 import java.util.ArrayList;
 import tasks.Task;
@@ -68,8 +68,8 @@ public class TaskList {
     /**
      * Prints the number of tasks in the list.
      */
-    public void numOfTask() {
-        System.out.println("N... Now you have... " + this.tasks.size() + " tasks in the list. 0w0");
+    public String numOfTask() {
+        return "N... Now you have... " + this.tasks.size() + " tasks in the list. o(>ω<)o\n";
     }
 
     /**
@@ -88,10 +88,12 @@ public class TaskList {
     /**
      * Prints the entire list of tasks with numbering for reference.
      */
-    public void printList() {
+    public String printList() {
+        String result = "";
         for (int i = 0; i < tasks.size(); i++) {
             int x = i + 1;
-            System.out.println(x + ". " + this.printTask(i));
+            result += x + ". " + this.printTask(i) + "\n";
         }
+        return result;
     }
 }
