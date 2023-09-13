@@ -1,4 +1,3 @@
 T | 0 | borrow
-T | 0 | run
+D | 0 | gogogo | 2023-01-01
 T | 0 | makan
-D | 0 | makkkkan | 2023-01-01
