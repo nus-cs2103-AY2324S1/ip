@@ -41,7 +41,7 @@ public class ByeCommand extends Command {
      * @param ui Ui handling output to users.
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
-    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager)  {
+    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
         return ui.getReply(ui.getEndString());
     }
 }

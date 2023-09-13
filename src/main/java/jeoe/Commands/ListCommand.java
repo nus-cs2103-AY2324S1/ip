@@ -53,7 +53,7 @@ public class ListCommand extends Command {
      * @param ui Ui handling output to users.
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
-    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager)  {
+    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
         String reply = "Here are the tasks in your list:\n";
         ArrayList<Task> tasks = taskManager.getTasks();
         for (int i = 0; i < tasks.size(); i++) {

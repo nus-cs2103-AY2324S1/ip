@@ -55,7 +55,7 @@ public class UnmarkCommand extends Command {
      * @param ui Ui handling output to users.
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
-    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager)  {
+    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
         // add to the storage in Task & save into HDD
         taskManager.unmark(idxUnmark);
         storageManager.save(taskManager.getTasks());

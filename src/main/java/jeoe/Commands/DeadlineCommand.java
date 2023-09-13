@@ -69,7 +69,7 @@ public class DeadlineCommand extends Command {
      * @param ui Ui handling output to users.
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
-    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager)  {
+    public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
         String deadlineDescription = this.deadlineArr[0];
         String by = convertToIso8601(this.deadlineArr[1]); // need to add the T in
         Deadline deadline = new Deadline(deadlineDescription, LocalDateTime.parse(by));
