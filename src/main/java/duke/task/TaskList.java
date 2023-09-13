@@ -25,6 +25,7 @@ public class TaskList {
             Ui.noTaskList();
         }
         this.taskNum = this.tasks.size();
+        assert taskNum >= 0 : "taskNum cannot be negative";
     }
 
     /**
@@ -56,6 +57,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert 0 <= index && index < tasks.size() : "Task should be in the task list";
         return this.tasks.get(index);
     }
 
@@ -66,6 +68,7 @@ public class TaskList {
      * @return A message confirming the task has been marked as done.
      */
     public String markTask(int index) {
+        assert 0 <= index && index <= taskNum : "Task should be in the task list";
         store.saveTasks(this.tasks);
         this.tasks.get(index).markAsDone();
         return Ui.markTask(this.tasks.get(index));
@@ -78,6 +81,7 @@ public class TaskList {
      * @return A message confirming the task has been marked as not done.
      */
     public String unMarkTask(int index) {
+        assert 0 <= index && index <= taskNum : "Task should be in the task list";
         store.saveTasks(this.tasks);
         this.tasks.get(index).markAsNotDone();
         return Ui.unMarkTask(this.tasks.get(index));
@@ -90,6 +94,7 @@ public class TaskList {
      * @return A message confirming the deletion of the task.
      */
     public String deleteTask(int index) {
+        assert taskNum > 0 : "You should only delete on a task list with at least 1 element";
         String desc = this.tasks.get(index).toString();
         this.tasks.remove(index);
         this.taskNum -= 1;
