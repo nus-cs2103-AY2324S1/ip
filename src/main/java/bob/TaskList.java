@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     /**
      * Constructor for TaskList class.

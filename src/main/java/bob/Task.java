@@ -1,7 +1,7 @@
 package bob;
 
 /**
- * Reoresents a task that could be a todo, deadline or event
+ * Represents a task that could be a todo, deadline or event
  */
 public class Task {
     protected String description;
@@ -33,7 +33,7 @@ public class Task {
      * @return 1 if Task is marked done.
      */
     public int getStatusInt() {
-        return isDone? 1 : 0;
+        return isDone ? 1 : 0;
     }
 
     /**

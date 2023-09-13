@@ -56,7 +56,7 @@ public class Ui {
 
     /**
      * Finds task according to the specified keyword and lists them out.
-     * 
+     *
      * @param list the list containing all tasks.
      * @param keyword the keyword used to filter tasks.
      * @return the string representation of Bob's response.
@@ -110,93 +110,104 @@ public class Ui {
      * @throws BobException if input is invalid.
      */
     public static String checkAndAddTask(TaskList list, String task) throws BobException {
-        char[] charArray = task.toCharArray();
-        String taskName = "";
-
-        //todo
-        if (charArray[0] == 't' && charArray[1] == 'o' && charArray[2] == 'd' && charArray[3] == 'o') {
-            for (int i = 5; i < charArray.length; i++) {
-                taskName = taskName + charArray[i];
-            }
-
-            if (taskName.isBlank()) {
-                throw new BobException("OOPS!!! The description of a todo cannot be empty.");
-            } else {
-                Todo thisTask = new Todo(taskName);
-                return addTask(list, thisTask);
-            }
-
+        if (task.startsWith("todo")) {
+            return addTodo(list, task);
         }
 
-        //deadline
-        if (charArray[0] == 'd' && charArray[1] == 'e' && charArray[2] == 'a' && charArray[3] == 'd' &&
-                charArray[4] == 'l' && charArray[5] == 'i' && charArray[6] == 'n' && charArray[7] == 'e') {
-            String by = "";
-            int byIndex = charArray.length;
-
-            for (int i = 9; i < charArray.length; i++) {
-                if (i + 1 < charArray.length && charArray[i + 1] == '/') {
-                    byIndex = i + 1;
-                    continue;
-                }
-
-                if (i > byIndex + 3) {
-                    by = by + charArray[i];
-                } else if (i < byIndex - 1) {
-                    taskName = taskName + charArray[i];
-                }
-
-            }
-
-            if (taskName.isBlank()) {
-                throw new BobException("OOPS!!! The description of a deadline cannot be empty.");
-            } else {
-                LocalDate d1 = LocalDate.parse(by);
-                Deadline thisTask = new Deadline(taskName, d1);
-                return addTask(list, thisTask);
-            }
-
+        if (task.startsWith("deadline")) {
+            return addDeadline(list, task);
         }
 
-        //event
-        if (charArray[0] == 'e' && charArray[1] == 'v' && charArray[2] == 'e' && charArray[3] == 'n' && charArray[4] == 't') {
-            String from = "";
-            String to = "";
-            int fromIndex = charArray.length;
-            int toIndex = charArray.length;
-
-            for (int i = 6; i < charArray.length; i++) {
-                if (i + 1 < charArray.length && charArray[i + 1] == '/' && fromIndex == charArray.length) {
-                    fromIndex = i + 1;
-                    continue;
-                } else if (i + 1 < charArray.length && charArray[i + 1] == '/' && fromIndex != charArray.length) {
-                    toIndex = i + 1;
-                    continue;
-                }
-
-                if (i > fromIndex + 5 && i < toIndex) {
-                    from = from + charArray[i];
-                } else if (i > toIndex + 3) {
-                    to = to + charArray[i];
-                } else if (i < fromIndex - 1) {
-                    taskName = taskName + charArray[i];
-                }
-
-            }
-
-            if (taskName.isBlank()) {
-                throw new BobException("OOPS!!! The description of a event cannot be empty.");
-            } else {
-                LocalDate d1 = LocalDate.parse(from);
-                LocalDate d2 = LocalDate.parse(to);
-                Event thisTask = new Event(taskName, d1, d2);
-                return addTask(list, thisTask);
-            }
-
+        if (task.startsWith("event")) {
+            return addEvent(list, task);
         }
 
         //not a task
         throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    private static String addTodo(TaskList list, String task) throws BobException {
+        char[] charArray = task.toCharArray();
+        String taskName = "";
+
+        for (int i = 5; i < charArray.length; i++) {
+            taskName = taskName + charArray[i];
+        }
+
+        if (taskName.isBlank()) {
+            throw new BobException("OOPS!!! The description of a todo cannot be empty.");
+        } else {
+            Todo thisTask = new Todo(taskName);
+            return addTask(list, thisTask);
+        }
+    }
+
+    private static String addDeadline(TaskList list, String task) throws BobException {
+        char[] charArray = task.toCharArray();
+        String taskName = "";
+
+        String by = "";
+        int byIndex = charArray.length;
+
+        for (int i = 9; i < charArray.length; i++) {
+            if (i + 1 < charArray.length && charArray[i + 1] == '/') {
+                byIndex = i + 1;
+                continue;
+            }
+
+            if (i > byIndex + 3) {
+                by = by + charArray[i];
+            } else if (i < byIndex - 1) {
+                taskName = taskName + charArray[i];
+            }
+
+        }
+
+        if (taskName.isBlank()) {
+            throw new BobException("OOPS!!! The description of a deadline cannot be empty.");
+        } else {
+            LocalDate d1 = LocalDate.parse(by);
+            Deadline thisTask = new Deadline(taskName, d1);
+            return addTask(list, thisTask);
+        }
+    }
+
+    private static String addEvent(TaskList list, String task) throws BobException {
+        char[] charArray = task.toCharArray();
+        String taskName = "";
+
+        String from = "";
+        String to = "";
+        int fromIndex = charArray.length;
+        int toIndex = charArray.length;
+
+        for (int i = 6; i < charArray.length; i++) {
+            if (i + 1 < charArray.length && charArray[i + 1] == '/' && fromIndex == charArray.length) {
+                fromIndex = i + 1;
+                continue;
+            } else if (i + 1 < charArray.length && charArray[i + 1] == '/' && fromIndex != charArray.length) {
+                toIndex = i + 1;
+                continue;
+            }
+
+            if (i > fromIndex + 5 && i < toIndex) {
+                from = from + charArray[i];
+            } else if (i > toIndex + 3) {
+                to = to + charArray[i];
+            } else if (i < fromIndex - 1) {
+                taskName = taskName + charArray[i];
+            }
+
+        }
+
+        if (taskName.isBlank()) {
+            throw new BobException("OOPS!!! The description of a event cannot be empty.");
+        } else {
+            LocalDate d1 = LocalDate.parse(from);
+            LocalDate d2 = LocalDate.parse(to);
+            Event thisTask = new Event(taskName, d1, d2);
+            return addTask(list, thisTask);
+        }
     }
 
     /**
@@ -221,14 +232,6 @@ public class Ui {
      */
     public void showLoadingError() {
         System.out.println("Error loading file");
-    }
-
-    /**
-     * Prints greeting when it is the user's first time running.
-     */
-    public void printGreeting() {
-        System.out.println("Hello! I'm Bob");
-        System.out.println("What can I do for you?");
     }
 
     /**

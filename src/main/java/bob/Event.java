@@ -8,30 +8,30 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
 
     /**
      * Constructor for the Event class.
      *
      * @param description the name/description of the event.
-     * @param from the starting date & time of the event.
-     * @param to the ending date & time of the event.
+     * @param startDate the starting date & time of the event.
+     * @param endDate the ending date & time of the event.
      */
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public String getFrom() {
-        return from.toString();
+        return startDate.toString();
     }
 
     @Override
     public String getTo() {
-        return to.toString();
+        return endDate.toString();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
