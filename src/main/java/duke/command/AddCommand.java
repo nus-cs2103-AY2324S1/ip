@@ -22,7 +22,7 @@ public class AddCommand extends Command {
      * @param storage The Storage instance that will update the file.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String executeTask(TaskList taskList, Ui ui, Storage storage) {
         // add task into tasks, input coming from Parse class, Parse class is supposed to make the String into a duke.task.Task
         // print in ui
         // write in storage
