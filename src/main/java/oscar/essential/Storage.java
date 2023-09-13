@@ -36,15 +36,16 @@ public class Storage {
      */
     public ObjectInputStream load() throws OscarException {
         File savedFile = new File(filePath);
-        if (savedFile.exists() && !savedFile.isDirectory()) {
-            try {
-                FileInputStream fileInputStream = new FileInputStream(savedFile);
-                return new ObjectInputStream(fileInputStream);
-            } catch (IOException e) {
-                throw new OscarException("Sorry! There is an error loading the saved file.\n");
-            }
-        } else {
+        boolean hasFile = savedFile.exists();
+        boolean isDirectory = savedFile.isDirectory();
+        if (!hasFile || isDirectory) {
             throw new OscarException("Sorry! Oscar cannot find a saved file to load.\n");
+        }
+        try {
+            FileInputStream fileInputStream = new FileInputStream(savedFile);
+            return new ObjectInputStream(fileInputStream);
+        } catch (IOException e) {
+            throw new OscarException("Sorry! There is an error loading the saved file.\n");
         }
     }
 

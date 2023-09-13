@@ -11,16 +11,6 @@ import oscar.exception.OscarException;
  */
 public abstract class Command {
     static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private final boolean isExit;
-
-    /**
-     * Constructor for command subclasses.
-     *
-     * @param isExit Whether command is an exit command.
-     */
-    public Command(boolean isExit) {
-        this.isExit = isExit;
-    }
 
     /**
      * Validates the provided task number.
@@ -57,13 +47,4 @@ public abstract class Command {
      * @throws OscarException Failure to execute command.
      */
     public abstract String execute(TaskList tasks, Storage storage) throws OscarException;
-
-    /**
-     * Checks if command is an exit command.
-     *
-     * @return Whether command is an exit command.
-     */
-    public boolean isExit() {
-        return this.isExit;
-    }
 }

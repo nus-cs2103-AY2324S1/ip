@@ -16,7 +16,6 @@ public class DeleteCommand extends Command {
      * @param details Task number to be deleted.
      */
     public DeleteCommand(String details) {
-        super(false);
         this.details = details;
     }
 
