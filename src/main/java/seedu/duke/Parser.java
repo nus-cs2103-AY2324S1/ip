@@ -37,27 +37,28 @@ public class Parser {
         try {
             TaskType taskType = TaskType.valueOf(getTaskType(cmd));
 
-            if (taskType == TaskType.LIST) {
+            switch (taskType) {
+            case LIST:
                 return getListItems();
-            } else if (taskType == TaskType.TODO) {
+            case TODO:
                 return parseToDoCommand(cmd);
-            } else if (taskType == TaskType.DEADLINE) {
+            case DEADLINE:
                 return parseDeadlineCommand(cmd);
-            } else if (taskType == TaskType.EVENT) {
+            case EVENT:
                 return parseEventCommand(cmd);
-            } else if (taskType == TaskType.DELETE) {
+            case DELETE:
                 return parseDeleteCommand(cmd);
-            } else if (taskType == TaskType.MARK) {
+            case MARK:
                 return parseMarkCommand(cmd);
-            } else if (taskType == TaskType.UNMARK) {
+            case UNMARK:
                 return parseUnmarkCommand(cmd);
-            } else if (taskType == TaskType.FIND) {
+            case FIND:
                 return parseFindCommand(cmd);
-            } else if (taskType == TaskType.POSTPONE) {
+            case POSTPONE:
                 return parsePostponeCommand(cmd);
-            } else if (taskType == TaskType.BYE) {
+            case BYE:
                 return exit();
-            } else {  // If the inputted command is not valid, throw TaskTypeException
+            default:
                 throw new TaskTypeException();
             }
         } catch (DukeException e) {
@@ -88,7 +89,7 @@ public class Parser {
      * @return A string containing the current tasks.
      */
     private String getListItems() {
-        return ui.printListItems(tasks);
+        return ui.getListItemsString(tasks);
     }
 
     /**
@@ -107,7 +108,7 @@ public class Parser {
         String taskName = cmd.split(" ", 2)[1];
         Task todo = new ToDo(taskName);
         tasks.addTask(todo);
-        return ui.printAddTaskMessage(todo, tasks);
+        return ui.getAddTaskMessage(todo, tasks);
     }
 
     /**
@@ -143,7 +144,7 @@ public class Parser {
         }
         Task deadline = new Deadline(taskName, dateTime);
         tasks.addTask(deadline);
-        return ui.printAddTaskMessage(deadline, tasks);
+        return ui.getAddTaskMessage(deadline, tasks);
     }
 
     /**
@@ -175,7 +176,7 @@ public class Parser {
         // Assumes that starting and ending both start with "from" and "to" respectively
         Task event = new Event(taskName, checkStarting(starting), checkEnding(ending));
         tasks.addTask(event);
-        return ui.printAddTaskMessage(event, tasks);
+        return ui.getAddTaskMessage(event, tasks);
     }
 
     /**
@@ -210,7 +211,7 @@ public class Parser {
         }
 
         Task task = tasks.updateTasks(taskNumber - 1, "DELETE");
-        return ui.printDeleteTaskMessage(task, new TaskList(storage.load()));
+        return ui.getDeleteTaskMessage(task, new TaskList(storage.load()));
     }
 
     /**
@@ -245,7 +246,7 @@ public class Parser {
         }
 
         Task task = tasks.updateTasks(taskNumber - 1, "MARK");
-        return ui.printMarkedTaskMessage(task);
+        return ui.getMarkedTaskMessage(task);
     }
 
     /**
@@ -280,7 +281,7 @@ public class Parser {
         }
 
         Task task = tasks.updateTasks(taskNumber - 1, "UNMARK");
-        return ui.printUnmarkedTaskMessage(task);
+        return ui.getUnmarkedTaskMessage(task);
     }
 
     /**
@@ -297,7 +298,7 @@ public class Parser {
 
         String keyword = cmd.split(" ", 2)[1];
         ArrayList<Task> results = tasks.find(keyword);
-        return ui.printFindResults(results);
+        return ui.getFindResults(results);
     }
 
     /**
@@ -306,7 +307,7 @@ public class Parser {
      * @return A string containing the exit message.
      */
     private String exit() {
-        return ui.printExit();
+        return ui.getExitMessage();
     }
 
     /**
@@ -343,7 +344,7 @@ public class Parser {
         }
 
         Task task = tasks.postponeTask(cmd,(taskNumber - 1));
-        return ui.printPostponeMessage(task);
+        return ui.getPostponeMessage(task);
 
     }
 
