@@ -144,6 +144,7 @@ public class TaskList {
             throw new NotANumberException();
         } else {
             int index = Character.getNumericValue(number) - 1;
+            assert index <= strList.size() : "That index does not exist";
             Task t = strList.get(index);
             t.markTask();
             System.out.println(line);
@@ -166,6 +167,7 @@ public class TaskList {
             throw new NotANumberException();
         } else {
             int index = Character.getNumericValue(number) - 1;
+            assert index <= strList.size() : "That index does not exist";
             Task t = strList.get(index);
             t.unmarkTask();
             System.out.println(line);
@@ -188,6 +190,7 @@ public class TaskList {
             throw new NotANumberException();
         } else {
             int index = Character.getNumericValue(number) - 1;
+            assert index <= strList.size() : "That index does not exist";
             Task t = strList.remove(index);
             System.out.println(line);
             String message = "Noted. I've removed this task: " + "\n";
