@@ -66,6 +66,7 @@ public class Storage {
     public void loadTask(String input, List<Task> list) {
         boolean isMarked;
         int markedIndex = input.indexOf("|");
+        assert markedIndex != -1 : "tasks must be stored in the correct format using |";
         isMarked = input.charAt(markedIndex + 2) == '1';
         int titleIndex = input.indexOf("|", markedIndex + 1) + 2;
         try {
