@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a list of tasks and provides methods to manipulate the list.
+ */
 public class TaskList {
     private static final Pattern PATTERN_COMMAND_DELETE = Pattern.compile("^delete (?<taskNumber>\\d*)$");
     private static final Pattern PATTERN_COMMAND_MARK_UNMARK = Pattern.compile("^(mark|unmark) (?<taskNumber>\\d*)$");
-    private static Pattern PATTERN_COMMAND_FIND = Pattern.compile("^find( (?<searchString>.*))?$");
+    private static final Pattern PATTERN_COMMAND_FIND = Pattern.compile("^find( (?<searchString>.*))?$");
 
     private ArrayList<Task> tasks;
 

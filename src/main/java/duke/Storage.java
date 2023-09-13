@@ -8,12 +8,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+/**
+ * Represents a storage mechanism for saving and loading tasks to/from a file.
+ */
 public class Storage {
     private String filepath;
+
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filepath The file path for saving and loading tasks
+     */
     Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Saves the given string to the file specified in the constructor.
+     *
+     * @param saveString The string to be saved to the file
+     * @throws LukeException If there is an error writing to the file
+     */
     public void save(String saveString) throws LukeException {
         try {
             FileWriter fw = new FileWriter(filepath);
@@ -25,35 +42,12 @@ public class Storage {
         }
     }
 
-    private boolean getTaskStatus(String[] taskDetails) throws LukeException {
-        assert(taskDetails.length >= 2);
-
-        switch (taskDetails[1]) {
-            case "Done":
-                return true;
-            case "Not Done":
-                return false;
-            default:
-                throw new LukeException("Task neither 'Done' nor 'Not Done'");
-        }
-    }
-
-    private Task createTask(String[] taskDetails) throws LukeException {
-        boolean isDone = getTaskStatus(taskDetails);
-
-        switch (taskDetails[0]) {
-            case "T":
-                return Todo.createTodo(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-            case "D":
-                return Deadline.createDeadline(
-                        Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-            case "E":
-                return Event.createEvent(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-            default:
-                throw new LukeException("Unknown Task Type '" + taskDetails[0] + "'");
-        }
-    }
-
+    /**
+     * Loads tasks from the file specified in the constructor and returns them as an ArrayList.
+     *
+     * @return An ArrayList of loaded tasks
+     * @throws LukeException If there is an error reading from the file or if the data format is invalid
+     */
     public ArrayList<Task> load() throws LukeException {
         try {
             ArrayList<Task> allTasks = new ArrayList<>();
@@ -81,6 +75,35 @@ public class Storage {
             throw new LukeException(
                     "Could not find file '" + filepath + "'\n\n No tasks loaded"
             );
+        }
+    }
+
+    private boolean getTaskStatus(String[] taskDetails) throws LukeException {
+        assert(taskDetails.length >= 2);
+
+        switch (taskDetails[1]) {
+        case "Done":
+            return true;
+        case "Not Done":
+            return false;
+        default:
+            throw new LukeException("Task neither 'Done' nor 'Not Done'");
+        }
+    }
+
+    private Task createTask(String[] taskDetails) throws LukeException {
+        boolean isDone = getTaskStatus(taskDetails);
+
+        switch (taskDetails[0]) {
+        case "T":
+            return Todo.createTodo(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+        case "D":
+            return Deadline.createDeadline(
+                    Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+        case "E":
+            return Event.createEvent(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+        default:
+            throw new LukeException("Unknown Task Type '" + taskDetails[0] + "'");
         }
     }
 }

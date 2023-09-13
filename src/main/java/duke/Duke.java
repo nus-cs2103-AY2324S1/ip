@@ -1,7 +1,8 @@
 package duke;
 
-import javafx.application.Platform;
-
+/**
+ * Duke is a task management application that allows users to manage their tasks.
+ */
 public class Duke {
     private static final String SAVED_TASKS_FILEPATH = "./data/savedTasks.txt";
 
@@ -9,6 +10,11 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a Duke instance with the specified file path for saving and loading tasks.
+     *
+     * @param filepath The file path for saving and loading tasks
+     */
     Duke(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
@@ -21,25 +27,35 @@ public class Duke {
         }
     }
 
+    /**
+     * Constructs a Duke instance with the default file path for saving and loading tasks.
+     */
     public Duke() {
         this(SAVED_TASKS_FILEPATH);
     }
+
+    /**
+     * The entry point of the Duke application.
+     *
+     * @param args The command-line arguments (not used)
+     */
     public static void main(String[] args) {
         Duke luke = new Duke(SAVED_TASKS_FILEPATH);
         luke.run();
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to user input.
+     *
+     * @param input The user's input
+     * @return A response to the user's input
      */
     public String getResponse(String input) {
         return executeCommand(input);
     }
 
     /**
-     * Handles the main program and logic of Luke (Duke)
-     *
+     * Runs the main program and logic of Duke.
      */
     private void run() {
         greet();
@@ -54,6 +70,9 @@ public class Duke {
         saveData();
     }
 
+    /**
+     * Saves the task data to the specified file path.
+     */
     public void saveData() {
         try {
             storage.save(tasks.toSaveString());
@@ -64,11 +83,10 @@ public class Duke {
     }
 
     /**
-     * Executes a given command
+     * Executes a given command.
      *
-     * @param command String command detailing what and how to execute
-     * @throws LukeException If the leading word in the command is not a recognised command, or
-     *         if the processes associated with executing the command encounters an error
+     * @param command The command detailing what and how to execute
+     * @return A response message based on the execution result
      */
     private String executeCommand(String command) {
         try {
@@ -97,6 +115,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Displays a goodbye message.
+     *
+     * @return A goodbye message
+     */
     public String bye() {
         return ui.displayMessage("Bye. Hope to see you again soon!");
     }

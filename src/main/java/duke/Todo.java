@@ -3,13 +3,27 @@ package duke;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a todo task in Duke.
+ */
 public class Todo extends Task {
     private static final Pattern PATTERN_COMMAND_CREATE_TODO = Pattern.compile("^todo( (?<taskName>.*))?");
 
+    /**
+     * Constructs a Todo with the specified name.
+     *
+     * @param name The name of the todo task
+     */
     Todo(String name) {
         super(name);
     }
 
+    /**
+     * Constructs a Todo with the specified name and done status.
+     *
+     * @param isDone Boolean indicating if the todo task is done
+     * @param name   The name of the todo task
+     */
     Todo(boolean isDone, String name) {
         super(name, isDone);
     }
@@ -51,6 +65,11 @@ public class Todo extends Task {
         return new Todo(isDone, args[0]);
     }
 
+    /**
+     * Converts the Todo object to a string for saving to a file.
+     *
+     * @return String representation of the Todo for saving
+     */
     @Override
     public String toSaveStr() {
         return "T" + " | " + super.toSaveStr();

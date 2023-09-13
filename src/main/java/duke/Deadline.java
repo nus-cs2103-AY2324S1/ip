@@ -7,15 +7,32 @@ import java.time.format.FormatStyle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a task with a deadline in Duke.
+ */
 public class Deadline extends Task {
     private static final Pattern PATTERN_COMMAND_CREATE_DEADLINE =
             Pattern.compile("^deadline ?(?<taskName>.*?)? ?(/by (?<finishByTime>.*))?$");
     private LocalDate finishByTime;
 
+    /**
+     * Constructs a Deadline with the specified name and finish by time.
+     *
+     * @param name         The name of the deadline task
+     * @param finishByTime The finish by time of the deadline task
+     */
     Deadline(String name, LocalDate finishByTime) {
         super(name);
         this.finishByTime = finishByTime;
     }
+
+    /**
+     * Constructs a Deadline with the specified name, finish by time, and done status.
+     *
+     * @param isDone       The status of the deadline task (done or not done)
+     * @param name         The name of the deadline task
+     * @param finishByTime The finish by time of the deadline task
+     */
     Deadline(boolean isDone, String name, LocalDate finishByTime) {
         super(name, isDone);
         this.finishByTime = finishByTime;

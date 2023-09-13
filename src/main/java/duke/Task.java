@@ -3,6 +3,9 @@ package duke;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a task with a name and completion status.
+ */
 public class Task {
     private boolean isDone;
     private String name;

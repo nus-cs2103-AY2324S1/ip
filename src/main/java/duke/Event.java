@@ -3,6 +3,9 @@ package duke;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents an event task with a specified start and end time.
+ */
 public class Event extends Task {
     private static final Pattern PATTERN_COMMAND_CREATE_EVENT =
             Pattern.compile("^event ?(?<taskName>.*?)? ?(/from (?<startTime>.*?))? ?(/to (?<endTime>.*))?$");

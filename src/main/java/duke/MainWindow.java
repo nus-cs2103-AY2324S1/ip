@@ -1,14 +1,15 @@
 package duke;
 
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.concurrent.Task;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -27,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the MainWindow, binds the scrollPane to the dialogContainer's height, and displays a welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -35,13 +39,19 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the Duke instance to be used by the MainWindow.
+     *
+     * @param d The Duke instance
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input, displays it in a dialog box, gets Duke's response, and displays Duke's response in a
+     * dialog box.
+     * Clears the user input field after processing. Exits the application if the user input is "bye".
      */
     @FXML
     private void handleUserInput() {
@@ -67,12 +77,21 @@ public class MainWindow extends AnchorPane {
 
     //@@author HEEaZ-reused
     // Reused from https://stackoverflow.com/questions/26454149
+    /**
+     * Delays the execution of the continuation Runnable for a specified number of milliseconds.
+     *
+     * @param millis       The delay duration in milliseconds
+     * @param continuation The Runnable to execute after the delay
+     */
     public static void delay(long millis, Runnable continuation) {
         Task<Void> sleeper = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                try { Thread.sleep(millis); }
-                catch (InterruptedException e) { }
+                try {
+                    Thread.sleep(millis);
+                } catch (InterruptedException e) {
+                    // Ignore exception
+                }
                 return null;
             }
         };
