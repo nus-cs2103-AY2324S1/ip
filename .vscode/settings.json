@@ -1,5 +1,5 @@
 {
-  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.configuration.updateBuildConfiguration": "automatic",
   "docify.commentService.programmingLanguage": "java",
   "java.debug.settings.onBuildFailureProceed": true
 }

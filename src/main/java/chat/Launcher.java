@@ -1,4 +1,5 @@
 package chat;
+
 import javafx.application.Application;
 
 /**

@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Chat chat;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("resources/images/linus.jpg"));
-    private Image chatImage = new Image(this.getClass().getResourceAsStream("resources/images/defaultpepe.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/linus.jpg"));
+    private Image chatImage = new Image(this.getClass().getResourceAsStream("/images/defaultpepe.jpg"));
 
     /**
      * Initialize MainWindow and print starting message for user.

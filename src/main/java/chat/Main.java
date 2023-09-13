@@ -1,6 +1,7 @@
 package chat;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +18,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                Main.class.getResource("resources/view/MainWindow.fxml"));
+            URL url = Main.class.getResource("/view/MainWindow.fxml");
+            System.out.println( getClass().getResource(getClass().getSimpleName() + ".class") );
+            assert url != null;
+            FXMLLoader fxmlLoader = new FXMLLoader(url);
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             MainWindow mw = fxmlLoader.<MainWindow>getController();
