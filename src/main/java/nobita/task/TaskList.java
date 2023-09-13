@@ -23,6 +23,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Getter for number of tasks.
+     *
      * @return An integer representing number of total tasks.
      */
     public int getTasksSize() {
@@ -31,6 +32,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Add a task to the list.
+     *
      * @param task The task to be added to list.
      */
     public void addTask(Task task) {
