@@ -54,7 +54,7 @@ public class DeleteCommand extends Command {
      * @return `false` since deleting a task does not exit the application.
      */
     @Override
-    public boolean isExit() {
+    public boolean isExitCommand() {
         return false;
     }
 }

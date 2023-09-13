@@ -45,7 +45,7 @@ public class Jo {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
-                this.isExit = c.isExit();
+                this.isExit = c.isExitCommand();
             } catch (JoException e) {
                 ui.showError(e.getMessage());
             }
@@ -54,14 +54,16 @@ public class Jo {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a String response to user input.
+     *
+     * @param input User input
+     * @return String response to the user's input
      */
     String getResponse(String input) throws JoException {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
-            if (c.isExit()) {
+            if (c.isExitCommand()) {
                 this.isExit = true;
             }
         } catch (JoException e) {
@@ -73,13 +75,5 @@ public class Jo {
 
     public static void main(String[] args) throws JoException {
         new Jo(DEFAULT_FILE_PATH).run();
-    }
-
-    /**
-     * Returns whether Jo is ready to be terminated.
-     * @return Boolean indicating if Jo received an ExitCommand
-     */
-    public boolean shouldExit() {
-        return this.isExit;
     }
 }

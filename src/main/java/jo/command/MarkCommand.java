@@ -51,7 +51,7 @@ public class MarkCommand extends Command {
      * @return `false` since marking or unmarking a task does not exit the application.
      */
     @Override
-    public boolean isExit() {
+    public boolean isExitCommand() {
         return false;
     }
 }
