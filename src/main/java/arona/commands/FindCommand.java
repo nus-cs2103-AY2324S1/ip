@@ -31,8 +31,8 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute() {
-        TaskList result = filterTasksByKeyword(taskList, keyWord);
-        return ui.showSearchResult(result);
+        TaskList matchingTasks = filterTasksByKeyword(taskList, keyWord);
+        return ui.showSearchResult(matchingTasks);
     }
 
     /**

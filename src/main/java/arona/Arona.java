@@ -1,13 +1,6 @@
 package arona;
 
-import arona.commands.DeadlineCommand;
-import arona.commands.DeleteCommand;
-import arona.commands.EventCommand;
-import arona.commands.FindCommand;
-import arona.commands.ListCommand;
-import arona.commands.MarkCommand;
-import arona.commands.ToDoCommand;
-import arona.commands.UnMarkCommand;
+import arona.commands.Command;
 import arona.parser.Parser;
 import arona.storage.Storage;
 import arona.task.TaskList;
@@ -44,45 +37,9 @@ public class Arona {
 
         String[] inputTokens = Parser.parseUserInput(input);
         String command = Parser.getCommand(inputTokens);
+        Command cmd = Parser.parseCommand(command, inputTokens, tasks, ui, storage);
 
-        try {
-            switch (command) {
-            case "list":
-                ListCommand listCommand = new ListCommand(tasks, ui);
-                return listCommand.execute();
-            case "unmark":
-                UnMarkCommand unmarkCommand =
-                        new UnMarkCommand(tasks, ui, storage, Parser.getTaskIndex(inputTokens));
-                return unmarkCommand.execute();
-            case "mark":
-                MarkCommand markCommand =
-                        new MarkCommand(tasks, ui, storage, Parser.getTaskIndex(inputTokens));
-                return markCommand.execute();
-            case "todo":
-                ToDoCommand toDoCommand =
-                        new ToDoCommand(tasks, ui, storage, Parser.getToDoDescription(inputTokens));
-                return toDoCommand.execute();
-            case "deadline":
-                DeadlineCommand deadlineCommand =
-                        new DeadlineCommand(tasks, ui, storage, Parser.getDeadlineDescription(inputTokens));
-                return deadlineCommand.execute();
-            case "event":
-                EventCommand eventCommand =
-                        new EventCommand(tasks, ui, storage, Parser.getEventDescription(inputTokens));
-                return eventCommand.execute();
-            case "delete":
-                DeleteCommand deleteCommand =
-                        new DeleteCommand(tasks, ui, storage, Parser.getTaskIndex(inputTokens));
-                return deleteCommand.execute();
-            case "find":
-                FindCommand findCommand = new FindCommand(tasks, ui, Parser.getKeyWord(inputTokens));
-                return findCommand.execute();
-            default:
-                return ui.showInvalidArgumentMessage();
-            }
-        } catch (Exception e) {
-            return ui.showErrorMessage(e);
-        }
+        return cmd.execute();
     }
 }
 

@@ -4,7 +4,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+import arona.commands.Command;
+import arona.commands.DeadlineCommand;
+import arona.commands.DeleteCommand;
+import arona.commands.ErrorCommand;
+import arona.commands.EventCommand;
+import arona.commands.FindCommand;
+import arona.commands.InvalidCommand;
+import arona.commands.ListCommand;
+import arona.commands.MarkCommand;
+import arona.commands.ToDoCommand;
+import arona.commands.UnMarkCommand;
 import arona.exception.IllegalArgumentAronaException;
+import arona.storage.Storage;
+import arona.task.TaskList;
+import arona.ui.Ui;
 
 /**
  * The `Parser` class is responsible for parsing user input and extracting relevant information.
@@ -197,6 +211,44 @@ public class Parser {
             throw new IllegalArgumentAronaException("Sorry... I can only handle one keyword.");
         } else {
             return tokens[1];
+        }
+    }
+
+    /**
+     * Parses the user input into the command to be executed.
+     *
+     * @param command     The command in String.
+     * @param inputTokens The descriptions of the command.
+     * @param tasks       The list of tasks.
+     * @param ui          The user interface for displaying messages.
+     * @param storage     The storage responsible for loading and saving tasks.
+     *
+     * @return The command to be executed.
+     */
+    public static Command parseCommand(String command, String[] inputTokens, TaskList tasks, Ui ui, Storage storage) {
+        try {
+            switch (command) {
+            case "list":
+                return new ListCommand(tasks, ui);
+            case "unmark":
+                return new UnMarkCommand(tasks, ui, storage, getTaskIndex(inputTokens));
+            case "mark":
+                return new MarkCommand(tasks, ui, storage, getTaskIndex(inputTokens));
+            case "todo":
+                return new ToDoCommand(tasks, ui, storage, getToDoDescription(inputTokens));
+            case "deadline":
+                return new DeadlineCommand(tasks, ui, storage, getDeadlineDescription(inputTokens));
+            case "event":
+                return new EventCommand(tasks, ui, storage, getEventDescription(inputTokens));
+            case "delete":
+                return new DeleteCommand(tasks, ui, storage, getTaskIndex(inputTokens));
+            case "find":
+                return new FindCommand(tasks, ui, getKeyWord(inputTokens));
+            default:
+                return new InvalidCommand(tasks, ui);
+            }
+        } catch (Exception exception) {
+            return new ErrorCommand(tasks, ui, exception);
         }
     }
 }
