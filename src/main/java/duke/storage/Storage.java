@@ -34,6 +34,7 @@ public class Storage {
                 directory.mkdir();
             }
 
+            assert directory.exists() : "The directory should have been created";
             File file = new File(this.filePath);
 
             // Make the file if not exist
@@ -43,6 +44,7 @@ public class Storage {
                 file.createNewFile();
             }
         } catch (IOException e) {
+            assert false : "The tasks are not stored or loaded correctly";
             System.out.println("Failed to load tasks: " + e.getMessage());
         }
     }
@@ -70,6 +72,29 @@ public class Storage {
     }
 
     /**
+     * Reads a task stored in the storage
+     *
+     * @param taskStoredInString the string representative of the task stored in the storage
+     * @return the task
+     * @throws IOException if the task read is invalid
+     */
+    public static Task readTask(String taskStoredInString) throws IOException {
+        String[] splitTaskInString = taskStoredInString.split(" \\| ");
+        String type = splitTaskInString[0];
+        String mark = splitTaskInString[1];
+        String description = splitTaskInString[2];
+        Task task = type.equals("T")
+            ? new ToDo(description)
+            : type.equals("D")
+            ? new Deadline(description, LocalDate.parse(splitTaskInString[3]))
+            : new Event(description, LocalDate.parse(splitTaskInString[3]), LocalDate.parse(splitTaskInString[4]));
+        if (mark.equals("1")) {
+            task.mark();
+        }
+        return task;
+    }
+
+    /**
      * Adds new task to the storage
      *
      * @param task the new task added
@@ -81,6 +106,7 @@ public class Storage {
             writer.newLine();
             writer.close();
         } catch (IOException e) {
+            assert false : "The task could not be added properly";
             System.out.println("Failed to add task: " + e.getMessage());
         }
     }
@@ -95,6 +121,7 @@ public class Storage {
             writer.write(tasks.storeInString());
             writer.close();
         } catch (IOException e) {
+            assert false : "The tasks could not be updated properly";
             System.out.println("Failed to update task: " + e.getMessage());
         }
     }

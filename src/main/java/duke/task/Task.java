@@ -10,7 +10,7 @@ public abstract class Task {
     private boolean isMarked = false;
 
     /**
-     * Instantiates task
+     * Instantiates the Task
      *
      * @param name the name of the task
      */

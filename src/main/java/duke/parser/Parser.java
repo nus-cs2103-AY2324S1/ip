@@ -43,7 +43,7 @@ public class Parser {
             case "find":
                 return Command.find(message, ui, tasks, storage);
             case "bye":
-                return ui.printEnd();
+                return Command.bye(message, ui, tasks, storage);
             default:
                 throw new InvalidCommandException();
             }

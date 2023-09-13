@@ -13,12 +13,16 @@ public class Ui {
     private static final String DASH = "____________________________________________________________";
     private Scanner sc;
 
+    /**
+     * Instantiates the Ui
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
     /**
      * Prints the intro to user
+     *
      * @return the intro message
      */
     public String printIntro() {
@@ -32,6 +36,7 @@ public class Ui {
 
     /**
      * Prints the bye message to user
+     *
      * @return the bye message
      */
     public String printEnd() {

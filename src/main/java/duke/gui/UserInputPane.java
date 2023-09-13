@@ -66,6 +66,10 @@ public class UserInputPane extends Pane {
         // Set the preferred height for inputContainer to accommodate both elements
         inputContainer.setPrefHeight(userInput.getPrefHeight());
     }
+
+    /**
+     * Handles the user input
+     */
     private void handleUserInput() {
         String userText = userInput.getText();
         mainPanel.addDialog(userText);

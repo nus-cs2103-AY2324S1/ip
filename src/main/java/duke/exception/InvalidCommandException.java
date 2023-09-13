@@ -1,4 +1,5 @@
 package duke.exception;
+
 /**
  * The Exception class for invalid command
  */
