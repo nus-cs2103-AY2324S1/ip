@@ -65,12 +65,6 @@ public class CatbotConsoleIO implements UserIo {
 
     //region Input-getters
 
-    public String listen() {
-        lastUserInput = in.get();
-        this.endOfCommand = null;
-        return lastUserInput;
-    }
-
     public String retrieve() {
         return lastUserInput;
     }
@@ -110,7 +104,7 @@ public class CatbotConsoleIO implements UserIo {
     }
 
     @Override
-    public CommandArgument getNextCommand() {
+    public CommandArgumentStruct getNextCommand() {
         String nextLine;
         NamedParameterMap namedParameterMap;
         while (true) {
@@ -118,7 +112,7 @@ public class CatbotConsoleIO implements UserIo {
             namedParameterMap = parser.parse(nextLine);
             if (namedParameterMap.keySet().size() == 1) {
                 for (String command : namedParameterMap.keySet()) {
-                    return new CommandArgument(command, namedParameterMap.get(command));
+                    return new CommandArgumentStruct(command, namedParameterMap.get(command));
                 }
             }
         }
@@ -144,7 +138,7 @@ public class CatbotConsoleIO implements UserIo {
     }
 
     @Override
-    public void indicateArgumentInvalid(InvalidParameterState invalidState, NamedParameterMap namedParameterMap) {
+    public void indicateArgumentInvalid(InvalidArgumentState invalidState, NamedParameterMap namedParameterMap) {
         switch (invalidState) {
             case PARAMETER_EMPTY:
                 for (String arg : namedParameterMap.keySet()) {
@@ -173,7 +167,7 @@ public class CatbotConsoleIO implements UserIo {
     //region TaskAssistantIo
 
     @Override
-    public void printTaskList(TaskList taskList) {
+    public void displayTaskList(TaskList taskList) {
         int i = 1;
         int intlen = 0;
         for (int len = taskList.size(); len>0; intlen++) len/=10;
@@ -183,18 +177,18 @@ public class CatbotConsoleIO implements UserIo {
     }
 
     @Override
-    public void printTaskAdded(TaskList taskList) {
+    public void displayTaskAdded(TaskList taskList) {
         int index = taskList.size()-1;
         send("Added: " + (index+1) + ". " + taskList.getTask(index));
     }
 
     @Override
-    public void printTaskDeleted(Task deleted) {
+    public void displayTaskDeleted(Task deleted) {
         send("Deleted: " + deleted);
     }
 
     @Override
-    public void printTaskModified(TaskList taskList, int index) {
+    public void displayTaskModified(TaskList taskList, int index) {
         send((index+1) + ". " + taskList.getTask(index));
     }
     //endregion

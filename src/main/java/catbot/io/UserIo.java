@@ -1,27 +1,27 @@
 package catbot.io;
 
-import catbot.internal.NamedParameterMap;
-
 public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
 
     /**
-     * Initialize IO channel, eg welcome message.
+     * Initialize IO channel.
+     * Intended to open resources, or send a welcome message.
      * */
     void initialize();
 
     /**
-     * Cleanup IO channel, eg goodbye message.
+     * Cleanup IO channel.
+     * Intended to close resources, or send a goodbye message.
      */
     void cleanup();
 
     /**
-     * Simple container with command and argument as strings
+     * Simple container for a command and argument pair, both stored as Strings.
      */
-    class CommandArgument {
+    class CommandArgumentStruct {
         private final String command;
         private final String argument;
 
-        public CommandArgument(String command, String argument) {
+        public CommandArgumentStruct(String command, String argument) {
             this.command = command;
             this.argument = argument;
         }
@@ -38,7 +38,7 @@ public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
     /**
      * Get the next command (valid or invalid).
      *
-     * @return container with command and argument as strings
+     * @return {@link CommandArgumentStruct CommandArgumentStruct} containing the command and its argument.
      */
-    CommandArgument getNextCommand();
+    CommandArgumentStruct getNextCommand();
 }

@@ -83,29 +83,29 @@ public abstract class Task implements Serializable {
         }
     }
 
-    private static class InvalidParameterState {
-        private final ErrorIndicatorIo.InvalidParameterState state;
+    private static class InvalidArgumentStruct {
+        private final ErrorIndicatorIo.InvalidArgumentState state;
         private final NamedParameterMap parameters;
 
-        private InvalidParameterState(ErrorIndicatorIo.InvalidParameterState state, NamedParameterMap map) {
+        private InvalidArgumentStruct(ErrorIndicatorIo.InvalidArgumentState state, NamedParameterMap map) {
             this.state = state;
             this.parameters = map;
         }
     }
 
-    private static Optional<InvalidParameterState> invalidStateIfTaskParametersMissingOrBlank(NamedParameterMap namedParameterMap, String... arguments) {
+    private static Optional<InvalidArgumentStruct> invalidStateIfTaskParametersMissingOrBlank(NamedParameterMap namedParameterMap, String... arguments) {
 
         // parameters cannot be missing
         Optional<NamedParameterMap> optionalNamedParameterMap = Task.mapIfArgumentsMissing(namedParameterMap, arguments);
         if (optionalNamedParameterMap.isPresent()) {
-            return Optional.of(new InvalidParameterState(ErrorIndicatorIo.InvalidParameterState.PARAMETER_MISSING, optionalNamedParameterMap.get()));
+            return Optional.of(new InvalidArgumentStruct(ErrorIndicatorIo.InvalidArgumentState.PARAMETER_MISSING, optionalNamedParameterMap.get()));
         }
 
         // description cannot be empty
         optionalNamedParameterMap = Task.mapIfDescriptionEmpty(namedParameterMap);
         //noinspection OptionalIsPresent for readability, to distinguish default return value
         if (optionalNamedParameterMap.isPresent()) {
-            return Optional.of(new InvalidParameterState(ErrorIndicatorIo.InvalidParameterState.PARAMETER_EMPTY, optionalNamedParameterMap.get()));
+            return Optional.of(new InvalidArgumentStruct(ErrorIndicatorIo.InvalidArgumentState.PARAMETER_EMPTY, optionalNamedParameterMap.get()));
         }
 
         // if all ok
@@ -133,18 +133,18 @@ public abstract class Task implements Serializable {
 
         public static Optional<Task> createIfValidElse(
                 NamedParameterMap namedParameterMap,
-                BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap> invalidStateHandler
+                BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap> invalidStateHandler
         ) {
 
-            Optional<Task.InvalidParameterState> optionalInvalidParameterState =
+            Optional<InvalidArgumentStruct> optionalInvalidParameterState =
                 Task.invalidStateIfTaskParametersMissingOrBlank(
                         namedParameterMap,
                         ""
                 );
             if (optionalInvalidParameterState.isPresent()) {
-                InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
-                invalidParameterState.parameters.moveToNewKey("", "description");
-                invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
+                InvalidArgumentStruct invalidArgumentStruct = optionalInvalidParameterState.get();
+                invalidArgumentStruct.parameters.moveToNewKey("", "description");
+                invalidStateHandler.accept(invalidArgumentStruct.state, invalidArgumentStruct.parameters);
                 return Optional.empty();
             }
 
@@ -169,19 +169,19 @@ public abstract class Task implements Serializable {
 
         public static Optional<Task> createIfValidElse(
                 NamedParameterMap map,
-                BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap> invalidStateHandler
+                BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap> invalidStateHandler
         ) {
 
-            Optional<Task.InvalidParameterState> optionalInvalidParameterState =
+            Optional<InvalidArgumentStruct> optionalInvalidParameterState =
                     Task.invalidStateIfTaskParametersMissingOrBlank(
                             map,
                             "", "by"
                     );
             if (optionalInvalidParameterState.isPresent()) {
-                InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
-                invalidParameterState.parameters.moveToNewKey("", "description");
-                invalidParameterState.parameters.moveToNewKey("by", "due date");
-                invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
+                InvalidArgumentStruct invalidArgumentStruct = optionalInvalidParameterState.get();
+                invalidArgumentStruct.parameters.moveToNewKey("", "description");
+                invalidArgumentStruct.parameters.moveToNewKey("by", "due date");
+                invalidStateHandler.accept(invalidArgumentStruct.state, invalidArgumentStruct.parameters);
                 return Optional.empty();
             }
 
@@ -192,7 +192,7 @@ public abstract class Task implements Serializable {
                 return Optional.of(new Deadline(description, optionalDueDate.get()));
             } else {
                 invalidArgs.moveToNewKey("by", "due date");
-                invalidStateHandler.accept(ErrorIndicatorIo.InvalidParameterState.NOT_A_DATE, invalidArgs);
+                invalidStateHandler.accept(ErrorIndicatorIo.InvalidArgumentState.NOT_A_DATE, invalidArgs);
                 return Optional.empty();
             }
         }
@@ -224,20 +224,20 @@ public abstract class Task implements Serializable {
 
         public static Optional<Task> createIfValidElse(
                 NamedParameterMap namedParameterMap,
-                BiConsumer<ErrorIndicatorIo.InvalidParameterState, NamedParameterMap> invalidStateHandler
+                BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap> invalidStateHandler
         ) {
 
-            Optional<Task.InvalidParameterState> optionalInvalidParameterState =
+            Optional<InvalidArgumentStruct> optionalInvalidParameterState =
                     Task.invalidStateIfTaskParametersMissingOrBlank(
                             namedParameterMap,
                             "", "from", "to"
                     );
             if (optionalInvalidParameterState.isPresent()) {
-                InvalidParameterState invalidParameterState = optionalInvalidParameterState.get();
-                invalidParameterState.parameters.moveToNewKey("", "description");
-                invalidParameterState.parameters.moveToNewKey("from", "start date");
-                invalidParameterState.parameters.moveToNewKey("to", "end date");
-                invalidStateHandler.accept(invalidParameterState.state, invalidParameterState.parameters);
+                InvalidArgumentStruct invalidArgumentStruct = optionalInvalidParameterState.get();
+                invalidArgumentStruct.parameters.moveToNewKey("", "description");
+                invalidArgumentStruct.parameters.moveToNewKey("from", "start date");
+                invalidArgumentStruct.parameters.moveToNewKey("to", "end date");
+                invalidStateHandler.accept(invalidArgumentStruct.state, invalidArgumentStruct.parameters);
                 return Optional.empty();
             }
 
@@ -249,7 +249,7 @@ public abstract class Task implements Serializable {
                 invalidArgs.moveToNewKey("", "description");
                 invalidArgs.moveToNewKey("from", "start date");
                 invalidArgs.moveToNewKey("to", "end date");
-                invalidStateHandler.accept(ErrorIndicatorIo.InvalidParameterState.NOT_A_DATE, invalidArgs);
+                invalidStateHandler.accept(ErrorIndicatorIo.InvalidArgumentState.NOT_A_DATE, invalidArgs);
                 return Optional.empty();
             } else {
                 return Optional.of(new Event(description, start.get(), end.get()));
