@@ -30,7 +30,7 @@ public class Parser {
             return getCodeSingleWordCommand(splitArgs[0]);
         }
 
-        String argType = args.toLowerCase().split(" ")[0];
+        String argType = args.toLowerCase().split(WHITE_SPACE)[0];
 
         return getCodeMultiWordCommand(argType);
     }
@@ -88,8 +88,8 @@ public class Parser {
      * required.
      */
     public static int getTargetIndex(String args) throws NumberFormatException, IncorrectInputException {
-        String[] splittedArg = args.split(" ");
-        final int length = splittedArg.length;
+        String[] splitArgs = args.split(" ");
+        final int length = splitArgs.length;
 
         if (length < 2) {
             throw new NoDescriptionException("There is no given task index.");
@@ -97,7 +97,7 @@ public class Parser {
             throw new ExcessiveArgumentException("There are too many arguments.");
         }
 
-        int targetIndex = Integer.parseInt(splittedArg[1]) - 1;
+        int targetIndex = Integer.parseInt(splitArgs[1]) - 1;
 
         if (targetIndex < 0) {
             throw new IncorrectInputException("Index of task must be greater than 0.");
@@ -114,7 +114,7 @@ public class Parser {
      * @throws NoDescriptionException
      */
     public static Task getTask(String args) throws NoDescriptionException {
-        final String type = args.split(" ")[0];
+        final String type = args.split(WHITE_SPACE)[0];
         Task newTask;
 
         switch (type) {
