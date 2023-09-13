@@ -1,5 +1,9 @@
 package duke.task;
+
+import java.io.IOException;
+
 import duke.exception.InvalidToDoException;
+
 
 /**
  * Class for ToDo
@@ -30,6 +34,24 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Creates new todo based on the string stored in the storage
+     *
+     * @param stored the string stored in the storage
+     * @return the todo based on the string stored in the storage
+     * @throws IOException when the string stored does not belong to todo
+     */
+    public static ToDo createFromStorage(String stored) throws IOException {
+        assert stored.split(" \\| ")[0].equals("T") : "The first part of the string stored is T";
+        String[] splitTaskInString = stored.split(" \\| ");
+        String mark = splitTaskInString[1];
+        String description = splitTaskInString[2];
+        ToDo todo = new ToDo(description);
+        if (mark.equals("1")) {
+            todo.mark();
+        }
+        return todo;
+    }
     @Override
     public String storeInString() {
         return "T | " + (this.getMark() ? "1 | " : "0 | ") + this.getName();

@@ -17,30 +17,40 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Image chatbot = new Image(this.getClass().getResourceAsStream("/images/Chatbot.png"));
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Duke duke = new Duke("./data", "storage.txt");
+    private static final String INTRO = "    Hello! I'm Not A ChatBot\n"
+            + "    What can I do for you?\n";
+    private final Image chatbot = new Image(this.getClass().getResourceAsStream("/images/Chatbot.png"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private final Duke duke = new Duke("./data", "storage.txt");
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
+    private AnchorPane mainLayout;
     private Scene scene;
     private UserInputPane userInputPane;
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Formatting the window to look as expected.
-        //The container for the content of the chat to scroll.
+        initialize();
+        addContent();
+        format(stage);
+    }
+
+    private void initialize() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
         userInputPane = new UserInputPane(this);
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInputPane);
-
+        mainLayout = new AnchorPane();
         scene = new Scene(mainLayout);
+    }
 
+    private void addContent() {
+        scrollPane.setContent(dialogContainer);
+        mainLayout.getChildren().addAll(scrollPane, userInputPane);
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(INTRO), new ImageView(chatbot)));
+    }
+
+    private void format(Stage stage) {
         stage.setScene(scene);
         stage.show();
 
@@ -66,9 +76,6 @@ public class Main extends Application {
 
         AnchorPane.setBottomAnchor(userInputPane, 1.0);
         AnchorPane.setLeftAnchor(userInputPane, 1.0);
-
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label("    Hello! I'm Not A ChatBot\n"
-                + "    What can I do for you?\n"), new ImageView(chatbot)));
     }
 
     /**

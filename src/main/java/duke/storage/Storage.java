@@ -6,14 +6,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.task.ToDo;
 
 /**
  * Storage class that save the data
@@ -64,7 +60,7 @@ public class Storage {
 
         // Adds each task
         while (line != null) {
-            Task currentTask = readTask(line);
+            Task currentTask = Task.createFromStorage(line);
             loadedTasks.add(currentTask);
             line = reader.readLine();
         }
@@ -73,28 +69,6 @@ public class Storage {
         return loadedTasks;
     }
 
-    /**
-     * Reads a task stored in the storage
-     *
-     * @param taskStoredInString the string representative of the task stored in the storage
-     * @return the task
-     * @throws IOException if the task read is invalid
-     */
-    public static Task readTask(String taskStoredInString) throws IOException {
-        String[] taskInStringSplit = taskStoredInString.split(" \\| ");
-        String type = taskInStringSplit[0];
-        String mark = taskInStringSplit[1];
-        String description = taskInStringSplit[2];
-        Task task = type.equals("T")
-            ? new ToDo(description)
-            : type.equals("D")
-            ? new Deadline(description, LocalDate.parse(taskInStringSplit[3]))
-            : new Event(description, LocalDate.parse(taskInStringSplit[3]), LocalDate.parse(taskInStringSplit[4]));
-        if (mark.equals("1")) {
-            task.mark();
-        }
-        return task;
-    }
     /**
      * Adds new task to the storage
      *

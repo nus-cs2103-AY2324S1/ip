@@ -52,8 +52,10 @@ public class Command {
             if (numOfWords == 2) {
                 int index = Integer.parseInt(messageWords[1]) - 1;
                 Task markTask = tasks.getTask(index);
+
                 markTask.mark();
                 storage.updateTask(tasks);
+
                 return ui.printMarkTask(markTask);
             } else {
                 throw new InvalidCommandException();
@@ -77,7 +79,6 @@ public class Command {
      */
     public static String unmark(String message, Ui ui, TaskList tasks, Storage storage) throws InvalidCommandException {
         try {
-
             String[] messageWords = message.split(" ");
             int numOfWords = messageWords.length;
             if (numOfWords == 2) {

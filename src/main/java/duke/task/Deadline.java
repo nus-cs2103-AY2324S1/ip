@@ -1,4 +1,5 @@
 package duke.task;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -41,6 +42,25 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Creates new deadline based on the string stored in the storage
+     *
+     * @param stored the string stored in the storage
+     * @return the deadline based on the string stored in the storage
+     * @throws IOException when the string stored does not belong to deadline
+     */
+    public static Deadline createFromStorage(String stored) throws IOException {
+        assert stored.split(" \\| ")[0].equals("E") : "The first part of the string stored is E";
+        String[] splitTaskInString = stored.split(" \\| ");
+        String mark = splitTaskInString[1];
+        String description = splitTaskInString[2];
+        String deadlineDate = splitTaskInString[3];
+        Deadline deadline = new Deadline(description, LocalDate.parse(deadlineDate));
+        if (mark.equals("1")) {
+            deadline.mark();
+        }
+        return deadline;
+    }
     @Override
     public String toString() {
         String deadlineMonth = deadline.getMonth().toString().substring(0, 3);

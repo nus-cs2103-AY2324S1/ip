@@ -66,6 +66,7 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
+
     /**
      * Gets the string representation to store the TaskList
      *

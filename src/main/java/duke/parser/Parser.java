@@ -25,25 +25,26 @@ public class Parser {
     public static String parse(String message, Ui ui, TaskList tasks, Storage storage) {
         try {
             String messageType = message.split(" ")[0];
-            if (messageType.equals("list")) {
+            switch (messageType.toLowerCase()) {
+            case "list":
                 return Command.list(message, ui, tasks, storage);
-            } else if (messageType.equals("mark")) {
+            case "mark":
                 return Command.mark(message, ui, tasks, storage);
-            } else if (messageType.equals("unmark")) {
+            case "unmark":
                 return Command.unmark(message, ui, tasks, storage);
-            } else if (messageType.equals("todo")) {
+            case "todo":
                 return Command.addToDo(message, ui, tasks, storage);
-            } else if (messageType.equals("deadline")) {
+            case "deadline":
                 return Command.addDeadline(message, ui, tasks, storage);
-            } else if (messageType.equals("event")) {
+            case "event":
                 return Command.addEvent(message, ui, tasks, storage);
-            } else if (messageType.equals("delete")) {
+            case "delete":
                 return Command.delete(message, ui, tasks, storage);
-            } else if (messageType.equals("find")) {
+            case "find":
                 return Command.find(message, ui, tasks, storage);
-            } else if (message.equals("bye")) {
+            case "bye":
                 return ui.printEnd();
-            } else {
+            default:
                 throw new InvalidCommandException();
             }
         } catch (InvalidToDoException e) {
