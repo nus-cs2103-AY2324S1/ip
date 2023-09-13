@@ -13,6 +13,7 @@ public class Task {
      * @param description Description of the task.
      */
     public Task(String description) {
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
         this.description = description;
         this.isDone = false;
     }
@@ -24,6 +25,7 @@ public class Task {
      * @param isDone Completion status of the task.
      */
     public Task(String description, boolean isDone) {
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
         this.description = description;
         this.isDone = isDone;
     }
@@ -34,7 +36,9 @@ public class Task {
      * @return "X" if the task is done, " " (space) if not done.
      */
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
+        String statusIcon = (this.isDone ? "X" : " ");
+        assert "X".equals(statusIcon) || " ".equals(statusIcon) : "Invalid status icon";
+        return statusIcon; // mark done task with X
     }
 
     /**
