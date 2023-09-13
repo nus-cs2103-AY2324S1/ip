@@ -1,4 +1,12 @@
+# Gradle
 .gradle/
+build/
+
+# Script Build
 bin/
-data/
+
+# Tests
 tests/ACTUAL.txt
+
+# App
+data/
