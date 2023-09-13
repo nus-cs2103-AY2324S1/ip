@@ -33,8 +33,8 @@ public class UnmatchedArgumentException extends Exception {
     @Override
     public String toString() {
 
-        String result = "\n\tOOPS! The argument passed does not match the requirement.";
-        result += "\n\tExpected " + this.actual + " , got " + this.got + "\n";
+        String result = "\nOOPS! The argument passed does not match the requirement.";
+        result += "\nExpected " + this.actual + " , got " + this.got + "\n";
         return Ui.showLine() + result + " \n" + Ui.showLine();
     }
 }

@@ -39,25 +39,23 @@ public class Parser {
     public static Command parse(String fullCommand, int taskSize) throws NoSuchCommandException, InvalidIndexException,
             UnmatchedArgumentException, EmptyDescriptionException {
 
-        String[] splitted = fullCommand.split(" ", 2);
-        if (splitted[0].equals("list")) {
+        String[] splitInput = fullCommand.split(" ", 2);
+        assert splitInput.length > 0 : "There will always be an input for a command.";
+        if (splitInput[0].equals("list")) {
             return new ListCommand();
-        } else if (splitted[0].equals("bye")) {
+        } else if (splitInput[0].equals("bye")) {
             return new ExitCommand();
         }
-        if (splitted.length < 2) {
-            throw new EmptyDescriptionException("Command");
-        }
+
         Command result;
-        String command = splitted[0];
-        String detail = splitted[1];
+        String command = splitInput[0];
 
         if (command.equals("mark")) {
 
-            if (detail.equals("")) {
+            if (splitInput.length < 2 || splitInput[1].equals("")) {
                 throw new InvalidIndexException();
             }
-            int index = Integer.parseInt(detail);
+            int index = Integer.parseInt(splitInput[1]);
             if (index > 0 && index <= taskSize) {
                 result = new MarkCommand(index);
             } else {
@@ -65,10 +63,10 @@ public class Parser {
             }
         } else if (command.equals("delete")) {
 
-            if (detail.equals("")) {
+            if (splitInput.length < 2 || splitInput[1].equals("")) {
                 throw new InvalidIndexException();
             }
-            int index = Integer.parseInt(detail);
+            int index = Integer.parseInt(splitInput[1]);
             if (index > 0 && index <= taskSize) {
                 result = new DeleteCommand(index);
             } else {
@@ -76,26 +74,25 @@ public class Parser {
             }
         } else if (command.equals("unmark")) {
 
-            if (detail.equals("")) {
+            if (splitInput.length < 2 || splitInput[1].equals("")) {
                 throw new InvalidIndexException();
             }
-            int index = Integer.parseInt(detail);
+            int index = Integer.parseInt(splitInput[1]);
             if (index > 0 && index <= taskSize) {
                 result = new UnmarkCommand(index);
             } else {
                 throw new InvalidIndexException();
             }
         } else if (command.equals("todo")) {
-            result = new TodoCommand(detail);
+            result = new TodoCommand(splitInput[1]);
         } else if (command.equals("deadline")) {
-            result = new DeadlineCommand(detail);
+            result = new DeadlineCommand(splitInput[1]);
         } else if (command.equals("event")) {
-            result = new EventCommand(detail);
+            result = new EventCommand(splitInput[1]);
         } else if (command.equals("due")) {
-            result = new CheckDuedateCommand(detail);
+            result = new CheckDuedateCommand(splitInput[1]);
         } else if (command.equals("find")) {
-            result = new FindCommand(detail);
-
+            result = new FindCommand(splitInput[1]);
         } else {
             throw new NoSuchCommandException();
         }
