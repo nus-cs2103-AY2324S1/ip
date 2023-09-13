@@ -47,26 +47,6 @@ public class Todo extends Task {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @return A new Todo task object with the same description but it is marked.
-     */
-    @Override
-    public Todo setMarked() {
-        return new Todo(this.description, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Todo task object with the same description but it is unmarked.
-     */
-    @Override
-    public Todo setUnmarked() {
-        return new Todo(this.description, false);
-    }
-
-    /**
      * Compares the task with other objects and return true if they are the same Todo task.
      *
      * @param o Another object to be compared with.

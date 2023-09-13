@@ -84,26 +84,6 @@ public class Event extends Task {
     /**
      * {@inheritDoc}
      *
-     * @return A new Event task object with the same description but it is marked.
-     */
-    @Override
-    public Event setMarked() {
-        return new Event(this.description, this.from, this.to, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Event task object with the same description but it is unmarked.
-     */
-    @Override
-    public Event setUnmarked() {
-        return new Event(this.description, this.from, this.to, false);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
      * @param date A given date which we will check whether this task happens on that date.
      * @return A boolean to indicate whether it happens on that day.
      */

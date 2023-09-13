@@ -1,5 +1,7 @@
 package rua.task;
 
+import rua.common.Ui;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -125,21 +127,11 @@ public class Task {
         return this;
     }
 
-    public String deleteTags(ArrayList<String> discardedTags) {
-        String deleteMessage = "";
-        boolean isAllContained = true;
+    public Task deleteTags(ArrayList<String> discardedTags) {
         for (String tag : discardedTags) {
-            if (!this.tags.remove(tag)) {
-                deleteMessage += tag + " ";
-                isAllContained = false;
-            }
+            this.tags.remove(tag);
         }
-        if (isAllContained) {
-            return "Successfully delete all required tags";
-        } else {
-            deleteMessage += "tags not found, other required tags have been deleted. \n";
-            return  deleteMessage;
-        }
+        return this;
     }
 
     /**
@@ -173,7 +165,7 @@ public class Task {
     @Override
     public String toString() {
         final String markStatus = this.isMarked ? "X" : " ";
-        final String tagStatus = tags.toString();
-        return "[" + markStatus + "] " + tagStatus + " " + this.description;
+        final String tagStatus = tags.isEmpty() ? "[ ]" : tags.toString();
+        return "[" + markStatus + "]" + tagStatus + " " + this.description;
     }
 }

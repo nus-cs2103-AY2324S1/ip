@@ -2,6 +2,7 @@ package rua.common;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import rua.command.AddCommand;
@@ -13,6 +14,7 @@ import rua.command.ListCommand;
 import rua.command.MarkCommand;
 import rua.command.Command;
 import rua.command.SearchCommand;
+import rua.command.TagCommand;
 import rua.task.Deadline;
 import rua.task.Event;
 import rua.exception.EmptyDescriptionException;
@@ -59,8 +61,15 @@ public class Parser {
         case "unmark":
             output = createMarkEventCommand(inputs, false);
             break;
-        case "tag":
-
+        case "addTag":
+            output = createTagCommand(inputs, "add");
+            break;
+        case "clearTag":
+            output = createTagCommand(inputs, "clear");
+            break;
+        case "deleteTag":
+            output = createTagCommand(inputs, "delete");
+            break;
         case "delete":
             checkEmptyDescription(inputs, "Delete");
             int indexDelete = Integer.parseInt(inputs[1]);
@@ -94,10 +103,7 @@ public class Parser {
         if (tagInfos.length == 1) {
             newTodo = new Todo(inputs[1]);
         } else {
-            ArrayList<String> tags = new ArrayList<>();
-            Collections.addAll(tags, tagInfos);
-            tags.remove(0);
-            newTodo = new Todo(tagInfos[0], false, tags);
+            newTodo = new Todo(tagInfos[0], false, createTags(tagInfos));
         }
         return new AddCommand(newTodo);
     }
@@ -115,10 +121,7 @@ public class Parser {
         if (tagInfos.length == 1) {
             newDeadline = new Deadline(deadlineDescription, dueDate);
         } else {
-            ArrayList<String> tags = new ArrayList<>();
-            Collections.addAll(tags, tagInfos);
-            tags.remove(0);
-            newDeadline = new Deadline(deadlineDescription, dueDate, false, tags);
+            newDeadline = new Deadline(deadlineDescription, dueDate, false, createTags(tagInfos));
         }
         return new AddCommand(newDeadline);
     }
@@ -139,10 +142,7 @@ public class Parser {
         if (tagInfos.length == 1) {
             newEvent = new Event(eventDescription, fromDate, toDate);;
         } else {
-            ArrayList<String> tags = new ArrayList<>();
-            Collections.addAll(tags, tagInfos);
-            tags.remove(0);
-            newEvent = new Event(eventDescription, fromDate, toDate, false, tags);
+            newEvent = new Event(eventDescription, fromDate, toDate, false, createTags(tagInfos));
         }
         return new AddCommand(newEvent);
     }
@@ -152,6 +152,27 @@ public class Parser {
         checkEmptyDescription(inputs, willMark ? "mark" : "unmark");
         int indexMark = Integer.parseInt(inputs[1]);
         return new MarkCommand(indexMark, willMark);
+    }
+
+    private static TagCommand createTagCommand(String[] inputs, String command)
+            throws EmptyDescriptionException{
+        String[] validCommand = {"add", "delete", "clear"};
+        assert Arrays.asList(validCommand).contains(command) : "Invalid command for tagging operation";
+        checkEmptyDescription(inputs, command + "Tag");
+        String[] tagInfos = inputs[1].split(" #");
+        if (!command.equals("clear")) {
+            checkEmptyDescription(tagInfos, command + "Tag");
+        }
+        int indexMark = Integer.parseInt(tagInfos[0]);
+        return new TagCommand(indexMark, createTags(tagInfos), command);
+    }
+
+    private static ArrayList<String> createTags(String[] tagsInfo) {
+        ArrayList<String> tags = new ArrayList<>();
+        for (int i = 1; i < tagsInfo.length; i++) {
+            tags.add("#" + tagsInfo[i]);
+        }
+        return tags;
     }
 }
 

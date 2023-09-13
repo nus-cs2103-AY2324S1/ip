@@ -57,26 +57,6 @@ public class Deadline extends Task {
     /**
      * {@inheritDoc}
      *
-     * @return A new Deadline task object with the same description but it is marked.
-     */
-    @Override
-    public Deadline setMarked() {
-        return new Deadline(this.description, this.due, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Deadline task object with the same description but it is unmarked.
-     */
-    @Override
-    public Deadline setUnmarked() {
-        return new Deadline(this.description, this.due, false);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
      * @param date A given date which we will check whether this task happens on that date.
      * @return A boolean to indicate whether it happens on that day.
      */

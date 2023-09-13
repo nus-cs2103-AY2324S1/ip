@@ -41,6 +41,7 @@ public class MarkCommand implements Command {
         ui.showMessage(message);
         TaskList newTasks = marked ? tasks.mark(index) : tasks.unmark(index);
         ui.showMessage("    " + tasks.getTasks().get(index - 1));
+        storage.save(tasks);
         return newTasks;
     }
 
