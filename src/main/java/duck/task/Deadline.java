@@ -1,5 +1,6 @@
 package duck.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -43,5 +44,8 @@ public class Deadline extends Task {
         return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 
+    public LocalDate getRawDate() {
+        return this.by.toLocalDate();
+    }
 }
 
