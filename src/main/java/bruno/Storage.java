@@ -27,12 +27,15 @@ public class Storage {
      * @param fileName The name of the file that is loaded, or the tasks are written to.
      */
     public Storage(String dirPath, String fileName) {
+        assert !dirPath.isEmpty() : "Directory path is not specified";
         this.dirPath = dirPath;
+        assert !fileName.isEmpty() : "File name is not specified";
         this.fileName = fileName;
         File directory = new File(this.dirPath);
         if (!directory.exists()) {
             directory.mkdir();
         }
+        assert directory.exists() : "Directory could not be created";
         taskList = new TaskList(this, ui);
     }
 
@@ -43,6 +46,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(this.dirPath + this.fileName);
             List<Task> list = taskList.getList();
+            assert !list.isEmpty() : "Empty list being written to file";
             for (Task task : list) {
                 fileWriter.write(task.getFileString() + "\n");
             }
@@ -63,6 +67,7 @@ public class Storage {
             if (!file.exists()) {
                 file.createNewFile();
             }
+            assert file.exists() : "File could not be created";
             Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
                 String s = sc.nextLine();
@@ -73,6 +78,7 @@ public class Storage {
                     if (task.length == 3) {
                         list.add(new bruno.task.ToDo(task[2], ""));
                     } else {
+                        assert task.length > 3 : "Tasks are not properly defined";
                         list.add(new bruno.task.ToDo(task[2], task[3]));
                     }
                     break;
@@ -80,6 +86,7 @@ public class Storage {
                     if (task.length == 4) {
                         list.add(new bruno.task.Deadline(task[2], task[3], ""));
                     } else {
+                        assert task.length > 4 : "Tasks are not properly defined";
                         list.add(new bruno.task.Deadline(task[2], task[4], task[3]));
                     }
                     break;
@@ -87,6 +94,7 @@ public class Storage {
                     if (task.length == 5) {
                         list.add(new bruno.task.Event(task[2], task[3], task[4], ""));
                     } else {
+                        assert task.length > 5 : "Tasks are not properly defined";
                         list.add(new bruno.task.Event(task[2], task[4], task[5], task[3]));
                     }
                     break;

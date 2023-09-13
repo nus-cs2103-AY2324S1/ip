@@ -48,13 +48,13 @@ public class MainWindow extends AnchorPane {
      */
     @FXML private void handleUserInput() throws bruno.exceptions.BrunoException {
         String input = userInput.getText();
+        assert !input.isBlank() : "Input cannot be empty";
         DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
-        // Display the user dialog immediately
         dialogContainer.getChildren().add(userDialog);
-        // Simulate a delay before Bruno's response
         PauseTransition userDelay = new PauseTransition(Duration.seconds(1));
         userDelay.setOnFinished(event -> {
             String response = bruno.getResponse(input);
+            assert !response.isBlank() : "Response cannot be empty";
             DialogBox dialogBox = DialogBox.getBrunoDialog(response, brunoImage);
             dialogContainer.getChildren().add(dialogBox);
             if (response.startsWith("Bye")) {

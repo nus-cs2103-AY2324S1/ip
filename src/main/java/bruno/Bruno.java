@@ -35,7 +35,9 @@ public class Bruno {
      */
     public String runBruno(String s) throws bruno.exceptions.BrunoException {
         Parser parser = new Parser(tasks);
+        assert !s.isBlank() : "Input is empty";
         String flag = parser.parseInput(s);
+        assert !flag.isBlank() : "Response is empty";
         if (flag.equals("bye")) {
             return ui.displayBye();
         }

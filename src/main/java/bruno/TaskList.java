@@ -44,6 +44,7 @@ public class TaskList {
         if (task.split(" ").length == 1) {
             throw new BrunoEmptyException(task.split(" ")[0]);
         }
+        assert tasks != null;
         if (task.contains("/n")) {
             String note = task.split("/n")[1];
             tasks.add(new ToDo(task.substring(task.indexOf(" ") + 1, task.indexOf('/')), note));
@@ -68,6 +69,7 @@ public class TaskList {
         if (!task.substring(task.indexOf("deadline") + 1).contains("/by")) {
             throw new BrunoMissingDeadlineException();
         }
+        assert tasks != null;
         if (task.contains("/n")) {
             String note = task.substring(task.indexOf("/n") + 3);
             tasks.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf("/by") - 1),
@@ -95,6 +97,7 @@ public class TaskList {
                 task.indexOf("event") + 1).contains("/to")) {
             throw new BrunoMissingEventException();
         }
+        assert tasks != null;
         if (task.contains("/n")) {
             String note = task.substring(task.indexOf("/n") + 3);
             tasks.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf("/from") - 1),
@@ -129,7 +132,9 @@ public class TaskList {
         if (Integer.parseInt(markVal) < 0) {
             throw new BrunoNegativeArgException("mark");
         }
+        assert tasks != null;
         tasks.get(Integer.parseInt(markVal) - 1).markAsDone();
+        assert tasks.get(Integer.parseInt(markVal) - 1).checkDone() : "Task could not be marked";
         storage.writeToFile(this);
         String taskInfo =
                 "Woof Woof! I have marked the task as done.\n" + tasks.get(Integer.parseInt(markVal) - 1)
@@ -156,7 +161,9 @@ public class TaskList {
         if (Integer.parseInt(unmarkVal) < 0) {
             throw new BrunoNegativeArgException("unmark");
         }
+        assert tasks != null;
         tasks.get(Integer.parseInt(unmarkVal) - 1).unMark();
+        assert !tasks.get(Integer.parseInt(unmarkVal) - 1).checkDone() : "Task could not be unmarked";
         storage.writeToFile(this);
         String taskInfo = "OK, I have marked the task as not done yet.\n" + tasks.get(
                 Integer.parseInt(unmarkVal) - 1).getString();
@@ -182,8 +189,11 @@ public class TaskList {
         if (Integer.parseInt(deleteVal) < 0) {
             throw new BrunoNegativeArgException("delete");
         }
+        assert tasks != null;
         String s1 = tasks.get(Integer.parseInt(deleteVal) - 1).getString();
+        int k = tasks.size();
         tasks.remove(Integer.parseInt(deleteVal) - 1);
+        assert tasks.size() == (k - 1) : "Task could not be deleted";
         storage.writeToFile(this);
         String taskInfo = "I have removed this task from your tasks:\n" + s1;
         return taskInfo;
@@ -193,6 +203,7 @@ public class TaskList {
      * Displays the number of tasks in the tasks.
      */
     public String displayListSum() {
+        assert !tasks.isEmpty();
         String taskInfo = "Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " "
                 + "in your "
                 + "tasks.";
@@ -246,6 +257,7 @@ public class TaskList {
      * @param task The user input for the task.
      */
     public String findTasks(String task) {
+        assert task != "" : "Search keyword must not be empty";
         String taskInfo = "";
         String keyWord = task.split(" ")[1];
         int counter = 0;
@@ -287,6 +299,7 @@ public class TaskList {
     }
 
     public void setList(List<Task> list) {
+        assert list != null : "List should not be null";
         this.tasks = list;
     }
 

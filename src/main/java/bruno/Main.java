@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Bruno bruno = new Bruno("data/", "bruno.txt");
+    private final Bruno bruno = new Bruno("data/", "bruno.txt");
     private UI ui;
 
     @Override

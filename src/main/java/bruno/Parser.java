@@ -13,6 +13,7 @@ public class Parser {
     private TaskList taskList;
 
     public Parser(TaskList taskList) {
+        assert taskList != null : "Tasklist has not been initialised";
         this.taskList = taskList;
     }
 
