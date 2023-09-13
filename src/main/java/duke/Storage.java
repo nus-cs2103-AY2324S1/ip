@@ -35,9 +35,7 @@ public class Storage {
 
             while ((fileLine = reader.readLine()) != null) {
                 String eventType = Character.toString(fileLine.charAt(1));
-                assert eventType.equals("T") || eventType.equals("D") || eventType.equals("E");
                 String isDone = Character.toString(fileLine.charAt(4));
-                assert isDone.equals("X") || isDone.equals(" ");
                 String extractedSubstring = fileLine.substring(7, fileLine.length());
                 switch (eventType) {
                 case "T": {

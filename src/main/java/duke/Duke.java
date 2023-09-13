@@ -33,8 +33,8 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     /**
      * @param filePath The file path of the txt document to read and write from.
      */
