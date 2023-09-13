@@ -1,4 +1,4 @@
-package jarvis;
+package jarvis.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +18,7 @@ import jarvis.commands.UnmarkCommand;
 import jarvis.exceptions.InvalidCommandException;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.gui.Ui;
 import jarvis.tasks.Deadline;
 import jarvis.tasks.Event;
 import jarvis.tasks.Task;

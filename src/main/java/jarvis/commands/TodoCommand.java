@@ -1,9 +1,9 @@
 package jarvis.commands;
 
-import jarvis.Storage;
-import jarvis.Ui;
 import jarvis.exceptions.InvalidIndexException;
 import jarvis.exceptions.InvalidTaskFormatException;
+import jarvis.gui.Ui;
+import jarvis.storage.Storage;
 import jarvis.tasks.TaskList;
 import jarvis.tasks.Todo;
 
@@ -28,7 +28,7 @@ public class TodoCommand implements Command {
      * @throws InvalidTaskFormatException If the task format is invalid.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public String execute(TaskList taskList, Ui ui, Storage storage)
             throws InvalidIndexException, InvalidTaskFormatException {
         if (userInput.equalsIgnoreCase("todo")) {
             throw new InvalidTaskFormatException(null);
@@ -37,7 +37,7 @@ public class TodoCommand implements Command {
         Todo todo = new Todo(taskTitle, false);
         taskList.addTask(todo);
         storage.saveTasks(taskList.getTaskList());
-        ui.printResponse("Yes Master! I've added this task: \n" + "\t" + todo.toString() + "\n" +
-                "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
+        return ui.printResponse("Yes Master! I've added this task: \n" + "\t" + todo.toString() + "\n"
+                + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
     }
 }

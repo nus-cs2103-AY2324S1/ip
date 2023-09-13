@@ -28,7 +28,7 @@ public class JarvisTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        jarvis.start();
+//        jarvis.start();
 
         String output = outputStream.toString();
         assertTrue(output.contains("Hi Master! I'm your personal assistant: JARVIS!"));

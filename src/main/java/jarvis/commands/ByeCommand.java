@@ -1,7 +1,7 @@
 package jarvis.commands;
 
-import jarvis.Storage;
-import jarvis.Ui;
+import jarvis.gui.Ui;
+import jarvis.storage.Storage;
 import jarvis.tasks.TaskList;
 
 /**
@@ -18,9 +18,10 @@ public class ByeCommand implements Command {
      * @param storage  The Storage for saving tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printBye();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String outputMessage = ui.printBye();
         storage.saveTasks(taskList.getTaskList());
         System.exit(0);
+        return outputMessage;
     }
 }

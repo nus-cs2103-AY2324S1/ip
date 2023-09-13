@@ -1,7 +1,7 @@
 package jarvis.commands;
 
-import jarvis.Storage;
-import jarvis.Ui;
+import jarvis.storage.Storage;
+import jarvis.gui.Ui;
 import jarvis.exceptions.InvalidIndexException;
 import jarvis.tasks.Task;
 import jarvis.tasks.TaskList;
@@ -27,19 +27,19 @@ public class DeleteCommand implements Command {
      * @throws InvalidIndexException If an invalid index is provided.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException {
         String[] splitUserInput = userInput.split(" ");
         int index = Integer.parseInt(splitUserInput[1]);
 
         if (index >= 1 && index <= taskList.getTaskCount()) {
             Task removedTask = taskList.deleteTask(index - 1);
             storage.saveTasks(taskList.getTaskList());
-            ui.printResponse("Noted Master! I've removed this task:\n" + "\t" + removedTask.toString() + "\n" +
-                    "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
+            return ui.printResponse("Noted Master! I've removed this task:\n" + "\t" + removedTask.toString() + "\n"
+                    + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
         } else {
-            throw new InvalidIndexException("    Please indicate which task you wish to DELETE?\n" +
-                    "    From 1 to " + taskList.getTaskCount() + "\n" +
-                    "    Current Index: " + index);
+            throw new InvalidIndexException("    Please indicate which task you wish to DELETE?\n"
+                    + "    From 1 to " + taskList.getTaskCount() + "\n"
+                    + "    Current Index: " + index);
         }
     }
 }
