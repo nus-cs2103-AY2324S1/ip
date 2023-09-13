@@ -26,36 +26,36 @@ public class Parser {
         String command = parts[COMMAND_INDEX];
 
         switch (command) {
-            case "list":
-                return handleListCommand(taskList);
+        case "list":
+            return handleListCommand(taskList);
 
-            case "mark":
-                return handleMarkCommand(parts, taskList);
+        case "mark":
+            return handleMarkCommand(parts, taskList);
 
-            case "unmark":
-                return handleUnmarkCommand(parts, taskList);
+        case "unmark":
+            return handleUnmarkCommand(parts, taskList);
 
-            case "todo":
-                return handleTodoCommand(userInput, taskList);
+        case "todo":
+            return handleTodoCommand(userInput, taskList);
 
-            case "deadline":
-                return handleDeadlineCommand(userInput, taskList);
+        case "deadline":
+        return handleDeadlineCommand(userInput, taskList);
 
-            case "event":
-                return handleEventCommand(userInput, taskList);
+        case "event":
+            return handleEventCommand(userInput, taskList);
 
-            case "delete":
-                return handleDeleteCommand(parts, taskList);
+        case "delete":
+            return handleDeleteCommand(parts, taskList);
 
-            case "find":
-                return handleFindCommand(parts, taskList);
+        case "find":
+            return handleFindCommand(parts, taskList);
 
-            case "help":
-                return handleHelpCommand();
+        case "help":
+            return handleHelpCommand();
 
-            default:
-                return Ui.showError("I'm sorry, but I don't know what that means!\n" +
-                        "Please type 'help' to access a list of available commands");
+        default:
+            return Ui.showError("I'm sorry, but I don't know what that means!\n" +
+                    "Please type 'help' to access a list of available commands");
         }
     }
 
