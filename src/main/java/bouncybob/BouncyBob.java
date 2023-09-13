@@ -86,20 +86,34 @@ public class BouncyBob extends Application {
 
         Button addButton = new Button("Add");
         addButton.setOnAction(e -> {
-            String userInput = taskTypeComboBox.getValue().toString().toLowerCase() + " " + taskInputField.getText().trim();
-            if (!userInput.isEmpty()) {
-                String[] parts = userInput.split(" ");
-
+            String userInput = taskInputField.getText().trim();
+            if (userInput.isEmpty()) {
+                return;
+            }
+            String[] parts = userInput.split(" ");
+            System.out.println(parts);
+            if (Parser.getAction(parts[0]) == Action.NOTE) {
+                System.out.println("Note detected");
+                String index = parts[1];
+                String note = Parser.getNoteFromCommand(parts);
+                ObservableList<Task> tasksFromListView = taskListView.getItems();
+                tasksFromListView.get(Integer.parseInt(index)).setNote(note);
+                TaskFileHandler.saveTasksToDisk(tasksFromListView);
+                taskListView.refresh();
+                return;
+            } else {
+                userInput = taskTypeComboBox.getValue().toString().toLowerCase() + " " + userInput;
+                parts = userInput.split(" ");
                 try {
                     Task newTask = createTask(parts);
                     taskListView.getItems().add(newTask);
-                    taskInputField.clear();
                     ObservableList<Task> tasksFromListView = taskListView.getItems();
                     TaskFileHandler.saveTasksToDisk(tasksFromListView);
                 } catch (IllegalArgumentException ex) {
                     showErrorDialog("Error", "Invalid Input", ex.getMessage());
                 }
             }
+            taskInputField.clear();
         });
 
         Button deleteButton = new Button("Delete");
@@ -141,7 +155,7 @@ public class BouncyBob extends Application {
      * Enum representing the types of actions that can be performed on tasks.
      */
     public enum Action {
-        MARK, UNMARK, DELETE, UNKNOWN
+        MARK, UNMARK, DELETE, NOTE, UNKNOWN
     }
 
     /**
