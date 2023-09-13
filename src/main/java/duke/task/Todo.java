@@ -1,5 +1,4 @@
 package duke.task;
-//A-CodingStandard and branch-level-10 needs to be properly pushed. Currently, it is not.
 
 import java.io.IOException;
 
@@ -19,7 +18,7 @@ import duke.util.Storage;
 public class Todo extends Task {
 
     /**
-     * Constructs a todo task with the given description.
+     * Instantiates a todo task with the given description.
      *
      * @param description The description of the todo task.
      */
@@ -40,7 +39,6 @@ public class Todo extends Task {
      * @throws IOException If there is an issue with saving the task.
      */
     public static String handleTodoTask(String userInput) throws EmptyDescriptionException, IOException {
-        // use \u2639 or U+2639 to insert the sad face icon
         StringBuilder message = new StringBuilder();
 
         String taskDescription = userInput.trim().replaceFirst("todo", "").trim();
@@ -49,15 +47,11 @@ public class Todo extends Task {
         } else {
             Todo todoTask = new Todo(taskDescription);
             Storage.saveTask(todoTask, true);
-            Storage.listOfTasks.add(todoTask); //duke.task.Todo <: duke.task.Task
+            Storage.listOfTasks.add(todoTask);
 
-            //Print details for users
             message.append("Got it. I've added this task:\n");
             message.append(String.format(" %s\n", todoTask));
             message.append(String.format("Now you have %d task(s) in the list.\n", Storage.listOfTasks.size()));
-            System.out.println("     Got it. I've added this task:");
-            System.out.printf("       %s\n", todoTask.toString());
-            System.out.printf("     Now you have %d task(s) in the list.\n", Storage.listOfTasks.size());
         }
         return message.toString();
     }

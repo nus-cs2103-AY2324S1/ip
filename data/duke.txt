@@ -1,6 +1,5 @@
-D | 0 | test dates correct deadline | 2023-10-21 | null
+D | 1 | test dates correct deadline | 2023-10-21 | null
 E | 1 | correct event timings | 2222-11-11 | 2222-11-13
-T | 1 | again todo | null | null
 T | 1 | Packaged stuff | null | null
 D | 1 | Dead Package bruh | 1111-11-11 | null
 T | 1 | From Gradle | null | null

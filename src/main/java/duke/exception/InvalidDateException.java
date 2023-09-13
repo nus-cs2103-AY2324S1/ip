@@ -12,8 +12,8 @@ package duke.exception;
  */
 public class InvalidDateException extends Exception {
     /**
-     * Overrides the Exception Object's toString method and contains an error message.
-     * @return The error messsage String with a correction of Date input format.
+     * Overrides the exception object's toString method and contains an error message.
+     * @return The error message String with a correction of date input format.
      */
     @Override
     public String toString() {

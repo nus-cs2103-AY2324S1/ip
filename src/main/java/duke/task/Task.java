@@ -15,7 +15,7 @@ public class Task {
     protected String description;
 
     /**
-     * Constructs a task with the given description.
+     * Instantiates a task with the given description.
      *
      * @param description The description of the task.
      */

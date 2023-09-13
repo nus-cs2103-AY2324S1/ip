@@ -33,12 +33,12 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        //Need standardised photos to make better circle clips
+        // Need standardised photos to make better circle clips
         dialog.setText(text);
-        //dialog.setMinHeight(Region.USE_PREF_SIZE);
-        //Circle circleClip = new Circle(30,60,50);
+        // dialog.setMinHeight(Region.USE_PREF_SIZE);
+        // Circle circleClip = new Circle(30,60,50);
         displayPicture.setImage(img);
-        //displayPicture.setClip(circleClip);
+        // displayPicture.setClip(circleClip);
     }
 
     /**

@@ -28,10 +28,5 @@ public class InvalidCommandException extends Exception {
             message.append(c + "\n");
         }
         return message.toString();
-        // System.out.println("     OOPS!!! " + this.getMessage());
-        // System.out.println("     Please input valid commands. Currently SeeWhyAre bot supports:");
-        // for (Parser.Command c : Parser.Command.values()) {
-        //     System.out.println("     " + c);
-        // }
     }
 }

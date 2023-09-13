@@ -26,25 +26,22 @@ public class Parser {
     private Ui ui;
 
     /**
-     * Represents the supported command keywords in SeeWhyAre bot. Stored as an enumeration.
+     * Represents the supported command keywords in SeeWhyAre bot.
+     * They are stored as an enumeration.
      */
     public enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, FIND, DEADLINE, TODO, EVENT, UNKNOWN
     }
 
     /**
-     * Constructs a Parser with the specified task list and CLI user interface.
+     * Instantiates a parser with the specified task list and user interface.
      *
      * @param taskList The task list to work with.
-     * @param ui The CLI user interface to display messages.
+     * @param ui The user interface to display messages.
      */
     public Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
-    }
-
-    private void printHorizontalLine() {
-        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
@@ -60,25 +57,31 @@ public class Parser {
 
     /**
      * Parses user input and performs the corresponding action.
+     * Available commands:
+     * - bye: to end the programme.
+     * - list: to list down user's current task list.
+     * - mark {number}: to mark the task with the specified task index as done.
+     * - unmark {number}: to mark the task with the specified task index as not done yet.
+     * - delete {number}: to delete the task with the specified task index in the task list.
+     * - find (keyword}: to find the list of tasks that contains the corresponding keyword.
+     * - deadline {taskname} /by {time}: to add a new task as a deadline task.
+     * - todo {taskname}: to add a new task as a to-do item. (No need to provide time).
+     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event task (with given start time and end time).
+     * Note that the commands are not case-sensitive. For instance: "BYE", "ByE", "bYe" will all be treated as the "bye" command.
      *
      * @param userInput The user's input to be parsed.
-     * @throws IOException If there is an issue with I/O operations.
-     * @throws EmptyDescriptionException If a description is required but not provided.
-     * @throws InvalidCommandException If an invalid command is entered.
      */
-    public String parseInput(String userInput)
-            throws IOException, EmptyDescriptionException, InvalidCommandException {
+    public String parseInput(String userInput) {
         try {
             String firstWord = getCommand(userInput);
             String[] words = userInput.split("\\s+"); // Split input by space, put into array
-            Command command; //Use enum
+            Command command;
             try {
                 command = Command.valueOf(firstWord);
             } catch (IllegalArgumentException e) {
                 command = Command.UNKNOWN;
             }
 
-            //A-Enum: Use switch-case instead of if-else for neater code
             switch (command) {
             case BYE:
                 Duke.setIsFinishedToTrue();
@@ -89,7 +92,7 @@ public class Parser {
                 int taskIndex = Integer.parseInt(words[1]) - 1;
                 return taskList.markTask(taskIndex);
             case UNMARK:
-                taskIndex = Integer.parseInt(words[1]) - 1; //Same variable name taskIndex as above
+                taskIndex = Integer.parseInt(words[1]) - 1;
                 return taskList.unmarkTask(taskIndex);
             case DELETE:
                 return taskList.deleteTask(userInput);
@@ -106,7 +109,7 @@ public class Parser {
                 throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
             }
         } catch (IOException e) {
-            System.err.println(HORIZONTAL_LINE + "\n" + e.toString() + HORIZONTAL_LINE);
+            System.err.println(HORIZONTAL_LINE + "\n" + e + HORIZONTAL_LINE);
             return e.toString();
         } catch (EmptyDescriptionException e) {
             return e.printExceptionMessage();
@@ -115,8 +118,6 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Please enter valid Integer index!\n"
                     + String.format("You currently have %d task(s)", taskList.listOfTasks.size());
-//            System.out.println("     Please enter valid Integer index!");
-//            System.out.printf("     You currently have %d tasks", taskList.listOfTasks.size());
         } catch (Exception e) {
             return "Very Invalid command! Please enter valid commands";
         }

@@ -2,8 +2,6 @@ package duke;
 
 import java.io.IOException;
 
-import duke.exception.EmptyDescriptionException;
-import duke.exception.InvalidCommandException;
 import duke.exception.InvalidDateException;
 import duke.util.Parser;
 import duke.util.Storage;
@@ -48,11 +46,9 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response from SeeWhyAre bot after parsing the user input.
      */
-    public static String getResponse(String userInput)
-            throws InvalidCommandException, EmptyDescriptionException, IOException {
+    public static String getResponse(String userInput) {
         return parser.parseInput(userInput);
     }
 
@@ -65,7 +61,7 @@ public class Duke {
      *
      * @param args not used.
      */
-    public static void main(String[] args) throws InvalidCommandException, EmptyDescriptionException, IOException {
+    public static void main(String[] args) {
         new Duke();
         ui.greet();
         String userInput = ui.getUserInput();
