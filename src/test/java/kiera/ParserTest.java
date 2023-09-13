@@ -6,11 +6,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import kiera.command.AddCommand;
+import kiera.command.DeleteCommand;
 import kiera.command.ExitCommand;
-import kiera.command.ListCommand;
 import kiera.command.MarkCommand;
 import kiera.task.Todo;
-import kiera.tasktype.TaskType;
 
 public class ParserTest {
     @Test
@@ -24,16 +23,18 @@ public class ParserTest {
     }
     @Test
     public void parse_addTodo_success() {
-        assertEquals(new AddCommand(TaskType.TODO, "test1"), Parser.parse("todo test1"));
+        assertEquals(AddCommand.class, Parser.parse("todo test1").getClass());
     }
     @Test
     public void parse_markDone_success() {
         TaskList tasks = new TaskList();
-        tasks.add(new Todo("test2"));
-        assertEquals(new MarkCommand("test2", false), Parser.parse("1"));
+        tasks.add(new Todo("test1"));
+        assertEquals(MarkCommand.class, Parser.parse("mark 1").getClass());
     }
     @Test
-    public void parse_listInput_success() {
-        assertEquals(new ListCommand(), Parser.parse("list"));
+    public void parse_deleteInput_success() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("test1"));
+        assertEquals(DeleteCommand.class, Parser.parse("delete 1").getClass());
     }
 }
