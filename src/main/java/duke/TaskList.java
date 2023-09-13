@@ -27,6 +27,11 @@ public class TaskList {
         return list.toString();
     }
 
+    /**
+     * Returns the list object in the TaskList
+     *
+     * @return The list
+     */
     public List<Task> getList() {
         return this.todoList;
     }
@@ -115,6 +120,9 @@ public class TaskList {
                 todoList.size()));
     }
 
+    /**
+     * Returns the total number of tasks in the TaskList in String form.
+     */
     public String NumberOfTaskListInString() {
         String s = String.format("You have %d task(s) currently in the list",
                 todoList.size());

@@ -26,7 +26,6 @@ public class Ui {
                     " \\------------------/    | ( # ) |\n" +
                     "                         |  '''  |\n" +
                     "                         \\_______/";
-    ;
 
     /**
      * Reads a command input from the user.

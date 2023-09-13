@@ -14,9 +14,7 @@ public class ToDo extends Task {
      */
     public ToDo(String response) {
         super(false);
-        int toTrim = response.indexOf(" ");
-        String taskTitle = response.substring(toTrim + 1);
-        this.title = taskTitle;
+        this.title = response;
     }
 
     /**

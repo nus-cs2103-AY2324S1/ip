@@ -16,13 +16,9 @@ public class UnmarkCommand extends Command {
      *
      * @param fullCommand The full command string containing the task index.
      */
-    public UnmarkCommand(String fullCommand) {
+    public UnmarkCommand(int response) {
         super(false);
-        String[] parts = fullCommand.split(" ");
-        {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            this.index = taskIndex;
-        }
+        this.index = response;
     }
 
     /**

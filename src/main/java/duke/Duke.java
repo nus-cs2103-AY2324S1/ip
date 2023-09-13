@@ -34,32 +34,17 @@ public class Duke {
         ui = new Ui();
         storage = new Storage("duke.txt", "data");
         tasks = new TaskList();
-        /*
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, storage, ui);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } catch (DateTimeParseException e) {
-                ui.showError("Incorrect format input");
-            } finally {
-                ui.showLine();
-            }
-        }
-        */
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Dukey's chatbot logic, generates a response based on input
+     *
+     * @param String input
      */
     public String getResponse(String input) {
+        if (input.equals("sexy time")) {
+            return "Oh Johnny boy is always ready for sexy times.";
+        }
         try {
             Command c = Parser.parse(input);
             return c.execute(tasks, storage, ui);
