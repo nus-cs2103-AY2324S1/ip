@@ -13,97 +13,121 @@ import duke.ui.Ui;
 public class Parser {
 
     /**
-     * Reads the user's command, processes it, and returns the appropriate response.
-     *
-     * @param command   The user's input command.
-     * @param tasklist  The task list to which the command should be applied.
-     * @return          The response or result of processing the user's command.
+     * Reads the user's command and executes the corresponding task operation.
+     * @param command The user's input command
+     * @param tasklist The task list that stores the tasks
+     * @return A string message that indicates the result of the operation.
      */
     public static String readTask(String command, TaskList tasklist) {
         String[] commandSplit = command.split(" ");
-        if (command.equals("bye")) {
+        String firstWord = commandSplit[0].toLowerCase(); // Convert to lowercase for case insensitivity
+
+        switch (firstWord) {
+        case "bye":
             System.exit(0);
             return Ui.exit();
-        } else if (command.equals("list")) {
+        case "list":
             return Ui.listTasks(tasklist);
-        } else if (command.startsWith("find")) {
-            return tasklist.findTasks(commandSplit[1]);
-        } else {
-            if (command.startsWith("todo") || command.startsWith("deadline")
-                    || command.startsWith("event")) {
-                return addTask(command, tasklist);
-            } else if (command.startsWith("mark") || command.startsWith("unmark")
-                    || command.startsWith("delete")) {
-                try {
-                    if (commandSplit.length > 2 || Integer.parseInt(commandSplit[1]) > tasklist.taskCount()) {
-                        return Ui.showError(new DukeException("Please enter a valid number"));
-                    }
-                    int index = Integer.parseInt(commandSplit[1]) - 1;
-                    if (command.startsWith("mark")) {
-                        return tasklist.markTask(index);
-                    } else if (command.startsWith("unmark")) {
-                        return tasklist.unMarkTask(index);
-                    } else {
-                        return tasklist.deleteTask(index);
-                    }
-                } catch (NumberFormatException e) {
-                    return Ui.showError(new DukeException("Please enter a valid number"));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    return Ui.showError(new DukeException("Please enter a valid number"));
-                }
+        case "find":
+            if (commandSplit.length > 1) {
+                return tasklist.findTasks(commandSplit[1]);
             } else {
-                return Ui.showError(new DukeException("I'm sorry, but I don't know what that means :-("));
+                return Ui.showError(new DukeException("Please provide a keyword to search for."));
             }
+        case "todo":
+        case "deadline":
+        case "event":
+            return addTask(command, tasklist);
+        case "mark":
+        case "unmark":
+        case "delete":
+            return handleMarkUnmarkDelete(commandSplit, tasklist);
+        default:
+            return Ui.showError(new DukeException("I'm sorry, but I don't know what that means :-("));
         }
     }
 
-    /**
-     * Parses and adds a task based on the user's input command.
-     *
-     * @param command   The user's input command for adding a task.
-     * @param tasklist  The task list to which the task should be added.
-     * @return          The response or result of adding the task.
-     */
     private static String addTask(String command, TaskList tasklist) {
-        if (command.startsWith("todo")) {
-            try {
-                String taskDescription = command.substring(5);
-                if (taskDescription.length() == 0) {
-                    return Ui.showError(new DukeException("The description of a todo cannot be empty."));
-                }
-                Task t = new Todo(taskDescription);
-                return tasklist.addTask(t);
-            } catch (StringIndexOutOfBoundsException e) {
-                return Ui.showError(new DukeException("The description of a todo cannot be empty."));
+        try {
+            if (command.startsWith("todo")) {
+                return addTodoTask(command, tasklist);
+            } else if (command.startsWith("deadline")) {
+                return addDeadlineTask(command, tasklist);
+            } else if (command.startsWith("event")) {
+                return addEventTask(command, tasklist);
+            } else {
+                return Ui.showError(new DukeException("I'm sorry, but I don't know what that means :-("));
             }
-        } else if (command.startsWith("deadline")) {
-            try {
-                String[] taskAndDeadline = command.substring(9).split(" /by ");
-                if (taskAndDeadline[0].length() == 0) {
-                    return Ui.showError(new DukeException("The description of a deadline cannot be empty."));
-                }
-                Task t = new Deadline(taskAndDeadline[0], taskAndDeadline[1]);
-                return tasklist.addTask(t);
-            } catch (StringIndexOutOfBoundsException e) {
-                return Ui.showError(new DukeException("The description of a deadline cannot be empty."));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return Ui.showError(new DukeException("The deadline (yyyy-MM-dd) is not specified."));
-            }
-        } else if (command.startsWith("event")) {
-            try {
-                String[] taskAndDate = command.substring(6).split(" /from | /to ");
-                if (taskAndDate[0].length() == 0) {
-                    return Ui.showError(new DukeException("The description of a todo cannot be empty."));
-                }
-                Task t = new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]);
-                return tasklist.addTask(t);
-            } catch (StringIndexOutOfBoundsException e) {
-                return Ui.showError(new DukeException("The description of an event cannot be empty."));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return Ui.showError(new DukeException("The dates (yyyy-MM-dd) of an event cannot be empty."));
-            }
-        } else {
-            return Ui.showError(new DukeException("I'm sorry, but I don't know what that means :-("));
+        } catch (DukeException e) {
+            return Ui.showError(e);
         }
+    }
+
+    private static String addTodoTask(String command, TaskList tasklist) throws DukeException {
+        String taskDescription = command.substring(5).trim();
+        if (taskDescription.isEmpty()) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
+        Task t = new Todo(taskDescription);
+        return tasklist.addTask(t);
+    }
+
+    private static String addDeadlineTask(String command, TaskList tasklist) throws DukeException {
+        String[] taskAndDeadline = command.substring(9).split(" /by ");
+        if (taskAndDeadline.length != 2) {
+            throw new DukeException("Invalid deadline format. Usage: deadline <description> /by <yyyy-MM-dd>");
+        }
+        String taskDescription = taskAndDeadline[0].trim();
+        String deadline = taskAndDeadline[1].trim();
+
+        if (taskDescription.isEmpty()) {
+            throw new DukeException("The description of a deadline cannot be empty.");
+        }
+        if (deadline.isEmpty()) {
+            throw new DukeException("The deadline (yyyy-MM-dd) is not specified.");
+        }
+
+        Task t = new Deadline(taskDescription, deadline);
+        return tasklist.addTask(t);
+    }
+
+    private static String addEventTask(String command, TaskList tasklist) throws DukeException {
+        String[] taskAndDate = command.substring(6).split(" /from | /to ");
+        if (taskAndDate.length != 3) {
+            throw new DukeException("Invalid event format. Usage: event <description> /from <start> /to <end>");
+        }
+        String taskDescription = taskAndDate[0].trim();
+        String start = taskAndDate[1].trim();
+        String end = taskAndDate[2].trim();
+
+        if (taskDescription.isEmpty()) {
+            throw new DukeException("The description of an event cannot be empty.");
+        }
+        if (start.isEmpty() || end.isEmpty()) {
+            throw new DukeException("The dates (yyyy-MM-dd) of an event cannot be empty.");
+        }
+
+        Task t = new Event(taskDescription, start, end);
+        return tasklist.addTask(t);
+    }
+
+    private static String handleMarkUnmarkDelete(String[] commandSplit, TaskList tasklist) {
+        try {
+            if (commandSplit.length > 1) {
+                int index = Integer.parseInt(commandSplit[1]) - 1;
+                if (commandSplit[0].equals("mark")) {
+                    return tasklist.markTask(index);
+                } else if (commandSplit[0].equals("unmark")) {
+                    return tasklist.unMarkTask(index);
+                } else if (commandSplit[0].equals("delete")) {
+                    return tasklist.deleteTask(index);
+                }
+            } else {
+                return Ui.showError(new DukeException("Please enter a valid number."));
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            return Ui.showError(new DukeException("Please enter a valid number."));
+        }
+        return Ui.showError(new DukeException("I'm sorry, but I don't know what that means :-("));
     }
 }
