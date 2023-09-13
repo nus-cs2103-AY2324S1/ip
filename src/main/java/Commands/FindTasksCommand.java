@@ -21,7 +21,10 @@ public class FindTasksCommand implements Command {
      * Executes the FindTasksCommand which filters out task based on a string prompt.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        List<Task> filteredTasks = tasks.getTasks().stream().filter(t -> t.toString().contains(searchText)).collect(Collectors.toList());
+        // used streams so that we can access the useful filter function.
+        List<Task> filteredTasks = tasks.getTasks().stream().filter(t -> {
+            return t.toString().contains(searchText);
+        }).collect(Collectors.toList());
         // get UI to print out the filtered list of tasks
         int i = 0;
         String res = ui.printFindTaskMessage();
