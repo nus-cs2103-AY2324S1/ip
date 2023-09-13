@@ -1,20 +1,25 @@
-package chatterchicken;
+package duke;
 
-import chatterchicken.command.Command;
-import chatterchicken.data.exception.CCException;
-import chatterchicken.parser.Parser;
-import chatterchicken.storage.Storage;
-import chatterchicken.tasklist.TaskList;
-import chatterchicken.ui.Ui;
+import duke.command.Command;
+import duke.data.exception.CCException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.util.Scanner;
 
 /**
- * The {@code ChatterChicken} class is the main class for the ChatterChicken task manager application.
+ * The {@code Duke} class is the main class for the Duke task manager application.
  * It initializes and coordinates the application's components, such as the UI, parser, storage, and task list.
  * The class also defines the main method for launching the application and the main loop for user interaction.
  */
-public class ChatterChicken {
+public class Duke extends Application {
 
     public static final String PATH = "src/main/data/task-list.txt";
     private TaskList tasks;
@@ -23,27 +28,36 @@ public class ChatterChicken {
     private final Ui ui;
 
     /**
-     * Initializes the ChatterChicken application by creating instances of the UI, parser, and storage.
+     * Initializes the Duke application by creating instances of the UI, parser, and storage.
      */
-    public ChatterChicken() {
+    public Duke() {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage(parser);
     }
 
     /**
-     * The main entry point of the ChatterChicken application.
+     * The main entry point of the Duke application.
      * Initializes the application, runs the main loop, and catches and displays exceptions.
      *
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        ChatterChicken chatterChicken = new ChatterChicken();
-        chatterChicken.run();
+        Duke duke = new Duke();
+        duke.run();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
-     * Initiates the main loop of the ChatterChicken application.
+     * Initiates the main loop of the Duke application.
      * Reads user input, processes commands, and provides responses until the user chooses to exit.
      * Catches and displays exceptions.
      */

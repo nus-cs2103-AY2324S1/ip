@@ -1,4 +1,4 @@
-package chatterchicken.tasklist;
+package duke.tasklist;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import chatterchicken.data.task.Task;
-import chatterchicken.data.task.ToDo;
-import chatterchicken.data.exception.CCException;
-import chatterchicken.parser.Parser;
-import chatterchicken.ui.Ui;
+import duke.data.task.Task;
+import duke.data.task.ToDo;
+import duke.data.exception.CCException;
+import duke.parser.Parser;
+import duke.ui.Ui;
 
 public class TaskListTest {
 

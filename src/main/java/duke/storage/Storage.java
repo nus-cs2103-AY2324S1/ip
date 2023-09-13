@@ -1,10 +1,10 @@
-package chatterchicken.storage;
+package duke.storage;
 
-import chatterchicken.ChatterChicken;
-import chatterchicken.parser.Parser;
-import chatterchicken.data.exception.CCException;
-import chatterchicken.data.task.Task;
-import chatterchicken.tasklist.TaskList;
+import duke.Duke;
+import duke.parser.Parser;
+import duke.data.exception.CCException;
+import duke.data.task.Task;
+import duke.tasklist.TaskList;
 
 import java.io.File;
 import java.io.BufferedReader;
@@ -40,7 +40,7 @@ public class Storage {
      */
     public ArrayList<Task> loadTasksFromFile() {
         try {
-            File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
+            File dataFile = Paths.get(Duke.PATH).toAbsolutePath().toFile();
             ArrayList<Task> taskList = new ArrayList<>();
             if (!dataFile.exists()) {
                 dataFile.createNewFile();
@@ -71,7 +71,7 @@ public class Storage {
      */
     public void saveTasksToFile(TaskList taskList) {
         try {
-            File dataFile = Paths.get(ChatterChicken.PATH).toAbsolutePath().toFile();
+            File dataFile = Paths.get(Duke.PATH).toAbsolutePath().toFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
             for (Task task : taskList) {
                 String taskDescription = task.getTaskForSaving() + "\n";

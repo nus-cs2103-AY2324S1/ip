@@ -1,4 +1,4 @@
-package chatterchicken.parser;
+package duke.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import chatterchicken.data.task.Task;
-import chatterchicken.data.task.Deadline;
-import chatterchicken.data.task.Event;
-import chatterchicken.data.task.ToDo;
-import chatterchicken.data.exception.CCException;
+import duke.data.task.Task;
+import duke.data.task.Deadline;
+import duke.data.task.Event;
+import duke.data.task.ToDo;
+import duke.data.exception.CCException;
 
 public class ParserTest {
 

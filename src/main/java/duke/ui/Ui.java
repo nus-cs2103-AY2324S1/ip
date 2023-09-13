@@ -1,7 +1,6 @@
-package chatterchicken.ui;
+package duke.ui;
 
-import chatterchicken.data.task.Task;
-import chatterchicken.tasklist.TaskList;
+import duke.data.task.Task;
 
 import java.util.ArrayList;
 

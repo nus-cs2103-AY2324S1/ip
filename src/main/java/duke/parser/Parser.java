@@ -1,11 +1,11 @@
-package chatterchicken.parser;
+package duke.parser;
 
-import chatterchicken.command.Command;
-import chatterchicken.data.exception.CCException;
-import chatterchicken.data.task.Deadline;
-import chatterchicken.data.task.Event;
-import chatterchicken.data.task.Task;
-import chatterchicken.data.task.ToDo;
+import duke.command.Command;
+import duke.data.exception.CCException;
+import duke.data.task.Deadline;
+import duke.data.task.Event;
+import duke.data.task.Task;
+import duke.data.task.ToDo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

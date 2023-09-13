@@ -1,8 +1,8 @@
-package chatterchicken.tasklist;
+package duke.tasklist;
 
-import chatterchicken.data.exception.CCException;
-import chatterchicken.data.task.Task;
-import chatterchicken.ui.Ui;
+import duke.data.exception.CCException;
+import duke.data.task.Task;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Iterator;

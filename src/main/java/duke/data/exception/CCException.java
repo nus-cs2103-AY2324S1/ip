@@ -1,4 +1,4 @@
-package chatterchicken.data.exception;
+package duke.data.exception;
 
 /**
  * The CCException class represents a custom exception specific to the ChatterChicken task manager application.
