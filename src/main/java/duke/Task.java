@@ -50,6 +50,14 @@ public abstract class Task {
     public abstract String getStorageDescription();
 
     /**
+     * Updates details of a task.
+     *
+     * @param specifications What to update.
+     * @return Notifying the user that task has been updated.
+     */
+    public abstract String update(String specifications);
+
+    /**
      * Displays string representation of task.
      *
      * @return String representation.

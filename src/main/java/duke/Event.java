@@ -1,5 +1,7 @@
 package duke;
 
+import duke.parser.DateParser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -30,6 +32,45 @@ public class Event extends Task {
         String isCompleted = this.isDone ? "1" : "0";
         return "E " + isCompleted + " " + this.description
                 + "/from" + this.start + "/to" + this.end;
+    }
+
+    @Override
+    public String update(String specifications) {
+        try {
+            String[] splits = specifications.split(" ", 3);
+            validateInput(splits);
+            if (splits[0].matches( "/description")) {
+                String newDescription = splits[1];
+                this.description = newDescription;
+            }
+            if (splits[0].matches("/from")) {
+                LocalDate newStart = DateParser.parseDate(splits[1]);
+                this.start = newStart;
+            }
+            if (splits[0].matches("/to")) {
+                LocalDate newEnd = DateParser.parseDate(splits[1]);
+                this.end = newEnd;
+            }
+            return "Ok, I've updated the event task to the following:\n" + this;
+        } catch (ArrayIndexOutOfBoundsException error) {
+            throw new IllegalArgumentException(
+                    "OOPS!!! Please add a description.");
+        }
+    }
+
+    private void validateInput(String[] input) {
+        if (input.length > 2) {
+            throw new IllegalArgumentException(
+                    "OOPS!!! Only 1 attribute can be updated at one time.");
+        }
+        if (!input[0].matches("/description") &&
+                !input[0].matches("/from") &&
+                !input[0].matches("/to")) {
+            throw new IllegalArgumentException("OOPS!!! Update of an event task description must have " +
+                    "/description <description>. " +
+                    "Update of an event task start must have /from <date>. " +
+                    "Update of an event task end must have /to <date>.");
+        }
     }
 
     /**

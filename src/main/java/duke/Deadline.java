@@ -1,5 +1,7 @@
 package duke;
 
+import duke.parser.DateParser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -26,6 +28,38 @@ public class Deadline extends Task {
         String isCompleted = this.isDone ? "1" : "0";
         return "D " + isCompleted + " " + this.description
                 + "/by" + this.deadline;
+    }
+
+    @Override
+    public String update(String specifications) {
+        try {
+            String[] splits = specifications.split(" ", 3);
+            validateInput(splits);
+            if (splits[0].matches( "/description")) {
+                String newDescription = splits[1];
+                this.description = newDescription;
+            }
+            if (splits[0].matches("/by")) {
+                LocalDate newDeadline = DateParser.parseDate(splits[1]);
+                this.deadline = newDeadline;
+            }
+            return "Ok, I've updated the deadline task to the following:\n" + this;
+        } catch (ArrayIndexOutOfBoundsException error) {
+            throw new IllegalArgumentException(
+                    "OOPS!!! Please add a description.");
+        }
+    }
+
+    private void validateInput(String[] input) {
+        if (input.length > 2) {
+            throw new IllegalArgumentException(
+                    "OOPS!!! Only 1 attribute can be updated at one time.");
+        }
+        if (!input[0].matches("/description") && !input[0].matches("/by")) {
+            throw new IllegalArgumentException("OOPS!!! Update of a deadline task description must have " +
+                    "/description <description>. " +
+                    "Update of a deadline task deadline must have /by <date>. ");
+        }
     }
 
     /**
