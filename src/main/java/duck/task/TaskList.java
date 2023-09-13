@@ -70,11 +70,15 @@ public class TaskList {
             if (event.length != 3) {
                 throw new SyntaxException("Please check the command syntax");
             }
-            return new Events(LocalDateTime.parse(event[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
-                LocalDateTime.parse(event[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), event[0]);
+            return getEvents(event);
         } catch (DateTimeParseException e) {
             throw new IllegalDateFormatException("Wrong Format for the date kindly put in \nyyyy-MM-dd HHmm.", str);
         }
+    }
+
+    private static Events getEvents(String[] event) {
+        return new Events(LocalDateTime.parse(event[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
+            LocalDateTime.parse(event[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), event[0]);
     }
 
     private LocalDateTime parseDateTime(String dateTime) throws IllegalDateFormatException {
