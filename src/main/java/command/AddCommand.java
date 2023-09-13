@@ -81,6 +81,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+        assert !list.equals(null): "list has been initialised";
         String message = list.add(parseTask(this.task));
         return message;
     }
