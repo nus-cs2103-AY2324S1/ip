@@ -1,6 +1,5 @@
 0|TODO|get soya ice-cream
 0|DEADLINE|cs2100|2023-03-09
 1|EVENT|have fh|2023-12-15|2023-12-13
-0|EVENT|project meeting|2023-03-24|2023-05-19
-1|TODO|get dinner
-0|EVENT|hackers toolbox|2023-09-15|2023-09-16
+1|EVENT|project meeting|2023-03-24|2023-05-19
+1|EVENT|hackers toolbox|2023-09-15|2023-09-16

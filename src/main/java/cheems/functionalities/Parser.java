@@ -88,6 +88,7 @@ public class Parser {
         default:
             assert false : currentKey;
         }
+        throw new RuntimeException("Should not reach here in parser.");
     }
 
     private boolean inKeywords(String word) {
