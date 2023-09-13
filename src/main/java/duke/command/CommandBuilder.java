@@ -55,12 +55,24 @@ public class CommandBuilder {
     public static CommandBuilder parse(String line) {
         String[] input = line.split(" ", 2);
         String command = input[0];
-        String name = "";
-        Map<String, String> arguments = new HashMap<>();
+        String name = parseName(input);
+        Map<String, String> arguments = parseArguments(input);
 
+        return new CommandBuilder(command, name, arguments);
+    }
+
+    private static String parseName(String[] input) {
         if (input.length == 2) {
             String[] arr = input[1].split("/");
-            name = arr[0].trim();
+            return arr[0].trim();
+        }
+        return "";
+    }
+
+    private static Map<String, String> parseArguments(String[] input) {
+        Map<String, String> arguments = new HashMap<>();
+        if (input.length == 2) {
+            String[] arr = input[1].split("/");
             for (int i = 1; i < arr.length; ++i) {
                 String[] argument = arr[i].split(" ", 2);
                 String value = "";
@@ -70,8 +82,7 @@ public class CommandBuilder {
                 arguments.put(argument[0].trim(), value);
             }
         }
-
-        return new CommandBuilder(command, name, arguments);
+        return arguments;
     }
 
     /**

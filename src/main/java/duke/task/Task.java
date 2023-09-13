@@ -27,6 +27,10 @@ public abstract class Task {
         this.isMarked = isMarked;
         this.type = type;
 
+        validateDescription();
+    }
+
+    private void validateDescription() {
         if (description.isEmpty()) {
             throw new DukeException(
                 String.format(
