@@ -38,35 +38,57 @@ public class Parser {
      */
     private static void updateList(String str, TaskList tasks) throws InvalidInputException {
         if (str.startsWith("mark ")) {
-            String num = str.substring(5);
-            int number = Integer.valueOf(num);
-            if (number <= 0 || number > tasks.getSize()) {
-                throw new InvalidInputException(str);
+            if (str.startsWith("mark all")) {
+                for (int i = 0; i < tasks.getSize(); i++) {
+                    tasks.markDone(i);
+                }
+                temp = Ui.printAllDone();
             }
-            int index = number - 1; //index for task list
-            tasks.markDone(index);
-            Task done = tasks.getTask(index);
-            temp = Ui.printDone(done);
+            else {
+                String num = str.substring(5);
+                int number = Integer.valueOf(num);
+                if (number <= 0 || number > tasks.getSize()) {
+                    throw new InvalidInputException(str);
+                }
+                int index = number - 1; //index for task list
+                tasks.markDone(index);
+                Task done = tasks.getTask(index);
+                temp = Ui.printDone(done);
+            }
         } else if (str.startsWith("unmark ")) {
-            String num = str.substring(7);
-            int number = Integer.valueOf(num);
-            if (number <= 0 || number > tasks.getSize()) {
-                throw new InvalidInputException(str);
+            if (str.startsWith("unmark all")) {
+                for (int i = 0; i < tasks.getSize(); i++) {
+                    tasks.markNotDone(i);
+                }
+                temp = Ui.printAllNotDone();
+            } else {
+                String num = str.substring(7);
+                int number = Integer.valueOf(num);
+                if (number <= 0 || number > tasks.getSize()) {
+                    throw new InvalidInputException(str);
+                }
+                int index = number - 1; //index for task list
+                tasks.markNotDone(index);
+                Task notDone = tasks.getTask(index);
+                temp = Ui.printNotDone(notDone);
             }
-            int index = number - 1; //index for task list
-            tasks.markNotDone(index);
-            Task notDone = tasks.getTask(index);
-            temp = Ui.printNotDone(notDone);
-
         } else if (str.startsWith("delete ")) {
-            String num = str.substring(7);
-            int number = Integer.valueOf(num);
-            if (number <= 0 || number > tasks.getSize()) {
-                throw new InvalidInputException(str);
+            if (str.startsWith("delete all")) {
+                while (tasks.getSize() != 0) {
+                    tasks.removeTask(0);
+                }
+                temp = Ui.printAllDeleted(tasks);
             }
-            int index = number - 1;
-            Task toBeDeleted = tasks.removeTask(index);
-            temp = Ui.printDelete(toBeDeleted, tasks);
+            else {
+                String num = str.substring(7);
+                int number = Integer.valueOf(num);
+                if (number <= 0 || number > tasks.getSize()) {
+                    throw new InvalidInputException(str);
+                }
+                int index = number - 1;
+                Task toBeDeleted = tasks.removeTask(index);
+                temp = Ui.printDelete(toBeDeleted, tasks);
+            }
         }
     }
     /**

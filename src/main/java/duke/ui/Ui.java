@@ -35,6 +35,11 @@ public class Ui{
                 "as done:" + "\n" +
                 "\t " + done.taskString();
     }
+    public static String printAllDone() {
+        return "\t" + "Nice! I've marked all tasks " +
+                "as done!";
+    }
+
 
     /**
      * Prints a message when a task is marked as not done.
@@ -47,6 +52,11 @@ public class Ui{
                 notDone.taskString();
     }
 
+    public static String printAllNotDone() {
+        return "\t" + "OK, I've marked all tasks " +
+                "as not done yet.";
+    }
+
     /**
      * Prints a message when a task is deleted from the list.
      *
@@ -56,6 +66,9 @@ public class Ui{
     public static String printDelete(Task toBeDeleted, TaskList tasks) {
         return "\tNoted. I've removed this task:\n\t " + toBeDeleted.taskString()
                 + "\n\tNow you have " + tasks.getSize() + " tasks in the list.";
+    }
+    public static String printAllDeleted(TaskList tasks) {
+        return "\tNoted. I've removed all tasks from the list.";
     }
 
     /**
@@ -97,14 +110,17 @@ public class Ui{
                 + "Here are the commands for use: \n"
                 + "1. help: shows this list of commands\n"
                 + "2. mark<index>: marks task at <index> in the list as done \n"
-                + "3. unmark<index>: marks task at <index> in the list as not done \n"
-                + "4. delete<index>: deletes task at <index> in the list\n"
-                + "5. list: shows the existing list of tasks\n"
-                + "6. find <keyword>: returns a new list of tasks containing the matching keyword\n"
-                + "7. todo <task>: specify the task to be added in the list with no start or end date\n"
-                + "8. deadline <task> /by <yyyy-MM-dd HHmm>: specify the task to be added with a specific deadline\n"
-                + "9. event <task> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>: specify the event to be added with both start & end dates\n"
-                + "10. bye: displays a goodbye message";
+                + "3. mark all: marks all tasks in the list as done \n"
+                + "4. unmark<index>: marks task at <index> in the list as not done \n"
+                + "5. unmark all: marks all tasks in the list as not done \n"
+                + "6. delete<index>: deletes task at <index> in the list\n"
+                + "7. delete all: deletes all tasks in the list\n"
+                + "8. list: shows the existing list of tasks\n"
+                + "9. find <keyword>: returns a new list of tasks containing the matching keyword\n"
+                + "10. todo <task>: specify the task to be added in the list with no start or end date\n"
+                + "11. deadline <task> /by <yyyy-MM-dd HHmm>: specify the task to be added with a specific deadline\n"
+                + "12. event <task> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>: specify the event to be added with both start & end dates\n"
+                + "13. bye: displays a goodbye message";
 
     }
 
