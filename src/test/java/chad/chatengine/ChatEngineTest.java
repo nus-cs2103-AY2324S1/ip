@@ -24,10 +24,12 @@ public class ChatEngineTest {
     @Test
     public void handleEvent_validInput_addsEvent() throws ChadException {
         String[] parsedInput = new String[]{"EVENT", "Meeting /from 2023-12-01 14:00 /to 2023-12-01 16:00"};
-        chatEngine.handleEvent(parsedInput);
+        String output = chatEngine.handleEvent(parsedInput);
+        String expectedResponse = "Added new Event: Meeting from 2023-12-01T14:00 to 2023-12-01T16:00";
 
+        assertNotNull(output);
+        assertEquals(expectedResponse, output);
         verify(taskList).addEvent("Meeting", LocalDateTime.of(2023, 12, 1, 14, 0), LocalDateTime.of(2023, 12, 1, 16, 0));
-        verify(ioHandler).writeOutput("Added new Event: Meeting from 2023-12-01T14:00 to 2023-12-01T16:00");
     }
 
     @Test
