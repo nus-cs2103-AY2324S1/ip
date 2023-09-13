@@ -89,63 +89,63 @@ public class Ui {
             String commandType = parts[0].toLowerCase();
 
             switch (commandType) {
-                case "bye":
-                    showExit();
-                    storage.saveTasks(tasks);
-                    return true;
-                case "list":
-                    showTaskList(tasks);
+            case "bye":
+                showExit();
+                storage.saveTasks(tasks);
+                return true;
+            case "list":
+                showTaskList(tasks);
+                break;
+            case "mark":
+                int doneTaskIndex = Integer.parseInt(parts[1]) - 1;
+                tasks.markTaskAsDone(doneTaskIndex);
+                showTaskMarkedAsDone(tasks.getTask(doneTaskIndex));
+                storage.saveTasks(tasks);
+                break;
+            case "unmark":
+                int notDoneTaskIndex = Integer.parseInt(parts[1]) - 1;
+                tasks.markTaskAsNotDone(notDoneTaskIndex);
+                showTaskMarkedAsNotDone(tasks.getTask(notDoneTaskIndex));
+                storage.saveTasks(tasks);
+                break;
+            case "todo":
+                if (parts.length == 1) {
+                    System.out.println("What you want to do?");
                     break;
-                case "mark":
-                    int doneTaskIndex = Integer.parseInt(parts[1]) - 1;
-                    tasks.markTaskAsDone(doneTaskIndex);
-                    showTaskMarkedAsDone(tasks.getTask(doneTaskIndex));
-                    storage.saveTasks(tasks);
+                }
+            case "deadline":
+                if (parts.length == 1) {
+                    System.out.println("What deadline do you have?");
                     break;
-                case "unmark":
-                    int notDoneTaskIndex = Integer.parseInt(parts[1]) - 1;
-                    tasks.markTaskAsNotDone(notDoneTaskIndex);
-                    showTaskMarkedAsNotDone(tasks.getTask(notDoneTaskIndex));
-                    storage.saveTasks(tasks);
+                }
+            case "event":
+                if (parts.length == 1) {
+                    System.out.println("What event do you have?");
                     break;
-                case "todo":
-                    if (parts.length == 1) {
-                        System.out.println("What you want to do?");
-                        break;
-                    }
-                case "deadline":
-                    if (parts.length == 1) {
-                        System.out.println("What deadline do you have?");
-                        break;
-                    }
-                case "event":
-                    if (parts.length == 1) {
-                        System.out.println("What event do you have?");
-                        break;
-                    }
-                    Task newTask = Parser.parse(userCommand);
-                    if (newTask == null) {
-                        break;
-                    }
-                    tasks.addTask(newTask);
-                    showTaskAdded(newTask, tasks.size());
-                    storage.saveTasks(tasks);
+                }
+                Task newTask = Parser.parse(userCommand);
+                if (newTask == null) {
                     break;
-                case "delete":
-                    int deletedTaskIndex = Integer.parseInt(parts[1]) - 1;
-                    tasks.deleteTask(deletedTaskIndex);
-                    showTaskDeleted(tasks.size());
-                    storage.saveTasks(tasks);
-                    break;
-                case "find":
-                    if (parts.length == 1) {
-                        System.out.println("Please specify a keywork to search for.");
-                    } else {
-                        showFindCommand(parts[1], tasks);
-                    }
-                    break;
-                default:
-                    showError("Invalid command format.");
+                }
+                tasks.addTask(newTask);
+                showTaskAdded(newTask, tasks.size());
+                storage.saveTasks(tasks);
+                break;
+            case "delete":
+                int deletedTaskIndex = Integer.parseInt(parts[1]) - 1;
+                tasks.deleteTask(deletedTaskIndex);
+                showTaskDeleted(tasks.size());
+                storage.saveTasks(tasks);
+                break;
+            case "find":
+                if (parts.length == 1) {
+                    System.out.println("Please specify a keywork to search for.");
+                } else {
+                    showFindCommand(parts[1], tasks);
+                }
+                break;
+            default:
+                showError("Invalid command format.");
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             showError("Invalid command format.");
