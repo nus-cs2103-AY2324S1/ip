@@ -163,6 +163,7 @@ public class DukeTaskList {
         default:
             throw new IOException("Bad file type!");
         }
+        assert currentTask != null;
         return currentTask;
     }
 
@@ -230,6 +231,7 @@ public class DukeTaskList {
      *
      */
     public void handleMarkTask(Task currentTask) {
+        assert currentTask != null;
         currentTask.markDone();
     }
 
@@ -240,6 +242,7 @@ public class DukeTaskList {
      * @param currentTask the task to be marked as done
      */
     public void handleUnmarkTask(Task currentTask) {
+        assert currentTask != null;
         currentTask.markUndone();
     }
 
@@ -280,6 +283,7 @@ public class DukeTaskList {
      */
     // todo: make this return string
     public String handleUnmark(String input) {
+        assert this.errorUI != null;
         // gc: no items to delete
         if (this.tasks.isEmpty()) {
             return this.errorUI.handleEmptyTasksList();
@@ -304,6 +308,7 @@ public class DukeTaskList {
      * @return the response String of the chatbot
      */
     public String handleMark(String input) {
+        assert this.errorUI != null;
         // gc: no items to delete
         if (this.tasks.isEmpty()) {
             return this.errorUI.handleEmptyTasksList();
@@ -331,6 +336,7 @@ public class DukeTaskList {
      * @return the String that represents the chatbot response
      */
     public String handleFind(String input) {
+        assert this.errorUI != null;
         // case where the input is empty
         if (this.tasks.isEmpty()) {
             return this.errorUI.handleEmptyTasksList();
@@ -352,6 +358,7 @@ public class DukeTaskList {
      */
     private ArrayList<Task> getMatchingTasks(String query) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+        assert this.tasks != null;
         for (Task currentTask : this.tasks) {
             if (currentTask.getDescription().contains(query)) {
                 matchingTasks.add(currentTask);
@@ -391,6 +398,8 @@ public class DukeTaskList {
      * @return the deleted task instance
      */
     private Task deleteTask(int index) throws IOException {
+        assert index >= 0;
+        assert index <= this.tasks.size();
         // remove the task
         Task deletedTask = this.tasks.remove(index - 1);
         // update the list

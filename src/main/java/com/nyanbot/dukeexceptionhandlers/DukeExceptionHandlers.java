@@ -20,6 +20,7 @@ public class DukeExceptionHandlers {
      */
     public static void handleNoDate(String details) {
         DukeException res = new DukeInvalidTimeException(details);
+        assert res != null;
         System.out.println("------------------------------------------------------------------------");
         System.out.println(res.getMessage());
         System.out.println("------------------------------------------------------------------------");

@@ -69,6 +69,7 @@ public class DukeUi {
      *          has been marked as done
      */
     public String echoTaskMarked(Task currentTask) {
+        assert currentTask != null : "given task should be non null";
         return "Nice! I've marked this task as nyan:\n"
                 + "    "
                 + currentTask;
@@ -83,6 +84,7 @@ public class DukeUi {
      * @return the String that represents the chatbot's response
      */
     public String echoTaskDeleted(Task removedTask, int tasksCount) {
+        assert removedTask != null : "given task should be non null";
         return "Noted. I've removed this task:"
                 + "    " + removedTask
                 + "Now you have " + tasksCount + " tasks in the list.";
@@ -96,6 +98,7 @@ public class DukeUi {
      * @return the String that represents the chatbot's response
      */
     public String echoTaskUnmarked(Task currentTask) {
+        assert currentTask != null : "given task should be non null";
         return "OK, I've marked this task as not nyan yet:"
                 + "    " + currentTask;
     }

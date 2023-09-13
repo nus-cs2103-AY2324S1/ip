@@ -106,6 +106,7 @@ public class DukeErrorUi {
      * @return the String associated with an empty error
      */
     private String handleEmptyCommand(String message) {
+        assert !message.isEmpty() : "details should be non-empty";
         return new DukeEmptyInputException(message).getMessage();
     }
 
@@ -129,6 +130,7 @@ public class DukeErrorUi {
      * @return the String associated with a no date error
      */
     private static String handleNoDate(String details) {
+        assert !details.isEmpty() : "details should be non-empty";
         return new DukeInvalidTimeException(details).getMessage();
     }
 
