@@ -3,16 +3,7 @@ package duke.main;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddTodoCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteTaskCommand;
-import duke.command.FindTaskCommand;
-import duke.command.ListCommand;
-import duke.command.MarkDoneCommand;
-import duke.command.MarkNotDoneCommand;
+import duke.command.*;
 
 /**
  * The Parser class.
@@ -241,6 +232,14 @@ public class Parser {
         }
     }
 
+    public static HelpCommand findHelpCommand(String input) {
+        if (input.trim().equals("help")) {
+            return new HelpCommand();
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Checks for a valid command.
      *
@@ -251,6 +250,8 @@ public class Parser {
     public static Command parse(String input) throws DukeException {
         if (byeCommandChecker(input) != null) {
             return byeCommandChecker(input);
+        } else if (findHelpCommand(input) != null) {
+            return findHelpCommand(input);
         } else if (listCommandChecker(input) != null) {
             return listCommandChecker(input);
         } else if (todoCommandChecker(input) != null) {

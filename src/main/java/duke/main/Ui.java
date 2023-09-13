@@ -109,4 +109,19 @@ public class Ui {
             throw new DukeException(e.getMessage());
         }
     }
+
+    public String showHelpList() {
+        String str = "Here are the formats of possible commands:\n"
+                + "1. help\n"
+                + "2. todo {taskname}\n"
+                + "3. deadline {taskname} /by {YYYY-MM-DD}\n"
+                + "4. event {taskname} /from {YYYY-MM-DD} /to {YYYY-MM-DD}\n"
+                + "5. mark {index}\n"
+                + "6. unmark {index}\n"
+                + "7. delete {index}\n"
+                + "8. find {keywords}\n"
+                + "9. bye\n";
+
+        return str;
+    }
 }
