@@ -47,5 +47,19 @@ public class Command {
      */
     public static final String UNMARK = "unmark ";
 
+    /**
+     * Represents the "find" command, which allows the user to find tasks based on keywords.
+     * The search query strings should be appended to this command.
+     * Example: "find game" will find tasks that match string game.
+     */
     public static final String FIND = "find ";
+
+    /**
+     * Represents the "tag" command, which allows the user to add tags to a task.
+     * The task number and tags should be appended to this command.
+     * Example: "tag 3 fun sport" will add tags fun and sport to task 3.
+     */
+    public static final String TAG = "tag ";
+
+    public static final String DOAFTER = "doafter ";
 }

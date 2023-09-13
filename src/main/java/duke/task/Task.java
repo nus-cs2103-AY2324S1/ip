@@ -2,6 +2,8 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import duke.InvalidCommandException;
 import duke.InvalidTaskCreationException;
@@ -21,6 +23,10 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    protected ArrayList<String> tagsList;
+
+    protected Task parentTask;
+
     /**
      * Constructs a new `Task` with the specified description.
      *
@@ -29,6 +35,8 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tagsList = new ArrayList<>();
+        this.parentTask = null;
     }
 
     /**
@@ -103,6 +111,30 @@ public class Task {
         this.isDone = false;
     }
 
+    public void addTags(String... tags) {
+        tagsList.addAll(Arrays.asList(tags));
+    }
+
+    public String printTags() {
+        StringBuilder result = new StringBuilder();
+        for (String tag : this.tagsList) {
+            result.append("#").append(tag).append(" ");
+        }
+        return result.toString().trim(); // Remove trailing space
+    }
+
+    public String printDoAfter() {
+        if (this.parentTask == null) {
+            return "DoAfter : " + "NO DEPENDENCY";
+        } else {
+            return "DoAfter : " + this.parentTask.description;
+        }
+    }
+
+    public void setParentTask(Task parent) {
+        this.parentTask = parent;
+    }
+
     /**
      * Converts the task to a formatted string representation for display.
      *
@@ -110,6 +142,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" + " " + this.description;
+        return "[" + getStatusIcon() + "]" + " " + this.description + " " + this.printTags() + " | " + this.printDoAfter() + " | ";
     }
 }
