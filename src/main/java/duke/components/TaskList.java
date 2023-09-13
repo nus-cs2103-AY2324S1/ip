@@ -155,6 +155,7 @@ public class TaskList {
         ArrayList<Task> matches = new ArrayList<>();
         for (Task task : this.list) {
             String desc = task.getTask();
+            assert !desc.isEmpty() : "Description cannot be empty";
             if (desc.contains(keyword)) {
                 matches.add(task);
             }
