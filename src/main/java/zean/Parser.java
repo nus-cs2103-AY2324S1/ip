@@ -57,6 +57,9 @@ public class Parser {
         case "find":
             output = parseFindTask(input, tasks);
             break;
+        case "update":
+            output = parseUpdateTask(input, tasks);
+            break;
         default:
             throw new ZeanException("OOPS!!! I'm sorry, but I don't understand what that means :-(");
         }
@@ -187,6 +190,48 @@ public class Parser {
         }
         String output = tasks.find(description);
         return output;
+    }
+
+    private static String parseUpdateTask(String input, TaskList tasks) {
+        String[] inputArr = input.split(" ");
+        if (inputArr.length < 2) {
+            throw new ZeanException("Please provide the task number.");
+        }
+        String description = getSubstring(input, "/description");
+        String by = getSubstring(input, "/by");
+        String from = getSubstring(input, "/from");
+        String to = getSubstring(input, "/to");
+        if (description.isBlank() && by.isBlank() && from.isBlank() && to.isBlank()) {
+            throw new ZeanException("You forgot to specify the information for me to update." +
+                    "\nUse \"/description\", \"/by\", \"/from\", \"/to\" to update the info accordingly.");
+        }
+        if ((!by.isBlank() && !DATE_PATTERN.matcher(by).matches()) ||
+                (!from.isBlank() && !DATE_PATTERN.matcher(from).matches()) ||
+                (!to.isBlank() && !DATE_PATTERN.matcher(to).matches())) {
+            throw new ZeanException("Hmm, I don't understand the date. "
+                    + "Use this format: YYYY-MM-DD");
+        }
+        try {
+            int taskIndex = Integer.parseInt(inputArr[1]);
+            tasks.updateTaskDescription(taskIndex, description);
+            tasks.updateTaskDates(taskIndex, by, from, to);
+        } catch (NumberFormatException e) {
+            throw new ZeanException("Please provide a valid task number.");
+        }
+        return "Successfully updated your task!";
+    }
+
+    private static String getSubstring(String input, String target) {
+        if (!input.contains(target)) {
+            return "";
+        }
+        int indexOfTarget = input.indexOf(target);
+        int lengthOfTarget = target.length();
+        String substring = input.substring(indexOfTarget + lengthOfTarget);
+        if (substring.contains("/")) {
+            substring = substring.substring(0, substring.indexOf("/"));
+        }
+        return substring.strip();
     }
 
     /**

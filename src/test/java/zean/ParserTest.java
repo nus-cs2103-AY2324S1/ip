@@ -208,4 +208,69 @@ public class ParserTest {
         assertEquals("Hmm, I don't understand the date. Use this format: YYYY-MM-DD",
                 exception.getMessage());
     }
+
+    @Test
+    public void emptyTaskIndexUpdateTest() {
+        Exception exception = assertThrows(ZeanException.class, () ->
+                Parser.parse("update ", new TaskList()));
+        assertEquals("Please provide the task number.",
+                exception.getMessage());
+    }
+
+    @Test
+    public void emptyInfoUpdateTest() {
+        Exception exception = assertThrows(ZeanException.class, () ->
+                Parser.parse("update 1  ", new TaskList()));
+        assertEquals("You forgot to specify the information for me to update." +
+                        "\nUse \"/description\", \"/by\", \"/from\", \"/to\" to update the info accordingly.",
+                exception.getMessage());
+    }
+
+    @Test
+    public void invalidIndexUpdateTest1() {
+        Exception exception = assertThrows(ZeanException.class, () ->
+                Parser.parse("update 0 /description asdf", new TaskList()));
+        assertEquals("Hmm, this task does not exist :|",
+                exception.getMessage());
+    }
+
+    @Test
+    public void invalidIndexUpdateTest2() {
+        Exception exception = assertThrows(ZeanException.class, () ->
+                Parser.parse("update -5 /description asdf", new TaskList()));
+        assertEquals("Hmm, this task does not exist :|",
+                exception.getMessage());
+    }
+
+    @Test
+    public void wrongDateUpdateTest1() {
+        Exception exception = assertThrows(ZeanException.class, () ->
+                Parser.parse("update 1 /description asdf /by g", new TaskList()));
+        assertEquals("Hmm, I don't understand the date. Use this format: YYYY-MM-DD",
+                exception.getMessage());
+    }
+
+    @Test
+    public void wrongDateUpdateTest2() {
+        Exception exception = assertThrows(ZeanException.class, () ->
+                Parser.parse("update 1 /description asdf /from 2024-03-08 /to g ", new TaskList()));
+        assertEquals("Hmm, I don't understand the date. Use this format: YYYY-MM-DD",
+                exception.getMessage());
+    }
+
+    @Test
+    public void wrongDateUpdateTest3() {
+        Exception exception = assertThrows(ZeanException.class, () ->
+                Parser.parse("update 1 /description asdf /from g /to 2024-03-08 ", new TaskList()));
+        assertEquals("Hmm, I don't understand the date. Use this format: YYYY-MM-DD",
+                exception.getMessage());
+    }
+
+    @Test
+    public void wrongDateUpdateTest4() {
+        Exception exception = assertThrows(ZeanException.class, () ->
+                Parser.parse("update 1 /description asdf /from g /to g ", new TaskList()));
+        assertEquals("Hmm, I don't understand the date. Use this format: YYYY-MM-DD",
+                exception.getMessage());
+    }
 }

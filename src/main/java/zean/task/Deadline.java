@@ -31,6 +31,19 @@ public class Deadline extends Task {
         }
     }
 
+    public void updateDates(String by, String from, String to) {
+        if (!from.isBlank() || !to.isBlank()) {
+            throw new ZeanException("Cannot update from/to dates for deadline task!");
+        }
+        if (!by.isBlank()) {
+            try {
+                this.by = LocalDate.parse(by.strip());
+            } catch (DateTimeParseException e) {
+                throw new ZeanException("The date is invalid!");
+            }
+        }
+    }
+
     /**
      * Returns the string representation of the deadline task.
      *

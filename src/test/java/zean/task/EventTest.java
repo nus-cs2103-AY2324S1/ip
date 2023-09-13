@@ -80,4 +80,60 @@ public class EventTest {
         Event event = new Event("0", "test", "2023-09-29", "2024-02-29");
         assertEquals("Feb 29 2024", event.getTo());
     }
+
+    @Test
+    public void endBeforeStartDateUpdateTest1() {
+        Event event = new Event("0", "test", "2023-09-29", "2024-02-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                event.updateDates("", "2024-03-01", ""));
+        assertEquals("The new start date is after the end date!", exception.getMessage());
+    }
+
+    @Test
+    public void endBeforeStartDateUpdateTest2() {
+        Event event = new Event("0", "test", "2023-09-29", "2024-02-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                event.updateDates("", "2024-03-01", "2023-04-01"));
+        assertEquals("The new end date is before the start date!", exception.getMessage());
+    }
+
+    @Test
+    public void endBeforeStartDateUpdateTest3() {
+        Event event = new Event("0", "test", "2023-09-29", "2024-02-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                event.updateDates("", "", "2023-04-01"));
+        assertEquals("The new end date is before the start date!", exception.getMessage());
+    }
+
+    @Test
+    public void invalidUpdateTest() {
+        Event event = new Event("0", "test", "2023-09-29", "2024-02-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                event.updateDates("2023-08-31", "", "2023-04-01"));
+        assertEquals("Cannot update by date for event task!", exception.getMessage());
+    }
+
+    @Test
+    public void invalidDateUpdateTest1() {
+        Event event = new Event("0", "test", "2023-09-29", "2024-02-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                event.updateDates("", "", "2024-02-31"));
+        assertEquals("The date is invalid!", exception.getMessage());
+    }
+
+    @Test
+    public void invalidDateUpdateTest2() {
+        Event event = new Event("0", "test", "2023-09-29", "2024-02-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                event.updateDates("", "2023-02-31", ""));
+        assertEquals("The date is invalid!", exception.getMessage());
+    }
+
+    @Test
+    public void invalidDateUpdateTest3() {
+        Event event = new Event("0", "test", "2023-09-29", "2024-02-29");
+        Exception exception = assertThrows(ZeanException.class, () ->
+                event.updateDates("", "2023-02-31", "2024-02-31"));
+        assertEquals("The date is invalid!", exception.getMessage());
+    }
 }

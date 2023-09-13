@@ -23,6 +23,12 @@ public class Todo extends Task {
         }
     }
 
+    public void updateDates(String by, String from, String to) {
+        if (!by.isBlank() || !from.isBlank() || !to.isBlank()) {
+            throw new ZeanException("Cannot update by/from/to dates for todo task!");
+        }
+    }
+
     /**
      * Returns the string representation of the todo task.
      *
