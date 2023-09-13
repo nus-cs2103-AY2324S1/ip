@@ -35,12 +35,13 @@ public class Duke {
             stringBuilder.append(Ui.directoryNotFound()).append("\n");
         }
 
-        f = new File(DEFAULT_FILE_PATH);
-        if (f.isFile()) {
+        if (new File(DEFAULT_FILE_PATH).isFile()) {
             stringBuilder.append(Ui.savedFileFound());
         } else {
             stringBuilder.append(Ui.savedFileNotFound());
         }
+
+        stringBuilder.append("\n");
 
         try {
             tasks = new TaskList(storage.loadFile());
@@ -59,6 +60,8 @@ public class Duke {
         Parser parser = new Parser(input, this.tasks, this.storage);
         String response = parser.parse();
 
+        assert !response.isEmpty();
+
         if (parser.isBye()) {
             return stopProgram(response);
         }
@@ -68,7 +71,7 @@ public class Duke {
     public String stopProgram(String out) {
         new Thread(() -> {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(2500);
                 Platform.exit();
             } catch (IllegalArgumentException | InterruptedException e) {
                 throw new DukeException(e.getMessage());

@@ -22,12 +22,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + convertDateToString(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + super.convertDateToString(this.by) + ")";
     }
 
     @Override
     public String convertToSaveFormat() {
         return "D | " + super.convertToSaveFormat() + " | "
-                + convertDateToString(this.by);
+                + super.convertDateToString(this.by);
     }
 }

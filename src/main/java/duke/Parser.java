@@ -29,7 +29,7 @@ public class Parser {
      * Checks the user input and perform the corresponding action based on the input.
      */
     public String parse() {
-        String[] input = this.userInput.split(" ", 2);
+        String[] input = this.userInput.trim().split(" ", 2);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             switch (input[0]) {
@@ -100,6 +100,8 @@ public class Parser {
         } catch (DukeException e) {
             return Ui.showExceptionError(e);
         }
+
+        assert !stringBuilder.toString().isEmpty();
         return stringBuilder.toString();
     }
 
