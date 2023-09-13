@@ -15,33 +15,21 @@ public class Task implements Serializable {
     }
 
     // Constructor for tasks with date and time
-    public Task(String description,LocalDateTime dateTime) {
+    public Task(String description, LocalDateTime dateTime) {
         this(description);
         this.dateTime = dateTime;
     }
 
-    // Getter and setter for dateTime
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [X] " + description);
     }
 
     public void markAsUndone() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  [ ] " + description);
     }
 
     @Override
