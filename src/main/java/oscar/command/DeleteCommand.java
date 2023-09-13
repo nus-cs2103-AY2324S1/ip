@@ -1,11 +1,11 @@
 package oscar.command;
 
+import oscar.essential.InfoList;
 import oscar.essential.Storage;
-import oscar.essential.TaskList;
 import oscar.exception.OscarException;
 
 /**
- * Command to delete a task from the task list.
+ * Command to delete an info from the info list.
  */
 public class DeleteCommand extends Command {
     private final String details;
@@ -13,27 +13,27 @@ public class DeleteCommand extends Command {
     /**
      * Instantiates a delete command.
      *
-     * @param details Task number to be deleted.
+     * @param d Info number to be deleted.
      */
-    public DeleteCommand(String details) {
-        this.details = details;
+    public DeleteCommand(String d) {
+        this.details = d;
     }
 
     /**
-     * Deletes a task using the task number.
+     * Deletes an info using the info number.
      *
-     * @param tasks   ArrayList of tasks.
+     * @param infos   ArrayList of infos.
      * @param storage File loading and saving handler.
      * @return String output of deletion command.
-     * @throws OscarException Failure to validate task number.
+     * @throws OscarException Failure to validate info number.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) throws OscarException {
-        assert tasks != null;
+    public String execute(InfoList infos, Storage storage) throws OscarException {
+        assert infos != null;
         assert storage != null;
-        int index = validateInt(details, tasks);
-        String currentTask = tasks.delete(index);
-        storage.save(tasks);
-        return "Oscar has removed this task:\n" + currentTask + "\n" + tasks.listCount();
+        int index = validateInt(infos, details);
+        String currentInfo = infos.delete(index);
+        storage.save(infos);
+        return "Oscar has removed this info:\n" + currentInfo + "\n" + infos.listCount();
     }
 }

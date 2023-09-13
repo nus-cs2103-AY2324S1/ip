@@ -3,11 +3,11 @@ package oscar.command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import oscar.essential.InfoList;
 import oscar.essential.Storage;
-import oscar.essential.TaskList;
 import oscar.exception.OscarException;
-import oscar.task.Deadline;
-import oscar.task.Task;
+import oscar.info.DeadlineTask;
+import oscar.info.Task;
 
 /**
  * Command to create a new deadline task.
@@ -18,33 +18,33 @@ public class DeadlineCommand extends Command {
     /**
      * Instantiates a deadline command.
      *
-     * @param details Description of deadline task.
+     * @param d Description of deadline task.
      */
-    public DeadlineCommand(String details) {
-        this.details = details;
+    public DeadlineCommand(String d) {
+        this.details = d;
     }
 
     /**
-     * Creates a new deadline task and save it to the task list.
+     * Creates a new deadline task and save it to the info list.
      *
-     * @param tasks   ArrayList of tasks.
+     * @param infos   ArrayList of infos.
      * @param storage File loading and saving handler.
      * @return String output of deadline task.
      * @throws OscarException Incorrect format of deadline command.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) throws OscarException {
-        assert tasks != null;
+    public String execute(InfoList infos, Storage storage) throws OscarException {
+        assert infos != null;
         assert storage != null;
         String[] validatedDetails = validate();
         String description = validatedDetails[0];
         String deadline = validatedDetails[1];
         LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMAT);
 
-        Task newDeadline = new Deadline(description, deadlineDateTime);
-        tasks.add(newDeadline);
-        storage.save(tasks);
-        return "Oscar has added:\n" + newDeadline + "\n\n" + tasks.listCount();
+        Task newDeadline = new DeadlineTask(description, deadlineDateTime);
+        infos.add(newDeadline);
+        storage.save(infos);
+        return "Oscar has added:\n" + newDeadline + "\n\n" + infos.listCount();
     }
 
     /**

@@ -2,8 +2,8 @@ package oscar.command;
 
 import java.time.format.DateTimeFormatter;
 
+import oscar.essential.InfoList;
 import oscar.essential.Storage;
-import oscar.essential.TaskList;
 import oscar.exception.OscarException;
 
 /**
@@ -13,24 +13,24 @@ public abstract class Command {
     static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
-     * Validates the provided task number.
+     * Validates the provided info number.
      *
-     * @param details Task number as a string.
-     * @param tasks ArrayList of tasks.
-     * @return Integer task number.
-     * @throws OscarException Failure to validate task number.
+     * @param details Info number as a string.
+     * @param infos   ArrayList of infos.
+     * @return Integer info number.
+     * @throws OscarException Failure to validate info number.
      */
-    public int validateInt(String details, TaskList tasks) throws OscarException {
+    public int validateInt(InfoList infos, String details) throws OscarException {
         if (details.isEmpty()) {
-            throw new OscarException("Sorry! The task number cannot be empty.\n");
+            throw new OscarException("Sorry! The info number cannot be empty.\n");
         }
         int index;
         try {
             index = Integer.parseInt(details) - 1;
             if (index < 0) {
-                throw new OscarException("Sorry! Task numbers must be natural numbers.\n");
-            } else if (index >= tasks.getSize()) {
-                throw new OscarException("Sorry! Task number is too large.\n");
+                throw new OscarException("Sorry! Info numbers must be natural numbers.\n");
+            } else if (index >= infos.getSize()) {
+                throw new OscarException("Sorry! Info number is too large.\n");
             }
             return index;
         } catch (NumberFormatException e) {
@@ -41,10 +41,10 @@ public abstract class Command {
     /**
      * Carries out the intended function of a command.
      *
-     * @param tasks   ArrayList of tasks.
+     * @param infos   ArrayList of infos.
      * @param storage File loading and saving handler.
      * @return String output of command.
      * @throws OscarException Failure to execute command.
      */
-    public abstract String execute(TaskList tasks, Storage storage) throws OscarException;
+    public abstract String execute(InfoList infos, Storage storage) throws OscarException;
 }

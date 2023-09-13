@@ -1,31 +1,31 @@
 package oscar;
 
 import oscar.command.Command;
+import oscar.essential.InfoList;
 import oscar.essential.Parser;
 import oscar.essential.Storage;
-import oscar.essential.TaskList;
 import oscar.exception.OscarException;
 
 /**
  * Chatbot named Oscar that can respond to user input.
  */
 public class Oscar {
-    static final String FILE_PATH = "./data/tasklist";
+    static final String FILE_PATH = "./data/infolist";
 
     private final Storage storage;
-    private TaskList tasks;
+    private InfoList infos;
 
     /**
      * Instantiates Oscar with saved data.
      *
-     * @param filePath Location of saved task list.
+     * @param filePath Location of saved info list.
      */
     public Oscar(String filePath) {
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            infos = new InfoList(storage.load());
         } catch (OscarException e) {
-            tasks = new TaskList();
+            infos = new InfoList();
         }
     }
 
@@ -38,7 +38,7 @@ public class Oscar {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, storage);
+            return c.execute(infos, storage);
         } catch (OscarException e) {
             return e.getMessage();
         }

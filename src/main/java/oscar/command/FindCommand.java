@@ -1,11 +1,11 @@
 package oscar.command;
 
+import oscar.essential.InfoList;
 import oscar.essential.Storage;
-import oscar.essential.TaskList;
 import oscar.exception.OscarException;
 
 /**
- * Command to find a task in the task list.
+ * Command to find a task in the info list.
  */
 public class FindCommand extends Command {
     private final String keyword;
@@ -13,25 +13,25 @@ public class FindCommand extends Command {
     /**
      * Instantiates a find command.
      *
-     * @param keyword String used to find tasks.
+     * @param k String used to find infos.
      */
-    public FindCommand(String keyword) {
-        this.keyword = keyword;
+    public FindCommand(String k) {
+        this.keyword = k;
     }
 
     /**
-     * Find a task by searching for a keyword.
+     * Find an info by searching for a keyword.
      *
-     * @param tasks   ArrayList of tasks.
+     * @param infos   ArrayList of infos.
      * @param storage File loading and saving handler.
      * @return String output of find command.
      * @throws OscarException Failure to execute command.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) throws OscarException {
-        assert tasks != null;
+    public String execute(InfoList infos, Storage storage) throws OscarException {
+        assert infos != null;
         validate();
-        return tasks.find(keyword);
+        return infos.find(keyword);
     }
 
     /**

@@ -8,6 +8,7 @@ import oscar.command.ExitCommand;
 import oscar.command.FindCommand;
 import oscar.command.ListCommand;
 import oscar.command.MarkCommand;
+import oscar.command.NoteCommand;
 import oscar.command.TodoCommand;
 import oscar.command.UnmarkCommand;
 import oscar.exception.OscarException;
@@ -33,7 +34,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
 
-        // Display text stored by user in chronological order if
+        // Displays stored info in chronological order if
         // user enters "list" command
         case "list":
             return new ListCommand();
@@ -46,7 +47,7 @@ public class Parser {
         case "unmark":
             return new UnmarkCommand(details);
 
-        // Delete a task if user enters "delete" command
+        // Delete an info if user enters "delete" command
         case "delete":
             return new DeleteCommand(details);
 
@@ -61,6 +62,10 @@ public class Parser {
         // Create a new event task if user enters "event" command
         case "event":
             return new EventCommand(details);
+
+        // Create a new note if user enters "note" command
+        case "note":
+            return new NoteCommand(details);
 
         // Find
         case "find":
