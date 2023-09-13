@@ -65,10 +65,23 @@ public class UpdateCommand extends Command {
     /**
      * Gets the command type for the UpdateCommand.
      *
-     * @return Update.
+     * @return Update, followed by the update type.
      */
     @Override
     public String getCommandType() {
-        return "Update";
+        switch (updateType) {
+        case DESCRIPTION:
+            return "Update DESCRIPTION";
+            // return statement, no break needed
+        case DATE1:
+            return "Update DATE1";
+            // return statement, no break needed
+        case DATE2:
+            return "Update DATE2";
+            // return statement, no break needed
+        default:
+            throw new AssertionError(updateType);
+            // exception thrown, no break needed
+        }
     }
 }

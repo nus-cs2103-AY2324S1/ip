@@ -131,6 +131,70 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_emptyFindParams_dukeExceptionThrown() {
+        try {
+            Parser.parse("find ");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("You need to specify the keyword to find the tasks.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parse_emptyUpdateParams_dukeExceptionThrown() {
+        try {
+            Parser.parse("update ");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("You need to specify which task and what to update.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parse_badUpdateParams_dukeExceptionThrown() {
+        try {
+            Parser.parse("update nothing");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("You need to specify what to update in the task.", e.getMessage());
+        }
+
+        try {
+            Parser.parse("update 23");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("You need to specify what to update in the task.", e.getMessage());
+        }
+
+        try {
+            Parser.parse("update 2 ms message");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("Update type is invalid!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parse_emptyCloneParams_dukeExceptionThrown() {
+        try {
+            Parser.parse("clone ");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("You need to specify the index of the task to clone.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parse_badCloneParams_dukeExceptionThrown() {
+        try {
+            Parser.parse("clone test");
+            fail();
+        } catch (DukeException e) {
+            assertEquals("The index of the task to clone is not a valid integer.", e.getMessage());
+        }
+    }
+
+    @Test
     public void parse_exitCommand_success() throws DukeException {
         Command c = Parser.parse("bye");
         assertTrue(c.isExit());
@@ -181,5 +245,52 @@ public class ParserTest {
         Command c = Parser.parse("event some event /from 2023-11-11T12:30:00 /to 2023-11-12T12:00:00");
         assertFalse(c.isExit());
         assertEquals(c.getCommandType(), "Add Event");
+    }
+
+    @Test
+    public void parse_updateDescription_success() throws DukeException {
+        Command[] commands = { Parser.parse("update 3 message something"),
+                Parser.parse("update 3 msg something smells"),
+                Parser.parse("update 3 description whatever df 123") };
+
+        for (Command c : commands) {
+            assertFalse(c.isExit());
+            assertEquals(c.getCommandType(), "Update DESCRIPTION");
+        }
+    }
+
+    @Test
+    public void parse_updateDate1_success() throws DukeException {
+        Command[] commands = { Parser.parse("update 3 /from 2023-11-12T12:00:00"),
+                Parser.parse("update 3 date1 2023-11-12T12:00:00"),
+                Parser.parse("update 3 /by 2023-11-12T12:00:00"),
+                Parser.parse("update 3 by 2023-11-12T12:00:00"),
+                Parser.parse("update 3 from 2023-11-12T12:00:00"),
+                Parser.parse("update 3 /deadline 2023-11-12T12:00:00"),
+                Parser.parse("update 3 deadline 2023-11-12T12:00:00") };
+
+        for (Command c : commands) {
+            assertFalse(c.isExit());
+            assertEquals(c.getCommandType(), "Update DATE1");
+        }
+    }
+
+    @Test
+    public void parse_updateDate2_success() throws DukeException {
+        Command[] commands = { Parser.parse("update 3 /to 2023-11-12T12:00:00"),
+                Parser.parse("update 3 date2 2023-11-12T12:00:00"),
+                Parser.parse("update 3 to 2023-11-12T12:00:00") };
+
+        for (Command c : commands) {
+            assertFalse(c.isExit());
+            assertEquals(c.getCommandType(), "Update DATE2");
+        }
+    }
+
+    @Test
+    public void parse_cloneCommand_success() throws DukeException {
+        Command c = Parser.parse("clone 3");
+        assertFalse(c.isExit());
+        assertEquals(c.getCommandType(), "Clone");
     }
 }

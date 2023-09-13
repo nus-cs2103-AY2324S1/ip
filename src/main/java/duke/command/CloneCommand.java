@@ -3,7 +3,6 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.task.TaskList;
-import duke.task.UpdateType;
 
 /**
  * Represents a command to clone tasks in the task list.
@@ -16,7 +15,7 @@ public class CloneCommand extends Command {
     private int index;
 
     /**
-     * Initialises an UpdateCommand object.
+     * Initialises a CloneCommand object.
      *
      * @param index The index in the task list to clone.
      */
@@ -25,11 +24,11 @@ public class CloneCommand extends Command {
     }
 
     /**
-     * Executes the given UpdateCommand using the specified TaskList and Storage.
+     * Executes the given CloneCommand using the specified TaskList and Storage.
      *
-     * @param tasks The task list to update a task in.
+     * @param tasks The task list to clone a task in.
      * @param storage The storage to save and update tasks.
-     * @return The String that will be passed to the GUI when the UpdateCommand has finished executing.
+     * @return The String that will be passed to the GUI when the CloneCommand has finished executing.
      * @throws DukeException If index is out of range for the task list.
      */
     @Override
@@ -49,12 +48,12 @@ public class CloneCommand extends Command {
     }
 
     /**
-     * Gets the command type for the UpdateCommand.
+     * Gets the command type for the CloneCommand.
      *
-     * @return Update.
+     * @return Clone.
      */
     @Override
     public String getCommandType() {
-        return "Update";
+        return "Clone";
     }
 }

@@ -1,6 +1,15 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.CloneCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.UpdateCommand;
 import duke.task.UpdateType;
 
 /**
@@ -130,7 +139,7 @@ public class Parser {
         String[] updateDetails = message.substring(7).split(" ");
 
         if (updateDetails.length < 3) {
-            throw new DukeException("You need to specify which task and what to update.");
+            throw new DukeException("You need to specify what to update in the task.");
         }
 
         int updateIndex;
@@ -169,6 +178,10 @@ public class Parser {
         case "deadline":
             // fallthrough
         case "/deadline":
+            // fallthrough
+        case "by":
+            // fallthrough
+        case "/by":
             updateType = UpdateType.DATE1;
             break;
         case "date2":
