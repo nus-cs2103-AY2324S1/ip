@@ -9,6 +9,8 @@ public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
+    private String item = "";
+
     /**
      * Initializes the deacription and the completion of the task.
      *
@@ -19,6 +21,14 @@ public class Task implements Serializable {
         this.isDone = false;
     }
 
+    public void tag(String item) {
+        this.item = item;
+    }
+
+    public String getTag() {
+        return " tag : " + item;
+    }
+
     /**
      * Returns the strung form of the Tasks.
      *
@@ -26,7 +36,10 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        if(item.equals("")) {
+            return "[" + getStatusIcon() + "] " + this.description;
+        }
+        return "[" + getStatusIcon() + "] " + this.description + getTag();
     }
 
     /**

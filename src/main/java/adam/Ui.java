@@ -130,4 +130,8 @@ public class Ui {
     public String search() {
         return "Here are some of the tasks I found:";
     }
+
+    public String tag(String item) {
+    return "I have tagged this task as " + item;
+    }
 }

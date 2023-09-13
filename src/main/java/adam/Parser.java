@@ -39,6 +39,7 @@ public class Parser {
         case "mark":
         case "unmark":
         case "delete":
+        case "tag":
             command = new EditCommand(tokens, tokens[0]);
             break;
         case "find":
