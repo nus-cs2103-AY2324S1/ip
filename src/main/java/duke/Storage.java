@@ -60,7 +60,7 @@ public class Storage {
                     tasks.add(new Event(description, isDone, from, to));
                     break;
                 default:
-                    throw new DukeException("OOPS!!! Couldn't load file.");
+                    throw new DukeException("Couldn't load file.");
                 }
             }
             fileReader.close();

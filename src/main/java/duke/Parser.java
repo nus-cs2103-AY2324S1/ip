@@ -19,7 +19,7 @@ public class Parser {
      */
     public static Command parse(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
-        String commandType = parts[0];
+        String commandType = parts[0].toLowerCase();
 
         switch (commandType) {
         case "bye":
@@ -27,56 +27,138 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            int taskIndex2 = Integer.parseInt(input.substring(5)) - 1;
-            return new MarkCommand(taskIndex2);
         case "unmark":
-            int taskIndex3 = Integer.parseInt(input.substring(7)) - 1;
-            return new UnmarkCommand(taskIndex3);
+            return parseMarkOrUnmarkCommand(commandType, input);
         case "todo":
-            if (input.length() <= 5) {
-            throw new DukeException("\t OOPS!!! The description of a todo" +
-             " cannot be empty.");
-            }
-            return new AddCommand(new Todo(input.substring(5), false));
+            return parseTodoCommand(input);
         case "deadline":
-        // Parse deadline command and create DeadlineTask object
-            int byIndex = input.indexOf("/by");
-            if (byIndex == -1) {
-                throw new DukeException("\t OOPS!!! The deadline description" +
-                 " must include a /by date.");
-            }
-            String description = input.substring(9, byIndex).trim();
-            if (description.isEmpty()) {
-                throw new DukeException("\t OOPS!!! The deadline description" +
-                 " cannot be empty.");
-            }
-            String by = input.substring(byIndex + 3).trim();
-            return new AddCommand(new Deadline(description, false, by));
+            return parseDeadlineCommand(input);
         case "event":
-            int fromIndex = input.indexOf("/from");
-            int toIndex = input.indexOf("/to");
-            if (fromIndex == -1 && toIndex == -1) {
-                throw new DukeException("\t OOPS!!! The event description" +
-                 " must include both /from and /to dates.");
-            }
-            String description2 = input.substring(6, fromIndex).trim();
-            if (description2.isEmpty()) {
-                throw new DukeException("\t OOPS!!! The event description cannot" +
-                 " be empty.");
-            }
-            String from = input.substring(fromIndex + 5, toIndex).trim();
-            String to = input.substring(toIndex + 3).trim();
-            // Parse event command and create EventTask object
-            return new AddCommand(new Event(description2, false, from, to));
+            return parseEventCommand(input);
         case "delete":
-            int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-            return new DeleteCommand(taskIndex);
+            return parseDeleteCommand(input);
         case "find":
-            String keyword = input.substring(5).trim();
-            return new FindCommand(keyword);
+            return parseFindCommand(input);
         default:
-            throw new DukeException("\t OOPS!!! I'm sorry, but I don't know" +
-             " what that means :-(");
+            throw new DukeException("\t I'm sorry, but I don't know what that means.");
         }
+    }
+
+    /**
+     * Parses a mark or unmark command and returns the corresponding Duke command.
+     *
+     * @param commandType The type of command ('mark' or 'unmark').
+     * @param input The user input to be parsed.
+     * @return A Command object representing the mark/unmark command.
+     * @throws DukeException If the input is invalid or contains errors.
+     */
+    private static Command parseMarkOrUnmarkCommand(String commandType, String input) throws DukeException {
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            return commandType.equals("mark") ? new MarkCommand(taskIndex) : new UnmarkCommand(taskIndex);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("\t Please enter a valid task index to mark/unmark.");
+        }
+    }
+
+    /**
+     * Parses a todo command and returns the corresponding Duke command.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object representing the todo command.
+     * @throws DukeException If the input is invalid or contains errors.
+     */
+    private static Command parseTodoCommand(String input) throws DukeException {
+        String description = input.substring(5).trim();
+        if (description.isEmpty()) {
+            throw new DukeException("\t The description of a todo cannot be empty.");
+        }
+        return new AddCommand(new Todo(description, false));
+    }
+
+    /**
+     * Parses a deadline command and returns the corresponding Duke command.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object representing the deadline command.
+     * @throws DukeException If the input is invalid or contains errors.
+     */
+    private static Command parseDeadlineCommand(String input) throws DukeException {
+        int byIndex = input.indexOf("/by");
+        if (byIndex == -1) {
+            throw new DukeException("\t The deadline description must include a /by date.");
+        }
+        String description = input.substring(9, byIndex).trim();
+        if (description.isEmpty()) {
+            throw new DukeException("\t The deadline description cannot be empty.");
+        }
+        String by = input.substring(byIndex + 3).trim();
+        if (!isValidDateFormat(by)) {
+            throw new DukeException("\t The deadline date must be in the format yyyy-MM-dd.");
+        }
+        return new AddCommand(new Deadline(description, false, by));
+    }
+
+    /**
+     * Parses an event command and returns the corresponding Duke command.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object representing the event command.
+     * @throws DukeException If the input is invalid or contains errors.
+     */
+    private static Command parseEventCommand(String input) throws DukeException {
+        int fromIndex = input.indexOf("/from");
+        int toIndex = input.indexOf("/to");
+        if (fromIndex == -1 || toIndex == -1) {
+            throw new DukeException("\t The event description must include both /from and /to dates.");
+        }
+        String description = input.substring(6, fromIndex).trim();
+        if (description.isEmpty()) {
+            throw new DukeException("\t The event description cannot be empty.");
+        }
+        String from = input.substring(fromIndex + 5, toIndex).trim();
+        String to = input.substring(toIndex + 3).trim();
+        if (!isValidDateFormat(from) || !isValidDateFormat(to)) {
+            throw new DukeException("\t The event from and to date must be in the format yyyy-MM-dd.");
+        }
+        return new AddCommand(new Event(description, false, from, to));
+    }
+
+    /**
+     * Parses a delete command and returns the corresponding Duke command.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object representing the delete command.
+     * @throws DukeException If the input is invalid or contains errors.
+     */
+    private static Command parseDeleteCommand(String input) throws DukeException {
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+            return new DeleteCommand(taskIndex);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("\t Please enter a valid task index to delete.");
+        }
+    }
+
+    /**
+     * Parses a find command and returns the corresponding Duke command.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object representing the find command.
+     */
+    private static Command parseFindCommand(String input) {
+        String keyword = input.substring(5).trim();
+        return new FindCommand(keyword);
+    }
+
+    /**
+     * Checks if the given date string has the valid format "yyyy-MM-dd".
+     *
+     * @param date The date string to be validated.
+     * @return True if the date string is in the valid format, false otherwise.
+     */
+    private static boolean isValidDateFormat(String date) {
+        String dateFormatPattern = "\\d{4}-\\d{2}-\\d{2}";
+        return date.matches(dateFormatPattern);
     }
 }
