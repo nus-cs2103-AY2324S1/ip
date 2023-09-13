@@ -1,6 +1,5 @@
 package duke.components;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -19,52 +18,88 @@ public class Parser {
      * Parses user input and returns the corresponding command.
      * @param input User input to be parses.
      * @return Corresponding Command based on the input.
-     * @throws DukeException
-     * @throws IOException
+     * @throws DukeException Invalid input.
      */
-    public static Command parse(String input) throws DukeException, IOException {
+    public static Command parse(String input) throws DukeException {
         String[] commandInput = input.split(" ");
         String command = commandInput[0];
 
         try {
-            if (command.equals("bye")) {
-                return new ExitCommand();
-            } else if (command.equals("list")) {
-                return new ModifyCommand("L", 0);
-            } else if (command.equals("mark")) {
-                String type = "M";
-                int index = Integer.valueOf(commandInput[1]);
-                return new ModifyCommand(type, index);
-            } else if (command.equals("unmark")) {
-                String type = "U";
-                int index = Integer.valueOf(commandInput[1]);
-                return new ModifyCommand(type, index);
-            } else if (command.equals("todo")) {
-                String type = "T";
-                String[] task = getTask(type, input);
-                return new AddCommand(type, task[0]);
-            } else if (command.equals("deadline")) {
-                String type = "D";
-                String[] task = getTask(type, input);
-                return new AddCommand(type, task[0], parseDateTime(task[1]));
-            } else if (command.equals("event")) {
-                String type = "E";
-                String[] task = getTask(type, input);
-                return new AddCommand(type, task[0], parseDateTime(task[1]), parseDateTime(task[2]));
-            } else if (command.equals("delete")) {
-                String type = "D";
-                int index = Integer.valueOf(commandInput[1]);
-                return new ModifyCommand(type, index);
-            } else if (command.equals("find")) {
-                String type = "F";
-                String keyword = commandInput[1];
-                return new FilterCommand(type, keyword);
-            } else {
+            switch (command) {
+            case "bye":
+                return parseExitCommand();
+            case "list":
+                return parseListCommand();
+            case "mark":
+                return parseMarkCommand(commandInput);
+            case "unmark":
+                return parseUnmarkCommand(commandInput);
+            case "todo":
+                return parseTodoCommand(input);
+            case "deadline":
+                return parseDeadlineCommand(input);
+            case "event":
+                return parseEventCommand(input);
+            case "delete":
+                return parseDeleteCommand(commandInput);
+            case "find":
+                return parseFindCommand(commandInput);
+            default:
                 throw new DukeException("I'm afraid I do not quite understand. Could you kindly repeat it?");
             }
         } catch (Exception ex) {
             throw new DukeException(ex.getMessage());
         }
+    }
+
+    private static Command parseExitCommand() {
+        return new ExitCommand();
+    }
+
+    private static Command parseListCommand() {
+        return new ModifyCommand("L");
+    }
+
+    private static Command parseMarkCommand(String[] commandInput) {
+        String type = "M";
+        int index = Integer.parseInt(commandInput[1]);
+        return new ModifyCommand(type, index);
+    }
+
+    private static Command parseUnmarkCommand(String[] commandInput) {
+        String type = "U";
+        int index = Integer.parseInt(commandInput[1]);
+        return new ModifyCommand(type, index);
+    }
+
+    private static Command parseTodoCommand(String input) {
+        String type = "T";
+        String[] task = getTask(type, input);
+        return new AddCommand(type, task[0]);
+    }
+
+    private static Command parseDeadlineCommand(String input) throws DukeException {
+        String type = "D";
+        String[] task = getTask(type, input);
+        return new AddCommand(type, task[0], parseDateTime(task[1]));
+    }
+
+    private static Command parseEventCommand(String input) throws DukeException {
+        String type = "E";
+        String[] task = getTask(type, input);
+        return new AddCommand(type, task[0], parseDateTime(task[1]), parseDateTime(task[2]));
+    }
+
+    private static Command parseDeleteCommand(String[] commandInput) {
+        String type = "D";
+        int index = Integer.parseInt(commandInput[1]);
+        return new ModifyCommand(type, index);
+    }
+
+    private static Command parseFindCommand(String[] commandInput) {
+        String type = "F";
+        String keyword = commandInput[1];
+        return new FilterCommand(type, keyword);
     }
 
     /**
@@ -75,18 +110,19 @@ public class Parser {
      * @return String array containing the details of the task, parsed into the correct indexes.
      */
     public static String[] getTask(String type, String input) {
-        if (type.equals("T")) {
-            return new String[] {input.substring(5)};
-        } else if (type.equals("D")) {
+        switch (type) {
+        case "T":
+            return new String[]{input.substring(5)};
+        case "D":
             String deadline = input.substring(9);
             return deadline.split(" /by ");
-        } else if (type.equals("E")) {
+        case "E":
             String details = input.substring(6);
             String[] taskStartEnd = details.split(" /from ");
             String[] startEnd = taskStartEnd[1].split(" /to ");
-            return new String[] {taskStartEnd[0], startEnd[0], startEnd[1]};
-        } else {
-            return new String[] {};
+            return new String[]{taskStartEnd[0], startEnd[0], startEnd[1]};
+        default:
+            return new String[]{};
         }
     }
 

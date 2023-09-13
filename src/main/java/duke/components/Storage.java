@@ -44,16 +44,12 @@ public class Storage {
         try {
             createFileIfNotExist(filePath);
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    Task task = parseTask(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-                }
-            } catch (IOException | DukeException e) {
-                throw new DukeException("There must be an error. I can't seem to locate the file.");
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line = reader.readLine();
+            while (line != null) {
+                Task task = parseTask(line);
+                tasks.add(task);
+                line = reader.readLine();
             }
         } catch (IOException | DukeException e) {
             throw new DukeException("There must be an error. I can't seem to locate the file.");
@@ -70,11 +66,11 @@ public class Storage {
      */
     private void createFileIfNotExist(String filePath) throws IOException {
         File file = new File(filePath);
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            parentDirectory.mkdirs(); // Recursively create directories if they don't exist
+        }
         if (!file.exists()) {
-            File parentDirectory = file.getParentFile();
-            if (parentDirectory != null && !parentDirectory.exists()) {
-                parentDirectory.mkdirs(); // Recursively create directories if they don't exist
-            }
             file.createNewFile();
         }
     }

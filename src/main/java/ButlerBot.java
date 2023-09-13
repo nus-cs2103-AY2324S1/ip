@@ -59,7 +59,7 @@ public class ButlerBot {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException | IOException | DateTimeParseException | IndexOutOfBoundsException e) {
+            } catch (Exception e) {
                 ui.showError(e.getMessage());
             }
         }
@@ -74,14 +74,12 @@ public class ButlerBot {
      *
      * @param input
      * @return A String in response to user input.
-     * @throws DukeException
-     * @throws IOException
      */
-    public String getResponse(String input) throws DukeException, IOException {
+    public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);
-        } catch (DukeException | IOException | DateTimeParseException | IndexOutOfBoundsException e) {
+        } catch (Exception e) {
             return ui.showError(e.getMessage());
         }
     }

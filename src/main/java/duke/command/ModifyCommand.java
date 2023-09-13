@@ -25,6 +25,15 @@ public class ModifyCommand extends Command {
      * Constructor for ModifyCommand.
      *
      * @param type The type of command.
+     */
+    public ModifyCommand(String type) {
+        this.type = type;
+    }
+
+    /**
+     * Constructor for ModifyCommand.
+     *
+     * @param type The type of command.
      * @param index The index of the list to modify.
      */
     public ModifyCommand(String type, int index) {
@@ -44,28 +53,28 @@ public class ModifyCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
-            if (type.equals("L")) {
+            Task task = tasks.getTask(index);
+            switch (type) {
+            case "L":
                 return ui.showList(tasks);
-            } else {
-                Task task = tasks.getTask(index);
-                if (type.equals("M")) {
-                    tasks.mark(index);
-                    storage.saveTasks(tasks.getTasks());
-                    return ui.showTaskCompleted(task);
-                } else if (type.equals("U")) {
-                    tasks.unmark(index);
-                    storage.saveTasks(tasks.getTasks());
-                    return ui.showTaskUnmarked(task);
-                } else if (type.equals("D")) {
-                    tasks.delete(index);
-                    storage.saveTasks(tasks.getTasks());
-                    return ui.showTaskDeleted(task, tasks.getSize());
-                }
+            case "M":
+                tasks.mark(index);
+                storage.saveTasks(tasks.getTasks());
+                return ui.showTaskCompleted(task);
+            case "U":
+                tasks.unmark(index);
+                storage.saveTasks(tasks.getTasks());
+                return ui.showTaskUnmarked(task);
+            case "D":
+                tasks.delete(index);
+                storage.saveTasks(tasks.getTasks());
+                return ui.showTaskDeleted(task, tasks.getSize());
+            default:
+                return null;
             }
         } catch (Exception ex) {
             throw new DukeException("I'm afraid such a task do not exist.");
         }
-        return null;
     }
 
     @Override
