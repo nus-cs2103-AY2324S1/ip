@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidDatetimeFormatException;
@@ -51,14 +52,8 @@ public class Deadline extends Task {
         return String.format("%s /by %s", super.toCommand(), DatetimeHelper.commandFormat(by));
     }
 
-    /**
-     * Returns if the Deadline should be filtered
-     *
-     * @param before the comparison date
-     * @return returns if Deadline is by before
-     */
     @Override
-    public boolean filter(Optional<LocalDateTime> before) {
-        return before.filter((datetime) -> datetime.isBefore(by)).isEmpty(); // if is empty return true
+    protected boolean before(LocalDateTime before) {
+        return by.isBefore(before);
     }
 }

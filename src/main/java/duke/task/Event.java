@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidDatetimeFormatException;
@@ -63,16 +64,8 @@ public class Event extends Task {
             super.toCommand(), DatetimeHelper.commandFormat(from), DatetimeHelper.commandFormat(to));
     }
 
-    /**
-     * Returns if the Event should be filtered
-     *
-     * @param before the comparison date
-     * @return returns if the event from is before the argument
-     */
     @Override
-    public boolean filter(Optional<LocalDateTime> before) {
-        return before
-            .filter((datetime) -> datetime.isBefore(from))
-            .isEmpty(); // if is empty return true
+    protected boolean before(LocalDateTime before) {
+        return from.isBefore(before);
     }
 }
