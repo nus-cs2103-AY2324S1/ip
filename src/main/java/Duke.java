@@ -8,7 +8,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Class Duke for the chatbot
+ * Class Duke for the chatBot
  *
  * @author marioalvaro
  */
@@ -46,9 +46,6 @@ public class Duke {
         try {
             Command c = Parser.parse(input);
             response = c.execute(taskList, ui, storage);
-            if (c instanceof ByeCommand) {
-
-            }
         } catch (Exception e) {
             ui.printError(e.getMessage());
             return e.getMessage();

@@ -22,6 +22,7 @@ import duke.task.Todo;
  */
 public class Storage {
     private static final String PATH_FILE = "./data/TaskStorage.txt";
+    private static final String PATH_DIRECTORY = "./data";
     private File file = new File(PATH_FILE);
 
     /**
@@ -35,9 +36,8 @@ public class Storage {
 
         while (sc.hasNextLine()) {
             String scanned = sc.nextLine();
-            String[] singleTaskArray = scanned.split(" / ");
 
-            //do a checking <------
+            String[] singleTaskArray = scanned.split(" / ");
 
             Task task;
             switch (singleTaskArray[0]) {
@@ -53,10 +53,7 @@ public class Storage {
             default:
                 throw new DukeNotTaskException(singleTaskArray[0]);
             }
-
-            if (singleTaskArray[1].equals("1")) {
-                task.mark();
-            }
+            markTask(task, singleTaskArray[1]);
 
             readFile.add(task);
         }
@@ -64,6 +61,19 @@ public class Storage {
         return readFile;
     }
 
+    /**
+     * Mark the task if applicable
+     *
+     * @param task The task that needs to be marked
+     * @param marker either "0" or "1"
+     */
+    private void markTask(Task task, String marker) {
+        if (marker.equals("1")) {
+            task.mark();
+        }
+        assert marker.equals("0")  || marker.equals("1")
+                : "Wrong marking format in storage";
+    }
 
     /**
      * A method to write the file with the existing TaskList.
@@ -88,19 +98,20 @@ public class Storage {
     }
 
 
+
     /**
      * A method to check if the file exist. If not, create a new .txt file.
      */
     public void checkFile() {
         try {
-            File directory = new File("./data");
+            File directory = new File(PATH_DIRECTORY);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
             File file = new File(PATH_FILE);
             if (!file.exists()) {
-                boolean created = file.createNewFile();
+                file.createNewFile();
             }
         } catch (IOException e) {
             e.printStackTrace();
