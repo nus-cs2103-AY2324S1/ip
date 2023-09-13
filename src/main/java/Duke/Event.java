@@ -20,6 +20,9 @@ public class Event extends Task{
      */
     public Event (String val, String from, String to){
         super(val);
+        assert !val.isEmpty() && !from.isEmpty() && !to.isEmpty();
+        assert from.matches("\\w{3} \\d{2} \\d{4}");
+        assert to.matches("\\w{3} \\d{2} \\d{4}");
         this.from=LocalDate.parse(from,DateTimeFormatter.ofPattern("MMM dd yyyy"));
         this.to = LocalDate.parse(to,DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }

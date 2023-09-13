@@ -39,12 +39,13 @@ public class Duke {
 
     /**
      * Main method for Duke.
-     * @param args
+     * @param
      * @throws DukeException
      */
-    public static void main(String[] args) throws DukeException {
+
+    /*public static void main(String[] args) throws DukeException {
         new Duke("file.txt").run();
-    }
+    }*/
 
     public Duke(){
         ui=new Ui();
@@ -85,6 +86,7 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        assert !input.isEmpty();
         parser.parse(input, tasks, storage, ui);
         if (parser.isExit()) {
             ui.showExit();
