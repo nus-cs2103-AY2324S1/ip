@@ -183,12 +183,12 @@ public class Tasklist {
                 .map(Task::getDescription)
                 .collect(Collectors.toList());
 
-        AtomicReference<String> resp = new AtomicReference<>("We have found the following similar tasks:\n");
+        // Atomic types are used to ensure thread safety in streams
+        AtomicReference<String> resp = new AtomicReference<>("");
         AtomicInteger a = new AtomicInteger(1);
 
         FuzzySearch.extractSorted(search, descriptions, 60)
                 .stream()
-                // .takeWhile(x -> x.getScore() > 60)
                 .forEach(x -> {
                     int indexInList = x.getIndex();
                     int currentIndex = a.getAndAdd(1);
@@ -199,7 +199,7 @@ public class Tasklist {
             return "There is no matching tasks in your list! Type 'list' to see what tasks you have:)";
         }
 
-        return resp.get();
+        return "We have found the following similar tasks:\n" + resp.get();
     }
 
     /**

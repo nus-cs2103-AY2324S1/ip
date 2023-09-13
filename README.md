@@ -15,5 +15,17 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 ## Exciting Features to Come
 ### Better Search with Fuzzy Matching
-When you input a string with no exact matchings, we will alert you and give you some suggestions for the item that you may be looking for
-When you input a wrong keyword, we will interpret it as a similar one or if nothing matches, we will give you an alert.
+- When you input a keyword, we will find all tasks with description in high similarity to your input, ranked by relevance. Don't worry if you input slightly wrongly!
+Example Usage
+```shell
+# All of the commands below find tasks with "project" in their description
+find project
+find prrjeco
+find projecst
+```
+- If you have more than one keyword to find, simply input them consecutively, separated by a space. We will find you all tasks you want to find!
+Example Usage
+```shell
+# The command below finds tasks with "icecream", "project", and "hackers" in their description
+find icecream project hackers
+```
