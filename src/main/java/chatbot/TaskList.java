@@ -27,11 +27,7 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD
-     * Returns the current size of the TaskList.
-=======
      * Returns the current size of the taskList.
->>>>>>> branch-Level-9
      */
     public int size() {
         return this.taskList.size();
@@ -41,28 +37,43 @@ public class TaskList {
      * Returns the String representation of the task with the given index.
      *
      * @param i The index of the task.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      * @returns The String representation of the task.
      */
-    public String taskRep(int i) {
-        return taskList.get(i).toString();
+    public String taskRep(int i) throws InvalidTaskNumberException {
+        try {
+            return taskList.get(i).toString();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException(i + 1);
+        }
     }
 
     /**
      * Marks the task with the given index as done.
      *
      * @param i The index of the task.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
-    public void markTaskTrue(int i) {
-        taskList.get(i).markStatus(true);
+    public void markTaskTrue(int i) throws InvalidTaskNumberException {
+        try {
+            taskList.get(i).markStatus(true);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException(i + 1);
+        }
     }
 
     /**
      * Marks the task with the given index as undone.
      *
      * @param i The index of the task.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
-    public void markTaskFalse(int i) {
-        taskList.get(i).markStatus(false);
+    public void markTaskFalse(int i) throws InvalidTaskNumberException {
+        try {
+            taskList.get(i).markStatus(false);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException(i + 1);
+        }
     }
 
     /**
