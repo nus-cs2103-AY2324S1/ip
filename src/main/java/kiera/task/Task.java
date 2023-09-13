@@ -59,7 +59,6 @@ public class Task {
     public void setDeadline(String input) {
         this.deadline = LocalDate.parse(input);
     }
-
     public LocalDate getDeadline() {
         return this.deadline;
     }

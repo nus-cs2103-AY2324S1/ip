@@ -38,10 +38,8 @@ public class MarkCommand extends Command {
             Task t = tasks.getTaskByIndex(index);
             String notify;
             if (mark) {
-                notify = "yay, you're one task down!";
                 t.markAsDone();
             } else {
-                notify = "ok, this task has been marked undone.";
                 t.markAsUndone();
             }
 
@@ -49,7 +47,7 @@ public class MarkCommand extends Command {
                     .map(task -> tasks.indexOf(task) + ". " + task + "\n")
                     .collect(Collectors.joining());
             storage.save(tasks);
-            ui.showMarkedList(notify, result);
+            ui.showMarkedList(mark, result);
         } catch (IndexOutOfBoundsException e) {
             throw new KieraException("your task number is not in the task list!");
         }

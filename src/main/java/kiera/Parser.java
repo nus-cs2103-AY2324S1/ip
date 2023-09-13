@@ -11,6 +11,7 @@ import kiera.command.FilterDateCommand;
 import kiera.command.FilterWordCommand;
 import kiera.command.ListCommand;
 import kiera.command.MarkCommand;
+import kiera.command.SortCommand;
 import kiera.exception.KieraException;
 import kiera.tasktype.TaskType;
 
@@ -54,6 +55,14 @@ public class Parser {
         if (input.startsWith("find")) {
             String desc = input.replace("find ", "");
             return new FilterWordCommand(desc);
+        }
+
+        if (input.startsWith("sort-event-date")) {
+            return new SortCommand(TaskType.EVENT, "date");
+        } else if (input.startsWith("sort-deadline-date")) {
+            return new SortCommand(TaskType.DEADLINE, "date");
+        } else if (input.startsWith("sort-event-time")) {
+            return new SortCommand(TaskType.EVENT, "time");
         }
 
         if (input.startsWith("deadline-date")) {
