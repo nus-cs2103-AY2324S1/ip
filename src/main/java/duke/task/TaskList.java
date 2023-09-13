@@ -31,34 +31,31 @@ public class TaskList {
         description = description.trim();
         switch (taskType) {
         case TODO:
-            if (!description.isEmpty()) {
-                this.tasks.add(new ToDo(description));
-            } else {
+            if (description.isEmpty()) {
                 throw new DukeException("todo error");
             }
+            this.tasks.add(new ToDo(description));
             break;
         case DEADLINE:
             Pattern p = Pattern.compile("(.+) /by (.+)");
             Matcher m = p.matcher(description);
-            if (m.matches() && !m.group(1).isEmpty() && !m.group(2).isEmpty()) {
-                try {
-                    this.tasks.add(new Deadline(m.group(1), m.group(2)));
-                } catch (DateTimeParseException e) {
-                    throw new DukeException("deadline error");
-                }
-            } else {
+            if (!(m.matches() && !m.group(1).isEmpty() && !m.group(2).isEmpty())) {
+                throw new DukeException("deadline error");
+            }
+            try {
+                this.tasks.add(new Deadline(m.group(1), m.group(2)));
+            } catch (DateTimeParseException e) {
                 throw new DukeException("deadline error");
             }
             break;
         case EVENT:
             Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
             Matcher matcher = pattern.matcher(description);
-            if (matcher.matches() && !matcher.group(1).isEmpty() && !matcher.group(2).isEmpty()
-                    && !matcher.group(3).isEmpty()) {
-                this.tasks.add(new Event(matcher.group(1), matcher.group(2), matcher.group(3)));
-            } else {
+            if (!(matcher.matches() && !matcher.group(1).isEmpty() && !matcher.group(2).isEmpty()
+                    && !matcher.group(3).isEmpty())) {
                 throw new DukeException("event error");
             }
+            this.tasks.add(new Event(matcher.group(1), matcher.group(2), matcher.group(3)));
             break;
         default:
             break;
@@ -104,10 +101,9 @@ public class TaskList {
     public String markTask(int taskIndex, boolean isDone) throws DukeException {
         if (taskIndex > tasks.size() || taskIndex <= 0) {
             throw new DukeException("task not found");
-        } else {
-            tasks.get(taskIndex - 1).markAsDone(isDone);
-            return "Here's your modified task:\n" + tasks.get(taskIndex - 1) + "\n\"Keep moving forward.\"";
         }
+        tasks.get(taskIndex - 1).markAsDone(isDone);
+        return "Here's your modified task:\n" + tasks.get(taskIndex - 1) + "\n\"Keep moving forward.\"";
     }
 
     /**
@@ -143,13 +139,12 @@ public class TaskList {
         //TODO: double check if not completed
         if (taskIndex > tasks.size() || taskIndex <= 0) {
             throw new DukeException("task not found");
-        } else {
-            Task task = tasks.get(taskIndex - 1);
-            tasks.remove(taskIndex - 1);
-            int size = this.tasks.size();
-            String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
-            return "I've successfully deleted this task:\n" + task + "\nNow you have " + size + taskInTotal
-                    + "\n\"Ride the waves.\"";
         }
+        Task task = tasks.get(taskIndex - 1);
+        tasks.remove(taskIndex - 1);
+        int size = this.tasks.size();
+        String taskInTotal = size > 1 ? " tasks in total." : " task in total.";
+        return "I've successfully deleted this task:\n" + task + "\nNow you have " + size + taskInTotal
+                + "\n\"Ride the waves.\"";
     }
 }

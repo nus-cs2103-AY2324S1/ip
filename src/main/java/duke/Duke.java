@@ -38,8 +38,7 @@ public class Duke {
                 } catch (IOException e) {
                     return showSavingError();
                 }
-                return "8888";
-                //TODO: exit
+                return "Bye!\n\"Beware the barrenness of a busy life.\"";
             }
             return output;
         } catch (DukeException e) {
@@ -47,6 +46,10 @@ public class Duke {
         }
     }
 
+    public void close(){
+        this.stage.close();
+    }
+  
     private String showSavingError() {
         return "⚠ Oops! Something wrong when closing:(";
     }
