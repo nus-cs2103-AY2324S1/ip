@@ -1,10 +1,12 @@
 package rua.task;
 
+import java.util.ArrayList;
+
 public class Todo extends Task {
     private static final String TYPE = "T";
 
     /**
-     * Constructs a Todo object (assuming unmarked).
+     * Constructs a Todo object (assuming unmarked and no tag).
      *
      * @param description A String to describe the task.
      */
@@ -23,6 +25,17 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructs a Todo task object.
+     *
+     * @param description A String to describe the task.
+     * @param isMarked A boolean to indicate whether it is marked.
+     * @param tags An arraylist of tags.
+     */
+    public Todo(String description, Boolean isMarked, ArrayList<String> tags) {
+        super(description, isMarked, tags);
+    }
+
+    /**
      * {@inheritDoc}
      * It returns "T" for Todo type.
      *
@@ -31,26 +44,6 @@ public class Todo extends Task {
     @Override
     public String getType() {
         return TYPE;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Todo task object with the same description but it is marked.
-     */
-    @Override
-    public Todo setMarked() {
-        return new Todo(this.description, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Todo task object with the same description but it is unmarked.
-     */
-    @Override
-    public Todo setUnmarked() {
-        return new Todo(this.description, false);
     }
 
     /**

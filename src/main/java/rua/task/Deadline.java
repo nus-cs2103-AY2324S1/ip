@@ -2,6 +2,7 @@ package rua.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Deadline extends Task {
     private final LocalDate due;
@@ -30,6 +31,19 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructs a Deadline task object.
+     *
+     * @param description A String to describe the task.
+     * @param due A LocalDate to represent the due date of the deadline.
+     * @param isMarked A boolean to indicate whether it is marked.
+     * @param tags An arraylist of tags.
+     */
+    public Deadline(String description, LocalDate due, Boolean isMarked, ArrayList<String> tags) {
+        super(description, isMarked, tags);
+        this.due = due;
+    }
+
+    /**
      * {@inheritDoc}
      * It returns "D" for Deadline type.
      *
@@ -38,26 +52,6 @@ public class Deadline extends Task {
     @Override
     public String getType() {
         return "D";
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Deadline task object with the same description but it is marked.
-     */
-    @Override
-    public Deadline setMarked() {
-        return new Deadline(this.description, this.due, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Deadline task object with the same description but it is unmarked.
-     */
-    @Override
-    public Deadline setUnmarked() {
-        return new Deadline(this.description, this.due, false);
     }
 
     /**

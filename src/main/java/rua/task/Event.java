@@ -2,6 +2,7 @@ package rua.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Event extends Task {
     private final LocalDate from;
@@ -37,6 +38,21 @@ public class Event extends Task {
     }
 
     /**
+     * Constructs an Event task object.
+     *
+     * @param description A String to describe the task.
+     * @param from A LocalDate to represent the event starting time.
+     * @param to A LocalDate to represent the event ending time.
+     * @param isMarked A boolean to indicate whether it is marked.
+     * @param tags An arraylist of tags.
+     */
+    public Event(String description, LocalDate from, LocalDate to, Boolean isMarked, ArrayList<String> tags) {
+        super(description, isMarked, tags);
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
      * {@inheritDoc}
      * It returns "E" for Event type.
      *
@@ -63,26 +79,6 @@ public class Event extends Task {
      */
     public String getTo() {
         return this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Event task object with the same description but it is marked.
-     */
-    @Override
-    public Event setMarked() {
-        return new Event(this.description, this.from, this.to, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return A new Event task object with the same description but it is unmarked.
-     */
-    @Override
-    public Event setUnmarked() {
-        return new Event(this.description, this.from, this.to, false);
     }
 
     /**

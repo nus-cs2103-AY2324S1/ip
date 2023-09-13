@@ -1,6 +1,9 @@
 package rua.common;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import rua.command.AddCommand;
 import rua.command.ClearCommand;
@@ -11,6 +14,7 @@ import rua.command.ListCommand;
 import rua.command.MarkCommand;
 import rua.command.Command;
 import rua.command.SearchCommand;
+import rua.command.TagCommand;
 import rua.task.Deadline;
 import rua.task.Event;
 import rua.exception.EmptyDescriptionException;
@@ -57,6 +61,15 @@ public class Parser {
         case "unmark":
             output = createMarkEventCommand(inputs, false);
             break;
+        case "addTag":
+            output = createTagCommand(inputs, "add");
+            break;
+        case "clearTag":
+            output = createTagCommand(inputs, "clear");
+            break;
+        case "deleteTag":
+            output = createTagCommand(inputs, "delete");
+            break;
         case "delete":
             checkEmptyDescription(inputs, "Delete");
             int indexDelete = Integer.parseInt(inputs[1]);
@@ -85,7 +98,13 @@ public class Parser {
 
     private static AddCommand createAddTodoCommand(String[] inputs) throws EmptyDescriptionException{
         checkEmptyDescription(inputs, "Todo");
-        Todo newTodo = new Todo(inputs[1]);
+        String[] tagInfos = inputs[1].split(" #");
+        Todo newTodo;
+        if (tagInfos.length == 1) {
+            newTodo = new Todo(inputs[1]);
+        } else {
+            newTodo = new Todo(tagInfos[0], false, createTags(tagInfos));
+        }
         return new AddCommand(newTodo);
     }
 
@@ -94,9 +113,17 @@ public class Parser {
         checkEmptyDescription(inputs, "Deadline");
         String[] infos = inputs[1].split(" /by ", 2);
         checkEmptyDescription(infos, "Deadline");
-        final LocalDate dueDate = LocalDate.parse(infos[1]);
-        Deadline newDdl = new Deadline(infos[0], dueDate);
-        return new AddCommand(newDdl);
+
+        String[] tagInfos = infos[1].split(" #");
+        final LocalDate dueDate = LocalDate.parse(tagInfos[0]);
+        final String deadlineDescription = infos[0];
+        Deadline newDeadline;
+        if (tagInfos.length == 1) {
+            newDeadline = new Deadline(deadlineDescription, dueDate);
+        } else {
+            newDeadline = new Deadline(deadlineDescription, dueDate, false, createTags(tagInfos));
+        }
+        return new AddCommand(newDeadline);
     }
 
     private static AddCommand createAddEventCommand(String[] inputs)
@@ -106,9 +133,17 @@ public class Parser {
         checkEmptyDescription(infosEvent, "Event");
         String[] durations = infosEvent[1].split(" /to ", 2);
         checkEmptyDescription(durations, "Event");
+
+        String[] tagInfos = durations[1].split(" #");
         final LocalDate fromDate = LocalDate.parse(durations[0]);
-        final LocalDate toDate = LocalDate.parse(durations[1]);
-        Event newEvent = new Event(infosEvent[0], fromDate, toDate);
+        final LocalDate toDate = LocalDate.parse(tagInfos[0]);
+        final String eventDescription = infosEvent[0];
+        Event newEvent;
+        if (tagInfos.length == 1) {
+            newEvent = new Event(eventDescription, fromDate, toDate);;
+        } else {
+            newEvent = new Event(eventDescription, fromDate, toDate, false, createTags(tagInfos));
+        }
         return new AddCommand(newEvent);
     }
 
@@ -117,6 +152,27 @@ public class Parser {
         checkEmptyDescription(inputs, willMark ? "mark" : "unmark");
         int indexMark = Integer.parseInt(inputs[1]);
         return new MarkCommand(indexMark, willMark);
+    }
+
+    private static TagCommand createTagCommand(String[] inputs, String command)
+            throws EmptyDescriptionException{
+        String[] validCommand = {"add", "delete", "clear"};
+        assert Arrays.asList(validCommand).contains(command) : "Invalid command for tagging operation";
+        checkEmptyDescription(inputs, command + "Tag");
+        String[] tagInfos = inputs[1].split(" #");
+        if (!command.equals("clear")) {
+            checkEmptyDescription(tagInfos, command + "Tag");
+        }
+        int indexMark = Integer.parseInt(tagInfos[0]);
+        return new TagCommand(indexMark, createTags(tagInfos), command);
+    }
+
+    private static ArrayList<String> createTags(String[] tagsInfo) {
+        ArrayList<String> tags = new ArrayList<>();
+        for (int i = 1; i < tagsInfo.length; i++) {
+            tags.add("#" + tagsInfo[i]);
+        }
+        return tags;
     }
 }
 

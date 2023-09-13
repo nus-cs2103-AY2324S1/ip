@@ -96,6 +96,19 @@ public class TaskList {
     }
 
     /**
+     * Sets a Task object with a given index in the TaskList with a new Task.
+     *
+     * @param index An int index of the Task that will be unmarked.
+     * @return The new TaskList object after updating the task.
+     */
+    public TaskList updateTask(int index, Task newTask) {
+        assert index <= tasks.size() : "Task list now does not have enough tasks";
+        ArrayList<Task> currentTasks = this.tasks;
+        currentTasks.set(index, newTask);
+        return update(currentTasks);
+    }
+
+    /**
      * Returns a String with information of all tasks happening on a given date.
      *
      * @param date A date that will be searched.

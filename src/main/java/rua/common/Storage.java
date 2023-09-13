@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Scanner;
 
 import rua.task.Deadline;
@@ -41,19 +42,21 @@ public class Storage {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy");
         final boolean isMarked = features[1].equals("1");
         final String taskDescription = features[2];
+        final String tagsString = features[3];
+        final ArrayList<String> tags = tagsStringToArrayList(tagsString);
         switch (features[0]) {
         case "T":
-            output = new Todo(taskDescription, isMarked);
+            output = new Todo(taskDescription, isMarked, tags);
             break;
         case "D":
-            final LocalDate dueDate = LocalDate.parse(features[3], dateFormat);
-            output = new Deadline(taskDescription, dueDate, isMarked);
+            final LocalDate dueDate = LocalDate.parse(features[4], dateFormat);
+            output = new Deadline(taskDescription, dueDate, isMarked, tags);
             break;
         case "E":
-            final LocalDate startingDate = LocalDate.parse(features[3], dateFormat);
-            final LocalDate endingDate = LocalDate.parse(features[4], dateFormat);
+            final LocalDate startingDate = LocalDate.parse(features[4], dateFormat);
+            final LocalDate endingDate = LocalDate.parse(features[5], dateFormat);
             output = new Event(taskDescription, startingDate,
-                    endingDate, isMarked);
+                    endingDate, isMarked, tags);
             break;
         default:
             throw new InvalidTypeException(features[0]);
@@ -69,8 +72,10 @@ public class Storage {
      * @throws InvalidTypeException if the task type is not supported.
      */
     static String taskToString(Task task) throws InvalidTypeException {
+        String tagsString = task.getTags().toString().replace("[","").replace("]","");
         String output = task.getType() + " | " + (task.isMarked() ? 1 : 0)
-                + " | " + task.getDescription();
+                + " | " + task.getDescription()
+                + " | " + tagsString;
         switch (task.getType()) {
         case "T":
             break;
@@ -140,5 +145,12 @@ public class Storage {
                 }
             }
         }
+    }
+
+    private static ArrayList<String> tagsStringToArrayList(String tagsString) {
+        String[] tagsArray = tagsString.split(", ");
+        ArrayList<String> tags = new ArrayList<>();
+        Collections.addAll(tags, tagsArray);
+        return tags;
     }
 }
