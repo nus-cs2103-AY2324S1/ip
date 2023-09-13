@@ -5,13 +5,11 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Event class that inherits from Task.
- * 
- * @var from Representing start time
- * @var to Representing end time
- * 
+ *
+ *
  * @author Owen Yeo
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
     private String fromString;
@@ -19,13 +17,17 @@ public class Event extends Task{
 
     /**
      * Constructor for an event object.
-     * 
+     *
      * @param label Descriptor for the event
      * @param from Start time
      * @param to End time
      */
     public Event(String label, String from, String to) {
         super(label);
+
+        assert from.length() > 0 : "From time cannot be empty";
+        assert to.length() > 0 : "To time cannot be empty";
+
         this.from = LocalDateTime.parse(from, DateTimeFormatter
             .ofPattern("yyyy-MM-dd HHmm"));
         this.fromString = from;
@@ -39,8 +41,8 @@ public class Event extends Task{
      */
     @Override
     public String toSaveString() {
-        return "E " + super.toSaveString() + " | " + fromString + " | " +
-            toString;
+        return "E " + super.toSaveString() + " | " + fromString + " | "
+            + toString;
     }
 
     /**

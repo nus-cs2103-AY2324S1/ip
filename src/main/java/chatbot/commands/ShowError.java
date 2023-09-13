@@ -9,15 +9,15 @@ import chatbot.ui.Printer;
 /**
  * Displays the error message when executed.
  */
-public class ShowError extends Command{
+public class ShowError extends Command {
 
     private ChatBotException chatBotException;
-    
+
     /**
      * {@inheritDoc}
-     * 
+     *
      * Displays the error when executed.
-     * 
+     *
      * @param input User input
      * @param commandType Type of command
      * @param exception Exception to be displayed
@@ -31,8 +31,8 @@ public class ShowError extends Command{
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Printer ui) 
-        throws InvalidIndexException {
-            return ui.showError(this.chatBotException);
-        }
+    public String execute(TaskList tasks, Storage storage, Printer ui)
+            throws InvalidIndexException {
+        return ui.showError(this.chatBotException);
+    }
 }

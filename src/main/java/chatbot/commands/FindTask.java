@@ -1,14 +1,14 @@
 package chatbot.commands;
 
 
+import chatbot.storage.Storage;
 import chatbot.task.TaskList;
 import chatbot.ui.Printer;
-import chatbot.storage.Storage;
 
 /**
  * Finds the items in the list that match the query.
  */
-public class FindTask extends Command{
+public class FindTask extends Command {
 
     public FindTask(String input, CommandType commandType) {
         super(input, commandType);
@@ -16,7 +16,7 @@ public class FindTask extends Command{
 
     /**
      * {@inheritDoc}
-     * 
+     * \
      * Finds the tasks that contain the words found in the input.
      */
     @Override
@@ -25,6 +25,7 @@ public class FindTask extends Command{
         validStrings[0] = "Here are items that match your search:";
 
         int index = 1;
+
         for (int i = 1; i < tasks.getLength() + 1; i++) {
             String taskString = tasks.getTask(i).toString();
             if (taskString.indexOf(input) != -1) {
@@ -32,9 +33,6 @@ public class FindTask extends Command{
                 index++;
             }
         }
-
         return ui.print(validStrings);
     }
-
-    
 }

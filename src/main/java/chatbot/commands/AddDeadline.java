@@ -8,7 +8,7 @@ import chatbot.ui.Printer;
 
 /**
  * Adds a deadline task to the TaskList
- * 
+ *
  * @author Owen Yeo
  */
 public class AddDeadline extends Command {
@@ -21,11 +21,11 @@ public class AddDeadline extends Command {
     public AddDeadline(String input, CommandType commandType) {
         super(input, commandType);
     }
-    
+
     /**
      * {@inheritDoc}
-     * 
-     * Adds a Deadline to the TaskList of the chatbot and saves it. 
+     *
+     * Adds a Deadline to the TaskList of the chatbot and saves it.
      * Prints a message on the UI.
      */
     @Override

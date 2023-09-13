@@ -9,7 +9,7 @@ import chatbot.ui.Printer;
 /**
  * Command that deletes an item from the TaskList, and prints a message.
  */
-public class DeleteItem extends Command{
+public class DeleteItem extends Command {
 
     public DeleteItem(String input, CommandType commandType) {
         super(input, commandType);
@@ -17,25 +17,30 @@ public class DeleteItem extends Command{
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * Deletes item from the TaskList and saves it.
      * Prints a message on the UI.
-     * 
+     *
      * @throws InvalidIndexEception Thrown when no tasks matches the index.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Printer ui) 
-        throws InvalidIndexException {
+    public String execute(TaskList tasks, Storage storage, Printer ui)
+            throws InvalidIndexException {
         try {
-        int index = Integer.parseInt(input);
-        Task deletedTask = tasks.getTask(index);
-        tasks.delete(Integer.parseInt(input));
-        storage.saveTasks(tasks);
+            int index = Integer.parseInt(input);
 
-        return ui.print(new String[] {"I knew you couldn't finish it. Or maybe you did. I don't care. Deleted:",
-            deletedTask.toString(),
-            "Now you have an overwhelming "+ (tasks.getLength() - 1) +
-            " things to do"});
+            assert index < tasks.getLength() : "index cannot be greater than length of tasklist";
+            assert index > 0 : "index cannot be less than 1";
+
+            Task deletedTask = tasks.getTask(index);
+            tasks.delete(Integer.parseInt(input));
+            storage.saveTasks(tasks);
+
+            return ui.print(new String[] {"I knew you couldn't finish it. Or maybe you did. I don't care. Deleted:",
+                deletedTask.toString(),
+                "Now you have an overwhelming " + (tasks.getLength() - 1)
+                + " things to do"
+                });
         } catch (NumberFormatException e) {
             return ui.showError(new InvalidIndexException("Are you stupid? That's not a number."));
         } catch (IndexOutOfBoundsException e) {

@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response =chatBot.getResponse(userInput.getText());
+        String response = chatBot.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getChatBotDialog(response, botImage)

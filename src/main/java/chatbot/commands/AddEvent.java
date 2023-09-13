@@ -8,7 +8,7 @@ import chatbot.ui.Printer;
 
 /**
  * Add an event task to the TaskList
- * 
+ *
  * @author Owen Yeo
  */
 public class AddEvent extends Command {
@@ -16,11 +16,11 @@ public class AddEvent extends Command {
     public AddEvent(String input, CommandType commandType) {
         super(input, commandType);
     }
-    
+
     /**
      * {@inheritDoc}
-     * 
-     * Adds an Event to the TaskList of the chatbot and saves it. 
+     *
+     * Adds an Event to the TaskList of the chatbot and saves it.
      * Prints a message on the UI.
      */
     @Override

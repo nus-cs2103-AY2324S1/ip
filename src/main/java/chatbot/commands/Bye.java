@@ -12,10 +12,10 @@ public class Bye extends Command {
     public Bye(String input, CommandType commandType) {
         super(input, commandType);
     }
-    
+
     /**
      * {@inheritDoc}
-     * 
+     *
      * Asks UI to print a goodbye message.
      */
     @Override
@@ -25,7 +25,7 @@ public class Bye extends Command {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @return true.
      */
     @Override

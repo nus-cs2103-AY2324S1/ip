@@ -6,7 +6,7 @@ import chatbot.ui.Printer;
 
 /**
  * Abstract class representing a command.
- * 
+ *
  * @author Owen Yeo
  */
 public abstract class Command {
@@ -16,7 +16,7 @@ public abstract class Command {
 
     /**
      * Constructs a Command instance with a given type and input.
-     * 
+     *
      * @param input String containing task label and other info.
      * @param commandType type of command instance
      */
@@ -27,7 +27,7 @@ public abstract class Command {
 
     /**
      * Modifies the TaskList, Storage, and UI of the ChatBot.
-     * 
+     *
      * @param tasks TaskList
      * @param storage Storage
      * @param printer Printer
@@ -38,18 +38,19 @@ public abstract class Command {
 
     /**
      * Checks if the current command will cause an exit.
-     * 
+     *
      * @return false
      */
-    public boolean isExit() {return false;}
-    
+    public boolean isExit() {
+        return false;
+    }
+
     /**
      * Getter for commandType. Mainly used for testing.
-     * 
+     *
      * @return CommandType of the command.
      */
     public CommandType getType() {
         return this.commandType;
     }
-
 }

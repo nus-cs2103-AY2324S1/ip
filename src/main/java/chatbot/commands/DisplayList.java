@@ -6,7 +6,7 @@ import chatbot.ui.Printer;
 
 /**
  * Displays the existing list when executed
- * 
+ *
  * @author Owen Yeo
  */
 public class DisplayList extends Command{
@@ -17,12 +17,12 @@ public class DisplayList extends Command{
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * Displays the current list on the UI when executed.
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Printer ui) {
-        String[] taskStrings = new String[100] ; 
+        String[] taskStrings = new String[100];
 
         for (int i = 1; i < tasks.getLength() + 1; i++) {
             String listString = (i) + ". " + tasks.getTask(i).toString();

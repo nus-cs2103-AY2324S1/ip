@@ -8,10 +8,10 @@ import chatbot.ui.Printer;
 
 /**
  * Adds a To Do task to the TaskList
- * 
+ *
  * @author Owen Yeo
  */
-public class AddToDo extends Command{
+public class AddToDo extends Command {
 
     public AddToDo(String input, CommandType commandType) {
         super(input, commandType);
@@ -19,8 +19,8 @@ public class AddToDo extends Command{
 
     /**
      * {@inheritDoc}
-     * 
-     * Adds a todo to the TaskList of the chatbot and saves it. 
+     *
+     * Adds a todo to the TaskList of the chatbot and saves it.
      * Prints a message on the UI.
      */
     @Override
@@ -28,7 +28,7 @@ public class AddToDo extends Command{
         try {
             tasks.addTask(input, TaskType.TODO);
             storage.saveTasks(tasks);
-            
+
             return ui.print(new String[] {
                 "What? You ain't finishing it. Added: ",
                 tasks.getTask(tasks.getLength()).toString(),

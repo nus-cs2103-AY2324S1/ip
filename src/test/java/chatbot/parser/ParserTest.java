@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import chatbot.commands.*;
+import chatbot.commands.CommandType;
 import chatbot.exceptions.InvalidCommandException;
 
 /**
@@ -20,7 +20,7 @@ public class ParserTest {
      * Tests if the parser can successfully take in valid commands.
      */
     @Test
-    public void ParserInputSuccessTest() {
+    public void ParserInput_SuccessTest() {
         String[] validCommands = { "bye", "list", "todo yes", "deadline yes", "event yes", "mark 1", "unmark 1", "delete 1" };
 
         for (String commandString : validCommands) {

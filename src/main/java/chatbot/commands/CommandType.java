@@ -2,7 +2,7 @@ package chatbot.commands;
 
 /**
  * enum that represents the different command types.
- * 
+ *
  * @author Owen Yeo
  */
 public enum CommandType {
@@ -22,19 +22,20 @@ public enum CommandType {
     private CommandType(String input) {
         this.input = input;
     }
-        
+
     /**
      * Parses the input and returns the appropriate command if the input is
      * valid.
-     * 
+     *
      * @param input User's input
-     * @return Command that tells what the chatbot should do. 
-     * @return null if the input in invalid
+     * @return Command that tells what the chatbot should do.
      */
     public static CommandType parseInput(String input) {
         String[] parts = input.split(" ", 2);
 
-        for(CommandType commandType: CommandType.values()) {
+        assert parts.length > 0 : "Input should not be empty";
+
+        for (CommandType commandType: CommandType.values()) {
             if (commandType.input.equals(parts[0])) {
                 return commandType;
             }

@@ -17,13 +17,12 @@ public enum TaskType {
     /**
      * Parses the input and returns the appropriate command if the input is
      * valid.
-     * 
+     *
      * @param input User's input
-     * @return Command that tells what the chatbot should do. 
-     * @return null if the input in invalid
+     * @return Command that tells what the chatbot should do.
      */
     public static TaskType parseInput(String input) {
-        for(TaskType task: TaskType.values()) {
+        for (TaskType task: TaskType.values()) {
             if (task.input.equals(input)) {
                 return task;
             }

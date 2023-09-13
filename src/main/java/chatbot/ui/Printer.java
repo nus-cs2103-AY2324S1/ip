@@ -1,7 +1,7 @@
 package chatbot.ui;
 
 /**
- * Class representing a Printer that prints outputs 
+ * Class representing a Printer that prints outputs
  * depending on the command or error.
  *
  * @author Owen Yeo
@@ -17,12 +17,12 @@ public class Printer {
         String output = "";
         for (int i = 0; i < inputs.length; i++) {
             if (inputs[i] != null) {
-                output += inputs[i] +"\n";
+                output += inputs[i] + "\n";
             }
         }
         return output;
     }
-    
+
 
     /**
      * Prints an introduction.
@@ -40,7 +40,7 @@ public class Printer {
 
     /**
      * Prints error messages.
-     * 
+     *
      * @param e Exception instance.
      */
     public String showError(Exception e) {

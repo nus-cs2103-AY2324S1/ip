@@ -2,7 +2,7 @@ package chatbot.task;
 
 /**
  * Abstract class representing a task object.
- * 
+ *
  * @author Owen Yeo
  * @version Level-7
  */
@@ -12,7 +12,7 @@ public abstract class Task {
 
     /**
      * Constructor for a task object
-     * 
+     *
      * @param label
      */
     Task(String label) {
@@ -36,7 +36,7 @@ public abstract class Task {
 
     /**
      * Returns a string to be saved in a file, representing a task.
-     * 
+     *
      * @return String representing a task.
      */
     public String toSaveString() {
@@ -45,7 +45,7 @@ public abstract class Task {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * Represents whether a task has been done or not.
      */
     @Override
