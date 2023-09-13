@@ -10,6 +10,13 @@ package Jarvis;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected priorityLevels priority;
+
+    protected enum priorityLevels {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
 
     /**
      * Constructs a new Task with the given description
@@ -19,6 +26,20 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public priorityLevels mapPriority(String priority) {
+        if (priority.equals("low")) {
+            return priorityLevels.LOW;
+        } else if (priority.equals("medium")) {
+            return priorityLevels.MEDIUM;
+        } else {
+            return priorityLevels.HIGH;
+        }
+    }
+
+    public void setPriority(String priority) {
+        this.priority = mapPriority(priority);
     }
 
     /**

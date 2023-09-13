@@ -18,10 +18,11 @@ public class Event extends Task {
      * @param from The starting time of the event.
      * @param to The ending time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to, String priority) {
         super(description);
         this.from = from;
         this.to = to;
+        this.priority = mapPriority(priority);
     }
 
     /**

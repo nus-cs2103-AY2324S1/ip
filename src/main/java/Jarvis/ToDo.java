@@ -13,8 +13,9 @@ public class ToDo extends Task {
      *
      * @param description description of the deadline task.
      */
-    public ToDo(String description) {
+    public ToDo(String description, String priority) {
         super(description);
+        this.priority = mapPriority(priority);
     }
 
     /**

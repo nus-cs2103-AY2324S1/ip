@@ -24,9 +24,10 @@ public class Deadline extends Task {
      * @param description description of the deadline task.
      * @param by when to complete the task by.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by, String priority) {
         super(description);
         this.by = by;
+        this.priority = mapPriority(priority);
         stringToDate();
     }
 
