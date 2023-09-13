@@ -8,6 +8,7 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
@@ -39,6 +40,8 @@ public class Parser {
      */
     public static Command parse(String command) throws DukeException {
         Matcher matcher = pattern.matcher(command);
+        boolean isArgumentEmpty;
+        boolean isKeywordPresent;
 
         if (!matcher.matches()) {
             // no match means input is not valid
@@ -52,27 +55,38 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            if (matcher.group(2) == null) {
+            isArgumentEmpty = matcher.group(2) == null;
+
+            if (isArgumentEmpty) {
                 throw new DukeException(Messages.MESSAGE_INVALID_MARK);
             }
+
             index = Integer.parseInt(matcher.group(2));
             return new MarkCommand(index);
         case "unmark":
-            if (matcher.group(2) == null) {
+            isArgumentEmpty = matcher.group(2) == null;
+
+            if (isArgumentEmpty) {
                 throw new DukeException(Messages.MESSAGE_INVALID_UNMARK);
             }
+
             index = Integer.parseInt(matcher.group(2));
             return new UnmarkCommand(index);
         case "todo":
-            if (matcher.group(2) == null) {
+            isArgumentEmpty = matcher.group(2) == null;
+
+            if (isArgumentEmpty) {
                 throw new DukeException(Messages.MESSAGE_INVALID_TODO);
             }
+
             return new AddTaskCommand(new Todo(matcher.group(2)));
         case "deadline":
-            if (matcher.group(2) == null
+            isArgumentEmpty = matcher.group(2) == null
                     || matcher.group(3) == null
-                    || !matcher.group(3).equals("/by")
-                    || matcher.group(4) == null) {
+                    || matcher.group(4) == null;
+            isKeywordPresent = matcher.group(3).equals("/by");
+
+            if (isArgumentEmpty || !isKeywordPresent) {
                 throw new DukeException(Messages.MESSAGE_INVALID_DEADLINE);
             }
 
@@ -86,26 +100,35 @@ public class Parser {
 
             return new AddTaskCommand(new Deadline(matcher.group(2), parsedDate));
         case "event":
-            if (matcher.group(2) == null
+            isArgumentEmpty = matcher.group(2) == null
                     || matcher.group(3) == null
-                    || !matcher.group(3).equals("/from")
                     || matcher.group(4) == null
                     || matcher.group(5) == null
-                    || !matcher.group(5).equals("/to")
-                    || matcher.group(6) == null) {
+                    || matcher.group(6) == null;
+            isKeywordPresent = matcher.group(3).equals("/from")
+                    && matcher.group(5).equals("/to");
+
+            if (isArgumentEmpty || !isKeywordPresent) {
                 throw new DukeException(Messages.MESSAGE_INVALID_EVENT);
             }
+
             return new AddTaskCommand(new Event(matcher.group(2), matcher.group(4), matcher.group(6)));
         case "delete":
-            if (matcher.group(2) == null) {
+            isArgumentEmpty = matcher.group(2) == null;
+
+            if (isArgumentEmpty) {
                 throw new DukeException(Messages.MESSAGE_INVALID_DELETE);
             }
+
             index = Integer.parseInt(matcher.group(2));
             return new DeleteCommand(index);
         case "find":
-            if (matcher.group(2) == null) {
+            isArgumentEmpty = matcher.group(2) == null;
+
+            if (isArgumentEmpty) {
                 throw new DukeException(Messages.MESSAGE_INVALID_FIND);
             }
+
             return new FindCommand(matcher.group(2));
         default:
             throw new DukeException(Messages.MESSAGE_INVALID_INPUT);

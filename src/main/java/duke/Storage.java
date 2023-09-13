@@ -24,7 +24,12 @@ import java.util.regex.Pattern;
  */
 public class Storage {
     private final String filePath;
-
+    private static final String regexPattern = "([TDE])\\s\\|\\s"    // match type
+            + "([01])\\s\\|\\s"                 // match done or not done
+            + "([^/|]*[^/|\\s])"                // match description
+            + "(?:\\s\\|\\s([^/|]*[^/|\\s]))?"  // match /from or /by
+            + "(?:\\s\\|\\s([^/|]*[^/|\\s]))?"; // match /to
+    private static final String doneString = "1";
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -64,11 +69,6 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() throws DukeException {
         File file = this.getOrCreateFile();
-        String regexPattern = "([TDE])\\s\\|\\s"    // match type
-                + "([01])\\s\\|\\s"                 // match done or not done
-                + "([^/|]*[^/|\\s])"                // match description
-                + "(?:\\s\\|\\s([^/|]*[^/|\\s]))?"  // match /from or /by
-                + "(?:\\s\\|\\s([^/|]*[^/|\\s]))?"; // match /to
         Pattern pattern = Pattern.compile(regexPattern);
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -89,7 +89,7 @@ public class Storage {
                     }
 
                     Todo newTodo = new Todo(matcher.group(3));
-                    if (matcher.group(2).equals("1")) {
+                    if (matcher.group(2).equals(doneString)) {
                         newTodo.markAsDone();
                     }
                     tasks.add(newTodo);
@@ -110,7 +110,7 @@ public class Storage {
                     }
 
                     Deadline newDeadline = new Deadline(matcher.group(3), parsedDate);
-                    if (matcher.group(2).equals("1")) {
+                    if (matcher.group(2).equals(doneString)) {
                         newDeadline.markAsDone();
                     }
                     tasks.add(newDeadline);
@@ -124,7 +124,7 @@ public class Storage {
                     }
 
                     Event newEvent = new Event(matcher.group(3), matcher.group(4), matcher.group(5));
-                    if (matcher.group(2).equals("1")) {
+                    if (matcher.group(2).equals(doneString)) {
                         newEvent.markAsDone();
                     }
                     tasks.add(newEvent);
