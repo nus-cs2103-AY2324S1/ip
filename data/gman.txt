@@ -1,1 +1,2 @@
-T | X |  this
+T | O |  this
+T | X |  that
