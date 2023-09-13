@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import kiera.Storage;
 import kiera.TaskList;
 import kiera.Ui;
+import kiera.comparator.CompareTasks;
 import kiera.task.Deadline;
 import kiera.task.Event;
 import kiera.task.Task;

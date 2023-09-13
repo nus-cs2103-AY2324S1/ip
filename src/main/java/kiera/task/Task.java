@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import kiera.exception.KieraException;
-import kiera.tasktype.TaskType;
 
 /**
  * Task to be created. Contains a description, deadline, start date, start time and end time.

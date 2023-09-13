@@ -1,17 +1,19 @@
-package kiera.command;
+package kiera.comparator;
 
 import java.time.LocalDate;
 import java.util.Comparator;
 
-import kiera.Kiera;
 import kiera.exception.KieraException;
 import kiera.task.Deadline;
 import kiera.task.Event;
 import kiera.task.Task;
 
+/**
+ * Compares specified attributes of tasks.
+ */
 public class CompareTasks implements Comparator<Task> {
 
-    private String comparable;
+    private final String comparable;
 
     public CompareTasks(String comparable) {
         this.comparable = comparable;
