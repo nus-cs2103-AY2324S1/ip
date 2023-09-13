@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import duke.exceptions.EmptyDeadlineException;
 import duke.exceptions.EmptyEventException;
@@ -28,6 +29,7 @@ import duke.tasks.Todo;
  */
 public class TaskList {
     protected List<Task> list;
+    private Stack<List<Task>> previousLists;
     /**
      * Constructs a new TaskList object with the specified list of tasks.
      *
@@ -35,11 +37,13 @@ public class TaskList {
      */
     public TaskList(List<Task> list) {
         this.list = list;
+        this.previousLists = new Stack<>();
     }
     /**
      * Prints the list of tasks in the archive along with their indices.
      */
     public String getAll() {
+        this.previousLists.pop();
         String res = "";
         for (int i = 0; i < list.size(); i++) {
             res += i + ". " + list.get(i) + "\n";
@@ -48,6 +52,26 @@ public class TaskList {
             res = "You have not added any tasks yet";
         }
         return res;
+    }
+
+    public void pushCurr() {
+        List<Task> currTasks = new ArrayList<>();
+        for (Task task : this.list) {
+            currTasks.add(task.clone());
+        }
+        previousLists.push(currTasks);
+    }
+
+    public String undo() {
+        if (this.previousLists.isEmpty()) {
+            return "Already at the latest change";
+        }
+        this.previousLists.pop();
+        if (this.previousLists.isEmpty()) {
+            return "Already at the latest change";
+        }
+        this.list = previousLists.pop();
+        return "Undid 1 change.";
     }
 
     public int getSize() {
@@ -155,6 +179,7 @@ public class TaskList {
      * @throws InvalidFindException If the provided search input is too short to be valid.
      */
     public String find(String keywords) throws InvalidFindException {
+        this.previousLists.pop();
         List<Task> filteredTasks = new ArrayList<>();
         for (Task curr : list) {
             if (curr.getTitle().indexOf(keywords) != -1) {

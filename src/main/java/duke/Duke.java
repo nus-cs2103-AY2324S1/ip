@@ -14,6 +14,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Stack;
+
 /**
  * duke.Main class for the Duke application.
  * This class handles user interactions and manages tasks using the Archive class.
@@ -150,8 +152,11 @@ public class Duke extends Application{
     }
 
     public String manipulateTasks(String[] parsedText) {
+        tasks.pushCurr();
         try {
             switch (parsedText[0]) {
+                case "undo" :
+                    return tasks.undo();
                 case "mark":
                     return tasks.markTask(Integer.parseInt(parsedText[1]));
                 case "unmark":
@@ -175,5 +180,7 @@ public class Duke extends Application{
             return e.getMessage();
         }
     }
+
+
 }
 

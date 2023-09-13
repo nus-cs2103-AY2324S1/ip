@@ -59,4 +59,6 @@ public abstract class Task {
      * @return A formatted string for saving the Task object.
      */
     public abstract String toSave();
+
+    public abstract Task clone();
 }

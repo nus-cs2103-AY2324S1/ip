@@ -24,20 +24,24 @@ public class Parser {
                 return formatDelete(input, tasks);
             } else if (input.startsWith("find")) {
                 return formatFind(input);
+            } else if (input.startsWith("todo")) {
+                return formatTodo(input);
+            } else if (input.startsWith("deadline")) {
+                return formatDeadline(input);
+            } else if (input.startsWith("event")) {
+                return formatEvent(input);
+            } else if (input.equals("undo")) {
+                return formatUndo();
             } else {
-                if (input.startsWith("todo")) {
-                    return formatTodo(input);
-                } else if (input.startsWith("deadline")) {
-                    return formatDeadline(input);
-                } else if (input.startsWith("event")) {
-                    return formatEvent(input);
-                } else {
-                    throw new InvalidInputException();
-                }
+                throw new InvalidInputException();
             }
         } catch (DukeException e) {
             return new String[]{"Exception", e.getMessage()};
         }
+    }
+
+    private static String[] formatUndo() {
+        return new String[]{"undo"};
     }
 
     private static String[] formatEvent(String input) throws EmptyEventException, MissingFromException, MissingTitleException, MissingToException {

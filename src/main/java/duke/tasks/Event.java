@@ -33,6 +33,10 @@ public class Event extends Task {
         this.saveFromString = this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         this.saveToString = this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
+    @Override
+    public Event clone() {
+        return new Event(this.title, this.from, this.to, this.isMarked);
+    }
 
     /**
      * Generates a string representation of the Event object.

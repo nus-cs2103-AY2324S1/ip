@@ -26,6 +26,10 @@ public class Deadline extends Task {
         this.printDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         this.saveDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
+    @Override
+    public Deadline clone() {
+        return new Deadline(this.title, this.dueDate, this.isMarked);
+    }
 
     /**
      * Generates a string representation of the Deadline object.

@@ -26,7 +26,10 @@ public class Todo extends Task {
         String mark = super.isMarked ? "[X] " : "[ ] ";
         return "[T]" + mark + title;
     }
-
+    @Override
+    public Todo clone() {
+        return new Todo(this.title, this.isMarked);
+    }
     /**
      * Generates a formatted string to represent the Todo object for saving.
      *
