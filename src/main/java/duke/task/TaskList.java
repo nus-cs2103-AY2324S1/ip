@@ -141,6 +141,21 @@ public class TaskList {
     }
 
     /**
+     * Lists all the tasks in sorted order by type.
+     * @return The list tasks message.
+     */
+    public String listSortedTasksByType() {
+        return Ui.getSortedTasksByTypeMessage(tasks);
+    }
+
+    /**
+     * Lists all the tasks in sorted order.
+     */
+    public String listSortedTasks() {
+        return Ui.getSortedTasksByDatetimeMessage(tasks);
+    }
+
+    /**
      * Marks a duke.task as done.
      * @param index The index of the task to be marked as done.
      * @return The mark as done message.

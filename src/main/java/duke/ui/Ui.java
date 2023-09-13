@@ -1,6 +1,10 @@
 package duke.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import duke.task.Task;
 
@@ -97,6 +101,114 @@ public class Ui {
         }
         output.append(getDottedLine());
         return output.toString();
+    }
+
+    /**
+     * Prints the tasklist in sorted order within Todos, Deadlines, and Events.
+     * @param tasks the list of tasks
+     * @return the tasklist in sorted order
+     */
+    public static String getSortedTasksByTypeMessage(List<Task> tasks) {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
+
+        if (tasks.isEmpty()) {
+            output.append("There are no tasks in your list.\n");
+        } else {
+            // Separate the tasks by type
+            List<Task> todoTasks = tasks.stream().filter(task ->
+                    task.toString().startsWith("[T]")).collect(Collectors.toList());
+            List<Task> deadlineTasks = tasks.stream().filter(task ->
+                    task.toString().startsWith("[D]")).sorted(compareByDateTime()).collect(Collectors.toList());
+            List<Task> eventTasks = tasks.stream().filter(task ->
+                    task.toString().startsWith("[E]")).sorted(compareByDateTime()).collect(Collectors.toList());
+            output.append("Here are the tasks in your list:\n");
+            int index = 1;
+            for (Task t : todoTasks) {
+                output.append(index++ + "." + t + "\n");
+            }
+            for (Task t : deadlineTasks) {
+                output.append(index++ + "." + t + "\n");
+            }
+            for (Task t : eventTasks) {
+                output.append(index++ + "." + t + "\n");
+            }
+        }
+        output.append(getDottedLine());
+        return output.toString();
+    }
+
+    /**
+     * Prints the tasklist in sorted order by datetime.
+     * @param tasks the list of tasks
+     * @return the tasklist in sorted order
+     */
+    public static String getSortedTasksByDatetimeMessage(List<Task> tasks) {
+        StringBuilder output = new StringBuilder();
+        output.append(getDottedLine());
+        List<Task> todoTasks = tasks.stream().filter(task ->
+                task.toString().startsWith("[T]")).collect(Collectors.toList());
+        if (tasks.isEmpty()) {
+            output.append("There are no tasks in your list.\n");
+        } else {
+            output.append("Here are the tasks in your list:\n");
+            int index = 1;
+            for (Task t : todoTasks) {
+                output.append(index++ + "." + t + "\n");
+            }
+            List<Task> sortedDeadlinesAndEvents = getSortedDeadlinesAndEvents(tasks);
+            for (Task t : sortedDeadlinesAndEvents) {
+                output.append(index++ + "." + t + "\n");
+            }
+        }
+        output.append(getDottedLine());
+        return output.toString();
+    }
+
+    /**
+     * Returns a list of deadlines and events sorted by date-time.
+     * @param tasks the list of tasks
+     * @return the list of deadlines and events sorted by date-time
+     */
+    public static List<Task> getSortedDeadlinesAndEvents(List<Task> tasks) {
+        // Separate the tasks by type
+        List<Task> nonTodoTasks = tasks.stream()
+                .filter(task -> task.toString().startsWith("[D]") || task.toString().startsWith("[E]"))
+                .collect(Collectors.toList());
+        nonTodoTasks.sort(compareByDateTime());
+        return nonTodoTasks;
+    }
+
+    /**
+     * Comparator to sort tasks by date-time.
+     * @return the comparator to sort tasks by date-time.
+     */
+    private static Comparator<Task> compareByDateTime() {
+        return (task1, task2) -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            LocalDateTime dateTime1 = extractDateTimeFromTask(task1, formatter);
+            LocalDateTime dateTime2 = extractDateTimeFromTask(task2, formatter);
+            return dateTime1.compareTo(dateTime2);
+        };
+    }
+
+    /**
+     * Helper method to extract date-time from a task.
+     * @param task the task
+     * @param formatter the date-time formatter
+     * @return the date-time of the task
+     */
+    private static LocalDateTime extractDateTimeFromTask(Task task, DateTimeFormatter formatter) {
+        String taskStr = task.toString();
+        String dateStr;
+
+        if (taskStr.startsWith("[D]")) {
+            dateStr = taskStr.split("by: ")[1].split("\\)")[0].trim();
+        } else { // for [E] type
+            dateStr = taskStr.split("from: ")[1].split(" to:")[0].trim();
+        }
+
+        return LocalDateTime.parse(dateStr, formatter);
     }
 
     /**
