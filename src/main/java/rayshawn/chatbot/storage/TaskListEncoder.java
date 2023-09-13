@@ -26,12 +26,8 @@ public class TaskListEncoder {
     }
 
     private static String encodedTaskToString(Task task) {
-        final StringBuilder encodedTaskBuilder = new StringBuilder();
-        encodedTaskBuilder.append(task.getType() + " | ");
+        final StringBuilder encodedTaskBuilder = new StringBuilder(encodedTaskInit(task));
 
-        encodedTaskBuilder.append((task.isDone() ? "X" : " ") + " | ");
-
-        encodedTaskBuilder.append(task.getDescription());
 
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
@@ -44,5 +40,15 @@ public class TaskListEncoder {
         }
 
         return encodedTaskBuilder.toString();
+    }
+
+    private static String encodedTaskInit(Task task) {
+        final StringBuilder str = new StringBuilder();
+        str.append(task.getType() + " | ");
+
+        str.append((task.isDone() ? "X" : " ") + " | ");
+
+        str.append(task.getDescription());
+        return str.toString();
     }
 }
