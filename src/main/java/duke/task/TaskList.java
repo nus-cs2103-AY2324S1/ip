@@ -1,5 +1,6 @@
 package duke.task;
 import duke.exception.DukeException;
+import duke.exception.PositionException;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
@@ -31,6 +32,19 @@ public class TaskList {
 	public void add(Task t) {
 		taskList.add(t);
 	}
+
+	/**
+	 *  Remove task from taskList to be added into archive file
+	 * @param position of task to be removed
+	 * @return Task to be added to archvie file
+	 */
+	public Task toArchiveFile(int position) throws PositionException {
+		if (position > taskList.size() || position < 0) {
+			throw new PositionException("Can not archive beyond list");
+		}
+		return taskList.remove(position);
+	}
+
 
 	/**
 	 * shows all tasks in the list
@@ -69,9 +83,11 @@ public class TaskList {
 	 * @return number task remaining after deletion
 	 */
 
-	public String getRemaining() {
-		return Integer.toString(taskList.size() - 1);
-	}
+//	public String getMainRemaining(boolean isMain) {
+//		return isMain ?
+//				Integer.toString(taskList.size() - 1) :
+//				Integer.toString(taskList.size() - 1);
+//	}
 
 	public String getSize() {
 		return Integer.toString(taskList.size());
@@ -105,5 +121,12 @@ public class TaskList {
 			count++;
 		}
 		return br;
+	}
+
+	/**
+	 * clears taskList
+	 */
+	public void clearTask() {
+		taskList = new ArrayList<>(100);
 	}
 }

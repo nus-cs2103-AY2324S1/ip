@@ -231,5 +231,54 @@ public class Ui {
 		System.out.println(echo);
 	}
 
+	/**
+	 * show help guide for user
+	 * @return a string representing help guide
+	 */
+	public String showHelp() {
+		return "These are the commands that are permissible\n" +
+				"list -list all things\n" +
+				"bye -exit system\n" +
+				"mark/unmark idx i.e mark 1, marks a given task\n" +
+				"delete idx i.e delete 1\n" +
+				"todo description i.e todo math assignment, adds a todo task\n" +
+				"deadline aa /by 630am 29june\n" +
+				"deadline aa /by 06:30:00 2015-04-24\n" +
+				"event aa /from 6am 26june /to 9am 29june\n" +
+				"archive idx\n" +
+				"unarhive idk\n" +
+				"archivelist\n" +
+				"archivedelete idx\n";
+	}
+
+	/**
+	 * show clear to user
+	 * @return string representing clear statement to user
+	 */
+
+	public String showClear() {
+		return "Now all tasks in your list have been cleared!";
+	}
+
+	/**
+	 * Display unArchive
+	 * @param task to be unArchived
+	 * @return String representation of unarchiving a task
+	 */
+
+	public String showUnArchive(Task task) {
+		return "Retrieved file from folder (unarchive) " + task.toString();
+	}
+
+	/**
+	 * Display Archive
+	 * @param task to be archived
+	 * @return String representation of unArchiving a task
+	 */
+	public String showArchive(Task task) {
+		return "Stored task into archive folder (archive) " + task.toString();
+	}
+
+
 
 }

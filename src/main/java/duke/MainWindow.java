@@ -2,8 +2,6 @@ package duke;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.command.Command;
-import duke.parser.Parser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -30,9 +28,10 @@ public class MainWindow extends AnchorPane {
 	private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
 	private Duke duke;
-	private static final String filePath = "./duke.txt";
+	private static final String filePathMain = "./duke.txt";
+	private static final String filePathArchive = "./archive.txt";
 	private final Ui ui = new Ui("Duke");
-	private final Storage storage = new Storage(filePath);
+	private final Storage storage = new Storage(filePathMain, filePathArchive);
 	private final TaskList tasks = getTasks();
 
 	/**
@@ -41,7 +40,7 @@ public class MainWindow extends AnchorPane {
 	 */
 	private TaskList getTasks() {
 		try {
-			return new TaskList(storage.readFile());
+			return new TaskList(storage.loadFiles());
 		} catch (IOException e) {
 			ui.showLoadingError(e);
 			return new TaskList();

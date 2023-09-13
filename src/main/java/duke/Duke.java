@@ -1,6 +1,6 @@
 package duke;
+import duke.command.ListCommand;
 import duke.exception.DukeException;
-import duke.exception.TimeFormatException;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -8,7 +8,6 @@ import duke.command.Command;
 import duke.parser.Parser;
 
 import java.io.IOException;
-import java.sql.Time;
 
 /**
  * Represent the ChatBot.
@@ -16,7 +15,9 @@ import java.sql.Time;
  * Contains a list of tasks, TaskList, a user interface Ui, and storage, Storage.
  */
 public class Duke {
-    private static final String filePath = "./duke.txt";
+    private static final String filePathMain = "./duke.txt";
+    private static final String filePathArchive = "./archive.txt";
+
     private final Ui ui;
     private TaskList tasks;
     private final Storage storage;
@@ -29,9 +30,10 @@ public class Duke {
      */
     public Duke() {
         this.ui = new Ui("Duke");
-        storage = new Storage(filePath);
+        storage = new Storage(filePathMain, filePathArchive);
         try {
-            tasks = new TaskList(storage.readFile());
+            // initialise the mainfile and archivefile
+            tasks = new TaskList(storage.loadFiles());
         } catch (IOException e) {
             ui.showLoadingError(e);
             this.tasks = new TaskList();
@@ -43,6 +45,7 @@ public class Duke {
      */
     public void run() {
         ui.showWelcome();
+        new ListCommand().execute(tasks, ui, storage);
         while (ui.hasNextLine()) {
             try {
                 String fullCommand = ui.readCommand();

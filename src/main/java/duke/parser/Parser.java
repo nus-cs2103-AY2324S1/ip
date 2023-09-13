@@ -1,12 +1,6 @@
 package duke.parser;
+import duke.command.*;
 import duke.exception.DukeException;
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
 import duke.exception.InvalidActionException;
 import duke.exception.PositionException;
 import duke.exception.TimeFormatException;
@@ -30,12 +24,18 @@ public class Parser {
 	 * @throws InvalidActionException if the action phrase is not recognised
 	 */
 	public static Command doActionCommand(String actionPhrase) throws InvalidActionException {
-		assert actionPhrase.length() <= 4 : "Either bye or list only";
+		assert actionPhrase.length() <= 11 : "Either bye or list only";
 		switch (actionPhrase) {
 			case "bye":
 				return new ByeCommand();
 			case "list":
 				return new ListCommand();
+			case "archivelist":
+				return new ArchiveListCommand();
+			case "help":
+				return new HelpCommand();
+			case "clear":
+				return new ClearCommand();
 			default:
 				throw new InvalidActionException("That is not a valid action, either bye or list");
 		}
@@ -48,15 +48,15 @@ public class Parser {
 	 * @throws NumberFormatException accessKey not valid
 	 */
 
-	public static int getValidIndex(String accessKey) throws NumberFormatException {
+	public static int getValidIndex(String accessKey) throws PositionException {
 		try {
 			int pos = Integer.parseInt(accessKey);
 			if (pos < 0) {
-				throw new NumberFormatException("Cannot access negative position");
+				throw new PositionException("Cannot access negative position");
 			}
 			return pos;
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException("Cannot access negative position");
+			throw new PositionException("Not a valid position indicated, please use a number\n" + e.getMessage());
 		}
 	}
 
@@ -70,29 +70,30 @@ public class Parser {
 	public static Command doAccessCommand(String accessPhrase) throws PositionException, DukeException, NumberFormatException {
 		String[] words = accessPhrase.split(" ");
 		String commandWord = words[0];
-		assert commandWord.length() <= 6 : "not valid command";
+		assert commandWord.length() <= 13 : "not valid command";
 
 		String accessKey = words[1];
-		Parser.getValidIndex(accessKey);
 		boolean isFind = commandWord.equals("find");
+
+		int pos = Parser.getValidIndex(accessKey);
 		boolean isMark = commandWord.equals("mark") || commandWord.equals("unmark");
 		boolean isDelete = commandWord.equals("delete");
+		boolean isArchive = commandWord.equals("archive");
+		boolean isUnArchive = commandWord.equals("unarchive");
+		boolean isArchiveDelete = commandWord.equals("archivedelete");
+
 		if (isFind) {
 			return new FindCommand(accessKey);
 		} else if (isMark) {
-			try {
-				int pos = Parser.getValidIndex(accessKey);
-				return commandWord.equals("mark") ? new MarkCommand(true, pos) : new MarkCommand(false, pos);
-			} catch (NumberFormatException n) {
-				throw new PositionException("Not a valid position indicated, please use a number\n" + n.getMessage());
-			}
+			return commandWord.equals("mark") ? new MarkCommand(true, pos) : new MarkCommand(false, pos);
 		} else if (isDelete) {
-			try {
-				int pos = Integer.parseInt(accessKey);
-				return new DeleteCommand(pos);
-			} catch (NumberFormatException n) {
-				throw new PositionException("Not a valid position to delete, please use a number\n" + n.getMessage());
-			}
+			return new DeleteCommand(pos);
+		} else if (isArchive) {
+			return new ArchiveCommand(true, pos);
+		} else if (isUnArchive) {
+			return  new ArchiveCommand(false, pos);
+		} else if (isArchiveDelete) {
+			return  new ArchiveDeleteCommand(pos);
 		} else {
 			throw new DukeException("unknown command");
 		}
@@ -243,7 +244,7 @@ public class Parser {
 	public static Command parse(String fullCommand) throws DukeException {
 		String[] item = fullCommand.split(" ");
 		String commandWord = item[0];
-		assert commandWord.length() <= 6 : "unknown command";
+		assert commandWord.length() <= 11 : "unknown command";
 		try {
 			return item.length == 1 ? doActionCommand(fullCommand) : item.length == 2 && !commandWord.equals("todo") ? doAccessCommand(fullCommand) : doTaskCommand(fullCommand);
 		} catch (DukeException | PositionException | InvalidActionException | TimeFormatException | NumberFormatException d) {

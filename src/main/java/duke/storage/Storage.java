@@ -16,52 +16,100 @@ import java.util.ArrayList;
  * Able to write Task to storage text file through writeFile method.
  */
 public class Storage {
-	private String filePath;
+	private String filePathMain;
+	private String filePathArchive;
+
 	private ArrayList<Task> taskList;
-	public Storage(String filePath) {
-		this.filePath = filePath;
+	private ArrayList<Task> archiveList;
+	public Storage(String filePathMain, String filePathArchive) {
+		this.filePathMain = filePathMain;
+		this.filePathArchive = filePathArchive;
 		this.taskList = new ArrayList<Task>(100);
+		this.archiveList = new ArrayList<>(100);
 	}
 
+	public String getMainRemaining(boolean isMain) {
+		return isMain ? Integer.toString(taskList.size() - 1) : Integer.toString(archiveList.size() - 1);
+	}
+	public ArrayList<Task> getArchiveList() {
+		return this.archiveList;
+	}
+	/**
+	 * Initialise new filewriter without append to delete its contents
+	 */
+	public void clearFile() {
+		this.taskList = new ArrayList<>(100);
+		try {
+			FileWriter fw = new FileWriter(filePathMain);
+			fw.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 
-
+	}
 	/**
 	 * Writes Task into text file.
 	 * Creates text file if it does not exist.
-	 * @param task Thing to be done.
+	 *
+	 * @param task   Thing to be done.
+	 * @param isMain
 	 * @throws IOException If unable to write file.
 	 */
-	public void addToFile(Task task) throws IOException {
-		taskList.add(task);
+	public void addToFileMain(Task task, boolean isMain) {
+		String filePathReference = isMain ? filePathMain : filePathArchive;
+		if (isMain) {
+			taskList.add(task);
+		} else {
+			archiveList.add(task);
+		}
 		try {
-			FileWriter fw = new FileWriter(filePath, true);
+			// appends just that one task thats why true for append
+			FileWriter fw = new FileWriter(filePathReference, true);
 				fw.write(task.writeToFile());
 				fw.write("\n");
 			fw.close();
 		} catch (IOException e) {
-			throw new IOException("write fail");
+			System.out.println("write fail");
 		}
 
 	}
 
 	/**
 	 * Reads stored text file line by line.
+	 * Initialises both text files within storage!!!
 	 * @return ArrayList of Task.
 	 * @throws IOException If unable to read lines in text file.
 	 */
-	public ArrayList<Task> readFile() throws IOException {
-		try (BufferedReader in = new BufferedReader(new FileReader(filePath))) {
+	public ArrayList<Task> loadFiles() throws IOException {
+//		String filePathReference = isMain ? filePathMain : filePathArchive;
+		try (BufferedReader in = new BufferedReader(new FileReader(filePathMain))) {
 			StringBuilder br = new StringBuilder();
 			String fileLine;
 			while ((fileLine = in.readLine()) != null) {
 				// append raw unformatted version
 				br.append(fileLine);
 				br.append("\n");
-				readTask(fileLine);
+				readTaskMain(fileLine, true);
+				// edit this as well
 			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+
+		try (BufferedReader in = new BufferedReader(new FileReader(filePathArchive))) {
+			StringBuilder br = new StringBuilder();
+			String fileLine;
+			while ((fileLine = in.readLine()) != null) {
+				// append raw unformatted version
+				br.append(fileLine);
+				br.append("\n");
+				readTaskMain(fileLine, false);
+				// edit this as well
+			}
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		// for the sake of returning it for Duke main function reference
 		return taskList;
 	}
 
@@ -69,11 +117,14 @@ public class Storage {
 
 	/**
 	 * Converts each line into the format shown to reader.
+	 *
 	 * @param fileLine Each line in the file.
+	 * @param isMain
 	 * @throws IOException If unable to read task in file as Deadline[D], Event[E] or ToDos[T].
 	 */
-	public void readTask(String fileLine) throws IOException {
+	public void readTaskMain(String fileLine, boolean isMain) throws IOException {
 		String[] str = fileLine.split("\\|");
+		Task temporarytTask;
 		for (int i  = 0; i < str.length; i++) {
 			String s = str[i].trim();
 			str[i] = s;
@@ -88,7 +139,8 @@ public class Storage {
 					if (isDone) {
 						toDo.markAsDone();
 					}
-					taskList.add(toDo);
+					temporarytTask = toDo;
+//					taskList.add(toDo);
 					break;
 				case "D":
 					LocalDateTime startTime = LocalDateTime.parse(str[3]);
@@ -96,7 +148,8 @@ public class Storage {
 					if (isDone) {
 						deadLine.markAsDone();
 					}
-					taskList.add(deadLine);
+					temporarytTask = deadLine;
+//					taskList.add(deadLine);
 					break;
 				case "E":
 					LocalDateTime start = LocalDateTime.parse(str[3]);
@@ -105,10 +158,16 @@ public class Storage {
 					if (isDone) {
 						event.markAsDone();
 					}
-					taskList.add(event);
+					temporarytTask = event;
+//					taskList.add(event);
 					break;
 				default:
 					throw new IOException("read fail");
+			}
+			if (isMain) {
+				taskList.add(temporarytTask);
+			} else {
+				archiveList.add(temporarytTask);
 			}
 		}
 	}
@@ -116,12 +175,17 @@ public class Storage {
 
 	/**
 	 * Deletes tasks from taskList.
-	 * @param i Position of tasks to be deleted.
+	 *
+	 * @param i      Position of tasks to be deleted.
+	 * @param isMain
 	 */
-	public void deleteFromFile(int i) {
-		taskList.remove(i - 1);
+	public Task deleteFromMainFile(int i, boolean isMain) {
+		String filePathReference = isMain ? filePathMain : filePathArchive;
+		ArrayList<Task> taskListReference = isMain ? taskList : archiveList;
+		//check
+		Task taskDeleted = taskListReference.remove(i);
 		try {
-			FileWriter fw = new FileWriter(filePath, true);
+			FileWriter fw = new FileWriter(filePathReference, true);
 			for (Task task: taskList) {
 				fw.write(task.writeToFile());
 				fw.write("\n");
@@ -130,13 +194,16 @@ public class Storage {
 		} catch (IOException e) {
 			System.out.println("Delete fail " + e.getMessage());
 		}
+		return taskDeleted;
 	}
 
-	public void updateMarkInFile() {
+	public void updateMainStorage(boolean isMain) {
+		String filePathReference = isMain ? filePathMain : filePathArchive;
+		ArrayList<Task> taskListReference = isMain ? taskList : archiveList;
 		try {
-			FileWriter fw = new FileWriter(filePath);
+			FileWriter fw = new FileWriter(filePathReference);
 			StringBuilder br = new StringBuilder();
-			for (Task task: taskList) {
+			for (Task task: taskListReference) {
 				System.out.println(task.writeToFile());
 				br.append(task.writeToFile()).append("\n");
 			}
@@ -146,5 +213,8 @@ public class Storage {
 			System.out.println("Updating fail " + e.getMessage());
 		}
 	}
+
+
+
 
 }

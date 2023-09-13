@@ -27,7 +27,7 @@ public class MarkCommand extends Command {
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		try {
 			taskList.toMark(isMark, positionToMark, ui);
-			storage.updateMarkInFile();
+			storage.updateMainStorage(true);
 //			System.out.println(ui.showMark(taskList.getTask(positionToMark)));
 			return ui.showMark(taskList.getTask(positionToMark));
 		} catch (DukeException e) {

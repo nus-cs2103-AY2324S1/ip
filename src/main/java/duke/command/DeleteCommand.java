@@ -23,10 +23,10 @@ public class DeleteCommand extends Command {
 	 */
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
-		String remaining = taskList.getRemaining();
-		Task task = taskList.getTask(positionToDelete);
+		String remaining = storage.getMainRemaining(true);
+//		Task task = taskList.getTask(positionToDelete);
 		try {
-			storage.deleteFromFile(positionToDelete);
+			Task task = storage.deleteFromMainFile(positionToDelete, true);
 			System.out.println(ui.showDelete(task, remaining));
 			return ui.showDelete(task, remaining);
 		} catch (IndexOutOfBoundsException e) {

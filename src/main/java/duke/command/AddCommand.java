@@ -24,14 +24,13 @@ public class AddCommand extends Command {
 	 */
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
-		try {
-			storage.addToFile(task);
+			storage.addToFileMain(task, true);
 			System.out.println(ui.showAddTask(task, taskList.getSize()));
 			return ui.showAddTask(task, taskList.getSize());
-		} catch (IOException e) {
-			return "Fail to write to file\n";
-//			System.out.println("Fail to write to file\n" + e.getMessage());
-		}
+//		} catch (IOException e) {
+//			return "Fail to write to file\n";
+////			System.out.println("Fail to write to file\n" + e.getMessage());
+//		}
 	}
 
 }
