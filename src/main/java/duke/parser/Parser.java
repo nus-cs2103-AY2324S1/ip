@@ -241,6 +241,7 @@ public class Parser {
      */
     private static Command getValidationForDeadlineTiming(String from, String to, String taskName) {
         try {
+            // Check if the date is valid
             LocalDateTime fromDate = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
             LocalDateTime toDate = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
             if (fromDate.isAfter(toDate) || fromDate.isEqual(toDate)) {
