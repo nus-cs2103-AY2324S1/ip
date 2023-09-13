@@ -34,9 +34,9 @@ public class Parser {
         case "todo":
             return new AddTodo(instr.substring(4));
         case "mark":
-            return new Remark(instr.substring(4), 1);
+            return new Remark(instr.substring(4), true);
         case "unmark":
-            return new Remark(instr.substring(6), 0);
+            return new Remark(instr.substring(6), false);
         case "delete":
             return new Delete(instr.substring(6));
         case "find":

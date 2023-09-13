@@ -13,10 +13,10 @@ public class Bye extends Command {
     /**
      * Constructs a Bye command with the given input string.
      *
-     * @param s The input string (not used in this command).
+     * @param str The input string (not used in this command).
      */
-    public Bye(String s) {
-        super(s);
+    public Bye(String str) {
+        super(str);
     }
 
     /**
@@ -30,15 +30,5 @@ public class Bye extends Command {
     @Override
     public String execute(TaskList lst, UI io, Storage s) {
         return "Bye. Hope to see you again soon!";
-    }
-
-    /**
-     * Checks if this command is an exit command.
-     *
-     * @return {@code true} indicating that this command is an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
     }
 }

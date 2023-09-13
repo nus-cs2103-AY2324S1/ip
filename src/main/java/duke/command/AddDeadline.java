@@ -18,10 +18,10 @@ public class AddDeadline extends Command {
     /**
      * Constructs an AddDeadline command with the given input string.
      *
-     * @param s The input string containing the task description and deadline.
+     * @param str The input string containing the task description and deadline.
      */
-    public AddDeadline(String s) {
-        super(s);
+    public AddDeadline(String str) {
+        super(str);
     }
 
     /**
@@ -36,18 +36,14 @@ public class AddDeadline extends Command {
      */
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
-        if (s.isEmpty() || s.equals(" ")) {
+        if (str.isEmpty() || str.equals(" ")) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
-        } else if (!s.matches(" \\S.*\\s/by\\s\\d.*")) {
-            throw new DukeException(
-                    "OOPS!!! Please follow the following pattern to add a task:\n  "
-                            + "deadline <task name> /by <deadline>\n");
-        } else {
-
-            String[] temp = s.split(" /by ");
+        } else if (str.matches(" \\S.*\\s/by\\s\\d.*")){
+            String[] temp = str.split(" /by ");
             try {
                 LocalDate d = LocalDate.parse(temp[1]);
                 Task newTask = lst.addTask(temp[0].substring(1), d);
+
                 storage.addToFile(newTask);
                 return io.addTask(newTask, lst);
             } catch (DateTimeException e) {
@@ -55,6 +51,10 @@ public class AddDeadline extends Command {
                         "OOPS!!! Please follow the following pattern to input the time:\n  "
                                 + "deadline <task name> /by <yyyy-mm-dd>\n");
             }
+        } else {
+            throw new DukeException(
+                    "OOPS!!! Please follow the following pattern to add a task:\n  "
+                            + "deadline <task name> /by <deadline>\n");
         }
     }
 }

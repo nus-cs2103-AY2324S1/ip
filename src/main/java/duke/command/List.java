@@ -13,10 +13,10 @@ public class List extends Command {
     /**
      * Constructs a List command with the given input string.
      *
-     * @param s The input string (not used in this command).
+     * @param str The input string (not used in this command).
      */
-    public List(String s) {
-        super(s);
+    public List(String str) {
+        super(str);
     }
 
     /**
@@ -25,10 +25,10 @@ public class List extends Command {
      *
      * @param lst The task list containing the tasks.
      * @param io The user interface handling input and output.
-     * @param s The storage handler (not used in this command).
+     * @param storage The storage handler (not used in this command).
      */
     @Override
-    public String execute(TaskList lst, UI io, Storage s) {
+    public String execute(TaskList lst, UI io, Storage storage) {
         return io.list(lst);
     }
 }

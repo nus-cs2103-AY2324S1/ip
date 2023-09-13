@@ -8,7 +8,7 @@ import java.time.LocalDate;
  */
 public abstract class Task {
     private final String name;
-    private int state;
+    private boolean isMarked;
 
     /**
      * Constructs a Task with the given name.
@@ -17,7 +17,7 @@ public abstract class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.state = 0;
+        this.isMarked = false;
     }
 
     /**
@@ -59,10 +59,10 @@ public abstract class Task {
      * @return {@code true} if the task was successfully marked as done, {@code false} otherwise.
      */
     public boolean mark() {
-        if (state == 1) {
+        if (isMarked) {
             return false;
         } else {
-            this.state = 1;
+            this.isMarked = true;
             return true;
         }
     }
@@ -73,10 +73,10 @@ public abstract class Task {
      * @return {@code true} if the task was successfully unmarked, {@code false} otherwise.
      */
     public boolean unmark() {
-        if (state == 0) {
+        if (!isMarked) {
             return false;
         } else {
-            this.state = 0;
+            this.isMarked = false;
             return true;
         }
     }
@@ -87,7 +87,7 @@ public abstract class Task {
      * @return The state of the task as a string.
      */
     private String getState() {
-        return state == 1 ? "[X]" : "[ ]";
+        return isMarked ? "[X]" : "[ ]";
     }
 
     /**
@@ -96,6 +96,7 @@ public abstract class Task {
      * @return The text representation of the task.
      */
     public String getText() {
+        int state = isMarked ? 1 : 0;
         return state + " | " + name;
     }
 
