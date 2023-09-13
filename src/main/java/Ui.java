@@ -1,7 +1,10 @@
 import dan.command.*;
 import dan.exceptions.DanException;
+import dan.exceptions.DanOperateException;
+import dan.exceptions.DanStorageException;
 import dan.task.TaskList;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ui {
@@ -16,40 +19,65 @@ public class Ui {
     };
 
     /** Methods */
-    public void showLoadingError() {
+    public void showError(DanException e) {
+        if (e instanceof DanOperateException) {
+            switch (e.getMessage()) {
+                case "Unmarked":
+                    System.out.println(greets + " 这个没标记过哦！\n");
+                    return;
+                case "Marked":
+                    System.out.println(greets + " 这个已经做完了哦！\n");
+                    return;
+                case "Add":
+                    System.out.println(greets + " 输入格式不对！");
+                    System.out.println(" 你可以跟我说：\n" + Arrays.toString(commands) + "\n");
+            }
+        } else if (e instanceof DanStorageException) {
+            System.out.println(greets + " 没找到内存哦 现在重新创建一个！\n");
+        } else if (e.getMessage().equals("Invalid Command")) {
+            System.out.println(greets + " 输入格式不对！");
+            System.out.println(" 你可以跟我说：\n" + Arrays.toString(commands) + "\n");
+        } else {
+            System.out.println(greets + "???\n");
+        }
     }
 
     public void afterCommand(Command c, TaskList tasks) {
         switch (c.getType()) {
+            case "exit":
+                goodbye();
+                break;
             case "add":
                 System.out.println(
                         greets + " 新任务：\n " + c +
                                 "!\n 现在有" + tasks.size() + "项任务哦！\n"
-                ); break;
+                );
+                break;
             case "list":
                 System.out.println(
                         greets + " 你还有些要做的事情呢 我看看有什么吧！\n" +
                                 tasks.toString() + "\n"
-                ); break;
+                );
+                break;
             case "mark":
                 System.out.println(
                         greets + " 哟 做完啦？帮你标记好了！\n " + c + "\n"
-                ); break;
+                );
+                break;
             case "unmark":
                 System.out.println(
                         greets + " 啊？没做完啊 是不小心手滑了么？\n " + c + "\n"
-                ); break;
-            case "delete": {
+                );
+                break;
+            case "delete":
                 System.out.println(
                         greets +
                                 " 好啦，帮你擦掉了一条任务哦：\n " + c +
                                 "\n 现在还剩下" + tasks.size() + "项任务哦！\n"
-                ); break;
-            }
+                );
+                break;
         }
     }
-//    System.out.println(greets + " 这个没标记过哦！\n");
-//    System.out.println(greets + " 这个已经做完了哦！\n");
 
     public Command getCommand() {
         String text = new Scanner(System.in).nextLine();
@@ -73,7 +101,7 @@ public class Ui {
             case "delete":
                 return new DeleteCommand(Integer.parseInt(texts[1]));
             default:
-                throw new DanException("Incorrect command");
+                throw new DanException("Invalid Command");
         }
     }
 
@@ -100,8 +128,6 @@ public class Ui {
 //        } else if (e instanceof IndexOutOfBoundsException) {
 //            System.out.println(greets + " 输入格式不对！");
 //        } else if (e instanceof IllegalArgumentException) {
-//            System.out.println(greets + " 输入格式不对！");
-//        }
-//        System.out.println(" 你可以跟我说：\n" + Arrays.toString(commands) + "\n");
+//
 //    }
 }
