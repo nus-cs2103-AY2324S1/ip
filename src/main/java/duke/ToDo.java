@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * The ToDo class represents a to-do task for the Duke program.

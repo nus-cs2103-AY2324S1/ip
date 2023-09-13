@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * The Parser class represents the parser for the Duke program.
@@ -24,6 +24,9 @@ public class Parser {
             String string = taskList.deleteTask(number);
             string += String.format("\nGot %d task in list boy", taskList.taskList.size());
             return string;
+        } else if(s.matches("^!help.*")) {
+            CommandHelp H = new CommandHelp();
+            return H.help(s);
         } else if (s.equals("list")) {
             return taskList.list();
         } else if (s.matches(".*\\bmark\\b.*")) {
@@ -37,7 +40,7 @@ public class Parser {
         } else if (s.matches(".*\\bfind\\b.*")) {
             String[] parts = s.split(" ");
             if (parts.length < 2) {
-                throw new DukeException("Boy ah need to know which one u want delete eh.");
+                throw new DukeException("Boy ah need to know which one u want find eh.");
             }
             String keyword = parts[1];
             return taskList.find(keyword);

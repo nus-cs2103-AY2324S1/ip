@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * The Event class represents an event task for the Duke program.

@@ -1,7 +1,6 @@
-package Duke;
+package duke;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * The Ui class represents the user interface for the Duke program.

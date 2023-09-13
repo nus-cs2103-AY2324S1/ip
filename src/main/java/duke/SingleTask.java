@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * The SingleTask class represents a single task for the Duke program.
