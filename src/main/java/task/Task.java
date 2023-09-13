@@ -1,9 +1,10 @@
 package task;
 
+
 /**
  * A generic task, containing a name and completion status.
  */
-public class Task {
+public abstract class Task {
     public static final String DIVIDER = "%!%";
     private final String name;
     private boolean isComplete;
@@ -26,7 +27,6 @@ public class Task {
         this.name = name;
         this.isComplete = isComplete;
     }
-
     public void markDone() {
         this.isComplete = true;
     }

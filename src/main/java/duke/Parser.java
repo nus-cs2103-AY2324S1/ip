@@ -49,6 +49,7 @@ public class Parser {
         stringToCommand.put("mark", Parser::parseMarkParams);
         stringToCommand.put("unmark", Parser::parseUnmarkParams);
         stringToCommand.put("find", Parser::parseFindParams);
+        //Remember to add an entry into the hashmap whenever a command is added.
     }
 
     /**
@@ -59,17 +60,33 @@ public class Parser {
      * @throws InvalidVarException if the command is identifiable but the parameters are incorrect.
      */
     public Executable parse(String input) throws InvalidCommandException, InvalidVarException {
-        Pattern pattern = Pattern.compile("(\\S*)\\s?(.*)");
-        Matcher matcher = pattern.matcher(input);
-        if (!matcher.matches()) {
-            throw new InvalidVarException("Incorrect parameter format!");
-        }
+        String commandRegex = "(\\S*)\\s?(.*)";
+        Matcher matcher = matchString(input, commandRegex);
         String commandIdentifier = matcher.group(1);
         String paramString = matcher.group(2);
         System.out.println(commandIdentifier + "COMM  \n PARAM" + paramString);
         ParserFunction parsable = stringToCommand.get(commandIdentifier);
         checkIfInvalid(parsable);
         return parsable.apply(paramString);
+    }
+
+    private static Matcher matchString(String input, String regex) throws InvalidVarException {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if (!matcher.matches()) {
+            throw new InvalidVarException("Incorrect format!");
+        }
+        return matcher;
+    }
+
+    private static boolean parseBoolString(String boolString) throws InvalidVarException {
+        if (boolString.equals("TRUE")) {
+            return true;
+        } else if (boolString.equals("FALSE")) {
+            return false;
+        } else {
+            throw new InvalidVarException("Could not read boolean");
+        }
     }
 
     private static void checkEmpty(String paramString) throws InvalidVarException {
@@ -123,11 +140,8 @@ public class Parser {
     }
 
     private static Executable parseDeadlineParams(String paramString) throws InvalidVarException {
-        Pattern deadlinePattern = Pattern.compile("(\\S.*)\\s/by\\s(\\S.*)");
-        Matcher matcher = deadlinePattern.matcher(paramString);
-        if (!matcher.matches()) {
-            throw new InvalidVarException ("Incorrect parameter format!");
-        }
+        String deadlineRegex = "(\\S.*)\\s/by\\s(\\S.*)";
+        Matcher matcher = matchString(paramString, deadlineRegex);
         String name = matcher.group(1);
         String deadlineString = matcher.group(2);
         LocalDate deadlineTime = parseLocalDate(deadlineString);
@@ -135,11 +149,8 @@ public class Parser {
         return new AddTaskCommand(deadline);
     }
     private static Executable parseEventParams(String paramString) throws InvalidVarException {
-        Pattern eventPattern = Pattern.compile("(\\S.*)\\s/from\\s(\\S.*)\\s/to\\s(\\S.*)");
-        Matcher matcher = eventPattern.matcher(paramString);
-        if (!matcher.matches()) {
-            throw new InvalidVarException ("Incorrect parameter format!");
-        }
+        String eventRegex = "(\\S.*)\\s/from\\s(\\S.*)\\s/to\\s(\\S.*)";
+        Matcher matcher = matchString(paramString, eventRegex);
         String name = matcher.group(1);
         String startString = matcher.group(2);
         String endString = matcher.group(3);
@@ -164,6 +175,49 @@ public class Parser {
     private static void checkIfInvalid(ParserFunction func) throws InvalidCommandException {
         if (func == null) {
             throw new InvalidCommandException("No such command found!");
+        }
+    }
+    private static ToDo todoFromString(String string) throws InvalidVarException {
+        String todoRegex = "(.*)" + Task.DIVIDER + "(.*)";
+        Matcher matcher = matchString(string, todoRegex);
+        boolean isComplete = parseBoolString(matcher.group(1));
+        String name = matcher.group(2);
+        return new ToDo (name, isComplete);
+    }
+    private static Event eventFromString(String string) throws InvalidVarException {
+        String eventRegex = "(.*)" + Task.DIVIDER + "(.*)" + Task.DIVIDER +  "(.*)" + Task.DIVIDER +  "(.*)";
+        Matcher matcher = matchString(string, eventRegex);
+        boolean isComplete = parseBoolString(matcher.group(1));
+        String name = matcher.group(2);
+        LocalDate startTime = parseLocalDate(matcher.group(3));
+        LocalDate endTime = parseLocalDate(matcher.group(4));
+        return new Event (name, isComplete, startTime, endTime);
+    }
+
+    private static Deadline deadlineFromString(String string) throws InvalidVarException {
+        String deadlineRegex = "(.*)"+ Task.DIVIDER + "(.*)" + Task.DIVIDER + "(.*)";
+        Matcher matcher = matchString(string, deadlineRegex);
+        boolean isComplete = parseBoolString(matcher.group(1));
+        String name = matcher.group(2);
+        LocalDate deadline = parseLocalDate(matcher.group(3));
+        return new Deadline (name, isComplete, deadline);
+    }
+    public static Task taskFromString(String string) throws InvalidVarException {
+        String[] temp = string.split(Task.DIVIDER, 1);
+        if (temp.length == 1) {
+            throw new InvalidVarException();
+        }
+        String taskIdentifier = temp[0];
+        String input = temp[1];
+        switch (taskIdentifier) {
+            case ("TD"):
+                return todoFromString(input);
+            case ("DL"):
+                return deadlineFromString(input);
+            case ("EV"):
+                return eventFromString(input);
+            default:
+                throw new InvalidVarException();
         }
     }
 }
