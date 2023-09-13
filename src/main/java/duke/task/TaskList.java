@@ -13,10 +13,12 @@ import duke.DukeException;
  * @author selwyn
  */
 public class TaskList {
-    /** The list of tasks. */
+    private static final String DATE_TIME_FORMAT = "dd-MM-yyyy HHmm";
+
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+
     private ArrayList<Task> tasks;
 
-    /** The number of tasks in the list. */
     private int numTasks;
 
     /**
@@ -38,7 +40,7 @@ public class TaskList {
      * @throws DukeException If there is an issue with task creation or task type is unsupported.
      */
     public Task addTask(TaskType taskType, String args) throws DukeException {
-        Task newTask = null;
+        Task newTask;
 
         try {
             switch (taskType) {
@@ -85,7 +87,6 @@ public class TaskList {
      * @throws DukeException If the format is incorrect or the end date/time is invalid.
      */
     public Deadline createDeadline(String args) throws DukeException {
-        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         try {
             String[] detailsAndDeadline = args.split("/by", 2);
             if (detailsAndDeadline.length != 2) {
@@ -93,10 +94,10 @@ public class TaskList {
             }
             String details = detailsAndDeadline[0].trim();
             String endDateTime = detailsAndDeadline[1].trim();
-            LocalDateTime formattedEndDateTime = LocalDateTime.parse(endDateTime, dateTimeFormat);
+            LocalDateTime formattedEndDateTime = LocalDateTime.parse(endDateTime, DATE_TIME_FORMATTER);
             return new Deadline(details, formattedEndDateTime);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid deadline time format. Please use dd-MM-yyyy HHmm format!");
+            throw new DukeException("Invalid deadline time format. Please use " + DATE_TIME_FORMAT + " format!");
         }
     }
 
@@ -108,29 +109,29 @@ public class TaskList {
      * @throws DukeException If the format is incorrect or the date/time is invalid.
      */
     public Event createEvent(String args) throws DukeException {
-        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-
         try {
-            String eventMsg = "Event tasks should be created in this format: "
-                    + "event [name] /from [start time] /to [end time]";
             String[] detailsAndStartEnd = args.split("/from", 2);
+
+            String eventErrMsg = "Event tasks should be created in this format: "
+                    + "event [name] /from [start time] /to [end time]";
             if (detailsAndStartEnd.length != 2) {
-                throw new DukeException(eventMsg);
+                throw new DukeException(eventErrMsg);
             }
+
             String details = detailsAndStartEnd[0].trim();
 
             String[] startAndEnd = detailsAndStartEnd[1].split("/to", 2);
             if (startAndEnd.length != 2) {
-                throw new DukeException(eventMsg);
+                throw new DukeException(eventErrMsg);
             }
 
             String start = startAndEnd[0].trim();
             String end = startAndEnd[1].trim();
-            LocalDateTime formattedStartDateTime = LocalDateTime.parse(start, dateTimeFormat);
-            LocalDateTime formattedEndDateTime = LocalDateTime.parse(end, dateTimeFormat);
+            LocalDateTime formattedStartDateTime = LocalDateTime.parse(start, DATE_TIME_FORMATTER);
+            LocalDateTime formattedEndDateTime = LocalDateTime.parse(end, DATE_TIME_FORMATTER);
             return new Event(details, formattedStartDateTime, formattedEndDateTime);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid event time format. Please use dd-MM-yyyy HHmm format!");
+            throw new DukeException("Invalid event time format. Please use " + DATE_TIME_FORMAT + " format!");
         }
     }
 

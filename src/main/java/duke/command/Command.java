@@ -30,12 +30,4 @@ public abstract class Command {
         this.isExit = !this.isExit;
     }
 
-    /**
-     * Checks if the command should exit the application.
-     *
-     * @return true if the command should exit, false otherwise.
-     */
-    public boolean isExit() {
-        return this.isExit;
-    }
 }

@@ -23,11 +23,8 @@ public class Parser {
      * @throws DukeException If the input cannot be parsed into a valid command.
      */
     public Command parseCommand(String userInput) throws DukeException {
-        String userCommand;
-        String args;
-        String[] parsedCommand = userInput.split(" ", 2);
-        userCommand = parsedCommand[0];
-        args = parsedCommand.length > 1 ? parsedCommand[1] : "";
+        String userCommand = getStringAtIndex(userInput, 0);
+        String args = getStringAtIndex(userInput, 1);
 
         switch (userCommand) {
         case "bye":
@@ -52,5 +49,26 @@ public class Parser {
             throw new DukeException("I don't understand what you are saying!\n"
                     + "Available commands are list, todo, deadline, event, mark, unmark, delete, bye.");
         }
+    }
+
+    /**
+     * Extracts a substring from the user input based on the provided position index.
+     *
+     * @param userInput The input provided by the user.
+     * @param position  The position index (0 or 1) of the substring to extract.
+     * @return The extracted substring.
+     */
+    public String getStringAtIndex(String userInput, int position) {
+        String[] parsedCommand = userInput.split(" ", 2);
+        String strToReturn = null;
+
+        assert(position == 0 || position == 1) : "Position index for getStringAtIndex has to be 0 or 1";
+
+        if (position == 0) {
+            strToReturn = parsedCommand[0];
+        } else if (position == 1) {
+            strToReturn = parsedCommand.length > 1 ? parsedCommand[1] : "";
+        }
+        return strToReturn;
     }
 }

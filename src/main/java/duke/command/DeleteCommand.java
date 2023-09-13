@@ -2,9 +2,9 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * The DeleteCommand class represents a command for deleting tasks from the task list.
@@ -35,6 +35,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList taskList, Storage storage) throws DukeException {
         int numOfTasksLeft;
         Task deletedTask;
+
         try {
             deletedTask = taskList.deleteTask(taskToDeleteDetails);
             numOfTasksLeft = taskList.getNumTasks();

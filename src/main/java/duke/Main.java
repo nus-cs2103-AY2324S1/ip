@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 
+import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ import javafx.stage.Stage;
  * The Main class serves as the entry point for the Duke application.
  * It sets up the JavaFX user interface and initializes the Duke chatbot.
  *
- * @author Selwyn
+ * @author selwyn
  */
 public class Main extends Application {
     private Duke duke = new Duke("data/tasks.txt");

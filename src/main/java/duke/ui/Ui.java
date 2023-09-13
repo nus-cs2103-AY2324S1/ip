@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 import duke.task.Task;
 import duke.task.TaskList;
@@ -26,17 +26,16 @@ public class Ui {
      * Generates a message indicating that a task has been successfully added to the task list.
      *
      * @param addedTask            The task that has been added.
-     * @param noOfTasksAfterAdding The number of tasks in the list after adding the new task.
+     * @param numOfTasksAfterAdding The number of tasks in the list after adding the new task.
      * @return A message indicating the successful addition of the task.
      */
-    public static String printAddedTask(Task addedTask, int noOfTasksAfterAdding) {
-        String strToReturn = "";
-        strToReturn += "Got it. I've added this task: \n" + addedTask.toString() + "\n";
+    public static String printAddedTask(Task addedTask, int numOfTasksAfterAdding) {
+        String strToReturn = "Got it. I've added this task: \n" + addedTask.toString() + "\n";
 
-        if (noOfTasksAfterAdding == 1) {
-            strToReturn += "Now you have " + noOfTasksAfterAdding + " task in the list.";
+        if (numOfTasksAfterAdding == 1) {
+            strToReturn += "Now you have " + numOfTasksAfterAdding + " task in the list.";
         } else {
-            strToReturn += "Now you have " + noOfTasksAfterAdding + " tasks in the list.";
+            strToReturn += "Now you have " + numOfTasksAfterAdding + " tasks in the list.";
         }
 
         return strToReturn;
@@ -69,8 +68,7 @@ public class Ui {
      * @return A message indicating the successful deletion of the task.
      */
     public static String printDeletedTask(Task deletedTask, int numOfTasksLeft) {
-        String strToReturn = "";
-        strToReturn += "Noted. I've removed this task:\n";
+        String strToReturn = "Noted. I've removed this task:\n";
         strToReturn += deletedTask.toString() + "\n";
 
         if (numOfTasksLeft == 1 || numOfTasksLeft == 0) {
