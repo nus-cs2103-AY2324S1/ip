@@ -1,6 +1,7 @@
 package blip.tasks;
 
 import java.util.ArrayList;
+import blip.priority.Priority;
 
 /**
  * Represents a list of tasks in Blip ChatBot.
@@ -75,6 +76,10 @@ public class TaskList {
      */
     public void unmarkTask(int index) {
         this.tasks.get(index).unmarkStatus();
+    }
+
+    public void setPriorityToTask(int index, Priority priority) {
+        this.tasks.get(index).setPriority(priority);
     }
 
 }

@@ -196,4 +196,14 @@ public class BlipUI {
     public String unmarksTasksMsg(Task task) {
         return "Nice! I've marked this task as not done yet:" + task.toString();
     }
+
+    /**
+     * Prints the message that task has been set a priority apart from its default.
+     *
+     * @param task The task that was unmarked as not done
+     */
+    public String setPriorityMsg(Task task) {
+        return "Nice! I've set the priority of this task:" + task.toString();
+    }
+
 }

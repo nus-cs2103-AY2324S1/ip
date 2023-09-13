@@ -1,4 +1,2 @@
-D | 0 | study | 2023-09-02 10:00
-T | 1 | eat
-T | 0 | cry
-E | 0 | project meeting | 2023-09-08 16:00 | 2023-09-08 18:00
+T | 0 |  MEDIUM | eat
+T | 0 |  MEDIUM | cry

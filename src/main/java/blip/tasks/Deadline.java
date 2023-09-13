@@ -2,6 +2,7 @@ package blip.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import blip.priority.Priority;
 
 /**
  * Represents a Deadline task.
@@ -13,13 +14,13 @@ public class Deadline extends Task {
     protected LocalDateTime deadline;
 
     /**
-     * Constructor of Deadline.
+     * Constructor of Deadline, sets priority to a default MEDIUM.
      * @param description The description of the deadline task
      * @param deadline The date time of deadline
      * @param isDone Boolean that represents whether task is done
      */
     public Deadline(String description, LocalDateTime deadline, boolean isDone) {
-        super(description, isDone);
+        super(description, isDone, Priority.MEDIUM);
         this.deadline = deadline;
     }
 
@@ -29,7 +30,9 @@ public class Deadline extends Task {
      */
     @Override
     public String saveToFileString() {
-        return "D " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString() + " | "
+        return "D " + (super.isDone ? "| 1 | " : "| 0 | ")
+                + (" " + super.priority + " | ")
+                + super.toString() + " | "
                 + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
@@ -39,7 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.getStatusIcon() + super.toString() + " (by: "
+        return "[D]" + super.getStatusIcon() + super.getPriority() +super.toString() + " (by: "
                 + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
     }
 }

@@ -3,6 +3,7 @@ package blip.tasks;
 import java.time.LocalDateTime;
 import blip.exceptions.DateTimeFormatException;
 import blip.parser.DateConverter;
+import blip.priority.Priority;
 
 /**
  * Represents a generic task.
@@ -19,14 +20,21 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
+     * Priority to indicate how important a task is.
+     */
+    protected Priority priority;
+
+
+    /**
      * Constructor of Task.
      * @param description The description of the task
      * @param isDone Boolean the represents whether task is done or not
      */
 
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, Priority priority) {
         this.description = description;
         this.isDone = isDone;
+        this.priority = priority;
     }
 
     /**
@@ -34,7 +42,14 @@ public abstract class Task {
      * @return String representation of tasks' status
      */
     public String getStatusIcon() {
-        return (isDone ? "[X] " : "[ ] ");
+        return (isDone ? "[X]" : "[ ]");
+    }
+
+    public String getPriority() {
+        return "[" + this.priority + "] ";
+    }
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     /**
@@ -70,10 +85,10 @@ public abstract class Task {
      */
     public static Task loadTaskFromFile(String lineToLoad) throws DateTimeFormatException {
         String[] taskComponents = lineToLoad.split(" \\| ");
-        assert taskComponents.length >= 3 : "Invalid task format in data file for this line: " + lineToLoad;
+        assert taskComponents.length >= 4 : "Invalid task format in data file for this line: " + lineToLoad;
         String taskType = taskComponents[0];
         boolean isDone = taskComponents[1].equals("1");
-        String taskDescription = taskComponents[2];
+        String taskDescription = taskComponents[3];
 
         if (taskType.equals("T")) {
             return new ToDo(taskDescription, isDone);

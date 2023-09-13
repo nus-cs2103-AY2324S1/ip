@@ -1,17 +1,19 @@
 package blip.tasks;
 
+import blip.priority.Priority;
+
 /**
  * Represents To Do task.
  */
 public class ToDo extends Task{
 
     /**
-     * Contructor of To Do task.
+     * Contructor of To Do task, sets priority to a default MEDIUM.
      * @param description The description of the to do task
      * @param isDone Boolean that represents whether task is done
      */
     public ToDo(String description, boolean isDone) {
-        super(description, isDone);
+        super(description, isDone, Priority.MEDIUM);
     }
 
     /**
@@ -20,7 +22,9 @@ public class ToDo extends Task{
      */
     @Override
     public String saveToFileString() {
-        return "T " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString();
+        return "T " + (super.isDone ? "| 1 | " : "| 0 | ")
+                + (" " + super.priority + " | ")
+                + super.toString();
     }
 
     /**
@@ -29,6 +33,6 @@ public class ToDo extends Task{
      */
     @Override
     public String toString() {
-        return "[T]" + super.getStatusIcon() + super.toString();
+        return "[T]" + super.getStatusIcon() + super.getPriority() + " " + super.toString();
     }
 }

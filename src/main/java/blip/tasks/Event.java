@@ -2,7 +2,7 @@ package blip.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import blip.priority.Priority;
 /**
  * Represents an Event task.
  */
@@ -18,14 +18,14 @@ public class Event extends Task {
     protected LocalDateTime eventTo;
 
     /**
-     * Constructor of Event.
+     * Constructor of Event, sets priority to a default MEDIUM.
      * @param description The description of the event task
      * @param eventFrom The date time of the start of event
      * @param eventTo The date time of the end of event
      * @param isDone Boolean that represents whether task is done
      */
     public Event(String description, LocalDateTime eventFrom, LocalDateTime eventTo, boolean isDone) {
-        super(description, isDone);
+        super(description, isDone, Priority.MEDIUM);
         this.eventFrom = eventFrom;
         this.eventTo = eventTo;
     }
@@ -36,7 +36,9 @@ public class Event extends Task {
      */
     @Override
     public String saveToFileString() {
-        return "E " + (super.isDone ? "| 1 | " : "| 0 | ") + super.toString() + " | "
+        return "E " + (super.isDone ? "| 1 | " : "| 0 | ")
+                + (" " + super.priority + " | ")
+                + super.toString() + " | "
                 + this.eventFrom.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                 + " | "
                 + this.eventTo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -48,7 +50,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.getStatusIcon()  + super.toString() + " (from: "
+        return "[E]" + super.getStatusIcon()  + super.getPriority() + super.toString() + " (from: "
                 + this.eventFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))
                 + " to: "
                 + this.eventTo.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))

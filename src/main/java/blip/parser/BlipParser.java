@@ -16,6 +16,8 @@ import blip.commands.DeadlineCommand;
 import blip.commands.EventCommand;
 import blip.commands.ExceptionCommand;
 import blip.commands.InvalidCommand;
+import blip.commands.PriorityCommand;
+import blip.priority.Priority;
 
 
 
@@ -30,10 +32,10 @@ public class BlipParser {
      * @throws EmptyTaskNumberException If int task number is missing
      */
     public static int parseToGetIndex (String input) throws EmptyTaskNumberException {
-        String[] components = input.split("\\s+", 2);
-        assert components.length >= 2 : "Invalid input format for parseToGetIndex";
+        String[] components = input.split("\\s+", 3);
+        assert components.length >= 3 : "Invalid input format for parseToGetIndex";
         // Missing Index.
-        if (components.length < 2 || components[1].equals("")) {
+        if (components.length < 3 || components[1].equals("")) {
             throw new EmptyTaskNumberException("!!! Missing Task Number !!!");
         }
         int taskNum = Integer.parseInt(components[1]) - 1;
@@ -122,6 +124,26 @@ public class BlipParser {
         return components[1];
     }
 
+    public static Priority convertToPriority (String input) throws EmptyDescriptionException {
+        String[] components = input.split("\\s+", 3);
+        assert components.length >= 3 : "Invalid input format for parseFindInfo";
+
+        // Missing priority description.
+        if (components.length < 3 || components[1].equals("")) {
+            throw new EmptyDescriptionException("!!! Missing PRIORITY Description !!!\n");
+        }
+        switch (components[2].toLowerCase()) {
+            case "low":
+                return Priority.LOW;
+            case "medium":
+                return Priority.MEDIUM;
+            case "high":
+                return Priority.HIGH;
+            default:
+                return Priority.MEDIUM;
+        }
+    }
+
 
     /**
      * Parses the user input into different commands.
@@ -161,6 +183,9 @@ public class BlipParser {
                 case "find":
                     String findDescription = parseFindInfo(input);
                     return new FindCommand(findDescription);
+                case "priority":
+                    int indexToPrioritise = parseToGetIndex(input);
+                    return new PriorityCommand(indexToPrioritise, convertToPriority(input));
                 default:
                     return new InvalidCommand(input);
             }
