@@ -11,6 +11,7 @@ import command.UnmarkCommand;
 
 import exceptions.DukeException;
 
+import task.Task;
 import task.Deadline;
 import task.Event;
 import task.ToDo;
@@ -21,6 +22,41 @@ import task.ToDo;
  * It handles different types of user commands and returns corresponding Command objects.
  */
 public class Parser {
+    public static Task parseLine(String line) {
+        String[] sections = line.split(" | ");
+        int type = parseType(sections[0]);
+        assert type >= 1 && type <= 3;
+        boolean isDone = parseDone(sections[1]);
+        String title = sections[2];
+        String details = sections[3];
+        switch (type) {
+            case 1:
+                return new ToDo(title, isDone);
+            case 2:
+                return new Deadline(title, isDone, details);
+            default:
+                String[] startEnd = details.split(" - ");
+                return new Event(title, isDone, startEnd[0], startEnd[1]);
+        }
+    }
+
+    private static int parseType(String letter) {
+        switch (letter) {
+            case "T":
+                return 1;
+            case "D":
+                return 2;
+            case "E":
+                return 3;
+            default:
+                return 0;
+        }
+    }
+
+    private static Boolean parseDone(String number) {
+        int isComplete = Integer.parseInt(number);
+        return isComplete == 1;
+    }
 
     /**
      * Parses the user's full command and returns the corresponding Command object.
@@ -29,66 +65,6 @@ public class Parser {
      * @return A Command object representing the parsed command.
      * @throws DukeException If the command cannot be parsed or is invalid.
      */
-//    public static Command parse(String fullCommand) throws DukeException {
-//        if (fullCommand.isEmpty()) {
-//            throw new DukeException("You entered nothing! Try again!");
-//        } else if (fullCommand.equalsIgnoreCase("list")) {
-//            return new ListCommand();
-//        } else if (fullCommand.startsWith("find")) {
-//            return new FindCommand(fullCommand);
-//        } else if (fullCommand.startsWith("todo")) {
-//            if (fullCommand.equals("todo")) {
-//                throw new DukeException("Description cannot be empty!");
-//            } else {
-//                ToDo newTodo = new ToDo(fullCommand);
-//                return new AddCommand(newTodo);
-//            }
-//        } else if (fullCommand.startsWith("deadline")) {
-//            if (fullCommand.equals("deadline")) {
-//                throw new DukeException("Description cannot be empty!");
-//            } else {
-//                try {
-//                    Deadline newDeadline = new Deadline(fullCommand);
-//                    return new AddCommand(newDeadline);
-//                } catch (IndexOutOfBoundsException e) {
-//                    throw new DukeException("Please specify the deadline!");
-//                }
-//            }
-//        } else if (fullCommand.startsWith("event")) {
-//            if (fullCommand.equals("event")) {
-//                throw new DukeException("Description cannot be empty!");
-//            } else {
-//                try {
-//                    Event newEvent = new Event(fullCommand);
-//                    return new AddCommand(newEvent);
-//                } catch (IndexOutOfBoundsException e) {
-//                    throw new DukeException("Please specify both the start and end time!");
-//                }
-//            }
-//        } else if (fullCommand.startsWith("delete")) {
-//            try {
-//                return new DeleteCommand(fullCommand);
-//            } catch (NumberFormatException e) {
-//                throw new DukeException("Please input the correct command!");
-//            }
-//        } else if (fullCommand.startsWith("mark")) {
-//            try {
-//                return new MarkCommand(fullCommand);
-//            } catch (NumberFormatException e) {
-//                throw new DukeException("Please input the correct command!");
-//            }
-//        } else if (fullCommand.startsWith("unmark")) {
-//            try {
-//                return new UnmarkCommand(fullCommand);
-//            } catch (NumberFormatException e) {
-//                throw new DukeException("Please input the correct command!");
-//            }
-//        } else if (fullCommand.equalsIgnoreCase("bye")) {
-//            return new ExitCommand();
-//        } else {
-//            throw new DukeException("Sorry! Don't know what that is!");
-//        }
-//    }
     public static Command parse(String fullCommand) throws DukeException {
         if (fullCommand.isEmpty()) {
             throw new DukeException("You entered nothing! Try again!");

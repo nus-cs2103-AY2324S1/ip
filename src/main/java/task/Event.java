@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
  */
 public class Event extends Task {
     private String title;
-    private TimeFormatter start;
-    private TimeFormatter end;
+    private String start;
+    private String end;
 
     /**
      * Constructs an Event object with the specified response string, parsing title and time
@@ -30,11 +30,20 @@ public class Event extends Task {
         if (startMatcher.find() && endMatcher.find()) {
             String startDateTime = startMatcher.group(1);
             String endDateTime = endMatcher.group(1);
-            this.start = new TimeFormatter(startDateTime);
-            this.end = new TimeFormatter(endDateTime);
+            TimeFormatter first = new TimeFormatter(startDateTime);
+            TimeFormatter last = new TimeFormatter(endDateTime);
+            this.start = first.formatDate();
+            this.end = last.formatDate();
         } else {
             System.out.println("Incorrect format of date and time inputted");
         }
+    }
+
+    public Event(String title, Boolean isDone, String start, String end) {
+        super(isDone);
+        this.title = title;
+        this.start = start;
+        this.end = end;
     }
 
     /**
@@ -50,11 +59,11 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         if (this.done == true) {
-            return "D | 1 | " + this.title + " | " + this.start.formatDate() +
-                    " - " + this.end.formatDate();
+            return "D | 1 | " + this.title + " | " + this.start +
+                    " - " + this.end;
         }
-        return "D | 0 | " + this.title + " | " + this.start.formatDate() +
-                " - " + this.end.formatDate();
+        return "D | 0 | " + this.title + " | " + this.start +
+                " - " + this.end;
     }
 
 
@@ -65,7 +74,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String s = String.format("| FROM: %s TO: %s |", start.formatDate(), end.formatDate());
+        String s = String.format("| FROM: %s TO: %s |", start, end);
         if (this.done == true) {
             return "[E] " + "[X] " + this.title + " " + s;
         }

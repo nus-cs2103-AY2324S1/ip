@@ -1,9 +1,17 @@
 package duke;
 
+import exceptions.DukeException;
 import task.Task;
+
+import dukeutilities.Parser;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * The TaskList class represents a list of tasks and provides methods to manage tasks.
@@ -128,5 +136,23 @@ public class TaskList {
                 todoList.size());
         return s;
     }
+
+    public static TaskList readFromFile(String filePath) {
+        TaskList list = new TaskList();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                Task parsedTask = Parser.parseLine(line);
+                list.addTask(parsedTask);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
 }
