@@ -96,13 +96,14 @@ public class TaskList {
     public String mark(String task) throws DukeException {
         String res = null;
         String[] parts = task.split(" ");
+        assert parts.length > 2 : "Missing indication of which task to mark as 'done'";
         if (parts.length < 2) {
             throw new DukeException("Which task do you want to mark as done?");
         }
 
         String index = parts[1];
         int taskIndex = 0;
-
+        assert taskIndex < taskList.size() || taskIndex > 0 : "Invalid index";
         if (taskIndex > taskList.size() || taskIndex < 0) {
             throw new IndexOutOfBoundsException("Please enter a valid index.");
         }

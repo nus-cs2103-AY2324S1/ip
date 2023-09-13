@@ -29,17 +29,19 @@ public class Event extends Task{
      * @return reformatted String version of task.
      */
     public String breakdown(String descr) {
-        String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
+        String[] descrArr = descr.split("/");
 
         String start = descrArr[1];
         String[] parts = start.split(" ");
         String from = parts[0];
         String restOfFrom = start.substring(from.length()).trim();
+        assert restOfFrom.length() > 0 : "Invalid start time";
 
         String end = descrArr[2];
         String[] parts2 = end.split(" ");
         String to = parts2[0];
         String restOfTo = end.substring(to.length()).trim();
+        assert restOfTo.length() > 0 : "Invalid end time";
 
         return " (from: " + restOfFrom + " to: " + restOfTo + ")";
     }
@@ -79,4 +81,3 @@ public class Event extends Task{
         return "[E]" + super.toString() + breakdown(this.descr);
     }
 }
-//project meeting /from Mon 2pm /to 4pm
