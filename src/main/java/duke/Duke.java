@@ -79,8 +79,12 @@ public class Duke {
             LocalDateTime time = LocalDateTime.parse(temp[1],
                     DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
             Task res = new Deadline(temp[0], time);
-            this.tasklist.add(res);
-            return res;
+            boolean isAdded = this.tasklist.add(res);
+            if (isAdded) {
+                return res;
+            } else {
+                throw new DukeException("List alr added before");
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Not enough params");
         } catch (DateTimeParseException e) {
@@ -98,8 +102,12 @@ public class Duke {
         try {
             System.out.println(s);
             Task res = new Todo(s);
-            this.tasklist.add(res);
-            return res;
+            boolean isAdded = this.tasklist.add(res);
+            if (isAdded) {
+                return res;
+            } else {
+                throw new DukeException("Task alr added");
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Not enough params");
         }

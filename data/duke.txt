@@ -5,3 +5,5 @@ D|0|kekes|14/05/2020 1800
 T|1|kek
 D|0|kekw|15/05/2020 1500
 T|0|wank
+T|0|wank
+T|0|wank

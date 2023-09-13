@@ -3,6 +3,7 @@ package duke.tasks;
 import duke.DukeException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class TaskList {
@@ -21,8 +22,13 @@ public class TaskList {
         this.l = list;
     }
 
-    public void add(Task task) {
-        this.l.add(task);
+
+    public boolean add(Task t) {
+        if (l.contains(t)) {
+            return false;
+        }
+        this.l.add(t);
+        return true;
     }
 
     public void del(int idx) {
