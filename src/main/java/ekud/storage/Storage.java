@@ -19,6 +19,7 @@ import ekud.tasks.ToDo;
  * contents after the user is done with the chatbot.
  */
 public class Storage {
+    private static final String TASK_DONE_SYMBOL = "X";
     private final String path;
     private final File savedTasks;
 
@@ -65,19 +66,28 @@ public class Storage {
                 // D | X | task2 | 1st Sep
                 // E |   | task 3 | 1st Sep 2pm | 3rd Sep 2pm
                 String[] taskDetails = scanner.nextLine().split(" \\| ");
-                String taskType = taskDetails[0];
-                boolean isDone = taskDetails[1].equals("X");
-                if (taskType.equals("T")) {
+                TaskType taskType = TaskType.getTaskType(taskDetails[0]);
+                if (taskType == null) {
+                    throw new EkudIOException("Error with parsing saved tasks: Invalid task type");
+                }
+                switch (taskType) {
+                case TODO:
                     taskList.addTask(new ToDo(taskDetails[2]));
-                } else if (taskType.equals("D")) {
+                    break;
+                case DEADLINE:
                     LocalDateTime dateTime = parser.parseSavedDateTime(taskDetails[3]);
                     taskList.addTask(new Deadline(taskDetails[2], dateTime));
-                } else if (taskType.equals("E")) {
+                    break;
+                case EVENT:
                     LocalDateTime fromDateTime = parser.parseSavedDateTime(taskDetails[3]);
                     LocalDateTime toDateTime = parser.parseSavedDateTime(taskDetails[4]);
                     taskList.addTask(new Event(taskDetails[2], fromDateTime, toDateTime));
+                    break;
+                default:
+                    throw new EkudIOException("Error with parsing saved tasks: Invalid task type");
                 }
-                if (isDone) {
+                boolean isDoneTask = taskDetails[1].equals(TASK_DONE_SYMBOL);
+                if (isDoneTask) {
                     taskList.markDoneOnStart(curTaskIndex);
                     numDoneTasks++;
                 }

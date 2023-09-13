@@ -48,13 +48,14 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Ekud")
+    mainClass.set("seedu.ekud.Ekud")
 }
 
 shadowJar {
-    archiveBaseName = "ekud.jar"
+    archiveBaseName = "ekud"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    mainClassName = 'ekud.Ekud'
 }
 
 run{
