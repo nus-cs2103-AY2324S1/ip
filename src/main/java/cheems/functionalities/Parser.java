@@ -23,6 +23,7 @@ public class Parser {
      */
     public String parseAndExecute(String input)
             throws InvalidKeywordException, EmptyArgumentException, NumberFormatException {
+
         if (!input.isEmpty()) {
             String[] words = input.split(" ", 2);
 
@@ -79,6 +80,8 @@ public class Parser {
                         String ddlDescription = words[0];
                         String by = words[1];
                         return tasklist.addTaskToDatabase("DEADLINE", ddlDescription, by);
+                default:
+                    assert false : currentKey;
                 }
             }
         }

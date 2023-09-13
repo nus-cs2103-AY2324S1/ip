@@ -7,11 +7,6 @@ import cheems.functionalities.Storage;
 import cheems.functionalities.Tasklist;
 import cheems.functionalities.textUi;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
 /**
  * Represents the main class of the chatbot.
  */

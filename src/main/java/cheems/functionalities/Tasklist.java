@@ -51,11 +51,13 @@ public class Tasklist {
         Keyword keyword = Keyword.valueOf(params[startIndex]);
         Task task = new Todo(params[startIndex + 1]);
         switch (keyword) {
-            case DEADLINE:
-                task = new Deadline(params[startIndex + 1], params[startIndex + 2]);
-                break;
-            case EVENT:
-                task = new Event(params[startIndex + 1], params[startIndex + 2], params[startIndex + 3]);
+        case DEADLINE:
+            assert params.length == 3;
+            task = new Deadline(params[startIndex + 1], params[startIndex + 2]);
+            break;
+        case EVENT:
+            assert params.length == 4;
+            task = new Event(params[startIndex + 1], params[startIndex + 2], params[startIndex + 3]);
         }
 
         if (isFromDatabase && isDone) {
@@ -123,7 +125,7 @@ public class Tasklist {
      */
     public String markAsDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
-
+        assert index >= 0 && index < total;
         list.get(index).markAsDone();
         taskListToStorage();
 
@@ -138,7 +140,7 @@ public class Tasklist {
      */
     public String markAsNotDone(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
-
+        assert index >= 0 && index < total;
         list.get(index).markAsNotDone();
         taskListToStorage();
 
@@ -153,7 +155,7 @@ public class Tasklist {
      */
     public String delete(int index) throws IndexOutOfBoundsException {
         checkIndexOutOfBoundsHelper(index);
-
+        assert index >= 0 && index < total;
         Task t = list.get(index);
         list.remove(index);
         total--;
