@@ -11,6 +11,7 @@ public class Parser {
      * @return the command based on the user input.
      */
     public static Command parse(String input) {
+        assert input != null : "Input should not be null";
         if (input.equals("bye")) {
             return new ExitCommand();
 
