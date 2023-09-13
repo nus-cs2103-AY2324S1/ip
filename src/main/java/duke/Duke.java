@@ -46,12 +46,8 @@ public class Duke {
                 return ui.displayAddToList(list.addEventToList(Parser.parseOptions(line)), list.getSize());
             case DELETE:
                 return ui.displayRemoveFromList(list.deleteFromList(Parser.parseOptions(line)), list.getSize());
-            case DEADLINEBY:
-                return ui.displayTasks(list.getDeadlineDateTasks(Parser.parseOptions(line)));
-            case EVENTFROM:
-                return ui.displayTasks(list.getEventStartDateTasks(Parser.parseOptions(line)));
-            case EVENTTO:
-                return ui.displayTasks(list.getEventEndDateTasks(Parser.parseOptions(line)));
+            case TASKSON:
+                return ui.displayTasks(list.getTasksOnDate(Parser.parseOptions(line)));
             case FIND:
                 return ui.displayTasks(list.findTasks(Parser.parseOptions(line)));
             default:
