@@ -30,13 +30,10 @@ public class Todo extends Task {
         if (task == this) {
             return true;
         }
-
         if (!(task instanceof Todo)) {
             return false;
         }
-
         Todo t = (Todo) task;
-
         return Objects.equals(t.getLog(), this.getLog());
     }
 }

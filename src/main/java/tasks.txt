@@ -1,5 +1,6 @@
 D | 0 | ip | 2023-08-31
-E | 1 | meeting | 2023-09-01 10:00 | 2023-09-01 12:00
 T | 1 | eat fruits
-T | 0 | CS2103T tutorial
-T | 0 | this that hahaha
+T | 0 | ip
+D | 0 | quiz | 2023-09-13
+E | 0 | meeting | 2023-09-20 10:00 | 2023-09-20 12:00
+

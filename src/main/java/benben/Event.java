@@ -103,13 +103,10 @@ public class Event extends Task {
         if (task == this) {
             return true;
         }
-
         if (!(task instanceof Event)) {
             return false;
         }
-
         Event t = (Event) task;
-
         return t.getLog().equals(this.getLog());
     }
 }
