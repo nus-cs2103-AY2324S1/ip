@@ -3,6 +3,7 @@ package duke;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Implementation for the task list
@@ -17,6 +18,13 @@ public class TaskList {
      */
     public TaskList() {
         this.list = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a TaskList object.
+     */
+    public TaskList(ArrayList<Task> list) {
+        this.list = list;
     }
 
     /**
@@ -89,15 +97,10 @@ public class TaskList {
      * @return Filtered TaskList.
      */
     public TaskList getFilteredTaskList(String userInput) {
-        TaskList filtered = new TaskList();
         String keyword = userInput.substring(5);
-
-        for (int i = 0; i < this.getNumberOfTasks(); i++) {
-            if (this.getTaskAt(i).containsKeyword(keyword)) {
-                filtered.addToList(this.getTaskAt(i));
-            }
-        }
-        return filtered;
+        return new TaskList(list.stream()
+                .filter(task -> task.containsKeyword(keyword))
+                .collect(Collectors.toCollection(ArrayList<Task>::new)));
     }
 
     @Override
