@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -74,6 +75,30 @@ public class TaskList {
             }
         } catch (DateTimeParseException e) {
             throw new DukeException("Date is not in the correct format YYYY-MM-DD");
+        }
+    }
+
+    public String getNextFreeDates() {
+        LocalDate date = LocalDate.now();
+        ArrayList<String> datesList = new ArrayList<>();
+        int limit = 1000;
+        while (limit > 0 && datesList.size() < 5) {
+            if (!datesTable.containsKey(date)) {
+                String dateString = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                datesList.add(dateString);
+            }
+            date = date.plusDays(1);
+            --limit;
+        }
+        if (!datesTable.containsKey(date)) {
+            String output = String.format("Your %d closest free dates are:\n", datesList.size());
+            StringBuilder outputBuilder = new StringBuilder(output);
+            for (String s : datesList) {
+                outputBuilder.append(String.format("- %s\n", s));
+            }
+            return outputBuilder.toString();
+        } else {
+            return "You are a very busy person, unable to find a free date within the nearest 1000 days!";
         }
     }
 

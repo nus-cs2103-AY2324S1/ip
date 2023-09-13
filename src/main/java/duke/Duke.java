@@ -47,9 +47,11 @@ public class Duke {
             case DELETE:
                 return ui.displayRemoveFromList(list.deleteFromList(Parser.parseOptions(line)), list.getSize());
             case TASKSON:
-                return ui.displayTasks(list.getTasksOnDate(Parser.parseOptions(line)));
+                return list.getTasksOnDate(Parser.parseOptions(line));
             case FIND:
-                return ui.displayTasks(list.findTasks(Parser.parseOptions(line)));
+                return list.findTasks(Parser.parseOptions(line));
+            case FREEDATES:
+                return list.getNextFreeDates();
             default:
                 return "";
             }
