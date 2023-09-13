@@ -45,6 +45,7 @@ public class TaskList {
      * @throws CommandException when there is already a task in the list that has the same name as the new task
      */
     public void addTaskAndSay(Task newTask) throws CommandException {
+        assert(Ui.getInstance() != null);
         if(this.findTaskByName(newTask.getName()) != null){
             throw new CommandException("Error: A task with name '" + newTask.getName() + "' already exists.");
         }

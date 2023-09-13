@@ -1,12 +1,15 @@
 package command;
 
 import main.Main;
+import main.Ui;
 import task.DeadlineTask;
 
 public class CommandDeadlineHandler implements ICommandHandler{
 
     @Override
     public void execute(String command, String[] parameters) throws CommandException {
+        assert(Main.getInstance() != null);
+        assert(Main.getInstance().getTaskList() != null);
         String taskName = "";
         int length = parameters.length;
         int i;

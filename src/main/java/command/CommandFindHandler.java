@@ -6,6 +6,9 @@ import main.Ui;
 public class CommandFindHandler implements ICommandHandler {
     @Override
     public void execute(String command, String[] parameters) throws CommandException {
+        assert(Main.getInstance() != null);
+        assert(Main.getInstance().getTaskList() != null);
+        assert(Ui.getInstance() != null);
         if(parameters.length < 2) {
             throw new CommandException("Missing target task name");
         }

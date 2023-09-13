@@ -8,6 +8,9 @@ public class CommandDeleteHandler implements ICommandHandler{
 
     @Override
     public void execute(String command, String[] parameters) throws CommandException {
+        assert(Main.getInstance() != null);
+        assert(Main.getInstance().getTaskList() != null);
+        assert(Ui.getInstance() != null);
         int number = -1;
         try{
             number = Integer.parseInt(parameters[1]);

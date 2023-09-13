@@ -18,6 +18,7 @@ public class Parser {
     }
 
     public void executeCommand(String command){
+        assert(Ui.getInstance() != null);
         if(command.length() == 0){
             Ui.getInstance().say("You didn't say anything.");
             return;
