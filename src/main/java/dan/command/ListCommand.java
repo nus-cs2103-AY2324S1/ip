@@ -15,8 +15,7 @@ public class ListCommand extends Command {
     @Override
     public void op(TaskList tasks) {}
 
-    @Override
-    public String getType() {
+    public static String getType() {
         return type;
     }
 }
