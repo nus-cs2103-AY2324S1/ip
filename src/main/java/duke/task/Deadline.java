@@ -26,8 +26,8 @@ public class Deadline extends Task{
      * @param dueDate The dueDate of the task.
      * @param checked The status of whether the task is checked (completed) or not.
      */
-    public Deadline (String text, LocalDateTime dueDate,boolean checked) {
-        super(text,checked);
+    public Deadline (String text, LocalDateTime dueDate,boolean checked, Tag tag) {
+        super(text,checked,tag);
         super.setType("D");
         this.dueDate = dueDate;
     }

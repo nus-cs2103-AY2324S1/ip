@@ -1,6 +1,7 @@
 package duke.parser;
 
 import duke.task.*;
+import duke.ui.Ui;
 
 
 import java.time.LocalDateTime;
@@ -51,6 +52,7 @@ public class Parser {
      * @return the index has been registered
      */
     public String getIndex() {
+        assert inputArray.length < 2 : "Parser Assume there the inputArray have larger than 2";
         return parseInput()[1];
     }
 
@@ -125,7 +127,7 @@ public class Parser {
         boolean existBy = false;
 
         for (int i = 0; i < inputArray.length; i++) {
-            if(inputArray[i].equals("/by")) {
+            if (inputArray[i].equals("/by")) {
                 dueDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i));
                 existBy = true;
@@ -135,7 +137,7 @@ public class Parser {
         }
 
         assert existBy: "There is no '/by' in the deadline";
-        try{
+        try {
             LocalDateTime formattedDeadlineDate = convertDateTime(dueDate);
             Task newTask = new Deadline(extractedTask,formattedDeadlineDate);
             return newTask;
@@ -158,6 +160,41 @@ public class Parser {
         Task newTask = new ToDo(extractedTask);
         return newTask;
     }
+
+    public Tag processGetTag() {
+        if (inputArray.length <= 2) {
+            return null;
+        }
+
+        return Tag.generateTag(inputArray[2]);
+    }
+
+    public int processTagGetTaskIndex() {
+        if (inputArray.length <= 2) {
+            return -1;
+        }
+        try {
+            int index = Integer.parseInt(getIndex());
+            return index - 1;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    public Tag processListTag() {
+        if (inputArray.length != 2) {
+            return null;
+        }
+        String tagName = inputArray[1];
+
+        if (!Tag.existTag(tagName)) {
+            return null;
+        }
+        return Tag.generateTag(tagName);
+
+
+    }
+
 
     public String getExtracted() {
 

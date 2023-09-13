@@ -20,8 +20,8 @@ public class ToDo extends Task{
      * @param text The text description of the task.
      * @param checked The status of whether the task is checked (completed) or not.
      */
-    public ToDo (String text,boolean checked) {
-        super(text,checked);
+    public ToDo (String text,boolean checked,Tag tag) {
+        super(text,checked,tag);
         super.setType("T");
     }
 

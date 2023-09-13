@@ -124,28 +124,26 @@ public class Storage {
         return new TaskArray(taskArrayList);
     }
 
-    public Task inputToTask(String input){
+    public Task inputToTask(String input) {
         String[] parts = input.split(";");
         String type = parts[0];
         String text = parts[1];
-        boolean checked = false;
+        boolean checked = parts[2].equals("true");
+        Tag tag = Tag.generateTag(parts[3]);
 
-        if (parts[2].equals("true")) {
-            checked = true;
-        }
 
         switch (type) {
             case "T":
-                return new ToDo(text,checked);
+                return new ToDo(text,checked,tag);
 
             case "E":
                 LocalDateTime startDate = LocalDateTime.parse(parts[3]);
                 LocalDateTime endDate = LocalDateTime.parse(parts[4]);
-                return new Event(text,startDate,endDate,checked);
+                return new Event(text,startDate,endDate,checked,tag);
 
             case "D":
                 LocalDateTime dueDate = LocalDateTime.parse(parts[3]);
-                return new Deadline(text,dueDate,checked);
+                return new Deadline(text,dueDate,checked,tag);
         }
 
         return null;
@@ -185,6 +183,8 @@ public class Storage {
                 writer.write(line);
                 writer.newLine(); // Add a newline after each line
             }
+            writer.close(); // Close the writer to flush changes
+
         } catch (IOException e) {
             e.printStackTrace();
         }

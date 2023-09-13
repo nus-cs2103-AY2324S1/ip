@@ -82,6 +82,8 @@ public class TaskArray {
             return output;
         }
         Task removingTask = taskArrayList.get(index);
+
+
         taskArrayList.remove(index);
         output = "Noted. I've removed this task:\n" + removingTask.getTypeCheckedText() + "\nNow you have " + getTaskCount() + " tasks in the list.";
         return output;
@@ -98,6 +100,25 @@ public class TaskArray {
         }
 
         String output = "Here are the matching tasks in your list:";
+        for (int i = 0; i < tempTaskArraylist.size(); i++) {
+            int index = i + 1;
+            output += ("\n" + index + "." + tempTaskArraylist.get(i).getTypeCheckedText());
+        }
+
+        return output;
+    }
+
+    public String printByTag(Tag tag) {
+
+        ArrayList<Task> tempTaskArraylist = new ArrayList<>();
+
+        for (Task task : taskArrayList) {
+            if (task.containsTag(tag)) {
+                tempTaskArraylist.add(task);
+            }
+        }
+
+        String output = "Here are the matching tasks according to your tag ( " + tag.getTagName() + " ) in your list:";
         for (int i = 0; i < tempTaskArraylist.size(); i++) {
             int index = i + 1;
             output += ("\n" + index + "." + tempTaskArraylist.get(i).getTypeCheckedText());
