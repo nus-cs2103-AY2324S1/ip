@@ -3,8 +3,6 @@ package nobita.parser;
 import nobita.command.*;
 import nobita.exception.NobitaException;
 
-import java.rmi.NotBoundException;
-
 /**
  * Class that encapsulates Parser.
  * Parser that is used to read in and understand user commands.
@@ -57,6 +55,9 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(commands[1]) - 1);
         case "find":
             return new FindCommand(commands[1]);
+        case "update":
+            String[] updateTaskAndField = commands[1].split(" ");
+            return new UpdateCommand(Integer.parseInt(updateTaskAndField[0]) - 1, updateTaskAndField[1], updateTaskAndField[2]);
         default:
             throw new NobitaException("I'm sorry, but I don't know what that means :-(");
         }

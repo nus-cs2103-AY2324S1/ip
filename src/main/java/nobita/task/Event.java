@@ -1,5 +1,7 @@
 package nobita.task;
 
+import nobita.exception.NobitaException;
+
 import java.util.StringJoiner;
 
 /**
@@ -48,5 +50,26 @@ public class Event extends Task {
         StringJoiner joiner = new StringJoiner(";");
         joiner.add("E").add(super.toFileFormat()).add(this.start).add(this.end);
         return joiner.toString();
+    }
+
+    /**
+     * Update a field of the Deadline.
+     *
+     * @param updateField The field of Deadline to be updated.
+     * @param updateValue The value of the field to be updated to.
+     * @return The updated Deadline.
+     * @throws NobitaException If specified update field does not exist.
+     */
+    public Task setField(String updateField, String updateValue) throws NobitaException {
+        if (updateField.equalsIgnoreCase("name")) {
+            return super.setField(updateField, updateValue);
+        } else if (updateField.equalsIgnoreCase("/from")) {
+            this.start = updateValue;
+        } else if (updateField.equalsIgnoreCase("/to")) {
+            this.end = updateValue;
+        } else {
+            throw new NobitaException("Event task do not have " + updateField + " field.");
+        }
+        return this;
     }
 }

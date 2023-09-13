@@ -1,5 +1,7 @@
 package nobita.task;
 
+import nobita.exception.NobitaException;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -55,5 +57,24 @@ public class Deadline extends Task {
         StringJoiner joiner = new StringJoiner(";");
         joiner.add("D").add(super.toFileFormat()).add(this.by);
         return joiner.toString();
+    }
+
+    /**
+     * Update a field of the Deadline.
+     *
+     * @param updateField The field of Deadline to be updated.
+     * @param updateValue The value of the field to be updated to.
+     * @return The updated Deadline.
+     * @throws NobitaException If specified update field does not exist.
+     */
+    public Task setField(String updateField, String updateValue) throws NobitaException {
+        if (updateField.equalsIgnoreCase("name")) {
+            return super.setField(updateField, updateValue);
+        } else if (updateField.equalsIgnoreCase("/by")) {
+            this.by = updateValue;
+        } else {
+            throw new NobitaException("Deadline task do not have " + updateField + " field.");
+        }
+        return this;
     }
 }

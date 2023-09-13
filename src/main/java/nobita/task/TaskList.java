@@ -1,5 +1,7 @@
 package nobita.task;
 
+import nobita.exception.NobitaException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -105,7 +107,7 @@ public class TaskList implements Iterable<Task> {
      * @return True if task index fall within the tasklist, False otherwise.
      */
     public boolean checkIndexWithinRange(int ind) {
-        return ind < 1 || ind > this.tasks.size();
+        return ind < 0 || ind >= this.tasks.size();
     }
 
     /**
@@ -135,6 +137,20 @@ public class TaskList implements Iterable<Task> {
             listInd++;
         }
         return tasksStringBuilder.toString();
+    }
+
+    /**
+     * Update a task field.
+     *
+     * @param targetTask The index of the task to update.
+     * @param updateField The field of the task to update.
+     * @param updateValue The value of the field to update to.
+     * @return The Task that is updated.
+     * @throws NobitaException If error occur while updating task.
+     */
+    public Task updateTask(int targetTask, String updateField, String updateValue) throws NobitaException {
+        Task task = this.tasks.get(targetTask);
+        return task.setField(updateField, updateValue);
     }
 }
 
