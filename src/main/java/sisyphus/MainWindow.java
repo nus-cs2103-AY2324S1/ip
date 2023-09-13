@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
         response = sisyphus.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, sisyphusImage)
+                DialogBox.getSisyphusDialog(response, sisyphusImage)
         );
         userInput.clear();
     }

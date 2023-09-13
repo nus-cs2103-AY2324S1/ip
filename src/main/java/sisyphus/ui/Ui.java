@@ -40,7 +40,7 @@ public class Ui {
     }
 
     /**
-     * Prints a horizontal dashed line. Used for separators.
+     * Return string ofs a horizontal dashed line. Used for separators.
      */
     public static void printHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
@@ -76,9 +76,10 @@ public class Ui {
     }
 
     /**
-     * Prints all the tasks in the given TaskList in a numbered list.
+     * Return string of all the tasks in the given TaskList in a numbered list.
      *
      * @param taskList
+     * @return output string
      */
     public static String printTasks(TaskList taskList) {
         String output = "";
@@ -89,10 +90,11 @@ public class Ui {
     }
 
     /**
-     * Print tasks with the matching keyword.
+     * Return string of tasks with the matching keyword.
      *
      * @param matchingTaskList
      * @param keyword
+     * @return output string
      */
     public static String printMatchingTasks(TaskList matchingTaskList, String keyword) {
         String output;
@@ -106,10 +108,11 @@ public class Ui {
 
 
     /**
-     * Prints the marked task and the corresponding message.
+     * Return string of the marked task and the corresponding message.
      *
      * @param taskList
      * @param index
+     * @return output string
      */
     public static String printMarkTask(TaskList taskList, int index) {
         String output;
@@ -120,10 +123,11 @@ public class Ui {
 
 
     /**
-     * Prints the unmarked task and the corresponding message.
+     * Return string of the unmarked task and the corresponding message.
      *
      * @param taskList
      * @param index
+     * @return output string
      */
     public static String printUnmarkTask(TaskList taskList, int index) {
         String output;
@@ -133,10 +137,11 @@ public class Ui {
     }
 
     /**
-     * Prints the task to be deleted and the corresponding message.
+     * Return string of the task to be deleted and the corresponding message.
      *
      * @param taskList
      * @param index
+     * @return output string
      */
     public static String printDeleteTask(TaskList taskList, int index) {
         String output;
@@ -146,7 +151,7 @@ public class Ui {
     }
 
     /**
-     * Prints the most recently added ToDo and a corresponding message.
+     * Return string of the most recently added ToDo and a corresponding message.
      *
      * @param taskList
      * @return output string
@@ -154,34 +159,36 @@ public class Ui {
     public static String printAddTodo(TaskList taskList) {
         String output;
         output = "The following ToDo has been added. \n";
-        output += taskList.getLastTask() ;
+        output += taskList.getLastTask();
         output += "\nYou now have " + taskList.getSize() + " items in the list. \n";
         return output;
     }
 
 
     /**
-     * Prints the most recent added deadline and a corresponding message.
+     * Return string of the most recent added deadline and a corresponding message.
      *
      * @param taskList
+     * @return output string
      */
     public static String printAddDeadline(TaskList taskList) {
         String output;
         output = "The following deadline has been added. \n";
-        output += taskList.getLastTask() ;
+        output += taskList.getLastTask();
         output += "\nYou now have " + taskList.getSize() + " items in the list.";
         return output;
     }
 
     /**
-     * Prints the most recent added event and a corresponding message.
+     * Return string of the most recent added event and a corresponding message.
      *
      * @param taskList
+     * @return output string
      */
     public static String printAddEvent(TaskList taskList) {
         String output;
         output = "The following event has been added. \n";
-        output += taskList.getLastTask() ;
+        output += taskList.getLastTask();
         output += "\nYou now have " + taskList.getSize() + " items in the list.";
         return output;
     }

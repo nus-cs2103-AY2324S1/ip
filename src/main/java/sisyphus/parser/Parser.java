@@ -40,8 +40,8 @@ public class Parser {
      * @param taskList
      * @param storage
      * @param ui
-     * @throws SisyphusException
      * @return output string from UI
+     * @throws SisyphusException
      */
     public String runCommand(String fullCommand, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         String[] inputArray;
