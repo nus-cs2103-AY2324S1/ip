@@ -150,6 +150,7 @@ public class BenBen {
      */
     public String mark(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
+        assert strSplit.length == 2;
         if (strSplit.length < 2) {
             throw new BenBenException("Please enter a task to mark!");
         }
@@ -157,10 +158,12 @@ public class BenBen {
         if (strSplit.length > 2) {
             throw new BenBenException("Please only enter one task to mark!");
         }
+
         int x;
 
         try {
             x = Integer.parseInt(strSplit[1]);
+            assert x > 0 && x < tasks.size();
             tasks.get(x - 1).mark();
             storage.write(tasks);
             return ui.showMark(tasks.get(x - 1).toString());
