@@ -517,12 +517,12 @@ public class TaskList {
 
         int resultCounter = 1;
         String keyword = parts[1];
-        boolean[] addedTaskToResults = new boolean[tasks.size()];
+        boolean[] isTaskAddedToResults = new boolean[tasks.size()];
 
         for (int startIndex = 0; startIndex < keyword.length(); startIndex++) {
             for (int endIndex = startIndex + 1; endIndex < keyword.length(); endIndex++) {
                 String keywordToSearch = keyword.substring(startIndex, endIndex + 1);
-                results += searchForKeyword(keywordToSearch, addedTaskToResults, resultCounter);
+                results += searchForKeyword(keywordToSearch, isTaskAddedToResults, resultCounter);
             }
         }
 
@@ -533,13 +533,20 @@ public class TaskList {
         return results;
     }
 
-    public String searchForKeyword(String keywordToSearch, boolean[] addedTaskToResults, int resultCounter) {
+    /**
+     * Method to search for the keyword in the tasks
+     * @param keywordToSearch keyword to search for
+     * @param isTaskAddedToResults boolean array to check if the specific tasl has been added already
+     * @param resultCounter the number of result tasks in the result string
+     * @return
+     */
+    public String searchForKeyword(String keywordToSearch, boolean[] isTaskAddedToResults, int resultCounter) {
         String res = "";
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(keywordToSearch) && !addedTaskToResults[i]) {
+            if (tasks.get(i).toString().contains(keywordToSearch) && !isTaskAddedToResults[i]) {
                 res = resultCounter + "." + tasks.get(i).toString() + "\n";
                 resultCounter++;
-                addedTaskToResults[i] = true;
+                isTaskAddedToResults[i] = true;
             }
         }
         return res;
