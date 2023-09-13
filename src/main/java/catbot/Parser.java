@@ -1,8 +1,8 @@
 package catbot;
 
-import catbot.internal.NamedParameterMap;
-
 import java.util.Arrays;
+
+import catbot.internal.NamedParameterMap;
 
 public class Parser {
 

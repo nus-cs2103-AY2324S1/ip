@@ -1,7 +1,5 @@
 package catbot.io;
 
-import catbot.internal.NamedParameterMap;
-
 public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
 
     /**

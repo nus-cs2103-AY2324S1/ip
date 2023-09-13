@@ -1,12 +1,14 @@
 package catbot;
 
+import java.util.function.Consumer;
+
 import catbot.internal.CommandPattern;
 import catbot.internal.CommandPatternGenerator;
 import catbot.internal.NamedParameterMap;
 
-import java.util.function.Consumer;
-
 public class CatBotCommandPatterns {
+
+    //region Fields
 
     public static final Consumer<String> NO_DEFAULT = new Consumer<String>() {
         @Override
@@ -14,12 +16,15 @@ public class CatBotCommandPatterns {
             assert false; //SHOULD NOT BE CALLED
         }
     };
+    private static final IntegerPatternGenerator integerPatternGenerator = new IntegerPatternGenerator();
+    private static final SlashArgumentPatternGenerator slashPatternGenerator = new SlashArgumentPatternGenerator();
+
+    //endregion
 
     //region Integer Pattern
     public static CommandPatternGenerator<Integer> getIntegerPatternGenerator() {
         return integerPatternGenerator;
     }
-    private static final IntegerPatternGenerator integerPatternGenerator = new IntegerPatternGenerator();
     private static class IntegerPatternGenerator implements CommandPatternGenerator<Integer> {
 
         @Override
@@ -39,7 +44,6 @@ public class CatBotCommandPatterns {
     //endregion
 
     //region Slash Arguments Pattern
-    private static final SlashArgumentPatternGenerator slashPatternGenerator = new SlashArgumentPatternGenerator();
     public static CommandPatternGenerator<NamedParameterMap> getSlashPatternGenerator() {
         return slashPatternGenerator;
     }
@@ -58,6 +62,7 @@ public class CatBotCommandPatterns {
             };
         }
     }
+
     //endregion
 
 }

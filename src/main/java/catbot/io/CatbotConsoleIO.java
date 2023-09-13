@@ -1,13 +1,13 @@
 package catbot.io;
 
+import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import catbot.Parser;
 import catbot.internal.NamedParameterMap;
 import catbot.task.Task;
 import catbot.task.TaskList;
-
-import java.util.Scanner;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class CatbotConsoleIO implements UserIo {
 
@@ -15,17 +15,27 @@ public class CatbotConsoleIO implements UserIo {
     //http://www.patorjk.com/software/taag/#p=display&h=1&f=3D-ASCII&t=CAT%20BOT
     //font: 3D-ASCII; Character Width: Fitted; Character Height: Default; Text: CAT BOT
     public static final String NAME =
-            " ________   ________   _________        ________   ________   _________   \n" +
-            "|\\   ____\\ |\\   __  \\ |\\___   ___\\     |\\   __  \\ |\\   __  \\ |\\___   ___\\ \n" +
-            "\\ \\  \\___| \\ \\  \\|\\  \\\\|___ \\  \\_|     \\ \\  \\|\\ /_\\ \\  \\|\\  \\\\|___ \\  \\_| \n" +
-            " \\ \\  \\     \\ \\   __  \\    \\ \\  \\       \\ \\   __  \\\\ \\  \\\\\\  \\    \\ \\  \\  \n" +
-            "  \\ \\  \\____ \\ \\  \\ \\  \\    \\ \\  \\       \\ \\  \\|\\  \\\\ \\  \\\\\\  \\    \\ \\  \\ \n" +
-            "   \\ \\_______\\\\ \\__\\ \\__\\    \\ \\__\\       \\ \\_______\\\\ \\_______\\    \\ \\__\\\n" +
-            "    \\|_______| \\|__|\\|__|     \\|__|        \\|_______| \\|_______|     \\|__|\n";
+            " ________   ________   _________        ________   ________   _________   \n"
+            + "|\\   ____\\ |\\   __  \\ |\\___   ___\\     |\\   __  \\ |\\   __  \\ |\\___   ___\\ \n"
+            + "\\ \\  \\___| \\ \\  \\|\\  \\\\|___ \\  \\_|     \\ \\  \\|\\ /_\\ \\  \\|\\  \\\\|___ \\  \\_| \n"
+            + " \\ \\  \\     \\ \\   __  \\    \\ \\  \\       \\ \\   __  \\\\ \\  \\\\\\  \\    \\ \\  \\  \n"
+            + "  \\ \\  \\____ \\ \\  \\ \\  \\    \\ \\  \\       \\ \\  \\|\\  \\\\ \\  \\\\\\  \\    \\ \\  \\ \n"
+            + "   \\ \\_______\\\\ \\__\\ \\__\\    \\ \\__\\       \\ \\_______\\\\ \\_______\\    \\ \\__\\\n"
+            + "    \\|_______| \\|__|\\|__|     \\|__|        \\|_______| \\|_______|     \\|__|\n";
     private static final String PREFIX = "\t> ";
     private static final String PREFIX_WARN = "\t! ";
 
     //https://copypastatext.com/bongo-cat-ascii/
+
+    //endregion
+
+    //region Fields
+
+    private Consumer<String> out;
+    private Supplier<String> in;
+    private String lastUserInput = null;
+    private Integer endOfCommand;
+    private final Parser parser = Parser.with(null);
 
     //endregion
 
@@ -42,24 +52,13 @@ public class CatbotConsoleIO implements UserIo {
 
     //endregion
 
-    //region IO variables
-
-    private Consumer<String> out;
-    private Supplier<String> in;
+    //region IO setters
     public void setOut(Consumer<String> consumer) {
         this.out = consumer;
     }
     public void setIn(Supplier<String> supplier) {
         this.in = supplier;
     }
-
-    //endregion
-
-    //region Fields
-
-    private String lastUserInput = null;
-    private Integer endOfCommand;
-    private final Parser parser = Parser.with(null);
 
     //endregion
 
@@ -76,20 +75,31 @@ public class CatbotConsoleIO implements UserIo {
     }
 
     private void findCommand() {
-        if (retrieve() != null)
+        if (retrieve() != null) {
             this.endOfCommand = retrieve().indexOf(" ");
+        }
     }
 
     public String getCommand() {
-        if (this.endOfCommand == null) findCommand();
-        if (this.endOfCommand == -1) return retrieve();
-        else return retrieve().substring(0, this.endOfCommand);
+        if (this.endOfCommand == null) {
+            findCommand();
+        }
+        if (this.endOfCommand == -1) {
+            return retrieve();
+        } else {
+            return retrieve().substring(0, this.endOfCommand);
+        }
     }
 
     public String getArgs() {
-        if (this.endOfCommand == null) findCommand();
-        if (this.endOfCommand == -1) return "";
-        else return retrieve().substring(this.endOfCommand+1);
+        if (this.endOfCommand == null) {
+            findCommand();
+        }
+        if (this.endOfCommand == -1) {
+            return "";
+        } else {
+            return retrieve().substring(this.endOfCommand + 1);
+        }
     }
 
     //endregion
@@ -146,25 +156,25 @@ public class CatbotConsoleIO implements UserIo {
     @Override
     public void indicateArgumentInvalid(InvalidParameterState invalidState, NamedParameterMap namedParameterMap) {
         switch (invalidState) {
-            case PARAMETER_EMPTY:
-                for (String arg : namedParameterMap.keySet()) {
-                    warn(arg + " is empty");
-                }
-                send("please make sure these arguments are filled!");
-                break;
-            case PARAMETER_MISSING:
-                for (String arg : namedParameterMap.keySet()) {
-                    warn(arg + " is missing");
-                }
-                send("please make sure to include them next time!");
-                break;
-            case NOT_A_DATE:
-                for (String arg : namedParameterMap.keySet()) {
-                    warn(arg + " is set to \"" + namedParameterMap.get(arg) + "\", which is not a date!");
-                }
-                break;
-            default:
-                throw new RuntimeException();
+        case PARAMETER_EMPTY:
+            for (String arg : namedParameterMap.keySet()) {
+                warn(arg + " is empty");
+            }
+            send("please make sure these arguments are filled!");
+            break;
+        case PARAMETER_MISSING:
+            for (String arg : namedParameterMap.keySet()) {
+                warn(arg + " is missing");
+            }
+            send("please make sure to include them next time!");
+            break;
+        case NOT_A_DATE:
+            for (String arg : namedParameterMap.keySet()) {
+                warn(arg + " is set to \"" + namedParameterMap.get(arg) + "\", which is not a date!");
+            }
+            break;
+        default:
+            throw new RuntimeException();
         }
     }
 
@@ -176,7 +186,9 @@ public class CatbotConsoleIO implements UserIo {
     public void printTaskList(TaskList taskList) {
         int i = 1;
         int intlen = 0;
-        for (int len = taskList.size(); len>0; intlen++) len/=10;
+        for (int len = taskList.size(); len > 0; intlen++) {
+            len /= 10;
+        }
         for (Task t : taskList.getTasks()) {
             send(String.format("%" + intlen + "d", i++) + ". " + t);
         }
@@ -184,8 +196,8 @@ public class CatbotConsoleIO implements UserIo {
 
     @Override
     public void printTaskAdded(TaskList taskList) {
-        int index = taskList.size()-1;
-        send("Added: " + (index+1) + ". " + taskList.getTask(index));
+        int index = taskList.size() - 1;
+        send("Added: " + (index + 1) + ". " + taskList.getTask(index));
     }
 
     @Override
@@ -195,15 +207,17 @@ public class CatbotConsoleIO implements UserIo {
 
     @Override
     public void printTaskModified(TaskList taskList, int index) {
-        send((index+1) + ". " + taskList.getTask(index));
+        send((index + 1) + ". " + taskList.getTask(index));
     }
     //endregion
 
     //region Internal Helper
 
     private String format(String s, String prefix) {
-        if (s == null) return "";
-        return s.replaceAll("(^|\n)", "$1"+prefix);
+        if (s == null) {
+            return "";
+        }
+        return s.replaceAll("(^|\n)", "$1" + prefix);
     }
 
     private void line() {
@@ -215,7 +229,9 @@ public class CatbotConsoleIO implements UserIo {
     }
 
     private void send(String s) {
-        if (s == null) return;
+        if (s == null) {
+            return;
+        }
         out.accept(format(s, PREFIX) + "\n");
     }
 
