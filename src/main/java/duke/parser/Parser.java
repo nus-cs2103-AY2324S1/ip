@@ -25,25 +25,26 @@ public class Parser {
     public static String parse(String message, Ui ui, TaskList tasks, Storage storage) {
         try {
             String messageType = message.split(" ")[0];
-            if (messageType.equalsIgnoreCase("list")) {
+            switch (messageType.toLowerCase()) {
+            case "list":
                 return Command.list(message, ui, tasks, storage);
-            } else if (messageType.equalsIgnoreCase("mark")) {
+            case "mark":
                 return Command.mark(message, ui, tasks, storage);
-            } else if (messageType.equalsIgnoreCase("unmark")) {
+            case "unmark":
                 return Command.unmark(message, ui, tasks, storage);
-            } else if (messageType.equalsIgnoreCase("todo")) {
+            case "todo":
                 return Command.addToDo(message, ui, tasks, storage);
-            } else if (messageType.equalsIgnoreCase("deadline")) {
+            case "deadline":
                 return Command.addDeadline(message, ui, tasks, storage);
-            } else if (messageType.equalsIgnoreCase("event")) {
+            case "event":
                 return Command.addEvent(message, ui, tasks, storage);
-            } else if (messageType.equalsIgnoreCase("delete")) {
+            case "delete":
                 return Command.delete(message, ui, tasks, storage);
-            } else if (messageType.equalsIgnoreCase("find")) {
+            case "find":
                 return Command.find(message, ui, tasks, storage);
-            } else if (messageType.equalsIgnoreCase("bye")) {
+            case "bye":
                 return Command.bye(message, ui, tasks, storage);
-            } else {
+            default:
                 throw new InvalidCommandException();
             }
         } catch (InvalidToDoException e) {

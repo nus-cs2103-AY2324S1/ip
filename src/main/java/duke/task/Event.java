@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -50,6 +52,26 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Creates new event based on the string stored in the storage
+     *
+     * @param stored the string stored in the storage
+     * @return the event based on the string stored in the storage
+     * @throws IOException when the string stored does not belong to event
+     */
+    public static Event createFromStorage(String stored) throws IOException {
+        assert stored.split(" \\| ")[0].equals("E") : "The first part of the string stored is E";
+        String[] splitTaskInString = stored.split(" \\| ");
+        String mark = splitTaskInString[1];
+        String description = splitTaskInString[2];
+        String start = splitTaskInString[3];
+        String end = splitTaskInString[4];
+        Event event = new Event(description, LocalDate.parse(start), LocalDate.parse(end));
+        if (mark.equals("1")) {
+            event.mark();
+        }
+        return event;
+    }
     @Override
     public String toString() {
         String startMonth = start.getMonth().toString().substring(0, 3);

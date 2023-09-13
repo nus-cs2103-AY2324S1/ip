@@ -15,6 +15,8 @@ public class UserInputPane extends Pane {
     private Image sendIcon = new Image(this.getClass().getResourceAsStream("/images/SendIcon.png"));
     private Main mainPanel;
     private TextField userInput;
+    private AnchorPane inputContainer;
+    private ImageView sendImage;
 
     /**
      * Instantiates the UserInputPane
@@ -22,17 +24,36 @@ public class UserInputPane extends Pane {
      * @param mainPanel the mainPanel where the UserInputPane located
      */
     public UserInputPane(Main mainPanel) {
+        initialize(mainPanel);
+        addContent();
+        format();
+
+        sendImage.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    private void initialize(Main mainPanel) {
         this.mainPanel = mainPanel;
         userInput = new TextField();
-        ImageView sendImage = new ImageView(sendIcon);
+        sendImage = new ImageView(sendIcon);
+        inputContainer = new AnchorPane();
+    }
 
+    private void addContent() {
+        inputContainer.getChildren().addAll(userInput, sendImage);
+        getChildren().add(inputContainer);
+    }
+
+    private void format() {
+        // Set the size of the sendImage and the userInput text box
         sendImage.setFitWidth(30.0);
         sendImage.setFitHeight(25);
         userInput.setPrefWidth(345.0);
-
-        AnchorPane inputContainer = new AnchorPane();
-        inputContainer.getChildren().addAll(userInput, sendImage);
-
 
         // Position userInput in the bottom left corner
         AnchorPane.setLeftAnchor(userInput, 1.0);
@@ -42,19 +63,8 @@ public class UserInputPane extends Pane {
         AnchorPane.setRightAnchor(sendImage, -35.0);
         AnchorPane.setBottomAnchor(sendImage, 1.0);
 
-
         // Set the preferred height for inputContainer to accommodate both elements
         inputContainer.setPrefHeight(userInput.getPrefHeight());
-
-        getChildren().add(inputContainer);
-
-        sendImage.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
     }
 
     /**

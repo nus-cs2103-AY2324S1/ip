@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.io.IOException;
+
 /**
  * Task class
  */
@@ -56,6 +58,29 @@ public abstract class Task {
      */
     public boolean hasKeyword(String keyWord) {
         return name.toLowerCase().contains(keyWord.toLowerCase());
+    }
+
+    /**
+     * Creates new task based on the string stored in the storage
+     *
+     * @param stored the string stored in the storage
+     * @return the task based on the string stored in the storage
+     * @throws IOException when the string stored does not belong to task
+     */
+    public static Task createFromStorage(String stored) throws IOException {
+        String[] splitTaskInString = stored.split(" \\| ");
+        String type = splitTaskInString[0];
+        switch (type) {
+        case "T":
+            return ToDo.createFromStorage(stored);
+        case "D":
+            return Deadline.createFromStorage(stored);
+        case "E":
+            return Event.createFromStorage(stored);
+        default:
+            assert false : "The type of the task stored is invalid";
+            throw new IOException();
+        }
     }
 
     @Override

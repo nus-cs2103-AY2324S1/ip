@@ -6,14 +6,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.task.ToDo;
 
 /**
  * Storage class that save the data
@@ -66,7 +62,7 @@ public class Storage {
 
         // Adds each task
         while (line != null) {
-            Task currentTask = readTask(line);
+            Task currentTask = Task.createFromStorage(line);
             loadedTasks.add(currentTask);
             line = reader.readLine();
         }

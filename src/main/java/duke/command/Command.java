@@ -53,6 +53,7 @@ public class Command {
             int numOfWords = messageWords.length;
             if (numOfWords == 2) {
                 int index = Integer.parseInt(messageWords[1]) - 1;
+
                 tasks.markTask(index);
                 storage.updateTask(tasks);
                 return ui.printMarkTask(tasks.getTask(index));
