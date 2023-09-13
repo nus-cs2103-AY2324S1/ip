@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import ekud.exceptions.EkudIOException;
@@ -55,6 +54,7 @@ public class Storage {
     public String loadData(TaskList taskList) throws EkudIOException {
         Parser parser = new Parser(); // For parsing dateTime
         taskList.clear();
+        assert taskList.getSize() == 0 : "Task list should be empty before loading data";
         try {
             Scanner scanner = new Scanner(this.savedTasks);
             int curTaskIndex = 0;

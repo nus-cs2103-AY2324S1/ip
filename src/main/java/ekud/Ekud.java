@@ -8,7 +8,7 @@ import ekud.tasks.TaskList;
 import ekud.ui.Launcher;
 
 /**
- * The ekud.Ekud chatbot where the main functionality of this program runs in.
+ * Represents the Ekud chatbot where the main functionality of this program runs in.
  */
 public class Ekud {
     // TaskList object to store and manipulate all of user's tasks, as well as
@@ -27,11 +27,16 @@ public class Ekud {
         this.taskList = new TaskList();
         this.storage = new Storage("data/savedTasks.txt");
         this.isActive = true;
+        assert this.taskList.getSize() == 0 : "Task list should be empty before loading data";
+        assert this.storage != null : "Storage should not be null";
+        assert this.isActive : "Chatbot should be active";
+
     }
 
     /**
      * Main function for chatbot to parse user input, execute the command,
      * then return a String response for the user.
+     * @return String response
      */
     public String getResponse(String userInput) {
         Parser parser = new Parser();
@@ -59,6 +64,10 @@ public class Ekud {
 
     }
 
+    /**
+     * Activates the chatbot by loading saved data & greeting the user.
+     * @return String response
+     */
     public String start() {
         if (isActive) {
             return "Ekud is already running :>";
@@ -67,11 +76,20 @@ public class Ekud {
         return this.loadData() + "\n" + this.getGreeting();
     }
 
+    /**
+     * De-activates the chatbot by saving the data & responding with a farewell message.
+     * @return String response
+     */
     public String end() {
         this.isActive = false;
         return this.saveData() + "\nGoodbye, have a nice day! :p";
     }
 
+    /**
+     * Helper function to load saved data upon activating the chatbot with a response
+     * on whether data was successfully loaded.
+     * @return String response
+     */
     public String loadData() {
         try {
             return this.storage.loadData(this.taskList);
@@ -80,6 +98,11 @@ public class Ekud {
         }
     }
 
+    /**
+     * Helper function to save data upon de-activating the chatbot with a response on
+     * whether data was successfully saved.
+     * @return String response
+     */
     public String saveData() {
         try {
             return this.storage.saveData(this.taskList);
@@ -88,12 +111,20 @@ public class Ekud {
         }
     }
 
+    /**
+     * Helper function to retrieve the chatbot's greeting, used in here
+     * and by the JavaFX GUI.
+     * @return String
+     */
     public String getGreeting() {
         return "Hello there! I'm ekud. :)\n"
                 + "What can I do for you? :O";
     }
 
-    // Launches the GUI for the chatbot
+    /**
+     * Main function to launch the JavaFX GUI for the chatbot.
+     * @param args -
+     */
     public static void main(String[] args) {
         Launcher.main(args);
     }
