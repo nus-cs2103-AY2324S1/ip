@@ -39,6 +39,7 @@ public class AddTodo extends Command {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         } else if (str.matches(" \\S.*\\s.*")) {
             Task newTask = lst.addTask(str.substring(1));
+            assert newTask != null : "Task should not be null";
 
             storage.addToFile(newTask);
             return io.addTask(newTask, lst);

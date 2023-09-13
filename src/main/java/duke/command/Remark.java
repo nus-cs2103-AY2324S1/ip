@@ -42,12 +42,15 @@ public class Remark extends Command {
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         try {
             int index = CommonMethods.getIndex(str);
+            assert index >= 0 : "Index should be non-negative";
             if (isMark) {
                 Task t = lst.mark(index);
+                assert t != null : "Task should not be null";
                 storage.changeFile(lst);
                 return io.unmark(t);
             } else if(!isMark) {
                 Task t = lst.unmark(index);
+                assert t != null : "Task should not be null";
                 storage.changeFile(lst);
                 return io.mark(t);
             } else {
