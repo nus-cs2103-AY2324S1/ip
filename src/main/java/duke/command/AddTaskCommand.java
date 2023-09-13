@@ -13,6 +13,7 @@ public class AddTaskCommand extends Command {
     private final Task newTask;
 
     public AddTaskCommand(Task newTask) {
+        assert newTask != null;
         this.newTask = newTask;
     }
 

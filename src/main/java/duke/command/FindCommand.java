@@ -23,6 +23,7 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        assert tasks != null;
         String tasksFound = tasks.findTasks(this.query);
         if (tasksFound.isEmpty()) {
             return Messages.MESSAGE_NO_TASKS_FOUND;
