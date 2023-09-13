@@ -30,7 +30,8 @@ public class Deadline extends Task {
      */
     public static Deadline createDeadline(String command) throws LukeException {
         Matcher matcher = PATTERN_COMMAND_CREATE_DEADLINE.matcher(command);
-        matcher.find();
+        boolean found = matcher.find();
+        assert(found);
 
         String taskName = matcher.group("taskName");
         if (taskName == null || taskName.isBlank()) {

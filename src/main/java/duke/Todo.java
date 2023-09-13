@@ -23,7 +23,8 @@ public class Todo extends Task {
      */
     public static Todo createTodo(String command) throws LukeException {
         Matcher matcher = PATTERN_COMMAND_CREATE_TODO.matcher(command);
-        matcher.find();
+        boolean found = matcher.find();
+        assert(found);
 
         String taskName = matcher.group("taskName");
         if (taskName == null || taskName.isBlank()) {

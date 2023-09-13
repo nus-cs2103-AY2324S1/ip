@@ -70,7 +70,8 @@ public class TaskList {
      */
     public String find(String command) {
         Matcher matcher = PATTERN_COMMAND_FIND.matcher(command);
-        matcher.find();
+        boolean found = matcher.find();
+        assert(found);
 
         String searchString = matcher.group("searchString");
         if (searchString == null || searchString.isBlank()) {
