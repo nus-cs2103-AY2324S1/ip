@@ -132,6 +132,14 @@ public class UI {
         return "Stored data could not be loaded";
     }
 
+    public String getStatisticsMessage(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getCompletedTaskMessage(tasks, 1));
+        sb.append(getCompletedTaskMessage(tasks, 3));
+        sb.append(getCompletedTaskMessage(tasks, 7));
+        return sb.toString();
+    }
+
     /**
      * Prints a task count message.
      *
@@ -139,5 +147,9 @@ public class UI {
      */
     private String printTaskCount(int taskCount) {
         return "Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.\n";
+    }
+
+    private String getCompletedTaskMessage(TaskList tasks, int days) {
+        return "Tasks completed in the past " + days + " days is: " + tasks.getCompletedCount(days) + "\n";
     }
 }

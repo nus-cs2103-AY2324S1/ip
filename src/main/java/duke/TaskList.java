@@ -153,6 +153,22 @@ public class TaskList {
         return sb.toString();
     }
 
+    public int getCompletedCount(int days) {
+        if (days <= 0) {
+            return this.getTaskCount();
+        }
+        LocalDateTime now = LocalDateTime.now();
+        LocalDate today = now.toLocalDate();
+        LocalDate leftBound = today.minusDays(days - 1);
+        int count = 0;
+        for (Task task: tasks) {
+            if (task.isBetween(leftBound, today)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     /**
      * Loads the tasks from a file.
      *
