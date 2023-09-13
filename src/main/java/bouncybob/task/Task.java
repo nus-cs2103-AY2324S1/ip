@@ -6,6 +6,7 @@ package bouncybob.task;
 public class Task {
     private String name;
     private boolean isDone;
+    private String note;
 
     /**
      * Constructs a new Task with the given name.
@@ -15,6 +16,7 @@ public class Task {
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+        this.note = "";
     }
 
     /**
@@ -39,6 +41,13 @@ public class Task {
     }
 
     /**
+     * Sets the note of the task.
+     */
+    public void setNote (String note) {
+        this.note = note;
+    }
+
+    /**
      * Returns the name of the task.
      *
      * @return The name of the task.
@@ -53,7 +62,7 @@ public class Task {
      * @return The description, which is the same as the name for a base task.
      */
     public String getDescription() {
-        return getName();
+        return getName() + " Note: " + getNote();
     }
 
     /**
@@ -75,11 +84,20 @@ public class Task {
     }
 
     /**
+     * Returns the note of the task.
+     *
+     * @return The note of the task.
+     */
+    public String getNote() {
+        return this.note;
+    }
+
+    /**
      * Converts the task to its file storage format.
      *
      * @return The string representation of the task in file storage format.
      */
     public String toFileFormat() {
-        return getSymbol() + " | " + (isDone ? "1" : "0") + " | " + name;
+        return getSymbol() + " | " + (isDone ? "1" : "0") + " | " + name + " | " + note;
     }
 }

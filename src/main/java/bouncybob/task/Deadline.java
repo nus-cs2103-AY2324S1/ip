@@ -42,7 +42,7 @@ public class Deadline extends Task {
     public String getDescription() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedDatetime = this.parsedDatetime.format(formatter);
-        String description = String.format("%s (by: %s)", super.getName(), formattedDatetime);
+        String description = String.format("%s (by: %s) Note: %s", super.getName(), formattedDatetime, super.getNote());
         return description;
     }
 
@@ -53,6 +53,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return super.toFileFormat() + " | " + datetime;
+        return super.toFileFormat() + " | " + datetime + " | " + super.getNote();
     }
 }

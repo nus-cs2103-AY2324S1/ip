@@ -48,7 +48,7 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedFrom = this.parsedFrom.format(formatter);
         String formattedTo = this.parsedTo.format(formatter);
-        String description = String.format("%s (from: %s to: %s)", super.getName(), formattedFrom, formattedTo);
+        String description = String.format("%s (from: %s to: %s) Note: %s", super.getName(), formattedFrom, formattedTo, super.getNote());
         return description;
     }
 
@@ -59,6 +59,6 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return super.toFileFormat() + " | " + from + " | " + to;
+        return super.toFileFormat() + " | " + from + " | " + to + " | " + super.getNote();
     }
 }
