@@ -1,5 +1,8 @@
 package duke.task;
 
+import duke.DukeException;
+
+
 /**
  * The Todo class represents a todo task.
  * It is a subclass of the Task class.
@@ -13,6 +16,15 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+    }
+
+    @Override
+    public void updateDetails(String field, String details) throws DukeException {
+        if (field.equals("desc")) {
+            this.description = details;
+        } else {
+            throw new DukeException("OOPS!!! Only /desc flag allowed.");
+        }
     }
 
     @Override

@@ -26,6 +26,18 @@ public class Deadline extends Task {
     }
 
     @Override
+    public void updateDetails(String field, String details) throws DukeException {
+        if (field.equals("desc")) {
+            this.description = details;
+        } else if (field.equals("by")) {
+            LocalDate newDate = parseDate(details);
+            this.by = newDate;
+        } else {
+            throw new DukeException("OOPS!!! Only /desc /by flags allowed.");
+        }
+    }
+
+    @Override
     public String toData() {
         String done = String.valueOf(this.isDone ? 1 : 0);
         return "D | " + done + " | " + this.description + " | " + this.by;

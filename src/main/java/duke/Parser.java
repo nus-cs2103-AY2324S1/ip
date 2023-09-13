@@ -2,14 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -136,6 +129,24 @@ public class Parser {
             }
             commandDetailList.add(keyword);
             command = new FindCommand(commandDetailList);
+            break;
+        case "update":
+            int secondSpaceIndex = strCommand.indexOf(" ", firstSpaceIndex + 1);
+            int slashIndex = strCommand.indexOf("/", secondSpaceIndex);
+            int thirdSpaceIndex = strCommand.indexOf(" ", slashIndex);
+            if (firstSpaceIndex == -1 || strCommand.length() < "update ".length()) {
+                throw new DukeException("OOPS!!! The update details cannot be empty.");
+            } else if (slashIndex == -1 || secondSpaceIndex == -1) {
+                throw new DukeException("OOPS!!! Please use the format: update 1 /desc newName");
+            }
+            String taskNumber = strCommand.substring(firstSpaceIndex + 1, secondSpaceIndex);
+            String field = strCommand.substring(slashIndex + 1, thirdSpaceIndex);
+            String details = strCommand.substring(thirdSpaceIndex + 1);
+            commandDetailList.add(taskNumber);
+            commandDetailList.add(field);
+            commandDetailList.add(details);
+            System.out.println(field);
+            command = new UpdateCommand(commandDetailList);
             break;
         default:
             throw new DukeException("OOPS!!! This command is invalid.");
