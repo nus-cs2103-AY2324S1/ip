@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     public String execute(Ui ui, Storage storage, TaskList tasks) throws MonkeException {
         TaskList filteredTasks = tasks.filter(searchField);
         if (filteredTasks.size() > 0) {
-            return "Ooga booga! These are the matching tasks in your list:" +
+            return "Ooga booga! These are the matching tasks in your list:\n" +
                     ui.getListString(filteredTasks);
         } else {
             return "No tasks found. OOGA BOOGA!!";

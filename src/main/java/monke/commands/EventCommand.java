@@ -34,6 +34,9 @@ public class EventCommand extends Command {
         this.description = description;
         this.start = start;
         this.end = end;
+        assert this.description != null;
+        assert this.start != null;
+        assert this.end != null;
     }
 
     /**

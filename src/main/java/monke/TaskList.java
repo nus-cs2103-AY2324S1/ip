@@ -68,7 +68,9 @@ public class TaskList {
             if (n > this.tasks.size() || n <= 0) {
                 throw new MonkeException("OOGA BOOGA!! Your number is out of range. :(");
             }
-            return tasks.get(n - 1);
+            Task task = tasks.get(n - 1);
+            assert task != null;
+            return task;
         } catch (NumberFormatException e) {
             throw new MonkeException("OOGA BOOGA!! You must provide a number from the list. :(");
         }
