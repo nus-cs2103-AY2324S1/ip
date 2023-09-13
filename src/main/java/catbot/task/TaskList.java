@@ -94,8 +94,9 @@ public class TaskList {
         try {
             ObjectInputStream input = new ObjectInputStream(new FileInputStream(path));
             Object readObject = input.readObject();
-            //noinspection unchecked
-            tasks = (ArrayList<Task>) readObject;
+            @SuppressWarnings("unchecked")
+            ArrayList<Task> tasks = (ArrayList<Task>) readObject;
+            this.tasks = tasks;
             input.close();
         } catch (IOException ignored) {
         } catch (ClassNotFoundException e) { //save corrupted

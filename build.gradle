@@ -1,7 +1,13 @@
 plugins {
     id 'java'
     id 'application'
+    //id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+// Configure the Java compiler options
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-Xlint:unchecked"
 }
 
 repositories {
@@ -28,11 +34,12 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    //mainClass.set("seedu.duke.Duke")
+    mainClass.set("catbot.CatBot")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "catbot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
