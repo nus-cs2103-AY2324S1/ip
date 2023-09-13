@@ -47,6 +47,8 @@ public class TaskList {
     }
 
     public Task get(int index) {
+        assert index >= 0 : "index should be positive or zero";
+        assert index < this.listOfTasks.size() : "index should be within size of tasklist";
         return this.listOfTasks.get(index);
     }
 
@@ -107,7 +109,9 @@ public class TaskList {
     }
 
     private int getIndexOfMark(String str) {
-        return Integer.parseInt(str.substring(5));
+        assert str.length() >= 6 : "Index should be there";
+        int index = Integer.parseInt(str.substring(5));
+        return index;
     }
 
     public Task setDone(String str, TaskList taskList) throws SyntaxException, SemanticException {
