@@ -23,6 +23,7 @@ public class Deadline extends Task {
      */
     public Deadline(String bool, String description, String by) throws ZeanException {
         super(bool, description.strip());
+        assert description != null;
         try {
             this.by = LocalDate.parse(by.strip());
         } catch (DateTimeParseException e) {

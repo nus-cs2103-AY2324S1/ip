@@ -95,6 +95,7 @@ public class Zean {
         } catch (ZeanException e) {
             output = e.getMessage();
         }
+        assert !output.isBlank();
         return output;
     }
 
