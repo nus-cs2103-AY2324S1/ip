@@ -2,7 +2,6 @@ package duck;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duck.task.Events;
 import duck.task.Task;
 import duck.task.TaskList;
 

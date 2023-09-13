@@ -1,5 +1,4 @@
 
-import duck.Duck;
 import duck.Main;
 import javafx.application.Application;
 

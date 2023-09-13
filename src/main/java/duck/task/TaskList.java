@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import duck.exceptions.DuckException;
@@ -167,7 +166,7 @@ public class TaskList {
     }
     public ArrayList<Task> checkSchedule(String cmd) {
         ArrayList<Task> searchTaskOnSpecificDate = new ArrayList<>();
-        try{
+        try {
             LocalDate target = LocalDate.parse(cmd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             for (int i = 0; i < listOfTasks.size(); i++) {
                 Task task = listOfTasks.get(i);

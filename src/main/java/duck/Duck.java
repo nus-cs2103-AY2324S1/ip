@@ -18,10 +18,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
 /**
- * This class is command-line application responsible for managing tasks.
- */
+  * This class is command-line application responsible for managing tasks.
+  */
 public class Duck extends Application {
 
     private ScrollPane scrollPane;
@@ -38,6 +37,7 @@ public class Duck extends Application {
     private final Storage storage;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duckbot = new Image(this.getClass().getResourceAsStream("/images/duckbot.jpeg"));
+
     /**
      * Constructs a simple Duck Object..
      */
@@ -89,7 +89,7 @@ public class Duck extends Application {
         AnchorPane.setTopAnchor(scrollPane, 1.0);
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         sendButton.setOnMouseClicked((event) -> {
@@ -116,6 +116,7 @@ public class Duck extends Application {
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -126,6 +127,7 @@ public class Duck extends Application {
 
         return textToAdd;
     }
+
     /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -141,7 +143,6 @@ public class Duck extends Application {
         );
         userInput.clear();
     }
-
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
