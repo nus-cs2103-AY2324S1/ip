@@ -2,6 +2,7 @@ package parser;
 
 import exceptions.BocchiException;
 import exceptions.EmptyTaskException;
+import exceptions.EventConflictException;
 import exceptions.InvalidInputException;
 import exceptions.InvalidSyntaxException;
 import task.Deadline;
@@ -31,7 +32,7 @@ public class Parser {
      * @return Updated task list
      */
     private TaskList addTask(String input, String action, TaskList taskList)
-            throws InvalidSyntaxException {
+            throws BocchiException {
         Task task;
         switch (action) {
         case "deadline":
@@ -58,6 +59,11 @@ public class Parser {
         default:
             task = new Todo(input);
         }
+        
+        if (taskList.hasConflict(task)) {
+            throw new EventConflictException();
+        }
+
         TaskList newTaskList = taskList.addTask(task);
         boolean isAdded = newTaskList.isTaskPresent(task);
         assert isAdded;

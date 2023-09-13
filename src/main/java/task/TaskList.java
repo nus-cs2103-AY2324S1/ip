@@ -69,6 +69,10 @@ public class TaskList {
         return this.tasks.contains(t);
     }
 
+    public boolean hasConflict(Task task) {
+        return this.tasks.stream().anyMatch(t -> task.hasConflictWith(t));
+    }
+
     /**
      * Returns a new task list with unmarked task.
      *
