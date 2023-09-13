@@ -12,17 +12,16 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 
 /**
- * CS2103T iP Week 3
+ * CS2103T iP Week 5
  * AY23/24 Semester 1
  * A product named Duke, a Personal Assistant Chatbot that helps
  * a person to keep track of various things.
  *
  * @author bhnuka, Bhanuka Bandara Ekanayake (AXXX7875J), G01
- * @version 2.0 CS2103T AY 23/24 Sem 1
+ * @version 5.0 CS2103T AY 23/24 Sem 1
  */
 
 /**
@@ -77,68 +76,98 @@ public class Duke extends Application {
         }
     }
 
+    /**
+     * Initializes the JavaFX application and sets up the main user interface.
+     *
+     * @param stage The primary stage for the JavaFX application.
+     */
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
+        // Step 1: Setting up required components
+        scrollPane = createScrollPane();
         dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
         userInput = new TextField();
-        sendButton = new Button("Send");
+        sendButton = createSendButton();
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        AnchorPane mainLayout = createMainLayout();
 
-        scene = new Scene(mainLayout);
-
+        // Step 2: Formatting the window to look as expected
+        formatStage(stage);
+        Scene scene = new Scene(mainLayout, 400.0, 600.0);
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
+        // Part 3: Add functionality to handle user input
+        setupUserInputHandlers();
+    }
+
+    /**
+     * Creates and configures a ScrollPane for displaying the conversation.
+     *
+     * @return The configured ScrollPane.
+     */
+    private ScrollPane createScrollPane() {
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(dialogContainer);
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+        return scrollPane;
+    }
+
+    /**
+     * Creates a "Send" button for sending user input.
+     *
+     * @return The "Send" button.
+     */
+    private Button createSendButton() {
+        Button sendButton = new Button("Send");
+        sendButton.setPrefWidth(55.0);
+        return sendButton;
+    }
+
+    /**
+     * Creates the main layout of the user interface.
+     *
+     * @return The AnchorPane containing the main layout.
+     */
+    private AnchorPane createMainLayout() {
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        mainLayout.setPrefSize(400.0, 600.0);
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+        return mainLayout;
+    }
+
+    /**
+     * Formats the primary stage with desired properties.
+     *
+     * @param stage The primary stage for the JavaFX application.
+     */
+    private void formatStage(Stage stage) {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
+    }
 
-        mainLayout.setPrefSize(400.0, 600.0);
+    /**
+     * Sets up event handlers for user input.
+     */
+    private void setupUserInputHandlers() {
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        userInput.setOnAction((event) -> handleUserInput());
 
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        // You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
+        // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
+
 
     /**
      * The main method to start the Duke chatbot.
@@ -151,7 +180,6 @@ public class Duke extends Application {
 
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */

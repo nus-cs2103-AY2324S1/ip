@@ -19,6 +19,8 @@ public class Ui {
 
     /**
      * Displays a welcome message when Duke starts and returns it as a String.
+     *
+     * @return The welcome message.
      */
     public String showWelcome() {
         String logo = " ____        _        \n"
@@ -36,6 +38,8 @@ public class Ui {
 
     /**
      * Displays an exit message when Duke is exited and returns it as a String.
+     *
+     * @return The exit message.
      */
     public String showExit() {
         return "\t Bye. Hope to see you again soon!";
@@ -43,6 +47,8 @@ public class Ui {
 
     /**
      * Displays an error message when loading tasks from storage fails and returns it as a String.
+     *
+     * @return The loading error message.
      */
     public String showLoadingError() {
         return "No saved tasks found.";
@@ -52,6 +58,7 @@ public class Ui {
      * Displays an error message with the provided error message and returns it as a String.
      *
      * @param errorMessage The error message to display.
+     * @return The error message.
      */
     public String showError(String errorMessage) {
         return errorMessage;
@@ -59,6 +66,8 @@ public class Ui {
 
     /**
      * Returns a horizontal line separator as a String.
+     *
+     * @return The horizontal line separator.
      */
     public String showLine() {
         return "\t____________________________________________________________";
@@ -69,6 +78,7 @@ public class Ui {
      *
      * @param task The task that was added.
      * @param size The number of tasks in the list after adding.
+     * @return The message for adding a task.
      */
     public String showAdded(Task task, int size) {
         return "\t Got it. I've added this task:\n"
@@ -81,6 +91,7 @@ public class Ui {
      *
      * @param task The task that was deleted.
      * @param size The number of tasks in the list after deletion.
+     * @return The message for deleting a task.
      */
     public String showDeleted(Task task, int size) {
         return "\t Noted. I've removed this task:\n"
@@ -92,6 +103,7 @@ public class Ui {
      * Returns a message when a task is marked as done as a String.
      *
      * @param task The task that was marked as done.
+     * @return The message for marking a task as done.
      */
     public String showMarked(Task task) {
         return "\t Nice! I've marked this task as done:\n"
@@ -102,6 +114,7 @@ public class Ui {
      * Returns a message when a task is marked as not done as a String.
      *
      * @param task The task that was marked as not done.
+     * @return The message for marking a task as not done.
      */
     public String showUnmarked(Task task) {
         return "\t OK, I've marked this task as not done yet:\n"
@@ -112,6 +125,7 @@ public class Ui {
      * Returns a list of tasks as a String.
      *
      * @param tasks The list of tasks to display.
+     * @return The list of tasks as a String.
      */
     public String showList(TaskList tasks) {
         return tasks.listTasks();
@@ -121,6 +135,7 @@ public class Ui {
      * Returns matching tasks from a TaskList as a String.
      *
      * @param matchingTasks The TaskList containing matching tasks.
+     * @return The matching tasks as a String.
      */
     public String showMatchingTasks(TaskList matchingTasks) {
         StringBuilder result = new StringBuilder("\t Here are the matching tasks in your list:\n");
