@@ -21,6 +21,7 @@ import ekud.tasks.TaskList;
 public class Parser {
     private static final String INPUT_DATETIME_FORMAT = "d MMM HHmm";
     private static final String SAVED_DATETIME_FORMAT = "dd MMM yyyy h:mm a";
+    private static final int CUR_YEAR = 2023;
 
     /**
      * Splits the user's input into command and arguments.
@@ -157,7 +158,7 @@ public class Parser {
      */
     public LocalDateTime parseDateTime(String inputDateTime) {
         DateTimeFormatter parseFormatter = new DateTimeFormatterBuilder()
-                .parseDefaulting(ChronoField.YEAR, 2023)
+                .parseDefaulting(ChronoField.YEAR, CUR_YEAR)
                 .appendPattern(INPUT_DATETIME_FORMAT)
                 .toFormatter(Locale.ENGLISH);
         return LocalDateTime.parse(inputDateTime, parseFormatter);

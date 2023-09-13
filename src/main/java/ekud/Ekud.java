@@ -49,14 +49,13 @@ public class Ekud {
         if (userCommand.equals("end")) {
             return this.end();
         }
-        // Handle main commands
+        // Else handle main commands
         try {
             // executed commands will elicit a String response from the taskList object
             return parser.parseAndExecute(this.taskList, userCommand, userArgs);
         } catch (EkudException e) {
             return e.toString(); // catch and return error messages for invalid inputs
         }
-
     }
 
     public String start() {
