@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * TaskList
  */
 public class TaskList {
-    private static final String line = "\t____________________________________________________________\n";
+    private static String line = "\t____________________________________________________________\n";
     protected ArrayList<Task> strList;
 
     /**
@@ -38,6 +38,7 @@ public class TaskList {
      * @param description description of the todo task
      * @param isDone boolean to mark is the task is done or not
      * @param readingFile boolean to check if readingFile or not
+     * @throws EmptyDescriptionException
      */
     public String toDoHandler(String description, boolean isDone, boolean readingFile)
             throws EmptyDescriptionException {
@@ -58,6 +59,7 @@ public class TaskList {
      * @param description description of the todo task
      * @param isDone boolean to mark is the task is done or not
      * @param readingFile boolean to check if readingFile or not
+     * @throws EmptyDescriptionException
      */
     public String deadlineHandler(String description, boolean isDone, boolean readingFile) throws
             EmptyDescriptionException {
