@@ -19,10 +19,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import bouncybob.gui.TaskCell;
-import bouncybob.task.Deadlines;
-import bouncybob.task.Events;
+import bouncybob.task.Deadline;
+import bouncybob.task.Event;
 import bouncybob.task.Task;
-import bouncybob.task.ToDos;
+import bouncybob.task.ToDo;
 import bouncybob.util.Parser;
 import bouncybob.util.TaskFileHandler;
 import bouncybob.util.TaskList;
@@ -35,6 +35,11 @@ public class BouncyBob extends Application {
 
     private TaskList taskList = new TaskList();
 
+    /**
+     * Starts the BouncyBob application.
+     *
+     * @param stage The stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         Label titleLabel = new Label("BouncyBob's List");
@@ -46,6 +51,7 @@ public class BouncyBob extends Application {
         rootLayout.setPadding(new Insets(20));
 
         Scene scene = new Scene(rootLayout, 800, 800);
+
         stage.setTitle("BouncyBob To-Do List Manager");
         stage.setScene(scene);
         stage.show();
@@ -141,25 +147,27 @@ public class BouncyBob extends Application {
     /**
      * Adds a task to the task list and prints the task.
      *
-     * @param parts    The parsed user input.
+     * @param userInputSplits    The parsed user input.
      * @param taskList The task list.
      */
-    private static void addTaskAndPrint(String[] parts, TaskList taskList) {
-        TaskType taskType = Parser.getTaskType(parts[0]);
+<<<<<<< HEAD
+    private static void addTaskAndPrint(String[] userInputSplits, TaskList taskList) {
+        TaskType taskType = Parser.getTaskType(userInputSplits[0]);
         assert taskType != TaskType.UNKNOWN : "Unknown task type encountered.";
         String taskName = "";
         Task newTask = null;
+
         switch (taskType) {
             case TODO:
-                taskName = Parser.removeAction(parts);
+                taskName = Parser.removeAction(userInputSplits);
                 assert !taskName.trim().isEmpty() : "Task name is unexpectedly empty.";
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'todo' cannot be empty.");
                 }
-                newTask = new ToDos(taskName);
+                newTask = new ToDo(taskName);
                 break;
             case DEADLINE:
-                taskName = Parser.removeAction(parts);
+                taskName = Parser.removeAction(userInputSplits);
                 assert !taskName.trim().isEmpty() : "Task name is unexpectedly empty.";
                 String datetime = Parser.extractDatetime(taskName);
                 assert !datetime.trim().isEmpty() : "Datetime is unexpectedly empty.";
@@ -171,10 +179,10 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'deadline' cannot be empty.");
                 }
-                newTask = new Deadlines(taskName, datetime);
+                newTask = new Deadline(taskName, datetime);
                 break;
             case EVENT:
-                taskName = Parser.removeAction(parts);
+                taskName = Parser.removeAction(userInputSplits);
                 String[] fromTo = Parser.extractFromTo(taskName);
                 if (fromTo[0] == null || fromTo[1] == null) {
                     throw new IllegalArgumentException("/from and /to cannot be empty!");
@@ -183,11 +191,12 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'event' cannot be empty.");
                 }
-                newTask = new Events(taskName, fromTo[0], fromTo[1]);
+                newTask = new Event(taskName, fromTo[0], fromTo[1]);
                 break;
             case UNKNOWN:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
+
         taskList.addTask(newTask);
         Ui.printTaskCount(taskList.size() - 1, newTask);  // Adjusted to size of ArrayList
     }
@@ -195,24 +204,25 @@ public class BouncyBob extends Application {
     /**
      * Creates a task based on the action specified.
      *
-     * @param parts The parsed user input.
+     * @param userInputSplits The parsed user input.
      * @return The task created.
      */
-    private static Task createTask(String[] parts) {
-        TaskType taskType = Parser.getTaskType(parts[0]);
+    private static Task createTask(String[] userInputSplits) {
+        TaskType taskType = Parser.getTaskType(userInputSplits[0]);
         assert taskType != TaskType.UNKNOWN : "Unknown task type encountered.";
         String taskName = "";
         Task newTask = null;
+
         switch (taskType) {
             case TODO:
-                taskName = Parser.removeAction(parts);
+                taskName = Parser.removeAction(userInputSplits);
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'todo' cannot be empty.");
                 }
-                newTask = new ToDos(taskName);
+                newTask = new ToDo(taskName);
                 break;
             case DEADLINE:
-                taskName = Parser.removeAction(parts);
+                taskName = Parser.removeAction(userInputSplits);
                 String datetime = Parser.extractDatetime(taskName);
                 if (datetime.trim().isEmpty()) {
                     throw new IllegalArgumentException("/by cannot be empty!");
@@ -221,10 +231,10 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'deadline' cannot be empty.");
                 }
-                newTask = new Deadlines(taskName, datetime);
+                newTask = new Deadline(taskName, datetime);
                 break;
             case EVENT:
-                taskName = Parser.removeAction(parts);
+                taskName = Parser.removeAction(userInputSplits);
                 String[] fromTo = Parser.extractFromTo(taskName);
                 if (fromTo[0] == null || fromTo[1] == null) {
                     throw new IllegalArgumentException("/from and /to cannot be empty!");
@@ -233,11 +243,12 @@ public class BouncyBob extends Application {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("bouncybob.task.Task name for 'event' cannot be empty.");
                 }
-                newTask = new Events(taskName, fromTo[0], fromTo[1]);
+                newTask = new Event(taskName, fromTo[0], fromTo[1]);
                 break;
             case UNKNOWN:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
+
         return newTask;
     }
 
@@ -250,6 +261,7 @@ public class BouncyBob extends Application {
     public static void modifyTask(String[] parts, TaskList taskList) {
         Action action = Parser.getAction(parts[0]);
         int index = Integer.parseInt(parts[1]); // Adjust for 0-based index
+
         switch(action) {
             case MARK:
                 taskList.getTask(index).setDone();
@@ -280,29 +292,28 @@ public class BouncyBob extends Application {
         while (true) {
             System.out.println("Enter something:");
             String userInput = scanner.nextLine();
-            String[] parts = userInput.split(" ");
-            assert parts.length > 0 : "User input is unexpectedly empty.";
+            String[] userInputSplits = userInput.split(" ");
+            assert userInputSplits.length > 0 : "User input is unexpectedly empty.";
 
             if (userInput.equals("bye")) {
                 Ui.printBye();
                 break;
             } else if (userInput.equals("list")) {
                 Ui.printDatabase(taskList);  // Adjusted for ArrayList
-            } else if (parts[0].equals("find")) {
-                // find
-                String subString = Parser.removeAction(parts);
+            } else if (userInputSplits[0].equals("find")) {
+                String subString = Parser.removeAction(userInputSplits);
                 TaskList subTaskList = taskList.getSubTaskList(subString);
                 Ui.printDatabase(subTaskList);
-            } else if (Parser.getAction(parts[0]) != Action.UNKNOWN) {
+            } else if (Parser.getAction(userInputSplits[0]) != Action.UNKNOWN) {
                 try {
-                    modifyTask(parts, taskList);
+                    modifyTask(userInputSplits, taskList);
                     TaskFileHandler.saveTasksToDisk(taskList);
                 } catch (IndexOutOfBoundsException e) {
                     Ui.printIndexOutOfBound();
                 }
             } else {
                 try {
-                    addTaskAndPrint(parts, taskList);
+                    addTaskAndPrint(userInputSplits, taskList);
                     TaskFileHandler.saveTasksToDisk(taskList);
                 } catch (IllegalArgumentException e) {
                     Ui.printIllegalArgumentException(e);

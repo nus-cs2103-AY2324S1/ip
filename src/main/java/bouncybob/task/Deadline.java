@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a deadline task in the BouncyBob application.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
     private String datetime;
     private LocalDateTime parsedDatetime;
 
@@ -16,7 +16,7 @@ public class Deadlines extends Task {
      * @param name     The name of the task.
      * @param datetime The datetime of the deadline.
      */
-    public Deadlines(String name, String datetime) {
+    public Deadline(String name, String datetime) {
         super(name);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.parsedDatetime = LocalDateTime.parse(datetime, formatter);

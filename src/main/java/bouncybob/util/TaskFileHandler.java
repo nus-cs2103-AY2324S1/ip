@@ -3,10 +3,10 @@ package bouncybob.util;
 import java.util.List;
 import java.util.ArrayList;
 
-import bouncybob.task.Deadlines;
-import bouncybob.task.Events;
+import bouncybob.task.Deadline;
+import bouncybob.task.Event;
 import bouncybob.task.Task;
-import bouncybob.task.ToDos;
+import bouncybob.task.ToDo;
 import javafx.collections.ObservableList;
 
 import java.io.BufferedWriter;
@@ -77,16 +77,16 @@ public class TaskFileHandler {
                 Task task = null;
                 switch (type) {
                     case "T":
-                        task = new ToDos(name);
+                        task = new ToDo(name);
                         break;
                     case "D":
                         String datetime = parts[3].trim();
-                        task = new Deadlines(name, datetime);
+                        task = new Deadline(name, datetime);
                         break;
                     case "E":
                         String from = parts[3].trim();
                         String to = parts[4].trim();
-                        task = new Events(name, from, to);
+                        task = new Event(name, from, to);
                         break;
                 }
                 if (task != null) {

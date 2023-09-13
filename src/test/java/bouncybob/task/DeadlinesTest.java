@@ -8,19 +8,19 @@ public class DeadlinesTest {
 
     @Test
     public void testGetSymbol() {
-        Deadlines deadline = new Deadlines("Test Task", "2023-08-30 1234");
+        Deadline deadline = new Deadline("Test Task", "2023-08-30 1234");
         assertEquals("D", deadline.getSymbol());
     }
 
     @Test
     public void testGetDescription() {
-        Deadlines deadline = new Deadlines("Test Task", "2023-08-30 1234");
+        Deadline deadline = new Deadline("Test Task", "2023-08-30 1234");
         assertEquals("Test Task (by: Aug 30 2023)", deadline.getDescription());
     }
 
     @Test
     public void testToFileFormat() {
-        Deadlines deadline = new Deadlines("Test Task", "2023-08-30 1234");
+        Deadline deadline = new Deadline("Test Task", "2023-08-30 1234");
         assertEquals("D | 0 | Test Task | 2023-08-30 1234", deadline.toFileFormat());
     }
 }
