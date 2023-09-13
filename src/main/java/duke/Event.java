@@ -25,13 +25,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + convertDateToString(this.from)
-                + " to: " + convertDateToString(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + super.convertDateToString(this.from)
+                + " to: " + super.convertDateToString(this.to) + ")";
     }
 
     @Override
     public String convertToSaveFormat() {
-        return "E | " + super.convertToSaveFormat() + " | " + convertDateToString(this.from)
-                + " to " + convertDateToString(this.to);
+        return "E | " + super.convertToSaveFormat() + " | " + super.convertDateToString(this.from)
+                + " to " + super.convertDateToString(this.to);
     }
 }

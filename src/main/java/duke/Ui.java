@@ -108,11 +108,14 @@ public class Ui {
      */
     public static String showTaskList(ArrayList<Task> taskArray, boolean isMatch) {
         StringBuilder stringBuilder = new StringBuilder();
+        assert taskArray != null;
+
         if (taskArray.isEmpty() && !isMatch) {
             stringBuilder.append("HEYYYYYYYY! There's nothing to show in your list!\n");
         } else if (taskArray.isEmpty()) {
             stringBuilder.append("HAIYAAAA! There's nothing in your list that matches the keyword!\n");
         }
+
         if (!taskArray.isEmpty() && !isMatch) {
             stringBuilder.append("WHEET WHEET WHEET! Here are the tasks in your list:\n");
         } else if (!taskArray.isEmpty()) {

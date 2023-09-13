@@ -1,5 +1,6 @@
 package duke;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,6 +21,8 @@ public class TaskList {
      * @param taskArray the corresponding array list that contains the tasks.
      */
     public TaskList(ArrayList<Task> taskArray) {
+        assert taskArray != null;
+
         this.taskArray = taskArray;
     }
 
@@ -55,7 +58,8 @@ public class TaskList {
      * @param description the description of the task to be added.
      */
     public void addTodoTask(String description) {
-        this.taskArray.add(new Todo(description));
+        assert description != null && !description.isEmpty();
+        this.taskArray.add(new Todo(description.trim()));
     }
 
     /**
@@ -77,6 +81,7 @@ public class TaskList {
      */
     public String markOrUnmarkTask(String action, int taskNum) throws DukeException {
         StringBuilder stringBuilder = new StringBuilder();
+        assert action.equals("mark") || action.equals("unmark");
         try {
             if (action.equals("mark")) {
                 stringBuilder.append(Ui.getTaskMarked(this.taskArray.get(taskNum - 1).isDone));
@@ -100,6 +105,7 @@ public class TaskList {
      */
     public void addDeadlineOrEventTask(String action, String[] remainLine)
             throws DukeException {
+        assert action.equals("deadline") || action.equals("event");
         if (action.equals("deadline")) {
             try {
                 String dateTime = remainLine[1].substring(3);
@@ -147,6 +153,8 @@ public class TaskList {
      * @param keyword the keyword to find in the tasks.
      */
     public String findTasks(String keyword) {
+        assert keyword != null;
+
         ArrayList<Task> foundTasksArray = new ArrayList<>();
         for (int i = 0; i < this.taskArray.size(); i++) {
             if (this.taskArray.get(i).toString().contains(keyword)) {

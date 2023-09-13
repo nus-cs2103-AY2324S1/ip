@@ -36,7 +36,6 @@ public class Storage {
         if (f.exists() && f.isDirectory()) {
             return true;
         }
-        //Ui.directoryNotFound();
         return false;
     }
 
@@ -65,6 +64,8 @@ public class Storage {
         createDirectory();
 
         Scanner s = createOrGetFile();
+        assert new File(filePath).exists();
+
         ArrayList<Task> taskArray = new ArrayList<>();
 
         while (s.hasNext()) {
@@ -85,6 +86,7 @@ public class Storage {
                         undoDateFormatInputFile(getDateTime[0]), undoDateFormatInputFile(getDateTime[1])));
                 break;
             default:
+                // There will be no default case as the file can only take on the 3 values above
             }
 
             if (line[1].equals("X")) {
@@ -101,6 +103,8 @@ public class Storage {
      * @throws DukeException if the attempt to write to the file fails.
      */
     public void addLineToFile(TaskList taskList) throws DukeException {
+        assert !taskList.taskArray.isEmpty();
+
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
             if (taskList.taskArray.size() == 1) {
@@ -121,6 +125,8 @@ public class Storage {
      * @throws DukeException if the attempt to write to the file fails.
      */
     public void rewriteFile(TaskList taskList) throws DukeException {
+        assert !taskList.taskArray.isEmpty();
+
         try {
             FileWriter fw = new FileWriter(this.filePath);
             for (int i = 0; i < taskList.taskArray.size(); i++) {
