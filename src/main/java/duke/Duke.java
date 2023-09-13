@@ -150,7 +150,6 @@ public class Duke extends Application{
     }
 
     public String manipulateTasks(String[] parsedText) {
-        String dukeProcessedText = "";
         try {
             switch (parsedText[0]) {
                 case "mark":
