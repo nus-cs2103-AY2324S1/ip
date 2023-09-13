@@ -18,8 +18,8 @@ public class Duke {
     private Ui ui;
 
 
-    private static String DIRECTORY = "./data";
-    private static String PATH = "./data/duke.txt";
+    private static final String DIRECTORY = "./data";
+    private static final String PATH = "./data/duke.txt";
     private boolean isRunning = true;
 
     public Duke() {
@@ -67,7 +67,7 @@ public class Duke {
     }
 
     /**
-     * Add a deadline task based on the description of the string
+     * Adds a deadline task based on the description of the string
      * detailing its deadline and description.
      * @param s the string
      * @return the Deadline Tasked added
@@ -89,7 +89,7 @@ public class Duke {
     }
 
     /**
-     * Add a todo task based on the description of the string
+     * Adds a todo task based on the description of the string
      * detailing its deadline.
      * @param s the string
      * @return the todo Tasked added
@@ -106,7 +106,7 @@ public class Duke {
     }
 
     /**
-     * Add a event task based on the description of the string
+     * Adds a event task based on the description of the string
      * detailing its start, end and description.
      * @param s the string
      * @return the Event Tasked added
@@ -135,7 +135,7 @@ public class Duke {
     }
 
     /**
-     * Delete the idx^th task in the list.
+     * Deletes the idx^th task in the list.
      * @param idx the index of the task(1-index)
      * @return the Task deleted
      */
