@@ -24,7 +24,11 @@ public class Task {
     public String getType() {
         return "task";
     }
-    public String saveTask () {return this.description; }
+    public String saveTask() {return this.description; }
+
+    public boolean containKeywords(String keywords){
+        return this.description.contains(keywords);
+    }
 
     @Override
     public String toString() {
