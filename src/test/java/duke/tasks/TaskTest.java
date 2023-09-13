@@ -2,6 +2,8 @@ package duke.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 import duke.components.Status;
@@ -12,6 +14,11 @@ public class TaskTest {
     public class ConcreteTask extends Task {
         public ConcreteTask(Status status, String task) {
             super(status, task);
+        }
+
+        @Override
+        public boolean isWithin(LocalDateTime start, LocalDateTime end) {
+            return false;
         }
 
         @Override

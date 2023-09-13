@@ -2,6 +2,8 @@ package duke.tasks;
 
 import duke.components.Status;
 
+import java.time.LocalDateTime;
+
 /**
  * Encapsulates a ToDo. Contains the task description, and
  * completion status.
@@ -16,6 +18,18 @@ public class ToDo extends Task {
      */
     public ToDo(Status status, String task) {
         super(status, task);
+    }
+
+    /**
+     * Always returns false as ToDo does not have a date for comparison.
+     *
+     * @param start start of period to check.
+     * @param end   end of period to check.
+     * @return false.
+     */
+    @Override
+    public boolean isWithin(LocalDateTime start, LocalDateTime end) {
+        return false;
     }
 
     /**

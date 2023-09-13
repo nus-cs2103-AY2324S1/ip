@@ -3,22 +3,22 @@ package duke.components;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidCommandException;
 import duke.exceptions.InvalidDeadlineException;
 import duke.exceptions.InvalidEventException;
 import duke.exceptions.InvalidFindTaskException;
+import duke.exceptions.InvalidListFlagException;
 import duke.exceptions.InvalidStartEndException;
 import duke.exceptions.InvalidTaskIdException;
 import duke.exceptions.NoDescException;
 import duke.exceptions.NoEndException;
 import duke.exceptions.NoStartException;
 import duke.exceptions.NoTaskIdException;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
-import duke.tasks.Task;
 import duke.tasks.ToDo;
 
 /**
@@ -78,7 +78,7 @@ public class Parser {
 
         switch (command) {
         case "list":
-            return tasks.listTasks();
+            return parseList(input);
         case "delete":
             return parseDelete(input);
         case "mark":
@@ -101,10 +101,26 @@ public class Parser {
     }
 
     /**
-     * Returns a goodbye to the user.
+     * Returns the list of tasks that are within a certain period.
+     * User can specify 'today', 'week' or 'fort' after the 'soon' command.
+     * 'today' will list the tasks within/due today,'week' will list
+     * the tasks within/due this week, while 'fort' will
+     * list the tasks within/ due in 2 weeks.
+     *
+     * @param input user input.
+     * @throws InvalidListFlagException if command is not of the correct format.
      */
-    public String parseBye() {
-        return ui.bye();
+    public String parseList(String input) throws InvalidListFlagException {
+        String[] inputs = input.split(" ");
+        if (inputs.length == 1) {
+            return tasks.listTasks();
+        }
+        if (inputs.length != 2) {
+            throw new InvalidListFlagException();
+        }
+        String when = inputs[1];
+        String upcoming = this.tasks.getUpcoming(when);
+        return upcoming;
     }
 
     /**
@@ -327,7 +343,14 @@ public class Parser {
             throw new InvalidFindTaskException();
         }
         String keyword = inputs[1];
-        ArrayList<Task> matches = tasks.findMatches(keyword);
-        return ui.showMatches(tasks.listTasks(matches));
+        String matches = tasks.findMatches(keyword);
+        return matches;
+    }
+
+    /**
+     * Returns a goodbye to the user.
+     */
+    public String parseBye() {
+        return ui.bye();
     }
 }

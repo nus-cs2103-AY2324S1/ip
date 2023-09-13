@@ -1,9 +1,13 @@
 package duke.components;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import duke.exceptions.InvalidListFlagException;
 import duke.exceptions.InvalidTaskIdException;
 import duke.tasks.Task;
+
 
 /**
  * Contains the task list, and methods to modify the tasks in the list
@@ -151,7 +155,7 @@ public class TaskList {
      * @param keyword specified keyword to be searched for.
      * @return list of tasks that contain keyword.
      */
-    public ArrayList<Task> findMatches(String keyword) {
+    public String findMatches(String keyword) {
         ArrayList<Task> matches = new ArrayList<>();
         for (Task task : this.list) {
             String desc = task.getTask();
@@ -160,6 +164,43 @@ public class TaskList {
                 matches.add(task);
             }
         }
-        return matches;
+        return ui.showMatches(listTasks(matches));
+    }
+
+    /**
+     * Returns the tasks that are either due/ within the specified period.
+     * Today refers to the start of today, at 00:00.
+     *
+     * @param when specified period.
+     * @return tasks that are due/ within the specified period.
+     * @throws InvalidListFlagException when list flag is of the incorrect format.
+     */
+    public String getUpcoming(String when) throws InvalidListFlagException {
+        LocalDate today = LocalDate.now();
+        LocalDateTime start= today.atStartOfDay();
+
+        LocalDateTime endOfPeriod;
+
+        switch (when) {
+        case "today":
+            endOfPeriod = start.plusDays(1);
+            break;
+        case "week":
+            endOfPeriod = start.plusWeeks(1);
+            break;
+        case "fort":
+            endOfPeriod = start.plusWeeks(2);
+            break;
+        default:
+            throw new InvalidListFlagException();
+        }
+
+        ArrayList<Task> upcoming = new ArrayList<>();
+        for (Task task : this.list) {
+            if (task.isWithin(start, endOfPeriod)) {
+                upcoming.add(task);
+            }
+        }
+        return ui.showUpcoming(listTasks(upcoming));
     }
 }
