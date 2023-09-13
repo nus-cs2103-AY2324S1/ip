@@ -102,15 +102,4 @@ public class DukeUi {
         return "OK, I've marked this task as not nyan yet:"
                 + "    " + currentTask;
     }
-
-    /**
-     * When called, will bid the user farewell.
-     *
-     * @author Tan Kerway
-     */
-    public void sayGoodBye() {
-        System.out.println("------------------------------------------------------------------------");
-        System.out.println("Bye. Hope to see you a-nyan soon!");
-        System.out.println("------------------------------------------------------------------------");
-    }
 }

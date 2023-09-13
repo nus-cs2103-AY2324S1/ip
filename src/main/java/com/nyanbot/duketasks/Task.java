@@ -15,9 +15,7 @@ import com.nyanbot.dukeexceptionhandlers.DukeExceptionHandlers;
  * @author Tan Kerway
  */
 public class Task {
-    // default date to do date computations
     protected static final LocalDateTime DEFAULT_DATE = LocalDateTime.of(1970, 1, 1, 0, 0);
-    // predefined list of dates
     protected static String[] dateFormats = new String[] {
         "0",
         // time string with day and time
@@ -64,11 +62,8 @@ public class Task {
         "d/M"
     };
 
-    // tasks the bot has stored so far
     private final String description;
-    // flag to indicate whether tha task has been completed
     private boolean isDone;
-    // flag to indicate whether the task is valid
     private boolean isValid;
 
     /**
@@ -77,7 +72,6 @@ public class Task {
      * @param description the description of the task to be instantiated
      */
     public Task(String description) {
-        // create a new task instance
         this.description = description;
         this.isDone = false;
         this.isValid = true;
@@ -90,7 +84,6 @@ public class Task {
      * @param isDone whether the task is done
      */
     public Task(String description, boolean isDone) {
-        // create a new task instance
         this.description = description;
         this.isDone = isDone;
         this.isValid = true;
@@ -104,7 +97,6 @@ public class Task {
      * @param isValid whether the task is valid
      */
     public Task(String description, boolean isDone, boolean isValid) {
-        // create a new task instance
         this.description = description;
         this.isDone = isDone;
         this.isValid = isValid;
@@ -130,6 +122,8 @@ public class Task {
      */
     protected LocalDateTime parseDate(String time, String error) {
         int currentFormatID = -1;
+        // attempt to find a date format that matches the user's input date
+        // this allows for a wide range of date formats
         for (String formatString : dateFormats) {
             try {
                 if (isNumeric(formatString)) {
@@ -147,7 +141,6 @@ public class Task {
                 } else if (currentFormatID == 1) {
                     // case where the current format is not missing anything(index 1 to 7)
                     // keep the final date as is
-
                 } else if (currentFormatID == 2) { // case where the current format is missing time(index 8 to 11)
                     // add 2359 to the final date
                     temp = addTime(temp);
@@ -205,7 +198,8 @@ public class Task {
         assert time != null : "time should be not null";;
         LocalDateTime now = LocalDateTime.now();
         int yearsElapsed = now.getYear() - DEFAULT_DATE.getYear();
-        // update the year
+        // update the year by adding to the current year
+        // why: this method is called when the input date does not have a year
         return time.plusYears(yearsElapsed);
     }
 

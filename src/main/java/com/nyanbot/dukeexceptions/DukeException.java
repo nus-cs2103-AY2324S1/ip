@@ -6,6 +6,7 @@ package com.nyanbot.dukeexceptions;
  * @author Tan Kerway
  */
 public class DukeException extends Exception {
+    private static final String GENERAL_EXCEPTION_STRING = "OOPS!!!";
 
     /**
      * Constructor for the DukeExceptions.DukeException class.
@@ -13,7 +14,7 @@ public class DukeException extends Exception {
      * @author Tan Kerway
      */
     public DukeException(String s) {
-        super("OOPS!!!" + s);
+        super(GENERAL_EXCEPTION_STRING + s);
     }
 
     /**

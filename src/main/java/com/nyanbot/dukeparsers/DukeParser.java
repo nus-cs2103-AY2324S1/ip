@@ -94,16 +94,12 @@ public class DukeParser {
     public Integer parseString(String numberString) {
         assert !numberString.isEmpty();
         int res = 0;
-        // trim and trailing spaces
         numberString = numberString.trim();
         for (int i = 0; i < numberString.length(); i++) {
-            // get the current char
             char currentChar = numberString.charAt(i);
-            // gc: not a number
             if (!Character.isDigit(currentChar)) {
                 return null;
             }
-            // else, add to the res
             res = res * 10 + (currentChar - '0');
         }
         return res - 1 < 0 || res - 1 >= this.taskListUtility.getTasks().size() ? null : res;

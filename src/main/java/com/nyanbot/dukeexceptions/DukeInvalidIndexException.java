@@ -6,6 +6,7 @@ package com.nyanbot.dukeexceptions;
  * @author Tan Kerway
  */
 public class DukeInvalidIndexException extends DukeException {
+    public static final String INVALID_INDEX_STRING = " Please enter a valid index!";
 
     /**
      * Constructor for the DukeExceptions.DukeInvalidIndexException exception.
@@ -13,7 +14,7 @@ public class DukeInvalidIndexException extends DukeException {
      * @author Tan Kerway
      */
     public DukeInvalidIndexException() {
-        super(" Please enter a valid index!");
+        super(INVALID_INDEX_STRING);
     }
 
     /**
