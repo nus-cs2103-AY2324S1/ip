@@ -58,11 +58,11 @@ public class Duke {
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        try {
+        try{
             this.taskArrayList = storage.load();
 
         } catch (Exception e) {
-            //ui.showLoadingError();
+            //            ui.showLoadingError();
             this.taskArrayList = new TaskArray();
         }
     }
@@ -86,7 +86,7 @@ public class Duke {
     public String getResponse(String input) {
         String output = ui.runGUITask(taskArrayList,input);
 
-        if (output.equals(ui.byeFunction())) {
+        if(output.equals(ui.byeFunction())){
             end = true;
         }
 
