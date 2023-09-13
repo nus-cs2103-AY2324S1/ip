@@ -21,9 +21,8 @@ public class Event extends Task {
      */
     public Event(String response) {
         super(false);
-        int toTrim = response.indexOf(" ");
         int info = response.indexOf("/");
-        this.title = response.substring(toTrim + 1, info - 1);
+        this.title = response.substring(0, info - 1);
         Pattern startPattern = Pattern.compile("/from (\\d+/\\d+/\\d+ \\d+)");
         Pattern endPattern = Pattern.compile("/to (\\d+/\\d+/\\d+ \\d+)");
         Matcher startMatcher = startPattern.matcher(response);

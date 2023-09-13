@@ -17,9 +17,8 @@ public class Deadline extends Task {
      */
     public Deadline(String response) {
         super(false);
-        int toTrim = response.indexOf(" ");
         int info = response.indexOf("/");
-        this.title = response.substring(toTrim + 1, info - 1);
+        this.title = response.substring(0, info - 1);
         this.deadline = new TimeFormatter(response.substring(info + 4));
     }
 

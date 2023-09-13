@@ -17,10 +17,9 @@ public class DeleteCommand extends Command {
      *
      * @param fullCommand The full command string containing the task index.
      */
-    public DeleteCommand(String fullCommand) {
+    public DeleteCommand(int response) {
         super(false);
-        String[] parts = fullCommand.split(" ");
-        this.taskToDeleteIndex = Integer.parseInt(parts[1]) - 1;
+        this.taskToDeleteIndex = response;
     }
 
     /**

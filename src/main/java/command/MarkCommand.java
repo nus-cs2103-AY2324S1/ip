@@ -16,13 +16,9 @@ public class MarkCommand extends Command {
      *
      * @param fullCommand The full command string containing the task index.
      */
-    public MarkCommand(String fullCommand) {
+    public MarkCommand(int response) {
         super(false);
-        String[] parts = fullCommand.split(" ");
-        {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            this.index = taskIndex;
-        }
+        this.index = response;
     }
 
     /**
