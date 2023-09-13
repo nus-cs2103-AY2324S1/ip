@@ -2,6 +2,7 @@ package duke;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 /**
  * Contains the tasks list, it has operations to add/delete tasks in the list
@@ -97,12 +98,9 @@ public class TaskList {
     public String toString() {
         assert this.tasks != null : "tasks should have been initialised and should not be null";
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            sb.append("    " + (i + 1) + ". " + this.tasks.get(i));
-            if (i != this.tasks.size() - 1) {
-                sb.append(System.lineSeparator());
-            }
-        }
+        IntStream.range(0, this.tasks.size())
+                .mapToObj(i -> "    " + (i + 1) + ". " + this.tasks.get(i) + System.lineSeparator())
+                .forEach(sb::append);
         return sb.toString();
     }
 
@@ -121,12 +119,10 @@ public class TaskList {
     public String findTasksOnDate(LocalDate date) {
         assert this.tasks != null : "tasks should have been initialised and should not be null";
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            if (this.tasks.get(i).isOnDate(date)) {
-                sb.append("    " + (i + 1) + ". " + this.tasks.get(i));
-                sb.append(System.lineSeparator());
-            }
-        }
+        IntStream.range(0, this.tasks.size())
+                .filter(i -> this.tasks.get(i).isOnDate(date))
+                .mapToObj(i -> "    " + (i + 1) + ". " + this.tasks.get(i) + System.lineSeparator())
+                .forEach(sb::append);
         return sb.toString();
     }
 
@@ -139,12 +135,10 @@ public class TaskList {
     public String find(String description) {
         assert this.tasks != null : "tasks should have been initialised and should not be null";
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            if (this.tasks.get(i).containsDescription(description)) {
-                sb.append("    " + (i + 1) + ". " + this.tasks.get(i));
-                sb.append(System.lineSeparator());
-            }
-        }
+        IntStream.range(0, this.tasks.size())
+                .filter(i -> this.tasks.get(i).containsDescription(description))
+                .mapToObj(i -> "    " + (i + 1) + ". " + this.tasks.get(i) + System.lineSeparator())
+                .forEach(sb::append);
         return sb.toString();
     }
 
