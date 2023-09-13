@@ -32,7 +32,7 @@ public class TaskArray {
      */
     public String printTaskArrayList() {
         String output ="";
-        for(int i = 0; i < taskArrayList.size(); i++ ) {
+        for (int i = 0; i < taskArrayList.size(); i++ ) {
             int index = i + 1;
             output += "\n"+index +": " + taskArrayList.get(i).getTypeCheckedText();
         }
@@ -77,7 +77,7 @@ public class TaskArray {
      */
     public String removeTask(int index) {
         String output = "";
-        if(index < 0 && index >=taskArrayList.size()){
+        if (index < 0 && index >=taskArrayList.size()) {
             output = "Invalid Index";
             return output;
         }
@@ -93,13 +93,13 @@ public class TaskArray {
 
 
         for (Task task : taskArrayList) {
-            if(task.getText().contains(arg)) {
+            if (task.getText().contains(arg)) {
                 tempTaskArraylist.add(task);
             }
         }
 
         String output = "Here are the matching tasks in your list:";
-        for(int i = 0; i < tempTaskArraylist.size(); i++) {
+        for (int i = 0; i < tempTaskArraylist.size(); i++) {
             int index = i + 1;
             output += ("\n" + index+"."+ tempTaskArraylist.get(i).getTypeCheckedText());
         }

@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.Duke;
-
 public class Task {
     private String text;
     private String type = "";
@@ -37,7 +35,6 @@ public class Task {
      * @return The text description of the task.
      */
     public String getText(){
-
         return text;
     }
 
@@ -47,9 +44,9 @@ public class Task {
      * @return A string representing the checked status of the task.
      */
     public String getChecked() {
-        if(checked) {
+        if (checked) {
             return "[/]";
-        }else{
+        } else{
             return "[ ]";
         }
     }
@@ -114,7 +111,7 @@ public class Task {
      *
      * @return The parsed data of the task.
      */
-    public String getParsed() {
+    public String getParsedTask() {
         String result = this.type + ";" + this.text + ";" + this.checked;
         return result;
     }

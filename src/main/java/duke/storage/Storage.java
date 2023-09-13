@@ -30,16 +30,8 @@ public class Storage {
      */
     public TaskArray load() {
         // Create the folder/file if it doesn't exist
-        boolean createdFolder = createFolder(this.filePath);
-        boolean createdFile =createFile(this.filePath);
-
-        ArrayList<String> result = new ArrayList();
-        ArrayList<String> tobeProcessedArray = scanFile(this.filePath);
-
-
-
-        return parseData(tobeProcessedArray);
-
+        ArrayList<String> toBeProcessedArray = scanFile(this.filePath);
+        return parseData(toBeProcessedArray);
     }
 
     /**
@@ -51,8 +43,8 @@ public class Storage {
     public boolean createFile(String filePath) {
         File file = new File(filePath);
         if (!file.exists()) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-
+            try{
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -100,7 +92,8 @@ public class Storage {
 
         ArrayList<String> lines = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
@@ -119,7 +112,7 @@ public class Storage {
      */
     public TaskArray parseData(ArrayList<String> inputList) {
 
-        ArrayList<Task> arrayTask = new ArrayList<>();
+        ArrayList<Task> taskArrayList = new ArrayList<>();
 
         for (String input : inputList) {
             String[] parts = input.split(";");
@@ -127,36 +120,36 @@ public class Storage {
             String text = parts[1];
             boolean checked = false;
 
-            if(parts[2].equals("true")) {
+            if (parts[2].equals("true")) {
                 checked = true;
             }
 
             Task newTask;
 
-            switch(type) {
+            switch (type) {
                 case "T":
                     newTask = new ToDo(text,checked);
-                    arrayTask.add(newTask);
+                    taskArrayList.add(newTask);
                     break;
 
                 case "E":
                     LocalDateTime startDate = LocalDateTime.parse(parts[3]);
                     LocalDateTime endDate = LocalDateTime.parse(parts[4]);
                     newTask = new Event(text,startDate,endDate,checked);
-                    arrayTask.add(newTask);
+                    taskArrayList.add(newTask);
                     break;
 
                 case "D":
                     LocalDateTime dueDate = LocalDateTime.parse(parts[3]);
                     newTask = new Deadline(text,dueDate,checked);
-                    arrayTask.add(newTask);
+                    taskArrayList.add(newTask);
                     break;
             }
 
 
 
         }
-        return new TaskArray(arrayTask);
+        return new TaskArray(taskArrayList);
     }
 
     /**
@@ -171,7 +164,7 @@ public class Storage {
         ArrayList<String> output = new ArrayList<>();
 
         for (Task task : taskArrayList) {
-            String input = task.getParsed();
+            String input = task.getParsedTask();
             output.add(input);
         }
         return output;
@@ -186,7 +179,8 @@ public class Storage {
      */
     public void inputFile(ArrayList<String> inputArray, String filePath) {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (String line : inputArray) {
                 writer.write(line);
                 writer.newLine(); // Add a newline after each line

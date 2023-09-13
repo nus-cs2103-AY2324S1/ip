@@ -121,7 +121,7 @@ public class Task {
      *
      * @return The parsed data of the task.
      */
-    public String getParsed() {
+    public String getParsedTask() {
         String result = this.type + ";" + this.text + ";" + this.checked;
         return result;
     }
