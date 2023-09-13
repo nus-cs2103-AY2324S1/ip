@@ -134,6 +134,9 @@ public class Duke extends Application {
     public String getResponse (String input) {
         try {
             String output = "";
+
+            assert !input.isEmpty();
+
             if (input.equalsIgnoreCase("bye")) {
                 storage.saveTasks(tasks);
                 return "Bye. Have a great day!";
