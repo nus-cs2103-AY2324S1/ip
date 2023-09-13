@@ -81,6 +81,23 @@ public class Ui {
     }
 
     /**
+     * Generates a message indicating statistics for the task list.
+     *
+     * @param todoSize     The number of todo tasks.
+     * @param deadlineSize The number of deadline tasks.
+     * @param eventSize    The number of event tasks.
+     * @param percentDone  The percentage of tasks marked as done.
+     * @return A message containing task statistics.
+     */
+    public static String printStatistics(int todoSize, int deadlineSize, int eventSize, double percentDone) {
+        return "These are the statistics for your task list:\n"
+                + "Number of todos: " + todoSize + "\n"
+                + "Number of deadlines: " + deadlineSize + "\n"
+                + "Number of events: " + eventSize + "\n"
+                + "Percentage of tasks done: " + percentDone + "%\n";
+    }
+
+    /**
      * Generates a welcome greeting message.
      *
      * @return A welcome message for the user.

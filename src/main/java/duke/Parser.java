@@ -1,12 +1,6 @@
 package duke;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
+import duke.command.*;
 import duke.task.TaskType;
 
 /**
@@ -45,9 +39,11 @@ public class Parser {
             return new DeleteCommand(args);
         case "find":
             return new FindCommand(args);
+        case "stats":
+            return new StatsCommand();
         default:
             throw new DukeException("I don't understand what you are saying!\n"
-                    + "Available commands are list, todo, deadline, event, mark, unmark, delete, bye.");
+                    + "Available commands are list, todo, deadline, event, mark, unmark, delete, stats, bye.");
         }
     }
 
