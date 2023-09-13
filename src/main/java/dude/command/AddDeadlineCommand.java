@@ -8,6 +8,9 @@ import dude.task.Deadline;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command that adds a Deadline task.
+ */
 public class AddDeadlineCommand extends Command {
     private String taskDescription;
     private LocalDateTime byDateTime;
@@ -16,7 +19,14 @@ public class AddDeadlineCommand extends Command {
         this.taskDescription = taskDescription;
         this.byDateTime = byDateTime;
     }
-    
+
+    /**
+     * Executes the command to add a Deadline task.
+     *
+     * @param taskList List of tasks.
+     * @param storage Storage containing saved tasks, and saves and loads tasks.
+     * @param ui User interface of Dude.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {

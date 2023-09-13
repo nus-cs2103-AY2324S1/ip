@@ -7,6 +7,9 @@ import dude.task.Task;
 
 import java.io.IOException;
 
+/**
+ * Represents a command that marks a task as done.
+ */
 public class MarkCommand extends Command {
     private int taskIndex;
 
@@ -14,6 +17,13 @@ public class MarkCommand extends Command {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Executes the command to mark a task as done.
+     *
+     * @param taskList List of tasks.
+     * @param storage Storage containing saved tasks, and saves and loads tasks.
+     * @param ui User interface of Dude.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {

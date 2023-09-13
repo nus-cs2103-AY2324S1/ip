@@ -8,6 +8,9 @@ import dude.task.Event;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command that adds an Event task.
+ */
 public class AddEventCommand extends Command {
     private String taskDescription;
     private LocalDateTime fromDateTime;
@@ -19,6 +22,13 @@ public class AddEventCommand extends Command {
         this.toDateTime = toDateTime;
     }
 
+    /**
+     * Executes the command to add an Event task.
+     *
+     * @param taskList List of tasks.
+     * @param storage Storage containing saved tasks, and saves and loads tasks.
+     * @param ui User interface of Dude.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {

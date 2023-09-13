@@ -13,13 +13,27 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// deals with loading tasks from the file and saving tasks in the file
+/**
+ * Represents the Storage system of Dude and deals with loading tasks from
+ * the file and saving tasks in the file.
+ */
 public class Storage {
     private String filepath;
+
+    /**
+     * Constructs a new Storage object with the specified filepath.
+     *
+     * @param filepath Path to the file.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Saves the task list to the file specified by filepath.
+     *
+     * @param taskList List of tasks to be saved.
+     */
     public void saveTasksToDisk(TaskList taskList) throws IOException {
         File file = new File(this.filepath);
 
@@ -51,6 +65,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the saved tasks from the file specified by filepath.
+     *
+     * @return List of tasks from the file.
+     * @throws FileNotFoundException If no file is not found in the filepath.
+     */
     public ArrayList<Task> loadTasksFromDisk() throws FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         File file = new File(this.filepath);
@@ -100,7 +120,6 @@ public class Storage {
         // TaskList tasks = new TaskList(taskList);
         return taskList;
     }
-
 
     /* to be fixed
     public Task processTaskDetails(String storedTaskDetails) {

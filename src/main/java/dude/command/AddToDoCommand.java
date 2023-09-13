@@ -7,6 +7,9 @@ import dude.task.ToDo;
 
 import java.io.IOException;
 
+/**
+ * Represents a command that adds a ToDo task.
+ */
 public class AddToDoCommand extends Command {
     private String taskDescription;
 
@@ -14,6 +17,13 @@ public class AddToDoCommand extends Command {
         this.taskDescription = taskDescription;
     }
 
+    /**
+     * Executes the command to add a ToDo task.
+     *
+     * @param taskList List of tasks.
+     * @param storage Storage containing saved tasks, and saves and loads tasks.
+     * @param ui User interface of Dude.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
