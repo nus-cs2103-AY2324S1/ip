@@ -25,6 +25,35 @@ public class Storage {
         }
     }
 
+    private boolean getTaskStatus(String[] taskDetails) throws LukeException {
+        assert(taskDetails.length >= 2);
+
+        switch (taskDetails[1]) {
+            case "Done":
+                return true;
+            case "Not Done":
+                return false;
+            default:
+                throw new LukeException("Task neither 'Done' nor 'Not Done'");
+        }
+    }
+
+    private Task createTask(String[] taskDetails) throws LukeException {
+        boolean isDone = getTaskStatus(taskDetails);
+
+        switch (taskDetails[0]) {
+            case "T":
+                return Todo.createTodo(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+            case "D":
+                return Deadline.createDeadline(
+                        Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+            case "E":
+                return Event.createEvent(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
+            default:
+                throw new LukeException("Unknown Task Type '" + taskDetails[0] + "'");
+        }
+    }
+
     public ArrayList<Task> load() throws LukeException {
         try {
             ArrayList<Task> allTasks = new ArrayList<>();
@@ -38,35 +67,10 @@ public class Storage {
                     throw new LukeException("Unknown data '" + savedData + "'");
                 }
 
-                boolean isDone;
-                switch (taskDetails[1]) {
-                case "Done":
-                    isDone = true;
-                    break;
-                case "Not Done":
-                    isDone = false;
-                    break;
-                default:
-                    throw new LukeException("Task neither 'Done' nor 'Not Done'");
-                }
-
-                Task createdTask;
-                switch (taskDetails[0]) {
-                case "T":
-                    createdTask = Todo.createTodo(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-                    break;
-                case "D":
-                    createdTask = Deadline.createDeadline(
-                            Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-                    break;
-                case "E":
-                    createdTask = Event.createEvent(Arrays.copyOfRange(taskDetails, 2, taskDetails.length), isDone);
-                    break;
-                default:
-                    throw new LukeException("Unknown Task Type '" + taskDetails[0] + "'");
-                }
+                Task createdTask = createTask(taskDetails);
                 allTasks.add(createdTask);
             }
+
             return allTasks;
         } catch (LukeException e) {
             throw new LukeException(
