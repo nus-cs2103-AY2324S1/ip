@@ -1,7 +1,9 @@
 import dan.command.Command;
 import dan.command.ExitCommand;
 import dan.exceptions.DanException;
+import dan.storage.Storage;
 import dan.task.TaskList;
+import dan.ui.Ui;
 
 
 public class Dan {
