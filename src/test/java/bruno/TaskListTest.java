@@ -116,21 +116,21 @@ public class TaskListTest {
 
     @Test void testMarkTask_stringArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new ToDo("work"));
+        tasks.add(new ToDo("work", ""));
         taskList.setList(tasks);
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.markTask("mark abc"));
     }
 
     @Test void testMarkTask_negativeArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new Deadline("post-lecture quiz", "2023-08-30 18:00"));
+        tasks.add(new Deadline("post-lecture quiz", "2023-08-30 18:00", ""));
         taskList.setList(tasks);
         assertThrows(BrunoNegativeArgException.class, () -> taskList.markTask("mark -1"));
     }
 
     @Test void testMarkTask_outOfBoundsArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new ToDo("project"));
+        tasks.add(new ToDo("project", ""));
         taskList.setList(tasks);
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.markTask("mark 2"));
     }
@@ -138,7 +138,7 @@ public class TaskListTest {
     @Test void testUnmarkTask_normalInput_correctOutputGenerated() {
         try {
             List<Task> tasks = taskList.getList();
-            Task task = new ToDo("todo work");
+            Task task = new ToDo("todo work", "");
             task.markAsDone();
             tasks.add(task);
             assertTrue(tasks.get(0).checkDone());
@@ -151,7 +151,7 @@ public class TaskListTest {
 
     @Test void testUnmarkTask_stringArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new ToDo("work"));
+        tasks.add(new ToDo("work", ""));
         taskList.setList(tasks);
         taskList.getList().get(0).markAsDone();
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.unmarkTask("unmark abc"));
@@ -159,14 +159,14 @@ public class TaskListTest {
 
     @Test void testUnmarkTask_negativeArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new Deadline("post-lecture quiz", "2023-08-30 18:00"));
+        tasks.add(new Deadline("post-lecture quiz", "2023-08-30 18:00", ""));
         taskList.getList().get(0).markAsDone();
         assertThrows(BrunoNegativeArgException.class, () -> taskList.unmarkTask("unmark -1"));
     }
 
     @Test void testUnmarkTask_outOfBoundsArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new ToDo("project"));
+        tasks.add(new ToDo("project", ""));
         taskList.getList().get(0).markAsDone();
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.unmarkTask("unmark 2"));
     }
@@ -174,8 +174,8 @@ public class TaskListTest {
     @Test void testDeleteTask_normalInput_correctOutputGenerated() {
         try {
             List<Task> tasks = taskList.getList();
-            tasks.add(new Event("hackathon", "2023-08-29 10:00", "2023-09-01 10:00"));
-            tasks.add(new ToDo("marathon"));
+            tasks.add(new Event("hackathon", "2023-08-29 10:00", "2023-09-01 10:00", ""));
+            tasks.add(new ToDo("marathon", ""));
             taskList.setList(tasks);
             taskList.deleteTask("delete 2");
             assertEquals(1, taskList.getList().size());
@@ -186,21 +186,21 @@ public class TaskListTest {
 
     @Test void testDeleteTask_stringArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new Deadline("project", "2023-09-01 18:00"));
+        tasks.add(new Deadline("project", "2023-09-01 18:00", ""));
         taskList.setList(tasks);
         assertThrows(BrunoIntegerMismatchException.class, () -> taskList.deleteTask("delete a"));
     }
 
     @Test void testDeleteTask_outOfBoundsArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new ToDo("debug project"));
+        tasks.add(new ToDo("debug project", ""));
         taskList.setList(tasks);
         assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.deleteTask("delete 2"));
     }
 
     @Test void testDeleteTask_negativeArg_exceptionThrown() {
         List<Task> tasks = taskList.getList();
-        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00"));
+        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00", ""));
         taskList.setList(tasks);
         assertThrows(BrunoNegativeArgException.class, () -> taskList.deleteTask("delete -1"));
     }

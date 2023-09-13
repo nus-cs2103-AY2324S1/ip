@@ -37,7 +37,7 @@ test {
 }
 
 application {
-    mainClass.set("bruno.Bruno")
+    mainClass.set("bruno.Launcher")
 }
 
 shadowJar {

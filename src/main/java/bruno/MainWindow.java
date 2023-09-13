@@ -2,12 +2,17 @@ package bruno;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
@@ -33,8 +38,9 @@ public class MainWindow extends AnchorPane {
     @FXML private void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         ui = new bruno.UI();
-        this.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(
-                javafx.scene.paint.Color.GREEN, javafx.scene.layout.CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY)));
+        Background bg = new Background(new BackgroundFill(
+                Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY));
+        this.setBackground(bg);
     }
 
     public void setBruno(Bruno b) {
@@ -73,7 +79,8 @@ public class MainWindow extends AnchorPane {
      * Displays the greeting when the app starts up.
      */
     public void startUpBruno() {
-        DialogBox brunoDialog = DialogBox.getBrunoDialog(ui.displayGreeting(), brunoImage);
+        String text = ui.displayGreeting();
+        DialogBox brunoDialog = DialogBox.getBrunoDialog(text, brunoImage);
         dialogContainer.getChildren().clear();
         dialogContainer.getChildren().add(brunoDialog);
     }

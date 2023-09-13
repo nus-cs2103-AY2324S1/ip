@@ -13,7 +13,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Bruno bruno = new Bruno("data/", "bruno.txt");
+    private String dirPath = "data/";
+    private String fileName = "bruno.txt";
+    private Bruno bruno = new Bruno(dirPath, fileName);
     private UI ui;
 
     @Override

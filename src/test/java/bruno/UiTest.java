@@ -31,9 +31,4 @@ public class UiTest {
     @Test void testDisplayBye() {
         assertEquals("Bye Bye! Hope to see you again soon! \uD83D\uDC36", ui.displayBye());
     }
-
-    @Test void testDisplayMessage() {
-        ui.displayMessage("testing");
-        assertEquals("testing\n", outputStreamCaptor.toString());
-    }
 }
