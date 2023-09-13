@@ -22,6 +22,16 @@ public class Deadline extends Task {
         this.limit = limit;
     }
 
+    /**
+     * Checks that input datetime is before deadline.
+     *
+     * @param localDateTime DateTime to be considered.
+     * @return Whether deadline is under schedule of input datetime.
+     */
+    public boolean isUnderSchedule(LocalDateTime localDateTime) {
+        return limit.isAfter(localDateTime);
+    }
+
     @Override
     public String toString() {
         String time = String.format(" (by: %s)", limit.format(DISPLAY_FORMAT));

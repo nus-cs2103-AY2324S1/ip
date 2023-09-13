@@ -1,5 +1,7 @@
 package taskutil;
 
+import java.time.LocalDateTime;
+
 /**
  * Class for To-do task.
  */
@@ -14,6 +16,15 @@ public class Todo extends Task {
         super(title);
     }
 
+    /**
+     * Returns true by default as To-do tasks have no assigned time.
+     *
+     * @param localDateTime DateTime to be considered.
+     * @return True.
+     */
+    public boolean isUnderSchedule(LocalDateTime localDateTime) {
+        return true;
+    }
     @Override
     public String toString() {
         return "[T]" + super.toString();

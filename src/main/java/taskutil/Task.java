@@ -1,11 +1,12 @@
 package taskutil;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Class for Task objects and methods to modify.
  */
-public class Task {
+public abstract class Task {
 
     // Format of date to be displayed to user.
     protected static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
@@ -22,6 +23,14 @@ public class Task {
         this.title = title;
         this.isDone = false;
     }
+
+    /**
+     * Abstract method to determine if a task will be listed under the schedule of a particular day.
+     *
+     * @param localDateTime DateTime to be considered.
+     * @return Whether task should be in the schedule for input.
+     */
+    abstract boolean isUnderSchedule(LocalDateTime localDateTime);
 
     /**
      * Gets completed status of task.

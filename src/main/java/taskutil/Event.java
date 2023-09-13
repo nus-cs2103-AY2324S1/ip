@@ -25,6 +25,16 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Checks that input datetime falls within start/end of the event.
+     *
+     * @param localDateTime DateTime to be considered.
+     * @return Whether event is under schedule of input datetime.
+     */
+    public boolean isUnderSchedule(LocalDateTime localDateTime) {
+        return localDateTime.isBefore(end) && localDateTime.isAfter(start);
+    }
+
     @Override
     public String toString() {
         String from = start.format(DISPLAY_FORMAT);

@@ -8,14 +8,14 @@ public class DukeTest {
 
     @Test
     public void command_wrongArgument_errorMessageOutput() {
-        String markError = "You need to provide a valid number:\n       eg. mark 1";
-        String unmarkError = "You need to provide a valid number:\n       eg. unmark 2";
-        String deleteError = "You need to provide a valid number:\n       eg. delete 3";
+        String markError = "You need to provide a valid number:\n       eg. mark/unmark 1";
+        String unmarkError = "You need to provide a valid number:\n       eg. mark/unmark 1";
+        String deleteError = "You need to provide a valid number:\n       eg. delete 2";
         String todoError = "Wrong format, make sure your command is in the format:\n       todo [DESCRIPTION]";
         String deadlineNoSplit = "Wrong format, make sure your command is in the format:\n"
-                + "      deadline [DESCRIPTION] /by [dd.mm.yyyy]";
+                + "      deadline [DESCRIPTION] /by [dd.mm.yyyy tttt]";
         String eventNoSplit = "Wrong format, make sure your command is in the format:\n"
-                + "      event [DESCRIPTION] /from [dd.mm.yyyy] /to [dd.mm.yyyy]";
+                + "      event [DESCRIPTION] /from [dd.mm.yyyy tttt] /to [dd.mm.yyyy tttt]";
 
         Assertions.assertEquals(markError, botInstance.getResponse("mark"));
         Assertions.assertEquals(unmarkError, botInstance.getResponse("unmark four"));

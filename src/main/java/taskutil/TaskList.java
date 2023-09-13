@@ -1,7 +1,9 @@
 package taskutil;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
+import duke.Parser;
 import duke.Ui;
 
 /**
@@ -75,6 +77,24 @@ public class TaskList {
         int i = 1;
         for (Task task: taskList) {
             if (task.contains(query)) {
+                allTasks.append(String.format("\n     %d.%s", i++, task));
+            }
+        }
+        return allTasks.toString();
+    }
+
+    /**
+     * Returns schedule of unmarked tasks based on input datetime.
+     *
+     * @param localDateTime Schedule datetime.
+     * @return Numbered list of all tasks matching input.
+     */
+    public String filterByTime(LocalDateTime localDateTime) {
+        StringBuilder allTasks = new StringBuilder("These tasks are due for "
+                + Parser.formatDate(localDateTime) + ":");
+        int i = 1;
+        for (Task task : taskList) {
+            if (task.isUnderSchedule(localDateTime) && task.getStatus().equals(" ")) {
                 allTasks.append(String.format("\n     %d.%s", i++, task));
             }
         }

@@ -15,7 +15,7 @@ import taskutil.Todo;
  */
 public class Parser {
 
-    // Format of date to be received as user input, saved to or read from data file.
+    // Format of datetime to be received as user input, saved to or read from data file.
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy HHmm");
 
     /**
@@ -132,10 +132,23 @@ public class Parser {
             }
         } catch (ArrayIndexOutOfBoundsException e) { // String not split due to improper format
             Ui.setOutMessage("Wrong format, make sure your command is in the format:\n"
-                    + "      event [DESCRIPTION] /from [dd.mm.yyyy] /to [dd.mm.yyyy]");
+                    + "      event [DESCRIPTION] /from [dd.mm.yyyy tttt] /to [dd.mm.yyyy tttt]");
         } catch (DateTimeParseException e) { // Date not formatted properly
             Ui.setOutMessage("Try the date format [dd.mm.yyyy tttt]:"
                     + "\n       eg. [05.08.2020 1500] for 5 Aug 2020, 3PM");
+        }
+    }
+
+    private static String parseSchedule(String[] splitInput, TaskList taskList) {
+        try {
+            LocalDateTime queryDate = Parser.parseDate(splitInput[1]);
+            return taskList.filterByTime(queryDate);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Wrong format, make sure your command is in the format:\n"
+                    + "      schedule [dd.mm.yyyy tttt]";
+        } catch (DateTimeParseException e) { // Date not formatted properly
+            return "Try the date format [dd.mm.yyyy tttt]:"
+                    + "\n       eg. [05.08.2020 1500] for 5 Aug 2020, 3PM";
         }
     }
 
@@ -148,7 +161,7 @@ public class Parser {
      */
     public static String parseCommand(String userInput, TaskList taskList) {
         String[] splitInput = userInput.split(" ", 2); // Limit 2 to only separate out command word.
-        switch (splitInput[0]) { // break statements are redundant due to return statements.
+        switch (splitInput[0].toLowerCase()) { // break statements are redundant due to return statements.
         case "mark":
             return parseSetMark(splitInput, taskList, true);
         case "unmark":
@@ -165,6 +178,8 @@ public class Parser {
         case "event":
             parseEvent(splitInput, taskList);
             return Ui.getOutMessage();
+        case "schedule":
+            return parseSchedule(splitInput, taskList);
         case "find":
             return taskList.queryList(splitInput[1]);
         case "list":
