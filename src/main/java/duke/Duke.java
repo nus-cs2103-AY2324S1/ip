@@ -57,6 +57,7 @@ public class Duke extends Application{
 
         scene = new Scene(mainLayout);
 
+        assert scene != null : "scene must be instantiated before stage can set scene";
         stage.setScene(scene);
         stage.show();
 
@@ -114,7 +115,6 @@ public class Duke extends Application{
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
         return textToAdd;
@@ -128,6 +128,7 @@ public class Duke extends Application{
     private void handleUserInput() {
         String input = userInput.getText();
         String dukeProcessedText = getResponse(input);
+        assert dukeProcessedText.length() > 0 : "processed text should not be empty";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInput.getText(), userImage),
                 DialogBox.getDukeDialog(dukeProcessedText, dukeImage)
@@ -176,3 +177,4 @@ public class Duke extends Application{
         }
     }
 }
+

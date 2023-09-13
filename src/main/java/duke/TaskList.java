@@ -36,8 +36,6 @@ public class TaskList {
     public TaskList(List<Task> list) {
         this.list = list;
     }
-
-
     /**
      * Prints the list of tasks in the archive along with their indices.
      */
@@ -45,6 +43,9 @@ public class TaskList {
         String res = "";
         for (int i = 0; i < list.size(); i++) {
             res += i + ". " + list.get(i) + "\n";
+        }
+        if (res.length() == 0) {
+            res = "You have not added any tasks yet";
         }
         return res;
     }
@@ -61,6 +62,7 @@ public class TaskList {
     public String markTask(int index) {
         Task curr = list.get(index);
         curr.setMark(true);
+        assert curr.getIsMarked() : "umarking a task does not unmark it";
         return "I HAVE MARKED THIS TASK:" + curr;
     }
 
@@ -73,6 +75,7 @@ public class TaskList {
     public String unmarkTask(int index) {
         Task curr = list.get(index);
         curr.setMark(false);
+        assert !curr.getIsMarked() : "umarking a task does not unmark it";
         return "I HAVE UNMARKED THIS TASK:" + curr;
     }
 
@@ -135,6 +138,7 @@ public class TaskList {
             if (input.length() == 10) {
                 input += " 12:00";
             }
+            assert input.length() == 16 : "date format is incorrect even after correction";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
             return dateTime;
@@ -160,6 +164,9 @@ public class TaskList {
         String res = "TASKS FOUND:\n";
         for (int i = 0; i < filteredTasks.size(); i++) {
             res += i + ". " + filteredTasks.get(i) + "\n";
+        }
+        if (res.length() == 0) {
+            res = "No matching tasks found!";
         }
         return res;
     }
