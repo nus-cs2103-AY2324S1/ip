@@ -2,6 +2,8 @@ package Duke.Tasks;
 
 import java.io.*;
 import java.util.ArrayList;
+
+import Duke.Exceptions.DuplicateInput;
 import Duke.Storage;
 import Duke.Exceptions.InvalidInput;
 import Duke.Exceptions.IncompleteInput;
@@ -90,7 +92,7 @@ public class TaskList {
      * @throws InvalidInput    If the input is invalid.
      * @throws IncompleteInput If the input is incomplete.
      */
-    public void addTask(String item) throws InvalidInput, IncompleteInput  {
+    public void addTask(String item) throws InvalidInput, IncompleteInput, DuplicateInput {
         String firstWord = item.split(" ")[0];
 
         if (item.split(" ").length == 1) {
@@ -99,15 +101,34 @@ public class TaskList {
             } else {
                 throw new InvalidInput("Invalid");
             }
-        } else if (firstWord.equals("todo")) {
+        }
+        if (firstWord.equals("todo")) {
             String taskDesc = item.split(" ", 2)[1];
+            Task t = new ToDoTask(taskDesc);
+            for (Task task : storagePile) {
+                if (task.equals(t)) {
+                    throw new DuplicateInput("Duplicate");
+                }
+            }
             storagePile.add(new ToDoTask(taskDesc));
         } else if (firstWord.equals("deadline")) {
             String taskDesc = item.split(" ", 2)[1];
-            storagePile.add(new DeadlineTask(taskDesc));
+            Task t = new DeadlineTask(taskDesc);
+            for (Task task : storagePile) {
+                if (task.equals(t)) {
+                    throw new DuplicateInput("Duplicate");
+                }
+            }
+            storagePile.add(t);
         } else {
             String taskDesc = item.split(" ", 2)[1];
-            storagePile.add(new EventTask(taskDesc));
+            Task t = new EventTask(taskDesc);
+            for (Task task : storagePile) {
+                if (t.equals(task)) {
+                    throw new DuplicateInput("Duplicate");
+                }
+            }
+            storagePile.add(t);
         }
         Storage.saveTasks(this);
     }

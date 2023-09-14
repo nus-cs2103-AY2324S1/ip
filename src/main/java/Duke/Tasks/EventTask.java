@@ -7,6 +7,8 @@ public class EventTask extends Task {
     private String eventStartTime;
     private String eventEndTime;
 
+    private boolean allowDuplicates = false;
+
     public EventTask(String task) {
         super(task);
         String[] inputStringComponents =  task.split("/");
@@ -22,5 +24,20 @@ public class EventTask extends Task {
                 taskDescription,
                 Parser.convertTimeToString(eventStartTime.trim()),
                 Parser.convertTimeToString(eventEndTime.trim()));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if ((!(o instanceof EventTask)) || allowDuplicates) {
+            return false;
+        }
+        EventTask obj = (EventTask) o;
+        if (obj.taskDescription.equals(this.taskDescription)
+                && obj.eventEndTime.equals(this.eventEndTime)
+                && obj.eventStartTime.equals(this.eventStartTime)) {
+            allowDuplicates = true;
+            return true;
+        }
+        return false;
     }
 }

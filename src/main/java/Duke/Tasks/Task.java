@@ -44,4 +44,9 @@ public class Task {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return false;
+    };
+
 }

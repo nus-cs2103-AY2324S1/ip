@@ -72,6 +72,12 @@ public class Ui {
                 + horizontalLineBottom;
     }
 
+    public String getDuplicateInputMessage() {
+        return horizontalLineTop
+                + "Is the schizophrenia finally starting to kick in? It's duplicated, but if you do it again I'll allow it. \n"
+                + horizontalLineBottom;
+    }
+
     public String getAddedToListMessage(TaskList tasks) {
         return horizontalLineTop
                 + "I'm totally not judging... \n"

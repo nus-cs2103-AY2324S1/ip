@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import Duke.Exceptions.DuplicateInput;
 import Duke.GUI.Ui;
 import Duke.Tasks.TaskList;
 import Duke.Exceptions.IncompleteInput;
@@ -69,6 +70,9 @@ public class Parser {
                 } catch (InvalidInput e) {
                     exceptionOccured = true;
                     return iu.getUnreadableInputMessage();
+                } catch (DuplicateInput e) {
+                    exceptionOccured = true;
+                    return iu.getDuplicateInputMessage();
                 } finally {
                     if (!exceptionOccured) {
                         return iu.getAddedToListMessage(tasks);
