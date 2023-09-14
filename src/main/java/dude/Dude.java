@@ -39,6 +39,7 @@ public class Dude {
         System.out.println(input);
         Command c = Parser.parse(input);
         String output = c.execute(taskList, ui, storage);
+        assert !output.trim().isEmpty(): "Dude output should not be empty";
         return output;
     }
 

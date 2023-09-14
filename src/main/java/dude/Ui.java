@@ -42,7 +42,7 @@ public class Ui {
     }
 
     /**
-     * Prints the list of tasks..
+     * Prints the list of tasks.
      */
     public String showTaskList(TaskList taskList) {
         int nTasks = taskList.getSize();

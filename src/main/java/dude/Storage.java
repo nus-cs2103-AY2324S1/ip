@@ -26,6 +26,7 @@ public class Storage {
      * @param filepath Path to the file.
      */
     public Storage(String filepath) {
+        assert !this.filepath.trim().isEmpty(): "Filepath should not be empty";
         this.filepath = filepath;
     }
 
