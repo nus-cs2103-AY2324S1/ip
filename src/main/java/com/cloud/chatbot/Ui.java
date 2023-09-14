@@ -5,20 +5,20 @@ import com.cloud.chatbot.annotation.Nullable;
 
 
 /**
- * Handles interactions with the user.
+ * Handles the user interface (UI).
  */
 public final class Ui {
     /**
-     * Displays output to the user.
+     * Prints the specified message.
      *
-     * @param message The output.
+     * @param message The message.
      */
     public static void say(String message) {
         System.out.println(message);
     }
 
     /**
-     * Displays an input marker indicating the bot is waiting for a command.
+     * Prints an input marker indicating the bot is awaiting a command.
      */
     public static void inputMarker() {
         System.out.print("\n>>> ");
@@ -29,10 +29,10 @@ public final class Ui {
     }
 
     /**
-     * Displays an error message alongside an object.
+     * Prints an error message to standard error, alongside an optional object.
      *
      * @param message The error.
-     * @param object The object to display.
+     * @param object The object to print.
      */
     public static void error(String message, @Nullable Object object) {
         System.err.println(
