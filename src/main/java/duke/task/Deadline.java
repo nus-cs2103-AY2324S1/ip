@@ -25,6 +25,13 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + convertByToString() + ")";
     }
 
+    @Override
+    public String toDataString() {
+        String doneNum = this.getIsDone() ? "1" : "0";
+        return "D/" + doneNum + "/" + this.getDescription() + "/"
+                + this.getBy().toString();
+    }
+
     /**
      * Returns the LocalDateTime date and time of when the task should be done by
      * @return LocalDateTime of the date and time of deadline of task
