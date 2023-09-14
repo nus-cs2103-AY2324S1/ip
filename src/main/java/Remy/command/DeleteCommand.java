@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
         int index = Integer.parseInt(input.substring(7)) - 1;
 
         if (index <= 0) {
-            throw new ChatbotException("number must be larger than 0");
+            throw new ChatbotException("bro, the number must be larger than 0");
         }
 
         this.index = index;
@@ -37,6 +37,7 @@ public class DeleteCommand extends Command {
             throw new ChatbotException("Your Task list don't have this number lah.");
         }
         assert this.index > 0;
+
         String task = taskList.get(this.index).toString();
         taskList.remove(this.index);
         String content = "Done. Can you don't be so troublesome?\n" + task;
