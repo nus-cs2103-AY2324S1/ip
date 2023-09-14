@@ -2,9 +2,6 @@
 .gradle/
 build/
 
-# Script Build
-bin/
-
 # Tests
 tests/ACTUAL.txt
 

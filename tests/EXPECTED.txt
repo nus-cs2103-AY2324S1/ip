@@ -20,7 +20,7 @@ Cloud online.
 
 >>> Please enter a description for your item.
 
->>>   | T#4: I tried to make an event but didn't specify flags.
+>>>   | T#4: Tried to make event for that meeting but didn't specify flags.
 
 >>> Please enter a description for the "from" flag.
 
@@ -29,7 +29,16 @@ Cloud online.
 >>>   | T#1: Download  wk  3  files
   | D#2: Watch   L3   recording | BY 18 Jun '23, 11:59pm
   | E#3: Project meeting | FROM 11 Sep '23, 3pm | TO 11 Sep '23, 4:30pm
-  | T#4: I tried to make an event but didn't specify flags.
+  | T#4: Tried to make event for that meeting but didn't specify flags.
+
+>>>   | E#3: Project meeting | FROM 11 Sep '23, 3pm | TO 11 Sep '23, 4:30pm
+  | T#4: Tried to make event for that meeting but didn't specify flags.
+
+>>> No matches were found for "l3". Please try a different query.
+
+>>>   | D#2: Watch   L3   recording | BY 18 Jun '23, 11:59pm
+
+>>> Please enter a phrase to search for.
 
 >>> "a" is not a valid number.
 
@@ -47,14 +56,14 @@ Cloud online.
 
 >>> Item #5 does not exist.
 
->>> X | T#4: I tried to make an event but didn't specify flags.
+>>> X | T#4: Tried to make event for that meeting but didn't specify flags.
 
 >>>   | D#5: another | BY 1 Jan '20, 6:01am
 
 >>>   | T#1: Download  wk  3  files
 X | D#2: Watch   L3   recording | BY 18 Jun '23, 11:59pm
   | E#3: Project meeting | FROM 11 Sep '23, 3pm | TO 11 Sep '23, 4:30pm
-X | T#4: I tried to make an event but didn't specify flags.
+X | T#4: Tried to make event for that meeting but didn't specify flags.
   | D#5: another | BY 1 Jan '20, 6:01am
 
 >>> Item #0 does not exist.
@@ -66,7 +75,7 @@ X | T#4: I tried to make an event but didn't specify flags.
 X | D#1: Watch   L3   recording | BY 18 Jun '23, 11:59pm
 
 >>>   | E#1: Project meeting | FROM 11 Sep '23, 3pm | TO 11 Sep '23, 4:30pm
-X | T#2: I tried to make an event but didn't specify flags.
+X | T#2: Tried to make event for that meeting but didn't specify flags.
   | D#3: another | BY 1 Jan '20, 6:01am
 
 >>> \o

@@ -9,10 +9,14 @@ deadline My deadline flag has no sub input /BY
 deadline /by The deadline has no description
 deadline  /by No description again
 deadline   /by No description yet again!
-e I tried to make an event but didn't specify flags.
+e Tried to make event for that meeting but didn't specify flags.
 EVENT This event has no proper from flag set /frOM   /to Far future.
 t This event has unparseable timestamps /from 123 /to 456
 list
+search       t meeting       
+f l3
+f L3
+f        
 mark a
 MARK -7050
 Mark 2

@@ -2,29 +2,24 @@
 
 
 
-@REM Clear any previous build files, remake bin\
-del /S /Q .\bin\ > nul
-rmdir /S /Q .\bin\
-mkdir .\bin\
-
 @REM Clear any previous data files, remake data\
 del /S /Q .\data\ > nul
 rmdir /S /Q .\data\
 mkdir .\data\
 
-@REM Compile
-javac -cp .\src\main\java\;.\lib\* -Xlint:none -d .\bin\ .\src\main\java\com\cloud\chatbot\*.java
+@REM Gradle default clean & build
+call gradlew
 if errorlevel 1 (
     echo:
-    echo ^>^>^> javac failed
+    echo ^>^>^> Gradle build failed
     exit /B 1
 )
 
 @REM Clear previous output
 del .\tests\ACTUAL.txt
 
-@REM Test main class, generate output
-java -cp .\bin\;.\lib\* com.cloud.chatbot.Cloud < .\tests\input.txt > .\tests\ACTUAL.txt
+@REM Test using JAR, generate output
+java -jar .\build\libs\cloud.jar < .\tests\input.txt > .\tests\ACTUAL.txt
 
 @REM Compare output with expected
 FC .\tests\ACTUAL.txt .\tests\EXPECTED.txt
