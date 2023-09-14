@@ -7,12 +7,7 @@ import duke.helper.Storage;
 import duke.helper.Ui;
 import duke.task.DukeException;
 import duke.task.TaskList;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 
 
 /**
@@ -24,7 +19,7 @@ import javafx.scene.layout.VBox;
 public class MeowBot {
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private final String FILE_NAME;
+    private String fileName;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -33,7 +28,7 @@ public class MeowBot {
      * Represents the 2 possible inputs, that is either User Dialog or response from MeowBot
      */
 
-    public enum dialog {
+    public enum Dialog {
         USER,
         MEOWBOT
 
@@ -45,8 +40,8 @@ public class MeowBot {
      */
     public MeowBot(String file) throws DukeException, IOException {
         this.ui = new Ui();
-        this.FILE_NAME = file;
-        this.storage = new Storage(this.FILE_NAME);
+        this.fileName = file;
+        this.storage = new Storage(this.fileName);
         try {
             this.tasks = new TaskList(storage.load());
         } catch (IOException e) {
@@ -65,7 +60,7 @@ public class MeowBot {
 
     public MeowBot() {
         this.ui = new Ui();
-        this.FILE_NAME = "stop";
+        this.fileName = "stop";
     }
 
     /**

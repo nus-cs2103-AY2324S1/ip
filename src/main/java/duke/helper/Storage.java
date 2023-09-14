@@ -23,16 +23,16 @@ public class Storage {
      * tempPath stores where the temporary file is at
      */
 
-    private final String FILE_PATH;
-    private final String TEMP_PATH;
+    private String filePath;
+    private String tempPath;
 
     /**
      * Constructor for filePath is where the local storage is stored at,
      * parsed in initially in MeowBot
      */
     public Storage(String filePath) {
-        this.FILE_PATH = filePath;
-        this.TEMP_PATH = "src/main/data/temp.txt";
+        this.filePath = filePath;
+        this.tempPath = "src/main/data/temp.txt";
     }
 
     /**
@@ -43,7 +43,7 @@ public class Storage {
 
     public ArrayList<Task> load() throws FileNotFoundException, DukeException {
         ArrayList<Task> lst = new ArrayList<>();
-        Scanner sc = new Scanner(new File(this.FILE_PATH));
+        Scanner sc = new Scanner(new File(this.filePath));
         int count = 0;
         while (sc.hasNextLine()) {
             Task generatedTask = generateTaskFromString(sc.nextLine());
@@ -100,14 +100,14 @@ public class Storage {
      */
 
     public void save(TaskList tasks) throws IOException {
-        FileWriter tempWriter = new FileWriter(this.TEMP_PATH, true);
+        FileWriter tempWriter = new FileWriter(this.tempPath, true);
         // Open the file in append mode
         tempWriter.write(tasks.totxtformat());
         tempWriter.close();
-        File ogFile = new File(this.FILE_PATH);
-        File temp = new File(this.TEMP_PATH);
+        File ogFile = new File(this.filePath);
+        File temp = new File(this.tempPath);
         ogFile.delete();
-        temp.renameTo(new File(this.FILE_PATH));
+        temp.renameTo(new File(this.filePath));
     }
 
     /**
@@ -117,7 +117,7 @@ public class Storage {
     public void createNewFile() throws IOException {
         String folderPath = "src/main/data";
         File folder = new File(folderPath);
-        File file = new File(this.FILE_PATH);
+        File file = new File(this.filePath);
         folder.mkdirs();
         file.createNewFile();
         System.out.println("Meow gotchu! Making local storage to remember your taskzz!");
