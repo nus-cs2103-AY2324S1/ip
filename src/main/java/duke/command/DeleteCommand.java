@@ -11,6 +11,7 @@ import duke.storage.Storage;
 public class DeleteCommand extends ModifyTaskCommand {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Deletes the given task.";
     private static final String COMMAND_RESPONSE_SUCCESS = "Noted. I've removed this task:\n\t";
 
     public DeleteCommand(String taskIndex) {
@@ -23,4 +24,5 @@ public class DeleteCommand extends ModifyTaskCommand {
         storage.save(tasks);
         return COMMAND_RESPONSE_SUCCESS + task;
     }
+
 }

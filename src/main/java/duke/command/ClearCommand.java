@@ -10,6 +10,7 @@ import duke.storage.Storage;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Clears all tasks.";
     private static final String COMMAND_RESPONSE = "Got it. I've cleared all tasks.";
 
     @Override
@@ -18,4 +19,5 @@ public class ClearCommand extends Command {
         storage.save(tasks);
         return COMMAND_RESPONSE;
     }
+
 }

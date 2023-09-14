@@ -13,6 +13,7 @@ import duke.data.task.Event;
 public class AddEventCommand extends AddTaskCommand {
 
     public static final String COMMAND_WORD = "event";
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Adds a new event.";
 
     /**
      * Returns an instance of {@code AddEventCommand} with the given description, from and to dates.
@@ -30,4 +31,5 @@ public class AddEventCommand extends AddTaskCommand {
             throw new InvalidDateException();
         }
     }
+
 }

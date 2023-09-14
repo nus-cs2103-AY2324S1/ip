@@ -9,6 +9,7 @@ import duke.storage.Storage;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Finds all tasks with the given keyword.";
     private static final String COMMAND_RESPONSE = "Here are the matching tasks in your list:\n";
 
     private final String keyword;
@@ -30,4 +31,5 @@ public class FindCommand extends Command {
         TaskList filteredTasks = tasks.filter(keyword);
         return COMMAND_RESPONSE + filteredTasks.getFormattedList();
     }
+
 }

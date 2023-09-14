@@ -11,6 +11,7 @@ import duke.storage.Storage;
 public class MarkCommand extends ModifyTaskCommand {
 
     public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Marks the given task as done.";
     private static final String COMMAND_RESPONSE = "Nice! I've marked this task as done:\n\t";
 
     public MarkCommand(String taskIndex) {
@@ -23,4 +24,5 @@ public class MarkCommand extends ModifyTaskCommand {
         storage.save(tasks);
         return COMMAND_RESPONSE + task;
     }
+
 }

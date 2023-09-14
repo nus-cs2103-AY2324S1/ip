@@ -9,21 +9,20 @@ import duke.storage.Storage;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
-
-    private static final String HELP = "clear: Clears all tasks.\n"
-            + "deadline: Adds a new deadline.\n"
-            + "delete: Deletes the given task.\n"
-            + "event: Adds a new event.\n"
-            + "exit: Exits the chatbot.\n"
-            + "find: Finds all tasks with the given keyword.\n"
-            + "help: Displays all commands.\n"
-            + "list: Lists all tasks.\n"
-            + "mark: Marks the given task as done.\n"
-            + "todo: Adds a new todo item.\n"
-            + "unmark: Marks the given task as not done yet.\n";
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Displays all commands.";
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        return HELP;
+        return ClearCommand.COMMAND_DESCRIPTION
+                + "\n" + AddDeadlineCommand.COMMAND_DESCRIPTION
+                + "\n" + DeleteCommand.COMMAND_DESCRIPTION
+                + "\n" + ExitCommand.COMMAND_DESCRIPTION
+                + "\n" + FindCommand.COMMAND_DESCRIPTION
+                + "\n" + HelpCommand.COMMAND_DESCRIPTION
+                + "\n" + ListCommand.COMMAND_DESCRIPTION
+                + "\n" + MarkCommand.COMMAND_DESCRIPTION
+                + "\n" + AddTodoCommand.COMMAND_DESCRIPTION
+                + "\n" + UnmarkCommand.COMMAND_DESCRIPTION;
     }
+
 }
