@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
  * Task class
  */
 public abstract class Task {
-    public final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public final DateTimeFormatter TIMEFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private String description;
     private boolean isMarked;

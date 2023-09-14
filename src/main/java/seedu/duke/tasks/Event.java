@@ -31,13 +31,13 @@ public class Event extends Task {
      * @return string representation
      */
     public String writeFormat() {
-        int isDone = 0;
+        int done = 0;
         if (super.isMarked()) {
-            isDone = 1;
+            done = 1;
         }
-        String formattedDateFrom = from.format(super.timeFormat);
-        String formattedDateTo = to.format(super.timeFormat);
-        return "E" + " | " + isDone + " | " + super.getDescription()
+        String formattedDateFrom = from.format(super.TIMEFORMAT);
+        String formattedDateTo = to.format(super.TIMEFORMAT);
+        return "E" + " | " + done + " | " + super.getDescription()
                 + " | " + formattedDateFrom + " | " + formattedDateTo;
     };
 
@@ -47,7 +47,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
+        return "[E]" + super.toString()
+                + " (from:" + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
                 + " to:" + to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
     }
 }

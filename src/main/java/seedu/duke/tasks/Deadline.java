@@ -28,9 +28,9 @@ public class Deadline extends Task {
      * @return proper string format
      */
     public String writeFormat() {
-        int isDone = super.isMarked() ? 1 : 0;
-        String formattedDate = byDate.format(super.timeFormat);
-        return "D" + " | " + isDone + " | " + super.getDescription() + " | " + formattedDate;
+        int done = super.isMarked() ? 1 : 0;
+        String formattedDate = byDate.format(super.TIMEFORMAT);
+        return "D" + " | " + done + " | " + super.getDescription() + " | " + formattedDate;
     }
 
     public LocalDate getByDate() {
