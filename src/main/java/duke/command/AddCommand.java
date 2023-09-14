@@ -149,6 +149,8 @@ public class AddCommand extends Command {
                 throw new DukeException("Start date cannot be after the end date");
             }
         }
+
+        assert this.taskType != null : "Task type should not be null";
     }
 
     @Override
@@ -169,6 +171,7 @@ public class AddCommand extends Command {
             default:
                 throw new DukeException("Invalid task type.");
             }
+            assert taskToAdd != null : "Task to add should not be null";
 
             tasks.addTask(taskToAdd);
 
