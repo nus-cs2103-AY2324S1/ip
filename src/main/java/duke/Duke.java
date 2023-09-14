@@ -2,9 +2,7 @@ package duke;
 
 import java.time.format.DateTimeParseException;
 
-import javafx.application.Application;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+
 
 import duke.command.Command;
 import duke.task.TaskList;
@@ -14,22 +12,14 @@ import duke.task.TaskList;
  *
  * @author Lian Zhi Xuan
  */
-public class Duke extends Application {
+public class Duke{
     private static Parser parser;
     private static TaskList list;
     private static Storage storage;
 
     public static void main(String[] args) {
         initialize();
-        Ui.ui.startPrompt();
         run();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        initialize();
-        Ui.ui.GuiSetup(stage);
-
     }
 
     /**
@@ -48,15 +38,15 @@ public class Duke extends Application {
      */
     public static String run() {
         try {
-            String input = Ui.ui.readInput();
+            String input = Ui.instance.readInput();
             Command cmd = parser.readInput(input);
             return cmd.execute(list);
 
         } catch (DukeException e) {
-            return Ui.ui.errorPrompt(e);
+            return Ui.instance.errorPrompt(e);
 
         } catch (DateTimeParseException e) {
-            return Ui.ui.wrongDateFormatPrompt();
+            return Ui.instance.wrongDateFormatPrompt();
         }
     }
 
@@ -65,7 +55,7 @@ public class Duke extends Application {
      *
      * @return size of list
      */
-    public static int listSize() {
+    public static int getListSize() {
         return list.list().size();
     }
 
@@ -74,7 +64,7 @@ public class Duke extends Application {
      *
      * @return TaskList
      */
-    public static TaskList list() {
+    public static TaskList getList() {
         return list;
     }
 
