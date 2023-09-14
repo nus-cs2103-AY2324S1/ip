@@ -11,6 +11,7 @@ import duke.core.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
+import duke.task.Task.TaskType;
 import duke.task.TaskList;
 import duke.task.Todo;
 
@@ -19,31 +20,134 @@ import duke.task.Todo;
  */
 public class AddCommand extends Command {
     private TaskType taskType;
+    private String description;
+    private TemporalAccessor date1;
+    private TemporalAccessor date2;
+    private boolean isCompleted;
 
-    /** Enum to represent the type of task to be added. */
-    public enum TaskType {
-        TODO, DEADLINE, EVENT
+    private boolean isSilent;
+
+    /**
+     * Constructor for AddCommand.
+     *
+     * @param parameterMap Map of parameters for the command.
+     * @param taskType Type of task to add.
+     * @throws DukeException If the parameters are invalid.
+     */
+    public AddCommand(Map<String, String> parameterMap, TaskType taskType) throws DukeException {
+        this(parameterMap, taskType, false, false);
     }
 
     /**
      * Constructor for AddCommand.
      *
      * @param parameterMap Map of parameters for the command.
+     * @param taskType Type of task to add.
+     * @param isCompleted Whether the task should be marked as completed.
+     * @throws DukeException If the parameters are invalid.
      */
-    public AddCommand(Map<String, String> parameterMap) {
+    public AddCommand(Map<String, String> parameterMap, TaskType taskType, boolean isCompleted) throws DukeException {
+        this(parameterMap, taskType, isCompleted, false);
+    }
+
+    /**
+     * Constructor for AddCommand.
+     *
+     * @param parameterMap Map of parameters for the command.
+     * @param taskType Type of task to add.
+     * @param isCompleted Whether the task should be marked as completed.
+     * @param isSilent Whether the command should be silent.
+     * @throws DukeException If the parameters are invalid.
+     */
+    public AddCommand(Map<String, String> parameterMap, TaskType taskType,
+            boolean isCompleted, boolean isSilent) throws DukeException {
         super(parameterMap);
 
-        // Guard clause to prevent NullPointerException
-        if (parameterMap.equals(null)) {
+        this.taskType = taskType;
+        this.isCompleted = isCompleted;
+        this.isSilent = isSilent;
+
+        this.loadParameters();
+        this.checkIfParametersSpecified();
+        this.checkIfParametersValid();
+    }
+
+    @Override
+    protected void loadParameters() throws DukeException {
+        description = parameterMap.get("default");
+
+        switch(taskType) {
+        case EVENT:
+            date1 = Parser.parseDateTimeInput(parameterMap.get("from"));
+            date2 = Parser.parseDateTimeInput(parameterMap.get("to"));
+            break;
+        case DEADLINE:
+            date1 = Parser.parseDateTimeInput(parameterMap.get("by"));
+            break;
+        case TODO:
+        default:
+            // No date parameters to load
+        }
+    }
+
+    @Override
+    protected void checkIfParametersSpecified() throws DukeException {
+        if (description == null || description.isEmpty()) {
+            throw new DukeException("No description specified. Please specify a description.");
+        }
+
+        switch(taskType) {
+        case EVENT:
+            if (date1 == null) {
+                throw new DukeException("No start date/time specified. Please specify a start date/time.");
+            }
+
+            if (date2 == null) {
+                throw new DukeException("No end date/time specified. Please specify an end date/time.");
+            }
+            break;
+        case DEADLINE:
+            if (date1 == null) {
+                throw new DukeException("No due date/time specified. Please specify a due date/time.");
+            }
+            break;
+        case TODO:
+        default:
+            // No additional parameters to check
+        }
+    }
+
+    @Override
+    protected void checkIfParametersValid() throws DukeException {
+        if (taskType != TaskType.EVENT) {
             return;
         }
 
-        if (parameterMap.containsKey("event")) {
-            this.taskType = TaskType.EVENT;
-        } else if (parameterMap.containsKey("deadline")) {
-            this.taskType = TaskType.DEADLINE;
-        } else if (parameterMap.containsKey("todo")) {
-            this.taskType = TaskType.TODO;
+        if (date1 instanceof LocalDate) {
+            if (!(date2 instanceof LocalDate)) {
+                throw new DukeException("Please ensure that both arguments have the same format.");
+            }
+
+            LocalDate startDate = (LocalDate) date1;
+            LocalDate endDate = (LocalDate) date2;
+
+            if (startDate.isAfter(endDate)) {
+                throw new DukeException("Start date cannot be after the end date");
+            }
+        }
+
+        // If the start date is a LocalDateTime, the end date must also be a LocalDateTime
+        if (date1 instanceof LocalDateTime) {
+            if (!(date2 instanceof LocalDateTime)) {
+                throw new DukeException("Please ensure that both arguments have the same format.");
+            }
+
+            LocalDateTime startDate = (LocalDateTime) date1;
+            LocalDateTime endDate = (LocalDateTime) date2;
+
+            if (startDate.isAfter(endDate)) {
+                throw new DukeException("Start date cannot be after the end date");
+            }
         }
 
         assert this.taskType != null : "Task type should not be null";
@@ -56,84 +160,23 @@ public class AddCommand extends Command {
         try {
             switch (taskType) {
             case TODO:
-                if (!super.getParameterMap().containsKey("default")) {
-                    throw new DukeException("No description specified. Please specify a description.");
-                }
-
-                String todoDescription = super.getParameterMap().get("default");
-                taskToAdd = new Todo(todoDescription);
+                taskToAdd = new Todo(description, isCompleted);
                 break;
             case DEADLINE:
-                if (!super.getParameterMap().containsKey("default")) {
-                    throw new DukeException("No description specified. Please specify a description.");
-                }
-                if (!super.getParameterMap().containsKey("by")) {
-                    throw new DukeException("No due date/time specified. Please specify a due date/time.");
-                }
-
-                String deadlineDescription = super.getParameterMap().get("default");
-                TemporalAccessor dueDate = Parser.parseDateTimeInput(super.getParameterMap().get("by"));
-                taskToAdd = new Deadline(deadlineDescription, dueDate);
+                taskToAdd = new Deadline(description, date1, isCompleted);
                 break;
             case EVENT:
-                if (!super.getParameterMap().containsKey("default")) {
-                    throw new DukeException("No description specified. Please specify a description.");
-                }
-                if (!super.getParameterMap().containsKey("from")) {
-                    throw new DukeException("No start date/time specified. Please specify a start date/time.");
-                }
-                if (!super.getParameterMap().containsKey("to")) {
-                    throw new DukeException("No end date/time specified. Please specify an end date/time.");
-                }
-
-                String eventDescription = super.getParameterMap().get("default");
-                TemporalAccessor eventStartDate = Parser.parseDateTimeInput(super.getParameterMap().get("from"));
-                TemporalAccessor eventEndDate = Parser.parseDateTimeInput(super.getParameterMap().get("to"));
-
-                // If the start date is a LocalDate, the end date must also be a LocalDate
-                if (eventStartDate instanceof LocalDate) {
-                    if (!(eventEndDate instanceof LocalDate)) {
-                        throw new DukeException("Please ensure that both arguments have the same format.");
-                    }
-
-                    LocalDate startDate = (LocalDate) eventStartDate;
-                    LocalDate endDate = (LocalDate) eventEndDate;
-
-                    if (startDate.isAfter(endDate)) {
-                        throw new DukeException("Start date cannot be after the end date");
-                    }
-                }
-
-                // If the start date is a LocalDateTime, the end date must also be a LocalDateTime
-                if (eventStartDate instanceof LocalDateTime) {
-                    if (!(eventEndDate instanceof LocalDateTime)) {
-                        throw new DukeException("Please ensure that both arguments have the same format.");
-                    }
-
-                    LocalDateTime startDate = (LocalDateTime) eventStartDate;
-                    LocalDateTime endDate = (LocalDateTime) eventEndDate;
-
-                    if (startDate.isAfter(endDate)) {
-                        throw new DukeException("Start date cannot be after the end date");
-                    }
-                }
-
-                taskToAdd = new Event(eventDescription, eventStartDate, eventEndDate);
+                taskToAdd = new Event(description, date1, date2, isCompleted);
                 break;
             default:
                 throw new DukeException("Invalid task type.");
             }
-
             assert taskToAdd != null : "Task to add should not be null";
-
-            if (super.getParameterMap().containsKey("completed")) {
-                taskToAdd.markAsDone();
-            }
 
             tasks.addTask(taskToAdd);
 
             // Exit early and do not print anything if the command is silent
-            if (super.getParameterMap().containsKey("silent")) {
+            if (isSilent) {
                 return null;
             }
 

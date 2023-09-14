@@ -11,7 +11,7 @@ import duke.task.TaskList;
  */
 public abstract class Command {
     /* Map to store additional parameters for execution of command. */
-    private Map<String, String> parameterMap;
+    protected Map<String, String> parameterMap;
 
     /**
      * Constructor for Command.
@@ -20,18 +20,35 @@ public abstract class Command {
         this.parameterMap = parameterMap;
     }
 
-    /**
-     * Returns the parameter map of the command.
-     *
-     * @return Parameter map of the command.
-     */
-    public Map<String, String> getParameterMap() {
-        return this.parameterMap;
-    }
-
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Loads parameters for the command.
+     */
+    protected void loadParameters() throws DukeException {
+        // No parameters to load
+    }
+
+    /**
+     * Checks if all required parameters are specified.
+     *
+     * @throws DukeException If a required parameter is not specified.
+     */
+    protected void checkIfParametersSpecified() throws DukeException {
+        // No parameters to check
+    }
+
+    /**
+     * Checks if all parameters are valid.
+     *
+     * @throws DukeException If an invalid parameter is specified.
+     */
+    protected void checkIfParametersValid() throws DukeException {
+        // No parameters to check
+    }
+
 
     /**
      * Executes the command.

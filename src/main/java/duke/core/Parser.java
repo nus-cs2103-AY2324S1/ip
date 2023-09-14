@@ -16,6 +16,7 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.task.Task.TaskType;
 
 /**
  * Class to parse user input.
@@ -50,8 +51,9 @@ public class Parser {
      * @param fullCommand User input string.
      * @return Command object representing the user input.
      */
-    public static Command parseCommand(String fullCommand) {
+    public static Command parseCommand(String fullCommand) throws DukeException {
         String[] splitCommand = fullCommand.trim().split(" ", 2);
+        String commandString = splitCommand[0];
         String parameters = "";
 
         if (splitCommand.length == 2) {
@@ -60,7 +62,7 @@ public class Parser {
 
         Map<String, String> parameterMap = parseParameters(parameters);
 
-        switch (splitCommand[0]) {
+        switch (commandString) {
         case "bye":
             return new ExitCommand(parameterMap);
         case "list":
@@ -70,20 +72,17 @@ public class Parser {
         case "unmark":
             return new UnmarkCommand(parameterMap);
         case "todo":
-            parameterMap.put("todo", "");
-            return new AddCommand(parameterMap);
+            return new AddCommand(parameterMap, TaskType.TODO);
         case "deadline":
-            parameterMap.put("deadline", "");
-            return new AddCommand(parameterMap);
+            return new AddCommand(parameterMap, TaskType.DEADLINE);
         case "event":
-            parameterMap.put("event", "");
-            return new AddCommand(parameterMap);
+            return new AddCommand(parameterMap, TaskType.EVENT);
         case "delete":
             return new DeleteCommand(parameterMap);
         case "find":
             return new FindCommand(parameterMap);
         default:
-            return null;
+            throw new DukeException("Please enter a valid command.");
         }
     }
 
@@ -121,23 +120,25 @@ public class Parser {
      * @param taskDataString Task data string.
      * @return AddCommand object representing the task data.
      */
-    public static AddCommand parseTaskDataString(String taskDataString) {
+    public static AddCommand parseTaskDataString(String taskDataString) throws DukeException {
         String[] parameterArray = taskDataString.trim().split(" \\| ");
 
         if (parameterArray.length < 3) {
             return null;
         }
 
-        String taskType = parameterArray[0];
-        boolean todoCompletion = parameterArray[1].equals("1");
+        String taskLetter = parameterArray[0];
+        boolean isTaskCompleted = parameterArray[1].equals("1");
         String description = parameterArray[2];
         String firstDateTime = null;
         String secondDateTime = null;
 
+        // If there is a date and time stored
         if (parameterArray.length > 3) {
             firstDateTime = parameterArray[3];
         }
 
+        // If there is a second date and time stored
         if (parameterArray.length > 4) {
             secondDateTime = parameterArray[4];
         }
@@ -145,11 +146,6 @@ public class Parser {
         HashMap<String, String> parameterMap = new HashMap<>();
 
         parameterMap.put("default", description);
-        parameterMap.put("silent", "");
-
-        if (todoCompletion) {
-            parameterMap.put("completed", "");
-        }
 
         if (firstDateTime != null) {
             parameterMap.put("by", firstDateTime);
@@ -160,20 +156,15 @@ public class Parser {
             parameterMap.put("to", secondDateTime);
         }
 
-        switch(taskType) {
+        switch(taskLetter) {
         case "T":
-            parameterMap.put("todo", "");
-            break;
+            return new AddCommand(parameterMap, TaskType.TODO, isTaskCompleted, true);
         case "D":
-            parameterMap.put("deadline", "");
-            break;
+            return new AddCommand(parameterMap, TaskType.DEADLINE, isTaskCompleted, true);
         case "E":
-            parameterMap.put("event", "");
-            break;
+            return new AddCommand(parameterMap, TaskType.EVENT, isTaskCompleted, true);
         default:
             return null;
         }
-
-        return new AddCommand(parameterMap);
     }
 }

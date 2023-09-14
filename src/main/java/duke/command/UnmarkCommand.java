@@ -11,14 +11,44 @@ import duke.task.TaskList;
  * Command to mark a task as not done.
  */
 public class UnmarkCommand extends Command {
+    private Integer taskIndexToUnmark;
 
     /**
      * Constructor for UnmarkCommand.
      *
      * @param parameterMap Map of parameters for the command.
      */
-    public UnmarkCommand(Map<String, String> parameterMap) {
+    public UnmarkCommand(Map<String, String> parameterMap) throws DukeException {
         super(parameterMap);
+
+        this.loadParameters();
+        this.checkIfParametersSpecified();
+        this.checkIfParametersValid();
+    }
+
+    @Override
+    protected void loadParameters() throws DukeException {
+        try {
+            taskIndexToUnmark = Integer.parseInt(parameterMap.get("default")) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
+                    + "Please retry with a valid task number.", parameterMap.get("default")));
+        }
+    }
+
+    @Override
+    protected void checkIfParametersSpecified() throws DukeException {
+        if (taskIndexToUnmark == null) {
+            throw new DukeException("Please enter a task number.");
+        }
+    }
+
+    @Override
+    protected void checkIfParametersValid() throws DukeException {
+        if (taskIndexToUnmark < 0) {
+            throw new DukeException("Task number cannot be negative.\n"
+                    + "Please retry with a valid task number.");
+        }
     }
 
     @Override
@@ -27,38 +57,21 @@ public class UnmarkCommand extends Command {
             throw new DukeException("There are no tasks added. Please add a task first.");
         }
 
-        if (!super.getParameterMap().containsKey("default")) {
-            throw new DukeException("Please enter a task number.");
+        if (taskIndexToUnmark >= tasks.size()) {
+            throw new DukeException(String.format("Task %d does not exist. Use a number between 1 and %d.",
+                    taskIndexToUnmark + 1,
+                    tasks.size()));
         }
 
-        String taskIndexString = super.getParameterMap().get("default");
-        try {
-            int taskIndex = Integer.parseInt(taskIndexString) - 1;
+        Task unmarkedTask = tasks.markAsUndone(taskIndexToUnmark);
+        tasks.storeTasks(storage);
 
-            if (taskIndex < 0) {
-                throw new DukeException("Task number cannot be negative.\n     "
-                        + "Please retry with a valid task number.");
-            }
+        assert unmarkedTask != null : "Unmarked task should not be null";
 
-            if (taskIndex >= tasks.size()) {
-                throw new DukeException(String.format("Task %d does not exist. Use a number between 1 and %d.",
-                        taskIndex + 1,
-                        tasks.size()));
-            }
+        StringBuilder response = new StringBuilder();
+        response.append("OK, I've marked this task as not done yet:\n");
+        response.append(String.format("  %s", unmarkedTask.toString()));
 
-            Task unmarkedTask = tasks.markAsUndone(taskIndex);
-            tasks.storeTasks(storage);
-
-            assert unmarkedTask != null : "Unmarked task should not be null";
-
-            StringBuilder response = new StringBuilder();
-            response.append("OK, I've marked this task as not done yet:\n");
-            response.append(String.format("  %s", unmarkedTask.toString()));
-
-            return response.toString();
-        } catch (NumberFormatException e) {
-            throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
-                    + "Please retry with a valid task number.", taskIndexString));
-        }
+        return response.toString();
     }
 }

@@ -12,12 +12,22 @@ public class Todo extends Task {
      * @param description Description of the todo task.
      */
     public Todo(String description) {
-        super(description);
+        this(description, false);
+    }
+
+    /**
+     * Constructor for Todo.
+     *
+     * @param description Description of the todo task.
+     * @param isCompleted Whether the todo task is completed.
+     */
+    public Todo(String description, boolean isCompleted) {
+        super(description, isCompleted);
     }
 
     @Override
     public String getDataString() {
-        return String.join(" | ", Todo.SYMBOL, super.isDone ? "1" : "0", super.getDescription());
+        return String.join(" | ", Todo.SYMBOL, super.isCompleted ? "1" : "0", super.getDescription());
     }
 
     @Override
