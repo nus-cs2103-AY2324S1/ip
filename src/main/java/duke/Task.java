@@ -23,7 +23,7 @@ public class Task {
      * The {@code isCompleted} parameter corresponds to the completion status in the last
      * instance of {@code Duke}.
      *
-     * @param details Details of the {@code Task}.
+     * @param details     Details of the {@code Task}.
      * @param isCompleted Completion status of the {@code Task}.
      */
     public Task(String details, boolean isCompleted) {
@@ -49,10 +49,22 @@ public class Task {
     /**
      * Gets the details of the {@code Task}.
      *
-     * @return Details of the {@code Task.}
+     * @return Details of the {@code Task}.
      */
     protected String getDetails() {
         return this.details;
+    }
+
+    /**
+     * Returns the string representation of the {@code Task}, to be
+     * saved in the text file.
+     *
+     * @return Compressed string representation of the {@code Task}.
+     */
+    public String toFileSaveFormat() {
+        return String.format("Task/%s/%c",
+            this.getDetails(),
+            this.isCompleted ? 'Y' : 'N');
     }
 
     /**
