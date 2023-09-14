@@ -1,0 +1,12 @@
+todo run
+deadline CS2103t iP /by 25 August
+event meeting with Han /from 8pm /to 2am
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+todo fight
+list
+bye
