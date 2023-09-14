@@ -150,6 +150,7 @@ public class TaskList {
                 throw new DukeException("Error: Task is already completed!");
             } else {
                 tasks.get(taskIndex).mark();
+                assert tasks.get(taskIndex).done : "Unable to mark Task!";
                 writeToFile();
                 String response = Ui.line + "Great job! You've completed the following task:"
                         + "\n" + tasks.get(taskIndex).toString()
@@ -176,6 +177,7 @@ public class TaskList {
             } else {
                 tasks.get(taskIndex).unMark();
                 writeToFile();
+                assert !tasks.get(taskIndex).done : "Unable to unmark Task!";
                 String response = Ui.line + "You've marked the following task as incomplete:"
                         + "\n" + tasks.get(taskIndex).toString()
                         + "\n" + Ui.line;
@@ -194,6 +196,7 @@ public class TaskList {
                 + "You now have " + numTasks
                 + " task(s) in the list" + "\n" + Ui.line;
         tasks.add(taskId, task);
+        assert tasks.size() == numTasks : "Error with tallying tasks";
         if (taskCount < tasks.size()) {
             taskCount++;
         }
