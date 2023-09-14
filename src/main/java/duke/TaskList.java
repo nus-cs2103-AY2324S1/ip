@@ -136,7 +136,7 @@ public class TaskList {
             hashMap.put(task, false);
         }
         for (int i = keywordLength; i > 0; i--) {
-            for (Task task : taskList) {
+            for (Task task : taskList) {                                       // task assigned to false in hashmap
                 if (task.getDescription().contains(keyword.substring(0, i)) && !hashMap.get(task)) {
                     result.add(task);
                     hashMap.replace(task, false, true);
