@@ -14,7 +14,7 @@ import com.cloud.chatbot.annotation.Nullable;
 
 
 /**
- * Handles reading from and writing to file.
+ * Handles reading from and writing to the JSON storage file.
  */
 public final class FileStorage {
     private static final String RELATIVE_PATH = "./data/items.json";
