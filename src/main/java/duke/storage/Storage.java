@@ -89,6 +89,7 @@ public class Storage {
                                 break;
                             }
                             ToDoTask newToDo = new ToDoTask(description, done);
+                            assert taskList != null : "TaskList is null!";
                             taskList.addTask(newToDo);
                         } else {
                             System.out.println("Task formatting error: " + taskData + " not loaded");
@@ -106,6 +107,7 @@ public class Storage {
                                 break;
                             }
                             DeadlineTask newDeadline = new DeadlineTask(description, by, done);
+                            assert taskList != null : "TaskList is null!";
                             taskList.addTask(newDeadline);
                         } else {
                             System.out.println("Task formatting error: " + taskData + " not loaded");
@@ -124,6 +126,7 @@ public class Storage {
                                 break;
                             }
                             EventTask newEvent = new EventTask(description, from, to, done);
+                            assert taskList != null : "TaskList is null!";
                             taskList.addTask(newEvent);
                         } else {
                             System.out.println("Task formatting error: " + taskData + " not loaded");

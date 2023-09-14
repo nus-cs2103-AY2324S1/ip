@@ -80,6 +80,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        assert parser != null: "parser is null";
         return parser.parse(input);
     }
 
