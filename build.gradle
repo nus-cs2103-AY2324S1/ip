@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("ducky.Ducky")
+    mainClass.set("com.ducky.Launcher")
 }
 
 shadowJar {
