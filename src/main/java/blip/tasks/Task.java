@@ -85,22 +85,24 @@ public abstract class Task {
      */
     public static Task loadTaskFromFile(String lineToLoad) throws DateTimeFormatException {
         String[] taskComponents = lineToLoad.split(" \\| ");
-        assert taskComponents.length >= 4 : "Invalid task format in data file for this line: " + lineToLoad;
+//        assert taskComponents.length >= 4 : "Invalid task format in data file for this line: " + lineToLoad;
         String taskType = taskComponents[0];
         boolean isDone = taskComponents[1].equals("1");
+        String priorityString = taskComponents[2];
+        Priority priority = Priority.convertToPriority(priorityString);
         String taskDescription = taskComponents[3];
 
         if (taskType.equals("T")) {
-            return new ToDo(taskDescription, isDone);
+            return new ToDo(taskDescription, isDone, priority);
         }
         if (taskType.equals("D")) {
-            LocalDateTime deadlineDateTime = DateConverter.convertToDateTime(taskComponents[3]);
+            LocalDateTime deadlineDateTime = DateConverter.convertToDateTime(taskComponents[4]);
             Deadline newDeadlineTask = new Deadline(taskDescription, deadlineDateTime, isDone);
             return newDeadlineTask;
         }
         if (taskType.equals("E")) {
-            LocalDateTime eventFrom = DateConverter.convertToDateTime(taskComponents[3]);
-            LocalDateTime eventTo = DateConverter.convertToDateTime(taskComponents[4]);
+            LocalDateTime eventFrom = DateConverter.convertToDateTime(taskComponents[4]);
+            LocalDateTime eventTo = DateConverter.convertToDateTime(taskComponents[5]);
             Event newEventTask = new Event(taskDescription, eventFrom, eventTo, isDone);
             return newEventTask;
         }

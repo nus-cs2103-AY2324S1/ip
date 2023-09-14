@@ -17,6 +17,15 @@ public class ToDo extends Task{
     }
 
     /**
+     * Contructor of To Do task, sets priority to desired priority.
+     * @param description The description of the to do task
+     * @param isDone Boolean that represents whether task is done
+     */
+    public ToDo(String description, boolean isDone, Priority priority) {
+        super(description, isDone, priority);
+    }
+
+    /**
      * Saves the to do task to data file in this specified format.
      * @return String representation of deadline task to save in data file
      */
