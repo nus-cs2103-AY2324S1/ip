@@ -22,9 +22,11 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(taskNumber);
         task.markAsUndone();
+
         String response = "";
         response += "    OK, I've marked this task as not done yet:\n";
         response += "      " + task;
+
         System.out.println(response);
         ui.setLastResponse(response);
     }

@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Ui {
     private static final String LINE = "    ____________________________________________________________";
     private Scanner scanner;
-
     private String lastResponse = "";
 
     /**
@@ -13,6 +12,14 @@ public class Ui {
      */
     public Ui() {
         scanner = new Scanner(System.in);
+    }
+
+    public String getLastResponse() {
+        return lastResponse;
+    }
+
+    public void setLastResponse(String lastResponse) {
+        this.lastResponse = lastResponse;
     }
 
     public void showLoadingError() {
@@ -42,23 +49,5 @@ public class Ui {
         showLine();
         System.out.println("     ☹ OOPS!!! " + message);
         showLine();
-    }
-
-    public void showTasks(TaskList tasks) {
-        String response = "Your tasks are: \n";
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            response += "    " + (i + 1) + ". " + task + "\n";
-        }
-        lastResponse = response;
-        System.out.println(response);
-    }
-
-    public String getLastResponse() {
-        return lastResponse;
-    }
-
-    public void setLastResponse(String lastResponse) {
-        this.lastResponse = lastResponse;
     }
 }

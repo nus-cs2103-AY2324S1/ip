@@ -1,8 +1,6 @@
 package rocket;
 
 public class TodoCommand extends AddCommand {
-    private String description;
-
     /**
      * Creates todo command.
      * @param description the description of the todo.

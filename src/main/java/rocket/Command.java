@@ -1,6 +1,6 @@
 package rocket;
 
-public class Command {
+public abstract class Command {
 
     private boolean isExit;
     public Command (boolean isExit) {
@@ -13,9 +13,7 @@ public class Command {
      * @param ui Displays to the UI if needed.
      * @param storage Stores and retrieves data from the storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-
-    }
+    abstract public void execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Tells Rocket if the command is an exit command

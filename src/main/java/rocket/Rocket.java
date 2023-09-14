@@ -3,8 +3,6 @@ package rocket;
 import java.time.format.DateTimeFormatter;
 
 public class Rocket{
-    public static final DateTimeFormatter uglyDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-    public static final DateTimeFormatter prettyDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
     public static final String FILE_PATH = "data/tasks.txt";
 
     private Storage storage;
