@@ -13,6 +13,7 @@ public class Ui {
     private final String TEXT_MARKED_TASK = "\tNice! I've marked this task as done:";
     private final String TEXT_UNMARKED_TASK = "\tOk, I've marked this task as undone:";
     private final String TEXT_DELETED_TASK = "\tNoted, I've deleted this task:";
+    private final String TEXT_MATCHING_TASKS = "\tHere are the matching tasks in your list:";
     private final String TEXT_ERROR = "\tOOPS!!! ";
 
     private final Scanner sc;
@@ -73,6 +74,15 @@ public class Ui {
         System.out.println(TEXT_DELETED_TASK);
         System.out.println("\t" + task);
         System.out.printf(TEXT_TASK_LENGTH + "\n", len);
+        System.out.println(TEXT_SEPARATION + "\n");
+    }
+
+    public void showMatchingTasks(String[] tasks) {
+        System.out.println(TEXT_SEPARATION);
+        System.out.println(TEXT_MATCHING_TASKS);
+        for (String taskString : tasks) {
+            System.out.println("\t" + taskString);
+        }
         System.out.println(TEXT_SEPARATION + "\n");
     }
 

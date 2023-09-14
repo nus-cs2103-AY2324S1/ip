@@ -24,6 +24,8 @@ public class Parser {
             return new UnmarkCommand(command.replaceFirst("unmark", "").trim());
         case "list":
             return new ListCommand();
+        case "find":
+            return new FindCommand(command.replaceFirst("find", "").trim());
         case "bye":
             return new ByeCommand();
         default:
