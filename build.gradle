@@ -47,15 +47,15 @@ test {
     }
 }
 
-mainClassName = 'duke.Main'
+mainClassName = 'duke.MeowBot'
 
 
 application {
-    mainClass.set("duke.Meowbot")
+    mainClass.set("duke.MeowBot")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "MeowBot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
