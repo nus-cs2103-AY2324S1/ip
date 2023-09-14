@@ -25,7 +25,7 @@ public abstract class Command {
      */
     public LocalDateTime parseDateTime(String dateTimeString) {
         String[] possibleFormats = {"yyyy-MM-dd HHmm", "yyyy/MM/dd HHmm","dd-MM-yyyy HHmm","dd/MM/yyyy HHmm",
-                "yyyy-MM-dd HH:mm", "yyyy/MM/dd HH:mm","dd-MM-yyyy HH:mm","dd/MM/yyyy HH:mm"};
+                "yyyy-MM-dd HH:mm", "yyyy/MM/dd HH:mm","dd-MM-yyyy HH:mm","dd/MM/yyyy HH:mm", "MMM dd yyyy HH:mm"};
         LocalDateTime dateTime = null;
         for (String format : possibleFormats) {
             try {
