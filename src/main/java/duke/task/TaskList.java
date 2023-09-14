@@ -39,11 +39,29 @@ public class TaskList {
      *
      * @param task Task to be added to the list.
      */
-    public String addTask(Task task) {
+    public String addTask(Task task) throws DukeException{
         assert (task != null) : "Adding null task";
+        if (containsDuplicate(task)) {
+            throw new DukeException("Cannot add duplicate task!");
+        }
         this.tasks.add(task);
         return this.ui.addTaskMessage(task, tasks.size());
+    }
 
+    /**
+     * Checks for duplicate task in the ArrayList.
+     * @param task Task to be checked
+     * @return Boolean value where true indicates duplicate task, and false otherwise.
+     */
+
+    public boolean containsDuplicate(Task task) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task currentTask = this.tasks.get(i);
+            if (currentTask.description.equals(task.description)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
