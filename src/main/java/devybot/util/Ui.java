@@ -34,7 +34,8 @@ public class Ui {
     /**
      * Displays an exit message to the user.
      */
-    public static String exit() {
-        return ("Bye. Hope to see you again soon!");
+    public static void exit() {
+        String message = "Bye. Hope to see you again soon!";
+        outputBuffer.append(message).append("\n");
     }
 }

@@ -119,8 +119,10 @@ public class Storage {
             File dataDir = new File("./data");
             if (!dataDir.exists()) {
                 dataDir.mkdir();
+                assert dataDir.exists() : "Directory not created";
             }
             FileWriter fileWriter = new FileWriter(filePath);
+            assert fileWriter != null : "FileWriter should not be null";
             for (int i = 0; i < taskList.size(); i++) {
                 fileWriter.write(taskList.getTask(i).toFileString() + "\n");
             }
