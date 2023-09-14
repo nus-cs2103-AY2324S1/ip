@@ -42,7 +42,6 @@ public class TaskList {
     public Task deleteTask(int index) {
         return this.tasks.remove(index);
     }
-
     /**
      * Finds task objects that has matching keyword.
      * @param keyword keyword in String look for
