@@ -1,10 +1,12 @@
 package skye.data.task;
 
+import skye.data.Serializable;
+
 /**
  * Represents a task that the user wishes to keep track of.
  * A task object has a description and completion status.
  */
-public abstract class Task {
+public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
@@ -78,13 +80,6 @@ public abstract class Task {
     public void markAsNotDone() {
         setDone(false);
     }
-
-    /**
-     * Generates an encoded string containing metadata of the task to be saved in a text file.
-     *
-     * @return Encoded string representation of the task
-     */
-    public abstract String toSaveDataFormat();
 
     /**
      * Produces a string representation of a Task object.

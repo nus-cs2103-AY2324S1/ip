@@ -3,13 +3,14 @@ package skye.commands;
 import java.io.IOException;
 
 import skye.data.TaskList;
+import skye.data.VenueList;
 import skye.data.exception.DukeException;
 import skye.data.task.Task;
 import skye.storage.Storage;
 import skye.ui.UI;
 
 /**
- * Represents the command to mark a completed task as incomplete
+ * Represents the command to mark a completed task as incomplete.
  */
 public class UnmarkCommand extends Command {
 
@@ -38,7 +39,8 @@ public class UnmarkCommand extends Command {
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
     @Override
-    public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage)
+            throws DukeException, IOException {
         Task unmarkedTask = taskList.unmarkTask(this.taskNumber);
         assert !unmarkedTask.isDone();
         storage.write(taskList.getTasks());

@@ -3,6 +3,7 @@ package skye.commands;
 import java.io.IOException;
 
 import skye.data.TaskList;
+import skye.data.VenueList;
 import skye.data.exception.DukeException;
 import skye.storage.Storage;
 import skye.ui.UI;
@@ -25,7 +26,8 @@ public abstract class Command {
      * @throws DukeException Describes the error encountered when executing the command
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
-    public abstract String execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException;
+    public abstract String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage)
+            throws DukeException, IOException;
 
     /**
      * Returns whether if the command when executed can exit the program.

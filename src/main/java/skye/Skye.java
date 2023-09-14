@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import skye.commands.Command;
 import skye.data.TaskList;
+import skye.data.VenueList;
 import skye.data.exception.DukeException;
 import skye.parser.Parser;
 import skye.storage.Storage;
@@ -20,6 +21,7 @@ public class Skye {
     private Parser parser;
     private Storage storage;
     private TaskList taskList;
+    private VenueList venueList;
     private UI ui;
 
     /**
@@ -31,11 +33,14 @@ public class Skye {
         parser = new Parser();
         storage = new Storage(filePath);
         ui = new UI();
+        venueList = new VenueList();
         try {
             taskList = new TaskList(storage.load());
+            venueList = new VenueList(storage.loadVenues());
         } catch (DukeException | IOException e) {
             ui.showLoadingError();
             taskList = new TaskList();
+            venueList = new VenueList();
         }
     }
 
@@ -54,7 +59,7 @@ public class Skye {
                 String fullCommand = ui.readCommand();
                 System.out.println();
                 Command command = parser.parse(fullCommand);
-                command.execute(taskList, ui, storage);
+                command.execute(taskList, venueList, ui, storage);
                 isExit = command.isExit();
             } catch (DukeException exception) {
                 ui.printMessage(exception.getMessage());
@@ -75,7 +80,7 @@ public class Skye {
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
-            return command.execute(taskList, ui, storage);
+            return command.execute(taskList, venueList, ui, storage);
         } catch (DukeException | IOException e) {
             return e.getMessage();
         }

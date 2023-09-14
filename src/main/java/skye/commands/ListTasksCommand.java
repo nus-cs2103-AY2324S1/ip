@@ -6,20 +6,22 @@ import skye.storage.Storage;
 import skye.ui.UI;
 
 /**
- * Represents an invalid command that the user has entered.
+ * Represents the command to list all tasks.
  */
-public class InvalidCommand extends Command {
+public class ListTasksCommand extends ListCommand {
+    public static final String RESOURCE = "tasks";
 
     /**
-     * Executes the invalid command in which this case a help message
-     * is shown by the UI.
+     * Executes the list command by retrieving a list of tasks from the
+     * TaskList and displaying it on the UI.
      *
      * @param taskList TaskList
+     * @param venueList VenueList
      * @param ui UI
      * @param storage Storage
      */
     @Override
     public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage) {
-        return ui.showInvalidCommandMsg();
+        return ui.showTasks(taskList.getTasks());
     }
 }

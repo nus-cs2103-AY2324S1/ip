@@ -9,14 +9,21 @@ import java.util.regex.Pattern;
 import skye.commands.AddDeadlineCommand;
 import skye.commands.AddEventCommand;
 import skye.commands.AddToDoCommand;
+import skye.commands.AddVenueCommand;
 import skye.commands.ByeCommand;
 import skye.commands.Command;
 import skye.commands.DeleteCommand;
+import skye.commands.DeleteTaskCommand;
+import skye.commands.DeleteVenueCommand;
 import skye.commands.DueCommand;
 import skye.commands.FindCommand;
+import skye.commands.FindTasksCommand;
+import skye.commands.FindVenuesCommand;
 import skye.commands.HelpCommand;
 import skye.commands.InvalidCommand;
 import skye.commands.ListCommand;
+import skye.commands.ListTasksCommand;
+import skye.commands.ListVenuesCommand;
 import skye.commands.MarkCommand;
 import skye.commands.UnmarkCommand;
 import skye.data.exception.DukeException;
@@ -24,6 +31,7 @@ import skye.data.exception.DukeExceptionType;
 import skye.data.task.Deadline;
 import skye.data.task.Event;
 import skye.data.task.ToDo;
+import skye.data.venue.Venue;
 
 /**
  * Represents a service which processes the input the user types into the appropriate commands.
@@ -40,6 +48,13 @@ public class Parser {
             Pattern.compile("(?<description>.*?)\\s+/by\\s+(?<deadline>.*)");
     public static final Pattern EVENT_ARGS_FORMAT =
             Pattern.compile("(?<description>.*?)\\s+/from\\s+(?<fromDate>.*?)\\s+/to\\s+(?<toDate>.*)");
+
+    public static final Pattern VENUE_ARGS_FORMAT =
+            Pattern.compile("(?<name>.*?)\\s+/address\\s+(?<address>.*?)"
+                    + "\\s+/size\\s+(?<capacity>.*?)\\s+/rent\\s+(?<rent>.*)");
+
+    public static final Pattern DELETE_SPECIFIC_FORMAT = Pattern.compile("(?<resource>.*?)\\s+/index\\s(?<index>.*)");
+    public static final Pattern FIND_SPECIFIC_FORMAT = Pattern.compile("(?<resource>.*?)\\s+/q\\s(?<query>.*)");
 
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -66,7 +81,7 @@ public class Parser {
             return new ByeCommand();
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareListCommand(arguments);
 
         case MarkCommand.COMMAND_WORD:
             return prepareMarkCommand(arguments);
@@ -82,6 +97,9 @@ public class Parser {
 
         case AddToDoCommand.COMMAND_WORD:
             return prepareAddToDoCommand(arguments);
+
+        case AddVenueCommand.COMMAND_WORD:
+            return prepareAddVenueCommand(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDeleteCommand(arguments);
@@ -188,6 +206,30 @@ public class Parser {
     }
 
     /**
+     * Helper function to create an instance of an AddVenueCommand.
+     *
+     * @param args AddVenueCommand arguments
+     * @return AddVenueCommand
+     */
+    private Venue parseArgsAsVenue(String args) throws DukeException {
+        Matcher matcher = VENUE_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new DukeException(DukeExceptionType.INVALID_VENUE_FORMAT);
+        }
+
+        String name = matcher.group("name").trim();
+        String address = matcher.group("address").trim();
+
+        String capacityString = matcher.group("capacity").trim();
+        int capacity = Integer.parseInt(capacityString);
+
+        String rentCostString = matcher.group("rent").trim();
+        double rent = Double.parseDouble(rentCostString);
+
+        return new Venue(name, address, capacity, rent);
+    }
+
+    /**
      * Helper function to create an instance of a MarkCommand.
      *
      * @param args MarkCommand arguments
@@ -247,6 +289,17 @@ public class Parser {
     }
 
     /**
+     * Helper function to create an instance of an AddToDoCommand.
+     *
+     * @param args AddVenueCommand arguments
+     * @return AddVenueCommand
+     */
+    private Command prepareAddVenueCommand(String args) throws DukeException {
+        Venue venue = parseArgsAsVenue(args);
+        return new AddVenueCommand(venue);
+    }
+
+    /**
      * Helper function to create an instance of a DeleteCommand
      *
      * @param args DeleteCommand arguments
@@ -254,8 +307,22 @@ public class Parser {
      * @throws DukeException When the task number is out of range.
      */
     private Command prepareDeleteCommand(String args) throws DukeException {
-        int taskIndex = parseArgsAsTaskNumber(args);
-        return new DeleteCommand(taskIndex);
+        Matcher matcher = DELETE_SPECIFIC_FORMAT.matcher(args);
+        if (!matcher.matches()) {
+            int taskIndex = parseArgsAsTaskNumber(args);
+            return new DeleteTaskCommand(taskIndex);
+        } else {
+            String resource = matcher.group("resource").trim();
+            int index = parseArgsAsTaskNumber(matcher.group("index").trim());
+            switch (resource) {
+            case DeleteVenueCommand.RESOURCE:
+                return new DeleteVenueCommand(index);
+            case DeleteTaskCommand.RESOURCE:
+                return new DeleteTaskCommand(index);
+            default:
+                throw new DukeException("Unknown resource specified.");
+            }
+        }
     }
 
     /**
@@ -280,10 +347,33 @@ public class Parser {
      * @throws DukeException When there is no keyword specified.
      */
     private Command prepareFindCommand(String args) throws DukeException {
-        String keyword = args.trim();
-        if (keyword.isEmpty()) {
-            throw new DukeException(DukeExceptionType.FIND_NO_KEYWORD);
+        Matcher matcher = FIND_SPECIFIC_FORMAT.matcher(args);
+        if (matcher.matches()) {
+            String resource = matcher.group("resource").trim();
+            String query = matcher.group("query").trim();
+            switch (resource) {
+            case FindVenuesCommand.RESOURCE:
+                return new FindVenuesCommand(query);
+            case FindTasksCommand.RESOURCE:
+                return new FindTasksCommand(query);
+            default:
+                throw new DukeException("Unknown resource specified.");
+            }
+        } else {
+            String keyword = args.trim();
+            if (keyword.isEmpty()) {
+                throw new DukeException(DukeExceptionType.FIND_NO_KEYWORD);
+            }
+            return new FindTasksCommand(keyword);
         }
-        return new FindCommand(keyword);
+    }
+
+    private Command prepareListCommand(String arguments) {
+        String resource = arguments.trim();
+        if (resource.equals(ListVenuesCommand.RESOURCE)) {
+            return new ListVenuesCommand();
+        } else {
+            return new ListTasksCommand();
+        }
     }
 }
