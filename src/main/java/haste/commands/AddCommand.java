@@ -64,6 +64,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui) {
         Task newTask = null;
+        Task defaultTask = new ToDo("error", false);
         switch (this.taskType) {
         case "t":
             newTask = new ToDo(this.taskDesc, false);
@@ -75,8 +76,10 @@ public class AddCommand extends Command {
             newTask = new Event(this.taskDesc, this.start, this.end, false);
             break;
         default:
-            newTask = new ToDo("error", false);
+            newTask = defaultTask;
         }
+        // newTask should always have a correct taskType
+        assert !newTask.equals(defaultTask) : "task allocation error";
         tasks.addTask(newTask);
         return ui.add(newTask.toString(), tasks);
     }

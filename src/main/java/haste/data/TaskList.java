@@ -34,6 +34,7 @@ public class TaskList {
      * @param id Index of the Task in the ArrayList.
      */
     public void deleteTask(int id) {
+        assert id >= 0 : "id should not be negative";
         taskList.remove(id);
         numOfTasks--;
     }
@@ -54,6 +55,7 @@ public class TaskList {
      * @return Task Object.
      */
     public Task getTask(int id) {
+        assert id >= 0;
         return taskList.get(id);
     }
 
