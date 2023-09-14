@@ -1,8 +1,9 @@
 package Commands;
+import Duke.DukeException;
+import OOP.Storage;
 import OOP.TaskList;
 import OOP.Ui;
-import OOP.Storage;
-import Duke.DukeException;
+
 public class UnmarkTaskCommand implements Command {
     /** The index of the task to be marked as not done within the TaskList.*/
     private int id;
@@ -24,7 +25,7 @@ public class UnmarkTaskCommand implements Command {
         try {
             tasks.unmarkTask(id);
             assert !tasks.getTask(id).isDone();
-            return ui.printTaskUnmarkedMessage(tasks.getTask(id));
+            return ui.getTaskUnmarkedMessage(tasks.getTask(id));
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "
                                         + tasks.getSize()

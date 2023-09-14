@@ -34,6 +34,6 @@ public class AddEventCommand implements Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.event);
-        return ui.printTaskAddedMessage(this.event, tasks);
+        return ui.getTaskAddedMessage(this.event, tasks);
     }
 }

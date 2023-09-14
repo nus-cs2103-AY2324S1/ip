@@ -55,17 +55,16 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // Make sure to close the writer in the finally block
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            if (writer == null) {
+                return;
+            }
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
-
 
     /**
      * Loads the tasks from the storage file and returns them as a list.
@@ -101,16 +100,16 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // Make sure to close the reader in the finally block
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            if (reader == null) {
+                return new ArrayList<>();
             }
-            return tasks;
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        return tasks;
     }
 
     /**

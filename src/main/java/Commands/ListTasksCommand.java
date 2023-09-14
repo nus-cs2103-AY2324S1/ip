@@ -17,7 +17,7 @@ public class ListTasksCommand implements Command {
         String res = "";
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
-            res += ui.printTask(i, task);
+            res += ui.getTaskString(i, task);
         }
         return res;
     }

@@ -29,7 +29,7 @@ public class DeleteTaskCommand implements Command {
         try {
             Task removedTask = tasks.deleteTask(id);
             assert !removedTask.equals(tasks.getTask(id));
-            return ui.printTaskDeletedMessage(removedTask);
+            return ui.getTaskDeletedMessage(removedTask);
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "
                                         + tasks.getSize()

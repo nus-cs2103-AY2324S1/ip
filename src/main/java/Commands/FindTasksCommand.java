@@ -28,10 +28,9 @@ public class FindTasksCommand implements Command {
         }).collect(Collectors.toList());
         // get UI to print out the filtered list of tasks
         int i = 0;
-        String res = ui.printFindTaskMessage();
+        String res = ui.getFindTaskMessage();
         for (Task task : filteredTasks) {
-            assert task.toString().contains(searchText);
-            res += ui.printTask(i, task);
+            res += ui.getTaskString(i, task);
             i++;
         }
         return res;

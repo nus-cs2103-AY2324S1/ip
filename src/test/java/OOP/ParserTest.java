@@ -10,6 +10,7 @@ import Commands.InvalidCommand;
 import Commands.ListTasksCommand;
 import Commands.MarkTaskCommand;
 import Commands.UnmarkTaskCommand;
+import Duke.DukeException;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.ToDo;
@@ -86,18 +87,18 @@ public class ParserTest {
     @Test
     public void parseCommand_emptyDescription_exceptionThrown() {
         try {
-            assertEquals(new InvalidCommand(), Parser.parseCommand("todo"));
-        } catch (Exception e) {
+            Parser.parseCommand("todo");
+        } catch (DukeException e) {
             assertEquals("\tEmpty Description", e.getMessage());
         }
         try {
-            assertEquals(new InvalidCommand(), Parser.parseCommand("deadline"));
-        } catch (Exception e) {
+            Parser.parseCommand("deadline");
+        } catch (DukeException e) {
             assertEquals("\tEmpty Description", e.getMessage());
         }
         try {
-            assertEquals(new InvalidCommand(), Parser.parseCommand("event"));
-        } catch (Exception e) {
+            Parser.parseCommand("event");
+        } catch (DukeException e) {
             assertEquals("\tEmpty Description", e.getMessage());
         }
     }
