@@ -186,7 +186,7 @@ public class ParserTest {
     @Test
     public void readInput_validMark_success() {
         try {
-            Duke.list().add(new ToDo("run"));
+            Duke.getList().add(new ToDo("run"));
             MarkCommand result = (MarkCommand) parser.readInput("mark 1");
             MarkCommand expected = new MarkCommand(0);
 
@@ -221,7 +221,7 @@ public class ParserTest {
     @Test
     public void readInput_validUnmark_success() {
         try {
-            Duke.list().add(new ToDo("run"));
+            Duke.getList().add(new ToDo("run"));
             UnmarkCommand result = (UnmarkCommand) parser.readInput("unmark 1");
             UnmarkCommand expected = new UnmarkCommand(0);
 
@@ -256,7 +256,7 @@ public class ParserTest {
     @Test
     public void readInput_validDelete_success() {
         try {
-            Duke.list().add(new ToDo("run"));
+            Duke.getList().add(new ToDo("run"));
             DeleteCommand result = (DeleteCommand) parser.readInput("delete 1");
             DeleteCommand expected = new DeleteCommand(0);
 
@@ -290,7 +290,7 @@ public class ParserTest {
 
     @Test
     public void readInput_findKeyword_success() {
-        Duke.list().add(new ToDo("run"));
+        Duke.getList().add(new ToDo("run"));
         String command = "find run";
 
         try {
@@ -305,7 +305,7 @@ public class ParserTest {
 
     @Test
     public void readInput_findEmpty_exceptionThrown() {
-        Duke.list().add(new ToDo("run"));
+        Duke.getList().add(new ToDo("run"));
         String command = "find ";
 
         try {

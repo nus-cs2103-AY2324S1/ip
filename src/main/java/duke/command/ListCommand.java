@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Duke;
 import duke.Ui;
 import duke.task.TaskList;
 
@@ -13,7 +12,7 @@ public class ListCommand extends Command{
 
     @Override
     public String execute(TaskList list) {
-        return Ui.ui.listPrompt(list);
+        return Ui.instance.listPrompt(list);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class TerminateCommand extends Command {
     public String execute(TaskList list) {
         Storage storage = new Storage();
         storage.save(list);
-        return Ui.ui.endPrompt();
+        return Ui.instance.endPrompt();
     }
 
     @Override

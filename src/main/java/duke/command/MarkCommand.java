@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Duke;
 import duke.Ui;
 import duke.task.TaskList;
 
@@ -19,7 +20,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList list) {
         list.mark(index);
-        return Ui.ui.markPrompt(list.getList().get(index));
+        return Ui.instance.markPrompt(list.getList().get(index));
     }
 
     public int index() {

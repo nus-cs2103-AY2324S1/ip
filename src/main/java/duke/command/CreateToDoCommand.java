@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Duke;
 import duke.Ui;
 import duke.task.TaskList;
 import duke.task.ToDo;
@@ -20,7 +19,7 @@ public class CreateToDoCommand extends Command{
     @Override
     public String execute(TaskList list) {
         list.add(task);
-        return Ui.ui.createTaskPrompt(task);
+        return Ui.instance.createTaskPrompt(task);
     }
 
     public ToDo task(){

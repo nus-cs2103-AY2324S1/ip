@@ -37,7 +37,7 @@ public class Parser {
         scanner = new Scanner(input);
 
         String command = scanner.next();
-        listSize = Duke.listSize();
+        listSize = Duke.getListSize();
 
         switch (command) {
         case "bye":

@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList list) {
         Task temp = list.getList().get(index);
         list.delete(index);
-        return Ui.ui.deletePrompt(temp);
+        return Ui.instance.deletePrompt(temp);
     }
 
     public int index() {

@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Duke;
 import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -14,7 +13,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList list) {
         Task[] result = list.findTask(keyword);
-        return Ui.ui.findPrompt(result);
+        return Ui.instance.findPrompt(result);
     }
 
     public String getKeyword() {

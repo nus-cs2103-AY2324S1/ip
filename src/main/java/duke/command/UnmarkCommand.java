@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command{
     @Override
     public String execute(TaskList list) {
         list.unmark(index);
-        return Ui.ui.unmarkPrompt(list.getList().get(index));
+        return Ui.instance.unmarkPrompt(list.getList().get(index));
     }
 
     public int index() {
