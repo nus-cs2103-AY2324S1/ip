@@ -77,11 +77,9 @@ public class Parser {
             return ui.getExitMessage(0);
         }
         if (this.commandInExecution == Command.NONE) {
-            try {
-                commandInExecution = Command.valueOf(message.trim().toUpperCase());
-                initialiseCommand(commandInExecution);
-            } catch (IllegalArgumentException e) {
-                return ui.getInvalidInputMessage(message);
+            String invalidInputMessage = initialiseCommand(message);
+            if (invalidInputMessage != null) {
+                return invalidInputMessage;
             }
         }
         String errorMessage = checkOperation(commandInExecution, operationInExecution, message);
@@ -90,11 +88,7 @@ public class Parser {
             return errorMessage;
         }
         if (operations.isEmpty()) {
-            if (storedDetails != null) {
-                return taskExecutionHelper(commandInExecution);
-            } else {
-                return duke.executeCommand(commandInExecution, message);
-            }
+            return taskExecutionHelper(commandInExecution, message);
         } else {
             Operation operation = operations.poll();
             operationInExecution = operation;
@@ -103,12 +97,20 @@ public class Parser {
     }
 
     /**
-     * Enqueues the necessary operations of the command into the LinkedList.
+     * Aims to initialise a command corresponding to the user input. If successful,
+     * enqueues the necessary operations of the command into the LinkedList. If unsuccessful,
+     * returns an invalid input message.
      *
-     * @param command Command to be initialised.
+     * @param message The user input.
+     * @return {@code InvalidInputMessage} if the user input is invalid; null otherwise.
      */
-    public void initialiseCommand(Command command) {
-        switch (command) {
+    public String initialiseCommand(String message) {
+        try {
+            commandInExecution = Command.valueOf(message.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return ui.getInvalidInputMessage(message);
+        }
+        switch (commandInExecution) {
         case TASK, TODO -> operations.add(DETAILS);
         case DEADLINE -> {
             operations.addLast(DETAILS);
@@ -117,16 +119,17 @@ public class Parser {
         }
         case EVENT -> {
             operations.addLast(DETAILS);
-            operations.addLast(DATE);
-            operations.addLast(TIME);
-            operations.addLast(DATE);
-            operations.addLast(TIME);
+            for (int i = 0; i < 2; i++) {
+                operations.addLast(DATE);
+                operations.addLast(TIME);
+            }
         }
         case MARK, UNMARK, DELETE -> operations.addLast(CONFIRM);
         case FIND, SEARCH -> operations.addLast(KEYWORD);
         default -> {
         }
         }
+        return null;
     }
 
     /**
@@ -185,27 +188,20 @@ public class Parser {
         switch (operation) {
         case DETAILS -> storedDetails = input;
         case DATE -> {
-            try {
-                localDates.add(LocalDate.parse(input));
-            } catch (DateTimeParseException e) {
+            if (!isValidDateInput(input)) {
                 return ui.getInvalidFormatMessage(operation);
             }
         }
         case TIME -> {
-            try {
-                localTimes.add(LocalTime.parse(input));
-            } catch (DateTimeParseException e) {
+            if (!isValidTimeInput(input)) {
                 return ui.getInvalidFormatMessage(operation);
             }
         }
         case CONFIRM -> {
-            try {
-                int taskNumber = Integer.parseInt(input);
-                if (taskNumber > tasks.getNumOfTasks() || taskNumber < 1) {
-                    return ui.getRequestFailedMessage("task number");
-                }
-            } catch (NumberFormatException e) {
+            if (!isValidNumberInput(input)) {
                 return ui.getRequestFailedMessage("input");
+            } else if (!isValidTaskNumber(Integer.parseInt(input))) {
+                return ui.getRequestFailedMessage("task number");
             }
         }
         default -> {
@@ -215,12 +211,70 @@ public class Parser {
     }
 
     /**
-     * Helper function to execute {@code Command}s which are subclasses of {@code Task}.
+     * Checks if the date input is valid for the {@code DATE} operation.
      *
-     * @param command {@code Command} corresponding to a subclass of {@code Task}.
+     * @param input Date input by user.
+     * @return true if user input is valid; false otherwise.
+     */
+    public boolean isValidDateInput(String input) {
+        try {
+            localDates.add(LocalDate.parse(input));
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the time input is valid for the {@code TIME} operation.
+     *
+     * @param input Time input by user.
+     * @return true if user input is valid; false otherwise.
+     */
+    public boolean isValidTimeInput(String input) {
+        try {
+            localTimes.add(LocalTime.parse(input));
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the number input is valid for the {@code CONFIRM} operation.
+     *
+     * @param input Number input by user.
+     * @return true if user input is valid; false otherwise.
+     */
+    public boolean isValidNumberInput(String input) {
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the task number input is valid for the {@code CONFIRM} operation.
+     *
+     * @param taskNumber Task number input by user.
+     * @return true if user input is valid; false otherwise.
+     */
+    public boolean isValidTaskNumber(int taskNumber) {
+        return taskNumber >= 1 && taskNumber <= tasks.getNumOfTasks();
+    }
+
+    /**
+     * Executes {@code Command}s in the {@code Duke} class.
+     *
+     * @param command {@code Command} to be executed.
      * @return The appropriate {@code executeCommand} function.
      */
-    public String taskExecutionHelper(Command command) {
+    public String taskExecutionHelper(Command command, String message) {
+        if (storedDetails == null) {
+            return duke.executeCommand(commandInExecution, message);
+        }
         if (localDates.isEmpty() || localTimes.isEmpty()) {
             return duke.executeCommand(command, storedDetails);
         }

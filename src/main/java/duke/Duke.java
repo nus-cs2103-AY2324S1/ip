@@ -74,7 +74,7 @@ public class Duke {
     public void executeDeadline(StringBuilder res, String details, LocalDateTime dueDateTime) {
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
-        } else if (checkStartDateTime(dueDateTime)) {
+        } else if (dueDateTime.isBefore(LocalDateTime.now())) {
             res.append(ui.getInvalidStartMessage(Parser.Command.DEADLINE));
         } else {
             tasks.add(new Deadline(details, dueDateTime));
@@ -92,9 +92,9 @@ public class Duke {
                              LocalDateTime endDateTime) {
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
-        } else if (checkStartDateTime(endDateTime)) {
+        } else if (endDateTime.isBefore(LocalDateTime.now())) {
             res.append(ui.getInvalidStartMessage(Parser.Command.EVENT));
-        } else if (!checkTimeInterval(startDateTime, endDateTime)) {
+        } else if (!isValidTimeInterval(startDateTime, endDateTime)) {
             res.append(ui.getInvalidIntervalMessage(Parser.Command.EVENT));
         } else {
             tasks.add(new Event(details, startDateTime, endDateTime));
@@ -220,23 +220,13 @@ public class Duke {
     }
 
     /**
-     * Checks if the input {@code LocalDateTime} is at or after the current time.
-     *
-     * @param dateTime {@code LocalDateTime} of the {@code Task}.
-     * @return {@code true} if the {@code LocalDateTime} is at or after the current time; {@code false} otherwise.
-     */
-    public boolean checkStartDateTime(LocalDateTime dateTime) {
-        return dateTime.isAfter(LocalDateTime.now());
-    }
-
-    /**
      * Checks if the end time of a {@code Task} is at or after the start time.
      *
      * @param startTime Start time of the {@code Task}.
      * @param endTime   End time of the {@code Task}.
      * @return {@code true} if the end time is at or after the start time; {@code false} otherwise.
      */
-    public boolean checkTimeInterval(LocalDateTime startTime, LocalDateTime endTime) {
+    public boolean isValidTimeInterval(LocalDateTime startTime, LocalDateTime endTime) {
         return endTime.isAfter(startTime);
     }
 
