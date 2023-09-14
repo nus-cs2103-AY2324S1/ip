@@ -19,3 +19,6 @@ T | 0 | hi
 T | 0 | hi
 T | 0 | hii
 T | 0 | go to scool
+E | 0 | asdasd | 2019-12-01 12:00 | 2019-12-01 13:00
+T | 0 | hi
+T | 0 | go to school
