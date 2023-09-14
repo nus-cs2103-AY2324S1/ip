@@ -1,9 +1,7 @@
 package duke;
 
 import command.Command;
-
 import parser.Parser;
-
 import storage.FileHandler;
 import storage.TaskList;
 
@@ -21,7 +19,6 @@ public class Duke {
 
     /**
      * Constructs a Duke instance with the specified file path.
-     *
      */
     public Duke() {
         this.fileHandler = new FileHandler(DATA_FILE_PATH);
@@ -31,14 +28,9 @@ public class Duke {
 
 
     /**
-     * Runs the duke.Duke application.
-     * It displays a welcome message and processes user commands
-     * until the 'bye' command is received to terminate the program.
+     * Does not perform any action for now.
      */
     public void run() {
-        fileHandler = new FileHandler(DATA_FILE_PATH);
-        task = new TaskList(FileHandler.readTasksFromFile());
-        ui = new Ui(task);
     }
 
     /**
@@ -52,8 +44,10 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the user's input to generate a response.
+     *
+     * @param input The user's input to be processed.
+     * @return A response generated based on the user's input.
      */
     public String getResponse(String input) {
         try {
