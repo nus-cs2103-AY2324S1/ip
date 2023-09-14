@@ -1,7 +1,169 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Eepy
+What can I do for you?
 
+You entered: todo td1
+Got it. I've added this task:
+[T][ ] td1
+Now you have 1 task(s) in the list.
+
+You entered: todo td2
+Got it. I've added this task:
+[T][ ] td2
+Now you have 2 task(s) in the list.
+
+You entered: event e1 /from 1 /to 2
+Got it. I've added this task:
+[E][ ] e1 (from: 1 to: 2)
+Now you have 3 task(s) in the list.
+
+You entered: event e2 /from 123 abc /to 456 !!!@@@
+Got it. I've added this task:
+[E][ ] e2 (from: 123 abc to: 456 !!!@@@)
+Now you have 4 task(s) in the list.
+
+You entered: deadline ip /by 24 Aug 2359
+Got it. I've added this task:
+[D][ ] ip (by: 24 Aug 2359)
+Now you have 5 task(s) in the list.
+
+You entered: list
+List of items:
+1.[T][ ] td1
+2.[T][ ] td2
+3.[E][ ] e1 (from: 1 to: 2)
+4.[E][ ] e2 (from: 123 abc to: 456 !!!@@@)
+5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: mark 0
+⚠ Eek! Index out of range!
+
+You entered: mark 100
+⚠ Eek! Index out of range!
+
+You entered: mark
+⚠ Eek! Please enter a valid number!
+
+You entered: mark 2
+Nice! I've marked this task as done:
+[T][X] td2
+
+You entered: mark 4
+Nice! I've marked this task as done:
+[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+
+You entered: list
+List of items:
+1.[T][ ] td1
+2.[T][X] td2
+3.[E][ ] e1 (from: 1 to: 2)
+4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: unmark 0
+⚠ Eek! Index out of range!
+
+You entered: unmark 100
+⚠ Eek! Index out of range!
+
+You entered: unmark
+⚠ Eek! Please enter a valid number!
+
+You entered: unmark 2
+OK, I've marked this task as not done yet:
+[T][ ] td2
+
+You entered: mark 1
+Nice! I've marked this task as done:
+[T][X] td1
+
+You entered: mark 4
+Nice! I've marked this task as done:
+[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+
+You entered: list
+List of items:
+1.[T][X] td1
+2.[T][ ] td2
+3.[E][ ] e1 (from: 1 to: 2)
+4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: delete 1
+Noted. I've removed this task:
+[T][X] td1
+Now you have 4 task(s) in the list.
+
+You entered: list
+List of items:
+1.[T][ ] td2
+2.[E][ ] e1 (from: 1 to: 2)
+3.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+4.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: delete 2
+Noted. I've removed this task:
+[E][ ] e1 (from: 1 to: 2)
+Now you have 3 task(s) in the list.
+
+You entered: list
+List of items:
+1.[T][ ] td2
+2.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+3.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: delete
+⚠ Eek! Please enter a valid number!
+
+You entered: delete 0
+⚠ Eek! Index out of range!
+
+You entered: delete 100
+⚠ Eek! Index out of range!
+
+You entered: todo 
+⚠ Eek! Description of todo cannot be empty!
+
+You entered: todo           	
+⚠ Eek! Description of todo cannot be empty!
+
+You entered: event 
+⚠ Eek! Please include when the event is from and to! (`event name \from date \to date`)
+
+You entered: event e3
+⚠ Eek! Please include when the event is from and to! (`event name \from date \to date`)
+
+You entered: event e3 /from
+⚠ Eek! Please include when the event is from and to! (`event name \from date \to date`)
+
+You entered: event e3 /to
+⚠ Eek! Please include when the event is from and to! (`event name \from date \to date`)
+
+You entered: event e3 /from /to
+⚠ Eek! Please include the name of the eventand when the event is from and to! (`event name \from date \to date`)
+
+You entered: event /from 1 /to 2
+⚠ Eek! Please include the name of the eventand when the event is from and to! (`event name \from date \to date`)
+
+You entered: deadline
+⚠ Eek! Please include when the deadline is! (`deadline name \by date`)
+
+You entered: deadline d1
+⚠ Eek! Please include when the deadline is! (`deadline name \by date`)
+
+You entered: deadline d1 /by
+⚠ Eek! Please include name and deadline! (`deadline name \by date`)
+
+You entered: deadline /by 4q34
+⚠ Eek! Please include name and deadline! (`deadline name \by date`)
+
+You entered: list
+List of items:
+1.[T][ ] td2
+2.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+3.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: eep
+⚠ Eek! I do not understand :(((
+
+You entered: bye
+Bye. Hope to see you again soon!
