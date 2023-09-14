@@ -1,0 +1,10 @@
+TaskList.class
+InvalidRenCommand.class
+Ren.class
+Event.class
+Task.class
+Commands.class
+InsufficientArguments.class
+Deadline.class
+RenException.class
+ToDo.class
