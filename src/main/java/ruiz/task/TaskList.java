@@ -156,13 +156,10 @@ public class TaskList {
      * @throws BotException if the input is not in the form a valid "find".
      */
     public String findTasksWithKeyword(String input) throws BotException {
-        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         String keyword = parser.getKeyword(input);
-        for (Task task : taskList) {
-            if (task.containsKeyword(keyword)) {
-                tasksWithKeyword.add(task);
-            }
-        }
-        return ui.getTasks(tasksWithKeyword);
+        ArrayList<Task> tasksWithKeyword = this.taskList.stream()
+                .filter(task -> task.containsKeyword(keyword))
+                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+        return new Ui().getTasks(tasksWithKeyword);
     }
 }
