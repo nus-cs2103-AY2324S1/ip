@@ -1,5 +1,8 @@
 package duke.assets.tasks;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import duke.dukeexceptions.StateCannotBeAlteredException;
 
 /**
@@ -61,6 +64,23 @@ public abstract class TaskAbstract {
     public boolean hasToken(String token) {
         return this.description.contains(token);
     }
+
+    public int compareDate(TaskAbstract other, boolean reverse) {
+        int dateComparison = this.getDate(reverse).compareTo(other.getDate(reverse));
+        int timeComparison = this.getTime(reverse).compareTo(other.getTime(reverse));
+        int reverseMultiplicator = reverse ? -1 : 1;
+        return dateComparison == 0 ? (timeComparison == 0 ? compareInformation(other, false)
+                : reverseMultiplicator * timeComparison) : reverseMultiplicator * dateComparison;
+    }
+
+    public int compareInformation(TaskAbstract other, boolean reverse) {
+        int informationComparison = this.description.compareTo(other.description);
+        return informationComparison * (reverse ? -1 : 1);
+    }
+
+    protected abstract LocalDate getDate(boolean reverse);
+
+    protected abstract LocalTime getTime(boolean reverse);
 
     /**
      * Get status of the task as a string

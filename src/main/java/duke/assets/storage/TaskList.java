@@ -135,7 +135,7 @@ public class TaskList {
         String baseString = "Here you go!";
         int counter = 0;
         for (TaskAbstract t : this.taskList) {
-            baseString += ("\n    " + ++counter + ". " + t.getStatus());
+            baseString += ("\n" + ++counter + ". " + t.getStatus());
         }
         return baseString;
     }
@@ -172,10 +172,20 @@ public class TaskList {
             int counter = 0;
             for (TaskAbstract t : this.taskList) {
                 if (t.hasToken(token)) {
-                    baseString += ("\n    " + ++counter + ". " + t.getStatus());
+                    baseString += ("\n" + ++counter + ". " + t.getStatus());
                 }
             }
         }
         return baseString;
+    }
+
+    public String sortByAlphabetical(boolean reverse) {
+        this.taskList.sort((x, y) -> x.compareInformation(y, reverse));
+        return "Done! I have sorted your list in" + (reverse ? " descending " : " ") + "alphabetical order!";
+    }
+
+    public String sortByChronological(boolean reverse) {
+        this.taskList.sort((x, y) -> x.compareDate(y, reverse));
+        return "Done! I have sorted your list in " + (reverse ? " descending " : " ") + "chronological order!";
     }
 }

@@ -65,6 +65,16 @@ public class Deadline extends TaskAbstract {
                 this.description, this.getDateTimeForSaving());
     }
 
+    @Override
+    protected LocalDate getDate(boolean reverse) {
+        return this.date;
+    }
+
+    @Override
+    protected LocalTime getTime(boolean reverse) {
+        return this.timeOptional.orElse(LocalTime.MAX);
+    }
+
     /**
      * Get the current status of the deadline task as a string
      *

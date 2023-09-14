@@ -53,13 +53,16 @@ public class ListCommand extends CommandAbstract {
     }
 
     /**
-     * Unused method as command has no possible exceptions that are not already caught by parser
+     * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
+     * response as a string
      *
-     * @return UNHANDLED_EXCEPTION_STRING if there are any edge cases not considered
+     * @return string of appropriate bot response, or UNHANDLED_EXCEPTION_STRING for any unhandled edge cases
      */
     @Override
     protected String findException() {
-        assert(false);
+        if (this.input.startsWith("list")) {
+            return "If you want to list the tasks, please just type the command \"list\"";
+        }
         return UNHANDLED_EXCEPTION_STRING;
     }
 }

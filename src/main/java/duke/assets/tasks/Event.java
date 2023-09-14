@@ -102,6 +102,16 @@ public class Event extends TaskAbstract {
                 .getStartDateTimeForSaving(), this.getEndDateTimeForSaving());
     }
 
+    @Override
+    protected LocalDate getDate(boolean reverse) {
+        return this.endDate;
+    }
+
+    @Override
+    protected LocalTime getTime(boolean reverse) {
+        return this.endTimeOptional.orElse(LocalTime.MAX);
+    }
+
     /**
      * Get the status of the event task as a string
      *

@@ -12,6 +12,7 @@ import duke.assets.commands.DeleteCommand;
 import duke.assets.commands.FindCommand;
 import duke.assets.commands.ListCommand;
 import duke.assets.commands.MarkCommand;
+import duke.assets.commands.SortCommand;
 import duke.assets.commands.UnmarkCommand;
 import duke.assets.storage.TaskList;
 import duke.dukeexceptions.CorruptDataException;
@@ -61,6 +62,8 @@ public class Parser {
             return new CreateEventCommand(input, false);
         case "find":
             return new FindCommand(input);
+        case "sort":
+            return new SortCommand(input);
         default:
             // fall-through
         }
