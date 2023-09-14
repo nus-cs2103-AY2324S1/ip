@@ -1,6 +1,6 @@
-package com.ducky.component;
+package com.ducky.controller;
 
-import com.ducky.logic.Ducky;
+import com.ducky.common.Ducky;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +14,8 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String USER_IMG_PATH = "/images/User.png";
+    private static final String DUCKY_IMG_PATH = "/images/Ducky.png";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -25,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Ducky ducky;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image duckyImage = new Image(this.getClass().getResourceAsStream("/images/Ducky.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream(USER_IMG_PATH));
+    private Image duckyImage = new Image(this.getClass().getResourceAsStream(DUCKY_IMG_PATH));
 
     @FXML
     public void initialize() {
@@ -35,6 +37,10 @@ public class MainWindow extends AnchorPane {
 
     public void setDucky(Ducky d) {
         ducky = d;
+        String loadResult = ducky.loadSavedTasks();
+        dialogContainer.getChildren().add(
+                DialogBox.getDuckyDialog(loadResult, duckyImage)
+        );
     }
 
     /**

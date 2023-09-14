@@ -1,8 +1,8 @@
 package com.ducky.command;
 
-import com.ducky.logic.DuckyException;
-import com.ducky.logic.Storage;
-import com.ducky.logic.TaskList;
+import com.ducky.common.DuckyException;
+import com.ducky.common.Storage;
+import com.ducky.common.TaskList;
 import com.ducky.task.Task;
 
 /**
@@ -10,6 +10,7 @@ import com.ducky.task.Task;
  */
 public class DeleteCommand extends Command {
 
+    private static final String DELETE_TASK_SUCCESS_MSG = "Okay! I've deleted this task:";
     private final int inputIndex;
 
     /**
@@ -35,7 +36,7 @@ public class DeleteCommand extends Command {
         Task deletedTask = taskList.deleteTask(deleteIndex);
         storage.save(taskList);
         return String.format("%s\n%s\n%s\n",
-                "Okay! I've added this task:",
+                DELETE_TASK_SUCCESS_MSG,
                 deletedTask,
                 taskList.getListLengthStatus());
     }

@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class DeadlineTask extends Task {
 
+    public static final String DATE_PATTERN = "MMM dd yyyy";
     private final LocalDate deadline;
 
     /**
@@ -26,7 +27,7 @@ public class DeadlineTask extends Task {
                 "[D]%s (by: %s)",
                 super.toString(),
                 this.deadline.format(
-                        DateTimeFormatter.ofPattern("MMM dd yyyy")
+                        DateTimeFormatter.ofPattern(DATE_PATTERN)
                 ));
     }
 

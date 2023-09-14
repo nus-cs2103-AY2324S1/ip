@@ -1,7 +1,7 @@
 package com.ducky.command;
 
-import com.ducky.logic.Storage;
-import com.ducky.logic.TaskList;
+import com.ducky.common.Storage;
+import com.ducky.common.TaskList;
 
 /**
  * Represents a command that finds tasks containing a given query.

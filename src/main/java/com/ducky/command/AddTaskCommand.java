@@ -3,9 +3,9 @@ package com.ducky.command;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import com.ducky.logic.DuckyException;
-import com.ducky.logic.Storage;
-import com.ducky.logic.TaskList;
+import com.ducky.common.DuckyException;
+import com.ducky.common.Storage;
+import com.ducky.common.TaskList;
 import com.ducky.task.DeadlineTask;
 import com.ducky.task.EventTask;
 import com.ducky.task.TaskType;
@@ -17,6 +17,9 @@ import com.ducky.util.Parser;
  */
 public class AddTaskCommand extends Command {
 
+    private static final String ADD_TASK_SUCCESS_MSG = "Okay! I've added this task:";
+    private static final String INVALID_DATE_FORMAT_ERROR_MSG = "Your deadline should be in yyyy-mm-dd format.";
+    private static final String ADD_TASK_FAILURE_MSG = "Failed to add task.";
     private final TaskType type;
     private final String[] args;
 
@@ -47,7 +50,7 @@ public class AddTaskCommand extends Command {
             taskList.addTask(newTodo);
             storage.save(taskList);
             return String.format("%s\n%s\n%s\n",
-                    "Okay! I've added this task:",
+                    ADD_TASK_SUCCESS_MSG,
                     newTodo,
                     taskList.getListLengthStatus());
         case DEADLINE:
@@ -56,14 +59,14 @@ public class AddTaskCommand extends Command {
                 deadline = Parser.parseDate(this.args[1]);
             } catch (DateTimeParseException e) {
                 throw new DuckyInvalidCommandFormatException(
-                        "Your deadline should be in yyyy-mm-dd format."
+                        INVALID_DATE_FORMAT_ERROR_MSG
                 );
             }
             DeadlineTask newDeadline = new DeadlineTask(this.args[0], deadline);
             taskList.addTask(newDeadline);
             storage.save(taskList);
             return String.format("%s\n%s\n%s\n",
-                    "Okay! I've added this task:",
+                    ADD_TASK_SUCCESS_MSG,
                     newDeadline,
                     taskList.getListLengthStatus());
         case EVENT:
@@ -71,11 +74,11 @@ public class AddTaskCommand extends Command {
             taskList.addTask(newEvent);
             storage.save(taskList);
             return String.format("%s\n%s\n%s\n",
-                    "Okay! I've added this task:",
+                    ADD_TASK_SUCCESS_MSG,
                     newEvent,
                     taskList.getListLengthStatus());
         default:
-            return "Failed to add task.";
+            return ADD_TASK_FAILURE_MSG;
         }
     }
 }
