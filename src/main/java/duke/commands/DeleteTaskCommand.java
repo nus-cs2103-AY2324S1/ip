@@ -2,11 +2,11 @@ package duke.commands;
 
 import java.io.IOException;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.data.task.Task;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The DeleteTaskCommand deletes a given task, updates the .txt file
@@ -28,7 +28,7 @@ public class DeleteTaskCommand extends Command {
     public String execute(TaskList taskList, Message message, Storage storage) throws DukeException, IOException {
         Task deletedTask = taskList.deleteTask(taskID);
         Storage.save(taskList);
-        assert taskList.countTasks() >= 0: "Invalid task list size";
+        assert taskList.countTasks() >= 0 : "Invalid task list size";
         return message.showTaskDeleted(deletedTask, taskList.countTasks());
     }
 }

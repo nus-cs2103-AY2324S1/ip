@@ -132,6 +132,12 @@ public class TaskList {
         return results;
     }
 
+    /**
+     * Check whether the event parameter's date clash with any existing events
+     *
+     * @param event The newly created event
+     * @return whether there is a clash or not
+     */
     public boolean checkClash(Event event) {
         for (Task task: taskList) {
             if (task instanceof Event) {

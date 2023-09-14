@@ -1,8 +1,8 @@
 package duke.commands;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The ByeCommand display a goodbye message when it is executed.

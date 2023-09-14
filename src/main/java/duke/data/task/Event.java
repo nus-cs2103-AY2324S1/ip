@@ -26,6 +26,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Check whether is there a clash of dates between two events
+     *
+     * @param event The event that is being compared to
+     * @return whether there is a clash or not
+     */
     public boolean checkClash(Event event) {
         if (this.from.compareTo(event.from) >= 0 && this.from.compareTo(event.to) <= 0) {
             return true;

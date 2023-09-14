@@ -3,10 +3,10 @@ package duke.commands;
 import java.io.IOException;
 import java.util.Date;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.task.Deadline;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The AddDeadlineCommand adds a deadline into TaskList, writes into .txt file
@@ -34,7 +34,7 @@ public class AddDeadlineCommand extends Command {
         Deadline newDeadline = new Deadline(description, by);
         taskList.addTask(newDeadline);
         Storage.save(newDeadline);
-        assert taskList.countTasks() >= 0: "Invalid task list size";
+        assert taskList.countTasks() >= 0 : "Invalid task list size";
         return message.showTaskAdded(newDeadline, taskList.countTasks());
     }
 }

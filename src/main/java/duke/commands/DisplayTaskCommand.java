@@ -1,9 +1,9 @@
 package duke.commands;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The DisplayTaskCommand display the task requested when it is executed.

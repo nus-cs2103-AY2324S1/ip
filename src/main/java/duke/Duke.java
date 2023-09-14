@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import duke.commands.Command;
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.data.Message;
 
 
 /**

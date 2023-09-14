@@ -3,10 +3,10 @@ package duke.commands;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.task.Task;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The FindCommand search the TaskList with a given query

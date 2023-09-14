@@ -2,10 +2,10 @@ package duke.commands;
 
 import java.io.IOException;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The UnmarkCommand unmark a task as completed, update the .txt file

@@ -3,11 +3,11 @@ package duke.commands;
 import java.io.IOException;
 import java.util.Date;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.data.task.Event;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The AddEventCommand adds an event into TaskList, writes into .txt file
@@ -43,7 +43,7 @@ public class AddEventCommand extends Command {
         }
         taskList.addTask(newEvent);
         Storage.save(newEvent);
-        assert taskList.countTasks() >= 0: "Invalid task list size";
+        assert taskList.countTasks() >= 0 : "Invalid task list size";
         return message.showTaskAdded(newEvent, taskList.countTasks());
     }
 }

@@ -2,10 +2,10 @@ package duke.commands;
 
 import java.io.IOException;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.task.Todo;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The AddToDoCommand adds a todo into TaskList, writes into .txt file
@@ -29,7 +29,7 @@ public class AddToDoCommand extends Command {
         Todo newTodo = new Todo(description);
         taskList.addTask(newTodo);
         Storage.save(newTodo);
-        assert taskList.countTasks() >= 0: "Invalid task list size";
+        assert taskList.countTasks() >= 0 : "Invalid task list size";
         return message.showTaskAdded(newTodo, taskList.countTasks());
     }
 }

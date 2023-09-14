@@ -2,7 +2,6 @@ package duke.parser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import duke.commands.AddDeadlineCommand;
@@ -81,6 +80,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Split the user input into two elements, the command and the value
+     *
+     * @param command The input given by the user
+     * @return an array of two strings, the command as the first element and the value as the second
+     */
     public static String[] splitCommand(String command) {
         String[] arr = new String[2];
         String secondWord = "";

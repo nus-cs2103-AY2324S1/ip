@@ -2,10 +2,10 @@ package duke.commands;
 
 import java.io.IOException;
 
+import duke.data.Message;
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
 import duke.storage.Storage;
-import duke.data.Message;
 
 /**
  * The Command class is an abstract class with an
@@ -21,5 +21,6 @@ public abstract class Command {
      * @throws IOException  If file not found or corrupted.
      * @throws DukeException If invalid user input is passed to command.
      */
-    public abstract String execute(TaskList taskList, Message message, Storage storage) throws DukeException, IOException;
+    public abstract String execute(TaskList taskList, Message message, Storage storage)
+            throws DukeException, IOException;
 }
