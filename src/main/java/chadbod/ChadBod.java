@@ -40,6 +40,8 @@ public class ChadBod {
      * @param filePath the file path for storing task data.
      */
     public ChadBod(String filePath) {
+        assert !filePath.isEmpty() : "No file path given.";
+        assert filePath.equals(FILE_PATH) : "Erroneous file path given.";
         ui = new Ui();
         storage = new Storage(filePath);
         try {

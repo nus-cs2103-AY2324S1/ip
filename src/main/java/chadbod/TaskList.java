@@ -42,6 +42,7 @@ public class TaskList {
      * @param t The task to be added.
      */
     public void addTask(Task t) {
+        assert t != null : "No task passed to addTask method.";
         tasks.add(t);
     }
 
