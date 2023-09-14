@@ -81,6 +81,50 @@ public class Ui {
     }
 
     /**
+     * Reschedules specified Task to specified date(s).
+     *
+     * @param list the list containing all tasks.
+     * @param input the user input containing task index and new rescheduled date(s).
+     * @return the string representation of Bob's response.
+     */
+    public static String rescheduleTask(TaskList list, String input) {
+        int rescheduleNo = parser.getRescheduleDigit(input);
+
+        if (list.get(rescheduleNo - 1) instanceof Deadline) {
+            //get new due date, change due date, print new task
+            String newDueDate = parser.getNewDueDate(input);
+
+            LocalDate d1 = LocalDate.parse(newDueDate);
+            ((Deadline) list.get(rescheduleNo - 1)).rescheduleDueDate(d1);
+
+            return printRescheduleMessage(list, rescheduleNo);
+        }
+
+        if (list.get(rescheduleNo - 1) instanceof Event) {
+            String newStartDate = parser.getNewStartDate(input);
+            String newEndDate = parser.getNewEndDate(input);
+
+            LocalDate d1 = LocalDate.parse(newStartDate);
+            LocalDate d2 = LocalDate.parse(newEndDate);
+            ((Event) list.get(rescheduleNo - 1)).rescheduleEventDate(d1, d2);
+
+            return printRescheduleMessage(list, rescheduleNo);
+        }
+
+        return "";
+    }
+
+    private static String printRescheduleMessage(TaskList list, int rescheduleNo) {
+        System.out.println("Noted. I've rescheduled this task:");
+        System.out.println(list.get(rescheduleNo - 1).toString());
+
+        String response = "Noted. I've rescheduled this task:\n";
+        response += list.get(rescheduleNo - 1).toString();
+
+        return response;
+    }
+
+    /**
      * Adds a task into the list of tasks.
      *
      * @param list the TaskList containing the tasks.

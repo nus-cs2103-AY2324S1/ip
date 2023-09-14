@@ -40,6 +40,17 @@ public class Event extends Task {
     }
 
     /**
+     * Changes the start and end date of an Event
+     *
+     * @param newStartDate the new start date of the Event
+     * @param newEndDate the new end date of the Event
+     */
+    public void rescheduleEventDate(LocalDate newStartDate, LocalDate newEndDate) {
+        this.startDate = newStartDate;
+        this.endDate = newEndDate;
+    }
+
+    /**
      * Returns the string representation of this event, including its type of task, completion status,
      * description, and duration (date & time).
      *

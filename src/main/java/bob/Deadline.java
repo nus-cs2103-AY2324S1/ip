@@ -32,6 +32,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Changes the due date of a Deadline
+     *
+     * @param newDueDate the new due date of the deadline
+     */
+    public void rescheduleDueDate(LocalDate newDueDate) {
+        this.dueDate = newDueDate;
+    }
+
+    /**
      * Returns the string representation of this deadline, including its type of task, completion status,
      * description, and due date.
      *

@@ -39,7 +39,7 @@ public class Parser {
      * Checks if input statement is a command to delete a Task.
      *
      * @param input the user input.
-     * @return boolean true if statment is a delete command.
+     * @return boolean true if statement is a delete command.
      */
     public boolean isDelete(String input) {
         char[] charArray = input.toCharArray();
@@ -91,5 +91,65 @@ public class Parser {
         }
 
         return str;
+    }
+
+    /**
+     * Checks if input statement is a command to reschedule task.
+     *
+     * @param input the user input.
+     * @return boolean true if statement is a delete command.
+     */
+    public boolean isReschedule(String input) {
+        char[] charArray = input.toCharArray();
+        if (input.startsWith("reschedule") && Character.isWhitespace(charArray[10])
+                && Character.isDigit(charArray[11])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the digit of the index of the Task that should be rescheduled.
+     *
+     * @param input the user input.
+     * @return the index of the task to be rescheduled.
+     */
+    public int getRescheduleDigit(String input) {
+        assert isReschedule(input);
+        char[] charArray = input.toCharArray();
+        return Character.getNumericValue(charArray[11]);
+    }
+
+    /**
+     * Returns the new due date of a Deadline.
+     *
+     * @param input the user input.
+     * @return the string representation of the new due date.
+     */
+    public static String getNewDueDate(String input) {
+        String[] str = input.split("/by ", -1);
+        return str[1];
+    }
+
+    /**
+     * Returns the new start date of an Event.
+     *
+     * @param input the user input.
+     * @return the string representation of the new start date.
+     */
+    public String getNewStartDate(String input) {
+        String[] str = input.split(" ", -1);
+        return str[3];
+    }
+
+    /**
+     * Returns the new end date of an Event.
+     *
+     * @param input the user input.
+     * @return the string representation of the new end date.
+     */
+    public String getNewEndDate(String input) {
+        String[] str = input.split(" ", -1);
+        return str[5];
     }
 }

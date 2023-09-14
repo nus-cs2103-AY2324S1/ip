@@ -52,6 +52,8 @@ public class Bob {
                 ui.deleteTask(tasks, parser.getDeleteDigit(input));
             } else if (parser.isFind(input)) {
                 ui.findTask(tasks, parser.findKeyword(input));
+            } else if (parser.isReschedule(input)) { //reschedule 1 /by 2023-09-09
+                ui.rescheduleTask(tasks, input);
             } else if (input.equals("bye")) {
                 ui.printGoodbye();
                 storage.saveNewList(tasks);
@@ -89,7 +91,6 @@ public class Bob {
             try {
                 return ui.checkAndAddTask(tasks, input);
             } catch (BobException e) {
-                //System.out.println(e.toString());
                 return e.toString();
             }
         }
