@@ -15,10 +15,10 @@ public class Parser {
     public String parseCommand(String fullCommmand) {
         String[] parsedStr = fullCommmand.split("\\s+");
         this.parsedStr = parsedStr;
-        if (parsedStr[0].equals("find")) {
+        if (parsedStr[0].equals("f")) {
             this.command = "find";
             return "find";
-        } else if (parsedStr[0].equals("list")) {
+        } else if (parsedStr[0].equals("ls")) {
             if (parsedStr.length > 1) {
                 //error handlinrg
                 System.out.println("Do not input another argument beside list");
@@ -26,7 +26,7 @@ public class Parser {
             }
             this.command = "list";
             return "list";
-        } else if (parsedStr[0].equals("mark")) {
+        } else if (parsedStr[0].equals("m")) {
             if (parsedStr.length < 2) {
                 //error handling
                 System.out.println("Please specify the index of the task");
@@ -37,7 +37,7 @@ public class Parser {
             }
             this.command = "mark";
             return "mark";
-        } else if (parsedStr[0].equals("unmark")) {
+        } else if (parsedStr[0].equals("um")) {
             if (parsedStr.length < 2) {
                 System.out.println("Please specify the index of the task");
                 return "";
@@ -50,7 +50,7 @@ public class Parser {
         } else if (fullCommmand.equals("bye")) {
             this.command = "bye";
             return "bye";
-        } else if (parsedStr[0].equals("todo")) {
+        } else if (parsedStr[0].equals("td")) {
             int size = parsedStr.length;
             if (size < 2) {
                 //error handling
@@ -59,13 +59,13 @@ public class Parser {
             }
             this.command = "todo";
             return "todo";
-        } else if (parsedStr[0].equals("deadline")) {
+        } else if (parsedStr[0].equals("ddl")) {
             this.command = "deadline";
             return "deadline";
-        } else if (parsedStr[0].equals("event")) {
+        } else if (parsedStr[0].equals("e")) {
             this.command = "event";
             return "event";
-        } else if (parsedStr[0].equals("delete")) {
+        } else if (parsedStr[0].equals("dlt")) {
             this.command = "delete";
             return "delete";
         }
