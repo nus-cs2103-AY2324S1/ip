@@ -92,7 +92,6 @@ public class Parser {
     private static String parseMark(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(4).trim()) - 1;
-
             return taskList.markTask(index, true);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid number!");
@@ -104,7 +103,6 @@ public class Parser {
     private static String parseUnmark(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(6).trim()) - 1;
-
             return taskList.markTask(index, false);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid number!");
@@ -116,7 +114,6 @@ public class Parser {
     private static String parseDelete(String s, TaskList taskList) throws DukeException {
         try {
             int index = Integer.parseInt(s.substring(6).trim()) - 1;
-
             return taskList.deleteTask(index);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid number!");
@@ -161,7 +158,8 @@ public class Parser {
         }
 
         // Check if task is done
-        task.setIsDone(splitEntry[1].trim().equals("1"));
+        boolean isDone = splitEntry[1].trim().equals("1");
+        task.setIsDone(isDone);
 
         return task;
     }

@@ -77,6 +77,8 @@ public class TaskList {
      */
     public String findTasks(String toFind) {
         StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
+
+        // Loops through task list to find all tasks that contain the given string
         int index = 1;
         for (int i = 0; i < count; i++) {
             if (tasks.get(i).getName().contains(toFind)) {
