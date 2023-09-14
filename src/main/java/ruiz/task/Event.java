@@ -7,18 +7,18 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents a task that has a beginning time and an ending time.
  */
-public class Events extends Task {
+public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
     /**
-     * A constructor the public Events class
+     * A constructor the public Event class
      *
      * @param description the description of the event.
      * @param from        the beginning time of the event.
      * @param to          the ending time of the event.
      */
-    public Events(String description, String from, String to) throws DateTimeParseException {
+    public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);

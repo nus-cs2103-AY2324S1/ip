@@ -1,4 +1,4 @@
-package ruiz;
+package ruiz.ui;
 
 import java.io.IOException;
 import java.util.Collections;

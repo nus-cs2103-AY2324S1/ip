@@ -64,7 +64,10 @@ public class Parser {
         if (input.split(" ", 2).length <= 1) {
             throw new BotException("OOPS!!! The description of a todo cannot be empty.");
         }
-        return input.split(" ", 2)[1];
+        assert input != null : "input should not be null";
+        String todoDescription = input.split(" ", 2)[1];
+        assert todoDescription != null : "todoDescription should not be null";
+        return todoDescription;
     }
 
     /**
@@ -79,7 +82,10 @@ public class Parser {
             throw new BotException("OOPS!!! The description the deadline is incomplete,"
                     + " it should be in the format 'deadline *** /by ***'");
         }
-        return input.split(" ", 2)[1].split(" /by ")[0];
+        assert input != null : "input should not be null";
+        String deadlineDescription = input.split(" ", 2)[1].split(" /by ")[0];
+        assert deadlineDescription != null : "deadlineDescription should not be null";
+        return deadlineDescription;
     }
 
     /**
@@ -95,7 +101,10 @@ public class Parser {
                     + " it should be in the 'format deadline *** /by ***'"
                     + "");
         }
-        return input.split(" ", 2)[1].split(" /by ")[1];
+        assert input != null : "input should not be null";
+        String by = input.split(" ", 2)[1].split(" /by ")[1];
+        assert by != null : "by should not be null";
+        return by;
     }
 
     /**
@@ -110,7 +119,10 @@ public class Parser {
             throw new BotException("OOPS!!! The description the event is incomplete."
                     + "it should be in the format 'event *** /from *** /to ***'");
         }
-        return input.split(" ", 2)[1].split(" /from")[0];
+        assert input != null : "input should not be null";
+        String eventDescription = input.split(" ", 2)[1].split(" /from")[0];
+        assert eventDescription != null : "eventDescription should not be null";
+        return eventDescription;
     }
 
     /**
@@ -120,12 +132,15 @@ public class Parser {
      * @return time the event begins by input by the user.
      * @throws BotException if the event is in an invalid format.
      */
-    public String getFrom(String input) throws BotException {
+    public String getEventBeginning(String input) throws BotException {
         if (input.split("/").length <= 2) {
             throw new BotException("OOPS!!! The description the event is incomplete."
                     + "it should be in the format 'event *** /from *** /to ***'");
         }
-        return input.split(" ", 2)[1].split(" /from ")[1].split(" /")[0];
+        assert input != null : "input should not be null";
+        String beginning = input.split(" ", 2)[1].split(" /from ")[1].split(" /")[0];
+        assert beginning != null : "beginning should not be null";
+        return beginning;
     }
 
     /**
@@ -135,11 +150,14 @@ public class Parser {
      * @return time the event finishes by input by the user.
      * @throws BotException if the event is in an invalid format.
      */
-    public String getTo(String input) throws BotException {
+    public String getEventTo(String input) throws BotException {
         if (input.split("/").length <= 2) {
             throw new BotException("OOPS!!! The description the event is incomplete.");
         }
-        return input.split(" ", 2)[1].split(" /from ")[1].split("/to ")[1];
+        assert input != null : "input should not be null";
+        String to = input.split(" ", 2)[1].split(" /from ")[1].split("/to ")[1];
+        assert to != null : "to should not be null";
+        return to;
     }
 
     /**
@@ -153,7 +171,32 @@ public class Parser {
         if (input.split(" ").length != 2) {
             throw new BotException("OOPS!!! PLease use the format of 'find *keyword*'");
         }
-        return input.split(" ", 2)[1];
+        assert input != null : "input should not be null";
+        String keyword = input.split(" ")[1];
+        assert keyword != null : "keyword should not be null";
+        return keyword;
+    }
+
+    /**
+     * Returns the task number of the task to be marked.
+     *
+     * @param input input of the user.
+     * @return the task number of the task to be marked.
+     * @throws BotException if the input to mark is in an invalid format.
+     */
+    public int getTaskNumber(String input) throws BotException{
+        if (input.split(" ").length < 2) {
+            throw new BotException("OOPS!!! The index of a task cannot be empty.");
+        }
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new BotException("OOPS!!! The index of a task has to be an integer.");
+        }
+        assert input != null : "input should not be null";
+        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        assert taskIndex >= 0 : "taskIndex should be greater than 0";
+        return taskIndex;
     }
 }
 
