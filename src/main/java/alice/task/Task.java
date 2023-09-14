@@ -67,6 +67,10 @@ public class Task {
         return this.description;
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
     /**
      * Marks the task as done.
      */
