@@ -1,6 +1,8 @@
 package duke.command;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import duke.components.DukeException;
 import duke.components.Storage;
@@ -34,16 +36,19 @@ public class AddCommand extends Command {
     private LocalDateTime from;
     private LocalDateTime to;
     private boolean isExit = false;
+    private ArrayList<String> tags = new ArrayList<>();
 
     /**
      * Constructor for AddCommand.
      *
      * @param type The type of command.
      * @param task The name of the Task.
+     * @param tags The list of tags.
      */
-    public AddCommand(String type, String task) {
+    public AddCommand(String type, String task, ArrayList<String> tags) {
         this.type = type;
         this.task = task;
+        this.tags = tags;
     }
 
     /**
@@ -52,11 +57,13 @@ public class AddCommand extends Command {
      * @param type The type of command.
      * @param task The name of the Task.
      * @param deadline The by of the Task.
+     * @param tags The list of tags.
      */
-    public AddCommand(String type, String task, LocalDateTime deadline) {
+    public AddCommand(String type, String task, LocalDateTime deadline, ArrayList<String> tags) {
         this.type = type;
         this.task = task;
         this.deadline = deadline;
+        this.tags = tags;
     }
 
     /**
@@ -66,12 +73,14 @@ public class AddCommand extends Command {
      * @param task The name of Task.
      * @param from The start of Task.
      * @param to The end of Task.
+     * @param tags The list of tags.
      */
-    public AddCommand(String type, String task, LocalDateTime from, LocalDateTime to) {
+    public AddCommand(String type, String task, LocalDateTime from, LocalDateTime to, ArrayList<String> tags) {
         this.type = type;
         this.task = task;
         this.from = from;
         this.to = to;
+        this.tags = tags;
     }
 
     /**
@@ -85,28 +94,26 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        Task tasking;
         switch (type) {
         case "T": {
-            Task tasking = new Todo(task);
-            tasks.addTask(tasking);
-            storage.saveTasks(tasks.getTasks());
-            return ui.showTaskAdded(tasking, tasks.getSize());
+            tasking = new Todo(task, false, tags);
+            break;
         }
         case "D": {
-            Task tasking = new Deadline(task, deadline);
-            tasks.addTask(tasking);
-            storage.saveTasks(tasks.getTasks());
-            return ui.showTaskAdded(tasking, tasks.getSize());
+            tasking = new Deadline(task, deadline, false, tags);
+            break;
         }
         case "E": {
-            Task tasking = new Event(task, from, to);
-            tasks.addTask(tasking);
-            storage.saveTasks(tasks.getTasks());
-            return ui.showTaskAdded(tasking, tasks.getSize());
+            tasking = new Event(task, from, to, false, tags);
+            break;
         }
         default:
             return null;
         }
+        tasks.addTask(tasking);
+        storage.saveTasks(tasks.getTasks());
+        return ui.showTaskAdded(tasking, tasks.getSize());
     }
 
     @Override

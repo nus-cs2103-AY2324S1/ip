@@ -2,6 +2,7 @@ package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * A subclass of Task. Contains a description, isDone and by.
@@ -17,21 +18,11 @@ public class Deadline extends Task {
      *
      * @param description Name of the Task.
      * @param by Date and time to complete Task by.
-     */
-    public Deadline(String description, LocalDateTime by) {
-        super(description);
-        this.by = by;
-    }
-
-    /**
-     * Constructor for the Deadline class.
-     *
-     * @param description Name of the Task.
-     * @param by Date and time to complete Task by.
      * @param isDone If task is completed.
+     * @param tags List of tags to be added.
      */
-    public Deadline(String description, LocalDateTime by, boolean isDone) {
-        super(description, isDone);
+    public Deadline(String description, LocalDateTime by, boolean isDone, ArrayList<String> tags) {
+        super(description, isDone, tags);
         this.by = by;
     }
 

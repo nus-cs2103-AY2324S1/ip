@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.util.ArrayList;
+
 /**
  * A subclass of Task. Contains a description and isDone.
  */
@@ -8,19 +10,11 @@ public class Todo extends Task {
      * Constructor for the Todo class.
      *
      * @param description The name of the Task.
-     */
-    public Todo(String description) {
-        super(description);
-    }
-
-    /**
-     * Constructor for the Task class.
-     *
-     * @param description The name of the Task.
      * @param isDone If task is completed.
+     * @param tags List of tags to be added.
      */
-    public Todo(String description, boolean isDone) {
-        super(description, isDone);
+    public Todo(String description, boolean isDone, ArrayList<String> tags) {
+        super(description, isDone, tags);
     }
 
     /**

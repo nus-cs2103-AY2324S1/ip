@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.util.ArrayList;
+
 /**
  * Parent class of all the Tasks type.
  */
@@ -8,29 +10,24 @@ public class Task {
      * description contains the name of the task
      *
      * isDone contains whether the task is done
+     *
+     * tags contain a list of tags for the task
      */
     protected String description;
     protected boolean isDone;
-
-    /**
-     * Constructor for the Task class.
-     *
-     * @param description The name of the Task.
-     */
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
+    protected ArrayList<String> tags;
 
     /**
      * Constructor for the Task class.
      *
      * @param description The name of the Task.
      * @param isDone If task is completed.
+     * @param tags List of tags to be added.
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, ArrayList<String> tags) {
         this.description = description;
         this.isDone = isDone;
+        this.tags = tags;
     }
 
     /**
@@ -50,6 +47,16 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getTags() {
+        String tagList = "";
+        if (tags.size() == 0) {
+            return tagList;
+        }
+        for (int i = 0; i < tags.size(); i++) {
+            tagList += " #" + tags.get(i);
+        }
+        return tagList;
+    }
     /**
      * Returns the String representation of the Task, along with the
      * indication of whether it isDone.
@@ -57,7 +64,7 @@ public class Task {
      * @return String representation of the Task.
      */
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + this.description + getTags();
     }
 
     /**
@@ -68,7 +75,10 @@ public class Task {
      */
     public String write() {
         String complete = isDone ? "1" : "0";
-        return complete + " | " + this.description;
+        if (getTags().equals("")) {
+            return complete + " | " + this.description;
+        }
+        return complete + " | " + this.description + " | " + getTags();
     }
 
     public boolean getIsDone() {
@@ -77,5 +87,30 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setTags(String[] tags) {
+        for (String tag : tags) {
+            boolean isContains = this.tags.contains(tag);
+            if (isContains) {
+                continue;
+            }
+            this.tags.add(tag);
+        }
+    }
+
+    /**
+     * Removes specific tags.
+     *
+     * @param tags List of tags to be removed from tags.
+     */
+    public void removeTags(String[] tags) {
+        for (String tag : tags) {
+            boolean isContains = this.tags.contains(tag);
+            if (!isContains) {
+                continue;
+            }
+            this.tags.remove(tag);
+        }
     }
 }

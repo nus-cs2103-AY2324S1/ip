@@ -1,5 +1,3 @@
-T | 0 | math test
-D | 0 | math homework | 20/9/2023 2100
-T | 0 | test
-T | 0 | homework
-D | 0 | test bot | 13/9/2023 0800
+T | 0 | math test |  #math #exam
+D | 0 | test |  #work #test | 14/9/2023 0000
+E | 0 | birthday |  #weeyeow #handsome #giansen | 14/9/2023 0000 | 14/9/2023 0100
