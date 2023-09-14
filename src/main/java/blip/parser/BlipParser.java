@@ -31,9 +31,9 @@ public class BlipParser {
      * @return Integer index to do relevant commands on
      * @throws EmptyTaskNumberException If int task number is missing
      */
-    public static int parseToGetIndex (String input) throws EmptyTaskNumberException {
+    public static int parseToGetIndex(String input) throws EmptyTaskNumberException {
         String[] components = input.split("\\s+", 3);
-        assert components.length >= 3 : "Invalid input format for parseToGetIndex";
+        assert components.length <= 3 : "Invalid input format for parseToGetIndex";
         // Missing Index.
         if (components.length < 3 || components[1].equals("")) {
             throw new EmptyTaskNumberException("!!! Missing Task Number !!!");
@@ -48,14 +48,30 @@ public class BlipParser {
      * @return String description of to do task
      * @throws EmptyDescriptionException If description of to do task is missing
      */
-    public static String parseToDoInfo (String input) throws EmptyDescriptionException {
-        String[] components = input.split("\\s+", 2);
-        assert components.length >= 2 : "Invalid input format for parseToDoInfo";
-        // Missing To Do Description.
-        if (components.length < 2 || components[1].equals("")) {
+    public static String[] parseToDoInfo(String input) throws EmptyDescriptionException {
+        String[] test = input.split("\\s+", 2);
+        assert test.length >= 2 : "Invalid input format for parseToDoInfo";
+
+        // For cases such as "todo"
+        if (test.length < 2 || test[1].equals("")) {
             throw new EmptyDescriptionException("!!! Missing TO DO Description !!!\n");
         }
-        return components[1];
+
+        // Initialize description to be description after todo
+        //  and priority string to be default LOW.
+        String description = test[1];
+        String priorityString = "low";
+
+        // For cases such as "todo eat /priority LOW"
+        if (input.contains("/priority")) {
+            String[] components = test[1].split("\\s+/priority\\s+");
+            assert components.length >= 1 : "Invalid input format for parseToDoInfo";
+
+            description = components[0];
+            priorityString = components[1];
+        }
+
+        return new String[] {description, priorityString};
     }
 
     /**
@@ -64,23 +80,39 @@ public class BlipParser {
      * @return An array of string with deadline's description and date time
      * @throws EmptyDescriptionException If the description or date time is missing
      */
-    public static String[] parseDeadlineInfo (String input) throws EmptyDescriptionException {
-            String[] test = input.split("\\s+", 2);
-            assert test.length >= 2 : "Invalid input format for parseDeadlineInfo";
+    public static String[] parseDeadlineInfo(String input) throws EmptyDescriptionException {
+        String[] test = input.split("\\s+", 2);
+        assert test.length >= 2 : "Invalid input format for parseDeadlineInfo";
 
-            // Missing Deadline Description.
-            if (test.length < 2 || test[1].equals("")) {
-                throw new EmptyDescriptionException("!!! Missing DEADLINE Description !!!");
-            }
-            String[] components = test[1].split("\\s*/by\\s*");
+        // Initialize description and priority string.
+        String description = "";
+        String deadlineDateTime = "";
+        String priorityString = "low";
+
+        // Has Priority included
+        if (input.contains("/priority")) {
+            String[] components = test[1].split(" /by | /priority ");
             assert components.length >= 2 : "Invalid input format for parseDeadlineInfo";
-            if (components.length < 2 || components[1].equals("")) {
-                throw new EmptyDescriptionException("!!! Missing DEADLINE Date Time !!!");
-            }
-            String description = components[0];
-            String deadlineDateTime = components[1];
-            return new String[] {description, deadlineDateTime};
+            description = components[0];
+            deadlineDateTime = components[1];
+            priorityString = components[2];
+        }
+        // No priority included, set to default LOW
+        if (!input.contains("/priority")) {
+            String[] components = test[1].split(" /by ");
+            description = components[0];
+            deadlineDateTime = components[1];
+        }
 
+        // Missing Deadline Description
+        if (description.equals("")) {
+            throw new EmptyDescriptionException("!!! Missing DEADLINE Description !!!");
+        }
+        // Missing Deadline Date time
+        if (deadlineDateTime.equals("")) {
+            throw new EmptyDescriptionException("!!! Missing DEADLINE Date Time !!!");
+        }
+        return new String[] {description, deadlineDateTime, priorityString};
     }
 
     /**
@@ -89,23 +121,40 @@ public class BlipParser {
      * @return An array of string with event's description and date time(s)
      * @throws EmptyDescriptionException If the description ot date time is missing
      */
-    public static String[] parseEventInfo (String input) throws EmptyDescriptionException {
+    public static String[] parseEventInfo(String input) throws EmptyDescriptionException {
         String[] test = input.split("\\s+", 2);
         assert test.length >= 2 : "Invalid input format for parseEventInfo";
 
-        // Missing Event Description.
-        if (test.length < 2 || test[1].equals("")) {
+        String description = "";
+        String eventStart = "";
+        String eventEnd = "";
+        String priorityString = "low";
+
+        if (input.contains("/priority")) {
+            String[] components = test[1].split(" /from | /to | /priority ");
+            assert test.length >= 3 : "Invalid input format for parseEventInfo";
+            description = components[0];
+            eventStart = components[1];
+            eventEnd = components[2];
+            priorityString = components[3];
+        }
+        if (!input.contains("/priority")) {
+            String[] components = test[1].split(" /from | /to ");
+            assert test.length >= 2 : "Invalid input format for parseEventInfo";
+            description = components[0];
+            eventStart = components[1];
+            eventEnd = components[2];
+        }
+        // Missing Event Description
+        if (description.equals("")) {
             throw new EmptyDescriptionException("!!! Missing EVENT Description !!!");
         }
-        String[] components = test[1].split(" /from | /to ");
-        assert test.length >= 3 : "Invalid input format for parseEventInfo";
-        if (components.length < 3 || components[1].equals("") || components[2].equals("")) {
+        // Missing Deadline Date time
+        if (eventStart.equals("") || eventEnd.equals("")) {
             throw new EmptyDescriptionException("!!! Missing EVENT Start/End Date Time !!!");
         }
-        String description = components[0];
-        String eventStart = components[1];
-        String eventEnd = components[2];
-        return new String[] {description, eventStart, eventEnd};
+
+        return new String[] {description, eventStart, eventEnd, priorityString};
     }
 
     /**
@@ -113,7 +162,7 @@ public class BlipParser {
      * @param input The string input to parse
      * @return String description to find tasks
      */
-    public static String parseFindInfo (String input) throws EmptyDescriptionException {
+    public static String parseFindInfo(String input) throws EmptyDescriptionException {
         String[] components = input.split("\\s+", 2);
         assert components.length >= 2 : "Invalid input format for parseFindInfo";
 
@@ -124,15 +173,20 @@ public class BlipParser {
         return components[1];
     }
 
-    public static Priority convertToPriority (String input) throws EmptyDescriptionException {
+    public static String parsePriorityInfo(String input) throws EmptyDescriptionException {
         String[] components = input.split("\\s+", 3);
-        assert components.length >= 3 : "Invalid input format for parseFindInfo";
 
         // Missing priority description.
-        if (components.length < 3 || components[1].equals("")) {
+        if (components.length < 3 || components[1].equals("") || components[1].equals("")) {
             throw new EmptyDescriptionException("!!! Missing PRIORITY Description !!!\n");
         }
-        switch (components[2].toLowerCase()) {
+
+        // return the priority type in string
+        return components[2];
+    }
+
+    public static Priority convertToPriority(String input) {
+        switch (input.toLowerCase()) {
             case "low":
                 return Priority.LOW;
             case "medium":
@@ -143,7 +197,6 @@ public class BlipParser {
                 return Priority.MEDIUM;
         }
     }
-
 
     /**
      * Parses the user input into different commands.
@@ -165,15 +218,18 @@ public class BlipParser {
                     int indexToDelete = parseToGetIndex(input);
                     return new DeleteCommand(indexToDelete);
                 case "todo":
-                    String toDoDescription = parseToDoInfo(input);
-                    return new ToDoCommand(toDoDescription);
+                    String[] toDoDescription = parseToDoInfo(input);
+                    return new ToDoCommand(toDoDescription[0], convertToPriority(toDoDescription[1]));
                 case "deadline":
                     String[] deadlineInfo = parseDeadlineInfo(input);
-                    return new DeadlineCommand(deadlineInfo[0], DateConverter.convertToDateTime(deadlineInfo[1]));
+                    return new DeadlineCommand(deadlineInfo[0]
+                            , DateConverter.convertToDateTime(deadlineInfo[1])
+                            , convertToPriority(deadlineInfo[2]));
                 case "event":
                     String[] eventInfo = parseEventInfo(input);
-                    return new EventCommand(eventInfo[0], DateConverter.convertToDateTime(eventInfo[1]),
-                            DateConverter.convertToDateTime(eventInfo[2]));
+                    return new EventCommand(eventInfo[0], DateConverter.convertToDateTime(eventInfo[1])
+                            , DateConverter.convertToDateTime(eventInfo[2])
+                            , convertToPriority(eventInfo[3]));
                 case "mark":
                     int indexToMark = parseToGetIndex(input);
                     return new MarkCommand(indexToMark);
@@ -185,7 +241,8 @@ public class BlipParser {
                     return new FindCommand(findDescription);
                 case "priority":
                     int indexToPrioritise = parseToGetIndex(input);
-                    return new PriorityCommand(indexToPrioritise, convertToPriority(input));
+                    String priorityString = parsePriorityInfo(input);
+                    return new PriorityCommand(indexToPrioritise, convertToPriority(priorityString));
                 default:
                     return new InvalidCommand(input);
             }

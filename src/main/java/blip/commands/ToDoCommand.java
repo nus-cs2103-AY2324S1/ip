@@ -4,6 +4,7 @@ import blip.ui.BlipUI;
 import blip.tasks.TaskList;
 import blip.tasks.ToDo;
 import blip.storage.BlipStorage;
+import blip.priority.Priority;
 
 /**
  * Represents the to do command to add to do task.
@@ -14,13 +15,16 @@ public class ToDoCommand extends Command {
      */
     String description;
 
+    Priority priority;
+
     /**
      * Constructor of ToDoCommand.
      *
      * @param description The description of the to do task
      */
-    public ToDoCommand(String description) {
+    public ToDoCommand(String description, Priority priority) {
         this.description = description;
+        this.priority = priority;
     }
 
     /**
@@ -33,7 +37,7 @@ public class ToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
-        ToDo toDoTask = new ToDo(description, false);
+        ToDo toDoTask = new ToDo(description, false, this.priority);
         taskList.addTask(toDoTask);
         storage.saveToFile(taskList);
         return ui.addsTasksMsg(toDoTask, taskList.size());

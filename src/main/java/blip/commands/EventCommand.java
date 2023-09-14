@@ -1,6 +1,8 @@
 package blip.commands;
 
 import java.time.LocalDateTime;
+
+import blip.priority.Priority;
 import blip.ui.*;
 import blip.tasks.*;
 import blip.storage.*;
@@ -13,6 +15,8 @@ public class EventCommand extends Command {
      * Description of the event task.
      */
     String description;
+
+    Priority priority;
 
     /**
      * Start time of the event task.
@@ -31,10 +35,11 @@ public class EventCommand extends Command {
      * @param eventStart The start time of the event task
      * @param eventEnd The end time of the event task
      */
-    public EventCommand(String description, LocalDateTime eventStart, LocalDateTime eventEnd) {
+    public EventCommand(String description, LocalDateTime eventStart, LocalDateTime eventEnd, Priority priority) {
         this.description = description;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
+        this.priority = priority;
     }
 
     /**
@@ -47,7 +52,7 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
-        Event eventTask = new Event(description, eventStart, eventEnd, false);
+        Event eventTask = new Event(description, eventStart, eventEnd, false, this.priority);
         taskList.addTask(eventTask);
         storage.saveToFile(taskList);
         return ui.addsTasksMsg(eventTask, taskList.size());

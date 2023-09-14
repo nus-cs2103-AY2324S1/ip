@@ -90,14 +90,6 @@ public class BlipUI {
         return "Error loading file: ";
     }
 
-    /**
-     * Returns the string representation of the saving data file error message.
-     *
-     * @return String representation of the saving data file error
-     */
-    public String showSavingErr() {
-        return "Error saving file: ";
-    }
 
     /**
      * Returns the string representation of the date time format error message.

@@ -1,4 +1,11 @@
-T | 0 |  LOW | eat
-T | 0 |  HIGH | cry
-D | 0 |  MEDIUM | eat | 2023-09-14 18:00
-E | 0 |  MEDIUM | meeting | 2023-09-14 10:00 | 2023-09-14 12:00
+T | 0 | HIGH | eat
+T | 0 | HIGH | cry
+D | 0 | MEDIUM | eat | 2023-09-14 18:00
+E | 0 | MEDIUM | meeting | 2023-09-14 10:00 | 2023-09-14 12:00
+T | 0 | LOW | eat
+T | 0 | HIGH | something
+T | 0 | LOW | eat
+T | 0 | HIGH | eat
+D | 0 | LOW | eat | 2023-09-15 10:00
+E | 0 | MEDIUM | errands | 2023-09-15 10:00 | 2023-09-15 12:00
+E | 0 | LOW | study | 2023-09-15 10:22 | 2023-09-15 14:02

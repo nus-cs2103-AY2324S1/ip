@@ -1,5 +1,6 @@
 package blip.commands;
 
+import blip.priority.Priority;
 import blip.ui.BlipUI;
 import blip.tasks.TaskList;
 import blip.tasks.Deadline;
@@ -17,6 +18,8 @@ public class DeadlineCommand extends Command {
      */
     private String description;
 
+    Priority priority;
+
     /**
      * Deadline of the deadline task.
      */
@@ -28,9 +31,10 @@ public class DeadlineCommand extends Command {
      * @param description The description of the deadline task
      * @param deadline The deadline of the deadline task
      */
-    public DeadlineCommand(String description, LocalDateTime deadline) {
+    public DeadlineCommand(String description, LocalDateTime deadline, Priority priority) {
         this.description = description;
         this.deadline = deadline;
+        this.priority = priority;
     }
 
     /**
@@ -43,7 +47,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, BlipUI ui, BlipStorage storage) {
-        Deadline deadlineTask = new Deadline(description, deadline, false);
+        Deadline deadlineTask = new Deadline(description, deadline, false, this.priority);
         taskList.addTask(deadlineTask);
         storage.saveToFile(taskList);
         return ui.addsTasksMsg(deadlineTask, taskList.size());

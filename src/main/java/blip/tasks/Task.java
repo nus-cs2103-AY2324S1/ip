@@ -3,7 +3,9 @@ package blip.tasks;
 import java.time.LocalDateTime;
 import blip.exceptions.DateTimeFormatException;
 import blip.parser.DateConverter;
+import blip.parser.BlipParser;
 import blip.priority.Priority;
+
 
 /**
  * Represents a generic task.
@@ -48,6 +50,7 @@ public abstract class Task {
     public String getPriority() {
         return "[" + this.priority + "] ";
     }
+
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
@@ -89,7 +92,7 @@ public abstract class Task {
         String taskType = taskComponents[0];
         boolean isDone = taskComponents[1].equals("1");
         String priorityString = taskComponents[2];
-        Priority priority = Priority.convertToPriority(priorityString);
+        Priority priority = BlipParser.convertToPriority(priorityString);
         String taskDescription = taskComponents[3];
 
         if (taskType.equals("T")) {
@@ -97,13 +100,13 @@ public abstract class Task {
         }
         if (taskType.equals("D")) {
             LocalDateTime deadlineDateTime = DateConverter.convertToDateTime(taskComponents[4]);
-            Deadline newDeadlineTask = new Deadline(taskDescription, deadlineDateTime, isDone);
+            Deadline newDeadlineTask = new Deadline(taskDescription, deadlineDateTime, isDone, priority);
             return newDeadlineTask;
         }
         if (taskType.equals("E")) {
             LocalDateTime eventFrom = DateConverter.convertToDateTime(taskComponents[4]);
             LocalDateTime eventTo = DateConverter.convertToDateTime(taskComponents[5]);
-            Event newEventTask = new Event(taskDescription, eventFrom, eventTo, isDone);
+            Event newEventTask = new Event(taskDescription, eventFrom, eventTo, isDone, priority);
             return newEventTask;
         }
         return null;

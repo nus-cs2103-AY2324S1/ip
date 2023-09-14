@@ -24,8 +24,8 @@ public class Event extends Task {
      * @param eventTo The date time of the end of event
      * @param isDone Boolean that represents whether task is done
      */
-    public Event(String description, LocalDateTime eventFrom, LocalDateTime eventTo, boolean isDone) {
-        super(description, isDone, Priority.MEDIUM);
+    public Event(String description, LocalDateTime eventFrom, LocalDateTime eventTo, boolean isDone, Priority priority) {
+        super(description, isDone, priority);
         this.eventFrom = eventFrom;
         this.eventTo = eventTo;
     }
@@ -37,7 +37,7 @@ public class Event extends Task {
     @Override
     public String saveToFileString() {
         return "E " + (super.isDone ? "| 1 | " : "| 0 | ")
-                + (" " + super.priority + " | ")
+                + (super.priority + " | ")
                 + super.toString() + " | "
                 + this.eventFrom.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                 + " | "
