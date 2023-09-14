@@ -27,6 +27,6 @@ public class FindTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) {
-        return taskList.getTaskQueryResult(this.queryString);
+        return taskList.queryTaskByDescription(this.queryString);
     }
 }

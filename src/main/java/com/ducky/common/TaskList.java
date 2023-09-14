@@ -1,5 +1,7 @@
 package com.ducky.common;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.ducky.command.DuckyInvalidTaskIndexException;
@@ -9,12 +11,15 @@ import com.ducky.task.Task;
  * Represents a list of tasks.
  */
 public class TaskList {
+    public static final String DATE_PATTERN = "MMM dd yyyy";
     private static final String TASK_LIST_INTRO_MSG = "Here are the tasks in your list:\n";
     private static final String NO_TASK_IN_LIST_MSG = "There are no tasks in your list.";
     private static final String ONE_TASK_IN_LIST_MSG = "There is now 1 task in your list.";
     private static final String NUMBER_OF_TASKS_IN_LIST_MSG = "There are now %d tasks in your list.";
-    private static final String QUERY_NO_RESULT_MSG = "Sorry, I couldn't find any tasks that contain \"%s\".";
-    private static final String QUERY_RESULT_MSG = "Here are the task(s) that contain \"%s\":\n%s";
+    private static final String NAME_QUERY_NO_RESULT_MSG = "Sorry, I couldn't find any tasks that contain \"%s\".";
+    private static final String NAME_QUERY_RESULT_MSG = "Here are the task(s) that contain \"%s\":\n%s";
+    private static final String DATE_QUERY_NO_RESULT_MSG = "You have nothing scheduled for \"%s\"!";
+    private static final String DATE_QUERY_RESULT_MSG = "Here are the task(s) scheduled for \"%s\":\n%s";
     private final ArrayList<Task> tasks;
 
     /**
@@ -85,7 +90,7 @@ public class TaskList {
      * @param query Substring to find in the task list.
      * @return String representation of tasks that match the query.
      */
-    public String getTaskQueryResult(String query) {
+    public String queryTaskByDescription(String query) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
@@ -95,8 +100,39 @@ public class TaskList {
         }
 
         return result.toString().isEmpty()
-                ? String.format(QUERY_NO_RESULT_MSG, query)
-                : String.format(QUERY_RESULT_MSG, query, result);
+                ? String.format(NAME_QUERY_NO_RESULT_MSG, query)
+                : String.format(NAME_QUERY_RESULT_MSG, query, result);
+    }
+
+    /**
+     * Returns a string representation of tasks in the task list
+     * that contain the specified query date.
+     * @param queryDate Date to find in the task list.
+     * @return String representation of tasks that match the query.
+     */
+    public String queryTaskByDate(LocalDate queryDate) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            if (t.dateFallsOn(queryDate)) {
+                result.append(String.format("%d.%s\n", i + 1, t));
+            }
+        }
+
+        return result.toString().isEmpty()
+                ? String.format(
+                    DATE_QUERY_NO_RESULT_MSG,
+                    queryDate.format(
+                        DateTimeFormatter.ofPattern(DATE_PATTERN)
+                    )
+                )
+                : String.format(
+                    DATE_QUERY_RESULT_MSG,
+                    queryDate.format(
+                        DateTimeFormatter.ofPattern(DATE_PATTERN)
+                    ),
+                    result
+                );
     }
 
     /**

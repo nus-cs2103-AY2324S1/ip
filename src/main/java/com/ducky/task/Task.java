@@ -1,5 +1,7 @@
 package com.ducky.task;
 
+import java.time.LocalDate;
+
 /**
  * Represents a task stored in Ducky chatbot memory.
  */
@@ -38,6 +40,15 @@ public abstract class Task {
      */
     public boolean containsString(String s) {
         return this.description.contains(s);
+    }
+
+    /**
+     * Returns whether task falls on the specified date.
+     * @param queryDate Date to check against the task's date.
+     * @return True if task falls on the specified date.
+     */
+    public boolean dateFallsOn(LocalDate queryDate) {
+        return false;
     }
 
     /**
