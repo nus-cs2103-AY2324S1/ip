@@ -33,15 +33,22 @@ public class Deadline extends Task {
     @Override
     public String update(String specifications) {
         try {
-            String[] splits = specifications.split(" ", 3);
-            validateInput(splits);
-            if (splits[0].matches("/description")) {
-                String newDescription = splits[1];
-                this.description = newDescription;
-            }
-            if (splits[0].matches("/by")) {
-                LocalDate newDeadline = DateParser.parseDate(splits[1]);
-                this.deadline = newDeadline;
+            String[] splits = specifications.split(" ", 2);
+            String updateType = splits[0];
+            String description = splits.length > 1 ? splits[1] : "";
+            switch (updateType) {
+            case "/description":
+                validateInput(description);
+                updateDescription(description);
+                break;
+            case "/by":
+                validateInput(description);
+                updateDeadline(description);
+                break;
+            default:
+                throw new IllegalArgumentException("OOPS!!! Update of a deadline task description must have "
+                        + "/description <description>. "
+                        + "Update of a deadline task deadline must have /by <date>.");
             }
             return "Ok, I've updated the deadline task to the following:\n" + this;
         } catch (ArrayIndexOutOfBoundsException error) {
@@ -50,16 +57,24 @@ public class Deadline extends Task {
         }
     }
 
-    private void validateInput(String[] input) {
-        if (input.length > 2) {
+    private void validateInput(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "OOPS!!! Please add a description");
+        }
+        if (input.contains("/description") || input.contains("/by")) {
             throw new IllegalArgumentException(
                     "OOPS!!! Only 1 attribute can be updated at one time.");
         }
-        if (!input[0].matches("/description") && !input[0].matches("/by")) {
-            throw new IllegalArgumentException("OOPS!!! Update of a deadline task description must have "
-                    + "/description <description>. "
-                    + "Update of a deadline task deadline must have /by <date>. ");
-        }
+    }
+
+    private void updateDescription(String description) {
+        this.description = description;
+    }
+
+    private void updateDeadline(String description) {
+        LocalDate date = DateParser.parseDate(description);
+        this.deadline = date;
     }
 
     /**

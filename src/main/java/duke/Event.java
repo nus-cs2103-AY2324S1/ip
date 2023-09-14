@@ -37,19 +37,26 @@ public class Event extends Task {
     @Override
     public String update(String specifications) {
         try {
-            String[] splits = specifications.split(" ", 3);
-            validateInput(splits);
-            if (splits[0].matches("/description")) {
-                String newDescription = splits[1];
-                this.description = newDescription;
-            }
-            if (splits[0].matches("/from")) {
-                LocalDate newStart = DateParser.parseDate(splits[1]);
-                this.start = newStart;
-            }
-            if (splits[0].matches("/to")) {
-                LocalDate newEnd = DateParser.parseDate(splits[1]);
-                this.end = newEnd;
+            String[] splits = specifications.split(" ", 2);
+            String updateType = splits[0];
+            String description = splits.length > 1 ? splits[1] : "";
+            switch (updateType) {
+            case "/description":
+                validateInput(description);
+                updateDescription(description);
+                break;
+            case "/from":
+                validateInput(description);
+                updateStart(description);
+                break;
+            case "/to":
+                validateInput(description);
+                updateEnd(description);
+                break;
+            default:
+                throw new IllegalArgumentException("OOPS!!! Update of a deadline task description must have "
+                        + "/description <description>. "
+                        + "Update of a deadline task deadline must have /by <date>. ");
             }
             return "Ok, I've updated the event task to the following:\n" + this;
         } catch (ArrayIndexOutOfBoundsException error) {
@@ -58,19 +65,30 @@ public class Event extends Task {
         }
     }
 
-    private void validateInput(String[] input) {
-        if (input.length > 2) {
+    private void validateInput(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("OOPS!!! Please add a description.");
+        }
+        if (input.contains("/description")
+                || input.contains("/from")
+                || input.contains("/to")) {
             throw new IllegalArgumentException(
                     "OOPS!!! Only 1 attribute can be updated at one time.");
         }
-        if (!input[0].matches("/description")
-                && !input[0].matches("/from")
-                && !input[0].matches("/to")) {
-            throw new IllegalArgumentException("OOPS!!! Update of an event task description must have "
-                    + "/description <description>. "
-                    + "Update of an event task start must have /from <date>. "
-                    + "Update of an event task end must have /to <date>.");
-        }
+    }
+
+    private void updateDescription(String description) {
+        this.description = description;
+    }
+
+    private void updateStart(String input) {
+        LocalDate date = DateParser.parseDate(input);
+        this.start = date;
+    }
+
+    private void updateEnd(String input) {
+        LocalDate date = DateParser.parseDate(input);
+        this.end = date;
     }
 
     /**
