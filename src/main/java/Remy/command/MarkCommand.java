@@ -31,10 +31,14 @@ public class MarkCommand extends Command {
         if (!matcher.matches()) {
             throw new ChatbotException("missing info lah.");
         }
+
         int index = Integer.parseInt(matcher.group(1)) - 1;
-        if (index >= 0) {
-            this.index = index;
+
+        if (index <= 0) {
+            throw new ChatbotException("invalid index bro");
         }
+
+        this.index = index;
     }
 
     /**
@@ -49,6 +53,8 @@ public class MarkCommand extends Command {
         if (this.index >= taskList.size()) {
             throw new ChatbotException("Your Task list don't have this number lah.");
         }
+        assert this.index > 0;
+
         taskList.get(index).markAsDone();
         String content = "Done. You happy?\n" + taskList.get(index).toString();
         storage.save(taskList);
