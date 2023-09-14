@@ -51,6 +51,7 @@ public class FindCommand extends CommandAbstract {
      */
     @Override
     protected String findException() {
+        assert(false);
         return UNHANDLED_EXCEPTION_STRING;
     }
 }
