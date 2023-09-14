@@ -14,7 +14,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        list.addTask(new Event(command.substring(6)), storage);
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+        return list.addTask(new Event(command.substring(6)), storage);
     }
 }

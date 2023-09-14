@@ -3,8 +3,9 @@ package components;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner scanner;
-    public static final String LINE = "__________________________________________________________________";
+    private final Scanner scanner;
+    public static final String LINE = "_______________________" +
+            "______________________________";
 
     /**
      * Constructor for Ui class.
@@ -15,19 +16,9 @@ public class Ui {
 
     /**
      * Prints the error message.
-     * @param e
      */
-    public void showError(DukeException e) {
-        System.out.println(Ui.LINE);
-        System.out.println(e);
-        System.out.println(Ui.LINE);
-    }
-
-    /**
-     * Prints the message.
-     */
-    public void showLine() {
-        System.out.println(Ui.LINE);
+    public String showError(DukeException e) {
+        return e.toString();
     }
 
     /**
@@ -39,26 +30,29 @@ public class Ui {
 
     /**
      * Shows the welcome message.
-     * @param chatBotName
      */
-    public void showWelcome(String chatBotName) {
-        System.out.println(Ui.LINE);
-        String logo = " ____        _        \n"
-               + "|  _ \\ _   _| | _____ \n"
-               + "| | | | | | | |/ / _ \\\n"
-               + "| |_| | |_| |   <  __/\n"
-               + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
-        System.out.println("Hello! I'm " + chatBotName);
-        System.out.println("What can I do for you?");
-        System.out.println(Ui.LINE);
+    public String showWelcome(String chatBotName) {
+        String logo = """
+                 ____        _       \s
+                |  _ \\ _   _| | _____\s
+                | | | | | | | |/ / _ \\
+                | |_| | |_| |   <  __/
+                |____/ \\__,_|_|\\_\\___|
+                """;
+
+        return logo + "\n" + "Hello! I'm " +
+                chatBotName + "\n" + "What can I do for you?";
+    }
+
+    public String showWelcome(String chatBotName, boolean isGui) {
+        return "Hello! I'm " +
+                chatBotName + "\n" + "What can I do for you?\n";
     }
 
     /**
      * Shows the goodbye message.
      */
-    public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(Ui.LINE);
+    public String showBye() {
+        return "Bye. Hope to see you again soon!";
     }
 }
