@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import atlas.components.Storage;
 import atlas.components.TaskList;
-import atlas.components.Ui;
 import atlas.tasks.Task;
 
 
@@ -23,30 +22,27 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.addTask(task);
-        try {
-            storage.save(taskList);
-            ui.printToScreen("Got it. I've added this task:\n"
-                    + "\t" + task);
-            ui.printToScreen(taskList.getCountString());
-        } catch (IOException e) {
-            ui.showError(e.getMessage());
-        }
-    }
-
-    @Override
     public String execute(TaskList taskList, Storage storage) {
         assert taskList != null;
         assert storage != null;
         try {
             taskList.addTask(task);
             storage.save(taskList);
-            return String.format("Got it. I've added this task:\n"
-                    + "\t%s\n"
-                    + "%s", task, taskList.getCountString());
+            return generateExecutionOutput(taskList);
         } catch (IOException e) {
             return e.getMessage();
         }
+    }
+
+    /**
+     * Generates message indicating the task that has been added.
+     * @param taskList TaskList that the task has been added to
+     * @return Message indicating the task has been added
+     */
+    private String generateExecutionOutput(TaskList taskList) {
+        String newTaskCountMessage = taskList.getCountString();
+        return String.format("Got it. I've added this task:\n"
+                + "\t%s\n"
+                + "%s", task, newTaskCountMessage);
     }
 }

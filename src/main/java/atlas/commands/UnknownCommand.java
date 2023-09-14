@@ -2,7 +2,6 @@ package atlas.commands;
 
 import atlas.components.Storage;
 import atlas.components.TaskList;
-import atlas.components.Ui;
 
 /**
  * Command used to handle invalid commands (e.g. bad parsing)
@@ -27,11 +26,6 @@ public class UnknownCommand extends Command {
      */
     public UnknownCommand(String errorMsg) {
         this.errorMsg = errorMsg;
-    }
-
-    @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showError(errorMsg);
     }
 
     @Override
