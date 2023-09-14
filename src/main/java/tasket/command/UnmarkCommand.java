@@ -5,12 +5,27 @@ import tasket.data.TaskList;
 import tasket.exception.TasketException;
 import tasket.ui.Ui;
 
+/**
+ * The class for unmark command.
+ */
 public class UnmarkCommand extends Command {
 
-    public UnmarkCommand(String arguments) {
-        super(arguments);
+    /**
+     * The constructor for unmark command.
+     * @param index The index for the task to be deleted.
+     */
+    public UnmarkCommand(String index) {
+        super(index);
     }
 
+    /**
+     * Marks the task as undone.
+     *
+     * @param taskList The task list instance of duke.
+     * @param ui The ui instance of duke.
+     * @param storage The storage instance of duke.
+     * @throws TasketException If the index is not a number, less than 0 or exceed the task list size.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         if (commandDescription.isEmpty()) {

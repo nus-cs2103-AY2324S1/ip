@@ -7,8 +7,18 @@ import tasket.task.Event;
 import tasket.task.Task;
 import tasket.task.ToDo;
 
+/**
+ * The class for the parser.
+ */
 public class Parser {
 
+    /**
+     * Parses the command from user.
+     *
+     * @param command The full command from user input.
+     * @return A command instance to be executed.
+     * @throws TasketException If the command does not exists.
+     */
     public static Command parseInput(String command) throws TasketException {
         String[] commandParts = command.split(" ", 2);
         switch (commandParts[0]) {
@@ -33,6 +43,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the save format of the task.
+     *
+     * @param taskSave The save string to be parsed.
+     * @return The task instance according to format.
+     * @throws TasketException If the string does not follow the respective task formats.
+     */
     public static Task parseSaveString(String taskSave) throws TasketException {
         String[] taskElements = taskSave.split(" \\| ");
         Task task;

@@ -13,15 +13,32 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The class for add command.
+ */
 public class AddCommand extends Command {
 
     String header;
 
+    /**
+     * The constructor for add command.
+     *
+     * @param header The command itself.
+     * @param command The arguments of the command.
+     */
     public AddCommand(String header, String command) {
         super(command);
         this.header = header;
     }
 
+    /**
+     * Crates and adds a task to the task list.
+     *
+     * @param taskList The task list instance of duke.
+     * @param ui The ui instance of duke.
+     * @param storage The storage instance of duke.
+     * @throws TasketException If error occurred while creating task.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         Task task = null;
@@ -46,6 +63,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Creates a todo task.
+     *
+     * @param prompt The description of the task.
+     * @return A todo task instance.
+     * @throws TasketException If the description is empty.
+     */
     private Task createToDoTask(String prompt) throws TasketException {
         if (prompt.isEmpty()) {
             throw new TasketException("The description of todo cannot be empty");
@@ -54,6 +78,13 @@ public class AddCommand extends Command {
         return new ToDo(prompt.trim());
     }
 
+    /**
+     * Creates a deadline task.
+     *
+     * @param prompt The arguments of the task.
+     * @return A deadline task instance.
+     * @throws TasketException If the description or deadline is empty.
+     */
     private Task createDeadlineTask(String prompt) throws TasketException {
         if (prompt.isEmpty()) {
             throw new TasketException("The description of deadline cannot be empty");
@@ -67,6 +98,13 @@ public class AddCommand extends Command {
         return new Deadline(arguments[0].trim(), convertToDate(arguments[1].trim()));
     }
 
+    /**
+     * Creates an event instance
+     *
+     * @param prompt The arguments of the task.
+     * @return An event task instance.
+     * @throws TasketException If description, start or end date is empty.
+     */
     private Task createEventTask(String prompt) throws TasketException {
         if (prompt.isEmpty()) {
             throw new TasketException("The description of event cannot be empty");
@@ -83,6 +121,13 @@ public class AddCommand extends Command {
         return new Event(arguments[0].trim(), convertToDate(arguments[1].trim()), convertToDate(arguments[2].trim()));
     }
 
+    /**
+     * Convert the deadline and event dates.
+     * If the format fits, convert it, if not, re
+     *
+     * @param deadline The argument to be converted.
+     * @return The converted date format or original form if unable to parse.
+     */
     private String convertToDate(String deadline) {
         try {
             LocalDate date = LocalDate.parse(deadline);
