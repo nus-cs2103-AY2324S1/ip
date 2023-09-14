@@ -30,6 +30,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert this.keyword != null : "Keyword cannot be empty";
         String res = "Here are the matching tasks in your list: ";
         int count = 1;
 

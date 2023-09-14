@@ -31,6 +31,8 @@ public class DeleteCommand extends Command {
      * @throws DukeException If there is an issue executing the command.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        assert this.index < 0 : "Index cannot be less than 0!";
+
         if (index + 1 > tasks.size()) {
             throw new DukeException(ui.messageCard("The current number of tasks is " + tasks.size()
                     + ", " + "so you can't delete task " + (index + 1) + "!!."));
