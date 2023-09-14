@@ -47,6 +47,7 @@ public class Duke {
             case DEADLINE:
             case EVENT:
                 Task t = TaskList.createTask(input, command, 0);
+                assert t != null : "Task was not created";
                 tasks.addTask(t);
                 output = ui.showTaskAdded(t.getTask());
                 break;
@@ -93,6 +94,7 @@ public class Duke {
             output = ui.showGeneralError();
         }
 
+        assert !output.isEmpty() : "No output received";
         return output;
     }
 }

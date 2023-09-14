@@ -8,6 +8,7 @@ import duke.exceptions.DukeException;
  * User interface for the chatbot.
  */
 public class Ui {
+
     private String farewell = "Goodbye. Hope to see you soon!\n"
             + "---------------------------------";
     private String addTask = "A new task has been added!\n ";
