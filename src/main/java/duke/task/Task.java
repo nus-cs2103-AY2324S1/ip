@@ -5,7 +5,10 @@ import java.time.format.DateTimeFormatter;
 
 import duke.Duke;
 
-abstract class Task {
+/**
+ * Abstract implementation of {@code Task}
+ */
+public abstract class Task {
     protected boolean isDone = false;
     protected String description;
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
