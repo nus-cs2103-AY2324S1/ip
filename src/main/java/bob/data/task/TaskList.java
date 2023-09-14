@@ -1,14 +1,13 @@
 package bob.data.task;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import bob.data.exception.DukeException;
 import bob.parser.Parser;
+import bob.storage.Storage;
 
 /**
  * Represents a TaskList that contains the tasks and writes to a specified file.
@@ -16,8 +15,8 @@ import bob.parser.Parser;
 public class TaskList {
     /** The ArrayList for storing all the tasks. */
     private ArrayList<Task> tasks;
-    /** The file for writing/reading the task to/from. */
-    private File file;
+    /** The storage object for writing/reading the task to/from. */
+    private Storage storage;
 
     /**
      * Constructs a new TaskList.
@@ -29,11 +28,11 @@ public class TaskList {
     /**
      * Constructs a new TaskList based on the specified file.
      *
-     * @param file The file to write to or read from.
+     * @param storage The storage class which handles the storage operations.
      */
-    public TaskList(File file) {
+    public TaskList(Storage storage) {
         this.tasks = new ArrayList<Task>();
-        this.file = file;
+        this.storage = storage;
     }
 
     /**
@@ -42,24 +41,7 @@ public class TaskList {
     public void open() {
         this.tasks = new ArrayList<Task>();
         try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String storedTask = scanner.nextLine();
-                String[] taskArray = storedTask.split(",");
-                Task task;
-                if (taskArray[0].startsWith("Todo")) {
-                    task = new ToDoTask(taskArray[2]);
-                } else if (taskArray[0].startsWith("Deadline")) {
-                    task = new DeadlineTask(taskArray[2], taskArray[3]);
-                } else {
-                    task = new EventTask(taskArray[2], taskArray[3], taskArray[4]);
-                }
-                if ((taskArray[1]).equals("1")) {
-                    task.setDone();
-                }
-                this.tasks.add(task);
-            }
-            scanner.close();
+            this.storage.readFromFile(this.tasks);
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred when trying to find the file.");
             e.getMessage();
@@ -258,7 +240,7 @@ public class TaskList {
      */
     public void close() {
         try {
-            FileWriter writer = new FileWriter(this.file);
+            FileWriter writer = new FileWriter(this.storage.getFile());
             for (Task task : tasks) {
                 writer.write(task.toFileString());
             }

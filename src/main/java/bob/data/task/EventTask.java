@@ -29,7 +29,6 @@ public class EventTask extends Task {
         super(description);
         try {
             this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            // time should be in format dd/mm/yyyy HHMM(24h)
             LocalDateTime start = LocalDateTime.parse(startDate, formatter);
             LocalDateTime end = LocalDateTime.parse(endDate, formatter);
             if (start.isBefore(end)) {

@@ -1,7 +1,16 @@
 package bob.storage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import bob.data.exception.DukeException;
+import bob.data.task.DeadlineTask;
+import bob.data.task.EventTask;
+import bob.data.task.Task;
+import bob.data.task.ToDoTask;
 
 /**
  * Represents the logic for reading/writing the task data to the file.
@@ -38,5 +47,33 @@ public class Storage {
      */
     public File getFile() {
         return this.file;
+    }
+
+    /**
+     * Reads the tasks in the datafile and writes it to the ArrayList for use by the chatbot.
+     * @param list The ArrayList to store the tasks in.
+     * @return an ArrayList of tasks that were previously written in the datafile.
+     * @throws FileNotFoundException if file cannot be found.
+     * @throws DukeException if the EventTask is instantiated with wrong dates.
+     */
+    public void readFromFile(ArrayList<Task> list) throws FileNotFoundException, DukeException {
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String storedTask = scanner.nextLine();
+            String[] taskArray = storedTask.split(",");
+            Task task;
+            if (taskArray[0].startsWith("Todo")) {
+                task = new ToDoTask(taskArray[2]);
+            } else if (taskArray[0].startsWith("Deadline")) {
+                task = new DeadlineTask(taskArray[2], taskArray[3]);
+            } else {
+                task = new EventTask(taskArray[2], taskArray[3], taskArray[4]);
+            }
+            if ((taskArray[1]).equals("1")) {
+                task.setDone();
+            }
+            list.add(task);
+        }
+        scanner.close();
     }
 }

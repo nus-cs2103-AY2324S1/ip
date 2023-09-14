@@ -19,7 +19,7 @@ public class Duke {
         Ui ui = new Ui();
         Parser parser = new Parser();
         Storage storage = new Storage();
-        TaskList list = new TaskList(storage.getFile());
+        TaskList list = new TaskList(storage);
 
         list.open();
 
@@ -53,7 +53,7 @@ public class Duke {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage();
-        this.list = new TaskList(storage.getFile());
+        this.list = new TaskList(this.storage);
 
         list.open();
     }

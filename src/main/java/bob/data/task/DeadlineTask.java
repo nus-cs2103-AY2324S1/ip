@@ -22,7 +22,6 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String description, String deadlineDate) {
         super(description);
         try {
-            // time should be in format dd/mm/yyyy HHMM(24h)
             this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             this.deadlineDate = LocalDateTime.parse(deadlineDate, formatter);
         } catch (DateTimeParseException e) {
