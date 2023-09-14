@@ -38,6 +38,7 @@ public class TaskList {
             }
             Task currentTask = this.taskList.get(index);
             taskList.remove(index);
+
             String outpString = "Noted. I've removed this task:\n  " + currentTask;
             Ui.showMessage(outpString);
         } catch (TaskIndexOutOfBoundsException e) {
@@ -54,6 +55,7 @@ public class TaskList {
             Ui.showMessage("Currently no tasks available.");
             return;
         }
+
         String outpString = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
             outpString += (i + 1) + ". " + taskList.get(i).toString() + "\n";
@@ -77,7 +79,6 @@ public class TaskList {
 
     public void addDeadlineTask(String userInput) throws EmptyDescriptionException {
         String[] parts = userInput.split(" /by ");
-
         String description = parts[0].substring(8).trim();
 
         if (description.isEmpty() || parts.length < 2) {
@@ -88,7 +89,6 @@ public class TaskList {
         String by = parts[1].trim();
 
         Task newTask;
-
         try {
             if (by.contains(" ")) {
                 // Contains time, parse as LocalDateTime
@@ -113,8 +113,8 @@ public class TaskList {
 
     public void addEventTask(String userInput) throws EmptyDescriptionException {
         String[] parts = userInput.split(" /from | /to ");
-
         String description = parts[0].substring(5).trim();
+
         if (description.isEmpty() || parts.length < 3) {
             // need to edit to be more specific
             throw new EmptyDescriptionException("event");

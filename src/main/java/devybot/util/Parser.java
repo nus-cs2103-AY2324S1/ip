@@ -18,7 +18,7 @@ public class Parser {
         }
     }
 
-    public static void parse(String userInput, TaskList taskList) throws DevyBotException {
+    public static void parseInputs(String userInput, TaskList taskList) throws DevyBotException {
         String[] wordsArray = userInput.split("\\s+");
         CommandType commandType = getCommandType(wordsArray[0]);
 
