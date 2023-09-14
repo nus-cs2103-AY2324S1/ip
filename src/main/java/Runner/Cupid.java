@@ -50,13 +50,15 @@ public class Cupid {
 
             this.storage.save(this.taskList);
         }
-        ui.goodbye();
+
     }
 
     public String getResponse(String input) {
         if (input.toLowerCase().equals("bye")) {
-            return ui.goodbye();
+            ui.goodbye();
+            System.exit(0);
         }
+        
         Parser parser = new Parser(input, this.taskList);
         String result = parser.parse();
 

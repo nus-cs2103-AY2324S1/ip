@@ -1,5 +1,9 @@
 package functions;
 
+import commands.Command;
+import commands.LoadDeadlineCommand;
+import commands.LoadEventCommand;
+import commands.LoadToDoCommand;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
@@ -47,62 +51,32 @@ public class Load {
 
         while (s.hasNext()) {
             String currentTaskAsString = s.nextLine();
-            String taskType = currentTaskAsString.substring(1,2).toUpperCase();
-            boolean isDone = currentTaskAsString.substring(4, 5).toUpperCase().equals("X");
-            int descriptionBeginIndex = 7;
-            Integer descriptionEndIndex = null;
+            String taskType = currentTaskAsString.substring(1, 2).toUpperCase();
 
-            String description = null;
+            Command command = null;
+            String commandResult;
 
             switch (taskType) {
             case "T":
-                description = currentTaskAsString.substring(descriptionBeginIndex);
-                ToDo todo = new ToDo(description, isDone);
-                taskList.add(todo);
+                command = new LoadToDoCommand(currentTaskAsString, this.taskList);
+                commandResult = command.execute();
                 break;
 
             case "D":
-                descriptionEndIndex = currentTaskAsString.indexOf("(by:")-1;
-                int deadlineStartIndex = currentTaskAsString.indexOf("(by:") + 5;
-                description = currentTaskAsString.substring(descriptionBeginIndex, descriptionEndIndex);
-                String deadlineTimeString = currentTaskAsString.substring(deadlineStartIndex, currentTaskAsString.length()-1);
-                LocalDateTime deadlineTime = null;
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-                    deadlineTime = LocalDateTime.parse(deadlineTimeString, formatter);
-                } catch (Exception e) {
-                    System.out.println("tasks.Deadline " + description + " cannot be loaded.");
-                    break;
-                }
-                Deadline deadline = new Deadline(description, deadlineTime, isDone);
-                taskList.add(deadline);
+                command = new LoadDeadlineCommand(currentTaskAsString, this.taskList);
+                commandResult = command.execute();
                 break;
 
             case "E":
-                descriptionEndIndex = currentTaskAsString.indexOf("(from:")-1;
-                int fromTimingStartIndex = currentTaskAsString.indexOf("(from:") + 7;
-                int fromTimingEndIndex = currentTaskAsString.indexOf("to:")-1;
-                int toTimingStartIndex = fromTimingEndIndex + 5;
-                int toTimingEndIndex = currentTaskAsString.length() - 1;
-                description = currentTaskAsString.substring(descriptionBeginIndex, descriptionEndIndex);
-                String fromString = currentTaskAsString.substring(fromTimingStartIndex, fromTimingEndIndex);
-                String toString = currentTaskAsString.substring(toTimingStartIndex, toTimingEndIndex);
-                LocalDateTime fromDateTime = null;
-                LocalDateTime toDateTime = null;
-
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-                    fromDateTime = LocalDateTime.parse(fromString, formatter);
-                    toDateTime = LocalDateTime.parse(toString, formatter);
-                } catch (Exception e) {
-                    System.out.println("tasks.Event " + description + " cannot be loaded.");
-                    break;
-                }
-
-                Event event = new Event(description, fromDateTime, toDateTime, isDone);
-                taskList.add(event);
+                command = new LoadEventCommand(currentTaskAsString, this.taskList);
+                commandResult = command.execute();
                 break;
+
+            default:
+               commandResult = "Error";
             }
+
+            assert commandResult == "Ok";
 
         }
         f.close();
