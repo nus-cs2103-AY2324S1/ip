@@ -14,7 +14,7 @@ public class Deadline extends Task {
      * Constructs a new {@code Deadline} object, with {@code isCompleted} set to false.
      *
      * @param details Details of the {@code Deadline}.
-     * @param due Due date and time of the {@code Deadline}, stored as a {@code LocalDateTime} object.
+     * @param due     Due date and time of the {@code Deadline}, stored as a {@code LocalDateTime} object.
      */
     public Deadline(String details, LocalDateTime due) {
         super(details);
@@ -26,13 +26,27 @@ public class Deadline extends Task {
      * The {@code isCompleted} parameter corresponds to the completion status in the last
      * instance of {@code Duke}.
      *
-     * @param details Details of the {@code Deadline}.
+     * @param details     Details of the {@code Deadline}.
      * @param isCompleted Completion status of the {@code Deadline}.
-     * @param due Due date and time of the {@code Deadline}, stored as a {@code LocalDateTime} object.
+     * @param due         Due date and time of the {@code Deadline}, stored as a {@code LocalDateTime} object.
      */
     public Deadline(String details, boolean isCompleted, LocalDateTime due) {
         super(details, isCompleted);
         this.due = due;
+    }
+
+    /**
+     * Returns the string representation of the {@code Deadline}, to be
+     * saved in the text file.
+     *
+     * @return Compressed string representation of the {@code Deadline}.
+     */
+    @Override
+    public String toFileSaveFormat() {
+        return String.format("Deadline/%s/%c/%s",
+            this.getDetails(),
+            this.isCompleted ? 'Y' : 'N',
+            this.due);
     }
 
     /**
@@ -46,7 +60,7 @@ public class Deadline extends Task {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         return "[D]" + super.toString() + " (by: "
-                + this.due.toLocalDate().format(dateFormatter) + " "
-                + this.due.toLocalTime().format(timeFormatter) + ")";
+            + this.due.toLocalDate().format(dateFormatter) + " "
+            + this.due.toLocalTime().format(timeFormatter) + ")";
     }
 }

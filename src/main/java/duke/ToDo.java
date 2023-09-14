@@ -20,11 +20,24 @@ public class ToDo extends Task {
      * The {@code isCompleted} parameter corresponds to the completion status in the last
      * instance of {@code Duke}.
      *
-     * @param details Details of the {@code ToDo}.
+     * @param details     Details of the {@code ToDo}.
      * @param isCompleted Completion status of the {@code ToDo}.
      */
     public ToDo(String details, boolean isCompleted) {
         super(details, isCompleted);
+    }
+
+    /**
+     * Returns the string representation of the {@code Todo}, to be
+     * saved in the text file.
+     *
+     * @return Compressed string representation of the {@code Todo}.
+     */
+    @Override
+    public String toFileSaveFormat() {
+        return String.format("Todo/%s/%c",
+            this.getDetails(),
+            this.isCompleted ? 'Y' : 'N');
     }
 
     /**
