@@ -14,7 +14,7 @@ public class Ui {
      * @return list
      */
     public static String help() {
-        return "Available commands are:\n\n"
+        return "Commands are:\n\n"
                 + "list - displays current list\n"
                 + "todo - adds a task to do\n"
                 + "deadline - adds a task with deadline\n"
