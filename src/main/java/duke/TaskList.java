@@ -236,5 +236,14 @@ public class TaskList {
         System.out.println(line);
         return message;
     }
+    public String updateTime(String description, char number) throws NotANumberException {
+        if (!Character.isDigit(number)) {
+            throw new NotANumberException();
+        } else {
+            int index = Character.getNumericValue(number) - 1;
+            Task t = strList.get(index);
+            return t.updateTime(description) + t.toString();
+        }
+    }
 
 }

@@ -30,6 +30,16 @@ public class Event extends Task {
     }
 
     /**
+     * Updating a task
+     * @param description updated time
+     * @return String to be put into the GUI
+     */
+    @Override
+    public String updateTime(String description) {
+        return Parser.retrieveEventTime(description).toString();
+    }
+
+    /**
      * @return toString of the event
      */
     @Override
