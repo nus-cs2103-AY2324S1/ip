@@ -18,7 +18,8 @@ public enum ErrorMessages {
     TOO_MANY_EVENT_TIMINGS("I'm sorry, you seem to have entered too many timings."),
     INVALID_END_DATE("End date cannot be before start date!"),
     KEYWORD_NOT_FOUND("I'm sorry, I could not find task with this word in it."),
-    NO_KEYWORD_PROVIDED("I'm sorry. Did you forget to enter a keyword?");
+    NO_KEYWORD_PROVIDED("I'm sorry. Did you forget to enter a keyword?"),
+    INVALID_HELP_OPTION("I'm sorry, the option you have opted for is not available.");
 
     private final String message;
 

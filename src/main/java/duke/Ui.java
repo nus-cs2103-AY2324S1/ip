@@ -1,5 +1,7 @@
 package duke;
 
+import duke.messages.ErrorMessages;
+import duke.messages.HelpMessages;
 import duke.messages.Messages;
 import duke.task.Task;
 
@@ -62,5 +64,23 @@ public class Ui {
 
     public String showTaskListSize(TaskList taskList) {
         return ("Now you have " + taskList.getTaskList().size() + " tasks in the list.");
+    }
+
+    public String showHelpDialogue(){
+        return HelpMessages.HELP_HEADING.getMessage() + "\n" + HelpMessages.HELP_OPTION_1.getMessage() + "\n"
+                + HelpMessages.HELP_OPTION_2.getMessage() + "\n" + HelpMessages.HELP_OPTION_3.getMessage()
+                + "\n" + HelpMessages.IDENTIFY_HELP_OPTION.getMessage();
+    }
+
+    public String showHelpAnswer(int answerOption){
+        if (answerOption == 1){
+            return HelpMessages.HELP_ANSWER_1.getMessage();
+        } else if (answerOption == 2){
+            return HelpMessages.HELP_ANSWER_2.getMessage();
+        } else if (answerOption == 3){
+            return HelpMessages.HELP_ANSWER_3.getMessage();
+        } else {
+            return ErrorMessages.INVALID_HELP_OPTION.getMessage();
+        }
     }
 }
