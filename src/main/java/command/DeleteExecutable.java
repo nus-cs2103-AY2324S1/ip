@@ -7,9 +7,9 @@ import duke.UserInterface;
 import dukeexception.FailureInExecuteException;
 
 /**
- * Represents a deletion command of a particular task.
+ * Represents a deletion executable of a particular task.
  */
-public class DeleteCommand implements Executable {
+public class DeleteExecutable implements Executable {
     private final int index;
 
     /**

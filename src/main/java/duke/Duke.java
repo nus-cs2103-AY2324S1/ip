@@ -1,14 +1,15 @@
 package duke;
 
 import java.io.IOException;
+
 import command.Executable;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.stage.Stage;
 import dukeexception.CorruptedFileException;
 import dukeexception.FailureInExecuteException;
 import dukeexception.InvalidCommandException;
 import dukeexception.InvalidVarException;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 /**
  * Duke represents a chatbot that parses user inputs and commands, stores tasks given to it in memory and on a file,
  * and provides a user interface for easier correspondence.
@@ -39,7 +40,7 @@ public class Duke extends Application {
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Luke");
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
         stage.show();
@@ -80,24 +81,32 @@ public class Duke extends Application {
         list.loadFromDisk();
         ui.init(userImagePath, dukeImagePath);
     }
+
+    /**
+     * Shuts down duke, performing cleanup tasks along the way.
+     */
     public void closeDuke() {
         ui.output("Goodbye!");
         Platform.exit();
     }
-
     /**
      * Handler is called when a corrupted file is detected, allowing user to decide how to proceed, such as
      * clearing the file or shutting down.
      * @return whether the handler decides to call for a shutdown of the Duke instance.
-     * TODO: make this compatible with the new parsing format
      */
     public boolean corruptedFileHandle() {
         return true;
+        // TODO: make this compatible with the new parsing format
     }
 
+    /**
+     * Given a string input, the bot handles it and gives an appropriate reply.
+     * @param input the string to be parsed.
+     */
     public void handle(String input) {
         try {
             Executable command = parser.parse(input);
+            assert (command != null); // Parser should throw an exception if this occurs.
             boolean isShuttingDown = (command.execute(list, ui));
             if (isShuttingDown) {
                 closeDuke();

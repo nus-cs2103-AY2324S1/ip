@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import command.AddTaskCommand;
-import command.ClearCommand;
-import command.DeleteCommand;
+import command.AddTaskExecutable;
+import command.ClearExecutable;
+import command.DeleteExecutable;
 import command.Executable;
-import command.FindCommand;
-import command.HelpCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.ShutdownCommand;
+import command.FindExecutable;
+import command.HelpExecutable;
+import command.ListExecutable;
+import command.MarkExecutable;
+import command.ShutdownExecutable;
 import dukeexception.InvalidCommandException;
 import dukeexception.InvalidVarException;
 import task.Deadline;
@@ -37,6 +37,10 @@ public class Parser {
         stringToCommand = new HashMap<>();
         init();
     }
+
+    /**
+     * Initializes the hashmap.
+     */
     private void init() {
         stringToCommand.put("bye", Parser::parseShutdownParams);
         stringToCommand.put("help", Parser::parseHelpParams);

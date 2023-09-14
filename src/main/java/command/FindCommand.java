@@ -5,13 +5,13 @@ import duke.UserInterface;
 import dukeexception.FailureInExecuteException;
 import task.Task;
 
-public class FindCommand implements Executable {
+public class FindExecutable implements Executable {
     private final String keyword;
     /**
      * Generates a new find command.
      * @param keyword the keyword to be searched.
      */
-    public FindCommand(String keyword) {
+    public FindExecutable(String keyword) {
         this.keyword = keyword;
     }
 
@@ -23,7 +23,10 @@ public class FindCommand implements Executable {
         } else {
             StringBuilder ans = new StringBuilder("Here are the matching items.");
             for (int i = 0; i < res.size(); i++) {
-                ans.append("\n").append(i + 1).append(". ").append(res.get(i).toString());
+                ans.append("\n");
+                ans.append(i + 1);
+                ans.append(". ");
+                ans.append(res.get(i).toString());
             }
             ui.output(ans.toString());
         }

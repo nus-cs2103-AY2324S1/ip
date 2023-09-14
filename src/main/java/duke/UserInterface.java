@@ -27,6 +27,13 @@ public class UserInterface {
     public UserInterface(Duke duke) {
         this.duke = duke;
     }
+
+    /**
+     * Initializes the images into the interface.
+     * @param userImagePath relative path of the user image.
+     * @param dukeImagePath relative path of the duke image.
+     * @throws CorruptedFileException if the files do not exist.
+     */
     public void init(String userImagePath, String dukeImagePath) throws CorruptedFileException {
         try {
             assert(userImagePath != null && dukeImagePath != null); //Means the arguments are passed wrongly.
@@ -36,6 +43,10 @@ public class UserInterface {
             throw new CorruptedFileException();
         }
     }
+    /**
+     * Creates the scene that we want to use to represent the chatbot.
+     * @return the chatbot's scene.
+     */
     public Scene makeScene() {
         spawnUiElements();
         setUiSettings();
@@ -46,8 +57,12 @@ public class UserInterface {
         return new Scene(mainLayout);
     }
 
+    /**
+     * Sends the input to duke, for it to handle and reply (or not.)
+     */
     public void input() {
         String input = userInput.getText();
+        assert (input != null);
         Label inputLabel = new Label(input);
         DialogBox userDialog = DialogBox.getUserDialog(inputLabel, new ImageView(userImg));
         dialogContainer.getChildren().add(userDialog);
@@ -60,6 +75,7 @@ public class UserInterface {
      * @param output the string to be printed.
      */
     public void output(String output) {
+        assert (output != null);
         Label dukeLabel = new Label(output);
         DialogBox dukeDialog = DialogBox.getDukeDialog(dukeLabel, new ImageView(dukeImg));
         dialogContainer.getChildren().add(dukeDialog);
