@@ -23,7 +23,9 @@ public class MainWindow extends AnchorPane {
 
     private Dialogix dialogix;
 
+    @FXML
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
+    @FXML
     private Image dialogixImage = new Image(this.getClass().getResourceAsStream("/images/dialogixImage.png"));
 
     @FXML

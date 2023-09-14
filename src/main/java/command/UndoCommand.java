@@ -14,6 +14,13 @@ public class UndoCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DialogixException {
+        if (stepsToUndo > tasks.getMaxUndo() || stepsToUndo <= 0) {
+            throw new DialogixException("Number of undo operations cannot exceed total number of operations performed "
+                    + "and cannot be less than or equal to 0!");
+        }
 
+        tasks.undo(stepsToUndo);
+        ui.printUndoSuccessMessage(stepsToUndo);
+        storage.save(tasks.getAllTasks());
     }
 }

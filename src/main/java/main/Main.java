@@ -13,7 +13,7 @@ public class Main extends Application {
     protected Dialogix dialogix = new Dialogix();
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/media/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

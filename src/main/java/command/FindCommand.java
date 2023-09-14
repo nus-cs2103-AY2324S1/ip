@@ -17,7 +17,7 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DialogixException {
-        List<Task> matchingTasks = taskList.findTasks(keyword);
+        List<Task> matchingTasks = taskList.find(keyword);
         ui.showSearchResults(matchingTasks);
     }
 

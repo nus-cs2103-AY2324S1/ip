@@ -1,11 +1,8 @@
 package main;
 
-import command.ExitCommand;
-import command.FindCommand;
-import command.UndoCommand;
+import command.*;
 import exception.DialogixException;
 import task.TaskType;
-import command.Command;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,43 +20,42 @@ public class Parser {
             int stepsToUndo = validateUndo(newInput);
             return new UndoCommand(stepsToUndo);
         } else if (isListCommand(fullCommand)) {
-            // return new ListCommand();
+            return new ListCommand();
         } else if (isDoneCommand(fullCommand)) {
             String newInput = fullCommand.replaceFirst("done", "").trim();
             int oneBasedIndex = validateDoneIndex(newInput);
-            // return new DoneCommand(oneBasedIndex);
+            return new DoneCommand(oneBasedIndex);
         } else if (isAddTodoCommand(fullCommand)) {
             String todo = fullCommand.replaceFirst("todo", "").trim();
             validateTodo(todo);
-            // return new AddTodoCommand(todo);
+            return new AddTodoCommand(todo);
         } else if (isAddDeadlineCommand(fullCommand)) {
             String[] deadline = validateDeadline(fullCommand);
             if (isDate(deadline[1])) {
                 Date deadlineDate = parseDate(deadline[1]);
-                // return new AddDeadlineCommand(deadline[0], deadlineDate);
+                return new AddDeadlineCommand(deadline[0], deadlineDate);
             } else {
-                // return new AddDeadlineCommand(deadline[0], deadline[1]);
+                return new AddDeadlineCommand(deadline[0], deadline[1]);
             }
         } else if (isAddEventCommand(fullCommand)) {
             String[] event = validateEvent(fullCommand);
             if (isDate(event[1])) {
                 Date eventDate = parseDate(event[1]);
-                // return new AddEventCommand(event[0], eventDate);
+                return new AddEventCommand(event[0], eventDate);
             } else {
-                // return new AddEventCommand(event[0], event[1]);
+                return new AddEventCommand(event[0], event[1]);
             }
         } else if (isDeleteCommand(fullCommand)) {
             String newInput = fullCommand.replaceFirst("delete", "").trim();
             int oneBasedIndex = validateDeleteIndex(newInput);
-            // return new DeleteCommand(oneBasedIndex);
+            return new DeleteCommand(oneBasedIndex);
         } else if (isFindCommand(fullCommand)) {
             String toFind = fullCommand.replaceFirst("find", "").trim();
             validateFindInput(toFind);
             return new FindCommand(toFind);
         } else {
-            // throw new DialogixException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DialogixException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return null;
     }
 
     static Date parseDate(String date) throws DialogixException {

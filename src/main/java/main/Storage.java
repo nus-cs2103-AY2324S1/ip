@@ -26,7 +26,7 @@ public class Storage {
      *
      * @return The list of tasks currently stored in the user's hard drive.
      */
-    ArrayList<Task> loadTasks() throws DialogixException {
+    ArrayList<Task> load() throws DialogixException {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
@@ -90,7 +90,7 @@ public class Storage {
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             for (Task l : list) {
-                bw.append(l.toSaveString());
+                bw.append(l.toString());
                 bw.append("\n");
             }
             bw.close();
@@ -99,3 +99,4 @@ public class Storage {
         }
     }
 }
+
