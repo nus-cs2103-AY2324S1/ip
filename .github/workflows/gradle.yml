@@ -32,9 +32,9 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-        
+
       - name: Build and check with Gradle
-        run: chmod +x ./gradlew check
+        run: ./gradlew check
 
       - name: Perform IO redirection test (Windows)
         if: always() && runner.os == 'Windows'
