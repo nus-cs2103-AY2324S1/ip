@@ -63,6 +63,7 @@ public class TaskList {
      */
     public void add(Task task) {
         tasks.add(task);
+        assert tasks.contains(task) : "Task should be in list.";
     }
 
     /**
@@ -77,6 +78,7 @@ public class TaskList {
         }
         Task task = tasks.get(index);
         tasks.remove(index);
+        assert !tasks.contains(task) : "Task should not be in list.";
     }
 
     /**
@@ -90,6 +92,7 @@ public class TaskList {
             throw new LinusException("Cannot mark task. Please provide a valid index.");
         }
         tasks.get(index).mark();
+        assert tasks.get(index).isDone : "Task should be marked as done.";
     }
 
     /**
@@ -103,6 +106,7 @@ public class TaskList {
             throw new LinusException("Cannot unmark task. Please provide a valid index.");
         }
         tasks.get(index).unmark();
+        assert !tasks.get(index).isDone : "Task should be marked as not done.";
     }
 
     /**
