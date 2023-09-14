@@ -51,4 +51,21 @@ public class Deadline extends Task {
 
         return taskType + status + description + dates;
     }
+
+    /**
+     * Compares the Deadline object with a Task object, if Task object is
+     * an Deadline object, compare the by dates of both objects.
+     * @param that the object to be compared.
+     * @return Positive integer if the other Task object is a Deadline with
+     *     an earlier start date; Otherwise, a negative integer if the other
+     *     Task is a Event, ToDo object or an Deadline object with late by date.
+     */
+    @Override
+    public int compareTo(Task that) {
+        if (that instanceof Deadline) {
+            Deadline thatDeadline = (Deadline) that;
+            return this.byDate.compareTo(thatDeadline.byDate);
+        }
+        return this.toString().charAt(1) - that.toString().charAt(1);
+    }
 }
