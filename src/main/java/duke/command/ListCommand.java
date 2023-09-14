@@ -7,9 +7,6 @@ import duke.exception.DukeException;
 import duke.task.Task;
 
 public class ListCommand extends Command {
-    public boolean isExit() {
-        return false;
-    }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

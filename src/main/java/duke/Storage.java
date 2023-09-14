@@ -55,7 +55,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(this.filePath);
             for (String t: inputList) {
-                fw.write(t.strip()+"\n");
+                fw.write(t.strip() + "\n");
             }
             fw.close();
         } catch (IOException e) {

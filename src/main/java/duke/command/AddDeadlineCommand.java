@@ -15,9 +15,6 @@ public class AddDeadlineCommand extends Command {
         this.description = description;
         this.by = by;
     }
-    public boolean isExit() {
-        return false;
-    }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

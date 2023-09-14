@@ -24,7 +24,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<String[]> inputList) {
         tasks = new ArrayList<>();
-        for (String[] line : inputList) {
+        for (String[] line: inputList) {
             switch (line[0]) {
             case "T":
                 ToDo t = new ToDo(line[2]);
