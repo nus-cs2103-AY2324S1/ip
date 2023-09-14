@@ -19,15 +19,6 @@ public class Ui {
     }
 
     /**
-     * Reads and returns a line of input from the user.
-     *
-     * @return User's input string.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
      * Displays the welcome message when the program starts.
      */
     public static String showWelcome() {
@@ -77,15 +68,6 @@ public class Ui {
     }
 
     /**
-     * Displays a line of text.
-     *
-     * @param line The text to be displayed.
-     */
-    private void printLine(String line) {
-        System.out.println(line);
-    }
-
-    /**
      * Displays the list of tasks.
      *
      * @param tasks The list of tasks to be displayed.
@@ -128,13 +110,6 @@ public class Ui {
      */
     public String showSavingError(String errorMessage) {
         return "Error saving tasks: " + errorMessage + "\n";
-    }
-
-    /**
-     * Displays a message indicating an invalid task number.
-     */
-    public String showInvalidTaskNumber() {
-        return printMessage("Please provide a valid task number.");
     }
 
     /**
