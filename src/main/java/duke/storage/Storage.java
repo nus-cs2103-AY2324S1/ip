@@ -114,6 +114,7 @@ public class Storage {
         }
 
         ToDoTask newToDo = new ToDoTask(description, isDone);
+        assert taskList != null : "TaskList is null!";
         taskList.addTask(newToDo);
     }
 
@@ -135,6 +136,7 @@ public class Storage {
         }
 
         DeadlineTask newDeadline = new DeadlineTask(description, by, isDone);
+        assert taskList != null : "TaskList is null!";
         taskList.addTask(newDeadline);
     }
 
@@ -157,6 +159,7 @@ public class Storage {
         }
 
         EventTask newEvent = new EventTask(description, from, to, isDone);
+        assert taskList != null : "TaskList is null!";
         taskList.addTask(newEvent);
     }
 

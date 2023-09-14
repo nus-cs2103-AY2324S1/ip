@@ -74,6 +74,7 @@ public class Parser {
         if (wordsInInput.length > 1) {
             return handleInvalidInput();
         } else {
+            assert wordsInInput.length == 1 && wordsInInput[0].equals("bye") : "bye: invalid input";
             new Thread(() -> Duke.duke.exitApplication()).start();
             return ui.playGoodbye();
         }
@@ -84,6 +85,7 @@ public class Parser {
         if (wordsInInput.length > 1) {
             return handleInvalidInput();
         } else {
+            assert wordsInInput.length == 1 && wordsInInput[0].equals("list") : "list: invalid input";
             return ui.printTaskList(Duke.duke.getTaskList());
         }
     }
@@ -94,6 +96,7 @@ public class Parser {
             return handleInvalidInput();
         }
 
+        assert wordsInInput.length == 2 && wordsInInput[0].equals("mark") : "mark/unmark: invalid input";
         try {
             TaskList taskList = Duke.duke.getTaskList();
             int index = Integer.parseInt(wordsInInput[1]) - 1;
