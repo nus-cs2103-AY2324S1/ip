@@ -16,7 +16,7 @@
 
 **Sample Interface**
 
-![screenshot of the product](https://github.com/StevenLiudw/ip/blob/master/docs/Ui.png)
+URL for the screenshot: https://github.com/StevenLiudw/ip/blob/master/docs/Ui.png
 
 ## Features
 
