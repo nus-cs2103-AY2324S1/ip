@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.exception.KoraException;
 import duke.storage.Storage;
-import duke.task.TaskList;
+import duke.list.TaskList;
 
 /**
  * Command class executes and sets messages for different types of commands.

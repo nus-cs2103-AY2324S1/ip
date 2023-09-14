@@ -9,7 +9,7 @@ import duke.exception.KoraException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskList;
+import duke.list.TaskList;
 import duke.task.ToDo;
 
 

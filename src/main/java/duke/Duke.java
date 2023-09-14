@@ -4,7 +4,7 @@ import duke.command.Command;
 import duke.exception.KoraException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.TaskList;
+import duke.list.TaskList;
 import duke.ui.Ui;
 
 
