@@ -58,7 +58,6 @@ public class Parser {
      * @return A Command object corresponding to the user's input command.
      */
     public Command parse(String fullCommand) throws Exception {
-//        try {
             String[] actionType = fullCommand.split(" ");
 
             String[] typeAndDate = fullCommand.split("/");
