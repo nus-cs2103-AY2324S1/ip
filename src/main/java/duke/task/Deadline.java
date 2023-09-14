@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.exception.DukeDateOutOfRange;
+import duke.exception.DukeException;
 import duke.exception.DukeNoDateException;
 import duke.exception.DukeNoDescriptionException;
 import duke.processors.TimeProcessor;
@@ -8,7 +9,7 @@ import duke.processors.TimeProcessor;
 /**
  * Deadline contains a fixed date by which a task should be completed.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     /**
      * Constructor for deadline.
@@ -19,13 +20,13 @@ public class Deadline extends Task{
      * @throws DukeNoDateException if the date is missing
      * @throws DukeDateOutOfRange if the date is not a proper date
      */
-    public Deadline(String Description) throws DukeNoDescriptionException,
-            DukeNoDateException, DukeDateOutOfRange {
+    public Deadline(String Description) throws DukeException {
         super(Description);
-        if (Description.split("\\s+").length == 1) {
+        int index = Description.indexOf("/");
+        if (Description.split("\\s+").length == 1 || index == 9) {
             throw new DukeNoDescriptionException("Deadline");
         }
-        int index = Description.indexOf("/");
+
         if (index == -1) {
             throw new DukeNoDateException("Deadline");
         }

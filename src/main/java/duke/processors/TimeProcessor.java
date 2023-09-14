@@ -1,6 +1,7 @@
 package duke.processors;
 
 import duke.exception.DukeDateOutOfRange;
+import duke.exception.DukeException;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class TimeProcessor {
      * @throws DukeDateOutOfRange will be thrown if the date is wrong
      */
     public static String StringToDate(String info)
-            throws DukeDateOutOfRange {
+            throws DukeException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         String reg = "\\d{1,2}\\/\\d{1,2}\\/\\d{2,4}";
         LocalDate current = LocalDate.now();
@@ -45,13 +46,11 @@ public class TimeProcessor {
            } catch (IllegalArgumentException e) {
                if (info.isEmpty()) {
                    date = current;
-               } else {
-                   if (!Character.isDigit(info.charAt(0))) {
-                       System.out.println("Can only supports day of weeks "
-                               + "or date in format dd/MM/yyyy "
-                               + "Cannot support abbreviations "
-                               +"and months + day !!!" );
-                   }
+               } else if (!Character.isDigit(info.charAt(0))) {
+                   throw new DukeException("Can only supports day of weeks "
+                           + "or date in format dd/MM/yyyy "
+                           + "Cannot support abbreviations "
+                           +"and months + day !!!" );
                }
            }
         }

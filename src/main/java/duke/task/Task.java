@@ -5,7 +5,6 @@ import duke.processors.FileHandler;
 /**
  * Represents a task given from the user command.
  */
-
 public class Task {
     protected String Description;
     protected boolean isDone;
@@ -32,13 +31,13 @@ public class Task {
      * and output an acknowledged string.
      * @param fileHandler To update the status of the task in txt file.
      */
-    public void MarkAsDone(FileHandler fileHandler) {
+    public String MarkAsDone(FileHandler fileHandler) {
         String oldLine = this.toString();
         this.isDone = true;
         String newLine = this.toString();
         fileHandler.updateFile(oldLine, newLine);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("    " + this);
+        return "Nice! I've marked this task as done: \n"
+                + "    " + this;
     }
 
     /**
@@ -46,13 +45,13 @@ public class Task {
      * and output an acknowledged string.
      * @param fileHandler To update the status of the task in txt file.
      */
-    public void MarkAsUnDone(FileHandler fileHandler) {
+    public String MarkAsUnDone(FileHandler fileHandler) {
         String oldLine = this.toString();
         this.isDone = false;
         String newLine = this.toString();
         fileHandler.updateFile(oldLine, newLine);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("    " + this);
+        return "OK, I've marked this task as not done yet: \n"
+                + "    " + this;
     }
 
     /**

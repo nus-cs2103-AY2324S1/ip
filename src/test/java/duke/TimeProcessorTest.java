@@ -1,6 +1,6 @@
 package duke;
 
-import duke.exception.DukeDateOutOfRange;
+import duke.exception.DukeException;
 import duke.processors.TimeProcessor;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ public class TimeProcessorTest {
         String date;
         try {
             date = TimeProcessor.StringToDate("01234567");
-        } catch (DukeDateOutOfRange e) {
+        } catch (DukeException e) {
             assertEquals("Either the given date is not applicable" +
                     " or the time is not given in am/pm format.", e.getMessage());
         }
@@ -22,7 +22,7 @@ public class TimeProcessorTest {
         String date;
         try {
             date = TimeProcessor.StringToDate("1300pm");
-        } catch (DukeDateOutOfRange e) {
+        } catch (DukeException e) {
             return;
         }
         assertEquals("1300pm", date);

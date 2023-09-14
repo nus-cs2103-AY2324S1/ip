@@ -1,9 +1,5 @@
 package duke.processors;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,18 +7,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 /**
  * A class meant for creating, writing, and updating files.
  */
 public class FileHandler {
-    private final String PATH = "./data/duke.txt";
+    private final String FILE_PATH = "./data/duke.txt";
 
     /**
      * check if there is an existing file, if not create a file.
      */
     public void fileCreate() {
         try {
-            File file = new File(PATH);
+            File file = new File(FILE_PATH);
             if (file.createNewFile()) {
                 System.out.println("A new schedule is created!");
             } else {
@@ -39,7 +40,7 @@ public class FileHandler {
      */
     public void writeFile(String msg) {
         try {
-            FileWriter fileWriter = new FileWriter(PATH, true);
+            FileWriter fileWriter = new FileWriter(FILE_PATH, true);
             fileWriter.write(msg);
             fileWriter.write(System.lineSeparator());
             fileWriter.close();
@@ -55,7 +56,7 @@ public class FileHandler {
      */
     public void updateFile(String oldLine, String newLine) {
         try {
-            Scanner sc = new Scanner(new File(PATH));
+            Scanner sc = new Scanner(new File(FILE_PATH));
             StringBuilder stringBuilder = new StringBuilder();
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
@@ -68,7 +69,7 @@ public class FileHandler {
             if (!newLine.isEmpty()) {
                 content = content.replace(oldLine, newLine);
             }
-            FileWriter fileWriter = new FileWriter(PATH);
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
             fileWriter.write(content);
             fileWriter.close();
         } catch (IOException e) {
@@ -80,7 +81,7 @@ public class FileHandler {
      * Delete the task in txt file
      * @param toDelete the task to be deleted
      */
-    public void DeleteLine(String toDelete) {
+    public void deleteLine(String toDelete) {
         updateFile(toDelete, "");
     }
 
@@ -91,7 +92,7 @@ public class FileHandler {
      */
     public void readFile(ArrayList<Task> arrayList) {
         try {
-            File file = new File(PATH);
+            File file = new File(FILE_PATH);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
@@ -99,13 +100,13 @@ public class FileHandler {
                 boolean isDone = data.charAt(4) == 'X';
                 String content = data.substring(7);
                 switch (data.substring(1, 2)) {
-                case "T" :
+                case "T":
                     task = new ToDo(content, isDone);
                     break;
-                case "D" :
+                case "D":
                     task = new Deadline(content, isDone);
-                    break; 
-                case "E" :
+                    break;
+                case "E":
                     task = new Event(content, isDone);
                     break;
                 default:

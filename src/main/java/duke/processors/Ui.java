@@ -19,25 +19,24 @@ public class Ui {
     /**
      * Display welcome text.
      */
-    public void OnEnter() {
-        String logo = " ____        _        \n"
+    public String OnEnter() {
+        String output = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println(SEPARATION);
-        System.out.println("Hello! I am YOU");
-        System.out.println("What can I do for you?");
-        System.out.println(SEPARATION);
+        output = "Hello from\n" + output;
+
+        output += "Hello! I am YOU\n";
+        output += "What can I do for you?";
+        return output;
     }
 
     /**
      * Display goodbye text.
      */
-    public void OnExit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(SEPARATION);
+    public String onExit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -57,11 +56,11 @@ public class Ui {
      * print the number of tasks in the current ArrayList.
      * @param tasks the container of the tasks
      */
-    public void printNumOfTasks (TaskList tasks) {
-        System.out.println("Now you have "
+    public String NumOfTasks (TaskList tasks) {
+        return "Now you have "
                 + tasks.getCount()
                 + (tasks.getCount() <= 1 ? " task" : " tasks")
-                + " in the list.");
+                + " in the list.";
     }
 
     /**

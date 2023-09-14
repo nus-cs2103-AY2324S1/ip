@@ -1,10 +1,12 @@
 package duke.processors;
 
-import duke.exception.DukeDateOutOfRange;
-import duke.exception.DukeNoDateException;
-import duke.exception.DukeNoDescriptionException;
+import duke.exception.DukeException;
 import duke.exception.DukeUnknownInstruction;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 
 /**
  * Handle the command from the user
@@ -25,75 +27,67 @@ public class Parser {
         terminate = false;
     }
 
-    private void displayInfo(String msg) throws DukeUnknownInstruction,
-            DukeNoDescriptionException, DukeNoDateException,
-            DukeDateOutOfRange {
+    private String displayInfo(String msg) throws DukeException {
         Task task;
 
         if (msg.startsWith("todo")) {
             task = new ToDo(msg);
-            TASKS.addTasks(task);
         } else if (msg.startsWith("deadline")) {
             task = new Deadline(msg);
-            TASKS.addTasks(task);
         } else if (msg.startsWith("event")) {
             task = new Event(msg);
-            TASKS.addTasks(task);
         } else {
             throw new DukeUnknownInstruction();
         }
+
+        TASKS.addTask(task);
         DUKE.writeFile(task.toString());
-        UI.printNumOfTasks(TASKS);
+        return "Got it. I've added this task: \n " +
+                "   " + task.toString() + "\n" + UI.NumOfTasks(TASKS);
     }
 
     /**
      * display the description of the task if it is a valid task
      *
      * @param msg the msg to be interpreted
-     * @throws DukeUnknownInstruction     if the msg is not applicable
-     * @throws DukeNoDescriptionException if msg has no description
-     * @throws DukeNoDateException        if the msg given is not
-     *                                    date specific for some tasks
-     * @throws DukeDateOutOfRange         if the date in msg is out of range
+     * @throws DukeException if the msg is not given correctly
      */
-    public void readInputs(String msg) throws DukeUnknownInstruction,
-            DukeNoDescriptionException, DukeNoDateException,
-            DukeDateOutOfRange {
+    public String readInputs(String msg) throws DukeException {
+        String output = "";
         if (msg.equals("list")) {
-
-            TASKS.listTasks();
-
+            output = TASKS.listTasks();
         } else if (msg.equals("bye")) {
             this.terminate = true;
+            output = UI.onExit();
         } else {
             boolean isKeyword = msg.matches(".*\\040[0-9]");
             String[] part = msg.split("\\s+");
             if (isKeyword) {
                 int ind = Integer.parseInt(part[1]) - 1;
-                try {
-                    if (ind > TASKS.getCount() || ind < 0) {
-                        throw new IndexOutOfBoundsException();
-                    }
-                    switch (part[0]) {
-                    case "mark":
-                        TASKS.get(ind).MarkAsDone(DUKE);
-                        break;
-                    case "unmark":
-                        TASKS.get(ind).MarkAsUnDone(DUKE);
-                        break;
-                    case "delete":
-                        TASKS.deleteTask(ind, DUKE);
-                        break;
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("The given index is not in the available range");
+                if (ind >= TASKS.getCount() || ind < 0) {
+                    throw new DukeException("The given index is not in the available range");
                 }
+                switch (part[0]) {
+                case "mark":
+                    output = TASKS.get(ind).MarkAsDone(DUKE);
+                    break;
+                case "unmark":
+                    output = TASKS.get(ind).MarkAsUnDone(DUKE);
+                    break;
+                case "delete":
+                    output = TASKS.deleteTask(ind, DUKE);
+                    break;
+                default:
+                    break;
+                }
+
             } else if (msg.startsWith("find")) {
-                TASKS.findTasks(part[1]);
+                output = TASKS.findTasks(part[1]);
             } else {
-                displayInfo(msg);
+                return displayInfo(msg);
             }
         }
+        return output;
     }
 
     /**
