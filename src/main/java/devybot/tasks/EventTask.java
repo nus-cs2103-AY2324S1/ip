@@ -14,6 +14,21 @@ public class EventTask extends Task {
     }
 
     @Override
+    public boolean isContaining(String keyword) {
+        boolean superContains = super.isContaining(keyword);
+        String formattedFromDateTime = formatDateTime(from);
+        String formattedToDateTime = formatDateTime(to);
+
+        return superContains || formattedFromDateTime.contains(keyword.toLowerCase())
+                || formattedToDateTime.contains(keyword.toLowerCase());
+    }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " " +
+                dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")).toLowerCase();
+    }
+
+    @Override
     public String toFileString() {
         return "E | " + super.toFileString() + " | " + from.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
                 + " | " + to.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));

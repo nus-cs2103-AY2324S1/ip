@@ -25,6 +25,10 @@ public class Task {
         return description.contains(keyword);
     }
 
+    public boolean isContaining(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
     public String toFileString() {
         String status = isDone ? "1" : "0";
         return status + " | " + description;

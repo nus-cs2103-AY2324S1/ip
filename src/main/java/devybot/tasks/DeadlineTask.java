@@ -19,6 +19,29 @@ public class DeadlineTask extends Task {
     }
 
     @Override
+    public boolean isContaining(String keyword) {
+        boolean superContains = super.isContaining(keyword);
+
+        if (dateTime != null) {
+            String formattedDateTime = formatDateTime(dateTime);
+            return superContains || formattedDateTime.contains(keyword.toLowerCase());
+        } else {
+            String formattedDate = formatDate(date);
+            return superContains || formattedDate.contains(keyword.toLowerCase());
+        }
+    }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + " " +
+                dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")).toLowerCase();
+    }
+
+    private String formatDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("d/M/yyyy")) + " " +
+                date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")).toLowerCase();
+    }
+
+    @Override
     public String toFileString() {
         if (dateTime != null) {
             return "D | " + super.toFileString() + " | "

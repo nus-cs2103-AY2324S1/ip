@@ -142,7 +142,6 @@ public class TaskList {
     }
 
     public void markTaskAsDone(int index) throws TaskIndexOutOfBoundsException {
-
         if (index >= taskList.size() || index < 0) {
             throw new TaskIndexOutOfBoundsException(index);
         }
@@ -156,7 +155,6 @@ public class TaskList {
     }
 
     public void markTaskAsUndone(int index) throws TaskIndexOutOfBoundsException {
-
         if (index >= taskList.size() || index < 0) {
             throw new TaskIndexOutOfBoundsException(index);
         }
@@ -172,7 +170,7 @@ public class TaskList {
     public void findTasks(String userInput) throws EmptyDescriptionException {
         String description = userInput.substring(4).trim();
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException("todo");
+            throw new EmptyDescriptionException("find");
         }
 
         String outpString = "Here are the matching tasks in your list:\n";
@@ -180,10 +178,28 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
             if (currentTask.isMatching(description)) {
-                outpString += currentTask.toString();
+                outpString += currentTask.toString() + "\n";
             }
         }
         Ui.showMessage(outpString);
 
+    }
+
+    public void searchTasks(String userInput) throws EmptyDescriptionException {
+        String description = userInput.substring(6).trim();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("search");
+        }
+
+        String outpString = "Here are the matching tasks in your list:\n";
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currentTask = taskList.get(i);
+            if (currentTask.isContaining(description)) {
+                outpString += currentTask.toString() + "\n";
+            }
+        }
+
+        Ui.showMessage(outpString);
     }
 }
