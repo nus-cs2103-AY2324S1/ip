@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exception.DukeException;
+import duke.task.Task;
+
 /**
  * Deals with loading tasks from the file and saving tasks in the file
  */
@@ -44,11 +47,11 @@ public class Storage {
             Scanner sc = new Scanner(this.file);
             while (sc.hasNext()) {
                 String line = sc.nextLine();
-                String[] parts = line.split(" \\| ");
+                String[] parts = line.split("\\|", -1);
                 tasks.add(Parser.parseTask(parts));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error while loading tasks from storage");
+            throw new DukeException("Error while loading tasks from storage");
         }
         return tasks;
     }

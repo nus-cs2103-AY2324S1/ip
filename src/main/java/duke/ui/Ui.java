@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 // deals with interactions with the user
 
@@ -7,6 +7,7 @@ package duke;
  */
 public class Ui {
     private String response = "";
+    private boolean isExit = false;
 
     /**
      * Creates the Ui object.
@@ -43,5 +44,17 @@ public class Ui {
         String response = this.response;
         this.response = "";
         return response;
+    }
+
+    /**
+     * Displays the good bye message and update isExit boolean. Later on the
+     */
+    public void goodBye() {
+        this.isExit = true;
+        this.response += Messages.GOOD_BYE;
+    }
+
+    public boolean isExit() {
+        return this.isExit;
     }
 }

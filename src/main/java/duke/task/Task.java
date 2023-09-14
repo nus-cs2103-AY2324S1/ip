@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDate;
 
@@ -10,11 +10,13 @@ public abstract class Task {
 
     protected final String task;
     protected boolean isDone;
+    protected String location;
 
-    protected Task(String task) {
+    protected Task(String task, String location) {
         assert task != null : "task input cannot be empty";
         this.task = task;
         this.isDone = false;
+        this.location = location;
     }
 
     /**
@@ -46,17 +48,21 @@ public abstract class Task {
      * @return task string in correct format.
      */
     public String toSaveFormat() {
-        return (this.isDone ? 1 : 0) + " | " + this.task;
+        return (this.isDone ? 1 : 0) + "|" + this.task + "|" + this.location;
     }
 
     public boolean containsDescription(String description) {
         return this.task.contains(description);
     }
 
+    public boolean containsLocation(String location) {
+        return this.location.contains(location);
+    }
+
     @Override
     public String toString() {
         String mark = isDone ? "X" : " ";
-        return String.format("[%s] %s", mark, this.task);
+        return String.format("[%s] %s [at: %s]", mark, this.task, this.location);
     }
 
     @Override
