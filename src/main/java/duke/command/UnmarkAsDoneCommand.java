@@ -11,10 +11,18 @@ import duke.ui.Ui;
 public class UnmarkAsDoneCommand extends Command {
     private final int index; // The index of the task to be marked as not done.
 
+    /**
+     * Constructs a UnmarkAsDoneCommand with the given index.
+     *
+     * @param index The index of the task to be marked as not done.
+     */
     public UnmarkAsDoneCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.unmarkAsDone(this.index);

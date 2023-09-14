@@ -12,10 +12,18 @@ import duke.ui.Ui;
 public class FindCommand extends Command {
     private final String keyword; // The keyword to search for.
 
+    /**
+     * Constructs a FindCommand with the given keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         TaskList filteredTasks = new TaskList();

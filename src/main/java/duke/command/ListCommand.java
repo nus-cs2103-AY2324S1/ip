@@ -9,6 +9,9 @@ import duke.ui.Ui;
  * Represents a command issued by the user to list all tasks in the list.
  */
 public class ListCommand extends Command {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         return ui.showTaskList(tasks);

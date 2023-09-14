@@ -38,11 +38,17 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(to);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + Task.getDate(this.from) + " to: " + Task.getDate(this.to) + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toFileString() {
         return "E | " + super.toFileString() + " | " + this.from + " | " + this.to;

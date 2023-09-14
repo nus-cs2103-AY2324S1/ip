@@ -12,10 +12,18 @@ import duke.ui.Ui;
 public class AddCommand extends Command {
     private final Task task; // The task to be added.
 
+    /**
+     * Constructs an AddCommand with the given task.
+     *
+     * @param task The task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.add(this.task);

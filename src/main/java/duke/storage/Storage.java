@@ -17,6 +17,11 @@ import duke.exception.DukeException;
 public class Storage {
     private final String filePath; // The path of the file to store the task list.
 
+    /**
+     * Constructs a storage with the given file path.
+     *
+     * @param filePath The path of the file to store the task list.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }

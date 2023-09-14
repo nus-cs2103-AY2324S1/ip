@@ -34,11 +34,17 @@ public class Deadline extends Task {
         this.by = LocalDateTime.parse(by);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + Task.getDate(this.by) + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toFileString() {
         return "D | " + super.toFileString() + " | " + this.by;

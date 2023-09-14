@@ -12,10 +12,18 @@ import duke.ui.Ui;
 public class DeleteCommand extends Command {
     private final int index; // The index of the task to be deleted.
 
+    /**
+     * Constructs a DeleteCommand with the given index.
+     *
+     * @param index The index of the task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = tasks.get(this.index);

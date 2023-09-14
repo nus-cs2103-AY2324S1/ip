@@ -13,9 +13,12 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
+    // The instance of Duke that will be used throughout the program
     private final Duke duke = new Duke("tasks.txt");
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start(Stage stage) {
         try {
