@@ -97,6 +97,8 @@ public class Storage {
         default:
             newTask = defaultTask;
         }
+
+
         // newTask should always have a correct taskType
         assert !newTask.equals(defaultTask) : "task allocation error";
 
