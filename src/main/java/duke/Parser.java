@@ -112,6 +112,13 @@ public class Parser {
                 String input = command.substring(5).trim();
                 return new FindCommand(input);
             }
+        } else if (command.contains("help")){
+            if (command.trim().length() == 4){
+                return new HelpCommand(0);
+            } else {
+                int helpNumber = Integer.parseInt(command.substring(5));
+                return new HelpCommand(helpNumber);
+            }
         }
         else {
             throw new DukeException(ErrorMessages.INCOMPREHENSIBLE_TASK.getMessage());
