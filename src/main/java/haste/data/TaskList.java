@@ -34,8 +34,10 @@ public class TaskList {
      * @param id Index of the Task in the ArrayList.
      */
     public void deleteTask(int id) {
+
         // id must be more than zero in array
         assert id >= 0 : "id should not be negative";
+
         taskList.remove(id);
         numOfTasks--;
     }
