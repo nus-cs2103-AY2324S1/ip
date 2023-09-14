@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import exceptions.*;
+import exceptions.DateFormatWrongException;
+import exceptions.HachiException;
+import exceptions.InvalidCommandException;
+import exceptions.NumberOutOfBoundsException;
 
 /**
  * Provides all the parsing methods for the other classes to parse user commands.
@@ -74,7 +77,7 @@ public class Parser {
      * Converts a list of tasks in string format to a TaskList object.
      * @param ls The list of tasks in string format
      * @return The corresponding TaskList object
-     * @throws HachiException
+     * @throws HachiException If the text is unable to be converted to task
      */
     public static TaskList parseTaskList(List<String> ls) throws HachiException {
         ArrayList<Task> result = new ArrayList<>();
@@ -96,7 +99,7 @@ public class Parser {
     public static int parseTaskNumber(String num, int numOfTasks)
             throws NumberFormatException, NumberOutOfBoundsException {
         int number = Integer.parseInt(num);
-        if (number > numOfTasks) {
+        if (number > numOfTasks || number < 0) {
             throw new NumberOutOfBoundsException(numOfTasks);
         }
         return number - 1;
@@ -104,16 +107,19 @@ public class Parser {
 
     private static Task convertTextToTask(String txt) throws HachiException {
         String[] s = txt.split(" \\| "); // need to escape | character as it means something in regex
-        Task temp = null;
+        Task temp;
+
         // set Task to the respective task type
         try {
-            if (s[0].equals("T")) {
+            switch (s[0]) {
+            case "T":
                 if (s.length > 3) {
                     throw new HachiException(
                             "Todo stored in the wrong format! Please check the file at 'data/tasks.txt'");
                 }
                 temp = new Todo(s[2]);
-            } else if (s[0].equals("D")) {
+                break;
+            case "D":
                 if (s.length > 4) {
                     throw new HachiException(
                             "Deadline stored in the wrong format! Please check the file at 'data/tasks.txt'");
@@ -123,7 +129,8 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     throw new DateFormatWrongException(s[3]);
                 }
-            } else if (s[0].equals("E")) {
+                break;
+            case "E":
                 if (s.length > 5) {
                     throw new HachiException(
                             "Event stored in the wrong format! Please check the file at 'data/tasks.txt'");
@@ -133,11 +140,16 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     throw new DateFormatWrongException(s[3] + ", " + s[4]);
                 }
+                break;
+            default:
+                throw new HachiException("Task code not recognised! May be in the wrong format."
+                        + "Please check the file at 'data/tasks.txt'");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new HachiException("Task stored in the wrong format! Please check the file at 'data/tasks.txt'");
         }
 
+        assert s[1].equals("1") || s[1].equals("0") : "Second number should only be 1 or 0";
         // mark task based on '0' or '1' in the file
         if (s[1].equals("1")) {
             temp.mark();

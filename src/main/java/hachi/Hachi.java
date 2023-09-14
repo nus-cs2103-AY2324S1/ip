@@ -1,19 +1,6 @@
 package hachi;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import exceptions.DateFormatWrongException;
-import exceptions.EmptyDeadlineException;
-import exceptions.EmptyTaskException;
-import exceptions.EventDateException;
 import exceptions.HachiException;
-import exceptions.InvalidArgumentException;
-import exceptions.InvalidCommandException;
-import exceptions.NoDeadlineException;
-import javafx.stage.Stage;
 
 /**
  * A task list app that allows the user to add Todos, Deadlines, and Events.
@@ -24,9 +11,9 @@ public class Hachi {
 
     private static final String DEFAULT_TASK_PATH = "./data/tasks.txt";
 
-    private Storage storage;
+    private final Storage storage;
 
-    private String filePath;
+    private final String filePath;
 
     /**
      * Overloaded constructor for the Hachi class.
@@ -49,7 +36,7 @@ public class Hachi {
 
     /**
      * Returns the appropriate response for the user input.
-     * @throws HachiException
+     * @throws HachiException The appropriate exception when one does appear
      */
     public String getInputResponse(String input) throws HachiException {
         TaskList taskList = storage.getTaskList();
