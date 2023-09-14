@@ -9,12 +9,14 @@ import duke.task.Task;
  */
 public class TaskList {
     private ArrayList<Task> list;
+    private TaskComparator taskComparator;
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
         this.list = new ArrayList<>();
+        this.taskComparator = new TaskComparator();
     }
 
     /**
@@ -54,6 +56,7 @@ public class TaskList {
         assert task != null : "Task cannot be null";
 
         this.list.add(task);
+        this.list.sort(taskComparator);
     }
 
     /**
@@ -67,8 +70,10 @@ public class TaskList {
         if (index < 0 || index >= list.size()) {
             return null;
         }
+        Task taskRemoved = this.list.remove(index);
+        //this.list.sort(taskComparator);
 
-        return this.list.remove(index);
+        return taskRemoved;
     }
 
     /**

@@ -1,6 +1,6 @@
 package duke.util;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import duke.command.AddCommand;
 import duke.command.Command;
@@ -72,7 +72,7 @@ public class Parser {
         String description = input.substring(8, byIndex - 1);
         String by = input.substring(byIndex + 2);
 
-        LocalDate byDate = LocalDate.parse(by);
+        LocalDateTime byDate = LocalDateTime.parse(by);
         Deadline deadline = new Deadline(description, byDate);
 
         if (input.charAt(4) == '1') {
@@ -98,8 +98,8 @@ public class Parser {
         String from = input.substring(fromIndex + 2, toIndex - 1);
         String to = input.substring(toIndex + 2);
 
-        LocalDate fromDate = LocalDate.parse(from);
-        LocalDate toDate = LocalDate.parse(to);
+        LocalDateTime fromDate = LocalDateTime.parse(from);
+        LocalDateTime toDate = LocalDateTime.parse(to);
 
         Event event = new Event(description, fromDate, toDate);
 
@@ -145,9 +145,9 @@ public class Parser {
         }
 
         String description = input.substring(9, byIndex - 1);
-        String by = input.substring(byIndex + 4);
+        String by = input.substring(byIndex + 5);
 
-        LocalDate byDate = LocalDate.parse(by);
+        LocalDateTime byDate = LocalDateTime.parse(by);
 
         Deadline deadline = new Deadline(description, byDate);
         return deadline;
@@ -173,11 +173,11 @@ public class Parser {
         }
 
         String description = input.substring(6, fromIndex - 1);
-        String from = input.substring(fromIndex + 6, toIndex - 1);
-        String to = input.substring(toIndex + 4);
+        String from = input.substring(fromIndex + 7, toIndex - 1);
+        String to = input.substring(toIndex + 5);
 
-        LocalDate fromDate = LocalDate.parse(from);
-        LocalDate toDate = LocalDate.parse(to);
+        LocalDateTime fromDate = LocalDateTime.parse(from);
+        LocalDateTime toDate = LocalDateTime.parse(to);
 
         Event event = new Event(description, fromDate, toDate);
         return event;
