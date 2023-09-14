@@ -1,5 +1,4 @@
 package seedu.duke;
-import seedu.duke.Task;
 import java.util.ArrayList;
 
 /**
@@ -31,12 +30,14 @@ class TaskList {
     }
 
     public void remove(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.remove(index);
-        } else {
-            System.out.println("Invalid index.");
-        }
+        tasks.remove(index);
     }
+
+    public void clear() {
+        tasks.clear();
+    }
+
+
 
     public Task get(int index) {
         if (index >= 0 && index < tasks.size()) {
