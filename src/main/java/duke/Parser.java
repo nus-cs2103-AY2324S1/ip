@@ -85,6 +85,8 @@ public class Parser {
         assert (command.length() > 0) : "command should not be empty";
         if (command.equals("bye")) {
             return new ExitCommand();
+        } else if (command.equals("help")) {
+            return new HelpCommand();
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.startsWith("mark") && command.length() > 5) {
