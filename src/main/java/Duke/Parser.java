@@ -28,62 +28,55 @@ public class Parser {
      */
     public static String input(String input, TaskList tasks, Ui iu) {
         String[] listOfWords = input.split(" ");
-        String prefix = listOfWords[0];
+        String firstWord = listOfWords[0];
         try {
             if (input.equals("bye")) {
                 Storage.saveTasks(tasks);
-                return Ui.printBye();
+                return Ui.getGoodbyeMessage();
             } else if (input.equals("list")) {
-                return iu.printList(tasks);
-            } else if (prefix.equals("find")) {
-                return iu.printMatchingTasks(tasks, input.split(" ", 2)[1]);
-            } else if (prefix.equals("mark")) {
+                return iu.getTaskListMessage(tasks);
+            } else if (firstWord.equals("find")) {
+                return iu.getMatchingTasksMessage(tasks, input.split(" ", 2)[1]);
+            } else if (firstWord.equals("mark")) {
                 int index = Integer.parseInt(listOfWords[1]);
-
-                if (index < 1 || index > tasks.numOfItems()) {
+                if (index < 1 || index > tasks.getNumOfItems()) {
                     throw new InvalidInput("False Index");
                 }
-
-                tasks.checkItem(index);
-                return iu.printMarked(tasks, index);
-            } else if (prefix.equals("unmark")) {
+                tasks.markItemAsDone(index);
+                return iu.getMarkedTaskMessage(tasks, index);
+            } else if (firstWord.equals("unmark")) {
                 int index = Integer.parseInt(listOfWords[1]);
-
-                if (index < 1 || index > tasks.numOfItems()) {
+                if (index < 1 || index > tasks.getNumOfItems()) {
                     throw new InvalidInput("False Index");
                 }
-
-                tasks.notDoneItem(index);
-                return iu.printUnmarked(tasks, index);
-            } else if (prefix.equals("delete")) {
+                tasks.markItemAsUndone(index);
+                return iu.getUnmarkedTaskMessage(tasks, index);
+            } else if (firstWord.equals("delete")) {
                 int index = Integer.parseInt(listOfWords[1]);
-
-
-                if (index < 1 || index > tasks.numOfItems()) {
+                if (index < 1 || index > tasks.getNumOfItems()) {
                     throw new InvalidInput("False Index");
                 }
-
-                String toDelete = iu.printDelete(tasks, index);
-                tasks.deleteIndex(index);
-                return toDelete;
+                String taskToDelete = iu.getDeleteTaskMessage(tasks, index);
+                tasks.deleteItem(index);
+                return taskToDelete;
             } else {
                 boolean exceptionOccured = false;
                 try {
-                    tasks.enter(input);
+                    tasks.addTask(input);
                 } catch (IncompleteInput e) {
                     exceptionOccured = true;
-                    return iu.printTaskWithoutDescription();
+                    return iu.getTaskWithoutDescriptionMessage();
                 } catch (InvalidInput e) {
                     exceptionOccured = true;
-                    return iu.printNonsense();
+                    return iu.getUnreadableInputMessage();
                 } finally {
                     if (!exceptionOccured) {
-                        return iu.printAddedToList(tasks);
+                        return iu.getAddedToListMessage(tasks);
                     }
                 }
             }
         } catch (InvalidInput e) {
-            return iu.printWrongIndex();
+            return iu.getWrongIndexMessage();
         }
         return "Never happens";
     }
@@ -96,11 +89,11 @@ public class Parser {
      * @throws DateTimeParseException If the input string is not in the expected format.
      */
     public String formatTime(String time) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(time, inputFormatter);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
-        String formattedStringOutput = dateTime.format(outputFormatter);
-        return formattedStringOutput;
+        String formattedOutput = dateTime.format(outputFormatter);
+        return formattedOutput;
     }
 
     /**
@@ -109,11 +102,11 @@ public class Parser {
      * @param time The input date and time string.
      * @return The formatted date and time string or the original input if parsing fails.
      */
-    public static String dateToString(String time) {
+    public static String convertTimeToString(String time) {
         try {
-            Parser dud = new Parser();
-            String formattedStringOutput = dud.formatTime(time);
-            return formattedStringOutput;
+            Parser parser = new Parser();
+            String formattedOutput = parser.formatTime(time);
+            return formattedOutput;
         } catch (DateTimeParseException e) {
             return time;
         }
