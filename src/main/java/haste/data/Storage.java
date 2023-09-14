@@ -83,7 +83,7 @@ public class Storage {
         boolean isComplete = Boolean.parseBoolean(words[1]);
         String description = words[2];
         Task newTask = null; // task will never be null as tasks are correctly saved
-        Task defaultTask = new ToDo("error", isComplete);
+
         switch (command.toLowerCase()) {
         case "t":
             newTask = new ToDo(description, isComplete);
@@ -95,10 +95,8 @@ public class Storage {
             newTask = new Event(description, Parser.parseTime(words[3]), Parser.parseTime(words[4]), isComplete);
             break;
         default:
-            newTask = defaultTask;
+            newTask = new ToDo("error", isComplete);
         }
-        // newTask should always have a correct taskType
-        assert !newTask.equals(defaultTask) : "task allocation error";
 
         return newTask;
     }
