@@ -22,7 +22,7 @@ public class Storage {
     private static final String DATA_DIRECTORY_PATH = "./data";
     private static final String DATA_FILE_PATH = "./data/tasks.txt";
 
-    private static final ArrayList<Task> tasks = TaskList.getTaskList();
+    private static final ArrayList<Task> TASKS = TaskList.getTaskList();
 
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -100,20 +100,20 @@ public class Storage {
 
         switch (taskType) {
         case "T":
-            tasks.add(new Todo(description, isDone));
+            TASKS.add(new Todo(description, isDone));
             TaskList.incrementNumOfTasks();
             break;
         case "D":
             String ddl = words[3];
 
-            tasks.add(new Deadline(description, LocalDate.parse(ddl), isDone));
+            TASKS.add(new Deadline(description, LocalDate.parse(ddl), isDone));
             TaskList.incrementNumOfTasks();
             break;
         case "E":
             String fromTime = words[4];
             String toTime = words[5];
 
-            tasks.add(new Event(description, LocalDate.parse(fromTime), LocalDate.parse(toTime), isDone));
+            TASKS.add(new Event(description, LocalDate.parse(fromTime), LocalDate.parse(toTime), isDone));
             TaskList.incrementNumOfTasks();
             break;
         default:
@@ -128,7 +128,7 @@ public class Storage {
      */
     public static void updateData() throws IOException {
         String data = "";
-        for (Task t : tasks) {
+        for (Task t : TASKS) {
             data += t.getDataRepresentation() + "\n";
         }
         writeToFile(DATA_FILE_PATH, data);

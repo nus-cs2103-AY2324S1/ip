@@ -2,9 +2,9 @@ package bellcurvegod;
 
 import java.io.IOException;
 
+import bellcurvegod.exception.BellCurveGodException;
 import bellcurvegod.parser.Parser;
 import bellcurvegod.storage.Storage;
-import bellcurvegod.ui.Ui;
 
 /**
  * Main class.
@@ -12,14 +12,27 @@ import bellcurvegod.ui.Ui;
 public class BellCurveGod {
     private static final String DATA_FILE_PATH = "./data/tasks.txt";
 
-    public static void main(String[] args) {
+    private String filePath;
+
+    public BellCurveGod(String path) {
+        filePath = path;
+    }
+
+    public BellCurveGod() {
+        this(DATA_FILE_PATH);
+    }
+
+    public String getResponse(String input) {
         try {
-            Storage.loadTasks(DATA_FILE_PATH);
+            Storage.loadTasks(filePath);
         } catch (IOException e) {
-            System.out.println(e);
+            return e.getMessage();
         }
 
-        Ui.greet();
-        Parser.parse();
+        try {
+            return Parser.parse(input);
+        } catch (BellCurveGodException e) {
+            return e.getMessage();
+        }
     }
 }

@@ -47,11 +47,8 @@ public class Deadline extends Task {
      */
     public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException {
         if (input.split(" ").length == 1) {
-            throw new EmptyDeadlineDescriptionException(
-                Ui.getLine() + "\n"
-                    + "You did not provide any description to this Deadline.\n"
-                    + "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n"
-                    + Ui.getLine());
+            throw new EmptyDeadlineDescriptionException("You did not provide any description to this Deadline.\n"
+                + "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n");
         }
 
         String front = input.split("/")[0];

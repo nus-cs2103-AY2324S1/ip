@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import bellcurvegod.exception.EmptyDescriptionException;
 import bellcurvegod.exception.InvalidCommandException;
+import bellcurvegod.gui.Gui;
 import bellcurvegod.task.Deadline;
 import bellcurvegod.task.Event;
 import bellcurvegod.task.Task;
 import bellcurvegod.task.Todo;
-import bellcurvegod.ui.Ui;
 
 /**
  * Encapsulates the taskList.
@@ -32,16 +32,13 @@ public class TaskList {
      * @throws InvalidCommandException   If the input does not start with any of the Task type.
      * @throws EmptyDescriptionException If description is missing.
      */
-    public static void addTask(String input) throws InvalidCommandException, EmptyDescriptionException {
+    public static String addTask(String input) throws InvalidCommandException, EmptyDescriptionException {
         String cmd = input.split(" ")[0];
         Task newTask = null;
 
         if (!(cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event"))) {
-            throw new InvalidCommandException(
-                Ui.getLine() + "\n"
-                    + "You have entered an invalid bellcurvegod.command word!\n"
-                    + "To add a new Task, use \"todo\", \" deadline\", or \"event\".\n"
-                    + Ui.getLine());
+            throw new InvalidCommandException("You have entered an invalid command word!\n"
+                + "To add a new Task, use \"todo\", \" deadline\", or \"event\".\n");
         }
 
         if (cmd.equals("deadline")) {
@@ -55,8 +52,10 @@ public class TaskList {
         if (!newTask.getDescription().equals("__Faulty")) {
             tasks.add(newTask);
             numOfTasks++;
-            Ui.showAddTaskMessage(newTask, numOfTasks);
+            return Gui.getAddTaskMessage(newTask, numOfTasks);
         }
+
+        return "Failed to add this task. Please check your input.";
     }
 
     /**
@@ -64,9 +63,9 @@ public class TaskList {
      *
      * @param task Task to be deleted.
      */
-    public static void delete(Task task) {
+    public static String delete(Task task) {
         tasks.remove(task);
         numOfTasks--;
-        Ui.showDeleteTaskMessage(task, numOfTasks);
+        return Gui.getDeleteTaskMessage(task, numOfTasks);
     }
 }

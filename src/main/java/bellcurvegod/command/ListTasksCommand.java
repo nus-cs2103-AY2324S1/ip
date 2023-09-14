@@ -2,9 +2,9 @@ package bellcurvegod.command;
 
 import java.util.ArrayList;
 
+import bellcurvegod.gui.Gui;
 import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
-import bellcurvegod.ui.Ui;
 
 /**
  * Encapsulates the listTaskCommand.
@@ -13,8 +13,8 @@ public class ListTasksCommand implements Runnable {
     /**
      * Lists all tasks stored.
      */
-    public static void run() {
+    public static String run() {
         ArrayList<Task> tasks = TaskList.getTaskList();
-        Ui.showListMessage(tasks);
+        return Gui.getListMessage(tasks);
     }
 }

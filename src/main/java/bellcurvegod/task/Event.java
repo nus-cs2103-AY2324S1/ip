@@ -52,11 +52,8 @@ public class Event extends Task {
      */
     public static Event generateEventFromInput(String input) throws EmptyEventDescriptionException {
         if (input.split(" ").length == 1) {
-            throw new EmptyEventDescriptionException(
-                Ui.getLine() + "\n"
-                    + "You did not provide any description to this Event.\n"
-                    + "To add an Event, enter \"event <description> /from <startTime> /to <endTime>\".\n"
-                    + Ui.getLine());
+            throw new EmptyEventDescriptionException("You did not provide any description to this Event.\n"
+                + "To add an Event, enter \"event <description> /from <startTime> /to <endTime>\".\n");
         }
 
         String[] wordsSplitBySlash = input.split("/");

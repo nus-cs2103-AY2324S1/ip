@@ -4,7 +4,7 @@ import static bellcurvegod.storage.Storage.updateData;
 
 import java.io.IOException;
 
-import bellcurvegod.ui.Ui;
+import bellcurvegod.gui.Gui;
 
 /**
  * Encapsulates the exitCommand.
@@ -13,13 +13,13 @@ public class ExitCommand implements Runnable {
     /**
      * Says goodbye to the user and exits.
      */
-    public static void run() {
+    public static String run() {
         try {
             updateData();
         } catch (IOException e) {
-            System.out.println(e);
+            return e.getMessage();
         }
 
-        Ui.showExitMessage();
+        return Gui.getExitMessage();
     }
 }

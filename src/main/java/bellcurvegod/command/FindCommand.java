@@ -2,9 +2,9 @@ package bellcurvegod.command;
 
 import java.util.ArrayList;
 
+import bellcurvegod.gui.Gui;
 import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
-import bellcurvegod.ui.Ui;
 
 /**
  * Encapsulates the findCommand.
@@ -14,7 +14,7 @@ public class FindCommand implements Runnable {
      * Lists all tasks in the taskList that
      * contains the keyword that the user is searching for.
      */
-    public static void run(String keyword) {
+    public static String run(String keyword) {
         ArrayList<Task> tasks = TaskList.getTaskList();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
@@ -24,6 +24,6 @@ public class FindCommand implements Runnable {
             }
         }
 
-        Ui.showFindMessage(matchingTasks);
+        return Gui.getFindMessage(matchingTasks);
     }
 }

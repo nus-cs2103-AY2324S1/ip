@@ -1,7 +1,7 @@
 package bellcurvegod.command;
 
+import bellcurvegod.gui.Gui;
 import bellcurvegod.task.Task;
-import bellcurvegod.ui.Ui;
 
 /**
  * Encapsulates the markCommand.
@@ -12,8 +12,8 @@ public class MarkCommand implements Runnable {
      *
      * @param task task to be marked as done.
      */
-    public static void run(Task task) {
+    public static String run(Task task) {
         task.markAsDone();
-        Ui.showMarkMessage(task);
+        return Gui.getMarkMessage(task);
     }
 }
