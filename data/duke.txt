@@ -1,3 +1,1 @@
-D|Y|homeowrk |2002-07-22
-T|Y|homeowork
-E|Y|camp |2000-12-09|2000-12-10
+D|N|project |2023-08-01

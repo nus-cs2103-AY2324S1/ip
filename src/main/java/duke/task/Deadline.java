@@ -35,6 +35,7 @@ public class Deadline extends Task {
      * @param date String containing date in YYYY-MM-DD format to be parsed.
      */
     public void formatDate(String date) {
+        assert (date instanceof String) : "Date not a string";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.by = LocalDate.parse(date, formatter);
     }
