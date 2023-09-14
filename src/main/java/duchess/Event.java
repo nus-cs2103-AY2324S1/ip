@@ -40,8 +40,8 @@ class Event extends Task {
      * @return the String representation of this Event.
      */
     @Override
-    public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(), this.startTime, this.endTime);
+    public String mainString() {
+        return String.format("[E] %s (from: %s to: %s)", super.mainString(), this.startTime, this.endTime);
     }
 
     /**

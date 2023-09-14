@@ -123,6 +123,29 @@ public class Duchess {
         });
     }
 
+    /**
+     * Tags a task.
+     *
+     * @param index - the index of the task to be tagged.
+     * @param tags  - an array of Strings that represent all the tags to be added to the task.
+     */
+    private static void tagTask(int index, String[] tags) {
+        // Within bounds
+        if (index < 0 || index >= Duchess.storedTasks.size()) {
+            Ui.duchessPrint("(´；ω；`) Sorry, no such task exists... ;-;");
+            return;
+        }
+
+        Task task = Duchess.storedTasks.getTask(index);
+
+        for (String tag : tags) {
+            task.addTag(tag);
+        }
+
+        Ui.duchessPrint("Tags have been added!! (＾▽＾)");
+        Ui.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(task) + 1, task.toString()));
+    }
+
     public static void main(String[] args) {
         Ui.printGreeting();
 
@@ -238,6 +261,20 @@ public class Duchess {
                 try {
                     Event event = Parser.parseEventCommand(userInput);
                     Duchess.addTask(event);
+                } catch (DuchessException e) {
+                    Ui.duchessPrint(e.getMessage());
+                    Ui.duchessPrint("(／°▽°)／Try something like this!!");
+                    Ui.duchessPrint("event [name] /from [time] /to [time]");
+                }
+                continue;
+            }
+
+            // Check if this command is an Tag command.
+            if (Parser.isTagCommand(userInput)) {
+                try {
+                    int tagIndex = Parser.parseTagCommandIndex(userInput);
+                    String[] tags = Parser.parseTagCommandTags(userInput);
+                    Duchess.tagTask(tagIndex, tags);
                 } catch (DuchessException e) {
                     Ui.duchessPrint(e.getMessage());
                     Ui.duchessPrint("(／°▽°)／Try something like this!!");
