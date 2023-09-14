@@ -54,6 +54,7 @@ public class Storage {
     public void writeData(String[] inputList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(this.filePath);
+            assert (fw != null) : "Filewriter should not be null";
             for (String t: inputList) {
                 fw.write(t.strip()+"\n");
             }
