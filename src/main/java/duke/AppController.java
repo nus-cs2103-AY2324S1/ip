@@ -1,5 +1,8 @@
 package duke;
 
+import java.util.Scanner;
+
+import duke.command.Command;
 import duke.task.TaskStorage;
 
 /**
@@ -7,17 +10,23 @@ import duke.task.TaskStorage;
  */
 class AppController {
     private boolean isExit = false;
-    private final InputHandler inputHandler;
+    private final Scanner scanner = new Scanner(System.in);
+    private final TaskStorage taskStorage;
+    private final CliOutputUi outputUI;
 
     public AppController() {
-        CliOutputUi outputUI = new CliOutputUi();
-        this.inputHandler = new InputHandler(outputUI, new TaskStorage());
+        this.outputUI = new CliOutputUi();
+        this.taskStorage = new TaskStorage();
     }
 
     public void run() {
         while (!isExit) {
-            inputHandler.handleInput();
-            isExit = inputHandler.isExit();
+            String input = scanner.nextLine();
+            Command command = CommandParser.parse(input);
+            if (command.isExit()) {
+                isExit = true;
+            }
+            outputUI.echo(command.execute(taskStorage));
         }
     }
 }
