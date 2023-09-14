@@ -9,7 +9,7 @@ public class ShowCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        list.printList();
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return list.printList();
     }
 }

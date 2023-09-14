@@ -13,7 +13,7 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        list.addTask(Parser.createToDoTask(command), storage);
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+        return list.addTask(Parser.createToDoTask(command), storage);
     }
 }
