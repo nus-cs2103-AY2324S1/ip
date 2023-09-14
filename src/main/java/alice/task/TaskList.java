@@ -82,6 +82,7 @@ public class TaskList {
      */
     public void add(Task task) {
         this.tasks.add(task);
+        assert this.tasks.contains(task) : "Task should be added to the list";
     }
 
     /**
@@ -99,7 +100,9 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void markAsDone(int index) {
+
         this.tasks.get(index).markAsDone();
+        assert this.tasks.get(index).getIsDone() : "Task should be marked as done";
     }
 
     /**
@@ -109,6 +112,7 @@ public class TaskList {
      */
     public void unmarkAsDone(int index) {
         this.tasks.get(index).unmarkAsDone();
+        assert !this.tasks.get(index).getIsDone() : "Task should be marked as not done";
     }
 
     /**
