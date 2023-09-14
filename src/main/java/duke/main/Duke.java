@@ -89,25 +89,25 @@ import javafx.scene.Node;
                     //input = scanner.nextLine();
                     String command = this.parser.getCommand(input);
                     switch (command) {
-                        case "list":
-                            return taskManager.list();
-                        case "mark":
-                        case "unmark":
-                            return handleMarking(input, taskManager);
-                        case "todo":
-                            return handleTodo(input, taskManager);
-                        case "deadline":
-                            return handleDeadline(input, taskManager);
-                        case "event":
-                            return handleEvent(input, taskManager);
-                        case "delete":
-                            return handleDelete(input, taskManager);
-                        case "find":
-                            handleFind(input, taskManager);
-                        case "bye":
-                            break;
-                        default:
-                            throw new UnknownCommandException("I may be the GOAT but I don't know what that means.");
+                    case "list":
+                        return taskManager.list();
+                    case "mark":
+                    case "unmark":
+                        return handleMarking(input, taskManager);
+                    case "todo":
+                        return handleTodo(input, taskManager);
+                    case "deadline":
+                        return handleDeadline(input, taskManager);
+                    case "event":
+                        return handleEvent(input, taskManager);
+                    case "delete":
+                        return handleDelete(input, taskManager);
+                    case "find":
+                        return handleFind(input, taskManager);
+                    case "bye":
+                        break;
+                    default:
+                        throw new UnknownCommandException("I may be the GOAT but I don't know what that means.");
                     }
                 } catch (DukeException e) {
                     return ui.displayError(e);
@@ -159,7 +159,7 @@ import javafx.scene.Node;
         }
 
         /**
-         * if the user wants to add a to do-task, this function will handle the logic.
+         * if the user wants to add a to-do task, this function will handle the logic.
          * @param input
          * @param taskManager
          * @throws InvalidArgumentException
@@ -232,11 +232,12 @@ import javafx.scene.Node;
          * @param taskManager
          * @throws InvalidArgumentException
          */
-        private String handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
+        private String handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
             String[] words = input.split(" ");
             try {
                 int index = Integer.parseInt(words[1]);
                 String response = taskManager.delete(index);
+                updateStorage();
                 return response;
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a numerical index!");

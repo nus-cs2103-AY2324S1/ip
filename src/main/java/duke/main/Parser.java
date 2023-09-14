@@ -49,6 +49,7 @@ public class Parser {
         if (keyword.isEmpty() || keyword.split("\\s+").length > 1) {
             throw new InvalidArgumentException("Please enter only one keyword");
         }
+
         return keyword;
     }
     /**

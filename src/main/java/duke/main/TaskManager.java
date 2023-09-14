@@ -106,6 +106,7 @@ public class TaskManager {
         if (index > numOfTasks) {
             throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " duke.tasks.");
         }
+        index -= 1;
         numOfTasks -= 1;
         Task removedTask = list.get(index);
         list.remove(index);
@@ -122,8 +123,9 @@ public class TaskManager {
         return list;
     }
 
-    ArrayList<Task> filterList(String keyword) {
+    protected ArrayList<Task> filterList(String keyword) {
         ArrayList<Task> filteredList = new ArrayList<>();
+
         for (Task task : list) {
             if (task.toString().contains(keyword)) {
                 filteredList.add(task);
