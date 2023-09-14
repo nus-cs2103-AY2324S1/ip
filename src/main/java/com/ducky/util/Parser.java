@@ -9,6 +9,7 @@ import com.ducky.command.DuckyInvalidCommandException;
 import com.ducky.command.DuckyInvalidCommandFormatException;
 import com.ducky.command.FindTaskCommand;
 import com.ducky.command.ListCommand;
+import com.ducky.command.ViewScheduleCommand;
 import com.ducky.task.DeadlineTask;
 import com.ducky.task.EventTask;
 import com.ducky.task.Task;
@@ -42,6 +43,8 @@ public class Parser {
             return new ListCommand();
         case "find":
             return new FindTaskCommand(argumentString);
+        case "schedule":
+            return new ViewScheduleCommand(argumentString);
         case "mark":
             return ParsedCommandHandler.handleUpdateTaskCompletion(argumentString, true);
         case "unmark":

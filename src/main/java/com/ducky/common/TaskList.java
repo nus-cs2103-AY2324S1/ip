@@ -18,8 +18,8 @@ public class TaskList {
     private static final String NUMBER_OF_TASKS_IN_LIST_MSG = "There are now %d tasks in your list.";
     private static final String NAME_QUERY_NO_RESULT_MSG = "Sorry, I couldn't find any tasks that contain \"%s\".";
     private static final String NAME_QUERY_RESULT_MSG = "Here are the task(s) that contain \"%s\":\n%s";
-    private static final String DATE_QUERY_NO_RESULT_MSG = "You have nothing scheduled for \"%s\"!";
-    private static final String DATE_QUERY_RESULT_MSG = "Here are the task(s) scheduled for \"%s\":\n%s";
+    private static final String DATE_QUERY_NO_RESULT_MSG = "You have nothing scheduled for %s!";
+    private static final String DATE_QUERY_RESULT_MSG = "Here are the task(s) scheduled for %s:\n%s";
     private final ArrayList<Task> tasks;
 
     /**
