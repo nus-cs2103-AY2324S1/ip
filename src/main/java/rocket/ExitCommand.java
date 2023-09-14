@@ -20,7 +20,9 @@ public class ExitCommand extends Command{
         } catch (IOException e) {
             ui.showError(e.getMessage());
         }
+
         String response = "    Bye. Hope to see you again soon!";
+
         System.out.println(response);
         ui.setLastResponse(response);
     }

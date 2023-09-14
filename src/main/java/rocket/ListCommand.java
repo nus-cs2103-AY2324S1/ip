@@ -13,7 +13,19 @@ public class ListCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTasks(tasks);
+        String response = "Your tasks are: \n";
+        response += tasklistToString(tasks);
+
+        System.out.println(response);
+        ui.setLastResponse(response);
+    }
+
+    private String tasklistToString(TaskList tasks) {
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            result += "    " + (i + 1) + ". " + tasks.get(i) + "\n";
+        }
+        return result;
     }
 
 }
