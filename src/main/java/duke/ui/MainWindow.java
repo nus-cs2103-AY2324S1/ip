@@ -1,7 +1,6 @@
 package duke.ui;
 
 import duke.Duke;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -32,11 +31,16 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets up the Duke object of the MainWindow upon application launch.
+     * The chatbot's greeting is also automatically displayed.
+     *
+     * @param d The Duke object to set to.
+     */
     public void setDuke(Duke d) {
         duke = d;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Howdy, I'm Moira, your friendly personal assistant!\n"
-                        + "What can I do for you today?", dukeImage)
+                DialogBox.getDukeDialog(Duke.duke.getUi().playGreeting(), dukeImage)
         );
     }
 

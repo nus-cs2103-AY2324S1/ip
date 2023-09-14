@@ -4,16 +4,14 @@ import duke.tasks.TaskList;
 
 /**
  * Encapsulates the user interface of the chatbot.
- * This class is mainly responsible for the printing of messages and responses to the console
- * according to the user's input. What is printed (i.e. the logic behind determining what to
- * print given a user input) is handled by the Parser class.
+ * This class is mainly responsible for the returning the corresponding messages and responses
+ * according to the user's input. What the response should be (i.e. the logic behind determining what to
+ * respond given a user input) is handled by the Parser class.
  *
  * @author Wu Jingya
  */
 public class Ui {
     private String botName;
-    private final static String SPACER = "--------------------------------------------------------------------------";
-
     /**
      * Constructs an Ui object with the specified chatbot name.
      *
@@ -112,6 +110,9 @@ public class Ui {
         return exceptionMessage.message;
     }
 
+    /**
+     * Enumeration for exception messages.
+     */
     public enum ExceptionMessage {
         MarkCommand_NumberFormatException(
                 "HOLD UP! Invalid input for mark/unmark command. Input must be a positive non-zero integer."),
@@ -130,7 +131,7 @@ public class Ui {
         InvalidInput(
                 "HOLD UP! What on earth do you mean??");
 
-        public String message;
+        private String message;
 
         ExceptionMessage(String message) {
             this.message = message;

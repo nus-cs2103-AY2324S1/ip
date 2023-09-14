@@ -28,16 +28,17 @@ public class DeadlineTask extends Task {
      *
      * @param description The task's description.
      * @param by The task's deadline.
-     * @param done Whether the task is completed.
+     * @param isDone Whether the task is completed.
      */
-    public DeadlineTask(String description, LocalDateTime by, Boolean done) {
-        super(description, done);
+    public DeadlineTask(String description, LocalDateTime by, Boolean isDone) {
+        super(description, isDone);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+        String byFormatted = by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        return "[D]" + super.toString() + " (by: " + byFormatted + ")";
     }
 
     /**
@@ -55,8 +56,8 @@ public class DeadlineTask extends Task {
             return true;
         }
         if (obj instanceof DeadlineTask) {
-            return super.equals(obj) &&
-                    ((DeadlineTask) obj).by.equals(this.by);
+            boolean hasSameDeadline = ((DeadlineTask) obj).by.equals(this.by);
+            return super.equals(obj) && hasSameDeadline;
         }
         return false;
     }

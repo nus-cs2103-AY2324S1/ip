@@ -1,10 +1,9 @@
 package duke.storage;
 
-import duke.tasks.TaskList;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
+import duke.tasks.TaskList;
 import duke.tasks.ToDoTask;
-import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -78,66 +77,90 @@ public class Storage {
                 String taskData = scanner.nextLine();
                 String[] dataSegments = taskData.split("[|]");
                 switch (dataSegments.length) {
-                    case 3:
-                        if (dataSegments[0].equals("T")) {
-                            String description = dataSegments[2];
-                            Boolean done = false;
-                            if (dataSegments[1].equals("1")) {
-                                done = true;
-                            } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("Task formatting error: " + taskData + " not loaded");
-                                break;
-                            }
-                            ToDoTask newToDo = new ToDoTask(description, done);
-                            assert taskList != null : "TaskList is null!";
-                            taskList.addTask(newToDo);
-                        } else {
-                            System.out.println("Task formatting error: " + taskData + " not loaded");
-                        }
-                        break;
-                    case 4:
-                        if (dataSegments[0].equals("D")) {
-                            String description = dataSegments[2];
-                            Boolean done = false;
-                            LocalDateTime by = LocalDateTime.parse(dataSegments[3]);
-                            if (dataSegments[1].equals("1")) {
-                                done = true;
-                            } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("Task formatting error: " + taskData + " not loaded");
-                                break;
-                            }
-                            DeadlineTask newDeadline = new DeadlineTask(description, by, done);
-                            assert taskList != null : "TaskList is null!";
-                            taskList.addTask(newDeadline);
-                        } else {
-                            System.out.println("Task formatting error: " + taskData + " not loaded");
-                        }
-                        break;
-                    case 5:
-                        if (dataSegments[0].equals("E")) {
-                            String description = dataSegments[2];
-                            Boolean done = false;
-                            LocalDateTime from = LocalDateTime.parse(dataSegments[3]);
-                            LocalDateTime to = LocalDateTime.parse(dataSegments[4]);
-                            if (dataSegments[1].equals("1")) {
-                                done = true;
-                            } else if (!dataSegments[1].equals("0")) {
-                                System.out.println("Task formatting error: " + taskData + " not loaded");
-                                break;
-                            }
-                            EventTask newEvent = new EventTask(description, from, to, done);
-                            assert taskList != null : "TaskList is null!";
-                            taskList.addTask(newEvent);
-                        } else {
-                            System.out.println("Task formatting error: " + taskData + " not loaded");
-                        }
-                        break;
+                case 3:
+                    loadTodoTask(taskData);
+                    break;
+                case 4:
+                    loadDeadlineTask(taskData);
+                    break;
+                case 5:
+                    loadEventTask(taskData);
+                    break;
+                default:
+                    System.out.println("Task formatting error: " + taskData + " not loaded");
+                    break;
                 }
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error scanning file!");
         }
+    }
+
+    private void loadTodoTask(String taskData) {
+        String[] dataSegments = taskData.split("[|]");
+        if (!dataSegments[0].equals("T")) {
+            System.out.println("Task formatting error: " + taskData + " not loaded");
+            return;
+        }
+
+        String description = dataSegments[2];
+        Boolean isDone = false;
+        if (dataSegments[1].equals("1")) {
+            isDone = true;
+        } else if (!dataSegments[1].equals("0")) {
+            System.out.println("Task formatting error: " + taskData + " not loaded");
+            return;
+        }
+
+        ToDoTask newToDo = new ToDoTask(description, isDone);
+        assert taskList != null : "TaskList is null!";
+        taskList.addTask(newToDo);
+    }
+
+    private void loadDeadlineTask(String taskData) {
+        String[] dataSegments = taskData.split("[|]");
+        if (!dataSegments[0].equals("D")) {
+            System.out.println("Task formatting error: " + taskData + " not loaded");
+            return;
+        }
+
+        String description = dataSegments[2];
+        Boolean isDone = false;
+        LocalDateTime by = LocalDateTime.parse(dataSegments[3]);
+        if (dataSegments[1].equals("1")) {
+            isDone = true;
+        } else if (!dataSegments[1].equals("0")) {
+            System.out.println("Task formatting error: " + taskData + " not loaded");
+            return;
+        }
+
+        DeadlineTask newDeadline = new DeadlineTask(description, by, isDone);
+        assert taskList != null : "TaskList is null!";
+        taskList.addTask(newDeadline);
+    }
+
+    private void loadEventTask(String taskData) {
+        String[] dataSegments = taskData.split("[|]");
+        if (!dataSegments[0].equals("E")) {
+            System.out.println("Task formatting error: " + taskData + " not loaded");
+            return;
+        }
+
+        String description = dataSegments[2];
+        Boolean isDone = false;
+        LocalDateTime from = LocalDateTime.parse(dataSegments[3]);
+        LocalDateTime to = LocalDateTime.parse(dataSegments[4]);
+        if (dataSegments[1].equals("1")) {
+            isDone = true;
+        } else if (!dataSegments[1].equals("0")) {
+            System.out.println("Task formatting error: " + taskData + " not loaded");
+            return;
+        }
+
+        EventTask newEvent = new EventTask(description, from, to, isDone);
+        assert taskList != null : "TaskList is null!";
+        taskList.addTask(newEvent);
     }
 
     /**
@@ -150,7 +173,7 @@ public class Storage {
         File dataFolder = new File("./data");
         if (!dataFolder.exists()) {
             if (dataFolder.mkdir()) {
-                // System.out.println("Data folder created successfully!");
+                // Do nothing
             } else {
                 System.out.println("Error creating data folder... Tasks not saved.");
             }
@@ -166,10 +189,5 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Error saving data... Tasks not saved.");
         }
-    }
-
-    //For testing purposes
-    public TaskList getTaskList() {
-        return taskList;
     }
 }
