@@ -1,6 +1,70 @@
-# Duke project template
+# Jarvis Chatbot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Table of Contents
+
+1. [Getting Started](#getting-started)
+2. [Features](#features)
+3. [Commands](#commands)
+4. [Contributing and Feedback](#contributing-and-feedback)
+5. [License](#license)
+
+## Getting Started
+
+1. **Installation**: Download and set up Jarvis on your system.
+2. **Initiate Jarvis**: Navigate to the Jarvis directory and run the start command.
+3. **Chat away!**: Enter your commands to interact with Jarvis.
+
+**Sample Interface**
+
+![screenshot of the product](https://github.com/StevenLiudw/ip/blob/master/docs/Ui.png)
+
+## Features
+
+- Quick task management: Add, delete, and mark tasks as done.
+- Multiple task types: Handle to-dos, events, and deadlines.
+- Search functionality: Easily find tasks with keywords.
+- Easy tagging: Prioritize and categorize with tags.
+- Intuitive interface: Minimalist design for maximum productivity.
+
+## Commands
+
+### General
+
+- `bye`: Exits Jarvis.  
+  **Usage**: `bye`
+- `list`: Displays all your tasks.  
+  **Usage**: `list`
+
+### Task Management
+
+- `todo TASK_DESCRIPTION`: Adds a todo task.  
+  **Usage**: `todo Read book`
+- `event TASK_DESCRIPTION /from START_TIME /to END_TIME`: Adds an event.  
+  **Usage**: `event Team meeting /from 2pm /to 4pm`
+- `deadline TASK_DESCRIPTION /by DEADLINE_TIME`: Adds a deadline.  
+  **Usage**: `deadline Submit report /by 5pm`
+- `delete INDEX`: Deletes the task at the specified index.  
+  **Usage**: `delete 2`
+- `mark INDEX`: Marks the task at the specified index as done.  
+  **Usage**: `mark 2`
+- `unmark INDEX`: Unmarks the task at the specified index.  
+  **Usage**: `unmark 2`
+
+### Search and Tagging
+
+- `find KEYWORD`: Finds tasks with the specified keyword.  
+  **Usage**: `find book`
+- `tag INDEX TAG_NAME`: Tags a task with a tag name.  
+  **Usage**: `tag 3 urgent`
+
+## Contributing and Feedback
+
+If you'd like to contribute to Jarvis or have some feedback, please [open a new issue](LINK_TO_YOUR_GITHUB_ISSUES_PAGE) on our GitHub page.
+
+## License
+
+This project is licensed under the [MIT License](LINK_TO_YOUR_LICENSE_FILE).
+
 
 ## Setting up in Intellij
 
@@ -16,9 +80,10 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+          _      _ _               _   
+     (_) ___| (_)_ __ ___   __| |  
+     | |/ _ \\ | | '_ ` _ \\ / _` |  
+     | |  __/ | | | | | | | (_| |  
+    _/ |\\___|_|_|_| |_| |_|\\__,_|  
+   |__/                            
    ```
