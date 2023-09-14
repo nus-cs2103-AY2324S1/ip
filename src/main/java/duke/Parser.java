@@ -24,6 +24,7 @@ public class Parser {
         return tasks.toArray(new Task[]{});
     }
 
+
     /**
      * Takes a string representing a line from the storage file and attempts to parse it into a Task object.
      * If the string cannot be parsed into a Task object, it throws a DukeException.
@@ -86,6 +87,25 @@ public class Parser {
         return Task.create(cmd, instructions[1]);
     }
 
+    /**
+     * Parses task and adds task to list, and gives string response.
+     *
+     * @param cmd the command task
+     * @param instructions the list of instructions for the task
+     * @param list the input list
+     * @return the response of adding the task to the list.
+     */
+    public static String parseTaskAndAddToList(Commands cmd, String[] instructions, StoreList list) {
+        String response;
+        try {
+            Task task = Parser.parseTask(cmd, instructions);
+            response = list.add(task);
+            return response;
+        } catch (DukeException e) {
+            return e.toString();
+        }
+    }
+
     public static String findAll(String[] instructions, StoreList src) {
         String listString;
         if (instructions.length <= 1) {
@@ -97,6 +117,38 @@ public class Parser {
         StoreList list = src.findAll(term);
         listString = list.toString();
         return String.format("Here are the tasks with '%s':\n%s", term, listString);
+    }
+
+    /**
+     * Gives response to updating a task in the list.
+     *
+     * @param instructions the set of instructions for the update.
+     * @return the response to updating the task in the list.
+     */
+    public static String parseUpdate(String[] instructions, StoreList list) {
+        String invalidCommand = "Invalid command. Format should be: update <index> <description|start|end|deadline> <updatedInfo>";
+        if (instructions.length != 2) {
+            return invalidCommand;
+        }
+
+        String[] indexWithUpdateInformation = instructions[1].split(" ", 2);
+        if (indexWithUpdateInformation.length != 2) {
+            return invalidCommand;
+        }
+        int index;
+        try {
+            index = Integer.parseInt(indexWithUpdateInformation[0]);
+        } catch (NumberFormatException e) {
+            return invalidCommand;
+        }
+
+        String[] attributeWithUpdateInfo = indexWithUpdateInformation[1].split(" ", 2);
+        if (attributeWithUpdateInfo.length != 2) {
+            return invalidCommand;
+        }
+
+        TaskAttribute attribute = TaskAttribute.get(attributeWithUpdateInfo[0]);
+        return list.updateTask(attribute, index, attributeWithUpdateInfo[1]);
     }
 
 }

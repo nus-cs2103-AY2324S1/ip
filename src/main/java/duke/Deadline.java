@@ -71,4 +71,15 @@ public class Deadline extends Task {
                 this.deadline.displayText()
         );
     }
+
+    @Override
+    public String update(TaskAttribute attribute, String updatedInfo) throws DukeException {
+        String initial = "";
+        if (attribute.equals(TaskAttribute.by)) {
+            initial = this.deadline.displayText();
+            this.deadline = DateTimeOptional.parseDateTime(updatedInfo);
+            return this.formatUpdateResponse(attribute, initial, this.deadline.displayText());
+        }
+        return super.update(attribute, updatedInfo);
+    }
 }

@@ -37,6 +37,27 @@ public abstract class DateTimeOptional {
             throw new DukeException.DukeDateTimeException(s);
         }
     }
+
+    /**
+     * Does not throw an error if datetime parsed is of invalid format. Returns null for invalid formats instead.
+     *
+     * @param s the string to be parsed
+     * @return DateTimeOptional if valid and null otherwise.
+     */
+    public static DateTimeOptional parseDateTimeHandleInvalid(String s) {
+        TemporalAccessor temp = standardDateTimeParser.parse(s);
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(s, standardDateTimeParser);
+            return new DateTimeOnly(dateTime);
+        } catch (DateTimeParseException e) {
+        }
+        try {
+            LocalDate date = LocalDate.parse(s, standardDateTimeParser);
+            return new DateOnly(date);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
     /**
      * Gives a string representation of the date and time value in display format.
      *
