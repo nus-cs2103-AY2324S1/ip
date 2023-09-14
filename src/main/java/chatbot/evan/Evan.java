@@ -26,13 +26,21 @@ public class Evan {
      */
     public String getResponse(String input) {
         if (process != null) {
-            String response = process.processInput(input);
-            if (process.isComplete()) {
-                process = null;
-            }
-            return response;
+            return getExistingProcessResponse(input);
         }
 
+        return startProcessAndGetResponse(input);
+    }
+
+    private String getExistingProcessResponse(String input) {
+        String response = process.processInput(input);
+        if (process.isComplete()) {
+            process = null;
+        }
+        return response;
+    }
+
+    private String startProcessAndGetResponse(String input) {
         if (input.equals(Command.BYE.getCommand())) {
             return "Bye. Hope to see you again soon!";
         } else if (input.equals(Command.LIST.getCommand())) {

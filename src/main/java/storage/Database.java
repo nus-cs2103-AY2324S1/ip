@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import enums.Command;
@@ -22,10 +23,11 @@ public class Database {
      * @param list list of tasks
      */
     public static void save(ArrayList<Task> list) throws IOException {
-        File file = new File("data/tasklist.txt");
+        URL url = Database.class.getResource("/data/tasklist.txt");
+        File file = new File(url.getFile());
         FileWriter fileToWrite = new FileWriter(file);
-        Task[] tasks = list.toArray(new Task[0]);
 
+        Task[] tasks = list.toArray(new Task[0]);
         for (int i = 0; i < tasks.length; i++) {
             fileToWrite.write(tasks[i].dataFormat());
             fileToWrite.write(System.lineSeparator());
@@ -39,10 +41,10 @@ public class Database {
      * @return list of tasks saved in the text file
      */
     public static ArrayList<Task> loadData() throws IOException, ArrayIndexOutOfBoundsException {
-
-        File file = new File("data/tasklist.txt");
         ArrayList<Task> list = new ArrayList<>();
 
+        URL url = Database.class.getResource("/data/tasklist.txt");
+        File file = new File(url.getFile());
         FileReader fileReader = new FileReader(file);
         BufferedReader fileToRead = new BufferedReader(fileReader);
         String nextLine = fileToRead.readLine();
