@@ -13,13 +13,14 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Prints the list of tasks in the TaskList.
      */
-    public void printList() {
-        System.out.println(Ui.LINE);
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < this.size(); i++) {
-            System.out.println((i + 1) + ". " + this.get(i));
+            result.append((i + 1)).append(". ").append(this.get(i)).append("\n");
         }
-        System.out.println(Ui.LINE);
+
+        return "Here are the tasks in your list:" +
+                "\n" + result;
     }
 
     /**
@@ -29,11 +30,10 @@ public class TaskList extends ArrayList<Task> {
      * @param isFromDatabase A boolean to indicate if the task is from the database.
      * @throws DukeException If the index is out of bounds.
      */
-    public void markAsDone(Integer index, Storage storage, boolean... isFromDatabase) throws DukeException{   
-
+    public String markAsDone(Integer index, Storage storage, boolean... isFromDatabase) throws DukeException {
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
-            this.get(Integer.valueOf(index - 1)).markAsDone();
-            return;
+            this.get(index - 1).markAsDone();
+            return null;
         }
 
         if (index == 0) {
@@ -46,18 +46,15 @@ public class TaskList extends ArrayList<Task> {
             throw new DukeException("There is no task at that index.");
         }
 
-        System.out.println(Ui.LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" " + this.get(index - 1));
-        System.out.println(Ui.LINE);
-
         try {
             storage.replaceLine(index, this.get(index - 1).toString());
         } catch (DukeException e) {
-            System.out.println(Ui.LINE);
-            System.out.println(e);
-            System.out.println(Ui.LINE);
+            return e.toString();
         }
+
+        return "Nice! I've marked this task as done:" +
+                "\n" +
+                " " + this.get(index - 1);
     }
 
     /**
@@ -66,25 +63,23 @@ public class TaskList extends ArrayList<Task> {
      * @param storage The Storage object to write to.
      * @param isFromDatabase A boolean to indicate if the task is from the database.
      */
-    public void markAsUndone(int index, Storage storage, boolean... isFromDatabase) {
-        
+    public String markAsUndone(int index, Storage storage, boolean... isFromDatabase) {
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
             this.get(index - 1).markAsUndone();
-            return;
+            return null;
         }
 
-        System.out.println(Ui.LINE);
-        System.out.println("OK, I've marked this task as not done yet:");
         this.get(index - 1).markAsUndone();
 
         try {
             storage.replaceLine(index, this.get(index - 1).toString());
         } catch (DukeException e) {
-            System.out.println(Ui.LINE);
-            System.out.println(e);
-            System.out.println(Ui.LINE);
+            return e.toString();
         }
-        System.out.println(Ui.LINE);
+
+        return "OK, I've marked this task as not done yet:" +
+                "\n" +
+                " " + this.get(index - 1);
     }
 
     /**
@@ -93,47 +88,50 @@ public class TaskList extends ArrayList<Task> {
      * @param storage The Storage object to write to.
      * @param isFromDatabase A boolean to indicate if the task is from the database.
      */
-    public void deleteTask(int index, Storage storage, boolean... isFromDatabase) {
+    public String deleteTask(int index, Storage storage, boolean... isFromDatabase) {
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
             this.remove(index - 1);
-            return;
+            return null;
         }
-
-        System.out.println(Ui.LINE);
-        System.out.println("Noted. I've removed this task:");
-        Task t = this.remove(index - 1);
-        System.out.println(" " + t);
-        System.out.println("Now you have " + Integer.toString(this.size()) + " " + (this.size() == 1 ? "task" : "tasks") + " in the list.");
 
         try {
             storage.deleteLine(index);
         } catch (DukeException e) {
-            System.out.println(Ui.LINE);
-            System.out.println(e);
-            System.out.println(Ui.LINE);
+            return e.toString();
         }
-        System.out.println(Ui.LINE);
+
+        return "Noted. I've removed this task:" +
+                "\n" +
+                " " + this.remove(index - 1) +
+                "\n" +
+                "Now you have " +
+                this.size() +
+                " " + (this.size() == 1 ? "task" : "tasks") +
+                " in the list.";
     }
 
 
-    public void addTask(Task task, Storage storage, boolean... isFromDatabase) {
+    public String addTask(Task task, Storage storage, boolean... isFromDatabase) {
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
             this.add(task);
-            return;
+            return null;
         }
 
-        System.out.println(Ui.LINE);
-        System.out.println("Got it. I've added this task:");
-        this.add(task);
-        System.out.println(" " + task);
-        System.out.println("Now you have " + Integer.toString(this.size()) + " " + (this.size() == 1 ? "task" : "tasks") + " in the list.");
         try {
             storage.writeData(task.toString());
         } catch (DukeException e) {
-            System.out.println(Ui.LINE);
-            System.out.println(e);
-            System.out.println(Ui.LINE);
+            return e.toString();
         }
-        System.out.println(Ui.LINE);
+
+        this.add(task);
+
+        return "Got it. I've added this task:" +
+                "\n" +
+                " " + task +
+                "\n" +
+                "Now you have " +
+                this.size() +
+                " " + (this.size() == 1 ? "task" : "tasks") +
+                " in the list.";
     }
 }

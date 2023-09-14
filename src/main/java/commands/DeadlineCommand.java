@@ -13,7 +13,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        list.addTask(new Deadline(command.substring(9)), storage);
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+        return list.addTask(new Deadline(command.substring(9)), storage);
     }
 }

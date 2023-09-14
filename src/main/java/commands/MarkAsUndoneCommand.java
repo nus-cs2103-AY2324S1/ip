@@ -13,13 +13,7 @@ public class MarkAsUndoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        try {
-            list.markAsDone(index, storage);
-        } catch (DukeException e) {
-            System.out.println(Ui.LINE);
-            System.out.println(e);
-            System.out.println(Ui.LINE);
-        }
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return list.markAsUndone(index, storage);
     }
 }

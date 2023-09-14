@@ -12,16 +12,18 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        System.out.println(Ui.LINE);
-        System.out.println("Here are the matching tasks in your list:");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String result = "";
         int count = 1;
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).getDescription().contains(command)) {
-                System.out.println(count + "." + taskList.get(i));
+                result += (count + "." + taskList.get(i) + "\n");
                 count++;
             }
         }
-        System.out.println(Ui.LINE);
+
+        return "Here are the matching tasks in your list:" +
+                "\n" +
+                result;
     }
 }
