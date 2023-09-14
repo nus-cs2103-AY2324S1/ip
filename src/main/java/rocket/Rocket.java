@@ -15,6 +15,7 @@ public class Rocket{
     public Rocket() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
+        assert !FILE_PATH.isEmpty() : "File path is empty string";
         try {
             tasks = new TaskList(storage.load());
         } catch (RocketException e) {
@@ -52,10 +53,6 @@ public class Rocket{
         new Rocket().run();
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     protected String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
