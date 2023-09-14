@@ -77,6 +77,9 @@ public class AddCommand extends Command {
         default:
             newTask = new ToDo("error", false);
         }
+        
+        assert !newTask.equals(defaultTask) : "task allocation error";
+
         tasks.addTask(newTask);
         return ui.add(newTask.toString(), tasks);
     }
