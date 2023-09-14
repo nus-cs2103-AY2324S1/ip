@@ -32,7 +32,7 @@ public class Parser {
 
     private static Command findCommand(String commandString) {
         for (Command cmd : Command.values()) {
-            if (cmd.getValue().equals(commandString)) {
+            if (cmd.getValue().equals(commandString) || cmd.getAlias().equals(commandString)) {
                 return cmd;
             }
         }
