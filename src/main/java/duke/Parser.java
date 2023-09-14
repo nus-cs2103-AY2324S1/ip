@@ -12,6 +12,7 @@ import command.Command;
 import command.EditCommand;
 import command.FindCommand;
 import command.ListCommand;
+import command.RemindCommand;
 import exception.DukeException;
 import exception.InvalidCommandException;
 
@@ -19,7 +20,7 @@ import exception.InvalidCommandException;
  * The Action enum represents the various actions that can be performed by Duke.
  */
 enum Action {
-    BYE, LIST, FIND, EDIT_TASK, ADD_TASK, INVALID;
+    BYE, LIST, FIND, REMIND, EDIT_TASK, ADD_TASK, INVALID;
 
     public static Action parseCommand(String command) throws InvalidCommandException {
 
@@ -30,7 +31,7 @@ enum Action {
         } else {
             Action[] values = Action.values();
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 if (command.toUpperCase().equals(values[i].toString())) {
                     return values[i];
                 }
@@ -106,6 +107,9 @@ public class Parser {
 
         case LIST:
             return new ListCommand();
+
+        case REMIND:
+            return new RemindCommand();
 
         case FIND:
             if (argument.equals("")) {

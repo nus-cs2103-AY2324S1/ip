@@ -180,4 +180,33 @@ public class TaskList {
 
         return action;
     }
+
+    /**
+     * Return a list of upcoming task due to remind user.
+     *
+     * @return The list of tasks due.
+     */
+    public String remindTasks() {
+        StringBuilder tasksReminder = new StringBuilder(100);
+
+        int count = 1;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (!task.needReminder()) {
+                continue;
+            }
+
+            String taskDesc = String.format("%d. %s\n", count, task);
+
+            tasksReminder.append(taskDesc);
+
+            count++;
+        }
+
+        if (tasksReminder.length() == 0) {
+            return "No upcoming tasks. Take a break =)";
+        }
+
+        return String.format("Here is a list of upcoming tasks due:\n%s", tasksReminder);
+    }
 }

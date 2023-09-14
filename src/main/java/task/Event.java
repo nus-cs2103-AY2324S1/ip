@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDateTime;
+
 /**
  * An event class extends the task class. It represents a task with that needs to be completed within
  * a certain time period.
@@ -8,6 +10,8 @@ package task;
 public class Event extends Task {
     protected String from;
     protected String to;
+    protected LocalDateTime fromDate;
+    protected LocalDateTime toDate;
 
     /**
      * Constructs a new task.Event with the specified time period and description.
@@ -20,6 +24,8 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        this.fromDate = parseTaskDate(from);
+        this.toDate = parseTaskDate(to);
     }
 
     /**
@@ -50,6 +56,16 @@ public class Event extends Task {
     @Override
     public String fileString() {
         return String.format("E%s | %s-%s", super.fileString(), from, to);
+    }
+
+    @Override
+    public boolean needReminder() {
+        if (isDone) {
+            return false;
+        }
+
+        boolean isDue = fromDate.isAfter(LocalDateTime.now());
+        return isDue;
     }
 
 }

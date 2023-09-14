@@ -30,8 +30,5 @@ public class EditCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage store) throws DukeException {
         return tasks.editTask(editType, ind);
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
+
 }

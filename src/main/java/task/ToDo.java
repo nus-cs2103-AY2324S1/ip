@@ -39,4 +39,14 @@ public class ToDo extends Task {
     public String fileString() {
         return "T" + super.fileString();
     }
+
+    @Override
+    public boolean needReminder() {
+        if (isDone) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
