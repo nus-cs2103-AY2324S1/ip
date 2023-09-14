@@ -1,4 +1,4 @@
-package duke;
+package duke.exception;
 
 /**
  * Custom exception class that is used to represent errors when the chatbot runs.

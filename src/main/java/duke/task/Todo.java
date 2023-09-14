@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDate;
 
@@ -15,7 +15,18 @@ public class Todo extends Task {
      * @param task Task description.
      */
     public Todo(String task) {
-        super(task);
+        super(task, "");
+    }
+
+    /**
+     * Creates a todo object.
+     * This method contains extra location parameter.
+     *
+     * @param task     Task description.
+     * @param location Location of task.
+     */
+    public Todo(String task, String location) {
+        super(task, location);
     }
 
     @Override
@@ -25,7 +36,7 @@ public class Todo extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "Todo | " + super.toSaveFormat();
+        return "Todo|" + super.toSaveFormat();
     }
 
     @Override

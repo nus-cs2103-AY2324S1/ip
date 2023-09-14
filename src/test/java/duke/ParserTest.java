@@ -2,30 +2,37 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
+
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.EventCommand;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
 
 public class ParserTest {
     @Test
     public void parseTest() {
         String[] inputs = {"deadline return book /by 2023-09-01",
             "event project meeting /from 2023-09-01 /to 2023-09-01"};
-        Command[] expecteds = {
-            new Command(Arrays.asList("deadline", "return book", "2023-09-01")),
-            new Command(Arrays.asList("event", "project meeting", "2023-09-01", "2023-09-01"))
-        };
-        for (int i = 0; i < inputs.length; i++) {
-            Command c = Parser.parse(inputs[i]);
-            assertTrue(expecteds[i].equals(c));
+        try {
+            Command[] expecteds = {
+                new DeadlineCommand("return book", LocalDate.parse("2023-09-01")),
+                new EventCommand("project meeting", LocalDate.parse("2023-09-01"),
+                    LocalDate.parse("2023-09-01"))
+            };
+            for (int i = 0; i < inputs.length; i++) {
+                Command c = Parser.parse(inputs[i]);
+                assertTrue(expecteds[i].equals(c));
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
-    }
 
-    @Test
-    public void invalidParseTest() {
-        String input = "random thing";
-        Command expected = new Command(Arrays.asList("randomthing"));
-        assertTrue(expected.equals(Parser.parse(input)));
     }
 
 

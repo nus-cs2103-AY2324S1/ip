@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+import duke.task.Task;
+
 /**
  * Contains the tasks list, it has operations to add/delete tasks in the list
  */
@@ -137,6 +139,22 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         IntStream.range(0, this.tasks.size())
                 .filter(i -> this.tasks.get(i).containsDescription(description))
+                .mapToObj(i -> "    " + (i + 1) + ". " + this.tasks.get(i) + System.lineSeparator())
+                .forEach(sb::append);
+        return sb.toString();
+    }
+
+    /**
+     * Finds the list of task according to location given.
+     *
+     * @param location The input used to search for tasks.
+     * @return A string containing lines of tasks.
+     */
+    public String findByLocation(String location) {
+        assert this.tasks != null : "tasks should have been initialised and should not be null";
+        StringBuilder sb = new StringBuilder();
+        IntStream.range(0, this.tasks.size())
+                .filter(i -> this.tasks.get(i).containsLocation(location))
                 .mapToObj(i -> "    " + (i + 1) + ". " + this.tasks.get(i) + System.lineSeparator())
                 .forEach(sb::append);
         return sb.toString();
