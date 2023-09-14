@@ -26,6 +26,7 @@ public class Deadline extends Task {
      *
      * @return true if given date is before deadline, false otherwise
      */
+    @Override
     public boolean isDateWithinRange(LocalDate date) {
         return date.compareTo(deadline) <= 0;
     }

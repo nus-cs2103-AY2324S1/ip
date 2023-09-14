@@ -1,6 +1,7 @@
 package hachi;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -79,6 +80,10 @@ public class TaskList {
             }
         });
         return new TaskList(newTaskList);
+    }
+
+    public void sort(Comparator<? super Task> c) {
+        taskList.sort(c);
     }
 
     /**

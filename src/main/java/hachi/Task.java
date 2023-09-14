@@ -47,6 +47,15 @@ public class Task {
     }
 
     /**
+     * Compares the task name lexicographically to that of another Task.
+     * @param otherTask The other task to compare the name to.
+     * @return a negative number if this task is alphabetically smaller, 0 if equal, positive if bigger.
+     */
+    public int compareName(Task otherTask) {
+        return this.taskName.compareTo(otherTask.taskName);
+    }
+
+    /**
      * Converts Task object to its string representation when stored in the hard drive.
      *
      * @return String representation when stored in text file on user's hard drive

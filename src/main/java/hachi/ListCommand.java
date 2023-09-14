@@ -1,6 +1,7 @@
 package hachi;
 
 import exceptions.HachiException;
+import exceptions.InvalidArgumentException;
 import exceptions.TooManyArgumentsException;
 
 /**
@@ -24,13 +25,19 @@ public class ListCommand extends Command {
 
     @Override
     public String execute() throws HachiException {
-        checkArgumentLength(getArguments().length);
+        String[] arguments = getArguments();
+        checkArgumentLength(arguments.length);
+        if (!arguments[0].isEmpty() && !arguments[0].equals("sort")) {
+            throw new InvalidArgumentException(COMMAND_WORD);
+        } else if (!arguments[1].isEmpty() && arguments[1].equals("name")) {
+            taskList.sort((x, y) -> x.compareName(y));
+        }
         return taskList.toString();
     }
 
     @Override
     protected void checkArgumentLength(int argumentLength) throws HachiException {
-        if (argumentLength > 0) {
+        if (argumentLength > 2) {
             throw new TooManyArgumentsException(COMMAND_WORD, 0, argumentLength);
         }
     }
