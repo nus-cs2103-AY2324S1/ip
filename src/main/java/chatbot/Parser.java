@@ -87,16 +87,17 @@ public class Parser {
      *
      * @param input The user input.
      * @returns The number of the task.
-     * @throws InvalidTaskNumberException If there is no task with the task number in the taskList.
      * @throws InvalidCommandException If format of command entered is invalid.
      */
-    public int parseMarkTaskStatusTrue(String input) throws InvalidTaskNumberException, InvalidCommandException {
+    public int parseMarkTaskStatusTrue(String input) throws InvalidCommandException {
         int taskIndex;
         try {
             String nextInput = input.substring(5);
             checkInputIsNotEmpty(nextInput);
             taskIndex = Integer.parseInt(nextInput);
         } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidCommandException();
+        } catch (NumberFormatException e) {
             throw new InvalidCommandException();
         }
         return taskIndex;
@@ -108,16 +109,17 @@ public class Parser {
      *
      * @param input The user input.
      * @returns The number of the task.
-     * @throws InvalidTaskNumberException If there is no task with the task number in the taskList.
      * @throws InvalidCommandException If format of command entered is invalid.
      */
-    public int parseMarkTaskStatusFalse(String input) throws InvalidTaskNumberException, InvalidCommandException {
+    public int parseMarkTaskStatusFalse(String input) throws InvalidCommandException {
         int taskIndex;
         try {
             String nextInput = input.substring(7);
             checkInputIsNotEmpty(nextInput);
             taskIndex = Integer.parseInt(nextInput);
         } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidCommandException();
+        } catch (NumberFormatException e) {
             throw new InvalidCommandException();
         }
         return taskIndex;
@@ -139,6 +141,37 @@ public class Parser {
             throw new InvalidCommandException();
         }
         return keyword;
+    }
+
+    /**
+     * Parses input for addTaskTag method. If input is appropriate, returns a list
+     * containing the number of the task to be tagged and the description of the tag.
+     *
+     * @param input The user input.
+     * @returns A list containing the number of the task and the tag description.
+     * @throws InvalidCommandException If format of command entered is invalid.
+     */
+    public List<String> parseAddTaskTag(String input) throws InvalidCommandException {
+        List<String> arr = new ArrayList<>();
+
+        try {
+            String taskNum = input.substring(4, 5);
+            checkInputIsNotEmpty(taskNum);
+
+            //conduct check that input includes number
+            int taskNumAsInt = Integer.parseInt(taskNum);
+
+            String desc = input.substring(6);
+            checkInputIsNotEmpty(desc);
+
+            arr.add(taskNum);
+            arr.add(desc);
+            return arr;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidCommandException();
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException();
+        }
     }
 
     /**
