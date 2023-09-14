@@ -2,6 +2,10 @@ package miles.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import miles.MilesException;
+import miles.Ui;
 
 /**
  * Represents a general task.
@@ -71,9 +75,13 @@ public abstract class Task {
      * @param s the string inputted by the user in the format "2019-10-15 1800"
      * @return  LocalDateTime object
      */
-    public LocalDateTime convertToDateTime(String s) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return LocalDateTime.parse(s, formatter);
+    public LocalDateTime convertToDateTime(String s) throws MilesException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return LocalDateTime.parse(s, formatter);
+        } catch (DateTimeParseException e) {
+            throw new MilesException("Please input a date and time in the following format: yyyy-MM-dd HHmm");
+        } 
     }
 
     /**

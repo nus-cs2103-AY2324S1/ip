@@ -29,7 +29,7 @@ public class Event extends Task {
      * @param startTime the start time
      * @param endTime   the end time
      */
-    public Event(String task, String startTime, String endTime) {
+    public Event(String task, String startTime, String endTime) throws MilesException {
         // this constructor is for loading the file
         super(task);
         this.startTime = this.convertToDateTime(startTime);

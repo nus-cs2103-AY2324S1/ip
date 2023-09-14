@@ -26,7 +26,7 @@ public class Deadline extends Task {
      * @param task    the task
      * @param deadline the deadline
      */
-    public Deadline(String task, String deadline) {
+    public Deadline(String task, String deadline) throws MilesException {
         super(task);
         this.deadline = this.convertToDateTime(deadline);
     }
