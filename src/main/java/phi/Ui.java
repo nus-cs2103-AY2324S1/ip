@@ -22,13 +22,14 @@ public class Ui {
     public static String helpMsg() {
         return "Here's a list of commands:\n"
                 + "1. list (prints out a list of all tasks)\n"
-                + "2. mark X (marks task X in the list)\n"
-                + "3. unmark X (unmarks task X in the list])\n"
-                + "4. todo [TASK] (creates a to-do with body \"TASK\")\n"
-                + "5. deadline [TASK] /by [yyyy-MM-dd] (creates a corresponding deadline with body \"TASK\")\n"
-                + "6. event [TASK] /from [yyyy-MM-dd] /to [yyyy-MM-dd]"
+                + "2. todo [TASK] (creates a to-do with body \"TASK\")\n"
+                + "3. deadline [TASK] /by [yyyy-MM-dd] (creates a corresponding deadline with body \"TASK\")\n"
+                + "4. event [TASK] /from [yyyy-MM-dd] /to [yyyy-MM-dd]"
                 + " (creates a corresponding event with body \"TASK\")\n"
-                + "7. find [KEYWORD] (searches for tasks that contain corresponding KEYWORD)"
-                + "8. bye (exits the program)";
+                + "5. mark [X] (marks task X in the list)\n"
+                + "6. unmark [X] (unmarks task X in the list)\n"
+                + "7. delete [X] (removes task X from the list)\n"
+                + "8. find [KEYWORD] (searches for tasks that contain corresponding KEYWORD)\n"
+                + "9. bye (exits the program)";
     }
 }
