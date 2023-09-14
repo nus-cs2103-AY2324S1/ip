@@ -64,6 +64,7 @@ public class TaskStorage {
     public String save(String input) {
         Task task;
         try {
+            assert(input != null);
             task = Task.createTask(input);
         } catch (Duke.WrongCommandException | Duke.WrongFormatException e) {
             return e.getMessage();
