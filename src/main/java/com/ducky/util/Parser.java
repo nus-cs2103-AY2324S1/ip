@@ -3,32 +3,21 @@ package com.ducky.util;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import com.ducky.command.AddTaskCommand;
 import com.ducky.command.Command;
 import com.ducky.command.DeleteCommand;
 import com.ducky.command.DuckyInvalidCommandException;
 import com.ducky.command.DuckyInvalidCommandFormatException;
 import com.ducky.command.FindTaskCommand;
 import com.ducky.command.ListCommand;
-import com.ducky.command.UpdateTaskCompletionCommand;
 import com.ducky.task.DeadlineTask;
 import com.ducky.task.EventTask;
 import com.ducky.task.Task;
-import com.ducky.task.TaskType;
 import com.ducky.task.TodoTask;
 
 /**
  * Represents a Parser used for parsing commands and dates.
  */
 public class Parser {
-
-    private static final String INVALID_NUMBER_ERROR_MSG =
-            "Did you enter a valid number?";
-    private static final String INVALID_TODO_FORMAT_ERROR_MSG =
-            "A description is required for creating a to-do.";
-    private static final String INVALID_DEADLINE_FORMAT_ERROR_MSG =
-            "A description and deadline (in yyyy-mm-dd format) is required for creating a deadline.";
-    public static final String INVALID_EVENT_FORMAT_ERROR_MSG = "A description, start time and end time is required for creating an event.";
 
 
     /**
@@ -54,68 +43,17 @@ public class Parser {
         case "find":
             return new FindTaskCommand(argumentString);
         case "mark":
-            int markInputIndex;
-            try {
-                markInputIndex = Integer.parseInt(argumentString);
-            } catch (NumberFormatException e) {
-                throw new DuckyInvalidCommandFormatException(INVALID_NUMBER_ERROR_MSG);
-            }
-            return new UpdateTaskCompletionCommand(markInputIndex, true);
+            return ParsedCommandHandler.handleUpdateTaskCompletion(argumentString, true);
         case "unmark":
-            int unmarkInputIndex;
-            try {
-                unmarkInputIndex = Integer.parseInt(argumentString);
-            } catch (NumberFormatException e) {
-                throw new DuckyInvalidCommandFormatException(INVALID_NUMBER_ERROR_MSG);
-            }
-            return new UpdateTaskCompletionCommand(unmarkInputIndex, false);
+            return ParsedCommandHandler.handleUpdateTaskCompletion(argumentString, false);
         case "delete":
             return new DeleteCommand(Integer.parseInt(argumentString));
         case "todo":
-            // If description argument is empty, throw exception
-            if (argumentString.isEmpty()) {
-                throw new DuckyInvalidCommandFormatException(
-                        INVALID_TODO_FORMAT_ERROR_MSG
-                );
-            }
-
-            return new AddTaskCommand(TaskType.TODO, argumentString);
+            return ParsedCommandHandler.handleAddTodoTask(argumentString);
         case "deadline":
-            String[] deadlineParts = argumentString.split("/by", 2);
-            // Check if there are 2 arguments
-            if (deadlineParts.length < 2) {
-                throw new DuckyInvalidCommandFormatException(INVALID_DEADLINE_FORMAT_ERROR_MSG);
-            }
-            // Check both arguments are not empty
-            for (int i = 0; i < deadlineParts.length; i++) {
-                deadlineParts[i] = deadlineParts[i].trim();
-                if (deadlineParts[i].isEmpty()) {
-                    throw new DuckyInvalidCommandFormatException(INVALID_DEADLINE_FORMAT_ERROR_MSG
-                    );
-                }
-            }
-
-            return new AddTaskCommand(TaskType.DEADLINE, deadlineParts[0], deadlineParts[1]);
+            return ParsedCommandHandler.handleAddDeadlineTask(argumentString);
         case "event":
-            String[] eventParts = argumentString.split("/from|/to", 3);
-            // Check if there are 3 arguments
-            if (eventParts.length < 3) {
-                throw new DuckyInvalidCommandFormatException(INVALID_EVENT_FORMAT_ERROR_MSG);
-            }
-            // Check all 3 arguments are not empty
-            for (int i = 0; i < eventParts.length; i++) {
-                eventParts[i] = eventParts[i].trim();
-                if (eventParts[i].isEmpty()) {
-                    throw new DuckyInvalidCommandFormatException(INVALID_EVENT_FORMAT_ERROR_MSG);
-                }
-            }
-
-            return new AddTaskCommand(
-                    TaskType.EVENT,
-                    eventParts[0],
-                    eventParts[1],
-                    eventParts[2]
-            );
+            return ParsedCommandHandler.handleAddEventTask(argumentString);
         default:
             throw new DuckyInvalidCommandException();
         }
