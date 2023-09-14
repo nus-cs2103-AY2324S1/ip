@@ -1,3 +1,13 @@
+package Kevin.TaskList;
+
+import Kevin.Task.Task;
+import Kevin.Ui.Ui;
+import Kevin.Storage.Storage;
+import Kevin.Task.*;
+import Kevin.Exception.TaskListEmptyException;
+import Kevin.Exception.DescriptionIncompleteException;
+import Kevin.Exception.IllegalCommandException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -56,7 +66,7 @@ public class TaskList {
         System.out.println(Ui.line);
     }
 
-    public void addNewTask(String userInput) throws DescriptionIncompleteException, IllegalCommandException{
+    public void addNewTask(String userInput) throws DescriptionIncompleteException, IllegalCommandException {
         String[] splitMessage = userInput.split(" ", 2);
         String instruction = splitMessage[0];
         Task task = null;

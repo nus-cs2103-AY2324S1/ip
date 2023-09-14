@@ -1,3 +1,10 @@
+package Kevin;
+
+import Kevin.Parser.Parser;
+import Kevin.Storage.Storage;
+import Kevin.TaskList.TaskList;
+import Kevin.Ui.Ui;
+
 import java.io.FileNotFoundException;
 
 
