@@ -18,7 +18,7 @@ public class TaskList extends ArrayList<Task> {
         for (int i = 0; i < this.size(); i++) {
             result.append((i + 1)).append(". ").append(this.get(i)).append("\n");
         }
-
+        assert this.size() == result.toString().split("\n").length : "Number of tasks should equal number of lines";
         return "Here are the tasks in your list:" +
                 "\n" + result;
     }
@@ -42,6 +42,7 @@ public class TaskList extends ArrayList<Task> {
             
         try {
             this.get(index - 1).markAsDone();
+            assert this.get(index - 1).isDone() : "Task should be marked as done";
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("There is no task at that index.");
         }
@@ -70,6 +71,7 @@ public class TaskList extends ArrayList<Task> {
         }
 
         this.get(index - 1).markAsUndone();
+        assert !this.get(index - 1).isDone() : "Task should be marked as undone";
 
         try {
             storage.replaceLine(index, this.get(index - 1).toString());
@@ -89,6 +91,7 @@ public class TaskList extends ArrayList<Task> {
      * @param isFromDatabase A boolean to indicate if the task is from the database.
      */
     public String deleteTask(int index, Storage storage, boolean... isFromDatabase) {
+        int initialSize = this.size();
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
             this.remove(index - 1);
             return null;
@@ -96,6 +99,7 @@ public class TaskList extends ArrayList<Task> {
 
         try {
             storage.deleteLine(index);
+            assert this.size() == initialSize - 1 : "Task list size should decrease by 1 after deletion";
         } catch (DukeException e) {
             return e.toString();
         }
@@ -112,6 +116,7 @@ public class TaskList extends ArrayList<Task> {
 
 
     public String addTask(Task task, Storage storage, boolean... isFromDatabase) {
+        int initialSize = this.size();
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
             this.add(task);
             return null;
@@ -119,6 +124,7 @@ public class TaskList extends ArrayList<Task> {
 
         try {
             storage.writeData(task.toString());
+            assert this.size() == initialSize + 1 : "Task list size should increase by 1 after adding a task";
         } catch (DukeException e) {
             return e.toString();
         }

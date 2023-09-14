@@ -10,7 +10,8 @@ public abstract class Command {
      * Constructor for Command.
      */
     public Command() {
-
+        // Assuming that whenever a Command object is created, it should not be null
+        assert this != null : "Command object should not be null";
     }
 
     /**
