@@ -67,4 +67,19 @@ public class Deadline extends Task {
         String marked = this.isDone() ? "1" : "0";
         return "D | " + marked + " | " + this.getDescription() + " | " + this.deadline + "\n";
     }
+
+    /**
+     * A method that returns whether the Deadline task is still relevant
+     * before date provided, based on whether it is completed and the
+     * deadline of the task.
+     * @param date LocalDate used to compare the task to.
+     * @return boolean determining whether task is relevant.
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        if (this.deadline.isAfter(date)) {
+            return true;
+        }
+        return !this.isDone();
+    }
 }

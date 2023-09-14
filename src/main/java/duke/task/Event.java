@@ -81,4 +81,18 @@ public class Event extends Task {
         String marked = this.isDone() ? "1" : "0";
         return "E | " + marked + " | " + this.getDescription() + " | " + this.start + " | " + this.end + "\n";
     }
+
+    /**
+     * A method that returns whether the Event task is happening
+     * within given date and based on completion status.
+     * @param date LocalDate used to compare the task to.
+     * @return boolean determining whether task is relevant.
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        if (this.start.isBefore(date) && this.end.isAfter(date)) {
+            return !this.isDone();
+        }
+        return false;
+    }
 }
