@@ -1,6 +1,6 @@
 package com.ducky.util;
 
-import com.ducky.logic.DuckyException;
+import com.ducky.common.DuckyException;
 
 /**
  * An exception thrown when a problematic save file is detected.

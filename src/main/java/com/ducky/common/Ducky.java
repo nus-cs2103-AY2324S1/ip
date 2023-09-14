@@ -1,4 +1,4 @@
-package com.ducky.logic;
+package com.ducky.common;
 
 import com.ducky.command.Command;
 import com.ducky.util.Parser;

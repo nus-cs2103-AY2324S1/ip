@@ -1,4 +1,4 @@
-package com.ducky.logic;
+package com.ducky.common;
 
 import java.util.ArrayList;
 

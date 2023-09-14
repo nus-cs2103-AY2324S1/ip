@@ -2,8 +2,8 @@ package com.ducky;
 
 import java.io.IOException;
 
-import com.ducky.component.MainWindow;
-import com.ducky.logic.Ducky;
+import com.ducky.controller.MainWindow;
+import com.ducky.common.Ducky;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

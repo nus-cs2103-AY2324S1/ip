@@ -1,4 +1,4 @@
-package com.ducky.logic;
+package com.ducky.common;
 
 import java.io.File;
 import java.io.FileNotFoundException;

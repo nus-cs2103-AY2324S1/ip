@@ -1,6 +1,6 @@
-package com.ducky.component;
+package com.ducky.controller;
 
-import com.ducky.logic.Ducky;
+import com.ducky.common.Ducky;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
