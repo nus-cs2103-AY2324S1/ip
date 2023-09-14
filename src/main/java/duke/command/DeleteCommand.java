@@ -36,13 +36,17 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert taskList != null : "taskList should not be null";
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
+
         String err = "OOPS!!! The command for delete task is invalid.";
         int taskNum;
         try {
             if (!commandBody.equals("all")) {
                 taskNum = Integer.parseInt(commandBody);
             } else {
-                taskList.manipulateAllTask(Keyword.DELETE, ui);
+                taskList.manipulateAllTask(Keyword.DELETE);
                 storage.changeFile(Keyword.DELETE, -1);
                 return ui.showManipulateAllTask(Keyword.DELETE.getKeyword());
             }

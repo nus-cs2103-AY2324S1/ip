@@ -62,6 +62,8 @@ public class Parser {
      * @throws DukeException If the user input is invalid.
      */
     private static Command parseOneWordCommand(Keyword key) throws DukeException {
+        assert key != null : "Keyword should not be null";
+
         String err = String.format("OOPS!!! The description of a %s cannot be empty.", key.getKeyword());
         switch (key) {
         case BYE:
@@ -102,6 +104,8 @@ public class Parser {
      * @throws DukeException If the user input is invalid.
      */
     public static Command parseMultiWordCommand(Keyword key, String commandBody) throws DukeException {
+        assert key != null : "Keyword should not be null";
+
         switch (key) {
         case BYE:
             if (commandBody.equals(Ui.NAME)) {

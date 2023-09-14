@@ -96,12 +96,14 @@ public class Storage {
         if (!this.folder.exists()) {
             folder.mkdirs();
         }
+        assert this.folder.exists() : "Folder should be created";
         try {
             if (!file.exists()) {
                 Files.createFile(Paths.get(this.filePath));
             } else {
                 clearFile();
             }
+            assert this.file.exists() : "File should be created";
         } catch (IOException e) {
             /* Here is reach if something terrible happened.
                It is best to throw a runtime exception. */
@@ -233,7 +235,6 @@ public class Storage {
      * @throws IOException If the file is not found.
      */
     private void markAll(boolean isMark, Scanner sc, FileWriter fw) throws IOException {
-
         while (sc.hasNext()) {
             String task = sc.nextLine();
             String result = task.substring(0, SEPARATOR.length() + 1)
