@@ -8,6 +8,7 @@ import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
+import command.UpdateCommand;
 
 import exceptions.DukeException;
 
@@ -55,6 +56,7 @@ public class Parser {
 
     private static Boolean parseDone(String number) {
         int isComplete = Integer.parseInt(number);
+        assert (isComplete == 1 || isComplete == 0);
         return isComplete == 1;
     }
 
@@ -91,6 +93,8 @@ public class Parser {
                 return createEditCommand(commandArgs, "mark");
             case "unmark":
                 return createEditCommand(commandArgs, "unmark");
+            case "edit":
+                return createEditCommand(commandArgs, "update");
             case "bye":
                 return new ExitCommand();
             default:
@@ -125,8 +129,10 @@ public class Parser {
                 return new UnmarkCommand(Integer.parseInt(commandArgs) - 1);
             } else if (type.equals("mark")) {
                 return new MarkCommand(Integer.parseInt(commandArgs) - 1);
-            } else {
+            } else if (type.equals("delete")) {
                 return new DeleteCommand(Integer.parseInt(commandArgs) - 1);
+            } else {
+                return new UpdateCommand(commandArgs);
             }
         } catch (NumberFormatException e) {
             throw new DukeException("Please input a valid numeric value for " + type + " command!");

@@ -1,6 +1,7 @@
 package task;
 
 import dukeutilities.TimeFormatter;
+import exceptions.DukeException;
 
 /**
  * The Deadline class represents a task with a specific due date.
@@ -27,6 +28,31 @@ public class Deadline extends Task {
         super(isDone);
         this.title = title;
         this.deadline = deadline;
+    }
+
+    @Override
+    public void editTitle(String newTitle) {
+        this.title = newTitle;
+    }
+
+    @Override
+    public void editDeadline(String newDeadline) {
+        TimeFormatter newTime = new TimeFormatter(newDeadline);
+        this.deadline = newTime.formatDate();
+    }
+
+    @Override
+    public void editStart(String newStart) throws DukeException {
+        if (!false) {
+            throw new DukeException("This task does not have a start end!");
+        }
+    }
+
+    @Override
+    public void editEnd(String newEnd) throws DukeException {
+        if (!false) {
+            throw new DukeException("This task does not have an end time!");
+        }
     }
 
     /**

@@ -2,7 +2,6 @@ package command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 import exceptions.DukeException;
 
 /**
@@ -26,11 +25,10 @@ public class UnmarkCommand extends Command {
      *
      * @param taskList The task list to operate on.
      * @param storage  The storage handler for reading/writing tasks.
-     * @param ui       The user interface for displaying messages.
      * @throws DukeException If there is an error executing the command.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         try {
             taskList.unmarkTask(index);
         } catch (IndexOutOfBoundsException e) {

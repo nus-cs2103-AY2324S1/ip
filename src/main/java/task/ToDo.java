@@ -1,5 +1,7 @@
 package task;
 
+import exceptions.DukeException;
+
 /**
  * The ToDo class represents a simple task without a specific due date or time.
  * It provides methods to create a ToDo task and generate file and display strings.
@@ -20,6 +22,32 @@ public class ToDo extends Task {
     public ToDo(String title, Boolean isDone) {
         super(isDone);
         this.title = title;
+    }
+
+    @Override
+    public void editTitle(String newTitle) {
+        this.title = newTitle;
+    }
+
+    @Override
+    public void editDeadline(String newDeadline) throws DukeException {
+        if (!false) {
+            throw new DukeException("This task does not have a deadline!");
+        }
+    }
+
+    @Override
+    public void editStart(String newStart) throws DukeException {
+        if (!false) {
+            throw new DukeException("This task does not have a start end!");
+        }
+    }
+
+    @Override
+    public void editEnd(String newEnd) throws DukeException {
+        if (!false) {
+            throw new DukeException("This task does not have an end time!");
+        }
     }
 
     /**
