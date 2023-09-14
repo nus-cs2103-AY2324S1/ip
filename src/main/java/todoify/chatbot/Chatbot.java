@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import todoify.chatbot.exception.ChatbotException;
@@ -409,7 +408,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 var quotedAliases = Arrays.stream(aliases)
                         .map(s -> '"' + s + '"')
                         .collect(Collectors.toList());
-                        
+
                 if (quotedAliases.size() == 0) {
                     continue;
                 }
