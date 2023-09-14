@@ -36,6 +36,7 @@ public class Duke extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/patrick.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/spongebob.png"));
     private TaskList tasks;
+    private Storage storage;
 
     static class EmptyDescriptionException extends Exception {
         public EmptyDescriptionException(String task) {
