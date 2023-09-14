@@ -55,7 +55,6 @@ public class TaskList {
      * @return Task Object.
      */
     public Task getTask(int id) {
-        assert false;
         return taskList.get(id);
     }
 

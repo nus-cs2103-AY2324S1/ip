@@ -30,6 +30,6 @@ public class UnmarkCommand extends Command {
         Task unmarkedTask = tasks.getTask(index);
         unmarkedTask.markUndone();
         String taskDesc = unmarkedTask.toString();
-        return ui.mark(taskDesc, tasks);
+        return ui.unmark(taskDesc, tasks);
     }
 }
