@@ -128,6 +128,35 @@ public class ItemManager {
     }
 
     /**
+     * Returns the total number of Items.
+     */
+    public int getCount() {
+        return this.items.size();
+    }
+
+    /**
+     * Returns the string representations of any Items whose description
+     * contains the specified query.
+     *
+     * @param query The exact query to search for.
+     */
+    public List<String> findStrings(String query) {
+        List<String> matches = new ArrayList<>();
+
+        for (int number = 1; number <= this.getCount(); number++) {
+            Item item = this.items.get(number - 1);
+
+            if (item.getDescription().contains(query)) {
+                matches.add(
+                    item.toString(number)
+                );
+            }
+        }
+
+        return matches;
+    }
+
+    /**
      * Sets the completion status for the Item of the specified number.
      *
      * @param int The Item's number.
@@ -152,12 +181,5 @@ public class ItemManager {
         this.save();
 
         return item;
-    }
-
-    /**
-     * Returns the total number of Items.
-     */
-    public int getCount() {
-        return this.items.size();
     }
 }

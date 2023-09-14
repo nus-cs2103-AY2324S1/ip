@@ -32,6 +32,9 @@ public final class Dispatcher {
         case LIST:
             new ListCommand(commandManager).run();
             break;
+        case FIND:
+            new FindCommand(commandManager).run();
+            break;
         case MARK:
             new MarkCommand(commandManager).run();
             break;

@@ -8,6 +8,7 @@ package com.cloud.chatbot.command;
 public enum CommandType {
     ADD,
     LIST,
+    FIND,
     MARK,
     UNMARK,
     DELETE,
@@ -32,6 +33,11 @@ public enum CommandType {
         case "list":
         case "l":
             return CommandType.LIST;
+        case "find":
+        case "f":
+        case "search":
+        case "s":
+            return CommandType.FIND;
         case "mark":
         case "m":
             return CommandType.MARK;
