@@ -2,6 +2,7 @@ package duke.parser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import duke.commands.AddDeadlineCommand;
@@ -39,12 +40,9 @@ public class Parser {
      */
     public static Command parseCommand(String command) throws ParseException, DukeException, IllegalArgumentException {
         SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        String firstWord = command.split(" ", 2)[0];
-        String secondWord = "";
-
-        if (command.contains(" ")) {
-            secondWord = command.split(" ", 2)[1];
-        }
+        String[] splitCommand = splitCommand(command);
+        String firstWord = splitCommand[0];
+        String secondWord = splitCommand[1];
 
         Instruction instruction = Instruction.valueOf(firstWord);
         switch (instruction) {
@@ -81,6 +79,17 @@ public class Parser {
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    public static String[] splitCommand(String command) {
+        String[] arr = new String[2];
+        String secondWord = "";
+        if (command.contains(" ")) {
+            secondWord = command.split(" ", 2)[1];
+        }
+        arr[0] = command.split(" ", 2)[0];
+        arr[1] = secondWord;
+        return arr;
     }
 
     /**

@@ -15,9 +15,4 @@ public class ByeCommand extends Command {
     public String execute(TaskList taskList, Message message, Storage storage) {
         return message.showBye();
     }
-
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }
