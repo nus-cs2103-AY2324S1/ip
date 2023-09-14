@@ -46,6 +46,8 @@ public class Ui {
     public String getListOfMissions(ArrayList<Task> tasks) {
         String list = "Missions: \n";
 
+        assert tasks != null : "tasks is empty!";
+
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             list += ((tasks.indexOf(task) + 1) + "." + task + "\n");
@@ -63,6 +65,8 @@ public class Ui {
      */
     public String getListOfMissions(ArrayList<Task> tasks, String message) {
         String list = message + "\n";
+
+        assert tasks != null : "tasks is empty!";
 
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);

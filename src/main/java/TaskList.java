@@ -17,25 +17,33 @@ public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>(100);
     private Storage storage;
 
+    /**
+     * Public constructor of TaskList that takes in a storage and initialise the tasklist.
+     *
+     * @param storage is the Storage that the data will be managed by.
+     */
     public TaskList(Storage storage) {
+        assert storage != null : "storage is null";
         this.storage = storage;
     }
 
     public ArrayList<Task> getTasks() {
+        assert tasks != null : "tasks is null";
         return this.tasks;
     }
 
     /**
      * Retrieves the saved data from file.
      *
-     * @return true if successful. Otherwise, false.
+     * @return true if successful. Otherwise, an exception will be thrown.
+     * @throws FileNotFoundException if storage file is not found.
+     * @throws SavedDataFormatException if saved file has a wrong formatting in the data.
+     * @throws StringIndexOutOfBoundsException if there is an error in parsing the saved data and converting to task.
      */
     public boolean load() throws FileNotFoundException, SavedDataFormatException, StringIndexOutOfBoundsException {
         if (storage.checkFileExists()) {
-
             tasks = storage.retrieveTasks();
         } else {
-
             storage.addFile();
         }
 
@@ -49,6 +57,7 @@ public class TaskList {
      * @return Task that was deleted from the list.
      * @throws IndexOutOfBoundsException when taskIndex is invalid.
      * @throws IOException when the program is unable to write to the saved file.
+     * @throws UpdateDataException when there is an issue in updating the saved data.
      */
     public Task deleteTask(int taskIndex) throws
             IndexOutOfBoundsException, IOException, UpdateDataException {
@@ -68,6 +77,8 @@ public class TaskList {
     public String addTask(Task task) {
         if (task != null && tasks.add(task)) {
             try {
+                assert storage != null : "Storage is not assigned to anything yet";
+
                 storage.updateData(tasks, true);
                 return "added in mission:\n" + task;
             } catch (IOException e) {
@@ -91,13 +102,13 @@ public class TaskList {
             Task task = tasks.get(taskIndex);
 
             if (task.isDone()) {
-                //Events.Task already marked as done
                 return "Mission has been completed previously.";
             }
 
             task.updateCompletionStatus();
 
             try {
+                assert storage != null : "Storage is not assigned to anything yet";
                 storage.updateData(tasks, false);
             } catch (UpdateDataException e) {
                 return e.toString();
@@ -123,12 +134,12 @@ public class TaskList {
             Task task = tasks.get(taskIndex);
 
             if (!(task.isDone())) {
-                //task already marked as undone
                 return "Mission is already marked as undone!";
             }
 
             task.updateCompletionStatus();
             try {
+                assert storage != null : "Storage is not assigned to anything yet";
                 storage.updateData(tasks, false);
             } catch (UpdateDataException e) {
                 return e.toString();

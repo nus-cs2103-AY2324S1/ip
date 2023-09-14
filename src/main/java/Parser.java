@@ -15,8 +15,9 @@ import tasks.ToDo;
  */
 public class Parser {
 
-    final static String EMPTY_STRING = "";
-    final static String WHITE_SPACE = " ";
+    static final String EMPTY_STRING = "";
+    static final String WHITE_SPACE = " ";
+    static final String ERROR_MESSAGE = "Error in parsing command"; //Used to indicate a logic error in Parser parsing
 
     /**
      * Retrieve a task based on the taskData input.
@@ -34,19 +35,19 @@ public class Parser {
         String[] descriptions = taskData.split(splitter);
 
         switch (type) {
-            case 'T':
-                return new ToDo(descriptions[2], descriptions[1].matches("1"));
+        case 'T':
+            return new ToDo(descriptions[2], descriptions[1].matches("1"));
 
-            case 'D':
-                //Events.Deadline
-                return new Deadline(descriptions[2], descriptions[3], descriptions[1].matches("1"));
+        case 'D':
+            //Events.Deadline
+            return new Deadline(descriptions[2], descriptions[3], descriptions[1].matches("1"));
 
-            case 'E':
-                //Events.Event
-                return new Event(descriptions[2], descriptions[3], descriptions[1].matches("1"));
+        case 'E':
+            //Events.Event
+            return new Event(descriptions[2], descriptions[3], descriptions[1].matches("1"));
 
-            default:
-                throw new SavedDataFormatException("The saved data is not properly formatted.");
+        default:
+            throw new SavedDataFormatException("The saved data is not properly formatted.");
         }
     }
 
@@ -57,41 +58,25 @@ public class Parser {
      * @return non-negative int if args is valid input, else -1.
      */
     public static int parse(String args) {
-        String[] splitArgs = args.toLowerCase().split(WHITE_SPACE);
+        assert !(args.equals("")) : "args passed into Parser.parse is empty!";
+        String[] splitArgs = decomposeIntoWords(args.toLowerCase());
 
-        if (splitArgs.length < 2) {
-            return getCodeSingleWordCommand(splitArgs[0]);
-        }
+        String argType = splitArgs[0];
 
-        String argType = args.toLowerCase().split(WHITE_SPACE)[0];
-
-        return getCodeMultiWordCommand(argType);
+        return getCodeFromCommand(argType);
     }
 
-    private static int getCodeSingleWordCommand(String arg) {
+    private static int getCodeFromCommand(String argType) {
         final int errorCode = -1;
 
-        if (arg.equals("bye")) {
+        assert !(argType.contains(WHITE_SPACE)) : ERROR_MESSAGE;
+        if (argType.equals("bye")) {
             //User wishes to exit the program
             return 0;
-        } else if (arg.equals("list")) {
+        } else if (argType.equals("list")) {
             //User wishes to see his listed missions
             return 1;
-        } else {
-            return errorCode;
-        }
-    }
-
-    /**
-     * Returns an integer representing the command type based on argType.
-     *
-     * @param argType is the first word of the command input.
-     * @return an int that determines Veda should perform.
-     */
-    private static int getCodeMultiWordCommand(String argType) {
-        final int errorCode = -1;
-
-        if (argType.equals("mark")) {
+        } else if (argType.equals("mark")) {
             //User wishes to mark task as done
             return 2;
         } else if (argType.equals("unmark")) {
@@ -106,9 +91,9 @@ public class Parser {
         } else if (argType.equals("find")) {
             //User wishes to find a task by a keyword
             return 6;
+        } else {
+            return errorCode;
         }
-
-        return errorCode;
     }
 
     /**
@@ -117,11 +102,13 @@ public class Parser {
      * @param args
      * @return an integer corresponding to the index of the task that we want.
      * @throws NumberFormatException
-     * @throws IncorrectInputException when the user did not input any additional arguments or more arguments than
-     * required.
+     * @throws IncorrectInputException when the user did not input any additional arguments or more arguments
+     *    than required.
      */
     public static int getTargetIndex(String args) throws NumberFormatException, IncorrectInputException {
-        String[] splitArgs = args.split(" ");
+        assert args != null : "args is null!";
+
+        String[] splitArgs = decomposeIntoWords(args);
         final int length = splitArgs.length;
 
         if (length < 2) {
@@ -130,7 +117,8 @@ public class Parser {
             throw new ExcessiveArgumentException("There are too many arguments.");
         }
 
-        int targetIndex = Integer.parseInt(splitArgs[1]) - 1;
+        final int offset = -1; //Display list is 1 more greater than index
+        int targetIndex = Integer.parseInt(splitArgs[1]) + offset;
 
         if (targetIndex < 0) {
             throw new IncorrectInputException("Index of task must be greater than 0.");
@@ -146,8 +134,8 @@ public class Parser {
      * @return a Task from the given args.
      * @throws NoDescriptionException
      */
-    public static Task getTask(String args) throws NoDescriptionException {
-        final String type = args.split(WHITE_SPACE)[0];
+    public static Task getTask(String args) throws IncorrectInputException {
+        final String type = decomposeIntoWords(args)[0];
         Task newTask;
 
         switch (type) {
@@ -172,7 +160,7 @@ public class Parser {
 
     private static ToDo assignToDoTask(String args) throws NoDescriptionException {
         final String type = "todo";
-        final String[] splitArgs = args.split(WHITE_SPACE);
+        final String[] splitArgs = decomposeIntoWords(args);
 
         if (splitArgs.length < 2) {
             throw new NoDescriptionException("");
@@ -183,7 +171,7 @@ public class Parser {
         return new ToDo(description);
     }
 
-    private static Deadline assignDeadlineTask(String args) {
+    private static Deadline assignDeadlineTask(String args) throws IncorrectInputException {
         //Expected CL input: deadline <Description> /by <Due date in dd/MM/yyyy HHmm>
         final String type = "deadline";
         final String separator = " /by ";
@@ -195,6 +183,10 @@ public class Parser {
 
         String detail = args.replaceFirst(type + WHITE_SPACE, EMPTY_STRING);
         String[] splitDetails = detail.split(separator);
+
+        if (splitDetails.length < 2) {
+            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/by\"");
+        }
 
         return new Deadline(splitDetails[0], splitDetails[1]);
     }
@@ -209,19 +201,34 @@ public class Parser {
         }
 
         final String detail = args.replaceFirst(type + WHITE_SPACE, EMPTY_STRING); //Remove type
-        String[] splitDetails = detail.split(separatorFrom);  //Split remaining args into description + (from and to)
+        String[] splitDetails = detail.split(separatorFrom); //Split remaining args into description + (from and to)
+
+        if (splitDetails.length < 2) {
+            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/from\"");
+        }
 
         String description = splitDetails[0];
-        String from = splitDetails[1].split(separatorTo)[0]; //Split (from and to) into from and to
-        String to = splitDetails[1].split(separatorTo)[1];
+        String[] timeFromTo = splitDetails[1].split(separatorTo);
+
+        if (timeFromTo.length < 2) {
+            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/to\"");
+        }
+
+        String from = timeFromTo[0];
+        String to = timeFromTo[1];
 
         return new Event(description, from, to);
     }
 
     public static String getKeyword(String arg) {
+        assert arg.contains("find ") : "arg does not contain \"find \"!";
         //Parse keyword
-        final String keyword = arg.toLowerCase().replaceFirst("find ", "");
+        final String keyword = arg.toLowerCase().replaceFirst("find ", EMPTY_STRING);
 
         return keyword;
+    }
+
+    private static String[] decomposeIntoWords(String arg) {
+        return arg.split(WHITE_SPACE);
     }
 }

@@ -27,9 +27,7 @@ public class Veda {
     public String initialise() {
         try {
             tasks.load();
-        } catch (FileNotFoundException e) {
-            return e.toString();
-        } catch (SavedDataFormatException e) {
+        } catch (FileNotFoundException | SavedDataFormatException e) {
             return e.toString();
         } catch (StringIndexOutOfBoundsException e) {
             return "Error in parsing saved data.";
@@ -60,32 +58,32 @@ public class Veda {
         final String errorInputResponse = ui.getUnrecognisedInputMessage();
 
         switch (method) {
-            case -1:
-                return errorInputResponse;
+        case -1:
+            return errorInputResponse;
 
-            case 0:
-                return ui.getExitMessage();
+        case 0:
+            return ui.getExitMessage();
 
-            case 1:
-                return ui.getListOfMissions(tasks.getTasks());
+        case 1:
+            return ui.getListOfMissions(tasks.getTasks());
 
-            case 2:
-                return markTaskAsDone(input);
+        case 2:
+            return markTaskAsDone(input);
 
-            case 3:
-                return markTaskAsUndone(input);
+        case 3:
+            return markTaskAsUndone(input);
 
-            case 4:
-                return deleteTask(input);
+        case 4:
+            return deleteTask(input);
 
-            case 5:
-                return addTask(input);
+        case 5:
+            return addTask(input);
 
-            case 6:
-                return getListOfMission(input);
+        case 6:
+            return getListOfMission(input);
 
-            default:
-                return errorInputResponse;
+        default:
+            return errorInputResponse;
         }
     }
 

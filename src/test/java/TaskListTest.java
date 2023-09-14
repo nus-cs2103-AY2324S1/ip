@@ -5,9 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import exceptions.SavedDataFormatException;
 import org.junit.jupiter.api.Test;
 
+import exceptions.SavedDataFormatException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
