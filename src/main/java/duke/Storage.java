@@ -103,8 +103,6 @@ public class Storage {
      * @throws DukeException if the attempt to write to the file fails.
      */
     public void addLineToFile(TaskList taskList) throws DukeException {
-        assert !taskList.taskArray.isEmpty();
-
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
             if (taskList.taskArray.size() == 1) {
