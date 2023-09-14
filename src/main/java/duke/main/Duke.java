@@ -51,14 +51,18 @@ import javafx.scene.Node;
         private Scene scene;
         private Image user = new Image(this.getClass().getResourceAsStream("/images/speed.png"));
         private Image duke = new Image(this.getClass().getResourceAsStream("/images/ronaldo.png"));
+        private boolean isRunning = false;
 
         public Duke() {
+            assert user != null;
+            assert duke != null;
             try {
                 this.parser = new Parser();
                 storage = new Storage(FILE_PATH);
                 this.ui = new UI();
                 ui.greetUser(chatBotName);
                 taskManager = storage.loadData();
+                this.isRunning = true;
             } catch (DukeException e) {
                 ui.displayError(e);
             }
@@ -69,10 +73,8 @@ import javafx.scene.Node;
 //            return "Duke heard: " + input;
 //        }
 
-
         public static void main(String[] args) {
             Duke duke = new Duke();
-
         }
 
         /**
@@ -82,8 +84,6 @@ import javafx.scene.Node;
          */
         protected String getResponse(String input) {
 
-            //Scanner scanner = new Scanner(System.in);
-            //String input = "";
             while (!input.equals("bye")) {
                 try {
                     //input = scanner.nextLine();
@@ -113,6 +113,7 @@ import javafx.scene.Node;
                     return ui.displayError(e);
                 }
             }
+            assert isRunning;
             return ui.exit();
         }
 
@@ -155,6 +156,7 @@ import javafx.scene.Node;
         }
 
         private void updateStorage() throws StorageException {
+            assert (this.storage != null);
             this.storage.saveData(taskManager);
         }
 
