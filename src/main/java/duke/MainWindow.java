@@ -27,6 +27,16 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/FraudUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Davidson.png"));
 
+    /**
+     * Initializes the user interface components.
+     * <p>
+     * This method sets up the scrolling behavior, adjusts fonts for the user input and send button,
+     * and displays an initial greeting message from Davidson.
+     * </p>
+     *
+     * @FXML Indicates that this method is used to inject layout code into the JavaFX scene.
+     */
+
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

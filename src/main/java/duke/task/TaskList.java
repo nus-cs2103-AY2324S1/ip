@@ -91,4 +91,21 @@ public class TaskList {
                 .toArray(Task[]::new)
         );
     }
+    /**
+     * Retrieves a {@link TaskList} containing all {@link Deadline} tasks sorted by their deadlines in ascending order.
+     * <p>
+     * This method filters the tasks in the current list to only include {@link Deadline} tasks.
+     * It then sorts these tasks based on their deadlines and returns the result as a new {@link TaskList}.
+     * </p>
+     *
+     * @return A new {@link TaskList} containing {@link Deadline} tasks sorted by their deadlines.
+     */
+    public TaskList getSortedDeadlines() {
+        Task[] sortedDeadlines = this.tasks.stream()
+                .filter(task -> task instanceof Deadline)
+                .map(task -> (Deadline) task)
+                .sorted((d1, d2) -> d1.getBy().compareTo(d2.getBy()))
+                .toArray(Task[]::new);
+        return new TaskList(sortedDeadlines);
+    }
 }

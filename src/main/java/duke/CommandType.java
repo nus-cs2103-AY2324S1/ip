@@ -37,6 +37,8 @@ public enum CommandType {
 
     FIND,
 
+    SORT,
+
     /** Command type when the input command is not recognized. */
     UNKNOWN
 }
