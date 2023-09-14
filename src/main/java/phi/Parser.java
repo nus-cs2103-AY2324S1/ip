@@ -85,7 +85,7 @@ public class Parser {
                 } else if (toFlagStart == fromFlagEnd) {
                     return "Your \"/from\" flag can't be empty! Leave a space if you want it blank.";
                 } else if (input.endsWith("/to")) {
-                   return "Your \"/to\" flag can't be empty! Leave a space if you want it blank.";
+                    return "Your \"/to\" flag can't be empty! Leave a space if you want it blank.";
                 }
                 String taskMsg = input.substring(6, fromFlagStart - 1);
                 String fromStr = input.substring(fromFlagEnd, toFlagStart - 1);
@@ -106,10 +106,9 @@ public class Parser {
                 String keyword = input.substring(5);
                 return tasks.findTasks(keyword);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return e.getMessage();
         }
-        return("SIKE I can't process that! Try again or say \"help\" to see a list of all available commands");
+        return ("SIKE I can't process that! Try again or say \"help\" to see a list of all available commands");
     }
 }

@@ -34,11 +34,9 @@ public class TaskList {
             Task t = getTask(number);
             t.markDone();
             return "ALRIGHT NICE I'll mark this as completed :)\n" + t;
-        }
-        catch (NumberFormatException | StringIndexOutOfBoundsException n) {
+        } catch (NumberFormatException | StringIndexOutOfBoundsException n) {
             return "OI open ur eyes and give a proper input ITS \"mark\" AND A NUMBER";
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return e.getMessage();
         }
     }
@@ -56,15 +54,18 @@ public class TaskList {
             Task t = getTask(number);
             t.markUndone();
             return "Oh nooo I will mark this undone then :(\n" + t;
-        }
-        catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             return "OI open ur eyes and give a proper input ITS \"unmark\" AND A NUMBER";
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return e.getMessage();
         }
     }
 
+    /**
+     * Adds a task to the TaskList
+     * @param task Task to be added
+     * @return     String with the tasklist information
+     */
     public String addTask(Task task) {
         this.tasks.add(task);
         return "Added:\n" + task;
@@ -85,11 +86,9 @@ public class TaskList {
             System.out.println(t);
             this.tasks.remove(t);
             return String.format("There's %d task(s) in the list now.%n", tasks.size());
-        }
-        catch (NumberFormatException n) {
+        } catch (NumberFormatException n) {
             return "Ugh to delete stuff, you have to input \"delete\" and the number...";
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return e.getMessage();
         }
     }
@@ -158,10 +157,16 @@ public class TaskList {
         return output.toString();
     }
 
-    public int listSize() {
+    public int getSize() {
         return this.tasks.size();
     }
 
+    /**
+     * Returns the list of all tasks that match the given String keyword
+     *
+     * @param searchString Keyword to be searched for
+     * @return             Concatenated String of all tasks containing argument keyword
+     */
     public String findTasks(String searchString) {
         StringBuilder output = new StringBuilder("Here's all the tasks that match your keyword!\n");
         for (Task t : this.tasks) {

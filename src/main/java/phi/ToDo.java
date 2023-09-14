@@ -11,7 +11,7 @@ public class ToDo extends Task {
      * @param isDone    Boolean determining if task is completed
      */
     public ToDo(String msg, boolean isDone) {
-        super(Type.T,isDone, msg);
+        super(Type.T, isDone, msg);
     }
 
     /**

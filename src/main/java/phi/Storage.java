@@ -38,7 +38,7 @@ public class Storage {
     }
 
     /**
-     * Reads the input of the stored tasklist .txt file and returns a new TaskList object containing the saved information
+     * Reads the input of the stored tasklist .txt file and returns the saved information
      *
      * @return TaskList object containing the tasks stored in tasklist.txt
      */
@@ -50,7 +50,7 @@ public class Storage {
                 tasks.addFromTxt(txtScanner.nextLine());
             }
             txtScanner.close();
-            System.out.println("Text file has been scanned!\n" + tasks.listSize() + " items in the list");
+            System.out.println("Text file has been scanned!\n" + tasks.getSize() + " items in the list");
         } catch (FileNotFoundException e) {
             System.out.println("Something went wrong... There's still no file to be found");
             return new TaskList();

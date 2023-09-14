@@ -4,7 +4,7 @@ package phi;
  * Abstract parent class of all task types. Cannot be instantiated.
  */
 public abstract class Task {
-    protected enum Type {T, D, E}
+    protected enum Type { T, D, E }
 
     protected Type taskType;
     protected boolean done;

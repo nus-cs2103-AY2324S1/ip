@@ -4,21 +4,30 @@ package phi;
  * Represents user interactions
  */
 public class Ui {
+    /**
+     * Greeting message procedure
+     */
     public void greeting() {
-        String logo = " ___ _  _ ___\n" +
-                "| _ \\ || |_ _|\n" +
-                "|  _/ __ || | \n" +
-                "|_| |_||_|___| \n";
+        String logo = " ___ _  _ ___\n"
+                + "| _ \\ || |_ _|\n"
+                + "|  _/ __ || | \n"
+                + "|_| |_||_|___| \n";
         String greetingMsg = "Hellos! I'm PHI (Programmed Human Interaction)\nWhat can I do for you?\n";
 
         System.out.println(logo + greetingMsg);
     }
 
+    /**
+     * Exit message procedure
+     */
     public void goodbye() {
         String exitMsg = "okk THANKS FOR COMING BYE!";
         System.out.println(exitMsg);
     }
 
+    /**
+     * List of all accepted user commands
+     */
     public static String helpMsg() {
         return "Here's a list of commands:\n"
                 + "1. list (prints out a list of all tasks)\n"

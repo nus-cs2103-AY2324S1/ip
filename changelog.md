@@ -82,7 +82,8 @@ This is a project log for my individual project
 ### Coding Standard
 - Code should now comply with the given coding standard for this project
 
-
+### Checkstyle
+- CheckStyle now incorporated to detect coding style violations. Configured to be used with Gradle
 
 
 

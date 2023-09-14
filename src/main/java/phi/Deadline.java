@@ -18,7 +18,7 @@ public class Deadline extends Task {
      * @param deadline  User-specified deadline of task
      */
     public Deadline(String msg, boolean isDone, String deadline) {
-        super(Type.D,isDone, msg);
+        super(Type.D, isDone, msg);
         this.deadlineString = deadline;
         LocalDate deadlineDate;
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
