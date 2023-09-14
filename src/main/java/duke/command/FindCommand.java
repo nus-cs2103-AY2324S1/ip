@@ -12,25 +12,36 @@ import duke.task.TaskList;
  * Command to find tasks in the task list.
  */
 public class FindCommand extends Command {
+    private String keyword;
 
     /**
      * Constructor for FindCommand.
      *
      * @param parameterMap Map of parameters for the command.
      */
-    public FindCommand(Map<String, String> parameterMap) {
+    public FindCommand(Map<String, String> parameterMap) throws DukeException {
         super(parameterMap);
+
+        this.loadParameters();
+        this.checkIfParametersSpecified();
+    }
+
+    @Override
+    public void loadParameters() throws DukeException {
+        keyword = parameterMap.get("default");
+    }
+
+    @Override
+    public void checkIfParametersSpecified() throws DukeException {
+        if (keyword == null || keyword.isEmpty()) {
+            throw new DukeException("No key to search for specified. Please specify a key.");
+        }
     }
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
-        if (!super.getParameterMap().containsKey("default")) {
-            throw new DukeException("No key to search for specified. Please specify a key.");
-        }
-
         AtomicInteger count = new AtomicInteger(1);
 
-        String keyword = super.getParameterMap().get("default");
         Stream<String> taskDetails = tasks.getTasks().map(task -> task.toString())
                 .filter(task -> task.contains(keyword))
                 .map(task -> String.format("%d. $d\n", count.getAndIncrement(), tasks));
