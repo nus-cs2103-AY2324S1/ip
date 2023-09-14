@@ -2,16 +2,13 @@ package duke;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -25,23 +22,14 @@ import javafx.stage.Stage;
  */
 public class Duke extends Application {
     /**
-     * Common text elements to be reused by the chatbot, such as the chatbot name,
-     * and the horizontal line element.
+     * Common text elements to be reused by the chatbot, such as the chatbot name
      */
-    private static final String name = "JOHNATHAN CENATOR\n";
-    private static final String horizontalLine = "-------------------------------\n";
+    private static final String NAME = "JOHNATHAN CENATOR\n";
 
     /**
      * Store tasks in a separate class
      */
     private static Storage taskStorage = new Storage();
-
-    /**
-     * An enum to track the status of the chatbot
-     * RUNNING, STOPPING, etc.
-     * [To add more if needed]
-     */
-    enum Status {RUNNING, STOPPING}
 
     // Variables for GUI
     private ScrollPane scrollPane;
@@ -59,9 +47,17 @@ public class Duke extends Application {
      */
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
+        createWindow(stage);
+        formatWindow();
+        createEventListener();
+    }
 
-        //The container for the content of the chat to scroll.
+    /**
+     * Set up GUI components
+     *
+     * @param stage The window the GUI is contained in
+     */
+    private void createWindow(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -77,14 +73,19 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
+        // Format the window to look as expected
         stage.setTitle("CENATOR");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
         mainLayout.setPrefSize(400.0, 600.0);
+    }
 
+    /**
+     * Format and resize GUI components
+     */
+    private void formatWindow() {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -105,8 +106,12 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        //Part 3. Add functionality to handle user input.
+    /**
+     * Set up interactivity with GUI and chatbot
+     */
+    private void createEventListener() {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -181,7 +186,7 @@ public class Duke extends Application {
      */
     private static String greet() {
         return "YOU DIDN'T SEE\n"
-                + name
+                + NAME
                 + "COMING DID YOU!?\n";
     }
 
@@ -292,7 +297,6 @@ public class Duke extends Application {
      * @return a message indicating the task to be marked or an error message
      */
     private static String mark(String toMark) {
-        System.out.print(horizontalLine);
         try {
             Task task = taskStorage.get(Parser.parseMark(toMark));
 
@@ -324,7 +328,6 @@ public class Duke extends Application {
      * @return a message indicating the task to be unmarked or an error message
      */
     private static String unmark(String toUnmark) {
-        System.out.print(horizontalLine);
         try {
             Task task = taskStorage.get(Parser.parseUnmark(toUnmark));
 
@@ -356,7 +359,6 @@ public class Duke extends Application {
      * @return a message indicating the task to be deleted or an error message
      */
     private static String delete(String toDelete) {
-        System.out.print(horizontalLine);
         try {
             int index = Parser.parseDelete(toDelete);
             Task deletedTask = taskStorage.get(index);
