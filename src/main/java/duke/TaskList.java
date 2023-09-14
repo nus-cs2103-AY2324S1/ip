@@ -44,6 +44,10 @@ public class TaskList {
         return this.todoList;
     }
 
+    public Task getTask(int index) {
+        return this.todoList.get(index);
+    }
+
     /**
      * Returns the number of tasks in the TaskList.
      *
@@ -79,7 +83,6 @@ public class TaskList {
      * @param taskToDeleteIndex The index of the task to be deleted.
      */
     public void deleteTask(int taskToDeleteIndex) {
-        String taskToRemove = todoList.get(taskToDeleteIndex).toString();
         this.todoList.remove(taskToDeleteIndex);
     }
 
@@ -112,8 +115,6 @@ public class TaskList {
         for (Task t : this.todoList) {
             if (t.compareTitle(query)) {
                 queryList.addTask(t);
-            } else {
-                continue;
             }
         }
         return queryList;

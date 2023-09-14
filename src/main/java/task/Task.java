@@ -1,5 +1,7 @@
 package task;
 
+import exceptions.DukeException;
+
 /**
  * The Task class is an abstract base class for different types of tasks.
  * It provides methods to mark tasks as done and generate file strings.
@@ -31,6 +33,7 @@ public abstract class Task {
         this.done = false;
     }
 
+
     /**
      * Checks if title of task contains the query.
      *
@@ -45,5 +48,17 @@ public abstract class Task {
      */
     public String toFileString() {
         return "task";
+    }
+
+    public void editTitle(String edit) {
+    }
+
+    public void editDeadline(String newDeadline) throws DukeException {
+    }
+
+    public void editStart(String newStart) throws DukeException {
+    }
+
+    public void editEnd(String newEnd) throws DukeException {
     }
 }

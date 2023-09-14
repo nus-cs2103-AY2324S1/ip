@@ -1,6 +1,7 @@
 package task;
 
 import dukeutilities.TimeFormatter;
+import exceptions.DukeException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,6 +45,28 @@ public class Event extends Task {
         this.title = title;
         this.start = start;
         this.end = end;
+    }
+
+    @Override
+    public void editTitle(String newTitle) {
+        this.title = newTitle;
+    }
+
+    @Override
+    public void editDeadline(String newDeadline) throws DukeException {
+        if (!false) {
+            throw new DukeException("This task does not have a deadline!");
+        }
+    }
+
+    public void editStartTime(String newStart) {
+        TimeFormatter newStartTime = new TimeFormatter(newStart);
+        this.start = newStartTime.formatDate();
+    }
+
+    public void editEndTime(String newEnd) {
+        TimeFormatter newEndTime = new TimeFormatter(newEnd);
+        this.end = newEndTime.formatDate();
     }
 
     /**

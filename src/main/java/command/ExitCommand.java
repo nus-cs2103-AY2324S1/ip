@@ -22,10 +22,9 @@ public class ExitCommand extends Command {
      *
      * @param taskList The task list (not used in this command).
      * @param storage  The storage handler (not used in this command).
-     * @param ui       The user interface for displaying messages.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) {
+    public String execute(TaskList taskList, Storage storage) {
         return "Bye! Have a nice day!";
     }
 }
