@@ -42,9 +42,13 @@ test {
     }
 }
 
+mainClassName = 'chadbod.Launcher'
+
 application {
-    mainClass.set("chadbod.ChadBod")
+    mainClass.set("chadbod.Chadbod")
 }
+
+
 
 checkstyle {
     toolVersion = '10.2'
