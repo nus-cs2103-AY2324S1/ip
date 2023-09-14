@@ -27,6 +27,14 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + convertFromToString() + " to: " + convertToToString() + ")";
     }
 
+    @Override
+    public String toDataString() {
+        String doneNum = this.getIsDone() ? "1" : "0";
+        return "E/" + doneNum + "/" + this.getDescription() + "/"
+                + this.getFrom().toString() + "/"
+                + this.getTo().toString();
+    }
+
     /**
      * Returns LocalDateTime date and time of when task starts
      * @return LocalDateTime of when the task starts
