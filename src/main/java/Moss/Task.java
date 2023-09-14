@@ -1,7 +1,5 @@
 package moss;
 
-import java.time.LocalDate;
-
 /**
  * Represents a task with a description and completion status.
  */
@@ -55,7 +53,7 @@ public class Task {
         String output = "";
         output += "____________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
-                + this.toString() + "\n"
+                + this + "\n"
                 + "____________________________________________________________\n";
         return output;
     }
@@ -68,7 +66,7 @@ public class Task {
         String output = "";
         output += "____________________________________________________________\n"
                 + "Nice! I've marked this task as undone:\n"
-                + this.toString() + "\n"
+                + this + "\n"
                 + "____________________________________________________________\n";
         return output;
     }

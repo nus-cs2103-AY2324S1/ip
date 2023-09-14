@@ -11,12 +11,12 @@ public class Event extends Task {
     /**
      * The start date of the event.
      */
-    private LocalDate fromDate;
+    private final LocalDate fromDate;
 
     /**
      * The end date of the event.
      */
-    private LocalDate toDate;
+    private final LocalDate toDate;
 
     /**
      * Constructs a new Event object with the given description, start date, and end date.

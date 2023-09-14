@@ -149,10 +149,10 @@ public class TaskList {
                 int count = 0;
                 output += "________________________________________________________\n"
                         + "Here are the matching tasks in your list: \n";
-                for (int i = 0; i < things.size(); i++) {
-                    if (things.get(i).getDescription().contains(taskDescription)) {
+                for (Task thing : things) {
+                    if (thing.getDescription().contains(taskDescription)) {
                         count++;
-                        output += count + ". " + things.get(i).toString("") + "\n";
+                        output += count + ". " + thing.toString("") + "\n";
                     }
                 }
                 if (count == 0) {
