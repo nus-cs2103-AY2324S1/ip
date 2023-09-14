@@ -6,12 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import exceptions.DateFormatWrongException;
-import exceptions.EmptyNumberException;
-import exceptions.EmptyTaskException;
-import exceptions.HachiException;
-import exceptions.NumberOutOfBoundsException;
-import exceptions.TooManyArgumentsException;
+import exceptions.*;
 
 /**
  * Provides all the parsing methods for the other classes to parse user commands.
@@ -19,90 +14,42 @@ import exceptions.TooManyArgumentsException;
 public class Parser {
 
     /**
-     * Splits the raw user command into two parts, the main command word and an array of the arguments.
-     * @param cmd The raw user command
-     * @return A Command object that encapsulates both the main command word and the array of arguments.
+     * Parses the user command, and returns the appropriate Command object.
+     * @param cmd The raw user command.
+     * @param taskList The application taskList.
+     * @param storage The application storage.
+     * @return A Command object that corresponds to the command passed in by the user.
      */
-    public static Command parse(String cmd) {
+    public static Command parse(String cmd, TaskList taskList, Storage storage)
+            throws InvalidCommandException {
         String[] words = cmd.split(" ");
-        return new Command(words[0], Arrays.copyOfRange(words, 1, words.length));
-    }
+        String commandWord = words[0];
+        String[] arguments = Arrays.copyOfRange(words, 1, words.length);
 
-    /**
-     * Throws the appropriate error if the argument length is wrong. Otherwise, does nothing.
-     * @param commandWord The command word whose arguments we are checking.
-     * @param argumentLength The number of arguments which the user passed in.
-     * @throws HachiException The appropriate exception if argument length is wrong.
-     */
-    public static void checkArgumentLength(String commandWord, int argumentLength)
-            throws HachiException {
         switch (commandWord) {
         case ByeCommand.COMMAND_WORD:
-            if (argumentLength > 0) {
-                throw new TooManyArgumentsException(ByeCommand.COMMAND_WORD, 0, argumentLength);
-            }
-            break;
+            return new ByeCommand(arguments);
         case ListCommand.COMMAND_WORD:
-            if (argumentLength > 0) {
-                throw new TooManyArgumentsException(ListCommand.COMMAND_WORD, 0, argumentLength);
-            }
-            break;
+            return new ListCommand(arguments, taskList);
         case MarkCommand.COMMAND_WORD:
-            if (argumentLength > 1) {
-                throw new TooManyArgumentsException(MarkCommand.COMMAND_WORD, 1, argumentLength);
-            }
-            if (argumentLength < 1) {
-                throw new EmptyNumberException(MarkCommand.COMMAND_WORD);
-            }
-            break;
+            return new MarkCommand(arguments, taskList, storage);
         case UnmarkCommand.COMMAND_WORD:
-            if (argumentLength > 1) {
-                throw new TooManyArgumentsException(UnmarkCommand.COMMAND_WORD, 1, argumentLength);
-            }
-            if (argumentLength < 1) {
-                throw new EmptyNumberException(UnmarkCommand.COMMAND_WORD);
-            }
-            break;
+            return new UnmarkCommand(arguments, taskList, storage);
         case DeleteCommand.COMMAND_WORD:
-            if (argumentLength > 1) {
-                throw new TooManyArgumentsException(DeleteCommand.COMMAND_WORD, 1, argumentLength);
-            }
-            if (argumentLength < 1) {
-                throw new EmptyNumberException(DeleteCommand.COMMAND_WORD);
-            }
-            break;
+            return new DeleteCommand(arguments, taskList, storage);
         case TodoCommand.COMMAND_WORD:
-            if (argumentLength < 1) {
-                throw new EmptyTaskException(TodoCommand.COMMAND_WORD);
-            }
-            break;
+            return new TodoCommand(arguments, taskList, storage);
         case DeadlineCommand.COMMAND_WORD:
-            if (argumentLength < 1) {
-                throw new EmptyTaskException(DeadlineCommand.COMMAND_WORD);
-            }
-            break;
+            return new DeadlineCommand(arguments, taskList, storage);
         case EventCommand.COMMAND_WORD:
-            if (argumentLength < 1) {
-                throw new EmptyTaskException(EventCommand.COMMAND_WORD);
-            }
-            break;
+            return new EventCommand(arguments, taskList, storage);
         case SearchdateCommand.COMMAND_WORD:
-            if (argumentLength > 1) {
-                throw new TooManyArgumentsException(SearchdateCommand.COMMAND_WORD, 1, argumentLength);
-            }
-            if (argumentLength < 1) {
-                throw new DateFormatWrongException("");
-            }
-            break;
+            return new SearchdateCommand(arguments, taskList);
         case FindCommand.COMMAND_WORD:
-            if (argumentLength < 1) {
-                throw new HachiException("Please include the word or words you are searching for!");
-            }
-            break;
+            return new FindCommand(arguments, taskList);
         default:
-            break;
+            throw new InvalidCommandException(commandWord);
         }
-
     }
 
     /**
@@ -121,21 +68,6 @@ public class Parser {
             }
         }
         return index;
-    }
-
-    /**
-     * Parses the array of arguments passed in, depending on the type of task the arguments are for.
-     * @param taskType The type of task for which to parse the arguments for.
-     * @param arg The array of arguments to be parsed.
-     * @return The final parsed string.
-     */
-    public static String parseTaskArguments(String taskType, String[] arg) {
-        switch (taskType) {
-
-        default:
-            return String.join(" ", arg);
-        }
-
     }
 
     /**

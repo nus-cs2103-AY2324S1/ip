@@ -2,6 +2,7 @@ package hachi;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Wrapper class that handles all interaction with the task list.
@@ -62,6 +63,22 @@ public class TaskList {
      */
     public void iter(Consumer<? super Task> c) {
         taskList.forEach(c);
+    }
+
+    /**
+     * Filters the task list, returning a task list containing only the filtered elements which
+     * pred returns true on.
+     * @param pred The predicate that is being used to test the elements.
+     * @return The filtered list.
+     */
+    public TaskList filter(Predicate<? super Task> pred) {
+        ArrayList<Task> newTaskList = new ArrayList<>();
+        taskList.forEach(x -> {
+            if (pred.test(x)) {
+                newTaskList.add(x);
+            }
+        });
+        return new TaskList(newTaskList);
     }
 
     /**
