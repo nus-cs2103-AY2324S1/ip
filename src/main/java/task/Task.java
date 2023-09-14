@@ -26,7 +26,6 @@ public abstract class Task {
     @JsonCreator
     public Task(@JsonProperty("description") String description) {
         this.description = description;
-        assert this.description != null : "task description should not be null";
     }
 
 
