@@ -1,6 +1,6 @@
-package main;
+package dialogix.main;
 
-import task.Task;
+import dialogix.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;

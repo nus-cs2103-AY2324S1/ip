@@ -1,4 +1,4 @@
-package main;
+package dialogix.main;
 
 import javafx.application.Application;
 
