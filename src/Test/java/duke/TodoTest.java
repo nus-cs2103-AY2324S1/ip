@@ -11,7 +11,7 @@ public class TodoTest {
     public void check_todo_contentLine() {
 
         Todo t = new Todo("Checking", false);
-        assertEquals("T/ /Checking", t.contentLine());
+        assertEquals("T/ /Checking", t.showContentLine());
     }
 
     @Test

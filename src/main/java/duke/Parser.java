@@ -93,7 +93,10 @@ public class Parser {
             result = new CheckDuedateCommand(splitInput[1]);
         } else if (command.equals("find")) {
             result = new FindCommand(splitInput[1]);
-        } else {
+        } else if (command.equals("sort")) {
+            result = new SortCommand(splitInput[1]);
+        }
+        else {
             throw new NoSuchCommandException();
         }
         return result;

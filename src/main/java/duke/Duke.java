@@ -52,6 +52,7 @@ public class Duke {
         try {
             Command c = Parser.parse(input, this.tasks.size());
             result = c.execute(tasks, storage);
+            System.out.println(result);
             assert result.length() > 0 : "There will always be a return value.";
         } catch (NoSuchCommandException e) {
             result = e.toString();
