@@ -17,7 +17,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_INPUT = "Great heavens! You have entered an invalid input!\n"
             + "Here are the valid commands:\n"
             + "  bye\n"
-            + "  list\n"
+            + "  list [sort]\n"
             + "  mark|unmark <index>\n"
             + "  delete <index>\n"
             + "  todo <description>\n"

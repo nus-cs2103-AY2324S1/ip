@@ -53,7 +53,14 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         case "list":
-            return new ListCommand();
+            isArgumentEmpty = matcher.group(2) == null;
+
+            if (isArgumentEmpty) {
+                // don't sort if second argument empty
+                return new ListCommand(false);
+            }
+
+            return new ListCommand(matcher.group(2).equals("sort"));
         case "mark":
             isArgumentEmpty = matcher.group(2) == null;
 

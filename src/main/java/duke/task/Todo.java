@@ -35,4 +35,18 @@ public class Todo extends Task {
                 this.isDone ? 1 : 0,
                 this.description);
     }
+
+    /**
+     * Clone this duke.task.Todo instance.
+     *
+     * @return The cloned instance.
+     */
+    @Override
+    public Task clone() {
+        Todo temp = new Todo(this.description);
+        if (this.isDone) {
+            temp.markAsDone();
+        }
+        return temp;
+    }
 }

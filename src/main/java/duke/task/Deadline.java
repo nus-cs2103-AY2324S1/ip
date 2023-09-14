@@ -44,4 +44,35 @@ public class Deadline extends Task {
                 this.description,
                 this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
+
+    /**
+     * Clone this duke.task.Deadline instance.
+     *
+     * @return The cloned instance.
+     */
+    @Override
+    public Task clone() {
+        Deadline temp = new Deadline(this.description, this.by);
+        if (this.isDone) {
+            temp.markAsDone();
+        }
+        return temp;
+    }
+
+    /**
+     * Compares the due dates this duke.task.Deadline instance with another duke.task.Deadline instance.
+     *
+     * @param other The other duke.task.Deadline instance.
+     * @return -1 if this Deadline is due first, 0 if both are due at the same time, or 1 if the other
+     *         Deadline is due first.
+     */
+    public int compareDueDate(Deadline other) {
+        if (this.by.isBefore(other.by)) {
+            return -1;
+        } else if (this.by.isEqual(other.by)) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package duke;
 
 import duke.task.Task;
+import duke.task.TaskComparator;
 
 import java.util.ArrayList;
 
@@ -130,5 +131,16 @@ public class TaskList {
         }
 
         return tempString.toString();
+    }
+
+    public TaskList sorted() {
+        TaskList sortedList = new TaskList();
+        // we clone here so the original list is not sorted.
+        for (Task task : this.tasks) {
+            sortedList.add(task.clone());
+        }
+
+        sortedList.tasks.sort(new TaskComparator());
+        return sortedList;
     }
 }
