@@ -27,13 +27,10 @@ public abstract class Task {
      * Changes the current completion status of the task to true or false if it is currently false or true respectively.
      */
     public void updateCompletionStatus() {
-        //If done, change to not done or false
-        //Else, change to done or true
         this.isDone = !(this.isDone);
     }
 
     public String getStatusIcon() {
-        //Events.Task is marked as done with an "X"
         return isDone
                 ? "X"
                 : " ";

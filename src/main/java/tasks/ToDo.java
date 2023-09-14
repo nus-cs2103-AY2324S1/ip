@@ -23,7 +23,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T][" + getStatusIcon() + "] " + super.getDescription();
+        return "[" + SYMBOL + "][" + getStatusIcon() + "] " + super.getDescription();
     }
 
     @Override

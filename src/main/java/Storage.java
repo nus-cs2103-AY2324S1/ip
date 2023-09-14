@@ -5,10 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tasks.Deadline;
-import tasks.Event;
+import exceptions.SavedDataFormatException;
+import exceptions.UpdateDataException;
 import tasks.Task;
-import tasks.ToDo;
 
 /**
  * Storage deals with loading tasks from the file and saving tasks in the file.
@@ -56,43 +55,15 @@ public class Storage {
      * @return an ArrayList containing the tasks stored in the hard disk.
      * @throws FileNotFoundException If the storageFile is not located in its rightful directory.
      */
-    public ArrayList<Task> retrieveTasks() throws FileNotFoundException {
+    public ArrayList<Task> retrieveTasks() throws
+            FileNotFoundException, SavedDataFormatException, StringIndexOutOfBoundsException {
 
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        Scanner sc = new Scanner(storageFile);
+        final ArrayList<Task> tasks = new ArrayList<>();
+        final Scanner sc = new Scanner(storageFile);
 
         while (sc.hasNextLine()) {
-            final String task = sc.nextLine(); //Each task is listed in a single line
-
-            try {
-                char type = task.charAt(0);
-                String[] descriptions = task.split("::"); //:: demarcates a different field
-
-                switch (type) {
-                case 'T':
-                    tasks.add(new ToDo(descriptions[2], descriptions[1].matches("1")));
-                    break;
-
-                case 'D':
-                    //Events.Deadline
-                    tasks.add(new Deadline(descriptions[2], descriptions[3], descriptions[1].matches("1")));
-                    break;
-
-                case 'E':
-                    //Events.Event
-                    tasks.add(new Event(descriptions[2], descriptions[3], descriptions[1].matches("1")));
-                    break;
-
-                default:
-                    System.out.println("Wrong file format");
-                }
-
-            } catch (StringIndexOutOfBoundsException e) {
-                //Formatting error in saved file
-                e.printStackTrace();
-                System.out.println("File corrupted.");
-            }
+            final String taskData = sc.nextLine(); //Each task is listed in a single line
+            tasks.add(Parser.getTaskFromFile(taskData));
         }
 
         sc.close();
@@ -108,24 +79,19 @@ public class Storage {
      * @return true if file is successfully updated.
      * @throws IOException When writer is called upon to write after being closed.
      */
-    public boolean updateData(ArrayList<Task> tasks, boolean isAddingTask) throws IOException {
+    public boolean updateData(ArrayList<Task> tasks, boolean isAddingTask)
+            throws IOException, UpdateDataException {
         FileWriter writer = null;
         boolean isNotFirstTask = tasks.size() != 1;
         try {
             writer = new FileWriter(storageFile, isAddingTask);
-            String newData;
+            String newData = "";
 
-            if (isNotFirstTask && isAddingTask) {
-                //Add a new line containing the latest task
-                newData = (System.lineSeparator() + tasks.get(tasks.size() - 1).convertToStorageForm());
-
-            } else if (!isNotFirstTask && isAddingTask) {
-                newData = tasks.get(tasks.size() - 1).convertToStorageForm();
+            if (isAddingTask) {
+                newData = isNotFirstTask
+                        ? (System.lineSeparator() + tasks.get(tasks.size() - 1).convertToStorageForm())
+                        : tasks.get(tasks.size() - 1).convertToStorageForm();
             } else {
-                //Overwrite the file
-                newData = "";
-
-                //Iterate through tasks and convertToStorageForm
                 for (int i = 0; i < tasks.size(); i++) {
                     newData += tasks.get(i).convertToStorageForm();
 
@@ -135,7 +101,6 @@ public class Storage {
                 }
             }
 
-
             writer.write(newData);
             writer.close();
 
@@ -143,9 +108,7 @@ public class Storage {
 
         } catch (IOException e) {
             writer.close();
-            System.out.println("Failed to update tasks on disk.");
-            e.printStackTrace();
-            return false;
+            throw new UpdateDataException("Failed to update tasks on disk.");
         }
     }
 }
