@@ -4,20 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import ruiz.task.ToDos;
+import ruiz.task.ToDo;
 
 public class ToDosTest {
     @Test
     public void saveToString_success() {
-        ToDos test = new ToDos("eat");
-        assertEquals("T | 0 | eat", test.saveTaskString());
+        ToDo test = new ToDo("eat");
+        assertEquals("T | 0 | eat", test.formatSaveTaskString());
         test.mark();
-        assertEquals("T | 1 | eat", test.saveTaskString());
+        assertEquals("T | 1 | eat", test.formatSaveTaskString());
     }
 
     @Test
     public void toString_success() {
-        ToDos test = new ToDos("read book");
+        ToDo test = new ToDo("read book");
         assertEquals("[T][ ] read book", test.toString());
         test.mark();
         assertEquals("[T][X] read book", test.toString());

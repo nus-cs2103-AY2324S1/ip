@@ -36,8 +36,9 @@ public class Task {
      *
      * @return String representation of the task in its storage format.
      */
-    public String saveTaskString() {
-        return isCompleted ? " | 1 | " + description : " | 0 | " + description;
+    public String formatSaveTaskString() {
+        return isCompleted ? " | 1 | " + description
+                : " | 0 | " + description;
     }
 
     /**

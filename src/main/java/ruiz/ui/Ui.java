@@ -1,4 +1,4 @@
-package ruiz;
+package ruiz.ui;
 
 import java.util.ArrayList;
 
@@ -60,15 +60,6 @@ public class Ui {
     }
 
     /**
-     * This method prints a message that it is unable to read the input file.
-     */
-    public void unableToLoadFile() {
-        System.out.println("____________________________________________________________\n"
-                + "There is no pre-existing list\n"
-                + "____________________________________________________________");
-    }
-
-    /**
      * Prints an acknowledgement message that a new task has been added.
      *
      * @param task         task that is added.
@@ -77,7 +68,9 @@ public class Ui {
     public String addedNewTaskMsg(Task task, int taskListSize) {
         String message = "Got it. I've added this task:\n"
                 + task
-                + "\nNow you have " + taskListSize + " in the list.\n";
+                + "\nNow you have "
+                + taskListSize
+                + " in the list.\n";
         return message;
     }
 
@@ -110,7 +103,8 @@ public class Ui {
     /**
      * Prints an acknowledgement message that the task has been marked.
      *
-     * @param task
+     * @param task task that is marked.
+     * @return acknowledgement message that the task has been marked.
      */
     public String markTask(Task task) {
         String message = "Nice! I've marked this task as done\n"

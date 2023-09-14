@@ -3,19 +3,19 @@ package ruiz.task;
 /**
  * Represents a task that just has a description.
  */
-public class ToDos extends Task {
+public class ToDo extends Task {
     /**
-     * A constructor for the public ToDos class.
+     * A constructor for the public ToDo class.
      *
      * @param description contains the description of the ToDo
      */
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
     }
 
     @Override
-    public String saveTaskString() {
-        return "T" + super.saveTaskString();
+    public String formatSaveTaskString() {
+        return "T" + super.formatSaveTaskString();
     }
 
     /**

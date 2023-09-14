@@ -1,4 +1,4 @@
-package ruiz;
+package ruiz.ui;
 
 import javafx.application.Application;
 
