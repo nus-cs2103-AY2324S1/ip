@@ -3,8 +3,7 @@ package duke;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import javafx.application.Platform;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.CompletableFuture;
+
 
 /**
  * Entry point class for the Richie application
@@ -41,8 +40,6 @@ public class Richie {
             Command command = Parser.parse(userInput);
             command.execute(this.ui, this.storage, this.tasks);
             if (command instanceof ExitCommand) {
-                //exit program
-                // make sure the program will show the exit message before exiting the platform
                 Platform.exit();
             }
         } catch (RichieException e) {
@@ -50,10 +47,5 @@ public class Richie {
         }
         return ui.getCurrentMessage();
     }
-
-    /**
-     * Entry point to the Richie application
-     * @param args not used in the application
-     */
 }
 
