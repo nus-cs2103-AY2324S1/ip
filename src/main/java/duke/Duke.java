@@ -23,10 +23,10 @@ import javafx.scene.image.Image;
  */
 
 public class Duke extends Application{
-    private String filePath;
-    private Storage storage;
+    private final String filePath;
+    private final Storage storage;
     private TaskList taskList;
-    private Ui ui;
+    private final Ui ui;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -36,8 +36,8 @@ public class Duke extends Application{
     @FXML
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/Bulbasaur.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Charmander.png"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/Bulbasaur.png"));
+    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/Charmander.png"));
 
     public Duke() throws IOException {
         this("data/duke.txt");
