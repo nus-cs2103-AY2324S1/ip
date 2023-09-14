@@ -25,6 +25,7 @@ public class Parser {
         while (true) {
             String command = sc.next();
 
+
             switch (command) {
                 case "bye":
                     return ExitCommand.execute();
