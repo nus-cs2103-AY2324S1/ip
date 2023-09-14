@@ -6,7 +6,7 @@ package duke;
 public class FindCommand extends Command {
     private final String KEYWORD;
     public FindCommand(String word) {
-        KEYWORD = word;
+        KEYWORD = word.toLowerCase();
     }
 
     @Override
@@ -14,8 +14,8 @@ public class FindCommand extends Command {
         TaskList results = new TaskList();
         for (int i = 0; i < tasks.total(); i++) {
             Task task = tasks.get(i);
-            String description = task.getDescription();
-            if (description.contains(KEYWORD)) {
+            String Taskdetail = task.toString().toLowerCase();
+            if (Taskdetail.contains(KEYWORD)) {
                 results.add(task);
             }
         }
