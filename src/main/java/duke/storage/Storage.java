@@ -33,9 +33,10 @@ public class Storage {
     public Storage(String filePath) throws DukeException {
         storageFilePath = filePath;
         path = Paths.get(filePath);
-        if (!isValidPath(path)) {
-            throw new DukeException("Storage file should end with '.txt'");
-        }
+        assert isValidPath(path) : "Storage file should end with '.txt'";
+//        if (!isValidPath(path)) {
+//            throw new DukeException("Storage file should end with '.txt'");
+//        }
     }
 
     private static boolean isValidPath(Path filePath) {

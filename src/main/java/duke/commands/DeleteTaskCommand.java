@@ -28,6 +28,7 @@ public class DeleteTaskCommand extends Command {
     public String execute(TaskList taskList, Message message, Storage storage) throws DukeException, IOException {
         Task deletedTask = taskList.deleteTask(taskID);
         Storage.save(taskList);
+        assert taskList.countTasks() >= 0: "Invalid task list size";
         return message.showTaskDeleted(deletedTask, taskList.countTasks());
     }
 }

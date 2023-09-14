@@ -34,6 +34,7 @@ public class AddDeadlineCommand extends Command {
         Deadline newDeadline = new Deadline(description, by);
         taskList.addTask(newDeadline);
         Storage.save(newDeadline);
+        assert taskList.countTasks() >= 0: "Invalid task list size";
         return message.showTaskAdded(newDeadline, taskList.countTasks());
     }
 }
