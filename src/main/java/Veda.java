@@ -74,6 +74,7 @@ public class Veda {
             try {
                 Task task = tasks.deleteTask(Parser.getTargetIndex(input));
 
+                assert(task != null);
                 return "Noted. I have removed the following mission:\n" + task;
             } catch (NumberFormatException e) {
                 return "Invalid index! Please ensure you correctly key in your target index.";
@@ -99,6 +100,7 @@ public class Veda {
             //User wishes to find a task by a keyword
             final String keyword = Parser.getKeyword(input);
 
+            assert !(keyword.equals(" ")) : "Keyword is empty!";
             return ui.getListOfMissions(
                     tasks.findKeyword(keyword),
                     "Retrieved the following missions containing the keyword \"" + keyword + "\":"

@@ -21,6 +21,8 @@ public class Parser {
      * @return non-negative int if args is valid input, else -1.
      */
     public static int parse(String args) {
+        assert !(args.equals("")) : "args passed into Parser.parse is empty!";
+
         args = args.toLowerCase();
 
         if (args.equals("bye")) {
@@ -66,6 +68,7 @@ public class Parser {
      */
     public static int getTargetIndex(String args)
             throws NumberFormatException, NoDescriptionException, ExcessiveArgumentException, IncorrectInputException {
+        assert args != null : "args is null!";
         if (args.split(" ").length < 2) {
             throw new NoDescriptionException("There is no given task index.");
         } else if (args.split(" ").length > 2) {
@@ -102,6 +105,8 @@ public class Parser {
                 throw new NoDescriptionException("");
             }
 
+            assert !(description.equals("")) : "Empty description!";
+
             newTask = new ToDo(description);
             break;
 
@@ -121,6 +126,7 @@ public class Parser {
                         "Please input the right order: deadline <Description> /by <due date>");
             }
 
+            assert descriptions.length < 2 : "Incorrect description format!";
             newTask = new Deadline(descriptions[0], descriptions[1]);
             break;
 
@@ -147,6 +153,7 @@ public class Parser {
     }
 
     public static String getKeyword(String arg) {
+        assert arg.contains("find ") : "arg does not contain \"find \"!";
         //Parse keyword
         final String keyword = arg.toLowerCase().replaceFirst("find ", "");
 

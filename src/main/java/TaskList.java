@@ -16,10 +16,12 @@ public class TaskList {
     private Storage storage;
 
     public TaskList(Storage storage) {
+        assert storage != null : "storage is null";
         this.storage = storage;
     }
 
     public ArrayList<Task> getTasks() {
+        assert tasks != null : "tasks is null";
         return this.tasks;
     }
 
