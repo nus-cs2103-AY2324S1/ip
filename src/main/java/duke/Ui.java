@@ -102,7 +102,7 @@ public class Ui {
      * @param tasks tasks that match the keyword.
      */
     public String showMatchingTasks(TaskList tasks) {
-        String response = ("Here are the matching tasks in your list:");
+        String response = ("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.total(); i++) {
             response = response.concat(tasks.get(i).toString() + "\n");
         }
