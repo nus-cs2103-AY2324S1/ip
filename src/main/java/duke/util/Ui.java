@@ -1,6 +1,7 @@
 package duke.util;
 
-import java.util.Scanner;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 import duke.task.Task;
 
@@ -28,6 +29,8 @@ public class Ui {
 
     /**
      * Shows the welcome message to the user.
+     *
+     * @return the response message to the user.
      */
     public String showWelcome() {
         return String.format("Hello! I'm %s\nWhat can I do for you?", NAME);
@@ -35,6 +38,8 @@ public class Ui {
 
     /**
      * Shows the loading error message to the user, when the file loads unsuccessfully.
+     *
+     * @return the response message to the user.
      */
     public String showLoadingError() {
         return "OOPS!!!Something terrible happened to the data file.\n"
@@ -45,6 +50,7 @@ public class Ui {
      * Shows the error message to the user.
      *
      * @param message the error message.
+     * @return the response message to the user.
      */
     public String showError(String message) {
         return String.format("%s\n", message);
@@ -53,6 +59,8 @@ public class Ui {
     /**
      * Shows the exit message to the user.
      * Closes the scanner.
+     *
+     * @return the response message to the user.
      */
     public String showExit() {
         return "Bye. Hope to see you again soon!";
@@ -64,6 +72,7 @@ public class Ui {
      *
      * @param task the task to be added.
      * @param taskListSize the number of tasks in the task list.
+     * @return the response message to the user.
      */
     public String showAddTask(Task task, int taskListSize) {
         return String.format("Got it. I've added this task:\n"
@@ -78,6 +87,7 @@ public class Ui {
      *
      * @param removedTask the task to be deleted.
      * @param taskListSize the number of tasks in the task list.
+     * @return the response message to the user.
      */
     public String showDeleteTask(Task removedTask, int taskListSize) {
         return String.format("Noted. I've removed this task:%n"
@@ -91,6 +101,7 @@ public class Ui {
      *
      * @param isMark whether to mark or unmark the task.
      * @param task the task to be marked.
+     * @return the response message to the user.
      */
     public String showMarkTask(boolean isMark, String task) {
         String message = isMark
@@ -103,6 +114,7 @@ public class Ui {
      * Shows the manipulating all task messages to the user.
      *
      * @param keyword the keyword of the command.
+     * @return the response message to the user.
      */
     public String showManipulateAllTask(String keyword) {
         return String.format("Noted. I will %s all tasks.\n", keyword);
@@ -113,13 +125,14 @@ public class Ui {
      * and lists all the tasks in the task list.
      *
      * @param tasks the string representation of the tasks in the task list.
+     * @return the response message to the user.
      */
     public String showListTask(String[] tasks) {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.length; i++) {
-            strBuilder.append(String.format("%d.%s\n", i + 1, tasks[i]));
-        }
+        IntStream.range(0, tasks.length)
+                 .forEach(i ->
+                        strBuilder.append(String.format("%d.%s\n", i + 1, tasks[i])));
         return strBuilder.toString();
     }
 
@@ -129,14 +142,14 @@ public class Ui {
      *
      * @param tasksOnDate the string representation of the tasks happening on the specified date.
      * @param date the String representation of the specified date.
+     * @return the response message to the user.
      */
     public String showPrintDateTask(String[] tasksOnDate, String date) {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append(String.format("Here are the %d tasks happening on %s:\n",
                 tasksOnDate.length, date));
-        for (String task : tasksOnDate) {
-            strBuilder.append(String.format("  %s\n", task));
-        }
+        Arrays.stream(tasksOnDate)
+              .forEach(task -> strBuilder.append(String.format("  %s\n", task)));
         return strBuilder.toString();
     }
 
@@ -148,13 +161,15 @@ public class Ui {
      *                   of the tasks containing the task keyword.
      * @param indices the array containing string representation for the
      *                indices of the tasks in tasksFound.
+     * @return the response message to the user.
      */
     public String showFindTask(String[] tasksFound, String[] indices) {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < tasksFound.length; i++) {
-            strBuilder.append(String.format("%s.%s\n", indices[i], tasksFound[i]));
-        }
+        IntStream.range(0, tasksFound.length)
+                 .forEach(i -> strBuilder.append(String.format("%s.%s\n",
+                         indices[i],
+                         tasksFound[i])));
         return strBuilder.toString();
     }
 
@@ -167,9 +182,9 @@ public class Ui {
      */
     public static String connectLines(String... lines) {
         StringBuilder strBuilder = new StringBuilder();
-        for (String line : lines) {
-            strBuilder.append(String.format("%s\n", line));
-        }
+        Arrays.stream(lines)
+              .forEach(line ->
+                      strBuilder.append(String.format("%s\n", line)));
         return strBuilder.substring(0, strBuilder.length() - 1);
     }
 }
