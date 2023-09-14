@@ -1,0 +1,13 @@
+todo
+qroeioqu
+todo one
+todo two
+deadline do homework /by tmr
+event meeting /from 2pm /to 4pm
+list
+mark 2
+mark 4
+list
+delete 2
+list
+bye
