@@ -35,6 +35,7 @@ public class Event extends Task {
      *
      * @return true if given date is during the event, false otherwise
      */
+    @Override
     public boolean isDateWithinRange(LocalDate date) {
         return date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0;
     }
