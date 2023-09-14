@@ -30,19 +30,17 @@ defaultTasks 'clean', 'build'
 test {
     useJUnitPlatform()
 
+    // https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.logging.TestLogging.html
     testLogging {
         events "passed", "skipped", "failed"
 
         showExceptions true
-        exceptionFormat "full"
         showCauses true
         showStackTraces true
-        showStandardStreams false
+        exceptionFormat "full"
     }
 }
 
 shadowJar {
-    archiveBaseName = "cloud"
-    archiveClassifier = null
-    dependsOn "distZip", "distTar"
+    archiveFileName = "cloud.jar"
 }
