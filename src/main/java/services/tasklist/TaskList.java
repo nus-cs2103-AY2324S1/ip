@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import command.CommandType;
-import services.bizerrors.EmptyArgumentException;
 import services.bizerrors.IndexOutOfRangeException;
 import services.bizerrors.JarvisException;
 import services.bizerrors.SaveToFileException;
@@ -40,11 +39,8 @@ public class TaskList implements ITaskList {
 
     @Override
     public String addTask(String description, CommandType taskType, String... args) throws JarvisException {
+        assert !description.isEmpty() : "description should not be empty";
         Task newTask;
-        // this if block is unnecessary currently (is never reached), but it may be useful in the future.
-        if (description.isEmpty()) {
-            throw new EmptyArgumentException(taskType.toString().toLowerCase());
-        }
         switch (taskType) {
         case TODO:
             newTask = new Todo(description);
@@ -57,7 +53,7 @@ public class TaskList implements ITaskList {
             break;
         default:
             // the program should never reach this point.
-            throw new JarvisException("Default case reached.");
+            throw new JarvisException("Unknown task type.");
         }
         tasks.add(newTask);
         taskCount++;
@@ -122,7 +118,7 @@ public class TaskList implements ITaskList {
         Task task = tasks.get(taskNumber - 1);
         task.setDone();
         repo.save(tasks);
-        return "Check.\n\t" + task + "\n" + "Way to go, sir.";
+        return "Check.\n\t" + taskNumber + ". " + task + "\nWay to go, sir.";
     }
 
     /**
@@ -141,7 +137,7 @@ public class TaskList implements ITaskList {
         Task task = tasks.get(taskNumber - 1);
         task.setUndone();
         repo.save(tasks);
-        return "As you wish, sir.\n\t" + task;
+        return "As you wish, sir.\n\t" + taskNumber + ". " + task;
     }
 
     @Override

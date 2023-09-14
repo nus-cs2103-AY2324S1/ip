@@ -36,6 +36,7 @@ public class Storage implements IStorage {
             }
             file.createNewFile();
             dataFile = file;
+            assert dataFile.exists() : "data file should exist";
         } catch (IOException e) {
             throw new CreateNewFileException();
         }
@@ -61,23 +62,33 @@ public class Storage implements IStorage {
             List<Task> taskList = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 String encodedTask = scanner.nextLine();
-                Task task;
+                assert encodedTask.length() > 0 : "encoded task should not be empty";
+
                 String[] varargs = encodedTask.split(" \\| ");
-                switch (encodedTask.charAt(0)) {
-                case 'T':
+                assert varargs.length >= 3 : "encoded task should have at least 3 parts";
+
+                String taskType = varargs[0];
+                assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E")
+                        : "encoded task should start with T, D or E";
+
+                Task task;
+                switch (varargs[0]) {
+                case "T":
                     task = new Todo(varargs[2]);
                     break;
-                case 'D':
+                case "D":
                     task = new Deadline(varargs[2], varargs[3]);
                     break;
-                case 'E':
+                case "E":
                     task = new Event(varargs[2], varargs[3], varargs[4]);
                     break;
                 default:
+                    // the program should never reach this point.
                     return null;
                 }
 
-                if (varargs[1].equals("1")) {
+                String isDone = varargs[1];
+                if (isDone.equals("1")) {
                     task.setDone();
                 }
                 taskList.add(task);
