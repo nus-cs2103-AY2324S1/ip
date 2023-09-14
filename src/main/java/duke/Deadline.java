@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
@@ -7,6 +8,8 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
 
+
+    private static final int DUE_DAYS = 7;
     protected LocalDateTime by;
 
     /**
@@ -29,5 +32,10 @@ public class Deadline extends Task {
     public String convertToSaveFormat() {
         return "D | " + super.convertToSaveFormat() + " | "
                 + super.convertDateToString(this.by);
+    }
+
+    @Override
+    public boolean isWithinDue() {
+        return Duration.between(LocalDateTime.now(), this.by).toDays() <= DUE_DAYS;
     }
 }

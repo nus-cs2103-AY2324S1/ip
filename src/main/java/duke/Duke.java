@@ -30,26 +30,10 @@ public class Duke {
     public String loadSaveFile() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        File f = new File("./data");
-        if (!f.exists() || !f.isDirectory()) {
-            stringBuilder.append(Ui.directoryNotFound()).append("\n");
-        }
+        doDirectory(stringBuilder);
+        doFile(stringBuilder);
+        initialiseTask(stringBuilder);
 
-        if (new File(DEFAULT_FILE_PATH).isFile()) {
-            stringBuilder.append(Ui.savedFileFound());
-        } else {
-            stringBuilder.append(Ui.savedFileNotFound());
-        }
-
-        stringBuilder.append("\n");
-
-        try {
-            tasks = new TaskList(storage.loadFile());
-            stringBuilder.append(Ui.showTaskList(tasks.taskArray, false));
-        } catch (DukeException e) {
-            stringBuilder.append(Ui.showExceptionError(e));
-            tasks = new TaskList();
-        }
         return stringBuilder.toString();
     }
     /**
@@ -82,5 +66,32 @@ public class Duke {
 
     public Ui getUi() {
         return this.ui;
+    }
+
+    private void doDirectory(StringBuilder stringBuilder) {
+        File f = new File("./data");
+        if (!f.exists() || !f.isDirectory()) {
+            stringBuilder.append(Ui.directoryNotFound()).append("\n");
+        }
+    }
+
+    private void doFile(StringBuilder stringBuilder) {
+        if (new File(DEFAULT_FILE_PATH).isFile()) {
+            stringBuilder.append(Ui.savedFileFound());
+        } else {
+            stringBuilder.append(Ui.savedFileNotFound());
+        }
+        stringBuilder.append("\n");
+    }
+
+    private void initialiseTask(StringBuilder stringBuilder) {
+        try {
+            tasks = new TaskList(storage.loadFile());
+            stringBuilder.append(Ui.showTaskList(tasks.taskArray, false)).append("\n");
+        } catch (DukeException e) {
+            stringBuilder.append(Ui.showExceptionError(e));
+            tasks = new TaskList();
+        }
+        tasks.doReminder(stringBuilder);
     }
 }

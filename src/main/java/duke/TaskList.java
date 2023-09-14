@@ -158,4 +158,21 @@ public class TaskList {
         }
         stringBuilder.append(Ui.showTaskList(foundTasksArray, true));
     }
+
+    public void doReminder(StringBuilder stringBuilder) {
+        ArrayList<Task> dueTasks = new ArrayList<>();
+
+        for (int i = 0; i < this.taskArray.size(); i++) {
+            if ((this.taskArray.get(i) instanceof Deadline || this.taskArray.get(i) instanceof Event)
+                    && this.taskArray.get(i).isWithinDue()) {
+                dueTasks.add(this.taskArray.get(i));
+            }
+        }
+
+        if (dueTasks.isEmpty()) {
+            return;
+        }
+
+        stringBuilder.append(Ui.taskWithinOrPassedDueDate(dueTasks));
+    }
 }
