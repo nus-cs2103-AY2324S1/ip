@@ -169,10 +169,6 @@ public class TaskList {
             }
         }
 
-        if (dueTasks.isEmpty()) {
-            return;
-        }
-
         stringBuilder.append(Ui.taskWithinOrPassedDueDate(dueTasks));
     }
 }
