@@ -48,8 +48,6 @@ application {
     mainClass.set("chadbod.Chadbod")
 }
 
-
-
 checkstyle {
     toolVersion = '10.2'
 }
