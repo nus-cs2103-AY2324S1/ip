@@ -7,8 +7,8 @@ import java.util.Scanner;
  * It provides methods to read user input, check for specific command types, and manage the input scanner.
  */
 public class Parser {
-    static String userInput;
-    static Scanner scanner = new Scanner(System.in);
+    private static String userInput;
+    private static final Scanner scanner = new Scanner(System.in);
 
     /**
      * Retrieves the user input from the scanner.
@@ -33,7 +33,7 @@ public class Parser {
      *
      * @return True if the user input is "bye", indicating an exit command; false otherwise.
      */
-    public boolean bye() {
+    public boolean isBye() {
         return userInput.equals("bye");
     }
 
@@ -42,7 +42,7 @@ public class Parser {
      *
      * @return True if the user input is "list", indicating a list command; false otherwise.
      */
-    public boolean list() {
+    public boolean isList() {
         return userInput.equals("list");
     }
 
@@ -51,7 +51,7 @@ public class Parser {
      *
      * @return True if the user input starts with "mark ", indicating a mark command; false otherwise.
      */
-    public boolean mark() {
+    public boolean isMark() {
         return userInput.startsWith("mark ");
     }
 
@@ -60,7 +60,7 @@ public class Parser {
      *
      * @return True if the user input starts with "unmark ", indicating an unmark command; false otherwise.
      */
-    public boolean unMark() {
+    public boolean isUnmark() {
         return userInput.startsWith("unmark ");
     }
 
@@ -69,7 +69,7 @@ public class Parser {
      *
      * @return True if the user input starts with "delete ", indicating a delete command; false otherwise.
      */
-    public boolean delete() {
+    public boolean isDelete() {
         return userInput.startsWith("delete ");
     }
 
@@ -78,7 +78,7 @@ public class Parser {
      *
      * @return True if the user input starts with "todo ", indicating a todo command; false otherwise.
      */
-    public boolean todo() {
+    public boolean isTodo() {
         return userInput.startsWith("todo ");
     }
 
@@ -87,7 +87,7 @@ public class Parser {
      *
      * @return True if the user input starts with "deadline ", indicating a deadline command; false otherwise.
      */
-    public boolean deadline() {
+    public boolean isDeadline() {
         return userInput.startsWith("deadline ");
     }
 
@@ -96,7 +96,7 @@ public class Parser {
      *
      * @return True if the user input starts with "event ", indicating an event command; false otherwise.
      */
-    public boolean event() {
+    public boolean isEvent() {
         return userInput.startsWith("event ");
     }
 
@@ -105,7 +105,7 @@ public class Parser {
      *
      * @return True if the user input starts with "find ", indicating an event command; false otherwise.
      */
-    public boolean find() {
+    public boolean isFind() {
         return userInput.startsWith("find ");
     }
 

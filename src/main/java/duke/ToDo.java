@@ -17,13 +17,13 @@ public class ToDo extends Task {
 
     @Override
     public void mark() {
-        this.done = true;
+        super.mark();
         System.out.println(super.line() + "Okay, I have marked this task as completed!" + "\n" + this.toString());
         System.out.println(super.line());
     }
     @Override
     public void unMark() {
-        this.done = false;
+        super.unMark();
         System.out.println(super.line() + "Okay, I have marked this task as incomplete!" + "\n" + this.toString());
         System.out.println(super.line());
     }

@@ -13,9 +13,9 @@ import java.util.Scanner;
  * The TaskList class manages a list of tasks and provides methods to interact with and manipulate the tasks.
  */
 public class TaskList {
-    static File taskList;
-    static int taskCount = 0;
-    static ArrayList<Task> tasks = new ArrayList<>();
+    private static File taskList;
+    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Constructs a TaskList instance with the specified file containing task data.
@@ -33,6 +33,9 @@ public class TaskList {
     public TaskList() {
         taskList = new File("./src/main/data/tasklist.txt");
         taskList.deleteOnExit();
+    }
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     /**
@@ -188,7 +191,13 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Adds a new task to the task list and provides a response message.
+     *
+     * @param task    The task to be added to the list.
+     * @param taskId  The unique identifier for the task.
+     * @return A formatted string response confirming the addition of the task and the updated task count.
+     */
     public String addToList(Task task, int taskId) {
         int numTasks = taskCount + 1;
         String response = Ui.line + "Got it! I've added this task:"
@@ -251,6 +260,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for tasks containing a specified keyword and returns a formatted list of matching tasks.
+     *
+     * @param input The user's input string, which should include the keyword to search for.
+     * @return A formatted string displaying a list of tasks that contain the specified keyword.
+     */
     public String handleFind(String input) {
         ArrayList<Task> findTasks = new ArrayList<>();
         String itemToFind = input.substring(5);
