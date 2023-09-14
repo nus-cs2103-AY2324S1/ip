@@ -1,15 +1,17 @@
+package glen.util;
+
 /**
  * Ui class that handles the user interface.
  */
 public class Ui {
-    static final String HORLINE = "_____________________________________________________\n";
+    private static final String HORLINE = "_____________________________________________________\n";
 
     /**
      * Returns the introduction text.
      * 
      * @return String of introduction text.
      */
-    static String intro() {
+    public static String intro() {
         String logo = "  _____ _            \n" +
                       " / ____| |           \n" +
                       "| |  __| | ___ _ __  \n" +
@@ -26,7 +28,7 @@ public class Ui {
      * 
      * @return String of exit text.
      */
-    static String exit() {
+    public static String exit() {
         return HORLINE + "Bye. Hope to see you again soon!\n" + HORLINE;
     }
 }

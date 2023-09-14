@@ -1,3 +1,5 @@
+package glen.util;
+
 /**
  * Parser class that handles user input and calls the appropriate methods.
  */
