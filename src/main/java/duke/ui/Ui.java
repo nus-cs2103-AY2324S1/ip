@@ -24,8 +24,8 @@ public class Ui {
     /**
      * Displays a farewell message to the user as they exit the ChatterChicken application.
      */
-    public void displayFarewell() {
-        printToScreen(INDENT + "Bye. Hope to see you again soon!");
+    public String displayFarewell() {
+        return INDENT + "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -34,10 +34,10 @@ public class Ui {
      * @param task The task that was added.
      * @param size The updated size of the task list.
      */
-    public void displayAddTask(Task task, int size) {
-        printToScreen(INDENT + "Got it. I've added this task:\n"
+    public String displayAddTask(Task task, int size) {
+        return INDENT + "Got it. I've added this task:\n"
                 + INDENT_BIG + task.getTaskForPrinting() + "\n"
-                + INDENT + "Now you have " + size + " tasks in the list.");
+                + INDENT + "Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -46,10 +46,10 @@ public class Ui {
      * @param task The task that was deleted.
      * @param size The updated size of the task list.
      */
-    public void displayDeleteTask(Task task, int size) {
-        printToScreen(INDENT + "Noted. I've removed this task:\n"
+    public String displayDeleteTask(Task task, int size) {
+        return INDENT + "Noted. I've removed this task:\n"
                 + INDENT_BIG + task.getTaskForPrinting() + "\n"
-                + INDENT + "Now you have " + size + " tasks in your list.");
+                + INDENT + "Now you have " + size + " tasks in your list.";
     }
 
     /**
@@ -57,9 +57,9 @@ public class Ui {
      *
      * @param task The task that was marked.
      */
-    public void displayMarkTask(Task task) {
-        printToScreen(INDENT + "Nice! I've marked this task as done:\n"
-                + INDENT_BIG + task.getTaskForPrinting());
+    public String displayMarkTask(Task task) {
+         return INDENT + "Nice! I've marked this task as done:\n"
+                + INDENT_BIG + task.getTaskForPrinting();
     }
 
     /**
@@ -67,19 +67,19 @@ public class Ui {
      *
      * @param task The task that was marked.
      */
-    public void displayUnmarkTask(Task task) {
-        printToScreen(INDENT + "OK, I've marked this task as not done yet:\n"
-                + INDENT_BIG + task.getTaskForPrinting());
+    public String displayUnmarkTask(Task task) {
+        return  INDENT + "OK, I've marked this task as not done yet:\n"
+                + INDENT_BIG + task.getTaskForPrinting();
     }
 
-    public void displayMatchingTasks(ArrayList<Task> taskList) {
-        System.out.println(LINE + INDENT + "Here are the matching tasks in your list:");
+    public String displayMatchingTasks(ArrayList<Task> taskList) {
+        String result =  INDENT + "Here are the matching tasks in your list:";
         int index = 1;
         for (Task task : taskList) {
-            System.out.println(INDENT_BIG + index + "." + task.getTaskForPrinting());
+            result += INDENT_BIG + index + "." + task.getTaskForPrinting();
             index++;
         }
-        System.out.println(LINE);
+        return result;
     }
 
     /**
@@ -87,12 +87,12 @@ public class Ui {
      *
      * @param taskList The list of tasks to be displayed.
      */
-    public void displayList(ArrayList<Task> taskList) {
-        System.out.println(LINE + INDENT + "Here are the tasks in your list:");
+    public String displayList(ArrayList<Task> taskList) {
+        String result = INDENT + "Here are the tasks in your list:";
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(INDENT_BIG + (i + 1) + "." + taskList.get(i).getTaskForPrinting());
+            result += INDENT_BIG + (i + 1) + "." + taskList.get(i).getTaskForPrinting();
         }
-        System.out.println(LINE);
+        return result;
     }
 
     /**

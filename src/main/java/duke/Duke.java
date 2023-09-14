@@ -35,6 +35,7 @@ public class Duke {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage(parser);
+        this.tasks = new TaskList(storage.loadTasksFromFile(), ui);
     }
 
     /**
@@ -48,6 +49,16 @@ public class Duke {
         duke.run();
     }
 
+    public String getResponse(String input) throws CCException {
+        if (input.equals("bye")) {
+            return ui.displayFarewell();
+        } else {
+            Command command = parser.parseInput(input);
+            String response = executeCommand(command);
+            storage.saveTasksToFile(tasks);
+            return response;
+        }
+    }
 
     /**
      * Initiates the main loop of the Duke application.
@@ -77,32 +88,34 @@ public class Duke {
      * @param command The parsed user command.
      * @throws CCException If an error occurs during command execution.
      */
-    private void executeCommand(Command command) throws CCException {
+    private String executeCommand(Command command) throws CCException {
         String action = command.getAction();
         String taskDescription = command.getTaskDescription();
+        String response;
         switch (action) {
         case "list":
-            tasks.printList();
+            response = tasks.printList();
             break;
         case "mark":
-            tasks.markTask(taskDescription);
+            response = tasks.markTask(taskDescription);
             break;
         case "unmark":
-            tasks.unmarkTask(taskDescription);
+            response = tasks.unmarkTask(taskDescription);
             break;
         case "delete":
-            tasks.deleteTask(taskDescription);
+            response = tasks.deleteTask(taskDescription);
             break;
         case "find":
-            tasks.find(taskDescription);
+            response = tasks.find(taskDescription);
             break;
         case "todo":
         case "deadline":
         case "event":
-            tasks.addTask(parser.parseTask(action, taskDescription));
+            response = tasks.addTask(parser.parseTask(action, taskDescription));
             break;
         default:
             throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
+        return response;
     }
 }
