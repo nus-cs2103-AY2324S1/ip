@@ -1,5 +1,6 @@
 package duke;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -12,7 +13,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * An example of a custom control using FXML.
@@ -43,6 +48,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         dialog.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
         displayPicture.setImage(img);
+
     }
 
     /**
@@ -53,6 +59,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 204), new CornerRadii(12.00), null)));
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

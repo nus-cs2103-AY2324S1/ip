@@ -30,18 +30,18 @@ public class Duke {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    String getResponse(String input) {
+    String[] getResponse(String input) {
         if (input.equals("bye")) {
-            return ui.exit();
+            return new String[]{ui.exit(), "nonError"};
         }
         try {
             String[] commandType = parser.handleUserInput(input);
             String str = handleCommand(commandType[0], commandType[1]);
             ArrayList<Task>currentTasks = tasks.getTasks();
             storage.handleChangesInFile(currentTasks);
-            return str;
+            return new String[]{str, "nonError"};
         } catch (Exception e) {
-            return e.getMessage();
+            return new String[]{e.getMessage(), "error"};
         }
     }
     /**
