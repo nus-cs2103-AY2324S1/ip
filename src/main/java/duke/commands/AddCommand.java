@@ -67,6 +67,7 @@ public class AddCommand extends Command {
                     int fromIndex = fullCommand.indexOf("/from");
                     int toIndex = fullCommand.indexOf("/to");
 
+                    assert toIndex > fromIndex : "from date should be written first before to date";
                     description = fullCommand.substring(startIndex, fromIndex-1);
                     String start = fullCommand.substring(fromIndex+6, toIndex-1);
                     String end = fullCommand.substring(toIndex+4);
