@@ -5,8 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.io.InputStream;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -24,14 +27,29 @@ public class MainWindow extends AnchorPane {
     private Dialogix dialogix;
 
     @FXML
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
+    private ImageView userImageView;
     @FXML
-    private Image dialogixImage = new Image(this.getClass().getResourceAsStream("/images/dialogixImage.png"));
+    private ImageView dialogixImageView;
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         showWelcomeMessage();
+
+        // Load and set images using ImageView
+        InputStream userImageStream = this.getClass().getResourceAsStream("/media/image/userImage.png");
+        InputStream dialogixImageStream = this.getClass().getResourceAsStream("/media/image/dialogixImage.png");
+
+        if (userImageStream != null && dialogixImageStream != null) {
+            Image userImage = new Image(userImageStream);
+            Image dialogixImage = new Image(dialogixImageStream);
+
+            userImageView.setImage(userImage);
+            dialogixImageView.setImage(dialogixImage);
+        } else {
+            // Handle resource loading failure
+            System.err.println("Failed to load image resources.");
+        }
     }
 
     public void setDialogix(Dialogix d) {
@@ -39,7 +57,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Dialogix's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -49,15 +67,15 @@ public class MainWindow extends AnchorPane {
 
         if (response.trim().isBlank()) {
             dialogContainer.getChildren().addAll(
-                    DialogixBox.getUserDialog(input, userImage)
+                    DialogixBox.getUserDialog(input, userImageView.getImage())
             );
             userInput.clear();
             return;
         }
 
         dialogContainer.getChildren().addAll(
-                DialogixBox.getUserDialog(input, userImage),
-                DialogixBox.getDialogixDialog(response, dialogixImage)
+                DialogixBox.getUserDialog(input, userImageView.getImage()),
+                DialogixBox.getDialogixDialog(response, dialogixImageView.getImage())
         );
         userInput.clear();
     }
@@ -65,7 +83,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void showWelcomeMessage() {
         dialogContainer.getChildren().addAll(
-                DialogixBox.getDialogixDialog("Welcome to Dialogix!", dialogixImage)
+                DialogixBox.getDialogixDialog("Welcome to Dialogix!", dialogixImageView.getImage())
         );
     }
 }

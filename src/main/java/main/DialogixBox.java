@@ -15,7 +15,7 @@ import javafx.scene.layout.Region;
 import java.io.IOException;
 import java.util.Collections;
 
-public class DialogixBox extends HBox {
+class DialogixBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
@@ -23,7 +23,7 @@ public class DialogixBox extends HBox {
 
     private DialogixBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogixBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
