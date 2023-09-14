@@ -10,8 +10,8 @@ public class Deadline extends Task {
     // dateTime object associated with this deadline
     LocalDateTime dateTime;
 
-    public Deadline(String description, LocalDateTime dateTime) {
-        super(description);
+    public Deadline(String description, LocalDateTime dateTime, Priority priority) {
+        super(description, priority);
         this.dateTime = dateTime;
     }
 
@@ -29,10 +29,11 @@ public class Deadline extends Task {
      */
     @Override
     public String getSaveFormat() {
-        return String.format("D | %c | %s | %s",
+        return String.format("D | %c | %s | %s | %s",
                 this.getDoneSymbol(),
                 this.description,
-                this.getDateTimeFormat());
+                this.getDateTimeFormat(),
+                this.getPriority());
     }
 
     /**
@@ -41,9 +42,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D][%c] %s (by: %s)",
+        return String.format("[D][%c] %s (by: %s) (%s priority)",
                 this.getDoneSymbol(),
                 this.description,
-                this.getDateTimeFormat());
+                this.getDateTimeFormat(),
+                this.getPriority());
     }
 }

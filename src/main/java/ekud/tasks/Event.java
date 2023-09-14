@@ -10,8 +10,8 @@ public class Event extends Task {
     // Start and end dateTimes associated with this event.
     LocalDateTime fromDateTime;
     LocalDateTime toDateTime;
-    public Event(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
-        super(description);
+    public Event(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime, Priority priority) {
+        super(description, priority);
         this.fromDateTime = fromDateTime;
         this.toDateTime = toDateTime;
     }
@@ -32,11 +32,12 @@ public class Event extends Task {
      */
     @Override
     public String getSaveFormat() {
-        return String.format("E | %c | %s | %s | %s",
+        return String.format("E | %c | %s | %s | %s | %s",
                 this.getDoneSymbol(),
                 this.description,
                 this.getDateTimeFormat(this.fromDateTime),
-                this.getDateTimeFormat(this.toDateTime));
+                this.getDateTimeFormat(this.toDateTime),
+                this.getPriority());
     }
 
     /**
@@ -45,11 +46,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E][%c] %s (from: %s, to: %s)",
+        return String.format("[E][%c] %s (from: %s, to: %s) (%s priority)",
                 this.getDoneSymbol(),
                 this.description,
                 this.getDateTimeFormat(this.fromDateTime),
-                this.getDateTimeFormat(this.toDateTime));
+                this.getDateTimeFormat(this.toDateTime),
+                this.getPriority());
     }
 
 }

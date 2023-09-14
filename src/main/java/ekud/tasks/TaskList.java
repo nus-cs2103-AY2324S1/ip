@@ -81,6 +81,18 @@ public class TaskList {
         return "The following task is marked as not done yet:\n" + task;
     }
 
+    public String changePriority(Priority priority, int index) throws EkudIllegalArgException {
+        if (index >= this.tasks.size()) {
+            throw new EkudIllegalArgException("Task index number is out of bounds :/");
+        }
+        Task task = this.tasks.get(index);
+        task.changePriority(priority);
+        return String.format(
+                "The following task's priority is set to '%s':\n%s",
+                task.getPriority(),
+                task);
+    }
+
     /**
      * Returns the confirmation message for having added a task.
      * @param task
@@ -110,7 +122,7 @@ public class TaskList {
      * @throws EkudIllegalArgException Illegal arg for to-do task.
      */
     public String addToDo(String description) {
-        ToDo newToDo = new ToDo(description);
+        ToDo newToDo = new ToDo(description, Priority.MEDIUM);
         this.tasks.add(newToDo);
         return this.confirmAddedTask(newToDo);
     }
@@ -123,7 +135,7 @@ public class TaskList {
      * @throws EkudIllegalArgException Illegal arg(s) for deadline task.
      */
     public String addDeadline(String description, LocalDateTime dateTime) {
-        Deadline newDeadline = new Deadline(description, dateTime);
+        Deadline newDeadline = new Deadline(description, dateTime, Priority.MEDIUM);
         this.tasks.add(newDeadline);
         return this.confirmAddedTask(newDeadline);
     }
@@ -135,7 +147,7 @@ public class TaskList {
      * @return String response for user.
      */
     public String addEvent(String description, LocalDateTime ... dateTimes) {
-        Event newEvent = new Event(description, dateTimes[0], dateTimes[1]);
+        Event newEvent = new Event(description, dateTimes[0], dateTimes[1], Priority.MEDIUM);
         this.tasks.add(newEvent);
         return this.confirmAddedTask(newEvent);
     }

@@ -11,6 +11,7 @@ import ekud.exceptions.EkudException;
 import ekud.exceptions.EkudIllegalArgException;
 import ekud.exceptions.EkudInvalidCommandException;
 import ekud.tasks.TaskList;
+import ekud.tasks.Priority;
 
 /**
  * The Parser class serves as an interface between the user and the chatbot by
@@ -111,6 +112,17 @@ public class Parser {
             return taskList.clear();
         case UNDOCLEAR:
             return taskList.undoClear();
+        case CHANGEPRIORITY:
+            String[] prioArgs = userArgs.split(" ");
+            int taskNum = this.parseTaskNum(prioArgs[0]);
+            Priority priority = Priority.getPriority(prioArgs[1]);
+            if (priority == null) {
+                throw new EkudIllegalArgException(
+                        "Priority formatted wrongly\n"
+                                + "-> Ensure 'priority <taskNum> <high/mid/low>' is followed\n"
+                                + "-> For example: prio 3 high");
+            }
+            return taskList.changePriority(priority, taskNum - 1);
         default:
             throw new EkudIllegalArgException("Error parsing arguments :(");
         }
@@ -126,11 +138,11 @@ public class Parser {
         try {
             int index = Integer.valueOf(userArgs);
             if (index <= 0) {
-                throw new EkudIllegalArgException("Index number cannot be 0 or negative :o");
+                throw new EkudIllegalArgException("Task number cannot be 0 or negative :o");
             }
             return index;
         } catch (NumberFormatException e) {
-            throw new EkudIllegalArgException("Please input a valid index number :o");
+            throw new EkudIllegalArgException("Please input a valid task number :o");
         }
     }
 
