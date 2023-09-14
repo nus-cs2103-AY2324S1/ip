@@ -30,6 +30,7 @@ public class TaskList implements Iterable<Task> {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        assert task != null : "Task to be added cannot be null";
         tasks.add(task);
     }
 
@@ -40,6 +41,7 @@ public class TaskList implements Iterable<Task> {
      * @return The task at the specified index.
      */
     public Task get(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index out of range";
         return tasks.get(index);
     }
 
@@ -49,6 +51,7 @@ public class TaskList implements Iterable<Task> {
      * @param index The index of the task to be deleted.
      */
     public void delete(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index out of range";
         tasks.remove(index);
     }
 
@@ -67,6 +70,7 @@ public class TaskList implements Iterable<Task> {
      * @param index The index of the task to be marked as done.
      */
     public void markAsDone(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index out of range";
         tasks.get(index).markAsDone();
     }
 
@@ -76,6 +80,7 @@ public class TaskList implements Iterable<Task> {
      * @param index The index of the task to be unmarked.
      */
     public void unmarkAsDone(int index) {
+        assert index >= 0 && index < tasks.size() : "Task index out of range";
         tasks.get(index).unmarkAsDone();
     }
 
@@ -87,6 +92,8 @@ public class TaskList implements Iterable<Task> {
      * @param mark Whether to mark the task as done.
      */
     public static void processTask(String userInput, ArrayList<Task> tasks, boolean mark) {
+        assert userInput != null : "User input cannot be null";
+        assert tasks != null : "Task list cannot be null";
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(userInput.split(" ")[1]);
@@ -131,6 +138,7 @@ public class TaskList implements Iterable<Task> {
      * @return A list of tasks that contain the keyword.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword cannot be null or empty";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.description.contains(keyword)) {
