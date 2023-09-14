@@ -11,7 +11,7 @@ import duke.data.task.Todo;
 public class TaskListTest {
     /** Tests add feature of TaskList */
     @Test
-    public void test_add() {
+    public void test_add() throws DukeException {
         TaskList taskList = new TaskList();
         Todo newToDo = new Todo("go running");
         taskList.addTask(newToDo);
