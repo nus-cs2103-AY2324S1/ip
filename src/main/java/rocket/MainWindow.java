@@ -54,8 +54,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage)
         );
 
-
-        // Create a timeline with a delay of 1 second (adjust as needed)
+        // Create a timeline with a delay of 1 second
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.seconds(0.3),
                 event -> dialogContainer.getChildren().add(
