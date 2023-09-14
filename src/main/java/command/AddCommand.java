@@ -2,7 +2,6 @@ package command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 
 import task.Task;
 
@@ -28,10 +27,9 @@ public class AddCommand extends Command {
      *
      * @param taskList The task list to operate on.
      * @param storage  The storage handler for reading/writing tasks.
-     * @param ui       The user interface for displaying messages.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) {
+    public String execute(TaskList taskList, Storage storage) {
         taskList.addTask(this.taskToAdd);
         storage.writeListToFile(taskList);
         String s = String.format("Roger! I have added the following task to the list:\n %s\n %s",

@@ -47,7 +47,7 @@ public class Duke {
         }
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, storage, ui);
+            return c.execute(tasks, storage);
         } catch (DukeException e) {
             return e.getMessage();
         } catch (DateTimeParseException e) {
