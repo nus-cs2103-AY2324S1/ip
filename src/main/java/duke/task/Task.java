@@ -13,6 +13,13 @@ public abstract class Task {
     protected String description;
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
+    /**
+     * Creates a new {@code Task}
+     * @param task String representation of a task
+     * @return Task
+     * @throws Duke.WrongCommandException if the command is invalid
+     * @throws Duke.WrongFormatException if the format is invalid
+     */
     public static Task createTask(String task) throws Duke.WrongCommandException, Duke.WrongFormatException {
         TaskType taskType = getTaskType(task);
         if (taskType == null) {
@@ -31,6 +38,13 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Loads a task from a file
+     * @param fileTask String representation of a task
+     * @return Task
+     * @throws Duke.WrongFormatException if the file is corrupted
+     * @throws Duke.InvalidFileException if the file is corrupted
+     */
     public static Task loadTask(String fileTask) throws Duke.WrongFormatException, Duke.InvalidFileException {
         String[] taskDetails = fileTask.split(" \\| ");
         try {

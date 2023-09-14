@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.IOException;
+
 import duke.gui.Main;
 import duke.gui.controller.MainWindow;
 import javafx.application.Application;
@@ -8,12 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
  * GUI version of Duke.
  */
-public class DukeGUI extends Application {
+public class DukeGui extends Application {
     private Duke duke = new Duke();
 
     @Override

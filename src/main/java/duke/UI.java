@@ -20,8 +20,6 @@ class UI {
             inputHandler.handleInput();
             isExit = inputHandler.isExit();
         }
-
-        outputUI.bye();
     }
 
     /**
@@ -38,10 +36,6 @@ class UI {
 
         public void greet() {
             printer("Hello! I'm Meowies\n    What can I do for you?");
-        }
-
-        public void bye() {
-            printer("Bye. Hope to see you again soon!");
         }
 
         public void echo(String input) {
