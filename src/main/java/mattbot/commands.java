@@ -3,7 +3,7 @@ package mattbot;
 /**
  * Commands that can be accepted.
  */
-public enum Commands {
+public enum commands {
     TODO,
     DEADLINE,
     EVENT,
