@@ -1,8 +1,12 @@
 package GUI;
 import Duke.Duke;
+import Duke.DukeException;
 import OOP.Ui;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -10,8 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -52,6 +59,14 @@ public class MainWindow extends AnchorPane {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(duke.getResponse(userInput.getText()));
         DialogBox userDialog = DialogBox.getUserDialog(userText.getText(), userImage);
+        if (userText.getText().equals("help")) {
+            try {
+                handleHelpCommand(dukeText);
+                return;
+            } catch (IOException e) {
+                throw new DukeException("Something went wrong with displaying the help Pop-up!");
+            }
+        }
         userDialog.setMinHeight(Region.USE_PREF_SIZE);
         DialogBox dukeDialog = DialogBox.getDukeDialog(dukeText.getText(), dukeImage);
         dukeDialog.setMinHeight(Region.USE_PREF_SIZE);
@@ -66,5 +81,21 @@ public class MainWindow extends AnchorPane {
             delay.play();
         }
         userInput.clear();
+    }
+
+    @FXML
+    private void handleHelpCommand(Label dukeText) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HelpPopup.fxml"));
+        Parent root = loader.load();
+
+        // Pass relevant information to the controller
+        HelpPopupController helpController = loader.getController();
+        helpController.setHelpText(dukeText.getText()); // Assuming dukeText is generated here
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Help");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }
