@@ -28,6 +28,13 @@ public abstract class Task extends Info {
     }
 
     /**
+     * Checks if a task is marked as done.
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
      * Marks a task as done.
      */
     public void markAsDone() {

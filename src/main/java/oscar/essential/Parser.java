@@ -18,61 +18,60 @@ import oscar.exception.OscarException;
  */
 public class Parser {
     /**
-     * Handles raw user input and invokes the corresponding command.
+     * Handles raw user input and invokes callCommand to handle the command.
      *
      * @param fullCommand Raw user input.
-     * @return Corresponding command.
+     * @return Invoked command.
      * @throws OscarException Invalid command.
      */
     public static Command parse(String fullCommand) throws OscarException {
         String[] splits = fullCommand.split(" ", 2);
         String command = splits[0].toLowerCase();
         String details = fullCommand.length() > command.length() ? splits[1] : "";
+        return callCommand(command, details);
+    }
 
+    /**
+     * Invokes the corresponding command with details.
+     *
+     * @param command User input command.
+     * @param details Details of command.
+     * @return Corresponding command.
+     * @throws OscarException Invalid command.
+     */
+    private static Command callCommand(String command, String details) throws OscarException {
         switch (command) {
-        // Exit programme if user enters "bye" command
         case "bye":
             return new ExitCommand();
 
-        // Displays stored info in chronological order if
-        // user enters "list" command
         case "list":
             return new ListCommand();
 
-        // Mark task as done if user enters "mark" command
         case "mark":
             return new MarkCommand(details);
 
-        // Mark task as not done if user enters "unmark" command
         case "unmark":
             return new UnmarkCommand(details);
 
-        // Delete an info if user enters "delete" command
         case "delete":
             return new DeleteCommand(details);
 
-        // Create a new todo task if user enters "todo" command
         case "todo":
             return new TodoCommand(details);
 
-        // Create a new deadline task if user enters "deadline" command
         case "deadline":
             return new DeadlineCommand(details);
 
-        // Create a new event task if user enters "event" command
         case "event":
             return new EventCommand(details);
 
-        // Create a new note if user enters "note" command
         case "note":
             return new NoteCommand(details);
 
-        // Find
         case "find":
             return new FindCommand(details);
 
         default:
-            // Default response for unknown commands
             throw new OscarException("Sorry! Oscar does not recognise this command\n");
         }
     }

@@ -113,7 +113,7 @@ public class InfoList {
      *
      * @param index Item number.
      * @return Description of task.
-     * @throws OscarException Item selected is a note and cannot be marked.
+     * @throws OscarException Item selected is a note or task is already marked as done.
      */
     public String mark(int index) throws OscarException {
         Info currentInfo = infoList.get(index);
@@ -121,6 +121,9 @@ public class InfoList {
             throw new OscarException("Sorry! The item cannot be marked as done.\n");
         }
         Task currentTask = ((Task) currentInfo);
+        if (currentTask.isDone()) {
+            throw new OscarException("Sorry! The task is already marked as done.\n");
+        }
         currentTask.markAsDone();
         return currentTask.toString();
     }
@@ -130,7 +133,7 @@ public class InfoList {
      *
      * @param index Item number.
      * @return Description of task.
-     * @throws OscarException Item selected is a note and cannot be marked.
+     * @throws OscarException Item selected is a note or task is not marked as done previously.
      */
     public String unmark(int index) throws OscarException {
         Info currentInfo = infoList.get(index);
@@ -138,6 +141,9 @@ public class InfoList {
             throw new OscarException("Sorry! The item cannot be marked as not done.\n");
         }
         Task currentTask = ((Task) currentInfo);
+        if (!currentTask.isDone()) {
+            throw new OscarException("Sorry! The task cannot be marked as not done.\n");
+        }
         currentTask.markAsNotDone();
         return currentTask.toString();
     }

@@ -51,6 +51,7 @@ public class Oscar {
      */
     public String greet() {
         return "Hello! This is Oscar, your friendly chatbot :)\n"
-                + "What can Oscar do for you?\n";
+                + "Oscar can manage your infos such as task and notes!\n"
+                + "What can Oscar do for you today?\n";
     }
 }
