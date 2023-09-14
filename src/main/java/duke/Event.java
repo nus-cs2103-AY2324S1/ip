@@ -21,6 +21,11 @@ public class Event extends Task {
         this.to = to;
         this.identifier = "[E]";
     }
+
+    public void reschedule(LocalDateTime newFrom, LocalTime newTo) {
+        this.from = newFrom;
+        this.to = newTo;
+    }
     @Override
     public String toString() {
         return this.identifier + super.toString()

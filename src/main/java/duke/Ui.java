@@ -57,6 +57,7 @@ public class Ui {
      * Also prints the updated number of tasks.
      * @param size updated number of tasks
      * @param task task that has been added
+     * @return what Ari prints out in String
      */
     public String printAddedTask(int size, Task task) {
         printLine();
@@ -75,6 +76,7 @@ public class Ui {
      * Prints information about the task that has been marked as done
      * @param index task number
      * @param tasks TaskList object
+     * @return what Ari prints out in String
      */
     public String printAfterMark(int index, TaskList tasks) {
         printLine();
@@ -90,6 +92,7 @@ public class Ui {
      * Prints information about the task that has been marked as undone
      * @param index task number
      * @param tasks TaskList object
+     * @return what Ari prints out in String
      */
     public String printAfterUnmark(int index, TaskList tasks) {
         printLine();
@@ -105,6 +108,7 @@ public class Ui {
      * Prints out information about the task that has been deleted.
      * @param size updated number of tasks
      * @param removedTask task that has been removed
+     * @return what Ari prints out in String
      */
     public String printAfterDelete(int size, Task removedTask) {
         printLine();
@@ -120,6 +124,7 @@ public class Ui {
     /**
      * Prints out information about the task that contains a specified keyword.
      * @param taskList an ArrayList of task that contain the keyword
+     * @return what Ari prints out in String
      */
     public String printMatchingTasks(ArrayList<Task> taskList) {
         String listOfMatchingTasks = "\tHere are the matching tasks in your list: \n";
@@ -132,5 +137,34 @@ public class Ui {
         printLine();
 
         return listOfMatchingTasks;
+    }
+    /**
+     * Prints out information about the task (deadline) that has been postponed.
+     * @param postponedTask a deadline task that has been postponed
+     * @return what Ari prints out in String
+     */
+    public String printAfterPostpone(Task postponedTask) {
+        printLine();
+        System.out.println("\tOk, We have postponed the following deadline");
+        System.out.println("\t  " + postponedTask.toString());
+        printLine();
+
+        return "Ok, We have postponed the following deadline" + "\n"
+                + "  " + postponedTask.toString();
+    }
+
+    /**
+     * Prints out information about the task (event) that has been rescheduled.
+     * @param rescheduledTask an event task that has been rescheduled
+     * @return what Ari prints out in String
+     */
+    public String printAfterReschedule(Task rescheduledTask) {
+        printLine();
+        System.out.println("\tOk, We have rescheduled the following event");
+        System.out.println("\t  " + rescheduledTask.toString());
+        printLine();
+
+        return "Ok, We have rescheduled the following event" + "\n"
+                + " " + rescheduledTask.toString();
     }
 }

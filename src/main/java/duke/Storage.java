@@ -208,4 +208,62 @@ public class Storage {
         clearFile();
         appendToFile(updatedContent);
     }
+
+    /**
+     * Updates a file after a task's due date has been postponed.
+     * @param postponedTask deadline task that has been postponed
+     * @param lineNumber an integer representing which task has been postponed
+     * @param newDeadline new deadline in String
+     * @throws IOException if File cannot be opened / located
+     */
+    public void updateFileAfterPostpone(Deadline postponedTask, int lineNumber, String newDeadline) throws IOException {
+        String updatedContent = "";
+        File f = new File(this.filePath);
+        Scanner scanner = new Scanner(f);
+        int i = 1;
+        while (scanner.hasNext()) {
+            if (i == lineNumber) {
+                scanner.nextLine();
+                updatedContent += "D | " + postponedTask.getStatusIcon() + " | " +
+                        postponedTask.taskDescription + " | " + newDeadline +
+                        System.lineSeparator();
+                i++;
+                continue;
+            }
+            updatedContent += scanner.nextLine() + System.lineSeparator();
+            i++;
+        }
+        clearFile();
+        appendToFile(updatedContent);
+    }
+
+    /**
+     * Updates a file after an event has been rescheduled.
+     * @param rescheduledTask event task that has been rescheduled
+     * @param lineNumber an integer representing which task has been postponed
+     * @param newFrom new date and time in which the event starts in String
+     * @param newTo new time in which the event ends in String
+     * @throws IOException if File cannot be opened / located
+     */
+    public void updateFileAfterReschedule(Event rescheduledTask, int lineNumber, String newFrom, String newTo)
+            throws IOException{
+        String updatedContent = "";
+        File f = new File(this.filePath);
+        Scanner scanner = new Scanner(f);
+        int i = 1;
+        while (scanner.hasNext()) {
+            if (i == lineNumber) {
+                scanner.nextLine();
+                updatedContent += "E | " + rescheduledTask.getStatusIcon() + " | " +
+                        rescheduledTask.taskDescription + " | " + newFrom + "-" + newTo +
+                        System.lineSeparator();
+                i++;
+                continue;
+            }
+            updatedContent += scanner.nextLine() + System.lineSeparator();
+            i++;
+        }
+        clearFile();
+        appendToFile(updatedContent);
+    }
 }

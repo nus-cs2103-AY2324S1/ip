@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -15,6 +16,10 @@ public class Deadline extends Task {
         super(taskDescription, isDone);
         this.by = by;
         this.identifier = "[D]";
+    }
+
+    public void changeDeadline(LocalDateTime newBy) {
+        this.by = newBy;
     }
     @Override
     public String toString() {

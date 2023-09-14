@@ -36,6 +36,8 @@ public class Parser {
 
             switch (identifier) {
             case "todo":
+                assert arr.length == 1 : "Todo should have 1 element in the array";
+
                 Task todo = new ToDo(task, false);
                 tasks.addTask(todo);
                 storage.appendToFile("T | " + todo.getStatusIcon() + " | "
@@ -86,6 +88,34 @@ public class Parser {
                 String keyword = task;
                 ArrayList<Task> tasksWithKeyword = tasks.findTaskUsingKeyword(keyword);
                 return ui.printMatchingTasks(tasksWithKeyword);
+            case "postpone":
+                int indexToPostpone = java.lang.Integer.parseInt(arr[0].substring(0,1)) - 1;
+
+                if (!(tasks.getTasks().get(indexToPostpone) instanceof Deadline)) {
+                    throw new DukeException("Wrong type of task");
+                }
+
+                String newBy = arr[1].substring(3);
+                LocalDateTime formattedNewBy = LocalDateTime.parse(newBy, formatter);
+                ((Deadline) tasks.getTasks().get(indexToPostpone)).changeDeadline(formattedNewBy);
+                storage.updateFileAfterPostpone((Deadline) tasks.getTasks().get(indexToPostpone),
+                        indexToPostpone + 1, newBy);
+                return ui.printAfterPostpone(tasks.getTasks().get(indexToPostpone));
+            case "reschedule":
+                int indexToReschedule = java.lang.Integer.parseInt(arr[0].substring(0,1)) - 1;
+
+                if (!(tasks.getTasks().get(indexToReschedule) instanceof Event)) {
+                    throw new DukeException("Wrong type of task");
+                }
+
+                String newFrom = arr[1].substring(5, 5 + "yyyyMMdd HHmm".length());
+                String newTo = arr[2].substring(3);
+                LocalDateTime formattedNewFrom = LocalDateTime.parse(newFrom, formatter);
+                LocalTime formattedNewTo = LocalTime.parse(newTo, formatter2);
+                ((Event) tasks.getTasks().get(indexToReschedule)).reschedule(formattedNewFrom, formattedNewTo);
+                storage.updateFileAfterReschedule((Event) tasks.getTasks().get(indexToReschedule),
+                        indexToReschedule + 1, newFrom, newTo);
+                return ui.printAfterReschedule(tasks.getTasks().get(indexToReschedule));
             }
         }
         return "";
