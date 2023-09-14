@@ -49,6 +49,8 @@ public class UnmarkCommand extends Command {
             Task unmarkedTask = tasks.markAsUndone(taskIndex);
             tasks.storeTasks(storage);
 
+            assert unmarkedTask != null : "Unmarked task should not be null";
+
             StringBuilder response = new StringBuilder();
             response.append("OK, I've marked this task as not done yet:\n");
             response.append(String.format("  %s", unmarkedTask.toString()));

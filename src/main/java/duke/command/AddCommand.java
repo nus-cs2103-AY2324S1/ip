@@ -45,6 +45,8 @@ public class AddCommand extends Command {
         } else if (parameterMap.containsKey("todo")) {
             this.taskType = TaskType.TODO;
         }
+
+        assert this.taskType != null : "Task type should not be null";
     }
 
     @Override
@@ -122,7 +124,9 @@ public class AddCommand extends Command {
                 throw new DukeException("Invalid task type.");
             }
 
-            if (!taskToAdd.equals(null) && super.getParameterMap().containsKey("completed")) {
+            assert taskToAdd != null : "Task to add should not be null";
+
+            if (super.getParameterMap().containsKey("completed")) {
                 taskToAdd.markAsDone();
             }
 
