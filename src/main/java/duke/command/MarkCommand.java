@@ -40,13 +40,17 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert taskList != null : "taskList should not be null";
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
+
         String err = String.format("OOPS!!! The command for %s task is invalid.", key.getKeyword());
         int taskNum;
         try {
             if (!commandBody.equals("all")) {
                 taskNum = Integer.parseInt(commandBody);
             } else {
-                taskList.manipulateAllTask(key, ui);
+                taskList.manipulateAllTask(key);
                 storage.changeFile(key, -1);
                 return ui.showManipulateAllTask(key.getKeyword());
             }

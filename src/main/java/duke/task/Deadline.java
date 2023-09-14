@@ -50,6 +50,9 @@ public class Deadline extends Task {
      */
     @Override
     public boolean onDate(Keyword key, LocalDate date) {
+        assert key != null : "Keyword cannot be null";
+        assert date != null : "Date cannot be null";
+
         LocalDate by = this.by.toLocalDate();
         return key.equals(Keyword.DEADLINE)
                 && (by.isAfter(date) || by.equals(date));

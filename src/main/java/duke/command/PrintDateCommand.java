@@ -39,6 +39,9 @@ public class PrintDateCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert taskList != null : "taskList should not be null";
+        assert ui != null : "ui should not be null";
+
         String err = "OOPS!!! The command for print_date task is invalid.";
         String[] printTask = commandBody.split(" /on ");
         if (printTask.length != 2) {

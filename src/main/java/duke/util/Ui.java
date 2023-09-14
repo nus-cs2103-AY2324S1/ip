@@ -66,6 +66,8 @@ public class Ui {
      * @param taskListSize the number of tasks in the task list.
      */
     public String showAddTask(Task task, int taskListSize) {
+        assert task != null : "Task should not be null";
+
         return String.format("Got it. I've added this task:\n"
                            + "  %s\n"
                            + "Now you have %d tasks in the list.\n",
@@ -80,6 +82,8 @@ public class Ui {
      * @param taskListSize the number of tasks in the task list.
      */
     public String showDeleteTask(Task removedTask, int taskListSize) {
+        assert removedTask != null : "Removed task should not be null";
+
         return String.format("Noted. I've removed this task:%n"
                            + "  %s\n"
                            + "Now you have %d tasks in the list.%n",
@@ -115,6 +119,8 @@ public class Ui {
      * @param tasks the string representation of the tasks in the task list.
      */
     public String showListTask(String[] tasks) {
+        assert tasks != null : "Tasks should not be null";
+
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.length; i++) {
@@ -131,6 +137,8 @@ public class Ui {
      * @param date the String representation of the specified date.
      */
     public String showPrintDateTask(String[] tasksOnDate, String date) {
+        assert tasksOnDate != null : "Tasks on date should not be null";
+
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append(String.format("Here are the %d tasks happening on %s:\n",
                 tasksOnDate.length, date));
@@ -150,6 +158,9 @@ public class Ui {
      *                indices of the tasks in tasksFound.
      */
     public String showFindTask(String[] tasksFound, String[] indices) {
+        assert tasksFound != null : "Tasks found should not be null";
+        assert indices != null : "Indices should not be null";
+
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasksFound.length; i++) {
@@ -166,6 +177,9 @@ public class Ui {
      * @return the connected string.
      */
     public static String connectLines(String... lines) {
+        assert lines != null : "Lines should not be null";
+        assert lines.length > 1 : "Lines should have at least 2 elements";
+
         StringBuilder strBuilder = new StringBuilder();
         for (String line : lines) {
             strBuilder.append(String.format("%s\n", line));

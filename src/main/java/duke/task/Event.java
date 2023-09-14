@@ -54,6 +54,9 @@ public class Event extends Task {
      */
     @Override
     public boolean onDate(Keyword key, LocalDate date) {
+        assert key != null : "Keyword cannot be null";
+        assert date != null : "Date cannot be null";
+
         LocalDate from = this.from.toLocalDate();
         LocalDate to = this.to.toLocalDate();
         return key.equals(Keyword.EVENT)

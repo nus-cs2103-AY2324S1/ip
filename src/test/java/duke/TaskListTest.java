@@ -122,7 +122,7 @@ public class TaskListTest {
         UiStub ui = new UiStub();
         try {
             taskList.addTask(new Todo("test"), ui);
-            taskList.manipulateAllTask(Keyword.DELETE, ui);
+            taskList.manipulateAllTask(Keyword.DELETE);
             assert true;
         } catch (DukeException e) {
             fail();
@@ -135,7 +135,7 @@ public class TaskListTest {
         UiStub ui = new UiStub();
         try {
             taskList.addTask(new Todo("test"), ui);
-            taskList.manipulateAllTask(Keyword.BYE, ui);
+            taskList.manipulateAllTask(Keyword.BYE);
             fail();
         } catch (DukeException e) {
             assertEquals("OOPS!!! This is not a valid command.", e.getMessage());
@@ -147,7 +147,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         UiStub ui = new UiStub();
         try {
-            taskList.manipulateAllTask(Keyword.DELETE, ui);
+            taskList.manipulateAllTask(Keyword.DELETE);
             fail();
         } catch (DukeException e) {
             assertEquals("OOPS!!! There are no tasks to delete.", e.getMessage());

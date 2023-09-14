@@ -46,6 +46,10 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert taskList != null : "taskList should not be null";
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
+
         Task task;
         String err = String.format("OOPS!!! The command for %s task is invalid.", key.getKeyword());
         switch(key) {
