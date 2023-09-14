@@ -1,0 +1,2 @@
+T, false, return book
+D, true, help, tmr
