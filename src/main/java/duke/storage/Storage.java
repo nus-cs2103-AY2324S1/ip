@@ -112,6 +112,7 @@ public class Storage {
      */
     public TaskArray parseData(ArrayList<String> inputList) {
 
+        
         ArrayList<Task> taskArrayList = new ArrayList<>();
 
         for (String input : inputList) {
