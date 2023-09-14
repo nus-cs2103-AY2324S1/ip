@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class FindCommand extends Command {
     private String keyword;
+    private int LIMIT = 2;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -17,7 +18,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, TaskList taskList) throws RichieException {
         ArrayList<Task> tasks;
-        tasks = taskList.filterTaskByKeyword(this.keyword);
+        tasks = taskList.filterTaskByKeyword(this.keyword, this.LIMIT);
         ui.showFilteredTasksList(tasks);
     }
 }
