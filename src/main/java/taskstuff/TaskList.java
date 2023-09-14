@@ -1,6 +1,7 @@
 package taskstuff;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import duke.DukeException;
@@ -15,11 +16,15 @@ public class TaskList {
     /** An ArrayList to hold tasks entered by the User. */
     private ArrayList<Task> tasks;
 
+    /** An ArrayList to hold the undos. */
+    private ArrayList<Consumer<TaskList>> undos;
+
     /**
      * Initialises the tasks list to an empty array List.
      */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
+        this.undos = new ArrayList<Consumer<TaskList>>();
     }
 
     /**
@@ -29,6 +34,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = new ArrayList<>(tasks);
+        this.undos = new ArrayList<Consumer<TaskList>>();
     }
 
 
@@ -39,8 +45,8 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
-
-
+        int size = this.getSize();
+        undos.add(x -> x.tasks.remove(size - 1));
     }
 
     /**
@@ -63,6 +69,7 @@ public class TaskList {
             throw new DukeException("The index is not a valid index. Try again.");
         }
         tasks.get(index - 1).setAsDone();
+        undos.add(x -> x.tasks.get(index - 1).setAsNotDone());
     }
 
     /**
@@ -76,7 +83,8 @@ public class TaskList {
             throw new DukeException("The index is not a valid index. Try again.");
         }
         tasks.get(index - 1).setAsNotDone();
-
+        int size = this.getSize();
+        undos.add(x -> x.tasks.get(index - 1).setAsDone());
     }
 
     /**
@@ -91,9 +99,10 @@ public class TaskList {
         if (index > tasks.size() || index <= 0) {
             throw new DukeException("The index is not a valid index. Try again.");
         }
-        String task = tasks.get(index - 1).toString();
+        Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
-        return task;
+        undos.add(x -> x.tasks.add(index - 1, task));
+        return task.toString();
     }
 
 
@@ -128,5 +137,20 @@ public class TaskList {
      */
     public Stream<String> findTasks(String s) {
         return this.tasks.stream().filter(x -> x.hasKeyWord(s)).map(Task::toString);
+    }
+
+
+    /**
+     * Undoes the last undoable task.
+     *
+     * @throws DukeException If there is nothing to undo.
+     */
+    public void undo() throws DukeException {
+        if (undos.size() == 0) {
+            throw new DukeException("There is nothing to undo.");
+        }
+        Consumer<TaskList> c = undos.get(undos.size() - 1);
+        undos.remove(undos.size() - 1);
+        c.accept(this);
     }
 }

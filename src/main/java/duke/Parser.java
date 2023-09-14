@@ -243,6 +243,8 @@ public class Parser {
             return new Instruction.Exit();
         case LIST:
             return new Instruction.List();
+        case UNDO:
+            return new Instruction.Undo();
         case MARK:
             return Parser.parseMark(matcher);
         case UNMARK:
