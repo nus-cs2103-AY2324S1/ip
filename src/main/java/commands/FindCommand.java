@@ -43,7 +43,8 @@ public class FindCommand extends Command {
 
         // Iterate through the task list and add tasks containing the keyword to the results
         for (Task task : taskList.getToDos()) {
-            if (task.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
+            boolean isMatch = task.getTaskDescription().toLowerCase().contains(keyword.toLowerCase());
+            if (isMatch) {
                 results.add(task);
             }
         }

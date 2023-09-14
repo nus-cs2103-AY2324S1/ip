@@ -61,7 +61,7 @@ public class Ui {
      */
     public String listout(TaskList tasks) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < tasks.len(); i++) {
+        for (int i = 0; i < tasks.totalTaskCount(); i++) {
             stringBuilder.append((i + 1) + "." + tasks.get(i).toString() + "\n");
         }
         return stringBuilder.toString();

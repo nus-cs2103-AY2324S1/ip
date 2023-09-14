@@ -38,7 +38,7 @@ public class TaskList {
      *
      * @return The number of tasks in the task list.
      */
-    public int len() {
+    public int totalTaskCount() {
         return this.toDos.size();
     }
 
