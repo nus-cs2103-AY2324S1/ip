@@ -10,6 +10,10 @@ import alice.exception.DukeException;
  * described by a description and a boolean indicating whether the task is done.
  */
 public class Task {
+    protected static final String EMPTY_DESCRIPTION_ERROR_MESSAGE =
+        "OOPS!!! The description of a task cannot be empty.";
+    protected static final String DATE_TIME_FORMAT_PARSING_ERROR_MESSAGE =
+        "OOPS!!! The date and time must be in the format of YYYY-MM-DD HH:MM.";
     protected String description; // The description of the task.
     protected boolean isDone; // The status of the task.
 
@@ -32,7 +36,7 @@ public class Task {
      */
     public Task(String description, boolean isDone) throws DukeException {
         if (description.isEmpty()) {
-            throw new DukeException("\u2639 OOPS!!! The description of a task cannot be empty.");
+            throw new DukeException(Task.EMPTY_DESCRIPTION_ERROR_MESSAGE);
         }
 
         this.description = description;
@@ -93,5 +97,12 @@ public class Task {
      */
     public String toFileString() {
         return (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
+    /**
+     * Different types of tasks.
+     */
+    public enum TaskType {
+        TODO, DEADLINE, EVENT
     }
 }

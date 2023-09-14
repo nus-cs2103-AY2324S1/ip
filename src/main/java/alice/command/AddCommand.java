@@ -2,8 +2,11 @@ package alice.command;
 
 import alice.exception.DukeException;
 import alice.storage.Storage;
+import alice.task.Deadline;
+import alice.task.Event;
 import alice.task.Task;
 import alice.task.TaskList;
+import alice.task.Todo;
 import alice.ui.Ui;
 
 /**
@@ -19,6 +22,28 @@ public class AddCommand extends Command {
      */
     public AddCommand(Task task) {
         this.task = task;
+    }
+
+    /**
+     * Constructs an AddCommand with the given argument.
+     *
+     * @param argument The argument of the command.
+     * @throws DukeException If the argument is invalid.
+     */
+    public AddCommand(Task.TaskType taskType, String argument) throws DukeException {
+        switch (taskType) {
+        case TODO:
+            this.task = Todo.fromArgument(argument);
+            break;
+        case DEADLINE:
+            this.task = Deadline.fromArgument(argument);
+            break;
+        case EVENT:
+            this.task = Event.fromArgument(argument);
+            break;
+        default:
+            throw new DukeException("OOPS!!! I don't know what that means :-(");
+        }
     }
 
     /**

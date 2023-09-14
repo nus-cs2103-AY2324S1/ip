@@ -28,6 +28,16 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructs a todo with the given argument.
+     *
+     * @param argument The argument from the command.
+     * @throws DukeException If there are problems constructing the todo.
+     */
+    public static Todo fromArgument(String argument) throws DukeException {
+        return new Todo(argument);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

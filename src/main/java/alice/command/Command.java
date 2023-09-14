@@ -9,6 +9,7 @@ import alice.ui.Ui;
  * Represents a command issued by the user and to be executed.
  */
 public class Command {
+    public static final String INDEX_NOT_NUMBER_ERROR_MESSAGE = "OOPS!!! The index of a task must be a number.";
     protected boolean isExit = false; // Whether the command is an exit command.
 
     /**
@@ -31,5 +32,12 @@ public class Command {
      */
     public boolean isExit() {
         return this.isExit;
+    }
+
+    /**
+     * Different keywords for commands.
+     */
+    public enum CommandKeyword {
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, FIND
     }
 }

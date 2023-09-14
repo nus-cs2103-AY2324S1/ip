@@ -1,6 +1,7 @@
 package alice.task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import alice.exception.DukeException;
 
@@ -32,6 +33,25 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isDone) throws DukeException {
         super(description, isDone);
         this.by = LocalDateTime.parse(by);
+    }
+
+    /**
+     * Constructs a deadline with the given argument.
+     *
+     * @param argument The argument from the command.
+     * @throws DukeException If there are problems constructing the deadline.
+     */
+    public static Deadline fromArgument(String argument) throws DukeException {
+        try {
+            String[] inputs = argument.split(" /", 2);
+            String description = inputs[0];
+            String by = inputs[1].split(" ", 2)[1];
+            return new Deadline(description, by);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! The deadline of a deadline cannot be empty.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException(Task.DATE_TIME_FORMAT_PARSING_ERROR_MESSAGE);
+        }
     }
 
     /**

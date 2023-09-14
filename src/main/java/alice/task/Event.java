@@ -1,6 +1,7 @@
 package alice.task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import alice.exception.DukeException;
 
@@ -36,6 +37,26 @@ public class Event extends Task {
         super(description, isDone);
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);
+    }
+
+    /**
+     * Constructs an event with the given argument.
+     *
+     * @param argument The argument from the command.
+     * @throws DukeException If there are problems constructing the event.
+     */
+    public static Event fromArgument(String argument) throws DukeException {
+        try {
+            String[] inputs = argument.split(" /", 3);
+            String description = inputs[0];
+            String from = inputs[1].split(" ", 2)[1];
+            String to = inputs[2].split(" ", 2)[1];
+            return new Event(description, from, to);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! The start time or end time of an event cannot be empty.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException(Task.DATE_TIME_FORMAT_PARSING_ERROR_MESSAGE);
+        }
     }
 
     /**
