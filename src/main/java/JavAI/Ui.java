@@ -7,13 +7,6 @@ public class Ui {
 
 
     /**
-     * Displays a welcome message when the chatbot starts.
-     */
-    public String displayWelcome() {
-        return ("      Hello, I'm JavAI.\n      What can I do for you?\n");
-    }
-
-    /**
      * Displays a message when a task is added successfully.
      *
      * @param task The added task.

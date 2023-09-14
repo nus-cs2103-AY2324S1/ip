@@ -55,77 +55,12 @@ public class Storage {
                     String description = "";
                     String[] words = load.substring(7).split(" ");
                     int iterator = 0;
-
                     if (taskType.equals("T")) {
-                        while (iterator < words.length) {
-                            description += words[iterator] + " ";
-                            iterator++;
-                        }
-                        assert !description.isEmpty() : "Description should not be empty";
-                        Todo todo = new Todo(description);
-                        if (completionType.equals("X")) {
-                            todo.markAsDone();
-                        }
-                        tasks.add(todo);
+                        addTodo(iterator, words, tasks, completionType, description);
                     } else if (taskType.equals("D")) {
-                        String endDate = "";
-                        String endTime = "";
-                        while (!words[iterator].equals("by:")) {
-                            if (!words[iterator].equals("(")) {
-                                description += words[iterator] + " ";
-                                iterator++;
-                            } else {
-                                iterator++;
-                            }
-                        }
-                        iterator++;
-                        for (int i = 0; i < 3; i++) {
-                            endDate += words[iterator] + " ";
-                            iterator++;
-                        }
-                        endTime = words[iterator];
-                        assert !description.isEmpty() : "Description should not be empty";
-                        String endTimeWithoutColon = endTime.replace(":", "");
-                        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy ");
-                        LocalDate date = LocalDate.parse(endDate, inputFormatter);
-                        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        String formattedDate = date.format(outputFormatter);
-                        Deadline deadline = new Deadline(description.trim(), formattedDate, endTimeWithoutColon);
-                        if (completionType.equals("X")) {
-                            deadline.markAsDone();
-                        }
-                        tasks.add(deadline);
+                        addDeadline(iterator, words, tasks, completionType, description);
                     } else if (taskType.equals("E")) {
-                        String from = "";
-                        String to = "";
-                        while (!words[iterator].equals("from:")) {
-                            if (!words[iterator].equals("(")) {
-                                description += words[iterator] + " ";
-                                iterator++;
-                            } else {
-                                iterator++;
-                            }
-                        }
-                        iterator++;
-                        while (!words[iterator].equals("to:")) {
-                            from += words[iterator] + " ";
-                            iterator++;
-                        }
-                        iterator++;
-                        while (iterator < words.length) {
-                            if (words[iterator].equals(")")) {
-                                iterator++;
-                            } else {
-                                to += words[iterator] + " ";
-                                iterator++;
-                            }
-                        }
-                        assert !description.isEmpty() : "Description should not be empty";
-                        Event event = new Event(description.trim(), from, to);
-                        if (completionType.equals("X")) {
-                            event.markAsDone();
-                        }
-                        tasks.add(event);
+                        addEvent(iterator, words, tasks, completionType, description);
                     }
                 }
             } catch (FileNotFoundException e) {
@@ -155,6 +90,80 @@ public class Storage {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public void addTodo(int iterator, String[] words, ArrayList<Task> tasks, String completionType, String description) {
+        while (iterator < words.length) {
+            description += words[iterator] + " ";
+            iterator++;
+        }
+        Todo todo = new Todo(description);
+        if (completionType.equals("X")) {
+            todo.markAsDone();
+        }
+        tasks.add(todo);
+    }
+
+    public void addDeadline(int iterator, String[] words, ArrayList<Task> tasks, String completionType, String description) {
+        String endDate = "";
+        String endTime = "";
+        while (!words[iterator].equals("by:" )) {
+            if (!words[iterator].equals("(" )) {
+                description += words[iterator] + " ";
+                iterator++;
+            } else {
+                iterator++;
+            }
+        }
+        iterator++;
+        for (int i = 0; i < 3; i++) {
+            endDate += words[iterator] + " ";
+            iterator++;
+        }
+        endTime = words[iterator];
+        String endTimeWithoutColon = endTime.replace(":", "" );
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy " );
+        LocalDate date = LocalDate.parse(endDate, inputFormatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd" );
+        String formattedDate = date.format(outputFormatter);
+        Deadline deadline = new Deadline(description.trim(), formattedDate, endTimeWithoutColon);
+        if (completionType.equals("X")) {
+            deadline.markAsDone();
+        }
+        tasks.add(deadline);
+    }
+
+    public void addEvent(int iterator, String[] words, ArrayList<Task> tasks, String completionType,
+                         String description) {
+        String from = "";
+        String to = "";
+        while (!words[iterator].equals("from:")) {
+            if (!words[iterator].equals("(")) {
+                description += words[iterator] + " ";
+                iterator++;
+            } else {
+                iterator++;
+            }
+        }
+        iterator++;
+        while (!words[iterator].equals("to:")) {
+            from += words[iterator] + " ";
+            iterator++;
+        }
+        iterator++;
+        while (iterator < words.length) {
+            if (words[iterator].equals(")")) {
+                iterator++;
+            } else {
+                to += words[iterator] + " ";
+                iterator++;
+            }
+        }
+        Event event = new Event(description.trim(), from, to);
+        if (completionType.equals("X")) {
+            event.markAsDone();
+        }
+        tasks.add(event);
     }
 
 }
