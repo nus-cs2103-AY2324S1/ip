@@ -1,7 +1,8 @@
 package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.*;
+import java.time.*;
 /**
  * The TaskList class is in charge of the different arrays
  * indicating the actions, whether it is done, the type, and the counter.
@@ -36,12 +37,14 @@ public class TaskList {
      */
 
     public static String todo(String action) {
+        assert action != null && !action.isEmpty() : "Action description cannot be null or empty";
         isDone[counter] = false;
         actions[counter] = action;
         type[counter] = "T";
         counter= counter + 1;
         String response = "";
         response = "Got it. I've added this task:\n" + helper(action, "T", false) + "\nNow you have " + counter + " tasks in the list.";
+        assert counter >= 0 : "Counter should not be negative after adding a task";
         Storage.save("data/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
 
         return response;
@@ -76,6 +79,10 @@ public class TaskList {
      * @param by LocalDateTime of formatted due.
      */
     public static String deadline(String action, String due, LocalDateTime by) {
+        assert action != null && !action.isEmpty() : "Action description cannot be null or empty";
+        assert due != null && !due.isEmpty() : "Due date description cannot be null or empty";
+        assert by != null : "Due date and time should not be null";
+
         String byString = due.trim();
         dueString[counter] = byString;
         actions[counter] = action;
@@ -84,6 +91,8 @@ public class TaskList {
         counter = counter + 1;
         String response = "";
         response = "Got it. I've added this task: \n" + helper(action, "D", false) + " (by" + " " + byString + ")" + "\n Now you have " + counter + " tasks in the list.";
+        assert counter >= 0 : "Counter should not be negative after adding a task";
+
         Storage.save("data/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
         return response;
     }
@@ -91,25 +100,70 @@ public class TaskList {
     /**
      * Helper to format and save action of event type.
      * @param action Name of action.
-     * @param start String indicating start time.
-     * @param end String indicating the end time.
+     * @param from String indicating start time.
+     * @param to String indicating the end time.
      */
-    public static String event(String action, String start, String end) {
-        String from = start.trim();
-        String to = end.trim();
-        LocalDateTime startTimeEvent = helper2(from);
-        LocalDateTime endTimeEvent = helper2(to);
+    public static String event(String action, String from, String to) {
+        assert action != null && !action.isEmpty() : "Action description cannot be null or empty";
+        assert from != null && !from.isEmpty() : "Start time description cannot be null or empty";
+        assert to != null && !to.isEmpty() : "End time description cannot be null or empty";
+
+        String response = "";
+        LocalDateTime startTimeEvent;
+        LocalDateTime endTimeEvent;
+
+        if (from.matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{4}$") && to.matches("^\\d{1,2}/\\d{1,2}/\\d{4} \\d{4}$")) {
+            startTimeEvent = parseDateTime(from);
+            endTimeEvent = parseDateTime(to);
+        } else {
+            startTimeEvent = parseMonTime(from);
+            endTimeEvent = parseMonTime(to);
+        }
+
         startTime[counter] = startTimeEvent;
         endTime[counter] = endTimeEvent;
         actions[counter] = action;
         isDone[counter] = false;
         type[counter] = "E";
         counter = counter + 1;
-        String response = "";
 
-       response = "Got it. I've added this task:\n" + helper(action, "E", false) + " (from: " + from + " to: " + to + ")" + "\nNow you have " + counter + " tasks in the list.";
+        assert counter >= 0 : "Counter should not be negative after adding a task";
+
+        response = "Got it. I've added this task:\n" + helper(action, "E", false) + " (from: " + from + " to: " + to + ")" + "\nNow you have " + counter + " tasks in the list.";
         Storage.save("data/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
         return response;
+    }
+
+    public static LocalDateTime parseMonTime(String monTime) {
+        // Split the input string into the day and time parts
+        String[] parts = monTime.split(" ");
+        String dayOfWeekStr = parts[0];
+        String timeStr = parts[1];
+
+        // Parse the day of the week
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayOfWeekStr.toUpperCase());
+
+        // Parse the time in 12-hour format
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("ha", Locale.US);
+        LocalTime time = LocalTime.parse(timeStr, timeFormatter);
+
+        // Calculate the number of days to add to get to the specified day of the week
+        int daysToAdd = (dayOfWeek.getValue() + 7 - DayOfWeek.MONDAY.getValue()) % 7;
+
+        // Get the current date and time
+        LocalDateTime now = LocalDateTime.now();
+
+        // Calculate the target date and time
+        LocalDateTime targetDateTime = now.plusDays(daysToAdd).withHour(time.getHour()).withMinute(time.getMinute());
+
+        return targetDateTime;
+    }
+
+
+
+    private static LocalDateTime parseDateTime(String dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return LocalDateTime.parse(dateTimeStr, formatter);
     }
 
 

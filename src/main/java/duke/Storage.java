@@ -1,9 +1,11 @@
 package duke;
 
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 /**
  * The storage class handles saving and loading data.
@@ -29,6 +31,7 @@ public class Storage {
      */
 
     public static void save(String fileName, String[] actions, String[] type, boolean[] isDone, String[] dueStrings, LocalDateTime[] startTimes, LocalDateTime[] endTimes, int counter) {
+        assert counter >= 0 : "Counter should not be negative";
         try (FileWriter writer = new FileWriter(fileName)) {
             writer.write(counter + "\n");
             for (int i = 0; i < counter; i++) {
@@ -36,8 +39,11 @@ public class Storage {
                 writer.write(type[i] + " | " + isDoneNum + " | " + actions[i]);
 
                 if (type[i].equals("D")) {
+                    assert dueStrings[i] != null : "Due string should not be null";
                     writer.write(" | " + dueStrings[i]);
                 } else if (type[i].equals("E")) {
+                    assert startTimes[i] != null : "Start time should not be null";
+                    assert endTimes[i] != null : "End time should not be null";
                     writer.write(" | " + startTimes[i].format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
                             + " | " + endTimes[i].format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
                 }
@@ -58,30 +64,17 @@ public class Storage {
      * @param isDone Array of boolean indicating whether action is done.
      * @return number of tasks saved in tasklist.
      */
-//    public static int load(String fileName, String[] actions, String[] type, boolean[] isDone) {
-//        int count = 0;
-//        try (FileReader fileReader = new FileReader(fileName)) {
-//            Scanner scanner = new Scanner(fileReader);
-//            while (scanner.hasNextLine() && count < actions.length) {
-//                String line = scanner.nextLine();
-//                String[] parts = line.split(" \\| ");
-//                // to split the line read into the different parts action num and done
-//                if (parts.length >= 3) {
-//                    type[count] = parts[0];
-//                    isDone[count] = parts[1].equals("1");
-//                    actions[count] = parts[2];
-//                    count++;
-//                }
-//            }
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return count;
-//    }
     public static int load(String fileName, String[] actions, String[] type, boolean[] isDone, String[] dueStrings, LocalDateTime[] startTimes, LocalDateTime[] endTimes) {
         int count = 0;
         try (FileReader fileReader = new FileReader(fileName)) {
             Scanner scanner = new Scanner(fileReader);
+            Arrays.fill(actions, null);
+            Arrays.fill(type, null);
+            Arrays.fill(isDone, false);
+            Arrays.fill(dueStrings, null); // Clear dueStrings array
+            Arrays.fill(startTimes, null); // Clear startTimes array
+            Arrays.fill(endTimes, null);   // Clear endTimes array
+
             while (scanner.hasNextLine() && count < actions.length) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
@@ -90,13 +83,32 @@ public class Storage {
                     type[count] = parts[0];
                     isDone[count] = parts[1].equals("1");
                     actions[count] = parts[2];
-                    // Check the type to determine if dueStrings, startTimes, and endTimes need to be populated
+
                     if (type[count].equals("D")) {
+                        if (parts.length >= 4) {
                             dueStrings[count] = parts[3];
+                        } else {
+                            dueStrings[count] = ""; // Set a default value
                         }
-                     else if (type[count].equals("E")) {
-                            startTimes[count] = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-                            endTimes[count] = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                    } if (type[count].equals("E")) {
+                        if (parts.length >= 6) {
+                            String startTimeStr = parts[4];
+                            String endTimeStr = parts[5];
+
+                            LocalDateTime startTimeValue = tryParseDateTime(startTimeStr, "d/M/yyyy HHmm");
+                            LocalDateTime endTimeValue = tryParseDateTime(endTimeStr, "d/M/yyyy HHmm");
+
+                            if (startTimeValue != null && endTimeValue != null) {
+                                startTimes[count] = startTimeValue;
+                                endTimes[count] = endTimeValue;
+                            } else {
+                                // Handle parsing error, e.g., log a warning or set default values
+                            }
+                        } else {
+                            // Set startTimes and endTimes to appropriate default values or null
+                            startTimes[count] = null;
+                            endTimes[count] = null;
+                        }
                     }
                     count++;
                 }
@@ -107,7 +119,15 @@ public class Storage {
         return count;
     }
 
-
+    private static LocalDateTime tryParseDateTime(String dateTimeStr, String pattern) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            return LocalDateTime.parse(dateTimeStr, formatter);
+        } catch (DateTimeParseException e) {
+            // Handle parsing error, e.g., log a warning or return null
+            return null;
+        }
+    }
 
     /**
      * Loads an array whether the activity is done.

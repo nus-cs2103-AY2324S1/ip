@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+
 /**
  * Parser class parses user input and executes corresponding commands.
  * Handles adding, list and marking tasks
@@ -20,6 +21,7 @@ public class Parser {
      * @return  true if program exits, false if still persist.
      */
     public static String inputType(String input, TaskList taskList, Storage storage) {
+        assert input != null : "Input cannot be null";
          Parser.result = false;
         String response = "";
         if (input.startsWith("bye")) {
@@ -28,6 +30,7 @@ public class Parser {
             return response;
         } else if (input.startsWith("delete")) {
             int num3 = Integer.parseInt(input.substring(7).trim());
+            assert num3 >= 1 && num3 <= TaskList.counter : "Invalid task number for deletion";
             String action2 = TaskList.helper(TaskList.actions[num3 - 1], TaskList.type[num3 - 1], TaskList.isDone[num3 - 1]);
             for (int j = num3 - 1; j < TaskList.counter - 1; j++) {
                 TaskList.actions[j] = TaskList.actions[j + 1];
@@ -40,22 +43,11 @@ public class Parser {
             Parser.result = false;
            return response;
         } else if (input.startsWith("list")) {
-          //  System.out.println("Here are the tasks in your list:");
-           // for (int i = 0; i < TaskList.counter; i++) {
-//                String DMYString = "";
-//                if (TaskList.type[i].equals("D")) {
-//                    DMYString = "by " + TaskList.dueString[i];
-//                } else if (TaskList.type[i].equals("E")) {
-//                    LocalDateTime startTime = TaskList.startTime[i];
-//                    LocalDateTime endTime = TaskList.endTime[i];
-//                    DMYString = "from " + TaskList.startTime[i]
-//                            + " to " + TaskList.endTime[i];
-//                }
                response = TaskList.list(taskList);
                 Parser.result = false;
-            //}
             return response;
         }else if (input.startsWith("todo")) {
+            assert input.length() > 4 : "Description of a todo cannot be empty.";
             if (input.length() <= 4) {
                 response = "☹ OOPS!!! The description of a todo cannot be empty.";
             } else {
@@ -64,15 +56,14 @@ public class Parser {
             }
         } else if (input.startsWith("deadline")) {
             String action = input.substring(9, input.indexOf("/by")).trim();
-            // System.out.println(action + "action");
             String by = input.substring(input.indexOf("/by") + 4).trim();
             LocalDateTime timeDeadline = dateTask(by);
-            //  System.out.println(by);
             return TaskList.deadline(action, by, timeDeadline);
         } else if (input.startsWith("event")) {
             String action = input.substring(6, input.indexOf("/from")).trim();
             String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to")).trim();
-            String to = input.substring(input.indexOf("/to") + 4).trim();;
+            String to = input.substring(input.indexOf("/to") + 4).trim();
+
             return TaskList.event(action, from, to);
 
         } else if (input.startsWith("mark")) {
@@ -106,10 +97,10 @@ public class Parser {
      */
     private static LocalDateTime dateTask(String dateTimeStr) {
         DateTimeFormatter DMYhelper = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        // HHmm for the hour and minutes
         return LocalDateTime.parse(dateTimeStr, DMYhelper);
     }
     public static String find(String input, TaskList taskList) {
+        assert input != null : "Input cannot be null";
         String keyword = input.substring(5).trim();
         StringBuilder response = new StringBuilder();
 
