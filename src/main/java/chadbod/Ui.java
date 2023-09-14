@@ -8,13 +8,15 @@ public class Ui {
      * Returns a welcome message as a string.
      */
     public static String displayGreeting() {
-        return "Hello! I'm ChadBod. \nWhat can I do for you?";
+        String greetingString = "Hello! I'm ChadBod. \nWhat can I do for you?";
+        return greetingString;
     }
     /**
      * Returns a farewell message as a string.
      */
     public String displayFarewell() {
-        return "Bye. Hope to see you again soon!";
+        String farewellString = "Bye. Hope to see you again soon!";
+        return farewellString;
     }
 
     /**

@@ -18,12 +18,7 @@ public class Parser {
         String[] commandSegments = userInput.split(" ", 2);
         if (commandSegments.length > 0) {
             String commandString = commandSegments[0];
-            for (Command cmd : Command.values()) {
-                if (cmd.getValue().equals(commandString)) {
-                    command = cmd;
-                    break;
-                }
-            }
+            command = findCommand(commandString);
         }
         if (command == null) {
             throw new InvalidInputException();
@@ -33,5 +28,14 @@ public class Parser {
             details = commandSegments[1];
         }
         return new ParsedCommand(command, details);
+    }
+
+    private static Command findCommand(String commandString) {
+        for (Command cmd : Command.values()) {
+            if (cmd.getValue().equals(commandString)) {
+                return cmd;
+            }
+        }
+        return null;
     }
 }
