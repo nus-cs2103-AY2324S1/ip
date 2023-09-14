@@ -69,7 +69,7 @@ public class Parser {
             case FLAG_EVENT:
                 return parseEventCommand(value);
             case FLAG_DELETE:
-                return parseDeadlineCommand(value);
+                return parseDeleteCommand(value);
             case FLAG_FIND:
                 return parseFindCommand(value);
             default:
