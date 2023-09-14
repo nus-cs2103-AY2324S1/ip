@@ -192,7 +192,7 @@ public class Ui {
      * @param tasks A list of tasks that match the criteria.
      * @return A string listing the matching tasks.
      */
-    public String displayFindResults(List<Task> tasks) {
+    public String displayTaskList(List<Task> tasks) {
         StringBuilder sb = new StringBuilder(displayHorizontalLine());
         sb.append(displayIndented("Here are the matching tasks in your list:"));
         for (int i = 0; i < tasks.size(); i++) {

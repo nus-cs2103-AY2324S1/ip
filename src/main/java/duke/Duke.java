@@ -104,7 +104,10 @@ public class Duke {
                 return this.searchTasksOn(Parser.getLocalDate(input));
             case FIND:
                 TaskList resultList = taskList.findTasks(Parser.parseArgs(input));
-                return this.ui.displayFindResults(resultList.getTasks());
+                return this.ui.displayTaskList(resultList.getTasks());
+            case SORT:
+                TaskList sortedDeadlines = taskList.getSortedDeadlines();
+                return this.ui.displayTaskList(sortedDeadlines.getTasks());
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
