@@ -3,7 +3,6 @@ import dukeUiElements.Ui;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,8 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Duke extends Application{
-    private Stage mainStage;
+public class Duke extends Application {
     private Scene scene;
     private ScrollPane scrollPane;
     private TextField userInput;
@@ -30,7 +28,7 @@ public class Duke extends Application{
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     public Duke() {
-        ui = new Ui ();
+        ui = new Ui();
         try {
             Storage.readFromDisk(pathOfDirectory, TaskList.getStoreTask());
         } catch (IOException e) {
@@ -38,32 +36,7 @@ public class Duke extends Application{
         }
     }
 
-    /**
-     * Runs the program with a while loop.
-     */
-//    public void run() {
-//        ui.showGreeting();
-//        Scanner userInputObject = new Scanner(System.in);
-//        while (true) {
-//            ui.userInputUsher();
-//            String userInput = userInputObject.nextLine();
-//
-//            try {
-//                boolean isBreak = Parser.parse(userInput);
-//                if (!isBreak) {
-//                    break;
-//                }
-//            } catch (NumberFormatException e) {
-//                Ui.errorPrint(Ui.indent + "Invalid character input");
-//            } catch (DukeException e) {
-//                Ui.errorPrint(Ui.indent + "Error: " + e.getMessage());
-//            } catch (IndexOutOfBoundsException e) {
-//                Ui.errorPrint(Ui.indent + "Invalid entry / Task not in list... Please try again...");
-//            } catch (IllegalArgumentException e) {
-//                Ui.errorPrint("☹ OOPS!!! Sorry, but i do not know what that means :-(");
-//            }
-//        }
-//    }
+
     @Override
     public void start(Stage mainStage) {
         mainStage.setTitle("Tom!");
@@ -73,9 +46,10 @@ public class Duke extends Application{
         userInput = new TextField();
         sendButton = new Button("Send");
         AnchorPane anchorPane = new AnchorPane();
-        anchorPane.getChildren().addAll(scrollPane, userInput, sendButton); //Basic interface with scrollbar and sendbutton.
+        anchorPane.getChildren().addAll(scrollPane, userInput, sendButton);
+        //Basic interface with scrollbar and sendbutton.
 
-        scene = new Scene(anchorPane);  //add anchorpane to the scene
+        scene = new Scene(anchorPane); //add anchorpane to the scene
         mainStage.setScene(scene);
         mainStage.show();
 
@@ -157,7 +131,7 @@ public class Duke extends Application{
     private String getResponse(String input) {
         try {
             String dukeResponse = Parser.parse(input);
-            if (dukeResponse == "bye") {
+            if (dukeResponse.equals("bye")) {
                 return "Bye. Hope to see you again soon!";
             } else {
                 return dukeResponse;
