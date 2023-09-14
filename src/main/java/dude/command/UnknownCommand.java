@@ -17,7 +17,8 @@ public class UnknownCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showUnknownCommand();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = ui.showUnknownCommand();
+        return output;
     }
 }

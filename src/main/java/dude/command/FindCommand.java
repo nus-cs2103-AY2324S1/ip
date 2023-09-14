@@ -20,10 +20,10 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        System.out.println("Executing Find Command");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "Executing Find Command\n";
         TaskList searchResults = taskList.findTasks(searchKeywords);
-        ui.showTaskList(searchResults);
+        output = output + ui.showTaskList(searchResults);
+        return output;
     }
-
 }

@@ -25,16 +25,18 @@ public class AddToDoCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "";
         try {
-            System.out.println("Executing Add ToDo Command");
+            output = "Executing Add ToDo Command\n";
             ToDo newTask = new ToDo(taskDescription);
             taskList.addTask(newTask);
             int nTasks = taskList.getSize();
-            ui.showAddedTask(newTask, nTasks);
+            output = output + ui.showAddedTask(newTask, nTasks) + "\n";
             storage.saveTasksToDisk(taskList);
         } catch (IOException e) {
             System.out.println("Error in Add ToDo Command");
         }
+        return output;
     }
 }

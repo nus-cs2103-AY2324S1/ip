@@ -9,16 +9,16 @@ import dude.command.Command;
  */
 
 public class Dude {
-
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
+
+    public Dude() { }
 
     /**
      * Constructor for Dude that takes in a file path to storage file.
      * @param filePath Path to storage file.
      */
-
     public Dude(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -29,6 +29,17 @@ public class Dude {
             ui.showLoadingError();
             taskList = new TaskList();
         }
+    }
+
+    /**
+     * Method to generate a response to user input.
+     * Replace with completed method.
+     */
+    public String getResponse(String input) {
+        System.out.println(input);
+        Command c = Parser.parse(input);
+        String output = c.execute(taskList, ui, storage);
+        return output;
     }
 
     /**
