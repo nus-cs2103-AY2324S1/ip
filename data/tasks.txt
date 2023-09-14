@@ -1,2 +1,2 @@
 E | 0 | Team meeting | 10/2/2021 1000 | 12/2/2021 1100
-T | 0 | academici talk
+D | 0 | Pay bills | 1/10/2023 1000
