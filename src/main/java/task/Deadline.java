@@ -8,7 +8,7 @@ import dukeutilities.TimeFormatter;
  */
 public class Deadline extends Task {
     private String title;
-    private TimeFormatter deadline;
+    private String deadline;
 
     /**
      * Constructs a Deadline object with the specified response string, parsing time and title
@@ -19,7 +19,14 @@ public class Deadline extends Task {
         super(false);
         int info = response.indexOf("/");
         this.title = response.substring(0, info - 1);
-        this.deadline = new TimeFormatter(response.substring(info + 4));
+        TimeFormatter time = new TimeFormatter(response.substring(info + 4));
+        this.deadline = time.formatDate();
+    }
+
+    public Deadline(String title, Boolean isDone, String deadline) {
+        super(isDone);
+        this.title = title;
+        this.deadline = deadline;
     }
 
     /**
@@ -35,9 +42,9 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         if (this.done == true) {
-            return "D | 1 | " + this.title + " | " + this.deadline.formatDate();
+            return "D | 1 | " + this.title + " | " + this.deadline;
         }
-        return "D | 0 | " + this.title + " | " + this.deadline.formatDate();
+        return "D | 0 | " + this.title + " | " + this.deadline;
     }
 
     /**
@@ -47,7 +54,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String s = String.format("| DUE: %s |", this.deadline.formatDate());
+        String s = String.format("| DUE: %s |", this.deadline);
         if (this.done == true) {
             return "[D] " + "[X] " + this.title + " " + s;
         }

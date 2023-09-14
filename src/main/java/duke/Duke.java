@@ -24,7 +24,7 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         storage = new Storage("duke.txt", "data");
-        tasks = new TaskList();
+        tasks = TaskList.readFromFile("data/duke.txt");
     }
 
     /**

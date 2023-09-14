@@ -17,6 +17,11 @@ public class ToDo extends Task {
         this.title = response;
     }
 
+    public ToDo(String title, Boolean isDone) {
+        super(isDone);
+        this.title = title;
+    }
+
     /**
      * Generates a string representation of the ToDo task for storage in a file.
      *
