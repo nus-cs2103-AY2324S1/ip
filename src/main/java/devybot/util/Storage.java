@@ -59,20 +59,20 @@ public class Storage {
         Task loadedTask;
 
         switch (taskType) {
-            case "T":
-                loadedTask = createTodoTask(taskDescription, taskStatus);
-                break;
-            case "D":
-                String taskBy = taskParts[3].trim();
-                loadedTask = createDeadlineTask(taskDescription, taskBy, taskStatus);
-                break;
-            case "E":
-                String taskFrom = taskParts[3].trim();
-                String taskTo = taskParts[4].trim();
-                loadedTask = createEventTask(taskDescription, taskFrom, taskTo, taskStatus);
-                break;
-            default:
-                throw new UnknownCommandException();
+        case "T":
+            loadedTask = createTodoTask(taskDescription, taskStatus);
+            break;
+        case "D":
+            String taskBy = taskParts[3].trim();
+            loadedTask = createDeadlineTask(taskDescription, taskBy, taskStatus);
+            break;
+        case "E":
+            String taskFrom = taskParts[3].trim();
+            String taskTo = taskParts[4].trim();
+            loadedTask = createEventTask(taskDescription, taskFrom, taskTo, taskStatus);
+            break;
+        default:
+            throw new UnknownCommandException();
         }
         return loadedTask;
     }
