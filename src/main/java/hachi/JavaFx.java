@@ -131,4 +131,3 @@ public class JavaFx extends Application {
         }
     }
 }
-
