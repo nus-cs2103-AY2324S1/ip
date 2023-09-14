@@ -2,6 +2,9 @@ package tasket.ui;
 
 import java.util.Scanner;
 
+/**
+ * The class for ui.
+ */
 public class Ui {
 
     private final String TEXT_SEPARATION = "\t____________________________________________________________";
@@ -17,26 +20,47 @@ public class Ui {
 
     private final Scanner sc;
 
+    /**
+     * The constructor of ui.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Read the user input and return it.
+     * Preprocess the input by removing additional spaces.
+     *
+     * @return The user input.
+     */
     public String readCommand() {
         return this.sc.nextLine().trim();
     }
 
+    /**
+     * Show welcome message.
+     */
     public void showWelcome() {
         System.out.println(TEXT_SEPARATION);
         System.out.println(TEXT_GREETING);
         System.out.println(TEXT_SEPARATION + "\n");
     }
 
+    /**
+     * Show goodbye message.
+     */
     public void showGoodBye() {
         System.out.println(TEXT_SEPARATION);
         System.out.println(TEXT_GOODBYE);
         System.out.println(TEXT_SEPARATION + "\n");
     }
 
+    /**
+     * Show added task message.
+     *
+     * @param task The added task in string format.
+     * @param len The number of tasks after insertion.
+     */
     public void showAddedTask(String task, int len) {
         System.out.println(TEXT_SEPARATION);
         System.out.println(TEXT_ADDED);
@@ -45,6 +69,11 @@ public class Ui {
         System.out.println(TEXT_SEPARATION + "\n");
     }
 
+    /**
+     * Show all the tasks.
+     *
+     * @param tasks The tasks to be shown in string format.
+     */
     public void showTaskList(String[] tasks) {
         System.out.println(TEXT_SEPARATION);
         System.out.println(TEXT_LIST);
@@ -54,6 +83,11 @@ public class Ui {
         System.out.println(TEXT_SEPARATION + "\n");
     }
 
+    /**
+     * Show marked task message.
+     *
+     * @param task The task to be marked in string format.
+     */
     public void showMarkedTask(String task) {
         System.out.println(TEXT_SEPARATION);
         System.out.println(TEXT_MARKED_TASK);
@@ -61,6 +95,11 @@ public class Ui {
         System.out.println(TEXT_SEPARATION + "\n");
     }
 
+    /**
+     * Show unmarked task message.
+     *
+     * @param task The task to be unmarked in string format.
+     */
     public void showUnmarkedTask(String task) {
         System.out.println(TEXT_SEPARATION);
         System.out.println(TEXT_UNMARKED_TASK);
@@ -68,6 +107,12 @@ public class Ui {
         System.out.println(TEXT_SEPARATION + "\n");
     }
 
+    /**
+     * Show deleted task message.
+     *
+     * @param task The task to be deleted.
+     * @param len The number of tasks after deletion.
+     */
     public void showDeletedTask(String task, int len) {
         System.out.println(TEXT_SEPARATION);
         System.out.println(TEXT_DELETED_TASK);
@@ -76,6 +121,11 @@ public class Ui {
         System.out.println(TEXT_SEPARATION + "\n");
     }
 
+    /**
+     * Show error message.
+     *
+     * @param errorMessage The error message to be shown.
+     */
     public void showError(String errorMessage) {
         System.out.println(TEXT_SEPARATION);
         System.out.println(TEXT_ERROR + errorMessage);

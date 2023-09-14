@@ -5,12 +5,27 @@ import tasket.data.TaskList;
 import tasket.exception.TasketException;
 import tasket.ui.Ui;
 
+/**
+ * The class for list command.
+ */
 public class ListCommand extends Command {
 
+    /**
+     * The constructor for list command.
+     */
     public ListCommand() {
         super("");
     }
 
+    /**
+     * Show all available tasks.
+     * Collects the tasks in string format, then show it in ui.
+     *
+     * @param taskList The task list instance of duke.
+     * @param ui The ui instance of duke.
+     * @param storage The storage instance of duke.
+     * @throws TasketException Does not throw the exception.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         String[] taskStrings = new String[taskList.size()];

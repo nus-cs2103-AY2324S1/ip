@@ -16,11 +16,23 @@ public class Storage {
     private final String filePath;
     private final File dataFile;
 
+    /**
+     * The constructor for storage.
+     *
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         dataFile = new File(filePath);
     }
 
+    /**
+     * Loads the task file and convert it to task list.
+     * If the file is corrupted, remove the corrupted tasks.
+     *
+     * @return A list of saved tasks.
+     * @throws TasketException If the file cannot be found.
+     */
     public ArrayList<Task> load() throws TasketException {
         ArrayList<Task> taskList = new ArrayList<>();
         validateSaveFile();
@@ -51,6 +63,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Append a new task to the task list.
+     * \
+     * @param taskSave The task to be saved in save format.
+     * @throws TasketException If IO error occurs.
+     */
     public void append(String taskSave) throws TasketException {
         FileWriter fw = null;
 
@@ -70,6 +88,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites the save file.
+     * This is done whenever there is mark, unmark and delete operations.
+     *
+     * @param taskList The task list to get the tasks from.
+     * @throws TasketException If IO error occurs.
+     */
     public void rewriteSaveFile(TaskList taskList) throws TasketException {
         FileWriter fw = null;
         BufferedWriter bw = null;
@@ -97,6 +122,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Create a save file if it does not exist.
+     * The parent folders are also created.
+     *
+     * @throws TasketException If IO error occurs.
+     */
     private void validateSaveFile() throws TasketException {
         try {
             Files.createDirectories(Path.of(filePath.substring(0, filePath.lastIndexOf("/"))));

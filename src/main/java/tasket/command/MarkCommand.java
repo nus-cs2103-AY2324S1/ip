@@ -5,12 +5,29 @@ import tasket.data.TaskList;
 import tasket.exception.TasketException;
 import tasket.ui.Ui;
 
+/**
+ * The class for mark command.
+ */
 public class MarkCommand extends Command {
 
-    public MarkCommand(String arguments) {
-        super(arguments);
+    /**
+     * The constructor for mark command.
+     *
+     * @param index The index for the task to be deleted.
+     */
+    public MarkCommand(String index) {
+        super(index);
     }
 
+    /**
+     * Marks the selected task as done.
+     * Rewrite the save file after marking the task.
+     *
+     * @param taskList The task list instance of duke.
+     * @param ui The ui instance of duke.
+     * @param storage The storage instance of duke.
+     * @throws TasketException If the index is not a number, less than 0 or exceed the task list size.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         if (commandDescription.isEmpty()) {

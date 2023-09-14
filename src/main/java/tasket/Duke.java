@@ -12,7 +12,11 @@ public class Duke {
     private final Storage storage;
     private TaskList taskList;
 
-
+    /**
+     * The constructor of Duke.
+     *
+     * @param filePath The file path to save the tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +28,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the duke program.
+     * Shows welcome message, Gets the user input and executes commands until exits.
+     * When there's error in the command, show error message.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -39,6 +48,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Creates duke object and run it.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
