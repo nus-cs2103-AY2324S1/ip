@@ -48,14 +48,14 @@ public class Alice {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                ui.showDividerLine();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
-                ui.showLine();
+                ui.showDividerLine();
             }
         }
         ui.close();
@@ -69,8 +69,8 @@ public class Alice {
      */
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
         } catch (DukeException e) {
             return e.getMessage();
         }

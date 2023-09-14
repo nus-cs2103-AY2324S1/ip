@@ -14,6 +14,7 @@ public class Task {
         "OOPS!!! The description of a task cannot be empty.";
     protected static final String DATE_TIME_FORMAT_PARSING_ERROR_MESSAGE =
         "OOPS!!! The date and time must be in the format of YYYY-MM-DD HH:MM.";
+    private static final String DATE_TIME_FORMAT = "h:mm a, MMM d yyyy";
     protected String description; // The description of the task.
     protected boolean isDone; // The status of the task.
 
@@ -50,7 +51,7 @@ public class Task {
      * @return A string representation of the date in the format of "h:mm a, MMM d yyyy".
      */
     protected static String getDate(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("h:mm a, MMM d yyyy"));
+        return date.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
     }
 
     /**

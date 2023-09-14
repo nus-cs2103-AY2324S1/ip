@@ -10,6 +10,7 @@ import alice.exception.DukeException;
  */
 public class Deadline extends Task {
     public static final String TASK_LABEL = "D";
+    public static final String MISSING_DEADLINE_ERROR_MESSAGE = "OOPS!!! The deadline of a deadline cannot be empty.";
 
     protected LocalDateTime by; // The deadline of the task in LocalDateTime format.
 
@@ -50,7 +51,7 @@ public class Deadline extends Task {
             String by = inputs[1].split(" ", 2)[1];
             return new Deadline(description, by);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! The deadline of a deadline cannot be empty.");
+            throw new DukeException(MISSING_DEADLINE_ERROR_MESSAGE);
         } catch (DateTimeParseException e) {
             throw new DukeException(Task.DATE_TIME_FORMAT_PARSING_ERROR_MESSAGE);
         }

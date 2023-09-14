@@ -52,7 +52,7 @@ public class Parser {
                 return new Command();
             }
         } catch (IllegalArgumentException e) {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException(Command.UNKNOWN_COMMAND_ERROR_MESSAGE);
         }
     }
 }

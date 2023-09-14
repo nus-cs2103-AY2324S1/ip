@@ -9,7 +9,8 @@ import alice.exception.DukeException;
  * Represents a list of tasks.
  */
 public class TaskList {
-    public static final String TASK_IS_DONE_LABEL = "1";
+    private static final String TASK_IS_DONE_LABEL = "1";
+    private static final String REGEX_SEPARATOR = " \\| ";
 
     private final ArrayList<Task> tasks; // The list of tasks.
 
@@ -27,7 +28,7 @@ public class TaskList {
     public TaskList(List<String> lines) throws DukeException {
         this.tasks = new ArrayList<>();
         for (String line : lines) {
-            String[] inputs = line.split(" \\| ");
+            String[] inputs = line.split(REGEX_SEPARATOR);
 
             String taskType = inputs[0];
             boolean isDone = inputs[1].equals(TASK_IS_DONE_LABEL);
