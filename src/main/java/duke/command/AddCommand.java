@@ -8,6 +8,11 @@ import duke.task.TaskStorage;
 public class AddCommand extends Command {
     private String task;
 
+    /**
+     * Constructs a new {@code AddCommand} object with the specified task
+     *
+     * @param task The task to be added
+     */
     public AddCommand(String task) {
         this.task = task;
     }
