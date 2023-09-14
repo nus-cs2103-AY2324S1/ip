@@ -145,7 +145,7 @@ public class Parser {
         }
 
         String description = input.substring(9, byIndex - 1);
-        String by = input.substring(byIndex + 4);
+        String by = input.substring(byIndex + 5);
 
         LocalDateTime byDate = LocalDateTime.parse(by);
 
@@ -173,8 +173,8 @@ public class Parser {
         }
 
         String description = input.substring(6, fromIndex - 1);
-        String from = input.substring(fromIndex + 6, toIndex - 1);
-        String to = input.substring(toIndex + 4);
+        String from = input.substring(fromIndex + 7, toIndex - 1);
+        String to = input.substring(toIndex + 5);
 
         LocalDateTime fromDate = LocalDateTime.parse(from);
         LocalDateTime toDate = LocalDateTime.parse(to);
