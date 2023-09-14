@@ -27,11 +27,18 @@ public class Parser {
             String stringDate = dateTimeArray[0];
             String stringTime = dateTimeArray[1];
             String[] dayMonthYearArray = stringDate.split("/", 3);
-            LocalDate date = LocalDate.of(Integer.parseInt(dayMonthYearArray[2]),
-                    Integer.parseInt(dayMonthYearArray[1]),
-                    Integer.parseInt(dayMonthYearArray[0]));
-            LocalTime time = LocalTime.of(Integer.parseInt(stringTime.substring(0, 2)),
-                    Integer.parseInt(stringTime.substring(2, 4)));
+            int year = Integer.parseInt(dayMonthYearArray[2]);
+            assert (year > 0):"Invalid year";
+            int month = Integer.parseInt(dayMonthYearArray[1]);
+            assert (month <= 12 && month >= 1):"Month should be between 1 and 12 inclusive";
+            int day = Integer.parseInt(dayMonthYearArray[0]);
+            assert (day <= 31 && day >= 1): "Day should be between 1 and 31 inclusive";
+            LocalDate date = LocalDate.of(year, month, day);
+            int hours = Integer.parseInt(stringTime.substring(0, 2));
+            assert (hours <= 24 && hours >= 0): "Hour should be between 0 and 24 inclusive";
+            int minutes = Integer.parseInt(stringTime.substring(2, 4));
+            assert (minutes <= 60 && minutes >= 0): "Minutes should be between 0 and 60 inclusive";
+            LocalTime time = LocalTime.of(hours, minutes);
             LocalDateTime dateTime = LocalDateTime.of(date, time);
             return dateTime;
         } catch (ArrayIndexOutOfBoundsException e) {
