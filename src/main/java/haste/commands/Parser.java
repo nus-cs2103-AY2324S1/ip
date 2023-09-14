@@ -40,10 +40,10 @@ public class Parser {
             c = verifyFind(words);
             break;
         case "mark":
-            c = verifyMark(words);
+            c = verifyMark(words, true);
             break;
         case "unmark":
-            c = verifyUnmark(words);
+            c = verifyMark(words, false);
             break;
         case "delete":
             c = verifyDelete(words);
@@ -68,7 +68,9 @@ public class Parser {
         if (words.length != 2) {
             return new InvalidCommand("input (only) 1 word after \"find\"!");
         }
+
         String keyword = words[1];
+
         return new FindCommand(keyword);
     }
 
@@ -104,11 +106,11 @@ public class Parser {
      * @param words The array of words user inputted.
      * @return MarkCommand object containing index of task.
      */
-    public static Command verifyMark(String[] words) {
+    public static Command verifyMark(String[] words, boolean isMark) {
         int id;
 
         if (words.length != 2) {
-            return new InvalidCommand("input (only) number after \"mark\"!");
+            return new InvalidCommand("input (only) number after \"(un)mark\"!");
         }
         try {
             id = Integer.parseInt(words[1]) - 1;
@@ -118,34 +120,13 @@ public class Parser {
         if (id >= TaskList.getNumOfTasks() || id < 0) {
             return new InvalidCommand("task does not exist! input within the list of numbered tasks.");
         }
-
-        return new MarkCommand(id);
-    }
-
-    /**
-     * Returns a command that unmarks task.
-     * Verifies user intends to unmark task.
-     *
-     * @param words The array of words user inputted.
-     * @return MarkCommand object containing index of task.
-     */
-    public static Command verifyUnmark(String[] words) {
-        int id;
-
-        if (words.length != 2) {
-            return new InvalidCommand("input (only) number after \"unmark\"!");
-        }
-        try {
-            id = Integer.parseInt(words[1]) - 1;
-        } catch (NumberFormatException e) {
-            return new InvalidCommand("only numerical input allowed!");
-        }
-        if (id >= TaskList.getNumOfTasks() || id < 0) {
-            return new InvalidCommand("task does not exist! input within the list of numbered tasks.");
+        if (isMark) {
+            return new MarkCommand(id);
         }
 
         return new UnmarkCommand(id);
     }
+
 
     /**
      * Returns a command to add ToDo.
@@ -192,6 +173,7 @@ public class Parser {
         } catch (DateTimeParseException e) {
             return new InvalidCommand("Date Time should be in yyyy-MM-dd HHmm format!");
         }
+
         return new AddCommand(desc, end);
     }
 
