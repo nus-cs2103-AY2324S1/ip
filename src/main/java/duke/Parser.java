@@ -56,6 +56,9 @@ public class Parser {
             case "find":
                 findCommand(input, stringBuilder);
                 break;
+            case "remind":
+                remindCommand(stringBuilder);
+                break;
             default:
                 throw new DukeException("Can you hear the siren? "
                         + "Because I don't know what that means!");
@@ -72,11 +75,11 @@ public class Parser {
         return this.isBye;
     }
 
-    public void listCommand(StringBuilder stringBuilder) {
+    private void listCommand(StringBuilder stringBuilder) {
         stringBuilder.append(this.taskList.listTasks(this.taskList, false));
     }
 
-    public void markUnmarkCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+    private void markUnmarkCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
             int taskNum = Integer.parseInt(input[1]);
             storage.rewriteFile(this.taskList);
@@ -88,12 +91,12 @@ public class Parser {
         }
     }
 
-    public void byeCommand(StringBuilder stringBuilder) {
+    private void byeCommand(StringBuilder stringBuilder) {
         stringBuilder.append(Ui.getGoodbyeMessage());
         this.isBye = true;
     }
 
-    public void toDoCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+    private void toDoCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
             this.taskList.addTodoTask(input[1]);
             stringBuilder.append(Ui.addTaskOutput(this.taskList));
@@ -103,7 +106,7 @@ public class Parser {
         }
     }
 
-    public void deadlineEventCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+    private void deadlineEventCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
             String[] remainLine = input[1].split(" /", 2);
             this.taskList.addDeadlineOrEventTask(input[0], remainLine);
@@ -114,7 +117,7 @@ public class Parser {
         }
     }
 
-    public void deleteCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+    private void deleteCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
             int taskNum = Integer.parseInt(input[1]);
             this.taskList.deleteTasks(taskNum, stringBuilder);
@@ -126,7 +129,7 @@ public class Parser {
         }
     }
 
-    public void findCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
+    private void findCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
             if (input[1].isEmpty()) {
                 throw new ArrayIndexOutOfBoundsException();
@@ -135,5 +138,9 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("BEEPBEEP! You forgot to give a keyword for me to search!");
         }
+    }
+
+    private void remindCommand(StringBuilder stringBuilder) {
+        this.taskList.doReminder(stringBuilder);
     }
 }

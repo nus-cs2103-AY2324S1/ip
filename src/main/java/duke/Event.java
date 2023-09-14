@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
@@ -7,6 +8,8 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task {
 
+
+    private static final int DUE_DAYS = 7;
     protected LocalDateTime from;
     protected LocalDateTime to;
 
@@ -33,5 +36,10 @@ public class Event extends Task {
     public String convertToSaveFormat() {
         return "E | " + super.convertToSaveFormat() + " | " + super.convertDateToString(this.from)
                 + " to " + super.convertDateToString(this.to);
+    }
+
+    @Override
+    public boolean isWithinDue() {
+        return Duration.between(LocalDateTime.now(), this.from).toDays() <= DUE_DAYS;
     }
 }

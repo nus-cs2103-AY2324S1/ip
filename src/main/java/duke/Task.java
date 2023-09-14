@@ -69,4 +69,8 @@ public class Task {
     public String convertDateToString(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
+
+    public boolean isWithinDue() {
+        return false;
+    }
 }

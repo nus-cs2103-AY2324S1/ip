@@ -126,4 +126,16 @@ public class Ui {
         }
         return stringBuilder.toString();
     }
+
+    public static String taskWithinOrPassedDueDate(ArrayList<Task> dueTasks) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("ATTENTIONNNNNNNNNNNN!!! You have task(s) that are due/going to happen "
+                        + "within 7 days:\n");
+
+        for (int i = 0; i < dueTasks.size(); i++) {
+            stringBuilder.append(String.format("%d", i + 1)).append(".").append(dueTasks.get(i)).append("\n");
+        }
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
+    }
 }
