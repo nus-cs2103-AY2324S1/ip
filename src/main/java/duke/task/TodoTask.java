@@ -51,4 +51,13 @@ public final class TodoTask extends Task {
     public String toString() {
         return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description;
     }
+
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof TodoTask) {
+            return description.compareTo(other.description);
+        } else {
+            return -1;
+        }
+    }
 }

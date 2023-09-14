@@ -8,7 +8,7 @@ import duke.Duke;
 /**
  * Abstract implementation of {@code Task}
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected boolean isDone = false;
     protected String description;
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
@@ -93,6 +93,24 @@ public abstract class Task {
 
     public void unmarkAsDone() {
         this.isDone = false;
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        // Precedence of tasks: Sort by type
+        int typeComparison = this.getTaskTypeString().compareTo(other.getTaskTypeString());
+        if (typeComparison != 0) {
+            return typeComparison;
+        }
+
+        // Sort by done status
+        int doneComparison = Boolean.compare(this.isDone, other.isDone);
+        if (doneComparison != 0) {
+            return doneComparison;
+        }
+
+        // Sort by description
+        return this.description.compareTo(other.description);
     }
 
     protected abstract String getTaskTypeString();

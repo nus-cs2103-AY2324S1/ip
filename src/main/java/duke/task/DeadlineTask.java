@@ -72,4 +72,13 @@ public final class DeadlineTask extends Task {
         return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
                 + " (by: " + dateEnd.format(formatter) + ")";
     }
+
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof DeadlineTask) {
+            return dateEnd.compareTo(((DeadlineTask) other).dateEnd);
+        } else {
+            return super.compareTo(other);
+        }
+    }
 }

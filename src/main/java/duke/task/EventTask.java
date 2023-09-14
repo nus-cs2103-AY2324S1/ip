@@ -80,4 +80,20 @@ public final class EventTask extends Task {
         return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
                 + " (from: " + dateStart.format(formatter) + " to: " + dateEnd.format(formatter) + ")";
     }
+
+    @Override
+    public int compareTo(Task other) {
+        if (other instanceof EventTask) {
+            EventTask otherEventTask = (EventTask) other;
+            if (this.dateStart.isBefore(otherEventTask.dateStart)) {
+                return -1;
+            } else if (this.dateStart.isAfter(otherEventTask.dateStart)) {
+                return 1;
+            } else {
+                return this.dateEnd.isBefore(otherEventTask.dateEnd) ? -1 : 1;
+            }
+        } else {
+            return super.compareTo(other);
+        }
+    }
 }

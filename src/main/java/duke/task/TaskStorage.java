@@ -139,6 +139,15 @@ public class TaskStorage {
         return sb.toString();
     }
 
+    /**
+     * Sorts the tasks.
+     */
+    public void sort() {
+        this.tasks.sort(Task::compareTo);
+
+        this.saveToFile();
+    }
+
     private void saveToFile() {
         try {
             java.io.FileWriter fw = new java.io.FileWriter(filePath);
