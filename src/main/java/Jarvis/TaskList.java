@@ -20,15 +20,17 @@ public class TaskList {
      */
     public TaskList(String tasks) { // tasks is a string
 
-        assert !tasks.isEmpty() : "task parameter in TaskList() is an empty string";
+        if (tasks.isEmpty()) {
+            return;
+        }
 
         String[] stringTasks = tasks.split("\n");
         Pattern todoPattern = Pattern.compile(
-                "\\[T\\]\\[(X|\\s)\\] (.+)"); // [T][-] xxxx
+                "\\[T\\]\\[(X|\\s)\\]\\[(L|M|H)\\] (.+)"); // [T][-][L/M/H] xxxx
         Pattern deadlinePattern = Pattern.compile(
-                "\\[D\\]\\[(X|\\s)\\] (.+) \\(by: (.+)\\)"); // [D][-] xxxx (by: xxxxxx)
+                "\\[D\\]\\[(X|\\s)\\]\\[(L|M|H)\\] (.+) \\(by: (.+)\\)"); // [D][-][L/M/H] xxxx (by: xxxxxx)
         Pattern eventPattern = Pattern.compile(
-                "\\[E\\]\\[(X|\\s)\\] (.+) \\(from: (.+) to: (.+)\\)"); // [E][-] xxxx (from: xxxxxx to: xxxxxx)
+                "\\[E\\]\\[(X|\\s)\\]\\[(L|M|H)\\] (.+) \\(from: (.+) to: (.+)\\)"); // [E][-][L/M/H] xxxx (from: xxxxxx to: xxxxxx)
 
         taskList = new ArrayList<>();
         for (int i = 0; i < stringTasks.length; i++) {
@@ -38,17 +40,26 @@ public class TaskList {
 
             Task newTask;
             if (todoMatcher.matches()) {
-                newTask = new ToDo(todoMatcher.group(2));
+                String description = todoMatcher.group(3);
+                String priority = todoMatcher.group(2);
+                newTask = new ToDo(description, priority);
                 if (todoMatcher.group(1).equals("X")) {
                     newTask.setDone(true);
                 }
             } else if (deadlineMatcher.matches()) {
-                newTask = new Deadline(deadlineMatcher.group(2), deadlineMatcher.group(3));
+                String description = deadlineMatcher.group(3);
+                String by = deadlineMatcher.group(4);
+                String priority = deadlineMatcher.group(2);
+                newTask = new Deadline(description, by, priority);
                 if (deadlineMatcher.group(1).equals("X")) {
                     newTask.setDone(true);
                 }
             } else {
-                newTask = new Event(eventMatcher.group(2), eventMatcher.group(3), eventMatcher.group(4));
+                String description = eventMatcher.group(3);
+                String from = eventMatcher.group(4);
+                String to = eventMatcher.group(5);
+                String priority = eventMatcher.group(2);
+                newTask = new Event(description, from, to, priority);
                 if (eventMatcher.group(1).equals("X")) {
                     newTask.setDone(true);
                 }

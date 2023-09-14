@@ -28,10 +28,15 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Maps the priority given to its respective enum value
+     * @param priority String representing the priority, either L, M or H
+     * @return the corresponding enum value
+     */
     public priorityLevels mapPriority(String priority) {
-        if (priority.equals("low")) {
+        if (priority.equals("L")) {
             return priorityLevels.LOW;
-        } else if (priority.equals("medium")) {
+        } else if (priority.equals("M")) {
             return priorityLevels.MEDIUM;
         } else {
             return priorityLevels.HIGH;
@@ -68,6 +73,15 @@ public class Task {
         } else {
             marking = "[ ]";
         }
-        return marking + " " + this.description;
+
+        String priority = "";
+        if (this.priority == priorityLevels.LOW) {
+            priority = "[L]";
+        } else if (this.priority == priorityLevels.MEDIUM) {
+            priority = "[M]";
+        } else {
+            priority = "[H]";
+        }
+        return marking + " " +  priority + " " + this.description;
     }
 }

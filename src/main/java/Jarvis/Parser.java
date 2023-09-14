@@ -38,6 +38,21 @@ public class Parser {
     }
 
     /**
+     * Parses the priority string provided by the user to a string understandable by the program
+     * @param priority contains priority of the task, either low, medium or high
+     * @return L, M or H representing low, medium or high respectively
+     */
+    private String parsePriority(String priority) {
+        if (priority.equals("low")) {
+            return "L";
+        } else if (priority.equals("medium")) {
+            return "M";
+        } else {
+            return "H";
+        }
+    }
+
+    /**
      * checks if the user inputted a valid command in the validCommand ArrayList.
      *
      * @param inputCommand commands that the user inputs.
@@ -144,9 +159,9 @@ public class Parser {
     public String parseCommand(Storage storage, TaskList tasks, String userInput) throws
             IncorrectJarvisCommandException, InvalidTaskNumberException, WrongJarvisCommandFormatException {
 
-        Pattern todoPattern = Pattern.compile("(todo) (.+)");
-        Pattern deadlinePattern = Pattern.compile("(deadline) (.+) /by (.+)");
-        Pattern eventPattern = Pattern.compile("(event) (.+) /from (.+) /to (.+)");
+        Pattern todoPattern = Pattern.compile("(todo) (.+) (low|medium|high)");
+        Pattern deadlinePattern = Pattern.compile("(deadline) (.+) /by (.+) (low|medium|high)");
+        Pattern eventPattern = Pattern.compile("(event) (.+) /from (.+) /to (.+) (low|medium|high)");
         Pattern deletePattern = Pattern.compile("(delete) (\\d+)");
         Pattern findPattern = Pattern.compile("(find) (.+)");
 
@@ -190,18 +205,21 @@ public class Parser {
             Task newTask;
             if (todoMatcher.matches()) { // if "todo" is entered
                 String taskDescription = todoMatcher.group(2);
-                newTask = new ToDo(taskDescription);
+                String priority = todoMatcher.group(3);
+                newTask = new ToDo(taskDescription, parsePriority(priority));
 
             } else if (deadlineMatcher.matches()) { // if "deadline" is entered
                 String taskDescription = deadlineMatcher.group(2);
                 String by = deadlineMatcher.group(3);
-                newTask = new Deadline(taskDescription, by);
+                String priority = deadlineMatcher.group(4);
+                newTask = new Deadline(taskDescription, by, parsePriority(priority));
 
             } else { // if "event" is entered
                 String taskDescription = eventMatcher.group(2);
                 String from = eventMatcher.group(3);
                 String to = eventMatcher.group(4);
-                newTask = new Event(taskDescription, from, to);
+                String priority = eventMatcher.group(5);
+                newTask = new Event(taskDescription, from, to, parsePriority(priority));
 
             }
             tasks.appendTask(newTask);
