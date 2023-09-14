@@ -22,6 +22,11 @@ public class DeadlineTask extends Task {
     }
 
     @Override
+    public boolean dateFallsOn(LocalDate queryDate) {
+        return this.deadline.equals(queryDate);
+    }
+
+    @Override
     public String toString() {
         return String.format(
                 "[D]%s (by: %s)",
