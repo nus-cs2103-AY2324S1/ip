@@ -3,9 +3,9 @@ import duke.TaskList;
 import duke.UserInterface;
 
 /**
- * Represents a command that outputs the list of tasks.
+ * Represents an executable that outputs the list of tasks.
  */
-public class ListCommand implements Executable {
+public class ListExecutable implements Executable {
     /**
      * Prints out the list.
      * @param list the list to be printed

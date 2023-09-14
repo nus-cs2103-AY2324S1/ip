@@ -7,9 +7,9 @@ import duke.UserInterface;
 import dukeexception.FailureInExecuteException;
 import task.Task;
 /**
- * AddTaskCommand represents a command that adds a task to the list.
+ * AddTaskExecutable represents a command that adds a task to the list.
  */
-public class AddTaskCommand implements Executable {
+public class AddTaskExecutable implements Executable {
     private Task task;
 
     /**
@@ -17,6 +17,7 @@ public class AddTaskCommand implements Executable {
      * @param task the task to be added.
      */
     public void setTask(Task task) {
+        assert task != null; // Parser should pass a valid task to the executable.
         this.task = task;
     }
 
@@ -30,11 +31,13 @@ public class AddTaskCommand implements Executable {
     @Override
     public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {
         try {
+            assert task != null; // Parser should pass a valid task to the executable.
             list.addTask(task);
         } catch (IOException e) {
             throw new FailureInExecuteException(e.getMessage());
         }
         ui.output("Added successfully!");
+        ui.output(task.toString());
         return false;
     }
 }
