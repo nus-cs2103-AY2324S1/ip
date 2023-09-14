@@ -69,14 +69,15 @@ public class Storage {
     /**
      * Encodes each tong.task.Task in the tong.TaskList into a String representation.
      *
-     * @param tasklist The TaskList which contains the Tasks to be turned to String representation
+     * @param taskList The TaskList which contains the Tasks to be turned to String representation
      *                 so that it can be saved into the data file.
      */
-    private static List<String> encode(TaskList tasklist) {
+    private static List<String> encode(TaskList taskList) {
         List<String> encodedTaskList = new ArrayList<>();
 
-        for (Task task : tasklist.getTaskList()) {
-            String encodedTask = task.getEncodedString();
+        for (int i = 0; i < taskList.size(); i++) {
+            int visibleIndex = i + 1;
+            String encodedTask = taskList.getTask(visibleIndex).getEncodedString();
             encodedTaskList.add(encodedTask);
         }
 

@@ -1,6 +1,6 @@
 package slay;
 
-import slay.exception.TaskNotFoundException;
+import slay.exception.InvalidTaskIndexException;
 import slay.task.Task;
 import slay.exception.DuplicatedMarkException;
 
@@ -10,34 +10,42 @@ import java.util.ArrayList;
  * Represents a TaskList containing a list of tong.task.Task to be done.
  */
 public class TaskList {
-    protected ArrayList<Task> taskList;
+    public static final String MESSAGE_EMPTY_LIST = "Oops! Your task list is empty. Add some tasks now:)";
+    public static final String PRINT_LIST_HEADING = "Slaying...";
+    public static final String PRINT_LIST_ENDING = "---------- %1$d TASKS IN TOTAL ----------";
+
+    protected ArrayList<Task> tasks;
 
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> tasks) {
-        this.taskList = tasks;
+        this.tasks = tasks;
     }
 
     @Override
     public String toString() {
-        if (this.taskList.isEmpty()) {
-            return "Oops! Your to-do list is empty. Add some tasks now:)";
+        if (this.tasks.isEmpty()) {
+            return MESSAGE_EMPTY_LIST;
         }
 
-        String result = "YOUR TO-DO LIST:\n";
-        for (int i = 0; i < this.taskList.size(); i++) {
-            int order = i + 1;
-            result+= order + ". " + taskList.get(i) +"\n";
+        String result = PRINT_LIST_HEADING;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            int visibleIndex = i + 1;
+            result += "\n" + visibleIndex + ". " + this.tasks.get(i);
         }
-        result+= "----------END OF YOUR TO-DO LIST----------\n";
-        result+= taskList.size() + " tasks in total";
+        result += "\n" + String.format(PRINT_LIST_ENDING, this.tasks.size());
+
         return result;
     }
 
-    public ArrayList<Task> getTaskList() {
-        return this.taskList;
+    public Boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
+    public int size() {
+        return this.tasks.size();
     }
 
     /**
@@ -45,14 +53,14 @@ public class TaskList {
      *
      * @param targetVisibleIndex Index of the target Task that is visible to the users.
      * @return The target Task.
-     * @throws TaskNotFoundException If input index is out of bound.
+     * @throws InvalidTaskIndexException If input index is out of bound.
      */
-    public Task getTask(int targetVisibleIndex) throws TaskNotFoundException {
+    public Task getTask(int targetVisibleIndex) throws InvalidTaskIndexException {
         int targetInvisibleIndex = targetVisibleIndex - 1;
-        if (targetInvisibleIndex >= taskList.size() || targetVisibleIndex < 1) {
-            throw new TaskNotFoundException("Input task index out of bound.");
+        if (targetInvisibleIndex >= this.tasks.size() || targetVisibleIndex < 1) {
+            throw new InvalidTaskIndexException("Input task index out of bound.");
         }
-        return taskList.get(targetInvisibleIndex);
+        return this.tasks.get(targetInvisibleIndex);
     }
 
     /**
@@ -61,7 +69,7 @@ public class TaskList {
      * @param task Task to be added into the TaskList.
      */
     public void addTask(Task task) {
-        taskList.add(task);
+        this.tasks.add(task);
     }
 
     /**
@@ -90,6 +98,6 @@ public class TaskList {
      * @param task Task to be deleted from the TaskList.
      */
     public void deleteTask(Task task) {
-        taskList.remove(task);
+        this.tasks.remove(task);
     }
 }
