@@ -13,6 +13,7 @@ import exceptions.HachiException;
 import exceptions.InvalidArgumentException;
 import exceptions.InvalidCommandException;
 import exceptions.NoDeadlineException;
+import javafx.stage.Stage;
 
 /**
  * A task list app that allows the user to add Todos, Deadlines, and Events.
@@ -51,7 +52,9 @@ public class Hachi {
     }
 
     public static void main(String[] args) throws HachiException {
-        new Hachi(DEFAULT_TASK_PATH).run();
+        // Launcher.main();
+        //new JavaFx().start(new Stage());
+        //new Hachi(DEFAULT_TASK_PATH).run();
     }
 
     /**
