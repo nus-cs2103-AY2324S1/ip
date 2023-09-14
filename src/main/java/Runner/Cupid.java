@@ -58,7 +58,7 @@ public class Cupid {
             ui.goodbye();
             System.exit(0);
         }
-        
+
         Parser parser = new Parser(input, this.taskList);
         String result = parser.parse();
 

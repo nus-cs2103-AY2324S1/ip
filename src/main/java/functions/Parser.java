@@ -93,7 +93,6 @@ public class Parser {
             assert command != null;
 
             String result = command.execute();
-
             assert result != null;
 
             return result;
