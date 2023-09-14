@@ -11,76 +11,39 @@ public class Parser {
      * @return A Command object which has a certain execution behaviour depending on the command.
      */
     public static Command parseCommand(String userCommandText) {
-            if (!userCommandText.equals("bye")) {
-                if (!userCommandText.equals("list")) {
-                    String[] inputWords = userCommandText.split(" ");
-                    int id;
-                    switch (inputWords[0]) {
-                        case "todo":
-                            String todoName = extractSecondWordOnwards(userCommandText);
-                            if (todoName.length() == 0) {
-                                throw new DukeException("\tEmpty Description");
-                            }
-                            return new AddToDoCommand(todoName);
-                        case "deadline":
-                            String[] twoParts = userCommandText.split ("/by ");
-                            String deadlineName = extractSecondWordOnwards(twoParts[0]);
-                            if (deadlineName.length() == 0) {
-                                throw new DukeException("\tEmpty Description");
-                            } else if (twoParts.length != 2) {
-                                throw new DukeException("\tUsage: deadline {taskName} /by {yyyy-MM-dd HHmm}");
-                            }
-                            String deadlineString = twoParts[1];
-                            return new AddDeadlineCommand(deadlineName, deadlineString);
-                        case "event":
-                            String[] threeParts = userCommandText.split ("/");
-                            String eventName = extractSecondWordOnwards(threeParts[0]);
-                            if (eventName.length() == 0) {
-                                throw new DukeException("\tEmpty Description");
-                            }
-                            if (threeParts.length != 3) {
-                                throw new DukeException("\tIncorrect format for event." +
-                                                        "\n\tExpected usage: " +
-                                                        "event {eventName} /from {eventStart} /to {eventEnd}");
-                            }
-                            String eventStart = extractSecondWordOnwards(threeParts[1]);
-                            String eventEnd = extractSecondWordOnwards(threeParts[2]);
-                            if (eventStart.length() == 0 || eventEnd.length() == 0) {
-                                throw new DukeException("\tBoth event start and end date times must be specified.");
-                            }
-                            return new AddEventCommand(eventName, eventStart, eventEnd);
-                        case "mark":
-                            try {
-                                id = Integer.valueOf(inputWords[1]) - 1;
-                            } catch (RuntimeException e) {
-                                throw new DukeException("\tExpected usage: mark {id}");
-                            }
-                            return new MarkTaskCommand(id);
-                        case "unmark":
-                            try {
-                                id = Integer.valueOf(inputWords[1]) - 1;
-                            } catch (RuntimeException e) {
-                                throw new DukeException("\tExpected usage: unmark {id}");
-                            }
-                            return new UnmarkTaskCommand(id);
-                        case "delete":
-                            try {
-                                id = Integer.valueOf(inputWords[1]) - 1;
-                            } catch (RuntimeException e) {
-                                throw new DukeException("\tExpected usage: delete {id}");
-                            }
-                            return new DeleteTaskCommand(id);
-                        case "find":
-                            String searchText = extractSecondWordOnwards(userCommandText);
-                            return new FindTasksCommand(searchText);
-                        default:
-                            return new InvalidCommand();
-                    }
-                } else {
-                    return new ListTasksCommand();
-                }
-            }
+        if (userCommandText.equals("bye")) {
             return new ExitCommand();
+        } else if (userCommandText.equals("list")) {
+            return new ListTasksCommand();
+        }
+
+        String[] inputWords = userCommandText.split(" ");
+        int id;
+        switch (inputWords[0]) {
+        case "todo":
+            String todoName = extractSecondWordOnwards(userCommandText);
+            return new AddToDoCommand(todoName);
+        case "deadline":
+            String[] twoParts = parseDeadlineCommand(userCommandText);
+            return new AddDeadlineCommand(twoParts[0], twoParts[1]);
+        case "event":
+            String[] threeParts = parseEventCommand(userCommandText);
+            return new AddEventCommand(threeParts[0], threeParts[1], threeParts[2]);
+        case "mark":
+            id = parseIdCommand(inputWords);
+            return new MarkTaskCommand(id);
+        case "unmark":
+            id = parseIdCommand(inputWords);
+            return new UnmarkTaskCommand(id);
+        case "delete":
+            id = parseIdCommand(inputWords);
+            return new DeleteTaskCommand(id);
+        case "find":
+            String searchText = extractSecondWordOnwards(userCommandText);
+            return new FindTasksCommand(searchText);
+        default:
+            return new InvalidCommand();
+        }
     }
 
     /**
@@ -99,4 +62,68 @@ public class Parser {
         return secondWordOnwards;
     }
 
+    /**
+     * Parses a deadline command string to return a String array, first element being the deadlineName,
+     * second element being deadlineString.
+     *
+     * @param userCommandText The unprocessed command text from the user to add a deadline.
+     * @return A String array of size 2, first element being deadlineName, second element being deadlineString.
+     */
+    public static String[] parseDeadlineCommand(String userCommandText) {
+        String[] twoParts = userCommandText.split ("/by ");
+        String deadlineName = extractSecondWordOnwards(twoParts[0]);
+        twoParts[0] = deadlineName;
+        if (deadlineName.length() == 0) {
+            throw new DukeException("\tEmpty Description");
+        } else if (twoParts.length != 2) {
+            throw new DukeException("\tUsage: deadline {taskName} /by {yyyy-MM-dd HHmm}");
+        }
+        return twoParts;
+    }
+
+    /**
+     * Parses an event command string to return a String array, first element being the eventName,
+     * second element being eventStart, third element being eventEnd.
+     *
+     * @param userCommandText The unprocessed command text from the user to add an event.
+     * @return A String array of size 3, first element being the eventName,
+     *         second element being eventStart, third element being eventEnd
+     */
+    public static String[] parseEventCommand(String userCommandText) {
+        String[] threeParts = userCommandText.split("/");
+        String eventName = extractSecondWordOnwards(threeParts[0]);
+        threeParts[0] = eventName;
+        if (eventName.length() == 0) {
+            throw new DukeException("\tEmpty Description");
+        }
+        if (threeParts.length != 3) {
+            throw new DukeException("\tIncorrect format for event."
+                                        + "\n\tExpected usage: "
+                                            + "event {eventName} /from {eventStart} /to {eventEnd}");
+        }
+        String eventStart = extractSecondWordOnwards(threeParts[1]);
+        threeParts[1] = eventStart;
+        String eventEnd = extractSecondWordOnwards(threeParts[2]);
+        threeParts[2] = eventEnd;
+        if (eventStart.length() == 0 || eventEnd.length() == 0) {
+            throw new DukeException("\tBoth event start and end date times must be specified.");
+        }
+        return threeParts;
+    }
+
+    /**
+     * Parses any id-related command (e.g., delete, mark, unmark tasks) to return the id given the array of inputWords.
+     *
+     * @param inputWords The array containing the words that were separated by a whitespace character.
+     * @return The desired id based on the text provided.
+     */
+    public static int parseIdCommand(String[] inputWords) {
+        int id;
+        try {
+            id = Integer.valueOf(inputWords[1]) - 1;
+        } catch (RuntimeException e) {
+            throw new DukeException("\tExpected usage: mark {id}");
+        }
+        return id;
+    }
 }

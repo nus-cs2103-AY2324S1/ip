@@ -2,7 +2,6 @@ package Commands;
 import OOP.TaskList;
 import OOP.Ui;
 import OOP.Storage;
-import Tasks.Task;
 import Tasks.Event;
 public class AddEventCommand implements Command {
     /** The event to be added to the TaskList upon execution.*/
@@ -30,6 +29,6 @@ public class AddEventCommand implements Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.event);
-        return ui.printTaskAddedMessage(this.event, tasks);
+        return ui.getTaskAddedMessage(this.event, tasks);
     }
 }

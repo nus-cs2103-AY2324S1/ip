@@ -35,7 +35,7 @@ public class Duke {
         try {
             this.tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            ui.getLoadingErrorMessage();
             tasks = new TaskList();
         }
     }
@@ -51,7 +51,7 @@ public class Duke {
         try {
             this.tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            ui.getLoadingErrorMessage();
             tasks = new TaskList();
         }
     }
@@ -66,13 +66,12 @@ public class Duke {
         Command command;
         String responseString;
         try {
-            // ui.printDivider();
             command = Parser.parseCommand(input);
-            // need commands to return messageStrings so that they can be returned here and displayed.
+            // commands return messageStrings so that they can be returned here and displayed.
             responseString = command.execute(tasks, ui, storage);
             storage.save(tasks);
         } catch (DukeException e) {
-            responseString = ui.showError(e.getMessage());
+            responseString = ui.getErrorMessage(e.getMessage());
         }
         return responseString;
     }
@@ -85,8 +84,6 @@ public class Duke {
      * Greets the user and runs the chatbot.
      */
     public void run() {
-        // ui.printGreeting(this.name);
-        // runCommandLoopUntilExitCommand();
         Launcher.main(new String[0]);
     }
 }
