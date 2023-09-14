@@ -2,7 +2,7 @@ package duke.util;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,8 @@ import duke.task.DeadlineException;
 public class ParserTest {
     @Test
     public void parseLoadDeadlineTest_standardInput() {
-        String input = "D | 0 | return book | 2023-09-11";
-        Deadline deadline = new Deadline("return book", LocalDate.parse("2023-09-11"));
+        String input = "D | 0 | return book | 2023-09-11T13:00";
+        Deadline deadline = new Deadline("return book", LocalDateTime.parse("2023-09-11T13:00"));
         Assertions.assertEquals(Parser.parseLoadDeadline(input).toString(), deadline.toString());
     }
 
