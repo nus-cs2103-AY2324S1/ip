@@ -55,4 +55,22 @@ public class Event extends Task {
 
         return taskType + status + description + dates;
     }
+
+    /**
+     * Compares the Event object with a Task object, if Task object is
+     * an Event object, compare the start dates of both objects.
+     * @param that the object to be compared.
+     * @return Positive integer if the other Task object is a Deadline Task
+     *     or an Event object with an earlier start date; Otherwise, a negative
+     *     integer if the other Task is a ToDo Task or an Event object with
+     *     later start date.
+     */
+    @Override
+    public int compareTo(Task that) {
+        if (that instanceof Event) {
+            Event thatEvent = (Event) that;
+            return this.fromDate.compareTo(thatEvent.fromDate);
+        }
+        return this.toString().charAt(1) - that.toString().charAt(1);
+    }
 }
