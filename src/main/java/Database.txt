@@ -1,4 +1,1 @@
-[T][X] borrow book
-[D][ ] project meeting (by: 2019-12-02)
-[D][ ] return book (by: 2020-12-02)
-[E][ ] project presentation (from: 2019-11-01 to: 2019-11-02)
+[T][ ] run
