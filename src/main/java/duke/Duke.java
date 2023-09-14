@@ -2,7 +2,6 @@ package duke;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import duke.data.TaskList;
 import duke.data.exception.DukeException;
@@ -10,7 +9,7 @@ import duke.data.task.Task;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import javafx.fxml.FXML;
+
 
 
 public class Duke {
