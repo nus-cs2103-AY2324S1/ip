@@ -24,21 +24,7 @@ public class Duke {
     /**
      * Constructor to initialize Duke.
      *
-     * @param filePath the path of the .txt file to be loaded
      */
-    public Duke(String filePath) {
-        message = new Message();
-        try {
-            storage = new Storage(filePath);
-            tasks = new TaskList(storage.load());
-        } catch (DukeException | FileNotFoundException e) {
-            message.showLoadingError();
-            tasks = new TaskList();
-        } catch (ParseException e) {
-            message.showError(e.getMessage());
-        }
-    }
-
     public Duke() {
         message = new Message();
         try {
