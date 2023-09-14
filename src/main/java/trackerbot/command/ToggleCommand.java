@@ -1,10 +1,10 @@
 package trackerbot.command;
 
+import java.util.Scanner;
+
 import trackerbot.exception.TrackerBotException;
 import trackerbot.gui.UiHandler;
 import trackerbot.task.TaskList;
-
-import java.util.Scanner;
 
 class ToggleCommand extends Command {
     private final String commandFields;
