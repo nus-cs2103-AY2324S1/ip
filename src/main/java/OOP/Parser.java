@@ -1,16 +1,6 @@
 package OOP;
 
-import Commands.AddDeadlineCommand;
-import Commands.AddEventCommand;
-import Commands.AddToDoCommand;
-import Commands.Command;
-import Commands.DeleteTaskCommand;
-import Commands.ExitCommand;
-import Commands.FindTasksCommand;
-import Commands.InvalidCommand;
-import Commands.ListTasksCommand;
-import Commands.MarkTaskCommand;
-import Commands.UnmarkTaskCommand;
+import Commands.*;
 import Duke.DukeException;
 
 /**
@@ -56,6 +46,9 @@ public class Parser {
         case "find":
             String searchText = extractSecondWordOnwards(userCommandText);
             return new FindTasksCommand(searchText);
+        case "help":
+            return new HelpCommand();
+
         default:
             assert !(userCommandText.equals("list") || userCommandText.equals("bye"));
             return new InvalidCommand();

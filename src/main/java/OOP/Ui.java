@@ -37,7 +37,7 @@ public class Ui {
      */
     public String getGreeting(String name) {
         String str1 = "Hello! I'm " + name + "!";
-        String str2 = "What can I do for you?";
+        String str2 = "What can I do for you? Just send me a 'help' command to see all the things I can do!!";
         return str1 + "\n" + str2;
     }
 
