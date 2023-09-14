@@ -33,14 +33,7 @@ public class Event extends Task {
 
     @Override
     public String saveTask() {
-        String data = "E | ";
-        if (this.isDone()) {
-            data += "1 | ";
-        } else {
-            data += "0 | ";
-        }
-        data += this.getDescription();
-        data = data + " | " + this.from + " | " + this.to + "\n";
+        String data = "E " + super.saveTask() + " | " + this.from + " | " + this.to + "\n";
         return data;
     }
 

@@ -34,8 +34,13 @@ public class Task {
         return "task";
     }
 
+    /**
+     * Converts task into format to be saved in file.
+     * @return format of task to be saved in file.
+     */
     public String saveTask() {
-        return this.description;
+        String doneStatus = this.isDone() ? "| 1 | " : "| 0 | ";
+        return doneStatus + " " + this.description;
     }
 
     public boolean containKeywords(String keywords) {
@@ -49,10 +54,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String doneStatus = "[ ]";
-        if (this.isDone()) {
-            doneStatus = "[X]";
-        }
+        String doneStatus = this.isDone() ? "[X]" : "[ ]";
         return doneStatus + " " + this.description;
     }
 }

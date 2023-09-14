@@ -9,11 +9,15 @@ import dude.command.Command;
  */
 
 public class Dude {
+
+    private static final String DEFAULT_FILEPATH = "./data/dude.txt";
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
 
-    public Dude() { }
+    public Dude() {
+        this.storage = new Storage(DEFAULT_FILEPATH);
+    }
 
     /**
      * Constructor for Dude that takes in a file path to storage file.
@@ -24,7 +28,7 @@ public class Dude {
         this.storage = new Storage(filePath);
 
         try {
-            taskList = new TaskList(storage.loadTasksFromDisk());
+            taskList = storage.loadTasksFromDisk();
         } catch (FileNotFoundException e) { // DudeException
             ui.showLoadingError();
             taskList = new TaskList();
@@ -39,36 +43,7 @@ public class Dude {
         System.out.println(input);
         Command c = Parser.parse(input);
         String output = c.execute(taskList, ui, storage);
-        assert !output.trim().isEmpty(): "Dude output should not be empty";
+        assert !output.trim().isEmpty() : "Dude output should not be empty";
         return output;
-    }
-
-    /**
-     * Method that runs the Dude programme.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
-     * Main method for Dude. Start the programme here.
-     * @param args
-     */
-
-    public static void main(String[] args) {
-        new Dude("data/dude.txt").run();
     }
 }

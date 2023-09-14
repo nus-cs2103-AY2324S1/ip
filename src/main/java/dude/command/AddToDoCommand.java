@@ -30,7 +30,7 @@ public class AddToDoCommand extends Command {
         try {
             output = "Executing Add ToDo Command\n";
             ToDo newTask = new ToDo(taskDescription);
-            assert !newTask.isDone(): "Newly added ToDo should not be done.";
+            assert !newTask.isDone() : "Newly added ToDo should not be done.";
             taskList.addTask(newTask);
             int nTasks = taskList.getSize();
             output = output + ui.showAddedTask(newTask, nTasks) + "\n";
