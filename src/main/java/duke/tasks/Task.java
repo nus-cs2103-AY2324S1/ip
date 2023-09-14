@@ -9,6 +9,8 @@ public class Task {
     protected String description;
     /** Status of task */
     protected boolean isDone;
+    /** Priority of task */
+    protected Priority priority;
 
     /**
      * Constructs a Task object.
@@ -18,6 +20,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.LOW;
     }
 
     /**
@@ -29,6 +32,19 @@ public class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+    }
+
+    /**
+     * Constructs a Task object.
+     *
+     * @param description Description of the Task.
+     * @param isDone Status of the Task.
+     * @param priority Priority of the Task.
+     */
+    public Task(String description, boolean isDone, Priority priority) {
+        this.description = description;
+        this.isDone = isDone;
+        this.priority = priority;
     }
 
     /**
@@ -64,12 +80,21 @@ public class Task {
     }
 
     /**
+     * Changes the priority of the task.
+     *
+     * @param priority New priority of the task.
+     */
+    public void changePriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    /**
      * Returns text representation of task for data file.
      *
      * @return Text representation of Task.
      */
     public String getTextRepresentation() {
-        return this.getStatusNumerical() + " | " + this.description;
+        return this.getStatusNumerical() + " | " + this.priority + " | " + this.description;
     }
 
     /**
@@ -84,7 +109,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "][" + this.priority + "] " + this.description;
     }
 
     @Override

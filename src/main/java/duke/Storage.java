@@ -1,17 +1,14 @@
 package duke;
 
+import duke.exceptions.DukeFileNotFoundException;
+import duke.tasks.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-
-import duke.exceptions.DukeFileNotFoundException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
 
 /**
  * Implementation for the storage.
@@ -51,16 +48,17 @@ public class Storage {
                 boolean isDone = params[1].equals("1");
                 switch (params[0]) {
                 case "T":
-                    list.addToList(new Todo(params[2], isDone));
+                    list.addToList(new Todo(params[3], isDone, Priority.valueOf(params[2])));
                     break;
 
                 case "D":
-                    list.addToList(new Deadline(params[2], isDone, LocalDateTime.parse(params[3], Duke.TIME_FORMAT)));
+                    list.addToList(new Deadline(params[3], isDone,
+                            LocalDateTime.parse(params[4], Duke.TIME_FORMAT), Priority.valueOf(params[2])));
                     break;
 
                 case "E":
-                    list.addToList(new Event(params[2], isDone, LocalDateTime.parse(params[3], Duke.TIME_FORMAT),
-                            LocalDateTime.parse(params[4], Duke.TIME_FORMAT)));
+                    list.addToList(new Event(params[3], isDone, LocalDateTime.parse(params[4], Duke.TIME_FORMAT),
+                            LocalDateTime.parse(params[5], Duke.TIME_FORMAT), Priority.valueOf(params[2])));
                     break;
 
                 default:

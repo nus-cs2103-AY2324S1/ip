@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import java.time.LocalDateTime;
-
 import duke.Duke;
+
+import java.time.LocalDateTime;
 
 /**
  * Encapsulation for Event properties.
@@ -37,6 +37,21 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
+     * Constructs an Event object.
+     *
+     * @param description Description of the Event.
+     * @param isDone Status of the Event.
+     * @param from Start time of the Event.
+     * @param to End time of the Event.
+     * @param priority Priority of the Event.
+     */
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to, Priority priority) {
+        super(description, isDone, priority);
         this.from = from;
         this.to = to;
     }
