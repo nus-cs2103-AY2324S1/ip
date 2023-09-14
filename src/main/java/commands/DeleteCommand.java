@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
      * @param taskNumber The task number to identify the task to be deleted.
      */
     public DeleteCommand(int taskNumber) {
+        assert taskNumber > 0 : "Task number must be a positive integer";
         this.taskNumber = taskNumber;
     }
 
