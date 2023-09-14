@@ -1,10 +1,8 @@
 package bob.data.task;
 
-import bob.data.task.DeadlineTask;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 public class DeadlineTaskTest {
     @Test
     public void testStringConversion() {

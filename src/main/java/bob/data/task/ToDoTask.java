@@ -1,4 +1,8 @@
 package bob.data.task;
+
+/**
+ * Represent a ToDoTask that is contained in the TaskList.
+ */
 public class ToDoTask extends Task {
     /**
      * Constructs a new ToDoTask based on the specified description.

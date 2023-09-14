@@ -2,7 +2,12 @@ package bob.parser;
 
 import bob.data.exception.DukeException;
 
+/**
+ * Represents a Parser class that parses the input commands given by the user.
+ */
 public class Parser {
+    private static final String INPUT_TASK_NUMBER = "Input the task number";
+    private static final String INVALID_COMMAND = "Invalid command";
     /**
      * Commands to be run based on the user's input.
      */
@@ -35,25 +40,25 @@ public class Parser {
             return Command.LIST;
         case MARK:
             if (inputSplit.length == 1) {
-                throw new DukeException("Input the task number");
+                throw new DukeException(INPUT_TASK_NUMBER);
             } else if (inputSplit.length > 2) {
-                throw new DukeException("Invalid command");
-            }  else {
+                throw new DukeException(INVALID_COMMAND);
+            } else {
                 return Command.MARK;
             }
         case UNMARK:
             if (inputSplit.length == 1) {
-                throw new DukeException("Input the task number");
+                throw new DukeException(INPUT_TASK_NUMBER);
             } else if (inputSplit.length > 2) {
-                throw new DukeException("Invalid command");
-            }  else {
+                throw new DukeException(INVALID_COMMAND);
+            } else {
                 return Command.UNMARK;
             }
         case DELETE:
             if (inputSplit.length == 1) {
-                throw new DukeException("Input the task number");
+                throw new DukeException(INPUT_TASK_NUMBER);
             } else if (inputSplit.length > 2) {
-                throw new DukeException("Invalid command");
+                throw new DukeException(INVALID_COMMAND);
             } else {
                 return Command.DELETE;
             }
@@ -77,8 +82,9 @@ public class Parser {
                 throw new DukeException("Description of an event cannot be empty");
             }
             return Command.EVENT;
+        default:
+            throw new DukeException("No such command.");
         }
-        throw new DukeException("No such command.");
     }
 
     private Command getCommand(String input) throws DukeException {

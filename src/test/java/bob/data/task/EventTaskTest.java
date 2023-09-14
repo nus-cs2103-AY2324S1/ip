@@ -1,12 +1,12 @@
 package bob.data.task;
 
-import bob.data.exception.DukeException;
-import bob.data.task.EventTask;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import bob.data.exception.DukeException;
 public class EventTaskTest {
     @Test
     public void testStringConversion() {

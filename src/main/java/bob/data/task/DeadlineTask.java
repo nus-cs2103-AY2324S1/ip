@@ -3,6 +3,10 @@ package bob.data.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a DeadlineTask that is stored in the TaskList.
+ */
 public class DeadlineTask extends Task {
     /** Date of the deadline. */
     private LocalDateTime deadlineDate;

@@ -1,5 +1,8 @@
 package bob.data.task;
 
+/**
+ * Represents the base logic for task classes.
+ */
 public abstract class Task {
     /** The description of the task. */
     private String description;
@@ -76,8 +79,7 @@ public abstract class Task {
         String dateTime = this.getDateTime();
         if (this.getDateTime().length() == 0) {
             output.append(type + "," + completed + "," + title + "\n");
-        }
-        else {
+        } else {
             output.append(type + "," + completed + "," + title + "," + dateTime + "\n");
         }
         return output.toString();

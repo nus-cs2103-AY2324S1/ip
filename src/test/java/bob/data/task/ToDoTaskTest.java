@@ -1,10 +1,8 @@
 package bob.data.task;
 
-import bob.data.task.ToDoTask;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 public class ToDoTaskTest {
     @Test
     public void testStringConversion() {

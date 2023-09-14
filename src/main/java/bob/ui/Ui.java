@@ -2,6 +2,9 @@ package bob.ui;
 
 import java.util.Scanner;
 
+/**
+ * Represents the logic for the interaction between the chatbot and the user.
+ */
 public class Ui {
     /** The scanner for reading the user's input.*/
     private Scanner scanner;
@@ -9,8 +12,7 @@ public class Ui {
     /**
      * Constructs a new Ui with a scanner.
      */
-    public Ui()
-    {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -41,7 +43,6 @@ public class Ui {
 
     /**
      * Prints the specified input.
-     * 
      * @param input The String to be printed.
      */
     public void print(String input) {

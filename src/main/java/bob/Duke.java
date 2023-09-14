@@ -7,6 +7,9 @@ import bob.parser.Parser.Command;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Represents the main chatbot logic.
+ */
 public class Duke {
     private Ui ui;
     private Parser parser;
@@ -43,6 +46,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Initialise a new Duke object with its class fields.
+     */
     public void init() {
         this.ui = new Ui();
         this.parser = new Parser();

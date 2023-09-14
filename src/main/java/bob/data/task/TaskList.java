@@ -1,8 +1,5 @@
 package bob.data.task;
 
-import bob.data.exception.DukeException;
-import bob.parser.Parser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import bob.data.exception.DukeException;
+import bob.parser.Parser;
+
+/**
+ * Represents a TaskList that contains the tasks and writes to a specified file.
+ */
 public class TaskList {
     /** The ArrayList for storing all the tasks. */
     private ArrayList<Task> tasks;
@@ -113,32 +116,33 @@ public class TaskList {
      */
     public String addTask(Parser.Command command, String input) throws DukeException {
         Task taskToAdd;
-        String[] inputArr;
+        String taskDescription;
+        String[] taskDescriptionArray;
 
         switch (command) {
         case TODO:
-            input = input.substring(5);
-            taskToAdd = new ToDoTask(input);
+            taskDescription = input.substring(5);
+            taskToAdd = new ToDoTask(taskDescription);
             break;
         case DEADLINE:
-            input = input.substring(9);
-            inputArr = input.split(" /by ");
-            taskToAdd = new DeadlineTask(inputArr[0], inputArr[1]);
+            taskDescription = input.substring(9);
+            taskDescriptionArray = input.split(" /by ");
+            taskToAdd = new DeadlineTask(taskDescriptionArray[0], taskDescriptionArray[1]);
             break;
         case EVENT:
-            input = input.substring(6);
-            inputArr = input.split(" /from ");
-            String description = inputArr[0];
-            inputArr = inputArr[1].split(" /to ");
-            taskToAdd = new EventTask(description, inputArr[0], inputArr[1]);
+            taskDescription = input.substring(6);
+            taskDescriptionArray = input.split(" /from ");
+            String description = taskDescriptionArray[0];
+            String[] dateArray = taskDescriptionArray[1].split(" /to ");
+            taskToAdd = new EventTask(description, dateArray[0], dateArray[1]);
             break;
         default:
             throw new DukeException("No such command found.");
         }
         this.tasks.add(taskToAdd);
-        String output = "Got it. I've added this task:\n" +
-                taskToAdd + "\n" +
-                "Now you have " + this.tasks.size() + " task(s) in the list.";
+        String output = "Got it. I've added this task:\n"
+                + taskToAdd + "\n"
+                + "Now you have " + this.tasks.size() + " task(s) in the list.";
         return output;
     }
 
@@ -227,9 +231,9 @@ public class TaskList {
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
         Task task = this.tasks.get(taskNo);
         this.tasks.remove(taskNo);
-        String output = "Noted. I've removed this task:\n" +
-                task + "\n" +
-                "Now you have " + this.tasks.size() + " task(s) in the list.";
+        String output = "Noted. I've removed this task:\n"
+                + task + "\n"
+                + "Now you have " + this.tasks.size() + " task(s) in the list.";
         return output;
     }
 
@@ -267,7 +271,6 @@ public class TaskList {
 
     /**
      * Returns the size of the ArrayList.
-     * 
      * @return An integer representing the size of the ArrayList.
      */
     public int getSize() {
@@ -276,7 +279,6 @@ public class TaskList {
 
     /**
      * Returns the String representation of all the tasks that are similar to the specified input in an indexed manner.
-     *  
      * @param input The String to be compared with other tasks.
      * @return The String representation of matching tasks.
      */

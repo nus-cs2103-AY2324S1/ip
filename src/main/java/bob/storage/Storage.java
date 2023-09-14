@@ -3,6 +3,9 @@ package bob.storage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Represents the logic for reading/writing the task data to the file.
+ */
 public class Storage {
     /** The file for reading/writing the tasks from/to */
     private File file;

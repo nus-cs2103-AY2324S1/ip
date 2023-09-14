@@ -1,11 +1,14 @@
 package bob.data.task;
 
-import bob.data.exception.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import bob.data.exception.DukeException;
+
+/**
+ * Represents an EventTask that is stored in the TaskList.
+ */
 public class EventTask extends Task {
     /** The start date of the EventTask. */
     private LocalDateTime startDate;
@@ -69,7 +72,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm a");
-        return "[E]" + super.toString() + " (from: " + stringFormatter.format(this.startDate) +
-                " to: " + stringFormatter.format(this.endDate) + ")";
+        return "[E]" + super.toString() + " (from: " + stringFormatter.format(this.startDate)
+                + " to: " + stringFormatter.format(this.endDate) + ")";
     }
 }
