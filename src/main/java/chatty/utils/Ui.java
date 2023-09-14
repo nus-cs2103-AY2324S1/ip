@@ -1,29 +1,56 @@
 package chatty.utils;
 
+import java.util.Scanner;
+
 import chatty.exception.InvalidTaskNumberException;
 import chatty.task.Task;
 import chatty.task.TaskList;
 
-import java.util.Scanner;
+
+/**
+ * Responsible for the interactions with user
+ */
 public class Ui {
 
     private Scanner scanner;
 
+    /**
+     * Constructor for the Ui class.
+     * Initialise the chatbot
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Get the input from the user
+     * @return the input from the user
+     */
     public String getInput() {
         return scanner.nextLine();
     }
+
+    /**
+     * Prints the greeting when the user start the chatbot
+     * @return The greeting
+     */
     public String showGreet() {
         return "Hi there! I'm Chatty! \n How can I help you today?";
     }
 
+    /**
+     * Prints the exit line when te user wants to exit the chatbot
+     * @return The goodbye message
+     */
     public String showExit() {
         return "Bye! Hope to see you again soon!";
     }
 
+    /**
+     * Prints out the list of task in the task list
+     * @param taskList the task list to be printed for the user
+     * @return the list of task in the task list
+     */
     public String showList(TaskList taskList) {
         if (taskList.listSize() == 0) {
             return "There is currently no chatty.task in your list.";
@@ -36,30 +63,65 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the message to show the user that the task has been mark done
+     * @param i The index of the task the user wants to mark as done
+     * @param taskList the task list consisting of all the available tasks
+     * @return The specified message
+     */
     public String showDone(int i, TaskList taskList) {
         return "Nice! I've marked this chatty.task as done: \n" + "         " + taskList.showTask(i);
     }
 
+    /**
+     * Prints the message to show the user that the task has been mark as undone
+     * @param i The index of the task the user wants to mark as undone
+     * @param taskList the task list consisting of all the available tasks
+     * @return The specified message
+     */
     public String showUndone(int i, TaskList taskList) {
         return "Ok, I've marked this chatty.task as not done: \n" + "           " + taskList.showTask(i);
     }
 
+
+    /**
+     * Prints the message to show the user that the task has been deleted
+     * @param i The index of the task the user wants to delete
+     * @param taskList the task list consisting of all the available tasks
+     * @return The specified message
+     * @exception InvalidTaskNumberException when the index of the task is not a valid index
+     */
     public String showDelete(int i, TaskList taskList) throws InvalidTaskNumberException {
         return "Alright, I've removed this chatty.task from the list: \n"
                 + "           " + taskList.deleteTask(i) + "\n"
                 + "Now you have" + taskList.listSize() + " task(s) in your list.";
     }
 
+    /**
+     * Prints the message to show the user that the task has been added to the list
+     * @param task The task to be added into the list
+     * @param taskList the task list consisting of all the available tasks
+     * @return The specified message
+     */
     public String showAdded(Task task, TaskList taskList) {
         return "Got it. I've added this chatty.task into the list: \n"
                 + "         " + task + "\n"
                 + "You now have " + taskList.listSize() + " task(s) in the list.";
     }
 
+    /**
+     * Prints the message to tell the user that the command is not valid
+     * @return The specified message
+     */
     public String showInvalid() {
         return "Sorry, I don't understand this command";
     }
 
+    /**
+     * Prints the list of task that matched the specified keyword
+     * @param matchedTask the list of task that matched the keyword
+     * @return The specified message + the list of matching task
+     */
     public String showMatched(String matchedTask) {
         if (matchedTask.isEmpty()) {
             return "There is no tasks matching your keyword";

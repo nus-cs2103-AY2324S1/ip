@@ -1,5 +1,11 @@
 package chatty.utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import chatty.exception.ChattyException;
 import chatty.exception.InvalidTaskNumberException;
 import chatty.task.Deadline;
@@ -7,18 +13,21 @@ import chatty.task.Event;
 import chatty.task.TaskList;
 import chatty.task.ToDo;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
+/**
+ * Responsible to save the existing list
+ * to a hardware storage. The list will autoload when
+ * user restart duke chatbot.
+ */
 public class Storage {
 
     private String filePath;
     private File file;
 
-    public Storage(String filePath)  {
+    /**
+     * Constructor for the Storage path
+     * @param filePath the path to the storage file
+     */
+    public Storage(String filePath) {
         this.filePath = filePath;
         this.file = new File(this.filePath);
         this.file.getParentFile().mkdirs();
@@ -32,6 +41,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Save the added task to the storage file
+     * @param taskList the list with all the task
+     */
     public void saveTask(TaskList taskList) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
@@ -47,6 +60,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the file when the user starts the bot again
+     * @param taskList the list that contains the added task
+     * @throws IOException when the task cannot be loaded
+     * @throws ChattyException
+     */
+    @SuppressWarnings("checkstyle:MissingSwitchDefault")
     public void loadTask(TaskList taskList) throws IOException, ChattyException {
         try {
             Scanner scanner = new Scanner(this.file);
@@ -55,22 +75,28 @@ public class Storage {
                 char taskType = task.charAt(1);
 
                 switch (taskType) {
-                    case 'T':
-                        loadTodoTask(taskList, task);
-                        break;
-                    case 'D':
-                        loadDeadlineTask(taskList, task);
-                        break;
-                    case 'E':
-                        loadEventTask(taskList, task);
-                        break;
+                case 'T':
+                    loadTodoTask(taskList, task);
+                    break;
+                case 'D':
+                    loadDeadlineTask(taskList, task);
+                    break;
+                case 'E':
+                    loadEventTask(taskList, task);
+                    break;
                 }
             }
         } catch (IOException e) {
-            throw new ChattyException("Unable to load chatty.task");
+            throw new ChattyException("Unable to load task");
         }
     }
 
+    /**
+     * Handles the case when the task to be loaded is a todo task
+     * @param taskList the list with the added task
+     * @param task The ask to be added
+     * @throws InvalidTaskNumberException when the index of the task is not valid
+     */
     private void loadTodoTask(TaskList taskList, String task) throws InvalidTaskNumberException {
         String taskDescription = task.substring(7);
         boolean isDone = task.charAt(4) == 'X';
@@ -80,6 +106,13 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Handles the case when the task to be loaded is a deadline task
+     * @param taskList the list with the added task
+     * @param task The ask to be added
+     * @throws InvalidTaskNumberException when the index of the task is not valid
+     */
     private void loadDeadlineTask(TaskList taskList, String task) throws InvalidTaskNumberException {
         int colonIndex = task.indexOf(":");
         String taskDescription = task.substring(7, colonIndex - 4);
@@ -91,6 +124,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Handles the case when the task to be loaded is a event task
+     * @param taskList the list with the added task
+     * @param task The ask to be added
+     * @throws InvalidTaskNumberException when the index of the task is not valid
+     */
     private void loadEventTask(TaskList taskList, String task) throws InvalidTaskNumberException {
         int colon1Index = task.indexOf(':');
         int colon2Index = task.indexOf(':', colon1Index + 1);

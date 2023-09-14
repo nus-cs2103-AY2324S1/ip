@@ -1,17 +1,23 @@
 package chatty.utils;
 
+import java.io.IOException;
+
 import chatty.command.Command;
 import chatty.exception.ChattyException;
 import chatty.task.TaskList;
 
-import java.io.IOException;
-
+/**
+ * Main class that will run according to the command given by the user
+ */
 public class Duke {
 
     private Ui ui;
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Empty constructor when GUI is run
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage("data/tasks.txt");
@@ -26,6 +32,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Constructor that will load the existing file if there is
+     * @param filePath the path to the existing file
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -41,6 +51,9 @@ public class Duke {
         }
     }
 
+    /**
+     * The method that will start the chatbot when called
+     */
     public void startChatting() {
         ui.showGreet();
         boolean isExit = false;
@@ -57,6 +70,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Get the chatbot response to be printed on the dialogue box when GUI is called
+     * @param input the input from the user
+     * @return The response given by the chatbot
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);

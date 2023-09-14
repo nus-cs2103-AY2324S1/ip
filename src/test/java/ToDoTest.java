@@ -2,7 +2,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import chatty.ToDo;
+import chatty.task.ToDo;
 
 public class ToDoTest {
 

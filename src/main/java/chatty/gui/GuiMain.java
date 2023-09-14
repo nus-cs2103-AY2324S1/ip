@@ -2,17 +2,12 @@ package chatty.gui;
 
 import java.io.IOException;
 
+import chatty.utils.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import chatty.utils.Duke;
 
 /**
  * A GUI for Duke using FXML.

@@ -1,15 +1,37 @@
 package chatty.utils;
 
-import chatty.command.*;
-import chatty.exception.DetailsUnknownException;
-import chatty.exception.IncompleteMessageException;
-import chatty.exception.InvalidTaskNumberException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import chatty.command.Command;
+import chatty.command.CommandNotFound;
+import chatty.command.DeadlineCommand;
+import chatty.command.DeleteCommand;
+import chatty.command.DoneCommand;
+import chatty.command.EventCommand;
+import chatty.command.ExitCommand;
+import chatty.command.FindCommand;
+import chatty.command.ListCommand;
+import chatty.command.ToDoCommand;
+import chatty.command.UndoneCommand;
+import chatty.exception.DetailsUnknownException;
+import chatty.exception.IncompleteMessageException;
+import chatty.exception.InvalidTaskNumberException;
+
+/**
+ * Responsible to do the parsing required for the chatbot
+ */
 public class Parser {
 
+    /**
+     * return the specific command to execute depending on the command given by the user
+     * @param input the input by user
+     * @return The specific command
+     * @throws DetailsUnknownException when the user did not enter the details for the task
+     * @throws IncompleteMessageException when the user did not enter the task description
+     * @throws InvalidTaskNumberException when the task number entered by the user is out of the range
+     */
     public static Command parse(String input) throws DetailsUnknownException,
             IncompleteMessageException, InvalidTaskNumberException {
 
@@ -43,7 +65,7 @@ public class Parser {
 
         if (input.startsWith(undoneC)) {
             if (input.length() == undoneC.length() - 1) {
-                throw  new IncompleteMessageException("Undone");
+                throw new IncompleteMessageException("Undone");
             }
 
             String getIndex = input.substring(undoneC.length() + 1);
@@ -140,6 +162,11 @@ public class Parser {
         return new CommandNotFound();
     }
 
+    /**
+     * Format the date in LocalDate format to String
+     * @param date the date in LocalDate format
+     * @return the formatted date in String representation
+     */
     public static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedDate = date.format(formatter);
