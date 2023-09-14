@@ -52,10 +52,7 @@ public class Parser {
             }
 
             int i = scanner.nextInt();
-            if (i < 1 || i > listSize)
-                throw new DukeException("The list doesn't have this index.");
-
-            return new MarkCommand(i - 1);
+            return handleMark(i);
 
         case "unmark":
             if (!scanner.hasNextInt()) {
@@ -63,10 +60,7 @@ public class Parser {
             }
 
             int k = scanner.nextInt();
-            if (k < 1 || k > listSize)
-                throw new DukeException("The list doesn't have this index.");
-
-            return new UnmarkCommand(k - 1);
+            return handleUnmark(k);
 
         case "delete":
             if (!scanner.hasNextInt()) {
@@ -74,92 +68,128 @@ public class Parser {
             }
 
             int j = scanner.nextInt();
-            if (j < 1 || j > listSize)
-                throw new DukeException("The list doesn't have this index.");
-
-            listSize--;
-
-            return new DeleteCommand(j - 1);
+            return handleDelete(j);
 
         case "find":
             String findPrompt = scanner.nextLine();
-            findPrompt = findPrompt.trim();
-
-            if (findPrompt.isBlank()) {
-                throw new DukeException("There is no keyword");
-            }
-
-            return new FindCommand(findPrompt);
+            return handleFind(findPrompt);
 
         case "deadline":
             String deadlinePrompt = scanner.nextLine();
-
-            if (deadlinePrompt.isBlank()) {
-                throw new DukeException("Chewie says deadline's description cannot be empty.");
-            }
-
-            String[] deadlineRemain = deadlinePrompt.split(" /by ");
-
-            if (deadlineRemain.length != 2 || deadlineRemain[0].isBlank() || deadlineRemain[1].isBlank()) {
-                throw new DukeException("Chewie says deadline's description is wrong.");
-            }
-
-            String task = deadlineRemain[0].trim();
-            String dateString = deadlineRemain[1].trim();
-
-            LocalDate date = LocalDate.parse(dateString,format);
-
-            listSize++;
-
-            return new CreateDeadlineCommand(task,date);
+            return handleDeadline(deadlinePrompt);
 
         case "todo":
             String ToDoRemain = scanner.nextLine().trim();
-            if (ToDoRemain.isBlank()) {
-                throw new DukeException("Chewie says todo's description cannot be empty.");
-            }
-
-            listSize++;
-
-            return new CreateToDoCommand(ToDoRemain);
+            return handleToDo(ToDoRemain);
 
         case "event":
             String eventPrompt = scanner.nextLine().trim();
-
-            if (eventPrompt.isBlank()) {
-                throw new DukeException("Chewie says event's description cannot be empty.");
-            }
-
-            String[] eventRemain = eventPrompt.split(" /from ");
-
-            if (eventRemain.length != 2 || eventRemain[0].isBlank()) {
-                throw new DukeException("Chewie says event's description is wrong.");
-            }
-
-            String eventTask = eventRemain[0];
-            String[] eventDate = eventRemain[1].split(" /to ");
-
-            if (eventDate.length !=2) {
-                throw new DukeException("Chewie says event's time is wrong.");
-            }
-
-            String startDate = eventDate[0];
-            String endDate = eventDate[1];
-
-            if (startDate.isBlank() || endDate.isBlank()) {
-                throw new DukeException("Chewie says event's time is wrong.");
-            }
-
-            LocalDate start = LocalDate.parse(startDate,format);
-            LocalDate end = LocalDate.parse(endDate,format);
-
-            listSize++;
-
-            return new CreateEventCommand(eventTask,start,end);
+            return handleEvent(eventPrompt);
 
         default:
             throw new DukeException("Chewie doesn't recgonize this command: " + command);
         }
 
     }
+
+    private CreateToDoCommand handleToDo (String prompt) throws DukeException{
+        if (prompt.isBlank()) {
+            throw new DukeException("Chewie says todo's description cannot be empty.");
+        }
+
+        listSize++;
+
+        return new CreateToDoCommand(prompt);
+    }
+
+    private CreateDeadlineCommand handleDeadline (String prompt) throws DukeException, DateTimeParseException{
+
+        if (prompt.isBlank()) {
+            throw new DukeException("Chewie says deadline's description cannot be empty.");
+        }
+
+        String[] deadlineRemain = prompt.split(" /by ");
+
+        if (deadlineRemain.length != 2 || deadlineRemain[0].isBlank() || deadlineRemain[1].isBlank()) {
+            throw new DukeException("Chewie says deadline's description is wrong.");
+        }
+
+        String task = deadlineRemain[0].trim();
+        String dateString = deadlineRemain[1].trim();
+
+        LocalDate date = LocalDate.parse(dateString,format);
+
+        listSize++;
+
+        return new CreateDeadlineCommand(task,date);
+
+    }
+
+    private CreateEventCommand handleEvent (String prompt) throws DukeException, DateTimeParseException{
+
+        if (prompt.isBlank()) {
+            throw new DukeException("Chewie says event's description cannot be empty.");
+        }
+
+        String[] eventRemain = prompt.split(" /from ");
+
+        if (eventRemain.length != 2 || eventRemain[0].isBlank()) {
+            throw new DukeException("Chewie says event's description is wrong.");
+        }
+
+        String eventTask = eventRemain[0];
+        String[] eventDate = eventRemain[1].split(" /to ");
+
+        if (eventDate.length !=2) {
+            throw new DukeException("Chewie says event's time is wrong.");
+        }
+
+        String startDate = eventDate[0];
+        String endDate = eventDate[1];
+
+        if (startDate.isBlank() || endDate.isBlank()) {
+            throw new DukeException("Chewie says event's time is wrong.");
+        }
+
+        LocalDate start = LocalDate.parse(startDate,format);
+        LocalDate end = LocalDate.parse(endDate,format);
+
+        listSize++;
+
+        return new CreateEventCommand(eventTask,start,end);
+    }
+
+    private MarkCommand handleMark (int index) throws DukeException{
+        if (index < 1 || index > listSize)
+            throw new DukeException("The list doesn't have this index.");
+
+        return new MarkCommand(index - 1);
+    }
+
+    private UnmarkCommand handleUnmark (int index) throws DukeException{
+        if (index < 1 || index > listSize)
+            throw new DukeException("The list doesn't have this index.");
+
+        return new UnmarkCommand(index - 1);
+    }
+
+    private DeleteCommand handleDelete (int index) throws DukeException{
+        if (index < 1 || index > listSize)
+            throw new DukeException("The list doesn't have this index.");
+
+        listSize--;
+
+        return new DeleteCommand(index - 1);
+    }
+
+    private FindCommand handleFind (String prompt) throws DukeException{
+        prompt = prompt.trim();
+
+        if (prompt.isBlank()) {
+            throw new DukeException("There is no keyword");
+        }
+
+        return new FindCommand(prompt);
+    }
+
 }

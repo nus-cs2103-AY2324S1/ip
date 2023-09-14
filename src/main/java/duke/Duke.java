@@ -29,7 +29,7 @@ public class Duke extends Application {
     public void start(Stage stage) {
         initialize();
         Ui.ui.GuiSetup(stage);
-        Ui.ui.readInput();
+
     }
 
     /**

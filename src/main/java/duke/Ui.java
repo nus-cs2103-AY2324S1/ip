@@ -231,40 +231,13 @@ public class Ui {
         stage.show();
 
         // starting prompt
-        DialogBox.getDukeDialog(new Label(startPrompt()), new ImageView(chewie));
+        DialogBox.getDukeDialog(startPrompt(), chewie);
     }
-    private void setCurrInput(String text) {
+    public void setCurrInput(String text) {
         this.currInput = text;
     }
 
     public String readInput() {
-
-        sendButton.setOnMouseClicked((event) -> {
-            String input = userInput.getText();
-            setCurrInput(input);
-
-            String output = Duke.run();
-
-            if (!input.isBlank()) {
-                dialogContainer.getChildren().addAll(DialogBox.getUserDialog(new Label(input),new ImageView(user)));
-                dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(output),new ImageView(chewie)));
-            }
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            String input = userInput.getText();
-            setCurrInput(input);
-
-            String output = Duke.run();
-
-            if (!input.isBlank()) {
-                dialogContainer.getChildren().addAll(DialogBox.getUserDialog(new Label(input),new ImageView(user)));
-                dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(output),new ImageView(chewie)));
-            }
-            userInput.clear();
-        });
-
         return currInput;
     }
 
@@ -275,4 +248,6 @@ public class Ui {
 
         return textToAdd;
     }
+
+
 }

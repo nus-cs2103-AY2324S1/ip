@@ -25,7 +25,6 @@ public class CreateDeadlineCommand extends Command {
         return Ui.ui.createTaskPrompt(task);
     }
 
-
     public Deadline task(){
         return task;
     }
