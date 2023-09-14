@@ -76,68 +76,64 @@ public class Storage {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
 
-                switch (parts[0]) {
-                    case "T":
-                        Todo todo = new Todo(parts[2]);
-                        if (parts[1].equals("1")) {
-                            todo.markAsDone();
-                        }
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        LocalDateTime dateTime;
-                        DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+                if (parts[0].equals("T")) {
+                    Todo todo = new Todo(parts[2]);
+                    if (parts[1].equals("1")) {
+                        todo.markAsDone();
+                    }
+                    tasks.add(todo);
+                } else if (parts[0].equals("D")) {
+                    LocalDateTime dateTime;
+                    DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+                    try {
+                        dateTime = LocalDateTime.parse(parts[3], defaultFormatter);
+                    } catch (DateTimeParseException e1) {
                         try {
-                            dateTime = LocalDateTime.parse(parts[3], defaultFormatter);
-                        } catch (DateTimeParseException e1) {
-                            try {
-                                dateTime = LocalDateTime.parse(parts[3], isoFormatter);
-                            } catch (DateTimeParseException e2) {
-                                System.out.println("Error parsing date-time from saved data: " + parts[3]);
-                                continue; // Skip to the next loop iteration if date parsing fails
-                            }
+                            dateTime = LocalDateTime.parse(parts[3], isoFormatter);
+                        } catch (DateTimeParseException e2) {
+                            System.out.println("Error parsing date-time from saved data: " + parts[3]);
+                            continue; // Skip to the next loop iteration if date parsing fails
                         }
-                        Deadline deadline = new Deadline(parts[2], dateTime);
-                        if (parts[1].equals("1")) {
-                            deadline.markAsDone();
-                        }
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        LocalDateTime dateTimeFrom;
-                        LocalDateTime dateTimeTo;
-                        DateTimeFormatter defaultFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                        DateTimeFormatter isoFormat = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+                    }
+                    Deadline deadline = new Deadline(parts[2], dateTime);
+                    if (parts[1].equals("1")) {
+                        deadline.markAsDone();
+                    }
+                    tasks.add(deadline);
+                } else if (parts[0].equals("E")) {
+                    LocalDateTime dateTimeFrom;
+                    LocalDateTime dateTimeTo;
+                    DateTimeFormatter defaultFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    DateTimeFormatter isoFormat = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
+                    try {
+                        dateTimeFrom = LocalDateTime.parse(parts[3], defaultFormat);
+                    } catch (DateTimeParseException e1) {
                         try {
-                            dateTimeFrom = LocalDateTime.parse(parts[3], defaultFormat);
-                        } catch (DateTimeParseException e1) {
-                            try {
-                                dateTimeFrom = LocalDateTime.parse(parts[3], isoFormat);
-                            } catch (DateTimeParseException e2) {
-                                System.out.println("Error parsing start date-time from saved data: " + parts[3]);
-                                continue; // Skip to the next loop iteration if date parsing fails
-                            }
+                            dateTimeFrom = LocalDateTime.parse(parts[3], isoFormat);
+                        } catch (DateTimeParseException e2) {
+                            System.out.println("Error parsing start date-time from saved data: " + parts[3]);
+                            continue; // Skip to the next loop iteration if date parsing fails
                         }
+                    }
 
+                    try {
+                        dateTimeTo = LocalDateTime.parse(parts[4], defaultFormat);
+                    } catch (DateTimeParseException e1) {
                         try {
-                            dateTimeTo = LocalDateTime.parse(parts[4], defaultFormat);
-                        } catch (DateTimeParseException e1) {
-                            try {
-                                dateTimeTo = LocalDateTime.parse(parts[4], isoFormat);
-                            } catch (DateTimeParseException e2) {
-                                System.out.println("Error parsing end date-time from saved data: " + parts[4]);
-                                continue; // Skip to the next loop iteration if date parsing fails
-                            }
+                            dateTimeTo = LocalDateTime.parse(parts[4], isoFormat);
+                        } catch (DateTimeParseException e2) {
+                            System.out.println("Error parsing end date-time from saved data: " + parts[4]);
+                            continue; // Skip to the next loop iteration if date parsing fails
                         }
+                    }
 
-                        Event event = new Event(parts[2], dateTimeFrom, dateTimeTo);
-                        if (parts[1].equals("1")) {
-                            event.markAsDone();
-                        }
-                        tasks.add(event);
-                        break;
+                    Event event = new Event(parts[2], dateTimeFrom, dateTimeTo);
+                    if (parts[1].equals("1")) {
+                        event.markAsDone();
+                    }
+                    tasks.add(event);
                 }
             }
         }
