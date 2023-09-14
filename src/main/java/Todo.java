@@ -28,27 +28,6 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
-    public void addTodoTask(ArrayList<Task> store, String[] commandTask) {
-        Task curr = new Todo(commandTask[1]);
-        store.add(curr);
-
-        System.out.println("Got it. I've added this task:");
-        System.out.println(curr.toString());
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
-
-    }
-
-    public void addtoStore() throws IOException {
-        FileWriter fw = new FileWriter("./data/sae.txt", true);
-        String completion = isDone ? "1" : "0";
-        // Check if the file is empty, if not, add a new line before writing
-        File file = new File("./data/sae.txt");
-        if (file.length() > 0) {
-            fw.write("\n");
-        }
-        fw.write("T | " + completion + " | " + description);
-        fw.close();
-    }
 
     public String toFileString() {
         String completionStatus = isDone ? "1" : "0";

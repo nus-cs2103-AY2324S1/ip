@@ -24,12 +24,13 @@ public class Ui {
         System.out.println("Now you have " + taskcount + " tasks in the list.");
     }
 
-    public void maskAsDoneMessage(Task task) {
+    public void markAsDoneMessage(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
     }
 
-    public void unmarkAsDoneMessage(Task task) {
-
+    public void unMarkAsDoneMessage(Task task) {
+        System.out.println("I have unmarked this task as done: ");
+        System.out.println(task.toString());
     }
 }

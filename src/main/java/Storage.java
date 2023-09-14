@@ -19,22 +19,22 @@ public class Storage {
         f.createNewFile();
     }
 
-    public ArrayList<Task> loadTasks(String filePath) throws IOException {
+    public TaskList loadTasks(String filePath) throws IOException {
         File f = new File(filePath);
         // if the files doesn't exist, we make the file
         if (!f.exists()) {
             createFile(f);
-            throw new FileNotFoundException("The file is not found, try again!");
+            throw new FileNotFoundException("The file has not been created. Try again.");
         }
         else {
             return readTasks(filePath);
         }
     }
 
-    public ArrayList<Task> readTasks(String filePath) throws FileNotFoundException {
+    public TaskList readTasks(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner tasks = new Scanner(f);
-        ArrayList<Task> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
         while (tasks.hasNext()) {
             String str = tasks.nextLine();
             String[] taskDetails = str.split("\\|"); // Escape the pipe character
@@ -46,7 +46,7 @@ public class Storage {
                 case "T":
                     Todo newTodo = new Todo(description);
                     newTodo.isDone = completion.equals("1");
-                    taskList.add(newTodo);
+                    taskList.addTask(newTodo);
                     break;
                 case "D":
                     String by = taskDetails[3].trim();
@@ -58,14 +58,14 @@ public class Storage {
 
                     Deadline newDeadline = new Deadline(description, dateTime);
                     newDeadline.isDone = completion.equals("1");
-                    taskList.add(newDeadline);
+                    taskList.addTask(newDeadline);
                     break;
                 case "E":
                     String from = taskDetails[3].trim();
                     String to = taskDetails[4].trim();
                     Event newEvent = new Event(description, from, to);
                     newEvent.isDone = completion.equals("1");
-                    taskList.add(newEvent);
+                    taskList.addTask(newEvent);
                     break;
             }
         }
@@ -74,11 +74,12 @@ public class Storage {
     }
 
 
-    public void saveTasks(ArrayList<Task> taskList) throws IOException {
+    public void saveTasks(TaskList taskList) throws IOException {
         File f = new File(filePath);
         FileWriter fw = new FileWriter(f);
 
-        for (Task task : taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
             String taskString = task.toFileString();
             fw.write(taskString + System.lineSeparator());
         }

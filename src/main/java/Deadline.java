@@ -36,40 +36,6 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
-    public void addDeadlineTask(ArrayList<Task> store, String[] commandTask) throws InvalidDateTimeFormatException {
-        String[] parts = commandTask[1].split("/by");
-        String description = parts[0].trim();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
-        try {
-            LocalDateTime by = LocalDateTime.parse(parts[1].trim(), formatter);
-
-            Task curr = new Deadline(description, by);
-            store.add(curr);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(curr.toString());
-            System.out.println("Now you have " + store.size() + " tasks in the list.");
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeFormatException("Invalid date and time format");
-        }
-    }
-
-    public void addtoStore() throws IOException {
-        FileWriter fw = new FileWriter("./data/sae.txt", true);
-        String completion = isDone ? "1" : "0";
-        File file = new File("./data/sae.txt");
-        if (file.length() > 0) {
-            fw.write("\n");
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy ha");
-        String formattedBy = by.format(formatter);
-
-        fw.write("D | " + completion + " | " + description + " | " + formattedBy);
-        fw.close();
-    }
-
     public String toFileString() {
         String completionStatus = isDone ? "1" : "0";
 

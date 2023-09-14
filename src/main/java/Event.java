@@ -35,26 +35,6 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
-    public void addEventTask(ArrayList<Task> store, String[] commandTask) {
-        String[] parts = commandTask[1].split("/from|/to");
-        Task curr = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-        store.add(curr);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + curr.toString());
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
-    }
-
-    public void addtoStore() throws IOException {
-        FileWriter fw = new FileWriter("./data/sae.txt", true);
-        String completion = isDone ? "1" : "0";
-        File file = new File("./data/sae.txt");
-        if (file.length() > 0) {
-            fw.write("\n");
-        }
-        fw.write("E | " + completion + " | " + description + " | " + from + " | " + to);
-        fw.close();
-    }
-
     public String toFileString() {
         String completionStatus = isDone ? "1" : "0";
         return String.format("%s | %s | %s | %s | %s", "E", completionStatus, description.trim(), from.trim(), to.trim());
