@@ -56,7 +56,7 @@ public class TaskList {
      *
      * @return list
      */
-    public List<Task> list() {
+    public List<Task> getList() {
         return list;
     }
 
@@ -64,7 +64,7 @@ public class TaskList {
     public boolean equals(Object o) {
         if (o instanceof TaskList) {
             TaskList temp = (TaskList) o;
-            List<Task> check = temp.list();
+            List<Task> check = temp.getList();
 
             if (list.size() != check.size()) {
                 return false;
@@ -91,7 +91,7 @@ public class TaskList {
         ArrayList<Task> result = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-            String name = list.get(i).taskName();
+            String name = list.get(i).getTaskName();
 
             if (name.contains(keyword)) {
                 result.add(list.get(i));

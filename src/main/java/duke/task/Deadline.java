@@ -18,18 +18,18 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String status() {
+    public String getStatus() {
         return isDone() ? "[D][X]" : "[D][ ]";
     }
 
     @Override
-    public String taskName() {
-        return super.taskName() + " (by: " + date + ")";
+    public String getTaskName() {
+        return super.getTaskName() + " (by: " + date + ")";
     }
 
 
     @Override
-    public String type() {
+    public String getType() {
         return "Task.Deadline";
     }
 
@@ -38,14 +38,14 @@ public class Deadline extends Task {
      *
      * @return date of task in LocalDate
      */
-    public LocalDate date() {
+    public LocalDate getDate() {
         return LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
     }
     @Override
     public boolean equals(Object o) {
         if (o instanceof Deadline) {
             Deadline temp = (Deadline) o;
-            return this.date().equals(temp.date()) && taskName().equals(temp.taskName()) && isDone() == temp.isDone();
+            return this.getDate().equals(temp.getDate()) && getTaskName().equals(temp.getTaskName()) && isDone() == temp.isDone();
         }
         return false;
     }

@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Ui;
 import duke.task.TaskList;
-import duke.Duke;
 
 /**
  * Command to mark task from list as not done
@@ -19,7 +18,7 @@ public class UnmarkCommand extends Command{
     @Override
     public String execute(TaskList list) {
         list.unmark(index);
-        return Ui.ui.unmarkPrompt(list.list().get(index));
+        return Ui.ui.unmarkPrompt(list.getList().get(index));
     }
 
     public int index() {

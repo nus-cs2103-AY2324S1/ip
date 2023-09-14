@@ -5,8 +5,6 @@ import duke.task.Events;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.rmi.server.ServerNotActiveException;
-
 /**
  * Object to keep track of all data from user's task list
  *
@@ -31,7 +29,7 @@ public class SaveData {
         events = new Events[n];
 
         for (int i = 0; i < n; i++) {
-            type[i] = list[i].type();
+            type[i] = list[i].getType();
 
             switch (type[i]) {
                 case "Task.ToDo":

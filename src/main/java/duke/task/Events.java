@@ -21,17 +21,17 @@ public class Events extends Task {
     }
 
     @Override
-    public String status() {
+    public String getStatus() {
         return isDone() ? "[E][X]" : "[E][ ]";
     }
 
     @Override
-    public String taskName() {
-        return super.taskName() + " (from: " + startDate + " to: " + endDate + ")";
+    public String getTaskName() {
+        return super.getTaskName() + " (from: " + startDate + " to: " + endDate + ")";
     }
 
     @Override
-    public String type() {
+    public String getType() {
         return "Task.Events";
     }
 
@@ -40,7 +40,7 @@ public class Events extends Task {
      *
      * @return start date
      */
-    public LocalDate startDate() {
+    public LocalDate getStartDate() {
         return LocalDate.parse(startDate, DateTimeFormatter.ISO_DATE);
     }
 
@@ -49,7 +49,7 @@ public class Events extends Task {
      *
      * @return end date
      */
-    public LocalDate endDate() {
+    public LocalDate getEndDate() {
         return LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
     }
 
@@ -57,8 +57,8 @@ public class Events extends Task {
     public boolean equals(Object o){
         if (o instanceof Events) {
             Events temp = (Events) o;
-            return this.startDate().equals(temp.startDate()) && this.endDate().equals(temp.endDate())
-                    && taskName().equals(temp.taskName()) && isDone() == temp.isDone();
+            return this.getStartDate().equals(temp.getStartDate()) && this.getEndDate().equals(temp.getEndDate())
+                    && getTaskName().equals(temp.getTaskName()) && isDone() == temp.isDone();
         }
         return false;
     }

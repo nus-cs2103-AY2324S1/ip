@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -16,7 +15,6 @@ import javafx.stage.Stage;
 
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Handles the input and output of the program
@@ -63,7 +61,7 @@ public class Ui {
      */
     public String createTaskPrompt (Task task) {
 
-        String result = "Chewie gotcha, task added:\n" + task.status() + task.taskName();
+        String result = "Chewie gotcha, task added:\n" + task.getStatus() + task.getTaskName();
         result += "\nChewie now find " + Duke.listSize() + " tasks in the list";
         return result;
     }
@@ -75,7 +73,7 @@ public class Ui {
      */
     public String markPrompt(Task task) {
         String result = "Rrrruuuurrr, Chewie has marked the task.\n";
-        result += task.status() + task.taskName();
+        result += task.getStatus() + task.getTaskName();
 
         return result;
     }
@@ -87,7 +85,7 @@ public class Ui {
      */
     public String unmarkPrompt(Task task) {
         String result = "Rrrruuuurrr, Chewie has unmarked the task.\n";
-        result += task.status() + task.taskName();
+        result += task.getStatus() + task.getTaskName();
         return result;
     }
 
@@ -97,7 +95,7 @@ public class Ui {
      * @param task task created
      */
     public String deletePrompt(Task task) {
-        String result = "Chewie gotcha, task removed:\n" + task.status() + task.taskName();
+        String result = "Chewie gotcha, task removed:\n" + task.getStatus() + task.getTaskName();
         result += "\nChewie now find " + (Duke.listSize() - 1) + " tasks in the list" + "\n";
         return result;
     }
@@ -108,7 +106,7 @@ public class Ui {
      * @param taskList user's task list
      */
     public String listPrompt(TaskList taskList) {
-        List<Task> list = taskList.list();
+        List<Task> list = taskList.getList();
 
 
         String result = "Chewie found your task list:\n";
@@ -117,7 +115,7 @@ public class Ui {
             int index = i + 1;
             Task task = list.get(i);
 
-            result += index + "." + task.status() + task.taskName() + "\n";
+            result += index + "." + task.getStatus() + task.getTaskName() + "\n";
         }
         return result;
     }
@@ -130,7 +128,7 @@ public class Ui {
             int index = i + 1;
             Task task = list[i];
 
-           result += index + "." + task.status() + task.taskName() + "\n";
+           result += index + "." + task.getStatus() + task.getTaskName() + "\n";
         }
 
         return result;

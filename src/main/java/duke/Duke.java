@@ -3,7 +3,6 @@ package duke;
 import java.time.format.DateTimeParseException;
 
 import javafx.application.Application;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import duke.command.Command;
@@ -66,7 +65,7 @@ public class Duke extends Application {
      * @return size of list
      */
     public static int listSize() {
-        return list.list().size();
+        return list.getList().size();
     }
 
     /**

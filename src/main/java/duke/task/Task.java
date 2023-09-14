@@ -21,7 +21,7 @@ public class Task {
      *
      * @return a string indicating its type
      */
-    public String type() {
+    public String getType() {
         return "duke/task";
     }
 
@@ -30,7 +30,7 @@ public class Task {
      *
      * @return task name
      */
-    public String taskName() {
+    public String getTaskName() {
         return name;
     }
 
@@ -65,7 +65,7 @@ public class Task {
      *
      * @return a string marker indicating status of task
      */
-    public String status() {
+    public String getStatus() {
         return done ? "[X]" : "[ ]";
     }
 
@@ -73,7 +73,7 @@ public class Task {
     public boolean equals(Object o){
         if (o instanceof Task) {
             Task temp = (Task)o;
-            return this.name.equals(temp.taskName()) && this.done == temp.isDone();
+            return this.name.equals(temp.getTaskName()) && this.done == temp.isDone();
         }
         return false;
     }

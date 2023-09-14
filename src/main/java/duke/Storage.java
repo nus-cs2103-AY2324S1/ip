@@ -31,7 +31,7 @@ public class Storage {
      * @param list user's task list
      */
     public void save(TaskList list) {
-        SaveData save = new SaveData(list.list().toArray(new Task[0]));
+        SaveData save = new SaveData(list.getList().toArray(new Task[0]));
         String json = gson.toJson(save);
 
         // write to save file
@@ -54,7 +54,7 @@ public class Storage {
      * @param filePath directory for save file
      */
     public void save(TaskList list, String filePath) {
-        SaveData save = new SaveData(list.list().toArray(new Task[0]));
+        SaveData save = new SaveData(list.getList().toArray(new Task[0]));
         String json = gson.toJson(save);
 
         // write to save file

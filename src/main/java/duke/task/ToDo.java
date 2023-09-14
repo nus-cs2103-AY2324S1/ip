@@ -13,12 +13,12 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String status() {
+    public String getStatus() {
         return isDone() ? "[T][X]" : "[T][ ]";
     }
 
     @Override
-    public String type() {
+    public String getType() {
         return "Task.ToDo";
     }
 

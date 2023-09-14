@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList list) {
-        Task temp = list.list().get(index);
+        Task temp = list.getList().get(index);
         list.delete(index);
         return Ui.ui.deletePrompt(temp);
     }
