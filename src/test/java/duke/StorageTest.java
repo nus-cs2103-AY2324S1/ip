@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class StorageTest {
 
     @Test
-    public void testSaveAndLoad() throws IOException {
+    public void testSaveAndLoad() throws IOException, DukeException {
 
         Path filePath = Path.of("data/test.txt");
         Storage storage = new Storage(filePath.toString());
