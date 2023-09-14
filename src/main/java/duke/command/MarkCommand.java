@@ -66,6 +66,8 @@ public class MarkCommand extends Command {
         Task taskMarked = tasks.markAsDone(taskIndexToMark);
         tasks.storeTasks(storage);
 
+        assert taskMarked != null : "Marked task should not be null";
+
         StringBuilder response = new StringBuilder();
         response.append("Nice! I've marked this task as done:\n");
         response.append(String.format("  %s", taskMarked.toString()));
