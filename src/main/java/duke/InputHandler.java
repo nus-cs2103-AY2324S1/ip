@@ -7,12 +7,12 @@ import duke.task.TaskStorage;
 
 class InputHandler {
     private final Scanner scanner = new Scanner(System.in);
-    private final UI.OutputUI outputUI;
+    private final CliOutputUi outputUI;
     private final TaskStorage taskStorage;
 
     private boolean isExit = false;
 
-    public InputHandler(UI.OutputUI outputUI, TaskStorage taskStorage) {
+    public InputHandler(CliOutputUi outputUI, TaskStorage taskStorage) {
         this.outputUI = outputUI;
         this.taskStorage = taskStorage;
     }
