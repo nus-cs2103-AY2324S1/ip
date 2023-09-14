@@ -1,10 +1,13 @@
 package dialogix.main;
 
-import dialogix.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import dialogix.task.Task;
+
+/**
+ * Ui of Dialogix.
+ */
 public class Ui {
     private StringBuilder output;
 
@@ -72,10 +75,6 @@ public class Ui {
         }
     }
 
-    public String getGreeting() {
-        return "Hello from Dialogix\nWhat can I do for you?";
-    }
-
     /**
      * Prints the exit message.
      *
@@ -93,6 +92,11 @@ public class Ui {
         addToOutput(message);
     }
 
+    /**
+     * Displays a list of matching tasks to the console.
+     *
+     * @param matchingTasks The list of tasks that match the search criteria.
+     */
     public void showSearchResults(List<Task> matchingTasks) {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < matchingTasks.size(); i++) {
