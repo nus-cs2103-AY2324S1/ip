@@ -93,7 +93,7 @@ public class Duke {
 
         if (command instanceof ExitCommand) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(e -> Platform.exit());
+            pause.setOnFinished(event -> Platform.exit());
             pause.play();
         }
 
