@@ -58,7 +58,6 @@ public class Parser {
      * @return A Command object corresponding to the user's input command.
      */
     public Command parse(String fullCommand) throws Exception {
-//        try {
             String[] actionType = fullCommand.split(" ");
 
             String[] typeAndDate = fullCommand.split("/");
@@ -78,7 +77,9 @@ public class Parser {
                 return new ListCommand();
             } else if (Objects.equals(actionType[0], "mark")) {
                 // Mark Command
+                int len = actionType.length;
                 if (actionType.length == 1) {
+                    assert len > 0 : "No command found";
                     throw new MissingTaskToMarkException();
                 }
                 if (!isInteger(actionType[1])) {
@@ -91,7 +92,9 @@ public class Parser {
                 return new MarkCommand(actionType[1]);
             } else if (Objects.equals(actionType[0], "unmark")) {
                 // Unmark Command
+                int len = actionType.length;
                 if (actionType.length == 1) {
+                    assert len > 0 : "No command found";
                     throw new MissingTaskToUnmarkException();
                 }
                 if (!isInteger(actionType[1])) {
@@ -107,7 +110,9 @@ public class Parser {
                 if (tasksList.isEmpty()) {
                     throw new NoTaskDeleteException();
                 }
+                int len = actionType.length;
                 if (actionType.length == 1) {
+                    assert len > 0 : "No command found";
                     throw new MissingTaskToDeleteException();
                 }
                 if (!isInteger(actionType[1])) {
@@ -123,19 +128,25 @@ public class Parser {
                 if (tasksList.isEmpty()) {
                     throw new NoTaskFindException("No task can be found as there is no task in the list.");
                 }
+                int len = actionType.length;
                 if (actionType.length == 1) {
+                    assert len > 0 : "No command found";
                     throw new MissingTaskToFindException("Please specify a keyword to find a task.");
                 }
                 return new FindCommand(actionType[1]);
             } else if (Objects.equals(actionType[0], "todo")) {
                 // Adds to do Command
+                int len = actionType.length;
                 if (actionType.length == 1) {
+                    assert len > 0 : "No command found";
                     throw new MissingToDoDescriptionException();
                 }
                 return new ToDoCommand(actionType);
             } else if (Objects.equals(actionType[0], "deadline")) {
                 // Adds deadline Command
+                int len = actionType.length;
                 if (actionType.length == 1) {
+                    assert len > 0 : "No command found";
                     throw new MissingDescriptionAndDeadlineException();
                 }
                 if (!fullCommand.contains("/by")) {
@@ -147,7 +158,9 @@ public class Parser {
                 return new DeadlineCommand(actionAndDesc, typeAndDate);
             } else if (Objects.equals(actionType[0], "event")) {
                 // Adds event Command
+                int len = actionType.length;
                 if (actionType.length == 1) {
+                    assert len > 0 : "No command found";
                     throw new MissingDescriptionAndDurationException();
                 }
                 if (!fullCommand.contains("/from") || !fullCommand.contains("/to")) {
@@ -173,6 +186,7 @@ public class Parser {
     public boolean isInteger(String input) {
         try {
             int value = Integer.parseInt(input);
+            assert value > 0 : "Task number must be greater than 1";
             return true;
         } catch (NumberFormatException numberFormatException) {
             System.out.println(input + " is not an integer.");
