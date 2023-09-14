@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class DiskManagerTest {
     @Test
     public void loadFromDisk_loadDummyFile_success() throws DukeException {
-        String expected = "[T][ ] play[D][ ] submit work (by: Aug 20 2023)";
+        String expected = "[T][ ] play[D][ ] play (by: Aug 9 2023)[E][X] play (from: Apr 4 2023 to: May 5 2023)";
         assertEquals(expected,
                 new DiskManager("src/test/resources", "tasks.json")
                         .loadFromDisk().toString());
