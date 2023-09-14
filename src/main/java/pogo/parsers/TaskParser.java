@@ -1,5 +1,8 @@
 package pogo.parsers;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +13,7 @@ import pogo.commands.AddToDoCommand;
 import pogo.commands.Command;
 import pogo.commands.DeleteTaskCommand;
 import pogo.commands.InvalidCommand;
+import pogo.commands.ListTasksCommand;
 import pogo.commands.MarkTaskCommand;
 import pogo.commands.UnmarkTaskCommand;
 import pogo.common.Messages;
@@ -19,10 +23,48 @@ import pogo.tasks.exceptions.PogoInvalidTaskException;
  * TaskParser parses user input into a Command object.
  */
 public class TaskParser {
+    private static final Pattern LIST_PATTERN = Pattern.compile("/from (?<from>.*) /to (?<to>.*)");
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("(?<description>.*) /by (?<by>.*)");
     private static final Pattern TODO_PATTERN = Pattern.compile("(?<description>.*)");
     private static final Pattern EVENT_PATTERN = Pattern.compile("(?<description>.*) /from (?<from>.*) /to (?<to>.*)");
     private static final Pattern MARK_PATTERN = Pattern.compile("(?<index>\\d+)");
+
+
+    /**
+     * Parses a list command.
+     * A valid list command has the format "list /from FROM /to TO".
+     * Returns an InvalidCommand if the command is invalid.
+     *
+     * @param arguments The input string.
+     * @return The ListTasksCommand if the command is valid.
+     */
+    public static Command parseListCommand(String arguments) {
+        final Matcher listMatcher = LIST_PATTERN.matcher(arguments);
+        // Set from and to encompass all dates
+        LocalDateTime from = LocalDateTime.of(LocalDate.MIN, LocalTime.MIN);
+        LocalDateTime to = LocalDateTime.of(LocalDate.MAX, LocalTime.MAX);
+
+        try {
+            if (listMatcher.matches()) {
+                String fromString = listMatcher.group("from");
+                String toString = listMatcher.group("to");
+                from = DateTimeParser.parse(fromString);
+                to = DateTimeParser.parse(toString);
+
+                if (from.isAfter(to)) {
+                    return new InvalidCommand(Messages.INVALID_DATE_RANGE);
+                }
+            }
+        } catch (DateTimeParseException e) {
+            return new InvalidCommand(e.getMessage());
+        }
+
+        return new ListTasksCommand(from, to);
+    }
+
+    private static boolean isEmptyDescription(String description) {
+        return description.equals("");
+    }
 
     /**
      * Parses a deadline command.
@@ -38,14 +80,16 @@ public class TaskParser {
         InvalidCommand ic = new InvalidCommand(Messages.INVALID_TASK
                 + System.lineSeparator()
                 + AddDeadlineCommand.MESSAGE_USAGE);
+
         if (!matcher.matches()) {
             return ic;
         }
 
         String description = matcher.group("description");
-        if (description.equals("")) {
+        if (isEmptyDescription(description)) {
             return ic;
         }
+
         String by = matcher.group("by");
         try {
             return new AddDeadlineCommand(description, DateTimeParser.parse(by));
@@ -68,12 +112,13 @@ public class TaskParser {
                 new InvalidCommand(Messages.INVALID_TASK
                         + System.lineSeparator()
                         + AddToDoCommand.MESSAGE_USAGE);
+
         if (!matcher.matches()) {
             return ic;
         }
 
         String description = matcher.group("description");
-        if (description.equals("")) {
+        if (isEmptyDescription(description)) {
             return ic;
         }
         return new AddToDoCommand(description);
@@ -93,12 +138,13 @@ public class TaskParser {
                 new InvalidCommand(Messages.INVALID_TASK
                         + System.lineSeparator()
                         + AddEventCommand.MESSAGE_USAGE);
+
         if (!matcher.matches()) {
             return ic;
         }
 
         String description = matcher.group("description");
-        if (description.equals("")) {
+        if (isEmptyDescription(description)) {
             return ic;
         }
 
@@ -112,10 +158,10 @@ public class TaskParser {
     }
 
     /**
-     * Parses the index of a task.
+     * Parses the index of a task, returning -1 for invalid indices.
      *
      * @param input The input string.
-     * @return The index of the task.
+     * @return The index of the task, -1 if it does not exist.
      */
     private static int parseIndex(String input) {
         final Matcher matcher = MARK_PATTERN.matcher(input);

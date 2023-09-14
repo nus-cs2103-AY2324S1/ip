@@ -1,9 +1,5 @@
 package pogo.parsers;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +27,6 @@ public class Parser {
      * A command consists of a command word e.g. "list" and an optional arguments string.
      */
     public static final Pattern COMMAND_PATTERN = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
-    private static final Pattern LIST_PATTERN = Pattern.compile("/from (?<from>.*) /to (?<to>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -41,7 +36,8 @@ public class Parser {
      */
     public static Command parseCommand(String input) {
         final Matcher matcher = COMMAND_PATTERN.matcher(input.trim());
-        if (!matcher.matches()) {
+        boolean isValidCommand = matcher.matches();
+        if (!isValidCommand) {
             return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND);
         }
 
@@ -51,28 +47,7 @@ public class Parser {
         try {
             switch (commandWord) {
             case ListTasksCommand.COMMAND_WORD:
-                final Matcher listMatcher = LIST_PATTERN.matcher(arguments);
-                // Set from and to encompass all dates
-                LocalDateTime from = LocalDateTime.of(LocalDate.MIN, LocalTime.MIN);
-                LocalDateTime to = LocalDateTime.of(LocalDate.MAX, LocalTime.MAX);
-
-                try {
-                    if (listMatcher.matches()) {
-                        String fromString = listMatcher.group("from");
-                        String toString = listMatcher.group("to");
-                        from = DateTimeParser.parse(fromString);
-                        to = DateTimeParser.parse(toString);
-
-                        if (from.isAfter(to)) {
-                            return new InvalidCommand(Messages.INVALID_DATE_RANGE);
-                        }
-                    }
-                } catch (DateTimeParseException e) {
-                    return new InvalidCommand(e.getMessage());
-                }
-                assert false : "List command should return before this point";
-
-                return new ListTasksCommand(from, to);
+                return TaskParser.parseListCommand(arguments);
             case FindTaskCommand.COMMAND_WORD:
                 return new FindTaskCommand(arguments);
             case AddDeadlineCommand.COMMAND_WORD:
@@ -99,4 +74,5 @@ public class Parser {
 
         return new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND);
     }
+
 }
