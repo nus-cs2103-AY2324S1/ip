@@ -53,4 +53,8 @@ public class AppController {
     public boolean isExit() {
         return isExit;
     }
+
+    public static String getWelcomeMessage() {
+        return "Hello! I'm Meowies\n    What can I do for you?";
+    }
 }
