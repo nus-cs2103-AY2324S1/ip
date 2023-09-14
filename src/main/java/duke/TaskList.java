@@ -62,16 +62,12 @@ public class TaskList {
             toYear = toYear.substring(0, toYear.indexOf(" "));
             LocalDate to = LocalDate.of(Integer.parseInt(trimString(toYear)), Integer.parseInt(toMonth), Integer.parseInt(toDate));
             LocalDate from = LocalDate.of(Integer.parseInt(trimString(fromYear)), Integer.parseInt(fromMonth), Integer.parseInt(fromDate));
-
+            Event event = new Event(content, from, to);
             if (done.equals("1")) {
-                Event event = new Event(content, from, to);
                 event.finish();
-
-                list.add(event);
-            } else {
-                Event event = new Event(content, from, to);
-                list.add(event);
             }
+            list.add(event);
+
         }
         else if (arr[0].equals("deadline")) {
             String firstBy = arr[1].substring(arr[1].indexOf("/by") + 4);
@@ -83,11 +79,7 @@ public class TaskList {
             String byYear = firstByMonth.substring(firstByMonth.indexOf("/") + 1);
             byYear = byYear.substring(0, byYear.indexOf(" "));
             LocalDate by = LocalDate.of(Integer.parseInt(byYear), Integer.parseInt(byMonth), Integer.parseInt(byDate));
-
-
             Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), by);
-
-
             if (done.equals("1")) {
                 deadline.finish();
                 list.add(deadline);
@@ -123,16 +115,9 @@ public class TaskList {
      * @throws Exception If an error occurs during execution.
      */
 
-    public String Answer(String input) throws Exception{ // just a reader for additional files inputted by the users.
-        // my plan is to make sure every line inputted by the user, it is saved to the zenith.txt file directly.
-        // But to show the users the list, need to first load the data to a class storage containing the copied
-        // data of zenith.txt
+    public String Answer(String input) throws Exception{
         String zenithData = "src/main/java/data/zenith.txt";
-
         Parser parser = new Parser(list, input);
-        // list is updated already but string in parser null
-
-
         String arr[];
         String onetwo = list.size() > 1? " tasks": " task";
         Ui ui = new Ui();
@@ -142,14 +127,9 @@ public class TaskList {
             Ui bye = new Ui();
             bye.bye();
             return ui.toString();
-        }
-        else if (parser.getStr().equals("list")) {
-
-
+        } else if (parser.getStr().equals("list")) {
             ui.currentlist((list.size()), onetwo);
             return List() + ui.toString();
-
-
         } else if (parser.getArr()[0].equals("delete")) {
             try {
                 arr = parser.getArr();
@@ -170,16 +150,11 @@ public class TaskList {
             }
         }
         else if (parser.getArr()[0].equals("mark")) {
-            //arr[1].length() == 1 && isNumeric(arr[1])
             try {
                 arr = parser.getArr();
                 ui.mark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
-
                 list.get(Integer.parseInt(arr[1]) - 1).getDescription();
-                //System.out.println("Noted. I've marked this task: ");
-                //System.out.println("    [X] " + list.get(Integer.parseInt(arr[1]) - 1).getDescription());
                 list.get(Integer.parseInt(arr[1]) - 1).finish();
-                //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
                 refreshData();
                 return ui.toString();
 
@@ -199,24 +174,17 @@ public class TaskList {
                 arr = parser.getArr();
                 list.get(Integer.parseInt(arr[1]) - 1).getDescription();
                 ui.unmark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
-
-                //System.out.println("OK, I've marked this task as not done yet: ");
-                //System.out.println("    [] " + list.get(Integer.parseInt(arr[1]) - 1).getDescription());
                 list.get(Integer.parseInt(arr[1]) - 1).unfinish();
-                //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
-
                 refreshData();
                 return ui.toString();
             }
             catch(NumberFormatException e) {
                 ui.numExc();
                 return ui.toString();
-
             }
             catch(IndexOutOfBoundsException e) {
                 ui.indexOut();
                 return ui.toString();
-
             }
         }
 
@@ -237,8 +205,6 @@ public class TaskList {
             String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6);
             String secondFrom = firstFrom.substring(0, firstFrom.indexOf("/to"));
             String to = arr[1].substring(arr[1].indexOf("/to")+ 4);
-            //System.out.println("____________________________________________________________");
-            //System.out.println("Got it. I've added this task:");
             String content = arr[1].substring(0, arr[1].indexOf("/from "));
             String toDate = to.substring(0, to.indexOf("/"));
             String firstToMonth = to.substring(to.indexOf("/") + 1);
@@ -252,12 +218,8 @@ public class TaskList {
             fromYear = fromYear.substring(0, fromYear.indexOf(" "));
             LocalDate from = LocalDate.of(Integer.parseInt(fromYear), Integer.parseInt(fromMonth), Integer.parseInt(fromDate));
             Event event = new Event(content, from, secondTo);
-            //System.out.println(event);
             ui.add(event, list.size(), onetwo);
-
             list.add(event);
-            //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
-            //System.out.println("____________________________________________________________");
             appendToFile(zenithData, parser.getStr());
             refreshData();
             return ui.toString();
@@ -266,24 +228,14 @@ public class TaskList {
         } else if (parser.getArr()[0].equals("deadline")) {
             arr = parser.getArr();
             String by = arr[1].substring(arr[1].indexOf("/by") + 4);
-            //System.out.println("____________________________________________________________");
-            //System.out.println("Got it. I've added this task:");
             String byDate = by.substring(0, by.indexOf("/"));
             String firstByMonth = by.substring(by.indexOf("/") + 1);
             String byMonth = firstByMonth.substring(0, firstByMonth.indexOf("/"));
             String byYear = firstByMonth.substring(firstByMonth.indexOf("/") + 1);
-
-
             LocalDate secondBy = LocalDate.of(Integer.parseInt(byYear), Integer.parseInt(byMonth), Integer.parseInt(byDate));
-
             Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), secondBy);
-            //System.out.println(deadline);
             ui.add(deadline, list.size(), onetwo);
-
             list.add(deadline);
-            //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
-            //System.out.println("____________________________________________________________");
-            //appendToFile(zenithData, str);
             refreshData();
             return ui.toString();
 
@@ -292,14 +244,8 @@ public class TaskList {
             try {
                 arr = parser.getArr();
                 Todo todo = new Todo(arr[1]);
-                //System.out.println("____________________________________________________________");
-                //System.out.println("Got it. I've added this task:");//  no following words after
-                //System.out.println(todo);
                 list.add(todo);
                 ui.add(todo, list.size(), onetwo);
-
-                //System.out.println("Now you have " + list.size() + onetwo +  " in the list");
-                //System.out.println("____________________________________________________________");
                 appendToFile(zenithData, parser.getStr());
                 refreshData();
                 return ui.toString();
@@ -307,30 +253,25 @@ public class TaskList {
             } catch (ArrayIndexOutOfBoundsException e){
                 ui.specify();
                 return ui.toString();
-
             }
         }
         else if(parser.getArr()[0].isEmpty()) {
-            try { // if empty string
+            try {
                 arr = parser.getArr();
                 System.out.println(arr[1]);
             } catch(ArrayIndexOutOfBoundsException e) {
                 ui.blank();
-                //System.out.println("Don't just input blank space");
                 return ui.toString();
             }
-        } else { // not the correct format
+        } else {
             try {
                 throw new DukeException("");
             }
             catch (DukeException e) {
-
                 ui.format();
-                //System.out.println("Please input the correct format");
                 return ui.toString();
             }
         }
-
         return ui.toString();
 
 
@@ -369,17 +310,17 @@ public class TaskList {
         // Split the input date string by the '-' delimiter
         String[] parts = inputDateStr.split("-");
 
-        // Ensure that there are three parts (year, month, day)
+        // Ensures that there are three parts (year, month, day)
         if (parts.length != 3) {
             return "Invalid date format";
         }
 
-        // Reorder the parts to form the desired output format
+        // Reorders the parts to form the desired output format
         String day = parts[2];
         String month = parts[1];
         String year = parts[0];
 
-        // Concatenate the parts with '/' separator
+        // Concatenates the parts with '/' separator
         String outputDateStr = day + "/" + month + "/" + year;
 
         return outputDateStr;
@@ -409,7 +350,7 @@ public class TaskList {
 
             if (task.isDone == true) {
                 done = " |1";
-            }// Perform your task processing here
+            }
             else {
                 done = " |0";
             }
@@ -427,7 +368,6 @@ public class TaskList {
             }
 
             if (task instanceof Deadline) {
-
                 by = "/by " + convertDateFormat(((Deadline) task).getBy().toString());
                 type = "deadline ";
                 String string = type + description + by + done;
