@@ -15,6 +15,7 @@ public class ErrorCommand extends Command {
      * Constructs an `ErrorCommand` object.
      */
     public ErrorCommand(String errorMessage) {
+        assert errorMessage != null : "errorMessage must not be null";
         this.errorMessage = errorMessage;
     }
 

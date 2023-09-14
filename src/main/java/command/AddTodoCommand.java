@@ -19,6 +19,7 @@ public class AddTodoCommand extends Command {
      * @param taskDesc The task description.
      */
     public AddTodoCommand(String taskDesc) {
+        assert taskDesc != null : "taskDesc must not be null";
         this.taskDesc = taskDesc;
     }
 

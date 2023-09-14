@@ -23,6 +23,10 @@ public class AddEventCommand extends Command {
      * @param to        The end date and time in string.
      */
     public AddEventCommand(String taskDesc, String from, String to) {
+        assert taskDesc != null : "taskDesc must not be null";
+        assert from != null : "from must not be null";
+        assert to != null : "to must not be null";
+
         this.taskDesc = taskDesc;
         this.from = from;
         this.to = to;

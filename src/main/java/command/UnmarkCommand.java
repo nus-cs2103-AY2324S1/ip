@@ -17,6 +17,7 @@ public class UnmarkCommand extends Command {
      * @param index The index of the task to mark as done.
      */
     public UnmarkCommand(int index) {
+        assert index > 0 : "index cannot be negative or zero";
         this.index = index;
     }
 
