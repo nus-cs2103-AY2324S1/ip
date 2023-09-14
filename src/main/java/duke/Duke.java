@@ -36,7 +36,8 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setScene(ui.sceneMaker());
+        stage.setScene(ui.makeScene());
+
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Luke");
         stage.setResizable(false);
@@ -104,7 +105,7 @@ public class Duke extends Application {
      */
     public void handle(String input) {
         try {
-            Executable command = parser.parseToExecutable(input);
+            Executable command = parser.parse(input);
             assert (command != null); // Parser should throw an exception if this occurs.
             boolean isShuttingDown = (command.execute(list, ui));
             if (isShuttingDown) {

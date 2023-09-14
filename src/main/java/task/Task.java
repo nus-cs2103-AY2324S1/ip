@@ -3,7 +3,7 @@ package task;
 /**
  * A generic task, containing a name and completion status.
  */
-public class Task {
+public abstract class Task {
     public static final String DIVIDER = "%!%";
     private final String name;
     private boolean isComplete;

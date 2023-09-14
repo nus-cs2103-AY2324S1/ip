@@ -7,11 +7,16 @@ import duke.UserInterface;
 import dukeexception.FailureInExecuteException;
 
 /**
- * Represents a deletion command of a particular task.
+ * Represents a deletion executable of a particular task.
  */
 public class DeleteExecutable implements Executable {
-    private int index;
-    public void setDelete(int index) {
+    private final int index;
+
+    /**
+     * Generates a new delete command.
+     * @param index the index to be deleted.
+     */
+    public DeleteExecutable(int index) {
         this.index = index;
     }
 
@@ -32,6 +37,7 @@ public class DeleteExecutable implements Executable {
         } catch (IOException e) {
             throw new FailureInExecuteException(e.getMessage());
         }
+        ui.output("deleted task indexed at " + index + " successfully");
         return false;
     }
 }

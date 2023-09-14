@@ -3,6 +3,8 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import command.AddTaskExecutable;
 import command.ClearExecutable;
@@ -26,7 +28,7 @@ import task.ToDo;
  */
 
 public class Parser {
-    private final HashMap<String, Executable> stringToCommand;
+    private final HashMap<String, ParserFunction> stringToCommand;
 
     /**
      * Initializes the parser.
@@ -40,17 +42,18 @@ public class Parser {
      * Initializes the hashmap.
      */
     private void init() {
-        stringToCommand.put("bye", new ShutdownExecutable());
-        stringToCommand.put("help", new HelpExecutable());
-        stringToCommand.put("list", new ListExecutable());
-        stringToCommand.put("todo", new AddTaskExecutable());
-        stringToCommand.put("deadline", new AddTaskExecutable());
-        stringToCommand.put("event", new AddTaskExecutable());
-        stringToCommand.put("delete", new DeleteExecutable());
-        stringToCommand.put("mark", new MarkExecutable(true));
-        stringToCommand.put("unmark", new MarkExecutable(false));
-        stringToCommand.put("find", new FindExecutable());
-        stringToCommand.put("clear", new ClearExecutable());
+        stringToCommand.put("bye", Parser::parseShutdownParams);
+        stringToCommand.put("help", Parser::parseHelpParams);
+        stringToCommand.put("list", Parser::parseListParams);
+        stringToCommand.put("clear", Parser::parseClearParams);
+        stringToCommand.put("todo", Parser::parseToDoParams);
+        stringToCommand.put("deadline", Parser::parseDeadlineParams);
+        stringToCommand.put("event", Parser::parseEventParams);
+        stringToCommand.put("delete", Parser::parseDeleteParams);
+        stringToCommand.put("mark", Parser::parseMarkParams);
+        stringToCommand.put("unmark", Parser::parseUnmarkParams);
+        stringToCommand.put("find", Parser::parseFindParams);
+        //Remember to add an entry into the hashmap whenever a command is added.
     }
 
     /**
@@ -60,115 +63,171 @@ public class Parser {
      * @throws InvalidCommandException if the command cannot be identified.
      * @throws InvalidVarException if the command is identifiable but the parameters are incorrect.
      */
-    public Executable parseToExecutable(String input) throws InvalidCommandException, InvalidVarException {
-        // TODO Split up this method.
-        String execIdentifier = input.split(" ")[0];
-        Executable executable = stringToCommand.get(execIdentifier);
-        if (executable instanceof ShutdownExecutable
-            || executable instanceof HelpExecutable
-            || executable instanceof ListExecutable
-            || executable instanceof ClearExecutable) {
-            if (!input.equals(execIdentifier)) {
-                throw new InvalidVarException("This command is not supposed to have variables!");
-            }
+    public Executable parse(String input) throws InvalidCommandException, InvalidVarException {
+        String commandRegex = "(\\S*)\\s?(.*)";
+        Matcher matcher = matchString(input, commandRegex);
+        String commandIdentifier = matcher.group(1);
+        String paramString = matcher.group(2);
+        ParserFunction parsable = stringToCommand.get(commandIdentifier);
+        checkIfInvalid(parsable);
+        return parsable.apply(paramString);
+    }
+
+    private static Matcher matchString(String input, String regex) throws InvalidVarException {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        if (!matcher.matches()) {
+            throw new InvalidVarException("Incorrect format!");
         }
-        if (executable instanceof AddTaskExecutable) {
-            if (input.equals(execIdentifier)) {
-                throw new InvalidCommandException("No parameters");
-            }
-            Task taskToAdd = null;
-            String name;
-            switch(execIdentifier) {
-            case ("todo"):
-                if (input.length() < 6) {
-                    throw new InvalidVarException("No name!");
-                }
-                name = input.substring(5);
-                if (name.isBlank()) {
-                    throw new InvalidVarException("Blank name!");
-                }
-                taskToAdd = new ToDo(name);
-                break;
-            case ("deadline"):
-                int split = input.indexOf("/by");
-                if (split == -1) {
-                    throw new InvalidCommandException("Deadline missing");
-                }
-                if (split < 10 || input.length() < split + 4) {
-                    throw new InvalidVarException("Blank parameters!");
-                }
-                name = input.substring(9, split - 1);
-                LocalDate deadline;
-                try {
-                    deadline = LocalDate.parse(input.substring(split + 4));
-                } catch (DateTimeParseException e) {
-                    throw new InvalidVarException("Could not parse dates!");
-                }
-                if (name.isBlank()) {
-                    throw new InvalidVarException("Blank parameters!");
-                }
-                taskToAdd = new Deadline(name, deadline);
-                break;
-            case ("event"):
-                int split1 = input.indexOf("/from");
-                int split2 = input.indexOf("/to");
-                if (split1 == -1 || split2 == -1) {
-                    throw new InvalidCommandException("Some parameters missing");
-                }
-                if (split1 < 7 || split2 < split1 + 5 || input.length() < split2 + 4) {
-                    throw new InvalidVarException("Blank parameters!");
-                }
-                name = input.substring(6, split1 - 1);
-                LocalDate start;
-                LocalDate end;
-                try {
-                    start = LocalDate.parse(input.substring(split1 + 6, split2 - 1));
-                    end = LocalDate.parse(input.substring(split2 + 4));
-                } catch (DateTimeParseException e) {
-                    throw new InvalidVarException("Could not parse dates!");
-                }
-                if (name.isBlank()) {
-                    throw new InvalidVarException("Blank parameters!");
-                }
-                taskToAdd = new Event(name, start, end);
-                break;
-            default:
-                assert false;
-                // This means a task type was added without a proper handler.
-            }
-            ((AddTaskExecutable) executable).setTask(taskToAdd);
-        } else if (executable instanceof DeleteExecutable) {
-            if (execIdentifier.equals(input)) {
-                throw new InvalidCommandException("No parameter");
-            }
-            int number;
-            try {
-                number = Integer.parseInt(input.substring(7)) - 1;
-            } catch (Exception e) {
-                throw new InvalidVarException("Task number could not be read");
-            } ((DeleteExecutable) executable).setDelete(number);
-        } else if (executable instanceof MarkExecutable) {
-            if (execIdentifier.equals(input)) {
-                throw new InvalidCommandException("No parameter");
-            }
-            int number;
-            try {
-                number = Integer.parseInt(input.substring(execIdentifier.length() + 1)) - 1;
-            } catch (Exception e) {
-                throw new InvalidVarException("Task number could not be read");
-            } ((MarkExecutable) executable).setMarkTarget(number);
-        } else if (executable instanceof FindExecutable) {
-            if (input.length() < 6) {
-                throw new InvalidVarException("No keyword!");
-            }
-            String keyword = input.substring(5);
-            if (keyword.isBlank()) {
-                throw new InvalidVarException("Blank keyword!");
-            } (
-                (FindExecutable) executable).setSearch(keyword);
-        } else if (executable == null) {
-            throw new InvalidCommandException("Unrecognized command");
+        return matcher;
+    }
+
+    private static boolean parseBoolString(String boolString) throws InvalidVarException {
+        if (boolString.equals("TRUE")) {
+            return true;
+        } else if (boolString.equals("FALSE")) {
+            return false;
+        } else {
+            throw new InvalidVarException("Could not read boolean");
         }
-        return executable;
+    }
+
+    private static void checkEmpty(String paramString) throws InvalidVarException {
+        if (!paramString.isEmpty()) {
+            throw new InvalidVarException("Too many parameters!");
+        }
+    }
+    private static void checkNonEmpty(String paramString) throws InvalidVarException {
+        if (paramString.isEmpty()) {
+            throw new InvalidVarException("No parameters!");
+        }
+    }
+    private static int parseIndex(String paramString) throws InvalidVarException {
+        checkNonEmpty(paramString);
+        int index;
+        try {
+            index = Integer.parseInt(paramString);
+        } catch (Exception e) {
+            throw new InvalidVarException("Task number could not be read");
+        }
+        return index;
+    }
+    private static LocalDate parseLocalDate(String dateString) throws InvalidVarException {
+        try {
+            return LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            throw new InvalidVarException("Could not parse dates!");
+        }
+    }
+    private static Executable parseShutdownParams(String paramString) throws InvalidVarException {
+        checkEmpty(paramString);
+        return new ShutdownExecutable();
+    }
+    private static Executable parseHelpParams(String paramString) throws InvalidVarException {
+        checkEmpty(paramString);
+        return new HelpExecutable();
+    }
+    private static Executable parseListParams(String paramString) throws InvalidVarException {
+        checkEmpty(paramString);
+        return new ListExecutable();
+    }
+    private static Executable parseClearParams(String paramString) throws InvalidVarException {
+        checkEmpty(paramString);
+        return new ClearExecutable();
+    }
+
+    private static Executable parseToDoParams(String paramString) throws InvalidVarException {
+        checkNonEmpty(paramString);
+        Task todo = new ToDo(paramString);
+        return new AddTaskExecutable(todo);
+    }
+
+    private static Executable parseDeadlineParams(String paramString) throws InvalidVarException {
+        String deadlineRegex = "(\\S.*)\\s/by\\s(\\S.*)";
+        Matcher matcher = matchString(paramString, deadlineRegex);
+        String name = matcher.group(1);
+        String deadlineString = matcher.group(2);
+        LocalDate deadlineTime = parseLocalDate(deadlineString);
+        Deadline deadline = new Deadline(name, deadlineTime);
+        return new AddTaskExecutable(deadline);
+    }
+    private static Executable parseEventParams(String paramString) throws InvalidVarException {
+        String eventRegex = "(\\S.*)\\s/from\\s(\\S.*)\\s/to\\s(\\S.*)";
+        Matcher matcher = matchString(paramString, eventRegex);
+        String name = matcher.group(1);
+        String startString = matcher.group(2);
+        String endString = matcher.group(3);
+        LocalDate startTime = parseLocalDate(startString);
+        LocalDate endTime = parseLocalDate(endString);
+        Event event = new Event(name, startTime, endTime);
+        return new AddTaskExecutable(event);
+    }
+    private static Executable parseDeleteParams(String paramString) throws InvalidVarException {
+        return new DeleteExecutable(parseIndex(paramString));
+    }
+    private static Executable parseMarkParams(String paramString) throws InvalidVarException {
+        return new MarkExecutable(true, parseIndex(paramString));
+    }
+    private static Executable parseUnmarkParams(String paramString) throws InvalidVarException {
+        return new MarkExecutable(false, parseIndex(paramString));
+    }
+    private static Executable parseFindParams(String paramString) throws InvalidVarException {
+        checkNonEmpty(paramString);
+        return new FindExecutable(paramString);
+    }
+    private static void checkIfInvalid(ParserFunction func) throws InvalidCommandException {
+        if (func == null) {
+            throw new InvalidCommandException("No such command found!");
+        }
+    }
+    private static ToDo todoFromString(String string) throws InvalidVarException {
+        String todoRegex = "(.*)" + Task.DIVIDER + "(.*)";
+        Matcher matcher = matchString(string, todoRegex);
+        boolean isComplete = parseBoolString(matcher.group(1));
+        String name = matcher.group(2);
+        return new ToDo(name, isComplete);
+    }
+    private static Event eventFromString(String string) throws InvalidVarException {
+        String eventRegex = "(.*)" + Task.DIVIDER + "(.*)" + Task.DIVIDER + "(.*)" + Task.DIVIDER + "(.*)";
+        Matcher matcher = matchString(string, eventRegex);
+        boolean isComplete = parseBoolString(matcher.group(1));
+        String name = matcher.group(2);
+        LocalDate startTime = parseLocalDate(matcher.group(3));
+        LocalDate endTime = parseLocalDate(matcher.group(4));
+        return new Event(name, isComplete, startTime, endTime);
+    }
+
+    private static Deadline deadlineFromString(String string) throws InvalidVarException {
+        String deadlineRegex = "(.*)" + Task.DIVIDER + "(.*)" + Task.DIVIDER + "(.*)";
+        Matcher matcher = matchString(string, deadlineRegex);
+        boolean isComplete = parseBoolString(matcher.group(1));
+        String name = matcher.group(2);
+        LocalDate deadline = parseLocalDate(matcher.group(3));
+        return new Deadline(name, isComplete, deadline);
+    }
+
+    /**
+     * Produces a task from a string, if the string is valid.
+     * @param string the string to be transformed.
+     * @return the task representation of the string if valid.
+     * @throws InvalidVarException when the string is not in the proper format.
+     */
+    public static Task taskFromString(String string) throws InvalidVarException {
+        String[] temp = string.split(Task.DIVIDER, 2);
+        if (temp.length == 1) {
+            throw new InvalidVarException();
+        }
+        String taskIdentifier = temp[0];
+        String input = temp[1];
+        switch (taskIdentifier) {
+        case ("TD"):
+            return todoFromString(input);
+        case ("DL"):
+            return deadlineFromString(input);
+        case ("EV"):
+            return eventFromString(input);
+        default:
+            throw new InvalidVarException();
+        }
     }
 }

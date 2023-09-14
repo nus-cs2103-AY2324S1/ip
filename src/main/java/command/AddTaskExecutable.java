@@ -10,14 +10,14 @@ import task.Task;
  * AddTaskExecutable represents a command that adds a task to the list.
  */
 public class AddTaskExecutable implements Executable {
-    private Task task;
+    private final Task task;
 
     /**
-     * Sets the task to be added upon execution.
+     * Creates an executable with its task to be added upon execution.
      * @param task the task to be added.
      */
-    public void setTask(Task task) {
-        assert task != null; // Parser should pass a valid task to the executable.
+    public AddTaskExecutable(Task task) {
+        assert task != null;
         this.task = task;
     }
 
@@ -31,7 +31,6 @@ public class AddTaskExecutable implements Executable {
     @Override
     public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {
         try {
-            assert task != null; // Parser should pass a valid task to the executable.
             list.addTask(task);
         } catch (IOException e) {
             throw new FailureInExecuteException(e.getMessage());

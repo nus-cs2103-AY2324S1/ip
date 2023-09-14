@@ -11,20 +11,18 @@ import dukeexception.FailureInExecuteException;
  */
 public class MarkExecutable implements Executable {
     private final boolean isToBeMarked;
-    private int targetIndex;
-
-    public MarkExecutable(boolean isToBeMarked) {
-        this.isToBeMarked = isToBeMarked;
-    }
+    private final int targetIndex;
 
     /**
-     * Sets the index in the list that we plan to set the mark of.
-     * @param targetIndex the index in the list that is to be marked.
+     * Produces a Mark executable.
+     * @param isToBeMarked the marking to be set.
+     * @param index the index to be set.
      */
-    public void setMarkTarget(int targetIndex) {
-        assert targetIndex > 0; // negative indexes are never valid and should not have been passed!
-        this.targetIndex = targetIndex;
+    public MarkExecutable(boolean isToBeMarked, int index) {
+        this.isToBeMarked = isToBeMarked;
+        this.targetIndex = index;
     }
+
 
     /**
      * Executes the marking/unmarking of a given task.
@@ -42,6 +40,7 @@ public class MarkExecutable implements Executable {
         } catch (IOException e) {
             throw new FailureInExecuteException(e.getMessage());
         }
+        ui.output("marked task " + targetIndex);
         return false;
     }
 }
