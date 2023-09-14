@@ -87,6 +87,7 @@ public class TaskList {
             break;
 
         default:
+            assert false : "Task type should be checked by parser, no other tasks type should be allowed";
         }
 
         int size  = taskList.size();
@@ -127,6 +128,7 @@ public class TaskList {
             return editDesc;
 
         default:
+            assert false : "Task type should be checked by parser, no other tasks type should be allowed";
             throw new InvalidCommandException("No such edit command");
         }
     }

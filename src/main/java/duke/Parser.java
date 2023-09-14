@@ -90,14 +90,15 @@ public class Parser {
         final Matcher matcher = BASIC_COMMAND.matcher(input.trim());
 
         if (!matcher.matches()) {
-            throw new InvalidCommandException("Invalid command.Command");
+            throw new InvalidCommandException("Invalid command");
         }
+
+        assert input.equals("") : "Command should not be empty after checks";
 
         final String command = matcher.group("command");
         final String argument = matcher.group("arguments").trim();
         final boolean validIndex = argument.matches("-?\\d+");
-
-        Action action = Action.parseCommand(command);
+        final Action action = Action.parseCommand(command);
 
         switch (action) {
         case BYE:
@@ -119,6 +120,7 @@ public class Parser {
             }
 
             return new EditCommand(command, Integer.parseInt(argument));
+
 
         case ADD_TASK:
             if (argument.equals("")) {
