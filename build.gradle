@@ -6,6 +6,9 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
+
+
+
 checkstyle {
     toolVersion = '10.2'
 }
@@ -40,10 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
+    archiveFileName = 'duke.jar'
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
