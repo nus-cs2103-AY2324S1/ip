@@ -48,30 +48,6 @@ public class Storage {
     }
 
     /**
-     * Overloaded method of save, with additional argument to set directory of save file
-     *
-     * @param list user's task list
-     * @param filePath directory for save file
-     */
-    public void save(TaskList list, String filePath) {
-        SaveData save = new SaveData(list.getList().toArray(new Task[0]));
-        String json = gson.toJson(save);
-
-        // write to save file
-        try {
-            File saveFile = new File(filePath);
-            FileWriter fw = new FileWriter(saveFile);
-
-            fw.write(json);
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.print("Chewie have difficulty remembering your tasks.");
-            isFailSave = true;
-        }
-    }
-
-    /**
      * Loads save file into program when program initialize
      *
      * @param list
@@ -138,14 +114,5 @@ public class Storage {
      */
     public boolean isNewSave() {
         return isNewSave;
-    }
-
-    /**
-     * To check if save is unsuccessful
-     *
-     * @return Is save unsuccesssull
-     */
-    public boolean isFailSave() {
-        return isFailSave;
     }
 }
