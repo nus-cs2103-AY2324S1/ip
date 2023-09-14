@@ -105,8 +105,6 @@ public class Storage {
      * @throws DukeException if the attempt to write to the file fails.
      */
     public void rewriteFile(TaskList taskList) throws DukeException {
-        assert !taskList.taskArray.isEmpty();
-
         try {
             FileWriter fw = new FileWriter(this.filePath);
             for (int i = 0; i < taskList.taskArray.size(); i++) {
