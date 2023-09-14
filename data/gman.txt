@@ -1,8 +1,0 @@
-<<<<<<< HEAD
-T | X |  this
-T | X |  
-T | X |  deadline 
-=======
-T | O |  this
-T | X |  that
->>>>>>> branch-C-Undo
