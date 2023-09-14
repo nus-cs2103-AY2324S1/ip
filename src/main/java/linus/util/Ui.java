@@ -9,6 +9,39 @@ import linus.task.Task;
  * A Ui object deals with interactions with the user.
  */
 public class Ui {
+    private static final String WELCOME_MESSAGE = "Hello from Linus!! \n "
+            + "What can I do for you uwu \n"
+            + "Type 'help' to see the list of commands.";
+    private static final String HELP_MESSAGE = "Here are the list of commands:\n"
+            + "todo <description>\n"
+            + "deadline <description> /by <date>\n"
+            + "event <description> /from <date> /to <date> \n"
+            + "delete <index>\n"
+            + "mark <index>\n"
+            + "unmark <index>\n"
+            + "find <keyword>\n"
+            + "list\n"
+            + "help\n"
+            + "bye\n";
+    public static String BYE_MESSAGE = "Bye. Hope to see you again soon!";
+    public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n"
+            + "\t%s\n"
+            + "Now you have %d tasks in the list.\n";
+    public static final String DELETE_TASK_MESSAGE = "Noted. I've removed this task:\n"
+            + "\t%s\n"
+            + "Now you have %d tasks in the list.\n";
+    public static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:\n"
+            + "\t%s\n";
+    public static final String UNMARK_TASK_MESSAGE = "OK, I've marked this task as not done yet:\n"
+            + "\t%s\n";
+    public static final String NO_MATCHING_TASKS_MESSAGE = "There are no matching tasks in your list.";
+
+    public static final String FIND_TASK_MESSAGE = "Here are the matching tasks in your list:\n";
+
+    public static final String NO_TASKS_MESSAGE = "There are no tasks in your list.";
+    public static final String LIST_TASK_MESSAGE = "Here are the tasks in your list:\n";
+    public static final String LOADING_ERROR_MESSAGE = "The file system experienced an unexpected error.";
+
     private StringBuilder output = null;
 
     public Ui() {
@@ -47,9 +80,7 @@ public class Ui {
      * @param size Current size of list after addition.
      */
     public void printAddSuccessMessage(Task task, int size) {
-        addToOutput("Got it. I've added this task:\n");
-        addToOutput("\t" + task + "\n");
-        addToOutput("Now you have " + size + " tasks in the list.\n");
+        addToOutput(String.format(ADD_TASK_MESSAGE, task, size));
     }
 
     /**
@@ -59,9 +90,7 @@ public class Ui {
      * @param size Current size of list after deletion.
      */
     public void printDeleteSuccessMessage(Task task, int size) {
-        addToOutput("Noted. I've removed this task:\n");
-        addToOutput("\t" + task + "\n");
-        addToOutput("Now you have " + size + " tasks in the list.\n");
+        addToOutput(String.format(DELETE_TASK_MESSAGE, task, size));
     }
 
     /**
@@ -70,8 +99,7 @@ public class Ui {
      * @param size
      */
     public void printMarkSuccessMessage(Task task, int size) {
-        addToOutput("Nice! I've marked this task as done:\n");
-        addToOutput("\t" + task + "\n");
+        addToOutput(String.format(MARK_TASK_MESSAGE, task, size));
     }
 
     /**
@@ -80,8 +108,7 @@ public class Ui {
      * @param size
      */
     public void printUnmarkSuccessMessage(Task task, int size) {
-        addToOutput("OK, I've marked this task as not done yet:\n");
-        addToOutput("\t" + task + "\n");
+        addToOutput(String.format(UNMARK_TASK_MESSAGE, task, size));
     }
 
     /**
@@ -91,10 +118,18 @@ public class Ui {
      */
     public void printFindSuccessMessage(List<Task> tasks) {
         if (tasks.size() == 0) {
-            print("There are no matching tasks in your list.");
+            addToOutput(NO_MATCHING_TASKS_MESSAGE);
             return;
         }
-        printList(tasks, "Here are the matching tasks in your list:\n");
+        printList(tasks, FIND_TASK_MESSAGE);
+    }
+
+    /**
+     * Prints the list of tasks.
+     * @param tasks
+     */
+    public void printList(List<Task> tasks) {
+        printList(tasks, LIST_TASK_MESSAGE);
     }
 
     /**
@@ -105,7 +140,7 @@ public class Ui {
      */
     public void printList(List<Task> tasks, String message) {
         if (tasks.size() == 0) {
-            addToOutput("There are no tasks in your list.\n");
+            addToOutput(NO_TASKS_MESSAGE);
             return;
         }
         addToOutput(message + "\n");
@@ -121,9 +156,7 @@ public class Ui {
      *
      */
     public String printWelcomeMessage() {
-        return "Hello from Linus!! \n "
-                + "What can I do for you uwu \n"
-                + "Type 'help' to see the list of commands.";
+        return WELCOME_MESSAGE;
     }
 
     /**
@@ -131,7 +164,7 @@ public class Ui {
      *
      */
     public void printExitMessage() {
-        addToOutput("Bye. Hope to see you again soon!");
+        addToOutput(BYE_MESSAGE);
     }
 
     /**
@@ -139,17 +172,7 @@ public class Ui {
      *
      */
     public void printHelpMessage() {
-        addToOutput("Here are the list of commands:\n");
-        addToOutput("todo <description>\n");
-        addToOutput("deadline <description> /by <date>\n");
-        addToOutput("event <description> /from <date> /to <date> \n");
-        addToOutput("delete <index>\n");
-        addToOutput("mark <index>\n");
-        addToOutput("unmark <index>\n");
-        addToOutput("find <keyword>\n");
-        addToOutput("list\n");
-        addToOutput("help\n");
-        addToOutput("bye\n");
+        addToOutput(HELP_MESSAGE);
     }
 
     /**
@@ -157,7 +180,7 @@ public class Ui {
      *
      */
     public void showLoadingError() {
-        addToOutput("The file system experienced an unexpected error.");
+        addToOutput(LOADING_ERROR_MESSAGE);
     }
 
     /**
