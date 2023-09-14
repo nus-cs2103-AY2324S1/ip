@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import duke.assets.tasks.TaskAbstract;
 import duke.dukeexceptions.StateCannotBeAlteredException;
@@ -114,9 +115,8 @@ public class TaskList {
             File myFile = new File("./src/main/java/duke/data/duke.txt");
             FileWriter fw = new FileWriter(myFile);
             PrintWriter pw = new PrintWriter(fw);
-            for (TaskAbstract t : this.taskList) {
-                pw.println(t.saveToTextFormat());
-            }
+            Stream<TaskAbstract> taskStream = this.taskList.stream();
+            taskStream.map(x -> x.saveToTextFormat()).forEach(x -> pw.println(x));
             pw.close();
         } catch (IOException e) {
             System.out.println("ChadGPT: Please check if your I/O is working as intended.");
