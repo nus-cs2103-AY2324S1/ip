@@ -83,6 +83,13 @@ public class Ui {
     }
 
     /**
+     * Prints confirmation after adding task tag.
+     */
+    public void printAddTaskTagConfirmation() {
+        System.out.println("Noted. I've tagged the task!\n");
+    }
+
+    /**
      * Lists out all the tasks in taskList.
      *
      * @param taskList The TaskList to list tasks from.

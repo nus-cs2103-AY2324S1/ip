@@ -22,7 +22,11 @@ public class TaskListTest {
     public void taskRep_nonEmptyTaskListValidIndex_success() {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("read"));
-        assertEquals("[T][ ] read", taskList.taskRep(0));
+        try {
+            assertEquals("[T][ ] read", taskList.taskRep(0));
+        } catch (Exception e) {
+            fail();
+        }
     }
 
     @Test

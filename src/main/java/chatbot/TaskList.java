@@ -1,5 +1,6 @@
 package chatbot;
 
+import chatbot.exception.InvalidCommandException;
 import chatbot.exception.InvalidTaskNumberException;
 import chatbot.task.Task;
 
@@ -105,4 +106,24 @@ public class TaskList {
         }
         return res;
     }
+
+    /**
+     * Adds a tag to the task.
+     *
+     * @param taskNum The task number.
+     * @param desc The description of the tag to add.
+     * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
+     * @throws InvalidCommandException If the input does not include a task number.
+     */
+    public void addTaskTag(String taskNum, String desc) throws InvalidTaskNumberException, InvalidCommandException {
+        try {
+            int i = Integer.parseInt(taskNum) - 1;
+            taskList.get(i).addTag(desc);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskNumberException(Integer.parseInt(taskNum));
+        }
+    }
+
 }
