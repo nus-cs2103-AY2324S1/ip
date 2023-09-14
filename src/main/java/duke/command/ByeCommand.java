@@ -14,14 +14,7 @@ public class ByeCommand extends Command {
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.exitResponse();
-    };
-    /**
-     * Checks if command will end program.
-     * @return True.
-     */
-    public boolean isExit() {
-        return true;
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.exitResponse();
     };
 }

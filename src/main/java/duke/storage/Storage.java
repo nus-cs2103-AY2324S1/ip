@@ -38,7 +38,9 @@ public class Storage {
         try {
             File f = new File(this.pathName);
             if (!f.exists()) {
-                f.getParentFile().mkdirs();
+                if (f.getParentFile() != null) {
+                    f.getParentFile().mkdirs();
+                }
                 f.createNewFile();
             }
             Scanner sc = new Scanner(f);
@@ -69,12 +71,12 @@ public class Storage {
                     }
                     break;
                 default:
-                    throw new ChatException("☹ OOPS!!! The file is corrupted");
+                    throw new ChatException("OOPS!!! The file is corrupted");
                 }
             }
             return tasks;
         } catch (IOException e) {
-            throw new ChatException("☹ OOPS!!! There are errors locating the file.");
+            throw new ChatException("OOPS!!! There are errors locating the file.");
         }
     }
 
@@ -95,7 +97,7 @@ public class Storage {
             bw.close();
             fw.close();
         } catch (IOException e) {
-            throw new ChatException("☹ OOPS!!! Tasks could not be saved.");
+            throw new ChatException("OOPS!!! Task could not be saved.");
         }
     }
 

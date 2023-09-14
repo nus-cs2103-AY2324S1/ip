@@ -24,22 +24,14 @@ public class Duke {
         }
     }
 
-    public void run() {
-        ui.greetResponse();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (ChatException e) {
-                ui.showLoadingError(e);
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (ChatException e) {
+            return ui.showLoadingError(e);
         }
     }
 
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
-    }
 }
+

@@ -15,11 +15,5 @@ public abstract class Command {
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
-
-    /**
-     * Checks if command will end program.
-     * @return True if it is ByeCommand, else returns false.
-     */
-    public abstract boolean isExit();
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 }

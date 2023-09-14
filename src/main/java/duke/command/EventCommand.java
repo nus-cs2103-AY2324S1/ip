@@ -33,21 +33,14 @@ public class EventCommand extends Command {
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task event = new Event(this.description, this.from, this.to);
             tasks.addTask(event);
-            ui.formatTaskResponse(event, tasks);
             storage.saveList(tasks);
+            return ui.formatTaskResponse(event, tasks);
         } catch (ChatException e) {
-            ui.showLoadingError(e);
+            return ui.showLoadingError(e);
         }
-    };
-    /**
-     * Checks if command will end program.
-     * @return False.
-     */
-    public boolean isExit() {
-        return false;
     };
 }

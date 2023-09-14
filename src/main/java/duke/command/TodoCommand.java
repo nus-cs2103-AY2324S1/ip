@@ -26,21 +26,14 @@ public class TodoCommand extends Command {
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task todo = new Task(this.description);
             tasks.addTask(todo);
-            ui.formatTaskResponse(todo, tasks);
             storage.saveList(tasks);
+            return ui.formatTaskResponse(todo, tasks);
         } catch (ChatException e) {
-            ui.showLoadingError(e);
+            return ui.showLoadingError(e);
         }
-    };
-    /**
-     * Checks if command will end program.
-     * @return False.
-     */
-    public boolean isExit() {
-        return false;
     };
 }

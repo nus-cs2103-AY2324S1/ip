@@ -24,13 +24,13 @@ public class UnmarkCommand extends Command {
      * @param ui Responses to be shown to user.
      * @param storage Saves the list of task to be accessed in the future.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.markUndone(taskNumber);
-            ui.markUndoneResponse(tasks.getTask(taskNumber));
             storage.saveList(tasks);
+            return ui.markUndoneResponse(tasks.getTask(taskNumber));
         } catch (ChatException e) {
-            ui.showLoadingError(e);
+            return ui.showLoadingError(e);
         }
     };
     /**

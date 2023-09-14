@@ -10,15 +10,12 @@ public class FindCommand extends Command {
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public String execute(TaskList tasks, Ui ui, Storage storage){
         TaskList foundList = tasks.findTask(this.keyword);
         try {
-            ui.listMatchingTaskResponse(foundList);
+            return ui.listMatchingTaskResponse(foundList);
         } catch (ChatException e) {
-            ui.showLoadingError(e);
+            return ui.showLoadingError(e);
         }
-    }
-    public boolean isExit() {
-        return false;
     }
 }

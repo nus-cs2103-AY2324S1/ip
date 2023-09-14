@@ -35,9 +35,9 @@ public class Parser {
                     return new DeadlineCommand(deadlineDescription, deadlineBy);
                     // Fallthrough
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new ChatException("☹ OOPS!!! Please specify the deadline.");
+                    throw new ChatException("OOPS!!! Please specify the deadline.");
                 } catch (DateTimeParseException e) {
-                    throw new ChatException("☹ OOPS!!! Please specify the deadline in the format of (yyyy-mm-dd).");
+                    throw new ChatException("OOPS!!! Please specify the deadline in the format of (yyyy-mm-dd).");
                 }
             case "event":
                 try {
@@ -49,7 +49,7 @@ public class Parser {
                     return new EventCommand(eventDescription, eventFrom, eventTo);
                     // Fallthrough
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new ChatException("☹ OOPS!!! Please specify the duration.");
+                    throw new ChatException("OOPS!!! Please specify the duration.");
                 }
             case "mark":
                 int taskNumberMark = Integer.parseInt(userCommand[1]);
@@ -66,7 +66,7 @@ public class Parser {
             case"find":
                 String[] parseKeyword = userCommand[1].split(" ");
                 if (parseKeyword.length > 1) {
-                    throw new ChatException("☹ OOPS!!! Please only enter one keyword.");
+                    throw new ChatException("OOPS!!! Please only enter one keyword.");
                 }
                 String keyword = userCommand[1];
                 return new FindCommand(keyword);
@@ -81,28 +81,28 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             switch (userCommand[0]) {
             case "mark":
-                throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                throw new ChatException("OOPS!!! Please specify the task number.");
             //Fallthrough
             case "unmark":
-                throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                throw new ChatException("OOPS!!! Please specify the task number.");
             //Fallthrough
             case "todo":
-                throw new ChatException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new ChatException("OOPS!!! The description of a todo cannot be empty.");
             //Fallthrough
             case "deadline":
-                throw new ChatException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new ChatException("OOPS!!! The description of a deadline cannot be empty.");
             //Fallthrough
             case "event":
-                throw new ChatException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new ChatException("OOPS!!! The description of an event cannot be empty.");
             //Fallthrough
             case "delete":
-                throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                throw new ChatException("OOPS!!! Please specify the task number.");
             //Fallthrough
             case "find":
-                throw new ChatException("☹ OOPS!!! Please enter a keyword.");
+                throw new ChatException("OOPS!!! Please enter a keyword.");
             //Fallthrough
             default:
-                throw new ChatException("☹ OOPS!!! Please be more detailed in your instructions.");
+                throw new ChatException("OOPS!!! Please be more detailed in your instructions.");
                 //Fallthrough
             }
         }
