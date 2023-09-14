@@ -1,4 +1,4 @@
-package ruiz;
+package ruiz.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,7 +27,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
         this.textFile = new File(filePath);
-        parser = new Parser();
+        this.parser = new Parser();
     }
 
     /**
@@ -38,7 +38,7 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
-            fw.write(task.saveTaskString() + System.lineSeparator());
+            fw.write(task.formatSaveTaskString() + System.lineSeparator());
         }
         fw.close();
     }
@@ -49,8 +49,7 @@ public class Storage {
      * @throws FileNotFoundException If the file at the given filepath does not exist.
      */
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
+        Scanner s = new Scanner(this.textFile);
         ArrayList<Task> taskList = new ArrayList<>();
         while (s.hasNext()) {
             String taskContent = s.nextLine();

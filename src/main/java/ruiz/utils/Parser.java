@@ -1,4 +1,4 @@
-package ruiz;
+package ruiz.utils;
 
 import ruiz.command.Command;
 import ruiz.exception.BotException;

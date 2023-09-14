@@ -79,7 +79,9 @@ public class Ui {
     public String addedNewTaskMsg(Task task, int taskListSize) {
         String message = "Got it. I've added this task:\n"
                 + task
-                + "\nNow you have " + taskListSize + " in the list.\n";
+                + "\nNow you have "
+                + taskListSize
+                + " in the list.\n";
         return message;
     }
 
@@ -114,7 +116,11 @@ public class Ui {
     /**
      * Prints an acknowledgement message that the task has been marked.
      *
+<<<<<<< HEAD
      * @param task
+=======
+     * @param task task that is marked.
+>>>>>>> branch-A-CodeQuality
      * @return acknowledgement message that the task has been marked.
      */
     public String markTask(Task task) {

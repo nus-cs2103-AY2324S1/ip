@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import ruiz.command.Command;
 import ruiz.exception.BotException;
+import ruiz.utils.Parser;
 
 public class ParserTest {
     @Test

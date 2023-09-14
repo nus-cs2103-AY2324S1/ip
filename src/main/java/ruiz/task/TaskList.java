@@ -3,8 +3,8 @@ package ruiz.task;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import ruiz.Parser;
 import ruiz.ui.Ui;
+import ruiz.utils.Parser;
 import ruiz.exception.BotException;
 
 /**
@@ -144,6 +144,7 @@ public class TaskList {
         String beginning = parser.getEventBeginning(input);
         String to = parser.getEventTo(input);
         Task temp = new Event(description, beginning, to);
+
         this.taskList.add(temp);
         return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
@@ -162,6 +163,6 @@ public class TaskList {
                 tasksWithKeyword.add(task);
             }
         }
-        return new Ui().getTasks(tasksWithKeyword);
+        return ui.getTasks(tasksWithKeyword);
     }
 }
