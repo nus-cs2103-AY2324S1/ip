@@ -27,7 +27,7 @@ public class Storage {
             file.getParentFile().mkdirs();
             PrintWriter writer = new PrintWriter(new FileWriter(file));
 
-            x.saveToFile(writer);
+            x.saveTasksToFile(writer);
 
             writer.close();
 
@@ -46,14 +46,11 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
-
             File file = new File(path);
-
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
@@ -94,40 +91,33 @@ public class Storage {
      * Reads the file where the tasks are saved and recreates them by breaking it down to components.
      *
      * @param type The task type as a string (e.g., "[T] ").
-     * @param completion The task's completion status as a string (e.g., "[X] " for completed, "[ ] " for not completed).
-     * @param item The description of the task.
+     * @param completionStatus The task's completion status as a string (e.g., "[X] " for completed, "[ ] " for not completed).
+     * @param taskDescription The description of the task.
      * @param deadline The deadline or additional information associated with the task.
      * @return A Task object representing the parsed task.
      */
-    public static Task correctTask(String type, String completion, String item, String deadline) {
+    public static Task correctTask(String type, String completionStatus, String taskDescription, String deadline) {
         if (type.equals("[T] ")) {
-            Task t = new ToDoTask(item);
-
-            if (completion.equals("[X] ")) {
-                t.markDone();
+            Task task = new ToDoTask(taskDescription);
+            if (completionStatus.equals("[X] ")) {
+                task.markDone();
             }
-
-            return t;
+            return task;
         } else if (type.equals("[E] ")) {
             String from = deadline.split("-")[0];
             String to = deadline.split("-")[1];
-            Task t = new EventTask(item.trim() + " /from " + from.trim() + " /to " + to.trim());
-
-            if (completion.equals("[X] ")) {
-                t.markDone();
+            Task task = new EventTask(taskDescription.trim() + " /from " + from.trim() + " /to " + to.trim());
+            if (completionStatus.equals("[X] ")) {
+                task.markDone();
             }
-
-            return t;
+            return task;
         } else {
-            Task t = new DeadlineTask(item.trim() + " /by " + deadline.trim());
-
-            if (completion.equals("[X] ")) {
-                t.markDone();
+            Task task = new DeadlineTask(taskDescription.trim() + " /by " + deadline.trim());
+            if (completionStatus.equals("[X] ")) {
+                task.markDone();
             }
-
-            return t;
+            return task;
         }
     }
-
 }
 

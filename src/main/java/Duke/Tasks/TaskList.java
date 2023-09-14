@@ -27,32 +27,61 @@ public class TaskList {
     }
 
     public String toString() {
-        int leng = storagePile.size();
-        String listed = "";
-        for (int i = 1; i <= leng; i++) {
-            listed += String.format("%s - %s",
+        int length = storagePile.size();
+        String formattedList = "";
+        for (int i = 1; i <= length; i++) {
+            formattedList += String.format("%s - %s",
                     i, storagePile.get(i-1)) +" \n" ;
         }
-        return listed;
+        return formattedList;
     }
 
-    public void checkItem(int x) {
-        storagePile.get(x-1).markDone();
+    /**
+     * Marks the task at the specified index as done.
+     *
+     * @param index The index of the task to mark as done.
+     */
+    public void markItemAsDone(int index) {
+        storagePile.get(index - 1).markDone();
     }
 
-    public void notDoneItem(int x) {
-        storagePile.get(x-1).markUndone();
+    /**
+     * Marks the task at the specified index as undone.
+     *
+     * @param index The index of the task to mark as undone.
+     */
+    public void markItemAsUndone(int index) {
+        storagePile.get(index - 1).markUndone();
     }
 
-    public void deleteIndex(int x) {
-        storagePile.remove(x-1);
+    /**
+     * Deletes the task at the specified index.
+     *
+     * @param index The index of the task to delete.
+     */
+    public void deleteItem(int index) {
+        storagePile.remove(index - 1);
     }
 
-    public Task getTask(int x) { return storagePile.get(x-1); }
+    /**
+     * Retrieves the task at the specified index.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
+    public Task getTask(int index) {
+        return storagePile.get(index - 1);
+    }
 
-    public int numOfItems() {
+    /**
+     * Gets the number of items in the storage pile.
+     *
+     * @return The number of items in the storage pile.
+     */
+    public int getNumOfItems() {
         return storagePile.size();
     }
+
 
     /**
      * Adds a task to the TaskList based on user input.
@@ -61,7 +90,7 @@ public class TaskList {
      * @throws InvalidInput    If the input is invalid.
      * @throws IncompleteInput If the input is incomplete.
      */
-    public void enter(String item) throws InvalidInput, IncompleteInput  {
+    public void addTask(String item) throws InvalidInput, IncompleteInput  {
         String firstWord = item.split(" ")[0];
 
         if (item.split(" ").length == 1) {
@@ -71,14 +100,14 @@ public class TaskList {
                 throw new InvalidInput("Invalid");
             }
         } else if (firstWord.equals("todo")) {
-            String task = item.split(" ", 2)[1];
-            storagePile.add(new ToDoTask(task));
+            String taskDesc = item.split(" ", 2)[1];
+            storagePile.add(new ToDoTask(taskDesc));
         } else if (firstWord.equals("deadline")) {
-            String task = item.split(" ", 2)[1];
-            storagePile.add(new DeadlineTask(task));
+            String taskDesc = item.split(" ", 2)[1];
+            storagePile.add(new DeadlineTask(taskDesc));
         } else {
-            String task = item.split(" ", 2)[1];
-            storagePile.add(new EventTask(task));
+            String taskDesc = item.split(" ", 2)[1];
+            storagePile.add(new EventTask(taskDesc));
         }
         Storage.saveTasks(this);
     }
@@ -86,26 +115,25 @@ public class TaskList {
     /**
      * Filters the TaskList and returns a new TaskList containing tasks with descriptions that match the provided description.
      *
-     * @param desc The description to filter tasks by.
+     * @param description The description to filter tasks by.
      * @return A filtered TaskList containing matching tasks.
      */
-    public TaskList filterTaskList(String desc) {
-        TaskList filtered = new TaskList("empty");
+    public TaskList filterTasksByDescription(String description) {
+        TaskList filteredTasks = new TaskList("empty");
         for (Task task : this.storagePile) {
-            if (task.filterMatchDesc(desc.trim())) {
-                filtered.storagePile.add(task);
+            if (task.matchesDescription(description.trim())) {
+                filteredTasks.storagePile.add(task);
             }
         }
-        return filtered;
+        return filteredTasks;
     }
 
 
     /**
      * Saves the tasks in the TaskList to a PrintWriter.
-     *
      * @param pw The PrintWriter to write tasks to.
      */
-    public void saveToFile(PrintWriter pw) {
+    public void saveTasksToFile(PrintWriter pw) {
         for (Task item : storagePile) {
             String str = item.toString();
             pw.println(str);

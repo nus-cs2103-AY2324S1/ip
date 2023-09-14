@@ -8,91 +8,84 @@ public class Ui {
 
     }
 
-    private final String upper = "_______________ \n\n";
-    private final String lower = "_______________ \n";
+    private final String horizontalLineTop = "_______________ \n\n";
+    private final String horizontalLineBottom = "_______________ \n";
 
-    public static String printWelcome() {
-        String logo = "_______________ \n\n"
+    public static String getWelcomeMessage() {
+        return "_______________ \n\n"
                 + "Eh, I'm Scarlet \n"
                 + "No, I don't really want to know who you are \n\n"
                 + "_______________ \n";
-        return logo;
     }
 
-    public static String printBye() {
-        String logo = "_______________ \n\n"
+    public static String getGoodbyeMessage() {
+        return "_______________ \n\n"
                 + "finally.  \n"
                 + "_______________ \n";
-        return logo;
     }
 
-    public String printMatchingTasks(TaskList tasks, String desc) {
-        String condemn = upper
-                + "Let's say what you've cooked, if you could. \n"
-                + String.format("%s \n_______________ \n", tasks.filterTaskList(desc.trim()));
-        return condemn;
+    public String getMatchingTasksMessage(TaskList tasks, String description) {
+        return horizontalLineTop
+                + "Let's see what you've got, shall we? \n"
+                + String.format("%s \n%s", tasks.filterTasksByDescription(description.trim()), horizontalLineBottom);
     }
 
-    public String printList(TaskList tasks) {
-        String condemn = upper
+    public String getTaskListMessage(TaskList tasks) {
+        return horizontalLineTop
                 + "What a terrible day to be alive. \n"
-                + String.format("%s \n_______________ \n", tasks);
-        return condemn;
+                + String.format("%s \n%s", tasks, horizontalLineBottom);
     }
 
-    public String printMarked(TaskList tasks, int index) {
-        return upper
+    public String getMarkedTaskMessage(TaskList tasks, int index) {
+        return horizontalLineTop
                 + "A proud moment of your life I am sure... \n  "
                 + tasks.getTask(index)
                 + " \n"
-                + lower;
+                + horizontalLineBottom;
     }
 
-    public String printUnmarked(TaskList tasks, int index) {
-        return upper
-                + "I'm not juding at all... \n"
+    public String getUnmarkedTaskMessage(TaskList tasks, int index) {
+        return horizontalLineTop
+                + "I'm not judging at all... \n"
                 + tasks.getTask(index) +
                 " \n"
-                + lower;
+                + horizontalLineBottom;
     }
 
-    public String printDelete(TaskList tasks, int index) {
-        return upper
+    public String getDeleteTaskMessage(TaskList tasks, int index) {
+        return horizontalLineTop
                 + "Not another mistake I hope... \n"
                 + tasks.getTask(index)
                 + " \n\n"
-                + lower;
+                + horizontalLineBottom;
     }
 
-    public String printTaskWithoutDescription() {
-        return upper
+    public String getTaskWithoutDescriptionMessage() {
+        return horizontalLineTop
                 + "Come on now... don't be shy, go on \n"
-                + lower;
+                + horizontalLineBottom;
     }
 
-    public String printNonsense() {
-        return upper
+    public String getUnreadableInputMessage() {
+        return horizontalLineTop
                 + "Someone should have paid attention in school... try again \n"
-                + lower;
+                + horizontalLineBottom;
     }
 
-    public String printAddedToList(TaskList tasks) {
-        return upper
+    public String getAddedToListMessage(TaskList tasks) {
+        return horizontalLineTop
                 + "I'm totally not judging... \n"
-                + tasks.getTask(tasks.numOfItems())
+                + tasks.getTask(tasks.getNumOfItems())
                 + " \n"
                 + " ... added to the list \n"
                 + "I wonder how you'll mess up this... "
-                + tasks.numOfItems() + "\n"
-                + lower;
+                + tasks.getNumOfItems() + "\n"
+                + horizontalLineBottom;
     }
 
-    public String printWrongIndex() {
-        return upper
-                +  "1 mama and 1 papa made 2 dummies \n"
-                + lower;
-
+    public String getWrongIndexMessage() {
+        return horizontalLineTop
+                + "1 mama and 1 papa made 2 dummies \n"
+                + horizontalLineBottom;
     }
 }
-
-

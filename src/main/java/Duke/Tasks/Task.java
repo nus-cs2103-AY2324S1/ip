@@ -22,9 +22,9 @@ public class Task {
      * @param desc The description to compare.
      * @return True if the task's description matches the given description; otherwise, false.
      */
-    public boolean filterMatchDesc(String desc) {
-        String[] splitsy = this.toString().split(" \\| ");
-        return splitsy[2].trim().equals(desc.trim());
+    public boolean matchesDescription(String desc) {
+        String[] inputStringComponents = this.toString().split(" \\| ");
+        return inputStringComponents[2].trim().equals(desc.trim());
     }
 
 
