@@ -10,12 +10,6 @@ import atlas.exceptions.AtlasException;
  * Chatbot implementation
  */
 public class Atlas {
-    static final String LOGO = "        _______ _                _____ \n"
-            + "     /\\|__   __| |        /\\    / ____|\n"
-            + "    /  \\  | |  | |       /  \\  | (___  \n"
-            + "   / /\\ \\ | |  | |      / /\\ \\  \\___ \\ \n"
-            + "  / ____ \\| |  | |____ / ____ \\ ____) |\n"
-            + " /_/    \\_\\_|  |______/_/    \\_\\_____/ \n";
     private final TaskList taskList;
     private final Storage storage;
     private final Parser parser;

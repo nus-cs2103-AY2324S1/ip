@@ -10,13 +10,6 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Types of events (TODO, DEADLINE, EVENT)
-     */
-    public enum Types {
-        TODO, DEADLINE, EVENT
-    }
-
-    /**
      * Constructs a new Task with description
      * @param name Name of task
      */
@@ -30,8 +23,9 @@ public abstract class Task {
      * @return "X" if task is done, "   " otherwise
      */
     private String getStatusIcon() {
-
-        return this.isDone ? "X" : "   ";
+        final String taskDoneIcon = "X";
+        final String taskNotDoneIcon = "   ";
+        return this.isDone ? taskDoneIcon : taskNotDoneIcon;
     }
 
     /**

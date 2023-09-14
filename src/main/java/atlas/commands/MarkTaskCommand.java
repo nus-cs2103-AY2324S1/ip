@@ -39,6 +39,8 @@ public class MarkTaskCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null;
+        assert storage != null;
         try {
             List<Task> tasksDone = taskList.markTasks(idx);
             storage.save(taskList);

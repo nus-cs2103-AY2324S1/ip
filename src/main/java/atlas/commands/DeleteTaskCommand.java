@@ -39,6 +39,8 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null;
+        assert storage != null;
         try {
             Task t = taskList.deleteTask(idx);
             storage.save(taskList);

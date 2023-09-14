@@ -37,6 +37,8 @@ public class AddTaskCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null;
+        assert storage != null;
         try {
             taskList.addTask(task);
             storage.save(taskList);
