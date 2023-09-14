@@ -1,8 +1,8 @@
-package dan.command;
+package veneto.command;
 
-import dan.exceptions.DanException;
-import dan.exceptions.DanOperateException;
-import dan.task.*;
+import veneto.exceptions.DanException;
+import veneto.exceptions.DanOperateException;
+import veneto.task.*;
 
 public class AddCommand extends Command {
     /** Fields */

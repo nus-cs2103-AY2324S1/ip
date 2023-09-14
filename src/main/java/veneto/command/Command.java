@@ -1,7 +1,6 @@
-package dan.command;
+package veneto.command;
 
-import dan.task.Task;
-import dan.task.TaskList;
+import veneto.task.TaskList;
 
 public abstract class Command {
 

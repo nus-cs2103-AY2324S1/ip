@@ -1,18 +1,18 @@
-package dan.ui;
+package veneto.ui;
 
-import dan.command.*;
-import dan.exceptions.DanException;
-import dan.exceptions.DanOperateException;
-import dan.exceptions.DanStorageException;
-import dan.parser.Parser;
-import dan.task.TaskList;
+import veneto.command.*;
+import veneto.exceptions.DanException;
+import veneto.exceptions.DanOperateException;
+import veneto.exceptions.DanStorageException;
+import veneto.parser.Parser;
+import veneto.task.TaskList;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ui {
     /** Fields */
-    private final static String greets = "\nDan: \n";
+    private final static String greets = "\nVeneto: \n";
     private final static String[] commands = new String[] {
             "toDo [TASK]",
             "deadline [TASK] /by [DEADLINE(YYYY-MM-DD)]",

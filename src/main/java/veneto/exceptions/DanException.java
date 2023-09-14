@@ -1,4 +1,4 @@
-package dan.exceptions;
+package veneto.exceptions;
 
 import java.util.InputMismatchException;
 

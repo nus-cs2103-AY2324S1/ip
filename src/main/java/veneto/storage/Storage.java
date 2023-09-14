@@ -1,8 +1,8 @@
-package dan.storage;
+package veneto.storage;
 
-import dan.exceptions.DanException;
-import dan.exceptions.DanStorageException;
-import dan.task.*;
+import veneto.exceptions.DanException;
+import veneto.exceptions.DanStorageException;
+import veneto.task.*;
 
 import java.io.*;
 import java.util.Scanner;

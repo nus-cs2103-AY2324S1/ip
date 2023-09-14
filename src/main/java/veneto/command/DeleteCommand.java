@@ -1,9 +1,7 @@
-package dan.command;
+package veneto.command;
 
-import dan.task.Task;
-import dan.task.TaskList;
-
-import java.io.IOException;
+import veneto.task.Task;
+import veneto.task.TaskList;
 
 public class DeleteCommand extends Command {
     /** Fields */
