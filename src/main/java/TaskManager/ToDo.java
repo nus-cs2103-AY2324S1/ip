@@ -1,5 +1,7 @@
 package taskmanager;
 
+import taskutility.TaskMatcher;
+
 /**
  * The tasks of type "To-Do."
  */
@@ -14,7 +16,6 @@ public class ToDo extends Task {
      */
     public ToDo(String taskDesc) {
         assert taskDesc != null : "taskDesc must not be null";
-
         this.taskDesc = taskDesc;
     }
 
@@ -109,14 +110,7 @@ public class ToDo extends Task {
      * @return True if there is matching keyword; otherwise, false.
      */
     public boolean isMatch(String keyword) {
-        assert keyword != null : "keyword must not be null";
-        String[] split = taskDesc.split(" ");
-        for (int i = 0; i < split.length; i++) {
-            if (keyword.equals(split[i])) {
-                return true;
-            }
-        }
-        return false;
+        return TaskMatcher.isMatch(keyword, taskDesc);
     }
 
 }

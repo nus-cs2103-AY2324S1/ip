@@ -3,6 +3,8 @@ package taskmanager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import taskutility.TaskMatcher;
+
 /**
  * An Event task type
  */
@@ -149,13 +151,6 @@ public class Event extends Task {
      * @return True if there is matching keyword; otherwise, false.
      */
     public boolean isMatch(String keyword) {
-        assert keyword != null : "keyword must not be null";
-        String[] split = taskDesc.split(" ");
-        for (int i = 0; i < split.length; i++) {
-            if (keyword.equals(split[i])) {
-                return true;
-            }
-        }
-        return false;
+        return TaskMatcher.isMatch(keyword, taskDesc);
     }
 }
