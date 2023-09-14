@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a task with status indicating its completeness
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected String description;
     protected boolean isDone;
 
@@ -39,4 +39,5 @@ public abstract class Task {
      * @return String representation of the Deadline object in the data file format.
      */
     public abstract String toDataFormatString();
+
 }
