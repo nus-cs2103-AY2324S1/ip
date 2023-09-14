@@ -3,8 +3,8 @@ package ekud.tasks;
  * Represents a task with no additional attributes.
  */
 public class ToDo extends Task {
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, Priority priority) {
+        super(description, priority);
     }
 
     /**
@@ -13,9 +13,10 @@ public class ToDo extends Task {
      */
     @Override
     public String getSaveFormat() {
-        return String.format("T | %c | %s",
+        return String.format("T | %c | %s | %s",
                 this.getDoneSymbol(),
-                this.description);
+                this.description,
+                this.getPriority());
     }
 
     /**
@@ -24,8 +25,9 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[T][%c] %s",
+        return String.format("[T][%c] %s (%s priority)",
                 this.getDoneSymbol(),
-                this.description);
+                this.description,
+                this.getPriority());
     }
 }

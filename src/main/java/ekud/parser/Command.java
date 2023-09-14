@@ -14,7 +14,8 @@ public enum Command {
     DELETETASK("delete"),
     FIND("find"),
     CLEAR("clear"),
-    UNDOCLEAR("undoclear");
+    UNDOCLEAR("undoclear"),
+    CHANGEPRIORITY("priority");
     private String command;
     private Command(String command) {
         this.command = command;

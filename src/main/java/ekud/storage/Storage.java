@@ -8,10 +8,7 @@ import java.util.Scanner;
 
 import ekud.exceptions.EkudIOException;
 import ekud.parser.Parser;
-import ekud.tasks.Deadline;
-import ekud.tasks.Event;
-import ekud.tasks.TaskList;
-import ekud.tasks.ToDo;
+import ekud.tasks.*;
 
 /**
  * The Storage class deals with handling the saved tasks file on the hard disk, by loading its contents
@@ -60,33 +57,42 @@ public class Storage {
             Scanner scanner = new Scanner(this.savedTasks);
             int curTaskIndex = 0;
             int numDoneTasks = 0;
+            int numHighPriorityUndoneTasks = 0;
             while (scanner.hasNextLine()) {
                 // Saved tasks format eg:
-                // T |   | task1
-                // D | X | task2 | 1st Sep
-                // E |   | task 3 | 1st Sep 2pm | 3rd Sep 2pm
+                // T |   | task1 | medium
+                // D | X | task2 | 1st Sep | high
+                // E |   | task3 | 1st Sep 2pm | 3rd Sep 2pm | low
                 String[] taskDetails = scanner.nextLine().split(" \\| ");
                 TaskType taskType = TaskType.getTaskType(taskDetails[0]);
                 if (taskType == null) {
                     throw new EkudIOException("Error with parsing saved tasks: Invalid task type");
                 }
+                boolean isDoneTask = taskDetails[1].equals(TASK_DONE_SYMBOL);
+                String description = taskDetails[2];
+                Priority priority = Priority.getPriority(taskDetails[taskDetails.length - 1]);
+                if (priority == null) {
+                    throw new EkudIOException("Error with parsing saved tasks: Invalid priority");
+                }
+                if (priority.equals(Priority.HIGH) && !isDoneTask) {
+                    numHighPriorityUndoneTasks++;
+                }
                 switch (taskType) {
                 case TODO:
-                    taskList.addTask(new ToDo(taskDetails[2]));
+                    taskList.addTask(new ToDo(description, priority));
                     break;
                 case DEADLINE:
                     LocalDateTime dateTime = parser.parseSavedDateTime(taskDetails[3]);
-                    taskList.addTask(new Deadline(taskDetails[2], dateTime));
+                    taskList.addTask(new Deadline(description, dateTime, priority));
                     break;
                 case EVENT:
                     LocalDateTime fromDateTime = parser.parseSavedDateTime(taskDetails[3]);
                     LocalDateTime toDateTime = parser.parseSavedDateTime(taskDetails[4]);
-                    taskList.addTask(new Event(taskDetails[2], fromDateTime, toDateTime));
+                    taskList.addTask(new Event(description, fromDateTime, toDateTime, priority));
                     break;
                 default:
                     throw new EkudIOException("Error with parsing saved tasks: Invalid task type");
                 }
-                boolean isDoneTask = taskDetails[1].equals(TASK_DONE_SYMBOL);
                 if (isDoneTask) {
                     taskList.markDoneOnStart(curTaskIndex);
                     numDoneTasks++;
@@ -97,9 +103,13 @@ public class Storage {
             if (curTaskIndex == 0) {
                 response = "[No previous tasks saved]";
             } else {
-                response = String.format(
+                response = numHighPriorityUndoneTasks == 0
+                        ? String.format(
                         "[You currently have (%d) unfinished task(s)]",
-                        curTaskIndex - numDoneTasks);
+                        curTaskIndex - numDoneTasks, numHighPriorityUndoneTasks)
+                        : String.format(
+                        "[You currently have (%d) unfinished task(s),\n(%d HIGH priority)]",
+                        curTaskIndex - numDoneTasks, numHighPriorityUndoneTasks);
             };
             return response;
         } catch (IOException e) {
