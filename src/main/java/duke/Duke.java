@@ -42,6 +42,7 @@ public class Duke {
      * @param details Details of task.
      */
     public void executeTask(StringBuilder res, String details) {
+        assert !details.isBlank();
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
         } else {
@@ -57,6 +58,7 @@ public class Duke {
      * @param details Details of TODO.
      */
     public void executeTodo(StringBuilder res, String details) {
+        assert !details.isBlank();
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
         } else {
@@ -72,6 +74,8 @@ public class Duke {
      * @param details Details of deadline.
      */
     public void executeDeadline(StringBuilder res, String details, LocalDateTime dueDateTime) {
+        assert !details.isBlank();
+        assert dueDateTime != null;
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
         } else if (checkStartDateTime(dueDateTime)) {
@@ -90,6 +94,9 @@ public class Duke {
      */
     public void executeEvent(StringBuilder res, String details, LocalDateTime startDateTime,
                              LocalDateTime endDateTime) {
+        assert !details.isBlank();
+        assert startDateTime != null;
+        assert endDateTime != null;
         if (tasks.checkDuplicates(details)) {
             res.append(ui.getDuplicateTasksMessage(details));
         } else if (checkStartDateTime(endDateTime)) {
@@ -126,6 +133,8 @@ public class Duke {
      * @param taskNumber Index of task to be marked.
      */
     public void executeMark(StringBuilder res, int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.getNumOfTasks();
+        assert !tasks.isEmpty();
         if (markAsComplete(taskNumber)) {
             res.append(ui.getMarkMessage(Parser.Command.MARK, taskNumber));
         } else {
@@ -140,6 +149,8 @@ public class Duke {
      * @param taskNumber Index of task to be unmarked.
      */
     public void executeUnmark(StringBuilder res, int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.getNumOfTasks();
+        assert !tasks.isEmpty();
         if (markAsIncomplete(taskNumber)) {
             res.append(ui.getMarkMessage(Parser.Command.UNMARK, taskNumber));
         } else {
@@ -154,6 +165,8 @@ public class Duke {
      * @param taskNumber Index of task to be deleted.
      */
     public void executeDelete(StringBuilder res, int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.getNumOfTasks();
+        assert !tasks.isEmpty();
         Task task = tasks.get(taskNumber - 1);
         tasks.remove(task);
         res.append(ui.getTaskDeletedMessage(tasks, taskNumber));
@@ -166,6 +179,8 @@ public class Duke {
      * @param keyword Keyword to be searched.
      */
     public void executeSearch(StringBuilder res, String keyword) {
+        assert !keyword.isBlank();
+        assert !tasks.isEmpty();
         ArrayList<Task> matchingTasks = getMatchingTasks(keyword);
         if (matchingTasks.isEmpty()) {
             res.append(ui.getEmptySearchResultsMessage(keyword));
@@ -178,6 +193,8 @@ public class Duke {
      * Marks a selected task as complete, with the task number input by the user.
      */
     public boolean markAsComplete(int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.getNumOfTasks();
+        assert !tasks.isEmpty();
         Task task = tasks.get(taskNumber - 1);
         if (!task.isCompleted) {
             task.setCompleted();
@@ -192,6 +209,8 @@ public class Duke {
      * Marks a selected task as incomplete, with the task number input by the user.
      */
     public boolean markAsIncomplete(int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.getNumOfTasks();
+        assert !tasks.isEmpty();
         Task task = tasks.get(taskNumber - 1);
         if (task.isCompleted) {
             task.setIncomplete();
