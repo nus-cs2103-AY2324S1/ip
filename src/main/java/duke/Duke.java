@@ -161,7 +161,6 @@ public class Duke extends Application {
         scanner.close();
     }
 
-
     private Label getDialogLabel(String text) {
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
