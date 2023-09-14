@@ -50,13 +50,16 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClassName = 'duke.Launcher'
+    mainClass.set("duke.Main")
+
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'duke.jar'
 }
 
 run{

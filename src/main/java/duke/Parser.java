@@ -16,11 +16,16 @@ public class Parser {
      * @throws DukeException If the user input is not recognized or improperly formatted.
      */
     public static Command parse(String userInput) throws DukeException {
+        assert userInput != null : "User input should not be null";
+
         if ("bye".equalsIgnoreCase(userInput)) {
             return new ByeCommand();
         } else if ("list".equalsIgnoreCase(userInput)) {
             return new ListCommand();
         } else if (userInput.startsWith("mark")) {
+            String[] parts = userInput.split(" ");
+            assert parts.length > 1 : "Expected a task number after 'mark'";
+
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                 return new MarkCommand(taskNumber);
@@ -28,6 +33,9 @@ public class Parser {
                 throw new DukeException("Please provide a valid task number.");
             }
         } else if (userInput.startsWith("unmark")) {
+            String[] parts = userInput.split(" ");
+            assert parts.length > 1 : "Expected a task number after 'unmark'";
+
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                 return new UnmarkCommand(taskNumber);
@@ -61,6 +69,8 @@ public class Parser {
             String to = parts[2].trim();
             return new EventCommand(description, from, to);
         } else if (userInput.startsWith("delete")) {
+            String[] parts = userInput.split(" ");
+            assert parts.length > 1 : "Expected a task number after 'delete'";
             try {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                 return new DeleteCommand(taskNumber);
