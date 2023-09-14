@@ -37,6 +37,11 @@ public class MainWindow extends AnchorPane {
         pogo = d;
     }
 
+    /**
+     * Shows the user a message.
+     *
+     * @param message The message(s) to show.
+     */
     public void showToUser(String... message) {
         for (String m : message) {
             dialogContainer.getChildren().add(DialogBox.getDukeDialog(m, dukeImage));
