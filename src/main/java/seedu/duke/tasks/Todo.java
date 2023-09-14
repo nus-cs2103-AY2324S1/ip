@@ -21,11 +21,11 @@ public class Todo extends Task {
      * @return proper string format
      */
     public String writeFormat() {
-        int isDone = 0;
+        int done = 0;
         if (super.isMarked()) {
-            isDone = 1;
+            done = 1;
         }
-        return "T" + " | " + isDone + " | " + super.getDescription();
+        return "T" + " | " + done + " | " + super.getDescription();
     };
 
     @Override

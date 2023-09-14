@@ -37,7 +37,9 @@ public class TaskList {
      * @param task Task to add
      */
     public String addTask(Task task) {
+        int before = taskList.size();
         taskList.add(task);
+        assert taskList.size() > before : "size did not increase";
         return ui.printAddingTask(task, taskList);
     }
 
@@ -67,9 +69,11 @@ public class TaskList {
         if (i > taskList.size()) {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
-        Task taskToDekete = taskList.get(i - 1);
+        Task taskToDelete = taskList.get(i - 1);
+        int before = taskList.size();
         taskList.remove(i - 1);
-        return ui.printDeleteTask(taskToDekete);
+        assert taskList.size() < before : "size did not decrease, did not delete";
+        return ui.printDeleteTask(taskToDelete);
     }
 
     /**
