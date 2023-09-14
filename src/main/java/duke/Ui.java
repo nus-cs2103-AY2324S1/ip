@@ -88,6 +88,9 @@ public class Ui {
      * @param totalTasks  The total number of tasks after adding.
      */
     public String showAddedTask(Task task, int totalTasks) {
+        assert task != null : "Task to be added cannot be null";
+        assert totalTasks >= 0 : "Total tasks count cannot be negative";
+
         return printMessage("Got it. I've added this task:\n  " + task
                 + "\nNow you have " + totalTasks + " tasks in the list.");
     }
@@ -99,6 +102,9 @@ public class Ui {
      * @param totalTasks  The total number of tasks after deletion.
      */
     public String showDeletedTask(Task task, int totalTasks) {
+        assert task != null : "Task to be deleted cannot be null";
+        assert totalTasks >= 0 : "Total tasks count cannot be negative";
+
         return printMessage("Noted. I've removed this task:\n  " + task
                 + "\nNow you have " + totalTasks + " tasks in the list.");
     }
@@ -118,6 +124,8 @@ public class Ui {
      * @param task The task that was marked.
      */
     public String showTaskMarked(Task task) {
+        assert task != null : "Task to be marked cannot be null";
+
         return "____________________________________________________________\n"
                 + "Nice! I've marked this task as done:\n"
                 + "  [" + task.getStatusIcon() + "] " + task.description + "\n"
@@ -130,6 +138,8 @@ public class Ui {
      * @param task The task that was unmarked.
      */
     public String showTaskUnmarked(Task task) {
+        assert task != null : "Task to be unmarked cannot be null";
+
         return "____________________________________________________________\n"
                 + "OK, I've marked this task as not done yet:\n"
                 + "  [" + task.getStatusIcon() + "] " + task.description + "\n"
@@ -142,6 +152,8 @@ public class Ui {
      * @param matchingTasks A list of tasks that match the keyword.
      */
     public String showMatchingTasks(ArrayList<Task> matchingTasks) {
+        assert matchingTasks != null : "List of matching tasks cannot be null";
+
         StringBuilder builder = new StringBuilder();
 
         if (matchingTasks.isEmpty()) {
