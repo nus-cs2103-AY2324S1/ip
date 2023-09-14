@@ -59,11 +59,7 @@
 
 ## Contributing and Feedback
 
-If you'd like to contribute to Jarvis or have some feedback, please [open a new issue](LINK_TO_YOUR_GITHUB_ISSUES_PAGE) on our GitHub page.
-
-## License
-
-This project is licensed under the [MIT License](LINK_TO_YOUR_LICENSE_FILE).
+If you'd like to contribute to Jarvis or have some feedback, please [open a new issue](https://github.com/StevenLiudw/ip/issues)on our GitHub page.
 
 
 ## Setting up in Intellij
