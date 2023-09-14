@@ -36,6 +36,8 @@ public class Event extends Task {
         super(desc);
         this.from = TaskDateHandler.convertInputToDate(from);
         this.to = TaskDateHandler.convertInputToDate(to);
+
+        assert this.to.isAfter(this.from) : "start date should be earlier than end date";
     }
 
     /**
@@ -51,6 +53,8 @@ public class Event extends Task {
         super(args);
         this.from = TaskDateHandler.convertSaveToDate(args[2]);
         this.to = TaskDateHandler.convertSaveToDate(args[3]);
+
+        assert this.to.isAfter(this.from) : "start date should be earlier than end date";
     }
 
     @Override
