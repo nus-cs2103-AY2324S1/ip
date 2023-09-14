@@ -35,6 +35,12 @@ public class Duke {
         assert this.diskManager != null : "diskManager of Duke instance should not be null";
     }
 
+    /**
+     * Executes the respective input received from Ui.
+     *
+     * @param input The input received from Ui.
+     * @return The string output to be printed to Ui.
+     */
     public String execute(String input) {
         try {
             Command c = Parser.parseCommand(input);
