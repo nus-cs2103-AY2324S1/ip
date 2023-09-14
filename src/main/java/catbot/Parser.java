@@ -16,20 +16,33 @@ public class Parser {
         this.emptyArgument = emptyArgument;
     }
 
+    /**
+     * Returns a parser that uses the provided String as a delimiter.
+     *
+     * @param delimiter String to use as a trigger to start new commands.
+     * @return Parser constructed with the provided delimiter.
+     */
     public static Parser with(String delimiter) {
         return with(delimiter, false);
     }
 
-    public static Parser with(String delimiter, boolean emptyArgument) {
+    /**
+     * Returns a parser that uses the provided String as a delimiter.
+     *
+     * @param delimiter String to use as a trigger to start new commands.
+     * @param emptyParameter true if the first parameter should have an empty name.
+     * @return Parser constructed with the provided delimiter.
+     */
+    public static Parser with(String delimiter, boolean emptyParameter) {
         if (delimiter == null || delimiter.isEmpty()) {
             return new SingleParser();
         } else {
-            return new Parser(delimiter, emptyArgument);
+            return new Parser(delimiter, emptyParameter);
         }
     }
     //endregion
 
-    public static class SingleParser extends Parser {
+    private static class SingleParser extends Parser {
 
         private SingleParser() {
             super(null, false);
@@ -43,6 +56,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Apply the parser to the given String, and return a representation of parameter-argument pairs.
+     *
+     * @param s String to parse.
+     * @return NamedParameterMap with commands as keys, and arguments as values.
+     */
     public NamedParameterMap parse(String s) {
         NamedParameterMap map = new NamedParameterMap();
         String[] commandArgumentStrings = s.split(delimiter);

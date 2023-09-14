@@ -27,6 +27,7 @@ public abstract class CatBotCommandPatterns {
     };
     private static final IntegerPatternGenerator integerPatternGenerator = new IntegerPatternGenerator();
     private static final SlashArgumentPatternGenerator slashPatternGenerator = new SlashArgumentPatternGenerator();
+    private static final StringPatternGenerator stringPatternGenerator = new StringPatternGenerator();
 
     //endregion
 
@@ -86,7 +87,6 @@ public abstract class CatBotCommandPatterns {
     //endregion
 
     //region String Pattern
-    private static final StringPatternGenerator stringPatternGenerator = new StringPatternGenerator();
 
     public static CommandPatternGenerator<String> getStringPatternGenerator() {
         return stringPatternGenerator;

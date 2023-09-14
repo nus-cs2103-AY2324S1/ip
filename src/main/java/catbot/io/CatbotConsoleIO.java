@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import catbot.Parser;
+import catbot.internal.Bounds;
 import catbot.internal.NamedParameterMap;
 import catbot.task.Task;
 import catbot.task.TaskList;
@@ -143,8 +144,8 @@ public class CatbotConsoleIO implements UserIo {
     }
 
     @Override
-    public void indicateInvalidIndex(int attemptedIndex, TaskList.Bounds bounds) {
-        warn("i expected a number from " + bounds.lowerBound + " to " + bounds.upperBound + "...");
+    public void indicateInvalidIndex(int attemptedIndex, Bounds bounds) {
+        warn("i expected a number from " + bounds.getLower() + " to " + bounds.getUpper() + "...");
     }
 
     @Override
@@ -183,8 +184,8 @@ public class CatbotConsoleIO implements UserIo {
         for (int len = taskList.size(); len > 0; intlen++) {
             len /= 10;
         }
-        for (Task t : taskList.getTasks()) {
-            send(String.format("%" + intlen + "d", i++) + ". " + t);
+        for (String taskString : taskList.getTaskStrings()) {
+            send(String.format("%" + intlen + "d", i++) + ". " + taskString);
         }
     }
 

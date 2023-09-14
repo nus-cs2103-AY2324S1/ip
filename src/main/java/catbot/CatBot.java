@@ -99,7 +99,7 @@ public class CatBot {
 
         commands.addCommand("find",
                 args -> stringPattern.ifParsableElseDefault(args,
-                        str -> io.displayTaskList(taskList.find(str)))
+                        str -> io.displayTaskList(taskList.findInDescriptions(str)))
         );
 
     }

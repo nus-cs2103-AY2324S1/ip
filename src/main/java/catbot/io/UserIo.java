@@ -1,5 +1,8 @@
 package catbot.io;
 
+/**
+ * Object that implements the full expected functionality of IO expected of a CatBot assistant.
+ */
 public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
 
     /**
@@ -21,6 +24,12 @@ public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
         private final String command;
         private final String argument;
 
+        /**
+         * Constructs with a command and argument pair, both as Strings.
+         *
+         * @param command String representing the user's intended functionality.
+         * @param argument String representing arguments to be passed into the command.
+         */
         public CommandArgumentStruct(String command, String argument) {
             this.command = command;
             this.argument = argument;

@@ -11,7 +11,7 @@ import java.util.function.BiConsumer;
 import catbot.internal.NamedParameterMap;
 import catbot.io.ErrorIndicatorIo;
 
-public abstract class Task implements Serializable {
+public abstract class Task implements Serializable { //todo queued for complete rework
 
     //region Fields
 
@@ -22,21 +22,43 @@ public abstract class Task implements Serializable {
 
     //region Getter/setter
 
+    /**
+     * Check if the task is marked as done.
+     *
+     * @return true if done, false otherwise.
+     */
     public boolean isDone() {
         return isDone;
     }
 
+    /**
+     * Mark the task as done.
+     */
     public void setDone() {
         isDone = true;
     }
+
+    /**
+     * Mark the task as not done.
+     */
     public void setUndone() {
         isDone = false;
     }
 
+    /**
+     * Returns the description associated with the task.
+     *
+     * @return description of the task.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Replaces the original description of the task.
+     *
+     * @param description String to replace the original description.
+     */
     public void setDescription(String description) {
         this.description = description;
     }
