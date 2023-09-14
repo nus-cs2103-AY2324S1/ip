@@ -49,7 +49,7 @@ test {
 }
 
 application {
-    mainClass.set("Duke.Duke")
+    mainClass.set("Duke.Launcher")
 }
 
 shadowJar {
@@ -57,7 +57,7 @@ shadowJar {
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 
-    archiveFileName = 'Duke.jar'
+    archiveFileName = 'Launcher.jar'
 }
 
 run{
