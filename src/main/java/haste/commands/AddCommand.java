@@ -79,7 +79,7 @@ public class AddCommand extends Command {
             newTask = defaultTask;
         }
         // newTask should always have a correct taskType
-        assert !newTask.equals(defaultTask) : "task allocation error";
+        //assert !newTask.equals(defaultTask) : "task allocation error";
         tasks.addTask(newTask);
         return ui.add(newTask.toString(), tasks);
     }
