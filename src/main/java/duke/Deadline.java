@@ -32,6 +32,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    /**
+     * update time of a deadline
+     * @param description updated time
+     * @return Task has been updated ,essage
+     */
     @Override
     public String updateTime(String description) {
         this.byDateTime = Parser.retrieveDeadlineTime(description);

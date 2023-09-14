@@ -236,7 +236,7 @@ public class TaskList {
         System.out.println(line);
         return message;
     }
-    public String updateTime(String description, char number) throws NotANumberException {
+    public String updateTime(String description, char number) throws NotANumberException, InvalidInputException {
         if (!Character.isDigit(number)) {
             throw new NotANumberException();
         } else {

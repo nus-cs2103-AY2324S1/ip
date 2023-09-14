@@ -30,13 +30,22 @@ public class Event extends Task {
     }
 
     /**
-     * Updating a task
+     * Updating the time of an event
      * @param description updated time
-     * @return String to be put into the GUI
+     * @return confirmation message that the task's time has been updated
      */
     @Override
-    public String updateTime(String description) {
-        return Parser.retrieveEventTime(description).toString();
+    public String updateTime(String description) throws InvalidInputException {
+        LocalDateTime[] result = Parser.retrieveEventTime(description);
+        LocalDateTime fromTime = result[0];
+        LocalDateTime toTime = result[1];
+
+        this.fromDateTime = fromTime;
+        this.toDateTime = toTime;
+        this.from = fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"));
+        this.to = toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"));
+
+        return "This task has been updated: \n";
     }
 
     /**

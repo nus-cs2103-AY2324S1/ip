@@ -1,4 +1,4 @@
-[D][ ] do hw (by: Aug 30 2023, 23:59)
-[E][X] PINUS (from: Aug 30 2023, 15:00 to: Aug 30 2023, 16:00)
+[D][X] do hw (by: Sep 14 2023, 15:00)
+[E][ ] PINUS (from: Sep 14 2023, 15:00 to: Sep 14 2023, 16:00)
 [E][X] SOMETHING (from: Aug 31 2023, 12:00 to: Aug 31 2023, 13:00)
 [T][X] CS2100 HW

@@ -83,7 +83,19 @@ public class Parser {
         return LocalDateTime.parse(dateTimeStr, formatter);
     }
 
-    public static LocalDateTime retrieveEventTime(String input) {
-        return null;
+    public static LocalDateTime[] retrieveEventTime(String input) throws InvalidInputException {
+        String[] parts = input.split("/from | /to ");
+        if (parts.length != 3) {
+            throw new InvalidInputException();
+        }
+        String fromDateTimeStr = parts[1];
+        String toDateTimeStr = parts[2];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        LocalDateTime fromDateTime = LocalDateTime.parse(fromDateTimeStr, formatter);
+        LocalDateTime toDateTime = LocalDateTime.parse(toDateTimeStr, formatter);
+        LocalDateTime[] dateTimeArray = { fromDateTime, toDateTime };
+        return dateTimeArray;
+
     }
 }

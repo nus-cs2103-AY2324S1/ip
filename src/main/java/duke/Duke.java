@@ -41,15 +41,17 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
 
-        Window window = new Window(stage, storage, ui);
+        //Window window = new Window(stage, storage, ui);
 
-        window.initializeWindow();
+        Window.setParameters(stage, storage, ui);
 
-        window.formatWindow();
+        Window.initializeWindow();
 
-        window.addUserInput();
+        Window.formatWindow();
 
-        window.welcomeMessage();
+        Window.addUserInput();
+
+        Window.welcomeMessage();
 
     }
 

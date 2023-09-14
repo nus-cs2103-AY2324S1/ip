@@ -57,8 +57,12 @@ public class Ui {
             else {
                 throw new InvalidCommandException();
             }
-        } catch (NotANumberException | EmptyDescriptionException | InvalidCommandException e) {
+        } catch (EmptyDescriptionException | InvalidCommandException e) {
             return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+        } catch (NotANumberException e) {
+            return "That is not a number!";
+        } catch (InvalidInputException e) {
+            return "That is an invalid input";
         }
     }
 }

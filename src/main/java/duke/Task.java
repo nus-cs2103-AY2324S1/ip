@@ -47,7 +47,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    abstract String updateTime(String description);
+    abstract String updateTime(String description) throws InvalidInputException;
 
     /**
      * @return toString of a task
