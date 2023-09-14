@@ -20,41 +20,56 @@ public class Storage {
     public static int initialiseTaskListFile(TaskList taskList) {
         try {
             // Load existing file
-            System.out.println("Trying to load existing task list in " + FILE_PATH);
-            File f = new File(FILE_PATH);
-
-            // Load file contents into task list
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                Task task = Parser.parseTaskListEntry(s.nextLine());
-                if (task != null) {
-                    taskList.addTask(task, false);
-                }
-            }
-
+            File f = getFile(FILE_PATH);
+            loadTaskListFromFile(taskList, f);
             taskList.printTasks();
+            return 1;
         } catch (FileNotFoundException e) {
-            // No file, create new one
-            System.out.println("No existing task list found, creating a new file ./data/duke.txt");
+            return handleFileNotFound();
+        }
+    }
 
-            try {
-                // Make directory
-                File dataDir = new File("./data");
-                if (!dataDir.exists()) {
-                    dataDir.mkdir();
-                }
+    private static File getFile(String filePath) throws FileNotFoundException {
+        System.out.println("Trying to load existing task list in " + filePath);
+        File f = new File(filePath);
+        return f;
+    }
 
-                // Make file
-                File f = new File(FILE_PATH);
-                f.createNewFile();
-                System.out.println("File created.");
-            } catch (IOException e1) {
-                System.out.println("Something went wrong: " + e.getMessage());
-                return 0;
+    private static void loadTaskListFromFile(TaskList taskList, File f) throws FileNotFoundException {
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            Task task = Parser.parseTaskListEntry(s.nextLine());
+            if (task != null) {
+                taskList.addTask(task, false);
             }
         }
+    }
 
-        return 1;
+    private static int handleFileNotFound() {
+        System.out.println("No existing task list found, creating a new file ./data/duke.txt");
+
+        try {
+            makeDirectory("./data");
+            makeFile(FILE_PATH);
+            return 1;
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    private static void makeDirectory(String directory) throws IOException {
+        File dataDir = new File(directory);
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+        }
+        System.out.println("Directory created.");
+    }
+
+    private static void makeFile(String filePath) throws IOException {
+        File f = new File(filePath);
+        f.createNewFile();
+        System.out.println("File created.");
     }
 
     /**
