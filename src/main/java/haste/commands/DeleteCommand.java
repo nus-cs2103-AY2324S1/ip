@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui) {
         String desc = tasks.getTask(index).toString();
         tasks.deleteTask(index);
+
         return ui.delete(desc, tasks);
     }
 }

@@ -8,13 +8,8 @@ import haste.data.Storage;
 import haste.data.TaskList;
 import haste.exceptions.HasteException;
 import haste.ui.Ui;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
+
 
 
 /**
@@ -25,14 +20,6 @@ public class Haste {
     private Ui ui;
     private TaskList tasks;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Creates an instance of the chatbot.

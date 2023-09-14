@@ -30,6 +30,7 @@ public class MarkCommand extends Command {
         Task markedTask = tasks.getTask(index);
         markedTask.markDone();
         String taskDesc = markedTask.toString();
+
         return ui.mark(taskDesc, tasks);
     }
 }
