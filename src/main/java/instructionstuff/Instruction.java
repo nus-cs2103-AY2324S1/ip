@@ -261,4 +261,26 @@ public abstract class Instruction {
             mainWindow.setMessage("Bye. Hope to see you again soon.");
         }
     }
+
+    /**
+     * A class which represents the undo instruction.
+     */
+    public static class Undo extends Instruction {
+
+        /**
+         * Stores the tasks in taskList in storage.
+         *
+         * @param storage The Storage instance to store data in.
+         * @param taskList The taskList instance which holds the data to store in storage.
+         * @param mainWindow The MainWindow instance to use to display messages.
+         * @throws DukeException If an error occurred during storing data.
+         */
+        @Override
+        public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
+            taskList.undo();
+            mainWindow.setMessage("Undone last undoable task successfully.");
+        }
+
+
+    }
 }

@@ -12,7 +12,8 @@ public enum InstructionEnum {
     TODO("todo", "T"),
     DEADLINE("deadline", "D"),
     EVENT("event", "E"),
-    FIND("find", "search");
+    FIND("find", "search"),
+    UNDO("undo");
 
     /**
      * An array storing possible string values of the instruction.
