@@ -1,6 +1,5 @@
 package seedu.duke;
 import java.time.LocalDate;
-import seedu.duke.Task;
 
 /**
  * Todo models the todo Tasks by inheriting from the parent Task class.

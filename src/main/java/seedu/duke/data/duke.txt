@@ -1,0 +1,5 @@
+[T][ ] homework
+[D][X] sleep (by: 2000-12-20)
+[E][ ] party (from: sat to: sun)
+[T][ ] homework
+[T][ ] (homework2)

@@ -54,41 +54,37 @@ class TaskList {
     private Task createTaskFromInput(String input) {
         char type = input.charAt(1);
         boolean isDone = (input.charAt(4) == 'X');
-
-        int openParenIndex = input.indexOf('('); // Find the index of the open parenthesis
-
+        int openParenIndex = input.indexOf('(');
         String description;
-
         if (openParenIndex != -1) {
-            // If there is an open parenthesis, extract description till the open parenthesis
-            description = input.substring(7, openParenIndex).trim();  // Trim whitespace
+            description = input.substring(7, openParenIndex).trim(); 
         } else {
-            // If there's no parenthesis, use the entire string after the type marker
-            description = input.substring(7).trim();  // Trim whitespace
+            description = input.substring(7).trim(); 
         }
+        Task task = createTask(type, description, input);
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
 
+    public Task createTask(char type, String description, String input) {
         Task task;
-
         if (type == 'T') {
             task = new Todo(description);
         } else if (type == 'D') {
             int byIndex = input.indexOf("(by: ");
-            String by = input.substring(byIndex + 5, input.length() - 1).trim();  // Trim whitespace
+            String by = input.substring(byIndex + 5, input.length() - 1).trim(); 
             task = new Deadline(description, by);
         } else if (type == 'E') {
             int fromIndex = input.indexOf("(from: ");
             int toIndex = input.indexOf("to: ");
-            String from = input.substring(fromIndex + 7, toIndex).trim();  // Trim whitespace
-            String to = input.substring(toIndex + 4, input.length() - 1).trim();  // Trim whitespace
+            String from = input.substring(fromIndex + 7, toIndex).trim(); 
+            String to = input.substring(toIndex + 4, input.length() - 1).trim(); 
             task = new Event(description, from, to);
         } else {
             return null;
         }
-
-        if (isDone) {
-            task.markAsDone();
-        }
-
         return task;
     }
 
