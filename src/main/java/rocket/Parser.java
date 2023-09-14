@@ -1,8 +1,11 @@
 package rocket;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
+    public static final DateTimeFormatter uglyDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    public static final DateTimeFormatter prettyDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
      * Parses the line command that the user types into a Command
@@ -13,6 +16,7 @@ public class Parser {
     public static Command parse(String fullCommand) throws RocketException{
         String command;
         String arguments;
+
         int firstWordIndex = fullCommand.indexOf(' ');
         if (firstWordIndex == -1) {
             command = fullCommand;
@@ -21,6 +25,7 @@ public class Parser {
             command = fullCommand.substring(0, firstWordIndex);
             arguments = fullCommand.substring(firstWordIndex + 1);
         }
+
         switch (command) {
         case "bye": {
             return new ExitCommand();
@@ -44,48 +49,118 @@ public class Parser {
             return new TodoCommand(arguments, false);
         }
         case "deadline": {
-            int descriptionIndex = arguments.indexOf("by") - 2;
-            String description = arguments.substring(0, descriptionIndex);
-            String deadline = arguments.substring(descriptionIndex + 5)
-                    .replace(')', ' ')
-                    .trim();
+            DeadlineInfo deadlineInfo = parseDeadlineStr(arguments, uglyDateTimeFormatter);
+            String description = deadlineInfo.getDescription();
+            LocalDateTime deadline = deadlineInfo.getDeadline();
 
-            if (description.isEmpty()) {
-                throw new RocketIllegalArgumentException("The description of a deadline");
-            }
-            if (deadline.isEmpty()) {
-                throw new RocketIllegalArgumentException("The deadline of a deadline");
-            }
-            LocalDateTime by = LocalDateTime.parse(deadline, Rocket.uglyDateTimeFormatter);
-            return new DeadlineCommand(description, false, by);
+            return new DeadlineCommand(description, false, deadline);
         }
         case "event": {
-            int descriptionIndex = arguments.indexOf("from") - 2;
-            String description = arguments.substring(0, descriptionIndex);
-            if (description.isEmpty()) {
-                throw new RocketIllegalArgumentException("The description of an event.");
-            }
-            String duration = arguments.substring(descriptionIndex + 7)
-                    .trim();
-            if (duration.isBlank()) {
-                throw new RocketIllegalArgumentException("The duration of an event");
-            }
-            int fromIndex = duration.indexOf("to") - 1;
-            LocalDateTime from = LocalDateTime.parse(
-                    duration.substring(0, fromIndex).trim(),
-                    Rocket.uglyDateTimeFormatter
-            );
-            LocalDateTime to = LocalDateTime.parse(
-                    duration.substring(fromIndex + 4)
-                            .replace(')', ' ')
-                            .trim(),
-                    Rocket.uglyDateTimeFormatter
-            );
-            return new EventCommand(description, false, from, to);
+            EventInfo eventInfo = parseEventStr(arguments, uglyDateTimeFormatter);
+            String description = eventInfo.getDescription();
+            LocalDateTime startDate = eventInfo.getStartDate();
+            LocalDateTime endDate = eventInfo.getEndDate();
+
+            return new EventCommand(description, false, startDate, endDate);
         }
         default: {
             throw new RocketInvalidCommandException();
         }
         }
+    }
+
+    public static class DeadlineInfo {
+        private String description;
+        private LocalDateTime deadline;
+
+        public DeadlineInfo(String description, LocalDateTime deadline) {
+            this.description = description;
+            this.deadline = deadline;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public LocalDateTime getDeadline() {
+            return deadline;
+        }
+    }
+
+    public static DeadlineInfo parseDeadlineStr(String input, DateTimeFormatter dateTimeFormatter) throws RocketIllegalArgumentException{
+        int byIndex = input.indexOf("by");
+        if (byIndex == -1) {
+            throw new RocketIllegalArgumentException("Missing 'by' keyword");
+        }
+
+        String description = input.substring(0, byIndex - 2).trim();
+        String deadlineStr = input.substring(byIndex + 3)
+                .replace(')', ' ')
+                .trim();
+
+        if (description.isEmpty()) {
+            throw new RocketIllegalArgumentException("The description of a deadline is empty");
+        }
+        if (deadlineStr.isEmpty()) {
+            throw new RocketIllegalArgumentException("The deadline of a deadline is empty");
+        }
+
+        LocalDateTime by = LocalDateTime.parse(deadlineStr, dateTimeFormatter);
+
+        return new DeadlineInfo(description, by);
+    }
+
+    public static class EventInfo {
+        private String description;
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
+
+        public EventInfo(String description, LocalDateTime startDate, LocalDateTime endDate) {
+            this.description = description;
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public LocalDateTime getStartDate() {
+            return startDate;
+        }
+
+        public LocalDateTime getEndDate() {
+            return endDate;
+        }
+    }
+
+    public static EventInfo parseEventStr(String input, DateTimeFormatter dateTimeFormatter) throws RocketIllegalArgumentException {
+        int fromIndex = input.indexOf("from") ;
+        String description = input.substring(0, fromIndex - 2);
+
+        if (description.isEmpty()) {
+            throw new RocketIllegalArgumentException("The description of an event is empty.");
+        }
+
+        String duration = input.substring(fromIndex + 5)
+                .trim();
+
+        if (duration.isBlank()) {
+            throw new RocketIllegalArgumentException("The duration of an event is empty.");
+        }
+
+        int toIndex = duration.indexOf("to");
+        LocalDateTime startDate = LocalDateTime.parse(
+                duration.substring(0, toIndex - 1).trim(),
+                dateTimeFormatter
+        );
+        LocalDateTime endDate = LocalDateTime.parse(
+                duration.substring(toIndex + 3)
+                        .replace(')', ' ')
+                        .trim(),
+                dateTimeFormatter
+        );
+
+        return new EventInfo(description, startDate, endDate);
     }
 }

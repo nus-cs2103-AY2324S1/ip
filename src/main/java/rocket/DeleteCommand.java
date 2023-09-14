@@ -1,10 +1,6 @@
 package rocket;
 
 public class DeleteCommand extends Command{
-    public DeleteCommand() {
-        super(false);
-    }
-
     private int taskNumber;
 
     /**
@@ -24,12 +20,15 @@ public class DeleteCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task task = tasks.get(taskNumber);
+
+        Task taskToDelete = tasks.get(taskNumber);
         tasks.remove(taskNumber);
+
         String response = "";
         response += "    Noted. I've removed this task:\n";
-        response += "      " + task + "\n";
+        response += "      " + taskToDelete + "\n";
         response += "    Now you have " + tasks.size() + " tasks in the list";
+
         System.out.println(response);
         ui.setLastResponse(response);
     }

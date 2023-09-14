@@ -3,10 +3,6 @@ package rocket;
 import java.time.LocalDateTime;
 
 public class EventCommand extends AddCommand{
-    private String description;
-    private LocalDateTime from;
-    private LocalDateTime to;
-
 
     /**
      * Creates event command.
