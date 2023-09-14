@@ -1,12 +1,12 @@
 package commands;
 
-import functions.TaskList;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * The base abstract class for different types of commands.
+ */
 public abstract class Command {
 
     /**
@@ -32,7 +32,7 @@ public abstract class Command {
                 dateTime = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(format));
                 return dateTime;
             } catch (DateTimeParseException e) {
-                // do nothing, try the next format
+                // do nothing, try the next format.
             }
         }
         System.out.println("DateTime in an invalid format. Please enter datetime in the following format: \n" +

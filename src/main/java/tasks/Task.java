@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * The base class for different types of tasks.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

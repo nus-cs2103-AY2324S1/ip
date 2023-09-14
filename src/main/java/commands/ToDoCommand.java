@@ -23,10 +23,11 @@ public class ToDoCommand extends Command{
     public String execute() {
         if (this.description.strip().isEmpty() || this.description.matches("todo")) {
             return "OOPS! The description of a todo cannot be empty.";
-
         }
+
         ToDo newTodo = new ToDo(this.description);
         this.taskList.add(newTodo);
+
         return "I have added the following: \n" + newTodo.getTaskAsString();
     }
 }

@@ -3,6 +3,9 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task, with a description and the due date.
+ */
 public class Deadline extends Task {
 
     private String TaskIcon = "[D]";
@@ -37,7 +40,11 @@ public class Deadline extends Task {
         return message;
     }
 
-
+    /**
+     * Parses the LocalDateTime of the deadline datetime to a String representation
+     *
+     * @return A String representation of LocalDateTime of deadline
+     */
     public String getDeadlineDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedDateTime = this.deadline.format(formatter);

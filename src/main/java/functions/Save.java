@@ -1,7 +1,5 @@
 package functions;
 
-import functions.TaskList;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,6 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * A utility class for saving a file.
+ */
 public class Save {
     TaskList taskList;
     private String saveFilePath;

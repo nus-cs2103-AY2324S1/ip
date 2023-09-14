@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents a todo task with a description.
+ */
 public class ToDo extends Task {
 
     private String TaskIcon = "[T]";

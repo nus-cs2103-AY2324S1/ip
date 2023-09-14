@@ -10,6 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.io.FileReader;
 
+/**
+ * A utility class for loading a file.
+ */
 public class Load {
 
     TaskList taskList;
@@ -25,6 +28,11 @@ public class Load {
         this.taskList = new TaskList();
     }
 
+    /**
+     * Loads the tasks in a file and returns the previously saved version of a Task List.
+     *
+     * @return A loaded TaskList
+     */
     public TaskList load() throws IOException {
         FileReader f = null;
 
@@ -47,52 +55,53 @@ public class Load {
             String description = null;
 
             switch (taskType) {
-                case "T":
-                    description = currentTaskAsString.substring(descriptionBeginIndex);
-                    ToDo todo = new ToDo(description, isDone);
-                    taskList.add(todo);
-                    break;
+            case "T":
+                description = currentTaskAsString.substring(descriptionBeginIndex);
+                ToDo todo = new ToDo(description, isDone);
+                taskList.add(todo);
+                break;
 
-                case "D":
-                    descriptionEndIndex = currentTaskAsString.indexOf("(by:")-1;
-                    int deadlineStartIndex = currentTaskAsString.indexOf("(by:") + 5;
-                    description = currentTaskAsString.substring(descriptionBeginIndex, descriptionEndIndex);
-                    String deadlineTimeString = currentTaskAsString.substring(deadlineStartIndex, currentTaskAsString.length()-1);
-                    LocalDateTime deadlineTime = null;
-                    try {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-                        deadlineTime = LocalDateTime.parse(deadlineTimeString, formatter);
-                    } catch (Exception e) {
-                        System.out.println("tasks.Deadline " + description + " cannot be loaded.");
-                        break;
-                    }
-                    Deadline deadline = new Deadline(description, deadlineTime, isDone);
-                    taskList.add(deadline);
+            case "D":
+                descriptionEndIndex = currentTaskAsString.indexOf("(by:")-1;
+                int deadlineStartIndex = currentTaskAsString.indexOf("(by:") + 5;
+                description = currentTaskAsString.substring(descriptionBeginIndex, descriptionEndIndex);
+                String deadlineTimeString = currentTaskAsString.substring(deadlineStartIndex, currentTaskAsString.length()-1);
+                LocalDateTime deadlineTime = null;
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                    deadlineTime = LocalDateTime.parse(deadlineTimeString, formatter);
+                } catch (Exception e) {
+                    System.out.println("tasks.Deadline " + description + " cannot be loaded.");
                     break;
+                }
+                Deadline deadline = new Deadline(description, deadlineTime, isDone);
+                taskList.add(deadline);
+                break;
 
-                case "E":
-                    descriptionEndIndex = currentTaskAsString.indexOf("(from:")-1;
-                    int fromTimingStartIndex = currentTaskAsString.indexOf("(from:") + 7;
-                    int fromTimingEndIndex = currentTaskAsString.indexOf("to:")-1;
-                    int toTimingStartIndex = fromTimingEndIndex + 5;
-                    int toTimingEndIndex = currentTaskAsString.length() - 1;
-                    description = currentTaskAsString.substring(descriptionBeginIndex, descriptionEndIndex);
-                    String fromString = currentTaskAsString.substring(fromTimingStartIndex, fromTimingEndIndex);
-                    String toString = currentTaskAsString.substring(toTimingStartIndex, toTimingEndIndex);
-                    LocalDateTime fromDateTime = null;
-                    LocalDateTime toDateTime = null;
-                    try {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-                        fromDateTime = LocalDateTime.parse(fromString, formatter);
-                        toDateTime = LocalDateTime.parse(toString, formatter);
-                    } catch (Exception e) {
-                        System.out.println("tasks.Event " + description + " cannot be loaded.");
-                        break;
-                    }
+            case "E":
+                descriptionEndIndex = currentTaskAsString.indexOf("(from:")-1;
+                int fromTimingStartIndex = currentTaskAsString.indexOf("(from:") + 7;
+                int fromTimingEndIndex = currentTaskAsString.indexOf("to:")-1;
+                int toTimingStartIndex = fromTimingEndIndex + 5;
+                int toTimingEndIndex = currentTaskAsString.length() - 1;
+                description = currentTaskAsString.substring(descriptionBeginIndex, descriptionEndIndex);
+                String fromString = currentTaskAsString.substring(fromTimingStartIndex, fromTimingEndIndex);
+                String toString = currentTaskAsString.substring(toTimingStartIndex, toTimingEndIndex);
+                LocalDateTime fromDateTime = null;
+                LocalDateTime toDateTime = null;
 
-                    Event event = new Event(description, fromDateTime, toDateTime, isDone);
-                    taskList.add(event);
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                    fromDateTime = LocalDateTime.parse(fromString, formatter);
+                    toDateTime = LocalDateTime.parse(toString, formatter);
+                } catch (Exception e) {
+                    System.out.println("tasks.Event " + description + " cannot be loaded.");
                     break;
+                }
+
+                Event event = new Event(description, fromDateTime, toDateTime, isDone);
+                taskList.add(event);
+                break;
             }
 
         }
