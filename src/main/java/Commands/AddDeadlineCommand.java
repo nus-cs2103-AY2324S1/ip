@@ -1,4 +1,5 @@
 package Commands;
+import Duke.DukeException;
 import OOP.TaskList;
 import OOP.Ui;
 import OOP.Storage;
@@ -16,6 +17,7 @@ public class AddDeadlineCommand implements Command {
     public AddDeadlineCommand(String deadlineName, String deadlineString) {
         Deadline deadline = Storage.parseDeadlineFromString(deadlineName, deadlineString);
         this.deadline = deadline;
+        assert !deadline.isDone();
     }
 
     public Deadline getDeadline() {
@@ -28,7 +30,10 @@ public class AddDeadlineCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        if (this.deadline.getName().length() == 0) {
+            throw new DukeException("\tEmpty Description");
+        }
         tasks.addTask(this.deadline);
-        return ui.printTaskAddedMessage(this.deadline, tasks);
+        return ui.getTaskAddedMessage(this.deadline, tasks);
     }
 }

@@ -1,8 +1,8 @@
 package Commands;
+import Duke.DukeException;
 import OOP.TaskList;
 import OOP.Ui;
 import OOP.Storage;
-import Tasks.Task;
 import Tasks.ToDo;
 public class AddToDoCommand implements Command {
     /** The toDo to be added to the TaskList upon execution of this command.*/
@@ -14,6 +14,7 @@ public class AddToDoCommand implements Command {
      */
     public AddToDoCommand(String name) {
         this.toDo = new ToDo(name, false);
+        assert !this.toDo.isDone();
     }
 
     public ToDo getTodo() {
@@ -26,7 +27,10 @@ public class AddToDoCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        if (toDo.getName().length() == 0) {
+            throw new DukeException("\tEmpty Description");
+        }
         tasks.addTask(this.toDo);
-        return ui.printTaskAddedMessage(toDo, tasks);
+        return ui.getTaskAddedMessage(toDo, tasks);
     }
 }

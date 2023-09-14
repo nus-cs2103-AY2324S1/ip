@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Event is a Task with an eventStart and eventEnd in string formats.
+ */
 public class Event extends Task {
     /** The end of the event, as a string */
     private String eventEnd;

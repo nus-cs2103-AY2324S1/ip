@@ -1,14 +1,16 @@
 package Commands;
 
-import Duke.DukeException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import OOP.Storage;
 import OOP.TaskList;
 import OOP.Ui;
 import Tasks.Task;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * The command that helps user search for tasks by using some search text.
+ */
 public class FindTasksCommand implements Command {
     private String searchText;
     public FindTasksCommand(String searchText) {
@@ -27,9 +29,9 @@ public class FindTasksCommand implements Command {
         }).collect(Collectors.toList());
         // get UI to print out the filtered list of tasks
         int i = 0;
-        String res = ui.printFindTaskMessage();
+        String res = ui.getFindTaskMessage();
         for (Task task : filteredTasks) {
-            res += ui.printTask(i, task);
+            res += ui.getTaskString(i, task);
             i++;
         }
         return res;

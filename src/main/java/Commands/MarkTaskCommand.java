@@ -23,7 +23,8 @@ public class MarkTaskCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.markTask(id);
-            return ui.printTaskMarkedMessage(tasks.getTask(id));
+            assert tasks.getTask(id).isDone();
+            return ui.getTaskMarkedMessage(tasks.getTask(id));
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "
                                         + tasks.getSize()

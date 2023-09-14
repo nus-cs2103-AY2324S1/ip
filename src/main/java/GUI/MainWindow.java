@@ -17,6 +17,7 @@ import javafx.util.Duration;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private String BYE_TEXT = "Bye. Hope to see you again soon! I'll close the window now.\n";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -32,7 +33,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         // to greet the user:
-        Label greetingLabel = new Label(new Ui().printGreeting("wallE"));
+        Label greetingLabel = new Label(new Ui().getGreeting("wallE"));
         Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wallE.png"));
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(greetingLabel.getText(), dukeImage));
     }
@@ -58,7 +59,7 @@ public class MainWindow extends AnchorPane {
                 userDialog,
                 dukeDialog
         );
-        if (dukeText.getText().equals("Bye. Hope to see you again soon! I'll close the window now.\n")) {
+        if (dukeText.getText().equals(BYE_TEXT)) {
             Stage stage = (Stage) userInput.getScene().getWindow(); // Get the stage
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished( e -> stage.close() );

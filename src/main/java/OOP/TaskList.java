@@ -1,10 +1,14 @@
 package OOP;
 
-import Tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Tasks.Task;
+
+/**
+ * The class that manipulates the main group of tasks known to wallE.
+ */
 public class TaskList {
     /** The list of tasks to be encapusated in this class */
     private List<Task> tasks;
@@ -27,6 +31,7 @@ public class TaskList {
     }
 
     public Task getTask(int i) {
+        assert i < tasks.size() && i >= 0;
         return tasks.get(i);
     }
 
@@ -47,6 +52,7 @@ public class TaskList {
      * @return The task that was removed.
      */
     public Task deleteTask(int id) {
+        assert id < tasks.size() && id >= 0;
         return this.tasks.remove(id);
     }
 
@@ -56,6 +62,7 @@ public class TaskList {
      * @param id The index of the task to be marked as done.
      */
     public void markTask(int id) {
+        assert id < tasks.size() && id >= 0;
         this.getTask(id).markAsDone();
     }
 
@@ -65,6 +72,7 @@ public class TaskList {
      * @param id The index of a task to be marked as not done.
      */
     public void unmarkTask(int id) {
+        assert id < tasks.size() && id >= 0;
         this.getTask(id).markAsUndone();
     }
 
