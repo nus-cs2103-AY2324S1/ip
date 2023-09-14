@@ -1,4 +1,5 @@
 package devybot.util;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -94,9 +95,11 @@ public class Storage {
         try {
             File dataDir = new File("./data");
             if (!dataDir.exists()) {
-                dataDir.mkdir(); // Create the directory if it doesn't exist
+                dataDir.mkdir();
+                assert dataDir.exists() : "Directory not created";
             }
             FileWriter fileWriter = new FileWriter(filePath);
+            assert fileWriter != null : "FileWriter should not be null";
             for (int i = 0; i < taskList.size(); i++) {
                 fileWriter.write(taskList.getTask(i).toFileString() + "\n");
             }

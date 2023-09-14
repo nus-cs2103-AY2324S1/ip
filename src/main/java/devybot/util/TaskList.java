@@ -65,6 +65,7 @@ public class TaskList {
         }
 
         Task newTask = new TodoTask(description);
+        assert newTask != null : "Task should not be null";
         taskList.add(newTask);
 
         String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
@@ -96,7 +97,7 @@ public class TaskList {
                 LocalDate date = LocalDate.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy"));
                 newTask = new DeadlineTask(description, date);
             }
-
+            assert newTask != null : "Task should not be null";
             taskList.add(newTask);
 
             String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
@@ -126,6 +127,7 @@ public class TaskList {
             LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
             Task newTask = new EventTask(description, fromDateTime, toDateTime);
 
+            assert newTask != null : "Task should not be null";
             taskList.add(newTask);
 
             String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
@@ -143,6 +145,7 @@ public class TaskList {
         }
 
         Task currentTask = taskList.get(index);
+        assert currentTask != null : "Task should not be null";
         currentTask.markTask();
 
         String outpString = "Nice! I've marked this task as done:\n  " + currentTask;
@@ -156,6 +159,7 @@ public class TaskList {
         }
 
         Task currentTask = taskList.get(index);
+        assert currentTask != null : "Task should not be null";
         currentTask.unmarkTask();
 
         String outpString = "OK, I've marked this task as not done yet:\n  " + currentTask;
