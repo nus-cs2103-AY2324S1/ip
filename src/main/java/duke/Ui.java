@@ -128,6 +128,10 @@ public class Ui {
     }
 
     public static String taskWithinOrPassedDueDate(ArrayList<Task> dueTasks) {
+        if (dueTasks.isEmpty()) {
+            return "OMO OMO OMO! There's no tasks that are due/going to happen within 7 days!!!!\n\n";
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("ATTENTIONNNNNNNNNNNN!!! You have task(s) that are due/going to happen "
                         + "within 7 days:\n");
