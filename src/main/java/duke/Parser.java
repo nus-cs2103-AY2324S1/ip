@@ -42,6 +42,8 @@ public class Parser {
                         + todo.taskDescription + System.lineSeparator());
                 return ui.printAddedTask(tasks.getSize(), todo);
             case "deadline":
+                assert arr.length == 2 : "Deadline should have 2 elements in the array";
+
                 String dl = arr[0];
                 String by = arr[1].substring(3);
                 LocalDateTime deadLineDateTime = LocalDateTime.parse(by, formatter);
@@ -52,6 +54,8 @@ public class Parser {
                         + deadline.taskDescription + "| " + by + System.lineSeparator());
                 return ui.printAddedTask(tasks.getSize(), deadline);
             case "event":
+                assert arr.length == 3 : "Event should have 3 elements in the array";
+
                 String ev = arr[0];
                 String from = arr[1].substring(5, 5 + "yyyyMMdd HHmm".length());
                 LocalDateTime eventStartDateTime = LocalDateTime.parse(from, formatter);
