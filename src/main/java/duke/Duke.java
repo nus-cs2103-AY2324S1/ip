@@ -31,13 +31,6 @@ public class Duke extends Application {
      */
     private static Storage taskStorage = new Storage();
 
-    /**
-     * An enum to track the status of the chatbot
-     * RUNNING, STOPPING, etc.
-     * [To add more if needed]
-     */
-    enum Status {RUNNING, STOPPING}
-
     // Variables for GUI
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -54,9 +47,17 @@ public class Duke extends Application {
      */
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
+        createWindow(stage);
+        formatWindow();
+        createEventListener();
+    }
 
-        //The container for the content of the chat to scroll.
+    /**
+     * Set up GUI components
+     *
+     * @param stage The window the GUI is contained in
+     */
+    private void createWindow(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -72,14 +73,19 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
+        // Format the window to look as expected
         stage.setTitle("CENATOR");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
         mainLayout.setPrefSize(400.0, 600.0);
+    }
 
+    /**
+     * Format and resize GUI components
+     */
+    private void formatWindow() {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -100,8 +106,12 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        //Part 3. Add functionality to handle user input.
+    /**
+     * Set up interactivity with GUI and chatbot
+     */
+    private void createEventListener() {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
