@@ -42,6 +42,7 @@ public class AddDeadlineCommand extends Command {
     public CommandResult execute() {
         try {
             Task deadline = new Deadline(description, by);
+            assert tasks != null : "Task list should not be null";
             tasks.add(deadline);
             return new CommandResult("Got it. I've added this task:\n" + deadline.getStatusMessage());
         } catch (PogoInvalidTaskException e) {

@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("pogo.Pogo")
+    mainClass.set("pogo.Launcher")
 }
 
 shadowJar {
@@ -54,6 +54,7 @@ shadowJar {
 
 run {
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {

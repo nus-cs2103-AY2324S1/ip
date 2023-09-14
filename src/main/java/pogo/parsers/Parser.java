@@ -35,6 +35,7 @@ public class Parser {
 
     /**
      * Parses user input into command for execution.
+     *
      * @param input the user input to parse.
      * @return Command to be executed.
      */
@@ -69,6 +70,7 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     return new InvalidCommand(e.getMessage());
                 }
+                assert false : "List command should return before this point";
 
                 return new ListTasksCommand(from, to);
             case FindTaskCommand.COMMAND_WORD:
@@ -88,6 +90,7 @@ public class Parser {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
             default:
+                assert false : "Command word should be valid";
                 break;
             }
         } catch (PogoInvalidTaskException e) {

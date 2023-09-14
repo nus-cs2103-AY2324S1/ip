@@ -82,6 +82,7 @@ public class TextStorage implements Storage {
         createTaskFileIfNotExist();
 
         File tasksFile = new File(TASKS_FILE);
+        assert tasksFile.exists() : "Task file should exist";
         List<String> lines = Files.readAllLines(tasksFile.toPath());
         return encoder.decode(lines);
     }

@@ -35,6 +35,7 @@ public class FindTaskCommand extends Command {
             return new CommandResult("There are no tasks with that description.");
         }
 
+        assert tasks != null : "Task list should not be null";
         for (int i = 0; i < filteredTasks.size(); i++) {
             Task task = filteredTasks.get(i);
             sb.append(i + 1).append(". ").append(task.getStatusMessage()).append("\n");

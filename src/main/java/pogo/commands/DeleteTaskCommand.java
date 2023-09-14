@@ -22,6 +22,7 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        assert tasks != null : "Task list should not be null";
         if (index < 0 || index >= tasks.size()) {
             return new CommandResult(Messages.INVALID_INDEX);
         }
