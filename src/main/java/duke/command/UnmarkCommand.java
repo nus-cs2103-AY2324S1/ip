@@ -34,11 +34,15 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null : "Task list cannot be null";
+        assert ui != null : "UI object cannot be null";
+        assert storage != null : "Storage object cannot be null";
+
         try {
-            Task tasktoUnmark = taskList.getTask(taskIndex);
-            tasktoUnmark.markAsNotDone();
+            Task taskToUnmark = taskList.getTask(taskIndex);
+            taskToUnmark.markAsNotDone();
             storage.saveTasks(taskList.getAllTasks()); // Save the updated task list
-            return ui.displayUnmarked(tasktoUnmark);
+            return ui.displayUnmarked(taskToUnmark);
         } catch (IndexOutOfBoundsException e) {
             return ui.showErrorMessage("Invalid task index.");
         }
