@@ -26,11 +26,8 @@ public class Storage {
             File file = new File(path);
             file.getParentFile().mkdirs();
             PrintWriter writer = new PrintWriter(new FileWriter(file));
-
             x.saveTasksToFile(writer);
-
             writer.close();
-
         } catch (IOException e) {
             System.out.println("IO");
             e.printStackTrace();
@@ -44,7 +41,6 @@ public class Storage {
      */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-
         try {
             File file = new File(path);
             if (!file.exists()) {
@@ -58,7 +54,7 @@ public class Storage {
                 if (splitsy.size() < 4) {
                     splitsy.add("hi");
                 }
-                tasks.add(Storage.correctTask(splitsy.get(0), splitsy.get(1), splitsy.get(2), splitsy.get(3)));
+                tasks.add(Storage.parseTask(splitsy.get(0), splitsy.get(1), splitsy.get(2), splitsy.get(3)));
                 line = reader.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -96,7 +92,7 @@ public class Storage {
      * @param deadline The deadline or additional information associated with the task.
      * @return A Task object representing the parsed task.
      */
-    public static Task correctTask(String type, String completionStatus, String taskDescription, String deadline) {
+    public static Task parseTask(String type, String completionStatus, String taskDescription, String deadline) {
         if (type.equals("[T] ")) {
             Task task = new ToDoTask(taskDescription);
             if (completionStatus.equals("[X] ")) {
