@@ -3,6 +3,8 @@ package Duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import Duke.GUI.Ui;
 import Duke.Tasks.TaskList;
 import Duke.Exceptions.IncompleteInput;
 import Duke.Exceptions.InvalidInput;
@@ -24,20 +26,17 @@ public class Parser {
      * @param iu The Ui object to interact with the user.
      * @return True if the application should continue running; false if it should exit.
      */
-    public boolean inputs(String input, TaskList tasks, Ui iu) {
+    public static String input(String input, TaskList tasks, Ui iu) {
         String[] listOfWords = input.split(" ");
         String prefix = listOfWords[0];
-        //future has been used as the boolean which determines when to terminate program
-        boolean future = true;
         try {
             if (input.equals("bye")) {
                 Storage.saveTasks(tasks);
-                Ui.printBye();
-                future = false;
+                return Ui.printBye();
             } else if (input.equals("list")) {
-                iu.printList(tasks);
+                return iu.printList(tasks);
             } else if (prefix.equals("find")) {
-                iu.printMatchingTasks(tasks, input.split(" ",2)[1]);
+                return iu.printMatchingTasks(tasks, input.split(" ", 2)[1]);
             } else if (prefix.equals("mark")) {
                 int index = Integer.parseInt(listOfWords[1]);
 
@@ -46,7 +45,7 @@ public class Parser {
                 }
 
                 tasks.checkItem(index);
-                iu.printMarked(tasks, index);
+                return iu.printMarked(tasks, index);
             } else if (prefix.equals("unmark")) {
                 int index = Integer.parseInt(listOfWords[1]);
 
@@ -55,7 +54,7 @@ public class Parser {
                 }
 
                 tasks.notDoneItem(index);
-                iu.printUnmarked(tasks, index);
+                return iu.printUnmarked(tasks, index);
             } else if (prefix.equals("delete")) {
                 int index = Integer.parseInt(listOfWords[1]);
 
@@ -64,29 +63,29 @@ public class Parser {
                     throw new InvalidInput("False Index");
                 }
 
-                iu.printDelete(tasks, index);
+                String toDelete = iu.printDelete(tasks, index);
                 tasks.deleteIndex(index);
+                return toDelete;
             } else {
                 boolean exceptionOccured = false;
                 try {
-                    tasks.input(input);
+                    tasks.enter(input);
                 } catch (IncompleteInput e) {
                     exceptionOccured = true;
-                    iu.printTaskWithoutDescription();
+                    return iu.printTaskWithoutDescription();
                 } catch (InvalidInput e) {
                     exceptionOccured = true;
-                    iu.printNonsense();
+                    return iu.printNonsense();
                 } finally {
                     if (!exceptionOccured) {
-                        iu.printAddedToList(tasks);
+                        return iu.printAddedToList(tasks);
                     }
                 }
             }
         } catch (InvalidInput e) {
-            iu.printWrongIndex();
-        } finally {
-            return future;
+            return iu.printWrongIndex();
         }
+        return "Never happens";
     }
 
     /**

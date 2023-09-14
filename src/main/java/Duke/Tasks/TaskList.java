@@ -61,7 +61,7 @@ public class TaskList {
      * @throws InvalidInput    If the input is invalid.
      * @throws IncompleteInput If the input is incomplete.
      */
-    public void input(String item) throws InvalidInput, IncompleteInput  {
+    public void enter(String item) throws InvalidInput, IncompleteInput  {
         String firstWord = item.split(" ")[0];
 
         if (item.split(" ").length == 1) {
@@ -80,6 +80,7 @@ public class TaskList {
             String task = item.split(" ", 2)[1];
             storagePile.add(new EventTask(task));
         }
+        Storage.saveTasks(this);
     }
 
     /**
