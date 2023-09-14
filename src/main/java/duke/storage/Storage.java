@@ -44,6 +44,69 @@ public class Storage {
     }
 
     /**
+     * Process a ToDo task from a task description.
+     *
+     * @param taskDescription A String representing the task description.
+     * @return A ToDo Task
+     */
+    private Task processToDo(String taskDescription) {
+        return new ToDo(taskDescription);
+    }
+
+    /**
+     * Process a Deadline task from a task description.
+     *
+     * @param taskDescription A String representing the task description.
+     * @return A Deadline Task
+     */
+    private Task processDeadline(String taskDescription) {
+        String[] split = taskDescription.split(" \\(by: |\\)");
+        return new Deadline(split[0], split[1]);
+    }
+
+    /**
+     * Process a Event task from a task description.
+     *
+     * @param taskDescription A String representing the task description.
+     * @return A Event Task
+     */
+    private Task processEvent(String taskDescription) {
+        String[] split = taskDescription.split(" \\(from: | to: |\\)");
+        return new Event(split[0], split[1], split[2]);
+    }
+
+    /**
+     * Process a line in the input file.
+     *
+     * @param input A String representing a task.
+     * @return A Task that is read from the line.
+     * @throws DukeException If the input line is of invalid format.
+     */
+    private Task processLine(String input) throws DukeException {
+        String taskType = input.substring(1, 2);
+        String taskMark = input.substring(4, 5);
+        String taskDescription = input.substring(7);
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = processToDo(taskDescription);
+            break;
+        case "D":
+            task = processDeadline(taskDescription);
+            break;
+        case "E":
+            task = processEvent(taskDescription);
+            break;
+        default:
+            throw new DukeException("OOPS!!! Failed to load tasks from file.");
+        }
+        if (taskMark.equals("X")) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    /**
      * Reads from the file to retrieve the list of tasks.
      *
      * @return A TaskList containing tasks read from the file.
@@ -55,32 +118,7 @@ public class Storage {
             Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
                 String input = sc.nextLine();
-                String taskType = input.substring(1, 2);
-                String taskMark = input.substring(4, 5);
-                String taskDescription = input.substring(7);
-                if (taskType.equals("T")) {
-                    Task toDo = new ToDo(taskDescription);
-                    if (taskMark.equals("X")) {
-                        toDo.markAsDone();
-                    }
-                    tasks.addTask(toDo);
-                } else if (taskType.equals("D")) {
-                    String[] split = taskDescription.split(" \\(by: |\\)");
-                    Task deadline = new Deadline(split[0], split[1]);
-                    if (taskMark.equals("X")) {
-                        deadline.markAsDone();
-                    }
-                    tasks.addTask(deadline);
-                } else if (taskType.equals("E")) {
-                    String[] split = taskDescription.split(" \\(from: | to: |\\)");
-                    Task event = new Event(split[0], split[1], split[2]);
-                    if (taskMark.equals("X")) {
-                        event.markAsDone();
-                    }
-                    tasks.addTask(event);
-                } else {
-                    throw new DukeException("OOPS!!! Failed to load tasks from file.");
-                }
+                tasks.addTask(processLine(input));
             }
             return tasks;
         } catch (DateTimeParseException e) {
