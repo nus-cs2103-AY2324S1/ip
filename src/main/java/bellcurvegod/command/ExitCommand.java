@@ -20,8 +20,6 @@ public class ExitCommand implements Runnable {
             System.out.println(e);
         }
 
-        Ui.showLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        Ui.showLine();
+        Ui.showExitMessage();
     }
 }

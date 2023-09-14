@@ -81,11 +81,7 @@ public class Event extends Task {
             from = LocalDate.parse(start);
             to = LocalDate.parse(end);
         } catch (DateTimeParseException e) {
-            Ui.showLine();
-            System.out.println("Please enter your times in the following format:");
-            System.out.println("yyyy-mm-dd");
-            System.out.println("E.g. 2019-10-15");
-            Ui.showLine();
+            Ui.showWrongDateFormatMessage();
             return new Event("__Faulty", from, to);
         }
 

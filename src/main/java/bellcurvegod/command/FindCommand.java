@@ -15,7 +15,6 @@ public class FindCommand implements Runnable {
      * contains the keyword that the user is searching for.
      */
     public static void run(String keyword) {
-        Ui.showLine();
         ArrayList<Task> tasks = TaskList.getTaskList();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
@@ -25,15 +24,6 @@ public class FindCommand implements Runnable {
             }
         }
 
-        if (!matchingTasks.isEmpty()) {
-            System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.get(i));
-            }
-        } else {
-            System.out.println("There is no task in your list that matches this keyword.");
-        }
-
-        Ui.showLine();
+        Ui.showFindMessage(matchingTasks);
     }
 }

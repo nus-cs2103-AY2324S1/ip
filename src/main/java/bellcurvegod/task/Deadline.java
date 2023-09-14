@@ -68,11 +68,7 @@ public class Deadline extends Task {
         try {
             deadline = LocalDate.parse(ddl);
         } catch (DateTimeParseException e) {
-            Ui.showLine();
-            System.out.println("Please enter your deadline in the following format:");
-            System.out.println("yyyy-mm-dd");
-            System.out.println("E.g. 2019-10-15");
-            Ui.showLine();
+            Ui.showWrongDateFormatMessage();
             return new Deadline("__Faulty", deadline);
         }
 

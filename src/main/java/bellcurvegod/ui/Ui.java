@@ -1,5 +1,9 @@
 package bellcurvegod.ui;
 
+import java.util.ArrayList;
+
+import bellcurvegod.task.Task;
+
 /**
  * Encapsulates the UI.
  */
@@ -30,5 +34,75 @@ public class Ui {
 
     public static void showLine() {
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void showExitMessage() {
+        showLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        showLine();
+    }
+
+    public static void showFindMessage(ArrayList<Task> matchingTasks) {
+        showLine();
+        if (!matchingTasks.isEmpty()) {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i));
+            }
+        } else {
+            System.out.println("There is no task in your list that matches this keyword.");
+        }
+        showLine();
+    }
+
+    public static void showListMessage(ArrayList<Task> tasks) {
+        showLine();
+        if (!tasks.isEmpty()) {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        } else {
+            System.out.println("There is no task in your list.");
+        }
+        showLine();
+    }
+
+    public static void showMarkMessage(Task task) {
+        showLine();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
+        showLine();
+    }
+
+    public static void showUnmarkMessage(Task task) {
+        showLine();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
+        showLine();
+    }
+
+    public static void showAddTaskMessage(Task newTask, int numOfTasks) {
+        showLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+        showLine();
+    }
+
+    public static void showDeleteTaskMessage(Task task, int numOfTasks) {
+        showLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+        showLine();
+    }
+
+    public static void showWrongDateFormatMessage() {
+        showLine();
+        System.out.println("Please enter your time in the following format:");
+        System.out.println("yyyy-mm-dd");
+        System.out.println("E.g. 2019-10-15");
+        showLine();
     }
 }

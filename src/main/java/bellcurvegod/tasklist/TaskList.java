@@ -55,11 +55,7 @@ public class TaskList {
         if (!newTask.getDescription().equals("__Faulty")) {
             tasks.add(newTask);
             numOfTasks++;
-            Ui.showLine();
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-            Ui.showLine();
+            Ui.showAddTaskMessage(newTask, numOfTasks);
         }
     }
 
@@ -71,10 +67,6 @@ public class TaskList {
     public static void delete(Task task) {
         tasks.remove(task);
         numOfTasks--;
-        Ui.showLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-        Ui.showLine();
+        Ui.showDeleteTaskMessage(task, numOfTasks);
     }
 }

@@ -13,10 +13,7 @@ public class MarkCommand implements Runnable {
      * @param task task to be marked as done.
      */
     public static void run(Task task) {
-        Ui.showLine();
         task.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        Ui.showLine();
+        Ui.showMarkMessage(task);
     }
 }
