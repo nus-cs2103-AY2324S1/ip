@@ -38,7 +38,7 @@ public class TaskStorage {
     }
 
     /**
-     * Clean constructor for testing.
+     * Cleans constructor for testing.
      * @param isTest Whether the program is running in test mode.
      */
     public TaskStorage(boolean isTest) {
@@ -77,7 +77,7 @@ public class TaskStorage {
     }
 
     /**
-     * Mark a task as done.
+     * Marks a task as done.
      * @param index The index of the task.
      * @return The output string.
      */
@@ -89,7 +89,7 @@ public class TaskStorage {
     }
 
     /**
-     * Unmark a task as done.
+     * Unmarks a task as done.
      * @param index The index of the task.
      * @return The output string.
      */
@@ -101,7 +101,7 @@ public class TaskStorage {
     }
 
     /**
-     * Delete a task.
+     * Deletes a task.
      * @param index The index of the task to delete.
      * @return The output string.
      */
@@ -115,7 +115,7 @@ public class TaskStorage {
     }
 
     /**
-     * Find tasks that contain the keyword.
+     * Finds tasks that contain the keyword.
      * @param keyword The keyword to search for.
      * @return The list of tasks that contain the keyword.
      */
