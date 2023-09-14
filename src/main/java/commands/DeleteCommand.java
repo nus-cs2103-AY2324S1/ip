@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
     public String runCommand(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.get(taskNumber - 1);
         taskList.delete(taskNumber - 1);
-        int len = taskList.len();
+        int len = taskList.totalTaskCount();
         return ui.showDeleteMessage(task, len);
     }
 }
