@@ -1,9 +1,10 @@
 package tasks;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import components.DukeException;
 import components.Storage;
-import components.Ui;
 
 public class TaskList extends ArrayList<Task> {
     public TaskList() {
@@ -14,11 +15,12 @@ public class TaskList extends ArrayList<Task> {
      * Prints the list of tasks in the TaskList.
      */
     public String printList() {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < this.size(); i++) {
-            result.append((i + 1)).append(". ").append(this.get(i)).append("\n");
-        }
-        assert this.size() == result.toString().split("\n").length : "Number of tasks should equal number of lines";
+        String result = IntStream.range(0, this.size())
+                .mapToObj(i -> (i + 1) + ". " + this.get(i))
+                .collect(Collectors.joining("\n"));
+
+        assert this.size() == result.split("\n").length : "Number of tasks should equal number of lines";
+
         return "Here are the tasks in your list:" +
                 "\n" + result;
     }
