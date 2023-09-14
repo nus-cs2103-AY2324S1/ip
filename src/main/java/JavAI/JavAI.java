@@ -13,6 +13,7 @@ public class JavAi {
     private Parser parser;
 
 
+
     /**
      * Constructs a JavAI chatbot instance.
      *
@@ -48,8 +49,6 @@ public class JavAi {
             }
         }
 
-
     }
-
 
 }

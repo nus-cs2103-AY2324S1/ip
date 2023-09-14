@@ -27,6 +27,12 @@ public class Deadline extends Task {
         this.endTime = LocalTime.parse(endTime, inputFormatter);
     }
 
+    public boolean isDueWithinThreeDays() {
+        LocalDate today = LocalDate.now();
+        LocalDate dueDate = this.endDate;
+        return (dueDate.isAfter(today) && dueDate.isBefore(today.plusDays(3)));
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString()

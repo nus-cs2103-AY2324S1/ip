@@ -17,6 +17,8 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+    private Ui ui = new Ui();
+
     /**
      * Constructs a Storage instance with the specified file path.
      *
@@ -63,6 +65,7 @@ public class Storage {
                         addEvent(iterator, words, tasks, completionType, description);
                     }
                 }
+
             } catch (FileNotFoundException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
@@ -97,6 +100,7 @@ public class Storage {
             description += words[iterator] + " ";
             iterator++;
         }
+        assert !description.isEmpty() : "Description should not be empty";
         Todo todo = new Todo(description);
         if (completionType.equals("X")) {
             todo.markAsDone();
@@ -126,6 +130,7 @@ public class Storage {
         LocalDate date = LocalDate.parse(endDate, inputFormatter);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd" );
         String formattedDate = date.format(outputFormatter);
+        assert !description.isEmpty() : "Description should not be empty";
         Deadline deadline = new Deadline(description.trim(), formattedDate, endTimeWithoutColon);
         if (completionType.equals("X")) {
             deadline.markAsDone();
@@ -159,11 +164,13 @@ public class Storage {
                 iterator++;
             }
         }
+        assert !description.isEmpty() : "Description should not be empty";
         Event event = new Event(description.trim(), from, to);
         if (completionType.equals("X")) {
             event.markAsDone();
         }
         tasks.add(event);
     }
+
 
 }

@@ -41,6 +41,8 @@ public class Parser {
             return findTask(words, tasks, ui);
         } else if (input.equals("list")) {
             return ui.printList(tasks);
+        } else if (input.equals("reminder")) {
+            return getReminder(tasks, ui);
         } else {
             return ui.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -188,5 +190,20 @@ public class Parser {
 
         }
     }
+
+    public String getReminder(TaskList tasks, Ui ui) throws JavAiException {
+        String result = ui.print("Here are the tasks that are due within next 3 days:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof Deadline && !tasks.get(i).isDone) {
+                Deadline deadline = (Deadline) tasks.get(i);
+                if (deadline.isDueWithinThreeDays()) {
+                    result += "\n" + (i + 1) + "." + tasks.get(i).toString();
+                }
+            }
+        }
+        return result;
+    }
+
+
 
 }
