@@ -61,6 +61,7 @@ public class Storage {
                             description += words[iterator] + " ";
                             iterator++;
                         }
+                        assert !description.isEmpty() : "Description should not be empty";
                         Todo todo = new Todo(description);
                         if (completionType.equals("X")) {
                             todo.markAsDone();
@@ -83,6 +84,7 @@ public class Storage {
                             iterator++;
                         }
                         endTime = words[iterator];
+                        assert !description.isEmpty() : "Description should not be empty";
                         String endTimeWithoutColon = endTime.replace(":", "");
                         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy ");
                         LocalDate date = LocalDate.parse(endDate, inputFormatter);
@@ -118,6 +120,7 @@ public class Storage {
                                 iterator++;
                             }
                         }
+                        assert !description.isEmpty() : "Description should not be empty";
                         Event event = new Event(description.trim(), from, to);
                         if (completionType.equals("X")) {
                             event.markAsDone();

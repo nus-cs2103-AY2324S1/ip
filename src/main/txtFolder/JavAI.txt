@@ -1,2 +1,2 @@
 [T][ ] Sample todo 
-[D][ ] settle expenses  ( by: Oct 22 2023 23:59 )
+[D][ ] settle expenses ( by: Oct 22 2023 23:59 )

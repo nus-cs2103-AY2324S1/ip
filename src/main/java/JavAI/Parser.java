@@ -19,11 +19,14 @@ public class Parser {
      * @throws JavAiException If there's an error in parsing or executing the command.
      */
     public String parse(String input, TaskList tasks, Ui ui) throws JavAiException {
+        assert input != null : "Input should not be null";
+
         String[] words = input.split(" ");
         String description = "";
         int iterator = 1;
 
         if (words[0].equals("todo")) {
+
             try {
                 while (iterator < words.length) {
                     description += words[iterator] + " ";
@@ -101,6 +104,7 @@ public class Parser {
         } else if (words[0].equals("mark")) {
             try {
                 int iden = Integer.parseInt(words[1]) - 1;
+                assert tasks.get(iden) != null : "Task should not be null";
                 tasks.get(iden).markAsDone();
                 return ui.printDone(tasks.get(iden));
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -113,6 +117,7 @@ public class Parser {
         } else if (words[0].equals("unmark")) {
             try {
                 int iden = Integer.parseInt(words[1]) - 1;
+                assert tasks.get(iden) != null : "Task should not be null";
                 tasks.get(iden).markAsUndone();
                 return ui.printUndone(tasks.get(iden));
             } catch (ArrayIndexOutOfBoundsException e) {
