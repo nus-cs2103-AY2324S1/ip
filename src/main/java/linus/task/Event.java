@@ -14,6 +14,27 @@ public class Event extends Task {
     protected LocalDate from = null;
     protected LocalDate to = null;
 
+    private void setDate(String from, String to) throws LinusException {
+        try {
+            LocalDate parsedFromDate = LocalDate.parse(from);
+            LocalDate parsedToDate = LocalDate.parse(to);
+
+            if (parsedFromDate.isAfter(parsedToDate)) {
+                throw new LinusException(
+                        "☹ OOPS!!! Please specify the start date before/on the same day as the end date."
+                );
+            }
+
+            this.from = parsedFromDate;
+            this.to = parsedToDate;
+
+        } catch (DateTimeParseException e) {
+            throw new LinusException(
+                    "☹ OOPS!!! Please specify the start and/or end dates in the correct format: yyyy-mm-dd"
+            );
+        }
+
+    }
     /**
      * Constructs an Event object with the specified description, start date and end date.
      *
@@ -24,20 +45,7 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws LinusException {
         super(description);
-        try {
-            this.from = LocalDate.parse(from);
-            this.to = LocalDate.parse(to);
-
-            if (this.from.isAfter(this.to)) {
-                throw new LinusException(
-                        "☹ OOPS!!! Please specify the start date before/on the same day as the end date."
-                );
-            }
-        } catch (DateTimeParseException e) {
-            throw new LinusException(
-                    "☹ OOPS!!! Please specify the start and/or end dates in the correct format: yyyy-mm-dd"
-            );
-        }
+        setDate(from, to);
     }
 
     /**

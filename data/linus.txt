@@ -1,1 +1,1 @@
-[{"type":"linus.task.ToDo","description":"AAA","isDone":false},{"type":"linus.task.ToDo","description":"TEST","isDone":false},{"type":"linus.task.ToDo","description":"TEST","isDone":false}]
+[{"type":"linus.task.ToDo","description":"AAA","isDone":false},{"type":"linus.task.ToDo","description":"TEST","isDone":false},{"type":"linus.task.ToDo","description":"TEST","isDone":false},{"type":"linus.task.Deadline","by":"2023-05-03","description":"TEST","isDone":false}]

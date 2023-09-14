@@ -92,9 +92,9 @@ public class Ui {
     public void printFindSuccessMessage(List<Task> tasks) {
         if (tasks.size() == 0) {
             print("There are no matching tasks in your list.");
-        } else {
-            printList(tasks, "Here are the matching tasks in your list:\n");
+            return;
         }
+        printList(tasks, "Here are the matching tasks in your list:\n");
     }
 
     /**
