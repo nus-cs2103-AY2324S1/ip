@@ -30,7 +30,7 @@ public class DialogBox extends HBox {
      * @param iv Properties and size of image to be shown
      */
 
-    public DialogBox(Label l, ImageView iv, MeowBot.dialog type) {
+    public DialogBox(Label l, ImageView iv, MeowBot.Dialog type) {
         text = l;
         displayPicture = iv;
         text.setWrapText(true);
@@ -43,7 +43,7 @@ public class DialogBox extends HBox {
 
 
         Background background = new Background(new BackgroundFill(Color.LIGHTBLUE, null, null));
-        if (type == MeowBot.dialog.MEOWBOT) {
+        if (type == MeowBot.Dialog.MEOWBOT) {
             background = new Background(new BackgroundFill(Color.LIGHTPINK, null, null));
         }
         this.setBackground(background);
@@ -62,11 +62,11 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv, MeowBot.dialog.USER);
+        return new DialogBox(l, iv, MeowBot.Dialog.USER);
     }
 
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv, MeowBot.dialog.MEOWBOT);
+        var db = new DialogBox(l, iv, MeowBot.Dialog.MEOWBOT);
         db.flip();
         return db;
     }
