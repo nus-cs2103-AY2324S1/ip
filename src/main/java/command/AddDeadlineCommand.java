@@ -21,6 +21,9 @@ public class AddDeadlineCommand extends Command {
      * @param dueDateStr The due date and time in string.
      */
     public AddDeadlineCommand(String taskDesc, String dueDateStr) {
+        assert taskDesc != null : "taskDesc must not be null";
+        assert dueDateStr != null : "dueDateStr must not be null";
+
         this.dueDateStr = dueDateStr;
         this.taskDesc = taskDesc;
     }

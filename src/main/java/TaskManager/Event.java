@@ -24,6 +24,10 @@ public class Event extends Task {
      * @param toDateStr        The ending date and time of the event.
      */
     public Event(String taskDesc, String fromDateStr, String toDateStr) {
+        assert taskDesc != null : "taskDesc must not be null";
+        assert fromDateStr != null : "fromDateStr must not be null";
+        assert toDateStr != null : "toDateStr must not be null";
+
         this.taskDesc = taskDesc;
         this.fromDateStr = fromDateStr;
         this.toDateStr = toDateStr;
@@ -40,6 +44,10 @@ public class Event extends Task {
      * @param toDateStr         The ending date and time of the event.
      */
     public Event(String completion, String taskDesc, String fromDateStr, String toDateStr) {
+        assert taskDesc != null : "taskDesc must not be null";
+        assert fromDateStr != null : "fromDateStr must not be null";
+        assert toDateStr != null : "toDateStr must not be null";
+
         try {
             if (completion.equals("1")) {
                 this.taskDesc = taskDesc.trim();
@@ -141,6 +149,7 @@ public class Event extends Task {
      * @return True if there is matching keyword; otherwise, false.
      */
     public boolean isMatch(String keyword) {
+        assert keyword != null : "keyword must not be null";
         String[] split = taskDesc.split(" ");
         for (int i = 0; i < split.length; i++) {
             if (keyword.equals(split[i])) {

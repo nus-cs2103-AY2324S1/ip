@@ -21,6 +21,9 @@ public class Deadline extends Task {
      * @param dueDateStr The due date and time of the event.
      */
     public Deadline(String taskDesc, String dueDateStr) {
+        assert taskDesc != null : "taskDesc must not be null";
+        assert dueDateStr != null : "dueDateStr must not be null";
+
         this.taskDesc = taskDesc;
         this.dueDateStr = dueDateStr;
         this.dueDate = LocalDateTime.parse(dueDateStr, DATE_TIME_FORMATTER);
@@ -34,6 +37,10 @@ public class Deadline extends Task {
      * @param dueDateStr    The due date and time of the event.
      */
     public Deadline(String completion, String taskDesc, String dueDateStr) {
+        assert completion != null : "completion must not be null";
+        assert taskDesc != null : "taskDesc must not be null";
+        assert dueDateStr != null : "dueDateStr must not be null";
+
         try {
             if (completion.equals("1")) {
                 this.taskDesc = taskDesc.trim();
@@ -129,6 +136,7 @@ public class Deadline extends Task {
      * @return True if there is matching keyword; otherwise, false.
      */
     public boolean isMatch(String keyword) {
+        assert keyword != null : "keyword must not be null";
         String[] split = taskDesc.split(" ");
         for (int i = 0; i < split.length; i++) {
             if (keyword.equals(split[i])) {
