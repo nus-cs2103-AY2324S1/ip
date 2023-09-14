@@ -20,7 +20,7 @@ class TaskListTest {
         TaskList taskList = new TaskList(tempFile);
         ToDo todo = new ToDo("Buy groceries");
         taskList.addToList(todo, 0);
-        assertEquals(1, taskList.tasks.size());
+        assertEquals(1, taskList.getTasks().size());
         tempFile.deleteOnExit();
     }
 
@@ -28,8 +28,8 @@ class TaskListTest {
     void testHandleTodo() throws FileNotFoundException {
         TaskList taskList = new TaskList(tempFile);
         taskList.handleTodo("todo Buy groceries");
-        assertEquals(1, taskList.tasks.size());
-        assertTrue(taskList.tasks.get(0) instanceof ToDo);
+        assertEquals(1, taskList.getTasks().size());
+        assertTrue(taskList.getTasks().get(0) instanceof ToDo);
         tempFile.deleteOnExit();
     }
 
@@ -37,8 +37,8 @@ class TaskListTest {
     void testHandleDeadline() throws FileNotFoundException {
         TaskList taskList = new TaskList(tempFile);
         taskList.handleDeadline("deadline Complete assignment /by 2023-09-30");
-        assertEquals(1, taskList.tasks.size());
-        assertTrue(taskList.tasks.get(0) instanceof Deadline);
+        assertEquals(1, taskList.getTasks().size());
+        assertTrue(taskList.getTasks().get(0) instanceof Deadline);
         tempFile.deleteOnExit();
     }
 
@@ -46,8 +46,8 @@ class TaskListTest {
     void testHandleEvent() throws FileNotFoundException {
         TaskList taskList = new TaskList(tempFile);
         taskList.handleEvent("event Conference /from 2023-09-01 /to 2023-09-05");
-        assertEquals(1, taskList.tasks.size());
-        assertTrue(taskList.tasks.get(0) instanceof Event);
+        assertEquals(1, taskList.getTasks().size());
+        assertTrue(taskList.getTasks().get(0) instanceof Event);
         tempFile.deleteOnExit();
     }
 
@@ -58,8 +58,8 @@ class TaskListTest {
         taskList.addToList(todo, 0);
         ArrayList<Task> findTasks = new ArrayList<>();
         taskList.handleFind("find groceries");
-        assertEquals(1, taskList.tasks.size());
-        assertTrue(taskList.tasks.get(0) instanceof ToDo);
+        assertEquals(1, taskList.getTasks().size());
+        assertTrue(taskList.getTasks().get(0) instanceof ToDo);
         tempFile.deleteOnExit();
     }
 }

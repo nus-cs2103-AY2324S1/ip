@@ -8,16 +8,16 @@ import java.io.FileNotFoundException;
 public class Duke {
     private final Ui ui;
     private TaskList tasks;
-    private final String filePath = "./src/main/data/tasklist.txt";
 
     /**
      * Constructs a Duke instance with the specified file path to load task data from.
      */
     public Duke() {
         this.ui = new Ui();
-        Storage storage = new Storage(this.filePath);
+        String filePath = "./src/main/data/tasklist.txt";
+        Storage storage = new Storage(filePath);
         try {
-            this.tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.loadTasks());
         } catch (FileNotFoundException e) {
             tasks = new TaskList();
         }
@@ -27,31 +27,30 @@ public class Duke {
         Parser parser = new Parser();
         parser.setUserInput(userInput);
         try {
-            if (parser.bye()) {
+            if (parser.isBye()) {
+                parser.goodbye();
                 return ui.goodbye();
-            } else if (parser.list()) {
+            } else if (parser.isList()) {
                 return tasks.printFileContents();
-            } else if (parser.mark()) {
+            } else if (parser.isMark()) {
                 return tasks.mark(userInput);
-            } else if (parser.unMark()) {
+            } else if (parser.isUnmark()) {
                 return tasks.unMark(userInput);
-            } else if (parser.delete()) {
+            } else if (parser.isDelete()) {
                 return tasks.delete(userInput);
-            } else if (parser.todo()) {
+            } else if (parser.isTodo()) {
                 return tasks.handleTodo(userInput);
-            } else if (parser.deadline()) {
+            } else if (parser.isDeadline()) {
                 return tasks.handleDeadline(userInput);
-            } else if (parser.event()) {
+            } else if (parser.isEvent()) {
                 return tasks.handleEvent(userInput);
-            } else if (parser.find()) {
+            } else if (parser.isFind()) {
                 return tasks.handleFind(userInput);
             } else {
                 throw new DukeException("Error: Invalid Command!");
             }
         } catch (DukeException exception) {
-            return Ui.line + exception.getMessage() + "\n" + Ui.line;
+            return ui.getLine() + exception.getMessage() + "\n" + ui.getLine();
         }
-//        parser.goodbye();
-//        return "";
     }
 }

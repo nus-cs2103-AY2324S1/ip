@@ -34,6 +34,9 @@ public class TaskList {
         taskList = new File("./src/main/data/tasklist.txt");
         taskList.deleteOnExit();
     }
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 
     /**
      * Prints the contents of the task list.
@@ -186,7 +189,13 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Adds a new task to the task list and provides a response message.
+     *
+     * @param task    The task to be added to the list.
+     * @param taskId  The unique identifier for the task.
+     * @return A formatted string response confirming the addition of the task and the updated task count.
+     */
     public String addToList(Task task, int taskId) {
         int numTasks = taskCount + 1;
         String response = Ui.line + "Got it! I've added this task:"
@@ -248,6 +257,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for tasks containing a specified keyword and returns a formatted list of matching tasks.
+     *
+     * @param input The user's input string, which should include the keyword to search for.
+     * @return A formatted string displaying a list of tasks that contain the specified keyword.
+     */
     public String handleFind(String input) {
         ArrayList<Task> findTasks = new ArrayList<>();
         String itemToFind = input.substring(5);
