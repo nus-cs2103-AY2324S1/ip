@@ -39,15 +39,26 @@ public class Parser {
             return handleList(taskList);
         }
         if (input.startsWith("find")) {
-            String[] arr = input.split("find ");
-            System.out.println("arr: " + arr.length);
-            if (arr.length == 1 || arr.length == 0) {
-                return Ui.matchExcept();
-            } else {
-                return findMatching(arr[1], taskList);
-            }
+            return handleFind(input, taskList);
         }
         return Ui.printError();
+    }
+
+    /**
+     * Handles input that starts with find.
+     * @param input
+     * @param taskList
+     * @return matching tasks that contains the prefix that the user entered
+     */
+
+    private static String handleFind(String input, TaskList taskList) {
+        String[] arr = input.split("find ");
+        System.out.println("arr: " + arr.length);
+        if (arr.length == 1 || arr.length == 0) {
+            return Ui.matchExcept();
+        } else {
+            return findMatching(arr[1], taskList);
+        }
     }
 
     /**
@@ -110,7 +121,7 @@ public class Parser {
         String deleted = String.valueOf(taskList.getTask(index - 1));
         taskList.remove(index - 1);
         Storage.save(taskList); // save in file
-        return Ui.removeTask(deleted, taskList);]
+        return Ui.removeTask(deleted, taskList);
         } catch (NumberFormatException ex) {
             return Ui.numberFormat();
         }
@@ -187,15 +198,15 @@ public class Parser {
      */
 
     public static LocalDateTime dateFormatter(String dateTime) throws DateTimeParseException {
-            String[] inputs = dateTime.split(" ");
-            DateTimeFormatter formatter;
-            if (inputs.length == 2) {
-                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                return LocalDateTime.parse(dateTime, formatter);
-            } else {
-                return null;
-            }
+        String[] inputs = dateTime.split(" ");
+        DateTimeFormatter formatter;
+        if (inputs.length == 2) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return LocalDateTime.parse(dateTime, formatter);
+        } else {
+            return null;
         }
+    }
 
     /**
      * Add the individual task into the taskList and saves them into a file.
