@@ -11,7 +11,7 @@ public class Deadline extends Task {
     /**
      * The deadline date for the task.
      */
-    private LocalDate date;
+    private final LocalDate date;
 
     /**
      * Constructs a new Deadline object with the given description and deadline date.
