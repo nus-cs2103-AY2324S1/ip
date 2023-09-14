@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 /**
  * FindTask class with a field keyword.
  */
@@ -15,19 +17,18 @@ public class FindTask extends Command {
     }
 
     @Override
-    public String execute(TaskList lst, Ui ui, Storage storage) {
-        TaskList found = new TaskList();
-        for (int i = 0; i < lst.size(); i++) {
-            Task task = lst.get(i);
-            String name = task.getName();
-            String[] info = name.split("\\s+");
-            for (int j = 0; j < info.length; j++) {
-                if (info[j].equalsIgnoreCase(this.keyword)) {
-                    found.add(task);
-                }
-            }
+    public String execute(TaskList lst, Ui ui, Storage storage) throws InvalidInputException {
+        ArrayList<Task> found = new ArrayList<>(
+                lst.stream()
+                        .filter(task -> task.getName().contains(this.keyword))
+                        .collect(Collectors.toList())
+        );
+        if (found.size() == 0) {
+            throw new InvalidInputException("No matching tasks found!");
         }
-        return ui.foundMessage(found);
+        assert found.size() != 0 : "found should not be empty!";
+        TaskList foundList = new TaskList(found);
+        return ui.foundMessage(foundList);
     }
     @Override
     public boolean isExit() {

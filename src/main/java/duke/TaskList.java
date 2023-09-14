@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * TaskList class that contains the list of Tasks
@@ -37,6 +38,10 @@ public class TaskList {
 
     public void add(Task t) {
         this.lst.add(t);
+    }
+
+    public Stream<Task> stream() {
+        return this.lst.stream();
     }
 
 }
