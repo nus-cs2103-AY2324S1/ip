@@ -26,6 +26,15 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public boolean checkClash(Event event) {
+        if (this.from.compareTo(event.from) >= 0 && this.from.compareTo(event.to) <= 0) {
+            return true;
+        } else if (this.to.compareTo(event.from) >= 0 && this.to.compareTo(event.to) <= 0) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toWrite() {
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");

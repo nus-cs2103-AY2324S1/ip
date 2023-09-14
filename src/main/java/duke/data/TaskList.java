@@ -3,6 +3,7 @@ package duke.data;
 import java.util.ArrayList;
 
 import duke.data.exception.DukeException;
+import duke.data.task.Event;
 import duke.data.task.Task;
 
 /**
@@ -129,5 +130,17 @@ public class TaskList {
             }
         }
         return results;
+    }
+
+    public boolean checkClash(Event event) {
+        for (Task task: taskList) {
+            if (task instanceof Event) {
+                Event existEvent = (Event) task;
+                if (event.checkClash(existEvent)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

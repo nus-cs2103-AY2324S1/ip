@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import duke.data.TaskList;
+import duke.data.exception.DukeException;
 import duke.data.task.Event;
 import duke.storage.Storage;
 import duke.data.Message;
@@ -35,8 +36,11 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Message message, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Message message, Storage storage) throws DukeException, IOException {
         Event newEvent = new Event(description, from, to);
+        if (taskList.checkClash(newEvent)) {
+            throw new DukeException("Error! Schedule Clashed!");
+        }
         taskList.addTask(newEvent);
         Storage.save(newEvent);
         assert taskList.countTasks() >= 0: "Invalid task list size";
