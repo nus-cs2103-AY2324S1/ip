@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import dude.task.Deadline;
@@ -18,6 +18,9 @@ import dude.task.ToDo;
  * the file and saving tasks in the file.
  */
 public class Storage {
+
+    private static final DateTimeFormatter DATETIME_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private String filepath;
 
     /**
@@ -26,7 +29,7 @@ public class Storage {
      * @param filepath Path to the file.
      */
     public Storage(String filepath) {
-        assert !this.filepath.trim().isEmpty(): "Filepath should not be empty";
+        assert !this.filepath.trim().isEmpty() : "Filepath should not be empty";
         this.filepath = filepath;
     }
 
@@ -50,12 +53,7 @@ public class Storage {
             }
         }
 
-        String data = "";
-
-        for (int i = 0; i < taskList.getSize(); i++) {
-            Task task = taskList.getTask(i);
-            data += task.saveTask();
-        }
+        String data = convertTaskListToString(taskList);
 
         try {
             FileWriter fw = new FileWriter(file);
@@ -67,13 +65,29 @@ public class Storage {
     }
 
     /**
+     * Converts task list into String for saving to file.
+     * @param taskList
+     * @return
+     */
+    public String convertTaskListToString(TaskList taskList) {
+        String data = "";
+
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task task = taskList.getTask(i);
+            data += task.saveTask();
+        }
+
+        return data;
+    }
+
+    /**
      * Loads the saved tasks from the file specified by filepath.
      *
      * @return List of tasks from the file.
      * @throws FileNotFoundException If no file is not found in the filepath.
      */
-    public ArrayList<Task> loadTasksFromDisk() throws FileNotFoundException {
-        ArrayList<Task> taskList = new ArrayList<Task>();
+    public TaskList loadTasksFromDisk() throws FileNotFoundException {
+        TaskList taskList = new TaskList();
         File file = new File(this.filepath);
 
         if (file.exists()) {
@@ -81,28 +95,8 @@ public class Storage {
                 Scanner sc = new Scanner(file);
                 while (sc.hasNext()) {
                     String storedTaskDetails = sc.nextLine();
-                    String[] taskDetails = storedTaskDetails.split("\\s+\\|\\s+");
-                    String taskType = taskDetails[0];
-                    Task task;
-                    if (taskType.equals("T")) {
-                        task = new ToDo(taskDetails[2]);
-                        task.setDone(taskDetails[1] == "1");
-                        taskList.add(task);
-                    } else if (taskType.equals("D")) {
-                        String byInput = taskDetails[3]; // ISO-8601 e.g. 2023-09-06T14:30
-                        LocalDateTime by = LocalDateTime.parse(byInput);
-                        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                        // LocalDateTime by = LocalDateTime.parse(byInput, formatter);
-                        task = new Deadline(taskDetails[2], by);
-                        task.setDone(taskDetails[1] == "1");
-                        taskList.add(task);
-                    } else if (taskType.equals("E")) {
-                        LocalDateTime from = LocalDateTime.parse(taskDetails[3]);
-                        LocalDateTime to = LocalDateTime.parse(taskDetails[4]);
-                        task = new Event(taskDetails[2], from, to);
-                        task.setDone(taskDetails[1] == "1");
-                        taskList.add(task);
-                    }
+                    Task task = convertStringToTask(storedTaskDetails);
+                    taskList.addTask(task);
                 }
             } catch (IOException e) {
                 System.err.println("An error occurred while reading the file: " + e.getMessage());
@@ -117,34 +111,37 @@ public class Storage {
             }
         }
 
-        System.out.printf("You have %d saved tasks.\n", taskList.size());
-        // TaskList tasks = new TaskList(taskList);
+        System.out.printf("You have %d saved tasks.\n", taskList.getSize());
         return taskList;
     }
 
-    /* to be fixed
-    public Task processTaskDetails(String storedTaskDetails) {
+    /**
+     * Converts a string of task details into Task.
+     * @param storedTaskDetails
+     * @return
+     */
+    public Task convertStringToTask(String storedTaskDetails) {
         String[] taskDetails = storedTaskDetails.split("\\s+\\|\\s+");
+        String taskType = taskDetails[0];
+        String taskIsDone = taskDetails[1];
+        String taskDesription = taskDetails[2];
 
-        Task storedTask;
+        Task task = null;
 
-        if (taskDetails[0].equals("T")) {
-            storedTask = new ToDo(taskDetails[2]);
-            storedTask.setDone(taskDetails[1] == "1");
-        } else if (taskDetails[0].equals("D")) {
-            String byInput = taskDetails[3]; // ISO-8601 e.g. 2023-09-06T14:30
+        if (taskType.equals("T")) {
+            task = new ToDo(taskDesription);
+        } else if (taskType.equals("D")) {
+            String byInput = taskDetails[3];
             LocalDateTime by = LocalDateTime.parse(byInput);
-            // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            // LocalDateTime by = LocalDateTime.parse(byInput, formatter);
-            storedTask = new Deadline(taskDetails[2], by);
-            storedTask.setDone(taskDetails[1] == "1");
-        } else if (taskDetails[0].equals("E")) {
-            storedTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-            storedTask.setDone(taskDetails[1] == "1");
+            task = new Deadline(taskDetails[2], by);
+        } else if (taskType.equals("E")) {
+            String fromInput = taskDetails[3];
+            String toInput = taskDetails[4];
+            LocalDateTime from = LocalDateTime.parse(fromInput);
+            LocalDateTime to = LocalDateTime.parse(toInput);
+            task = new Event(taskDetails[2], from, to);
         }
-        return storedTask;
+        task.setDone(taskIsDone.equals("1"));
+        return task;
     }
-
-    */
-
 }

@@ -8,12 +8,10 @@ import dude.task.Task;
  * Represents the UI of Dude and deals with interactions with the user.
  */
 public class Ui {
+
     private Scanner sc;
     public Ui() {
         this.sc = new Scanner(System.in);
-    }
-    public String readCommand() {
-        return this.sc.nextLine();
     }
 
     /**
@@ -31,14 +29,6 @@ public class Ui {
     public static String showFarewell() {
         String greeting = "Bye. Hope to see you again soon!";
         return greeting;
-    }
-
-    /**
-     * Prints a line.
-     */
-    public String showLine() {
-        String line = "__________________________________________________";
-        return line;
     }
 
     /**

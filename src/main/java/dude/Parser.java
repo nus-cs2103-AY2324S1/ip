@@ -19,7 +19,8 @@ import dude.command.UnmarkCommand;
  * Represents a parser that parses user input and deals with making sense of the user command.
  */
 public class Parser {
-    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private static final DateTimeFormatter DATETIME_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
      * Parses the user's input and returns the corresponding command.

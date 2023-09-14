@@ -13,7 +13,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Dude dude = new Dude("./data/dude.txt");
+    private static final String FILEPATH = "./data/dude.txt";
+    private Dude dude = new Dude(FILEPATH);
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            MainWindow mainWindow =  fxmlLoader.<MainWindow>getController();
+            MainWindow mainWindow = fxmlLoader.<MainWindow>getController();
             mainWindow.setDude(dude);
             stage.show();
         } catch (IOException e) {

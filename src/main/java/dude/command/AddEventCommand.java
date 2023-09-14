@@ -41,7 +41,7 @@ public class AddEventCommand extends Command {
         try {
             output = "Executing Add Event Command\n";
             Event newTask = new Event(taskDescription, fromDateTime, toDateTime);
-            assert !newTask.isDone(): "Newly added Event should not be done.";
+            assert !newTask.isDone() : "Newly added Event should not be done.";
             taskList.addTask(newTask);
             int nTasks = taskList.getSize();
             output = output + ui.showAddedTask(newTask, nTasks) + "\n";

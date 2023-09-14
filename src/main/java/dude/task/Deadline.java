@@ -30,14 +30,7 @@ public class Deadline extends Task {
 
     @Override
     public String saveTask() {
-        String data = "D | ";
-        if (this.isDone()) {
-            data += "1 | ";
-        } else {
-            data += "0 | ";
-        }
-        data += this.getDescription();
-        data = data + " | " + this.by + "\n"; // ISO-8601 e.g. 2023-09-06T14:30
+        String data = "D " + super.saveTask() + " | " + this.by + "\n";
         return data;
     }
 

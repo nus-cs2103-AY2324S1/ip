@@ -38,10 +38,10 @@ public class AddDeadlineCommand extends Command {
         try {
             output = "Executing Add Deadline Command\n";
             Deadline newTask = new Deadline(taskDescription, byDateTime);
-            assert !newTask.isDone(): "Newly added Deadline should not be done.";
+            assert !newTask.isDone() : "Newly added Deadline should not be done.";
             taskList.addTask(newTask);
             int nTasks = taskList.getSize();
-            output = output + ui.showAddedTask(newTask, nTasks) +"\n";
+            output = output + ui.showAddedTask(newTask, nTasks) + "\n";
             storage.saveTasksToDisk(taskList);
         } catch (IOException e) {
             output = "Error in Add Deadline Command";
