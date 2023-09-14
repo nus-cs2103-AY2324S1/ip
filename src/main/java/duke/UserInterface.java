@@ -82,6 +82,9 @@ public class UserInterface {
         dialogContainer.getChildren().add(dukeDialog);
     }
 
+    /**
+     * Creates the ui elements and saves them to the instance's variables.
+     */
     private void spawnUiElements() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -90,6 +93,9 @@ public class UserInterface {
         sendButton = new Button("Send");
     }
 
+    /**
+     * Sets the parameters of the ui elements.
+     */
     private void setUiSettings() {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -101,6 +107,10 @@ public class UserInterface {
         sendButton.setPrefWidth(55.0);
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
+
+    /**
+     * Sets the anchorpane settings.
+     */
     private void setAnchorPaneSettings() {
         AnchorPane.setTopAnchor(scrollPane, 1.0);
         AnchorPane.setBottomAnchor(sendButton, 1.0);
@@ -109,6 +119,9 @@ public class UserInterface {
         AnchorPane.setBottomAnchor(userInput, 1.0);
     }
 
+    /**
+     * Adds any ui functionalities and interactables.
+     */
     private void addUiFunctionality() {
         sendButton.setOnMouseClicked((event) -> input());
         userInput.setOnAction((event) -> input());

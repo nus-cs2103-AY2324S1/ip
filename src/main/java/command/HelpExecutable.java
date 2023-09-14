@@ -23,8 +23,10 @@ public class HelpExecutable implements Executable {
                 + "event: event (String name) /from (Date start) /to (Date end); creates event\n"
                 + "todo: todo (String name); creates todo\n"
                 + "deadline: deadline (String name) /by (Date deadline); creates deadline\n"
-                + "delete: delete(int x); deletes the indicated task\n"
-                + "find: find(String keyword); finds any tasks that contain the keyword\n"
+                + "delete: delete (int x); deletes the indicated task\n"
+                + "find: find (String keyword); finds any tasks that contain the keyword\n"
+                + "rebind: rebind (String sourceBinding) /to (String customBinding); adds an alias for a command\n"
+                + "unbind: unbind (String customBinding) /from (String sourceBinding); removes the alias\n"
         );
         return false;
     }

@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import command.AddTaskExecutable;
+import command.BindingExecutable;
 import command.ClearExecutable;
 import command.DeleteExecutable;
 import command.Executable;
@@ -28,13 +29,14 @@ import task.ToDo;
  */
 
 public class Parser {
-    private final HashMap<String, ParserFunction> stringToCommand;
+    private static final HashMap<String, ParserFunction> stringToCommand = new HashMap<>();
+    private final HashMap<String, ParserFunction> customCommand;
 
     /**
      * Initializes the parser.
      */
     public Parser() {
-        stringToCommand = new HashMap<>();
+        this.customCommand = new HashMap<>();
         init();
     }
 
@@ -53,6 +55,8 @@ public class Parser {
         stringToCommand.put("mark", Parser::parseMarkParams);
         stringToCommand.put("unmark", Parser::parseUnmarkParams);
         stringToCommand.put("find", Parser::parseFindParams);
+        stringToCommand.put("rebind", this::parseRebindParams);
+        stringToCommand.put("unbind", this::parseUnbindParams);
         //Remember to add an entry into the hashmap whenever a command is added.
     }
 
@@ -69,10 +73,33 @@ public class Parser {
         String commandIdentifier = matcher.group(1);
         String paramString = matcher.group(2);
         ParserFunction parsable = stringToCommand.get(commandIdentifier);
-        checkIfInvalid(parsable);
+        if (isInvalid(parsable)) {
+            parsable = parseCustom(commandIdentifier);
+        }
         return parsable.apply(paramString);
     }
 
+    /**
+     * Checks the custom command list for the command identifier.
+     * @param commandIdentifier the string to be searched for.
+     * @return the function mapped to the string if it exists.
+     * @throws InvalidCommandException if there is no matching function.
+     */
+    private ParserFunction parseCustom(String commandIdentifier) throws InvalidCommandException {
+        ParserFunction func = this.customCommand.get(commandIdentifier);
+        if (isInvalid(func)) {
+            throw new InvalidCommandException("Unrecognized command!");
+        }
+        return func;
+    }
+
+    /**
+     * Produces a matcher that is guaranteed successful.
+     * @param input the string to match to a pattern.
+     * @param regex the pattern that the input should follow.
+     * @return A successful Matcher of the input to the regex.
+     * @throws InvalidVarException if the matching was unsuccessful.
+     */
     private static Matcher matchString(String input, String regex) throws InvalidVarException {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
@@ -82,6 +109,12 @@ public class Parser {
         return matcher;
     }
 
+    /**
+     * Parses a string as a boolean if valid.
+     * @param boolString the string to be parsed.
+     * @return either true or false, depending on the string.
+     * @throws InvalidVarException if the string does not match the format.
+     */
     private static boolean parseBoolString(String boolString) throws InvalidVarException {
         if (boolString.equals("TRUE")) {
             return true;
@@ -175,10 +208,33 @@ public class Parser {
         checkNonEmpty(paramString);
         return new FindExecutable(paramString);
     }
-    private static void checkIfInvalid(ParserFunction func) throws InvalidCommandException {
-        if (func == null) {
-            throw new InvalidCommandException("No such command found!");
+    private Executable parseRebindParams(String paramString) throws InvalidVarException {
+        String rebindRegex = "(\\S*)\\s/to\\s(\\S*)";
+        Matcher matcher = matchString(paramString, rebindRegex);
+        String sourceBinding = matcher.group(1);
+        String customBinding = matcher.group(2);
+        ParserFunction parserFunc = stringToCommand.get(sourceBinding);
+        boolean isValidCommand = (stringToCommand.get(sourceBinding) != null);
+        if (isValidCommand) {
+            this.customCommand.put(customBinding, parserFunc);
         }
+        return new BindingExecutable(isValidCommand, true, sourceBinding, customBinding);
+    }
+    private Executable parseUnbindParams(String paramString) throws InvalidVarException {
+        String rebindRegex = "(\\S*)\\s/from\\s(\\S*)";
+        Matcher matcher = matchString(paramString, rebindRegex);
+        String sourceBinding = matcher.group(2);
+        String customBinding = matcher.group(1);
+        boolean isCurrentlyBound = (this.customCommand.get(customBinding) != null);
+        boolean isCorrectSource = (stringToCommand.get(sourceBinding) == this.customCommand.get(customBinding));
+        boolean successState = isCurrentlyBound && isCorrectSource;
+        if (successState) {
+            this.customCommand.remove(customBinding);
+        }
+        return new BindingExecutable(successState, false, sourceBinding, customBinding);
+    }
+    private static boolean isInvalid(ParserFunction func) {
+        return func == null;
     }
     private static ToDo todoFromString(String string) throws InvalidVarException {
         String todoRegex = "(.*)" + Task.DIVIDER + "(.*)";
