@@ -80,44 +80,56 @@ public class Storage {
         }
     }
 
+    //refactored to use Single Level of Abstraction
     private Task readLine(String line) throws StorageException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
         line = line.trim();
-        Pattern todoPattern = Pattern.compile("\\[T\\]\\[(.)\\] (.*)");
-        Pattern deadlinePattern = Pattern.compile("\\[D\\]\\[(.)\\] (.*) \\(by: (.*)\\)");
-        Pattern eventPattern = Pattern.compile("\\[E\\]\\[(.)\\] (.*) \\(from: (.*) to: (.*)\\)");
-        Matcher matcher;
 
-        matcher = todoPattern.matcher(line);
-        if (matcher.matches()) {
-            boolean isDone = matcher.group(1).equals("X");
-            String taskName = matcher.group(2).trim();
-            ToDo todo = new ToDo(taskName, isDone);
-            return todo;
-        }
-
-        matcher = deadlinePattern.matcher(line);
-        if (matcher.matches()) {
-            boolean isDone = matcher.group(1).equals("X");
-            String taskName = matcher.group(2).trim();
-            String dueString = matcher.group(3).trim();
-            LocalDateTime dueTime = LocalDateTime.parse(dueString, formatter);
-            Deadline deadline = new Deadline(taskName, isDone, dueTime);
-            return deadline;
-        }
-
-        matcher = eventPattern.matcher(line);
-        if (matcher.matches()) {
-            boolean isDone = matcher.group(1).equals("X");
-            String taskName = matcher.group(2).trim();
-            String fromString = matcher.group(3).trim();
-            String toString = matcher.group(4).trim();
-            LocalDateTime fromTime = LocalDateTime.parse(fromString, formatter);
-            LocalDateTime toTime = LocalDateTime.parse(toString, formatter);
-            return new Event(taskName, isDone, fromTime, toTime);
+        if (isMatchingPattern(line, "\\[T\\]\\[(.)\\] (.*)")) {
+            return createTodoTask(line);
+        } else if (isMatchingPattern(line, "\\[D\\]\\[(.)\\] (.*) \\(by: (.*)\\)")) {
+            return createDeadlineTask(line, formatter);
+        } else if (isMatchingPattern(line, "\\[E\\]\\[(.)\\] (.*) \\(from: (.*) to: (.*)\\)")) {
+            return createEventTask(line, formatter);
         }
 
         throw new StorageException("There was an issue reading your duke.data");
+    }
+
+    private boolean isMatchingPattern(String line, String pattern) {
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(line);
+        return matcher.matches();
+    }
+
+    private ToDo createTodoTask(String line) {
+        Matcher matcher = Pattern.compile("\\[T\\]\\[(.)\\] (.*)").matcher(line);
+        matcher.find();
+        boolean isDone = matcher.group(1).equals("X");
+        String taskName = matcher.group(2).trim();
+        return new ToDo(taskName, isDone);
+    }
+
+    private Deadline createDeadlineTask(String line, DateTimeFormatter formatter) {
+        Matcher matcher = Pattern.compile("\\[D\\]\\[(.)\\] (.*) \\(by: (.*)\\)").matcher(line);
+        matcher.find();
+        boolean isDone = matcher.group(1).equals("X");
+        String taskName = matcher.group(2).trim();
+        String dueString = matcher.group(3).trim();
+        LocalDateTime dueTime = LocalDateTime.parse(dueString, formatter);
+        return new Deadline(taskName, isDone, dueTime);
+    }
+
+    private Event createEventTask(String line, DateTimeFormatter formatter) {
+        Matcher matcher = Pattern.compile("\\[E\\]\\[(.)\\] (.*) \\(from: (.*) to: (.*)\\)").matcher(line);
+        matcher.find();
+        boolean isDone = matcher.group(1).equals("X");
+        String taskName = matcher.group(2).trim();
+        String fromString = matcher.group(3).trim();
+        String toString = matcher.group(4).trim();
+        LocalDateTime fromTime = LocalDateTime.parse(fromString, formatter);
+        LocalDateTime toTime = LocalDateTime.parse(toString, formatter);
+        return new Event(taskName, isDone, fromTime, toTime);
     }
 
     /**
@@ -135,5 +147,4 @@ public class Storage {
             throw new StorageException("Unable to create a database");
         }
     }
-
 }
