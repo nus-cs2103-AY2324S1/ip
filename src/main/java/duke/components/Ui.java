@@ -20,8 +20,9 @@ public class Ui {
                     + "4. mark [item_number]\n"
                     + "5. unmark [item_number]\n"
                     + "6. delete [item_number]\n"
-                    + "7. list\n"
-                    + "8. bye\n"
+                    + "7. mass [delete/mark/unmark] [item_numbers]\n"
+                    + "8. list\n"
+                    + "9. bye\n"
                     + line;
 
     /**
