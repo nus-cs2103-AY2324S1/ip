@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("ruiz.Ruiz")
+    mainClass.set("ruiz.ui.Launcher")
 }
 
 shadowJar {
