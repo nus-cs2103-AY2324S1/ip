@@ -1,11 +1,11 @@
 package pau.task;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import pau.exception.DeadlineNoEndException;
 import pau.exception.NoDescException;
 import pau.exception.NoSuchTaskException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Stores the tasks in an ArrayList;
@@ -66,7 +66,8 @@ public class TaskList {
      */
     public void markTask(String input) {
         int starEyesEmoji = 0x1F929;
-        System.out.println("good job, you've completed a task! You're so productive!" + new String(Character.toChars(starEyesEmoji)));
+        System.out.println("good job, you've completed a task! You're so productive!"
+                + new String(Character.toChars(starEyesEmoji)));
         String parts[] = input.split(" ");
 
         int taskNo = Integer.parseInt(parts[1]);
@@ -109,7 +110,8 @@ public class TaskList {
                 System.out.println("good job! you're officially done with this:");
                 System.out.println(checkedTask.toString());
             } else {
-                System.out.println("not you running away from your responsibilities, i guess you don't have to do this now:");
+                System.out.println("not you running away from your responsibilities, "
+                        + "i guess you don't have to do this now:");
                 System.out.println(checkedTask.toString());
             }
         } catch (NoSuchTaskException e) {
@@ -156,7 +158,8 @@ public class TaskList {
                 throw new NoDescException("how am i suppose to know what is due...");
             }
             if (!input.contains("/by")) {
-                throw new DeadlineNoEndException("here's literally how to create a deadline: deadline [task name] /by [date]");
+                throw new DeadlineNoEndException("here's literally how to create a deadline: "
+                        + "deadline [task name] /by [date]");
             }
 
             Deadline item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
@@ -199,7 +202,7 @@ public class TaskList {
      *
      * @param input The keyword the user wants to find.
      */
-    public void findTask (String input) {
+    public void findTask(String input) {
         String parts[] = input.split("find ");
         String keyword = parts[1];
 

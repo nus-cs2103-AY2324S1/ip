@@ -1,27 +1,29 @@
 package pau;
 
-import pau.util.Parser;
-import pau.util.Storage;
-import pau.task.TaskList;
-import pau.util.Ui;
-
 import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.layout.Region;
+import pau.task.TaskList;
+import pau.util.Parser;
+import pau.util.Storage;
+import pau.util.Ui;
+
 
 /**
  * Represents the Pau chatbot.
  */
-public class Pau extends Application{
-
+public class Pau extends Application {
     /**
      * The list of tasks.
      */
@@ -40,18 +42,44 @@ public class Pau extends Application{
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private Image pau = new Image(this.getClass().getResourceAsStream("/images/Pau.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
 
     /**
      * Constructs a new Pau chatbot.
      *
      * @param filePath The path to the file containing tasks to be loaded.
      */
-    public Pau(String filePath){
+    public Pau(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
     }
 
-    public Pau(){
+    public Pau() {
+    }
+
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(pau))
+        );
+        userInput.clear();
+    }
+
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    private String getResponse(String input) {
+        return "Pau heard: " + input;
     }
 
     /**
@@ -111,7 +139,6 @@ public class Pau extends Application{
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -125,6 +152,41 @@ public class Pau extends Application{
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    /**
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
     }
 
 }

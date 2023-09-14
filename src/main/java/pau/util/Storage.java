@@ -1,8 +1,5 @@
 package pau.util;
 
-import pau.task.Task;
-import pau.task.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,11 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import pau.task.Task;
+import pau.task.TaskList;
+
+
 /**
  * Deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
-    
     /**
      * The path to the file containing tasks to be loaded.
      */
@@ -49,6 +49,7 @@ public class Storage {
             }
             return list;
         } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return new TaskList();
     }
@@ -61,7 +62,7 @@ public class Storage {
     public void saveTasksToFile(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(filepath);
-            for(int i = 0; i < tasks.listSize(); i++) {
+            for (int i = 0; i < tasks.listSize(); i++) {
                 Task task = tasks.getTask(i);
                 writer.write(task.writeToFile() + "\n");
             }
