@@ -12,7 +12,7 @@ public class ToDo extends Task {
      * Constructs a new To-Do task with the specified user input and whether it is marked
      *
      * @param content The description of the to-do task.
-     * @param status marked or unmarked
+     * @param status  marked or unmarked
      */
     public ToDo(String content, boolean status) {
         super(content, status);
@@ -46,7 +46,7 @@ public class ToDo extends Task {
 
     /**
      * ToString method
-     * @param listSize size of the TaskList
+     *
      * @return a String describing the status of the toDo task
      */
     public String toString() {

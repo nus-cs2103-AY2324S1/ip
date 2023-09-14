@@ -29,10 +29,9 @@ public class AddCommand extends Command {
      *
      * @param tasks  The given taskList
      * @param ui     the UI object containing the user input
-     * @param marked whether the task is marked
-     * @param load   whether the task is loading from drive memory
+     * @param status whether the task is marked and whether the task is loading from drive memory
      */
-    public String execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
+    public String execute(TaskList<Task> tasks, Ui ui, boolean... status) throws DukeException {
         if ((Arrays.asList("todo", "deadline", "event").contains(ui.get(0)))
                 && ui.length() == 1) {
             throw new DukeException(ui.showLine() + "\n"
@@ -41,17 +40,17 @@ public class AddCommand extends Command {
         }
         switch (ui.get(0)) {
         case "todo":
-            Task job = new ToDo(ui.getInput(), marked);
+            Task job = new ToDo(ui.getInput(), status[0]);
             tasks.add(job);
-            if (!load) {
+            if (!status[1]) {
                 return job.addTask(tasks.size());
             }
             break;
         case "deadline":
             try {
-                job = new Deadline(ui.getInput(), marked);
+                job = new Deadline(ui.getInput(), status[0]);
                 tasks.add(job);
-                if (!load) {
+                if (!status[1]) {
                     return job.addTask(tasks.size());
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -62,9 +61,9 @@ public class AddCommand extends Command {
             break;
         case "event":
             try {
-                job = new Event(ui.getInput(), marked);
+                job = new Event(ui.getInput(), status[0]);
                 tasks.add(job);
-                if (!load) {
+                if (!status[1]) {
                     return job.addTask(tasks.size());
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
