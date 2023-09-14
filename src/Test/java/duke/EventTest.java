@@ -12,7 +12,7 @@ public class EventTest {
 
         Event e = new Event("Checking", false, LocalDateTime.of(2019, 12, 2, 19, 00),
                 LocalDateTime.of(2023, 8, 31, 2, 20));
-        assertEquals("E/ /Checking/2019-12-02T19:00/2023-08-31T02:20", e.contentLine());
+        assertEquals("E/ /Checking/2019-12-02T19:00/2023-08-31T02:20", e.showContentLine());
     }
 
     @Test

@@ -11,7 +11,7 @@ public class DeadlineTest {
     public void check_deadline_contentLine() {
 
         Deadline d = new Deadline("Checking", false, LocalDateTime.of(2023, 8, 31, 2, 20));
-        assertEquals("D/ /Checking/2023-08-31T02:20", d.contentLine());
+        assertEquals("D/ /Checking/2023-08-31T02:20", d.showContentLine());
     }
 
     @Test
