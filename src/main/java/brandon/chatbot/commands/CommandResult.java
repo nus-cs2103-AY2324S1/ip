@@ -12,6 +12,8 @@ public class CommandResult {
     public final String feedbackToUser;
     private TaskList tasks;
     public CommandResult(String feedbackToUser) {
+        assert feedbackToUser != null: "feedback to user should not be empty.";
+
         this.feedbackToUser = feedbackToUser;
     }
 
@@ -22,6 +24,9 @@ public class CommandResult {
      * @param tasks is the instance of TaskList to be printed.
      */
     public CommandResult(String feedbackToUser, TaskList tasks) {
+        assert feedbackToUser != null: "feedback to user should not be empty.";
+        assert tasks != null: "TaskList should not be empty.";
+
         this.feedbackToUser = feedbackToUser;
         this.tasks = tasks;
     }
@@ -31,6 +36,7 @@ public class CommandResult {
      *
      * @return Optional object containing TaskList if exists.
      */
+    // currently not being used.
     public Optional<TaskList> getTasks() {
         return Optional.ofNullable(tasks);
     }

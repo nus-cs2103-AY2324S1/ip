@@ -49,6 +49,7 @@ public class TaskList {
         if (tasks.size() < index) {
             throw new DukeIndexOutOfBoundsException();
         }
+
         Task target = tasks.get(index - 1);
         target.setDone(true);
     }

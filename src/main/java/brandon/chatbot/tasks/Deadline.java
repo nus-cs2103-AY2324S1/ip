@@ -24,12 +24,15 @@ public class Deadline extends Task {
         if (deadline.isBlank()) {
             throw new DukeException("    Deadline cannot be blank...\n--------------------------------");
         }
+
         try {
-            String dateFormat = "yyyy-MM-dd";
-            LocalDate d1 = LocalDate.parse(deadline, DateTimeFormatter.ofPattern(dateFormat));
-            this.deadline = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String inputDateFormat = "yyyy-MM-dd";
+            String outputDateFormat = "MMM d yyyy";
+            LocalDate d1 = LocalDate.parse(deadline, DateTimeFormatter.ofPattern(inputDateFormat));
+            this.deadline = d1.format(DateTimeFormatter.ofPattern(outputDateFormat));
         } catch (DateTimeParseException e) {
-            throw new DukeException("Could you try your date in yyyy-mm-dd format instead...?");
+            String wrongDateInputExceptionMessage = "Could you try your date in yyyy-mm-dd format instead...?";
+            throw new DukeException(wrongDateInputExceptionMessage);
         }
     }
 
@@ -37,6 +40,4 @@ public class Deadline extends Task {
     public String getStatus() {
         return "[D]" + super.getStatus() + " (by: " + this.deadline + ")";
     }
-
-
 }

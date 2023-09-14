@@ -15,12 +15,14 @@ public class Todo extends Task {
      */
     public Todo(String title) throws DukeException {
         super(title);
+        if (title.isBlank()) {
+            throw new DukeException("Title of a todo task cannot be blank...");
+        }
     }
 
     @Override
     public String getStatus() {
         return "[T]" + super.getStatus();
     }
-
 }
 

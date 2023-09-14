@@ -23,7 +23,7 @@ public class Duke {
     private TaskList tasks = new TaskList();
     private Storage storage = new Storage(outputPath);
 
-    private CommandResult executeCommand(Command command) throws Exception {
+    private CommandResult executeCommand(Command command) {
         try {
             command.setData(tasks);
             CommandResult result = command.execute();
@@ -34,7 +34,7 @@ public class Duke {
         }
     }
 
-    public String getResponse(String input) throws Exception {
+    public String getResponse(String input) {
         Command parsedCommand = new Parser().parseCommand(input);
         CommandResult result = executeCommand(parsedCommand);
         return result.feedbackToUser;

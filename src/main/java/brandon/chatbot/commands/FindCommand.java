@@ -15,6 +15,8 @@ public class FindCommand extends Command {
     }
     @Override
     public CommandResult execute() {
+        assert this.title != null: "Title of the task should not be empty here.";
+
         TaskList newList = new TaskList();
         for (Task task : tasks.getList()) {
             if (task.toString().contains(this.title)) {

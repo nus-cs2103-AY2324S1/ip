@@ -8,15 +8,17 @@ import brandon.chatbot.tasks.Event;
  */
 public class AddEventCommand extends Command {
     public static final String ADD_SUCCESS = "ok... I'm adding..";
-    private Event toAdd;
+    private Event eventToAdd;
 
     public AddEventCommand(String taskName, String from, String to) throws DukeException {
-        this.toAdd = new Event(taskName, from, to);
+        this.eventToAdd = new Event(taskName, from, to);
     }
 
     @Override
     public CommandResult execute() {
-        tasks.addTask(toAdd);
+        assert eventToAdd != null: "Event object should not be empty.";
+
+        tasks.addTask(eventToAdd);
         CommandResult result = new CommandResult(ADD_SUCCESS);
         return result;
     }
