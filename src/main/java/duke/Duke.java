@@ -23,47 +23,35 @@ public class Duke {
         }
     }
 
-    public String startChat(String userInput) {
+    public String getResponse(String userInput) {
         Parser parser = new Parser();
         parser.setUserInput(userInput);
-        while (true) {
-            try {
-                if (parser.bye()) {
-                    break;
-                }
-                if (parser.list()) {
-                    return tasks.printFileContents();
-                } else if (parser.mark()) {
-                    return tasks.mark(userInput);
-                } else if (parser.unMark()) {
-                    return tasks.unMark(userInput);
-                } else if (parser.delete()) {
-                    return tasks.delete(userInput);
-                } else if (parser.todo()) {
-                    return tasks.handleTodo(userInput);
-                } else if (parser.deadline()) {
-                    return tasks.handleDeadline(userInput);
-                } else if (parser.event()) {
-                    return tasks.handleEvent(userInput);
-                } else if (parser.find()) {
-                    return tasks.handleFind(userInput);
-                } else {
-                    throw new DukeException("Error: Invalid Command!");
-                }
-            } catch (DukeException exception) {
-                return Ui.line + exception.getMessage() + "\n" + Ui.line;
+        try {
+            if (parser.bye()) {
+                return ui.goodbye();
+            } else if (parser.list()) {
+                return tasks.printFileContents();
+            } else if (parser.mark()) {
+                return tasks.mark(userInput);
+            } else if (parser.unMark()) {
+                return tasks.unMark(userInput);
+            } else if (parser.delete()) {
+                return tasks.delete(userInput);
+            } else if (parser.todo()) {
+                return tasks.handleTodo(userInput);
+            } else if (parser.deadline()) {
+                return tasks.handleDeadline(userInput);
+            } else if (parser.event()) {
+                return tasks.handleEvent(userInput);
+            } else if (parser.find()) {
+                return tasks.handleFind(userInput);
+            } else {
+                throw new DukeException("Error: Invalid Command!");
             }
+        } catch (DukeException exception) {
+            return Ui.line + exception.getMessage() + "\n" + Ui.line;
         }
-        ui.goodbye();
-        parser.goodbye();
-        return "";
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    String getResponse(String input) {
-        return startChat(input);
+//        parser.goodbye();
+//        return "";
     }
 }
