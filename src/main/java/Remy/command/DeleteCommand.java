@@ -23,27 +23,20 @@ public class DeleteCommand extends Command {
             throw new ChatbotException("missing info lah.");
         }
         int index = Integer.parseInt(input.substring(7)) - 1;
-        if (index >= 0) {
-            this.index = index;
+
+        if (index <= 0) {
+            throw new ChatbotException("invalid number bro");
         }
 
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        this.index = index;
     }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
-        try {
-            String task = taskList.get(this.index).toString();
-            taskList.remove(this.index);
-            String content = "Done. Can you don't be so troublesome?\n" + task;
-            storage.save(taskList);
-            return content;
-        } catch (ChatbotException e) {
-            return "Cannot execute delete command: " + e.getMessage();
-        }
+        String task = taskList.get(this.index).toString();
+        taskList.remove(this.index);
+        String content = "Done. Can you don't be so troublesome?\n" + task;
+        storage.save(taskList);
+        return content;
     }
 }

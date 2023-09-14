@@ -37,12 +37,12 @@ public class DeadlineCommand extends Command {
         // Create a Matcher to check if the input matches the pattern
         Matcher matcher = pattern.matcher(input);
 
-        if (matcher.matches()) {
-            this.taskName = matcher.group(1);
-            this.dueDate = matcher.group(2);
-        } else {
+        if (!matcher.matches()) {
             throw new ChatbotException("missing info or wrong format");
         }
+
+        this.taskName = matcher.group(1);
+        this.dueDate = matcher.group(2);
     }
 
 
