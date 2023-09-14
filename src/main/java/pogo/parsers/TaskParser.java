@@ -190,9 +190,8 @@ public class TaskParser {
 
         if (isMark) {
             return new MarkTaskCommand(index);
-        } else {
-            return new UnmarkTaskCommand(index);
         }
+        return new UnmarkTaskCommand(index);
     }
 
     /**

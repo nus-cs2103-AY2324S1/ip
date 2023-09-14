@@ -51,6 +51,7 @@ public class AddEventCommand extends Command {
     public CommandResult execute() {
         try {
             Task event = new Event(description, from, to);
+            assert tasks != null : "Task list should not be null";
             tasks.add(event);
             return new CommandResult(String.format(Messages.ADD_TASK_SUCCESS, event.getStatusMessage()));
         } catch (PogoInvalidTaskException e) {

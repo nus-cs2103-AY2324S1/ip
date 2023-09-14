@@ -31,6 +31,7 @@ public class ListTasksCommand extends Command {
     @Override
     public CommandResult execute() {
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        assert tasks != null : "Task list should not be null";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.isBetween(from, to)) {

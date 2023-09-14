@@ -65,6 +65,7 @@ public class Parser {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
             default:
+                assert false : "Command word should be valid";
                 break;
             }
         } catch (PogoInvalidTaskException e) {

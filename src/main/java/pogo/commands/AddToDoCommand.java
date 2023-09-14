@@ -36,6 +36,7 @@ public class AddToDoCommand extends Command {
     public CommandResult execute() {
         try {
             Task todo = new ToDo(description);
+            assert tasks != null : "Task list should not be null";
             tasks.add(todo);
             return new CommandResult(String.format(Messages.ADD_TASK_SUCCESS, todo.getStatusMessage()));
         } catch (PogoInvalidTaskException e) {
