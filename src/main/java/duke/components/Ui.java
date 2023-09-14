@@ -82,12 +82,8 @@ public class Ui {
     /**
      * Displays a message which indicated the item does not exist.
      */
-    public String showNoItemMessage() {
-        return (
-                showLine() + '\n'
-                        + "No such item exists"
-                                + showLine()
-            );
+    public String showNoItemMessage(int i) {
+        return showLine() + '\n' + "No such item exists: " + i + '\n' + showLine();
     }
 
     /**
@@ -188,5 +184,9 @@ public class Ui {
         return showLine() + '\n'
                 + "There are no matching tasks in your current list" + '\n'
                 + showLine();
+    }
+
+    public String showCustomError(String error) {
+        return showLine() + '\n' + error + '\n' + showLine();
     }
 }

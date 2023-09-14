@@ -46,48 +46,74 @@ public class TaskList {
     /**
      * Deletes a specified task from the current list of tasks.
      *
-     * @param index The index of the task to be deleted.
+     * @param indices The index of the task to be deleted.
      */
-    public String deleteFromList(int index) {
-        if (index >= 0 && index < fullList.size()) {
-            int currSize = this.fullList.size();
-            Task item = fullList.get(index);
-            this.fullList.remove(item);
-            assert this.fullList.size() == currSize - 1 : "Delete from list failed";
-            return ui.showDeleteMessage(item, currSize - 1);
-        } else {
-            return ui.showNoItemMessage();
+    public String deleteFromList(int... indices) {
+        if (indices.length == 0) {
+            return ui.showInvalidMessage();
         }
+
+        StringBuilder result = new StringBuilder();
+        for (int index : indices) {
+            if (index >= 0 && index < fullList.size()) {
+                int currSize = this.fullList.size();
+                Task item = fullList.get(index);
+                this.fullList.remove(item);
+                assert this.fullList.size() == currSize - 1 : "Delete from list failed";
+                result.append(ui.showDeleteMessage(item, currSize - 1)).append('\n');
+            } else {
+                result.append(ui.showNoItemMessage(index)).append('\n');
+            }
+        }
+        return result.toString();
     }
 
     /**
      * Marks a tasks as done from the current list of tasks.
      *
-     * @param index The index of the task to be marked as done.
+     * @param indices The array of index of the task to be marked as done.
      */
-    public String markItem(int index) {
-        if (index >= 0 && index < fullList.size()) {
-            Task curr = fullList.get(index);
-            curr.markDone();
-            return ui.showMarkMessage(curr);
-        } else {
-            return ui.showNoItemMessage();
+    public String markItem(int... indices) {
+        if (indices.length == 0) {
+            return ui.showInvalidMessage();
         }
+
+        StringBuilder result = new StringBuilder();
+        for (int index : indices) {
+            int actualIndex = index - 1;
+            if (actualIndex >= 0 && actualIndex < fullList.size()) {
+                Task curr = fullList.get(actualIndex);
+                curr.markDone();
+                result.append(ui.showMarkMessage(curr)).append('\n');
+            } else {
+                result.append(ui.showNoItemMessage(index));
+            }
+        }
+        return result.toString();
     }
 
     /**
      * Marks a tasks as not done from the current list of tasks.
      *
-     * @param index The index of the task to be marked as not done.
+     * @param indices The index of the task to be marked as not done.
      */
-    public String unMarkItem(int index) {
-        if (index >= 0 && index < fullList.size()) {
-            Task curr = fullList.get(index);
-            curr.markNotDone();
-            return ui.showUnmarkMessage(curr);
-        } else {
-            return ui.showNoItemMessage();
+    public String unMarkItem(int... indices) {
+        if (indices.length == 0) {
+            return ui.showInvalidMessage();
         }
+
+        StringBuilder result = new StringBuilder();
+        for (int index : indices) {
+            int actualIndex = index - 1;
+            if (actualIndex >= 0 && actualIndex < fullList.size()) {
+                Task curr = fullList.get(actualIndex);
+                curr.markNotDone();
+                result.append(ui.showUnmarkMessage(curr)).append('\n');
+            } else {
+                result.append(ui.showNoItemMessage(index));
+            }
+        }
+        return result.toString();
     }
 
     /**
