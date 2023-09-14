@@ -1,16 +1,20 @@
 package devybot.util;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import devybot.exceptions.DevyBotException;
 import devybot.exceptions.UnknownCommandException;
+
 import devybot.tasks.DeadlineTask;
 import devybot.tasks.EventTask;
 import devybot.tasks.Task;
@@ -40,48 +44,46 @@ public class Storage {
                 Task loadedTask;
 
                 switch (taskType) {
-                    case "T":
-                        loadedTask = new TodoTask(taskDescription);
-                        if (taskStatus.equals("1")) {
-                            loadedTask.markTask();
-                        }
-                        break;
-                    case "D":
-                        String taskBy = taskParts[3].trim();
-                        if (taskBy.contains(" ")) {
-                            // Contains time, parse as LocalDateTime
-                            LocalDateTime dateTime = LocalDateTime.parse(taskBy,
-                                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-                            loadedTask = new DeadlineTask(taskDescription, dateTime);
-                        } else {
-                            // No time, parse as LocalDate
-                            LocalDate date = LocalDate.parse(taskBy, DateTimeFormatter.ofPattern("d/M/yyyy"));
-                            loadedTask = new DeadlineTask(taskDescription, date);
-                        }
-                        if (taskStatus.equals("1")) {
-                            loadedTask.markTask();
-                        }
-                        break;
-                    case "E":
-                        String taskFrom = taskParts[3].trim();
-
-                        LocalDateTime fromDateTime = LocalDateTime.parse(taskFrom,
+                case "T":
+                    loadedTask = new TodoTask(taskDescription);
+                    if (taskStatus.equals("1")) {
+                        loadedTask.markTask();
+                    }
+                    break;
+                case "D":
+                    String taskBy = taskParts[3].trim();
+                    if (taskBy.contains(" ")) {
+                        // Contains time, parse as LocalDateTime
+                        LocalDateTime dateTime = LocalDateTime.parse(taskBy,
                                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-                        String taskTo = taskParts[4].trim();
+                        loadedTask = new DeadlineTask(taskDescription, dateTime);
+                    } else {
+                        // No time, parse as LocalDate
+                        LocalDate date = LocalDate.parse(taskBy, DateTimeFormatter.ofPattern("d/M/yyyy"));
+                        loadedTask = new DeadlineTask(taskDescription, date);
+                    }
+                    if (taskStatus.equals("1")) {
+                        loadedTask.markTask();
+                    }
+                    break;
+                case "E":
+                    String taskFrom = taskParts[3].trim();
 
-                        LocalDateTime toDateTime = LocalDateTime.parse(taskTo,
-                                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-                        loadedTask = new EventTask(taskDescription, fromDateTime, toDateTime);
-                        if (taskStatus.equals("1")) {
-                            loadedTask.markTask();
-                        }
-                        break;
-                    default:
-                        throw new UnknownCommandException();
+                    LocalDateTime fromDateTime = LocalDateTime.parse(taskFrom,
+                            DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                    String taskTo = taskParts[4].trim();
 
+                    LocalDateTime toDateTime = LocalDateTime.parse(taskTo,
+                            DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                    loadedTask = new EventTask(taskDescription, fromDateTime, toDateTime);
+                    if (taskStatus.equals("1")) {
+                        loadedTask.markTask();
+                    }
+                    break;
+                default:
+                    throw new UnknownCommandException();
                 }
                 taskList.add(loadedTask);
-
             }
             scanner.close();
         } catch (FileNotFoundException e) {
