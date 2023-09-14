@@ -4,16 +4,10 @@ import java.util.ArrayList;
 
 import bellcurvegod.task.Task;
 
+/**
+ * Encapsulates all messages shown by the GUI.
+ */
 public class Gui {
-//    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
-//    private static final String LOGO = "\n"
-//        + "  ____       _ _    _____                        _____           _ \n"
-//        + " |  _ \\     | | |  / ____|                      / ____|         | |\n"
-//        + " | |_) | ___| | | | |    _   _ _ ____   _____  | |  __  ___   __| |\n"
-//        + " |  _ < / _ \\ | | | |   | | | | '__\\ \\ / / _ \\ | | |_ |/ _ \\ / _` |\n"
-//        + " | |_) |  __/ | | | |___| |_| | |   \\ V /  __/ | |__| | (_) | (_| |\n"
-//        + " |____/ \\___|_|_|  \\_____\\__,_|_|    \\_/ \\___|  \\_____|\\___/ \\__,_|"
-//        + "\n";
 
     /**
      * Greets the user.
