@@ -22,6 +22,8 @@ import exception.InvalidCommandException;
 enum Action {
     BYE, LIST, FIND, REMIND, EDIT_TASK, ADD_TASK, INVALID;
 
+    private static final int COMMAND_OTHERS_COUNT = 4;
+
     public static Action parseCommand(String command) throws InvalidCommandException {
 
         if (checkEditAction(command)) {
@@ -31,7 +33,7 @@ enum Action {
         } else {
             Action[] values = Action.values();
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < COMMAND_OTHERS_COUNT; i++) {
                 if (command.toUpperCase().equals(values[i].toString())) {
                     return values[i];
                 }
@@ -40,7 +42,6 @@ enum Action {
             throw new InvalidCommandException("Invalid Command");
         }
     }
-
 
     private static boolean checkAddAction(String command) {
         final String[] addTypes = new String[]{"todo", "deadline", "event"};

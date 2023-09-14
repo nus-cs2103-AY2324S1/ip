@@ -90,7 +90,7 @@ public class TaskList {
             assert false : "Task type should be checked by parser, no other tasks type should be allowed";
         }
 
-        int size  = taskList.size();
+        int size = taskList.size();
 
         String taskDesc = taskList.get(taskList.size() - 1).toString();
         String addTaskDesc = String.format(

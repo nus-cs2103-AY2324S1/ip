@@ -1,3 +1,4 @@
-T | 0 | borrow book
-D | 0 | 2103 ip | Sep 15 2023 12.00PM
-E | 0 | hello | Sep 15 2023 12.00AM-Sep 15 2023 12.00PM
+T | true | borrow book
+D | true | 2103 ip | Sep 15 2023 12.00PM
+E | true | hello | Sep 15 2023 12.00AM-Sep 15 2023 12.00PM
+D | true | eay | Sep 13 2023 12.00AM
