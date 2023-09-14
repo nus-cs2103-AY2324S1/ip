@@ -27,6 +27,7 @@ public class Storage {
             try {
                 Files.createDirectories(Path.of(this.FILE_PATH).getParent());
                 Files.createFile(Path.of(this.FILE_PATH));
+
             } catch (IOException e) {
                 throw new MossException("Could not create file or directory");
             }
@@ -49,20 +50,28 @@ public class Storage {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] tokens = line.split(" \\| ");
+                    assert tokens.length >= 3 : "Invalid file format: Not enough tokens";
                     String type = tokens[0];
                     boolean marked = Objects.equals(tokens[1], "X");
                     String description = tokens[2];
+
+                    // Add assertions to validate task type and tokens based on type
+                    assert type.equals("T") || type.equals("D") || type.equals("E") : "Invalid task type";
+
                     Task task;
                     switch (type) {
                     case "T":
+                        assert tokens.length == 3 : "Invalid ToDo task format";
                         task = new ToDo(description);
                         break;
                     case "D":
+                        assert tokens.length == 4 : "Invalid Deadline task format";
                         String by = tokens[3];
                         LocalDate date = LocalDate.parse(by);
                         task = new Deadline(description, date);
                         break;
                     case "E":
+                        assert tokens.length == 5 : "Invalid Event task format";
                         String from = tokens[3];
                         LocalDate fromDate = LocalDate.parse(from);
                         String to = tokens[4];
