@@ -15,7 +15,7 @@
     <children>
         <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput"
                    prefHeight="41.0" prefWidth="324.0"
-                   AnchorPane.bottomAnchor="1.0" style="-fx-background-color: #FFFFE0;">
+                   AnchorPane.bottomAnchor="1.0" style="-fx-background-color: #FFFFE0; -fx-font-family: 'Courier New';">
          <font>
             <Font size="14.0" />
          </font></TextField>
@@ -29,7 +29,7 @@
 
 
         <content>
-                <VBox fx:id="dialogContainer" prefWidth="388.0"  />
+                <VBox fx:id="dialogContainer" prefWidth="388.0" style="-fx-font-family: 'Courier New';" />
             </content>
         </ScrollPane>
     </children>

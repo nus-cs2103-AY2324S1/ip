@@ -25,11 +25,13 @@ public class Ui {
      * Returns the welcome greetings.
      */
     public static String showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "    _      _ _               _   \n"
+                + "   (_) ___| (_)_ __ ___   __| |  \n"
+                + "   | |/ _ \\ | | '_ ` _ \\ / _` |  \n"
+                + "   | |  __/ | | | | | | | (_| |  \n"
+                + "  _/ |\\___|_|_|_| |_| |_|\\__,_|  \n"
+                + " |__/                            \n";
+
 
         return "Hello from\n" + logo
                 + LINE + "\n"
