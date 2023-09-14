@@ -1,11 +1,14 @@
 package task;
 
+import java.time.LocalDateTime;
+
 /**
  * A deadline class extends the task class. A deadline task represents a task that has to be
  * completed by a certain date.
  */
 public class Deadline extends Task {
     protected String by;
+    protected LocalDateTime byDate;
 
     /**
      * Constructs a deadline task with specified name.
@@ -16,6 +19,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        this.byDate = parseTaskDate(by);
     }
 
     /**
@@ -45,4 +49,15 @@ public class Deadline extends Task {
     public String fileString() {
         return "D" + super.fileString() + " | " + this.by;
     }
+
+    @Override
+    public boolean needReminder() {
+        if (isDone) {
+            return false;
+        }
+
+        boolean isDue = byDate.isAfter(LocalDateTime.now());
+        return isDue;
+    }
+
 }

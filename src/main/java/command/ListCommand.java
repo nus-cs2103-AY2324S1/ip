@@ -14,8 +14,5 @@ public class ListCommand extends Command {
         return "Here are the tasks in your list:\n"
                 + tasks.toString();
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
+
 }

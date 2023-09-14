@@ -1,5 +1,9 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 /**
  * The task.Task Class is an abstract class that serves as a base class for various types of task the user can create.
  */
@@ -72,5 +76,24 @@ public abstract class Task {
     public String fileString() {
         String done = isDone ? "1" : "0";
         return " | " + done + " | " + this.name;
+    }
+
+    /**
+     * Returns true if task is due to be completed. There will be reminder for a task if task
+     * is not completed and the task date to be completed by is not passed the current date.
+     */
+    public abstract boolean needReminder();
+
+    /**
+     * Parses the string date field of a task to a LocalDateTime object.
+     *
+     * @param date The input task date.
+     * @return The LocalDateTime corresponding to the string input.
+     */
+    protected static LocalDateTime parseTaskDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h.mma", Locale.ENGLISH);
+        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+
+        return dateTime;
     }
 }

@@ -6,7 +6,7 @@ import duke.Ui;
 
 
 /**
- * Command that adds a task to the task.Task List.
+ * Command that adds a task to the task List.
  */
 public class AddCommand extends Command {
     /** Type of task to add */
@@ -29,8 +29,4 @@ public class AddCommand extends Command {
         return tasks.addTask(taskType, args);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

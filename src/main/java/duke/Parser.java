@@ -12,6 +12,7 @@ import command.Command;
 import command.EditCommand;
 import command.FindCommand;
 import command.ListCommand;
+import command.RemindCommand;
 import exception.DukeException;
 import exception.InvalidCommandException;
 
@@ -53,6 +54,9 @@ public class Parser {
 
         case "list":
             return new ListCommand();
+
+        case "remind":
+            return new RemindCommand();
 
         case "mark":
             if (validIndex) {

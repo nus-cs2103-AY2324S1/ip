@@ -1,5 +1,3 @@
-D | 0 | return book | June 6th
-E | 1 | project meeting | Aug 6th 2pm-4pm
-T | 0 | join sports club
-D | 0 | eat dinner | Aug 30 2023 6.00PM
-T | 0 | eat meat
+T | 0 | borrow book
+D | 0 | 2103 ip | Sep 15 2023 12.00PM
+E | 0 | hello | Sep 15 2023 12.00AM-Sep 15 2023 12.00PM

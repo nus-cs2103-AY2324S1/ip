@@ -20,11 +20,4 @@ public abstract class Command {
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage store) throws DukeException;
 
-    /**
-     * Returns if Chat bot should continue after commands.
-     *
-     * @return Boolean value representing if Chat Bot should end.
-     */
-    public abstract boolean isExit();
-
 }

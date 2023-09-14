@@ -21,8 +21,4 @@ public class ByeCommand extends Command {
         return ui.endBot();
     }
 
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }
