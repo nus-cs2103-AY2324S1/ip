@@ -29,9 +29,11 @@ public class Duke {
         this.storage = new Storage();
         this.tasks = new TaskList(storage.readFile());
     }
+
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response to the user's input
+     * @param input The user's input
+     * @return Toothless' response
      */
     public String getResponse(String input) {
 

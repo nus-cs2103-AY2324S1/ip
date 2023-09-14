@@ -108,7 +108,7 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             if (typeOfDes == 0) {
                 output.add(tasks.get(i).toString());
-            } else {
+            } else if (typeOfDes == 1) {
                 output.add(tasks.get(i).getTask());
             }
         }
@@ -120,8 +120,8 @@ public class TaskList {
      * @param input The user input.
      * @param command Type of command given by the user.
      * @return Dialogue for the bot to confirm status of the task.
-     * @throws DukeException Exceptions.InvalidInputException thrown if input
-     *     cannot be recognised. Exceptions.MissingTaskException thrown
+     * @throws DukeException InvalidInputException thrown if input
+     *     cannot be recognised. MissingTaskException thrown
      * @throws DukeException InvalidInputException thrown if input
      *     cannot be recognised. MissingTaskException thrown
      *     if task cannot be found in the task list.
@@ -139,6 +139,7 @@ public class TaskList {
 
             } else if (command.equals(Commands.MARK)) {
                 return task.markAsDone();
+
             } else {
                 throw new InvalidInputException("Invalid input");
             }
@@ -154,8 +155,8 @@ public class TaskList {
      * Deletes a task from the task list and returns a String as the dialogue.
      * @param input The user input.
      * @return Dialogue to confirm the deletion of the task from the list.
-     * @throws DukeException Exceptions.InvalidInputException thrown if input
-     *     cannot be recognised. Exceptions.MissingTaskException thrown
+     * @throws DukeException InvalidInputException thrown if input
+     *     cannot be recognised. MissingTaskException thrown
      *     if task cannot be found in the task list.
      */
     public String deleteTask(String input) throws DukeException {
