@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TaskListTest {
     
     @Test
-    public void testAdd() {
+    public void testAdd() throws DukeException {
         TaskList list = new TaskList();
         Todo todo = new Todo("read book");
         Deadline deadline = new Deadline("return book", "Monday");

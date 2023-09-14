@@ -34,7 +34,19 @@ public class TaskList {
      *
      * @param task The task to be added to the TaskList.
      */
-    public void add(Task task) {
+//    public void add(Task task) {
+//        list.add(task);
+//    }
+
+    public void add(Task task) throws DukeException {
+        // Check for duplicates by comparing descriptions
+        for (Task existingTask : list) {
+            if (existingTask.getDescription().equalsIgnoreCase(task.getDescription())) {
+                throw new DukeException("OOPS!!! This task already exists in the list.");
+            }
+        }
+
+        // If no duplicates are found, add the task to the list
         list.add(task);
     }
 
