@@ -62,14 +62,13 @@ public class TaskList {
             toYear = toYear.substring(0, toYear.indexOf(" "));
             LocalDate to = LocalDate.of(Integer.parseInt(trimString(toYear)), Integer.parseInt(toMonth), Integer.parseInt(toDate));
             LocalDate from = LocalDate.of(Integer.parseInt(trimString(fromYear)), Integer.parseInt(fromMonth), Integer.parseInt(fromDate));
-            assert done.equals("1") || done.equals("0"): "x is either one or zero";
+
             Event event = new Event(content, from, to);
             if (done.equals("1")) {
                 event.finish();
-                list.add(event);
-            } else {
-                list.add(event);
             }
+            list.add(event);
+
         }
         else if (arr[0].equals("deadline")) {
             String firstBy = arr[1].substring(arr[1].indexOf("/by") + 4);
@@ -81,11 +80,7 @@ public class TaskList {
             String byYear = firstByMonth.substring(firstByMonth.indexOf("/") + 1);
             byYear = byYear.substring(0, byYear.indexOf(" "));
             LocalDate by = LocalDate.of(Integer.parseInt(byYear), Integer.parseInt(byMonth), Integer.parseInt(byDate));
-
-
             Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), by);
-
-
             if (done.equals("1")) {
                 deadline.finish();
                 list.add(deadline);
@@ -121,16 +116,9 @@ public class TaskList {
      * @throws Exception If an error occurs during execution.
      */
 
-    public String Answer(String input) throws Exception{ // just a reader for additional files inputted by the users.
-        // my plan is to make sure every line inputted by the user, it is saved to the zenith.txt file directly.
-        // But to show the users the list, need to first load the data to a class storage containing the copied
-        // data of zenith.txt
+    public String Answer(String input) throws Exception{
         String zenithData = "src/main/java/data/zenith.txt";
-
         Parser parser = new Parser(list, input);
-        // list is updated already but string in parser null
-
-
         String arr[];
         String onetwo = list.size() > 1? " tasks": " task";
         Ui ui = new Ui();
@@ -141,14 +129,12 @@ public class TaskList {
             bye.bye();
             assert ui.toString() != null : "ui.toString() cannot be null";
             return ui.toString();
-        }
-        else if (parser.getStr().equals("list")) {
+
+        } else if (parser.getStr().equals("list")) {
 
             ui.currentlist((list.size()), onetwo);
             assert ui.toString() != null : "ui.toString() cannot be null";
             return List() + ui.toString();
-
-
         } else if (parser.getArr()[0].equals("delete")) {
             try {
                 arr = parser.getArr();
@@ -170,11 +156,9 @@ public class TaskList {
             }
         }
         else if (parser.getArr()[0].equals("mark")) {
-            //arr[1].length() == 1 && isNumeric(arr[1])
             try {
                 arr = parser.getArr();
                 ui.mark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
-
                 list.get(Integer.parseInt(arr[1]) - 1).getDescription();
                 list.get(Integer.parseInt(arr[1]) - 1).finish();
                 refreshData();
@@ -205,12 +189,10 @@ public class TaskList {
             catch(NumberFormatException e) {
                 ui.numExc();
                 return ui.toString();
-
             }
             catch(IndexOutOfBoundsException e) {
                 ui.indexOut();
                 return ui.toString();
-
             }
         }
 
@@ -283,7 +265,6 @@ public class TaskList {
             } catch (ArrayIndexOutOfBoundsException e){
                 ui.specify();
                 return ui.toString();
-
             }
         }
         else if(parser.getArr()[0].isEmpty()) {
@@ -292,7 +273,9 @@ public class TaskList {
                 System.out.println(arr[1]);
             } catch(ArrayIndexOutOfBoundsException e) {
                 ui.blank();
+
                 assert ui.toString() != null : "ui.toString() cannot be null";
+
                 return ui.toString();
             }
         } else {
@@ -301,7 +284,9 @@ public class TaskList {
             }
             catch (DukeException e) {
                 ui.format();
+
                 assert ui.toString() != null : "ui.toString() cannot be null";
+
                 return ui.toString();
             }
         }
@@ -347,9 +332,12 @@ public class TaskList {
             return "Invalid date format";
         }
 
+
+        // Reorders the parts to form the desired output format
         String day = parts[2];
         String month = parts[1];
         String year = parts[0];
+
         String outputDateStr = day + "/" + month + "/" + year;
         assert outputDateStr != null : "ui.toString() cannot be null";
         return outputDateStr;
@@ -379,7 +367,7 @@ public class TaskList {
 
             if (task.isDone == true) {
                 done = " |1";
-            }// Perform your task processing here
+            }
             else {
                 done = " |0";
             }
@@ -397,7 +385,6 @@ public class TaskList {
             }
 
             if (task instanceof Deadline) {
-
                 by = "/by " + convertDateFormat(((Deadline) task).getBy().toString());
                 type = "deadline ";
                 String string = type + description + by + done;

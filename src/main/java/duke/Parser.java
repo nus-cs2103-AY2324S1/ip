@@ -10,7 +10,6 @@ import java.util.List;
 public class Parser {
     private String str;
     private String arr[];
-    //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); //try getting words from gui
     List<Task> list;
 
     /**
@@ -23,17 +22,9 @@ public class Parser {
         this.list = list;
         this.str = input;
         this.arr = input.split(" ", 2);
-
-        //this.str = reader.readLine();
-        //this.arr = str.split(" ", 2);
     }
 
-    /*
-    public Parser(String string) {
-        this.str = string;
-        this.arr = string.split(" ", 2);
-    }
-    */
+
 
 
     /**
