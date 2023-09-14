@@ -42,8 +42,8 @@ class Deadline extends Task {
      * @return the String representation of this Deadline.
      */
     @Override
-    public String toString() {
-        return String.format("[D] %s (by: %s)", super.toString(), this.deadline);
+    public String mainString() {
+        return String.format("[D] %s (by: %s)", super.mainString(), this.deadline);
     }
 
     /**

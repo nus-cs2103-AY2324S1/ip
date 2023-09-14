@@ -1,5 +1,7 @@
 package duchess;
 
+import java.util.ArrayList;
+
 /**
  * An abstract class representing a Task.
  */
@@ -8,6 +10,8 @@ public abstract class Task {
 
     private String name;
     private TaskStatus status;
+
+    private ArrayList<String> tags;
 
     /**
      * Returns a new Task object with the given parameters.
@@ -18,6 +22,8 @@ public abstract class Task {
     Task(String name, TaskStatus status) {
         this.name = name;
         this.status = status;
+
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -26,8 +32,7 @@ public abstract class Task {
      * @param name - the name of the Task.
      */
     Task(String name) {
-        this.name = name;
-        this.status = TaskStatus.UNMARKED;
+        this(name, TaskStatus.UNMARKED);
     }
 
     /**
@@ -74,18 +79,60 @@ public abstract class Task {
     }
 
     /**
+     * Used for formatting the toString. Pre-string will be added before the mainString and the postString, when calling 
+     * toString.
+     *
+     * @return the pre-String for this Task.
+     */
+    public String preString() {
+        return "";
+    }
+
+    /**
+     * Used for formatting the toString. mainString will be in between pre-string and post-string when calling toString.
+     *
+     * @return the mainString for this Task.
+     */
+    public String mainString() {
+        String thisString = "";
+        if (this.status == TaskStatus.UNMARKED) {
+            thisString += String.format("[ ] %s", this.name);
+        }
+        if (this.status == TaskStatus.MARKED) {
+            thisString += String.format("[X] %s", this.name);
+        }
+
+        return thisString;
+    }
+
+    /**
+     * Used for formatting the toString. post-String will be after main-string and post-string when calling toString.
+     *
+     * @return the post-String for this Task.
+     */
+    public String postString() {
+        if (this.tags.size() <= 0) {
+            return "";
+        }
+
+        String postString = "(";
+
+        for (String s : this.tags) {
+            postString += s + " ";
+        }
+
+        postString = postString.substring(0, postString.length() - 1);
+        postString += ")";
+        return postString;
+    }
+
+    /**
      * Returns a String representation of this task.
      *
      * @return the String representation of this task.
      */
     public String toString() {
-        if (this.status == TaskStatus.UNMARKED) {
-            return String.format("[ ] %s", this.name);
-        }
-        if (this.status == TaskStatus.MARKED) {
-            return String.format("[X] %s", this.name);
-        }
-        return "";
+        return this.preString() + this.mainString() + this.postString();
     }
 
     /**
@@ -99,5 +146,14 @@ public abstract class Task {
             return String.format("1|%s", this.name);
         }
         return "";
+    }
+
+    /**
+     * Adds a tag to this Task's list of tags.
+     *
+     * @param tag - tag to be added
+     */
+    public void addTag(String tag) {
+        this.tags.add(tag);
     }
 }

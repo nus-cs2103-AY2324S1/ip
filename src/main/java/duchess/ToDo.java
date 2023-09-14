@@ -27,8 +27,8 @@ class ToDo extends Task {
      * @return the String representation of this ToDo.
      */
     @Override
-    public String toString() {
-        return String.format("[T] %s", super.toString());
+    public String mainString() {
+        return String.format("[T] %s", super.mainString());
     }
 
     /**

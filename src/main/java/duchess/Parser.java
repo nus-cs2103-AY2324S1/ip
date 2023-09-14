@@ -231,4 +231,58 @@ public class Parser {
         return new Event(m.group(1).trim(), m.group(3).trim(), m.group(5).trim());
     }
 
+    /**
+     * Returns true if the command is recognized as an "tag" command.
+     *
+     * @param s - the command to check for "tag" command.
+     * @return    whether the command is recognized as an "tag" command.
+     */
+    public static boolean isTagCommand(String s) {
+        return Utility.matchesRegex(s, "^tag");
+    }
+
+    /**
+     * Parses a tag command, returning the index of the task to be tagged from the command.
+     *
+     * @param s                 - the command to parse for "tag" command.
+     * @return                    the index of the task to be tagged.
+     * @throws DuchessException   if any essential arguments to this command are missing.
+     */
+    public static int parseTagCommandIndex(String s) throws DuchessException {
+        // Matches a tag, followed by an index (any number of digits) and then 
+        // any number of (hashtags (optional) and then letters without spaces.)
+        // Each tag hence needs to have no spaces inside. 
+        Matcher m = Utility.parseRegex(
+                s, "^tag( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
+            );
+
+        if (m.group(1) == null || m.group(2) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to tag... ;-;");
+        }
+
+        return Integer.parseInt(m.group(2).trim());
+    }
+
+    /**
+     * Parses a tag command, returning the tag strings parsed from the command.
+     *
+     * @param s                 - the command to parse for "tag" command.
+     * @return                    the Event task.
+     * @throws DuchessException   if any essential arguments to this command are missing.
+     */
+    public static String[] parseTagCommandTags(String s) throws DuchessException {
+        // Matches a tag, followed by an index (any number of digits) and then 
+        // any number of (hashtags (optional) and then letters (with spaces, but they will be split by spaces.)
+        // Each tag hence needs to have no spaces inside. 
+        Matcher m = Utility.parseRegex(
+                s, "^tag( ([0-9]+)( (?:#)?([A-Za-z0-9_\\- ]+))*)?"
+            );
+
+        if (m.group(1) == null || m.group(3) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, tags cannot be empty... ;-;");
+        }
+
+        return m.group(3).trim().split(" ");
+    }
+
 }
