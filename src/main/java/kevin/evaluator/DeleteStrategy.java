@@ -37,7 +37,7 @@ public class DeleteStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.deleteTask(index);
-            return logger.log(String.format("Noted. I've removed this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
+            return logger.log(String.format("Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.",
                     deletedTask, this.taskList.size()));
         }
         return "";

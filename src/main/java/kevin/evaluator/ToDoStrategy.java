@@ -38,7 +38,7 @@ public class ToDoStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.addToDo(newToDo);
-            return logger.log(String.format("Got it. I've added this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
+            return logger.log(String.format("Got it. I've added this task: \n%s\nNow you have %d tasks in the list.",
                     newToDo, this.taskList.size()));
         }
 

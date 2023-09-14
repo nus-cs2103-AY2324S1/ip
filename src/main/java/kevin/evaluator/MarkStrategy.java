@@ -37,7 +37,7 @@ public class MarkStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.overwriteTask(newTask, index);
-            return logger.log("Nice! I've marked this task as done: \n\t\t" + newTask);
+            return logger.log("Nice! I've marked this task as done: \n" + newTask);
         }
         return "";
     }

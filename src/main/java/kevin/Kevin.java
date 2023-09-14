@@ -1,7 +1,6 @@
 package kevin;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 

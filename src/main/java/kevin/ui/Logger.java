@@ -4,25 +4,20 @@ package kevin.ui;
  * A class responsible to output to the console.
  */
 public class Logger {
-    public static final String HORIZONTAL_LINE = "_".repeat(70);
-
     public static final String BOT_NAME = new StringBuilder()
-            .append("\t \n")
-            .append("\t").append(" _   __ _____ _   _ _____ _   _ \n")
-            .append("\t").append("| | / /|  ___| | | |_   _| \\ | |\n")
-            .append("\t").append("| |/ / | |__ | | | | | | |  \\| |\n")
-            .append("\t").append("|    \\ |  __|| | | | | | | . ` |\n")
-            .append("\t").append("| |\\  \\| |___\\ \\_/ /_| |_| |\\  |\n")
-            .append("\t").append("\\_| \\_/\\____/ \\___/ \\___/\\_| \\_/\n")
+            .append("\n")
+            .append(" _   __ _____ _   _ _____ _   _ \n")
+            .append("| | / /|  ___| | | |_   _| \\ | |\n")
+            .append("| |/ / | |__ | | | | | | |  \\| |\n")
+            .append("|    \\ |  __|| | | | | | | . ` |\n")
+            .append("| |\\  \\| |___\\ \\_/ /_| |_| |\\  |\n")
+            .append("\\_| \\_/\\____/ \\___/ \\___/\\_| \\_/\n")
             .toString();
     /**
      * Prints the text wrapped in horizontal lines.
      * @param str
      */
     public String log(String str) {
-        System.out.println("\t" + HORIZONTAL_LINE);
-        System.out.println("\t" + str);
-        System.out.println("\t" + HORIZONTAL_LINE);
         return str;
     }
 
@@ -30,7 +25,7 @@ public class Logger {
      * Prints the hello message when the program first runs.
      */
     public static String hello() {
-        String welcomeMessage = "Hello! I'm" + BOT_NAME + "\n\t" + "What can I do for you?";
+        String welcomeMessage = "Hello! I'm" + BOT_NAME + "\n" + "What can I do for you?";
         return welcomeMessage;
     }
 

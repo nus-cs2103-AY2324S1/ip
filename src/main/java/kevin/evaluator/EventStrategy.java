@@ -42,7 +42,7 @@ public class EventStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.addEvent(newEvent);
-            return logger.log(String.format("Got it. I've added this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
+            return logger.log(String.format("Got it. I've added this task: \n%s\nNow you have %d tasks in the list.",
                     newEvent, taskList.size()));
         }
 

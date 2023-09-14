@@ -37,7 +37,7 @@ public class UnmarkStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.overwriteTask(newTask, index);
-            return logger.log("OK, I've marked this task as not done yet: \n\t\t" + newTask);
+            return logger.log("OK, I've marked this task as not done yet: \n" + newTask);
         }
 
         return "";

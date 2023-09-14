@@ -48,8 +48,8 @@ public class DeadlineStrategy extends BaseStrategy {
 
             Deadline newDeadline = taskList.addDeadline(isDone, name, deadlineDate);
             fileStorage.addDeadline(newDeadline);
-            return logger.log(new StringBuilder().append("Got it. I've added this task: \n\t\t")
-                    .append(newDeadline).append("\n\tNow you have ")
+            return logger.log(new StringBuilder().append("Got it. I've added this task: \n")
+                    .append(newDeadline).append("\nNow you have ")
                     .append(taskList.size())
                     .append(" tasks in the list.")
                     .toString());
