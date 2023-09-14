@@ -25,6 +25,17 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructs a Todo object.
+     *
+     * @param description Description of the Todo.
+     * @param isDone Status of the Todo.
+     * @param priority Priority of the Todo.
+     */
+    public Todo(String description, boolean isDone, Priority priority) {
+        super(description, isDone, priority);
+    }
+
+    /**
      * Returns text representation of todo for data file.
      *
      * @return Text representation of Todo.

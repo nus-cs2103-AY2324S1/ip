@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import java.time.LocalDateTime;
-
 import duke.Duke;
+
+import java.time.LocalDateTime;
 
 /**
  * Encapsulation for Deadline properties.
@@ -16,7 +16,7 @@ public class Deadline extends Task {
      * Constructs a Deadline object.
      *
      * @param description Description of the Deadline.
-     * @param by Finish by time of the Deadline
+     * @param by Finish by time of the Deadline.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
@@ -28,10 +28,23 @@ public class Deadline extends Task {
      *
      * @param description Description of the Deadline.
      * @param isDone Status of the Deadline.
-     * @param by Finish by time of the Deadline
+     * @param by Finish by time of the Deadline.
      */
     public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
+        this.by = by;
+    }
+
+    /**
+     * Constructs a Deadline object.
+     *
+     * @param description Description of the Deadline.
+     * @param isDone Status of the Deadline.
+     * @param by Finish by time of the Deadline.
+     * @param priority Priority of the Deadline.
+     */
+    public Deadline(String description, boolean isDone, LocalDateTime by, Priority priority) {
+        super(description, isDone, priority);
         this.by = by;
     }
 

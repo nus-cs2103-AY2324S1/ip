@@ -2,6 +2,7 @@ package duke;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeIndexOutOfBoundsException;
+import duke.tasks.Priority;
 import duke.tasks.Task;
 import duke.ui.Ui;
 
@@ -58,7 +59,7 @@ public class Duke {
                 int indexToBeMarked = Integer.parseInt(userInput.split(" ")[1]);
 
                 if (indexToBeMarked < 1 || indexToBeMarked > tasks.getNumberOfTasks()) {
-                    throw new DukeIndexOutOfBoundsException("marked");
+                    throw new DukeIndexOutOfBoundsException("mark");
                 }
 
                 Task toBeMarked = tasks.getTaskAt(indexToBeMarked - 1);
@@ -74,7 +75,7 @@ public class Duke {
                 int indexToBeUnmarked = Integer.parseInt(userInput.split(" ")[1]);
 
                 if (indexToBeUnmarked < 1 || indexToBeUnmarked > tasks.getNumberOfTasks()) {
-                    throw new DukeIndexOutOfBoundsException("unmarked");
+                    throw new DukeIndexOutOfBoundsException("unmark");
                 }
 
                 Task toBeUnmarked = tasks.getTaskAt(indexToBeUnmarked - 1);
@@ -89,7 +90,7 @@ public class Duke {
                 int indexToBeDeleted = Integer.parseInt(userInput.split(" ")[1]);
 
                 if (indexToBeDeleted < 1 || indexToBeDeleted > tasks.getNumberOfTasks()) {
-                    throw new DukeIndexOutOfBoundsException("deleted");
+                    throw new DukeIndexOutOfBoundsException("delete");
                 }
 
                 Task toBeDeleted = tasks.getTaskAt(indexToBeDeleted - 1);
@@ -107,6 +108,22 @@ public class Duke {
                 assert filtered != null;
 
                 botResponse = "Here are the matching tasks in your list:\n" + filtered.toString();
+                break;
+
+            case CHANGE:
+                int indexToBeChanged = Integer.parseInt(userInput.split(" ")[2]);
+
+                if (indexToBeChanged < 1 || indexToBeChanged > tasks.getNumberOfTasks()) {
+                    throw new DukeIndexOutOfBoundsException("change priority");
+                }
+
+                Task toBeChanged = tasks.getTaskAt(indexToBeChanged - 1);
+
+                assert toBeChanged != null;
+
+                toBeChanged.changePriority(Priority.valueOf(userInput.split(" ")[3].toUpperCase()));
+                botResponse = "Noted. I've changed the priority of this task:\n" + toBeChanged.toString()
+                        + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
                 break;
 
             case TODO:
