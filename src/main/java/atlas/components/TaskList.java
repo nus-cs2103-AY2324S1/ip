@@ -25,31 +25,39 @@ public class TaskList {
     }
 
     /**
-     * Marks tasks as done
-     * @param idx One or more 0-based task indices
+     * Marks tasks as done. Indices that are out of bounds will be skipped.
+     * @param indices One or more 0-based task indices
      * @return Tasks marked as done
      */
-    public List<Task> markTasks(int... idx) {
+    public List<Task> markTasks(int... indices) {
         List<Task> markedTasks = new ArrayList<>();
-        for (int i : idx) {
-            Task selectedTask = tasks.get(i);
-            selectedTask.markDone();
-            markedTasks.add(selectedTask);
+        for (int idx : indices) {
+            try {
+                Task selectedTask = tasks.get(idx);
+                selectedTask.markDone();
+                markedTasks.add(selectedTask);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("Invalid index specified: %d\n", idx);
+            }
         }
         return markedTasks;
     }
 
     /**
-     * Marks task as not done
-     * @param idx One or more 0-based task indices
+     * Marks task as not done. Indices that are out of bounds will be skipped.
+     * @param indices One or more 0-based task indices
      * @return Tasks marked as undone
      */
-    public List<Task> unmarkTasks(int... idx) {
+    public List<Task> unmarkTasks(int... indices) {
         List<Task> unmarkedTasks = new ArrayList<>();
-        for (int i : idx) {
-            Task selectedTask = tasks.get(i);
-            selectedTask.markNotDone();
-            unmarkedTasks.add(selectedTask);
+        for (int idx : indices) {
+            try {
+                Task selectedTask = tasks.get(idx);
+                selectedTask.markNotDone();
+                unmarkedTasks.add(selectedTask);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("Invalid index specified: %d\n", idx);
+            }
         }
         return unmarkedTasks;
     }
