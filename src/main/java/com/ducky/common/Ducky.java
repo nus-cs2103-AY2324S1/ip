@@ -20,8 +20,6 @@ public class Ducky {
 
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
-
-        this.storage.load(this.taskList);
     }
 
     public String getResponse(String input) {
@@ -33,24 +31,12 @@ public class Ducky {
         }
     }
 
-    /*
-    public void run() {
-        this.storage.load(this.taskList);
-        this.ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String userInput = this.ui.readCommand();
-                this.ui.showLine();
-                Command c = Parser.parse(userInput);
-                c.execute(this.taskList, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (DuckyException e) {
-                this.ui.showError(e.getMessage());
-            } finally {
-                this.ui.showLine();
-            }
-        }
+    /**
+     * Loads saved tasks from specified file path into Ducky's task list.
+     * @return String indicating result of loading operation.
+     */
+    public String loadSavedTasks() {
+        return this.storage.load(this.taskList);
     }
-    */
+
 }

@@ -10,6 +10,10 @@ import com.ducky.task.Task;
  */
 public class UpdateTaskCompletionCommand extends Command {
 
+    public static final String MARK_COMPLETE_SUCCESS_MSG =
+            "Okay! I've marked this task as complete:";
+    public static final String MARK_INCOMPLETE_SUCCESS_MSG =
+            "Okay! I've marked this task as incomplete:";
     private final int inputIndex;
     private final boolean isCompleted;
 
@@ -39,14 +43,14 @@ public class UpdateTaskCompletionCommand extends Command {
             Task changedTask = taskList.markTaskAsComplete(updateIndex);
             storage.save(taskList);
             return String.format("%s\n%s\n",
-                    "Okay! I've marked this task as complete:",
+                    MARK_COMPLETE_SUCCESS_MSG,
                     changedTask
             );
         } else {
             Task changedTask = taskList.markTaskAsIncomplete(updateIndex);
             storage.save(taskList);
             return String.format("%s\n%s\n",
-                    "Okay! I've marked this task as incomplete:",
+                    MARK_INCOMPLETE_SUCCESS_MSG,
                     changedTask
             );
         }

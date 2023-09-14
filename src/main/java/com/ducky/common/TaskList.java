@@ -9,6 +9,12 @@ import com.ducky.task.Task;
  * Represents a list of tasks.
  */
 public class TaskList {
+    private static final String TASK_LIST_INTRO_MSG = "Here are the tasks in your list:\n";
+    private static final String NO_TASK_IN_LIST_MSG = "There are no tasks in your list.";
+    private static final String ONE_TASK_IN_LIST_MSG = "There is now 1 task in your list.";
+    private static final String NUMBER_OF_TASKS_IN_LIST_MSG = "There are now %d tasks in your list.";
+    private static final String QUERY_NO_RESULT_MSG = "Sorry, I couldn't find any tasks that contain \"%s\".";
+    private static final String QUERY_RESULT_MSG = "Here are the task(s) that contain \"%s\":\n%s";
     private final ArrayList<Task> tasks;
 
     /**
@@ -89,8 +95,8 @@ public class TaskList {
         }
 
         return result.toString().isEmpty()
-                ? String.format("Sorry, I couldn't find any tasks that contain \"%s\".", query)
-                : String.format("Here are the task(s) that contain \"%s\":\n%s", query, result);
+                ? String.format(QUERY_NO_RESULT_MSG, query)
+                : String.format(QUERY_RESULT_MSG, query, result);
     }
 
     /**
@@ -99,9 +105,9 @@ public class TaskList {
      */
     public String getPrintableList() {
         if (this.tasks.isEmpty()) {
-            return "There are no tasks in your list.";
+            return NO_TASK_IN_LIST_MSG;
         }
-        StringBuilder builder = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder builder = new StringBuilder(TASK_LIST_INTRO_MSG);
         for (int i = 0; i < tasks.size(); i++) {
             if (i == tasks.size() - 1) {
                 builder.append(String.format("%d.%s", i + 1, this.tasks.get(i)));
@@ -130,11 +136,11 @@ public class TaskList {
      */
     public String getListLengthStatus() {
         if (this.tasks.isEmpty()) {
-            return "There are no tasks in your list.";
+            return NO_TASK_IN_LIST_MSG;
         } else if (this.tasks.size() == 1) {
-            return "There is now 1 task in your list.";
+            return ONE_TASK_IN_LIST_MSG;
         } else {
-            return String.format("There are now %d tasks in your list.", this.tasks.size());
+            return String.format(NUMBER_OF_TASKS_IN_LIST_MSG, this.tasks.size());
         }
     }
 }

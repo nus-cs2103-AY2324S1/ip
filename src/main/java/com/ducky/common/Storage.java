@@ -15,6 +15,8 @@ import com.ducky.util.Parser;
  */
 public class Storage {
 
+    private static final String LOAD_TASK_SUCCESS_MSG = "Successfully loaded saved tasks.";
+    private static final String NO_FILE_LOADED_MSG = "No task file found. No tasks were loaded.";
     private final String filePath;
 
     /**
@@ -43,7 +45,7 @@ public class Storage {
      * Loads data (if any) in previously specified file path into specified TaskList.
      * @param taskList TaskList for persistent data to be loaded into.
      */
-    public void load(TaskList taskList) {
+    public String load(TaskList taskList) {
         try {
             File f = new File(this.filePath);
             Scanner s = new Scanner(f);
@@ -51,10 +53,11 @@ public class Storage {
                 Task parsedTask = Parser.parseSavedTask(s.nextLine());
                 taskList.addTask(parsedTask);
             }
+            return LOAD_TASK_SUCCESS_MSG;
         } catch (FileNotFoundException e) {
-            System.out.println("No task file found. No tasks were loaded.");
+            return NO_FILE_LOADED_MSG;
         } catch (DuckyFileParseException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

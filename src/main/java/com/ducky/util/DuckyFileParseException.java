@@ -7,7 +7,9 @@ import com.ducky.common.DuckyException;
  */
 public class DuckyFileParseException extends DuckyException {
 
+    private static final String FILE_PARSE_ERROR_MSG =
+            "Oh no! There was a problem reading your file. It might be corrupted.";
     public DuckyFileParseException() {
-        super("Oh no! There was a problem reading your file. It might be corrupted.");
+        super(FILE_PARSE_ERROR_MSG);
     }
 }

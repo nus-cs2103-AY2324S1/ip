@@ -22,6 +22,15 @@ import com.ducky.task.TodoTask;
  */
 public class Parser {
 
+    private static final String INVALID_NUMBER_ERROR_MSG =
+            "Did you enter a valid number?";
+    private static final String INVALID_TODO_FORMAT_ERROR_MSG =
+            "A description is required for creating a to-do.";
+    private static final String INVALID_DEADLINE_FORMAT_ERROR_MSG =
+            "A description and deadline (in yyyy-mm-dd format) is required for creating a deadline.";
+    public static final String INVALID_EVENT_FORMAT_ERROR_MSG = "A description, start time and end time is required for creating an event.";
+
+
     /**
      * Constructs a Parser instance.
      */
@@ -49,7 +58,7 @@ public class Parser {
             try {
                 markInputIndex = Integer.parseInt(argumentString);
             } catch (NumberFormatException e) {
-                throw new DuckyInvalidCommandFormatException("Did you enter a valid number?");
+                throw new DuckyInvalidCommandFormatException(INVALID_NUMBER_ERROR_MSG);
             }
             return new UpdateTaskCompletionCommand(markInputIndex, true);
         case "unmark":
@@ -57,7 +66,7 @@ public class Parser {
             try {
                 unmarkInputIndex = Integer.parseInt(argumentString);
             } catch (NumberFormatException e) {
-                throw new DuckyInvalidCommandFormatException("Did you enter a valid number?");
+                throw new DuckyInvalidCommandFormatException(INVALID_NUMBER_ERROR_MSG);
             }
             return new UpdateTaskCompletionCommand(unmarkInputIndex, false);
         case "delete":
@@ -66,7 +75,7 @@ public class Parser {
             // If description argument is empty, throw exception
             if (argumentString.isEmpty()) {
                 throw new DuckyInvalidCommandFormatException(
-                        "A description is required for creating a to-do."
+                        INVALID_TODO_FORMAT_ERROR_MSG
                 );
             }
 
@@ -75,18 +84,13 @@ public class Parser {
             String[] deadlineParts = argumentString.split("/by", 2);
             // Check if there are 2 arguments
             if (deadlineParts.length < 2) {
-                throw new DuckyInvalidCommandFormatException(
-                        "A description and deadline (in yyyy-mm-dd format) "
-                                + "is required for creating a deadline."
-                );
+                throw new DuckyInvalidCommandFormatException(INVALID_DEADLINE_FORMAT_ERROR_MSG);
             }
             // Check both arguments are not empty
             for (int i = 0; i < deadlineParts.length; i++) {
                 deadlineParts[i] = deadlineParts[i].trim();
                 if (deadlineParts[i].isEmpty()) {
-                    throw new DuckyInvalidCommandFormatException(
-                            "A description and deadline (in yyyy-mm-dd format) "
-                                    + "is required for creating a deadline."
+                    throw new DuckyInvalidCommandFormatException(INVALID_DEADLINE_FORMAT_ERROR_MSG
                     );
                 }
             }
@@ -96,17 +100,13 @@ public class Parser {
             String[] eventParts = argumentString.split("/from|/to", 3);
             // Check if there are 3 arguments
             if (eventParts.length < 3) {
-                throw new DuckyInvalidCommandFormatException(
-                        "A description, start time and end time is required for creating an event."
-                );
+                throw new DuckyInvalidCommandFormatException(INVALID_EVENT_FORMAT_ERROR_MSG);
             }
             // Check all 3 arguments are not empty
             for (int i = 0; i < eventParts.length; i++) {
                 eventParts[i] = eventParts[i].trim();
                 if (eventParts[i].isEmpty()) {
-                    throw new DuckyInvalidCommandFormatException(
-                            "A description, start time and end time is required for creating an event."
-                    );
+                    throw new DuckyInvalidCommandFormatException(INVALID_EVENT_FORMAT_ERROR_MSG);
                 }
             }
 

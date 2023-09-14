@@ -8,6 +8,9 @@ import com.ducky.common.DuckyException;
  */
 public class DuckyInvalidTaskIndexException extends DuckyException {
 
+    public static final String INVALID_TASK_INDEX_ERROR_MSG =
+            "Could not update task %d! There are %d tasks available.";
+
     /**
      * Constructs an invalid index exception with an error message detailing
      * the invalid index given and the number of tasks currently in the list.
@@ -15,6 +18,6 @@ public class DuckyInvalidTaskIndexException extends DuckyException {
      * @param size Size of the task list.
      */
     public DuckyInvalidTaskIndexException(int index, int size) {
-        super(String.format("Could not update task %d! There are %d tasks available.", index, size));
+        super(String.format(INVALID_TASK_INDEX_ERROR_MSG, index, size));
     }
 }
