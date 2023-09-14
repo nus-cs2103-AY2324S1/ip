@@ -1,0 +1,16 @@
+todo borrow book
+list
+deadline return book /by 2023-08-31
+event project meeting /from 2023-08-30 /to 2023-08-31
+list
+mark 1
+mark 3
+unmark 3
+mark 2
+list
+todo
+blah
+todo join sports club
+mark 4
+delete 3
+bye
