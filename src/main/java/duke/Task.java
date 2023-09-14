@@ -27,6 +27,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Marks task as done
+     * @return string to inform user that task was marked as done
+     */
     public String markAsDone() {
         this.isDone = true;
         StringBuilder output = new StringBuilder("Nice! I've marked this task as done:\n");
@@ -34,6 +38,10 @@ public abstract class Task {
         return output.toString();
     }
 
+    /**
+     * Marks task as undone
+     * @return string to inform user that task was marked as undone
+     */
     public String markAsUndone() {
         this.isDone = false;
         StringBuilder output = new StringBuilder("OK, I've marked this task as not done yet:\n");
@@ -41,6 +49,11 @@ public abstract class Task {
         return output.toString();
     }
 
+    /**
+     * {@inheritDoc}
+     * Returns string representation of task, including whether task is done and its name
+     * @return string representation of task
+     */
     @Override
     public String toString() {
         return String.format("[%s] %s", this.isDone ? "X" : " ", this.name);

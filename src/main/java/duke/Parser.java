@@ -55,6 +55,7 @@ public class Parser {
             throw new DukeException("Please include when the deadline is! (`deadline name /by date`)");
         }
 
+        assert s.contains("/by") : "input should contain /by";
         String name = s.substring(8, byIndex).trim();
         String by = s.substring(byIndex + 3).trim();
 
@@ -147,6 +148,7 @@ public class Parser {
     public static Task parseTaskListEntry(String entry) {
         Task task;
         String[] splitEntry = entry.split("\\|"); // Split by "|"
+        assert splitEntry.length >= 3;
         String type = splitEntry[0].trim();
 
         // Create task according to type
@@ -160,6 +162,7 @@ public class Parser {
             return null;
         }
 
+        assert task != null : "task should be set";
         // Check if task is done
         task.setIsDone(splitEntry[1].trim().equals("1"));
 
