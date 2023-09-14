@@ -94,7 +94,6 @@ public class Evo extends Application {
         stage.setMinWidth(400.0);
         stage.show(); // Render the stage.
 
-
         mainLayout.setPrefSize(400.0, 600.0);
 
         scrollPane.setPrefSize(385, 535);
