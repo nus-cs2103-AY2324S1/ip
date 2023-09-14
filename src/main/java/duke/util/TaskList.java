@@ -3,8 +3,10 @@ package duke.util;
 import duke.task.Task;
 
 import java.util.ArrayList;
+
 public class TaskList {
     private ArrayList<Task> array;
+    private TaskComparator comparator;
 
     /**
      * Constructor of class TaskList.
@@ -14,6 +16,7 @@ public class TaskList {
     public TaskList(ArrayList<Task> array) {
         // arr is given from the duke.util.Storage.load()
         this.array = array;
+        this.comparator = new TaskComparator();
     }
 
     /**
@@ -38,6 +41,7 @@ public class TaskList {
 
     public void add(Task instance) {
         this.array.add(instance);
+        this.array.sort(comparator);
     }
 
     /**
@@ -89,6 +93,10 @@ public class TaskList {
 
     public String getTaskDescription(int index) {
         return this.array.get(index).toString();
+    }
+
+    public Task getTask(int number) {
+        return this.array.get(number);
     }
 
 

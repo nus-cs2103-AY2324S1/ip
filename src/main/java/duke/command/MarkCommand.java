@@ -7,14 +7,14 @@ import duke.util.Ui;
 
 public class MarkCommand extends Command {
 
-    private int num;
+    private int number;
 
     /**
      * Constructor of the MarkCommand class
-     * @param num The index of the Task in the TaskList.
+     * @param number The index of the Task in the TaskList.
      */
-    public MarkCommand(int num) {
-        this.num = num;
+    public MarkCommand(int number) {
+        this.number = number;
     }
 
 
@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String executeTask(TaskList taskList, Ui ui, Storage storage) {
-        Task task = taskList.mark(num);
+        Task task = taskList.mark(number);
         String toBeWritten = taskList.toString();
         storage.write(toBeWritten);
         return ui.printMarkMessage(task);

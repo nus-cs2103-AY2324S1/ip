@@ -1,8 +1,36 @@
 package duke.task;
 
-public class Task {
+public class Task implements Comparable<Task>{
     protected String description;
     protected boolean isDone;
+    public enum Prioritylist {
+        HIGH, LOW, NORMAL
+    }
+
+    private Prioritylist priority = Prioritylist.NORMAL;
+
+    @Override
+    public int compareTo(Task other) {
+        if ((this.priority == Prioritylist.HIGH) && (other.priority == Prioritylist.HIGH)) {
+            return 0;
+        } else if ((this.priority == Prioritylist.LOW) && (other.priority == Prioritylist.LOW)) {
+            return 0;
+        } else if ((this.priority == Prioritylist.NORMAL) && (other.priority == Prioritylist.NORMAL)) {
+            return 0;
+        } else if ((this.priority == Prioritylist.HIGH) && (other.priority == Prioritylist.LOW)) {
+            return -1;
+        } else if ((this.priority == Prioritylist.NORMAL) && (other.priority == Prioritylist.LOW)) {
+            return -1;
+        } else if ((this.priority == Prioritylist.HIGH) && (other.priority == Prioritylist.NORMAL)) {
+            return -1;
+        } else if ((this.priority == Prioritylist.LOW) && (other.priority == Prioritylist.NORMAL)) {
+            return 1;
+        } else if ((this.priority == Prioritylist.LOW) && (other.priority == Prioritylist.HIGH)) {
+            return 1;
+        } else {
+            return 1;
+        }
+    }
 
     /**
      * Constructor for the Task class.
@@ -30,13 +58,19 @@ public class Task {
         isDone = status;
     }
 
+    public void setPriority(Prioritylist priority) {
+        this.priority = priority;
+    }
+
+
+
 
     /**
      * Returns the String representation of the Task that is to be stored in the specified file.
      * @return The String representation of the Task that is to be stored in the specified file.
      */
     public String toWrite() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + priority + " " + this.description;
     }
 
     /**
@@ -44,6 +78,6 @@ public class Task {
      * @return The String representation of the Task that is printed.
      */
     public String toString(){
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + priority + " " + this.description;
     }
 }

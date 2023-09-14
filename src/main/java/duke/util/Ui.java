@@ -40,6 +40,10 @@ public class Ui {
         return output;
     }
 
+    public String printPriorityMessage(Task.Prioritylist priority) {
+        return "OK! Priority of this task is set to " + priority;
+    }
+
     /**
      * Print the exit message.
      */
