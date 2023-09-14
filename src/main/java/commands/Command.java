@@ -22,10 +22,9 @@ public class Command {
      *
      * @param tasks  The task list.
      * @param ui     The user interface.
-     * @param marked task marked or unmarked
-     * @param load   whether the task is being loaded from memory
+     * @param status task marked or unmarked and whether the task is being loaded from memory
      */
-    public String execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) throws DukeException {
+    public String execute(TaskList<Task> tasks, Ui ui, boolean... status) throws DukeException {
         return "";
     }
 

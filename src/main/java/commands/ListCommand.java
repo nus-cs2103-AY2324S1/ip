@@ -21,10 +21,9 @@ public class ListCommand extends Command {
      *
      * @param tasks  The task list to retrieve tasks from.
      * @param ui     The user interface to display the list of tasks.
-     * @param marked always false - intended for use by AddCommand
-     * @param load   always false - intended for use by AddCommand
+     * @param status always false - intended for use by AddCommand
      */
-    public String execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) {
+    public String execute(TaskList<Task> tasks, Ui ui, boolean... status) {
         StringBuilder sb = new StringBuilder();
         sb.append(ui.showLine() + "\n" +
                 "Here are the tasks in your list:\n");

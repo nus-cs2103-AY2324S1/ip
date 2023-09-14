@@ -22,10 +22,9 @@ public class DeleteCommand extends Command {
      *
      * @param tasks  The task list from which the task will be deleted.
      * @param ui     The user interface.
-     * @param marked always false - intended for use by AddCommand
-     * @param load   always false - intended for use by AddCommand
+     * @param status always false - intended for use by AddCommand
      */
-    public String execute(TaskList tasks, Ui ui, boolean marked, boolean load) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, boolean... status) throws DukeException {
         int index = Integer.parseInt(ui.get(1)) - 1;
         if (index >= tasks.size()) {
             throw new DukeException("index out of bounds");

@@ -10,7 +10,7 @@ public class FindCommand extends Command {
         super();
     }
 
-    public String execute(TaskList<Task> tasks, Ui ui, boolean marked, boolean load) {
+    public String execute(TaskList<Task> tasks, Ui ui, boolean... status) {
         String keyword = ui.get(1);
         StringBuilder sb = new StringBuilder();
         sb.append(ui.showLine() + "\n");
