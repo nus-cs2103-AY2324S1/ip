@@ -8,27 +8,33 @@ import java.time.LocalDateTime;
 public class EventCommand extends Command {
 
     private TaskList taskList;
-    private String secondHalfInput;
+    private String functionDescription;
 
-    public EventCommand(TaskList taskList, String secondHalfInput) {
+    public EventCommand(TaskList taskList, String functionDescription) {
         this.taskList = taskList;
-        this.secondHalfInput = secondHalfInput;
+        this.functionDescription = functionDescription;
     }
 
     @Override
     public String execute() {
         try {
-            int fromDateStartIdx = secondHalfInput.indexOf("/from") + 6;
-            int toDateStartIdx = secondHalfInput.indexOf("/to") + 4;
-            int fromDateEndIdx = secondHalfInput.indexOf("/to") - 1;
+            int fromDateStartIdx = functionDescription.indexOf("/from") + 6;
+            int toDateStartIdx = functionDescription.indexOf("/to") + 4;
+            int fromDateEndIdx = functionDescription.indexOf("/to") - 1;
             int descriptionStartIdx = 0;
-            int descriptionEndIdx = secondHalfInput.indexOf("/from") - 1;
-            String eventDescription = secondHalfInput.substring(descriptionStartIdx, descriptionEndIdx);
-            String fromDateString = secondHalfInput.substring(fromDateStartIdx, fromDateEndIdx);
-            String toDateString = secondHalfInput.substring(toDateStartIdx);
+            int descriptionEndIdx = functionDescription.indexOf("/from") - 1;
+
+            String eventDescription = functionDescription.substring(descriptionStartIdx, descriptionEndIdx);
+            String fromDateString = functionDescription.substring(fromDateStartIdx, fromDateEndIdx);
+            String toDateString = functionDescription.substring(toDateStartIdx);
+
             LocalDateTime fromDate = parseDateTime(fromDateString);
             LocalDateTime toDate = parseDateTime(toDateString);
-            if (fromDate == null || toDate == null) {
+
+            boolean fromDateIsNull = fromDate == null;
+            boolean toDateIsNull = toDate == null;
+
+            if (fromDateIsNull || toDateIsNull) {
                 return "Please input a date in the correct format.";
             }
             Event newEvent = new Event(eventDescription, fromDate, toDate);

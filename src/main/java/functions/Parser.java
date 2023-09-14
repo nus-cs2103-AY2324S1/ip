@@ -16,7 +16,8 @@ public class Parser {
         DEADLINE,
         EVENT,
         DELETE,
-        FIND
+        FIND,
+        HELP
     }
 
     /**
@@ -36,7 +37,7 @@ public class Parser {
         try {
             ChatFunction function = ChatFunction.valueOf(inputArray[0].toUpperCase());
             int firstSpaceIndex = input.indexOf(" ");
-            String secondHalfInput = input.substring(firstSpaceIndex+1);
+            String functionDescription = input.substring(firstSpaceIndex+1);
             Command command= null;
 
             switch (function) {
@@ -57,42 +58,46 @@ public class Parser {
                 break;
 
             case TODO:
-                command = new ToDoCommand(this.taskList, secondHalfInput);
+                command = new ToDoCommand(this.taskList, functionDescription);
                 break;
 
             case DEADLINE:
-                command = new DeadlineCommand(this.taskList, secondHalfInput);
+                command = new DeadlineCommand(this.taskList, functionDescription);
                 break;
 
             case EVENT:
-                command  = new EventCommand(this.taskList, secondHalfInput);
+                command  = new EventCommand(this.taskList, functionDescription);
                 break;
 
             case FIND:
-                command  = new FindCommand(this.taskList, secondHalfInput);
+                command  = new FindCommand(this.taskList, functionDescription);
+                break;
+
+            case HELP:
+                command = new HelpCommand();
+                break;
 
             default:
                 break;
             }
+
+            assert command != null;
+
             String result = command.execute();
             return result;
         } catch (IllegalArgumentException e) {
             // If task inserted not an ENUM
             String illegalArgumentResult = "";
             illegalArgumentResult += "Oops!!! I'm sorry but I don't know what that means :-( \n";
-            illegalArgumentResult += "Please use one of the following commands: list, mark, unmark," +
-                    " delete, todo, deadline, event, bye";
+            illegalArgumentResult += "Run help to get a list of available commands.";
             return illegalArgumentResult;
-
         } catch (NullPointerException e) {
             String nullPointerResult = "";
             nullPointerResult += "Oh no, you have entered an invalid statement. \n";
-            nullPointerResult += "Please use one of the following commands: list, mark, unmark," +
-                    " delete, todo, deadline, event, bye";
+            nullPointerResult += "Run help to get a list of available commands.";
             return nullPointerResult;
         } catch (Exception e) {
-            return "Please use one of the following commands: list, mark, unmark," +
-                    " delete, todo, deadline, event, bye";
+            return "Run help to get a list of available commands.";
         }
     }
 

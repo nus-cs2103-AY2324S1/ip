@@ -6,11 +6,11 @@ import tasks.Task;
 public class FindCommand extends Command{
 
     private TaskList taskList;
-    private String secondHalfInput;
+    private String functionDescription;
 
-    public FindCommand(TaskList taskList, String secondHalfInput) {
+    public FindCommand(TaskList taskList, String functionDescription) {
         this.taskList = taskList;
-        this.secondHalfInput = secondHalfInput;
+        this.functionDescription = functionDescription;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class FindCommand extends Command{
         TaskList matchingTasks = new TaskList();
 
         for (Task task: this.taskList.getTaskList()) {
-            if (task.getDescription().contains(this.secondHalfInput)) {
+            if (task.getDescription().contains(this.functionDescription)) {
                 matchingTasks.add(task);
             }
         }

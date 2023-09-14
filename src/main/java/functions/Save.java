@@ -29,7 +29,6 @@ public class Save {
     public void saveFile() {
 
         try {
-
             File f = new File(saveFilePath);
             if (!f.exists()) {
                 FileWriter fw = new FileWriter(saveFilePath, true);
@@ -47,11 +46,11 @@ public class Save {
             for (int i = 0; i < taskList.size(); i++) {
                 String message = String.format("%s", taskList.get(i).getTaskAsString());
                 addFileContents(tempFilePath, message);
-            }
-            ;
+            };
 
             Files.copy(Paths.get(tempFilePath), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
             Files.delete(Paths.get(tempFilePath));
+
         } catch (IOException e) {
             System.out.println("Error in saving");
         }

@@ -7,17 +7,17 @@ import java.time.LocalDateTime;
 
 public class DeadlineCommand extends Command{
     private TaskList taskList;
-    private String secondHalfInput;
+    private String functionDescription;
 
-    public DeadlineCommand(TaskList taskList, String secondHalfInput) {
+    public DeadlineCommand(TaskList taskList, String functionDescription) {
         this.taskList = taskList;
-        this.secondHalfInput = secondHalfInput;
+        this.functionDescription = functionDescription;
     }
 
     @Override
     public String execute() {
         try {
-            String[] deadlineInputArray = this.secondHalfInput.split("/");
+            String[] deadlineInputArray = this.functionDescription.split("/");
             String deadlineDescription = deadlineInputArray[0].substring(0,deadlineInputArray[0].length()-1);
             String deadlineDateString = deadlineInputArray[1].substring(3);
 
