@@ -42,7 +42,7 @@ java -Duser.language=en -Duser.country=US -classpath ../bin -jar ../build/libs/t
 rm -r ./todoifydata
 
 # compare the output to the expected output
-diff --color --strip-trailing-cr ACTUAL.TXT EXPECTED.TXT
+diff --strip-trailing-cr ACTUAL.TXT EXPECTED.TXT
 
 if [ $? -eq 0 ]
 then
