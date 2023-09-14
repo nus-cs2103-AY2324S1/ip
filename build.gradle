@@ -35,8 +35,8 @@ dependencies {
 }
 
 javafx {
-    version = "16"
-    modules = [ 'javafx.controls' ]
+    version = "17.0.7"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 mainClassName = 'Evo'

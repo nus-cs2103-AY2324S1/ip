@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Evo's reply and then appends them to
-     * the dialog container. Clears the user input after processing. If the input is "bye", then quit the program.
+     * the dialog container. Clears the user input after processing. If the input is "bye", then quit the program.s
      */
     @FXML
     private void handleUserInput() {
