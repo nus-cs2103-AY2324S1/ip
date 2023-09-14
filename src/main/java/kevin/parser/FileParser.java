@@ -47,7 +47,7 @@ public class FileParser {
             args.add(argumentSplit[0]);
             args.add(argumentSplit[1]);
         } else if (command == Command.EVENT) {
-            String[] argumentGetName = querySplit[2].split(" - ", 2);
+            String[] argumentGetName = querySplit[2].split(" - ", 3);
             if (argumentGetName.length != 2) {
                 throw new KevinException("Event command needs to follow " +
                         "\"Event - {isDone} - {deadline name} - {event start time} - {event end time}\".");
@@ -58,6 +58,7 @@ public class FileParser {
                         "\"Event - {isDone} -{deadline name} - {event start time} - {event end time}\".");
             }
             args.add(argumentGetName[0]);
+            args.add(argumentGetName[1]);
             args.add(argumentGetDate[0]);
             args.add(argumentGetDate[1]);
         }
