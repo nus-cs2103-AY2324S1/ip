@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,5 +61,16 @@ public class Todo extends Task {
     public String toBeStored() {
         String marked = this.isDone() ? "1" : "0";
         return "T | " + marked + " | " + this.getDescription() + "\n";
+    }
+
+    /**
+     * A method that returns false since Todo tasks are not
+     * time-sensitive.
+     * @param date LocalDate used to compare the task to.
+     * @return boolean determining whether task is relevant.
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return this.isDone();
     }
 }

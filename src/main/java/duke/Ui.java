@@ -1,6 +1,9 @@
 package duke;
 
+import java.time.LocalDate;
 import java.util.Scanner;
+
+import duke.exception.DukeException;
 
 /**
  * A class that handles all the user interactions of the program.
@@ -132,6 +135,20 @@ public class Ui {
     }
 
     /**
+     * A method that prints message when user deletes a task in TaskList.
+     * @param arr TaskList where deleted Task is contained in.
+     * @param index index of Task object that was deleted.
+     * @return string representing task deletion.
+     */
+    public String deleteTask(TaskList arr, int index) {
+        String out = "Noted. I've removed this task:\n";
+        out += arr.taskToString(index);
+        out += "\nNow you have " + (arr.length() - 1) + arr.numTasksToString() + " in the list.";
+        System.out.println(out);
+        return out;
+    }
+
+    /**
      * A method that finds all existing tasks that contains specified substring and lists it.
      * @param arr taskList object that contains existing Task objects.
      * @param keyString string that user wants to search for.
@@ -153,15 +170,16 @@ public class Ui {
     }
 
     /**
-     * A method that prints message when user deletes a task in TaskList.
-     * @param arr TaskList where deleted Task is contained in.
-     * @param index index of Task object that was deleted.
-     * @return string representing task deletion.
+     * A method to view relevant tasks based on date specified.
+     * @param arr taskList object that contains existing Task objects.
+     * @param date date provided by user to query against.
+     * @return string that lists all relevant tasks based on given date.
+     * @throws DukeException
      */
-    public String deleteTask(TaskList arr, int index) {
-        String out = "Noted. I've removed this task:\n";
-        out += arr.taskToString(index);
-        out += "\nNow you have " + (arr.length() - 1) + arr.numTasksToString() + " in the list.";
+    public String viewSchedule(TaskList arr, LocalDate date) throws DukeException {
+        String out = "Here are the active tasks you have happening on ";
+        out += date.toString() + ": \n";
+        out += arr.viewRelevantTasks(date);
         System.out.println(out);
         return out;
     }

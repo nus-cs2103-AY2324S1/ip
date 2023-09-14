@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -81,4 +82,6 @@ public abstract class Task {
      */
     public abstract String toBeStored();
 
+
+    public abstract boolean isOnDate(LocalDate date);
 }

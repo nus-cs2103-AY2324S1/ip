@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import duke.command.AddCommand;
@@ -10,6 +11,7 @@ import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.command.ViewScheduleCommand;
 import duke.exception.DukeException;
 import duke.exception.UnknownTaskTypeException;
 
@@ -35,6 +37,7 @@ public class Parser {
         boolean isDelete = Pattern.compile("^delete").matcher(fullCommand).find();
         boolean isExit = Pattern.compile("^bye").matcher(fullCommand).find();
         boolean isFind = Pattern.compile("^find").matcher(fullCommand).find();
+        boolean isViewSchedule = Pattern.compile("^view").matcher(fullCommand).find();
         boolean isValidTask = isTodo || isDeadline || isEvent;
 
         return isList
@@ -51,7 +54,9 @@ public class Parser {
                 ? 5
                 : isExit
                 ? 6
-                : 7;
+                : isViewSchedule
+                ? 7
+                : 8;
     }
 
     /**
@@ -123,6 +128,10 @@ public class Parser {
         case 6: {
             return new ExitCommand();
         }
+        case 7: {
+            String dateString = stringForCommand("view ", fullCommand);
+            return new ViewScheduleCommand(LocalDate.parse(dateString));
+        }
         default: {
             throw new UnknownTaskTypeException();
         }
@@ -159,19 +168,19 @@ public class Parser {
      */
     public static Command parseTaskAdditionCommand(String fullCommand) throws DukeException {
         switch (Parser.getTaskType(fullCommand)) {
-            case 0: {
-                return new AddCommand().new TodoCommand(fullCommand);
-            }
-            case 1: {
-                return new AddCommand().new DeadlineCommand(fullCommand);
-            }
-            case 2: {
-                return new AddCommand().new EventCommand(fullCommand);
-            }
-            default: {
-                throw new UnknownTaskTypeException();
-            }
-            }
+        case 0: {
+            return new AddCommand().new TodoCommand(fullCommand);
+        }
+        case 1: {
+            return new AddCommand().new DeadlineCommand(fullCommand);
+        }
+        case 2: {
+            return new AddCommand().new EventCommand(fullCommand);
+        }
+        default: {
+            throw new UnknownTaskTypeException();
+        }
+        }
     }
 
 }

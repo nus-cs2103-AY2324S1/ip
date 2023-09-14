@@ -92,10 +92,10 @@ public class Storage {
      */
     public void setMarkStatusForStoredTask(ArrayList<Task> arr, String[] taskStringArr) {
         if (taskStringArr[1].trim().equals("1")) {
-                arr.get(arr.size() - 1).markAsDone();
-            } else {
-                arr.get(arr.size() - 1).markAsNotDone();
-            }
+            arr.get(arr.size() - 1).markAsDone();
+        } else {
+            arr.get(arr.size() - 1).markAsNotDone();
+        }
     }
 
     /**

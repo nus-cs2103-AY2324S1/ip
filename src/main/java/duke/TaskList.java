@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import duke.exception.DukeException;
@@ -134,5 +135,22 @@ public class TaskList {
             }
         }
         return new TaskList(out);
+    }
+
+    /**
+     * A method to view relevant tasks of TaskList based on date provided.
+     * @param date LocalDate date provided.
+     * @return string representing all relevant tasks.
+     * @throws DukeException when query index of task list is invalid.
+     */
+    public String viewRelevantTasks(LocalDate date) throws DukeException {
+        String out = "";
+        for (int i = 0; i < this.length(); i++) {
+            Task task = this.getTask(i);
+            if (task.isOnDate(date)) {
+                out += task.toString() + "\n";
+            }
+        }
+        return out;
     }
 }
