@@ -3,6 +3,9 @@ package commands;
 import functions.TaskList;
 import tasks.Task;
 
+/**
+ * The class for a command to mark a task from a TaskList
+ */
 public class MarkCommand extends Command {
     private TaskList taskList;
     private String[] inputArray;

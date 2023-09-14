@@ -3,6 +3,9 @@ package commands;
 import functions.TaskList;
 import tasks.Task;
 
+/**
+ * The class for executing a delete command on a task from a TaskList
+ */
 public class DeleteCommand extends Command {
 
     private TaskList taskList;

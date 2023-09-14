@@ -5,6 +5,9 @@ import tasks.Event;
 
 import java.time.LocalDateTime;
 
+/**
+ * The class for executing an addition command of an event task
+ */
 public class EventCommand extends Command {
 
     private TaskList taskList;

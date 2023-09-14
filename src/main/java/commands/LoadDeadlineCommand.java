@@ -6,11 +6,20 @@ import tasks.Deadline;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a command to load a deadline task into a task list.
+ */
 public class LoadDeadlineCommand extends Command {
 
     private String currentTaskAsString;
     private TaskList taskList;
 
+    /**
+     * Constructs a new LoadDeadlineCommand object with the given parameters.
+     *
+     * @param currentTaskAsString a string representation of the deadline task to be loaded
+     * @param taskList the task list to which the deadline task should be added
+     */
     public LoadDeadlineCommand(String currentTaskAsString, TaskList taskList) {
         this.currentTaskAsString = currentTaskAsString;
         this.taskList = taskList;

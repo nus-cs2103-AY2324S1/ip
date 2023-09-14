@@ -3,16 +3,19 @@ package commands;
 import functions.TaskList;
 import tasks.ToDo;
 
+/**
+ * The class for executing an addition command of a todo task
+ */
 public class ToDoCommand extends Command{
 
     private TaskList taskList;
     private String description;
 
     /**
-     * A public constructor to initialize the ToDoCommand.
+     * Constructs a new ToDoCommand object with the given parameters.
      *
-     * @param taskList a taskList consisting of
-     * @param description the description of
+     * @param taskList the task list to which the new ToDo task should be added
+     * @param description the description of the new ToDo task
      */
     public ToDoCommand(TaskList taskList, String description) {
         this.taskList = taskList;

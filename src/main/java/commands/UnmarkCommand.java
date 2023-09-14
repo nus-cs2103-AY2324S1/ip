@@ -3,6 +3,9 @@ package commands;
 import functions.TaskList;
 import tasks.Task;
 
+/**
+ * The class for a command to unmark a task from a TaskList
+ */
 public class UnmarkCommand extends Command{
 
     private TaskList taskList;

@@ -1,5 +1,8 @@
 package commands;
 
+/**
+ * The class for executing a help command to render assistance to user
+ */
 public class HelpCommand extends Command {
 
     @Override

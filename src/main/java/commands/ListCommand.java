@@ -1,9 +1,11 @@
 package commands;
 
-import functions.Storage;
-import functions.TaskList;
-import tasks.Task;
 
+import functions.TaskList;
+
+/**
+ * The class for executing a list command to list out all tasks in the task list
+ */
 public class ListCommand extends Command{
     private TaskList taskList;
 

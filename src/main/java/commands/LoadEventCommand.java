@@ -6,11 +6,20 @@ import tasks.Event;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a command to load a event task into a task list.
+ */
 public class LoadEventCommand extends Command{
 
     private String currentTaskAsString;
     private TaskList taskList;
 
+    /**
+     * Constructs a new LoadEventCommand object with the given parameters.
+     *
+     * @param currentTaskAsString a string representation of the event task to be loaded
+     * @param taskList the task list to which the event task should be added
+     */
     public LoadEventCommand(String currentTaskAsString, TaskList taskList) {
         this.currentTaskAsString = currentTaskAsString;
         this.taskList = taskList;

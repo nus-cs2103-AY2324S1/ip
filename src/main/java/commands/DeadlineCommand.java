@@ -5,6 +5,9 @@ import tasks.Deadline;
 
 import java.time.LocalDateTime;
 
+/**
+ * The class for executing an addition command of a deadline task
+ */
 public class DeadlineCommand extends Command{
     private TaskList taskList;
     private String functionDescription;

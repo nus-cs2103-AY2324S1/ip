@@ -3,6 +3,9 @@ package commands;
 import functions.TaskList;
 import tasks.Task;
 
+/**
+ * The class for executing a find command from a TaskList
+ */
 public class FindCommand extends Command{
 
     private TaskList taskList;
