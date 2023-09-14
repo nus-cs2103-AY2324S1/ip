@@ -17,7 +17,7 @@ public class Parser {
         while (true) {
 
             String command = sc.next();
-
+            assert(sc.hasNext());
 
             if (command.equals("bye")) {
                 return Duke.exit();
@@ -27,6 +27,9 @@ public class Parser {
                 int taskNum = sc.nextInt();
                 Task task = TaskList.get(taskNum - 1);
                 task.taskIsDone();
+
+                assert (task.getStatus().equals("x"));
+
                 Storage.write();
                 return Ui.mark(taskNum);
             } else if (command.equals("unmark")) {
@@ -74,6 +77,7 @@ public class Parser {
                 if (restOfString.length() != 0) {
                     int fromIndex = restOfString.indexOf("/from");
                     int toIndex = restOfString.indexOf("/to");
+
                     if (fromIndex == -1) {
                         throw new MissingFromDateException();
                     } else if (toIndex == -1) {
