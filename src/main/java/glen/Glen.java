@@ -1,4 +1,11 @@
+package glen;
+
 import java.util.Scanner;
+import glen.util.Parser;
+import glen.util.Storage;
+import glen.util.TaskList;
+import glen.util.Ui;
+import glen.Glen;
 
 /**
  * Glen is a chatbot that helps you keep track of your tasks.
