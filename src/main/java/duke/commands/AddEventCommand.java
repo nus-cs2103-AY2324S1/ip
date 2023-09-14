@@ -39,6 +39,7 @@ public class AddEventCommand extends Command {
         Event newEvent = new Event(description, from, to);
         taskList.addTask(newEvent);
         Storage.save(newEvent);
+        assert taskList.countTasks() >= 0: "Invalid task list size";
         return message.showTaskAdded(newEvent, taskList.countTasks());
     }
 }

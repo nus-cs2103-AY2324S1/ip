@@ -2,6 +2,7 @@ package duke.data;
 
 import java.util.ArrayList;
 
+import duke.data.exception.DukeException;
 import duke.data.task.Task;
 
 /**
@@ -15,9 +16,7 @@ public class Message {
 
     /** Displays welcome message */
     public String showWelcome() {
-        String response = "Welcome! I'm Dommi and I'm here to assist you with your task management!";
-        response += "\nEnter 'help' for available commands!";
-        return response;
+        return "Welcome! I'm Dommi and I'm here to assist you with your task management!";
     }
 
     /** Displays goodbye message */
@@ -92,7 +91,7 @@ public class Message {
      *
      * @param taskList taskList from Duke.
      */
-    public String showTaskList(TaskList taskList) {
+    public String showTaskList(TaskList taskList) throws DukeException {
         String response = "";
         if (!taskList.hasTasks()) {
             response = "No tasks have been created.";

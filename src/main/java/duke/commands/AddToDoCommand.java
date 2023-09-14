@@ -29,6 +29,7 @@ public class AddToDoCommand extends Command {
         Todo newTodo = new Todo(description);
         taskList.addTask(newTodo);
         Storage.save(newTodo);
+        assert taskList.countTasks() >= 0: "Invalid task list size";
         return message.showTaskAdded(newTodo, taskList.countTasks());
     }
 }

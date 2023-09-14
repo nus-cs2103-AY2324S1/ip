@@ -65,7 +65,7 @@ public class TaskList {
      */
     public void unmarkTask(Task task) throws DukeException {
         if (!task.getDone()) {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but task is already marked!");
+            throw new DukeException("☹ OOPS!!! I'm sorry, but task is already unmarked!");
         }
         task.markAsNotDone();
     }
@@ -108,7 +108,10 @@ public class TaskList {
      * @param taskID the taskID of the task to be retrieved/
      * @return task that is searched for.
      */
-    public Task getTask(int taskID) {
+    public Task getTask(int taskID) throws DukeException {
+        if (taskID > countTasks()) {
+            throw new DukeException("Invalid Task ID");
+        }
         return taskList.get(taskID);
     }
 

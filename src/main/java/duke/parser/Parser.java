@@ -94,6 +94,7 @@ public class Parser {
     public static Task parseTask(String task) throws ParseException, DukeException {
         SimpleDateFormat readDateFormatter = new SimpleDateFormat("MMM dd yyyy");
         String[] splitTask = task.split(" \\| ");
+        assert splitTask[0].equals("T") || splitTask[0].equals("D") || splitTask[0].equals("E") : "Invalid task";
         switch (splitTask[0]) {
         case "T":
             return markTask(new Todo(splitTask[2]), splitTask[1]);
