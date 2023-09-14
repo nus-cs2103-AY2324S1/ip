@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 
+/**
+ * Deadline is a task with a specific deadline to be completed by, in a DateTime format.
+ */
 public class Deadline extends Task {
     /** The actual deadline of a deadline task, as a LocalDate or LocalDateTime*/
     private Temporal deadlineTemporal;

@@ -1,8 +1,21 @@
 package OOP;
 
-import Commands.*;
+import Commands.AddDeadlineCommand;
+import Commands.AddEventCommand;
+import Commands.AddToDoCommand;
+import Commands.Command;
+import Commands.DeleteTaskCommand;
+import Commands.ExitCommand;
+import Commands.FindTasksCommand;
+import Commands.InvalidCommand;
+import Commands.ListTasksCommand;
+import Commands.MarkTaskCommand;
+import Commands.UnmarkTaskCommand;
 import Duke.DukeException;
 
+/**
+ * Parser class that parses the string command passed in by the user.
+ */
 public class Parser {
     /**
      * Parses the users command text and returns an appropriate command.
@@ -12,8 +25,10 @@ public class Parser {
      */
     public static Command parseCommand(String userCommandText) {
         if (userCommandText.equals("bye")) {
+            assert userCommandText.equals("bye");
             return new ExitCommand();
         } else if (userCommandText.equals("list")) {
+            assert userCommandText.equals("list");
             return new ListTasksCommand();
         }
 
@@ -42,6 +57,7 @@ public class Parser {
             String searchText = extractSecondWordOnwards(userCommandText);
             return new FindTasksCommand(searchText);
         default:
+            assert !(userCommandText.equals("list") || userCommandText.equals("bye"));
             return new InvalidCommand();
         }
     }
@@ -56,7 +72,7 @@ public class Parser {
     public static String extractSecondWordOnwards(String str) {
         String[] wordArray = str.split(" ");
         String secondWordOnwards = wordArray.length >= 2 ? wordArray[1] : "";
-        for (int i = 2; i < wordArray.length; i++)  {
+        for (int i = 2; i < wordArray.length; i++) {
             secondWordOnwards += " " + wordArray[i];
         }
         return secondWordOnwards;

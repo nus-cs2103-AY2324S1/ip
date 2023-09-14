@@ -1,7 +1,12 @@
 package Commands;
+
+import OOP.Storage;
 import OOP.TaskList;
 import OOP.Ui;
-import OOP.Storage;
+
+/**
+ * The command that bids the user farewell upon execution.
+ */
 public class ExitCommand implements Command {
     /**
      * {@inheritDoc}

@@ -1,12 +1,16 @@
 package Commands;
 import Duke.DukeException;
+import OOP.Storage;
 import OOP.TaskList;
 import OOP.Ui;
-import OOP.Storage;
 import Tasks.Task;
+
+/**
+ * This command class encapsulates the data for deleting a task.
+ */
 public class DeleteTaskCommand implements Command {
     /** The index of the task to be deleted upon execution of this command.*/
-    int id;
+    private int id;
 
     /**
      * Constructs a command that deletes the task with the specified index upon execution.
@@ -24,6 +28,7 @@ public class DeleteTaskCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task removedTask = tasks.deleteTask(id);
+            assert !removedTask.equals(tasks.getTask(id));
             return ui.getTaskDeletedMessage(removedTask);
         } catch (RuntimeException e) {
             throw new DukeException("\tIndex out of bounds. There are "

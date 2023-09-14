@@ -1,9 +1,13 @@
 package OOP;
 
-import Tasks.Task;
-
 import java.util.Scanner;
 
+import Tasks.Task;
+
+
+/**
+ * Ui class handles the text that is outputted in the GUI.
+ */
 public class Ui {
     private String BYE_TEXT = "Bye. Hope to see you again soon! I'll close the window now.\n";
 

@@ -1,9 +1,5 @@
 package OOP;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,8 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Duke.DukeException;
 
+import Duke.DukeException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
+
+/**
+ * Storage class that handles loading and saving of files.
+ */
 public class Storage {
     /** The file path of the storage file for loading and saving tasks */
     private String filePath;
@@ -39,6 +44,7 @@ public class Storage {
      * @param tasks The TaskList instance that contains the tasks to be saved.
      */
     public void save(TaskList tasks) {
+        assert !this.filePath.equals("");
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(this.filePath));
@@ -67,6 +73,7 @@ public class Storage {
      */
 
     public List<Task> load() {
+        assert !this.filePath.equals("");
         String directoryPath = filePath.split("/")[0];
         BufferedReader reader = null;
         List<Task> tasks = new ArrayList<>();

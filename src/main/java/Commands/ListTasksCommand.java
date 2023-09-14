@@ -1,9 +1,12 @@
 package Commands;
+import OOP.Storage;
 import OOP.TaskList;
 import OOP.Ui;
-import OOP.Storage;
 import Tasks.Task;
 
+/**
+ * The command that lists all the currently stored tasks by wallE.
+ */
 public class ListTasksCommand implements Command {
     /**
      * {@inheritDoc}
