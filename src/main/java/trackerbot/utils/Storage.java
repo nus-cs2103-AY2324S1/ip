@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -36,7 +35,7 @@ public class Storage {
      * @return The Task object from parsing the String.
      * @see Task#toSaveString()
      */
-    private static Task parseSaveLine(String saveStr) throws DateTimeParseException {
+    private static Task parseSaveLine(String saveStr) throws TrackerBotException {
         String delimiter = "|";
         String[] args = saveStr.split("[|]");
         return Task.ofSaveString(args[0], Arrays.copyOfRange(args, 1, args.length));
@@ -65,15 +64,6 @@ public class Storage {
             }
         } catch (IOException e) {
             throw new TrackerBotException("Failed to load save file: " + e.getMessage());
-        } catch (DateTimeParseException e) {
-            tasks.clear();
-            throw new TrackerBotException("Failed to parse date: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            tasks.clear();
-            throw new TrackerBotException("Corrupted save data in DateTime.");
-        } catch (IllegalArgumentException e) {
-            tasks.clear();
-            throw new TrackerBotException("Corrupted save data in Arguments.");
         }
     }
 

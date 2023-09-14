@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 
+import trackerbot.exception.TrackerBotException;
+
 /**
  * Handles Date-related methods for Task.
  * @author WZWren
@@ -23,16 +25,21 @@ public class TaskDateHandler {
      *              The year and time are optional. If not given, the year is assumed
      *              to be the current year, and the time is assumed to be 0000.
      * @return The LocalDateTime object from the parsed String
-     * @throws DateTimeParseException if the input does not match the format string
+     * @throws TrackerBotException if the input does not match the format string
      */
-    public static LocalDateTime convertInputToDate(String input) throws DateTimeParseException {
-        DateTimeFormatter format = new DateTimeFormatterBuilder()
-                .append(DateTimeFormatter.ofPattern("d/M[/yyyy][ HHmm]"))
-                .parseDefaulting(ChronoField.YEAR_OF_ERA, LocalDateTime.now().get(ChronoField.YEAR_OF_ERA))
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .toFormatter();
-        return LocalDateTime.parse(input, format);
+    public static LocalDateTime convertInputToDate(String input) throws TrackerBotException {
+        try {
+            DateTimeFormatter format = new DateTimeFormatterBuilder()
+                    .append(DateTimeFormatter.ofPattern("d/M[/yyyy][ HHmm]"))
+                    .parseDefaulting(ChronoField.YEAR_OF_ERA, LocalDateTime.now().get(ChronoField.YEAR_OF_ERA))
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                    .toFormatter();
+            return LocalDateTime.parse(input, format);
+        } catch (DateTimeParseException e) {
+            throw new TrackerBotException("Error in parsing input to date: " + e.getMessage()
+                    + "\nAdditional Date Fields should be in the format DD/MM(/YYYY)( HHmm)");
+        }
     }
 
     /**
@@ -40,13 +47,18 @@ public class TaskDateHandler {
      * @param input The input String to parse into a Date object.
      *              The String should be in epoch timestamp format.
      * @return The LocalDateTime object from the parsed String
-     * @throws DateTimeParseException if the input is not in valid epoch format
-     * @throws NumberFormatException if the input is not parsable as a Long
+     * @throws TrackerBotException if the input is not in valid epoch format, or
+     *                             if the input is not parsable as a Long
      */
-    public static LocalDateTime convertSaveToDate(String input)
-            throws DateTimeParseException, NumberFormatException {
-        long epoch = Long.parseLong(input);
-        return LocalDateTime.ofEpochSecond(epoch, 0, ZoneOffset.UTC);
+    public static LocalDateTime convertSaveToDate(String input) throws TrackerBotException {
+        try {
+            long epoch = Long.parseLong(input);
+            return LocalDateTime.ofEpochSecond(epoch, 0, ZoneOffset.UTC);
+        } catch (NumberFormatException e) {
+            throw new TrackerBotException("Cannot parse time field.");
+        } catch (DateTimeParseException e) {
+            throw new TrackerBotException("Time field is out of range.");
+        }
     }
 
     /**
