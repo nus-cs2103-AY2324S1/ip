@@ -20,5 +20,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Java .class files
 *.class
 
-# tasks.txt file
-tasks.txt
+# .txt file
+*.txt
