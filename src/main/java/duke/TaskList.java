@@ -13,9 +13,9 @@ import java.util.Scanner;
  * The TaskList class manages a list of tasks and provides methods to interact with and manipulate the tasks.
  */
 public class TaskList {
-    static File taskList;
-    static int taskCount = 0;
-    static ArrayList<Task> tasks = new ArrayList<>();
+    private static File taskList;
+    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Constructs a TaskList instance with the specified file containing task data.

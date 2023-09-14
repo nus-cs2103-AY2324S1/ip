@@ -9,7 +9,7 @@ class UiTest {
     void testLine() {
         Ui ui = new Ui();
         String expectedLine = "______________________________________________________________________________________\n";
-        assertEquals(expectedLine, ui.line());
+        assertEquals(expectedLine, ui.getLine());
     }
 }
 

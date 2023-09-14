@@ -5,7 +5,7 @@ package duke;
  */
 public class Ui {
     private static final String name = "Bartholomew Hamish Montgomery";
-    private static final String line = "_______________________________________\n";
+    static final String line = "_______________________________________\n";
 
     /**
      * Displays a greeting message to the user.

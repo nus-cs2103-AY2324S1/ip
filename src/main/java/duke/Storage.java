@@ -7,7 +7,7 @@ import java.io.File;
  * It provides methods to handle loading and saving task data to/from a file.
  */
 public class Storage {
-    File taskList;
+    private final File taskList;
 
     /**
      * Constructs a Storage instance with the specified file path.
@@ -23,7 +23,7 @@ public class Storage {
      *
      * @return The file containing the task data.
      */
-    public File load() {
+    public File loadTasks() {
         return taskList;
     }
 }
