@@ -1,6 +1,3 @@
-T | 0 | efg
-T | 0 | hij
-T | 0 | jasd
-T | 0 | sdfkjhd
-T | 0 | sahdsf
-T | 0 | sj
+T | 1 | sahdsf
+T | 1 | sj
+T | 0 | gaming
