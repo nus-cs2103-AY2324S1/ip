@@ -1,0 +1,3 @@
+T | 0 | 1
+D | 0 | yes | Nov 01 2020
+E | 0 | cry | now | eternity
