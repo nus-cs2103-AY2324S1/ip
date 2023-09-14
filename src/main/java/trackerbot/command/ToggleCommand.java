@@ -16,18 +16,22 @@ class ToggleCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
-        int index = getIndexFromFields();
+    public void execute(TaskList tasks, UiHandler uiHandler) {
+        try {
+            int index = getIndexFromFields();
 
-        switch (type) {
-        case MARK:
-            uiHandler.setMessage(tasks.markTask(index));
-            break;
-        case UNMARK:
-            uiHandler.setMessage(tasks.unmarkTask(index));
-            break;
-        default:
-            throw new IllegalStateException("Created ToggleCommand with invalid field.");
+            switch (type) {
+            case MARK:
+                uiHandler.setMessage(tasks.markTask(index));
+                break;
+            case UNMARK:
+                uiHandler.setMessage(tasks.unmarkTask(index));
+                break;
+            default:
+                throw new IllegalStateException("Created ToggleCommand with invalid field.");
+            }
+        } catch (TrackerBotException e) {
+            uiHandler.setError(e.getMessage());
         }
     }
 

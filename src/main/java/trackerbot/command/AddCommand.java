@@ -14,7 +14,11 @@ class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
-        uiHandler.setMessage(tasks.addTask(type, commandFields));
+    public void execute(TaskList tasks, UiHandler uiHandler) {
+        try {
+            uiHandler.setMessage(tasks.addTask(type, commandFields));
+        } catch (TrackerBotException e) {
+            uiHandler.setError(e.getMessage());
+        }
     }
 }

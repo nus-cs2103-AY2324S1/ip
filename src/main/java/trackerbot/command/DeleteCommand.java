@@ -14,9 +14,13 @@ class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
-        int index = getIndexFromFields();
-        uiHandler.setMessage(tasks.deleteTask(index));
+    public void execute(TaskList tasks, UiHandler uiHandler) {
+        try {
+            int index = getIndexFromFields();
+            uiHandler.setMessage(tasks.deleteTask(index));
+        } catch (TrackerBotException e) {
+            uiHandler.setError(e.getMessage());
+        }
     }
 
     private int getIndexFromFields() throws TrackerBotException {

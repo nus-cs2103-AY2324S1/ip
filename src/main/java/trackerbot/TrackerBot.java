@@ -77,13 +77,7 @@ public class TrackerBot {
      */
     public String handleInput(String input) {
         Command command = Parser.parseCommand(input);
-        try {
-            // TODO: This is a bit weird... Why is there different levels of handling on uiHandler?
-            command.execute(tasks, uiHandler);
-        } catch (TrackerBotException e) {
-            uiHandler.setError(e.getMessage());
-        }
-
+        command.execute(tasks, uiHandler);
         return uiHandler.getMessage();
     }
 }

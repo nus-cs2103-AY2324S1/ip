@@ -1,6 +1,5 @@
 package trackerbot.command;
 
-import trackerbot.exception.TrackerBotException;
 import trackerbot.gui.UiHandler;
 import trackerbot.task.TaskList;
 
@@ -18,10 +17,8 @@ public abstract class Command {
      *
      * @param tasks The Collection of Tasks stored by TrackerBot.
      * @param uiHandler The UI object of TrackerBot, to pass status messages into.
-     * @throws TrackerBotException The internal TrackerBotException, for expected and recoverable
-     *                             errors to display on the UI.
      */
-    public abstract void execute(TaskList tasks, UiHandler uiHandler) throws TrackerBotException;
+    public abstract void execute(TaskList tasks, UiHandler uiHandler);
 
     /**
      * Factory method for Command.
