@@ -10,6 +10,8 @@ import alice.exception.DukeException;
  */
 public class Event extends Task {
     public static final String TASK_LABEL = "E";
+    public static final String MISSING_TIME_ERROR_MESSAGE =
+        "OOPS!!! The start time or end time of an event cannot be empty.";
     protected LocalDateTime from; // The start time of the task in LocalDateTime format.
     protected LocalDateTime to; // The end time of the task in LocalDateTime format.
 
@@ -54,7 +56,7 @@ public class Event extends Task {
             String to = inputs[2].split(" ", 2)[1];
             return new Event(description, from, to);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! The start time or end time of an event cannot be empty.");
+            throw new DukeException(MISSING_TIME_ERROR_MESSAGE);
         } catch (DateTimeParseException e) {
             throw new DukeException(Task.DATE_TIME_FORMAT_PARSING_ERROR_MESSAGE);
         }

@@ -39,10 +39,10 @@ public class Ui {
      * Shows the welcome message.
      */
     public String showWelcome() {
-        showLine();
+        showDividerLine();
         String message = "Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?";
         String output = showMessage(message);
-        showLine();
+        showDividerLine();
         return output;
     }
 
@@ -126,7 +126,7 @@ public class Ui {
      *
      * @return The horizontal line.
      */
-    public String showLine() {
+    public String showDividerLine() {
         return showInputWithIndentation(HORIZONTAL_LINE);
     }
 

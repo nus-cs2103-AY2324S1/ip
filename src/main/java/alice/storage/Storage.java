@@ -15,6 +15,9 @@ import alice.exception.DukeException;
  * The tasks are stored in a text file. Each line corresponds to a task.
  */
 public class Storage {
+    public static final String SAVING_ERROR_MESSAGE = "OOPS!!! I have problems saving your tasks.";
+    public static final String CREATING_FILE_ERROR_MESSAGE =
+        "OOPS!!! I have problems creating the file to save your tasks.";
     private final String filePath; // The path of the file to store the task list.
 
     /**
@@ -46,7 +49,7 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException ioException) {
-                throw new DukeException("OOPS!!! I have problems creating the file to save your tasks.");
+                throw new DukeException(CREATING_FILE_ERROR_MESSAGE);
             }
         }
         return lines;
@@ -67,7 +70,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            throw new DukeException("OOPS!!! I have problems saving your tasks.");
+            throw new DukeException(SAVING_ERROR_MESSAGE);
         }
     }
 }
