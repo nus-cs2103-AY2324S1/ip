@@ -94,6 +94,7 @@ public class Storage {
                 int fromIndex = text.indexOf("(from: ");
                 int toIndex = text.indexOf("to: ");
 
+                assert toIndex > fromIndex : "from date should be written first before to date";
                 description = text.substring(0, fromIndex-1);
                 String from = text.substring(fromIndex+7, toIndex-1);
                 String to = text.substring(toIndex+4, text.length()-1);
