@@ -57,6 +57,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert this.from != null && this.to != null : "Event object should have non-null start and end dates.";
+
         return super.toString()
                 + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))

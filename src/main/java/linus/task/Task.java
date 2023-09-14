@@ -40,6 +40,8 @@ public abstract class Task {
 
     @Override
     public String toString() {
+        assert this.description != null : "Task object should have non-null description.";
+
         return this.getTaskTypeIcon()
                 + this.getStatusIcon() + " "
                 + this.description;

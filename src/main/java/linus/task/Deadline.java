@@ -46,6 +46,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert this.by != null : "Deadline object should have non-null deadline.";
+
         return super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
