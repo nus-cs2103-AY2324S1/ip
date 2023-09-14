@@ -61,7 +61,7 @@ public class AddCommand extends Command {
             task = new Deadline(deadlineTask[0], Time.parseDateTime(deadlineTask[1]));
             break;
 
-        default: // equivalent to case EVENT
+        case EVENT:
             String[] eventTask = commandBody.split(" /from ");
             if (eventTask.length != 2) {
                 throw new EventException(err);
@@ -72,6 +72,9 @@ public class AddCommand extends Command {
             }
             task = new Event(eventTask[0], Time.parseDateTime(dates[0]), Time.parseDateTime(dates[1]));
             break;
+
+        default:
+            throw new DukeException("Sorry, the command is invalid.");
         }
         String respond = taskList.addTask(task, ui);
         storage.appendFile(task.fileFormat());

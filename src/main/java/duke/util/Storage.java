@@ -52,38 +52,42 @@ public class Storage {
 
         try {
             Scanner sc = new Scanner(this.file);
-            while (sc.hasNext()) {
-                String[] temp = sc.nextLine().split(SEPARATOR);
-                Task task;
-                switch (temp[0]) {
-                case "T":
-                    task = new Todo(temp[2]);
-                    break;
-                case "D":
-                    task = new Deadline(temp[2], Time.parseDateTime(temp[3]));
-                    break;
-                case "E":
-                    task = new Event(temp[2], Time.parseDateTime(temp[3]), Time.parseDateTime(temp[4]));
-                    break;
-                default:
-                    throw new DukeException();
-                }
-
-                if (temp[1].equals("1")) {
-                    task.mark(true);
-                } else if (temp[1].equals("0")) {
-                    task.mark(false);
-                } else {
-                    throw new DukeException();
-                }
-
-                taskList.add(task);
-            }
+            loadToList(sc, taskList);
             sc.close();
         } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
             throw new DukeException();
         }
         return taskList;
+    }
+
+    private void loadToList(Scanner sc, List<Task> taskList) throws DukeException {
+        while (sc.hasNext()) {
+            String[] temp = sc.nextLine().split(SEPARATOR);
+            Task task;
+            switch (temp[0]) {
+            case "T":
+                task = new Todo(temp[2]);
+                break;
+            case "D":
+                task = new Deadline(temp[2], Time.parseDateTime(temp[3]));
+                break;
+            case "E":
+                task = new Event(temp[2], Time.parseDateTime(temp[3]), Time.parseDateTime(temp[4]));
+                break;
+            default:
+                throw new DukeException();
+            }
+
+            if (temp[1].equals("1")) {
+                task.mark(true);
+            } else if (temp[1].equals("0")) {
+                task.mark(false);
+            } else {
+                throw new DukeException();
+            }
+
+            taskList.add(task);
+        }
     }
 
     /**
@@ -156,23 +160,24 @@ public class Storage {
             fw.write(""); // Clear the file
             Scanner sc = new Scanner(new File(tempPath));
 
-            if (key.equals(Keyword.DELETE)) {
-                if (index >= 0) {
-                    removeLine(index, sc, fw);
-                } // else delete all
-            } else {
-                if (index >= 0) {
-                    markLine(index, key.equals(Keyword.MARK), sc, fw);
-                } else {
-                    markAll(key.equals(Keyword.MARK), sc, fw);
-                }
-            }
-
+            processChange(key, index, sc, fw);
             sc.close();
             fw.close();
             Files.delete(Paths.get(tempPath));
         } catch (IOException e) {
             throw new DukeException();
+        }
+    }
+
+    private void processChange(Keyword key, int index, Scanner sc, FileWriter fw) throws IOException {
+        if (key.equals(Keyword.DELETE)) {
+            if (index >= 0) {
+                removeLine(index, sc, fw);
+            }
+        } else if (index >= 0) {
+            markLine(index, key.equals(Keyword.MARK), sc, fw);
+        } else {
+            markAll(key.equals(Keyword.MARK), sc, fw);
         }
     }
 
@@ -216,7 +221,8 @@ public class Storage {
             } else {
                 String task = sc.nextLine();
                 String result = task.substring(0, SEPARATOR.length() + 1)
-                        + (isMark ? "1" : "0") + task.substring(SEPARATOR.length() + 2);
+                        + (isMark ? "1" : "0")
+                        + task.substring(SEPARATOR.length() + 2);
                 fw.write(result);
             }
             fw.write("\n");
@@ -237,7 +243,9 @@ public class Storage {
         while (sc.hasNext()) {
             String task = sc.nextLine();
             String result = task.substring(0, SEPARATOR.length() + 1)
-                    + (isMark ? "1" : "0") + task.substring(SEPARATOR.length() + 2) + "\n";
+                    + (isMark ? "1" : "0")
+                    + task.substring(SEPARATOR.length() + 2)
+                    + "\n";
             fw.write(result);
         }
     }

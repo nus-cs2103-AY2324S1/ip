@@ -75,22 +75,26 @@ public class TaskList {
             throw new DukeException("OOPS!!! There is nothing in the list, yet!");
         }
         if (key.equals(Keyword.DEADLINE) || key.equals(Keyword.EVENT)) {
-            List<String> tasksOnDate = new ArrayList<>();
-            for (Task task : taskList) {
-                if (task.onDate(key, date)) {
-                    tasksOnDate.add(task.toString());
-                }
-            }
-            if (!tasksOnDate.isEmpty()) {
-                return ui.showPrintDateTask(tasksOnDate.toArray(new String[0]),
-                                            date.format(Time.DATE_DISPLAY_FORMATTER));
-
-            } else {
-                throw new DukeException(String.format("OOPS!!! There is nothing happening on %s.",
-                        date.format(Time.DATE_DISPLAY_FORMATTER)));
-            }
+            return findTaskOnDate(key, date, ui);
         } else {
             throw new DukeException("OOPS!!! This is not a valid command.");
+        }
+    }
+
+    private String findTaskOnDate(Keyword key, LocalDate date, Ui ui) throws DukeException {
+        List<String> tasksOnDate = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.onDate(key, date)) {
+                tasksOnDate.add(task.toString());
+            }
+        }
+        if (!tasksOnDate.isEmpty()) {
+            return ui.showPrintDateTask(tasksOnDate.toArray(new String[0]),
+                    date.format(Time.DATE_DISPLAY_FORMATTER));
+
+        } else {
+            throw new DukeException(String.format("OOPS!!! There is nothing happening on %s.",
+                    date.format(Time.DATE_DISPLAY_FORMATTER)));
         }
     }
 
@@ -124,7 +128,7 @@ public class TaskList {
      */
     public String markTask(int index, Keyword key, Ui ui) throws DukeException {
         switch (key) {
-        case MARK:
+        case MARK: // fall through
         case UNMARK:
             break;
         default:
@@ -134,7 +138,8 @@ public class TaskList {
         if (index >= taskList.size() || index < 0) {
             StringBuilder errBuilder = new StringBuilder();
             errBuilder.append(String.format("OOPS!!! There is no task %d to %s",
-                     index + 1, key.getKeyword()));
+                                    index + 1,
+                                    key.getKeyword()));
             errBuilder.append(listTask(ui));
             throw new DukeException(errBuilder.toString());
         }
@@ -163,8 +168,8 @@ public class TaskList {
             }
         }
         if (tasksFound.isEmpty()) {
-            throw new DukeException(String.format(
-                    "OOPS!!! There is no task with %s.", taskKey));
+            throw new DukeException(String.format("OOPS!!! There is no task with %s.",
+                    taskKey));
         }
         return ui.showFindTask(tasksFound.toArray(new String[0]),
                                taskIndexFound.toArray(new String[0]));

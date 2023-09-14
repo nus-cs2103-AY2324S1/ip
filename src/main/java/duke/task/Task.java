@@ -54,7 +54,9 @@ public abstract class Task {
      */
     public String fileFormat() {
         return String.format("%d%s%s",
-                isDone ? 1 : 0, Storage.SEPARATOR, description);
+                isDone ? 1 : 0,
+                Storage.SEPARATOR,
+                description);
     }
 
     /**
