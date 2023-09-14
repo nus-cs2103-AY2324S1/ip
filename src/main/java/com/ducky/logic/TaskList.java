@@ -24,6 +24,7 @@ public class TaskList {
      * @param t Task to be added into the list.
      */
     public void addTask(Task t) {
+        assert t != null;
         this.tasks.add(t);
     }
 

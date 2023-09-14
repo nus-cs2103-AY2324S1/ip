@@ -16,6 +16,8 @@ public class Ducky {
      * @param filePath File path for persistent data to be saved in.
      */
     public Ducky(String filePath) {
+        assert !filePath.isEmpty();
+
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
 
