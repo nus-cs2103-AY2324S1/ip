@@ -19,6 +19,7 @@ public class TaskList {
         this.tasklist = new ArrayList<>();
     }
     public ArrayList<Task> getTaskList() {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         return this.tasklist;
     }
 
@@ -30,6 +31,7 @@ public class TaskList {
      * @return The marked Task.
      */
     public Task markTask(int input) throws DukeException {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         if (input < 1 || input > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -46,6 +48,7 @@ public class TaskList {
      * @return The unmarked Task.
      */
     public Task unmarkTask(int input) throws DukeException {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         if (input < 1 || input > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -63,6 +66,7 @@ public class TaskList {
      * @return The deleted Task.
      */
     public Task deleteTask(int input) throws DukeException {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         if (input < 1 || input + 1 > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
@@ -79,6 +83,7 @@ public class TaskList {
      * @return The newly created ToDo Task.
      */
     public Task addToDo(String description) {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         Task newTask = new ToDo(description);
         tasklist.add(newTask);
         return newTask;
@@ -93,6 +98,7 @@ public class TaskList {
      * @return The newly created Deadline Task.
      */
     public Task addDeadline(String description, String deadline) {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         Task newTask = new Deadline(description, deadline);
         tasklist.add(newTask);
         return newTask;
@@ -105,6 +111,7 @@ public class TaskList {
      * @return A new ArrayList of the Tasks found in the search.
      */
     public ArrayList<Task> searchTasks(String description) {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         ArrayList<Task> result = new ArrayList<>();
         for (Task t : this.tasklist) {
             if (t.getDescription().contains(description)) {
@@ -125,6 +132,7 @@ public class TaskList {
      * @return The newly created Event Task.
      */
     public Task addEvent(String description, String from, String to) {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         Task newTask = new Event(description, from, to);
         tasklist.add(newTask);
         return newTask;

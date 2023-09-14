@@ -7,6 +7,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        assert this.description != null: "The description of the task is null";
     }
 
     public String getStatusIcon() {
