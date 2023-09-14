@@ -30,20 +30,25 @@ public class DialogBox extends HBox {
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            if (fxmlLoader.getLocation() == null) {
+                throw new IOException("FXML resource not found!");
+            }
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Failed to load DialogBox FXML. " + e.getMessage());
+            return;
         }
+
+        assert dialog != null : "Dialog label should be properly initialized!";
+        assert displayPicture != null : "Display picture should be properly initialized!";
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        assert dialog != null : "Dialog label should be properly initialized!";
+
         double radius = 25.0;
         Circle clip = new Circle(radius, radius, radius);
-        assert dialog != null : "Dialog label should be properly initialized!";
-        assert displayPicture != null : "Display picture should be properly initialized!";
         displayPicture.setClip(clip);
     }
 
