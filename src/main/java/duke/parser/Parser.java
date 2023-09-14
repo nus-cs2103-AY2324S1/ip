@@ -17,6 +17,7 @@ public class Parser {
      * @throws ChatException Errors when user input cannot be interpreted.
      */
     public static Command parse(String userInput) throws ChatException {
+        assert userInput != null : "invalid input";
         String[] userCommand = userInput.split(" ", 2);
         try {
             switch (userCommand[0]) {
