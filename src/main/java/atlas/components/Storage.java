@@ -23,6 +23,7 @@ public class Storage {
      * @param fileName Name of file to save to
      */
     public Storage(String fileDir, String fileName) {
+        assert fileName.endsWith(".txt");
         this.fileDir = fileDir;
         this.fileName = fileName;
     }
@@ -41,7 +42,8 @@ public class Storage {
                     Task newTask = Parser.parseFileTasks(listReader.nextLine());
                     loadedTasks.add(newTask);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Load file is corrupted, skipping task");
+                    final String corruptedFileErrorMessage = "Load file is corrupted, skipping task";
+                    System.out.println(corruptedFileErrorMessage);
                 } catch (Parser.UnsupportedTaskType e) {
                     System.out.printf("Unsupported task type %s, skipping task\n", e.getTaskType());
                 }

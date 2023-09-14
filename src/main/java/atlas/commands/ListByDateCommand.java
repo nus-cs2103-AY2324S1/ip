@@ -34,6 +34,7 @@ public class ListByDateCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null;
         List<Task> tasksOnDate = taskList.getTaskOnDate(date);
         StringBuilder output = new StringBuilder("Here are the tasks occurring on " + date + ":\n");
         int idx = 0;

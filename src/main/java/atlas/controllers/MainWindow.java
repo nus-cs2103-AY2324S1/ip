@@ -15,6 +15,9 @@ import javafx.scene.layout.VBox;
  * Atlas's GUI
  */
 public class MainWindow extends AnchorPane {
+    static final String USER_PROFILE_IMG_PATH = "/images/user.png";
+    static final String ATLAS_PROFILE_IMG_PATH = "/images/atlas.png";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -27,9 +30,9 @@ public class MainWindow extends AnchorPane {
     private Atlas atlas;
 
     private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-            "/images/user.png")));
+            USER_PROFILE_IMG_PATH)));
     private final Image atlasImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-            "/images/atlas.png")));
+            ATLAS_PROFILE_IMG_PATH)));
 
     @FXML
     public void initialize() {

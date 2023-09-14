@@ -40,6 +40,8 @@ public class UnmarkTaskCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null;
+        assert storage != null;
         try {
             List<Task> tasksNotDone = taskList.unmarkTasks(idx);
             storage.save(taskList);

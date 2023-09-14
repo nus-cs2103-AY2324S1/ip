@@ -24,11 +24,13 @@ public class ListCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null;
         List<Task> tasks = taskList.getTasks();
         StringBuilder output = new StringBuilder("Here are your tasks:\n");
         int taskIdx = 0;
         for (Task t : tasks) {
             output.append(String.format("%d. %s\n", ++taskIdx, t));
+            assert taskIdx > 0;
         }
         return output.toString();
     }

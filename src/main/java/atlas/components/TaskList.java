@@ -20,42 +20,56 @@ public class TaskList {
         this.tasks.addAll(tasks);
     }
 
+    /**
+     * Adds a new task into the list
+     * @param newTask Task to be added to the list
+     */
     public void addTask(Task newTask) {
+        assert newTask != null;
         tasks.add(newTask);
     }
 
     /**
      * Marks tasks as done
-     * @param idx One or more 0-based task indices
+     * @param indices One or more 0-based task indices
      * @return Tasks marked as done
      */
-    public List<Task> markTasks(int... idx) {
+    public List<Task> markTasks(int... indices) {
         List<Task> markedTasks = new ArrayList<>();
-        for (int i : idx) {
-            Task selectedTask = tasks.get(i);
-            selectedTask.markDone();
-            markedTasks.add(selectedTask);
+        for (int i : indices) {
+            try {
+                Task selectedTask = tasks.get(i);
+                selectedTask.markDone();
+                markedTasks.add(selectedTask);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("Invalid index %d\n", i);
+            }
         }
         return markedTasks;
     }
 
     /**
      * Marks task as not done
-     * @param idx One or more 0-based task indices
+     * @param indices One or more 0-based task indices
      * @return Tasks marked as undone
      */
-    public List<Task> unmarkTasks(int... idx) {
+    public List<Task> unmarkTasks(int... indices) {
         List<Task> unmarkedTasks = new ArrayList<>();
-        for (int i : idx) {
-            Task selectedTask = tasks.get(i);
-            selectedTask.markNotDone();
-            unmarkedTasks.add(selectedTask);
+        for (int i : indices) {
+            try {
+                Task selectedTask = tasks.get(i);
+                selectedTask.markNotDone();
+                unmarkedTasks.add(selectedTask);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("Invalid index %d\n", i);
+            }
         }
         return unmarkedTasks;
     }
 
     /**
-     * Deletes task from task list
+     * Deletes task from task list. Deleting multiple tasks at once is not supported as deletion is performed
+     * using indices, which might be affected by the deletion of previous indices.
      * @param idx Zero-based index of task to delete
      * @return Task deleted
      */
@@ -70,8 +84,8 @@ public class TaskList {
      * @return Message containing the current task count
      */
     public String getCountString() {
-        return String.format("Now you have %d %s in the list.\n", tasks.size(),
-                tasks.size() == 1 ? "task" : "tasks");
+        final String taskPlurality = tasks.size() == 1 ? "task" : "tasks";
+        return String.format("Now you have %d %s in the list.\n", tasks.size(), taskPlurality);
     }
 
     /**

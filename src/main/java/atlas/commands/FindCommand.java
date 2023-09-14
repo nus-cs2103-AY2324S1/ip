@@ -34,6 +34,7 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null;
         List<Task> tasksWithKeyword = taskList.getTasksWithKeyword(keyword);
         StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
         int idx = 0;
