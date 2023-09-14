@@ -1,6 +1,13 @@
+package sae.util;
+
+import sae.task.Event;
+import sae.task.Task;
+import sae.task.TaskList;
+import sae.task.Todo;
+import sae.task.Deadline;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.File;
@@ -45,7 +52,9 @@ public class Storage {
             switch (taskType) {
                 case "T":
                     Todo newTodo = new Todo(description);
-                    newTodo.isDone = completion.equals("1");
+                    if (completion.equals("1")) {
+                        newTodo.markTask();
+                    }
                     taskList.addTask(newTodo);
                     break;
                 case "D":
@@ -57,14 +66,18 @@ public class Storage {
                     LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
 
                     Deadline newDeadline = new Deadline(description, dateTime);
-                    newDeadline.isDone = completion.equals("1");
+                    if (completion.equals("1")) {
+                        newDeadline.markTask();
+                    }
                     taskList.addTask(newDeadline);
                     break;
                 case "E":
                     String from = taskDetails[3].trim();
                     String to = taskDetails[4].trim();
                     Event newEvent = new Event(description, from, to);
-                    newEvent.isDone = completion.equals("1");
+                    if (completion.equals("1")) {
+                        newEvent.markTask();
+                    }
                     taskList.addTask(newEvent);
                     break;
             }

@@ -1,3 +1,7 @@
+package sae.util;
+
+import sae.task.Task;
+
 public class Ui {
 
     public void greetUser() {

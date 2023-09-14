@@ -1,14 +1,16 @@
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package sae;
 
+import sae.task.TaskList;
+import sae.util.Parser;
+import sae.util.Storage;
+import sae.util.Ui;
+import sae.exceptions.SaeException;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
- * The Sae class represents an interactive task manager.
+ * The Sae class represents an interactive sae.task manager.
  * Users can add, list, mark, and unmark tasks using this program.
  */
 public class Sae {

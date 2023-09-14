@@ -1,3 +1,5 @@
+package sae.exceptions;
+
 public class InvalidEventException extends SaeException {
 
     @Override

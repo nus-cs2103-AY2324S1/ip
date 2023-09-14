@@ -1,3 +1,5 @@
+package sae.exceptions;
+
 public class InvalidDeadlineException extends SaeException{
 
     @Override

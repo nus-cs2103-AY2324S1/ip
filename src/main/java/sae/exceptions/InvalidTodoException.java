@@ -1,3 +1,5 @@
+package sae.exceptions;
+
 public class InvalidTodoException extends SaeException {
 
     @Override

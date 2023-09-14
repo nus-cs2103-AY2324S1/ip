@@ -1,4 +1,6 @@
-import java.time.LocalDate;
+package sae.task;
+
+import sae.util.Ui;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -23,7 +25,7 @@ public class TaskList {
             tasks.remove(index);
             msg.deleteTaskMessage(task, tasks.size());
         } else {
-            System.out.println("Invalid task index.");
+            System.out.println("Invalid sae.task index.");
         }
     }
 

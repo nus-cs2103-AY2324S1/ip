@@ -1,3 +1,5 @@
+package sae.exceptions;
+
 /**
  * Custom exception class for handling errors specific to the Sae chatbot.
  */
