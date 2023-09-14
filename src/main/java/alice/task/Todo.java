@@ -19,14 +19,15 @@ public class Todo extends Task {
     }
 
     /**
-     * Constructs a todo with the given description and status.
+     * Constructs a todo with the given description, status and tags.
      *
      * @param description The description of the todo.
      * @param isDone      The status of the todo.
+     * @param tags        The tags of the todo.
      * @throws DukeException If there are problems constructing the todo.
      */
-    public Todo(String description, boolean isDone) throws DukeException {
-        super(description, isDone);
+    public Todo(String description, boolean isDone, String... tags) throws DukeException {
+        super(description, isDone, tags);
     }
 
     /**

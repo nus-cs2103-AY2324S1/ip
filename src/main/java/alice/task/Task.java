@@ -2,6 +2,9 @@ package alice.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import alice.exception.DukeException;
 
@@ -16,6 +19,7 @@ public class Task {
         "OOPS!!! The date and time must be in the format of YYYY-MM-DD HH:MM.";
     private static final String DATE_TIME_FORMAT = "h:mm a, MMM d yyyy";
     protected String description; // The description of the task.
+    protected List<String> tags; // The tags of the task.
     protected boolean isDone; // The status of the task.
 
     /**
@@ -29,19 +33,22 @@ public class Task {
     }
 
     /**
-     * Constructs a task with the given description and status.
+     * Constructs a task with the given description, status and tags.
      *
      * @param description The description of the task.
      * @param isDone      The status of the task.
+     * @param tags        The tags of the task.
      * @throws DukeException If there are problems constructing the task.
      */
-    public Task(String description, boolean isDone) throws DukeException {
+    public Task(String description, boolean isDone, String... tags) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException(Task.EMPTY_DESCRIPTION_ERROR_MESSAGE);
         }
 
         this.description = description;
         this.isDone = isDone;
+        this.tags = new ArrayList<>();
+        Collections.addAll(this.tags, tags);
     }
 
     /**
@@ -86,13 +93,29 @@ public class Task {
     }
 
     /**
+     * Append tags to the task.
+     *
+     * @param tags The tags to be added.
+     */
+    public void addTags(String... tags) {
+        Collections.addAll(this.tags, tags);
+    }
+
+    /**
+     * Clears all the tags of the task.
+     */
+    public void clearTags() {
+        this.tags.clear();
+    }
+
+    /**
      * Returns a string representation of the task.
      *
      * @return A string representation of the task.
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description + " " + this.tags;
     }
 
     /**
@@ -101,7 +124,7 @@ public class Task {
      * @return A string representation of the task to be stored in the hard disk.
      */
     public String toFileString() {
-        return (this.isDone ? "1" : "0") + " | " + this.description;
+        return (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.tags;
     }
 
     /**

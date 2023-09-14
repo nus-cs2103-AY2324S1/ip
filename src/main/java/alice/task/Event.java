@@ -28,16 +28,17 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs an event with the given description, start time, end time and status.
+     * Constructs an event with the given description, start time, end time, status and tags.
      *
      * @param description The description of the event.
      * @param from        The start time of the event.
      * @param to          The end time of the event.
      * @param isDone      The status of the event.
+     * @param tags        The tags of the event.
      * @throws DukeException If there are problems constructing the event.
      */
-    public Event(String description, String from, String to, boolean isDone) throws DukeException {
-        super(description, isDone);
+    public Event(String description, String from, String to, boolean isDone, String... tags) throws DukeException {
+        super(description, isDone, tags);
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);
     }
