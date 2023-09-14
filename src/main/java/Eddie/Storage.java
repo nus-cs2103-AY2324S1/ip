@@ -1,5 +1,10 @@
 package Eddie;
 
+import Eddie.Tasks.Deadline;
+import Eddie.Tasks.Event;
+import Eddie.Tasks.Task;
+import Eddie.Tasks.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -22,7 +27,7 @@ public class Storage {
             Task t = TaskList.get(i);
 
             if (t.getType() == "T") {
-                eddieTaskList.write("T , " + t.getStatus() + " , " + t.getName() + " , \n");
+                eddieTaskList.write("T , " + t.getStatus() + " , " + t.getName() + " ,  " + t.printTags() + " , \n");
             } else if (t.getType() == "D") {
                 eddieTaskList.write("D , " + t.getStatus() + " , " + t.getName() + " , " + t.getDeadline() + " , \n");
             } else if (t.getType() == "E") {
@@ -43,15 +48,25 @@ public class Storage {
             Scanner sc = new Scanner(eddieTaskList);
             while (sc.hasNextLine()) {
                 String t = sc.nextLine();
-                String[] task = new String[5];
+                String[] task;
                 task = t.split(" , ");
 
                 if(task[0].equals("T")) {
-                    //System.out.println(task[2]);
-                    Todo todo = new Todo(task[2]);
+                    Todo todo = new Todo(task[2]); //creates new task with name
                     if (task[1].equals("x")) {
                         todo.taskIsDone();
                     }
+
+                    //if there are tags to be tagged
+                    if (task.length == 4) {
+                        String tagsToAdd = task[3];
+                        String[] tags = tagsToAdd.split(" #");
+                        for (int i = 1; i < tags.length; i++) {
+                            todo.tag(tags[i]);
+                        }
+                    }
+
+
 
                     TaskList.add(todo);
                 } if (task[0].equals("D")) {

@@ -1,4 +1,6 @@
-package Eddie;
+package Eddie.Exceptions;
+
+import Eddie.Exceptions.DukeException;
 
 /**
  * Exception for when user does not provide to date.

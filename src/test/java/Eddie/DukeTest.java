@@ -1,4 +1,5 @@
 package Eddie;
+import Eddie.Tasks.Deadline;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
