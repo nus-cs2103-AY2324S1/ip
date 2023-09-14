@@ -3,13 +3,13 @@ package duke;
 import duke.task.TaskStorage;
 
 /**
- * The Duke.UI class is the driver that runs the input handler and output handler.
+ * The {@code AppController} class is the main logic controller of the application.
  */
-class UI {
+class AppController {
     private boolean isExit = false;
     private final InputHandler inputHandler;
 
-    public UI() {
+    public AppController() {
         CliOutputUi outputUI = new CliOutputUi();
         this.inputHandler = new InputHandler(outputUI, new TaskStorage());
     }
