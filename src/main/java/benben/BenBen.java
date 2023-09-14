@@ -194,6 +194,7 @@ public class BenBen {
      * Exits the program
      */
     public String exit() {
+        System.exit(0);
         return ui.showExit();
     }
 
@@ -207,5 +208,30 @@ public class BenBen {
 
     }
 
+    public String sort(String str) {
+        String[] strSplit = str.split("\\s+");
+        String key = "all";
+        if (strSplit.length == 2) {
+            key = strSplit[1];
+        }
+        String s = "";
+        switch (key) {
+            case "all":
+                s = ui.showSorted(this.tasks.sortByDescription(), "all Tasks", "description");
+                break;
+            case "todo":
+                s = ui.showSorted(this.tasks.sortTodo(), "Todos", "description");
+                break;
+            case "deadline":
+                s = ui.showSorted(this.tasks.sortDeadline(), "Deadlines", "deadline");
+                break;
+            case "event":
+                s = ui.showSorted(this.tasks.sortEvent(), "Events", "start date");
+                break;
+            default:
+                throw new BenBenException("Please do indicate how you want BenBen tos ort the tasks!");
+        }
+        return s;
+    }
 }
 

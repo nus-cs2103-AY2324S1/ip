@@ -62,7 +62,21 @@ public class Ui {
         } else {
             StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                sb.append("/n");
+                sb.append("\n");
+                sb.append((i + 1) + "." + tasks.get(i).toString());
+            }
+            return sb.toString();
+        }
+    }
+
+    public String showSorted(TaskList tasks, String type, String condition) {
+        if (tasks.size() == 0) {
+            return "There is no Tasks to show! Please add some new tasks first!";
+        } else {
+            StringBuilder sb = new StringBuilder("Here are the sorted tasks in your list:");
+            sb.append("Sorted ").append(type).append(" by ").append(condition);
+            for (int i = 0; i < tasks.size(); i++) {
+                sb.append("\n");
                 sb.append((i + 1) + "." + tasks.get(i).toString());
             }
             return sb.toString();

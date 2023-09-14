@@ -30,4 +30,8 @@ public abstract class Task {
 
 
     public abstract String getLog();
+
+    public int compareTo(Task t2) {
+        return this.getDescription().compareTo(t2.getDescription());
+    }
 }
