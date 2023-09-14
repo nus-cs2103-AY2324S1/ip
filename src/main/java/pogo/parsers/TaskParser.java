@@ -35,10 +35,10 @@ public class TaskParser {
      * A valid list command has the format "list /from FROM /to TO".
      * Returns an InvalidCommand if the command is invalid.
      *
-     * @param arguments  The input string.
+     * @param arguments The input string.
      * @return The ListTasksCommand if the command is valid.
      */
-   public static Command parseListCommand(String arguments) {
+    public static Command parseListCommand(String arguments) {
         final Matcher listMatcher = LIST_PATTERN.matcher(arguments);
         // Set from and to encompass all dates
         LocalDateTime from = LocalDateTime.of(LocalDate.MIN, LocalTime.MIN);
@@ -62,6 +62,10 @@ public class TaskParser {
         return new ListTasksCommand(from, to);
     }
 
+    private static boolean isEmptyDescription(String description) {
+        return description.equals("");
+    }
+
     /**
      * Parses a deadline command.
      * A valid deadline command has the format "deadline DESCRIPTION /by DEADLINE".
@@ -76,14 +80,16 @@ public class TaskParser {
         InvalidCommand ic = new InvalidCommand(Messages.INVALID_TASK
                 + System.lineSeparator()
                 + AddDeadlineCommand.MESSAGE_USAGE);
+
         if (!matcher.matches()) {
             return ic;
         }
 
         String description = matcher.group("description");
-        if (description.equals("")) {
+        if (isEmptyDescription(description)) {
             return ic;
         }
+
         String by = matcher.group("by");
         try {
             return new AddDeadlineCommand(description, DateTimeParser.parse(by));
@@ -106,12 +112,13 @@ public class TaskParser {
                 new InvalidCommand(Messages.INVALID_TASK
                         + System.lineSeparator()
                         + AddToDoCommand.MESSAGE_USAGE);
+
         if (!matcher.matches()) {
             return ic;
         }
 
         String description = matcher.group("description");
-        if (description.equals("")) {
+        if (isEmptyDescription(description)) {
             return ic;
         }
         return new AddToDoCommand(description);
@@ -131,12 +138,13 @@ public class TaskParser {
                 new InvalidCommand(Messages.INVALID_TASK
                         + System.lineSeparator()
                         + AddEventCommand.MESSAGE_USAGE);
+
         if (!matcher.matches()) {
             return ic;
         }
 
         String description = matcher.group("description");
-        if (description.equals("")) {
+        if (isEmptyDescription(description)) {
             return ic;
         }
 
@@ -150,10 +158,10 @@ public class TaskParser {
     }
 
     /**
-     * Parses the index of a task.
+     * Parses the index of a task, returning -1 for invalid indices.
      *
      * @param input The input string.
-     * @return The index of the task.
+     * @return The index of the task, -1 if it does not exist.
      */
     private static int parseIndex(String input) {
         final Matcher matcher = MARK_PATTERN.matcher(input);

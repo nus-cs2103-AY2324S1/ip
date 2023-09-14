@@ -20,6 +20,11 @@ public class DeleteTaskCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Deletes a task from the task list.
+     * The task index must be within the range of the task list.
+     *
+     */
     @Override
     public CommandResult execute() {
         if (index < 0 || index >= tasks.size()) {
