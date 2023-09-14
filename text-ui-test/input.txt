@@ -1,0 +1,9 @@
+todo buy a book
+deadline read book /by Sunday
+event reading book /from today /to Sunday
+list
+mark 2
+list
+unmark 2
+list
+bye
