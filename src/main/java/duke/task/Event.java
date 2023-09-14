@@ -43,4 +43,18 @@ public class Event extends Task {
                 this.from,
                 this.to);
     }
+
+    /**
+     * Clone this duke.task.Event instance.
+     *
+     * @return The cloned instance.
+     */
+    @Override
+    public Task clone() {
+        Event temp = new Event(this.description, this.from, this.to);
+        if (this.isDone) {
+            temp.markAsDone();
+        }
+        return temp;
+    }
 }

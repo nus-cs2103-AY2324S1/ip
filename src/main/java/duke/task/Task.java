@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a task with a description that can be marked done or undone.
  */
-public abstract class Task {
+public abstract class Task implements Cloneable {
     protected String description;
     protected boolean isDone;
 
@@ -57,4 +57,11 @@ public abstract class Task {
      * @return A formatted string with the relevant information for the save file.
      */
     public abstract String getSaveString();
+
+    /**
+     * Clone this duke.task.Task instance.
+     *
+     * @return The cloned instance.
+     */
+    public abstract Task clone();
 }

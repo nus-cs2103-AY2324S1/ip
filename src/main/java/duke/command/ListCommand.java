@@ -9,6 +9,12 @@ import duke.Ui;
  * Represents the command of listing all tasks.
  */
 public class ListCommand extends Command {
+    private final boolean isSorted;
+
+    public ListCommand(boolean isSorted) {
+        this.isSorted = isSorted;
+    }
+
     @Override
     public boolean isExit() {
         return false;
@@ -17,6 +23,6 @@ public class ListCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         assert ui != null;
-        return ui.showList(tasks);
+        return ui.showList(this.isSorted ? tasks.sorted() : tasks);
     }
 }

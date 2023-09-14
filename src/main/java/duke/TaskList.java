@@ -1,6 +1,7 @@
 package duke;
 
 import duke.task.Task;
+import duke.task.TaskComparator;
 
 import java.util.ArrayList;
 
@@ -117,6 +118,12 @@ public class TaskList {
         return currentTask;
     }
 
+    /**
+     * Find tasks that match the provided query.
+     *
+     * @param query The provided query.
+     * @return A String listing all the tasks that matched.
+     */
     public String findTasks(String query) {
         StringBuilder tempString = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -130,5 +137,22 @@ public class TaskList {
         }
 
         return tempString.toString();
+    }
+
+    /**
+     * Sort the tasks in the task list, with deadlines sorted chronologically and moved
+     * to the top of the list.
+     *
+     * @return A new TaskList with the sorted tasks.
+     */
+    public TaskList sorted() {
+        TaskList sortedList = new TaskList();
+        // we clone here so the original list is not sorted.
+        for (Task task : this.tasks) {
+            sortedList.add(task.clone());
+        }
+
+        sortedList.tasks.sort(new TaskComparator());
+        return sortedList;
     }
 }
