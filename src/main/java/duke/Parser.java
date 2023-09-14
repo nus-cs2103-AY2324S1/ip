@@ -33,6 +33,8 @@ public class Parser {
             return parseDelete(input, taskList);
         } else if (input.startsWith("find")) {
             return parseFind(input, taskList);
+        } else if (input.startsWith("tag")) {
+            return parseTag(input, taskList);
         } else {
             throw new DukeException("I do not understand :(((");
         }
@@ -140,33 +142,71 @@ public class Parser {
 
         return taskList.findTasks(toFind);
     }
+
+    private static String parseTag(String s, TaskList taskList) throws DukeException {
+        try {
+            String[] splitInput = s.split(" ");
+            if (splitInput.length != 3) {
+                throw new DukeException("Invalid input! Please use this format `tag index oneWordTag`");
+            }
+
+            int index = Integer.parseInt(splitInput[1].trim()) - 1;
+            String tag = splitInput[2];
+            return taskList.tagTask(index, tag);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid number!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Please enter a number within the list index!");
+        }
+    }
+
     /**
      * Parses text from the pre-existing task list file to the corresponding Task object.
      * @param entry line from the task list file
      * @return corresponding Task object to the entry
      */
     public static Task parseTaskListEntry(String entry) {
-        Task task;
         String[] splitEntry = entry.split("\\|"); // Split by "|"
         assert splitEntry.length >= 3;
+
+        Task task = createTaskFromEntry(splitEntry);
+        assert task != null : "task should be set";
+        setTaskIsDoneFromEntry(task, splitEntry);
+        tagTaskFromEntry(task, splitEntry);
+
+        return task;
+    }
+
+    private static Task createTaskFromEntry(String[] splitEntry) {
         String type = splitEntry[0].trim();
 
-        // Create task according to type
         if (type.equals("T")) {
-            task = new ToDo(splitEntry[2].trim());
+            return new ToDo(splitEntry[2].trim());
         } else if (type.equals("D")) {
-            task = new Deadline(splitEntry[2].trim(), splitEntry[3].trim());
+            return new Deadline(splitEntry[2].trim(), splitEntry[3].trim());
         } else if (type.equals("E")) {
-            task = new Event(splitEntry[2].trim(), splitEntry[3].trim(), splitEntry[4].trim());
+            return new Event(splitEntry[2].trim(), splitEntry[3].trim(), splitEntry[4].trim());
         } else {
             return null;
         }
+    }
 
-        assert task != null : "task should be set";
-        // Check if task is done
-        task.setIsDone(splitEntry[1].trim().equals("1"));
+    private static void setTaskIsDoneFromEntry(Task task, String[] splitEntry) {
+        boolean isDone = splitEntry[1].trim().equals("1");
+        task.setIsDone(isDone);
+    }
 
-        return task;
+    private static void tagTaskFromEntry(Task task, String[] splitEntry) {
+        String tags = splitEntry[splitEntry.length - 1].trim();
+        if (tags.length() == 0) {
+            return;
+        }
+
+        String[] tagsList = tags.split(" ");
+        for (String tag : tagsList) {
+            // Remove "#" at the start
+            task.addTag(tag.substring(1));
+        }
     }
 
     private static String parseDate(String date) {

@@ -12,11 +12,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        return String.format("[E]%s (from: %s to: %s) %s", super.toString(), this.from, this.to, super.getTags());
     }
 
     @Override
     public String toTaskListEntry() {
-        return String.format("E | %d | %s | %s | %s", this.getIsDone() ? 1 : 0, this.getName(), this.from, this.to);
+        return String.format("E | %d | %s | %s | %s | %s",
+                this.getIsDone() ? 1 : 0, this.getName(), this.from, this.to, super.getTags());
     }
 }
