@@ -17,6 +17,7 @@ public class IncorrectCommand extends Command {
      * @param messageToUser The error message to be displayed to the user.
      */
     public IncorrectCommand(String messageToUser) {
+        assert messageToUser != null : "error message cannot be null";
         this.messageToUser = messageToUser;
     }
 

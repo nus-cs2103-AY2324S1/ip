@@ -23,6 +23,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in task descriptions.
      */
     public FindCommand(String keyword) {
+        assert keyword != null : "keyword cannot be null";
         this.keyword = keyword;
     }
 

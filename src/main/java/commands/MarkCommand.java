@@ -20,6 +20,7 @@ public class MarkCommand extends Command {
      * @param taskNumber The task number to identify the task to be marked as done.
      */
     public MarkCommand(int taskNumber) {
+        assert taskNumber > 0 : "Task number must be a positive integer";
         this.taskNumber = taskNumber;
     }
 

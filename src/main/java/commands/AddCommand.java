@@ -29,6 +29,7 @@ public class AddCommand extends Command {
      * @param description The description of the ToDo task.
      */
     public AddCommand(String description) {
+        assert description != null : "Description cannot be null";
         this.description = description;
         this.type = "todo";
     }
@@ -40,6 +41,8 @@ public class AddCommand extends Command {
      * @param by          The deadline of the task (date and time).
      */
     public AddCommand(String description, LocalDateTime by) {
+        assert description != null : "Description cannot be null";
+        assert by != null : "Deadline cannot be null";
         this.description = description;
         this.type = "deadline";
         this.to = by;
@@ -53,6 +56,9 @@ public class AddCommand extends Command {
      * @param to          The end date and time of the event.
      */
     public AddCommand(String description, LocalDateTime from, LocalDateTime to) {
+        assert description != null : "Description cannot be null";
+        assert from != null : "Start date and time cannot be null";
+        assert to != null : "End date and time cannot be null";
         this.description = description;
         this.type = "event";
         this.from = from;
