@@ -1,8 +1,10 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import exceptions.IncorrectInputException;
-import exceptions.NoDescriptionException;
+import exceptions.SavedDataFormatException;
+import exceptions.UpdateDataException;
 import tasks.Task;
 
 /**
@@ -23,7 +25,16 @@ public class Veda {
      * @return String containing a welcome message for the user.
      */
     public String initialise() {
-        tasks.load();
+        try {
+            tasks.load();
+        } catch (FileNotFoundException e) {
+            return e.toString();
+        } catch (SavedDataFormatException e) {
+            return e.toString();
+        } catch (StringIndexOutOfBoundsException e) {
+            return "Error in parsing saved data.";
+        }
+
         hasNotRetrieveTask = false;
         return ui.getWelcomeMessage();
     }
@@ -35,79 +46,101 @@ public class Veda {
 
         int method = Parser.parse(input); //Get which commands to perform based on user's input
 
+        return output(method, input.toLowerCase());
+    }
+
+    /**
+     * Returns a message from performing the tasks based on method and input.
+     *
+     * @param method is an integer indicating what actions to perform.
+     * @param input is the user input
+     * @return
+     */
+    private String output(int method, String input) {
+        final String errorInputResponse = ui.getUnrecognisedInputMessage();
+
         switch (method) {
-        case -1:
-            //Unrecognised input
-            return ui.getUnrecognisedInputMessage();
+            case -1:
+                return errorInputResponse;
 
-        case 0:
-            //User wishes to exit the program
-            return ui.getExitMessage();
+            case 0:
+                return ui.getExitMessage();
 
-        case 1:
-            //User wishes to see listed missions
-            return ui.getListOfMissions(tasks.getTasks());
+            case 1:
+                return ui.getListOfMissions(tasks.getTasks());
 
+            case 2:
+                return markTaskAsDone(input);
 
-        case 2:
-            //User wishes to mark task as done
-            try {
-                return tasks.markAsDone(Parser.getTargetIndex(input));
-            } catch (NumberFormatException e) {
-                return "Invalid index! Please ensure you correctly key in your target index.";
-            } catch (NoDescriptionException e) {
-                return e.toString();
-            }
+            case 3:
+                return markTaskAsUndone(input);
 
-        case 3:
-            //User wishes to mark task as undone
-            try {
-                return tasks.markAsUndone(Parser.getTargetIndex(input));
-            } catch (NumberFormatException e) {
-                return "Invalid index! Please ensure you correctly key in your target index.";
-            } catch (NoDescriptionException e) {
-                return e.getMessage();
-            }
+            case 4:
+                return deleteTask(input);
 
-        case 4:
-            //User wishes to delete a task
-            try {
-                Task task = tasks.deleteTask(Parser.getTargetIndex(input));
+            case 5:
+                return addTask(input);
 
-                return "Noted. I have removed the following mission:\n" + task;
-            } catch (NumberFormatException e) {
-                return "Invalid index! Please ensure you correctly key in your target index.";
-            } catch (NoDescriptionException e) {
-                return e.getMessage();
-            } catch (IndexOutOfBoundsException e) {
-                return "Invalid index! Please ensure you correctly key in your target index.";
-            } catch (IOException e) {
-                return "Unable to update file.";
-            }
+            case 6:
+                return getListOfMission(input);
 
-        case 5:
-            //User wishes to add a new task
-            try {
-                return tasks.addTask(Parser.getTask(input));
-            } catch (IncorrectInputException e) {
-                return e.toString();
-            } catch (DateTimeParseException e) {
-                return "Ensure your deadline is of the format {dd/MM/yyyy HHmm}";
-            }
-
-        case 6:
-            //User wishes to find a task by a keyword
-            final String keyword = Parser.getKeyword(input);
-
-            return ui.getListOfMissions(
-                    tasks.findKeyword(keyword),
-                    "Retrieved the following missions containing the keyword \"" + keyword + "\":"
-            );
-
-        default:
-            break;
+            default:
+                return errorInputResponse;
         }
+    }
 
-        return "";
+    private String markTaskAsDone(String input) {
+        try {
+            return tasks.markAsDone(Parser.getTargetIndex(input));
+        } catch (NumberFormatException e) {
+            return "Invalid index! Please ensure you correctly key in your target index.";
+        } catch (IncorrectInputException e) {
+            return e.toString();
+        }
+    }
+
+    private String markTaskAsUndone(String input) {
+        try {
+            return tasks.markAsUndone(Parser.getTargetIndex(input));
+        } catch (NumberFormatException e) {
+            return "Invalid index! Please ensure you correctly key in your target index.";
+        } catch (IncorrectInputException e) {
+            return e.getMessage();
+        }
+    }
+
+    private String deleteTask(String input) {
+        try {
+            Task task = tasks.deleteTask(Parser.getTargetIndex(input));
+
+            return "Noted. I have removed the following mission:\n" + task;
+        } catch (NumberFormatException e) {
+            return "Invalid index! Please ensure you correctly key in your target index.";
+        } catch (IncorrectInputException e) {
+            return e.getMessage();
+        } catch (IndexOutOfBoundsException e) {
+            return "Invalid index! Your target index is within range.";
+        } catch (IOException e) {
+            return "Unable to update file.";
+        } catch (UpdateDataException e) {
+            return e.toString();
+        }
+    }
+
+    private String addTask(String input) {
+        try {
+            return tasks.addTask(Parser.getTask(input));
+        } catch (IncorrectInputException e) {
+            return e.toString();
+        } catch (DateTimeParseException e) {
+            return "Ensure your deadline is of the format {dd/MM/yyyy HHmm}";
+        }
+    }
+
+    private String getListOfMission(String input) {
+        final String keyword = Parser.getKeyword(input);
+        final String message = "Retrieved the following missions containing the keyword \"" + keyword + "\":";
+
+        return ui.getListOfMissions(tasks.findKeyword(keyword), message);
     }
 }
