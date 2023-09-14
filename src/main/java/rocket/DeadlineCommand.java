@@ -3,8 +3,6 @@ package rocket;
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends AddCommand{
-    private String description;
-    private LocalDateTime by;
 
     /**
      * Create deadline command.

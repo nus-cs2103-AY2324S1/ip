@@ -19,18 +19,19 @@ public class Storage {
      * @param filePath path to store the file.
      */
     public Storage (String filePath){
+        // Get FilePath objects from the filePath string
         this.filePath = filePath;
         Path path = Paths.get(filePath);
         Path parent = path.getParent();
         String directoryPath = parent.toString();
 
-        // Make new folder if it doesn't exist
+        // Using FilePath objects, make new folder if it doesn't exist
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
-        // Make new file if it doesn't exist
+        // Using FilePath objects, make new file if it doesn't exist
         File file = new File(filePath);
         if (!file.exists()) {
             try {
@@ -43,7 +44,7 @@ public class Storage {
     }
 
     /**
-     * Load from the storage
+     * Load from the storage a list of strings that represent tasks
      * @return a list of strings.
      */
     public ArrayList<String> load() {
@@ -77,17 +78,6 @@ public class Storage {
     private void writeToFile(String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         fw.write(textToAdd);
-        fw.close();
-    }
-
-    /**
-     * Appends a string to a file
-     * @param textToAppend the text to be appended to the file
-     * @throws IOException occurs when there are problems writing to the file
-     */
-    private void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(this.filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
         fw.close();
     }
 }

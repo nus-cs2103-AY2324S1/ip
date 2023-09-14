@@ -22,9 +22,11 @@ public class MarkCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(taskNumber);
         task.markAsDone();
+
         String response = "";
         response += "    Nice! I've marked this task as done:\n";
         response += "      " + task;
+
         System.out.println(response);
         ui.setLastResponse(response);
     }
