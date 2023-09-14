@@ -3,12 +3,15 @@ package duke.components;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.FilterCommand;
 import duke.command.ModifyCommand;
+import duke.command.TagCommand;
 
 /**
  * Class that parses the user input.
@@ -44,6 +47,10 @@ public class Parser {
                 return parseDeleteCommand(commandInput);
             case "find":
                 return parseFindCommand(commandInput);
+            case "tag":
+                return parseTagCommand(commandInput);
+            case "untag":
+                return parseUntagCommand(commandInput);
             default:
                 throw new DukeException("I'm afraid I do not quite understand. Could you kindly repeat it?");
             }
@@ -75,19 +82,25 @@ public class Parser {
     private static Command parseTodoCommand(String input) {
         String type = "T";
         String[] task = getTask(type, input);
-        return new AddCommand(type, task[0]);
+        ArrayList<String> tags = new ArrayList<>();
+        tags.addAll(Arrays.asList(task[1].split(" ")));
+        return new AddCommand(type, task[0], tags);
     }
 
     private static Command parseDeadlineCommand(String input) throws DukeException {
         String type = "D";
         String[] task = getTask(type, input);
-        return new AddCommand(type, task[0], parseDateTime(task[1]));
+        ArrayList<String> tags = new ArrayList<>();
+        tags.addAll(Arrays.asList(task[2].split(" ")));
+        return new AddCommand(type, task[0], parseDateTime(task[1]), tags);
     }
 
     private static Command parseEventCommand(String input) throws DukeException {
         String type = "E";
         String[] task = getTask(type, input);
-        return new AddCommand(type, task[0], parseDateTime(task[1]), parseDateTime(task[2]));
+        ArrayList<String> tags = new ArrayList<>();
+        tags.addAll(Arrays.asList(task[3].split(" ")));
+        return new AddCommand(type, task[0], parseDateTime(task[1]), parseDateTime(task[2]), tags);
     }
 
     private static Command parseDeleteCommand(String[] commandInput) {
@@ -102,6 +115,26 @@ public class Parser {
         return new FilterCommand(type, keyword);
     }
 
+    private static Command parseTagCommand(String[] commandInput) {
+        String type = "T";
+        int index = Integer.parseInt(commandInput[1]);
+        String [] tags = new String[commandInput.length - 2]; // Trims the command and index.
+        for (int i = 0; i < tags.length; i++) {
+            tags[i] = commandInput[i + 2]; // Shift down by 2 for the command and index
+        }
+        return new TagCommand(type, index, tags);
+    }
+
+    private static Command parseUntagCommand(String[] commandInput) {
+        String type = "U";
+        int index = Integer.parseInt(commandInput[1]);
+        String [] tags = new String[commandInput.length - 2]; // Trims the command and index.
+        for (int i = 0; i < tags.length; i++) {
+            tags[i] = commandInput[i + 2]; // Shift down by 2 for the command and index
+        }
+        return new TagCommand(type, index, tags);
+    }
+
     /**
      * Further parses the input if the command is to add a new task.
      *
@@ -111,16 +144,39 @@ public class Parser {
      */
     public static String[] getTask(String type, String input) {
         switch (type) {
-        case "T":
-            return new String[]{input.substring(5)};
-        case "D":
-            String deadline = input.substring(9);
-            return deadline.split(" /by ");
-        case "E":
+        case "T": {
+            String[] description = input.substring(5).split(" /tag ");
+            String name = description[0];
+            if (description.length == 1) {
+                return new String[]{name, ""};
+            }
+            return description;
+        }
+        case "D": {
+            String[] deadline = input.substring(9).split(" /by ");
+            String name = deadline[0];
+            String[] byTags = deadline[1].split(" /tag ");
+            String by = byTags[0];
+            if (byTags.length == 1) {
+                return new String[]{name, by, ""};
+            }
+            String tags = byTags[1];
+            return new String[]{name, by, tags};
+        }
+        case "E": {
             String details = input.substring(6);
             String[] taskStartEnd = details.split(" /from ");
+            String name = taskStartEnd[0];
             String[] startEnd = taskStartEnd[1].split(" /to ");
-            return new String[]{taskStartEnd[0], startEnd[0], startEnd[1]};
+            String start = startEnd[0];
+            String[] endTags = startEnd[1].split(" /tag ");
+            String end = endTags[0];
+            if (endTags.length == 1) {
+                return new String[]{name, start, end, ""};
+            }
+            String tags = endTags[1];
+            return new String[]{name, start, end, tags};
+        }
         default:
             return new String[]{};
         }

@@ -2,6 +2,7 @@ package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * A subclass of Task. Contains a description, isDone, from and to.
@@ -20,23 +21,11 @@ public class Event extends Task {
      * @param description Name of the Task.
      * @param from Start of the Task.
      * @param to End of the Task.
-     */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    /**
-     * Constructor for the Event class.
-     *
-     * @param description Name of the Task.
-     * @param from Start of the Task.
-     * @param to End of the Task.
      * @param isDone If task is completed.
+     * @param tags List of tags to be added.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
-        super(description, isDone);
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone, ArrayList<String> tags) {
+        super(description, isDone, tags);
         this.from = from;
         this.to = to;
     }

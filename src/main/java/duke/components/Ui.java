@@ -123,4 +123,24 @@ public class Ui {
     public String showFilteredList(String list) {
         return list;
     }
+
+    /**
+     * Prints the task newly added tags.
+     *
+     * @param task Details of the newly added task.
+     * @return Task with newly added Tags a String.
+     */
+    public String showTagsAdded(Task task) {
+        return "Understood, the following task has been updated:\n" + task;
+    }
+
+    /**
+     * Prints the task after removing tags.
+     *
+     * @param task Details of the newly added task.
+     * @return Task with current Tags a String.
+     */
+    public String showTagsRemoved(Task task) {
+        return "Understood, the following task has been updated:\n" + task;
+    }
 }

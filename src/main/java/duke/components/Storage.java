@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -104,17 +105,38 @@ public class Storage {
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
         String taskDescription = parts[2];
+        ArrayList<String> tags = new ArrayList<>();
 
         switch (taskType) {
-        case "T":
-            return new Todo(taskDescription, isDone);
-        case "D":
-            LocalDateTime deadline = Parser.parseDateTime(parts[3]);
-            return new Deadline(taskDescription, deadline, isDone);
-        case "E":
-            LocalDateTime start = Parser.parseDateTime(parts[3]);
-            LocalDateTime end = Parser.parseDateTime(parts[4]);
-            return new Event(taskDescription, start, end, isDone);
+        case "T": {
+            if (parts.length > 3) {
+                String[] tagsList = parts[3].split(" #");
+                tags.addAll(Arrays.asList(tagsList));
+                tags.remove(0);
+            }
+            return new Todo(taskDescription, isDone, tags);
+        }
+        case "D": {
+            int length = parts.length;
+            if (length > 4) {
+                String[] tagsList = parts[3].split(" #");
+                tags.addAll(Arrays.asList(tagsList));
+                tags.remove(0);
+            }
+            LocalDateTime deadline = Parser.parseDateTime(parts[length - 1]);
+            return new Deadline(taskDescription, deadline, isDone, tags);
+        }
+        case "E": {
+            int length = parts.length;
+            if (length > 5) {
+                String[] tagsList = parts[3].split(" #");
+                tags.addAll(Arrays.asList(tagsList));
+                tags.remove(0);
+            }
+            LocalDateTime start = Parser.parseDateTime(parts[length - 2]);
+            LocalDateTime end = Parser.parseDateTime(parts[length - 1]);
+            return new Event(taskDescription, start, end, isDone, tags);
+        }
         default:
             return null; // Invalid task type
         }
