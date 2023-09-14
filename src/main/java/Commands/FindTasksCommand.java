@@ -1,6 +1,5 @@
 package Commands;
 
-import Duke.DukeException;
 import OOP.Storage;
 import OOP.TaskList;
 import OOP.Ui;
@@ -24,9 +23,9 @@ public class FindTasksCommand implements Command {
         List<Task> filteredTasks = tasks.getTasks().stream().filter(t -> t.toString().contains(searchText)).collect(Collectors.toList());
         // get UI to print out the filtered list of tasks
         int i = 0;
-        String res = ui.printFindTaskMessage();
+        String res = ui.getFindTaskMessage();
         for (Task task : filteredTasks) {
-            res += ui.printTask(i, task);
+            res += ui.getTaskString(i, task);
             i++;
         }
         return res;
