@@ -25,6 +25,7 @@ public class Storage {
      * @param filePath The file path for storing tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
     }
 
@@ -91,6 +92,7 @@ public class Storage {
 
         try {
             File file = new File(filePath);
+            assert file.exists() : "File does not exist: " + filePath;
             if (!file.exists()) {
                 // Handling data file to be in a specific folder
                 if (file.getParentFile() != null) {

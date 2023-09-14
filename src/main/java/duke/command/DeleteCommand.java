@@ -20,6 +20,7 @@ public class DeleteCommand extends Command {
      * @param index The index of the task to be deleted.
      */
     public DeleteCommand(int index) {
+        assert index >= 0 : "Index should be non-negative";
         this.index = index;
     }
 
@@ -35,6 +36,10 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null : "Task list cannot be null";
+        assert ui != null : "UI object cannot be null";
+        assert storage != null : "Storage object cannot be null";
+
         try {
             Task taskToDelete = taskList.getTask(index);
             taskList.deleteTask(taskToDelete);
