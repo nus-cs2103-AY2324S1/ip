@@ -83,7 +83,6 @@ public class Parser {
             illegalArgumentResult += "Please use one of the following commands: list, mark, unmark," +
                     " delete, todo, deadline, event, bye";
             return illegalArgumentResult;
-
         } catch (NullPointerException e) {
             String nullPointerResult = "";
             nullPointerResult += "Oh no, you have entered an invalid statement. \n";
