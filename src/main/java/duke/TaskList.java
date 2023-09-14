@@ -8,6 +8,7 @@ import duke.task.Todo;
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class represents a list of tasks and is responsible for changing the task lists for example when
@@ -126,11 +127,28 @@ public class TaskList {
      * @param keyword String representing the keyword to use to filter down the tasks
      * @return ArrayList of tasks that have been filtered down by the keyword
      */
-    public ArrayList<Task> filterTaskByKeyword(String keyword) {
+    public ArrayList<Task> filterTaskByKeyword(String keyword, int limit) {
         ArrayList<Task> result = new ArrayList<>();
+        int keywordLength = keyword.length();
+        int count = 0;
+        HashMap<Task, Boolean> hashMap = new HashMap<>();
         for (Task task : taskList) {
-            if (task.getDescription().contains(keyword)) {
-                result.add(task);
+            hashMap.put(task, false);
+        }
+        for (int i = keywordLength; i > 0; i--) {
+            for (Task task : taskList) {
+                if (task.getDescription().contains(keyword.substring(0, i))) {
+                    if (!hashMap.get(task)) {
+                        result.add(task);
+                        hashMap.replace(task, false, true);
+                        if (i != keywordLength) {
+                            count++;
+                        }
+                        if (count == limit) {
+                            return result;
+                        }
+                    }
+                }
             }
         }
         return result;
