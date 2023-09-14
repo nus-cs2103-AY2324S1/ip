@@ -156,7 +156,7 @@ public class Duke extends Application {
                 String input = ui.getCommand();
 
                 //handle the input from user
-                Command command = Parser.parse(input);
+                Command command = Parser.parse(input.trim());
                 System.out.println(command.execute(tasks, ui, storage));
                 if (command.isExit()) {
                     break;
