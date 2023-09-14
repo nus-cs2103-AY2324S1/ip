@@ -24,6 +24,8 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
 
+        assert filePath != null : "File path cannot be empty";
+
         String directoryPath = this.filePath.substring(0, this.filePath.indexOf("/"));
         String fileName = this.filePath.substring(this.filePath.indexOf("/"));
 
