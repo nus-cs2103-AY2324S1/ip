@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Represents an events task.
  */
-public class Events extends Task{
+public class Event extends Task{
     /**
      * The date of when the event starts.
      */
@@ -24,7 +24,7 @@ public class Events extends Task{
      * @param from The date of when the event starts.
      * @param to The date of when the event ends.
      */
-    public Events(String description, boolean isCompleted, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, boolean isCompleted, LocalDateTime from, LocalDateTime to) {
         super(description, isCompleted);
         this.from = from;
         this.to = to;

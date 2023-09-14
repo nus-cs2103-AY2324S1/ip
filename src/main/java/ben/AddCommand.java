@@ -13,7 +13,6 @@ import java.util.Arrays;
  */
 public class AddCommand extends Command {
     private String command;
-
     private Task task;
 
     /**
@@ -43,7 +42,7 @@ public class AddCommand extends Command {
                 throw new EmptyDescriptionException("Description cannot be empty");
             }
 
-            task = new ToDos(description, false);
+            task = new ToDo(description, false);
             return;
         } else if (words[0].equalsIgnoreCase("deadline")) {
             int positionBy = 0;
@@ -60,18 +59,17 @@ public class AddCommand extends Command {
             }
 
             String description = String.join(" ", Arrays.copyOfRange(words, 1, positionBy));
-
-            if (description.isEmpty()) {
-                throw new EmptyDescriptionException("Description cannot be empty");
-            }
-
             String by = String.join(" ", Arrays.copyOfRange(words, positionBy + 1, words.length));
 
             if (by.isEmpty()) {
                 throw new EmptyDescriptionException("/by cannot be empty");
             }
 
-            task = new Deadlines(description, false, dateTimeParser(by));
+            if (description.isEmpty()) {
+                throw new EmptyDescriptionException("Description cannot be empty");
+            }
+
+            task = new Deadline(description, false, dateTimeParser(by));
             return;
         } else if (words[0].toLowerCase().contains("event")) {
             int positionFrom = 0;
@@ -92,24 +90,22 @@ public class AddCommand extends Command {
             }
 
             String description = String.join(" ", Arrays.copyOfRange(words, 1, positionFrom));
-
-            if (description.isEmpty()) {
-                throw new EmptyDescriptionException("Description cannot be empty");
-            }
-
             String from = String.join(" ", Arrays.copyOfRange(words, positionFrom + 1, positionTo));
-
-            if (from.isEmpty()) {
-                throw new EmptyDescriptionException("/from cannot be empty");
-            }
-
             String to = String.join(" ", Arrays.copyOfRange(words, positionTo + 1, words.length));
 
             if (to.isEmpty()) {
                 throw new EmptyDescriptionException("/to cannot be empty");
             }
 
-            task = new Events(description, false, dateTimeParser(from), dateTimeParser(to));
+            if (from.isEmpty()) {
+                throw new EmptyDescriptionException("/from cannot be empty");
+            }
+
+            if (description.isEmpty()) {
+                throw new EmptyDescriptionException("Description cannot be empty");
+            }
+
+            task = new Event(description, false, dateTimeParser(from), dateTimeParser(to));
             return;
         }
         throw new InvalidCommandException("Oops this Command: " + command + " is not found");

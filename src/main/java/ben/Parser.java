@@ -78,7 +78,7 @@ public class Parser {
                 return new MarkCommand(task);
             } else if ((Objects.equals(command, "delete"))) {
                 return new DeleteCommand(task);
-            } else {
+            } else if (Objects.equals(command, "unmark")) {
                 return new UnmarkCommand(task);
             }
         }

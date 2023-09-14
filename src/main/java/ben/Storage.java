@@ -68,6 +68,7 @@ public class Storage {
      */
     public void loadTasks(TaskList tasks) throws FileNotFoundException {
         Scanner s = new Scanner(f);
+
         while (s.hasNext()) {
             String line = s.nextLine();
             String[] words = line.split("[|]");
@@ -75,14 +76,14 @@ public class Storage {
 
             switch (command.toLowerCase()) {
             case "t":
-                tasks.add(new ToDos(words[2], Boolean.parseBoolean(words[1])), false);
+                tasks.add(new ToDo(words[2], Boolean.parseBoolean(words[1])), false);
                 break;
             case "d":
-                tasks.add(new Deadlines(words[2],
+                tasks.add(new Deadline(words[2],
                         Boolean.parseBoolean(words[1]), dateTimeParse(words[3])), false);
                 break;
             case "e":
-                tasks.add(new Events(words[2],
+                tasks.add(new Event(words[2],
                                 Boolean.parseBoolean(words[1]), dateTimeParse(words[3]), dateTimeParse(words[4])),
                         false);
                 break;
