@@ -67,7 +67,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        if (this.done == true) {
+        if (this.done) {
             return "D | 1 | " + this.title + " | " + this.deadline;
         }
         return "D | 0 | " + this.title + " | " + this.deadline;
@@ -81,7 +81,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String s = String.format("| DUE: %s |", this.deadline);
-        if (this.done == true) {
+        if (this.done) {
             return "[D] " + "[X] " + this.title + " " + s;
         }
         return "[D] " + "[ ] " + this.title + " " + s;
