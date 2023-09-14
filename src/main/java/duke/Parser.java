@@ -21,16 +21,16 @@ public class Parser {
      */
     public Command parse(String command) throws DukeException {
         if (command.contains("bye")) {
-            if (command.trim().length() == 3) {
-                return new ExitCommand();
-            } else {
+            if (command.trim().length() != 3) {
                 throw new DukeException(ErrorMessages.INVALID_INPUT.getMessage() + " 'bye' ?");
+            } else {
+                return new ExitCommand();
             }
         } else if (command.contains("list")){
-            if (command.trim().length() == 4) {
-                return new ListCommand();
-            } else {
+            if (command.trim().length() != 4) {
                 throw new DukeException(ErrorMessages.INVALID_INPUT.getMessage() + " 'list' ?");
+            } else {
+                return new ListCommand();
             }
         } else if (command.contains("delete")) {
             if (command.trim().length() == 6) {
