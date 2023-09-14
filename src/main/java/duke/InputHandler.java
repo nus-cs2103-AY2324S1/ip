@@ -7,12 +7,13 @@ import duke.task.TaskStorage;
 class InputHandler {
     private final Scanner scanner = new Scanner(System.in);
     private final UI.OutputUI outputUI;
-    private final TaskStorage taskStorage = new TaskStorage();
+    private final TaskStorage taskStorage;
 
     private boolean isExit = false;
 
-    public InputHandler(UI.OutputUI outputUI) {
+    public InputHandler(UI.OutputUI outputUI, TaskStorage taskStorage) {
         this.outputUI = outputUI;
+        this.taskStorage = taskStorage;
     }
 
     // TODO: Implement a parser instead of hard coding if-elses here

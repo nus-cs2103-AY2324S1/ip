@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.TaskStorage;
+
 /**
  * The Duke.UI class is the driver that runs the input handler and output handler.
  */
@@ -10,7 +12,7 @@ class UI {
 
     public UI() {
         this.outputUI = new OutputUI();
-        this.inputHandler = new InputHandler(outputUI);
+        this.inputHandler = new InputHandler(outputUI, new TaskStorage());
     }
 
     public void run() {
