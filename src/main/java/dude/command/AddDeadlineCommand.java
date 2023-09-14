@@ -33,16 +33,18 @@ public class AddDeadlineCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "";
         try {
-            System.out.println("Executing Add Deadline Command");
+            output = "Executing Add Deadline Command\n";
             Deadline newTask = new Deadline(taskDescription, byDateTime);
             taskList.addTask(newTask);
             int nTasks = taskList.getSize();
-            ui.showAddedTask(newTask, nTasks);
+            output = output + ui.showAddedTask(newTask, nTasks) +"\n";
             storage.saveTasksToDisk(taskList);
         } catch (IOException e) {
-            System.out.println("Error in Add Deadline Command");
+            output = "Error in Add Deadline Command";
         }
+        return output;
     }
 }

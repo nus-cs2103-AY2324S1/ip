@@ -32,6 +32,17 @@ public class Dude {
     }
 
     /**
+     * Method to generate a response to user input.
+     * Replace with completed method.
+     */
+    public String getResponse(String input) {
+        System.out.println(input);
+        Command c = Parser.parse(input);
+        String output = c.execute(taskList, ui, storage);
+        return output;
+    }
+
+    /**
      * Method that runs the Dude programme.
      */
     public void run() {

@@ -17,8 +17,9 @@ public class ListCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        System.out.println("Listing...");
-        ui.showTaskList(taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "Listing...\n";
+        output = output + ui.showTaskList(taskList);
+        return output;
     }
 }

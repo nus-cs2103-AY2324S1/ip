@@ -25,14 +25,16 @@ public class MarkCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "";
         try {
-            System.out.println("Executing Mark Command");;
+            output = "Executing Mark Command\n";
             Task markedTask = taskList.markTask(taskIndex);
-            ui.showMarkedTask(markedTask);
+            output = output + ui.showMarkedTask(markedTask);
             storage.saveTasksToDisk(taskList);
         } catch (IOException e) {
-            System.out.println("Error in Mark Command");
+            output = "Error in Mark Command\n";
         }
+        return output;
     }
 }

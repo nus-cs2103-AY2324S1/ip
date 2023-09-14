@@ -20,7 +20,8 @@ public class ExitCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showFarewell();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = ui.showFarewell();
+        return output;
     }
 }

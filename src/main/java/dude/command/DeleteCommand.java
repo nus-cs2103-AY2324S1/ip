@@ -25,15 +25,17 @@ public class DeleteCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "";
         try {
-            System.out.println("Executing Delete Command");
+            output = "Executing Delete Command";
             Task deletedTask = taskList.deleteTask(taskIndex);
             int nTasks = taskList.getSize();
-            ui.showDeletedTask(deletedTask, nTasks);
+            output = output + ui.showDeletedTask(deletedTask, nTasks) + "\n";
             storage.saveTasksToDisk(taskList);
         } catch (IOException e) {
-            System.out.println("Error in Delete Command");
+            output = "Error in Delete Command";
         }
+        return output;
     }
 }

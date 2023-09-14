@@ -24,14 +24,16 @@ public class UnmarkCommand extends Command {
      * @param storage Storage containing saved tasks, and saves and loads tasks.
      * @param ui User interface of Dude.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String output = "";
         try {
-            System.out.println("Executing Unmark Command");;
+            output = "Executing Unmark Command\n";
             Task unmarkedTask = taskList.unmarkTask(taskIndex);
-            ui.showUnmarkedTask(unmarkedTask);
+            output = output + ui.showUnmarkedTask(unmarkedTask);
             storage.saveTasksToDisk(taskList);
         } catch (IOException e) {
-            System.out.println("Error in Unmark Command");
+            output = "Error in Unmark Command";
         }
+        return output;
     }
 }
