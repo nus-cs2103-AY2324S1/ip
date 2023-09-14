@@ -2,6 +2,7 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Encapsulates different types of tasks that have a name and whether it is done.
@@ -9,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     private String name;
     private boolean isDone;
+    private ArrayList<String> tags = new ArrayList<>();
 
     public Task(String name) {
         this.name = name;
@@ -25,6 +27,23 @@ public abstract class Task {
 
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    /**
+     * Returns all tags as a string of tags
+     * @return string of tags in form #tag1 #tag2
+     */
+    public String getTags() {
+        StringBuilder tagsString = new StringBuilder();
+        for (int i = 0; i < tags.size(); i++) {
+            tagsString.append("#" + tags.get(i) + " ");
+        }
+
+        return tagsString.toString();
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
     }
 
     /**

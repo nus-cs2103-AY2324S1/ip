@@ -96,6 +96,19 @@ public class TaskList {
 
         return output.toString();
     }
+
+    /**
+     * Adds tag to task at given index
+     * @param index Index of task to be tagged
+     * @param tag 1 word string that task is tagged with
+     * @return string output on task that was tagged
+     */
+    public String tagTask(int index, String tag) {
+        Task t = tasks.get(index);
+        t.addTag(tag);
+        return "Noted. I've tagged this task: " + t.toString();
+    }
+
     /**
      * Outputs all tasks in the list
      * @return string output of all tasks in the list
