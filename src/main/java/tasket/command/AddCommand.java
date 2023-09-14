@@ -55,12 +55,12 @@ public class AddCommand extends Command {
     }
 
     private Task createDeadlineTask(String prompt) throws TasketException {
-        if(prompt.isEmpty()) {
+        if (prompt.isEmpty()) {
             throw new TasketException("The description of deadline cannot be empty");
         }
 
         String[] arguments = prompt.replaceAll("/by", "|").split(" \\| ");
-        if(arguments.length < 2) {
+        if (arguments.length < 2) {
             throw new TasketException("The deadline cannot be empty");
         }
 
@@ -68,7 +68,7 @@ public class AddCommand extends Command {
     }
 
     private Task createEventTask(String prompt) throws TasketException {
-        if(prompt.isEmpty()) {
+        if (prompt.isEmpty()) {
             throw new TasketException("The description of event cannot be empty");
         }
 
