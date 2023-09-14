@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 /**
  * The ChadBod class represents a task management application.
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class ChadBod {
     private static final String FILE_PATH = "./data/tasks.txt";
     private static final int TASKLIST_DISPLAY_OFFSET = 1;
@@ -32,6 +33,7 @@ public class ChadBod {
     public ChadBod() {
         this(FILE_PATH);
     }
+
     /**
      * Constructs a ChadBod instance using the given filepath.
      *
@@ -48,6 +50,7 @@ public class ChadBod {
             tasks = new TaskList();
         }
     }
+
     /**
      * Parses the given user input, runs it if it is a valid command and generates a response string.
      *
@@ -61,55 +64,31 @@ public class ChadBod {
             String details = parsedCommand.getDetails();
             switch (parsedCommand.getCommand()) {
             case BYE:
-                outcome = ui.displayFarewell();
+                outcome = handleBye();
                 break;
             case LIST:
-                outcome = ui.displayTasks(tasks);
+                outcome = handleList();
                 break;
             case MARK:
-                int markTaskNumber = getTaskNumber(details);
-                Task markedTask = tasks.getTask(markTaskNumber);
-                storage.saveTasks(tasks);
-                markedTask.markDone();
-                outcome = ui.displayStatusUpdate(true, markedTask);
+                outcome = updateStatus(true, details);
                 break;
             case UNMARK:
-                int unmarkTaskNumber = getTaskNumber(details);
-                Task unmarkedTask = tasks.getTask(unmarkTaskNumber);
-                unmarkedTask.markUndone();
-                storage.saveTasks(tasks);
-                outcome = ui.displayStatusUpdate(false, unmarkedTask);
+                outcome = updateStatus(false, details);
                 break;
             case TODO:
-                if (details.isEmpty()) {
-                    throw new InvalidTaskException("Description of todo cannot be empty.");
-                }
-                Todo newTodo = new Todo(details);
-                tasks.addTask(newTodo);
-                storage.saveTasks(tasks);
-                outcome = ui.displayTaskAddedMessage(newTodo, tasks.getTaskCount());
+                outcome = createTodo(details);
                 break;
             case DEADLINE:
-                Deadline newDeadline = createDeadline(details);
-                tasks.addTask(newDeadline);
-                storage.saveTasks(tasks);
-                outcome = ui.displayTaskAddedMessage(newDeadline, tasks.getTaskCount());
+                outcome = createDeadline(details);
                 break;
             case EVENT:
-                Event newEvent = createEvent(details);
-                tasks.addTask(newEvent);
-                storage.saveTasks(tasks);
-                outcome = ui.displayTaskAddedMessage(newEvent, tasks.getTaskCount());
+                outcome = createEvent(details);
                 break;
             case DELETE:
-                int taskNumber = getTaskNumber(details);
-                Task removedTask = tasks.removeTask(taskNumber);
-                storage.saveTasks(tasks);
-                outcome = ui.displayTaskRemovedMessage(removedTask, tasks.getTaskCount());
+                outcome = deleteTask(details);
                 break;
             case FIND:
-                TaskList matchingTasks = tasks.findTasksByKeyword(details);
-                outcome = ui.displayTasks(matchingTasks);
+                outcome = findTask(details);
                 break;
             default:
                 throw new InvalidInputException();
@@ -123,15 +102,40 @@ public class ChadBod {
     }
 
     private int getTaskNumber(String details) throws NumberFormatException, TaskIndexOutOfBoundsException {
-        int unmarkTaskNumber = Integer.parseInt(details);
-        if (unmarkTaskNumber < ChadBod.TASKLIST_DISPLAY_OFFSET
-                || unmarkTaskNumber > tasks.getTaskCount() - 1 + TASKLIST_DISPLAY_OFFSET) {
+        int taskNumber = Integer.parseInt(details);
+        boolean isValidTaskNumber = (taskNumber > TASKLIST_DISPLAY_OFFSET) && (taskNumber < tasks.getTaskCount());
+        if (!isValidTaskNumber) {
             throw new TaskIndexOutOfBoundsException();
         }
-        return unmarkTaskNumber - TASKLIST_DISPLAY_OFFSET;
+        return taskNumber - TASKLIST_DISPLAY_OFFSET;
     }
-
-    private static Deadline createDeadline(String details) throws InvalidTaskException {
+    private String handleBye() {
+        return ui.displayFarewell();
+    }
+    private String handleList() {
+        return ui.displayTasks(tasks);
+    }
+    private String updateStatus(boolean markDone, String details) throws ChadBodException {
+        int taskNumber = getTaskNumber(details);
+        Task task = tasks.getTask(taskNumber);
+        if (markDone) {
+            task.markDone();
+        } else {
+            task.markUndone();
+        }
+        storage.saveTasks(tasks);
+        return ui.displayStatusUpdate(markDone, task);
+    }
+    private String createTodo(String details) throws ChadBodException {
+        if (details.isEmpty()) {
+            throw new InvalidTaskException("Description of todo cannot be empty.");
+        }
+        Todo newTodo = new Todo(details);
+        tasks.addTask(newTodo);
+        storage.saveTasks(tasks);
+        return ui.displayTaskAddedMessage(newTodo, tasks.getTaskCount());
+    }
+    private String createDeadline(String details) throws ChadBodException {
         if (details.isEmpty()) {
             throw new InvalidTaskException("Description of deadline cannot be empty.");
         }
@@ -145,17 +149,20 @@ public class ChadBod {
         } catch (DateTimeParseException e) {
             throw new InvalidTaskException("Deadline due date/time not in ISO format (e.g. 2007-12-03T10:15:30).");
         }
-        return new Deadline(deadlineDetails[0], byDate);
+        Deadline newDeadline = new Deadline(deadlineDetails[0], byDate);
+        tasks.addTask(newDeadline);
+        storage.saveTasks(tasks);
+        return ui.displayTaskAddedMessage(newDeadline, tasks.getTaskCount());
     }
 
     /**
-     * Creates an Event task from the given details.
-     *
-     * @param details the input details containing the event information.
-     * @return the created Event task.
-     * @throws InvalidTaskException if the details are invalid.
+     * Creates a new Event task with the provided task details, adds it to the task list and
+     * saves the updated task list to storage.
+     * @param details The details of the event task, including its description, start and end timings.
+     * @return A message indicating the event task has been successfully added to the list.
+     * @throws ChadBodException if the provided details are invalid or updated task list cannot be saved.
      */
-    public static Event createEvent(String details) throws InvalidTaskException {
+    protected String createEvent(String details) throws ChadBodException {
         if (details.isEmpty()) {
             throw new InvalidTaskException("Description of event cannot be empty.");
         }
@@ -175,6 +182,19 @@ public class ChadBod {
         } catch (DateTimeParseException e) {
             throw new InvalidTaskException("Deadline due date/time not in ISO format (e.g. 2007-12-03T10:15:30).");
         }
-        return new Event(eventDetails[0], fromDate, toDate);
+        Event newEvent = new Event(eventDetails[0], fromDate, toDate);
+        tasks.addTask(newEvent);
+        storage.saveTasks(tasks);
+        return ui.displayTaskAddedMessage(newEvent, tasks.getTaskCount());
+    }
+    private String deleteTask(String details) throws ChadBodException {
+        int taskNumber = getTaskNumber(details);
+        Task removedTask = tasks.removeTask(taskNumber);
+        storage.saveTasks(tasks);
+        return ui.displayTaskRemovedMessage(removedTask, tasks.getTaskCount());
+    }
+    private String findTask(String details) {
+        TaskList matchingTasks = tasks.findTasksByKeyword(details);
+        return ui.displayTasks(matchingTasks);
     }
 }

@@ -12,9 +12,8 @@ import javafx.stage.Stage;
  * A GUI for ChadBod using FXML.
  */
 public class Main extends Application {
-
     private static final String MAIN_WINDOW_FXML = "/view/MainWindow.fxml";
-    private ChadBod chadBod = new ChadBod();
+    private ChadBod chadbod = new ChadBod();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setChadBod(chadBod);
+            fxmlLoader.<MainWindow>getController().setChadBod(chadbod);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
