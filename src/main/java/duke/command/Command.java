@@ -22,5 +22,7 @@ public abstract class Command {
      * Returns if app should quit after executing this command.
      * @return true if user inputs "bye", false otherwise
      */
-    public abstract boolean isExit();
+    public boolean isExit() {
+        return false;
+    }
 }

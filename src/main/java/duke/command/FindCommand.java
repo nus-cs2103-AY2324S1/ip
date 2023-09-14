@@ -11,9 +11,6 @@ public class FindCommand extends Command {
     public FindCommand(String word) {
         this.word = word;
     }
-    public boolean isExit() {
-        return false;
-    }
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {

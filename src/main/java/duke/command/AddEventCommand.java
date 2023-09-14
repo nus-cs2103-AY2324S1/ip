@@ -17,9 +17,6 @@ public class AddEventCommand extends Command {
         this.from = from;
         this.to = to;
     }
-    public boolean isExit() {
-        return false;
-    }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

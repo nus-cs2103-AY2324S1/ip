@@ -11,9 +11,6 @@ public class AddToDoCommand extends Command {
     public AddToDoCommand(String description) {
         this.description = description;
     }
-    public boolean isExit() {
-        return false;
-    }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

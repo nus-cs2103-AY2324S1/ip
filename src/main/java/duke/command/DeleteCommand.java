@@ -10,9 +10,6 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
-    public boolean isExit() {
-        return false;
-    }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {

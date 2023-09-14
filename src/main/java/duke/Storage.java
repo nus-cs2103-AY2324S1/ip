@@ -56,7 +56,7 @@ public class Storage {
             FileWriter fw = new FileWriter(this.filePath);
             assert (fw != null) : "Filewriter should not be null";
             for (String t: inputList) {
-                fw.write(t.strip()+"\n");
+                fw.write(t.strip() + "\n");
             }
             fw.close();
         } catch (IOException e) {
