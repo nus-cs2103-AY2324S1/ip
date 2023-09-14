@@ -13,13 +13,6 @@ public class Deadline extends Task {
     protected String type = "linus.task.Deadline";
     protected LocalDate by = null;
 
-    private void setDate(String by) throws LinusException {
-        try {
-            this.by = LocalDate.parse(by);
-        } catch (DateTimeParseException e) {
-            throw new LinusException("☹ OOPS!!! Please specify the deadline in the correct format: yyyy-mm-dd");
-        }
-    }
     /**
      * Constructs a Deadline object with the specified description and deadline.
      *
@@ -30,6 +23,19 @@ public class Deadline extends Task {
     public Deadline(String description, String by) throws LinusException {
         super(description);
         setDate(by);
+    }
+
+    /**
+     * Sets the deadline of the task.
+     * @param by
+     * @throws LinusException
+     */
+    private void setDate(String by) throws LinusException {
+        try {
+            this.by = LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+            throw new LinusException("☹ OOPS!!! Please specify the deadline in the correct format: yyyy-mm-dd");
+        }
     }
 
     /**

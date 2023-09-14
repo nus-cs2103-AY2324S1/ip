@@ -14,6 +14,25 @@ public class Event extends Task {
     protected LocalDate from = null;
     protected LocalDate to = null;
 
+    /**
+     * Constructs an Event object with the specified description, start date and end date.
+     *
+     * @param description The description of the event.
+     * @param from        The start date of the event.
+     * @param to          The end date of the event.
+     * @throws LinusException
+     */
+    public Event(String description, String from, String to) throws LinusException {
+        super(description);
+        setDate(from, to);
+    }
+
+    /**
+     * Sets the start date and end date of the event.
+     * @param from
+     * @param to
+     * @throws LinusException
+     */
     private void setDate(String from, String to) throws LinusException {
         try {
             LocalDate parsedFromDate = LocalDate.parse(from);
@@ -34,18 +53,6 @@ public class Event extends Task {
             );
         }
 
-    }
-    /**
-     * Constructs an Event object with the specified description, start date and end date.
-     *
-     * @param description The description of the event.
-     * @param from        The start date of the event.
-     * @param to          The end date of the event.
-     * @throws LinusException
-     */
-    public Event(String description, String from, String to) throws LinusException {
-        super(description);
-        setDate(from, to);
     }
 
     /**

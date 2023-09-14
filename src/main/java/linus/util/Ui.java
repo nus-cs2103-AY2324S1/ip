@@ -104,7 +104,7 @@ public class Ui {
      * @param message The message to be printed before printing the list.
      */
     public void printList(List<Task> tasks, String message) {
-        if(tasks.size() == 0) {
+        if (tasks.size() == 0) {
             addToOutput("There are no tasks in your list.\n");
             return;
         }
