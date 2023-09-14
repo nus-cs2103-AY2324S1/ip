@@ -47,9 +47,6 @@ test {
     }
 }
 
-mainClassName = 'duke.MeowBot'
-
-
 application {
     mainClass.set("duke.MeowBot")
 }
