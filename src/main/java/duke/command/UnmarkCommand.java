@@ -11,6 +11,7 @@ import duke.storage.Storage;
 public class UnmarkCommand extends ModifyTaskCommand {
 
     public static final String COMMAND_WORD = "unmark";
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Marks the given task as not done yet.";
     private static final String COMMAND_RESPONSE = "Nice! I've marked this task as not done yet:\n\t";
 
     public UnmarkCommand(String taskIndex) {
@@ -23,4 +24,5 @@ public class UnmarkCommand extends ModifyTaskCommand {
         storage.save(tasks);
         return COMMAND_RESPONSE + task;
     }
+
 }

@@ -14,6 +14,8 @@ public class AddDeadlineCommand extends AddTaskCommand {
 
     public static final String COMMAND_WORD = "deadline";
 
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Adds a new deadline.";
+
     /**
      * Returns an instance of {@code AddDeadlineCommand} with the given description, by dates.
      * If there is an error in parsing the date, throws a {@code DukeException}.
@@ -29,4 +31,5 @@ public class AddDeadlineCommand extends AddTaskCommand {
             throw new InvalidDateException();
         }
     }
+
 }

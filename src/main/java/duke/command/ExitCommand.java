@@ -9,10 +9,12 @@ import duke.storage.Storage;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";
+    public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Exits the chatbot.";
     private static final String COMMAND_RESPONSE = "Bye. Hope to see you again soon!";
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
         return COMMAND_RESPONSE;
     }
+
 }
