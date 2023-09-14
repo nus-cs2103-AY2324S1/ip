@@ -31,7 +31,7 @@ jobs:
           java-package: jdk+fx
 
       - name: Build and check with Gradle
-        run: ./gradlew check
+        run: chmod +x ./gradlew check
 
       - name: Perform IO redirection test (Windows)
         if: always() && runner.os == 'Windows'
