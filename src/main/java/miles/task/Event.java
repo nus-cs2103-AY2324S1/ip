@@ -56,12 +56,12 @@ public class Event extends Task {
         String[] eventParts = withoutCommand.split("/from");
         if (eventParts.length == 1) {
             throw new MilesException("Invalid event format: missing /from");
-        } 
+        }
 
         if (checkAllWhiteSpace(eventParts[0])) {
             throw new MilesException(noDescErrorMsg);
         }
-        
+
         // need to split the 2nd element as it contains both the start and end time
         String timePart = eventParts[1];
         String[] timeParts = timePart.split("/to");
@@ -98,7 +98,7 @@ public class Event extends Task {
      */
     public String getStartTime(String taskString) throws MilesException {
         String[] strings = splitEventString(taskString);
-        assert strings.length == 3: "The array should have 3 elements.";
+        assert strings.length == 3 : "The array should have 3 elements.";
         String startTime = strings[1];
 
         if (checkAllWhiteSpace(startTime)) {

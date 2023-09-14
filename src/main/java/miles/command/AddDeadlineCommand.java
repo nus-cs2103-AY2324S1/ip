@@ -6,6 +6,9 @@ import miles.TaskList;
 import miles.Ui;
 import miles.task.Deadline;
 
+/**
+ * Represents an add deadline command.
+ */
 public class AddDeadlineCommand extends Command {
     private String input;
 
