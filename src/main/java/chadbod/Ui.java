@@ -33,6 +33,7 @@ public class Ui {
      * @param task The task for which the status update message is generated.
      */
     public String displayStatusUpdate(Boolean done, Task task) {
+        assert task != null : "No task given to displayStatusUpdate method.";
         if (done) {
             StringBuilder s = new StringBuilder("Nice! I've marked this task as done:\n");
             s.append(task).append("\n");
@@ -49,6 +50,7 @@ public class Ui {
      * @param taskCount The total number of tasks in the list after adding the new task.
      */
     public String displayTaskAddedMessage(Task newTask, int taskCount) {
+        assert newTask != null : "No task given to displayTaskAddedMessage method.";
         StringBuilder s = new StringBuilder("Got it. I've added this task:\n");
         s.append(newTask).append("\n");
         s.append("Now you have ").append(taskCount).append(" tasks in the list.\n");
@@ -62,6 +64,7 @@ public class Ui {
      * @param taskCount   The total number of tasks in the list after removing the task.
      */
     public String displayTaskRemovedMessage(Task removedTask, int taskCount) {
+        assert removedTask != null : "No task given to displayTaskRemovedMessage method.";
         StringBuilder s = new StringBuilder("Noted. I've removed this task:\n");
         s.append(removedTask).append("\n");
         s.append("Now you have ").append(taskCount).append(" tasks in the list.\n");
