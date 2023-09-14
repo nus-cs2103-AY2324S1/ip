@@ -12,7 +12,6 @@ public class FindCommand extends Command {
 
     /**
      * Constructor to create a new delete command.
-     * 
      * @param keyword the keyword to find
      */
     public FindCommand(String keyword) {
@@ -21,7 +20,6 @@ public class FindCommand extends Command {
 
     /**
      * Extract the keyword from the input string when the command is a "find".
-     * 
      * @param input the input string
      * @return      the keyword to find
      */

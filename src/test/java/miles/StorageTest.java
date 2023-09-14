@@ -1,13 +1,13 @@
 package miles;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import miles.task.Deadline;
 import miles.task.Event;
 import miles.task.Task;
 import miles.task.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test 

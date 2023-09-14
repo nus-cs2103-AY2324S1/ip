@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import miles.MilesException;
-import miles.Ui;
 
 /**
  * Represents a general task.
@@ -81,7 +80,7 @@ public abstract class Task {
             return LocalDateTime.parse(s, formatter);
         } catch (DateTimeParseException e) {
             throw new MilesException("Please input a date and time in the following format: yyyy-MM-dd HHmm");
-        } 
+        }
     }
 
     /**
