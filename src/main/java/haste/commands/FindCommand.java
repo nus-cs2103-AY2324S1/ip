@@ -27,6 +27,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui) {
         TaskList filteredTasks = tasks.filterTasks(this.keyword);
+
         return ui.printList(filteredTasks);
     }
 }

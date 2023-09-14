@@ -78,6 +78,7 @@ public class TaskList {
         }
         // change num of tasks back to original task size
         TaskList.numOfTasks = this.taskList.size();
+
         return filteredTasks;
     }
 

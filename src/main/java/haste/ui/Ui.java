@@ -19,9 +19,11 @@ public class Ui {
         //System.out.println(INDENT + LINE);
         StringBuilder output = new StringBuilder();
         String[] lines = input.split("\n");
+
         for (String line : lines) {
             output.append(INDENT).append(line).append("\n");
         }
+
         return output.toString();
 
     }
@@ -52,9 +54,11 @@ public class Ui {
 
     public String printList(TaskList tasks) {
         StringBuilder listOfTasks = new StringBuilder();
+
         for (Task x : tasks.getTasks()) {
             listOfTasks.append(INDENT).append(tasks.getTasks().indexOf(x) + 1).append(". ").append(x).append("\n");
         }
+
         return listOfTasks.toString();
     }
 
