@@ -12,8 +12,8 @@ public class DeadlineTest {
     @Test
     public void toString_validDate_success() {
         try {
-            Task deadline = new Deadline("read", "2024-04-04");
-            assertEquals("[D][ ] read (by: Apr. 4 2024)", deadline.toString());
+            Task deadline = new Deadline("read", "2024-05-05");
+            assertEquals("[D][ ] read (by: May 5 2024)", deadline.toString());
         } catch (DateTimeParseException e) {
             fail();
         }
