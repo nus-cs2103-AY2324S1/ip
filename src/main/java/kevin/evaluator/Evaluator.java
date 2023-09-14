@@ -1,14 +1,14 @@
 package kevin.evaluator;
 
-import kevin.ui.Logger;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import kevin.exception.KevinException;
 import kevin.parser.Command;
 import kevin.parser.QueryObject;
 import kevin.storage.FileStorage;
-import kevin.taskList.TaskList;
-import kevin.exception.KevinException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import kevin.tasklist.TaskList;
+import kevin.ui.Logger;
 
 @FunctionalInterface
 interface FiveParameterFunction<T, U, V, W, X, R> {
@@ -19,14 +19,10 @@ interface FiveParameterFunction<T, U, V, W, X, R> {
  * A class that handles which function to call based on a specific command.
  */
 public class Evaluator {
-    private TaskList taskList;
-    private Logger logger;
-    private FileStorage fileStorage;
-
-    private static HashMap<Command, FiveParameterFunction<TaskList, ArrayList<String>, Logger, FileStorage, Boolean, Boolean>> MAPPER =
+    private static final HashMap<Command, FiveParameterFunction<TaskList, ArrayList<String>,
+            Logger, FileStorage, Boolean, Boolean>> MAPPER =
             new HashMap<>();
-    static
-    {
+    static {
         MAPPER.put(Command.BYE, (t, a, l, f, i) -> new ByeStrategy(t, a).evaluate(l, f, i));
         MAPPER.put(Command.LIST, (t, a, l, f, i) -> new ListStrategy(t, a).evaluate(l, f, i));
         MAPPER.put(Command.MARK, (t, a, l, f, i) -> new MarkStrategy(t, a).evaluate(l, f, i));
@@ -37,6 +33,9 @@ public class Evaluator {
         MAPPER.put(Command.DELETE, (t, a, l, f, i) -> new DeleteStrategy(t, a).evaluate(l, f, i));
         MAPPER.put(Command.FIND, (t, a, l, f, i) -> new FindStrategy(t, a).evaluate(l, f, i));
     }
+    private final TaskList taskList;
+    private final Logger logger;
+    private final FileStorage fileStorage;
 
     /**
      * Constructor to initialize Evaluator.
@@ -51,7 +50,6 @@ public class Evaluator {
     }
 
     /**
-     *
      * @param queryObject This is the QueryObject that contains the command and the arguments.
      * @param isInFile This is the boolean to show whether the task is in the local computer's file.
      * @return Returns a boolean that determines the continuation of the evaluation.

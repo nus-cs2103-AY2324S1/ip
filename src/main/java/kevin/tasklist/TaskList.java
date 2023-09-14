@@ -1,4 +1,4 @@
-package kevin.taskList;
+package kevin.tasklist;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -63,10 +63,10 @@ public class TaskList {
         listOutput.append("Here are the tasks in your list: ");
 
         for (int i = 0; i < this.taskList.size(); i++) {
-            listOutput.append("\n\t").
-                    append((i + 1)).
-                    append(".").
-                    append(this.taskList.get(i));
+            listOutput.append("\n\t")
+                    .append((i + 1))
+                    .append(".")
+                    .append(this.taskList.get(i));
         }
 
         return listOutput.toString();
@@ -122,10 +122,10 @@ public class TaskList {
 
         for (int i = 0; i < this.taskList.size(); i++) {
             if (this.taskList.get(i).toString().contains(keyword)) {
-                listOutput.append("\n\t").
-                        append((number)).
-                        append(".").
-                        append(this.taskList.get(i));
+                listOutput.append("\n\t")
+                        .append((number))
+                        .append(".")
+                        .append(this.taskList.get(i));
                 number += 1;
             }
         }

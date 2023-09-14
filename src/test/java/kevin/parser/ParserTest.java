@@ -1,9 +1,10 @@
 package kevin.parser;
 
-import kevin.exception.KevinException;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import kevin.exception.KevinException;
 
 public class ParserTest {
     @Test

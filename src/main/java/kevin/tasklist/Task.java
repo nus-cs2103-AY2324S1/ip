@@ -1,4 +1,4 @@
-package kevin.taskList;
+package kevin.tasklist;
 
 /**
  * A class to represent the Task.
@@ -50,7 +50,7 @@ public class Task {
      * Returns a string representation of the Task Object to be written to the file.
      */
     public String toText() {
-        return "Task - "  + isDone + " - " + name + System.lineSeparator();
+        return "Task - " + isDone + " - " + name + System.lineSeparator();
     }
 
     /**

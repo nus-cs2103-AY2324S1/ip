@@ -1,20 +1,20 @@
 package kevin.storage;
 
-import kevin.taskList.Task;
-import kevin.taskList.ToDo;
-import kevin.taskList.Event;
-import kevin.taskList.Deadline;
-import kevin.exception.KevinException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import kevin.exception.KevinException;
+import kevin.tasklist.Deadline;
+import kevin.tasklist.Event;
+import kevin.tasklist.Task;
+import kevin.tasklist.ToDo;
 
 /**
  * A class that is responsible to write to kevin.txt.
  */
 public class FileStorage {
-    private final Storage storage;
     public static final String FILE_LOCATION = "./data/kevin.txt";
+    private final Storage storage;
 
     /**
      * Constructor to initialize FileStorage.
@@ -37,7 +37,7 @@ public class FileStorage {
      * @throws KevinException On the detection of errors.
      */
     public void addToDo(ToDo newToDo) throws KevinException {
-       storage.appendFile(FILE_LOCATION, newToDo.toText());
+        storage.appendFile(FILE_LOCATION, newToDo.toText());
     }
 
     /**

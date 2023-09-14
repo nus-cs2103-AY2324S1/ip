@@ -1,15 +1,15 @@
 package kevin.evaluator;
 
-import kevin.ui.Logger;
-import kevin.storage.FileStorage;
-import kevin.taskList.TaskList;
-import kevin.taskList.Deadline;
-import kevin.exception.KevinException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import kevin.exception.KevinException;
+import kevin.storage.FileStorage;
+import kevin.tasklist.Deadline;
+import kevin.tasklist.TaskList;
+import kevin.ui.Logger;
 
 /**
  * A class responsible for the logic for DEADLINE command.
@@ -48,8 +48,11 @@ public class DeadlineStrategy extends BaseStrategy {
 
             Deadline newDeadline = taskList.addDeadline(isDone, name, deadlineDate);
             fileStorage.addDeadline(newDeadline);
-            logger.log("Got it. I've added this task: \n\t\t" + newDeadline +
-                    "\n\tNow you have " + taskList.size() + " tasks in the list.");
+            logger.log(new StringBuilder().append("Got it. I've added this task: \n\t\t")
+                    .append(newDeadline).append("\n\tNow you have ")
+                    .append(taskList.size())
+                    .append(" tasks in the list.")
+                    .toString());
         } else {
             LocalDateTime deadlineDate;
             try {

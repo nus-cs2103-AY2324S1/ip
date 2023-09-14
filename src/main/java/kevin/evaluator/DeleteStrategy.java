@@ -1,12 +1,12 @@
 package kevin.evaluator;
 
-import kevin.ui.Logger;
-import kevin.storage.FileStorage;
-import kevin.taskList.TaskList;
-import kevin.taskList.Task;
-import kevin.exception.KevinException;
-
 import java.util.ArrayList;
+
+import kevin.exception.KevinException;
+import kevin.storage.FileStorage;
+import kevin.tasklist.Task;
+import kevin.tasklist.TaskList;
+import kevin.ui.Logger;
 
 /**
  * A class responsible for the logic for DELETE command.
@@ -37,9 +37,8 @@ public class DeleteStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.deleteTask(index);
-            logger.log("Noted. I've removed this task: \n\t\t" +
-                    deletedTask +
-                    "\n\tNow you have " + this.taskList.size() + " tasks in the list.");
+            logger.log(String.format("Noted. I've removed this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
+                    deletedTask, this.taskList.size()));
         }
 
         return true;

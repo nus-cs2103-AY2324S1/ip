@@ -1,12 +1,14 @@
 package kevin.evaluator;
 
-import kevin.ui.Logger;
-import kevin.storage.FileStorage;
-import kevin.taskList.TaskList;
-import kevin.taskList.Event;
-import kevin.exception.KevinException;
-
 import java.util.ArrayList;
+
+import kevin.exception.KevinException;
+import kevin.storage.FileStorage;
+import kevin.tasklist.Event;
+import kevin.tasklist.TaskList;
+import kevin.ui.Logger;
+
+
 
 /**
  * A class responsible for the logic for EVENT command.
@@ -40,8 +42,8 @@ public class EventStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.addEvent(newEvent);
-            logger.log("Got it. I've added this task: \n\t\t" + newEvent +
-                    "\n\tNow you have " + taskList.size() + " tasks in the list.");
+            logger.log(String.format("Got it. I've added this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
+                    newEvent, taskList.size()));
         }
 
         return true;

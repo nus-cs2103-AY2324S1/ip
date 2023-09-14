@@ -1,12 +1,12 @@
 package kevin.evaluator;
 
-import kevin.ui.Logger;
-import kevin.storage.FileStorage;
-import kevin.taskList.TaskList;
-import kevin.taskList.ToDo;
-import kevin.exception.KevinException;
-
 import java.util.ArrayList;
+
+import kevin.exception.KevinException;
+import kevin.storage.FileStorage;
+import kevin.tasklist.TaskList;
+import kevin.tasklist.ToDo;
+import kevin.ui.Logger;
 
 /**
  * A class responsible for the logic for TODO command.
@@ -38,8 +38,8 @@ public class ToDoStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.addToDo(newToDo);
-            logger.log("Got it. I've added this task: \n\t\t" + newToDo +
-                    "\n\tNow you have " + this.taskList.size() + " tasks in the list.");
+            logger.log(String.format("Got it. I've added this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
+                    newToDo, this.taskList.size()));
         }
 
         return true;

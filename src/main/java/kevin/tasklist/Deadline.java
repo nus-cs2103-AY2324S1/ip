@@ -1,4 +1,4 @@
-package kevin.taskList;
+package kevin.tasklist;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +33,7 @@ public class Deadline extends Task {
      * Returns a string representation of the Deadline Object to be written to the file.
      */
     public String toText() {
-        return "Deadline - "  + isDone + " - " + name + " - " + deadline + System.lineSeparator();
+        return "Deadline - " + isDone + " - " + name + " - " + deadline + System.lineSeparator();
     }
 
     /**

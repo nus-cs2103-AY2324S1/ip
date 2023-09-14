@@ -1,13 +1,13 @@
 package kevin.storage;
 
-import kevin.exception.KevinException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import kevin.exception.KevinException;
 
 /**
  * A class that is responsible for file input output.
@@ -89,7 +89,7 @@ public class Storage {
      * @return Returns a String of the file content.
      * @throws KevinException On the detection of errors.
      */
-    public String readFile(String fileLocation) throws  KevinException {
+    public String readFile(String fileLocation) throws KevinException {
         try {
             String data = "";
             data = new String(Files.readAllBytes(Paths.get(fileLocation)));

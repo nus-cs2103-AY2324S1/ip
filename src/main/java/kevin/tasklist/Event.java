@@ -1,9 +1,9 @@
-package kevin.taskList;
+package kevin.tasklist;
 
 /**
  * A class to represent the Event Task.
  */
-public class Event extends Task{
+public class Event extends Task {
     private final String startTime;
     private final String endTime;
 
@@ -24,7 +24,7 @@ public class Event extends Task{
      * Returns a string representation of the Event Object to be written to the file.
      */
     public String toText() {
-        return "Event - "  + isDone + " - " + name + " -" + startTime + " -" + endTime + System.lineSeparator();
+        return "Event - " + isDone + " - " + name + " -" + startTime + " -" + endTime + System.lineSeparator();
     }
 
     /**

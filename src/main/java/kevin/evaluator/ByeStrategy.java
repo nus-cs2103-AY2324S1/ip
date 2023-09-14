@@ -1,7 +1,8 @@
 package kevin.evaluator;
 
-import kevin.taskList.TaskList;
 import java.util.ArrayList;
+
+import kevin.tasklist.TaskList;
 
 /**
  * A class responsible for the logic for BYE command.

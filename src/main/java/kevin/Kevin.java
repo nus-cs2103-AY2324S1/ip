@@ -1,16 +1,16 @@
 package kevin;
 
-import kevin.evaluator.Evaluator;
-import kevin.parser.Parser;
-import kevin.parser.FileParser;
-import kevin.parser.QueryObject;
-import kevin.ui.Logger;
-import kevin.exception.KevinException;
-import kevin.storage.FileStorage;
-import kevin.taskList.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import kevin.evaluator.Evaluator;
+import kevin.exception.KevinException;
+import kevin.parser.FileParser;
+import kevin.parser.Parser;
+import kevin.parser.QueryObject;
+import kevin.storage.FileStorage;
+import kevin.tasklist.TaskList;
+import kevin.ui.Logger;
 
 /**
  * Kevin class, a task list chatbot.

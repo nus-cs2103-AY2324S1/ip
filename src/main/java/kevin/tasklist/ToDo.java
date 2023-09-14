@@ -1,9 +1,9 @@
-package kevin.taskList;
+package kevin.tasklist;
 
 /**
  * A class to represent the ToDo Task.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     /**
      * Constructor to initialize ToDo.
      * @param isDone This is a boolean to mark whether the ToDo is done or not.
@@ -17,7 +17,7 @@ public class ToDo extends Task{
      * Returns a string representation of the ToDo Object to be written to the file.
      */
     public String toText() {
-        return "Todo - "  + isDone + " - " + name + System.lineSeparator();
+        return "Todo - " + isDone + " - " + name + System.lineSeparator();
     }
 
     /**

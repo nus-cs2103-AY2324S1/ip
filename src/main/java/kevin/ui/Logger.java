@@ -4,6 +4,17 @@ package kevin.ui;
  * A class responsible to output to the console.
  */
 public class Logger {
+    public static final String HORIZONTAL_LINE = "_".repeat(70);
+
+    public static final String BOT_NAME = new StringBuilder()
+            .append("\t \n")
+            .append("\t").append(" _   __ _____ _   _ _____ _   _ \n")
+            .append("\t").append("| | / /|  ___| | | |_   _| \\ | |\n")
+            .append("\t").append("| |/ / | |__ | | | | | | |  \\| |\n")
+            .append("\t").append("|    \\ |  __|| | | | | | | . ` |\n")
+            .append("\t").append("| |\\  \\| |___\\ \\_/ /_| |_| |\\  |\n")
+            .append("\t").append("\\_| \\_/\\____/ \\___/ \\___/\\_| \\_/\n")
+            .toString();
     /**
      * Prints the text wrapped in horizontal lines.
      * @param str
@@ -13,16 +24,6 @@ public class Logger {
         System.out.println("\t" + str);
         System.out.println("\t" + HORIZONTAL_LINE);
     }
-
-    public static final String HORIZONTAL_LINE = "_".repeat(70);
-
-    public static final String BOT_NAME = "\t \n" +
-            "\t" + " _   __ _____ _   _ _____ _   _ \n" +
-            "\t" +"| | / /|  ___| | | |_   _| \\ | |\n" +
-            "\t" +"| |/ / | |__ | | | | | | |  \\| |\n" +
-            "\t" +"|    \\ |  __|| | | | | | | . ` |\n" +
-            "\t" +"| |\\  \\| |___\\ \\_/ /_| |_| |\\  |\n" +
-            "\t" +"\\_| \\_/\\____/ \\___/ \\___/\\_| \\_/\n";
 
     /**
      * Prints the hello message when the program first runs.

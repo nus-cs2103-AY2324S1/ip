@@ -1,12 +1,11 @@
 package kevin.evaluator;
 
+import java.util.ArrayList;
+
 import kevin.exception.KevinException;
 import kevin.storage.FileStorage;
-import kevin.taskList.Task;
-import kevin.taskList.TaskList;
+import kevin.tasklist.TaskList;
 import kevin.ui.Logger;
-
-import java.util.ArrayList;
 
 /**
  * A class responsible for the logic for FIND command.

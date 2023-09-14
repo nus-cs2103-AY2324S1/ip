@@ -1,11 +1,11 @@
 package kevin.evaluator;
 
-import kevin.ui.Logger;
-import kevin.storage.FileStorage;
-import kevin.taskList.TaskList;
-import kevin.exception.KevinException;
-
 import java.util.ArrayList;
+
+import kevin.exception.KevinException;
+import kevin.storage.FileStorage;
+import kevin.tasklist.TaskList;
+import kevin.ui.Logger;
 
 /**
  * A class responsible for the logic for LIST command.
