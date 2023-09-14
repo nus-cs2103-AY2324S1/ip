@@ -122,6 +122,26 @@ public class Ui {
     }
 
     /**
+     * Shows the success message after tagging a task.
+     *
+     * @param task The task that was tagged.
+     */
+    public String showTagTask(Task task) {
+        String message = "OK, I've added more tags to this task:\n  " + task;
+        return showMessage(message);
+    }
+
+    /**
+     * Shows the success message after untagging a task.
+     *
+     * @param task The task that was untagged.
+     */
+    public String showUntagTask(Task task) {
+        String message = "OK, I've cleared all the tags of this task:\n  " + task;
+        return showMessage(message);
+    }
+
+    /**
      * Shows a horizontal line to separate the chatbot's response from the user's input.
      *
      * @return The horizontal line.

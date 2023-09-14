@@ -26,15 +26,16 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructs a deadline with the given description, deadline and status.
+     * Constructs a deadline with the given description, deadline, status and tags.
      *
      * @param description The description of the deadline.
      * @param by          The deadline of the deadline.
      * @param isDone      The status of the deadline.
+     * @param tags        The tags of the deadline.
      * @throws DukeException If there are problems constructing the deadline.
      */
-    public Deadline(String description, String by, boolean isDone) throws DukeException {
-        super(description, isDone);
+    public Deadline(String description, String by, boolean isDone, String... tags) throws DukeException {
+        super(description, isDone, tags);
         this.by = LocalDateTime.parse(by);
     }
 

@@ -39,6 +39,6 @@ public class Command {
      * Different keywords for commands.
      */
     public enum CommandKeyword {
-        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, FIND
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, FIND, TAG, UNTAG
     }
 }

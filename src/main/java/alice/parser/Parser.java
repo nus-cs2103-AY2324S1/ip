@@ -7,7 +7,9 @@ import alice.command.ExitCommand;
 import alice.command.FindCommand;
 import alice.command.ListCommand;
 import alice.command.MarkAsDoneCommand;
+import alice.command.TagCommand;
 import alice.command.UnmarkAsDoneCommand;
+import alice.command.UntagCommand;
 import alice.exception.DukeException;
 import alice.task.Task;
 
@@ -48,6 +50,10 @@ public class Parser {
                 return new AddCommand(Task.TaskType.EVENT, argument);
             case FIND:
                 return new FindCommand(argument);
+            case TAG:
+                return new TagCommand(argument);
+            case UNTAG:
+                return new UntagCommand(argument);
             default:
                 return new Command();
             }

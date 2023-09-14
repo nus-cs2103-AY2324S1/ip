@@ -34,18 +34,21 @@ public class TaskList {
             boolean isDone = inputs[1].equals(TASK_IS_DONE_LABEL);
             String description = inputs[2];
 
+            String tagsString = inputs[3].replace("[", "").replace("]", "");
+            String[] tags = tagsString.split(", ");
+
             switch (taskType) {
             case Todo.TASK_LABEL:
-                this.add(new Todo(description, isDone));
+                this.add(new Todo(description, isDone, tags));
                 break;
             case Deadline.TASK_LABEL:
-                String by = inputs[3];
-                this.add(new Deadline(description, by, isDone));
+                String by = inputs[4];
+                this.add(new Deadline(description, by, isDone, tags));
                 break;
             case Event.TASK_LABEL:
-                String from = inputs[3];
-                String to = inputs[4];
-                this.add(new Event(description, from, to, isDone));
+                String from = inputs[4];
+                String to = inputs[5];
+                this.add(new Event(description, from, to, isDone, tags));
                 break;
             default:
                 break;
@@ -114,6 +117,25 @@ public class TaskList {
     public void unmarkAsDone(int index) {
         this.tasks.get(index).unmarkAsDone();
         assert !this.tasks.get(index).getIsDone() : "Task should be marked as not done";
+    }
+
+    /**
+     * Tags the task at the given index.
+     *
+     * @param index The index of the task to be tagged.
+     * @param tags  The tags to be added.
+     */
+    public void tag(int index, String... tags) {
+        this.tasks.get(index).addTags(tags);
+    }
+
+    /**
+     * Untags the task at the given index.
+     *
+     * @param index The index of the task to be untagged.
+     */
+    public void untag(int index) {
+        this.tasks.get(index).clearTags();
     }
 
     /**
