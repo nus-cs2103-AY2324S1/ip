@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.Duke;
 import duke.ui.Ui;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,12 +30,12 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_invalidInput_invalidInputMessageShown(){
+    public void parse_invalidInput_invalidInputMessageShown() {
         Parser parser = new Parser(new Ui("Moira"));
         parser.parse(" ");
         parser.parse("bleh");
         parser.parse("sdaf sd asdd");
-        assertEquals("--------------------------------------------------------------------------"
+        String expectedResult = "--------------------------------------------------------------------------"
                 + "\nHOLD UP! What on earth do you mean??"
                 + "\n--------------------------------------------------------------------------"
                 + "\n--------------------------------------------------------------------------"
@@ -42,12 +43,13 @@ public class ParserTest {
                 + "\n--------------------------------------------------------------------------"
                 + "\n--------------------------------------------------------------------------"
                 + "\nHOLD UP! What on earth do you mean??"
-                + "\n--------------------------------------------------------------------------",
+                + "\n--------------------------------------------------------------------------";
+        assertEquals(expectedResult,
                 outputStreamCaptor.toString().trim());
     }
 
     @Test
-    public void parse_byeCommandVariations_isReceivingInputChangeAccordingly(){
+    public void parse_byeCommandVariations_isReceivingInputChangeAccordingly() {
         Parser parser = new Parser(new Ui("Moira"));
         Duke.setIsReceivingInput(true);
         parser.parse("bye s");

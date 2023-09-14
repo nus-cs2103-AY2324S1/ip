@@ -9,7 +9,7 @@ package duke.tasks;
  */
 public abstract class Task {
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a Task object with the specified description.
@@ -18,34 +18,34 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Constructs a Task object with the specified description and completion status.
      *
      * @param description The task's description.
-     * @param done Whether the task is completed.
+     * @param isDone Whether the task is completed.
      */
-    public Task(String description, Boolean done) {
+    public Task(String description, Boolean isDone) {
         this.description = description;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     /**
      * Marks or unmarks the task as done.
      * Marks the task as done if the specified boolean is true, and unmarks the task as done if otherwise.
      *
-     * @param done Whether the task has been completed.
+     * @param isDone Whether the task has been completed.
      */
-    public void markTaskCompleted(boolean done) {
-        this.done = done;
+    public void markTaskCompleted(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
     public String toString() {
         String checkbox = "";
-        if (this.done) {
+        if (this.isDone) {
             checkbox = "[X]";
         } else {
             checkbox = "[ ]";
@@ -61,7 +61,7 @@ public abstract class Task {
      * @return The string representation of the task's data.
      */
     public String toData() {
-        if (done) {
+        if (isDone) {
             return "1|" + this.description;
         } else {
             return "0|" + this.description;
@@ -75,7 +75,9 @@ public abstract class Task {
             return true;
         }
         if (obj instanceof Task) {
-            return ((Task) obj).description.equals(this.description) && ((Task) obj).done == this.done;
+            boolean hasSameDescription = ((Task) obj).description.equals(this.description);
+            boolean hasSameStatus = ((Task) obj).isDone == this.isDone;
+            return hasSameDescription && hasSameStatus;
         }
         return false;
     }
