@@ -1,11 +1,10 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
-
 import taskmanager.Event;
 
-import duke.Ui;
 
 /**
  * Command to add an Events task.
@@ -21,6 +20,7 @@ public class AddEventCommand extends Command {
      * @param taskDesc The task description.
      * @param from      The start date and time in string.
      * @param to        The end date and time in string.
+     * @throws IllegalArgumentException If either the task description, from date and to date is null.
      */
     public AddEventCommand(String taskDesc, String from, String to) {
         assert taskDesc != null : "taskDesc must not be null";

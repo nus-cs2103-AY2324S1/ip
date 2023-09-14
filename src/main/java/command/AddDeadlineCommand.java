@@ -1,11 +1,9 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
-
 import taskmanager.Deadline;
-
-import duke.Ui;
 
 /**
  * Command to add a Deadlines task.
@@ -19,6 +17,7 @@ public class AddDeadlineCommand extends Command {
      *
      * @param taskDesc  The task description.
      * @param dueDateStr The due date and time in string.
+     * @throws IllegalArgumentException If either the keyword or task description is null.
      */
     public AddDeadlineCommand(String taskDesc, String dueDateStr) {
         assert taskDesc != null : "taskDesc must not be null";

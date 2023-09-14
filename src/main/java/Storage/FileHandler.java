@@ -3,12 +3,9 @@ package storage;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,7 +21,7 @@ import taskmanager.ToDo;
  */
 public class FileHandler {
     private static String filePath; // The file path to the .txt file.
-
+    private static final String FOLDER_PATH = "data";
     /**
      * Constructs a `FileHandler` with the specified file path.
      *
@@ -41,23 +38,9 @@ public class FileHandler {
      */
     public static ArrayList<Task> readTasksFromFile() {
         ArrayList<Task> task = new ArrayList<>();
-        String folderPath = "data";
 
-        try {
-            Files.createDirectories(Paths.get(folderPath));
-        } catch (IOException e) {
-            System.out.println("Failed to create the directory: " + e.getMessage());
-        }
-
-        Path path = Paths.get(filePath);
-
-        if (!Files.exists(path)) {
-            try {
-                Files.createFile(path);
-            } catch (IOException e) {
-                System.out.println("Failed to create the file: " + e.getMessage());
-            }
-        }
+        createDataDirectoryIfNotExists();
+        createFileIfNotExists(filePath);
 
         try {
             FileReader reader = new FileReader(filePath);
@@ -148,6 +131,26 @@ public class FileHandler {
             tasks.add(newevent);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private static void createDataDirectoryIfNotExists() {
+        try {
+            Files.createDirectories(Paths.get(FOLDER_PATH));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create data directory: " + e.getMessage(), e);
+        }
+    }
+
+    private static void createFileIfNotExists(String filePath) {
+        Path path = Paths.get(filePath);
+
+        if (!Files.exists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                System.out.println("Failed to create the file: " + e.getMessage());
+            }
         }
     }
 }

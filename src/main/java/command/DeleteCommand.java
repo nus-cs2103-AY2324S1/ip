@@ -1,11 +1,10 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
-
 import taskmanager.Task;
 
-import duke.Ui;
 
 /**
  * A command to delete a task from the task list.
@@ -18,6 +17,7 @@ public class DeleteCommand extends Command {
      * Constructs a `DeleteCommand` object with the provided index.
      *
      * @param index The index of the task to be deleted.
+     * @throws IllegalArgumentException If the provided index is not positive (greater than 0).
      */
     public DeleteCommand(int index) {
         assert index > 0 : "index cannot be negative or zero";

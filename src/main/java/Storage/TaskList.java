@@ -91,9 +91,10 @@ public class TaskList {
         }
 
         for (int i = 0; i < task.size(); i++) {
-            if (!task.get(i).equals(other.task.get(i))) {
-                return false;
+            if (task.get(i).equals(other.task.get(i))) {
+                continue;
             }
+            return false;
         }
 
         return true;
@@ -141,9 +142,7 @@ public class TaskList {
                 matchedList.add(this.task.get(i));
             }
         }
-
         return matchedList;
-
     }
 
 }

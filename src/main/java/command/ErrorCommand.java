@@ -1,9 +1,8 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
-
-import duke.Ui;
 
 /**
  * An error command.
@@ -13,6 +12,8 @@ public class ErrorCommand extends Command {
     private String errorMessage;
     /**
      * Constructs an `ErrorCommand` object.
+     * @param errorMessage The error message to be displayed.
+     * @throws IllegalArgumentException If the provided error message is null.
      */
     public ErrorCommand(String errorMessage) {
         assert errorMessage != null : "errorMessage must not be null";

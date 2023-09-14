@@ -1,9 +1,9 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
 
-import duke.Ui;
 
 /**
  * A find command to query task with a keyword.
@@ -14,6 +14,9 @@ public class FindCommand extends Command {
 
     /**
      * Constructs an `FindCommand` object.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @throws IllegalArgumentException If the provided keyword is null.
      */
     public FindCommand(String keyword) {
         assert keyword != null : "keyword must not be null";
@@ -35,7 +38,7 @@ public class FindCommand extends Command {
         if (taskList.isEmpty()) {
             return "There is no task matched with the given keyword!";
         } else {
-            return "Here are the tasks that matches your keyword." + taskList.toTaskStr();
+            return "Here are the tasks that matches your keyword.\n" + taskList.toTaskStr();
         }
     }
 
