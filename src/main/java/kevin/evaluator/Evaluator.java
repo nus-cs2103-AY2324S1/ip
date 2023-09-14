@@ -20,7 +20,7 @@ interface FiveParameterFunction<T, U, V, W, X, R> {
  */
 public class Evaluator {
     private static final HashMap<Command, FiveParameterFunction<TaskList, ArrayList<String>,
-            Logger, FileStorage, Boolean, Boolean>> MAPPER =
+            Logger, FileStorage, Boolean, String>> MAPPER =
             new HashMap<>();
     static {
         MAPPER.put(Command.BYE, (t, a, l, f, i) -> new ByeStrategy(t, a).evaluate(l, f, i));
@@ -55,7 +55,7 @@ public class Evaluator {
      * @return Returns a boolean that determines the continuation of the evaluation.
      * @throws KevinException On the detection of errors.
      */
-    public boolean evaluate(QueryObject queryObject, boolean isInFile) throws KevinException {
+    public String evaluate(QueryObject queryObject, boolean isInFile) throws KevinException {
         Command command = queryObject.getCommandType();
         ArrayList<String> arguments = queryObject.getArgs();
         return MAPPER.get(command).apply(taskList, arguments, logger, fileStorage, isInFile);

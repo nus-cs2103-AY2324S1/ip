@@ -30,17 +30,16 @@ public class DeleteStrategy extends BaseStrategy {
      * @throws KevinException On the detection of errors.
      */
     @Override
-    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+    public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
         int index = Integer.parseInt(this.arguments.get(1));
 
         Task deletedTask = this.taskList.delete(index);
 
         if (!isInFile) {
             fileStorage.deleteTask(index);
-            logger.log(String.format("Noted. I've removed this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
+            return logger.log(String.format("Noted. I've removed this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
                     deletedTask, this.taskList.size()));
         }
-
-        return true;
+        return "";
     }
 }

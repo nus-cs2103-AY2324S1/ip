@@ -33,7 +33,7 @@ public class DeadlineStrategy extends BaseStrategy {
      * @throws KevinException On the detection of errors.
      */
     @Override
-    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+    public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
         Boolean isDone = Boolean.getBoolean(this.arguments.get(0));
         String name = this.arguments.get(1);
         String deadline = this.arguments.get(2);
@@ -48,7 +48,7 @@ public class DeadlineStrategy extends BaseStrategy {
 
             Deadline newDeadline = taskList.addDeadline(isDone, name, deadlineDate);
             fileStorage.addDeadline(newDeadline);
-            logger.log(new StringBuilder().append("Got it. I've added this task: \n\t\t")
+            return logger.log(new StringBuilder().append("Got it. I've added this task: \n\t\t")
                     .append(newDeadline).append("\n\tNow you have ")
                     .append(taskList.size())
                     .append(" tasks in the list.")
@@ -62,7 +62,7 @@ public class DeadlineStrategy extends BaseStrategy {
             }
 
             taskList.addDeadline(isDone, name, deadlineDate);
+            return "";
         }
-        return true;
     }
 }

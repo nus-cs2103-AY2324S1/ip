@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import kevin.ui.DialogBox;
+import kevin.ui.Logger;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,9 +28,15 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image kevinImage = new Image(this.getClass().getResourceAsStream("/images/kevin.png"));
 
+    /**
+     * Initialises Kevin
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getKevinDialog(Logger.hello(), kevinImage)
+        );
     }
 
     public void setKevin(Kevin d) {
@@ -37,13 +44,14 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Kevin's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = input;
+        String response = kevin.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getKevinDialog(response, kevinImage)

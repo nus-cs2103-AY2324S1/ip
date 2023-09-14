@@ -29,9 +29,8 @@ public class FindStrategy extends BaseStrategy {
      * @throws KevinException On the detection of errors.
      */
     @Override
-    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+    public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
         String keyword = this.arguments.get(1);
-        logger.log(taskList.find(keyword));
-        return true;
+        return logger.log(taskList.find(keyword));
     }
 }

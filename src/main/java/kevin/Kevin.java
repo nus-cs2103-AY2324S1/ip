@@ -2,6 +2,8 @@ package kevin;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import kevin.evaluator.Evaluator;
 import kevin.exception.KevinException;
@@ -16,38 +18,53 @@ import kevin.ui.Logger;
  * Kevin class, a task list chatbot.
  */
 public class Kevin {
-    public static void main(String[] args) {
-        Logger logger = new Logger();
-        Parser parser = new Parser();
-        FileParser fileParser = new FileParser();
-        FileStorage fileStorage = new FileStorage();
-        TaskList taskList = new TaskList();
-        Scanner scanner = new Scanner(System.in);
-        Evaluator evaluator = new Evaluator(logger, fileStorage, taskList);
+    protected Logger logger;
+    protected Parser parser;
+    protected FileParser fileParser;
+    protected FileStorage fileStorage;
+    protected TaskList taskList;
+    protected Evaluator evaluator;
 
-        logger.hello();
-
+    /**
+     * Constructor for Kevin.
+     */
+    public Kevin() {
+        this.logger = new Logger();
+        this.parser = new Parser();
+        this.fileParser = new FileParser();
+        this.fileStorage = new FileStorage();
+        this.taskList = new TaskList();
+        this.evaluator = new Evaluator(logger, fileStorage, taskList);
         try {
-            fileStorage.initialize();
-            ArrayList<String> unparsedTasks = fileStorage.getTasksFromFile();
+            this.fileStorage.initialize();
+            ArrayList<String> unparsedTasks = this.fileStorage.getTasksFromFile();
             for (String s : unparsedTasks) {
-                evaluator.evaluate(fileParser.parseLine(s), true);
+                this.evaluator.evaluate(fileParser.parseLine(s), true);
             }
         } catch (KevinException ke) {
-            logger.log(ke.getMessage());
+            this.logger.log(ke.getMessage());
         }
+    }
 
-        while (true) {
-            try {
-                QueryObject queryObject = parser.prepareArguments(scanner.nextLine());
-                if (!evaluator.evaluate(queryObject, false)) {
-                    break;
-                }
-            } catch (KevinException ke) {
-                logger.log(ke.getMessage());
+    public String getResponse(String input) {
+        try {
+            QueryObject queryObject = parser.prepareArguments(input);
+            String output = evaluator.evaluate(queryObject, false);
+            if (output.equals("bye")) {
+                Timer timer = new Timer();
+                int fiveSeconds = 5 * 1000;
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        javafx.application.Platform.exit();
+                    }
+                }, fiveSeconds);
+                return logger.bye();
             }
+            return output;
+        } catch (KevinException ke) {
+            return logger.log(ke.getMessage());
         }
-        logger.bye();
     }
 }
 

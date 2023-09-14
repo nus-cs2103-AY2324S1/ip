@@ -29,8 +29,7 @@ public class ListStrategy extends BaseStrategy {
      * @throws KevinException On the detection of errors.
      */
     @Override
-    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
-        logger.log(taskList.list());
-        return true;
+    public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+        return logger.log(taskList.list());
     }
 }

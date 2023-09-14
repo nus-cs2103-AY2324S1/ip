@@ -30,15 +30,15 @@ public class MarkStrategy extends BaseStrategy {
      * @throws KevinException On the detection of errors.
      */
     @Override
-    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+    public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
         int index = Integer.parseInt(this.arguments.get(1));
 
         Task newTask = this.taskList.mark(index);
 
         if (!isInFile) {
             fileStorage.overwriteTask(newTask, index);
-            logger.log("Nice! I've marked this task as done: \n\t\t" + newTask);
+            return logger.log("Nice! I've marked this task as done: \n\t\t" + newTask);
         }
-        return true;
+        return "";
     }
 }

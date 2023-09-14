@@ -30,7 +30,7 @@ public class ToDoStrategy extends BaseStrategy {
      * @throws KevinException On the detection of errors.
      */
     @Override
-    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+    public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
         Boolean isDone = Boolean.getBoolean(this.arguments.get(0));
         String toDoName = this.arguments.get(1);
 
@@ -38,10 +38,10 @@ public class ToDoStrategy extends BaseStrategy {
 
         if (!isInFile) {
             fileStorage.addToDo(newToDo);
-            logger.log(String.format("Got it. I've added this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
+            return logger.log(String.format("Got it. I've added this task: \n\t\t%s\n\tNow you have %d tasks in the list.",
                     newToDo, this.taskList.size()));
         }
 
-        return true;
+        return "";
     }
 }

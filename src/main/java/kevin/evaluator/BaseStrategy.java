@@ -32,7 +32,7 @@ public abstract class BaseStrategy {
      * @return Returns a boolean that determines the continuation of the evaluation.
      * @throws KevinException On the detection of errors.
      */
-    public boolean evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
-        return false;
+    public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
+        return "";
     }
 }
