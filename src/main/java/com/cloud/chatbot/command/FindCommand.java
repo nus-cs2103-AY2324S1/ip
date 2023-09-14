@@ -29,7 +29,12 @@ public class FindCommand extends Command {
 
         List<String> matches = Cloud.ITEM_MANAGER.findStrings(query);
         if (matches.size() <= 0) {
-            Ui.say("No matches were found. Please try a different query.");
+            Ui.say(
+                String.format(
+                    "No matches were found for \"%s\". Please try a different query.",
+                    query
+                )
+            );
             return;
         }
 
