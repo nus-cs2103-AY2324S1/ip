@@ -11,6 +11,9 @@ public class FindCommand extends Command {
             + ": Searches for all the tasks containing the input keyword.\n"
             + "Example: " + COMMAND_WORD + "study\n";
 
+    public static final String MESSAGE_TASK_NOT_FOUND = "Sorry, there are no relevant tasks in the list.";
+    public static final String MESSAGE_FIND_TASK_SUCCESS_PREFIX = "Are you looking for these tasks?";
+
     private final String keyword;
 
     public FindCommand(String keyword) {
@@ -21,7 +24,9 @@ public class FindCommand extends Command {
     public CommandResult execute() {
         ArrayList<Task> matchedTasks = new ArrayList<>();
 
-        for (Task task : taskList.getTaskList()) {
+        for (int i = 0; i < taskList.size(); i++) {
+            int visibleIndex = i + 1;
+            Task task = taskList.getTask(visibleIndex);
             String description = task.getDescription();
             if (description.contains(this.keyword)) {
                 matchedTasks.add(task);
@@ -29,13 +34,13 @@ public class FindCommand extends Command {
         }
 
         if (matchedTasks.isEmpty()) {
-            return new CommandResult("Oops, there are no relevant tasks in the list.");
+            return new CommandResult(MESSAGE_TASK_NOT_FOUND);
         } else {
-            String result = "Are you looking for these tasks?";
+            String tasksFound = "";
             for (Task task : matchedTasks) {
-                result += "\n" + task.toString();
+                tasksFound += "\n" + task.toString();
             }
-            return new CommandResult(result);
+            return new CommandResult(MESSAGE_FIND_TASK_SUCCESS_PREFIX + tasksFound);
         }
     }
 }

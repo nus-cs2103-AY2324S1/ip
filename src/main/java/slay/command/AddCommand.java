@@ -8,7 +8,7 @@ import slay.task.*;
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new task to the tasklist. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new task to the list. "
             + "You may create either a todo, a deadline, or an event. Specify the type of the task using the keywords.\n"
             + "Please follow the format of the example given below.\n"
             + "Example: " + COMMAND_WORD

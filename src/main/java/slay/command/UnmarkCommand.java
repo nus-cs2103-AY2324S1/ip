@@ -1,6 +1,7 @@
 package slay.command;
 
-import slay.exception.TaskNotFoundException;
+import slay.Message;
+import slay.exception.InvalidTaskIndexException;
 import slay.task.*;
 import slay.exception.DuplicatedMarkException;
 
@@ -31,9 +32,8 @@ public class UnmarkCommand extends Command {
             Task toUnmark = taskList.getTask(targetVisibleIndex);
             taskList.unmarkTask(toUnmark);
             return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, toUnmark));
-        } catch (TaskNotFoundException e) {
-            return new CommandResult("You don't seem to have so many tasks. " +
-                    "Which task have you not done?");
+        } catch (InvalidTaskIndexException e) {
+            return new CommandResult(Message.MESSAGE_INVALID_TASK_INDEX);
         } catch (DuplicatedMarkException e) {
             return new CommandResult(MESSAGE_UNMARK_TASK_FAILURE);
         }

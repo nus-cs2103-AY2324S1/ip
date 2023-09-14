@@ -47,8 +47,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "tong"
-    archiveFileName = 'tong.jar'
+    archiveBaseName = "slay"
+    archiveFileName = 'slay.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
