@@ -16,7 +16,7 @@ public class DeleteExecutable implements Executable {
      * Generates a new delete command.
      * @param index the index to be deleted.
      */
-    public DeleteCommand(int index) {
+    public DeleteExecutable(int index) {
         this.index = index;
     }
 

@@ -68,7 +68,6 @@ public class Parser {
         Matcher matcher = matchString(input, commandRegex);
         String commandIdentifier = matcher.group(1);
         String paramString = matcher.group(2);
-        System.out.println(commandIdentifier + "COMM  \n PARAM" + paramString);
         ParserFunction parsable = stringToCommand.get(commandIdentifier);
         checkIfInvalid(parsable);
         return parsable.apply(paramString);
@@ -122,25 +121,25 @@ public class Parser {
     }
     private static Executable parseShutdownParams(String paramString) throws InvalidVarException {
         checkEmpty(paramString);
-        return new ShutdownCommand();
+        return new ShutdownExecutable();
     }
     private static Executable parseHelpParams(String paramString) throws InvalidVarException {
         checkEmpty(paramString);
-        return new HelpCommand();
+        return new HelpExecutable();
     }
     private static Executable parseListParams(String paramString) throws InvalidVarException {
         checkEmpty(paramString);
-        return new ListCommand();
+        return new ListExecutable();
     }
     private static Executable parseClearParams(String paramString) throws InvalidVarException {
         checkEmpty(paramString);
-        return new ClearCommand();
+        return new ClearExecutable();
     }
 
     private static Executable parseToDoParams(String paramString) throws InvalidVarException {
         checkNonEmpty(paramString);
         Task todo = new ToDo(paramString);
-        return new AddTaskCommand(todo);
+        return new AddTaskExecutable(todo);
     }
 
     private static Executable parseDeadlineParams(String paramString) throws InvalidVarException {
@@ -150,7 +149,7 @@ public class Parser {
         String deadlineString = matcher.group(2);
         LocalDate deadlineTime = parseLocalDate(deadlineString);
         Deadline deadline = new Deadline(name, deadlineTime);
-        return new AddTaskCommand(deadline);
+        return new AddTaskExecutable(deadline);
     }
     private static Executable parseEventParams(String paramString) throws InvalidVarException {
         String eventRegex = "(\\S.*)\\s/from\\s(\\S.*)\\s/to\\s(\\S.*)";
@@ -161,20 +160,20 @@ public class Parser {
         LocalDate startTime = parseLocalDate(startString);
         LocalDate endTime = parseLocalDate(endString);
         Event event = new Event(name, startTime, endTime);
-        return new AddTaskCommand(event);
+        return new AddTaskExecutable(event);
     }
     private static Executable parseDeleteParams(String paramString) throws InvalidVarException {
-        return new DeleteCommand(parseIndex(paramString));
+        return new DeleteExecutable(parseIndex(paramString));
     }
     private static Executable parseMarkParams(String paramString) throws InvalidVarException {
-        return new MarkCommand(true, parseIndex(paramString));
+        return new MarkExecutable(true, parseIndex(paramString));
     }
     private static Executable parseUnmarkParams(String paramString) throws InvalidVarException {
-        return new MarkCommand(false, parseIndex(paramString));
+        return new MarkExecutable(false, parseIndex(paramString));
     }
     private static Executable parseFindParams(String paramString) throws InvalidVarException {
         checkNonEmpty(paramString);
-        return new FindCommand(paramString);
+        return new FindExecutable(paramString);
     }
     private static void checkIfInvalid(ParserFunction func) throws InvalidCommandException {
         if (func == null) {
@@ -186,42 +185,49 @@ public class Parser {
         Matcher matcher = matchString(string, todoRegex);
         boolean isComplete = parseBoolString(matcher.group(1));
         String name = matcher.group(2);
-        return new ToDo (name, isComplete);
+        return new ToDo(name, isComplete);
     }
     private static Event eventFromString(String string) throws InvalidVarException {
-        String eventRegex = "(.*)" + Task.DIVIDER + "(.*)" + Task.DIVIDER +  "(.*)" + Task.DIVIDER +  "(.*)";
+        String eventRegex = "(.*)" + Task.DIVIDER + "(.*)" + Task.DIVIDER + "(.*)" + Task.DIVIDER + "(.*)";
         Matcher matcher = matchString(string, eventRegex);
         boolean isComplete = parseBoolString(matcher.group(1));
         String name = matcher.group(2);
         LocalDate startTime = parseLocalDate(matcher.group(3));
         LocalDate endTime = parseLocalDate(matcher.group(4));
-        return new Event (name, isComplete, startTime, endTime);
+        return new Event(name, isComplete, startTime, endTime);
     }
 
     private static Deadline deadlineFromString(String string) throws InvalidVarException {
-        String deadlineRegex = "(.*)"+ Task.DIVIDER + "(.*)" + Task.DIVIDER + "(.*)";
+        String deadlineRegex = "(.*)" + Task.DIVIDER + "(.*)" + Task.DIVIDER + "(.*)";
         Matcher matcher = matchString(string, deadlineRegex);
         boolean isComplete = parseBoolString(matcher.group(1));
         String name = matcher.group(2);
         LocalDate deadline = parseLocalDate(matcher.group(3));
-        return new Deadline (name, isComplete, deadline);
+        return new Deadline(name, isComplete, deadline);
     }
+
+    /**
+     * Produces a task from a string, if the string is valid.
+     * @param string the string to be transformed.
+     * @return the task representation of the string if valid.
+     * @throws InvalidVarException when the string is not in the proper format.
+     */
     public static Task taskFromString(String string) throws InvalidVarException {
-        String[] temp = string.split(Task.DIVIDER, 1);
+        String[] temp = string.split(Task.DIVIDER, 2);
         if (temp.length == 1) {
             throw new InvalidVarException();
         }
         String taskIdentifier = temp[0];
         String input = temp[1];
         switch (taskIdentifier) {
-            case ("TD"):
-                return todoFromString(input);
-            case ("DL"):
-                return deadlineFromString(input);
-            case ("EV"):
-                return eventFromString(input);
-            default:
-                throw new InvalidVarException();
+        case ("TD"):
+            return todoFromString(input);
+        case ("DL"):
+            return deadlineFromString(input);
+        case ("EV"):
+            return eventFromString(input);
+        default:
+            throw new InvalidVarException();
         }
     }
 }

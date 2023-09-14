@@ -13,6 +13,11 @@ public class MarkExecutable implements Executable {
     private final boolean isToBeMarked;
     private final int targetIndex;
 
+    /**
+     * Produces a Mark executable.
+     * @param isToBeMarked the marking to be set.
+     * @param index the index to be set.
+     */
     public MarkExecutable(boolean isToBeMarked, int index) {
         this.isToBeMarked = isToBeMarked;
         this.targetIndex = index;

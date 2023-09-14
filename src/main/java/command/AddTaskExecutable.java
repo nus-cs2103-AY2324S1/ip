@@ -16,7 +16,7 @@ public class AddTaskExecutable implements Executable {
      * Creates an executable with its task to be added upon execution.
      * @param task the task to be added.
      */
-    public AddTaskCommand(Task task) {
+    public AddTaskExecutable(Task task) {
         assert task != null;
         this.task = task;
     }
@@ -31,7 +31,6 @@ public class AddTaskExecutable implements Executable {
     @Override
     public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {
         try {
-            assert task != null; // Parser should pass a valid task to the executable.
             list.addTask(task);
         } catch (IOException e) {
             throw new FailureInExecuteException(e.getMessage());

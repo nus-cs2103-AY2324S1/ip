@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.Objects;
+
 import dukeexception.CorruptedFileException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
