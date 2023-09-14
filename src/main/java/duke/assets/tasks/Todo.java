@@ -1,5 +1,8 @@
 package duke.assets.tasks;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * Represents a todo task
  */
@@ -21,6 +24,16 @@ public class Todo extends TaskAbstract {
     public String saveToTextFormat() {
         return String.format("T | %s | %s", this.isDone ? "1" : "0",
                 this.description);
+    }
+
+    @Override
+    protected LocalDate getDate(boolean reverse) {
+        return reverse ? LocalDate.MIN : LocalDate.MAX;
+    }
+
+    @Override
+    protected LocalTime getTime(boolean reverse) {
+        return reverse ? LocalTime.MIN : LocalTime.MAX;
     }
 
     /**
