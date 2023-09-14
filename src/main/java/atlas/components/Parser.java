@@ -64,7 +64,7 @@ public class Parser {
                 return new UnknownCommand();
             }
         } catch (IndexOutOfBoundsException e) {
-            return new UnknownCommand(String.format("%s requires additional arguments!", commandType));
+            return new UnknownCommand(commandType + " requires additional arguments!");
         }
     }
 
@@ -108,9 +108,9 @@ public class Parser {
     }
 
     /**
-     * Parses arguments for a Todo task (name) and creates a new Todo
+     * Creates a Todo task based on arguments passed in
      * @param args String containing the name of the Todo
-     * @return Todo task with the given name
+     * @return Todo task containing the specified name
      */
     private static Todo parseTodoArgs(String args) {
         String name = parseNonEmptyString(args);
@@ -118,19 +118,18 @@ public class Parser {
     }
 
     /**
-     * Parses arguments for a Deadline task (name, deadline) and creates a new Deadline
-     * @param args String containing the arguments: name, time
-     * @return Deadline task with the given name and deadline
-     * @throws IllegalArgumentException Thrown if either the name or time is not provided
+     * Creates a Deadline task based on the arguments passed in
+     * @param args String in the following format: [name of task] /by [date]
+     * @return Deadline task containing the specified name and deadline
+     * @throws IllegalArgumentException Thrown if wrong number of arguments provided
      */
     private static Deadline parseDeadlineArgs(String args) throws IllegalArgumentException {
-        final String argDelimiter = " /by ";
-        String[] deadlineArgs = args.split(argDelimiter);
-
-        final int numArgsRequired = 2;
-        if (deadlineArgs.length != numArgsRequired) {
+        final String nameDateDelimiter = " /by ";
+        String[] deadlineArgs = args.split(nameDateDelimiter);
+        boolean hasNameAndDate = deadlineArgs.length == 2;
+        if (!hasNameAndDate) {
             throw new IllegalArgumentException("Deadlines should be created with the following format:\n"
-                    + "deadline [name] /by [time]");
+                    + "deadline [name] /by [date]");
         }
 
         String name = parseNonEmptyString(deadlineArgs[0]);
@@ -139,38 +138,33 @@ public class Parser {
     }
 
     /**
-     * Parses arguments for an Event task (name, start, end) and creates a new Event
-     * @param args String containing the arguments: name, start, end
-     * @return Event task with the given name, start and end
-     * @throws IllegalArgumentException Thrown if either one of the arguments is not present
+     * Creates an Event task based on the arguments passed in
+     * @param args String in the following format: [name of task] /from [start time] /to [end time]
+     * @return Event task containing the specified name, start time, and end time
+     * @throws IllegalArgumentException Thrown if wrong number of arguments provided
      */
     private static Event parseEventArgs(String args) throws IllegalArgumentException {
-        final String badFormatErrorMessage = "Events should be created "
-                + "with the following format:\n event [name] /from [start time] /to [end time]";
+        IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created "
+                + "with the following format:\n event [name] /from [start time] /to [end time]");
 
-        final String nameDatesDelimiter = " /from ";
-        String[] splitNameDates = args.split(nameDatesDelimiter);
-
-        if (splitNameDates.length != 2) {
-            throw new IllegalArgumentException(badFormatErrorMessage);
+        final String nameDateDelimiter = " /from ";
+        String[] splitNameDates = args.split(nameDateDelimiter);
+        boolean hasNameAndDates = args.length() == 2;
+        if (!hasNameAndDates) {
+            throw badFormat;
         }
 
         String name = splitNameDates[0];
-        String dates = splitNameDates[1];
 
-        final String startEndDelimiter = " /to ";
-        String[] splitTime = dates.split(startEndDelimiter);
-
-        final int numDatetimeRequired = 2;
-        if (splitTime.length != numDatetimeRequired) {
-            throw new IllegalArgumentException(badFormatErrorMessage);
+        final String datesDelimiter = " /to ";
+        String[] splitTime = splitNameDates[1].split(datesDelimiter);
+        boolean hasStartAndEndDates = splitTime.length == 2;
+        if (!hasStartAndEndDates) {
+            throw badFormat;
         }
 
-        String startTimeString = splitTime[0];
-        String endTimeString = splitTime[1];
-
-        LocalDateTime startTime = parseDateTime(startTimeString);
-        LocalDateTime endTime = parseDateTime(endTimeString);
+        LocalDateTime startTime = parseDateTime(splitTime[0]);
+        LocalDateTime endTime = parseDateTime(splitTime[1]);
         return new Event(name, startTime, endTime);
     }
 
@@ -178,43 +172,62 @@ public class Parser {
      * Creates a task based on a line read from a save file
      * @param fileArgs Line containing task saved data
      * @return Task initialised with arguments
-     * @throws UnsupportedTaskType Thrown if task type specified in fileArgs do not match
-     *     any known task types
      * @throws IllegalArgumentException Thrown if line does not have 2 delimiters " | "
      */
-    public static Task parseFileTasks(String fileArgs) throws UnsupportedTaskType, IllegalArgumentException {
-        final String taskArgsDelimiter = " \\| ";
-        String[] args = fileArgs.split(taskArgsDelimiter);
-        final int numTaskArgsRequired = 3;
-        if (args.length != numTaskArgsRequired) {
+    public static Task parseFileTasks(String fileArgs) throws IllegalArgumentException {
+        final String fileTaskDelimiter = " \\| ";
+        String[] args = fileArgs.split(fileTaskDelimiter);
+
+        boolean hasPrefixStatusArgs = args.length == 3;
+        if (!hasPrefixStatusArgs) {
             throw new IllegalArgumentException("Save file is corrupted, skipping line");
         }
 
-        Task loadedTask;
         String taskTypePrefix = args[0];
+        String taskStatus = args[1];
         String taskArgs = args[2];
+
+        Task loadedTask = createTaskFromPrefix(taskTypePrefix, taskArgs);
+        return markTaskByStatus(loadedTask, taskStatus);
+    }
+
+    /**
+     * Creates a task based on the task prefix and task arguments
+     * @param taskTypePrefix "T" for Todo, "D" for Deadline, "E" for Event
+     * @param taskArgs Arguments for the task specified
+     * @return Task of specified task type and task arguments
+     * @throws UnsupportedTaskType Thrown if task type is not one of "T", "D", or "E"
+     */
+    private static Task createTaskFromPrefix(String taskTypePrefix, String taskArgs) throws
+            UnsupportedTaskType {
         switch (taskTypePrefix) {
         case "T":
-            loadedTask = parseTodoArgs(taskArgs);
-            break;
+            return parseTodoArgs(taskArgs);
         case "D":
-            loadedTask = parseDeadlineArgs(taskArgs);
-            break;
+            return parseDeadlineArgs(taskArgs);
         case "E":
-            loadedTask = parseEventArgs(taskArgs);
-            break;
+            return parseEventArgs(taskArgs);
         default:
             throw new UnsupportedTaskType(taskTypePrefix);
         }
+    }
 
+    /**
+     * Marks task based on the taskStatus saved in the file
+     * @param task Task to mark as completed/not completed
+     * @param taskStatus "true" is completed, "false" otherwise (anything other than "true"
+     *                   is assumed to be "false")
+     * @return Task with completion status updated based on task status
+     */
+    private static Task markTaskByStatus(Task task, String taskStatus) {
         final String taskMarkedKeyword = "true";
-
-        boolean isMarked = args[1].equals(taskMarkedKeyword);
+        boolean isMarked = taskStatus.equals(taskMarkedKeyword);
         if (isMarked) {
-            loadedTask.markDone();
+            task.markDone();
+        } else {
+            task.markNotDone();
         }
-
-        return loadedTask;
+        return task;
     }
 
     /**
@@ -283,9 +296,15 @@ public class Parser {
      * Parses zero-based index from string representation of one-based index
      * @param input String representation of one-based index
      * @return Zero-based index in integer form
+     * @throws NumberFormatException Thrown if input is not an unsigned integer in string format
      */
-    protected int parseOneBasedIndexToZeroBased(String input) {
-        return Integer.parseUnsignedInt(input) - 1;
+    protected int parseOneBasedIndexToZeroBased(String input) throws NumberFormatException {
+        try {
+            return Integer.parseUnsignedInt(input) - 1;
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("I need an unsigned integer as index, "
+                    + "I can't parse this index: " + input);
+        }
     }
 
     /**
