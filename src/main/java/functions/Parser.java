@@ -36,8 +36,10 @@ public class Parser {
 
         try {
             ChatFunction function = ChatFunction.valueOf(inputArray[0].toUpperCase());
+
             int firstSpaceIndex = input.indexOf(" ");
             String functionDescription = input.substring(firstSpaceIndex+1);
+
             Command command= null;
 
             switch (function) {

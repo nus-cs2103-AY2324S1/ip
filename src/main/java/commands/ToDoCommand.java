@@ -8,6 +8,12 @@ public class ToDoCommand extends Command{
     private TaskList taskList;
     private String description;
 
+    /**
+     * A public constructor to initialize the ToDoCommand.
+     *
+     * @param taskList a taskList consisting of
+     * @param description the description of
+     */
     public ToDoCommand(TaskList taskList, String description) {
         this.taskList = taskList;
         this.description = description;

@@ -37,6 +37,7 @@ public class Deadline extends Task {
         return message;
     }
 
+
     public String getDeadlineDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedDateTime = this.deadline.format(formatter);

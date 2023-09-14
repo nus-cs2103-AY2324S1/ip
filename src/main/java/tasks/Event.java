@@ -43,12 +43,22 @@ public class Event extends Task {
         return message;
     }
 
+    /**
+     * Parses the LocalDateTime of the start datetime to a String representation
+     *
+     * @return A String representation of start LocalDateTime
+     */
     public String getStartDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedDateTime = this.startDate.format(formatter);
         return formattedDateTime;
     }
 
+    /**
+     * Parses the LocalDateTime of the end datetime to a String representation
+     *
+     * @return A String representation of end LocalDateTime
+     */
     public String getEndDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedDateTime = this.endDate.format(formatter);

@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class ToDoTest {
 
     @Test
-    public void dataToTask_completeDescription_success() {
+    public void toDoTest1() {
         String todo = "todo water plants";
         String deadline = "deadline cs2103 assignment /by 2023-09-12 14:00";
         String event = "event Jackie's birthday /from 2023-09-10 20:00 /to 2023-09-11 02:00";
