@@ -1,6 +1,4 @@
 T | 0 | abc
 T | 0 | abc 
 D | 1 | alsdol | Dec 21 2020
-T | 0 | abc
-T | 0 | a
 T | 0 | bob
