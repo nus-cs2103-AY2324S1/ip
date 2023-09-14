@@ -45,8 +45,10 @@ public class Storage {
         String filepath = "data/duke.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
             writer.write("");
-            for (int i = 1; i <= taskList.size(); i++) {
-                taskList.getTask(i).save(filepath);
+            if (taskList.size() != 0) {
+                for (int i = 0; i < taskList.size(); i++) {
+                    taskList.getTask(i).save(filepath);
+                }
             }
         } catch (IOException e) {
             System.out.println("IOException");

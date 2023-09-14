@@ -64,9 +64,10 @@ public class Ui {
      */
     public static String printList(TaskList taskList) {
         String tasks = "";
-        for (int i = 1; i <= taskList.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             String task = String.valueOf(taskList.getTask(i));
-            String indivTask = i + ". " + task + "\n";
+            int num = i + 1;
+            String indivTask = num + ". " + task + "\n";
             tasks += indivTask;
         }
         return "Here are the tasks in your list: \n" + tasks;
@@ -156,7 +157,7 @@ public class Ui {
             return "no matching task found:(";
         } else {
             String tasks = "";
-            for (int i = 1; i <= newList.size(); i++) {
+            for (int i = 0; i < newList.size(); i++) {
                 String task = String.valueOf(newList.getTask(i));
                 String indivTask = i + ". " + task + "\n";
                 tasks += indivTask;
@@ -174,5 +175,9 @@ public class Ui {
 
     public static String markExcept() {
         return "Sorry mark description cannot be empty!";
+    }
+
+    public static String duplicate() {
+        return "Duplicate Task!";
     }
 }

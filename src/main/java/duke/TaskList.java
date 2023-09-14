@@ -45,8 +45,8 @@ public class TaskList {
      * @return a Task from the list
      */
     public Task getTask(int index) {
-        if (index <= this.taskList.size() && index >= 1) {
-            return this.taskList.get(index - 1);
+        if (index < this.taskList.size() && index >= 0) {
+            return this.taskList.get(index);
         } else {
             return null;
         }

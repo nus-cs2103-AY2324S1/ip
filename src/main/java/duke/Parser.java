@@ -87,13 +87,13 @@ public class Parser {
         if (parts.length == 2) {
             try {
                 int index = Integer.parseInt(parts[1]);
-                Task thisTask = taskList.getTask(index);
+                Task thisTask = taskList.getTask(index - 1);
                 if (parts[0].equals("mark")) {
-                    taskList.getTask(index).setDone();
+                    thisTask.setDone();
                     return Ui.printDone(thisTask);
                 }
                 if (parts[0].equals("unmark")) {
-                    taskList.getTask(index).setNotDone();
+                    thisTask.setNotDone();
                     return Ui.printNotDone(thisTask);
                 }
                 Storage.save(taskList);
@@ -116,6 +116,9 @@ public class Parser {
     public static String handleDelete(String input, TaskList taskList) {
         assert !input.equals("") : "inputs shouldn't be empty string!";
         String[] parts1 = input.split(" ");
+        if (taskList.size() == 0) {
+            return "Task List is empty!";
+        }
         try {
         int index = Integer.parseInt(parts1[1]);
         String deleted = String.valueOf(taskList.getTask(index - 1));
@@ -180,6 +183,9 @@ public class Parser {
             String[] arr2 = arr1[0].split("deadline ");
             String date = arr1[1];
             LocalDateTime formattedDate = dateFormatter(date);
+            if (formattedDate == null) {
+                return Ui.dateFormatExcept();
+            }
             Task deadline = new Deadline(arr2[1], formattedDate, input);
             return AddTask(deadline, taskList, isLoading);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -197,15 +203,18 @@ public class Parser {
      * @throws DateTimeParseException an exception when the format of date is invalid
      */
 
-    public static LocalDateTime dateFormatter(String dateTime) throws DateTimeParseException {
+    public static LocalDateTime dateFormatter(String dateTime) {
         String[] inputs = dateTime.split(" ");
         DateTimeFormatter formatter;
         if (inputs.length == 2) {
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            return LocalDateTime.parse(dateTime, formatter);
-        } else {
-            return null;
+            try {
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                return LocalDateTime.parse(dateTime, formatter);
+            } catch (DateTimeParseException ex) {
+                System.out.println("Wrong Deadline format");
+            }
         }
+        return null;
     }
 
     /**
@@ -217,6 +226,16 @@ public class Parser {
      */
 
     public static String AddTask(Task task, TaskList taskList, Boolean isLoading) {
+        // detect duplicates
+        if (taskList.size() != 0) {
+            for (int i = 0; i < taskList.size(); i++) {
+                String newTask = task.toString();
+                String oldTask = taskList.getTask(i).toString();
+                if (newTask.equals(oldTask)) {
+                    return Ui.duplicate();
+                }
+            }
+        }
         taskList.add(task);
         Storage.save(taskList);
         if (!isLoading) {
@@ -237,7 +256,7 @@ public class Parser {
         if (taskList.size() == 0) {
             return "list is empty!";
         }
-        for (int i = 1; i <= taskList.size(); i ++) {
+        for (int i = 0; i < taskList.size(); i ++) {
             Task matchTask = taskList.getTask(i);
             if (matchTask.getName().contains(keyword)) {
                 newList.add(matchTask);

@@ -1,4 +1,1 @@
-todo read book
-todo read book
-todo read book
-todo read book
+event project meeting /from Mon 2pm /to 4pm
