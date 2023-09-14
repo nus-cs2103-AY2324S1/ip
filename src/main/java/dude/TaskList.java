@@ -39,6 +39,7 @@ public class TaskList {
     public Task markTask(int index) {
         Task task = taskList.get(index);
         task.setDone(true);
+        assert task.isDone(): "Marked task should be done.";
         return task;
     }
 
@@ -50,6 +51,7 @@ public class TaskList {
     public Task unmarkTask(int index) {
         Task task = taskList.get(index);
         task.setDone(false);
+        assert !task.isDone(): "Unmarked task should not be done.";
         return task;
     }
 
@@ -59,7 +61,11 @@ public class TaskList {
      * @param task Task to be added to the list.
      */
     public void addTask(Task task) {
+        int oldTaskListLength = this.getSize();
         taskList.add(task);
+        int newTaskListLength = this.getSize();
+        assert newTaskListLength == oldTaskListLength + 1:
+                "Length of task list after adding task should increase by length 1.";
     }
 
     /**
@@ -68,8 +74,12 @@ public class TaskList {
      * @param index Index of the task to be removed from the list.
      */
     public Task deleteTask(int index) {
+        int oldTaskListLength = this.getSize();
         Task removedTask = taskList.get(index);
         taskList.remove(index);
+        int newTaskListLength = this.getSize();
+        assert newTaskListLength == oldTaskListLength - 1:
+                "Length of task list after deleting task should decrease by length 1.";
         return removedTask;
     }
 
