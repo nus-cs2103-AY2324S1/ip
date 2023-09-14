@@ -42,12 +42,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return String.format("[D]%s (by: %s)", super.toString(), by);
     }
 
     @Override
     public String fileString() {
-        return "D" + super.fileString() + " | " + this.by;
+        return String.format("D%s | %s", super.fileString(), by);
     }
 
     @Override

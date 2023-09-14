@@ -66,7 +66,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return this.getStatusIcon() + " " + this.name;
+        return String.format("%s %s", this.getStatusIcon(), name);
     }
 
     /**
@@ -75,7 +75,9 @@ public abstract class Task {
      */
     public String fileString() {
         String done = isDone ? "1" : "0";
-        return " | " + done + " | " + this.name;
+        String fileLine = String.format(" | %b | %s", done, name);
+
+        return fileLine;
     }
 
     /**

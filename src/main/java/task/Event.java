@@ -50,12 +50,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
     }
 
     @Override
     public String fileString() {
-        return "E" + super.fileString() + " | " + this.from + "-" + this.to;
+        return String.format("E%s | %s-%s", super.fileString(), from, to);
     }
 
     @Override
