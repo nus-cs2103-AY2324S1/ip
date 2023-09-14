@@ -1,4 +1,5 @@
 package task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -47,4 +48,5 @@ public class Deadline extends Task {
     public String fileFormat() {
         return "DL" + DIVIDER + super.fileFormat() + DIVIDER + deadline;
     }
+
 }

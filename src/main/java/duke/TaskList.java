@@ -1,15 +1,11 @@
 package duke;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import dukeexception.CorruptedFileException;
-import task.Deadline;
-import task.Event;
+import dukeexception.InvalidVarException;
 import task.Task;
-import task.ToDo;
 
 /**
  * A tasklist that stores a group of tasks.
@@ -109,33 +105,9 @@ public class TaskList {
     private ArrayList<Task> stringListToTaskList(ArrayList<String> stringArrayList) throws CorruptedFileException {
         ArrayList<Task> res = new ArrayList<>();
         for (String s : stringArrayList) {
-            String[] temp = s.split(Task.DIVIDER);
-            if (temp.length <= 1) {
-                throw new CorruptedFileException();
-            }
-            boolean isComplete;
-            if (temp[1].equals("TRUE")) {
-                isComplete = true;
-            } else if (temp[1].equals("FALSE")) {
-                isComplete = false;
-            } else {
-                throw new CorruptedFileException();
-            }
             try {
-                switch (temp[0]) {
-                case ("TD"):
-                    res.add(new ToDo(temp[2], isComplete));
-                    break;
-                case ("DL"):
-                    res.add(new Deadline(temp[2], isComplete, (LocalDate.parse(temp[3]))));
-                    break;
-                case ("EV"):
-                    res.add(new Event(temp[2], isComplete, LocalDate.parse(temp[3]), LocalDate.parse(temp[4])));
-                    break;
-                default:
-                    throw new CorruptedFileException();
-                }
-            } catch (DateTimeParseException e) {
+                res.add(Parser.taskFromString(s));
+            } catch (InvalidVarException e) {
                 throw new CorruptedFileException();
             }
         }
