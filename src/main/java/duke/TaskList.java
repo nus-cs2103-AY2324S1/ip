@@ -137,17 +137,17 @@ public class TaskList {
         }
         for (int i = keywordLength; i > 0; i--) {
             for (Task task : taskList) {
-                if (task.getDescription().contains(keyword.substring(0, i))) {
-                    if (!hashMap.get(task)) {
-                        result.add(task);
-                        hashMap.replace(task, false, true);
-                        if (i != keywordLength) {
-                            count++;
-                        }
-                        if (count == limit) {
-                            return result;
-                        }
+                if (task.getDescription().contains(keyword.substring(0, i)) && !hashMap.get(task)) {
+                    result.add(task);
+                    hashMap.replace(task, false, true);
+                    // limit does not count for task descriptions that contain the entire keyword
+                    if (i != keywordLength) {
+                        count++;
                     }
+                    if (count == limit) {
+                        return result;
+                    }
+
                 }
             }
         }
