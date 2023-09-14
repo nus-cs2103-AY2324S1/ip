@@ -3,6 +3,7 @@ package skye.commands;
 import java.io.IOException;
 
 import skye.data.TaskList;
+import skye.data.VenueList;
 import skye.data.task.Task;
 import skye.storage.Storage;
 import skye.ui.UI;
@@ -27,7 +28,7 @@ public class AddTaskCommand extends Command {
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
     @Override
-    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage) throws IOException {
         taskList.addTask(task);
         storage.write(taskList.getTasks());
         return ui.showAddedTask(task, taskList.getTasks());

@@ -1,44 +1,24 @@
 package skye.commands;
 
-import java.io.IOException;
-
-import skye.data.TaskList;
-import skye.data.exception.DukeException;
-import skye.data.task.Task;
-import skye.storage.Storage;
-import skye.ui.UI;
-
 /**
- * Represents the command for deleting tasks
+ * Represents a generic delete command to be implemented by its subclasses.
  */
-public class DeleteCommand extends Command {
+public abstract class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-    private final int taskNumber;
+    private final int index;
 
     /**
-     * Instantiates the delete command for deleting tasks
+     * Instantiates the delete command for deleting resources
      *
-     * @param taskNumber Index number on the task list
+     * @param index Index number on the list
      */
-    public DeleteCommand(int taskNumber) {
+    public DeleteCommand(int index) {
         super();
-        this.taskNumber = taskNumber;
+        this.index = index;
     }
 
-    /**
-     * Executes the delete task command
-     *
-     * @param taskList TaskList
-     * @param ui UI
-     * @param storage Storage
-     * @throws DukeException Describes the error encountered when executing the command
-     * @throws IOException Describes the I/O error encountered in the OS file system
-     */
-    @Override
-    public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException, IOException {
-        Task removedTask = taskList.deleteTask(taskNumber);
-        storage.write(taskList.getTasks());
-        return ui.showRemovedTask(removedTask, taskList.getTasks());
+    public int getIndex() {
+        return index;
     }
 }

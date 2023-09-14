@@ -44,6 +44,10 @@ public enum DukeExceptionType {
             "Invalid event save format!\n"
             + "T | 0 | read book"
     ),
+    INVALID_VENUE_FORMAT(
+            "Invalid venue format!\n"
+            + "Correct usage: venue <name> /address <address> /size <capacity> /rent <rent>"
+    ),
     INVALID_RANGE("The task number you've entered is out of the valid range."),
     NO_TASK_NUMBER("Please enter the task number."),
     TASK_ALREADY_MARKED("The task number you've entered is already marked as complete."),

@@ -10,27 +10,23 @@ import skye.storage.Storage;
 import skye.ui.UI;
 
 /**
- * Represents the command to mark a task as complete.
+ * Represents the command for deleting tasks.
  */
-public class MarkCommand extends Command {
+public class DeleteTaskCommand extends DeleteCommand {
 
-    public static final String COMMAND_WORD = "mark";
-    private final int taskNumber;
+    public static final String RESOURCE = "task";
 
     /**
-     * Instantiates the mark command which is used to mark a task as complete
+     * Instantiates the delete command for deleting tasks
      *
      * @param taskNumber Index number on the task list
      */
-    public MarkCommand(int taskNumber) {
-        super();
-        this.taskNumber = taskNumber;
+    public DeleteTaskCommand(int taskNumber) {
+        super(taskNumber);
     }
 
     /**
-     * Executes the mark task command by marking the task on the TaskList as complete and
-     * updating the save file on the specified save directory and showing the task that
-     * was marked as completed on the UI.
+     * Executes the delete task command
      *
      * @param taskList TaskList
      * @param ui UI
@@ -41,9 +37,8 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage)
             throws DukeException, IOException {
-        Task markedTask = taskList.markTask(taskNumber);
-        assert markedTask.isDone();
+        Task removedTask = taskList.deleteTask(getIndex());
         storage.write(taskList.getTasks());
-        return ui.showMarkedTask(markedTask);
+        return ui.showRemovedTask(removedTask, taskList.getTasks());
     }
 }

@@ -1,6 +1,7 @@
 package skye.commands;
 
 import skye.data.TaskList;
+import skye.data.VenueList;
 import skye.storage.Storage;
 import skye.ui.UI;
 
@@ -19,7 +20,7 @@ public class ByeCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public String execute(TaskList taskList, UI ui, Storage storage) {
+    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage) {
         return ui.showGoodBye();
     }
 

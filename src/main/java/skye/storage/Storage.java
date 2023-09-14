@@ -11,7 +11,9 @@ import java.util.List;
 
 import skye.data.exception.DukeException;
 import skye.data.task.Task;
+import skye.data.venue.Venue;
 import skye.parser.TaskDecoder;
+import skye.parser.VenueDecoder;
 
 /**
  * Represents a storage utility object which provides operations to load task information
@@ -20,8 +22,10 @@ import skye.parser.TaskDecoder;
 public class Storage {
 
     private static final String HELP_GUIDE_DIRECTORY = "src/main/java/skye/guide/help.txt";
+    private static final String VENUE_DIRECTORY = "data/venues.txt";
     private final String filePath;
     private final TaskDecoder taskDecoder;
+    private final VenueDecoder venueDecoder;
 
     /**
      * Initializes the storage object by providing a file path
@@ -31,10 +35,11 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
         this.taskDecoder = new TaskDecoder();
+        this.venueDecoder = new VenueDecoder();
     }
 
     /**
-     * Load all task information into the save file by reading from a text file specified
+     * Load all task information from the save file by reading from a text file specified
      * by the file path and decoding each line into a Task object.
      *
      * @return Tasks
@@ -78,6 +83,42 @@ public class Storage {
         FileWriter fw = new FileWriter(Paths.get(filePath).toString());
         for (Task t: tasks) {
             fw.write(t.toSaveDataFormat() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    /**
+     * Load all venue information from the save file and decoding each line into a Venue object.
+     *
+     * @return Venues
+     * @throws IOException Signifies that writing to file has failed
+     * @throws DukeException Describes the error encountered when executing the command
+     */
+    public List<Venue> loadVenues() throws IOException, DukeException {
+        List<Venue> venues = new ArrayList<>();
+        Path path = Paths.get(VENUE_DIRECTORY);
+        if (!Files.exists(path)) {
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
+        } else {
+            List<String> encodedVenues = Files.readAllLines(path);
+            for (String encodedVenue : encodedVenues) {
+                venues.add(venueDecoder.decode(encodedVenue));
+            }
+        }
+        return venues;
+    }
+
+    /**
+     * Writes a list of decoded Venue objects to the specified file path.
+     *
+     * @param venues List of Venue objects
+     * @throws IOException Signifies that writing to file has failed
+     */
+    public void writeVenue(List<Venue> venues) throws IOException {
+        FileWriter fw = new FileWriter(Paths.get(VENUE_DIRECTORY).toString());
+        for (Venue venue : venues) {
+            fw.write(venue.toSaveDataFormat() + System.lineSeparator());
         }
         fw.close();
     }
