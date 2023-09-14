@@ -24,7 +24,7 @@ public class ListTasksCommand extends Command {
     }
 
     /**
-     * Appends tasks that are between the specified dates to a string.
+     * Creates a string of tasks that are between the specified dates.
      *
      * @return CommandResult containing the tasks that are between the specified dates.
      */

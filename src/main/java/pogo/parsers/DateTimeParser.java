@@ -67,7 +67,7 @@ public class DateTimeParser {
             throw new DateTimeParseException(ERROR_MESSAGE, "", 0);
         }
 
-        datetime = datetime.trim(); // Remove leading and trailing whitespace
+        datetime = datetime.trim();
         // DateTime string must be an exact match for one of the following patterns
         if (DATE_TIME_PATTERN.matcher(datetime).matches()) {
             return parseDateTime(datetime);

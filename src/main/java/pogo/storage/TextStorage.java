@@ -21,26 +21,37 @@ public class TextStorage implements Storage {
     private TextStorage() {
     }
 
+    /**
+     * Returns a TextStorage instance.
+     *
+     * @return a TextStorage instance.
+     */
     public static TextStorage of() {
         return new TextStorage();
     }
 
+    /**
+     * Creates the task file if it does not exist, including all intermediate
+     * directories.
+     *
+     * @throws IOException if there is an error creating the task file.
+     */
     private void createTaskFileIfNotExist() throws IOException {
         File file = new File(TASKS_FILE);
-
-        if (!file.getParentFile().exists()) {
-            boolean isCreated = file.getParentFile().mkdirs();
-            if (!isCreated) {
-                throw new IOException("Error creating parent directory");
-            }
-        }
 
         if (file.exists()) {
             return;
         }
 
-        boolean isCreated = file.createNewFile();
-        if (!isCreated) {
+        if (!file.getParentFile().exists()) {
+            boolean hasCreatedIntermediateDirs = file.getParentFile().mkdirs();
+            if (!hasCreatedIntermediateDirs) {
+                throw new IOException("Error creating parent directory");
+            }
+        }
+
+        boolean hasCreatedFile = file.createNewFile();
+        if (!hasCreatedFile) {
             throw new IOException("Error creating task file");
         }
     }
