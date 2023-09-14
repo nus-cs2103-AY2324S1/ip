@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** This class implements the {@link IStorage} interface. */
 public class Storage implements IStorage {
     /** The file that stores the list of tasks. */
     private File dataFile;
