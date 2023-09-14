@@ -1,9 +1,8 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
-
-import duke.Ui;
 
 /**
  * A command to mark a task as done.
@@ -16,6 +15,7 @@ public class MarkCommand extends Command {
      * Constructs a `MarkCommand` object with the specified task index.
      *
      * @param index The index of the task to mark as done.
+     * @throws IllegalArgumentException If the provided index is not positive (greater than 0).
      */
     public MarkCommand(int index) {
         assert index > 0 : "index cannot be negative or zero";
@@ -36,12 +36,11 @@ public class MarkCommand extends Command {
         try {
             if (t.get(index - 1).isDone()) {
                 return "The task has been marked as done.";
-            } else {
-                t.get(index - 1).markDone();
-                FileHandler.writeTasksToFile(t);
-                return "Well done! I've marked this task as done :\n"
-                        + "    " + t.get(index - 1).toString();
             }
+            t.get(index - 1).markDone();
+            FileHandler.writeTasksToFile(t);
+            return "Well done! I've marked this task as done :\n"
+                    + "    " + t.get(index - 1).toString();
         } catch (IndexOutOfBoundsException e) {
             return "Please enter the correct task's index number.";
         }

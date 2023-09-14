@@ -3,7 +3,6 @@ package duke;
 import java.util.Scanner;
 
 import storage.TaskList;
-
 import taskmanager.Deadline;
 import taskmanager.Event;
 import taskmanager.Task;

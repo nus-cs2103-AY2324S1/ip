@@ -1,9 +1,8 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
-
-import duke.Ui;
 
 /**
  * Represents a miscellaneous command.

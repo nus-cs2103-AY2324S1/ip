@@ -1,9 +1,8 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
-
-import duke.Ui;
 
 /**
  * Abstract class for few types of command that

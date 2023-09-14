@@ -51,6 +51,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a user input string as a ToDo command.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed ToDo command.
+     */
     private static Command parseTodoCommand(String str) {
         try {
             String[] split = str.split(" ");
@@ -60,11 +66,18 @@ public class Parser {
                 return new AddTodoCommand(str.substring(split[0].length()).trim());
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Hey! I think you forget to enter the todo description or leave a space after the command!");
+            System.out.println("Hey! I think you forget to enter the todo description "
+                    + "or leave a space after the command!");
             return new ErrorCommand("Hey! I think you forget to enter the todo description!");
         }
     }
 
+    /**
+     * Parses a user input string as a Deadline command.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed Deadline command.
+     */
     private static Command parseDeadlineCommand(String str) {
         try {
             String[] split = str.split("/by");
@@ -72,27 +85,27 @@ public class Parser {
             if (str.equals("deadline")) {
                 throw new IllegalArgumentException(
                         "Hey! Please enter the task description or leave a space after the command!");
-            } else if (split.length < 2) {
+            }
+            if (split.length < 2) {
                 throw new IllegalArgumentException(
                         "Hey! Please provide a deadline for your task in this format dd/MM/yyyy HHmm!");
-            } else {
-                DateTime dateTime = new DateTime();
-                String formattedDate = dateTime.formatDateTime(split[1].trim());
-                String taskDesc = split[0].trim().substring(8).trim();
-
-                if (formattedDate.equals("Invalid format")) {
-                    throw new IllegalArgumentException(
-                            "Hey! Please provide a deadline for your task in this format dd/MM/yyyy HHmm!");
-                }
-
-                return new AddDeadlineCommand(taskDesc, formattedDate);
             }
+            String formattedDate = parseAndFormatDateTime(split[1].trim());
+            String taskDesc = split[0].trim().substring(8).trim();
+
+            return new AddDeadlineCommand(taskDesc, formattedDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return new ErrorCommand(e.getMessage());
         }
     }
 
+    /**
+     * Parses a user input string as an Event command.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed Event command.
+     */
     private static Command parseEventCommand(String str) {
         try {
             if (str.equals("event")) {
@@ -112,51 +125,77 @@ public class Parser {
 
             if (split2.length < 2) {
                 throw new IllegalArgumentException("Hey! Please provide an end time for your event");
-            } else {
-                DateTime dateTime = new DateTime();
-                String formattedStartTime = dateTime.formatDateTime(split2[0].trim());
-                String formattedEndTime = dateTime.formatDateTime(split2[1].trim());
-                String taskDesc = split1[0].trim().substring(5).trim();
-
-                if (formattedStartTime.equals("Invalid format")) {
-                    throw new IllegalArgumentException(
-                            "Hey! Please provide a time range for your event "
-                                    + "in this format /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm");
-                }
-
-                if (formattedEndTime.equals("Invalid format")) {
-                    throw new IllegalArgumentException(
-                            "Hey! Please provide an end time for your event in this format dd/MM/yyyy HHmm!");
-                }
-
-                return new AddEventCommand(taskDesc, formattedStartTime, formattedEndTime);
             }
+            String formattedStartTime = parseAndFormatDateTime(split2[0].trim());
+            String formattedEndTime = parseAndFormatDateTime(split2[1].trim());
+            String taskDesc = split1[0].trim().substring(5).trim();
+            return new AddEventCommand(taskDesc, formattedStartTime, formattedEndTime);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return new ErrorCommand(e.getMessage());
         }
     }
 
+    /**
+     * Parses a user input string as a Delete command.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed Delete command.
+     */
     private static Command parseDeleteCommand(String str) {
         int index = Integer.parseInt(str.substring(7));
         return new DeleteCommand(index);
     }
 
+    /**
+     * Parses a user input string as a Mark command.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed Mark command.
+     */
     private static Command parseMarkCommand(String str) {
         int index = Integer.parseInt(str.substring(5));
         return new MarkCommand(index);
     }
 
+    /**
+     * Parses a user input string as an Unmark command.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed Unmark command.
+     */
     private static Command parseUnmarkCommand(String str) {
         int index = Integer.parseInt(str.substring(7));
         return new UnmarkCommand(index);
     }
 
+    /**
+     * Parses a user input string as a Find command.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed Find command.
+     */
     private static Command parseFindCommand(String str) {
         String[] split = str.split(" ");
         if (split.length < 2) {
             return new ErrorCommand("Hey! Please provide a keyword");
         }
         return new FindCommand(split[1].trim());
+    }
+
+    /**
+     * Parses and formats a date and time string into a specific format.
+     *
+     * @param inputDateTime The date and time string to be parsed and formatted.
+     * @return A formatted date and time string.
+     * @throws IllegalArgumentException If the input date and time string has an invalid format.
+     */
+    private static String parseAndFormatDateTime(String inputDateTime) {
+        DateTime dateTime = new DateTime();
+        String formattedDateTime = dateTime.formatDateTime(inputDateTime);
+        if (formattedDateTime.equals("Invalid format")) {
+            throw new IllegalArgumentException("Invalid date/time format");
+        }
+        return formattedDateTime;
     }
 }

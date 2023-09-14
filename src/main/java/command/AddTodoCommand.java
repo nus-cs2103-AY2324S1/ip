@@ -1,11 +1,9 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
-
 import taskmanager.ToDo;
-
-import duke.Ui;
 
 /**
  * Command to add a ToDos task.
@@ -17,6 +15,7 @@ public class AddTodoCommand extends Command {
      * Constructs an `AddTodoCommand` object with the specified user input and due date string.
      *
      * @param taskDesc The task description.
+     * @throws IllegalArgumentException If the provided task description is null.
      */
     public AddTodoCommand(String taskDesc) {
         assert taskDesc != null : "taskDesc must not be null";

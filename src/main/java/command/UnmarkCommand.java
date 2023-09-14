@@ -1,9 +1,9 @@
 package command;
 
+import duke.Ui;
 import storage.FileHandler;
 import storage.TaskList;
 
-import duke.Ui;
 /**
  * A command to mark a task as not done.
  */
@@ -15,6 +15,7 @@ public class UnmarkCommand extends Command {
      * Constructs a `UnmarkCommand` object with the specified task index.
      *
      * @param index The index of the task to mark as done.
+     * @throws IllegalArgumentException If the provided index is not positive (greater than 0).
      */
     public UnmarkCommand(int index) {
         assert index > 0 : "index cannot be negative or zero";
@@ -35,12 +36,11 @@ public class UnmarkCommand extends Command {
         try {
             if (!t.get(index - 1).isDone()) {
                 return "The task has been unmarked";
-            } else {
-                t.get(index - 1).markNotDone();
-                FileHandler.writeTasksToFile(t);
-                return "Alright, I've marked this task as not done yet:\n"
-                        + "    " + t.get(index - 1).toString();
             }
+            t.get(index - 1).markNotDone();
+            FileHandler.writeTasksToFile(t);
+            return "Alright, I've marked this task as not done yet:\n"
+                    + "    " + t.get(index - 1).toString();
         } catch (IndexOutOfBoundsException e) {
             return "Please enter the correct task's index number.";
         }

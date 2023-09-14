@@ -1,7 +1,6 @@
 package gui;
 
 import duke.Duke;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -28,11 +27,19 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/you.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Yours.png"));
 
+    /**
+     * Initializes the main window and binds the scroll pane's vertical value to the height of the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Duke instance to be used for processing user input and generating responses.
+     *
+     * @param d The Duke instance to set.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
