@@ -7,7 +7,7 @@ package jeoe.Tasks;
  * @author Joe Chua
  * @version Week-3
  */
-public class Task {
+public class Task implements Comparable<Task>{
 
     /** Description of the task. */
     private String description; // the toString handles the space after the [ ] or [X]
@@ -114,5 +114,17 @@ public class Task {
                 + this.toString() + "\n"
                 + "Now you have " + currNumOfTask + " tasks in the list.\n";
         // the toString is called from the child class which is amazing => RTT is child class type i guess
+    }
+
+    /**
+     * Method to compare this object with another object when sorting.
+     *
+     * @param otherTask The other task to compare to.
+     * @return Int to returned to indicate which string comes first lexicographically.
+     */
+    @Override
+    public int compareTo(Task otherTask) {
+        // Compare base on string
+        return this.toString().compareTo(otherTask.toString());
     }
 }

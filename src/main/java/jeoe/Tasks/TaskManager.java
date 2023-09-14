@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -136,6 +137,15 @@ public class TaskManager {
      */
     public void unmark(int idxUnmark) {
         storage.get(idxUnmark).unmark();
+    }
+
+    /**
+     * Sorts the tasks in the list.
+     *
+     *
+     */
+    public void sort() {
+        Collections.sort(this.storage);
     }
 
     /** Returns a string representation of the list of tasks. */

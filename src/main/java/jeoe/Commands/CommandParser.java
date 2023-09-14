@@ -40,6 +40,8 @@ public class CommandParser {
             return new DeleteCommand(input);
         case "find":
             return new FindCommand(input);
+        case "sort":
+            return new SortCommand(input);
         case "":
             throw new NoCommandException(command);
         default:
