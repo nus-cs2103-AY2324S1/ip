@@ -81,16 +81,19 @@ public class Parser {
         case EVENT:
             throw new EventException(err);
 
-        case MARK:
-        case UNMARK:
+        case MARK: // fall through
+        case UNMARK: // fall through
         case DELETE:
             throw new ManipulateException(err, key.getKeyword());
 
         case PRINT_DATE:
             throw new PrintDateException(err);
 
-        default: // Equivalent to case FIND
+        case FIND:
             throw new FindException(err);
+
+        default:
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
     }
 
@@ -118,23 +121,26 @@ public class Parser {
                     String.format("Enter in the form: \"%s\"", key.getKeyword()));
             throw new DukeException(errMessage);
 
-        case MARK:
+        case MARK: // fall through
         case UNMARK:
             return new MarkCommand(key, commandBody);
 
         case DELETE:
             return new DeleteCommand(commandBody);
 
-        case TODO:
-        case DEADLINE:
+        case TODO: // fall through
+        case DEADLINE: // fall through
         case EVENT:
             return new AddCommand(key, commandBody);
 
         case PRINT_DATE:
             return new PrintDateCommand(commandBody);
 
-        default:
+        case FIND:
             return new FindCommand(commandBody);
+
+        default:
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
     }
 }

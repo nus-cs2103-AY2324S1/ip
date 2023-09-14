@@ -41,7 +41,7 @@ public class Storage {
     }
 
     /**
-     * Load the task list from the file.
+     * Loads the task list from the file.
      * <p>If the file is not found or the format is wrong, it will throw an exception.</p>
      *
      * @return List of tasks.
@@ -49,36 +49,11 @@ public class Storage {
      */
     public List<Task> load() throws DukeException {
         List<Task> taskList = new ArrayList<>();
+        assert file.exists() : "File should exist";
 
         try {
-            Scanner sc = new Scanner(this.file);
-            while (sc.hasNext()) {
-                String[] temp = sc.nextLine().split(SEPARATOR);
-                Task task;
-                switch (temp[0]) {
-                case "T":
-                    task = new Todo(temp[2]);
-                    break;
-                case "D":
-                    task = new Deadline(temp[2], Time.parseDateTime(temp[3]));
-                    break;
-                case "E":
-                    task = new Event(temp[2], Time.parseDateTime(temp[3]), Time.parseDateTime(temp[4]));
-                    break;
-                default:
-                    throw new DukeException();
-                }
-
-                if (temp[1].equals("1")) {
-                    task.mark(true);
-                } else if (temp[1].equals("0")) {
-                    task.mark(false);
-                } else {
-                    throw new DukeException();
-                }
-
-                taskList.add(task);
-            }
+            Scanner sc = new Scanner(file);
+            loadToList(sc, taskList);
             sc.close();
         } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
             throw new DukeException();
@@ -87,7 +62,44 @@ public class Storage {
     }
 
     /**
-     * Create a new file to store the task list.
+     * Loads the file to the task list.
+     *
+     * @param sc       The scanner of the file.
+     * @param taskList The list of tasks.
+     * @throws DukeException If the format is wrong.
+     */
+    private void loadToList(Scanner sc, List<Task> taskList) throws DukeException {
+        while (sc.hasNext()) {
+            String[] temp = sc.nextLine().split(SEPARATOR);
+            Task task;
+            switch (temp[0]) {
+            case "T":
+                task = new Todo(temp[2]);
+                break;
+            case "D":
+                task = new Deadline(temp[2], Time.parseDateTime(temp[3]));
+                break;
+            case "E":
+                task = new Event(temp[2], Time.parseDateTime(temp[3]), Time.parseDateTime(temp[4]));
+                break;
+            default:
+                throw new DukeException();
+            }
+
+            if (temp[1].equals("1")) {
+                task.mark(true);
+            } else if (temp[1].equals("0")) {
+                task.mark(false);
+            } else {
+                throw new DukeException();
+            }
+
+            taskList.add(task);
+        }
+    }
+
+    /**
+     * Creates a new file to store the task list.
      * <p>If the file already exists, it will clear the file.<br>
      * If the folder does not exist, it will create the folder.<br>
      * If the file cannot be created, it will throw a runtime exception.</p>
@@ -112,23 +124,26 @@ public class Storage {
     }
 
     /**
-     * Clear the file.
+     * Clears the file.
      *
      * @throws IOException If the file is not found.
      */
     private void clearFile() throws IOException {
+        assert file.exists() : "File should exist";
+
         FileWriter fw = new FileWriter(this.filePath);
         fw.write("");
         fw.close();
     }
 
     /**
-     * Append the text to the end of the file.
+     * Appends the text to the end of the file.
      *
      * @param text The text to be appended.
      * @throws DukeException If the file is not found.
      */
     public void appendFile(String text) throws DukeException {
+        assert file.exists() : "File should exist";
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
             fw.write(text);
@@ -140,8 +155,9 @@ public class Storage {
     }
 
     /**
-     * Change the file according to the keyword and index.
+     * Changes the file according to the keyword and index.
      * <p>If the index is <b>NEGATIVE</b>, it will change <b>ALL</b> the tasks.<br>
+     * If the index is <b>POSITIVE</b>, it will change the task with the index.<br>
      * If the keyword is <b>DELETE</b>, it will delete the task.<br>
      * If the keyword is <b>MARK</b>, it will mark the task.<br>
      * If the keyword is <b>UNMARK</b>, it will unmark the task.</p>
@@ -151,6 +167,8 @@ public class Storage {
      * @throws DukeException If the file is not found.
      */
     public void changeFile(Keyword key, int index) throws DukeException {
+        assert file.exists() : "File should exist";
+
         try {
             String tempPath = this.folderPath + "/temp.txt";
             Files.copy(Paths.get(this.filePath), Paths.get(tempPath));
@@ -158,18 +176,7 @@ public class Storage {
             fw.write(""); // Clear the file
             Scanner sc = new Scanner(new File(tempPath));
 
-            if (key.equals(Keyword.DELETE)) {
-                if (index >= 0) {
-                    removeLine(index, sc, fw);
-                } // else delete all
-            } else {
-                if (index >= 0) {
-                    markLine(index, key.equals(Keyword.MARK), sc, fw);
-                } else {
-                    markAll(key.equals(Keyword.MARK), sc, fw);
-                }
-            }
-
+            processChange(key, index, sc, fw);
             sc.close();
             fw.close();
             Files.delete(Paths.get(tempPath));
@@ -179,7 +186,33 @@ public class Storage {
     }
 
     /**
-     * Remove the line with the index in the file.
+     * Process the change of the file.
+     * <p>If the index is <b>NEGATIVE</b>, it will change <b>ALL</b> the tasks.<br>
+     * If the index is <b>POSITIVE</b>, it will change the task with the index.<br>
+     * If the keyword is <b>DELETE</b>, it will delete the task.<br>
+     * If the keyword is <b>MARK</b>, it will mark the task.<br>
+     * If the keyword is <b>UNMARK</b>, it will unmark the task.</p>
+     *
+     * @param key   The keyword to change the file.
+     * @param index The index of the task to be changed.
+     * @param sc    The scanner of the file.
+     * @param fw    The file writer of the file.
+     * @throws IOException If the file is not found.
+     */
+    private void processChange(Keyword key, int index, Scanner sc, FileWriter fw) throws IOException {
+        if (key.equals(Keyword.DELETE)) {
+            if (index >= 0) {
+                removeLine(index, sc, fw);
+            }
+        } else if (index >= 0) {
+            markLine(index, key.equals(Keyword.MARK), sc, fw);
+        } else {
+            markAll(key.equals(Keyword.MARK), sc, fw);
+        }
+    }
+
+    /**
+     * Removes the line with the index in the file.
      *
      * @param index The index of the line to be removed.
      * @param sc    The scanner of the file.
@@ -201,7 +234,7 @@ public class Storage {
     }
 
     /**
-     * Mark or unmark the line with the index in the file.
+     * Marks or unmark the line with the index in the file.
      *
      * @param index  The index of the line to be marked.
      * @param isMark Whether to mark or unmark the line.
@@ -209,7 +242,10 @@ public class Storage {
      * @param fw     The file writer of the file.
      * @throws IOException If the file is not found.
      */
-    public void markLine(int index, boolean isMark, Scanner sc, FileWriter fw) throws IOException {
+    private void markLine(int index, boolean isMark, Scanner sc, FileWriter fw) throws IOException {
+        assert index >= 0 : "Index should be positive";
+        assert file.exists() : "File should exist";
+
         int curr = 0;
 
         while (sc.hasNext()) {
@@ -218,7 +254,8 @@ public class Storage {
             } else {
                 String task = sc.nextLine();
                 String result = task.substring(0, SEPARATOR.length() + 1)
-                        + (isMark ? "1" : "0") + task.substring(SEPARATOR.length() + 2);
+                        + (isMark ? "1" : "0")
+                        + task.substring(SEPARATOR.length() + 2);
                 fw.write(result);
             }
             fw.write("\n");
@@ -227,7 +264,7 @@ public class Storage {
     }
 
     /**
-     * Mark or unmark all the lines in the file.
+     * Marks or unmark all the lines in the file.
      *
      * @param isMark Whether to mark or unmark the line.
      * @param sc     The scanner of the file.
@@ -238,7 +275,9 @@ public class Storage {
         while (sc.hasNext()) {
             String task = sc.nextLine();
             String result = task.substring(0, SEPARATOR.length() + 1)
-                    + (isMark ? "1" : "0") + task.substring(SEPARATOR.length() + 2) + "\n";
+                    + (isMark ? "1" : "0")
+                    + task.substring(SEPARATOR.length() + 2)
+                    + "\n";
             fw.write(result);
         }
     }

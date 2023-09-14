@@ -35,8 +35,10 @@ public class Deadline extends Task {
     @Override
     public String fileFormat() {
         return String.format("D%s%s%s%s",
-                Storage.SEPARATOR, super.fileFormat(),
-                Storage.SEPARATOR, this.by.format(Time.DATE_TIME_FORMATTER));
+                Storage.SEPARATOR,
+                super.fileFormat(),
+                Storage.SEPARATOR,
+                by.format(Time.DATE_TIME_FORMATTER));
     }
 
     /**
@@ -53,9 +55,10 @@ public class Deadline extends Task {
         assert key != null : "Keyword cannot be null";
         assert date != null : "Date cannot be null";
 
-        LocalDate by = this.by.toLocalDate();
-        return key.equals(Keyword.DEADLINE)
-                && (by.isAfter(date) || by.equals(date));
+        LocalDate byDate = by.toLocalDate();
+        boolean isDeadline = key.equals(Keyword.DEADLINE);
+        boolean isOnOrAfterDate = byDate.isAfter(date) || byDate.equals(date);
+        return isDeadline && isOnOrAfterDate;
     }
 
     /**
@@ -65,7 +68,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(),
-                this.by.format(Time.DATE_TIME_DISPLAY_FORMATTER));
+        return String.format("[D]%s (by: %s)",
+                super.toString(),
+                by.format(Time.DATE_TIME_DISPLAY_FORMATTER));
     }
 }
