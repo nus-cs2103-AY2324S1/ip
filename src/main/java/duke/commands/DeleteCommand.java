@@ -37,8 +37,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute() throws DukeException {
-        String res = ui.printDeleteTask(taskList, index);
-        taskList.deleteTask(index);
+        String res = ui.printDeleteTask(taskList, index - 1);
+        taskList.deleteTask(index - 1);
         try {
             storage.save(taskList);
         } catch (IOException e) {
