@@ -139,9 +139,10 @@ public class TaskList implements Iterable<Task> {
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
         assert keyword != null && !keyword.trim().isEmpty() : "Keyword cannot be null or empty";
+        keyword = keyword.trim();
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.description.contains(keyword)) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }
