@@ -99,27 +99,21 @@ public class Storage {
 
                 switch (category) {
                 case "T":
-                    Task todoTask = new ToDo(description);
-                    if (!status.equals("0")) {
-                        todoTask.mark();
-                    }
-                    tasklist.add(todoTask);
+                    Task toDoTask = new ToDo(description);
+                    markTask(toDoTask, status);
+                    tasklist.add(toDoTask);
                     break;
                 case "D":
                     String deadline = input[3];
                     Task deadlineTask = new Deadline(description, deadline);
-                    if (!status.equals("0")) {
-                        deadlineTask.mark();
-                    }
+                    markTask(deadlineTask, status);
                     tasklist.add(deadlineTask);
                     break;
                 case "E":
                     String from = input[3].split("-")[0];
                     String to = input[3].split("-")[1];
                     Task eventTask = new Event(description, from, to);
-                    if (!status.equals("0")) {
-                        eventTask.mark();
-                    }
+                    markTask(eventTask, status);
                     tasklist.add(eventTask);
                     break;
                 default:
@@ -128,6 +122,12 @@ public class Storage {
             return tasklist;
         } catch (FileNotFoundException e) {
             throw new DukeException("File Cannot be Found");
+        }
+    }
+
+    public void markTask(Task t, String status) {
+        if (!status.equals("0")) {
+            t.mark();
         }
     }
 
