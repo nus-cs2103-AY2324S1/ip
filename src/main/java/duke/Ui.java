@@ -6,6 +6,9 @@ import java.util.Scanner;
  * Encapsulates the UI the user uses to interact with the chatbot.
  */
 public class Ui {
+    /**
+     * Displays greeting when user launches app
+     */
     public static void greet() {
         System.out.println("Hello! I'm Eepy 😸");
     }

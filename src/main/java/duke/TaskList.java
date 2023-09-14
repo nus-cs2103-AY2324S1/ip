@@ -26,6 +26,7 @@ public class TaskList {
     public String addTask(Task t, boolean shouldPrint) {
         tasks.add(t);
         count++;
+        assert tasks.size() == count;
 
         StringBuilder output = new StringBuilder();
         if (shouldPrint) {
@@ -46,6 +47,7 @@ public class TaskList {
         Task t = getTask(index);
         tasks.remove(t);
         count--;
+        assert tasks.size() == count;
 
         StringBuilder output = new StringBuilder();
         output.append("Noted. I've removed this task:\n");
