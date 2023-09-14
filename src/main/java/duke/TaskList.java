@@ -35,16 +35,23 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
+
+
     private Task deconstructStringIntoTask(String line) {
+        // parameter line is in the form E/0/project meeting/2002-12-02T04:00/2002-12-02T05:00
         String[] array = line.split("/", 2);
         if (array[0].equals("T")) {
+            // splits the String T/0/homework into T, 0, and homework elements of arrayT
             String[] arrayT = line.split("/", 3);
             Todo task = new Todo(arrayT[2]);
+            // 1 means that task is done , 0 means task is undone
             if (arrayT[1].equals("1")) {
                 task.markAsDone();
             }
             return task;
         } else if (array[0].equals("D")) {
+            // splits the String D/0/project/2002-12-02T04:00 into
+            // D, 0, project, 2002-12-02T04:00 elements of arrayD
             String[] arrayD = line.split("/", 4);
             LocalDateTime byDateTime = LocalDateTime.parse(arrayD[3]);
             Deadline task = new Deadline(arrayD[2], byDateTime);
@@ -53,6 +60,8 @@ public class TaskList {
             }
             return task;
         } else if (array[0].equals("E")) {
+            // splits the String E/0/project meeting/2002-12-02T04:00/2002-12-02T05:00 into
+            // E, 0, project meeting, 2002-12-02T04:00 and 2002-12-02T05:00 elements of arrayE
             String[] arrayE = line.split("/", 5);
             LocalDateTime fromDateTime = LocalDateTime.parse(arrayE[3]);
             LocalDateTime toDateTime = LocalDateTime.parse(arrayE[4]);

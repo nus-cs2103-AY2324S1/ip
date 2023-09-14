@@ -41,8 +41,6 @@ public class Storage {
             File textFile = new File(this.filePath);
             if (textFile.createNewFile()) {
                 System.out.println("File created: " + textFile.getName());
-            } else {
-                System.out.println("Data file already exists");
             }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filePath));
             String taskString;
@@ -64,22 +62,8 @@ public class Storage {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.filePath));
             for (Task task : taskList) {
-                String doneNum = task.getIsDone() ? "1" : "0";
-                if (task instanceof Todo) {
-                    bufferedWriter.append("T/" + doneNum + "/" + task.getDescription());
-                    bufferedWriter.append("\n");
-                } else if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    bufferedWriter.append("D/" + doneNum + "/" + deadline.getDescription() + "/"
-                            + deadline.getBy().toString());
-                    bufferedWriter.append("\n");
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    bufferedWriter.append("E/" + doneNum + "/" + event.getDescription() + "/"
-                            + event.getFrom().toString() + "/"
-                            + event.getTo().toString());
-                    bufferedWriter.append("\n");
-                }
+                bufferedWriter.append(task.toDataString());
+                bufferedWriter.append("\n");
             }
             bufferedWriter.close();
         } catch (IOException e) {
