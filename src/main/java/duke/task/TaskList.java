@@ -40,6 +40,7 @@ public class TaskList {
      * @param task Task to be added to the list.
      */
     public String addTask(Task task) {
+        assert (task != null) : "Adding null task";
         this.tasks.add(task);
         return this.ui.addTaskMessage(task, tasks.size());
 
@@ -108,6 +109,7 @@ public class TaskList {
         ArrayList<Integer> taskIndexArray = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
+            assert (currentTask != null) : "Current Task is null";
             if (currentTask.toString().toUpperCase().contains(keyword.toUpperCase())) {
                 taskIndexArray.add(i);
             }
