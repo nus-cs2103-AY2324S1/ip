@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import mattbot.task.Deadline;
@@ -148,7 +149,7 @@ public class MattBot {
                     } else if (command.equals("find")) {
                         ArrayList<Task> found = new ArrayList<Task>();
                         for (int i = 1; i <= tasks.size(); i++) {
-                            Task t = tasks.getTask(i);
+                            t = tasks.getTask(i);
                             if (t.showName().contains(arguments)) {
                                 found.add(t);
                             }
@@ -159,6 +160,7 @@ public class MattBot {
                         }
                         System.out.println("I have found " + found.size() + " tasks matching your search!");
                         for (int i = 0; i < found.size(); i++) {
+                            t = tasks.getTask(i+1);
                             System.out.println(String.format("%d. %s", i + 1, t));
                         }
                     } else {
