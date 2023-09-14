@@ -48,7 +48,7 @@ public class Parser {
      */
     public enum CommandType {
         TODO, DEADLINE, EVENT, MARK, UNMARK,
-        DELETE, LIST, BYE, UNKNOWN, EMPTY, FIND
+        DELETE, LIST, BYE, UNKNOWN, EMPTY, FIND, MASS
     }
 
     /**
@@ -106,7 +106,7 @@ public class Parser {
             if (splitIndexMark.length <= 1 || splitIndexMark.length > 2) {
                 return ui.showInvalidMessage();
             }
-            int index = Integer.parseInt(splitIndexMark[1]) - 1;
+            int index = Integer.parseInt(splitIndexMark[1]);
             return fullList.markItem(index);
 
         case UNMARK:
@@ -115,7 +115,7 @@ public class Parser {
             if (splitIndexUnMark.length <= 1 || splitIndexUnMark.length > 2) {
                 return ui.showInvalidMessage();
             }
-            int indexUnmark = Integer.parseInt(splitIndexUnMark[1]) - 1;
+            int indexUnmark = Integer.parseInt(splitIndexUnMark[1]);
             return fullList.unMarkItem(indexUnmark);
 
         case TODO:
@@ -180,6 +180,46 @@ public class Parser {
                 return ui.showNoFind();
             } else {
                 return ui.showFind(list);
+            }
+
+        case MASS:
+            assert command != CommandType.MASS : "Command is not MASS";
+            String[] inputPartsMass = input.split(" ");
+            if (inputPartsMass.length <= 2) {
+                return ui.showInvalidMessage();
+            }
+
+            String commandToBeDone = inputPartsMass[1].trim();
+            boolean isDelete = commandToBeDone.equals("delete");
+            boolean isMark = commandToBeDone.equals("mark");
+            boolean isUnMark = commandToBeDone.equals("unmark");
+            boolean isInvalidCommand = !isDelete && !isMark && !isUnMark;
+            if (isInvalidCommand) {
+                return ui.showCustomError("The command used after mass is not valid: " + commandToBeDone);
+            }
+            // For testing purposes
+            for (int i = 0; i < inputPartsMass.length; i++) {
+                System.out.println("inputPartsMass " + inputPartsMass[i]);
+            }
+
+            int[] indexArray = new int[inputPartsMass.length - 2];
+            for (int i = 2; i < inputPartsMass.length; i++) {
+                int value = Integer.parseInt(inputPartsMass[i].trim());
+                indexArray[i - 2] = value;
+                // For testing purpose
+                System.out.println("inserted value: " + value + "indexArray: " + indexArray[i-2]);
+            }
+
+            // For testing purpose
+            for (int i = 0; i < indexArray.length; i++) {
+                System.out.println(indexArray[i]);
+            }
+            if (isMark) {
+                return fullList.markItem(indexArray);
+            } else if (isUnMark) {
+                return fullList.unMarkItem(indexArray);
+            } else if (isDelete) {
+                return fullList.deleteFromList(indexArray);
             }
 
         case BYE:

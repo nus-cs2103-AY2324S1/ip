@@ -20,8 +20,9 @@ public class Ui {
                     + "4. mark [item_number]\n"
                     + "5. unmark [item_number]\n"
                     + "6. delete [item_number]\n"
-                    + "7. list\n"
-                    + "8. bye\n"
+                    + "7. mass [delete/mark/unmark] [item_numbers]\n"
+                    + "8. list\n"
+                    + "9. bye\n"
                     + line;
 
     /**
@@ -82,12 +83,8 @@ public class Ui {
     /**
      * Displays a message which indicated the item does not exist.
      */
-    public String showNoItemMessage() {
-        return (
-                showLine() + '\n'
-                        + "No such item exists"
-                                + showLine()
-            );
+    public String showNoItemMessage(int i) {
+        return showLine() + '\n' + "No such item exists: " + i + '\n' + showLine();
     }
 
     /**
@@ -188,5 +185,9 @@ public class Ui {
         return showLine() + '\n'
                 + "There are no matching tasks in your current list" + '\n'
                 + showLine();
+    }
+
+    public String showCustomError(String error) {
+        return showLine() + '\n' + error + '\n' + showLine();
     }
 }
