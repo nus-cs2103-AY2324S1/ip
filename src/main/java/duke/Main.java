@@ -23,6 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("Iron Man");
             stage.setScene(scene);
+            stage.setResizable(true);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             fxmlLoader.<MainWindow>getController().printIntroduction();
             stage.show();
