@@ -9,6 +9,7 @@ import alice.exception.DukeException;
  * Represents a task with a start and end time.
  */
 public class Event extends Task {
+    public static final String TASK_LABEL = "E";
     protected LocalDateTime from; // The start time of the task in LocalDateTime format.
     protected LocalDateTime to; // The end time of the task in LocalDateTime format.
 
@@ -64,7 +65,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Task.getDate(this.from) + " to: " + Task.getDate(this.to) + ")";
+        return "[" + TASK_LABEL + "]" + super.toString() + " (from: " + Task.getDate(this.from)
+            + " to: " + Task.getDate(this.to) + ")";
     }
 
     /**
@@ -72,6 +74,6 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + this.from + " | " + this.to;
+        return TASK_LABEL + " | " + super.toFileString() + " | " + this.from + " | " + this.to;
     }
 }

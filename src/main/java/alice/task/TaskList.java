@@ -9,6 +9,8 @@ import alice.exception.DukeException;
  * Represents a list of tasks.
  */
 public class TaskList {
+    public static final String TASK_IS_DONE_LABEL = "1";
+
     private final ArrayList<Task> tasks; // The list of tasks.
 
     public TaskList() {
@@ -28,18 +30,18 @@ public class TaskList {
             String[] inputs = line.split(" \\| ");
 
             String taskType = inputs[0];
-            boolean isDone = inputs[1].equals("1");
+            boolean isDone = inputs[1].equals(TASK_IS_DONE_LABEL);
             String description = inputs[2];
 
             switch (taskType) {
-            case "T":
+            case Todo.TASK_LABEL:
                 this.add(new Todo(description, isDone));
                 break;
-            case "D":
+            case Deadline.TASK_LABEL:
                 String by = inputs[3];
                 this.add(new Deadline(description, by, isDone));
                 break;
-            case "E":
+            case Event.TASK_LABEL:
                 String from = inputs[3];
                 String to = inputs[4];
                 this.add(new Event(description, from, to, isDone));

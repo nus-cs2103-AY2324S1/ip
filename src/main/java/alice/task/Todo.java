@@ -6,6 +6,8 @@ import alice.exception.DukeException;
  * Represents a task without any date/time attached to it.
  */
 public class Todo extends Task {
+    public static final String TASK_LABEL = "T";
+
     /**
      * Constructs a todo with the given description.
      *
@@ -42,7 +44,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + TASK_LABEL + "]" + super.toString();
     }
 
     /**
@@ -50,6 +52,6 @@ public class Todo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + super.toFileString();
+        return TASK_LABEL + " | " + super.toFileString();
     }
 }

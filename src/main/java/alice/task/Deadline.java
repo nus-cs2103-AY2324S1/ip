@@ -9,6 +9,8 @@ import alice.exception.DukeException;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
+    public static final String TASK_LABEL = "D";
+
     protected LocalDateTime by; // The deadline of the task in LocalDateTime format.
 
     /**
@@ -59,7 +61,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Task.getDate(this.by) + ")";
+        return "[" + TASK_LABEL + "]" + super.toString() + " (by: " + Task.getDate(this.by) + ")";
     }
 
     /**
@@ -67,6 +69,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + super.toFileString() + " | " + this.by;
+        return TASK_LABEL + " | " + super.toFileString() + " | " + this.by;
     }
 }
