@@ -109,4 +109,8 @@ public class Event extends Task {
         Event t = (Event) task;
         return t.getLog().equals(this.getLog());
     }
+
+    public int compareTo(Event e) {
+        return this.getStartTime().compareTo(e.getStartTime());
+    }
 }

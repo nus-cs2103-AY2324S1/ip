@@ -57,6 +57,10 @@ public class Parser {
             return bb.exit();
         }
 
+        if (next.startsWith("sort")) {
+            return bb.sort(next);
+        }
+
             throw new BenBenException("BenBen does not understand your instruction:(");
     }
 

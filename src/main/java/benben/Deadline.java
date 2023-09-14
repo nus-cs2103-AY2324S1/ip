@@ -78,5 +78,10 @@ public class Deadline extends Task {
 
         return t.getLog().equals(this.getLog());
     }
+
+    @Override
+    public int compareTo(Task t2) {
+        return super.compareTo(t2);
+    }
 }
 
