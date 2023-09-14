@@ -43,6 +43,7 @@ public class Storage {
             // Create the directory if it doesn't exist
             if (!parentDir.exists()) {
                 boolean dirCreated = parentDir.mkdirs();
+                assert dirCreated : "Failed to create directory";
                 if (!dirCreated) {
                     throw new DukeException("Failed to create directory at " + parentDir.getAbsolutePath());
                 }
@@ -54,6 +55,7 @@ public class Storage {
             // Create the file if it doesn't exist
             if (!file.exists()) {
                 boolean fileCreated = file.createNewFile();
+                assert fileCreated : "Failed to create file";
                 if (!fileCreated) {
                     throw new DukeException("Failed to create store file at " + file.getAbsolutePath());
                 }
@@ -77,6 +79,7 @@ public class Storage {
         TaskList result = new TaskList();
         try {
             br = new BufferedReader(new FileReader(this.store));
+            assert br != null : "BufferedReader object is null";
             String line;
             while ((line = br.readLine()) != null) {
                 //[T][X] read book 
@@ -134,7 +137,8 @@ public class Storage {
     public void writeData(String newData) throws DukeException {
         BufferedWriter bw;
         try {
-            bw = new BufferedWriter(new FileWriter(this.store, true));      
+            bw = new BufferedWriter(new FileWriter(this.store, true));
+            assert bw != null : "BufferedWriter object is null";
             bw.newLine();
             bw.write(newData);
             bw.close();
@@ -154,8 +158,10 @@ public class Storage {
         BufferedWriter bw = null;
 
         try {
+            assert store != null && store.exists() : "Store file does not exist";
             // Read file into list
             br = new BufferedReader(new FileReader(this.store));
+            assert br != null : "BufferedReader object is null";
             String line;
             while ((line = br.readLine()) != null) {
                 lines.add(line);
@@ -170,6 +176,7 @@ public class Storage {
 
             // Write list back to file
             bw = new BufferedWriter(new FileWriter(store));
+            assert bw != null : "BufferedWriter object is null";
             for (int i = 0; i < lines.size(); i++) {
                 bw.write(lines.get(i));
                 if (i < lines.size() - 1) {
@@ -205,8 +212,10 @@ public class Storage {
         BufferedWriter bw = null;
 
         try {
+            assert store != null && store.exists() : "Store file does not exist";
             // Read file into list
             br = new BufferedReader(new FileReader(this.store));
+            assert br != null : "BufferedReader object is null";
             String line;
             while ((line = br.readLine()) != null) {
                 lines.add(line);
@@ -221,6 +230,7 @@ public class Storage {
 
             // Write list back to file
             bw = new BufferedWriter(new FileWriter(store));
+            assert bw != null : "BufferedWriter object is null";
             for (int i = 0; i < lines.size(); i++) {
                 bw.write(lines.get(i));
                 if (i < lines.size() - 1) {

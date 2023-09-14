@@ -46,6 +46,9 @@ public class Duke extends Application {
         try {
             storage.loadOrCreateFile();
             list = storage.readData(storage);
+            assert ui != null : "UI should be initialized";
+            assert storage != null : "Storage should be initialized";
+            assert list != null : "TaskList should be initialized";
         } catch (DukeException e) {
             ui.showError(e);
         }
@@ -55,6 +58,9 @@ public class Duke extends Application {
      * Drives the program by reading user input and executing the command.
      */
     public void run() {
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
+        assert list != null : "TaskList should not be null";
         System.out.println(ui.showWelcome(chatBotName));
         boolean isExit = false;
         while (!isExit) {
@@ -153,6 +159,7 @@ public class Duke extends Application {
                 DialogBox.getDukeDialog(dukeText, roundImage(duke))
         );
         userInput.clear();
+        assert userInput.getText().isEmpty() : "User input should be empty after clearing";
     }
     private ImageView roundImage(Image object) {
         ImageView imageView = new ImageView(object);
@@ -171,12 +178,14 @@ public class Duke extends Application {
     }
     private String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
-            String d = c.execute(list, ui, storage);
-            if (c.isExit()){
+            Command command = Parser.parse(input);
+            assert command != null : "Parsed command should not be null";
+            String responseString = command.execute(list, ui, storage);
+            assert responseString != null && !responseString.isEmpty() : "Response should not be null or empty";
+            if (command.isExit()){
                 System.exit(0);
             }
-            return d;
+            return responseString;
         } catch (DukeException e) {
             return ui.showError(e);
         }

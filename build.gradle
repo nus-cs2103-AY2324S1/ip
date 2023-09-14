@@ -37,6 +37,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jvmArgs '-ea'
 
     testLogging {
         events "passed", "skipped", "failed"
@@ -51,6 +52,7 @@ test {
 
 application {
     mainClass.set("main.Launcher")
+    applicationDefaultJvmArgs = ["-ea"]
 }
 
 jar {
@@ -70,4 +72,5 @@ shadowJar {
 
 run {
     standardInput = System.in
+    jvmArgs '-ea'
 }
