@@ -2,15 +2,15 @@ package pogo.commands;
 
 import pogo.common.Messages;
 
+/**
+ * Represents a command to exit the application.
+ */
 public class ExitCommand extends Command {
     public static final String COMMAND_WORD = "bye";
 
-    public ExitCommand() {
-    }
-
-
     /**
      * Returns a CommandResult containing a goodbye message.
+     *
      * @return CommandResult containing a goodbye message.
      */
     @Override

@@ -37,17 +37,26 @@ public class DateTimeParser {
             + "YYYY-MM-DD HH:MM, YYYY-MM-DD HH:MM AM/PM, HH:MM, HH:MM AM/PM, HH:MM am/pm";
 
     private static LocalDateTime parseDateTime(String datetime) {
+        assert datetime != null : "Time string should not be null";
+        assert !datetime.isEmpty() : "Time string should not be empty";
+        assert datetime.matches(DATE_TIME_PATTERN.pattern()) : "Time string should match datetime pattern";
         return LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     private static LocalDateTime parseTimeTwentyFour(String timeString) {
+        assert timeString != null : "Time string should not be null";
+        assert !timeString.isEmpty() : "Time string should not be empty";
+        assert timeString.matches(TIME_TWENTYFOUR_PATTERN.pattern()) : "Time string should match 24 hour pattern";
         LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
         LocalDate date = LocalDate.now();
         return LocalDateTime.of(date, time);
     }
 
     private static LocalDateTime parseTimeAmPm(String timeString) {
+        assert timeString != null : "Time string should not be null";
+        assert !timeString.isEmpty() : "Time string should not be empty";
         timeString = timeString.toUpperCase().replaceAll("\\.", "");
+        assert timeString.matches(TIME_AM_PM_PATTERN.pattern()) : "Time string should match am/pm pattern";
         LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("h:mm[ ]a"));
         LocalDate today = LocalDate.now();
 
@@ -67,7 +76,7 @@ public class DateTimeParser {
             throw new DateTimeParseException(ERROR_MESSAGE, "", 0);
         }
 
-        datetime = datetime.trim(); // Remove leading and trailing whitespace
+        datetime = datetime.trim();
         // DateTime string must be an exact match for one of the following patterns
         if (DATE_TIME_PATTERN.matcher(datetime).matches()) {
             return parseDateTime(datetime);

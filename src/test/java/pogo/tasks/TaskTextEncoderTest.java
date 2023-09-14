@@ -10,8 +10,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import pogo.tasks.exceptions.PogoInvalidTaskException;
-
 public class TaskTextEncoderTest {
 
     @Test
@@ -76,7 +74,7 @@ public class TaskTextEncoderTest {
 
         assertTrue(decodedTasks.get(1) instanceof ToDo);
         assertTrue(decodedTasks.get(1).isDone());
-        
+
         assertTrue(decodedTasks.get(2) instanceof Event);
         assertFalse(decodedTasks.get(2).isDone());
     }
