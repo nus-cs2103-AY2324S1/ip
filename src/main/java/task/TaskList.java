@@ -8,12 +8,8 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-<<<<<<< .merge_file_vXWGHb
-    private final ArrayList<Task> tasks;
-=======
     /** List to store tasks. */
-    private ArrayList<Task> tasks;
->>>>>>> .merge_file_rWOu9c
+    private final ArrayList<Task> tasks;
 
     /**
      * Initializes an empty task list.
