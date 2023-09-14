@@ -1,12 +1,12 @@
 package duke.command;
 
+import duke.exception.DukeException;
+import duke.exception.PrintDateException;
 import duke.util.Keyword;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Time;
 import duke.util.Ui;
-import duke.exception.DukeException;
-import duke.exception.PrintDateException;
 
 /**
  * Represents a print date command. A <code>PrintDateCommand</code> object
@@ -15,7 +15,7 @@ import duke.exception.PrintDateException;
  */
 public class PrintDateCommand extends Command {
 
-    private String commandBody;
+    private final String commandBody;
 
     /**
      * Constructs a <code>PrintDateCommand</code> object.
@@ -33,7 +33,6 @@ public class PrintDateCommand extends Command {
      * @param taskList The task list that contains the tasks.
      * @param ui       The user interface to print out the tasks.
      * @param storage  The storage.
-     * @return
      * @throws DukeException If the command is invalid, or if there is
      *                       nothing in the list or if nothing is happening on that date.
      */

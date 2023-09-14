@@ -1,9 +1,9 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-import duke.exception.DukeException;
 
 /**
  * Represents a command to find tasks in the task list. A <code>FindCommand</code> object
@@ -12,7 +12,7 @@ import duke.exception.DukeException;
  */
 public class FindCommand extends Command {
 
-    private String commandBody;
+    private final String commandBody;
 
     /**
      * Constructs a <code>FindCommand</code> object.
@@ -30,7 +30,6 @@ public class FindCommand extends Command {
      * @param taskList the task list to find tasks in
      * @param ui       the user interface to print messages to the user
      * @param storage  the storage
-     * @return
      * @throws DukeException if no tasks are found
      */
     @Override

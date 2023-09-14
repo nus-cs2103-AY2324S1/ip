@@ -1,18 +1,17 @@
-package duke;
-
+package duke.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import duke.util.Keyword;
-import duke.util.TaskList;
-import duke.util.Time;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Todo;
 
+/**
+ * JUnit test class for TaskList.
+ */
 public class TaskListTest {
 
     @Test

@@ -1,16 +1,16 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-import duke.exception.DukeException;
 
 /**
  * Represents a command to be executed by the chatbot. A <code>Command</code> object
  * corresponds to an executable command.
  */
 public abstract class Command {
-    private boolean isExit;
+    private final boolean isExit;
 
     /**
      * Constructs a command.
@@ -36,7 +36,7 @@ public abstract class Command {
      * @param taskList The task list.
      * @param ui       The user interface.
      * @param storage  The storage.
-     * @return
+     * @return the response to the user.
      * @throws DukeException If an error occurs during execution.
      */
     public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;

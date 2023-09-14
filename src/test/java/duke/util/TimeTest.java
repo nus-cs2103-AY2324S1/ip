@@ -1,16 +1,17 @@
-package duke;
+package duke.util;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import duke.util.Time;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
 
-
+/**
+ * JUnit test class for Time class.
+ */
 public class TimeTest {
 
     @Test

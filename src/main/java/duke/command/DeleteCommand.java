@@ -1,11 +1,11 @@
 package duke.command;
 
+import duke.exception.DukeException;
+import duke.exception.ManipulateException;
 import duke.util.Keyword;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-import duke.exception.DukeException;
-import duke.exception.ManipulateException;
 
 /**
  * Represents a command to delete a task. A <code>DeleteCommand</code>
@@ -13,7 +13,7 @@ import duke.exception.ManipulateException;
  */
 public class DeleteCommand extends Command {
 
-    private String commandBody;
+    private final String commandBody;
 
     /**
      * Constructs a <code>DeleteCommand</code> object.
@@ -31,7 +31,6 @@ public class DeleteCommand extends Command {
      * @param taskList the task list to which the task is added
      * @param ui       the user interface to print messages to the user
      * @param storage  the storage to save the task list to
-     * @return
      * @throws DukeException if the command is invalid
      */
     @Override

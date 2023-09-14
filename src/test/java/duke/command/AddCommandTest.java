@@ -8,14 +8,16 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import duke.util.Keyword;
-import duke.StorageStub;
-import duke.util.TaskList;
-import duke.UiStub;
 import duke.exception.DukeException;
 import duke.task.Task;
+import duke.util.Keyword;
+import duke.util.StorageStub;
+import duke.util.TaskList;
+import duke.util.UiStub;
 
-
+/**
+ * JUnit test class for AddCommand.
+ */
 public class AddCommandTest {
 
     @Test

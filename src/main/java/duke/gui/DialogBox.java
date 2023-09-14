@@ -1,24 +1,35 @@
 package duke.gui;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import java.io.IOException;
-import java.util.Collections;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.image.Image;
 
+/**
+ * Represents a custom dialog box consisting of an ImageView to represent
+ * the speaker's <i>(user and bot)</i> icon and a label containing text from the speaker.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox object.
+     *
+     * @param text Text to be displayed in the dialog box.
+     * @param img Image to be displayed in the dialog box.
+     */
     public DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -44,12 +55,26 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox object representing the user's dialog box.
+     *
+     * @param text Text to be displayed in the dialog box.
+     * @param img Image to be displayed in the dialog box.
+     * @return DialogBox object representing the user's dialog box.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    /**
+     * Returns a DialogBox object representing Bots dialog box.
+     *
+     * @param text Text to be displayed in the dialog box.
+     * @param img Image to be displayed in the dialog box.
+     * @return DialogBox object representing Bots dialog box.
+     */
+    public static DialogBox getBotDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img);
         db.flip();
         return db;
     }

@@ -6,14 +6,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import duke.util.Keyword;
-import duke.StorageStub;
-import duke.util.TaskList;
-import duke.UiStub;
 import duke.exception.DukeException;
 import duke.task.Todo;
+import duke.util.Keyword;
+import duke.util.StorageStub;
+import duke.util.TaskList;
+import duke.util.UiStub;
 
-
+/**
+ * JUnit test class for MarkCommand.
+ */
 public class MarkCommandTest {
 
     @Test

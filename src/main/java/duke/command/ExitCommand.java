@@ -23,7 +23,6 @@ public class ExitCommand extends Command {
      * @param taskList the task list
      * @param ui       the user interface to print messages to the user
      * @param storage  the storage
-     * @return
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {

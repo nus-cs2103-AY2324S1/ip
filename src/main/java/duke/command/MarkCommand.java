@@ -1,11 +1,11 @@
 package duke.command;
 
+import duke.exception.DukeException;
+import duke.exception.ManipulateException;
 import duke.util.Keyword;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-import duke.exception.DukeException;
-import duke.exception.ManipulateException;
 
 /**
  * Represents a command to mark or unmark a task.
@@ -14,8 +14,8 @@ import duke.exception.ManipulateException;
  */
 public class MarkCommand extends Command {
 
-    private Keyword key;
-    private String commandBody;
+    private final Keyword key;
+    private final String commandBody;
 
     /**
      * Constructs a <code>MarkCommand</code> object.
@@ -35,7 +35,6 @@ public class MarkCommand extends Command {
      * @param taskList the task list to be manipulated
      * @param ui       the ui to interact with the user
      * @param storage  the storage to save the task list
-     * @return
      * @throws DukeException if the command is invalid
      */
     @Override

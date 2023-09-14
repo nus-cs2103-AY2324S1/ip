@@ -22,13 +22,13 @@ import duke.task.Todo;
 public class Storage {
 
     public static final String SEPARATOR = " !%&%! ";
-    private File folder;
-    private File file;
-    private String filePath;
-    private String folderPath;
+    private final File folder;
+    private final File file;
+    private final String filePath;
+    private final String folderPath;
 
     /**
-     * Constructor for Storage class.
+     * Constructs a Storage object.
      *
      * @param folderPath The path of the folder to store the file.
      * @param fileName   The name of the file to store the task list.

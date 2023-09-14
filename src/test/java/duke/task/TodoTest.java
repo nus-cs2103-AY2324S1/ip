@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 import duke.util.Keyword;
 import duke.util.Storage;
 
-
+/**
+ * JUnit test class for Todo.
+ */
 public class TodoTest {
 
     @Test

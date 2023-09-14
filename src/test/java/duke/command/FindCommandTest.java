@@ -8,15 +8,17 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
-import duke.StorageStub;
-import duke.util.TaskList;
-import duke.UiStub;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
+import duke.util.StorageStub;
+import duke.util.TaskList;
+import duke.util.UiStub;
 
-
+/**
+ * JUnit test class for FindCommand.
+ */
 public class FindCommandTest {
 
     @Test

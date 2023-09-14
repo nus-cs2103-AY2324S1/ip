@@ -1,7 +1,6 @@
-package duke;
+package duke.util;
 
 import duke.task.Task;
-import duke.util.Ui;
 
 /**
  * Represents a UI stub.

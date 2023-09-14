@@ -9,12 +9,14 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import duke.exception.DukeException;
 import duke.util.Keyword;
 import duke.util.Storage;
 import duke.util.Time;
-import duke.exception.DukeException;
 
-
+/**
+ * JUnit test class for Event.
+ */
 public class EventTest {
 
     @Test

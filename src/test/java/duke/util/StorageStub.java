@@ -1,10 +1,8 @@
-package duke;
+package duke.util;
 
 import java.util.List;
 
 import duke.task.Task;
-import duke.util.Keyword;
-import duke.util.Storage;
 
 /**
  * Represents a storage stub.

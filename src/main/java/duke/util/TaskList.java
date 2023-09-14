@@ -14,7 +14,7 @@ import duke.task.Task;
  */
 public class TaskList {
 
-    private List<Task> taskList;
+    private final List<Task> taskList;
 
     /**
      * Constructs a {@code TaskList} with the given list of tasks.

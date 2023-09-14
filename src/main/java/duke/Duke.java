@@ -12,15 +12,23 @@ import duke.util.Ui;
  */
 public class Duke {
 
+    private static final String FILE_NAME = "duke.txt";
+    private static final String FOLD_PATH = "./data";
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private static final String FOLD_PATH = "./data";
-    private static final String FILE_NAME = "duke.txt";
 
+    /**
+     * Constructs a Duke object.
+     */
     public Duke() {
     }
 
+    /**
+     * Initializes the Duke object.
+     *
+     * @return Welcome message.
+     */
     public String initialize() {
         this.storage = new Storage(FOLD_PATH, FILE_NAME);
         this.ui = new Ui();
@@ -35,8 +43,10 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response from Duke.
+     *
+     * @param input User input.
+     * @return Response from Duke.
      */
     public String getResponse(String input) {
         try {

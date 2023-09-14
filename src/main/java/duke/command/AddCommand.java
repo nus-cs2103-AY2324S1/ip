@@ -1,10 +1,5 @@
 package duke.command;
 
-import duke.util.Keyword;
-import duke.util.Storage;
-import duke.util.TaskList;
-import duke.util.Time;
-import duke.util.Ui;
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;
@@ -12,6 +7,11 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.util.Keyword;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Time;
+import duke.util.Ui;
 
 /**
  * Represents a command to add a task to the task list. A <code>AddCommand</code>
@@ -20,8 +20,8 @@ import duke.task.Todo;
  */
 public class AddCommand extends Command {
 
-    private Keyword key;
-    private String commandBody;
+    private final Keyword key;
+    private final String commandBody;
 
     /**
      * Constructs a <code>AddCommand</code> object.
@@ -41,7 +41,6 @@ public class AddCommand extends Command {
      * @param taskList the task list to which the task is added
      * @param ui       the user interface to print messages to the user
      * @param storage  the storage to save the task list to
-     * @return
      * @throws DukeException if the command is invalid
      */
     @Override
