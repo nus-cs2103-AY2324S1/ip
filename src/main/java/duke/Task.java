@@ -3,7 +3,7 @@ package duke;
 /**
  * Task
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -46,6 +46,8 @@ public class Task {
     public void unmarkTask() {
         this.isDone = false;
     }
+
+    abstract String updateTime(String description) throws InvalidInputException;
 
     /**
      * @return toString of a task

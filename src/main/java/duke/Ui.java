@@ -48,11 +48,21 @@ public class Ui {
             } else if (words[0].equalsIgnoreCase("find")) {
                 String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
                 return tasks.findTask(description);
-            } else {
+            } else if (words[0].equalsIgnoreCase("update")) {
+                String completeDescription = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+                String description = String.join(" ", Arrays.copyOfRange(words, 2, words.length));
+                char number = completeDescription.charAt(0);
+                return tasks.updateTime(description, number);
+            }
+            else {
                 throw new InvalidCommandException();
             }
-        } catch (NotANumberException | EmptyDescriptionException | InvalidCommandException e) {
+        } catch (EmptyDescriptionException | InvalidCommandException e) {
             return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+        } catch (NotANumberException e) {
+            return "That is not a number!";
+        } catch (InvalidInputException e) {
+            return "That is an invalid input";
         }
     }
 }

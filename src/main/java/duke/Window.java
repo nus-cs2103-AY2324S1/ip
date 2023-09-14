@@ -17,36 +17,43 @@ import javafx.stage.Stage;
 public class Window {
 
     @FXML
-    private final ScrollPane scrollPane;
+    private static final ScrollPane scrollPane = new ScrollPane();
     @FXML
-    private final VBox dialogContainer;
+    private static final VBox dialogContainer = new VBox();
     @FXML
-    private final TextField userInput;
+    private static final TextField userInput = new TextField();
     @FXML
-    private final Button sendButton;
-    private final Scene scene;
-    private final Stage stage;
-    private final AnchorPane mainLayout;
-    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private final Storage storage;
-    private final Ui ui;
+    private static final Button sendButton = new Button("Send");
+    private static Stage stage = new Stage();
+    private static final AnchorPane mainLayout = new AnchorPane();
+    private static final Scene scene = new Scene(mainLayout);
+    private static final Image user = new Image(Window.class.getResourceAsStream("/images/DaUser.png"));
+    private static  final Image duke = new Image(Window.class.getResourceAsStream("/images/DaDuke.png"));
+    private static Storage storage = null;
+    private static Ui ui = null;
 
     public Window(Stage stage, Storage storage, Ui ui) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        userInput = new TextField();
-        sendButton = new Button("Send");
-        mainLayout = new AnchorPane();
+        //scrollPane = new ScrollPane();
+        //dialogContainer = new VBox();
+        //userInput = new TextField();
+        //sendButton = new Button("Send");
+        //mainLayout = new AnchorPane();
+        //mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        //scene = new Scene(mainLayout);
+        //this.stage = stage;
+        //this.storage = storage;
+        //this.ui = ui;
+    }
+
+    public static void setParameters(Stage stage, Storage storage, Ui ui) {
+        Window.stage = stage;
+        Window.storage = storage;
+        Window.ui = ui;
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-        scene = new Scene(mainLayout);
-        this.stage = stage;
-        this.storage = storage;
-        this.ui = ui;
     }
 
     @FXML
-    private void handleUserInput() {
+    private static void handleUserInput() {
         Label userText = new Label(userInput.getText());
         String userInputText = userInput.getText();
         if (userInputText.equalsIgnoreCase("Bye")) {
@@ -54,7 +61,7 @@ public class Window {
             storage.writeToStorage();
         }
         System.out.println(userText.getText());
-        String responseText = this.ui.startUi(userInputText);
+        String responseText = Window.ui.startUi(userInputText);
         Label dukeText = new Label(responseText);
 
         ImageView userImageView = new ImageView(user);
@@ -74,14 +81,14 @@ public class Window {
         userInput.clear();
     }
 
-    public void initializeWindow() {
+    public static void initializeWindow() {
         dialogContainer.setSpacing(20.0);
         scrollPane.setContent(dialogContainer);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void formatWindow() {
+    public static void formatWindow() {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -107,7 +114,7 @@ public class Window {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
-    public void addUserInput() {
+    public static void addUserInput() {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -117,11 +124,20 @@ public class Window {
         });
     }
 
-    public void welcomeMessage() {
+    public static void welcomeMessage() {
         CircleClip clip = new CircleClip(40, 40, 40);
         ImageView dukeImageView = new ImageView(duke);
         clip.clip(dukeImageView);
         String welMessage = "Hello! I'm DukeBot\n" + "What can I do for you?\n";
+        Label welcomeMessage = new Label(welMessage);
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImageView, welMessage));
+    }
+
+    public static void sendErrorMessage() {
+        CircleClip clip = new CircleClip(40, 40, 40);
+        ImageView dukeImageView = new ImageView(duke);
+        clip.clip(dukeImageView);
+        String welMessage = "Error! That is an invalid input! Try again.";
         Label welcomeMessage = new Label(welMessage);
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImageView, welMessage));
     }

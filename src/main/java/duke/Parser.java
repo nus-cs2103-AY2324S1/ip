@@ -67,4 +67,35 @@ public class Parser {
 
         return sb.toString();
     }
+
+    /**
+     * Retrieves the localDateTime from the input
+     * @param input input to retrieve lcoalDateTime from
+     * @return localDateTime
+     */
+    public static LocalDateTime retrieveDeadlineTime(String input) {
+        String[] parts = input.split("\\s+");
+        String dateStr = parts[1]; // Date part
+        String timeStr = parts[2]; // Time part
+        String dateTimeStr = dateStr + " " + timeStr;
+        System.out.println("DateStr is: " + dateTimeStr);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return LocalDateTime.parse(dateTimeStr, formatter);
+    }
+
+    public static LocalDateTime[] retrieveEventTime(String input) throws InvalidInputException {
+        String[] parts = input.split("/from | /to ");
+        if (parts.length != 3) {
+            throw new InvalidInputException();
+        }
+        String fromDateTimeStr = parts[1];
+        String toDateTimeStr = parts[2];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        LocalDateTime fromDateTime = LocalDateTime.parse(fromDateTimeStr, formatter);
+        LocalDateTime toDateTime = LocalDateTime.parse(toDateTimeStr, formatter);
+        LocalDateTime[] dateTimeArray = { fromDateTime, toDateTime };
+        return dateTimeArray;
+
+    }
 }

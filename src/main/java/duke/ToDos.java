@@ -23,4 +23,9 @@ public class ToDos extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String updateTime(String description) {
+        return "The following task cannot be updated because it does not have a time: \n";
+    }
 }
