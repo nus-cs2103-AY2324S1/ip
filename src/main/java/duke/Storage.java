@@ -39,33 +39,15 @@ public class Storage {
                 String isDone = Character.toString(fileLine.charAt(4));
                 assert isDone.equals("X") || isDone.equals(" ");
                 String extractedSubstring = fileLine.substring(7, fileLine.length());
-                switch (eventType) {
-                case "T": {
-                    tasks.toDoHandler(extractedSubstring, isDone.equals("X"), true);
-                    break;
-                }
-                case "D": {
-                    //System.out.println(extractedSubstring);
-                    String description = Parser.convertDeadlineFormat(extractedSubstring);
-                    tasks.deadlineHandler(description, isDone.equals("X"), true);
-                    break;
-                }
-                case "E": {
-                    String description = Parser.convertEventFormat(extractedSubstring);
-                    tasks.eventHandler(description, isDone.equals("X"), true);
-                    break;
-                }
-                default: {
-                    break;
-                }
-                }
+                EventTypeHandler handler = new EventTypeHandler(this.tasks, extractedSubstring, isDone);
+                handler.handleEventType(eventType);
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("The file named duke.txt does not exist.");
         } catch (EmptyDescriptionException e) {
-            //do something
+            //Already handled by EmptyDescriptionException
         }
     }
 

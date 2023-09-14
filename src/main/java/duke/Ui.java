@@ -52,7 +52,6 @@ public class Ui {
                 throw new InvalidCommandException();
             }
         } catch (NotANumberException | EmptyDescriptionException | InvalidCommandException e) {
-            //exception caught
             return "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
     }
