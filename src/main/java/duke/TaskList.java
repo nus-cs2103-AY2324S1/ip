@@ -34,10 +34,6 @@ public class TaskList {
      *
      * @param task The task to be added to the TaskList.
      */
-//    public void add(Task task) {
-//        list.add(task);
-//    }
-
     public void add(Task task) throws DukeException {
         // Check for duplicates by comparing descriptions
         for (Task existingTask : list) {

@@ -57,7 +57,6 @@ public class Deadline extends Task {
                 year = yearTime[0];
                 time = yearTime[1].substring(0, 2) + ":" + yearTime[1].substring(2);
             }
-
             date = year + "-" + month + "-" + day;
         }
     }

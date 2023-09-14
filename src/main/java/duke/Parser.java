@@ -23,35 +23,25 @@ public class Parser {
         if (command.equalsIgnoreCase("bye")) {
             storage.save(list);
             return ui.showBye();
-
         } else if (command.toLowerCase().startsWith("delete")) {
             return parseDelete(command, list, storage, ui);
-
         } else if (command.equalsIgnoreCase("list")) {
             return ui.printList(list);
-
         } else if (command.toLowerCase().startsWith("find")) {
             return parseFind(command, list, storage, ui);
-
         } else if (command.toLowerCase().startsWith("mark")) {
             return parseMark(command, list, storage, ui);
-
         } else if (command.toLowerCase().startsWith("unmark")) {
             return parseUnmark(command, list, storage, ui);
-
         } else if (command.toLowerCase().startsWith("todo")) {
             return parseTodo(command, list, storage, ui);
-
         } else if (command.toLowerCase().startsWith("deadline")) {
             return parseDeadline(command, list, storage, ui);
-
         } else if (command.toLowerCase().startsWith("event")) {
             return parseEvent(command, list, storage, ui);
-
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-
     }
 
     /**
@@ -228,7 +218,6 @@ public class Parser {
      */
     public static String parseEvent(String command, TaskList list, Storage storage, Ui ui) throws DukeException {
         String event = command.substring(5).trim();
-
         if (event.isEmpty()) {
             throw new DukeException("OOPS!!! The description of an event cannot be empty.");
         } else {
