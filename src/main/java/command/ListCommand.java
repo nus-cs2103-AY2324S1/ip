@@ -25,9 +25,6 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList t, Ui ui, FileHandler f) {
-        if (t.toTaskStr().equals("")) {
-            return "Empty list!";
-        }
         return t.toTaskStr();
     }
 

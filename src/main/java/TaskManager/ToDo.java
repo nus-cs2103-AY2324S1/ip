@@ -13,6 +13,8 @@ public class ToDo extends Task {
      * @param taskDesc The description of the to-do task.
      */
     public ToDo(String taskDesc) {
+        assert taskDesc != null : "taskDesc must not be null";
+
         this.taskDesc = taskDesc;
     }
 
@@ -23,6 +25,9 @@ public class ToDo extends Task {
      * @param completion The completion status (1 for done, 0 for not done).
      */
     public ToDo(String taskDesc, String completion) {
+        assert taskDesc != null : "taskDesc must not be null";
+        assert completion != null : "completion must not be null";
+
         try {
             if (completion.equals("1")) {
                 this.taskDesc = taskDesc.trim();
@@ -104,6 +109,7 @@ public class ToDo extends Task {
      * @return True if there is matching keyword; otherwise, false.
      */
     public boolean isMatch(String keyword) {
+        assert keyword != null : "keyword must not be null";
         String[] split = taskDesc.split(" ");
         for (int i = 0; i < split.length; i++) {
             if (keyword.equals(split[i])) {
