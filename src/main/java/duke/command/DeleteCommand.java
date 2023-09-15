@@ -17,15 +17,6 @@ public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * Constructs a DeleteCommand object with the specified task.
-     *
-     * @param task The task associated with the delete command.
-     */
-    public DeleteCommand(Task task) {
-        super(task);
-    }
-
-    /**
      * Constructs a DeleteCommand object with the index of a specified task.
      *
      * @param index The index of the specified task to be deleted.
@@ -46,7 +37,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, InvalidTaskNumberException {
-        if (index >= tasks.getSize() || index < 0) throw new InvalidTaskNumberException();
+        if (!isValidIndex(index, tasks)) {
+            throw new InvalidTaskNumberException();
+        }
         Task task = tasks.getTaskAtIndex(this.index);
         tasks.remove(task);
         storage.update(tasks.getTasks());

@@ -45,51 +45,57 @@ public class Parser {
         int index;
 
         switch(headCommand) {
-            case "delete":
-                index = Integer.parseInt(commandDetails) - 1;
-                return new DeleteCommand(index);
+        case "delete":
+            index = Integer.parseInt(commandDetails) - 1;
+            return new DeleteCommand(index);
 
-            case "mark":
-                index = Integer.parseInt(commandDetails) - 1;
-                return new MarkCommand(index, true);
+        case "mark":
+            index = Integer.parseInt(commandDetails) - 1;
+            return new MarkCommand(index, true);
 
-            case "unmark":
-                index = Integer.parseInt(commandDetails) - 1;
-                return new MarkCommand(index, false);
+        case "unmark":
+            index = Integer.parseInt(commandDetails) - 1;
+            return new MarkCommand(index, false);
 
-            case "remind":
-                index = Integer.parseInt(commandDetails) - 1;
-                return new RemindCommand(index);
+        case "remind":
+            index = Integer.parseInt(commandDetails) - 1;
+            return new RemindCommand(index);
 
-            case "find":
-                return new FindCommand(commandDetails);
+        case "find":
+            return new FindCommand(commandDetails);
 
-            case "todo":
-                task = commandDetails;
-                Todo todo = new Todo(task, false, false);
-                return new AddCommand(todo);
+        case "todo":
+            task = commandDetails;
+            Todo todo = new Todo(task, false, false);
+            return new AddCommand(todo);
 
-            case "deadline":
-                details = commandDetails.split(" /by ");
-                if (details.length < 2) throw new NoDueDateException();
-                task = details[0];
-                String duedate = details[1];
-                Deadline deadline = new Deadline(task, duedate, false, false);
-                return new AddCommand(deadline);
+        case "deadline":
+            details = commandDetails.split(" /by ");
+            if (details.length < 2) {
+                throw new NoDueDateException();
+            }
+            task = details[0];
+            String duedate = details[1];
+            Deadline deadline = new Deadline(task, duedate, false, false);
+            return new AddCommand(deadline);
 
-            case "event":
-                details = commandDetails.split(" /from ");
-                if(details.length < 2) throw new NoEventStartException();
-                task = details[0];
-                String[] timeDetails = details[1].split(" /to ");
-                if(timeDetails.length < 2) throw new NoEventEndException();
-                String start = timeDetails[0];
-                String end = timeDetails[1];
-                Event event = new Event(task, start, end, false, false);
-                return new AddCommand(event);
+        case "event":
+            details = commandDetails.split(" /from ");
+            if(details.length < 2) {
+                throw new NoEventStartException();
+            }
+            task = details[0];
+            String[] timeDetails = details[1].split(" /to ");
+            if(timeDetails.length < 2) {
+                throw new NoEventEndException();
+            }
+            String start = timeDetails[0];
+            String end = timeDetails[1];
+            Event event = new Event(task, start, end, false, false);
+            return new AddCommand(event);
 
-            default:
-                throw new DukeException("    TWEET!!! No such command");
+        default:
+            throw new DukeException("    TWEET!!! No such command");
 
         }
     }

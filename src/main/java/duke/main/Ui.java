@@ -11,18 +11,18 @@ import java.util.Scanner;
 public class Ui {
     private Scanner sc = new Scanner(System.in);
     // Constants
-    private String DIVIDER = "____________________________________________________________\n";
-    private String LOGO = "(• >       (• >       (• >       (• >       (• >       (• >\n"
+    private static final String DIVIDER = "____________________________________________________________\n";
+    private static final String LOGO = "(• >       (• >       (• >       (• >       (• >       (• >\n"
             +  "/  ))        /  ))        /  ))        /  ))        /  ))        /  ))\n"
             +  "  ``          ``          ``          ``          ``         ``";
-    private String HELP = "IMPORTANT NOTES:\n"
+    private static final String HELP = "IMPORTANT NOTES:\n"
             + "Todo: todo <task>\n"
             + "Deadline: deadline <deadline> /by <duedate>\n"
             + "Event: event <event> /from <start> /to <end>\n"
             + "Datetime format: \"dd/MM/yyyy HH:mm\"\n";
-    private String GREET = "Hello! I'm Birdy\n"
+    private static final String GREET = "Hello! I'm Birdy\n"
             + "chirp chirp! How can I help?\n";
-    private String PARTING = "chirp! See you around!\n";
+    private static final String PARTING = "chirp! See you around!\n";
 
     private String currentMessage = "";
 

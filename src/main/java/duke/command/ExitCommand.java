@@ -27,20 +27,9 @@ public class ExitCommand extends Command {
      * @param tasks The task list to interact with (not used).
      * @param ui The user interface for displaying messages.
      * @param storage The storage object for saving or loading tasks (not used).
-     * @throws IOException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showParting();
-    }
-
-    /**
-     * Checks if the command is an exit command.
-     *
-     * @return true because this is an exit command.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
     }
 }
