@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
@@ -25,12 +26,12 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(text, displayPicture);
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
+    public static DialogBox getUserDialog(String text, Image image) {
+        return new DialogBox(new Label(text), new ImageView(image));
     }
 
-    public static DialogBox getDudeDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv);
+    public static DialogBox getDudeDialog(String text, Image image) {
+        var db = new DialogBox(new Label(text), new ImageView(image));
         db.flip();
         return db;
     }

@@ -8,9 +8,17 @@ import dude.task.TaskList;
  * Dude (Duke, but renamed).
  */
 public class Dude {
-    private final Ui ui;
+    private String filePath;
     private Storage storage;
     private TaskList tasks;
+
+    private static final String LOGO =
+            " _|    _| _    O\n" +
+                    "(_||_|(_|(/_  /İ\\\n" +
+                    "------------  ```\n";
+    private static final String HELLO_MSG = LOGO +
+            "Hello! I'm dude.\n" +
+            "What can I do for you?";
 
     /**
      * Constructor for Dude.
@@ -18,13 +26,23 @@ public class Dude {
      * @param filePath Path to save file on disk.
      */
     public Dude(String filePath) {
-        ui = new Ui();
+        this.filePath = filePath;
+    }
+
+    /**
+     * Initializes Dude.
+     *
+     * @throws DudeException If there is an error starting Dude.
+     * @return Output to send to chat.
+     */
+    public String initialize() {
         try {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
+            return HELLO_MSG;
         } catch (DudeException e) {
-            ui.printMessage(e.getMessage());
             tasks = new TaskList();
+            return e.getMessage();
         }
     }
 
