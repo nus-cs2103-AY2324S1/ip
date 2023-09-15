@@ -1,5 +1,6 @@
 package dude.command;
 
+import dude.NoteList;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
@@ -17,7 +18,7 @@ public class UnknownCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = ui.showUnknownCommand();
         return output;
     }

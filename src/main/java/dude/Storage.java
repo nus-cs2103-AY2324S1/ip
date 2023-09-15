@@ -38,7 +38,7 @@ public class Storage {
      *
      * @param taskList List of tasks to be saved.
      */
-    public void saveTasksToDisk(TaskList taskList) throws IOException {
+    public void saveTasksToDisk(TaskList taskList, NoteList noteList) throws IOException {
         File file = new File(this.filepath);
 
         if (!file.exists()) {
@@ -53,7 +53,7 @@ public class Storage {
             }
         }
 
-        String data = convertTaskListToString(taskList);
+        String data = convertTaskListToString(taskList) + convertNoteListToString(noteList);
 
         try {
             FileWriter fw = new FileWriter(file);
@@ -74,9 +74,28 @@ public class Storage {
 
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
-            data += task.saveTask();
+            if (task != null) {
+                data += task.saveTask();
+            }
         }
 
+        return data;
+    }
+
+    /**
+     * Converts task list into String for saving to file.
+     * @param noteList
+     * @return
+     */
+    public String convertNoteListToString(NoteList noteList) {
+        String data = "";
+
+        for (int i = 0; i < noteList.getSize(); i++) {
+            Note note = noteList.getNote(i);
+            if (note != null) {
+                data += note.saveNote();
+            }
+        }
         return data;
     }
 
@@ -122,26 +141,84 @@ public class Storage {
      */
     public Task convertStringToTask(String storedTaskDetails) {
         String[] taskDetails = storedTaskDetails.split("\\s+\\|\\s+");
-        String taskType = taskDetails[0];
-        String taskIsDone = taskDetails[1];
-        String taskDesription = taskDetails[2];
+        String taskType = taskDetails[0].trim();
+        String taskIsDone = taskDetails[1].trim();
 
         Task task = null;
 
         if (taskType.equals("T")) {
+            String taskDesription = taskDetails[2].trim();
             task = new ToDo(taskDesription);
         } else if (taskType.equals("D")) {
+            String taskDesription = taskDetails[2].trim();
             String byInput = taskDetails[3];
             LocalDateTime by = LocalDateTime.parse(byInput);
             task = new Deadline(taskDetails[2], by);
         } else if (taskType.equals("E")) {
+            String taskDesription = taskDetails[2].trim();
             String fromInput = taskDetails[3];
             String toInput = taskDetails[4];
             LocalDateTime from = LocalDateTime.parse(fromInput);
             LocalDateTime to = LocalDateTime.parse(toInput);
             task = new Event(taskDetails[2], from, to);
         }
-        task.setDone(taskIsDone.equals("1"));
+        if (task != null) {
+            task.setDone(taskIsDone.equals("1"));
+        }
         return task;
+    }
+
+    /**
+     * Loads the saved notes from the file specified by filepath.
+     *
+     * @return List of notes from the file.
+     * @throws FileNotFoundException If no file is not found in the filepath.
+     */
+    public NoteList loadNotesFromDisk() throws FileNotFoundException {
+        NoteList noteList = new NoteList();
+        File file = new File(this.filepath);
+
+        if (file.exists()) {
+            try {
+                Scanner sc = new Scanner(file);
+                while (sc.hasNext()) {
+                    String storedTaskDetails = sc.nextLine();
+                    Note note = convertStringToNote(storedTaskDetails);
+                    noteList.addNote(note);
+                }
+            } catch (IOException e) {
+                System.err.println("An error occurred while reading the file: " + e.getMessage());
+            }
+        } else {
+            try {
+                file.createNewFile();
+                System.out.println("File created at: " + this.filepath);
+            } catch (IOException e) {
+                System.out.println("File creating error");
+                System.out.println(e.getMessage());
+            }
+        }
+
+        System.out.printf("You have %d saved Notes.\n", noteList.getSize());
+        return noteList;
+    }
+
+    /**
+     * Converts a string of task details into Task.
+     * @param storedNoteDetails
+     * @return
+     */
+    public Note convertStringToNote(String storedNoteDetails) {
+        String[] noteDetails = storedNoteDetails.split("\\s+\\|\\s+");
+        String noteType = noteDetails[0].trim();
+        String noteDescription = noteDetails[1].trim();
+
+        Note note = null;
+
+        if (noteType.equals("N")) {
+            note = new Note(noteDescription);
+        }
+
+        return note;
     }
 }

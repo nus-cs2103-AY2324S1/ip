@@ -2,6 +2,7 @@ package dude.command;
 
 import java.io.IOException;
 
+import dude.NoteList;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
@@ -25,14 +26,14 @@ public class DeleteCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
         try {
             output = "Executing Delete Command";
             Task deletedTask = taskList.deleteTask(taskIndex);
             int nTasks = taskList.getSize();
             output = output + ui.showDeletedTask(deletedTask, nTasks) + "\n";
-            storage.saveTasksToDisk(taskList);
+            storage.saveTasksToDisk(taskList, noteList);
         } catch (IOException e) {
             output = "Error in Delete Command";
         }

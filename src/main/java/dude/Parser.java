@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import dude.command.AddDeadlineCommand;
 import dude.command.AddEventCommand;
+import dude.command.AddNoteCommand;
 import dude.command.AddToDoCommand;
 import dude.command.Command;
 import dude.command.DeleteCommand;
@@ -66,6 +67,9 @@ public class Parser {
             c = new AddEventCommand(taskDescription, fromDateTime, toDateTime);
             // if (userInputDetails.length == 1) {
             // System.out.println("OOPS!!! The description of an event cannot be empty.");
+        } else if (commandType.equals("note")) {
+            String noteDescription = commandDetails[1].trim();
+            c = new AddNoteCommand(noteDescription);
         } else if (commandType.equals("find")) {
             String searchKeywords = commandDetails[1].trim();
             c = new FindCommand(searchKeywords);

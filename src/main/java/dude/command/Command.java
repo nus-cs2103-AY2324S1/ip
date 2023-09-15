@@ -1,5 +1,6 @@
 package dude.command;
 
+import dude.NoteList;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
@@ -15,7 +16,7 @@ public abstract class Command {
         this.isExit = false;
     }
 
-    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage);
 
     public boolean isExit() {
         return this.isExit;

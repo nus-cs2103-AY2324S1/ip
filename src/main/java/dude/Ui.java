@@ -36,16 +36,41 @@ public class Ui {
      */
     public String showTaskList(TaskList taskList) {
         int nTasks = taskList.getSize();
-        String taskListString = "";
+        String taskListString = "Tasks:\n";
         if (nTasks == 0) {
             taskListString = "You have no saved tasks.\n";
         } else {
             for (int i = 0; i < nTasks; i++) {
                 Task task = taskList.getTask(i);
-                taskListString = taskListString + String.format("%d. %s\n", i + 1, task.toString());
+                if (task != null) {
+                    taskListString = taskListString + String.format("%d. %s\n", i + 1, task.toString());
+                }
             }
         }
         return taskListString;
+    }
+
+    /**
+     * Prints the list of notes.
+     */
+    public String showNoteList(NoteList noteList) {
+        if (noteList == null) {
+            return "NoteList is null."; // Or handle this case appropriately
+        }
+
+        int nNotes = noteList.getSize();
+        String noteListString = "Notes:\n";
+        if (nNotes == 0) {
+            noteListString = "You have no saved notes.\n";
+        } else {
+            for (int i = 0; i < nNotes; i++) {
+                Note note = noteList.getNote(i);
+                if (note != null) {
+                    noteListString = noteListString + String.format("%d. %s\n", i + 1, note.toString());
+                }
+            }
+        }
+        return noteListString;
     }
 
     /**
@@ -85,6 +110,16 @@ public class Ui {
         String confirmation = "Got it. I've added this task:\n"
                 + task.toString() + "\n"
                 + String.format("Now you have %d tasks in the list.\n", nTasks);
+        return confirmation;
+    }
+
+    /**
+     * Prints a statement to show the task that has been successfully added.
+     */
+    public String showAddedNote(Note note, int nNotes) {
+        String confirmation = "Got it. I've added this task:\n"
+                + note.toString() + "\n"
+                + String.format("Now you have %d tasks in the list.\n", nNotes);
         return confirmation;
     }
 
