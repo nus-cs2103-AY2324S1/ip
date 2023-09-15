@@ -25,7 +25,7 @@ public class FindCommand extends Command {
      */
     public static String validate(String rawCommand) {
         String[] args = Parser.getArgs(rawCommand);
-        if (args.length != 2) {
+        if (args.length < 2) {
             return "Invalid number of arguments for find command.";
         }
 
@@ -49,8 +49,7 @@ public class FindCommand extends Command {
         }
 
         String[] args = Parser.getArgs(rawCommand);
-        String keyword = args[1];
-        return taskList.findTask(keyword);
+        String keySentence = args[1];
+        return taskList.findTask(keySentence.split("\\s+"));
     }
-
 }

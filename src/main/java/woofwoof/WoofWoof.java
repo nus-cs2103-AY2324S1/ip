@@ -162,7 +162,7 @@ public class WoofWoof extends Application {
             );
             this.userInput.clear();
         }
-        Platform.runLater(() -> this.scrollPane.setVvalue(1.0));
+        Platform.runLater(() -> Platform.runLater(()->this.scrollPane.setVvalue(1.0)));
     }
 
     /**

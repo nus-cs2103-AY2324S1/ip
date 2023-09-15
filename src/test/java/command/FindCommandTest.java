@@ -54,11 +54,40 @@ public class FindCommandTest {
         taskList.addTask(new DeadlineTask("Task 2", endDate));
         taskList.addTask(new EventTask("Task 3", startDate, endDate));
 
-        FindCommand findCommand = new FindCommand("find Task 2");
+        FindCommand findCommand = new FindCommand("find 2");
         String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator()
                 + "  2. [D][ ] Task 2" + System.lineSeparator()
                 + "            ~By: 2023-12-31" + System.lineSeparator()
                 + "You have 3 tasks in the task list." + System.lineSeparator();
+
+        // Act
+        String actualOutput = findCommand.execute(taskList);
+
+        // Assert
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    public void testExecuteFindsMatchingTasksForMultiKeywords() {
+        // Arrange
+        TaskList taskList = new TaskList(null);
+        taskList.addTask(new TodoTask("Eating"));
+        taskList.addTask(new TodoTask("Sleeping"));
+        taskList.addTask(new TodoTask("Drinking"));
+        taskList.addTask(new TodoTask("Task 1"));
+        taskList.addTask(new TodoTask("Task 2"));
+        taskList.addTask(new TodoTask("Task 3"));
+        taskList.addTask(new TodoTask("22"));
+
+
+        FindCommand findCommand = new FindCommand("find 2 ing");
+        String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator()
+                + "  1. [T][ ] Eating" + System.lineSeparator()
+                + "  2. [T][ ] Sleeping" + System.lineSeparator()
+                + "  3. [T][ ] Drinking" + System.lineSeparator()
+                + "  5. [T][ ] Task 2" + System.lineSeparator()
+                + "  7. [T][ ] 22" + System.lineSeparator()
+                + "You have 7 tasks in the task list." + System.lineSeparator();
 
         // Act
         String actualOutput = findCommand.execute(taskList);
