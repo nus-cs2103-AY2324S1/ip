@@ -48,11 +48,13 @@ public class Parser {
             output = tasks.addToDo(input);
         } else if (command.equals("find")) {
             output = tasks.findTasks(input);
+        } else if (command.equals("update")) {
+            output = tasks.updateTask(input);
         } else if (command.equals("bye")) {
             this.isFinished = true;
             output = Ui.bye();
             Platform.exit();
-        } else{
+        } else {
             output = Ui.unknownCommandErrorMessage();
         }
         Ui.horizontalLine();

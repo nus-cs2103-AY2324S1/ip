@@ -63,4 +63,8 @@ public class Task {
     public String taskToString() {
         return String.format("%s | " + this.description, (isDone ? "Y" : "N"));
     }
+
+    public void updateDescription(String newDesc) {
+        description = newDesc;
+    }
 }

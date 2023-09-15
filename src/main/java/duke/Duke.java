@@ -2,7 +2,6 @@ package duke;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.Scanner;
 
 /**
@@ -14,13 +13,6 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     static final Path FILEPATH = Paths.get(".", "data", "duke.txt"); // Filepath: "./data/duke.txt"
-
-    public String getResponse(String input) {
-        Parser parser = new Parser(tasks);
-        String response = parser.parse(input);
-        assert response != null;
-        return response;
-    }
 
     /**
      * Constructor to start the program.
@@ -50,6 +42,13 @@ public class Duke {
 
     public void updateTaskList() {
         storage.updateTaskList();
+    }
+
+    public String getResponse(String input) {
+        Parser parser = new Parser(tasks);
+        String response = parser.parse(input);
+        assert response != null;
+        return response;
     }
 
     /**

@@ -52,4 +52,12 @@ public class Event extends Task {
     public String taskToString() {
         return "E | " + super.taskToString() + " | " + from + " | " + to;
     }
+
+    public void updateFromDate(LocalDate newDate) {
+        from = newDate;
+    }
+
+    public void updateToDate(LocalDate newDate) {
+        to = newDate;
+    }
 }

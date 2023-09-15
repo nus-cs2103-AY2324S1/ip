@@ -2,7 +2,6 @@ package duke;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -18,17 +17,11 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     private Duke duke;
     static final String INITIAL_RESPONSE = "Hello, I'm your task manager :)\nWhat can I do for you?";
     static final String FINAL_RESPONSE = "Bye. Hope to see you again soon!";
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-
 
     @FXML
     public void initialize() {

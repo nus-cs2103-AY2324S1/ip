@@ -62,4 +62,8 @@ public class Deadline extends Task {
         Deadline c = (Deadline) o;
         return this.toString().equals(c.toString());
     }
+
+    public void updateByDate(LocalDate newDate) {
+        by = newDate;
+    }
 }
