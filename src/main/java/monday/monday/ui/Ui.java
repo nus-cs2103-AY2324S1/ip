@@ -43,7 +43,7 @@ public class Ui {
      * @param task The task marked as not done yet.
      * @return A string indicating that the task has been marked as not done yet.
      */
-    public static String unMarkTask(Task task) {
+    public static String markAsUndone(Task task) {
         return "OK, I've marked this task as not done yet:\n" + task;
     }
 
@@ -69,5 +69,14 @@ public class Ui {
     public static String deleteTask(Task task, int size) {
         return ("Noted. I've removed this task:\n" + task.toString()
                 + "\nNow you have " + size + " tasks in the list.");
+    }
+    /**
+     * Prints an error message along with the exception message.
+     *
+     * @param message the error message to be printed.
+     * @param e the exception object containing the error details.
+     */
+    public static void printErrorMessage(String message, Exception e) {
+        System.out.println(message + e.getMessage());
     }
 }

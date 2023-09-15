@@ -1,17 +1,17 @@
 package monday.monday.exception;
 
 /**
- * MondayExceptions is a custom exception class for handling
+ * MondayException is a custom exception class for handling
  * exceptions related to the Monday application.
  */
-public class MondayExceptions extends Exception {
+public class MondayException extends Exception {
 
     /**
-     * Constructs a MondayExceptions object with the specified error message.
+     * Constructs a MondayException object with the specified error message.
      *
      * @param message the error message associated with the exception
      */
-    public MondayExceptions(String message) {
+    public MondayException(String message) {
         super(message);
     }
 
