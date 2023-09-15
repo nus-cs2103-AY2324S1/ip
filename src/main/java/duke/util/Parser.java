@@ -41,6 +41,7 @@ public class Parser {
 
         try {
             String[] individualWords = userInput.split(" ");
+            assert individualWords.length > 0 : "individualWords should not be empty.";
 
             if (individualWords.length == 0) {
                 throw new InvalidCommandException();
@@ -119,7 +120,9 @@ public class Parser {
         try {
             int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
             Task task = taskList.getTask(taskNumber);
-            return task.updateTaskStatus(true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!\n");
+            String message = task.updateTaskStatus(true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!\n");
+            assert task.isDone == true : "Task should be marked as done.";
+            return message;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return("Invalid task number.");
         }
@@ -144,7 +147,9 @@ public class Parser {
         try {
             int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
             Task task = taskList.getTask(taskNumber);
-            return task.updateTaskStatus(false, "Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated Task " + (taskNumber + 1) + " to be incomplete.\n");
+            String message = task.updateTaskStatus(false, "Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated Task " + (taskNumber + 1) + " to be incomplete.\n");
+            assert task.isDone == false : "Task should be marked as undone.";
+            return message;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return("Invalid task number.");
         }
@@ -170,6 +175,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
             Task deletedTask = taskList.getTask(taskNumber);
             taskList.deleteTask(taskNumber);
+            assert !taskList.contains(deletedTask) : "Task should have been removed from the taskList.";
             return "This task has been removed:\n  " +
                     deletedTask +
                     "\nYou have a total of " +
@@ -195,6 +201,7 @@ public class Parser {
         String description = userInput.substring(5).trim();
         ToDo task = new ToDo(description);
         taskList.addTask(task);
+        assert taskList.contains(task) : "taskList should contain the newly added task.";
         return "I've added this task:\n  " +
                 task +
                 "\nYou have a total of " +
@@ -223,6 +230,7 @@ public class Parser {
 
             if (task.dateTime != null) {
                 taskList.addTask(task);
+                assert taskList.contains(task) : "taskList should contain the newly added task.";
                 return "I've added this task:\n  " +
                         task +
                         "\nYou have a total of " +
@@ -267,6 +275,7 @@ public class Parser {
                     return("To date cannot be before from date.");
                 }
                 taskList.addTask(task);
+                assert taskList.contains(task) : "taskList should contain the newly added task.";
                 return "I've added this task:\n  " + task + "\nYou have a total of " + taskList.getSize() + (taskList.getSize() == 1 ? " task.\n" : " tasks.\n");
             } else {
                 return "Please use the following formats:\n" +
@@ -298,6 +307,7 @@ public class Parser {
             for (Task task: tasks) {
                 if (task.containsKeyword(keyword)) {
                     matchingTasks.add(task);
+                    assert matchingTasks.contains(task) : "matchingTasks should contain the newly added task.";
                 }
             }
 
@@ -311,6 +321,7 @@ public class Parser {
                     message.append((i + 1) + "." + task.toString() + "\n");
                 }
                 matchingTasks.clear();
+                assert matchingTasks.isEmpty() : "matchingTasks should be empty.";
                 return message.toString();
             }
         }
