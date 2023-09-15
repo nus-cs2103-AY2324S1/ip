@@ -31,6 +31,8 @@ public class Parser {
             return CommandType.FIND;
         } else if (command.startsWith("bye")) {
             return CommandType.EXIT;
+        } else if (command.startsWith("view schedule")) {
+            return CommandType.SCHEDULE;
         } else {
             return CommandType.UNKNOWN;
         }

@@ -3,7 +3,7 @@ package duke.tasks;
 /**
  * Encapsulates a task.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -59,4 +59,11 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Returns the type of the task.
+     *
+     * @return The type of the task.
+     */
+    public abstract String getType();
 }

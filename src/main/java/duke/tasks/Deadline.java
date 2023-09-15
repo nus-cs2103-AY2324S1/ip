@@ -8,7 +8,7 @@ import duke.exceptions.DukeException;
 /**
  * Encapsulates a task that needs to be done before a specific date/time.
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Temporal {
 
     protected LocalDateTime by;
 
@@ -67,7 +67,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String byString = by.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
+        String byString = by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         return "[D]" + super.toString() + " (by: " + byString + ")";
     }
 
@@ -80,4 +80,26 @@ public class Deadline extends Task {
         String byString = by.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
         return "D" + super.toStorageString() + " | " + byString;
     }
+
+    @Override
+    public String getType() {
+        return "deadline";
+    }
+
+    @Override
+    public LocalDateTime getStartTime() {
+        return this.by;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return this.by;
+    }
+
+    @Override
+    public boolean isWithinPeriod(LocalDateTime from, LocalDateTime to) {
+        return !by.isAfter(to) && !by.isBefore(from);
+    }
+
+    
 }

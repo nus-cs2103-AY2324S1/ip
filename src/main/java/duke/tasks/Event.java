@@ -8,7 +8,7 @@ import duke.exceptions.DukeException;
 /**
  * Encapsulates a task that starts at a specific time and ends at a specific time.
  */
-public class Event extends Task {
+public class Event extends Task implements Temporal {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
@@ -79,8 +79,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String fromString = from.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
-        String toString = to.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
+        String fromString = from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        String toString = to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         return "[E]" + super.toString() + " (from: " + fromString + " to: " + toString + ")";
     }
 
@@ -94,4 +94,25 @@ public class Event extends Task {
         String toString = to.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
         return "E" + super.toStorageString() + " | " + fromString + " | " + toString;
     }
+
+    @Override
+    public String getType() {
+        return "event";
+    }
+
+    @Override
+    public LocalDateTime getStartTime() {
+        return this.from;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return this.to;
+    }
+
+    @Override
+    public boolean isWithinPeriod(LocalDateTime start, LocalDateTime end) {
+        return !from.isAfter(end) && !to.isBefore(start);
+    }
+
 }

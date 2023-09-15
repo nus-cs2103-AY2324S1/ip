@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
@@ -84,6 +86,8 @@ public class Duke {
 
     private String handleCommand(CommandType commandType, String command) throws DukeException {
         Task task;
+        TaskList filteredList;
+
         switch (commandType) {
         case LIST:
             ui.printList(tasks.getTasks());
@@ -104,7 +108,11 @@ public class Duke {
             return ui.displayAddedTaskConfirmation(task, tasks);
 
         case FIND:
-            TaskList filteredList = handleFind(command);
+            filteredList = handleFind(command);
+            return ui.displayList(filteredList.getTasks());
+
+        case SCHEDULE:
+            filteredList = findTaskByPeriod(command);
             return ui.displayList(filteredList.getTasks());
 
         case UNKNOWN:
@@ -114,6 +122,7 @@ public class Duke {
         case EXIT:
             ui.printFarewellMessage();
             return ui.displayFarewellMessage();
+
         default:
             assert false : "Command type should not be null";
             return "";
@@ -123,7 +132,21 @@ public class Duke {
     private TaskList handleFind(String command) {
         ui.printFindMessage();
         String keyword = command.split(" ")[1];
-        TaskList filtered = tasks.filter(keyword);
+        TaskList filtered = tasks.filterByName(keyword);
+        ui.printList(filtered.getTasks());
+        return filtered;
+    }
+
+    private TaskList findTaskByPeriod(String command) {
+
+        ui.printFindMessage();
+        String[] split = command.split(" /from ");
+        String from = split[1].split(" /to ")[0];
+        String to = split[1].split(" /to ")[1];
+        LocalDateTime start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
+        LocalDateTime end = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
+
+        TaskList filtered = tasks.filterByDateRange(start, end);
         ui.printList(filtered.getTasks());
         return filtered;
     }

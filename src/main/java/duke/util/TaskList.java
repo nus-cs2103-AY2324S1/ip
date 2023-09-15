@@ -1,8 +1,13 @@
 package duke.util;
 
+import java.time.LocalDateTime;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import duke.tasks.Temporal;
 
 import duke.exceptions.DukeException;
 import duke.tasks.Task;
@@ -100,10 +105,31 @@ public class TaskList {
      * @param keyword The keyword to filter the tasks by.
      * @return A new TaskList object with tasks that contain the given keyword in their description.
      */
-    public TaskList filter(String keyword) {
+    public TaskList filterByName(String keyword) {
         List<Task> filtered = tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
         return new TaskList(filtered);
     }
+
+    public TaskList filterByType(String type) {
+        List<Task> filtered = tasks.stream()
+                .filter(task -> task.getType().equals(type))
+                .collect(Collectors.toList());
+        return new TaskList(filtered);
+    }
+
+    public TaskList filterByDateRange(LocalDateTime from, LocalDateTime to) {
+        List<Task> filtered = tasks.stream()
+                .filter(task -> task instanceof Temporal)
+                .map(task -> (Temporal) task)
+                .filter(temporal -> temporal.isWithinPeriod(from, to))
+                .sorted(Comparator.comparing(Temporal::getStartTime))
+                .map(temporal -> (Task) temporal)
+                .collect(Collectors.toList());
+        return new TaskList(filtered);
+    }
+
+
+
 }
