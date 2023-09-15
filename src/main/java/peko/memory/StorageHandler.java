@@ -159,4 +159,14 @@ public class StorageHandler {
         return out;
     }
 
+    public static String archive(int i) {
+        if (i >= size) {
+            return "You don't have that Task Peko";
+        }
+        Task t = todoList[i-1];
+        ArchiveHandler.archive(t);
+        setDelete(i);
+        return "I have Archived the task Peko!";
+    }
+
 }

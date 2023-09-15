@@ -17,8 +17,7 @@ public enum Commands {
         EVENT,
         FIND,
         DELETE,
-        TAG,
-        UNTAG,
+        ARCHIVE,
         COPYPASTA
 
 

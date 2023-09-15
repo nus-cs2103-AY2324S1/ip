@@ -83,7 +83,7 @@ public class ArchiveHandler {
                     String s = scanner.nextLine();
                     String[] arr = s.split(" \\| ");
                     Task t = stringToTask(arr);
-                    if (t != null) {
+                    if (t != null && !map.getOrDefault(t.toString(), false)) {
                         System.out.println(t);
                         map.put(t.toString(), true);
                         list.add(t);
@@ -141,6 +141,16 @@ public class ArchiveHandler {
             System.out.println("Incomplete task an error in the list, Pain peko, I'll delete it");
         }
         return  null;
+    }
+
+    public static String readArchive() {
+        fileManager();
+        String out = "";
+        for(Task t : list) {
+            out += t.toString() + "\n";
+        }
+
+        return out == "" ? "Nani mo nai Peko" : out;
     }
 
 }

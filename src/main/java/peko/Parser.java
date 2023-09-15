@@ -12,7 +12,7 @@ public class Parser {
     private String string;
     private static final String[] commands = new String[]
             {"echo","otsupeko", "list", "write", "mark", "unmark",
-                    "todo", "deadline", "event", "find", "delete","tell me a joke"};
+                    "todo", "deadline", "event", "find", "delete", "archive", "tell me a joke"};
 
     /**
      * Constructs a `Parser` object with the specified user input string.

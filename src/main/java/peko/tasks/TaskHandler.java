@@ -3,6 +3,7 @@ package peko.tasks;
 import peko.commands.Commands;
 import peko.commands.Find;
 import peko.exceptions.InvalidTaskException;
+import peko.memory.ArchiveHandler;
 import peko.memory.SaveHandler;
 import peko.memory.StorageHandler;
 
@@ -166,6 +167,15 @@ public class TaskHandler {
         return out;
     }
 
+    public String archive(String s) {
+        if (s.isBlank()) {
+            String out = ArchiveHandler.readArchive();
+            return out;
+        }
+        int i = Integer.parseInt(s);
+        return StorageHandler.archive(i);
+    }
+
     /**
      * Processes the user command, performs corresponding actions, and returns a response.
      *
@@ -207,6 +217,9 @@ public class TaskHandler {
                     break;
                 case DELETE:
                     out = delete(description);
+                    break;
+                case ARCHIVE:
+                    out = archive(description);
                     break;
                 case COPYPASTA:
                     try {
@@ -274,6 +287,9 @@ public class TaskHandler {
                 return true;
             case DELETE:
                 delete(description);
+                return true;
+            case ARCHIVE:
+                archive(description);
                 return true;
             case COPYPASTA:
                 try {
