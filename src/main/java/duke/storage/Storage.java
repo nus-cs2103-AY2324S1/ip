@@ -18,6 +18,7 @@ import duke.task.ToDo;
  * Represents the storage component in the Duke application.
  * This class is responsible for loading tasks from a file and saving tasks back to that file.
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class Storage {
     private final String filePath;
 
@@ -31,41 +32,66 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the storage file. If the file doesn't exist, a new file will be created.
+     * Loads tasks from the storage file.
      *
-     * @return A {@link TaskList} populated with tasks loaded from the storage file.
-     * @throws StorageException If there are any issues with creating or reading from the file.
+     * @return A TaskList containing the tasks loaded from the storage file.
+     * @throws StorageException If there's an issue loading from the file.
      */
     public TaskList load() throws StorageException {
         TaskList tasks = new TaskList();
-        File file = new File(filePath);
+        File file = ensureFileExists(filePath);
 
-        if (!file.exists()) {
-            try {
-                if (file.getParentFile() != null) {
-                    file.getParentFile().mkdirs();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
-                file.createNewFile();
-            } catch (IOException e) {
-                throw new StorageException("Unable to create new file at " + filePath);
             }
-        } else {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    Task task = parseTask(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-                }
-            } catch (IOException e) {
-                throw new StorageException("Unable to create new file at " + filePath);
-            } catch (TimeParsingException e) {
-                throw new RuntimeException(e);
-            }
+        } catch (IOException e) {
+            throw new StorageException("Error reading file at " + filePath);
+        } catch (TimeParsingException e) {
+            throw new RuntimeException(e);
         }
+
         return tasks;
     }
+
+    /**
+     * Ensures that the file at the specified path exists.
+     * If the file does not exist, a new file will be created.
+     *
+     * @param filePath The path to the file to be checked.
+     * @return The file at the specified path.
+     * @throws StorageException If there's an issue creating the file.
+     */
+    private File ensureFileExists(String filePath) throws StorageException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            createFile(file);
+        }
+        return file;
+    }
+
+    /**
+     * Creates a new file at the specified path.
+     *
+     * @param file
+     * @throws StorageException
+     */
+
+    private void createFile(File file) throws StorageException {
+        try {
+            if (file.getParentFile() != null) {
+                file.getParentFile().mkdirs();
+            }
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new StorageException("Unable to create new file at " + filePath);
+        }
+    }
+
 
     /**
      * Parses a line from the storage file and constructs a {@link Task} object from it.
