@@ -52,6 +52,19 @@ public class TaskHandler {
         System.out.println(lineBreak);
         return out;
     }
+    private String tag(String s) throws NumberFormatException{
+        String[] split = s.split("#");
+        int i = Integer.parseInt(split[0]);
+        String out = StorageHandler.setMarkArray(i);
+        System.out.println(lineBreak);
+        return out;
+    }
+    private String untag(String s) throws NumberFormatException{
+        int i = Integer.parseInt(s);
+        String out = StorageHandler.setUnmarkArray(i);
+        System.out.println(lineBreak);
+        return out;
+    }
     private String todo(String s) throws InvalidTaskException{
         Task t = new ToDos(description);
         String out = StorageHandler.addToArray(t);
@@ -119,6 +132,12 @@ public class TaskHandler {
                     break;
                 case DELETE:
                     out = delete(description);
+                    break;
+                case TAG:
+                    out = tag(description);
+                    break;
+                case UNTAG:
+                    out = untag(description);
                     break;
                 case COPYPASTA:
                     try {

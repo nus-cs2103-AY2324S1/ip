@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import peko.memory.SaveHandler;
 import peko.memory.StorageHandler;
 
-public class Peko extends Application implements EventHandler<ActionEvent> {
+public class Peko extends Application {
     private UserInputHandler userInputHandler;
     private StorageHandler storageHandler;
 
@@ -127,7 +127,6 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
-
         return textToAdd;
     }
     private void handleUserInput() {
@@ -145,8 +144,5 @@ public class Peko extends Application implements EventHandler<ActionEvent> {
         userInput.clear();
     }
 
-    @Override
-    public void handle(ActionEvent event) {
 
-    }
 }

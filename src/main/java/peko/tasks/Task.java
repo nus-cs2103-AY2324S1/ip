@@ -3,6 +3,7 @@ package peko.tasks;
 import peko.exceptions.InvalidTaskException;
 
 public class Task {
+    protected String tag;
     protected String name;
     protected boolean status;
     public Task(String s) throws InvalidTaskException {
@@ -32,5 +33,8 @@ public class Task {
     public String toStore() {
         String state = status ? "0" : "1";
         return state + " | " + this.name;
+    }
+    public boolean getStatus() {
+        return this.status;
     }
 }

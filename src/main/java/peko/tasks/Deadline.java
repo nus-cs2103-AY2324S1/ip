@@ -20,7 +20,8 @@ public class Deadline extends Task {
         String[] temp = split[0].split(" ",2);
         //System.out.println(Arrays.toString(temp));
 
-        this.name = temp[0];
+        this.name = split[0];
+        System.out.println(split[0]);
 
         dateTimeHandler = new DateTimeHandler(split[1]);
     }

@@ -62,6 +62,8 @@ public class StorageHandler {
 
     }
 
+
+
     public static Task[] search(String searchQuery) {
         Task[] temp = todoList;
         Task[] tempOutput = new Task[100];
