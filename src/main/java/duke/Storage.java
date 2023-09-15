@@ -38,7 +38,6 @@ public class Storage {
      * @throws IOException
      */
 
-    @SuppressWarnings({"checkstyle:MissingSwitchDefault", "CheckStyle"})
     public TaskList saveTasks() throws IOException {
         try {
             if (!Files.isDirectory(Paths.get("data/"))) {
@@ -55,6 +54,7 @@ public class Storage {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         TaskList tasks = new TaskList();
         Scanner scanner = new Scanner(new File("data/duke.txt"));
         while (scanner.hasNext()) {
@@ -69,16 +69,14 @@ public class Storage {
                 tasks.addTask(new ToDo(description, isDone));
                 break;
             case "D":
-                String by = split[3];
-                tasks.addTask(new Deadline(description, by, isDone));
+                tasks.addTask(new Deadline(description, split[3], isDone));
                 break;
             case "E":
-                String from = split[3];
-                String to = split[4];
                 tasks.addTask(new Event(description, split[3], split[4], isDone));
                 break;
+            default:
+                System.out.println("Oop! There is nothing here");
             }
-
         }
         return tasks;
     }

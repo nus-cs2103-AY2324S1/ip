@@ -3,6 +3,9 @@ package duke;
 import duke.Exception.DukeException;
 import duke.task.Task;
 
+/**
+ * Class that deals with the UI of the chatbot.
+ */
 public class Ui {
     private StringBuilder message;
     public Ui() {
@@ -51,6 +54,12 @@ public class Ui {
         return message.toString();
 
     }
+
+    /**
+     * Returns the tasks in the tasklist.
+     * @param tasks the tasklist that will be printed.
+     * @return the string representation of the list.
+     */
     public String printTasks(TaskList tasks) {
         StringBuilder message = new StringBuilder();
         try {
@@ -81,20 +90,6 @@ public class Ui {
     public String showError(DukeException e) {
         return e.getMessage();
     }
-
-    /**
-     * Prints message that the task is added.
-     */
-
-    public String printAddedTask() {
-        return "No problem! I have added this task:";
-    }
-
-    /**
-     * Prints the horizontal line.
-     */
-
-
     /**
      * Prints that a task has been deleted.
      * @param tasks the TaskList being used.
@@ -132,6 +127,12 @@ public class Ui {
         }
         return message.toString();
     }
+
+    /**
+     * Returns the tasks that match the keyword.
+     * @param keyword the keyword the user is trying to find.
+     * @return the string representation of the tasks that matches the keyword.
+     */
     public String printNoFoundTask(String keyword) {
         append("No tasks found containing the keyword: " + keyword);
         return message.toString();

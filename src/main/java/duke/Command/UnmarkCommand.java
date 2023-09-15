@@ -7,23 +7,28 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Class that handles the unmark command.
+ */
 public class UnmarkCommand extends Command {
-    private int index;
+    private String input;
 
-    public UnmarkCommand(int index) {
-        this.index = index;
+    public UnmarkCommand(String input) {
+        this.input = input;
     }
 
     @Override
     public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
-        tasks.markTaskAsNotDone(index);
+        int taskIndex = Integer.parseInt(input.substring(7));
+        if (taskIndex > tasks.getSize()) {
+            throw new DukeException("This number is out of bounds!");
+        }
+        if (tasks.getTask(taskIndex - 1).getStatusIcon() == " ") {
+            throw new DukeException("This task has already been marked as not done!");
+        }
+        tasks.markTaskAsNotDone(taskIndex - 1);
         storage.writeTasksToFile(tasks);
-        return ui.printMarkTasksAsNotDone(index, tasks);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        return ui.printMarkTasksAsNotDone(taskIndex - 1, tasks);
     }
 
 }
