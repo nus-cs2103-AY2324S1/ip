@@ -166,7 +166,7 @@ Format: `priority [INDEX] [PRIORITY_LEVEL]`
 * Providing a non-positive index or index that is greater than the number of tasks will result in an error displayed.
 * Deleting tasks will re-order the indexing of remaining tasks.
 
-> ⚠️ The task index comes first, before the priority level.
+> ⚠️ The task **index comes first**, before the priority level.
 
 Examples: 
 * `priority 2 0` : Sets the task indexed at 2 to priority level 0.
@@ -209,3 +209,15 @@ Exits the app.
 
 Format: `bye`
 
+<br>
+
+### Saving data
+
+Smolbrain chatbot data are saved in the computer automatically after any command that changes the data. There is no need to save manually after each command.
+
+<br>
+
+### Editing data file
+
+Smolbrain chatbot data are saved in the computer automatically as a TXT file named `data.txt` in the same directory as your `smolbrain.jar` file.
+> ⚠️ **Caution:** If your changes to the data file makes its format invalid, Smolbrain chatbot will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
