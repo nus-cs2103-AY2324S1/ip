@@ -19,6 +19,7 @@ public class Duke {
     public String getResponse(String input) {
         Parser parser = new Parser(ui, tasks);
         String response = parser.parse(input);
+        assert response != null;
         return response;
     }
 
@@ -28,6 +29,7 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         storage = new Storage(filePath);
+        assert storage != null;
         tasks = new TaskList(storage.loadTaskList());
     }
 
@@ -39,6 +41,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         Parser parser = new Parser(ui, tasks);
+        assert input != null;
         parser.parse(input);
         while (!parser.isDone()) {
             input = scanner.nextLine();
