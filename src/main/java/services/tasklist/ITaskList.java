@@ -60,4 +60,24 @@ public interface ITaskList {
      * @return the task list and each task's description.
      */
     String showAllTasks();
+
+    /**
+     * Adds tags to a task with the given task number.
+     *
+     * @param taskNumber the task number of the task to be added tags.
+     * @param tagNames   the list of tag names to be added.
+     * @return the description of the task added tags.
+     * @throws JarvisException if the task cannot be added tags.
+     */
+    String addTagsToTask(int taskNumber, String[] tagNames) throws JarvisException;
+
+    /**
+     * Deletes tags from a task with the given task number.
+     *
+     * @param taskNumber the task number of the task to be deleted tags.
+     * @param tagNames   the list of tag names to be deleted.
+     * @return the description of the task deleted tags.
+     * @throws JarvisException if the task cannot be deleted tags.
+     */
+    String deleteTagsFromTask(int taskNumber, String[] tagNames) throws JarvisException;
 }
