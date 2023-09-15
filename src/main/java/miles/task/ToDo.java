@@ -31,7 +31,6 @@ public class ToDo extends Task {
         if (checkAllWhiteSpace(output)) {
             throw new MilesException(noDescErrorMsg);
         }
-        
         return output.trim();
     }
 

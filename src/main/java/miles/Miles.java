@@ -98,7 +98,6 @@ public class Miles {
         System.setOut(originalOut);
         return output.toString();
     }
-    
     public static void main(String[] args) {
         String filePath = "../../../data/miles.txt";
         new Miles(filePath).run();

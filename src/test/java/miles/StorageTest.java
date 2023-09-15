@@ -10,7 +10,7 @@ import miles.task.Task;
 import miles.task.ToDo;
 
 public class StorageTest {
-    @Test 
+    @Test
     public void testLoadFile() throws MilesException {
         String directoryPath = "./data";
         String filePath = "./data/test1.txt";
@@ -33,7 +33,7 @@ public class StorageTest {
         assertEquals(task3.toString(), task3Expected.toString());
     }
 
-    @Test 
+    @Test
     public void emptyFile() throws MilesException {
         String directoryPath = "";
         String filePath = "";
@@ -59,6 +59,6 @@ public class StorageTest {
 
         // to clean up the file for future tests
         taskList2 = new TaskList();
-        storage.saveFile(taskList2);  
+        storage.saveFile(taskList2);
     }
 }

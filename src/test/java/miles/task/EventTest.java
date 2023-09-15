@@ -20,11 +20,9 @@ public class EventTest {
     @Test
     public void emptyEvent() throws MilesException {
         String testString = "event";
-
         MilesException expectedException = assertThrows(MilesException.class, () -> {
             Event.splitEventString(testString);
         });
-
         String expectedErrorMsg = "OOPS!!! The description of a event cannot be empty.";
         String actualErrorMsg = expectedException.getMessage();
         assertEquals(expectedErrorMsg, actualErrorMsg); 
@@ -33,11 +31,9 @@ public class EventTest {
     @Test 
     public void missingDescription() throws MilesException {
         String testString = "event /from 2019-10-15 1800 /to";
-
         MilesException expectedException = assertThrows(MilesException.class, () -> {
             Event.splitEventString(testString);
         });
-        
         String expectedErrorMsg = "OOPS!!! The description of a event cannot be empty.";
         String actualErrorMsg = expectedException.getMessage();
         assertEquals(expectedErrorMsg, actualErrorMsg);
@@ -46,11 +42,9 @@ public class EventTest {
     @Test 
     public void missingFrom() throws MilesException {
         String testString = "event project meeting /to 2019-10-15 2000";
-
         MilesException expectedException = assertThrows(MilesException.class, () -> {
             Event.splitEventString(testString);
         });
-        
         String expectedErrorMsg = "Invalid event format: missing /from";
         String actualErrorMsg = expectedException.getMessage();
         assertEquals(expectedErrorMsg, actualErrorMsg);
@@ -59,11 +53,9 @@ public class EventTest {
     @Test
     public void missingTo() throws MilesException {
         String testString = "event project meeting /from 2019-10-15 1800";
-        
         MilesException expectedException = assertThrows(MilesException.class, () -> {
             Event.splitEventString(testString);
         });
-        
         String expectedErrorMsg = "Invalid event format: missing /to";
         String actualErrorMsg = expectedException.getMessage();
         assertEquals(expectedErrorMsg, actualErrorMsg);
