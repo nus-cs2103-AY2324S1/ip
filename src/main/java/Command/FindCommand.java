@@ -35,6 +35,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert keyword != null : "Search word cannot be null.";
         return ui.showMatchingTasks(taskList.findTasks(keyword));
     }
 }

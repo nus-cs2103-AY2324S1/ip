@@ -39,6 +39,7 @@ public class UnmarkCommand extends Command {
         if (taskIndex < 0 || taskIndex >= taskList.getTaskCount()) {
             throw new DukeException("Invalid task index.");
         }
+        assert taskIndex >= 0 && taskIndex < taskList.getTaskCount() : "Invalid task index.";
 
         try {
             Task taskToUnmark = taskList.getTasks().get(taskIndex);

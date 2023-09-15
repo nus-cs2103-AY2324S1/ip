@@ -17,7 +17,7 @@ import java.time.format.DateTimeParseException;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected String dateTime;
+    private LocalDate completedDate;
 
     /**
      * Constructs a new task with the specified description.
@@ -52,6 +52,7 @@ public class Task {
      */
     public void isCompleted() {
         isDone = true;
+        completedDate = LocalDate.now();
     }
 
     /**
@@ -186,6 +187,16 @@ public class Task {
         } catch (DateTimeParseException e) {
             return null;
         }
+    }
+
+    /**
+     * Retrieves the date when a task was marked as completed.
+     *
+     * @return The `LocalDate` representing the date when the task was completed,
+     *      or null if the task is not completed yet.
+     */
+    public LocalDate getCompletedDate() {
+        return completedDate;
     }
 
     @Override

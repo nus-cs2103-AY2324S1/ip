@@ -38,6 +38,7 @@ public class ToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert taskToDo != null : "Task todo cannot be null.";
         taskList.addTask(taskToDo);
         storage.saveTask(taskList.getTasks());
         return ui.showTaskAdded(taskToDo, taskList.getTaskCount());

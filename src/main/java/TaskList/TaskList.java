@@ -1,8 +1,11 @@
 package tasklist;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import duke.DukeException;
+import task.Statistics;
 import task.Task;
 
 /**
@@ -107,5 +110,44 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Calculates and returns task statistics based on the tasks in the associated `TaskList`.
+     * This method calculates the following statistics:
+     * - The number of tasks completed within the last week.
+     * - The total number of tasks completed.
+     * - The total number of tasks in the `TaskList`.
+     * - The percentage of tasks completed within the last week.
+     * - The percentage of total tasks completed.
+     *
+     * @return A `Statistics` object containing the calculated task statistics.
+     */
+    public Statistics calculateStatistics() {
+        Statistics statistics = new Statistics();
+        LocalDate now = LocalDate.now();
+
+        int tasksCompletedThisWeek = 0;
+        int totalTasksCompleted = 0;
+        int totalTasks = taskList.size();
+
+        for (Task task : taskList) {
+            if (task.checkIsDone()) {
+                totalTasksCompleted++;
+                if (task.getCompletedDate().isAfter(now.with(DayOfWeek.MONDAY))) {
+                    tasksCompletedThisWeek++;
+                }
+            }
+        }
+
+        double percentageCompletedThisWeek = (double) tasksCompletedThisWeek / totalTasks * 100;
+        double percentageTotalCompleted = (double) totalTasksCompleted / totalTasks * 100;
+
+        statistics.setTasksCompletedThisWeek(tasksCompletedThisWeek);
+        statistics.setTotalTasksCompleted(totalTasksCompleted);
+        statistics.setPercentageCompletedThisWeek(percentageCompletedThisWeek);
+        statistics.setPercentageTotalCompleted(percentageTotalCompleted);
+
+        return statistics;
     }
 }

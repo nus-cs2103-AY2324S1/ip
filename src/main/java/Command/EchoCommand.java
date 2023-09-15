@@ -36,6 +36,7 @@ public class EchoCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert message != null : "You cant echo nothing :(";
         return ui.showEcho(message);
     }
 }

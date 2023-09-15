@@ -39,6 +39,8 @@ public class Duke {
         scanner = new Scanner(System.in);
         taskList = new TaskList();
         ui = new Ui();
+        assert directoryPath != null : "Directory path cannot be empty";
+        assert textPath != null : "Text path cannot be empty";
         storage = new Storage(directoryPath, textPath, taskList);
         storage.loadTasks();
     }

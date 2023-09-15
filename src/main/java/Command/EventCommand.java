@@ -45,6 +45,9 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert description != null : "Description cannot be null.";
+        assert from != null : "from attribute cannot be null.";
+        assert to != null : "to attribute cannot be null.";
         Event event = new Event(description, from, to);
         taskList.addTask(event);
         storage.saveTask(taskList.getTasks());

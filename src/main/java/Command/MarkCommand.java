@@ -46,6 +46,7 @@ public class MarkCommand extends Command {
         if (taskIndex < 0 || taskIndex >= taskList.getTaskCount()) {
             throw new DukeException("Invalid task index.");
         }
+        assert taskIndex >= 0 && taskIndex < taskList.getTaskCount() : "Invalid task index.";
 
         try {
             Task taskToMark = taskList.getTasks().get(taskIndex);
