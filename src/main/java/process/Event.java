@@ -4,7 +4,7 @@ import exception.InvalidDateException;
 import exception.InvalidTimeException;
 import parser.Time;
 import task.Events;
-import task.TaskList;
+import task.TaskManager;
 
 /**
  * A class for the process of creating an event task
@@ -13,7 +13,7 @@ public class Event implements ComplexProcess {
     private enum Stage {
         FIRST, SECOND, THIRD, FOURTH, FIFTH
     }
-    private TaskList tasks = TaskList.init();
+    private TaskManager tasks = TaskManager.init();
     private Stage stage = Stage.FIRST;
     private String name = null;
     private String from = null;
@@ -48,7 +48,7 @@ public class Event implements ComplexProcess {
     }
 
     @Override
-    public String start() {
+    public String firstInstruction() {
         return "So you want to add a event task. Tell me what's the task.";
     }
 
@@ -86,7 +86,7 @@ public class Event implements ComplexProcess {
     }
 
     private String processThirdStep(String input) {
-        if (!input.toLowerCase().equals(enums.Command.SKIP.getCommand())) {
+        if (!input.toLowerCase().equals(enums.Command.SKIP.toString())) {
             try {
                 from = Time.formatTime(from, input);
             } catch (InvalidTimeException | InvalidDateException e) {
@@ -101,7 +101,7 @@ public class Event implements ComplexProcess {
     }
 
     private String processLastStep(String input) {
-        if (!input.toLowerCase().equals(enums.Command.SKIP.getCommand())) {
+        if (!input.toLowerCase().equals(enums.Command.SKIP.toString())) {
             try {
                 to = Time.formatTime(to, input);
             } catch (InvalidTimeException | InvalidDateException e) {

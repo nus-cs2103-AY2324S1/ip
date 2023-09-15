@@ -1,7 +1,7 @@
 package process;
 
 /**
- * An interface to define the behavior of a process in general
+ * An interface to define the behavior of a process of handling user input
  */
 public interface Process {
     /**

@@ -3,13 +3,13 @@ package process;
 import exception.InvalidCommandException;
 import exception.MissingArgumentException;
 import parser.CommandParser;
-import task.TaskList;
+import task.TaskManager;
 
 /**
  * A class for the process of creating a mark task
  */
 public class Mark implements SimpleProcess {
-    private TaskList tasks = TaskList.init();
+    private TaskManager tasks = TaskManager.init();
 
     @Override
     public String processInput(String input) {

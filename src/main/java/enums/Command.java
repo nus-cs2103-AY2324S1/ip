@@ -16,7 +16,6 @@ public enum Command {
     SKIP("skip");
 
     private String cmd;
-    private int strLength;
 
     /**
      * Constructor for the enum class
@@ -24,22 +23,14 @@ public enum Command {
      */
     Command(String cmd) {
         this.cmd = cmd;
-        this.strLength = cmd.length();
     }
 
     /**
      * returns the String representation of the command
      * @return the command String
      */
-    public String getCommand() {
-        return this.cmd;
-    }
-
-    /**
-     * returns the string length of the command
-     * @return string length of the command
-     */
-    public int getCommandStringLength() {
-        return this.strLength;
+    @Override
+    public String toString() {
+        return cmd;
     }
 }

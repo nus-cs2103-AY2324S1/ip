@@ -1,15 +1,15 @@
 package process;
 
-import task.TaskList;
+import task.TaskManager;
 
 /**
  * A class for the process of creating a todo task
  */
 public class ToDo implements ComplexProcess {
-    private TaskList tasks = TaskList.init();
+    private TaskManager tasks = TaskManager.init();
     private boolean isComplete = false;
     @Override
-    public String start() {
+    public String firstInstruction() {
         return "So you want to add a ToDo task. Tell me what's the task.";
     }
 

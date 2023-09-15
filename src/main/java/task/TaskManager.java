@@ -8,31 +8,32 @@ import storage.Database;
 /**
  * Class for manipulating the list of tasks
  */
-public class TaskList {
-    private static TaskList obj;
+public class TaskManager {
+    private static TaskManager obj;
+    private static final String FILE_ERROR_MSG = "There is an issue with the file database. "
+            + "You are required to delete the file in your User/[username]/EvanData folder "
+            + "and rerun the program.";
     private ArrayList<Task> list;
 
     /**
-     * private constructor
+     * Private constructor for TaskManager
      */
-    private TaskList() {
+    private TaskManager() {
         try {
-            list = Database.loadData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException e) {
+            list = Database.loadTasks();
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 
     }
 
     /**
-     * factory method to enforce one instance of the list manager
+     * Factory method to enforce one instance of the list manager
      * @return an instance of the list manager
      */
-    public static TaskList init() {
+    public static TaskManager init() {
         if (obj == null) {
-            obj = new TaskList();
+            obj = new TaskManager();
         }
         return obj;
     }
@@ -40,20 +41,20 @@ public class TaskList {
     /**
      * Takes in a task, adds it into the list and saves it into the database
      * @param task task to be added
+     * @return string message log of adding the task
      */
     public String addTask(Task task) {
         list.add(task);
 
         try {
-            Database.save(list);
+            Database.saveTasks(list);
         } catch (IOException e) {
-            return "Oops! Sorry! There is an issue with the file database. "
-                    + "You are required to delete the file and recreate one with the same name.";
+            return FILE_ERROR_MSG;
         }
 
-        StringBuilder dialog = new StringBuilder("Got it. I've added this task:\n       ")
+        StringBuilder dialog = new StringBuilder("Got it. I've added this task:\n")
                 .append(task)
-                .append("\n     ")
+                .append("\n")
                 .append("Now you have ")
                 .append(list.size())
                 .append(" tasks in the list.");
@@ -61,11 +62,12 @@ public class TaskList {
     }
 
     /**
-     * Prints all the tasks in the list
+     * Gets a string report of all the tasks in the list
+     * @return String message log of all tasks in the list
      */
-    public String printTasks() {
+    public String getAllTasks() {
         Task[] tasks = list.toArray(new Task[0]);
-        StringBuilder dialog = new StringBuilder("Here are the tasks in your list:\n     ");
+        StringBuilder dialog = new StringBuilder("Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.length; i++) {
             int listIndex = i + 1;
@@ -75,7 +77,7 @@ public class TaskList {
 
             if (i < tasks.length - 1) {
                 dialog.append(task)
-                        .append("\n     ");
+                        .append("\n");
             } else {
                 dialog.append(task);
             }
@@ -87,21 +89,20 @@ public class TaskList {
     /**
      * Takes in an integer index and marks the task associated with the index as done
      * @param index index of the task
+     * @return String message report of marking the task as done
      */
     public String markDone(int index) {
         Task element = list.get(index - 1);
         element.markAsDone();
 
         try {
-            Database.save(list);
+            Database.saveTasks(list);
         } catch (IOException e) {
-            return "Oops! Sorry! There is an issue with the file database. "
-                    + "You are required to delete the file and recreate one with the same name.";
+            return FILE_ERROR_MSG;
         }
 
         StringBuilder dialog = new StringBuilder();
         dialog.append("Nice! I've marked this task as done:\n")
-                .append("       ")
                 .append(element);
         return dialog.toString();
     }
@@ -109,21 +110,20 @@ public class TaskList {
     /**
      * Takes in an integer index and marks the task associated with the index as not done
      * @param index index of the task
+     * @return String message report of marking the task as not done
      */
     public String unmarkDone(int index) {
         Task element = list.get(index - 1);
         element.markAsNotDone();
 
         try {
-            Database.save(list);
+            Database.saveTasks(list);
         } catch (IOException e) {
-            return "Oops! Sorry! There is an issue with the file database. "
-                    + "You are required to delete the file and recreate one with the same name.";
+            return FILE_ERROR_MSG;
         }
 
         StringBuilder dialog = new StringBuilder();
         dialog.append("OK! I've marked this task as not done yet:\n")
-                .append("       ")
                 .append(element);
         return dialog.toString();
     }
@@ -131,6 +131,7 @@ public class TaskList {
     /**
      * Takes in an integer index and deletes the task associated with the index
      * @param index index of the task
+     * @return String message report of deleting task
      */
     public String deleteTask(int index) {
 
@@ -138,30 +139,29 @@ public class TaskList {
         list.remove(index - 1);
 
         try {
-            Database.save(list);
+            Database.saveTasks(list);
         } catch (IOException e) {
-            return "Oops! Sorry! There is an issue with the file database. "
-                    + "You are required to delete the file and recreate one with the same name.";
+            return FILE_ERROR_MSG;
         }
 
         StringBuilder dialog = new StringBuilder();
         dialog.append("Noted. I've removed this task:\n")
-                .append("       ")
                 .append(element)
                 .append("\n")
-                .append("     Now you have ")
+                .append("Now you have ")
                 .append(list.size())
                 .append(" tasks in the list.");
         return dialog.toString();
     }
 
     /**
-     * Finds all tasks which contains the keyword and prints it
-     * @param keyword
+     * Finds all tasks which contains the keyword and returns a string report of filtered tasks
+     * @param keyword in the task description
+     * @return String message report of all tasks with the keyword
      */
     public String findTask(String keyword) {
         StringBuilder dialog = new StringBuilder("Here are the matching tasks in your list with its correct "
-                + "corresponding index numbers: \n     ");
+                + "corresponding index numbers: \n");
 
         Task[] tasks = list.toArray(new Task[0]);
 
@@ -173,7 +173,7 @@ public class TaskList {
                 dialog.append(listIndex)
                         .append(".")
                         .append(task)
-                        .append("\n     ");
+                        .append("\n");
             }
         }
         return dialog.toString();
