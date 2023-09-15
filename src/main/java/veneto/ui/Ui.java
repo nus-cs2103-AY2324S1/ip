@@ -22,7 +22,7 @@ public class Ui {
     };
 
     /** Methods */
-    public void showError(DanException e) {
+    public static void showError(DanException e) {
         if (e instanceof DanOperateException) {
             switch (e.getMessage()) {
                 case "Unmarked":
