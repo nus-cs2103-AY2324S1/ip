@@ -84,4 +84,28 @@ public class UI {
         sb.append(printLine());
         return sb.toString();
     }
+
+    public String addNote(int index, String taskName) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(printLine()).append("\n");
+        sb.append("Added your descriptive note for task ");
+        sb.append(index);
+        sb.append(": " + taskName);
+        sb.append("\n");
+        sb.append(printLine()).append("\n");
+        return sb.toString();
+    }
+
+    public String getDescription(String note) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(printLine()).append("\n");
+        if (note != null) {
+            sb.append(note);
+        } else {
+            sb.append("You did not add a note for this task");
+        }
+        sb.append("\n");
+        sb.append(printLine()).append("\n");
+        return sb.toString();
+    }
 }

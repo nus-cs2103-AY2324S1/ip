@@ -7,6 +7,7 @@ package duke.tasks;
 public class Task {
     protected String taskName;
     protected boolean done;
+    protected String note;
 
     /**
      * Constructs a Task with the given task name and sets its completion status to false.
@@ -16,6 +17,7 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName;
         this.done = false;
+        this.note = null;
     }
 
     /**
@@ -29,6 +31,13 @@ public class Task {
         this.done = done;
     }
 
+    public void addNote(String note) {
+        this.note = note;
+    }
+
+    public String getNote() {
+        return this.note;
+    }
     /**
      * Constructs a default Task with an untitled task name and sets its completion status to false.
      * This constructor is used when no task name is provided.
