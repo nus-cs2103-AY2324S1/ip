@@ -31,9 +31,17 @@ public class Event extends Task {
 
 
     }
+
+    public String getStart() {
+        return this.start;
+    }
+
+    public String getEnd() {
+        return this.end;
+    }
     @Override
     public String saveString() {
-        return "E" + super.saveString() + " | " + this.start + "-" + this.end;
+        return "E" + super.saveString() + " | " + this.start + "-" + this.end + "\r\n";
     }
     @Override
     public String toString() {

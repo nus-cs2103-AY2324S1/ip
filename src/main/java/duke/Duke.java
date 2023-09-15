@@ -77,6 +77,11 @@ public class Duke {
                 ArrayList<Task> res = tasklist.searchTasks(description);
                 return ui.printSearchList(res);
             }
+            case "schedule": {
+                String date = parser.getDescription(input);
+                ArrayList<Task> res = tasklist.viewSchedule(date);
+                return ui.printSchedule(res, date);
+            }
             default: {
                 return ui.printBotErrorMsg();
             }
