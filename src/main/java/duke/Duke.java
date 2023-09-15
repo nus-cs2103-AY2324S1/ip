@@ -1,3 +1,4 @@
+package duke;
 /*
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -9,11 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 */
-import HelperClass.Task;
-import HelperClass.Storage;
-import HelperClass.Ui;
-import HelperClass.Parser;
-import HelperClass.TaskList;
+import duke.HelperClass.Task;
+import duke.HelperClass.Storage;
+import duke.HelperClass.Ui;
+import duke.HelperClass.Parser;
+import duke.HelperClass.TaskList;
 
 import java.util.Scanner;
 
@@ -165,6 +166,10 @@ public class Duke {
 
     }
 
+
+    public String getResponse(String input) {
+        return "duke.Duke heard: " + input;
+    }
 
     public static void main(String[] args) {
 

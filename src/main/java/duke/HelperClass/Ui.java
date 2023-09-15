@@ -1,4 +1,4 @@
-package HelperClass;
+package duke.HelperClass;
 
 public class Ui {
 

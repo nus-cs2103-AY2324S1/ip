@@ -1,4 +1,4 @@
-package HelperClass;
+package duke.HelperClass;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
