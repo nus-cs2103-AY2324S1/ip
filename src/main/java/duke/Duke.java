@@ -14,6 +14,19 @@ import java.util.Scanner;
 
 import javafx.application.Application;
 
+enum Priority {
+    HIGH(1), NORMAL(0);
+    private int val;
+    Priority(int val) {
+        this.val = val;
+    }
+    @Override
+    public String toString() {
+        return Integer.toString(val);
+    }
+
+}
+
 
 /**
  * Contains utility functions to be used in several contexts.
@@ -63,6 +76,7 @@ class TaskType {
     private String task;
     private boolean isCompleted;
     private String dateString;
+    private Priority priority;
 
     /**
      * Constructor for the TaskType class.
@@ -76,6 +90,7 @@ class TaskType {
         this.task = task;
         this.isCompleted = isCompleted;
         this.dateString = dateString;
+        this.priority = Priority.NORMAL;
     }
 
     /**
@@ -101,9 +116,10 @@ class TaskType {
      */
 
     public String saveStringRep() {
-        return Utils.getWordCount(this.task) + " " + this.task + " "
-                + String.valueOf(isCompleted) + " " + this.toShortString()
-                + " " + (dateString == null ? "" : dateString);
+        return this.task + "&"
+                + String.valueOf(isCompleted) + "&" + this.toShortString()
+                + "&" + (dateString == "" ? "null" : dateString)
+                + "&" + priority.toString();
     }
 
     /**
@@ -136,7 +152,17 @@ class TaskType {
         return "";
     }
 
+    public void setPriority(int highPriority) {
+        if (highPriority == 1) {
+            this.priority = Priority.HIGH;
+        } else {
+            this.priority = Priority.NORMAL;
+        }
+    }
 
+    public Priority getPriority() {
+        return this.priority;
+    }
 }
 
 
@@ -330,7 +356,18 @@ class Ui {
         String completedBox = "[" + (task.getIsCompleted() ? "X" : " ") + "] ";
         String taskTypeBox = "[" + task.toShortString() + "]";
         String formattedDatetime = task.getFormattedDatetime(fmt);
-        return taskTypeBox + completedBox + " " + task.getTaskDesc() + " " + formattedDatetime;
+        Priority priority = task.getPriority();
+        String priorityBox = buildPriorityBox(priority);
+        return taskTypeBox + completedBox + " " + task.getTaskDesc() + formattedDatetime + " " + priorityBox;
+    }
+
+    private String buildPriorityBox(Priority p) {
+        switch (p) {
+        case HIGH:
+            return "[Priority: High]";
+        default:
+            return "";
+        }
     }
 
     /**
@@ -474,23 +511,26 @@ class TaskList {
     public TaskList(ArrayList<String> ss, DtFormat dtf) throws DukeException {
         items = new ArrayList<>();
         for (String s : ss) {
-            String[] d = s.split("\\s+");
-            int descLen = Integer.valueOf(d[0]);
-            assert descLen > 0;
-            String desc = Utils.splitStringBySpaces(d, 1, descLen + 1);
+            String[] d = s.split("&");
+            String desc = d[0];
+            System.out.println(desc);
             assert desc.length() > 0;
-            boolean isCompleted = Boolean.valueOf(d[descLen + 1]);
-            String dateString = d.length > descLen + 3 ? Utils.splitStringBySpaces(d, descLen + 3, d.length) : null;
+            boolean isCompleted = Boolean.valueOf(d[1]);
+            String taskType = d[2];
+            String dateString = d[3].equals("null") ? null : d[3];
+            int p = Integer.valueOf(d[4]);
             TaskType task;
-            if (d[descLen + 2].equals("T")) {
+
+            if (taskType.equals("T")) {
                 task = new Todo(desc, isCompleted);
-            } else if (d[descLen + 2].equals("D")) {
+            } else if (taskType.equals("D")) {
                 task = new Deadline(desc, isCompleted, dateString, dtf.getFormatters());
-            } else if (d[descLen + 2].equals("E")) {
+            } else if (taskType.equals("E")) {
                 task = new Event(desc, isCompleted, dateString, dtf.getFormatters());
             } else {
                 throw new DukeException("Task type not recognized");
             }
+            task.setPriority(p);
             items.add(task);
         }
     }
@@ -816,6 +856,35 @@ class CommandHandler {
         out += ui.print("Now you have " + taskList.getSize() + " tasks in the list.");
         return out;
     }
+
+    public String handlePriorityCommand(String[] splitStr) throws DukeException {
+        DukeException e = new DukeException("""
+                Invalid format for command. priority command takes the form: priority [task number] [0/1]
+            """);
+        String out = "";
+        if (splitStr.length != 3) {
+            throw e;
+        }
+        int taskIndex;
+        int priorityVal;
+        try {
+            taskIndex = Integer.valueOf(splitStr[1]) - 1;
+            priorityVal = Integer.valueOf(splitStr[1]);
+        } catch (NumberFormatException ne) {
+            throw e;
+        }
+        final int PRIORITY_LOWER_BOUND = 0;
+        final int PRIORITY_UPPER_BOUND = 1;
+        if (priorityVal < PRIORITY_LOWER_BOUND || priorityVal > PRIORITY_UPPER_BOUND
+                || taskIndex < 0 || taskIndex >= taskList.getSize()) {
+            throw e;
+        }
+        taskList.getItem(taskIndex).setPriority(priorityVal);
+        out += ui.print("Got it, I've set this task's priority to " + (priorityVal == 1 ? "high:" : "normal:"));
+        out += ui.print(ui.formatTaskToPrint(taskList.getItem(taskIndex), dtf.getOutFormatter()));
+        return out;
+
+    }
 }
 
 /**
@@ -870,6 +939,8 @@ class Parser {
             return ch.handleDeadlineCommand(splitStr);
         } else if (splitStr[0].equals("event")) {
             return ch.handleEventCommand(splitStr);
+        } else if (splitStr[0].equals("priority")) {
+            return ch.handlePriorityCommand(splitStr);
         } else {
             throw new DukeException("Sorry, I don't understand that command");
         }
