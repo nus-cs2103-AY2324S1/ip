@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -22,23 +23,46 @@ public class Storage {
     }
 
     /**
-     * Loads the task list with file. Initializes the file
-     * when necessary.
+     * Loads the task list with file.
      *
      * @return The task list.
      * @throws IOException If unable to gain input from file.
      */
     public ArrayList<Task> load() throws IOException {
-        File dir = new File("./data");
+        String dirPath = this.filePath.split("/")[0];
+        File f = getFile(dirPath);
+        ArrayList<Task> tasks = loadTasks(f);
+        return tasks;
+    }
+
+    /**
+     * Returns the file for storage. Initializes the file
+     * when necessary.
+     *
+     * @param path Path of the directory of the storage file.
+     * @throws IOException If an input or output exception occurs.
+     */
+    private File getFile(String path) throws IOException {
+        File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdir();
         }
         File f = new File(filePath);
         f.createNewFile();
+        return f;
+    }
+
+    /**
+     * Returns the task list after loading.
+     *
+     * @param f The file for storage.
+     * @throws FileNotFoundException If an attempt to open the file fails.
+     */
+    private ArrayList<Task> loadTasks(File f) throws FileNotFoundException {
         Scanner s = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {
-            tasks.add(inputToTask(s.nextLine()));
+            tasks.add(storageToTask(s.nextLine()));
         }
         return tasks;
     }
@@ -49,22 +73,50 @@ public class Storage {
      * @param input The String input.
      * @return The corresponding Task.
      */
-    private Task inputToTask(String input) {
+    private Task storageToTask(String input) throws DukeException {
         String taskType = input.split(" \\| ")[0];
         boolean isComplete = input.split(" \\| ")[1].equals("1");
         String description = input.split(" \\| ")[2];
         if (taskType.equals("T")) {
             return new ToDo(description, isComplete);
         } else if (taskType.equals("D")) {
-            LocalDate d = LocalDate.parse(input.split(" \\| ")[3], DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
-            return new Deadline(description, isComplete, d);
+            return this.createDeadlineFromStorage(input, description, isComplete);
+        } else if (taskType.equals("E")) {
+            return this.createEventFromStorage(input, description, isComplete);
         } else {
-            LocalDate start = LocalDate.parse(input.split(" \\| ")[3],
-                    DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
-            LocalDate end = LocalDate.parse(input.split(" \\| ")[4],
-                    DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
-            return new Event(description, isComplete, start, end);
+            throw new DukeException("Unknown task type.");
         }
+    }
+
+
+    /**
+     * Creates the Event from the storage input.
+     *
+     * @param input The input line.
+     * @param description The description of the Event.
+     * @param isComplete Whether the Event is completed.
+     * @return The Event.
+     */
+    private Event createEventFromStorage(String input, String description, boolean isComplete) {
+        LocalDate start = LocalDate.parse(input.split(" \\| ")[3],
+                DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+        LocalDate end = LocalDate.parse(input.split(" \\| ")[4],
+                DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+        return new Event(description, isComplete, start, end);
+    }
+
+    /**
+     * Creates the Deadline from the storage input.
+     *
+     * @param input The input line.
+     * @param description The description of the Deadline.
+     * @param isComplete Whether the Deadline is completed.
+     * @return The Event.
+     */
+    private Deadline createDeadlineFromStorage(String input, String description, boolean isComplete) {
+        LocalDate d = LocalDate.parse(input.split(" \\| ")[3],
+                DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
+        return new Deadline(description, isComplete, d);
     }
 
 
@@ -97,10 +149,12 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < list.size(); i++) {
-                fw.write(list.get(i).toTxt());
                 if (i != list.size() - 1) {
+                    fw.write(list.get(i).toTxt());
                     fw.write("\n");
+                    continue;
                 }
+                fw.write(list.get(i).toTxt());
             }
             fw.close();
         } catch (IOException e) {
