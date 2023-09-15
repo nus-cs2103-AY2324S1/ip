@@ -71,11 +71,9 @@ public class Duke extends Application {
         dialogContainer.heightProperty().addListener((observable) -> {
             scrollPane.setVvalue(1.0);
         });
-
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
@@ -85,7 +83,10 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         addDukeMessage(this.ui.sayhi());
+        manageUserInput();
+    }
 
+    private void manageUserInput() {
         //p3.0
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
