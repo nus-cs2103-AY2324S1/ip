@@ -118,7 +118,9 @@ public class Storage {
                 while (sc.hasNext()) {
                     String storedTaskDetails = sc.nextLine();
                     Task task = convertStringToTask(storedTaskDetails);
-                    taskList.addTask(task);
+                    if (task != null) {
+                        taskList.addTask(task);
+                    }
                 }
             } catch (IOException e) {
                 System.err.println("An error occurred while reading the file: " + e.getMessage());
@@ -156,14 +158,14 @@ public class Storage {
             String taskDesription = taskDetails[2].trim();
             String byInput = taskDetails[3];
             LocalDateTime by = LocalDateTime.parse(byInput);
-            task = new Deadline(taskDetails[2], by);
+            task = new Deadline(taskDesription, by);
         } else if (taskType.equals("E")) {
             String taskDesription = taskDetails[2].trim();
             String fromInput = taskDetails[3];
             String toInput = taskDetails[4];
             LocalDateTime from = LocalDateTime.parse(fromInput);
             LocalDateTime to = LocalDateTime.parse(toInput);
-            task = new Event(taskDetails[2], from, to);
+            task = new Event(taskDesription, from, to);
         }
         if (task != null) {
             task.setDone(taskIsDone.equals("1"));
@@ -187,7 +189,9 @@ public class Storage {
                 while (sc.hasNext()) {
                     String storedTaskDetails = sc.nextLine();
                     Note note = convertStringToNote(storedTaskDetails);
-                    noteList.addNote(note);
+                    if (note != null) {
+                        noteList.addNote(note);
+                    }
                 }
             } catch (IOException e) {
                 System.err.println("An error occurred while reading the file: " + e.getMessage());

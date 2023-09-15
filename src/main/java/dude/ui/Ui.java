@@ -62,9 +62,10 @@ public class Ui {
         }
 
         int nNotes = noteList.getSize();
-        String noteListString = "Notes:\n";
+        System.out.printf("Note List Size: %d", nNotes);
+        String noteListString = "\nNotes:\n";
         if (nNotes == 0) {
-            noteListString = "You have no saved notes.\n";
+            noteListString = "\nYou have no saved notes.\n";
         } else {
             for (int i = 0; i < nNotes; i++) {
                 Note note = noteList.getNote(i);
@@ -73,6 +74,7 @@ public class Ui {
                 }
             }
         }
+
         return noteListString;
     }
 
