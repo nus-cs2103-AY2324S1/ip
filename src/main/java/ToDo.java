@@ -7,6 +7,14 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String toFileString() {
+        if (super.isDone) {
+            return "T | 1 | " + super.task;
+        } 
+        return "T | 0 | " + super.task;
+    }
+
+    @Override
     public String getStatus() {
         return "[To-Do]" + super.getStatus();
     }

@@ -17,6 +17,15 @@ public class Event extends Task {
     }
 
     @Override
+    public String toFileString() {
+        if (super.isDone) {
+            return "E | 1 | " + super.task + " | " + this.from + "-" + this.to;
+        } else {
+            return "E | 0 | " + super.task + " | " + this.from + "-" + this.to;
+        }
+    }
+
+    @Override
     public String getStatus(){
         String time = "(from: " + from + " to: " + to + ")";
         return "[Event]" + super.getStatus() + " " + time;

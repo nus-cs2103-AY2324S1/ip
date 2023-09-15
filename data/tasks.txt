@@ -1,0 +1,5 @@
+T | 1 | task1
+E | 1 | task3 | startTime-endTime
+T | 0 | task4
+D | 0 | task5 | ddl2
+E | 0 | task6 | startTime1-endTime2
