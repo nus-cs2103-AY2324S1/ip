@@ -31,7 +31,9 @@ public class Duke {
     }
 
     public String initialise() {
-        ui.showWelcome();
+        ui.showHeader();
+        ui.showReminders(tasks.getReminders());
+        ui.showGreeting();
         return ui.getCurrentMessage();
     }
 

@@ -87,4 +87,8 @@ public class TaskList {
     public List<Task> filterTasks(Predicate<? super Task> predicate) {
         return tasks.stream().filter(predicate).collect(Collectors.<Task>toList());
     }
+
+    public List<Task> getReminders() {
+        return filterTasks(task -> !task.isMarked() && task.isReminder());
+    }
 }

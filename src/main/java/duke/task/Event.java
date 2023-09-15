@@ -19,8 +19,8 @@ public class Event extends Task {
      * @param end The end date and time of the task.
      * @param done The completion status of the task.
      */
-    public Event(String task, String start, String end, boolean done) {
-        super(task, done);
+    public Event(String task, String start, String end, boolean reminderStatus, boolean done) {
+        super(task, reminderStatus, done);
         this.start = stringToDateObj(start);
         this.end = stringToDateObj(end);
     }

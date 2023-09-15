@@ -71,12 +71,16 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
+    public void showHeader() {
         appendCurrentMessage(LOGO);
         appendCurrentMessage(HELP);
-        appendCurrentMessage(GREET);
-        String output = LOGO + DIVIDER + HELP + DIVIDER + GREET;
+        String output = LOGO + DIVIDER + HELP;
         System.out.println(output);
+    }
+
+    public void showGreeting() {
+        appendCurrentMessage(GREET);
+        System.out.println(GREET);
     }
 
     /**
@@ -110,6 +114,25 @@ public class Ui {
         }
         tasks.forEach(task -> appendCurrentMessage(task.toString()));
         tasks.forEach(task -> System.out.println("    " + task.toString()));
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Displays a list of reminders to the user
+     *
+     * @param reminders The list of reminders to be displayed.
+     */
+    public void showReminders(List<Task> reminders) {
+        System.out.println(DIVIDER);
+        appendCurrentMessage("Important reminders:");
+        if (reminders.size() < 1) {
+            appendCurrentMessage("CHIRP! no reminders set");
+            System.out.println("    CHIRP! no reminders set");
+            return;
+        }
+        reminders.forEach(task -> appendCurrentMessage(task.toString()));
+        reminders.forEach(task -> System.out.println("    " + task.toString()));
+        appendCurrentMessage("");
         System.out.println(DIVIDER);
     }
 

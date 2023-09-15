@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
-    Event event = new Event("task", "11/11/2002 11:11", "11/11/2002 22:22", false);
+    Event event = new Event("task", "11/11/2002 11:11", "11/11/2002 22:22", false, false);
     @Test
     public void testMarkDeadline() {
         assertEquals(true, event.markTask(), "Marking event should work");
