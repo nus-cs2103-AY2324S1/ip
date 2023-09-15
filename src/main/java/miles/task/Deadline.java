@@ -32,7 +32,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns an array of 2 elements, the first element is the task, the second is the deadline. 
+     * Returns an array of 2 elements, the first element is the task, the second is the deadline.
      * Worth noting that the task and deadline strings here still have whitespaces that need to be
      * trimmed for use.
      * @param taskString      the string that contains the task and deadline
