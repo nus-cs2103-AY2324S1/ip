@@ -1,6 +1,7 @@
 package helpers;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -130,6 +131,26 @@ public class TaskList {
                     sb.append("\n");
                 }
             }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Method to sort task by task desc
+     * @return String representation of the sorted tasks
+     */
+    public String sortTaskList(boolean isAsc) {
+        StringBuilder sb = new StringBuilder();
+        if (isAsc) {
+            this.tasks.sort(Comparator.comparing(Task::getTaskDesc));
+        } else {
+            this.tasks.sort(Comparator.comparing(Task::getTaskDesc).reversed());
+        }
+
+        for (int i = 0; i < this.tasks.size(); i++) {
+            int index = i + 1;
+            Task task = this.tasks.get(i);
+            sb.append(index).append(".").append(task.toString()).append("\n");
         }
         return sb.toString();
     }

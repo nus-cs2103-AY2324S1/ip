@@ -200,6 +200,30 @@ public class Parser {
     }
 
     /**
+     * Method to sort tasks based on ascending or descending
+     * @param input User input
+     * @return String of tasks sorted
+     */
+    public String showSortedTask(String input) {
+        try {
+            String param = input.split(" ", 2)[1];
+            if (param == null || param.isEmpty()) {
+                return message.showInvalidArgumentErrorMessage("sort", input);
+            } else if (param.equalsIgnoreCase("asc")) {
+                return message.showSortedTask(this.taskList, true);
+            } else if (param.equalsIgnoreCase("desc")) {
+                return message.showSortedTask(this.taskList, false);
+            } else {
+                return message.showInvalidArgumentErrorMessage("sort", input);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return message.showInvalidIndexErrorMessage(input);
+        }
+    }
+
+
+
+    /**
      * Execute the controllers.Duke's functions to process user's input.
      * @param input User's text input
      * @return MachoDuke's response in String
@@ -217,6 +241,9 @@ public class Parser {
             switch (command) {
             case LIST:
                 return message.showTaskList(this.taskList);
+
+            case SORT:
+                return showSortedTask(this.input);
 
             case TODO:
                 return createToDo(this.input);
@@ -251,7 +278,6 @@ public class Parser {
         }
         return "Macho there is an error processing your message, please try again!";
     }
-
 
 
 }

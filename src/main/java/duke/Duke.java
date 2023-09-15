@@ -11,6 +11,7 @@ import helpers.TaskList;
 public class Duke {
 
     private TaskList taskList;
+    @SuppressWarnings("checkstyle:MemberName")
     private final String DIRECTORY = "data";
     private Storage storage;
     private Message message;
