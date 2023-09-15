@@ -56,31 +56,31 @@ public class Parser {
         }
 
         switch (commandEnum) {
-            case HI:
-                return Ui.greet();
-            case BYE:
-                return Ui.exit();
-            case LIST:
-                return taskList.toString();
-            case MARK:
-                return markCommand(content);
-            case UNMARK:
-                return unMarkCommand(content);
-            case TODO:
-                return toDoCommand(content);
-            case DEADLINE:
-                return deadLineCommand(content);
-            case EVENT:
-                return eventCommand(content);
-            case DELETE:
-                return deleteCommand(content);
-            case FIND:
-                return findCommand(content);
-            case DEFAULT:
-                throw new MondayException("Sorry, I do not understand what that means.\n"
-                        + "Please provide a valid input/command. e.g todo read book");
-            default:
-                throw new MondayException("Sorry the ChatBot, please kindly wait for update.");
+        case HI:
+            return Ui.greet();
+        case BYE:
+            return Ui.exit();
+        case LIST:
+            return taskList.toString();
+        case MARK:
+            return markCommand(content);
+        case UNMARK:
+            return unMarkCommand(content);
+        case TODO:
+            return toDoCommand(content);
+        case DEADLINE:
+            return deadLineCommand(content);
+        case EVENT:
+            return eventCommand(content);
+        case DELETE:
+            return deleteCommand(content);
+        case FIND:
+            return findCommand(content);
+        case DEFAULT:
+            throw new MondayException("Sorry, I do not understand what that means.\n"
+                    + "Please provide a valid input/command. e.g todo read book");
+        default:
+            throw new MondayException("Sorry the ChatBot, please kindly wait for update.");
         }
     }
 
