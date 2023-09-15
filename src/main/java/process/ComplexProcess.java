@@ -1,7 +1,7 @@
 package process;
 
 /**
- * An interface to define the behavior of a process that can be finished with multiple inputs
+ * An interface to define the behavior of a process that requires multiple inputs
  */
 public interface ComplexProcess extends Process {
     /**
