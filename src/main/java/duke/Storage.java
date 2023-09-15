@@ -65,8 +65,8 @@ public class Storage {
             assert (fr.read() == -1);
 
             String[] taskList = new String[100];
-            for (String task : savedTasks.split(";")) {
-                String[] taskDetails = task.split("/");
+            for (String task : savedTasks.split("/;/")) {
+                String[] taskDetails = task.split("/%-%/");
                 taskArray.add(textToTask(taskDetails));
             }
 
@@ -87,16 +87,17 @@ public class Storage {
 
         switch(taskDetails[0]) {
             case "T":
-                savedTask = new ToDo(taskDetails[2]);
+                savedTask = new ToDo(taskDetails[2], taskDetails[3].split("/%t%/"));
                 break;
             case "D":
-                savedTask = new Deadline(taskDetails[2], taskDetails[3]);
+                savedTask = new Deadline(taskDetails[2], taskDetails[4].split("/%t%/"), taskDetails[3]);
                 break;
             case "E":
-                savedTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                savedTask = new Event(taskDetails[2], taskDetails[5].split("/%t%/"),
+                        taskDetails[3], taskDetails[4]);
                 break;
             default:
-                savedTask = new Task(taskDetails[0]);
+                savedTask = new Task(taskDetails[0], taskDetails[2].split("/%t%/"));
         }
         if (Integer.parseInt(taskDetails[1]) == 1) {
             savedTask.markAsDone();
@@ -172,7 +173,6 @@ public class Storage {
      * @param index array index of task
      */
     public void delete(int index) throws NumberFormatException, IndexOutOfBoundsException {
-
         // Assert that the task being deleted cannot be null
         assert (taskArray.get(index) != null);
 
@@ -206,18 +206,23 @@ public class Storage {
         // Parse based on class of task
         if (taskToSave instanceof ToDo) {
             taskType = "T/";
-            taskAppendices = "/" + taskToSave.description;
+            taskAppendices = "/%-%/" + taskToSave.description;
         } else if (taskToSave instanceof Deadline) {
             taskType = "D/";
-            taskAppendices = "/"  + taskToSave.description + "/" + ((Deadline) taskToSave).by;
+            taskAppendices = "/%-%/"  + taskToSave.description + "/%-%/" + ((Deadline) taskToSave).by;
         } else if (taskToSave instanceof Event) {
             taskType = "E/";
-            taskAppendices = "/" + taskToSave.description + "/" +
-                    ((Event) taskToSave).from + "/" + ((Event) taskToSave).to;
+            taskAppendices = "/%-%/" + taskToSave.description + "/%-%/" +
+                    ((Event) taskToSave).from + "/%-%/" + ((Event) taskToSave).to;
         } else {
-            taskType = taskToSave.description + "/";
+            taskType = taskToSave.description + "/%-%/";
         }
 
-        return taskType + (taskToSave.isDone ? 1 : 0) + taskAppendices + ";";
+        String tags = "/%-%/";
+        for (String tag : taskToSave.getTags()) {
+            tags += tag + "/%t%/";
+        }
+
+        return taskType + (taskToSave.isDone ? 1 : 0) + taskAppendices + tags + "/;/";
     }
 }

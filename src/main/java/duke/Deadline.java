@@ -21,6 +21,12 @@ public class Deadline extends Task{
         LocalDate.parse(by);
     }
 
+    public Deadline(String description, String[] tags, String by) {
+        super(description, tags);
+        this.by = by;
+        LocalDate.parse(by);
+    }
+
     /**
      * Get the description of the deadline
      *
