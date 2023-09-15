@@ -188,10 +188,13 @@ public class TaskList {
 
         if (task instanceof ToDo) {
             ((ToDo) task).edit(newDetails);
+
         } else if (task instanceof Event) {
-            //todo
+            ((Event) task).edit(newDetails);
+
         } else if (task instanceof Deadline) {
-            //todo
+            ((Deadline) task).edit(newDetails);
+
         }
 
         try {
