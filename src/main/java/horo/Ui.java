@@ -13,12 +13,14 @@ import horo.commands.tasks.MarkCommand;
 import horo.commands.tasks.UnmarkCommand;
 import horo.components.DialogBox;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class Ui {
   private VBox dialogContainer;
 
-  private Image user = new Image(this.getClass().getResourceAsStream("/images/profile.jpg"));
+  private Image userImage = new Image(this.getClass().getResourceAsStream("/images/profile.jpg"));
+  private Image holoImage = new Image(this.getClass().getResourceAsStream("/images/holo.jpg"));
 
   public Ui(VBox dialogContainer) {
     this.dialogContainer = dialogContainer;
@@ -33,7 +35,7 @@ public class Ui {
    */
   public void userOutput(String output) {
     dialogContainer.getChildren().addAll(
-        DialogBox.getUserDialog(output, user));
+        getVBoxComponent(DialogBox.getUserDialog(output, userImage)));
   }
 
   /**
@@ -43,7 +45,15 @@ public class Ui {
    */
   public void horoOutput(String output) {
     dialogContainer.getChildren().addAll(
-        DialogBox.getDukeDialog(output, user));
+        getVBoxComponent(DialogBox.getDukeDialog(output, holoImage)));
+  }
+
+  private AnchorPane getVBoxComponent(DialogBox box) {
+    AnchorPane ap = new AnchorPane(box);
+    AnchorPane.setLeftAnchor(box, 0.0);
+    AnchorPane.setRightAnchor(box, 0.0);
+    ap.maxWidth(Double.MAX_VALUE);
+    return ap;
   }
 
   private String getWelcome() {

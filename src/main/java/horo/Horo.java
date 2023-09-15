@@ -24,6 +24,11 @@ public class Horo extends Application {
       Storage s = new Storage();
 
       fxmlLoader.<MainWindow>getController().setUp(s);
+
+      stage.setMinWidth(600);
+      stage.setMinHeight(700);
+      stage.setTitle("Horo");
+
       stage.show();
     } catch (IOException e) {
       e.printStackTrace(System.out);

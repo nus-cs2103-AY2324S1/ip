@@ -11,18 +11,21 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="horo.components.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="horo.components.MainWindow">
   <children>
-      <BorderPane prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-          <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" vvalue="1.0" BorderPane.alignment="CENTER">
+          <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" style="-fx-background-color: grey;" vbarPolicy="ALWAYS" vvalue="1.0" BorderPane.alignment="CENTER">
             <content>
-              <VBox fx:id="dialogContainer" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+              <VBox fx:id="dialogContainer" alignment="BASELINE_CENTER" fillWidth="true" maxHeight="1.7976931348623157E308" style="-fx-background-color: grey;">
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding></VBox>
             </content>
           </ScrollPane>
          </center>
          <bottom>
-            <GridPane prefHeight="40.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+            <GridPane hgap="10.0" prefHeight="40.0" prefWidth="400.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" percentWidth="80.0" prefWidth="282.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" percentWidth="20.0" prefWidth="118.0" />
