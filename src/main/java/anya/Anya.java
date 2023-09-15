@@ -1,19 +1,10 @@
 package anya;
 
-import java.io.IOException;
-
+import anya.exception.AnyaException;
 import anya.parser.Parser;
 import anya.storage.Storage;
-import anya.storage.Storage.InvalidStorageFilePathException;
-import anya.storage.Storage.StorageOperationException;
 import anya.task.TaskList;
 import anya.ui.Ui;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 
 /**
  * Represents a chat bot named anya.
@@ -25,13 +16,6 @@ public class Anya {
     private Ui ui;
     private Parser parser;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/damian.png"));
-    private Image anya = new Image(this.getClass().getResourceAsStream("/images/anya.png"));
     /**
      * Constructs a new instance of the {@code Anya} class with the specified storage file path.
      * This constructor initializes the user interface (UI), storage, and task list parser for the Anya application.
@@ -45,33 +29,18 @@ public class Anya {
         try {
             this.ui = new Ui();
             this.storage = new Storage(STORAGE_FILE_PATH);
-            tasks = storage.load();
+            this.tasks = new TaskList(storage.load());
             this.parser = new Parser(storage, tasks);
-        } catch (InvalidStorageFilePathException | StorageOperationException e) {
+        } catch (AnyaException e) {
             ui.showInitError();
-            throw new RuntimeException(e);
         }
     }
-    /**
-     * Executes the main functionality of the Anya application by running its core components.
-     * This method is responsible for executing the main workflow of the Anya application, which includes displaying a
-     * greeting message, parsing user input, and showing an exit message when the application is finished.
-     *
-     * @throws IOException If an I/O error occurs during the execution of this method, it may throw an IOException.
-     *
-     * @see Ui
-     * @see Parser
-     */
-    public void run() throws IOException {
-        ui.showGreetingMessage();
-        parser.parse();
-        ui.showExitMessage();
-    }
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
+
     public String getResponse(String input) {
-        return input;
+        try {
+            return parser.parse(input);
+        } catch (AnyaException e) {
+            return e.getMessage();
+        }
     }
 }

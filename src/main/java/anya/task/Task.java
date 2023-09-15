@@ -36,12 +36,14 @@ public class Task {
         return this.description;
     }
 
-    public void markAsDone() {
+    public Task markAsDone() {
         this.isDone = true;
+        return this;
     }
 
-    public void markAsNotDone() {
+    public Task markAsNotDone() {
         this.isDone = false;
+        return this;
     }
 
     public String formatToSave() {

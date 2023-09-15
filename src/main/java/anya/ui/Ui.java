@@ -1,25 +1,34 @@
 package anya.ui;
 
+import static anya.messages.Messages.DIVIDER;
+import static anya.messages.Messages.LS;
 import static anya.messages.Messages.MESSAGE_ERROR_INIT;
 import static anya.messages.Messages.MESSAGE_ERROR_LOADING;
 import static anya.messages.Messages.MESSAGE_EXIT;
 import static anya.messages.Messages.MESSAGE_GREETING;
+import static anya.messages.Messages.MESSAGE_SUCCESS_ADD;
+import static anya.messages.Messages.MESSAGE_SUCCESS_DELETE;
+import static anya.messages.Messages.MESSAGE_SUCCESS_LOADING;
+import static anya.messages.Messages.MESSAGE_SUCCESS_MARK;
+import static anya.messages.Messages.MESSAGE_SUCCESS_UNMARK;
+import static anya.messages.Messages.MESSAGE_TASK_FOUND;
+import static anya.messages.Messages.MESSAGE_TASK_LIST;
+import static anya.messages.Messages.MESSAGE_TASK_NOT_FOUND;
+import static anya.messages.Messages.MESSAGE_TASK_SIZE;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import anya.task.Task;
+import anya.task.TaskList;
+
 
 /**
  * Represents the User Interface (UI) of the Anya application.
  * The UI handles interactions with the user, displaying messages, and receiving user input.
  */
 public class Ui {
-
-    private static final String DIVIDER = "____________________________________________________________";
-
-    /** A platform independent line separator. */
-    private static final String LS = System.lineSeparator();
-
     private final Scanner in;
     private final PrintStream out;
 
@@ -53,39 +62,137 @@ public class Ui {
     }
 
     /**
-     * Generates and displays the welcome message when the application starts.
+     * Returns the welcome message when the application starts.
+     *
+     * @return Welcome Message.
      */
-    public void showGreetingMessage() {
-        showToUser(MESSAGE_GREETING);
+    public String showGreetingMessage() {
+        return MESSAGE_GREETING;
     }
 
     /**
-     * Displays an error message when there is an issue loading data.
+     * Returns a message to inform the user that the application is exiting.
+     *
+     * @return Exit Message
      */
-    public void showLoadingError() {
-        showToUser(MESSAGE_ERROR_LOADING);
+    public String showExitMessage() {
+        return MESSAGE_EXIT;
     }
 
     /**
-     * Displays a message to inform the user that the application is exiting.
+     * Reads a user command from the input stream, trims leading and trailing whitespace,
+     * and returns the cleaned command as a string.
+     *
+     * @return The user-entered command after trimming whitespace.
      */
-    public void showExitMessage() {
-        showToUser(MESSAGE_EXIT);
+    public String readUserCommand() {
+        return in.nextLine().trim();
+    }
+
+    /**
+     * Returns a loading error message when there is an issue loading data.
+     *
+     * @return Loading Error Message.
+     */
+    public String showLoadingError() {
+        return MESSAGE_ERROR_LOADING;
+    }
+
+    /**
+     * Returns a loading success message when there is an issue loading data.
+     *
+     * @return Loading Success Message.
+     */
+    public String showLoadingSuccess() {
+        return MESSAGE_SUCCESS_LOADING;
+    }
+
+    /**
+     * Returns a success message after adding a task to the task list.
+     *
+     * @param task  The task that was added.
+     * @param tasks The task list containing the added task.
+     * @return A success message including information about the added task and the updated task list size.
+     */
+    public String showTaskAddSuccess(Task task, TaskList tasks) {
+        return MESSAGE_SUCCESS_ADD + task + LS
+                + MESSAGE_TASK_SIZE.replace("tasks.size()", String.valueOf(tasks.size()));
+    }
+
+    /**
+     * Generates a success message after marking a task as done.
+     *
+     * @param task The task that was marked as done.
+     * @return A success message indicating that the task has been marked as done.
+     */
+    public String showTaskMarkSuccess(Task task) {
+        return MESSAGE_SUCCESS_MARK + task;
+    }
+
+    /**
+     * Generates a success message after marking a task as not done.
+     *
+     * @param task The task that was marked as not done.
+     * @return A success message indicating that the task has been marked as not done.
+     */
+    public String showTaskUnmarkSuccess(Task task) {
+        return MESSAGE_SUCCESS_UNMARK + task;
     }
 
     /**
      * Displays a list of tasks to the user.
      *
-     * @param list The list of tasks to be displayed.
+     * @param tasks The list of tasks to be displayed.
      */
-    public void showTaskList(String list) {
-        showToUser(list);
+    public String showTaskList(TaskList tasks) {
+        StringBuilder list = new StringBuilder(MESSAGE_TASK_LIST);
+        for (int i = 0; i < tasks.size(); i++) {
+            list.append(String.format((i + 1) + ". " + tasks.get(i) + "\n"));
+        }
+        return list.toString();
     }
 
     /**
-     * Displays an error message during the application initialization.
+     * Returns a success message after deleting a task from the task list.
+     *
+     * @param task  The task that was deleted.
+     * @param tasks The task list containing the deleted task.
+     * @return A success message including information about the deleted task and the updated task list size.
      */
-    public void showInitError() {
-        showToUser(MESSAGE_ERROR_INIT);
+    public String showTaskDeleteSuccess(Task task, TaskList tasks) {
+        return MESSAGE_SUCCESS_DELETE + task + LS
+                + MESSAGE_TASK_SIZE.replace("tasks.size()", String.valueOf(tasks.size()));
+    }
+
+    /**
+     * Generates a message to display a list of tasks found in the task list.
+     *
+     * @param tasks The task list containing the found tasks.
+     * @return A message displaying the found tasks with their indexes in the list.
+     */
+    public String showTaskFound(TaskList tasks) {
+        StringBuilder list = new StringBuilder(MESSAGE_TASK_FOUND);
+        for (int i = 0; i < tasks.size(); i++) {
+            list.append(String.format((i + 1) + ". " + tasks.get(i) + "\n"));
+        }
+        return list.toString();
+    }
+
+    /**
+     * Generates a message to indicate that no tasks were found.
+     *
+     * @return A message indicating that no tasks matching the search criteria were found.
+     */
+    public String showTaskNotFound() {
+        return MESSAGE_TASK_NOT_FOUND;
+    }
+
+    /**
+     * Generates an error message during the application initialization.
+     *
+     * @return Init Error Message.
+     */
+    public String showInitError() {
+        return MESSAGE_ERROR_INIT;
     }
 }
