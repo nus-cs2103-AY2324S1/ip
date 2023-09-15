@@ -24,6 +24,8 @@ public class Parser {
      * @throws DukeException If there is an issue parsing the command.
      */
     public static Command parse(String fullCommand) throws DukeException {
+        assert fullCommand != null && fullCommand != "" : "User command cannot be empty!";
+
         String[] words = fullCommand.split(" ", 2);
         String firstWord = words[0];
 

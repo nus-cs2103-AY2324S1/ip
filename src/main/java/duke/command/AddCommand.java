@@ -115,8 +115,8 @@ public class AddCommand extends Command {
 
                 break;
             default:
-                throw new DukeException(ui.messageCard("There may be wrong parameters inputted in, "
-                        + "please check again!"));
+                assert false : "There may be wrong parameters inputted in, "
+                        + "please check again!";
             }
         } catch (DateTimeParseException e) {
             throw new DukeException(e.getMessage());
