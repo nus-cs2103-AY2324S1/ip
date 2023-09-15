@@ -40,14 +40,14 @@ public class Parser {
     public String parseUserInput(String userInput) {
 
         try {
-            String[] individualWords = userInput.split(" ");
-            assert individualWords.length > 0 : "individualWords should not be empty.";
+            String[] inputWords = userInput.split(" ");
+            assert inputWords.length > 0 : "inputWords should not be empty.";
 
-            if (individualWords.length == 0) {
+            if (inputWords.length == 0) { //check for just whitespace
                 throw new InvalidCommandException();
             }
 
-            String firstWord = individualWords[0];
+            String firstWord = inputWords[0];
             String lowerCapsFirstWord = firstWord.toLowerCase();
 
             switch (lowerCapsFirstWord) {
@@ -95,7 +95,8 @@ public class Parser {
             message.append("Here are your tasks:\n");
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
-                message.append((i + 1) + "." + task.toString() + "\n");
+                String taskMessage = (i + 1) + "." + task.toString() + "\n";
+                message.append(taskMessage);
             }
             return message.toString();
         }
@@ -108,10 +109,7 @@ public class Parser {
      * @throws MissingInputException If the user input is missing required information.
      */
     private String markTask(String userInput) throws MissingInputException {
-        String[] individualWords = userInput.split(" ");
-        if (individualWords.length <= 1) {
-            throw new MissingInputException("Task to mark cannot be empty!");
-        }
+        checkValidity(userInput, "Task to mark cannot be empty!");
 
         if (taskList.isEmpty()) {
             throw new IndexOutOfBoundsException("There are no tasks to mark.");
@@ -121,7 +119,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
             Task task = taskList.getTask(taskNumber);
             String message = task.updateTaskStatus(true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!\n");
-            assert task.isDone == true : "Task should be marked as done.";
+            assert task.isDone : "Task should be marked as done.";
             return message;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return("Invalid task number.");
@@ -135,10 +133,7 @@ public class Parser {
      * @throws MissingInputException If the user input is missing required information.
      */
     private String unmarkTask(String userInput) throws MissingInputException {
-        String[] individualWords = userInput.split(" ");
-        if (individualWords.length <= 1) {
-            throw new MissingInputException("Task to unmark cannot be empty!");
-        }
+        checkValidity(userInput, "Task to unmark cannot be empty!");
 
         if (taskList.isEmpty()) {
             throw new IndexOutOfBoundsException("There are no tasks to unmark.");
@@ -148,7 +143,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
             Task task = taskList.getTask(taskNumber);
             String message = task.updateTaskStatus(false, "Task " + (taskNumber + 1) + " is still incomplete.", "Okay, I've updated Task " + (taskNumber + 1) + " to be incomplete.\n");
-            assert task.isDone == false : "Task should be marked as undone.";
+            assert task.isDone : "Task should be marked as undone.";
             return message;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return("Invalid task number.");
@@ -162,10 +157,7 @@ public class Parser {
      * @throws MissingInputException If the user input is missing required information.
      */
     private String deleteTask(String userInput) throws MissingInputException {
-        String[] individualWords = userInput.split(" ");
-        if (individualWords.length <= 1) {
-            throw new MissingInputException("Task to be deleted cannot be empty!");
-        }
+        checkValidity(userInput, "Task to be deleted cannot be empty!");
 
         if (taskList.isEmpty()) {
             throw new IndexOutOfBoundsException("There are no tasks to be deleted.");
@@ -193,10 +185,7 @@ public class Parser {
      * @throws MissingInputException If the user input is missing required information.
      */
     private String addTodoTask(String userInput) throws MissingInputException {
-        String[] individualWords = userInput.split(" ");
-        if (individualWords.length <= 1) {
-            throw new MissingInputException("The description of a todo cannot be empty!");
-        }
+        checkValidity(userInput, "The description of a todo cannot be empty!");
 
         String description = userInput.substring(5).trim();
         ToDo task = new ToDo(description);
@@ -216,14 +205,12 @@ public class Parser {
      * @throws MissingInputException If the user input is missing required information.
      */
     private String addDeadlineTask(String userInput) throws MissingInputException {
-        String[] individualWords = userInput.split(" ");
-        if (individualWords.length <= 1) {
-            throw new MissingInputException("You are missing one or some of these inputs - description/ by.");
-        }
+        checkValidity(userInput, "You are missing one or some of these inputs - description/ by.");
 
         try {
             String fullStr = userInput.substring(9);
             String[] parts = fullStr.split("/by");
+
             String description = parts[0].trim();
             String by = parts[1].trim();
             Deadline task = new Deadline(description, by);
@@ -255,16 +242,14 @@ public class Parser {
      * @throws MissingInputException If the user input is missing required information.
      */
     private String addEventTask(String userInput) throws MissingInputException {
-        String[] individualWords = userInput.split(" ");
-        if (individualWords.length <= 1) {
-            throw new MissingInputException("You are missing one or some of these inputs - description/ from/ to.");
-        }
+        checkValidity(userInput, "You are missing one or some of these inputs - description/ from/ to.");
 
         try {
             String fullStr = userInput.substring(6);
             String[] partialStr = fullStr.split("/from");
-            String description = partialStr[0].trim();
             String[] toFrom = partialStr[1].split("/to");
+
+            String description = partialStr[0].trim();
             String from = toFrom[0].trim();
             String to = toFrom[1].trim();
             Event task = new Event(description, from, to);
@@ -296,34 +281,39 @@ public class Parser {
      * @throws MissingInputException If the user input is missing required information.
      */
     private String findByKeyword (String userInput) throws MissingInputException {
-        String[] individualWords = userInput.split(" ");
-        if (individualWords.length <= 1) {
-            throw new MissingInputException("Keyword cannot be empty.");
+        checkValidity(userInput, "Keyword cannot be empty.");
+
+        String[] inputWords = userInput.split(" ");
+        String keyword = inputWords[1];
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        ArrayList<Task> tasks = taskList.getAllTasks();
+
+        for (Task task: tasks) {
+            if (task.containsKeyword(keyword)) {
+                matchingTasks.add(task);
+                assert matchingTasks.contains(task) : "matchingTasks should contain the newly added task.";
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            return("No matching tasks found.");
         } else {
-            String keyword = individualWords[1];
-            ArrayList<Task> matchingTasks = new ArrayList<>();
-            ArrayList<Task> tasks = taskList.getAllTasks();
-
-            for (Task task: tasks) {
-                if (task.containsKeyword(keyword)) {
-                    matchingTasks.add(task);
-                    assert matchingTasks.contains(task) : "matchingTasks should contain the newly added task.";
-                }
+            StringBuilder message = new StringBuilder();
+            message.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task task = matchingTasks.get(i);
+                String taskMessage = (i + 1) + "." + task.toString() + "\n";
+                message.append(taskMessage);
             }
+            matchingTasks.clear();
+            return message.toString();
+        }
+    }
 
-            if (matchingTasks.isEmpty()) {
-                return("No matching tasks found.");
-            } else {
-                StringBuilder message = new StringBuilder();
-                message.append("Here are the matching tasks in your list:\n");
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    Task task = matchingTasks.get(i);
-                    message.append((i + 1) + "." + task.toString() + "\n");
-                }
-                matchingTasks.clear();
-                assert matchingTasks.isEmpty() : "matchingTasks should be empty.";
-                return message.toString();
-            }
+    private void checkValidity(String userInput, String message) throws MissingInputException {
+        String[] inputWords = userInput.split(" ");
+        if (inputWords.length <= 1) {
+            throw new MissingInputException(message);
         }
     }
 }
