@@ -80,9 +80,10 @@ public class TaskList {
 
         ArrayList<Task> result = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(keyword)) {
-                result.add(tasks.get(i));
+            if (!tasks.get(i).toString().contains(keyword)) {
+                continue;
             }
+            result.add(tasks.get(i));
         }
         return Ui.listMatchingTasks(result);
     }

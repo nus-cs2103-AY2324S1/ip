@@ -29,22 +29,13 @@ public class Parser {
             } else if (command.startsWith("mark")) {
                 return this.taskList.markTask(Integer.valueOf(command.split(" ")[1]) - 1);
             } else if (command.startsWith("todo")) {
-                if (command.split(" ", 2).length == 1) {
-                    throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
-                }
-                ToDo newToDo = new ToDo(command.split(" ", 2)[1]);
+                ToDo newToDo = createToDoFromCommand();
                 return this.taskList.addTask(newToDo);
             } else if (command.startsWith("deadline")) {
-                LocalDate deadline = LocalDate.parse(command.split(" /by ", 2)[1]);
-                String name = command.split(" /by ", 2)[0].split(" ", 2)[1];
-                Deadline newDeadline = new Deadline(name, deadline);
+                Deadline newDeadline = createDeadlineFromCommand();
                 return this.taskList.addTask(newDeadline);
             } else if (command.startsWith("event")) {
-                LocalDate startTime = LocalDate.parse(command.split(" /from ", 2)[1]
-                        .split(" /to ", 2)[0]);
-                LocalDate endTime = LocalDate.parse(command.split(" /to ", 2)[1]);
-                String name = command.split(" /from ", 2)[0].split(" ", 2)[1];
-                Event newEvent = new Event(name, startTime, endTime);
+                Event newEvent = createEventFromCommand();
                 return this.taskList.addTask(newEvent);
             } else if (command.startsWith("delete")) {
                 return this.taskList.deleteTask(Integer.valueOf(command.split(" ")[1]) - 1);
@@ -61,6 +52,45 @@ public class Parser {
             Ui.printException(e);
         }
         return "Invalid command.";
+    }
+
+    /**
+     * Creates the new Event from the command.
+     *
+     * @return The new Event.
+     */
+    private Event createEventFromCommand() {
+        LocalDate startTime = LocalDate.parse(command.split(" /from ", 2)[1]
+                .split(" /to ", 2)[0]);
+        LocalDate endTime = LocalDate.parse(command.split(" /to ", 2)[1]);
+        String name = command.split(" /from ", 2)[0].split(" ", 2)[1];
+        Event newEvent = new Event(name, startTime, endTime);
+        return newEvent;
+    }
+
+    /**
+     * Creates the new Deadline from the command.
+     *
+     * @return The new Deadline.
+     */
+    private Deadline createDeadlineFromCommand() {
+        LocalDate deadline = LocalDate.parse(command.split(" /by ", 2)[1]);
+        String name = command.split(" /by ", 2)[0].split(" ", 2)[1];
+        Deadline newDeadline = new Deadline(name, deadline);
+        return newDeadline;
+    }
+
+    /**
+     * Creates the new ToDo from the command.
+     *
+     * @return The new ToDo.
+     */
+    private ToDo createToDoFromCommand() {
+        if (command.split(" ", 2).length == 1) {
+            throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
+        }
+        ToDo newToDo = new ToDo(command.split(" ", 2)[1]);
+        return newToDo;
     }
 
     /**
