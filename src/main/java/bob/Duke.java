@@ -15,6 +15,7 @@ public class Duke {
     private Parser parser;
     private Storage storage;
     private TaskList list;
+
     public static void main(String[] args) {
         Ui ui = new Ui();
         Parser parser = new Parser();
@@ -28,6 +29,7 @@ public class Duke {
         while (true) {
             try {
                 Command command = parser.parse(input);
+//                execute(storage, list, ui);
                 if (command == Parser.Command.BYE) {
                     list.close();
                     ui.end();
