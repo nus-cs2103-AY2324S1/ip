@@ -12,13 +12,13 @@ import atlas.tasks.Task;
  */
 public class UnmarkTaskCommand extends MultiTaskCommand {
     private static final String OUTPUT_HEADER_MESSAGE = "OK, I've marked these tasks as not done yet:";
-    private final int[] indices;
+    private final Integer[] indices;
 
     /**
      * Constructs a MarkTaskCommand
      * @param indices Indices of task to mark
      */
-    public UnmarkTaskCommand(int... indices) {
+    public UnmarkTaskCommand(Integer... indices) {
         this.indices = indices;
     }
 

@@ -1,8 +1,9 @@
 package atlas.components;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import atlas.tasks.Task;
 
@@ -10,14 +11,14 @@ import atlas.tasks.Task;
  * List that contains tasks and methods to interact with the tasks
  */
 public class TaskList {
-    private final List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks;
 
     /**
      * Constructs a TaskList object
-     * @param tasks Destination path of the file to save the list to
+     * @param tasks List of tasks to initialise the task list
      */
     public TaskList(List<Task> tasks) {
-        this.tasks.addAll(tasks);
+        this.tasks = tasks;
     }
 
     /**
@@ -34,18 +35,13 @@ public class TaskList {
      * @param indices One or more 0-based task indices
      * @return Tasks marked as done
      */
-    public List<Task> markTasks(int... indices) {
-        List<Task> markedTasks = new ArrayList<>();
-        for (int idx : indices) {
-            try {
-                Task selectedTask = tasks.get(idx);
-                selectedTask.markDone();
-                markedTasks.add(selectedTask);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.printf("Invalid index specified: %d\n", idx);
-            }
-        }
-        return markedTasks;
+    public List<Task> markTasks(Integer... indices) {
+        return Arrays.stream(indices)
+                .filter(idx -> idx >= 0 && idx < tasks.size())
+                .map(tasks::get)
+                .filter(task -> !task.getTaskStatus())
+                .map(Task::markDone)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -53,18 +49,13 @@ public class TaskList {
      * @param indices One or more 0-based task indices
      * @return Tasks marked as undone
      */
-    public List<Task> unmarkTasks(int... indices) {
-        List<Task> unmarkedTasks = new ArrayList<>();
-        for (int idx : indices) {
-            try {
-                Task selectedTask = tasks.get(idx);
-                selectedTask.markNotDone();
-                unmarkedTasks.add(selectedTask);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.printf("Invalid index specified: %d\n", idx);
-            }
-        }
-        return unmarkedTasks;
+    public List<Task> unmarkTasks(Integer... indices) {
+        return Arrays.stream(indices)
+                .filter(idx -> idx >= 0 && idx < tasks.size())
+                .map(tasks::get)
+                .filter(Task::getTaskStatus)
+                .map(Task::markNotDone)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -94,13 +85,9 @@ public class TaskList {
      * @return List of tasks that occur on date
      */
     public List<Task> getTaskOnDate(LocalDate date) {
-        List<Task> tasksOnDate = new ArrayList<>();
-        for (Task t : tasks) {
-            if (t.isOccurringOnDate(date)) {
-                tasksOnDate.add(t);
-            }
-        }
-        return tasksOnDate;
+        return tasks.stream()
+                .filter(task -> task.isOccurringOnDate(date))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -109,13 +96,9 @@ public class TaskList {
      * @return List of tasks that contain keyword
      */
     public List<Task> getTasksWithKeyword(String keyword) {
-        List<Task> tasksWithKeyword = new ArrayList<>();
-        for (Task t : tasks) {
-            if (t.hasKeyword(keyword)) {
-                tasksWithKeyword.add(t);
-            }
-        }
-        return tasksWithKeyword;
+        return tasks.stream()
+                .filter(task -> task.hasKeyword(keyword))
+                .collect(Collectors.toList());
     }
 
     public List<Task> getTasks() {
@@ -127,12 +110,8 @@ public class TaskList {
      * @return Tasks that user should be reminded of
      */
     public List<Task> getReminders() {
-        List<Task> reminders = new ArrayList<>();
-        for (Task t : tasks) {
-            if (t.shouldSendReminder()) {
-                reminders.add(t);
-            }
-        }
-        return reminders;
+        return tasks.stream()
+                .filter(Task::shouldSendReminder)
+                .collect(Collectors.toList());
     }
 }

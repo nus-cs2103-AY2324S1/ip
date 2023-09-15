@@ -43,29 +43,31 @@ public abstract class Task {
         return this.isDone ? taskDoneIcon : taskNotDoneIcon;
     }
 
-    /**
-     * Returns task's name
-     * @return The name of the task
-     */
     public String getName() {
 
-        return this.name;
+        return name;
+    }
+
+    public boolean getTaskStatus() {
+        return isDone;
     }
 
     /**
      * Marks task as done
+     * @return Task that has been marked
      */
-    public void markDone() {
-
+    public Task markDone() {
         this.isDone = true;
+        return this;
     }
 
     /**
      * Marks task as not done
+     * @return Task that has been unmarked
      */
-    public void markNotDone() {
-
+    public Task markNotDone() {
         this.isDone = false;
+        return this;
     }
 
     @Override

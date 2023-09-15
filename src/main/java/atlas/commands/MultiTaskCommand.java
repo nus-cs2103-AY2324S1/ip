@@ -20,6 +20,7 @@ public abstract class MultiTaskCommand extends Command {
     protected String generateListOutput(List<Task> tasks, String headerMessage) {
         StringBuilder output = new StringBuilder(headerMessage + "\n");
         int taskIdx = 0;
+
         for (Task t : tasks) {
             output.append(String.format("%d. %s\n", ++taskIdx, t));
             assert taskIdx > 0;

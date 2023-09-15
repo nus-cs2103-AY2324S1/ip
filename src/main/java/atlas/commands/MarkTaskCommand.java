@@ -12,13 +12,13 @@ import atlas.tasks.Task;
  */
 public class MarkTaskCommand extends MultiTaskCommand {
     private static final String OUTPUT_HEADER_MESSAGE = "Nice! I've marked these tasks as done:";
-    private final int[] indices;
+    private final Integer[] indices;
 
     /**
      * Constructs a MarkTaskCommand
      * @param indices Indices of tasks to mark
      */
-    public MarkTaskCommand(int... indices) {
+    public MarkTaskCommand(Integer... indices) {
         this.indices = indices;
     }
 

@@ -1,12 +1,16 @@
 package atlas.components;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import atlas.tasks.Task;
 
@@ -30,39 +34,38 @@ public class Storage {
 
     /**
      * Loads tasks from file
-     * @return List of tasks loaded from the file specified by getFilePath()
+     * @return list of tasks loaded from the file specified by getFilePath()
      */
     public List<Task> load() {
         try {
-            File fileToLoad = new File(getFilePath());
-            Scanner listReader = new Scanner(fileToLoad);
-            List<Task> loadedTasks = addTasksToList(listReader);
-            listReader.close();
-            return loadedTasks;
-        } catch (FileNotFoundException e) {
+            Path loadPath = Paths.get(getFilePath());
+            return readFromFile(loadPath);
+        } catch (InvalidPathException e) {
             System.out.println("Could not find file: " + getFilePath());
+        } catch (IOException e) {
+            System.out.println("Encountered error when reading file");
+        } catch (SecurityException e) {
+            System.out.println("Encountered security violation when loading file");
         }
         return new ArrayList<>();
     }
 
     /**
-     * Creates list of tasks read from scanner
-     * @param sc Scanner to read tasks from file
-     * @return List of tasks parsed from scanner
+     * Constructs List of tasks from load path provided. This method is
+     * abstracted out to utilise a try-block with resources.
+     * @param loadPath Path to file containing the save
+     * @return List of tasks read from file
+     * @throws IOException Thrown if I/O error occurs while opening the file
+     * @throws SecurityException Thrown if security violation encountered while
+     *      opening the file
      */
-    private List<Task> addTasksToList(Scanner sc) {
-        List<Task> loadedTasks = new ArrayList<>();
-        while (sc.hasNextLine()) {
-            try {
-                Task newTask = Parser.parseFileTasks(sc.nextLine());
-                loadedTasks.add(newTask);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Task line is corrupted, skipping task");
-            } catch (Parser.UnsupportedTaskType e) {
-                System.out.println("Unsupported task type " + e.getTaskType() + ", skipping task");
-            }
+    private List<Task> readFromFile(Path loadPath) throws IOException, SecurityException {
+        try (Stream<String> fileStream = Files.lines(loadPath)) {
+            return fileStream.map(Parser::parseFileTasks)
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .collect(Collectors.toCollection(ArrayList::new));
         }
-        return loadedTasks;
     }
 
     /**
@@ -81,28 +84,16 @@ public class Storage {
      */
     public void save(TaskList taskList) throws IOException {
         try {
-            writeTasksToFile(taskList);
-        } catch (IOException e) {
+            createFileIfNotExists();
+            Path savePath = Paths.get(getFilePath());
+
+            Stream<String> taskStringStream = taskList.getTasks()
+                    .stream()
+                    .map(task -> task.generateSaveString() + "\n");
+            Files.write(savePath, (Iterable<String>) taskStringStream::iterator);
+        } catch (InvalidPathException | IOException e) {
             throw new IOException("Unable to create file: " + fileName + "\n"
                     + "Reason: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Writes tasks to file.
-     * @param taskList TaskList whose tasks are to be written to the file
-     * @throws IOException Thrown if save file does not exist and cannot be created,
-     *     or if the file cannot be written to
-     */
-    private void writeTasksToFile(TaskList taskList) throws IOException {
-        List<Task> tasksToWrite = taskList.getTasks();
-
-        createFileIfNotExists();
-
-        try (FileWriter taskListWriter = new FileWriter(getFilePath())) {
-            for (Task t : tasksToWrite) {
-                taskListWriter.write(t.generateSaveString() + "\n");
-            }
         }
     }
 
