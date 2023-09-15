@@ -3,6 +3,9 @@ package command;
 import java.time.LocalDate;
 
 import enums.CommandWord;
+import enums.ExceptionMessage;
+import exceptions.WoofException;
+import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.EventTask;
 import tasks.TaskList;
@@ -29,36 +32,55 @@ public class EventCommand extends Command {
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
-     * @return An empty string if the command is valid, or an error message if it's invalid.
+     * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
+     *     error message.
      */
-    public static String validate(String rawCommand) {
+    public static void validate(String rawCommand) throws WoofInvalidCommandException {
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 6) {
-            return "Invalid number of arguments for event command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
+                    CommandWord.EVENT.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.EVENT)) {
-            return "Invalid command word for event command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
+                    CommandWord.EVENT.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[2]).equals(CommandWord.FROM)) {
-            return "Invalid subcommand '/from' for event command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_SUB_COMMAND_WORD.getValueFormat(
+                    CommandWord.FROM.getValue()
+                )
+            );
         }
 
-        if (!Woof.validateDateTime(args[3])) {
-            return "Invalid date/time format for the '/from' field.";
+        try {
+            Woof.validateDateTime(args[3]);
+        } catch (WoofException e) {
+            throw new WoofInvalidCommandException(e.getMessage());
         }
 
         if (!CommandWord.commandWordToValueMap(args[4]).equals(CommandWord.TO)) {
-            return "Invalid subcommand '/to' for event command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_SUB_COMMAND_WORD.getValueFormat(
+                    CommandWord.TO.getValue()
+                )
+            );
         }
 
-        if (!Woof.validateDateTime(args[5])) {
-            return "Invalid date/time format for the '/to' field.";
+        try {
+            Woof.validateDateTime(args[5]);
+        } catch (WoofException e) {
+            throw new WoofInvalidCommandException(e.getMessage());
         }
-
-        return ""; // Return an empty string if the command is valid
     }
 
     /**
@@ -69,9 +91,10 @@ public class EventCommand extends Command {
      */
     public String execute(TaskList taskList) {
         String rawCommand = super.getRawCommand();
-        String validationError = validate(rawCommand);
-        if (isValidationError(validationError)) {
-            return validationError;
+        try {
+            validate(rawCommand);
+        } catch (WoofInvalidCommandException e) {
+            return e.getMessage();
         }
         String[] args = Parser.getArgs(rawCommand);
         String description = args[1];

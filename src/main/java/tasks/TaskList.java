@@ -3,6 +3,8 @@ package tasks;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import exceptions.WoofInvalidCommandException;
+
 /**
  * The `TaskList` class represents a collection of tasks in the Woof application.
  * It provides methods for adding, marking tasks as done/undone, deleting tasks,
@@ -193,23 +195,26 @@ public class TaskList {
      * Validates whether a task index is valid within the list.
      *
      * @param text The text representing the task index to validate.
-     * @return An empty string if the task index is valid, or an error message if it's invalid.
      */
-    public String validateTaskIndex(String text) {
+    public void validateTaskIndex(String text) {
         int index;
         try {
             index = Integer.parseInt(text);
         } catch (NumberFormatException e) {
-            return String.format("Task index: '%s' is invalid, task index has to be in integer format.\n", text);
+            throw new WoofInvalidCommandException(
+                String.format("Task index: '%s' is invalid, task index has to be in integer format.\n", text)
+            );
         } catch (Exception e) {
-            return String.format("Error while parsing task index: '%s'.\n", text);
+            throw new WoofInvalidCommandException(
+                String.format("Error while parsing task index: '%s'.\n", text)
+            );
         }
 
         if (index < 1 || index > this.tasks.size()) {
-            return String.format("Task index: '%s' is invalid, task index has to be in the list.\n", text);
+            throw new WoofInvalidCommandException(
+                String.format("Task index: '%s' is invalid, task index has to be in the list.\n", text)
+            );
         }
-
-        return ""; // Return an empty string if the task index is valid
     }
 
     /**

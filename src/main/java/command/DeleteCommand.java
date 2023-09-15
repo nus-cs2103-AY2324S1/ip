@@ -1,6 +1,8 @@
 package command;
 
 import enums.CommandWord;
+import enums.ExceptionMessage;
+import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
 
@@ -26,27 +28,35 @@ public class DeleteCommand extends Command {
      *
      * @param rawCommand The raw command string.
      * @param taskList   The task list against which to validate the task index.
-     * @return An empty string if the command is valid, or an error message if it's invalid.
+     * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
+     *     error message.
      */
-    public static String validate(String rawCommand, TaskList taskList) {
+    public static void validate(String rawCommand, TaskList taskList) throws WoofInvalidCommandException {
         String[] args = Parser.getArgs(rawCommand);
 
+        try {
+            taskList.validateTaskIndex(args[1]);
+        } catch (Exception e) {
+            throw new WoofInvalidCommandException(e.getMessage());
+        }
+
         if (args.length != 2) {
-            return "Invalid number of arguments for delete command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
+                    CommandWord.DELETE.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.DELETE)) {
-            return "Invalid command word for delete command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
+                    CommandWord.DELETE.getValue()
+                )
+            );
         }
-
-        String taskListValidationError = taskList.validateTaskIndex(args[1]);
-        if (taskList.isValidationError(taskListValidationError)) {
-            return taskListValidationError;
-        }
-
-
-        return ""; // Return an empty string if the command is valid
     }
+
 
 
     /**
@@ -57,10 +67,10 @@ public class DeleteCommand extends Command {
      */
     public String execute(TaskList taskList) {
         String rawCommand = super.getRawCommand();
-        String validationError = validate(rawCommand, taskList);
-
-        if (isValidationError(validationError)) {
-            return validationError; // Return the error message
+        try {
+            validate(rawCommand, taskList);
+        } catch (WoofInvalidCommandException e) {
+            return e.getMessage();
         }
 
         String[] args = Parser.getArgs(rawCommand);

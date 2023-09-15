@@ -1,6 +1,8 @@
 package command;
 
 import enums.CommandWord;
+import enums.ExceptionMessage;
+import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
 import tasks.TodoTask;
@@ -25,20 +27,29 @@ public class TodoCommand extends Command {
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
-     * @return An empty string if the command is valid, or an error message if it's invalid.
+     * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
+     *     error message.
      */
-    public static String validate(String rawCommand) {
+    public static void validate(String rawCommand) throws WoofInvalidCommandException {
         String[] args = Parser.getArgs(rawCommand);
+
         if (args.length != 2) {
-            return "Invalid number of arguments for todo command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
+                    CommandWord.TODO.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO)) {
-            return "Invalid command word for todo command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
+                    CommandWord.TODO.getValue()
+                )
+            );
         }
-
-        return ""; // Return an empty string if the command is valid
     }
+
 
     /**
      * Executes the "todo" command. It parses the command, validates it, and adds a new
@@ -48,11 +59,11 @@ public class TodoCommand extends Command {
      */
     public String execute(TaskList taskList) {
         String rawCommand = super.getRawCommand();
-        String validationError = validate(rawCommand);
-        if (isValidationError(validationError)) {
-            return validationError;
+        try {
+            validate(rawCommand);
+        } catch (WoofInvalidCommandException e) {
+            return e.getMessage();
         }
-
         String[] args = Parser.getArgs(rawCommand);
         String description = args[1];
         return taskList.addTask(new TodoTask(description));

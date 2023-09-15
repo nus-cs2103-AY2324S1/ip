@@ -1,6 +1,8 @@
 package command;
 
 import enums.CommandWord;
+import enums.ExceptionMessage;
+import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
 import ui.Ui;
@@ -25,19 +27,27 @@ public class NullCommand extends Command {
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
-     * @return An empty string if the command is valid, or an error message if it's invalid.
+     * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
+     *     error message.
      */
-    public static String validate(String rawCommand) {
+    public static void validate(String rawCommand) throws WoofInvalidCommandException {
         String[] args = Parser.getArgs(rawCommand);
-        if (args.length != 1) {
-            return "Invalid number of arguments for null command.";
+
+        if (args.length == 0) {
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
+                    CommandWord.NULL_COMMAND.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.NULL_COMMAND)) {
-            return "Invalid command word for null command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
+                    CommandWord.NULL_COMMAND.getValue()
+                )
+            );
         }
-
-        return ""; // Return an empty string if the command is valid
     }
 
     /**
@@ -47,9 +57,11 @@ public class NullCommand extends Command {
      * @param taskList The task list (not used in this command).
      */
     public String execute(TaskList taskList) {
-        String validationError = validate(super.getRawCommand());
-        if (isValidationError(validationError)) {
-            return validationError;
+        String rawCommand = super.getRawCommand();
+        try {
+            validate(rawCommand);
+        } catch (WoofInvalidCommandException e) {
+            return e.getMessage();
         }
         return Ui.getConfusedMessage();
     }

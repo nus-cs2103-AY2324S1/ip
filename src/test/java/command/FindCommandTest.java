@@ -1,7 +1,9 @@
 package command;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.TaskList;
@@ -35,14 +38,21 @@ public class FindCommandTest {
 
     @Test
     public void testValidate() {
-        // Arrange, Act, Assert
-        assertEquals("", FindCommand.validate("find keyword"));
-        assertEquals("", FindCommand.validate("find keyword extra argument"));
-
-        assertNotEquals("", FindCommand.validate("/find keyword"));
-        assertNotEquals("", FindCommand.validate("find"));
-        assertNotEquals("", FindCommand.validate("list keyword"));
+        // Act and Assert
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> FindCommand.validate("find keyword")), (
+            ) -> assertDoesNotThrow((
+            ) -> FindCommand.validate("find keyword extra argument")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> FindCommand.validate("/find keyword")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> FindCommand.validate("find")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> FindCommand.validate("list keyword"))
+        );
     }
+
 
     @Test
     public void testExecuteFindsMatchingTasks() {
