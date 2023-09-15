@@ -30,7 +30,7 @@ public class Parser {
         } else {
             String[] words = input.split(" ");
             String command = words[0];
-
+            assert !command.equals("bye") && !command.equals("list") : "Command should not be bye or list";
             for (Command c : Command.values()) {
                 if (c.name().toLowerCase().equals(command)
                         && !c.equals(Command.BYE) && !c.equals(Command.LIST)) {
@@ -58,7 +58,7 @@ public class Parser {
         } else if (words[1].equals("1")) {
             done = true;
         } else {
-            System.out.println(words[1]);
+            assert false : "isMarked should be 0 or 1";
             throw new DukeException("Field 2 (isMarked) is invalid");
         }
         Task t;
