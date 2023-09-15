@@ -58,7 +58,7 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
         duke = d;
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(duke.init(), dukeImage)
+            DialogBox.getDukeDialog(duke.init(), dukeImage)
         );
     }
 
@@ -70,14 +70,13 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
-
         if (duke.getExitStatus()) {
             setTimeout(Platform::exit, 1000);
         }
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
     }
