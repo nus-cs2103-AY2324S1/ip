@@ -31,9 +31,7 @@ public class Storage {
       File taskFile = new File(DEFAULT_TASK_STORAGE_FILEPATH);
       File expenseFile = new File(DEFAULT_EXPENSE_STORAGE_FILEPATH);
 
-      if (!taskFile.exists()) {
-        taskFile.mkdirs();
-      }
+      taskFile.getParentFile().mkdirs();
 
       if (taskFile.createNewFile()) {
         System.out.println("File created: " + taskFile.getName());

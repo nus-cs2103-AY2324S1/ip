@@ -34,8 +34,4 @@ public class Horo extends Application {
       e.printStackTrace(System.out);
     }
   }
-
-  public static void main(String[] args) {
-    launch(args);
-  }
 }
