@@ -25,8 +25,8 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image userImg = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dudeImg = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImg = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dudeImg = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @Override
     public void start(Stage stage) {
