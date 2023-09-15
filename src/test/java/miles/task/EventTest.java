@@ -9,7 +9,7 @@ import miles.MilesException;
 
 public class EventTest {
     @Test
-    public void testSplitEventString() throws MilesException{
+    public void testSplitEventString() throws MilesException {
         String testString = "event project meeting /from 2019-10-15 1800 /to 2019-10-15 2000";
         String[] arr = Event.splitEventString(testString);
         assertEquals("project meeting", arr[0].trim());
@@ -21,10 +21,9 @@ public class EventTest {
     public void emptyEvent() throws MilesException {
         String testString = "event";
 
-        MilesException expectedException = assertThrows(MilesException.class, 
-            () -> {
-                Event.splitEventString(testString);
-            });
+        MilesException expectedException = assertThrows(MilesException.class, () -> {
+            Event.splitEventString(testString);
+        });
 
         String expectedErrorMsg = "OOPS!!! The description of a event cannot be empty.";
         String actualErrorMsg = expectedException.getMessage();
@@ -36,8 +35,8 @@ public class EventTest {
         String testString = "event /from 2019-10-15 1800 /to";
 
         MilesException expectedException = assertThrows(MilesException.class, () -> {
-                Event.splitEventString(testString);
-            });
+            Event.splitEventString(testString);
+        });
         
         String expectedErrorMsg = "OOPS!!! The description of a event cannot be empty.";
         String actualErrorMsg = expectedException.getMessage();
@@ -49,8 +48,8 @@ public class EventTest {
         String testString = "event project meeting /to 2019-10-15 2000";
 
         MilesException expectedException = assertThrows(MilesException.class, () -> {
-                Event.splitEventString(testString);
-            });
+            Event.splitEventString(testString);
+        });
         
         String expectedErrorMsg = "Invalid event format: missing /from";
         String actualErrorMsg = expectedException.getMessage();
@@ -62,8 +61,8 @@ public class EventTest {
         String testString = "event project meeting /from 2019-10-15 1800";
         
         MilesException expectedException = assertThrows(MilesException.class, () -> {
-                Event.splitEventString(testString);
-            });
+            Event.splitEventString(testString);
+        });
         
         String expectedErrorMsg = "Invalid event format: missing /to";
         String actualErrorMsg = expectedException.getMessage();
