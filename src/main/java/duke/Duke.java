@@ -621,11 +621,14 @@ class Storage {
 /**
  * Handles different commands from user input.
  */
-
 class CommandHandler {
     private TaskList taskList;
     private Ui ui;
     private DtFormat dtf;
+
+    /**
+     * Constructor for CommandHandler class
+     */
     public CommandHandler(TaskList tl, Ui ui, DtFormat dtf) {
         taskList = tl;
         this.ui = ui;
