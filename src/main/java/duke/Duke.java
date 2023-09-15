@@ -103,6 +103,9 @@ public class Duke {
             res.append(ui.getInvalidStartMessage(Parser.Command.EVENT));
         } else if (!isValidTimeInterval(startDateTime, endDateTime)) {
             res.append(ui.getInvalidIntervalMessage(Parser.Command.EVENT));
+        } else if (tasks.hasScheduleClash(startDateTime, endDateTime)) {
+            String scheduleClash = tasks.getScheduleClash(startDateTime, endDateTime);
+            res.append(ui.getScheduleClashMessage(scheduleClash));
         } else {
             tasks.add(new Event(details, startDateTime, endDateTime));
             res.append(ui.getEventAddedMessage(details));

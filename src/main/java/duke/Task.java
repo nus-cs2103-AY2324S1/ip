@@ -55,6 +55,10 @@ public class Task {
         return this.details;
     }
 
+    protected boolean getCompleted() {
+        return this.isCompleted;
+    }
+
     /**
      * Returns the string representation of the {@code Task}, to be
      * saved in the text file.
