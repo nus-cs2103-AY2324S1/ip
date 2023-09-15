@@ -3,9 +3,9 @@ package ruiz.task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import ruiz.exception.BotException;
 import ruiz.ui.Ui;
 import ruiz.utils.Parser;
-import ruiz.exception.BotException;
 
 /**
  * Represents a list of tasks.

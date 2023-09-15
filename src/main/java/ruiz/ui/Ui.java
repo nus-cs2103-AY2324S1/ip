@@ -119,11 +119,7 @@ public class Ui {
     /**
      * Prints an acknowledgement message that the task has been marked.
      *
-<<<<<<< HEAD
-     * @param task
-=======
      * @param task task that is marked.
->>>>>>> branch-A-CodeQuality
      * @return acknowledgement message that the task has been marked.
      */
     public String markTask(Task task) {

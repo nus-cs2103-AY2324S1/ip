@@ -7,13 +7,12 @@ import java.util.ArrayList;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-
 import javafx.util.Duration;
-import ruiz.task.Task;
-import ruiz.ui.Ui;
 import ruiz.command.Command;
 import ruiz.exception.BotException;
+import ruiz.task.Task;
 import ruiz.task.TaskList;
+import ruiz.ui.Ui;
 import ruiz.utils.Parser;
 import ruiz.utils.Storage;
 
@@ -52,7 +51,7 @@ public class Ruiz {
                 switch (command) {
                 case BYE:
                     PauseTransition delay = new PauseTransition(Duration.seconds(1));
-                    delay.setOnFinished( event -> Platform.exit() );
+                    delay.setOnFinished(event -> Platform.exit());
                     delay.play();
                     return ui.printBye();
                 case LIST:

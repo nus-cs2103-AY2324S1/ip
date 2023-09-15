@@ -190,7 +190,7 @@ public class Parser {
      * @return the task number of the task to be marked.
      * @throws BotException if the input to mark is in an invalid format.
      */
-    public int getTaskNumber(String input) throws BotException{
+    public int getTaskNumber(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
         }
