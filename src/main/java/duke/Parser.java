@@ -24,7 +24,10 @@ public class Parser {
         assert input != null : "Input cannot be null";
          Parser.result = false;
         String response = "";
-        if (input.startsWith("bye")) {
+        if (input.startsWith("help"))  {
+            Parser.result= true;
+            return showHelp();
+        } else if (input.startsWith("bye")) {
             response ="Bye. Hope to see you again soon!";
             Parser.result= true;
             return response;
@@ -129,7 +132,21 @@ public class Parser {
         return response.toString();
     }
 
-
+    private static String showHelp() {
+        StringBuilder helpMessage = new StringBuilder();
+        helpMessage.append("Hello! This is Bob!\n");
+        helpMessage.append("Here are some available commands you can try:\n");
+        helpMessage.append("1. todo <description> - Add a todo task.\n");
+        helpMessage.append("2. deadline <description> /by <date> - Add a deadline task.\n");
+        helpMessage.append("3. event <description> /from <start date> /to <end date> - Add an event task.\n");
+        helpMessage.append("4. list - List all tasks.\n");
+        helpMessage.append("5. done <task number> - Mark a task as done.\n");
+        helpMessage.append("6. delete <task number> - Delete a task.\n");
+        helpMessage.append("7. bye - Exit Duke.\n");
+        helpMessage.append("8. help - Display this help message.\n");
+        helpMessage.append("Have fun playing around with Bob!\n");
+        return helpMessage.toString();
+    }
 
 
 }
