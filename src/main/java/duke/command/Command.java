@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Duplicate.Duplicate;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -19,5 +20,5 @@ public abstract class Command {
      * @return Message response from running the command.
      * @throws Exception Throw Exception if needed
      */
-    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws Exception;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage, Duplicate duplicate) throws Exception;
 }

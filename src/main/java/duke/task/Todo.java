@@ -36,4 +36,23 @@ public class Todo extends Task {
     public String toDataString() {
         return TYPE + " / " + super.toDataString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Todo) {
+            Todo todo = (Todo) obj;
+
+            return super.equals(todo);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equalsText(Object obj) {
+        return this.equals(obj);
+    }
 }

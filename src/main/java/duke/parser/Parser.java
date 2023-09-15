@@ -1,13 +1,6 @@
 package duke.parser;
 
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.TaskCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.exception.DukeNotTaskException;
 
 /**
@@ -29,6 +22,7 @@ public class Parser {
         DEADLINE,
         EVENT,
         FIND,
+        DUPLICATEMODE,
     }
 
     /**
@@ -73,6 +67,11 @@ public class Parser {
             case FIND:
                 if (splitTask.length == 2) {
                     return new FindCommand(splitTask);
+                }
+                throw new DukeNotTaskException("");
+            case DUPLICATEMODE:
+                if (splitTask.length == 2) {
+                    return new DuplicateCommand(splitTask);
                 }
                 throw new DukeNotTaskException("");
             default:

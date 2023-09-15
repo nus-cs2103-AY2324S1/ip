@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Duplicate.Duplicate;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -32,7 +33,7 @@ public class FindCommand extends Command {
      * @return Message response from running the command.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage, Duplicate duplicate) {
         TaskList findTasks = new TaskList();
 
         for (int i = 0; i < taskList.size(); i++) {

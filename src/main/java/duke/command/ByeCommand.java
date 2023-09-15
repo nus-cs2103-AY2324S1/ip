@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Duplicate.Duplicate;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -20,7 +21,7 @@ public class ByeCommand extends Command {
      * @throws Exception throw Exception from writeFile
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage, Duplicate duplicate) throws Exception {
         storage.writeFile(taskList);
         return ui.printBye();
     }

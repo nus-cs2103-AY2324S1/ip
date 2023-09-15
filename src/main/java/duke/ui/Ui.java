@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.Duplicate.Duplicate;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -130,6 +131,18 @@ public class Ui {
      */
     public void printError(String e) {
         printFinal("       " + e + "\n");
+    }
+
+    public String printUpdateDuplicatesMode() {
+        printFinal("     OK, update duplicates mode.\n");
+
+        return "     OK, update duplicates mode.\n";
+    }
+
+    public String printDuplicatesMode(Duplicate duplicate) {
+        printFinal("     The Duplicate Mode is " + duplicate.getMode());
+
+        return "     The Duplicate Mode is " + duplicate.getMode();
     }
 
 }

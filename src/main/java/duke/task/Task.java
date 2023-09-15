@@ -120,5 +120,32 @@ public class Task {
             return "0 / " + this.description;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Task) {
+            Task task = (Task) obj;
+
+            if (this.description == task.description) {
+                return true;
+            }
+
+            if (this.description == null || task.description == null) {
+                return false;
+            }
+
+            return description.equals(task.description);
+        }
+
+        return false;
+    }
+
+    public boolean equalsText(Object obj) {
+        return this.equals(obj);
+    }
 }
 

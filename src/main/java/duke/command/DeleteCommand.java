@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Duplicate.Duplicate;
 import duke.exception.DukeInvalidDeleteException;
 import duke.exception.DukeInvalidMarkException;
 import duke.storage.Storage;
@@ -33,7 +34,7 @@ public class DeleteCommand extends Command {
      * @throws Exception Throw Exception if index is incorrect
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage, Duplicate duplicate) throws Exception {
         int index;
         String result;
 
