@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import peko.memory.SaveHandler;
 import peko.memory.StorageHandler;
 
-public class Peko extends Application {
 /**
  * The `Peko` class is the main application class for the Peko chat application. It handles user input,
  * manages the graphical user interface (GUI), and orchestrates interactions with other components.
@@ -151,12 +150,33 @@ public class Peko extends Application {
             handleUserInput();
         });
     }
+
+    /**
+     * Creates a JavaFX Label widget with the specified text and sets it to wrap text within its bounds.
+     *
+     * @param text The text to be displayed on the Label.
+     * @return A new Label widget configured with the provided text and text wrapping enabled.
+     */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
         return textToAdd;
     }
+
+    /**
+     * Handles user input in the chat application.
+     * This method processes the user's input, generates a response, and updates the conversation view.
+     * It performs the following steps:
+     * 1. Retrieves the text entered by the user from the input field.
+     * 2. Passes the user's input to the 'userInputHandler' for processing.
+     * 3. Creates a label to display the user's input.
+     * 4. Prints "Processing" to the console.
+     * 5. Retrieves a response from the 'userInputHandler'.
+     * 6. Constructs dialog boxes for both user and 'duke' (assuming 'user' and 'peko' are images).
+     * 7. Adds the dialog boxes to the conversation view.
+     * 8. Clears the user input field.
+     */
     private void handleUserInput() {
         String text = userInput.getText();
         userInputHandler.newInput(text);
