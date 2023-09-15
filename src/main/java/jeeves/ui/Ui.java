@@ -32,7 +32,7 @@ public class Ui extends Application {
     private Scene scene;
 
     /**
-     * Constructor for a Ui object.
+     * Constructor for an Ui object.
      * Currently, requires no arguments to initialize.
      */
     public Ui() {
@@ -69,7 +69,7 @@ public class Ui extends Application {
 
     private void configureUi(Stage stage) {
         // Custom formatting for the window
-        stage.setTitle("Jeeves Chatbot");
+        stage.setTitle("Jeeves Chat bot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -100,13 +100,9 @@ public class Ui extends Application {
 
     private void configureHandlers() {
         // Handlers to deal with input and other events
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
 
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
+        userInput.setOnAction((event) -> handleUserInput());
 
         dialogContainer.heightProperty().addListener((observable -> scrollPane.setVvalue(1.0)));
 

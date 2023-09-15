@@ -40,9 +40,11 @@ public class Storage {
                 assert Files.exists(dataDirPath);
             } catch (IOException e) {
                 // Do nothing if an error is encountered since the directory existence is already checked
-                // Theoretically impossible to enter this block
+                // Theoretically impossible to enter this block under normal circumstances
             }
         }
+        
+        // Checks if the data file exists
         dataFilePath = Paths.get(filePathString);
         // If the file does not exist, create it for the user
         if (Files.notExists(dataFilePath)) {
@@ -51,7 +53,7 @@ public class Storage {
                 assert Files.exists(dataFilePath);
             } catch (IOException e) {
                 // Do nothing if an error is encountered since the file existence is already checked
-                // Theoretically impossible to enter this block
+                // Theoretically impossible to enter this block under normal circumstances
             }
         }
     }
@@ -87,6 +89,7 @@ public class Storage {
         try {
             BufferedReader br = Files.newBufferedReader(dataFilePath);
             String currLine;
+            // Reads from the file line by line until EoF is met.
             while ((currLine = br.readLine()) != null) {
                 // Extract the information to populate the array list
                 String[] currData = currLine.split("\\|");

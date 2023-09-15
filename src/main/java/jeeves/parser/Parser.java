@@ -26,7 +26,16 @@ public class Parser {
     private static final int FIND_FIELD_TO_OFFSET = 4;
     private static final int FIND_FIELD_FROM_OFFSET = 6;
     private static final int FIND_FIELD_BY_OFFSET = 4;
-
+    private static final String LIST_COMMAND = "list";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+    private static final String FIND_COMMAND = "find";
+    private static final String BYE_COMMAND = "bye";
+    
     /**
      * Constructor for a Parser object.
      * Currently, requires no arguments to initialize.
@@ -46,75 +55,121 @@ public class Parser {
             MissingFromException, MissingToException, OutOfBoundIdException, NotIntegerIdException,
             MissingIdException {
         ArrayList<String> args = new ArrayList<>();
-        if (input.equals("list")) {
-            // returns args <command>
-            args.add(input);
+        if (input.equals(LIST_COMMAND)) {
+            args.add(LIST_COMMAND);
         } else if (input.startsWith("mark ")) {
-            args.add("mark");
-            // Gets the task ID that the user wish to mark
-            String idString = input.substring(FIND_COMMAND_MARK_OFFSET);
-            // Checks if the task ID is invalid, program will throw an error if the id is invalid
-            checkIfValidId(idString);
-            // Adds the valid id to the args array list and returns args <command,id>
-            args.add(idString);
+            args = parseMarkCommand(input);
         } else if (input.startsWith("unmark ")) {
-            args.add("unmark");
-            // Gets the task ID that the user wish to unmark
-            String idString = input.substring(FIND_COMMAND_UNMARK_OFFSET);
-            // Checks if the task ID is invalid, program will throw an error if the id is invalid
-            checkIfValidId(idString);
-            // Adds the valid id to the args array list and returns args <command,id>
-            args.add(idString);
+            args = parseUnmarkCommand(input);
         } else if (input.startsWith("delete ")) {
-            args.add("delete");
-            // Gets the task ID that the user wish to delete
-            String idString = input.substring(FIND_COMMAND_DELETE_OFFSET);
-            // Checks if the task ID is invalid, program will throw an error if the id is invalid
-            checkIfValidId(idString);
-            // Adds the valid id to the args array list and returns args <command, id>
-            args.add(idString);
+            args = parseDeleteCommand(input);
         } else if (input.startsWith("todo ")) {
-            args.add("todo");
-            // Checks if the user provided a description
-            // If so, returns args <command, desc>
-            // Else throws the custom MissingDescriptionException error
-            String desc = input.substring(FIND_COMMAND_TODO_OFFSET);
-            checkIfDescMissing(desc);
-            args.add(desc);
+            args = parseTodoCommand(input);
         } else if (input.startsWith("deadline ")) {
-            args.add("deadline");
-            // Checks if the user has entered the command properly
-            // and extracts the relevant information to parse
-            // then returns args <command, desc, dyDate>
-            int byDateIndex = getByDateIndex(input);
-            String desc = input.substring(FIND_COMMAND_DEADLINE_OFFSET, byDateIndex - 1);
-            String byDate = input.substring(byDateIndex + FIND_FIELD_BY_OFFSET);
-            args.add(desc);
-            args.add(byDate);
+            args = parseDeadlineCommand(input);
         } else if (input.startsWith("event ")) {
-            args.add("event");
-            // Checks if the user has entered the command properly
-            // and extracts the relevant information to parse
-            // then returns args <command, desc, fromDate, toDate>
-            int fromDateIndex = getFromDateIndex(input);
-            int toDateIndex = getToDateIndex(input, fromDateIndex);
-            String desc = input.substring(FIND_COMMAND_EVENT_OFFSET, fromDateIndex - 1);
-            String fromDate = input.substring(fromDateIndex + FIND_FIELD_FROM_OFFSET, toDateIndex - 1);
-            String toDate = input.substring(toDateIndex + FIND_FIELD_TO_OFFSET);
-            args.add(desc);
-            args.add(fromDate);
-            args.add(toDate);
+            args = parseEventCommand(input);
         } else if (input.startsWith("find ")) {
-            // Gets the search term the user wishes to find
-            // and returns args <command, findTerm>
-            args.add("find");
-            String findTerm = input.substring(FIND_COMMAND_FIND_OFFSET);
-            args.add(findTerm);
-        } else if (input.equals("bye")) {
-            args.add(input);
+            args = parseFindCommand(input);
+        } else if (input.equals(BYE_COMMAND)) {
+            args.add(BYE_COMMAND);
         } else {
             args.add("invalid_command");
         }
+        return args;
+    }
+    
+    static ArrayList<String> parseMarkCommand(String input) throws OutOfBoundIdException, NotIntegerIdException,
+            MissingIdException {
+        ArrayList<String> args = new ArrayList<>();
+        args.add(MARK_COMMAND);
+        // Gets the task ID that the user wish to mark
+        String idString = input.substring(FIND_COMMAND_MARK_OFFSET);
+        // Checks if the task ID is invalid, program will throw an error if the id is invalid
+        checkIfValidId(idString);
+        // Adds the valid id to the args array list and returns args <command,id>
+        args.add(idString);
+        return args;
+    }
+    
+    static ArrayList<String> parseUnmarkCommand(String input) throws OutOfBoundIdException, NotIntegerIdException,
+            MissingIdException {
+        ArrayList<String> args = new ArrayList<>();
+        args.add(UNMARK_COMMAND);
+        // Gets the task ID that the user wish to unmark
+        String idString = input.substring(FIND_COMMAND_UNMARK_OFFSET);
+        // Checks if the task ID is invalid, program will throw an error if the id is invalid
+        checkIfValidId(idString);
+        // Adds the valid id to the args array list and returns args <command,id>
+        args.add(idString);
+        return args;
+    }
+
+    static ArrayList<String> parseDeleteCommand(String input) throws OutOfBoundIdException, NotIntegerIdException,
+            MissingIdException {
+        ArrayList<String> args = new ArrayList<>();
+        args.add(DELETE_COMMAND);
+        // Gets the task ID that the user wish to delete
+        String idString = input.substring(FIND_COMMAND_DELETE_OFFSET);
+        // Checks if the task ID is invalid, program will throw an error if the id is invalid
+        checkIfValidId(idString);
+        // Adds the valid id to the args array list and returns args <command, id>
+        args.add(idString);
+        return args;
+    }
+
+    static ArrayList<String> parseTodoCommand(String input) throws MissingDescriptionException {
+        ArrayList<String> args = new ArrayList<>();
+        args.add(TODO_COMMAND);
+        // Checks if the user provided a description
+        // If so, returns args <command, desc>
+        // Else throws the custom MissingDescriptionException error
+        String desc = input.substring(FIND_COMMAND_TODO_OFFSET);
+        checkIfDescMissing(desc);
+        args.add(desc);
+        return args;
+    }
+
+    static ArrayList<String> parseDeadlineCommand(String input) throws MissingByException,
+            MissingDescriptionException {
+        ArrayList<String> args = new ArrayList<>();
+        args.add(DEADLINE_COMMAND);
+        // Checks if the user has entered the command properly
+        // and extracts the relevant information to parse
+        // then returns args <command, desc, dyDate>
+        int byDateIndex = getByDateIndex(input);
+        String desc = input.substring(FIND_COMMAND_DEADLINE_OFFSET, byDateIndex - 1);
+        String byDate = input.substring(byDateIndex + FIND_FIELD_BY_OFFSET);
+        args.add(desc);
+        args.add(byDate);
+        return args;
+    }
+
+    static ArrayList<String> parseEventCommand(String input) throws MissingFromException, MissingToException,
+            MissingDescriptionException {
+        ArrayList<String> args = new ArrayList<>();
+        args.add(EVENT_COMMAND);
+        // Checks if the user has entered the command properly
+        // and extracts the relevant information to parse
+        // then returns args <command, desc, fromDate, toDate>
+        int fromDateIndex = getFromDateIndex(input);
+        int toDateIndex = getToDateIndex(input, fromDateIndex);
+        String desc = input.substring(FIND_COMMAND_EVENT_OFFSET, fromDateIndex - 1);
+        String fromDate = input.substring(fromDateIndex + FIND_FIELD_FROM_OFFSET, toDateIndex - 1);
+        String toDate = input.substring(toDateIndex + FIND_FIELD_TO_OFFSET);
+        args.add(desc);
+        args.add(fromDate);
+        args.add(toDate);
+        return args;
+    }
+
+    static ArrayList<String> parseFindCommand(String input) {
+        ArrayList<String> args = new ArrayList<>();
+        // Gets the search term the user wishes to find
+        // and returns args <command, findTerm>
+        args.add(FIND_COMMAND);
+        String findTerm = input.substring(FIND_COMMAND_FIND_OFFSET);
+        args.add(findTerm);
         return args;
     }
 
