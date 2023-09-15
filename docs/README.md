@@ -8,7 +8,7 @@ Screenshot of Smolbrain Chatbot:
 <br><br>
 ## Quick start
 1. Ensure that Java 11 or above installed in your Computer.
-2. Download the latest addressbook.jar from here.
+2. Download the latest smolbrain.jar from here.
 3. Copy the file to the folder you want to use as the _home folder_ for your Smolbrain Chatbot.
 4. To run the application, either:
    * Double-click the jar file to open.
@@ -21,7 +21,9 @@ Screenshot of Smolbrain Chatbot:
    * `mark 1` : Marks the 3rd task shown in the current task list.
    * `bye` : Exits the app.
 6. Refer to the Features below for details of each command.
+
 <br><br>
+
 ## Key Features 
 
 ### Creation of tasks
@@ -164,6 +166,7 @@ Format: `priority [INDEX] [PRIORITY_LEVEL]`
 * Priority level should only have the possible values 0, 1, 2 and 3. Otherwise, an error is displayed.
 * Providing a non-positive index or index that is greater than the number of tasks will result in an error displayed.
 * Deleting tasks will re-order the indexing of remaining tasks.
+
 > ⚠️ The task index comes first, before the priority level.
 
 Examples: 
