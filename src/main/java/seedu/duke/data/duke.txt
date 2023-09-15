@@ -1,0 +1,6 @@
+[T][ ] homework
+[D][X] sleep (by: 2000-12-20)
+[E][ ] party (from: sat to: sun)
+[E][X] party (from: sat to: sun)
+[T][X] saikang
+[E][ ] birthday (from: 2000-12-20 to: 2000-12-20)
