@@ -147,6 +147,4 @@ public class Parser {
         helpMessage.append("Have fun playing around with Bob!\n");
         return helpMessage.toString();
     }
-
-
 }
