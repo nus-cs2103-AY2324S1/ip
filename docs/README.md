@@ -3,9 +3,12 @@
 Smolbrain is a **chatbot for tracking of tasks, optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). With a strong mastery of typing commands, tasks management can be much more efficient than conventional GUI apps.
 
 Screenshot of Smolbrain Chatbot:
- ![Screenshot](Ui.png) 
 
-## Quick start
+![Screenshot](screenshot.png) 
+
+
+
+## $${\color{red}Red}$$Quick start
 1. Ensure that Java 11 or above installed in your Computer.
 2. Download the latest addressbook.jar from here.
 3. Copy the file to the folder you want to use as the _home folder_ for your Smolbrain Chatbot.
@@ -20,6 +23,8 @@ Screenshot of Smolbrain Chatbot:
    * `mark 1` : Marks the 3rd task shown in the current task list.
    * `bye` : Exits the app.
 6. Refer to the Features below for details of each command.
+
+
 
 ## Key Features 
 
@@ -38,6 +43,8 @@ Tasks can be marked when completed, or unmarked when required, allowing to track
 
 Tasks can be set with a priority level to indicate how urgent they are.
 
+
+
 ## Features List
 
 > ℹ️ Notes about the command format:
@@ -48,6 +55,7 @@ Tasks can be set with a priority level to indicate how urgent they are.
 > * Date and time must be given in this **exact format**: `DD/MM/YYYY HHmm`, otherwise there will be an error parsing.
 >   * Single digit days or months should have 2 numbers such as `03`, `09`.
 >   * Time must not have semicolon characters `:` and should be in 24-hour format.
+
 
 ### Adding a Todo: `todo`
 
