@@ -216,3 +216,4 @@ public class Duke {
 // A-CodingStandard
 // Level-9
 // Level-10
+// A-FullCommitMessage
