@@ -21,8 +21,6 @@ public class Storage {
 
     private boolean isNewSave = false;
 
-    private boolean isFailSave = false;
-
     private SaveData save;
 
     /**
@@ -34,6 +32,7 @@ public class Storage {
         SaveData save = new SaveData(list.getList().toArray(new Task[0]));
         String json = gson.toJson(save);
 
+        assert save != null : "The save data should exists";
         // write to save file
         try {
             File saveFile = new File(fileName);
@@ -90,7 +89,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             save = new SaveData(new Task[0]);
             isNewSave = true;
-
+            assert isNewSave : "The application should have new save";
         } finally {
 
             for (int i = 0; i < save.type.length; i++) {

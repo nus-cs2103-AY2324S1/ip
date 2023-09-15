@@ -41,12 +41,15 @@ public class Parser {
 
         switch (command) {
         case "bye":
+            assert command.equals("bye") : "The command should be bye";
             return new TerminateCommand();
 
         case "list":
+            assert command.equals("list") : "The command should be list";
             return new ListCommand();
 
         case "mark":
+            assert command.equals("mark") : "The command should be mark";
             if (!scanner.hasNextInt()) {
                 throw new DukeException("Chewie doesn't see the index of task list.");
             }
@@ -55,6 +58,7 @@ public class Parser {
             return handleMark(i);
 
         case "unmark":
+            assert command.equals("unmark") : "The command should be unmark";
             if (!scanner.hasNextInt()) {
                 throw new DukeException("Chewie doesn't see the index of task list.");
             }
@@ -63,6 +67,7 @@ public class Parser {
             return handleUnmark(k);
 
         case "delete":
+            assert command.equals("delete") : "The command should be delete";
             if (!scanner.hasNextInt()) {
                 throw new DukeException("Chewie doesn't see the index of task list.");
             }
@@ -71,18 +76,22 @@ public class Parser {
             return handleDelete(j);
 
         case "find":
+            assert command.equals("find") : "The command should be find";
             String findPrompt = scanner.nextLine();
             return handleFind(findPrompt);
 
         case "deadline":
+            assert command.equals("deadline") : "The command should be deadline";
             String deadlinePrompt = scanner.nextLine();
             return handleDeadline(deadlinePrompt);
 
         case "todo":
+            assert command.equals("todo") : "The command should be todo";
             String ToDoRemain = scanner.nextLine().trim();
             return handleToDo(ToDoRemain);
 
         case "event":
+            assert command.equals("event") : "The command should be event";
             String eventPrompt = scanner.nextLine().trim();
             return handleEvent(eventPrompt);
 
