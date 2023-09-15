@@ -28,7 +28,8 @@ public class Storage {
         try {
             if (!directory.exists()) {
                 directory.mkdir();
-                file.createNewFile();
+                boolean var = file.createNewFile();
+                assert var == true : "var should be true";
             }
 
             if (!file.exists()) {

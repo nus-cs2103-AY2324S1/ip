@@ -72,7 +72,7 @@ public class TaskList {
 
         String message = "";
         message += "Here are the tasks in your list:\n";
-
+        assert (tasks.size() >= 0);
         if (tasks.size() == 0) {
             message += "There's nothing in your list";
         } else {
@@ -214,6 +214,7 @@ public class TaskList {
      * Prints onto the console the number of tasks currently in the task list.
      */
     public String getNumTasks() {
+        assert tasks.size() >= 0 : "task list is empty or not empty";
         return "you now have " + tasks.size() + " tasks in your list.";
     }
 }

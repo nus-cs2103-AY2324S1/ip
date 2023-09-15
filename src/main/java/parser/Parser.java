@@ -84,7 +84,6 @@ public class Parser {
      * @return A ToDoCommand object.
      */
     public Command prepareTodo(String args) {
-
         return new TodoCommand(args);
     }
 
@@ -95,7 +94,6 @@ public class Parser {
      * @return A DeadlineCommand object.
      */
     public Command prepareDeadline(String args) {
-
         String[] arr = args.split("/");
         String description = arr[0];
         String endTime = arr[1];
