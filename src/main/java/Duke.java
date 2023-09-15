@@ -5,6 +5,8 @@ import duke.tasks.Task;
 import duke.tasks.Todo;
 import duke.tasks.Event;
 import duke.tasks.Deadline;
+import duke.trivia.Trivia;
+import duke.trivia.TriviaList;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -40,9 +42,11 @@ import java.util.ArrayList;
  */
 public class Duke extends Application {
     private static final String DATA_PATH = "./data";
-    private static final String FILE_PATH = DATA_PATH + "/duke.txt";
-    private final Storage storage = new Storage(FILE_PATH);
+    private static final String DUKE_FILE_PATH = DATA_PATH + "/duke.txt";
+    private static final String TRIVIA_FILE_PATH = DATA_PATH + "/trivia.txt";
+    private final Storage storage = new Storage(DUKE_FILE_PATH, TRIVIA_FILE_PATH);
     private final TaskList tasks;
+    private final TriviaList triviaList;
     private Stage primaryStage;
 
     /**
@@ -52,14 +56,16 @@ public class Duke extends Application {
      */
     public Duke() throws IOException {
         ArrayList<Task> loadedTasks;
+        ArrayList<Trivia> loadedTrivia;
         try {
             loadedTasks = storage.loadTasks();
+            loadedTrivia = storage.loadTrivia();
         } catch (IOException e) {
-            loadedTasks = new ArrayList<>();
             throw new IOException("Error loading tasks from storage.", e);
         }
 
         this.tasks = new TaskList(loadedTasks);
+        this.triviaList = new TriviaList(loadedTrivia);
     }
 
     /**
@@ -229,6 +235,88 @@ public class Duke extends Application {
     }
 
     /**
+     * Parses the trivia index from the user input.
+     *
+     * @param input The user input.
+     * @return The trivia index.
+     */
+    private int parseTriviaIndex(String input) {
+        try {
+            return Integer.parseInt(input) - 1;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Please provide a valid trivia index.");
+        }
+    }
+
+    /**
+     * Adds a trivia to the list.
+     *
+     * @param input The user input.
+     * @throws IOException If there is an error saving the trivia to the file.
+     * @return The response to the user.
+     */
+    public String addTrivia(String input) throws IOException {
+        String[] triviaWords = input.split(" /answer ");
+        if (triviaWords.length < 2) {
+            return "Invalid trivia format. Use 'addtrivia <question> /answer <answer>'";
+        }
+
+        String question = triviaWords[0].trim();
+        String answer = triviaWords[1].trim();
+
+        if (question.isEmpty() || answer.isEmpty()) {
+            return "Question or answer cannot be empty!";
+        }
+
+        Trivia trivia = new Trivia(question, answer);
+        triviaList.addTrivia(trivia);
+
+        storage.saveTrivia(triviaList.getTrivias());
+        return "Trivia added!\n" + trivia;
+    }
+
+    /**
+     * Lists all the trivia in the list.
+     *
+     * @return The response to the user.
+     */
+    public String listAllTrivia() {
+        if (triviaList.getTrivias().isEmpty()) {
+            return "There are no trivia in your list.";
+        }
+
+        StringBuilder response = new StringBuilder("Here are the trivia in your list:\n");
+        for (int i = 0; i < triviaList.getSize(); i++) {
+            response.append(i + 1).append(". ").append(triviaList.getTrivia(i).getQuestion()).append("\n");
+        }
+        return response.toString();
+    }
+
+    /**
+     * Tests a trivia.
+     *
+     * @param input The user input.
+     * @return The response to the user.
+     */
+    public String testTrivia(String input) {
+        String[] words = input.split(" ", 2);
+
+        if (words.length < 2) {
+            return "Please provide an answer to test. Use 'testtrivia [trivia index] [your answer]'.";
+        }
+
+        int index = parseTriviaIndex(words[0]);
+        String userAnswer = words[1].trim();
+
+        Trivia trivia = triviaList.getTrivia(index);
+        if (trivia.checkAnswer(userAnswer)) {
+            return "Correct! The answer is: " + trivia.getAnswer();
+        } else {
+            return "Incorrect. The correct answer is: " + trivia.getAnswer();
+        }
+    }
+
+    /**
      * Processes the user input and returns the response.
      *
      * @param input The user input.
@@ -250,7 +338,10 @@ public class Duke extends Application {
                             + "- To add a todo: 'todo [description]'\n"
                             + "- To add a deadline: 'deadline [description] /by [date in format yyyy-MM-dd]'\n"
                             + "- To add an event: 'event [description] /from [start date in format yyyy-MM-dd] /to "
-                            + "[end date in format yyyy-MM-dd]'\n");
+                            + "[end date in format yyyy-MM-dd]'\n"
+                            + "- To add trivia: 'addtrivia [question] /answer [answer]'\n"
+                            + "- To list all trivia: 'listtrivia'\n"
+                            + "- To test a trivia: 'testtrivia [trivia index] [your answer]'\n");
                     break;
                 case "todo":
                     response.append(addTodo(words[1]));
@@ -272,6 +363,15 @@ public class Duke extends Application {
                     break;
                 case "find":
                     response.append(findAndListTasks(words[1]));
+                    break;
+                case "addtrivia":
+                    response.append(addTrivia(words[1]));
+                    break;
+                case "listtrivia":
+                    response.append(listAllTrivia());
+                    break;
+                case "testtrivia":
+                    response.append(testTrivia(words[1]));
                     break;
                 default:
                     response.append("Sorry, I don't understand that command.");

@@ -19,10 +19,12 @@ public class Parser {
         String[] words = input.split(" ", 2); // splits into the command and the rest
 
         String command = words[0];
-        boolean validCommand2Words = command.equals("todo") || command.equals("deadline") || command.equals("event") ||
-                command.equals("mark") || command.equals("unmark") || command.equals("delete")
-                || command.equals("find");
-        boolean validCommand1Word = command.equals("bye") || command.equals("list") || command.equals("help");
+        boolean validCommand2Words = command.equals("todo") || command.equals("deadline")
+                || command.equals("event") || command.equals("mark") || command.equals("unmark")
+                || command.equals("delete") || command.equals("find") || command.equals("addtrivia")
+                || command.equals("testtrivia"); // added trivia commands
+        boolean validCommand1Word = command.equals("bye") || command.equals("list")
+                || command.equals("help") || command.equals("listtrivia"); // added trivia command
 
         if (!validCommand2Words && !validCommand1Word) {
             throw new UnknownCommandException();
@@ -31,5 +33,6 @@ public class Parser {
         }
 
         return words;
+
     }
 }

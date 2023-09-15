@@ -1,53 +1,58 @@
 package duke;
+
 import duke.tasks.Task;
+import duke.trivia.Trivia;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
-/**
- * Represents the storage of the chat bot.
- * A <code>Storage</code> object corresponds to the storage of the chat bot.
- */
 public class Storage {
-    private String filePath;
+    private String taskFilePath;
+    private String triviaFilePath;
 
-    /**
-     * Constructs a <code>Storage</code> object.
-     * @param filePath The path of the file to store the tasks.
-     */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String taskFilePath, String triviaFilePath) {
+        this.taskFilePath = taskFilePath;
+        this.triviaFilePath = triviaFilePath;
     }
 
-    /**
-     * Saves the tasks to the file.
-     * @param tasks The list of tasks to be saved.
-     * @throws IOException If there is an error saving the tasks to the file.
-     */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
+        saveToFile(tasks, taskFilePath, Task::toFileFormat);
+    }
+
+    public void saveTrivia(ArrayList<Trivia> trivia) throws IOException {
+        saveToFile(trivia, triviaFilePath, Trivia::toFileFormat);
+    }
+
+    public ArrayList<Task> loadTasks() throws IOException {
+        return loadFromFile(taskFilePath, Task::fromFileFormat);
+    }
+
+    public ArrayList<Trivia> loadTrivia() throws IOException {
+        return loadFromFile(triviaFilePath, Trivia::fromFileFormat);
+    }
+
+    private <T> void saveToFile(ArrayList<T> items, String filePath, Function<T, String> toFileFormatFunc) throws IOException {
         List<String> lines = new ArrayList<>();
-        for (Task task : tasks) {
-            lines.add(task.toFileFormat());
+        for (T item : items) {
+            lines.add(toFileFormatFunc.apply(item));
         }
         Files.write(Paths.get(filePath), lines);
     }
 
-    /**
-     * Loads the tasks from the file.
-     * @return The list of tasks loaded from the file.
-     * @throws IOException If there is an error loading the tasks from the file.
-     */
-    public ArrayList<Task> loadTasks() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        if (Files.exists(Paths.get(filePath))) {
-            List<String> lines = Files.readAllLines(Paths.get(filePath));
+    private <T> ArrayList<T> loadFromFile(String filePath, Function<String, T> fromFileFormatFunc) throws IOException {
+        ArrayList<T> items = new ArrayList<>();
+        Path path = Paths.get(filePath);
+        if (Files.exists(path)) {
+            List<String> lines = Files.readAllLines(path);
             for (String line : lines) {
-                tasks.add(Task.fromFileFormat(line));
+                items.add(fromFileFormatFunc.apply(line));
             }
         }
-        return tasks;
+        return items;
     }
 }
