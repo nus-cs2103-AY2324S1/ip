@@ -57,6 +57,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads todo task into task list.
+     *
+     * @param line String found in storage file that represents a todo.
+     * @param mark Whether the todo should be added as a marked task.
+     */
     private static void loadTodo(String line, char mark) {
         String description = line.substring(6).trim();
         if (mark == 'X') {
@@ -66,6 +72,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads deadline task into task list.
+     *
+     * @param line String found in storage file that represents a deadline.
+     * @param mark Whether the deadline should be added as a marked task.
+     */
     private static void loadDeadline(String line, char mark) {
         int byIndex = line.indexOf("(by: ");
         String description = line.substring(7, byIndex).trim(); // 7 is the length of "[D][ ] "
@@ -78,6 +90,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads event task into task list.
+     *
+     * @param line String found in storage file that represents a event.
+     * @param mark Whether the deadline should be added as a marked task.
+     */
     private static void loadEvent(String line, char mark) {
         String[] parts = line.split("\\(from: | to ");
         String description = parts[0].trim().substring(7);

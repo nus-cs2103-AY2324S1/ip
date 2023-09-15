@@ -116,11 +116,12 @@ public class TaskList {
         return stringBuilder.toString();
     }
     /**
-     * Removes a task to the list.
+     * Returns a string that will be printed out in the dialogue box.
      *
      * @param taskType Type of task that is added.
      * @param description Description of the task.
      * @param marked Whether the task should be added as marked or unmarked.
+     * @return A string which will be formed as a dialogue bubble
      * @throws DukeException If command given is not a valid command.
      */
     public String addTask(TaskType taskType, String description, String marked) throws DukeException {
@@ -130,74 +131,116 @@ public class TaskList {
 
         StringBuilder stringBuilder = new StringBuilder();
         if (taskType == TaskType.TODO) {
-            if (description.isEmpty()) {
-                throw new DukeException("The description of a todo cannot be empty.");
-            }
-
-            //Duplicate checking
-            DuplicateTodoChecker todoChecker = new DuplicateTodoChecker();
-            if (todoChecker.isDuplicateTodo(description)) {
-                stringBuilder.append("Duplicate todo task detected!").append("\n");
-                return stringBuilder.toString();
-            }
-            //No duplicate, add todo to list
-            Todo todo = new Todo(description, marked);
-            list.add(todo);
-            stringBuilder.append("Got it. I've added this to-do task:").append("\n");
-            stringBuilder.append("  ").append(todo).append("\n");
-            stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
+            return addTodoTask(description, marked);
         } else if (taskType == TaskType.EVENT) {
-            String[] parts = description.split("/from");
-            if (parts.length != 2) {
-                throw new DukeException("Please input a valid task");
-            }
-
-            //Valid description and time checking
-            String details = parts[0].trim();
-            String[] timeParts = parts[1].split("/to");
-            String start = timeParts[0].trim();
-            String end = timeParts[1].trim();
-            if (timeParts.length != 2 || details.isEmpty() || start.isEmpty() || end.isEmpty()) {
-                throw new DukeException("Please input a valid task");
-            }
-
-            //Duplicate checking
-            DuplicateEventChecker eventChecker = new DuplicateEventChecker();
-            if (eventChecker.isDuplicateEvent(details, start)) {
-                stringBuilder.append("Duplicate event task detected!").append("\n");
-                return stringBuilder.toString();
-            }
-            //No duplicate, add event to list
-            list.add(new Event(details, start, end, marked));
-            stringBuilder.append("Got it. I've added this to-do task:").append("\n");
-            stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
-            stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
+            return addEventTask(description, marked);
         } else if (taskType == TaskType.DEADLINE) {
-            String[] parts = description.split("/by");
-            if (parts.length != 2) {
-                throw new DukeException("Please input a valid task");
-            }
-
-            //Valid description and time checking
-            String details = parts[0].trim();
-            String by = parts[1].trim();
-            if (details.isEmpty() || by.isEmpty()) {
-                throw new DukeException("Please input a valid task");
-            }
-
-            //Duplicate checking
-            DuplicateDeadlineChecker deadlineChecker = new DuplicateDeadlineChecker();
-            if (deadlineChecker.isDuplicateDeadline(details, by)) {
-                stringBuilder.append("Duplicate deadline task detected").append("\n");
-                return stringBuilder.toString();
-            }
-
-            //No duplicates, add deadline to list
-            list.add(new Deadline(details, by, marked));
-            stringBuilder.append("Got it. I've added this to-do task:").append("\n");
-            stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
-            stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
+            return addDeadlineTask(description, marked);
         }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Returns a string representation of Taskmaster's reply when a todo is added.
+     *
+     * @param description Description of the todo.
+     * @param marked Whether the task should be added as a marked task.
+     * @return A string of Taskmaster's reply when a todo is added.
+     * @throws DukeException If description is empty
+     */
+    public String addTodoTask(String description, String marked) throws DukeException{
+        StringBuilder stringBuilder = new StringBuilder();
+        if (description.isEmpty()) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
+
+        //Duplicate checking
+        DuplicateTodoChecker todoChecker = new DuplicateTodoChecker();
+        if (todoChecker.isDuplicateTodo(description)) {
+            stringBuilder.append("Duplicate todo task detected!").append("\n");
+            return stringBuilder.toString();
+        }
+        //No duplicate, add todo to list
+        Todo todo = new Todo(description, marked);
+        list.add(todo);
+        stringBuilder.append("Got it. I've added this to-do task:").append("\n");
+        stringBuilder.append("  ").append(todo).append("\n");
+        stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Returns a string representation of Taskmaster's reply when a deadline is added.
+     *
+     * @param description Description of the deadline.
+     * @param marked Whether the task should be added as a marked task.
+     * @return A string of Taskmaster's reply when a deadline is added.
+     * @throws DukeException If description is empty or command is invalid
+     */
+    public String addDeadlineTask(String description, String marked) throws DukeException {
+        StringBuilder stringBuilder = new StringBuilder();
+        String[] parts = description.split("/by");
+        if (parts.length != 2) {
+            throw new DukeException("Please input a valid task");
+        }
+
+        //Valid description and time checking
+        String details = parts[0].trim();
+        String by = parts[1].trim();
+        if (details.isEmpty() || by.isEmpty()) {
+            throw new DukeException("Please input a valid task");
+        }
+
+        //Duplicate checking
+        DuplicateDeadlineChecker deadlineChecker = new DuplicateDeadlineChecker();
+        if (deadlineChecker.isDuplicateDeadline(details, by)) {
+            stringBuilder.append("Duplicate deadline task detected").append("\n");
+            return stringBuilder.toString();
+        }
+
+        //No duplicates, add deadline to list
+        list.add(new Deadline(details, by, marked));
+        stringBuilder.append("Got it. I've added this to-do task:").append("\n");
+        stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
+        stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Returns a string representation of Taskmaster's reply when a event is added.
+     *
+     * @param description Description of the event.
+     * @param marked Whether the task should be added as a marked task.
+     * @return A string of Taskmaster's reply when an event is added.
+     * @throws DukeException If description is empty or command is invalid.
+     */
+    public String addEventTask(String description, String marked) throws DukeException {
+        StringBuilder stringBuilder = new StringBuilder();
+        String[] parts = description.split("/from");
+        if (parts.length != 2) {
+            throw new DukeException("Please input a valid task");
+        }
+
+        //Valid description and time checking
+        String details = parts[0].trim();
+        String[] timeParts = parts[1].split("/to");
+        String start = timeParts[0].trim();
+        String end = timeParts[1].trim();
+        if (timeParts.length != 2 || details.isEmpty() || start.isEmpty() || end.isEmpty()) {
+            throw new DukeException("Please input a valid task");
+        }
+
+        //Duplicate checking
+        DuplicateEventChecker eventChecker = new DuplicateEventChecker();
+        if (eventChecker.isDuplicateEvent(details, start)) {
+            stringBuilder.append("Duplicate event task detected!").append("\n");
+            return stringBuilder.toString();
+        }
+        //No duplicate, add event to list
+        list.add(new Event(details, start, end, marked));
+        stringBuilder.append("Got it. I've added this to-do task:").append("\n");
+        stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
+        stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
         return stringBuilder.toString();
     }
     /**
@@ -237,6 +280,17 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    /**
+     * Appends a string representation to the Stringbuilder if the specific task is matched with date given.
+     *
+     * @param sb Stringbuilder object
+     * @param taskStringDate String representation of the date of the task.
+     * @param taskDate LocalDate representation of the date of the task.
+     * @param dueStringDate String representation of the due date provided.
+     * @param dueDate LocalDate representation of the due date provided.
+     * @param count Count of number of matched tasks.
+     * @param task Task that is found in task list.
+     */
     private static void appendTaskIfMatch(StringBuilder sb, String taskStringDate, LocalDate taskDate, String dueStringDate, LocalDate dueDate, int count, Task task) {
         if ((taskDate != null && taskDate.equals(dueDate)) || (taskStringDate != null && taskStringDate.equals(dueStringDate))) {
             sb.append(count).append(": ").append(task).append("\n");
