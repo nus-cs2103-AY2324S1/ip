@@ -43,8 +43,8 @@ public class Command {
     }
 
     public static String markCommand(TaskList tasks, String[] inputParts, CommandType commandType) {
-        int taskIndex = Integer.parseInt(inputParts[1]) - 1;
         try {
+            int taskIndex = Integer.parseInt(inputParts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < tasks.size()) {
                 Task task = tasks.get(taskIndex);
                 if (commandType == CommandType.MARK) {
@@ -63,6 +63,7 @@ public class Command {
     }
 
     public static String deleteCommand(TaskList tasks, String[] inputParts) {
+        assert inputParts.length >= 2 : "Invalid inputParts length";
         try {
             if (inputParts[1].equals("All")) {
                 tasks.clear();
