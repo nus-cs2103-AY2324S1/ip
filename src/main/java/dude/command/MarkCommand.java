@@ -2,6 +2,7 @@ package dude.command;
 
 import java.io.IOException;
 
+import dude.NoteList;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
@@ -25,13 +26,13 @@ public class MarkCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
         try {
             output = "Executing Mark Command\n";
             Task markedTask = taskList.markTask(taskIndex);
             output = output + ui.showMarkedTask(markedTask);
-            storage.saveTasksToDisk(taskList);
+            storage.saveTasksToDisk(taskList, noteList);
         } catch (IOException e) {
             output = "Error in Mark Command\n";
         }

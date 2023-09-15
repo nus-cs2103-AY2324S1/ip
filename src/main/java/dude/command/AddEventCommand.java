@@ -3,6 +3,7 @@ package dude.command;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import dude.NoteList;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
@@ -36,7 +37,7 @@ public class AddEventCommand extends Command {
      * @param ui User interface of Dude.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
         try {
             output = "Executing Add Event Command\n";
@@ -45,7 +46,7 @@ public class AddEventCommand extends Command {
             taskList.addTask(newTask);
             int nTasks = taskList.getSize();
             output = output + ui.showAddedTask(newTask, nTasks) + "\n";
-            storage.saveTasksToDisk(taskList);
+            storage.saveTasksToDisk(taskList, noteList);
         } catch (IOException e) {
             System.out.println("Error in Add Event Command");
         }

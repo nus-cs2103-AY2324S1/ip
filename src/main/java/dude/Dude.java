@@ -12,6 +12,7 @@ public class Dude {
 
     private static final String DEFAULT_FILEPATH = "./data/dude.txt";
     private TaskList taskList;
+    private NoteList noteList;
     private Storage storage;
     private Ui ui;
 
@@ -29,9 +30,11 @@ public class Dude {
 
         try {
             taskList = storage.loadTasksFromDisk();
+            noteList = storage.loadNotesFromDisk();
         } catch (FileNotFoundException e) { // DudeException
             ui.showLoadingError();
             taskList = new TaskList();
+            noteList = new NoteList();
         }
     }
 
@@ -42,7 +45,7 @@ public class Dude {
     public String getResponse(String input) {
         System.out.println(input);
         Command c = Parser.parse(input);
-        String output = c.execute(taskList, ui, storage);
+        String output = c.execute(taskList, noteList, ui, storage);
         assert !output.trim().isEmpty() : "Dude output should not be empty";
         return output;
     }

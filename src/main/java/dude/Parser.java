@@ -3,17 +3,7 @@ package dude;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import dude.command.AddDeadlineCommand;
-import dude.command.AddEventCommand;
-import dude.command.AddToDoCommand;
-import dude.command.Command;
-import dude.command.DeleteCommand;
-import dude.command.ExitCommand;
-import dude.command.FindCommand;
-import dude.command.ListCommand;
-import dude.command.MarkCommand;
-import dude.command.UnknownCommand;
-import dude.command.UnmarkCommand;
+import dude.command.*;
 
 /**
  * Represents a parser that parses user input and deals with making sense of the user command.
@@ -66,6 +56,9 @@ public class Parser {
             c = new AddEventCommand(taskDescription, fromDateTime, toDateTime);
             // if (userInputDetails.length == 1) {
             // System.out.println("OOPS!!! The description of an event cannot be empty.");
+        } else if (commandType.equals("note")) {
+            String noteDescription = commandDetails[1].trim();
+            c = new AddNoteCommand(noteDescription);
         } else if (commandType.equals("find")) {
             String searchKeywords = commandDetails[1].trim();
             c = new FindCommand(searchKeywords);

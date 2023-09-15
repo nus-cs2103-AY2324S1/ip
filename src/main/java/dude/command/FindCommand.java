@@ -1,5 +1,6 @@
 package dude.command;
 
+import dude.NoteList;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
@@ -20,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "Executing Find Command\n";
         TaskList searchResults = taskList.findTasks(searchKeywords);
         output = output + ui.showTaskList(searchResults);

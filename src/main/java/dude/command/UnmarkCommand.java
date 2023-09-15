@@ -2,6 +2,7 @@ package dude.command;
 
 import java.io.IOException;
 
+import dude.NoteList;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
@@ -24,13 +25,13 @@ public class UnmarkCommand extends Command {
      * @param storage Storage containing saved tasks, and saves and loads tasks.
      * @param ui User interface of Dude.
      */
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
         try {
             output = "Executing Unmark Command\n";
             Task unmarkedTask = taskList.unmarkTask(taskIndex);
             output = output + ui.showUnmarkedTask(unmarkedTask);
-            storage.saveTasksToDisk(taskList);
+            storage.saveTasksToDisk(taskList, noteList);
         } catch (IOException e) {
             output = "Error in Unmark Command";
         }
