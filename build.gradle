@@ -30,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("ipbot.Duke")
+    mainClass.set("ipbot.Launcher")
 }
 
 shadowJar {
