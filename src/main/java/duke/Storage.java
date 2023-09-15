@@ -62,10 +62,13 @@ public class Storage {
                 switch (taskType) {
                     case "[T]" :
                         readTodo(splited[5], splited[0], oldTasks);
+                        break;
                     case "[D]" :
                         readDeadline(splited[5], splited[0], oldTasks);
+                        break;
                     case "[E]" :
                         readEvent(splited[5], splited[0], oldTasks);
+                        break;
 
                 }
             }
@@ -89,7 +92,7 @@ public class Storage {
 
     public void readDeadline(String description, String status, ArrayList<Task> oldTasks) {
         String[] desc = description.split("\\(by:", 2);
-        String time = desc[1].split("\\)", 2)[0];
+        String time = (desc[1].split("\\)", 2))[0];
         LocalDateTime by = formatData(time);
         Task deadline = new Deadline(desc[0], by);
         oldTasks.add(deadline);
@@ -101,11 +104,10 @@ public class Storage {
     }
 
     public void readEvent(String description, String status, ArrayList<Task> oldTasks) {
-        String[] desc = description.split("\\(from:");
-        String start = desc[1].split("to:", 2)[0];
-        String end = desc[1].split("to:", 2)[1];
-        LocalDateTime from = formatData(start);
-        LocalDateTime to = formatData(end);
+        String[] desc = description.split("\\(from:", 2);
+        String[] time = desc[1].split("to:", 2);
+        LocalDateTime from = formatData(time[0]);
+        LocalDateTime to = formatData(time[1].split("\\)", 2)[0]);
         Task event = new Event(desc[0], from, to);
         oldTasks.add(event);
         if (status.equals("1")) {
@@ -142,8 +144,8 @@ public class Storage {
      * @return A LocalDateTime object parsed from the input string.
      */
     public LocalDateTime formatData(String data) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM uuuu, h:mma", Locale.ENGLISH);
-        LocalDateTime localDateTime = LocalDateTime.parse(data, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        LocalDateTime localDateTime = LocalDateTime.parse(data.trim(), formatter);
         return localDateTime;
     }
 }

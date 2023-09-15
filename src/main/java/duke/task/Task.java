@@ -73,14 +73,7 @@ public class Task {
      * @return A formatted string representing the date and time.
      */
     public String localDateTimeToString(LocalDateTime data) {
-        String day = String.valueOf(data.getDayOfMonth());
-        String month = data.getMonth().toString();
-        month = month.substring(0, 1).toUpperCase() + month.substring(1).toLowerCase();
-        String year = String.valueOf(data.getYear());
-        String hour = data.format(DateTimeFormatter.ofPattern("h"));
-        String minute = data.format(DateTimeFormatter.ofPattern("mm"));
-        String amPm = data.format(DateTimeFormatter.ofPattern("a"));
-
-        return String.format("%s of %s %s, %s:%s%s", day, month, year, hour, minute, amPm);
+        DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return data.format(displayFormat);
     }
 }

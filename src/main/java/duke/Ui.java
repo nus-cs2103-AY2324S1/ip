@@ -19,6 +19,10 @@ public class Ui {
         return "Got it. I've added this task: \n" + "\t" + task.toString() + "\n" + "Now you have " + arr.size() + " tasks in the list";
     }
 
+    public static String editMsg(Task task, ArrayList<Task> arr) {
+        return "Got it. I've edited this task: \n" + "t" + task.toString();
+    }
+
     public static String printDeletedTask(Task task, ArrayList<Task> arr) {
         return "Got it. I've deleted this task: \n" + "\t" + task.toString() + "\n" + "Now you have " + arr.size() + " tasks in the list";
     }

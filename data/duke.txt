@@ -1,3 +1,0 @@
- ..
- 0 | [T] [ ] kill myself
-1 | [T] [X] run

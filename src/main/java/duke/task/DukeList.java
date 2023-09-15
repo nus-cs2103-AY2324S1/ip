@@ -49,9 +49,9 @@ public class DukeList {
      */
     public Task deleteTask(String description) throws DukeException {
         if (!description.equals(null)) {
-            int num = Integer.parseInt(description);
-            Task deletedTask = arr.get(num);
-            arr.remove(num);
+            int num = Integer.parseInt(description) ;
+            Task deletedTask = arr.get(num - 1);
+            arr.remove(num - 1);
             return deletedTask;
         } else {
             throw new DukeException("Please indicate the index of task to be deleted");
@@ -66,26 +66,22 @@ public class DukeList {
     }
 
     public Deadline createDeadline(String description) throws DukeException {
-        String[] splited = description.split(" ", 2);
+        String[] splited = description.split("/by", 2);
         if (splited.length > 1) {
-            String[] splitted = description.split(" ", 2);
-            String[] deadline = splitted[1].split("/by", 2);
-            LocalDateTime by = formatData(deadline[1]);
-            return new Deadline(deadline[0], by);
+            LocalDateTime by = formatData(splited[1]);
+            return new Deadline(splited[0], by);
         } else {
             throw new DukeException("The description of a deadline cannot be empty.");
         }
     }
 
     public Event createEvent(String description) throws DukeException {
-        String[] splited = description.split(" ", 2);
+        String[] splited = description.split("/from", 2);
         if (splited.length > 1) {
-            String[] splitted = description.split(" ", 2);
-            String[] from = splitted[1].split("/from", 2);
-            String[] to = from[1].split("/to", 2);
-            LocalDateTime start = formatData(to[0]);
-            LocalDateTime end = formatData(to[1]);
-            return new Event(from[0], start, end);
+            String[] splitted = splited[1].split("/to", 2);
+            LocalDateTime start = formatData(splitted[0]);
+            LocalDateTime end = formatData(splitted[1]);
+            return new Event(splited[0], start, end);
         } else {
             throw new DukeException("The description of an event cannot be empty.");
         }
@@ -111,10 +107,29 @@ public class DukeList {
         return newTask;
     }
 
+    public Task editTask(String taskType, String description) throws DukeException {
+        try {
+            if (true) {
+                int num = Integer.parseInt(description.split(" ", 2)[0]);
+                LocalDateTime newStart = formatData(description.split(" ", 5)[1] + " " + description.split(" ", 5)[2]);
+                LocalDateTime newEnd = formatData(description.split(" ", 5)[3] +  " " + description.split(" ", 5)[4]);
+                Event taskToEdit = (Event) arr.get(num - 1);
+                taskToEdit.setStart(newStart);
+                taskToEdit.setEnd(newEnd);
+                return taskToEdit;
+            } else {
+                throw new DukeException("Only Event task can be edited");
+            }
+
+        } catch (DukeException e) {
+            throw new DukeException(e.getMessage());
+        }
+
+    }
+
 
 
     /**
-<<<<<<< HEAD
      * Marks a task as done by its index.
      *
      * @param number The index of the task to be marked as done.
@@ -140,9 +155,8 @@ public class DukeList {
     }
 
     public Task setTaskStatus(String description, boolean toMark) throws DukeException {
-        String[] splited = description.split(" ", 2);
-        if (splited.length > 1){
-            int num = Integer.parseInt(splited[1]);
+        if (!description.equals(null)){
+            int num = Integer.parseInt(description) - 1;
             if (toMark) {
                 setDone(num);
             } else {
@@ -176,8 +190,8 @@ public class DukeList {
 
     public LocalDateTime formatData(String data) {
         String trimmed = data.trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime localDate;
-        return localDate = LocalDateTime.parse(trimmed, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        LocalDateTime localDate = LocalDateTime.parse(trimmed, formatter);;
+        return localDate;
     }
 }

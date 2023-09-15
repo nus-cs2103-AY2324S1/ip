@@ -1,12 +1,6 @@
 package duke;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
+import duke.command.*;
 
 
 /**
@@ -40,6 +34,8 @@ public class Parser {
                 return new DeleteCommand(description);
             case "find":
                 return new FindCommand(description);
+            case "edit" :
+                return new EditCommand("Event", description);
             default:
                 throw new DukeException("I don't understand what you are saying!");
         }

@@ -32,6 +32,14 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public void setStart(LocalDateTime start) {
+        this.start = start;
+    }
+
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
+    }
+
     /**
      * Returns a string representation of the Event task, including its type, completion status, description, start time, and end time.
      *
@@ -39,6 +47,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return "[E] " + super.toString() + " (from: " + localDateTimeToString(this.start) + " to: " + localDateTimeToString(this.end) + ")";
     }
 }
