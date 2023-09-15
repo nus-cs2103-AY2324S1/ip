@@ -22,13 +22,13 @@ public class ToDoTest {
     @Test
     void testGetFileString() {
         Task task = new ToDo("laundry", "");
-        assertEquals("T|⭕️|laundry|", task.getFileString());
+        assertEquals("T|🔴|laundry|", task.getFileString());
     }
 
     @Test
     void testGetFileString_markedTask_stringGenerated() {
         Task task = new ToDo("laundry", "");
         task.markAsDone();
-        assertEquals("T|✅|laundry|", task.getFileString());
+        assertEquals("T|🟢|laundry|", task.getFileString());
     }
 }

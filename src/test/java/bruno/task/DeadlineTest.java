@@ -31,13 +31,13 @@ public class DeadlineTest {
     @Test
     void testGetFileString() {
         Task task = new Deadline("clean fridge", "2023-08-31 23:59", "");
-        assertEquals("D|⭕️|clean fridge||2023-08-31 23:59", task.getFileString());
+        assertEquals("D|🔴|clean fridge||2023-08-31 23:59", task.getFileString());
     }
 
     @Test
     void testGetFileString_markedTask_stringGenerated() {
         Task task = new Deadline("complete registration", "2023-09-02 10:00", "");
         task.markAsDone();
-        assertEquals("D|✅|complete registration||2023-09-02 10:00", task.getFileString());
+        assertEquals("D|🟢|complete registration||2023-09-02 10:00", task.getFileString());
     }
 }

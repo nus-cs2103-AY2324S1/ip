@@ -33,13 +33,13 @@ public class EventTest {
     @Test
     void testGetFileString() {
         Task task = new Event("hackathon", "2023-08-31 18:00", "2023-09-01 18:00", "");
-        assertEquals("E|⭕️|hackathon||2023-08-31 18:00|2023-09-01 18:00", task.getFileString());
+        assertEquals("E|🔴|hackathon||2023-08-31 18:00|2023-09-01 18:00", task.getFileString());
     }
 
     @Test
     void testGetFileString_markedTask_stringGenerated() {
         Task task = new Event("career fair", "2023-08-29 10:00", "2023-08-31 18:00", "");
         task.markAsDone();
-        assertEquals("E|✅|career fair||2023-08-29 10:00|2023-08-31 18:00", task.getFileString());
+        assertEquals("E|🟢|career fair||2023-08-29 10:00|2023-08-31 18:00", task.getFileString());
     }
 }

@@ -26,14 +26,14 @@ public class TaskTest {
     @Test
     void testGetFileString_unmarkedTask_stringGenerated() {
         Task task = new Task(TaskType.EVENT, "ctf", "");
-        assertEquals("⭕️|ctf|", task.getFileString());
+        assertEquals("🔴|ctf|", task.getFileString());
     }
 
     @Test
     void testGetFileString_markedTask_stringGenerated() {
         Task task = new Task(TaskType.TODO, "laundry", "");
         task.markAsDone();
-        assertEquals("✅|laundry|", task.getFileString());
+        assertEquals("🟢|laundry|", task.getFileString());
     }
 
     @Test
