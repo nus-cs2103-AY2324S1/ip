@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,23 +38,22 @@ public class TaskList {
     // Adds the Task argument at the end of the list
     public ArrayList<Task> addTask(Task task) {
         tasks.add(task);
-        new Storage("./data/duke.txt").save(tasks);
+        new Storage("./data/dookie.txt").save(tasks);
         return tasks;
     }
 
     public void saveTasks() {
-        new Storage("./data/duke.txt").save(this.tasks);
+        new Storage("./data/dookie.txt").save(this.tasks);
     }
 
     /**
-     * Reads the duke.txt file, unserializes it and obtain the arraylist representing saved tasks.
      * Depending on the purpose, information in the arraylist is updated, and the whole arraylist is
-     * serialized and saved again in the duke.txt file.
+     * serialized and saved again in the dookie.txt file.
      *
      * @param index The task number specified.
      * @param purpose The type of update: mark or delete.
      * @return The task which has been marked/deleted.
-     * @throws InvalidDataFormatException if the data in the duke.txt file is not in the correct format.
+     * @throws InvalidDataFormatException if the data in the dookie.txt file is not in the correct format.
      */
     //
     public Task updateTasks(int index, String purpose) throws InvalidDataFormatException {
@@ -155,10 +154,6 @@ public class TaskList {
     public boolean hasValidDuration(String cmd) {
         String taskWithDuration = cmd.split(" ", 2)[1];
         String[] time = taskWithDuration.split("/");
-
-        for (int i = 0; i < time.length; i++) {
-            System.out.println(time[i]);
-        }
 
         // Check if there is a valid duration
         if (time.length != 3) {

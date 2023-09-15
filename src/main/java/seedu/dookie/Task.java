@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 import java.io.Serializable;
 
 /**

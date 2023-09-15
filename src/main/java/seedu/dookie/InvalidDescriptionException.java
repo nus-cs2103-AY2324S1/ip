@@ -1,9 +1,9 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
  * Encapsulates the exception where the name of the task inputted is not specified.
  */
-public class InvalidDescriptionException extends DukeException {
+public class InvalidDescriptionException extends DookieException {
     /**
      * Creates an InvalidDescriptionException.
      *

@@ -1,9 +1,9 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
- * Encapsulates the exception where the saved data in duke.txt is not formatted correctly.
+ * Encapsulates the exception where the saved data in dookie.txt is not formatted correctly.
  */
-public class InvalidDataFormatException extends DukeException{
+public class InvalidDataFormatException extends DookieException{
     /**
      * Creates an InvalidDataFormatException.
      */

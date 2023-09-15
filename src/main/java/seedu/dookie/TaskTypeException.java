@@ -1,9 +1,9 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
  * Encapsulates the exception where the task identifier command by the user is not specified.
  */
-public class TaskTypeException extends DukeException {
+public class TaskTypeException extends DookieException {
     /**
      * Creates a TaskTypeException instance.
      */

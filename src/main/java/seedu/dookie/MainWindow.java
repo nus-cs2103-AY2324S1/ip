@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -27,14 +27,14 @@ public class MainWindow extends AnchorPane {
     private Dookie dookie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dookieImage = new Image(this.getClass().getResourceAsStream("/images/DaDookie.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Dookie d) {
+    public void setDookie(Dookie d) {
         dookie = d;
     }
 
@@ -43,13 +43,13 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Dookie's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() { // This method is called whenever a query is sent.
         String input = userInput.getText();
-        // Get response based on Duke
+        // Get response based on Dookie
         String response = dookie.getResponse(input);
         appendDialog(input, response);
         userInput.clear();
@@ -58,15 +58,15 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates a DialogBox for the user and Duke and appends them to the dialogContainer.
+     * Creates a DialogBox for the user and Dookie and appends them to the dialogContainer.
      *
      * @param userText The input from the user.
-     * @param dukeResponse The response from Duke
+     * @param dookieResponse The response from Dookie
      */
-    private void appendDialog(String userText, String dukeResponse) {
+    private void appendDialog(String userText, String dookieResponse) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(dukeResponse, dukeImage)
+                DialogBox.getDookieDialog(dookieResponse, dookieImage)
         );
     }
 

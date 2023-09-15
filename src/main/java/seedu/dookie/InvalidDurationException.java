@@ -1,9 +1,9 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
  * Encapsulates the exception where the event start and end dates are not correct dates.
  */
-public class InvalidDurationException extends DukeException {
+public class InvalidDurationException extends DookieException {
     /**
      * Creates an InvalidDurationException.
      *

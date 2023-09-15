@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -40,7 +40,7 @@ public class DialogBox extends HBox {
      * Creates a new dialog box with the text and image passed.
      *
      * @param text The text to be shown.
-     * @param img The image associated with either Duke or the user.
+     * @param img The image associated with either Dookie or the user.
      */
     public DialogBox(String text, Image img) {
         try {
@@ -70,7 +70,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getDookieDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

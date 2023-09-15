@@ -1,8 +1,8 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
  * Encapsulates the Dookie class
- * Duke is the chatbot that runs the program.
+ * Dookie is the chatbot that runs the program.
  */
 public class Dookie {
     private Storage storage;
@@ -11,23 +11,23 @@ public class Dookie {
     private Parser parser;
 
     /**
-     * Creates a new Duke instance.
+     * Creates a new Dookie instance.
      */
     public Dookie() {
         ui = new Ui();
-        storage = new Storage("./data/duke.txt");
+        storage = new Storage("./data/dookie.txt");
 
         try {
             tasks = new TaskList(storage.load());
             parser = new Parser(storage, tasks, ui);
-        } catch (DukeException e) {
+        } catch (DookieException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Returns a string containing Duke's response to the user input.
+     * Returns a string containing Dookie's response to the user input.
      *
      * @param input The command given by the user.
      * @return The result of parsing that command.

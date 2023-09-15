@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Dookie using FXML.
  */
 public class Main extends Application {
 
@@ -24,14 +24,14 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(dookie);
+            fxmlLoader.<MainWindow>getController().setDookie(dookie);
             stage.show();
 
-            // Display Duke's welcome message in the GUI
+            // Display Dookie's welcome message in the GUI
             Label welcomeLabel = new Label("Hello! I'm Dookie.\n" +
                     "What can I do for you?");
-            Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-            fxmlLoader.<MainWindow>getController().getDialogContainer().getChildren().add(DialogBox.getDukeDialog(welcomeLabel.getText(), dukeImage));
+            Image dookieImage = new Image(this.getClass().getResourceAsStream("/images/DaDookie.png"));
+            fxmlLoader.<MainWindow>getController().getDialogContainer().getChildren().add(DialogBox.getDookieDialog(welcomeLabel.getText(), dookieImage));
         } catch (IOException e) {
             e.printStackTrace();
         }

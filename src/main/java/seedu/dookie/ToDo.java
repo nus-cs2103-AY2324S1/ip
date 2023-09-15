@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
  * Encapsulates the ToDo class.

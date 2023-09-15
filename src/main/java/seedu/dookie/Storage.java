@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +22,7 @@ public class Storage {
     }
 
     /**
-     * Reads the data in the duke.txt file, unserializes it and returns an arraylist representing
+     * Reads the data in the dookie.txt file, unserializes it and returns an arraylist representing
      * the saved tasks.
      *
      * @return An ArrayList<Task> containing the saved tasks accumulated.
@@ -32,7 +32,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         String folderPath = "./data/";
-        String filePath = "./data/duke.txt";
+        String filePath = "./data/dookie.txt";
 
         try {
             // Check if the folder exists, create if not
@@ -48,7 +48,7 @@ public class Storage {
                 Files.createFile(file);
             }
 
-            // If the duke.txt file is empty, return an empty task arraylist
+            // If the dooike.txt file is empty, return an empty task arraylist
             if (Files.size(file) == 0) {
                 return tasks;
             }
@@ -57,7 +57,7 @@ public class Storage {
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filePath));
             tasks = (ArrayList<Task>) inputStream.readObject();
 
-            // Throws exception if data in duke.txt is not an ArrayList<Task>
+            // Throws exception if data in dookie.txt is not an ArrayList<Task>
             if (tasks instanceof ArrayList<?>) {
                 tasks = (ArrayList<Task>) tasks;
             } else {
@@ -74,14 +74,14 @@ public class Storage {
     }
 
     /**
-     * Removes all data from the duke.txt file. Takes the task arraylist argument, serializes it
-     * and stores it in the duke.txt file.
+     * Removes all data from the dookie.txt file. Takes the task arraylist argument, serializes it
+     * and stores it in the dookie.txt file.
      *
-     * @param data The new ArrayList of tasks to be overwritten in the duke.txt file.
+     * @param data The new ArrayList of tasks to be overwritten in the dookie.txt file.
      */
     public void save(ArrayList<Task> data) {
-        // Delete all data from duke.txt file
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("./data/duke.txt", false))) {
+        // Delete all data from dookie.txt file
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("./data/dookie.txt", false))) {
             outputStream.writeObject(data);
         } catch (IOException e) {
             e.printStackTrace();

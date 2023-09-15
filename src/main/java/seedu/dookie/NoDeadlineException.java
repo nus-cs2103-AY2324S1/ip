@@ -1,9 +1,9 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
  * Encapsulates the exception where the deadline for a Deadline event is not specified.
  */
-public class NoDeadlineException extends DukeException {
+public class NoDeadlineException extends DookieException {
     /**
      * Creates a NoDeadlineException instance.
      */

@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +12,7 @@ public class Ui {
     public Ui() {}
 
     public String showLoadingError() {
-        return "There was an error reading your duke.txt file";
+        return "There was an error reading your dookie.txt file";
     }
 
     /**

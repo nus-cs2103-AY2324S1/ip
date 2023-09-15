@@ -1,7 +1,5 @@
-package seedu.duke;
+package seedu.dookie;
 
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -19,9 +17,9 @@ public class Parser {
     /**
      * Creates a Parser instance.
      *
-     * @param storage The Storage used for the Duke program.
-     * @param tasks The TaskList created for the Duke program.
-     * @param ui The Ui used by the Duke program.
+     * @param storage The Storage used for the Dookie program.
+     * @param tasks The TaskList created for the Dookie program.
+     * @param ui The Ui used by the Dookie program.
      */
     public Parser(Storage storage, TaskList tasks, Ui ui) {
         this.storage = storage;
@@ -63,7 +61,7 @@ public class Parser {
                 case BYE:
                     return exit();
             }
-        } catch (DukeException e) {
+        } catch (DookieException e) {
             return e.getMessage();
         } catch (AssertionError e) {
             return "Assertion failed: " + e.getMessage();
@@ -142,9 +140,7 @@ public class Parser {
         String taskName = taskWithDeadline.split("/", 2)[0];
         String deadlineDescription = taskWithDeadline.split("/", 2)[1];
 
-        System.out.println("I am about to check the deadline");
         LocalDateTime dateTime = checkDeadline(deadlineDescription);
-        System.out.println("I have obtained a deadline");
         if (dateTime == null) {
             throw new InvalidDeadlineException(deadlineDescription);
         }
@@ -193,7 +189,7 @@ public class Parser {
      * @throws InvalidDescriptionException When there is only one word in the user input.
      * @throws InvalidIntegerException When the argument specified is not an integer.
      * @throws InvalidTaskNumberException When the integer specified is not a task number.
-     * @throws InvalidDataFormatException When the format duke.txt file is incorrect.
+     * @throws InvalidDataFormatException When the format dookie.txt file is incorrect.
      */
     private String parseDeleteCommand(String cmd) throws InvalidDescriptionException,
                                                             InvalidIntegerException,
@@ -228,7 +224,7 @@ public class Parser {
      * @throws InvalidDescriptionException When there is only one word in the user input.
      * @throws InvalidIntegerException When the argument specified is not an integer.
      * @throws InvalidTaskNumberException When the integer specified is not a task number.
-     * @throws InvalidDataFormatException When the format duke.txt file is incorrect.
+     * @throws InvalidDataFormatException When the format dookie.txt file is incorrect.
      */
     private String parseMarkCommand(String cmd) throws InvalidDescriptionException,
                                                         InvalidIntegerException,
@@ -263,7 +259,7 @@ public class Parser {
      * @throws InvalidDescriptionException When there is only one word in the user input.
      * @throws InvalidIntegerException When the argument specified is not an integer.
      * @throws InvalidTaskNumberException When the integer specified is not a task number.
-     * @throws InvalidDataFormatException When the format duke.txt file is incorrect.
+     * @throws InvalidDataFormatException When the format dookie.txt file is incorrect.
      */
     private String parseUnmarkCommand(String cmd) throws InvalidDescriptionException,
                                                             InvalidIntegerException,
@@ -324,7 +320,7 @@ public class Parser {
      * @throws InvalidDescriptionException When there is only one word in the user input.
      * @throws InvalidIntegerException When the argument specified is not an integer.
      * @throws InvalidTaskNumberException When the integer specified is not a task number.
-     * @throws InvalidDataFormatException When the format duke.txt file is incorrect.
+     * @throws InvalidDataFormatException When the format dookie.txt file is incorrect.
      * @throws NoDeadlineException When no new deadline is specified.
      */
     private String parsePostponeCommand(String cmd) throws InvalidDescriptionException,
@@ -512,7 +508,6 @@ public class Parser {
 
             return LocalDateTime.of(year, month, day, hour, min);
         } catch (InvalidDurationException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -529,7 +524,6 @@ public class Parser {
             int listSize = storage.load().size();
             return number > 0 && number <= listSize;
         } catch (InvalidDataFormatException e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }

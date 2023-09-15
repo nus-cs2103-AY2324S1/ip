@@ -1,10 +1,10 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
  * Encapsulates the exception where the string that follows user's mark/delete operations is not
  * an integer.
  */
-public class InvalidIntegerException extends DukeException {
+public class InvalidIntegerException extends DookieException {
     /**
      * Creates an InvalidIntegerException.
      */

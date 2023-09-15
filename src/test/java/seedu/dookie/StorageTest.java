@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.dookie;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +20,7 @@ public class StorageTest {
      */
     @Test
     public void save_normalTaskArrayList_success(){
+        // Create an arraylist to store dummy tasks
         ArrayList<Task> taskList = new ArrayList<>();
         taskList.add(new ToDo("borrow books"));
         taskList.add(new Deadline("read books",
@@ -27,15 +28,18 @@ public class StorageTest {
         taskList.add(new Event("return books",
                         LocalDateTime.of(2023, 8, 23, 18, 00),
                         LocalDateTime.of(2023, 8, 23, 18, 01)));
-        new Storage("./data/duke.txt").save(taskList);
+        // Save the dummy array list into the file
+        new Storage("./data/dookie.txt").save(taskList);
 
         String correctList = "1.[T][ ] borrow books \n" +
                 "2.[D][ ] read books (by: August 23 2023, 6:00 PM)\n" +
                 "3.[E][ ] return books (from: August 23 2023, 6:00 PM to: August 23 2023, 6:01 PM)";
 
         try {
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("./data/duke.txt"));
+            // Load the tasks from the file
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("./data/dookie.txt"));
             ArrayList<Task> loadedTasks = (ArrayList<Task>) inputStream.readObject();
+            // Create a string to store the contents of the tasks
             String currentList = "";
 
             for (int i = 0; i < loadedTasks.size(); i++) {
@@ -69,7 +73,7 @@ public class StorageTest {
                         LocalDateTime.of(2023, 8, 23, 18, 00),
                         LocalDateTime.of(2023, 8, 23, 18, 01)));
 
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("./data/duke.txt", false))) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("./data/dookie.txt", false))) {
             outputStream.writeObject(taskList);
         } catch (IOException e) {
             fail();
@@ -80,7 +84,7 @@ public class StorageTest {
                 "3.[E][ ] return books (from: August 23 2023, 6:00 PM to: August 23 2023, 6:01 PM)";
 
         try {
-            ArrayList<Task> tasks = new Storage("./data/duke.txt").load();
+            ArrayList<Task> tasks = new Storage("./data/dookie.txt").load();
             String currentList = "";
 
             for (int i = 0; i < tasks.size(); i++) {

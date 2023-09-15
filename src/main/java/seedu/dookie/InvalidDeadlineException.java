@@ -1,9 +1,9 @@
-package seedu.duke;
+package seedu.dookie;
 
 /**
  * Encapsulates the exception where the deadline inputted does not contain a valid dead and/or time.
  */
-public class InvalidDeadlineException extends DukeException {
+public class InvalidDeadlineException extends DookieException {
     /**
      * Creates a new InvalidDeadlineException instance.
      *
