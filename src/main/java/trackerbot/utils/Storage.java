@@ -24,6 +24,9 @@ import trackerbot.task.TaskList;
  * @version A-JavaDoc
  */
 public class Storage {
+    private static final String PARENT_FOLDER = "TrackerBot";
+    private static final String DATA_FILE = "data.txt";
+
     /** Prevent the instantiation of Storage object. */
     private Storage() {};
 
@@ -54,7 +57,7 @@ public class Storage {
      * @see Task#toSaveString()
      */
     public static void read(TaskList tasks) throws TrackerBotException {
-        Path path = Paths.get("TrackerBot", "data.txt");
+        Path path = Paths.get(PARENT_FOLDER, DATA_FILE);
         if (Files.notExists(path)) {
             return;
         }
@@ -86,7 +89,7 @@ public class Storage {
      * @throws TrackerBotException If the save data fails to generate, with specified reason.
      */
     public static void save(TaskList tasks) throws TrackerBotException {
-        Path path = Paths.get("TrackerBot", "data.txt");
+        Path path = Paths.get(PARENT_FOLDER, DATA_FILE);
         File file = path.toFile();
         try {
             Files.createDirectories(path.getParent());
