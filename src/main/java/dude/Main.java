@@ -3,8 +3,11 @@ package dude;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -20,6 +23,9 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
 
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dude = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @Override
     public void start(Stage stage) {
@@ -75,6 +81,45 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(userInput, 5.0);
         AnchorPane.setBottomAnchor(userInput, 5.0);
 
+        // Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        // Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
         //@@author
+    }
+
+    //@@author xenosf-reused
+    // Reused from https://se-education.org/guides/tutorials/javaFxPart2.html
+    // With minor alterations
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dudeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDudeDialog(dudeText, new ImageView(dude))
+        );
+        userInput.clear();
+    }
+    //@@author
+
+    /**
+     * Generates response based on user input.
+     *
+     * @param input User input.
+     */
+    private String getResponse(String input) {
+        return "Dude heard: " + input;
     }
 }
