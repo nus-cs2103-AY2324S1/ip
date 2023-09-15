@@ -59,7 +59,23 @@ public class TaskList {
                     + "________________________________________________________\n";
             storage.saveTasks(things);
             return output;
-        } else {
+        } else if (message.startsWith("help")){
+            output += "________________________________________________________\n"
+                    + "Here are the available commands:\n"
+                    + "1. todo <description>: Adds a new todo task.\n"
+                    + "2. deadline <description> /by <date>: Adds a new deadline task.\n"
+                    + "3. event <description> /from <start date> /to <end date>: Adds a new event task.\n"
+                    + "4. list: Lists all tasks.\n"
+                    + "5. mark <task number>: Marks a task as done.\n"
+                    + "6. unmark <task number>: Marks a task as undone.\n"
+                    + "7. delete <task number>: Deletes a task.\n"
+                    + "8. find <keyword>: Finds tasks containing the specified keyword in their description.\n"
+                    + "9. bye: Exits the application.\n"
+                    + "Use the commands without '<>' and replace <description>, <date>, <start date>, <end date>, and <task number> accordingly.\n"
+                    + "Example usage: todo Buy groceries";
+            return output;
+        }
+        else {
             // Process other commands using the command method
             if (message.startsWith("todo")) {
                 // check if the command is valid otherwise throw errors
