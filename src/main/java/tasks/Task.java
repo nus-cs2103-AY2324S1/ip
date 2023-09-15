@@ -24,6 +24,15 @@ public abstract class Task {
     }
 
     /**
+     * Takes in the new description and update the task description accordingly.
+     *
+     * @param newDescription is the new description that will replace the previous description.
+     */
+    public void editDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
      * Changes the current completion status of the task to true or false if it is currently false or true respectively.
      */
     public void updateCompletionStatus() {

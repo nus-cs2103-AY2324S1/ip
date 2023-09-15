@@ -39,6 +39,14 @@ public class Deadline extends Task {
         this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
+    public void edit(String newDetails) {
+        String newDescription = newDetails.split(" ")[0];
+        String newBy = newDetails.split(" /by ")[1];
+
+        super.editDescription(newDescription);
+        this.by = newBy;
+        this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+    }
 
     @Override
     public String getType() {

@@ -1,5 +1,7 @@
 package tasks;
 
+import exceptions.IncorrectInputException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -44,6 +46,23 @@ public class Event extends Task {
         this.to = period.split("-")[1];
 
         this.start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+    }
+
+    public void edit(String newDetails) {
+        String[] splitDetails = newDetails.split(" /from "); //Split remaining args into description + (from and to)
+        final String newDescription = splitDetails[0];
+        String[] timeFromTo = splitDetails[1].split(" /to ");
+
+        if (splitDetails.length < 2) {
+            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/from\"");
+        } else if (timeFromTo.length < 2) {
+            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/to\"");
+        }
+
+        super.editDescription(newDescription);
+        this.from = timeFromTo[0];;
+        this.to = timeFromTo[1];;
+        this.start = LocalDateTime.parse(this.from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
     @Override

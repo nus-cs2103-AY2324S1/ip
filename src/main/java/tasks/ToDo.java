@@ -5,7 +5,7 @@ package tasks;
  *
  * @author Sebastian Tay
  */
-public class ToDo extends Task {
+public final class ToDo extends Task {
     static final String SYMBOL = "T";
 
     public ToDo(String description) {
@@ -14,6 +14,15 @@ public class ToDo extends Task {
 
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
+    }
+
+    /**
+     * Return a new task with the updated description but same completion status.
+     *
+     * @param newDescription is the description that the task is to be updated with.
+     */
+    public void edit(String newDescription) {
+        super.editDescription(newDescription);
     }
 
     @Override

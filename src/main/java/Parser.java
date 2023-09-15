@@ -71,26 +71,29 @@ public class Parser {
 
         assert !(argType.contains(WHITE_SPACE)) : ERROR_MESSAGE;
         if (argType.equals("bye")) {
-            //User wishes to exit the program
+            //Exit the program
             return 0;
         } else if (argType.equals("list")) {
-            //User wishes to see his listed missions
+            //See listed missions
             return 1;
         } else if (argType.equals("mark")) {
-            //User wishes to mark task as done
+            //Mark task as done
             return 2;
         } else if (argType.equals("unmark")) {
-            //User wishes to mark task as undone
+            //Mark task as undone
             return 3;
         } else if (argType.equals("delete")) {
-            //User wishes to delete a task
+            //Delete task
             return 4;
         } else if (argType.equals("todo") || argType.equals("deadline") || argType.equals("event")) {
-            //User wishes to add a new task
+            //Add a new task
             return 5;
         } else if (argType.equals("find")) {
-            //User wishes to find a task by a keyword
+            //Find a task by a keyword
             return 6;
+        } else if (argType.equals("update")) {
+            //Edit task
+            return 7;
         } else {
             return errorCode;
         }
@@ -101,7 +104,7 @@ public class Parser {
      *
      * @param args
      * @return an integer corresponding to the index of the task that we want.
-     * @throws NumberFormatException
+     * @throws NumberFormatException if args does not contain an integer as the second word
      * @throws IncorrectInputException when the user did not input any additional arguments or more arguments
      *    than required.
      */
@@ -113,8 +116,6 @@ public class Parser {
 
         if (length < 2) {
             throw new NoDescriptionException("There is no given task index.");
-        } else if (length > 2) {
-            throw new ExcessiveArgumentException("There are too many arguments.");
         }
 
         final int offset = -1; //Display list is 1 more greater than index
@@ -226,6 +227,36 @@ public class Parser {
         final String keyword = arg.toLowerCase().replaceFirst("find ", EMPTY_STRING);
 
         return keyword;
+    }
+
+    public static String removeMethodType(String input) {
+        final int method = parse(input);
+
+        assert method > 1 : "Invalid method call of removeMethodType on single word commands";
+        switch (method) {
+        case 2:
+            return input.replace("mark ", EMPTY_STRING);
+
+        case 3:
+            return input.replace("unmark ", EMPTY_STRING);
+
+        case 4:
+            return input.replace("delete ", EMPTY_STRING);
+
+        case 5:
+            final String type = decomposeIntoWords(input)[0];
+            return input.replace(type + WHITE_SPACE, EMPTY_STRING);
+
+        case 6:
+            return input.replace("find ", EMPTY_STRING);
+
+        case 7:
+            return input.replace("update ", EMPTY_STRING);
+
+        default:
+            //No method type
+            return input;
+        }
     }
 
     private static String[] decomposeIntoWords(String arg) {

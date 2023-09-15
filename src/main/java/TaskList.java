@@ -6,7 +6,10 @@ import java.util.stream.Collectors;
 
 import exceptions.SavedDataFormatException;
 import exceptions.UpdateDataException;
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
+import tasks.ToDo;
 
 /**
  * TaskList encapsulates the task lists and operations related to the task lists.
@@ -169,5 +172,40 @@ public class TaskList {
                 .collect(Collectors.toList());
 
         return new ArrayList<>(results);
+    }
+
+    /**
+     * Edit the details of the task in the list and return a String showing the new task details.
+     *
+     * @param index is the index of the task we are editing.
+     * @param newDetails is the new details of the task that we are editing.
+     * @return a String containing the new task details.
+     */
+    public String editTask(int index, String newDetails) {
+        final int offset = 1;
+        Task task = tasks.get(index);
+        final String message = "Successfully updated task at index " + (index + offset) + " to:\n";
+
+        if (task instanceof ToDo) {
+            ((ToDo) task).edit(newDetails);
+
+        } else if (task instanceof Event) {
+            ((Event) task).edit(newDetails);
+
+        } else if (task instanceof Deadline) {
+            ((Deadline) task).edit(newDetails);
+
+        }
+
+        try {
+            assert storage != null : "Storage is not assigned to anything yet";
+            storage.updateData(tasks, false);
+
+            return message + task;
+        } catch (IOException e) {
+            return "Error writing to file.";
+        } catch (UpdateDataException e) {
+            return e.toString();
+        }
     }
 }

@@ -82,6 +82,9 @@ public class Veda {
         case 6:
             return getListOfMission(input);
 
+        case 7:
+            return editTask(input);
+
         default:
             return errorInputResponse;
         }
@@ -140,5 +143,12 @@ public class Veda {
         final String message = "Retrieved the following missions containing the keyword \"" + keyword + "\":";
 
         return ui.getListOfMissions(tasks.findKeyword(keyword), message);
+    }
+
+    private String editTask(String input) {
+        final int taskIndex = Parser.getTargetIndex(input);
+        final String newDetails = Parser.removeMethodType(input).replaceFirst((taskIndex + 1) + " ", "");
+
+        return tasks.editTask(taskIndex, newDetails);
     }
 }
