@@ -35,6 +35,7 @@ public class Storage {
         }
         File f = new File(filePath);
         f.createNewFile();
+        assert f.exists();
         Scanner s = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {
