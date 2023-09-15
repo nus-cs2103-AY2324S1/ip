@@ -118,7 +118,7 @@ public abstract class Task {
         String postString = "(";
 
         for (String s : this.tags) {
-            postString += s + " ";
+            postString += "#" + s + " ";
         }
 
         postString = postString.substring(0, postString.length() - 1);
@@ -132,7 +132,23 @@ public abstract class Task {
      * @return the String representation of this task.
      */
     public String toString() {
-        return this.preString() + this.mainString() + this.postString();
+        String thisString = "";
+
+        String preString = this.preString();
+        String mainString = this.mainString();
+        String postString = this.postString();
+
+        if (preString.length() > 0) {
+            thisString += preString + " ";
+        }
+
+        thisString += mainString;
+
+        if (postString.length() > 0) {
+            thisString += " " + postString;
+        }
+
+        return thisString;
     }
 
     /**
