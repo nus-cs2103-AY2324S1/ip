@@ -6,6 +6,7 @@ import didier.Storage;
 import didier.TaskList;
 import didier.exception.DidierException;
 import didier.exception.DuplicateTaskException;
+import didier.exception.EventTimeMismatchException;
 import didier.task.Deadline;
 import didier.task.Event;
 import didier.task.Task;
@@ -41,6 +42,9 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList taskList, Storage storage) throws DidierException {
         if (this.from != null && this.to != null) {
+            if (this.to.isBefore(this.from)) {
+                throw new EventTimeMismatchException();
+            }
             task = new Event(this.description, this.from, this.to);
         } else if (this.by != null) {
             task = new Deadline(this.description, this.by);
