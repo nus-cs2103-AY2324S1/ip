@@ -10,14 +10,14 @@ import dude.task.TaskList;
  */
 public abstract class DudeCommand {
     /**
-     * Executes command.
+     * Executes command and returns string response.
      *
      * @param taskList TaskList to operate on.
-     * @param ui       Ui to use.
      * @param storage  Storage to operate on.
+     * @return Response to command.
      * @throws DudeException If command execution fails.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DudeException;
+    public abstract String execute(TaskList taskList, Storage storage) throws DudeException;
 
     /**
      * Returns true if program should exit after command.

@@ -28,27 +28,18 @@ public class Dude {
         }
     }
 
-    public static void main(String[] args) {
-        Dude dude = new Dude("./data/dude.txt");
-        dude.run();
-    }
-
     /**
-     * Runs Dude.
+     * Reads user input and returns response to it.
+     *
+     * @param input User input.
+     * @return String response to user input.
      */
-    public void run() {
-        ui.printHello();
-        // Input loop -- wait for input, respond, repeat
-        boolean shouldContinue = true;
-        while (shouldContinue) {
-            try {
-                String input = ui.readInput();
-                DudeCommand c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                shouldContinue = !c.isExit();
-            } catch (DudeException e) {
-                ui.printMessage(e.getMessage());
-            }
+    public String getResponse(String input) {
+        try {
+            DudeCommand c = Parser.parse(input);
+            return c.execute(tasks, storage);
+        } catch (DudeException e) {
+            return e.getMessage();
         }
     }
 }

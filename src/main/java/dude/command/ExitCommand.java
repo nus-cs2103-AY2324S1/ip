@@ -15,8 +15,8 @@ public class ExitCommand extends DudeCommand {
      * Prints goodbye message and exits.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printMessage(GOODBYE_MSG);
+    public String execute(TaskList taskList, Storage storage) {
+        return GOODBYE_MSG;
     }
 
     /**

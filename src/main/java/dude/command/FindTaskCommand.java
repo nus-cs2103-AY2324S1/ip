@@ -1,7 +1,6 @@
 package dude.command;
 
 import dude.Storage;
-import dude.Ui;
 import dude.exception.DudeException;
 import dude.task.TaskList;
 
@@ -27,8 +26,8 @@ public class FindTaskCommand extends DudeCommand {
      * Finds tasks with description matching substring.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DudeException {
-        ui.printMessage(taskList.displaySearch(searchString));
+    public String execute(TaskList taskList, Storage storage) throws DudeException {
+        return taskList.displaySearch(searchString);
     }
 
     /**

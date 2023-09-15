@@ -17,19 +17,20 @@ import javafx.stage.Stage;
  * Main class that handles the JavaFX GUI of Dude.
  */
 public class Main extends Application {
+    private Dude dude;
+
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
 
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dude = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImg = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dudeImg = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @Override
     public void start(Stage stage) {
-        Dude dude = new Dude("./data/dude.txt");
+        dude = new Dude("./data/dude.txt");
         //@@author xenosf-reused
         // Reused from https://se-education.org/guides/tutorials/javaFxPart2.html
         // With minor alterations
@@ -107,8 +108,8 @@ public class Main extends Application {
         Label userText = new Label(userInput.getText());
         Label dudeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDudeDialog(dudeText, new ImageView(dude))
+                DialogBox.getUserDialog(userText, new ImageView(userImg)),
+                DialogBox.getDudeDialog(dudeText, new ImageView(dudeImg))
         );
         userInput.clear();
     }
@@ -120,6 +121,6 @@ public class Main extends Application {
      * @param input User input.
      */
     private String getResponse(String input) {
-        return "Dude heard: " + input;
+        return dude.getResponse(input);
     }
 }

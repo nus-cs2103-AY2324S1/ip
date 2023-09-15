@@ -30,12 +30,11 @@ public class UnmarkTaskCommand extends DudeCommand {
      * Marks task as not done and saves list to disk.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DudeException {
+    public String execute(TaskList taskList, Storage storage) throws DudeException {
         Task task = taskList.getTask(taskIndex);
         task.markAsNotDone();
         storage.save(taskList.toArrayList());
-        ui.printMessage(
-                String.format(MARKED_AS_NOT_DONE_PREFIX + task));
+        return String.format(MARKED_AS_NOT_DONE_PREFIX + task);
     }
 
     /**
