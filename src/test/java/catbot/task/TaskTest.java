@@ -13,7 +13,7 @@ public class TaskTest {
     public void DoneTest() {
         NamedParameterMap namedParameterMap = new NamedParameterMap();
         namedParameterMap.addNamedParameter("", "placeholder description");
-        Optional<Task> optionalTask = Task.Todo.createIfValidElse(
+        Optional<Task> optionalTask = Todo.createIfValidElse(
                 namedParameterMap,
                 (invalidParameterState, map) -> {
                     throw new AssertionError("Should not be invalid");
