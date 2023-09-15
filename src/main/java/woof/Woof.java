@@ -54,6 +54,8 @@ public class Woof {
      * @return `true` if the string is a valid date-time, `false` otherwise.
      */
     public static boolean validateDateTime(String string) {
+        assert string != null : "datetime string cannot be null";
+
         try {
             LocalDate.parse(string, getDateTimeFormatter());
         } catch (DateTimeParseException e) {

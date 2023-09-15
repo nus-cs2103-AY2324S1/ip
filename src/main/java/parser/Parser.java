@@ -57,9 +57,15 @@ public class Parser {
      * @return An array of individual arguments.
      */
     public static String[] getArgs(String rawCommand) {
+        assert rawCommand != null : "raw command cannot be null";
+
         ArrayList<String> result = new ArrayList<>();
-        String[] words = rawCommand.split("\\s+");
+        String[] words = rawCommand.trim().split("\\s+");
+        assert words.length > 0 : "words need a main command";
+
         String mainCommand = words[0];
+        assert mainCommand != null : "main command cannot be null";
+
         StringBuilder subCommand = new StringBuilder();
 
         result.add(mainCommand);

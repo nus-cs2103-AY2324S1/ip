@@ -28,6 +28,8 @@ public class ByeCommand extends Command {
      * @return An empty string if the command is valid, or an error message if it's invalid.
      */
     public static String validate(String rawCommand) {
+        assert rawCommand != null : "raw command cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 1) {
@@ -48,6 +50,8 @@ public class ByeCommand extends Command {
      * @param taskList The task list (not used in this command).
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String validationError = validate(super.getRawCommand());
         if (isValidationError(validationError)) {
             return validationError;

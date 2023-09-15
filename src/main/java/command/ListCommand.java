@@ -27,6 +27,8 @@ public class ListCommand extends Command {
      * @return An empty string if the command is valid, or an error message if it's invalid.
      */
     public static String validate(String rawCommand) {
+        assert rawCommand != null : "raw command cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
         if (args.length != 1) {
             return "Invalid number of arguments for list command.";
@@ -46,6 +48,8 @@ public class ListCommand extends Command {
      * @param taskList The task list from which tasks are listed.
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String validationError = validate(super.getRawCommand());
         if (isValidationError(validationError)) {
             return validationError;

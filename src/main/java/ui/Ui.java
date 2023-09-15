@@ -14,7 +14,7 @@ public class Ui {
      * @return The width of the chat window.
      */
     public static int getChatWidth() {
-        return 80;
+        return 51;
     }
 
     /**

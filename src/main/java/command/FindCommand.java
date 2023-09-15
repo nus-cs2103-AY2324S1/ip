@@ -24,6 +24,8 @@ public class FindCommand extends Command {
      * @return An empty string if the command is valid, or an error message if it's invalid.
      */
     public static String validate(String rawCommand) {
+        assert rawCommand != null : "raw command cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
         if (args.length < 2) {
             return "Invalid number of arguments for find command.";
@@ -42,6 +44,8 @@ public class FindCommand extends Command {
      * @param taskList The task list in which to search for tasks.
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String rawCommand = super.getRawCommand();
         String validationError = validate(rawCommand);
         if (isValidationError(validationError)) {

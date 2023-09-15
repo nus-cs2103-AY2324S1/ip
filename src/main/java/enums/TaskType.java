@@ -25,6 +25,6 @@ public enum TaskType {
      * @return The symbol associated with the task type.
      */
     public String toSymbol() {
-        return symbol;
+        return this.symbol;
     }
 }

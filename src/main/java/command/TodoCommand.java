@@ -28,6 +28,8 @@ public class TodoCommand extends Command {
      * @return An empty string if the command is valid, or an error message if it's invalid.
      */
     public static String validate(String rawCommand) {
+        assert rawCommand != null : "raw command cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
         if (args.length != 2) {
             return "Invalid number of arguments for todo command.";
@@ -47,6 +49,8 @@ public class TodoCommand extends Command {
      * @param taskList The task list to which the todo task is added.
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String rawCommand = super.getRawCommand();
         String validationError = validate(rawCommand);
         if (isValidationError(validationError)) {

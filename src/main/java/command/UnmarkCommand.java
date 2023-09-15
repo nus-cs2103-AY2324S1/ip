@@ -29,6 +29,9 @@ public class UnmarkCommand extends Command {
      * @return An empty string if the command is valid, or an error message if it's invalid.
      */
     public static String validate(String rawCommand, TaskList taskList) {
+        assert rawCommand != null : "raw command cannot be null";
+        assert taskList != null : "task list cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
         if (args.length != 2) {
             return "Invalid number of arguments for unmark command.";
@@ -53,6 +56,8 @@ public class UnmarkCommand extends Command {
      * @param taskList The task list in which the task is marked as undone.
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String validationError = validate(super.getRawCommand(), taskList);
         if (isValidationError(validationError)) {
             return validationError;

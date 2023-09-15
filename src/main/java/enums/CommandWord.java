@@ -52,6 +52,6 @@ public enum CommandWord {
      * @return The string representation of the command word.
      */
     public String getValue() {
-        return value;
+        return this.value;
     }
 }

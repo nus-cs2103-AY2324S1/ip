@@ -29,6 +29,9 @@ public class DialogBox extends HBox {
      * @param img  The image to be displayed in the dialog box.
      */
     private DialogBox(String message, Image img) {
+        assert message != null : "message cannot be null";
+        assert img != null : "image cannot be null";
+
         this.setPadding(new Insets(10.0, 0.0, 10.0, 0.0));
         DropShadow dropShadow = createDropShadow();
         Circle displayPicture = createDisplayPicture(img);
@@ -60,6 +63,8 @@ public class DialogBox extends HBox {
      * @return The configured Circle element for the display picture.
      */
     private Circle createDisplayPicture(Image img) {
+        assert img != null : "image cannot be null";
+
         Circle displayPicture = new Circle(0, 0, 50);
         displayPicture.setFill(new ImagePattern(img));
         displayPicture.setEffect(createDropShadow());
@@ -73,6 +78,8 @@ public class DialogBox extends HBox {
      * @return The configured Text element.
      */
     private Text createText(String message) {
+        assert message != null : "message cannot be null";
+
         return new Text(message);
     }
 
@@ -83,6 +90,8 @@ public class DialogBox extends HBox {
      * @return The configured Rectangle element for the message bubble.
      */
     private Rectangle createMessageBubble(Text text) {
+        assert text != null : "text cannot be null";
+
         double messageBubbleHeight = text.getBoundsInLocal().getHeight() * 1.255 + 20;
         Rectangle messageBubble = new Rectangle(560, messageBubbleHeight);
         messageBubble.setFill(Color.WHITE);
@@ -96,13 +105,15 @@ public class DialogBox extends HBox {
      * Create a StackPane to combine the message bubble and text message.
      *
      * @param messageBubble The message bubble element.
-     * @param message       The text message element.
+     * @param text       The text message element.
      * @return The configured StackPane containing the message bubble and text message.
      */
-    private StackPane createBubbleDialog(Rectangle messageBubble, Text message) {
+    private StackPane createBubbleDialog(Rectangle messageBubble, Text text) {
+        assert text != null : "message cannot be null";
+
         Insets bubbleMargin = new Insets(20.0); // top, right, bottom, left
-        StackPane bubbleDialog = new StackPane(messageBubble, message);
-        StackPane.setMargin(message, bubbleMargin);
+        StackPane bubbleDialog = new StackPane(messageBubble, text);
+        StackPane.setMargin(text, bubbleMargin);
         bubbleDialog.setAlignment(Pos.TOP_LEFT);
         bubbleDialog.setStyle(
             "-fx-padding: 0px 20px 0px 20px;"
@@ -129,6 +140,9 @@ public class DialogBox extends HBox {
      * @return A new `DialogBox` representing the user's dialog.
      */
     public static DialogBox getUserDialog(String message, Image img) {
+        assert message != null : "message cannot be null";
+        assert img != null : "image cannot be null";
+
         return new DialogBox(message, img);
     }
 
@@ -140,6 +154,9 @@ public class DialogBox extends HBox {
      * @return A new `DialogBox` representing the application's dialog.
      */
     public static DialogBox getBotDialog(String message, Image img) {
+        assert message != null : "message cannot be null";
+        assert img != null : "image cannot be null";
+
         var db = new DialogBox(message, img);
         db.flip();
         return db;
