@@ -6,13 +6,13 @@ package duke;
  * @author Teo Kai Sheng
  */
 public class Ui {
-    private String line = "    ______________________________________________";
+    static final String LINE = "    ______________________________________________";
 
     /**
      * Displays a greeting message to the user.
      */
     public void greet() {
-        System.out.println(line + "\n    Hello, I'm your task manager :)\n    What can I do for you?\n" + line);
+        System.out.println(LINE + "\n    Hello, I'm your task manager :)\n    What can I do for you?\n" + LINE);
     }
 
     public String initialResponse() {
@@ -31,7 +31,7 @@ public class Ui {
      * Displays a horizontal line.
      */
     public void horizontalLine() {
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
