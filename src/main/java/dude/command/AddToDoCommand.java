@@ -2,11 +2,11 @@ package dude.command;
 
 import java.io.IOException;
 
-import dude.note.NoteList;
 import dude.Storage;
+import dude.note.NoteList;
 import dude.task.TaskList;
-import dude.ui.Ui;
 import dude.task.ToDo;
+import dude.ui.Ui;
 
 /**
  * Represents a command that adds a ToDo task.

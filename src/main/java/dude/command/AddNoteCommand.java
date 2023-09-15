@@ -2,9 +2,9 @@ package dude.command;
 
 import java.io.IOException;
 
+import dude.Storage;
 import dude.note.Note;
 import dude.note.NoteList;
-import dude.Storage;
 import dude.task.TaskList;
 import dude.ui.Ui;
 

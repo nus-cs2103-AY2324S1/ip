@@ -3,11 +3,11 @@ package dude.command;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import dude.note.NoteList;
 import dude.Storage;
+import dude.note.NoteList;
+import dude.task.Event;
 import dude.task.TaskList;
 import dude.ui.Ui;
-import dude.task.Event;
 
 /**
  * Represents a command that adds an Event task.
