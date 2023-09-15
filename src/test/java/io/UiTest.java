@@ -3,15 +3,13 @@ package io;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
-
 import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
-
-
 
 
 public class UiTest {
@@ -29,8 +27,8 @@ public class UiTest {
     @Test
     public void displayTask_event_output() {
         String name = "hello ";
-        LocalDateTime start = LocalDateTime.of(2012,1,1,1,1);
-        LocalDateTime end = LocalDateTime.of(2012,1,1,2,2);
+        LocalDateTime start = LocalDateTime.of(2012, 1, 1, 1, 1);
+        LocalDateTime end = LocalDateTime.of(2012, 1, 1, 2, 2);
         Ui ui = new Ui();
         Event input = new Event(name, start, end);
         String output = ui.displayTask(input);
