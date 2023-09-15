@@ -1,3 +1,9 @@
+# Chatbot name
+
+Chad
+
+---
+
 # User Guide
 
 ## Features
@@ -6,9 +12,17 @@
 
 Displays the list of tasks.
 
-### Exit Command
+### Todo Command
 
-Exits the application.
+Adds a new to-do task.
+
+### Deadline Command
+
+Adds a new task with a specific deadline.
+
+### Event Command
+
+Adds a new event task.
 
 ### Delete Command
 
@@ -26,17 +40,9 @@ Unmarks a completed task.
 
 Searches for tasks containing a specific keyword.
 
-### Todo Command
+### Exit Command
 
-Adds a new to-do task.
-
-### Deadline Command
-
-Adds a new task with a specific deadline.
-
-### Event Command
-
-Adds a new event task.
+Exits the application.
 
 ## Usage
 
@@ -64,22 +70,67 @@ You have 4 tasks in the list.
 
 ---
 
-### `bye` - Exit Program
+### `todo` - Add Todo Task
 
-Exits the program.
+Adds a new todo task with the specified description.
 
-Format: `bye`
+Format: `todo DESC`
 
 Example of usage:
 
 ```
-bye
+todo Submit IP for CS2103T
 ```
 
 Expected outcome:
 
 ```
-expected output
+Got it. I've added this task:
+	[T][ ] Submit IP for CS2103T
+
+You have 4 tasks in the list.
+```
+
+---
+
+### `deadline` - Add Deadline Task
+
+Adds a new deadline task with the specified description and deadline.
+
+Format: `deadline DESC /by DATETIME (yyyy-MM-dd HH:mm>)`
+
+Example of usage:
+
+```
+deadline Submit TP submission /by 2023-09-15 23:59
+```
+
+Expected outcome:
+
+```
+Got it. I've added this task:
+	[D][ ] Submit TP submission (by: Sep 15 2023 23:59)
+```
+
+---
+
+### `event` - Add Event Task
+
+Adds a new event task with the specified description and duration.
+
+Format: `event DESC /from DATETIME (yyyy-MM-dd HH:mm>) /to DATETIME (yyyy-MM-dd HH:mm>)`
+
+Example of usage:
+
+```
+event CS2103T PE /from 2023-11-17 16:00 /to 2023-11-17 18:00
+```
+
+Expected outcome:
+
+```
+Got it. I've added this task:
+	[E][ ] CS2103T PE (from: Nov 17 2023 16:00 to: Nov 17 2023 18:00)
 ```
 
 ---
@@ -171,67 +222,22 @@ Here are the matching tasks in your list:0.[T][X] borrow book
 
 ---
 
-### `todo` - Add Todo Task
+### `bye` - Exit Program
 
-Adds a new todo task with the specified description.
+Exits the program.
 
-Format: `todo DESC`
+Format: `bye`
 
 Example of usage:
 
 ```
-todo Submit IP for CS2103T
+bye
 ```
 
 Expected outcome:
 
 ```
-Got it. I've added this task:
-	[T][ ] Submit IP for CS2103T
-
-You have 4 tasks in the list.
-```
-
----
-
-### `deadline` - Add Deadline Task
-
-Adds a new deadline task with the specified description and deadline.
-
-Format: `deadline DESC /by DATETIME (yyyy-MM-dd HH:mm>)`
-
-Example of usage:
-
-```
-deadline Submit TP submission /by 2023-09-15 23:59
-```
-
-Expected outcome:
-
-```
-Got it. I've added this task:
-	[D][ ] Submit TP submission (by: Sep 15 2023 23:59)
-```
-
----
-
-### `event` - Add Event Task
-
-Adds a new event task with the specified description and duration.
-
-Format: `event DESC /from DATETIME (yyyy-MM-dd HH:mm>) /to DATETIME (yyyy-MM-dd HH:mm>)`
-
-Example of usage:
-
-```
-event CS2103T PE /from 2023-11-17 16:00 /to 2023-11-17 18:00
-```
-
-Expected outcome:
-
-```
-Got it. I've added this task:
-	[E][ ] CS2103T PE (from: Nov 17 2023 16:00 to: Nov 17 2023 18:00)
+expected output
 ```
 
 ---
