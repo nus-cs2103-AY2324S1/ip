@@ -18,21 +18,6 @@ public class Ui {
     private String currInput = "";
 
     /**
-     * Draws a line
-     *
-     * @return a line
-     */
-    public String drawLine() {
-        char horizontal_line = '\u2500';
-        String line = "";
-
-        for (int i = 0; i < 50; i++) {
-            line += horizontal_line;
-        }
-        return line;
-    }
-
-    /**
      * Displays message of creating Task
      *
      * @param task
@@ -86,7 +71,6 @@ public class Ui {
     public String listPrompt(TaskList taskList) {
         List<Task> list = taskList.getList();
 
-
         String result = "Chewie found your task list:\n";
 
         for (int i = 0; i < list.size(); i++) {
@@ -99,6 +83,9 @@ public class Ui {
     }
 
     public String findPrompt(Task[] list) {
+        if (list.length == 0) {
+            return "Chewie found nothing. ";
+        }
 
        String result = "Chewie found these task:\n";
 
@@ -106,7 +93,7 @@ public class Ui {
             int index = i + 1;
             Task task = list[i];
 
-           result += index + "." + task.getStatus() + task.getTaskName() + "\n";
+            result += index + "." + task.getStatus() + task.getTaskName() + "\n";
         }
 
         return result;
@@ -117,8 +104,7 @@ public class Ui {
      *
      */
     public String startPrompt() {
-        String result = "Rrrruuuurrr, I am Chewbacca, son of Attichitcuk \nHow can Chewie help?";
-        return result;
+        return "Rrrruuuurrr, I am Chewbacca, son of Attichitcuk \nHow can Chewie help?";
     }
 
     /**
@@ -146,12 +132,16 @@ public class Ui {
         return "The date format is incorrect, please use yyyy-mm-dd format";
     }
 
-
+    /**
+     * Record the input into Ui instance
+     *
+     * @param text
+     */
     public void setCurrInput(String text) {
         this.currInput = text;
     }
 
-    public String readInput() {
+    public String getCurrInput() {
         return currInput;
     }
 

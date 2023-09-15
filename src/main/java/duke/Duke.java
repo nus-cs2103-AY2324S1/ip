@@ -38,7 +38,7 @@ public class Duke{
      */
     public static String run() {
         try {
-            String input = Ui.instance.readInput();
+            String input = Ui.instance.getCurrInput();
             Command cmd = parser.readInput(input);
             return cmd.execute(list);
 
