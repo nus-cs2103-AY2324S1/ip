@@ -15,6 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+
 /**
  * The `DialogBox` class represents a graphical dialog box for displaying messages in the GUI application.
  * It provides methods for creating user and application dialog boxes, flipping their alignment,
@@ -57,7 +58,6 @@ public class DialogBox extends HBox {
         messageBubble.setEffect(dropShadow);
         this.getChildren().addAll(bubbleDialog, displayPicture);
     }
-
 
     /**
      * Flips the dialog box, changing the alignment to place the ImageView on the left and text on the right.

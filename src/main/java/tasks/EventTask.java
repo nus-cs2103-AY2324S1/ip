@@ -40,10 +40,10 @@ public class EventTask extends Task {
      */
     public String getEventRange() {
         return String.format("\n%s~From: %s\n%s~To  : %s",
-                getTabSpace(),
-                startDate.format(super.getDateTimeformatter()),
-                getTabSpace(),
-                endDate.format(super.getDateTimeformatter()));
+            getTabSpace(),
+            startDate.format(super.getDateTimeformatter()),
+            getTabSpace(),
+            endDate.format(super.getDateTimeformatter()));
     }
 
     /**

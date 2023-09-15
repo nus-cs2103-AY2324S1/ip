@@ -1,0 +1,7 @@
+#dialogContainer {
+    -fx-background-color: #C5CBEC;
+}
+
+#dialog {
+    -fx-pref-width: 0px;
+}

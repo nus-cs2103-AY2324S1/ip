@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.ImageCursor;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -123,7 +124,6 @@ public class WoofWoof extends Application {
             scene.setCursor(imageCursor);
         });
     }
-
 
     /**
      * Load CSS styles from file paths and apply them to the scene.
