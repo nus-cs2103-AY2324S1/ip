@@ -34,6 +34,7 @@ public class DukeList {
      * @return
      */
     public Task deleteTask(int taskNum) {
+        assert taskNum > 0 : "Index cannot be less than zero";
         Task task = dukeList.remove(taskNum - 1);
         return task;
     }
