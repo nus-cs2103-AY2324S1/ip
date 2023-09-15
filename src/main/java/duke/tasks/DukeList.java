@@ -46,14 +46,16 @@ public class DukeList {
      */
     public ArrayList<Task> filterByKeyword(String keyword) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
+        keyword = keyword.toLowerCase(); // Convert keyword to lowercase
         for (Task task : dukeList) {
-            String description = task.getDescription();
+            String description = task.getDescription().toLowerCase(); // Convert description to lowercase
             if (description.contains(keyword)) {
                 filteredTasks.add(task);
             }
         }
         return filteredTasks;
     }
+
 
     /**
      * Sets task as done
