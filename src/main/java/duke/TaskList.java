@@ -47,6 +47,8 @@ public class TaskList {
      * @return The message for deleting.
      */
     public String deleteTask(int num) {
+        assert num >= 0;
+
         Task re = tasks.remove(num);
         this.storage.rewriteFile(tasks);
         return Ui.deleteTask(re, tasks);
@@ -59,6 +61,8 @@ public class TaskList {
      * @return The message for marking.
      */
     public String markTask(int num) {
+        assert num >= 0;
+
         Task t = tasks.get(num);
         t.markAsDone();
         this.storage.rewriteFile(tasks);
@@ -72,6 +76,8 @@ public class TaskList {
      * @return The message for searching results.
      */
     public String findTask(String keyword) {
+        assert keyword != null;
+
         ArrayList<Task> result = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (!tasks.get(i).toString().contains(keyword)) {

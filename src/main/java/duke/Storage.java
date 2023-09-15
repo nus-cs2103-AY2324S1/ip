@@ -59,6 +59,7 @@ public class Storage {
      * @throws FileNotFoundException If an attempt to open the file fails.
      */
     private ArrayList<Task> loadTasks(File f) throws FileNotFoundException {
+        assert f.exists();
         Scanner s = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {

@@ -13,11 +13,15 @@ public class Task {
      * @param description Description of the task.
      */
     public Task(String description) {
+        assert !description.isEmpty();
+
         this.description = description;
         this.isDone = false;
     }
 
     public Task(String description, boolean isDone) {
+        assert !description.isEmpty();
+
         this.description = description;
         this.isDone = isDone;
     }
