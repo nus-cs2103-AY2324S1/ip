@@ -107,7 +107,7 @@ public class Parser {
 
     private static Task convertTextToTask(String txt) throws HachiException {
         String[] s = txt.split(" \\| "); // need to escape | character as it means something in regex
-        Task temp;
+        Task temp; // Initialises the Task to be returned
 
         // set Task to the respective task type
         try {
