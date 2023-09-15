@@ -20,6 +20,7 @@ public class Duke {
     public String getResponse(String input) {
         Parser parser = new Parser(ui, tasks);
         String response = parser.parse(input);
+        //assert response != null;
         return response;
     }
     /**

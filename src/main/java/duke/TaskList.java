@@ -30,6 +30,7 @@ public class TaskList {
      * Displays the current list to the user.
      *
      * @param input User input.
+     * @return The String representation of the output.
      */
     public String showList(String[] input) {
         try {
@@ -53,6 +54,7 @@ public class TaskList {
      * Marks the indicated task as done.
      *
      * @param input User input.
+     * @return The String representation of the output.
      */
     public String markTask(String[] input) {
         try {
@@ -75,6 +77,7 @@ public class TaskList {
      * Marks the indicated task as not done.
      *
      * @param input User input.
+     * @return The String representation of the output.
      */
     public String unmarkTask(String[] input) {
         try {
@@ -97,6 +100,7 @@ public class TaskList {
      * Deletes the indicated task.
      *
      * @param input User input.
+     * @return The String representation of the output.
      */
     public String deleteTask(String[] input) {
         try {
@@ -121,6 +125,7 @@ public class TaskList {
      * Adds an Event to the task list.
      *
      * @param input User input.
+     * @return The String representation of the output.
      */
     public String addEvent(String[] input) {
         try {
@@ -154,6 +159,7 @@ public class TaskList {
      * Adds a Deadline to the task list.
      *
      * @param input User input.
+     * @return The String representation of the output.
      */
     public String addDeadline(String[] input) {
         try {
@@ -185,6 +191,7 @@ public class TaskList {
      * Adds a ToDo to the task list.
      *
      * @param input User input.
+     * @return The String representation of the output.
      */
     public String addToDo(String[] input) {
         try {
@@ -211,6 +218,7 @@ public class TaskList {
      * Displays all tasks in the list containing the keyword.
      *
      * @param input User input.
+     * @return The String representation of the output.
      */
     public String findTasks(String[] input) {
         try {
