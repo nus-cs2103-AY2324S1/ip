@@ -6,6 +6,8 @@ package helpers;
  * The available commands are:
  * - {@code LIST}: List all tasks.
  * - {@code TODO}: Add a new to-do task.
+ * - {@code SORT}: Sorts task aphabetically
+ * - {@code SORTDATE}: Sorts task by date
  * - {@code MARK}: Mark a task as done.
  * - {@code UNMARK}: Mark a task as undone.
  * - {@code DEADLINE}: Add a new deadline task.
@@ -16,6 +18,8 @@ package helpers;
  */
 public enum CommandEnum {
     LIST,
+    SORT,
+    SORTDATE,
     TODO,
     MARK,
     UNMARK,

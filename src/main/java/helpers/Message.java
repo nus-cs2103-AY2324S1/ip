@@ -77,6 +77,10 @@ public class Message {
         return taskList.filterTaskList(input);
     }
 
+    public String showSortedTask(TaskList taskList, boolean isAsc) {
+        return "Tasks are now sorted, macho!\n" + taskList.sortTaskList(isAsc);
+    }
+
     /**
      * Method to show error message if loading of storage fails
      *
