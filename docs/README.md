@@ -18,13 +18,16 @@
 ### Adding a task: `todo`, `event`, `deadline`, `recurring`
 
 Add a new task of the choosen type into the task list.
+
 Format:
 
 - `todo [TASKCONTENT]`
 - `event [TASKCONTENT] /from [FROMDATE] /to [TODATE]`
 - `deadline [TASKCONTENT] /by [yyyy-MM-dd]`
 - `recurring [TASKCONTENT] /time [HH-mm]`
+
 Example of usage:
+
 - `todo do 2103t project`
 - `event meeting /from today sep 19 /to tmr`
 - `deadline 2100 assignment /by 2023-10-23`
@@ -33,33 +36,63 @@ Example of usage:
 ### Deleting a task: `delete`
 
 Delete the task from the task list.
-Format: `delete [TASKNUMBER]`
-Example of usage: `delete 1`
+
+Format:
+
+`delete [TASKNUMBER]`
+
+Example of usage:
+
+`delete 1`
 
 ### Listing all the tasks: `list`
 
 List down all the tasks.
-Format: `list`
+
+Format:
+
+`list`
 
 ### Find specific tasks: `find`
 
 Find all tasks that contains the keyword.
-Format: `find [KEYWORD]`
-Example of usage: `find do`
+
+Format:
+
+`find [KEYWORD]`
+
+Example of usage:
+
+`find do`
 
 ### Marking each task: `mark`
 
 Mark the task as done with an X.
-Format: `mark [TASKNUMBER]`
-Example of usage: `mark 1`
+
+Format:
+
+`mark [TASKNUMBER]`
+
+Example of usage:
+
+`mark 1`
 
 ### Unmarking marked task: `unmark`
 
 Remove the X in marked task.
-Format: `unmark [TASKNUMBER]`
-Example of usage: `unmark 1`
+
+Format:
+
+`unmark [TASKNUMBER]`
+
+Example of usage:
+
+`unmark 1`
 
 ### Exiting the application: `bye`
 
 Exit the application.
-Format: `bye`
+
+Format:
+
+`bye`
