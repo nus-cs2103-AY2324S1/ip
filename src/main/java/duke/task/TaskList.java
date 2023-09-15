@@ -44,7 +44,6 @@ public class TaskList {
     public void remove(int index) {
         assert index >= 0 : "Index should be non-negative";
         this.tasks.remove(index);
-
     }
 
     /**
