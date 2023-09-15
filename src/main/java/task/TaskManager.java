@@ -16,7 +16,7 @@ public class TaskManager {
     private ArrayList<Task> list;
 
     /**
-     * private constructor
+     * Private constructor for TaskManager
      */
     private TaskManager() {
         try {
@@ -28,7 +28,7 @@ public class TaskManager {
     }
 
     /**
-     * factory method to enforce one instance of the list manager
+     * Factory method to enforce one instance of the list manager
      * @return an instance of the list manager
      */
     public static TaskManager init() {
