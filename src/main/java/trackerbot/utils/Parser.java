@@ -15,7 +15,7 @@ import trackerbot.task.Todo;
  * Contains static methods to parse user input.
  *
  * @author WZWren
- * @version A-JavaDoc
+ * @version A-CodeQuality
  */
 public class Parser {
     /**

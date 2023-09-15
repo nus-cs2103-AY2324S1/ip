@@ -9,7 +9,7 @@ import trackerbot.task.TaskList;
  * a small number of available commands that can be called through the UI. </p>
  * <p>Every nested Command should be assigned a corresponding CommandType enum.</p>
  * @author WZWren
- * @version A-Assertions
+ * @version A-CodeQuality
  */
 public abstract class Command {
     /**

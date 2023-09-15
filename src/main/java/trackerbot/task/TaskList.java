@@ -10,7 +10,7 @@ import trackerbot.utils.Parser;
  * Collection of Tasks for use in TrackerBot.
  *
  * @author WZWren
- * @version A-Assertions
+ * @version A-CodeQuality
  */
 public class TaskList {
     /**

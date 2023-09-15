@@ -11,7 +11,7 @@ import trackerbot.exception.TrackerBotException;
  * with no DateTime fields, use the To-do subtype instead.</p>
  *
  * @author WZWren
- * @version A-Assertions
+ * @version A-CodeQuality
  */
 public abstract class Task {
     /** The description of the task instance. **/
