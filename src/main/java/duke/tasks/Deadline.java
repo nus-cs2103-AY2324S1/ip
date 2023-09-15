@@ -101,5 +101,4 @@ public class Deadline extends Task implements Temporal {
         return !by.isAfter(to) && !by.isBefore(from);
     }
 
-    
 }

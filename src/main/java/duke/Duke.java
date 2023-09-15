@@ -1,8 +1,8 @@
 package duke;
 
-import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
@@ -77,6 +77,7 @@ public class Duke {
 
     /**
      * Main entry point of the Duke application.
+     *
      * @param args Command line arguments.
      */
     public static void main(String[] args) {

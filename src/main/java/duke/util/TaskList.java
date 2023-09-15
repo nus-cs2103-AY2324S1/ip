@@ -1,16 +1,14 @@
 package duke.util;
 
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import duke.tasks.Temporal;
-
 import duke.exceptions.DukeException;
 import duke.tasks.Task;
+import duke.tasks.Temporal;
 
 /**
  * Encapsulates a list of tasks.
@@ -112,13 +110,13 @@ public class TaskList {
         return new TaskList(filtered);
     }
 
-    public TaskList filterByType(String type) {
-        List<Task> filtered = tasks.stream()
-                .filter(task -> task.getType().equals(type))
-                .collect(Collectors.toList());
-        return new TaskList(filtered);
-    }
-
+    /**
+     * Returns a new TaskList object with tasks that are within the given date range.
+     *
+     * @param from
+     * @param to
+     * @return A new TaskList object with tasks that are within the given date range.
+     */
     public TaskList filterByDateRange(LocalDateTime from, LocalDateTime to) {
         List<Task> filtered = tasks.stream()
                 .filter(task -> task instanceof Temporal)
@@ -129,7 +127,5 @@ public class TaskList {
                 .collect(Collectors.toList());
         return new TaskList(filtered);
     }
-
-
 
 }
