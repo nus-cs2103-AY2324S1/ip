@@ -37,7 +37,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void invalidParseTest() {
+    public void invalidCommandTest() {
         CommandParser cp = new CommandParser();
         String testInput = "test123 test456";
         Command cmd = cp.parseCommand(testInput);
@@ -46,7 +46,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void invalidParseTest2() {
+    public void invalidArgumentTest() {
         CommandParser cp = new CommandParser();
         String testInput = "todo";
         Command cmd = cp.parseCommand(testInput);
@@ -58,6 +58,7 @@ public class CommandParserTest {
     public void complexParseTest() {
         CommandParser cp = new CommandParser();
         String testInput = "todo deadline event /from 8/2/2023 1200 /to 8/3/2023 1400 /to 6/5/2023";
+        // Expected: Todo Command with deadline event... as its name
         Command cmd = cp.parseCommand(testInput);
         assertNotNull(cmd);
         assertEquals(testInput, cmd.toString());
