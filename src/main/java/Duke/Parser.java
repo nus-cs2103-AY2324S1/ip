@@ -118,6 +118,7 @@ public class Parser {
             break;
 
         case "list":
+            assert parts.length > 2 : "There is only list command, there is such command as list _";
             output.append(userInterface.showCommandLine());
             output.append(userInterface.showTaskList(taskManager.displayList()));
             output.append(userInterface.showCommandLine());
@@ -125,12 +126,13 @@ public class Parser {
 
         case "find":
             output.append(userInterface.showCommandLine());
-            output.append(userInterface.showFindTasks(taskManager.displayList()));
+            output.append(userInterface.showFindTasks(taskManager.find(parts[1])));
             output.append(userInterface.showCommandLine());
             break;
 
 
         case "bye":
+            assert parts.length > 2 : "You do not have to add anything more to 'bye' command";
             output.append(userInterface.showCommandLine());
             output.append(userInterface.showGoodbyeMessage());
             output.append(userInterface.showCommandLine());

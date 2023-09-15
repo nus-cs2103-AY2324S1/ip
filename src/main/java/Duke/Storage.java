@@ -21,7 +21,6 @@ public class Storage {
      * @param filepath the filepath
      */
     public Storage(String filepath){
-
         this.filepath = filepath;
     }
 
@@ -54,6 +53,7 @@ public class Storage {
             ArrayList<Task> taskList = new ArrayList<Task>();
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
+
             while ((line = reader.readLine()) != null) {
                 // Parse the line and create tasks, then add to the list
                 Task task = Task.parseFromString(line);
