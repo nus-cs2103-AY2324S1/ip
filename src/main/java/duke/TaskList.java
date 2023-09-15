@@ -34,6 +34,7 @@ public class TaskList {
      * @return The taskList
      */
     public ArrayList<Task> getTaskList() {
+        assert (this.taskList != null);
         return this.taskList;
     }
 
@@ -44,6 +45,7 @@ public class TaskList {
      * @return String representation of the Task.
      */
     public String taskString(int a) {
+        assert (this.taskList != null);
         return this.taskList.get(a).toString();
     }
 
@@ -52,6 +54,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        assert (this.taskList != null);
         this.taskList.add(task);
     }
 
@@ -62,6 +65,7 @@ public class TaskList {
      * @return The Task object located at the given index.
      */
     public Task get(int a) {
+        assert (this.taskList != null);
         return this.taskList.get(a);
     }
 
@@ -71,6 +75,9 @@ public class TaskList {
      * @param a The index at which the Task is located.
      */
     public void remove(int a) {
+        assert (this.taskList != null);
+        assert (a >= 0);
+        assert (a <= this.taskList.size());
         this.taskList.remove(a);
     }
 
@@ -80,6 +87,7 @@ public class TaskList {
      * @return int value of the size of the contained list of tasks.
      */
     public int size() {
+        assert (this.taskList != null);
         return this.taskList.size();
     }
 
@@ -89,6 +97,7 @@ public class TaskList {
      * @param index The index at which the Task is located.
      */
     public void mark(int index) {
+        assert (this.taskList != null);
         this.taskList.get(index).mark();
     }
 
@@ -98,6 +107,7 @@ public class TaskList {
      * @param index The index at which the Task is located.
      */
     public void unmark(int index) {
+        assert (this.taskList != null);
         this.taskList.get(index).unmark();
     }
 
@@ -106,6 +116,7 @@ public class TaskList {
      * to the Ui class for printing to standard output.
      */
     public String taskIterator() {
+        assert (this.taskList != null);
         String finalOutput = "";
         for (int i = 0; i < taskList.size(); i++) {
             finalOutput += Ui.staticTabPrinter(String.format("%d. %s", i + 1,
@@ -122,6 +133,7 @@ public class TaskList {
      * @param s The String expression to search.
      */
     public String findTask(String s) {
+        assert (this.taskList != null);
         String finalOutput = "";
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).name.contains(s)) {
