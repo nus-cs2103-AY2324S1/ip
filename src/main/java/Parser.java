@@ -1,4 +1,3 @@
-import exceptions.ExcessiveArgumentException;
 import exceptions.IncorrectInputException;
 import exceptions.NoDescriptionException;
 import exceptions.SavedDataFormatException;
@@ -106,7 +105,7 @@ public class Parser {
      * @return an integer corresponding to the index of the task that we want.
      * @throws NumberFormatException if args does not contain an integer as the second word
      * @throws IncorrectInputException when the user did not input any additional arguments or more arguments
-     *    than required.
+     *         than required.
      */
     public static int getTargetIndex(String args) throws NumberFormatException, IncorrectInputException {
         assert args != null : "args is null!";
@@ -229,6 +228,12 @@ public class Parser {
         return keyword;
     }
 
+    /**
+     * Returns a string that does not contain the method type at the front.
+     *
+     * @param input is the raw user input.
+     * @return a string without method type.
+     */
     public static String removeMethodType(String input) {
         final int method = parse(input);
 

@@ -1,9 +1,9 @@
 package tasks;
 
-import exceptions.IncorrectInputException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exceptions.IncorrectInputException;
 
 /**
  * Tasks that start at a specific date/time and ends at a specific date/time.
@@ -48,6 +48,11 @@ public class Event extends Task {
         this.start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
+    /**
+     * Takes in the new details and edit the details of the task instance.
+     *
+     * @param newDetails contains the user input.
+     */
     public void edit(String newDetails) {
         String[] splitDetails = newDetails.split(" /from "); //Split remaining args into description + (from and to)
         final String newDescription = splitDetails[0];

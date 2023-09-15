@@ -39,6 +39,11 @@ public class Deadline extends Task {
         this.deadline = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
+    /**
+     * Takes in the new details and edit the details of the task instance.
+     *
+     * @param newDetails contains the user input.
+     */
     public void edit(String newDetails) {
         String newDescription = newDetails.split(" ")[0];
         String newBy = newDetails.split(" /by ")[1];
