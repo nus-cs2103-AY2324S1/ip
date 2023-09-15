@@ -23,6 +23,11 @@ class DeleteCommand extends Command {
         }
     }
 
+    @Override
+    public void executeAsMassOp(TaskList tasks, UiHandler uiHandler) {
+        // TODO: Implement the mass operation
+    }
+
     private int getIndexFromFields() throws TrackerBotException {
         Scanner scanner = new Scanner(commandFields);
         if (!scanner.hasNextInt()) {

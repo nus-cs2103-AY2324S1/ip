@@ -14,4 +14,9 @@ class FindCommand extends Command {
     public void execute(TaskList tasks, UiHandler uiHandler) {
         uiHandler.setMessage(tasks.findAll(commandFields));
     }
+
+    @Override
+    public void executeAsMassOp(TaskList tasks, UiHandler uiHandler) {
+        // TODO: Implement the mass operation
+    }
 }

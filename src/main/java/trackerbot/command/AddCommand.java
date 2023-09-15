@@ -21,4 +21,9 @@ class AddCommand extends Command {
             uiHandler.setError(e.getMessage());
         }
     }
+
+    @Override
+    public void executeAsMassOp(TaskList tasks, UiHandler uiHandler) {
+        // TODO: Implement the mass operation
+    }
 }

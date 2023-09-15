@@ -10,4 +10,9 @@ class UnknownCommand extends Command {
     public void execute(TaskList tasks, UiHandler uiHandler) {
         uiHandler.setError("Unrecognised Command Type. Try another?");
     }
+
+    @Override
+    public void executeAsMassOp(TaskList tasks, UiHandler uiHandler) {
+        uiHandler.setError("Unrecognised Command Type. Try another?");
+    }
 }

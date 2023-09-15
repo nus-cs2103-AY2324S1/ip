@@ -49,4 +49,15 @@ public enum CommandType {
     public String getKeyword() {
         return keyword;
     }
+
+    static CommandType getCommandType(String keyword) {
+        CommandType result = CommandType.UNKNOWN;
+        for (CommandType command: CommandType.values()) {
+            if (keyword.equals(command.getKeyword())) {
+                result = command;
+                break;
+            }
+        }
+        return result;
+    }
 }
