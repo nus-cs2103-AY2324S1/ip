@@ -24,7 +24,7 @@ import joe.exceptions.JoeException;
  */
 public class Parser {
     private enum CommandType {
-        list, todo, deadline, event, mark, unmark, delete, bye, find, INVALID
+        list, todo, deadline, event, mark, unmark, delete, bye, find, findall, findmatch, INVALID
     }
 
     private static final Pattern COMMAND_PATTERN = Pattern.compile("^(\\S+)\\s?(.*)$");
@@ -88,7 +88,11 @@ public class Parser {
         case delete:
             return handleDelete(args);
         case find:
-            return handleFind(args);
+            return handleFind(args, FindCommand.DESC);
+        case findmatch:
+            return handleFind(args, FindCommand.DESC_MATCH_CASE);
+        case findall:
+            return handleFind(args, FindCommand.ALL);
         default:
             return handleInvalidKeyword();
         }
@@ -201,11 +205,11 @@ public class Parser {
         }
     }
 
-    private static Command handleFind(String args) {
+    private static Command handleFind(String args, int searchType) {
         if (args.trim().isEmpty()) {
             return new InvalidCommand(INVALID_ARGS_FIND_MESSAGE);
         }
-        return new FindCommand(args.trim());
+        return new FindCommand(args.trim(), searchType);
     }
 
     private static Command handleInvalidKeyword() {

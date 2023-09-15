@@ -9,11 +9,13 @@ import joe.commands.Command;
 import joe.commands.DeadlineCommand;
 import joe.commands.DeleteCommand;
 import joe.commands.EventCommand;
+import joe.commands.FindCommand;
 import joe.commands.InvalidCommand;
 import joe.commands.ListCommand;
 import joe.commands.MarkCommand;
 import joe.commands.TodoCommand;
 import joe.commands.UnmarkCommand;
+
 
 public class ParserTest {
 
@@ -300,5 +302,17 @@ public class ParserTest {
     public void parse_eventExpected1_success() {
         Command c = Parser.parseUserInput("event 1 egg /from 01/01/2090 0000 /to 01/01/2090 0001");
         assertTrue(c instanceof EventCommand);
+    }
+
+    @Test
+    public void parse_findall_success() {
+        Command c = Parser.parseUserInput("findall test");
+        assertTrue(c instanceof FindCommand);
+    }
+
+    @Test
+    public void parse_findmatch_success() {
+        Command c = Parser.parseUserInput("findmatch test");
+        assertTrue(c instanceof FindCommand);
     }
 }

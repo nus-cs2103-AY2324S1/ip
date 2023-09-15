@@ -66,16 +66,38 @@ public class TaskList {
     }
 
     /**
-     * Returns a TaskList of tasks containing the search word.
+     * Returns a TaskList of tasks with description containing the search word.
+     *
+     * @param searchString   The search word.
+     * @param isMatchingCase true if results should match the case of the search string, false otherwise.
+     * @return A TaskList of tasks.
+     */
+    public TaskList findByDesc(String searchString, boolean isMatchingCase) {
+        TaskList res = new TaskList();
+        String processedSearchString = isMatchingCase ? searchString : searchString.toLowerCase();
+
+        for (Task task : tasks) {
+            String description = isMatchingCase ? task.getDescription() : task.getDescription().toLowerCase();
+
+            if (description.contains(processedSearchString)) {
+                res.add(task);
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     * Returns a TaskList of tasks with string representation containing the search word.
      *
      * @param searchString The search word.
      * @return A TaskList of tasks.
      */
-    public TaskList find(String searchString) {
+    public TaskList findAll(String searchString) {
         TaskList res = new TaskList();
 
         for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(searchString.toLowerCase())) {
+            if (task.toString().toLowerCase().contains(searchString.toLowerCase())) {
                 res.add(task);
             }
         }
@@ -91,7 +113,10 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are your tasks:\n");
+
+        if (tasks.isEmpty()) {
+            return "No tasks available.";
+        }
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1);
             sb.append(".");
