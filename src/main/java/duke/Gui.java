@@ -32,13 +32,15 @@ public class Gui extends Application {
         TaskList tasks;
         Ui ui = new Ui(dtf);
         Storage storage = new Storage("./data/");
+
         try {
             tasks = new TaskList(storage.load(), dtf);
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
-        this.parser = new Parser(dtf, ui, tasks);
+        CommandHandler ch = new CommandHandler(tasks, ui, dtf);
+        this.parser = new Parser(dtf, ui, tasks, ch);
     }
 
     /**
@@ -118,9 +120,12 @@ public class Gui extends Application {
      * Returns a response given a user string input.
      */
     public String getResponse(String input) {
-        DukeException ex;
+        DukeException ex = null;
         try {
-            return parser.parse(input);
+            String ret = parser.parse(input);
+            if (ret.equals("bye")) {
+                return "bye";
+            }
         } catch (DukeException e) {
             ex = e;
         }
