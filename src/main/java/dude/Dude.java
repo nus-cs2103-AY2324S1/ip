@@ -3,6 +3,9 @@ package dude;
 import java.io.FileNotFoundException;
 
 import dude.command.Command;
+import dude.note.NoteList;
+import dude.task.TaskList;
+import dude.ui.Ui;
 
 /**
  * Dude is a programme that allows users to manage their tasks.

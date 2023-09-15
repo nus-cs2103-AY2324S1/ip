@@ -1,8 +1,6 @@
-package dude;
+package dude.task;
 
 import java.util.ArrayList;
-
-import dude.task.Task;
 
 /**
  * Represents a list of tasks.

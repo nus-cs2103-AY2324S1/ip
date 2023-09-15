@@ -8,10 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import dude.task.Deadline;
-import dude.task.Event;
-import dude.task.Task;
-import dude.task.ToDo;
+import dude.note.Note;
+import dude.note.NoteList;
+import dude.task.*;
 
 /**
  * Represents the Storage system of Dude and deals with loading tasks from

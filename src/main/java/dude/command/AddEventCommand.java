@@ -3,10 +3,10 @@ package dude.command;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import dude.NoteList;
+import dude.note.NoteList;
 import dude.Storage;
-import dude.TaskList;
-import dude.Ui;
+import dude.task.TaskList;
+import dude.ui.Ui;
 import dude.task.Event;
 
 /**

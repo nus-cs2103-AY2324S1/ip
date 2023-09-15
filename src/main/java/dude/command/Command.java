@@ -1,9 +1,9 @@
 package dude.command;
 
-import dude.NoteList;
+import dude.note.NoteList;
 import dude.Storage;
-import dude.TaskList;
-import dude.Ui;
+import dude.task.TaskList;
+import dude.ui.Ui;
 
 /**
  * Abstract parents class of Commands that can be created by users.

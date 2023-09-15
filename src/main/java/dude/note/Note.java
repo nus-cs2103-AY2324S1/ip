@@ -1,4 +1,4 @@
-package dude;
+package dude.note;
 
 /**
  * Represents a note.

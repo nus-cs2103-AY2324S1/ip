@@ -1,9 +1,9 @@
 package dude.command;
 
-import dude.NoteList;
+import dude.note.NoteList;
 import dude.Storage;
-import dude.TaskList;
-import dude.Ui;
+import dude.task.TaskList;
+import dude.ui.Ui;
 
 /**
  * Represents a command that exits the programme.

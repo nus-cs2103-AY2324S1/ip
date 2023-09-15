@@ -1,8 +1,11 @@
-package dude;
+package dude.ui;
 
 import java.util.Scanner;
 
+import dude.note.Note;
+import dude.note.NoteList;
 import dude.task.Task;
+import dude.task.TaskList;
 
 /**
  * Represents the UI of Dude and deals with interactions with the user.

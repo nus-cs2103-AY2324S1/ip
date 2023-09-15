@@ -2,11 +2,11 @@ package dude.command;
 
 import java.io.IOException;
 
-import dude.Note;
-import dude.NoteList;
+import dude.note.Note;
+import dude.note.NoteList;
 import dude.Storage;
-import dude.TaskList;
-import dude.Ui;
+import dude.task.TaskList;
+import dude.ui.Ui;
 
 /**
  * Represents a command that adds an Note.
