@@ -101,6 +101,10 @@ public class Ui {
         append("Now you have " + tasks.getSize() + " tasks in the list.\n");
         return message.toString();
     }
+    public String printDeleteManyTasks() {
+        append("Okie I've removed these tasks!");
+        return message.toString();
+    }
 
     /**
      * Prints that a task has been added.
@@ -147,6 +151,23 @@ public class Ui {
 
     public void append(String str) {
         message.append(str);
+    }
+
+    public String printHelpMessage() {
+        append("Sure buddy I'm always here for you! These are the commands I have and what they do! \n");
+        append("1. todo: Type this to add a todo to your list!\n");
+        append("2. deadline: Type this to add a deadline to your list! "
+                + "(ps remember to add when it is due by adding a /by)\n");
+        append("3. event: Type this to add an event to your list!) "
+                + "(ps remember to add when it starts and ends by adding a /from and /to)\n");
+        append("4. list: Type this to view your tasks!\n");
+        append("5. delete: Type this to delete a task. Add the task number as well!\n");
+        append("6. mark: Type this to mark a task on the list. Add the task number as welL!\n");
+        append("6. unmark: Type this to unmark a task on the list. Add the task number as welL!\n");
+        append("7. find: Type this to find a task with the keywork you are searching for\n");
+        append("8. massDelete: Type this to mass delete 2 or more tasks at once! eg: massDelete 1 2\n");
+        append("9. bye: Type this and I will say goodbye :(\n");
+        return message.toString();
     }
 
 }

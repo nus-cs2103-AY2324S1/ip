@@ -3,16 +3,7 @@ package duke;
 import java.io.IOException;
 import java.time.DateTimeException;
 
-import duke.Command.ByeCommand;
-import duke.Command.Command;
-import duke.Command.DeadlineCommand;
-import duke.Command.DeleteCommand;
-import duke.Command.EventCommand;
-import duke.Command.FindCommand;
-import duke.Command.ListCommand;
-import duke.Command.MarkCommand;
-import duke.Command.ToDoCommand;
-import duke.Command.UnmarkCommand;
+import duke.Command.*;
 import duke.Exception.DukeException;
 
 
@@ -43,10 +34,14 @@ public class Parser {
             return new UnmarkCommand(input);
         } else if (input.startsWith("delete")) {
             return new DeleteCommand(input);
+        } else if (input.startsWith("massDelete")) {
+            return new MassOpsCommand(input);
         } else if (input.startsWith("list")) {
             return new ListCommand();
         } else if (input.startsWith("find")) {
             return new FindCommand(input);
+        } else if (input.equals("help")) {
+            return new HelpCommand();
         } else if (input.equals("bye")) {
             return new ByeCommand();
         } else {

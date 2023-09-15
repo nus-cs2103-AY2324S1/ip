@@ -1,5 +1,6 @@
 package duke;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import duke.task.Task;
@@ -53,6 +54,30 @@ public class TaskList {
     public void deleteTask(int index) {
         assert index > 0 && index < tasks.size();
         this.tasks.remove(index);
+    }
+
+    /**
+     *
+     * @param indices
+     */
+    public void deleteManyTasks(int[] indices) {
+        boolean[] toDelete = new boolean[tasks.size()];
+
+        for (int index : indices) {
+            if (index > 0 && index <= tasks.size()) {
+                toDelete[index - 1] = true;
+            }
+        }
+
+        ArrayList<Task> newTasks = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (!toDelete[i]) {
+                newTasks.add(tasks.get(i));
+            }
+        }
+
+        tasks = newTasks;
     }
 
     /**
