@@ -1,6 +1,10 @@
 package duke.data;
 
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,44 +51,63 @@ public class Storage {
             if (input.startsWith("T")) {
                 String description = input.substring(8);
                 Todo todo = new Todo(description);
-                if (input.charAt(4) == '1') todo.markAsDone();
+                if (input.charAt(4) == '1') {
+                    todo.markAsDone();
+                }
                 taskList.addTask(todo);
-            }
-            else if (input.startsWith("D")) {
+            } else if (input.startsWith("D")) {
                 String description = "";
                 String by = "";
-                int count = 0, slash1 = -1, slash2 = -1;
+                int count = 0;
+                int slash1 = -1;
+                int slash2 = -1;
                 for (int i = 0; i < input.length(); ++i) {
                     if (input.charAt(i) == '|') {
                         ++count;
-                        if (count == 2) slash1 = i;
-                        if (count == 3) slash2 = i;
+                        if (count == 2) {
+                            slash1 = i;
+                        }
+                        if (count == 3) {
+                            slash2 = i;
+                        }
                     }
                 }
                 description = input.substring(slash1 + 2, slash2 - 1);
                 by = input.substring(slash2 + 2);
                 Deadline deadline = new Deadline(description, by);
-                if (input.charAt(4) == '1') deadline.markAsDone();
+                if (input.charAt(4) == '1') {
+                    deadline.markAsDone();
+                }
                 taskList.addTask(deadline);
-            }
-            else if (input.startsWith("E")) {
+            } else if (input.startsWith("E")) {
                 String description = "";
                 String from = "";
                 String to = "";
-                int count = 0, slash1 = -1, slash2 = -1, slash3 = -1;
+                int count = 0;
+                int slash1 = -1;
+                int slash2 = -1;
+                int slash3 = -1;
                 for (int i = 0; i < input.length(); ++i) {
                     if (input.charAt(i) == '|') {
                         ++count;
-                        if (count == 2) slash1 = i;
-                        if (count == 3) slash2 = i;
-                        if (count == 4) slash3 = i;
+                        if (count == 2) {
+                            slash1 = i;
+                        }
+                        if (count == 3) {
+                            slash2 = i;
+                        }
+                        if (count == 4) {
+                            slash3 = i;
+                        }
                     }
                 }
                 description = input.substring(slash1 + 2, slash2 - 1);
                 from = input.substring(slash2 + 2, slash3 - 1);
                 to = input.substring(slash3 + 2);
                 Event event = new Event(description, from, to);
-                if (input.charAt(4) == '1') event.markAsDone();
+                if (input.charAt(4) == '1') {
+                    event.markAsDone();
+                }
                 taskList.addTask(event);
             }
         }

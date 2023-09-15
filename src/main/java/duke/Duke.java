@@ -30,7 +30,7 @@ public class Duke {
         } catch (FileNotFoundException e) {
             File dir = new File("./data");
             dir.mkdir();
-            File dataFile = new File ("./data/duke.txt");
+            File dataFile = new File("./data/duke.txt");
             try {
                 dataFile.createNewFile();
                 System.out.println("    Created new data file");
