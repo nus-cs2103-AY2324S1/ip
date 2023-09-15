@@ -1,6 +1,7 @@
 package io;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
@@ -115,6 +116,12 @@ public class Parser {
 
     }
 
+    private LocalDateTime parseDate(String date) throws DateTimeParseException {
+
+        date = date.replace(" ", "");
+        return LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+    }
+
     /**
      * Parses the user's input and returns an Event object if the input is valid.
      *
@@ -132,7 +139,7 @@ public class Parser {
             String startDate = datesplit[0];
             String endDate = datesplit[1];
 
-            result = new Event(name, startDate, endDate);
+            result = new Event(name, parseDate(startDate), parseDate(endDate));
         } catch (StringIndexOutOfBoundsException ex) {
             throw new ParserException("The event command cannot be empty!");
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -140,6 +147,8 @@ public class Parser {
                 "Please enter a name, followed by a (/from) command, "
                     + "followed by a date, "
                     + "followed by a (/to) command and a date");
+        } catch (DateTimeParseException ex) {
+            throw new ParserException("Please enter a time format as yyyy/MM/ddThh:MM");
         }
         return result;
     }
@@ -177,7 +186,6 @@ public class Parser {
     public boolean isInputThere() {
         return inputTokens.length == 0;
     }
-
 
 
 }
