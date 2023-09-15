@@ -40,11 +40,12 @@ public class Load {
     public TaskList load() throws IOException {
         FileReader f = null;
 
+        // Checks if file exists.
         try {
             f = new FileReader(loadFilePath);
         } catch (IOException e) {
-            System.out.println("File does not exist in directory.");
-            return null;
+            // Creates new taskList
+            return this.taskList;
         }
 
         Scanner s = new Scanner(f); // create a Scanner using the File as the source

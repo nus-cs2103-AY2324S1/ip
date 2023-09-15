@@ -16,6 +16,12 @@ public class ListCommand extends Command{
     @Override
     public String execute() {
         String message = "";
+
+        boolean taskListIsEmpty = taskList.size() == 0;
+        if (taskListIsEmpty) {
+            return "There are no tasks stored currently!";
+        }
+
         for (int i=0; i<taskList.size(); i++) {
             message += String.format("%d. %s", i+1, taskList.get(i).getTaskAsString());
             message += "\n";

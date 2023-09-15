@@ -90,10 +90,10 @@ public class Parser {
                 break;
             }
 
-            assert command != null;
+            assert command != null: "Command should not be null or empty";
 
             String result = command.execute();
-            assert result != null;
+            assert result != null: "Result should not be null or empty String";
 
             return result;
         } catch (IllegalArgumentException e) {
@@ -108,7 +108,7 @@ public class Parser {
             nullPointerResult += "Run help to get a list of available commands.";
             return nullPointerResult;
         } catch (Exception e) {
-            return "Run help to get a list of available commands.";
+            return "I did not understand that! Run help to get a list of available commands.";
         }
     }
 
