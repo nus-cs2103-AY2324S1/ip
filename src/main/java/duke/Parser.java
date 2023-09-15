@@ -80,6 +80,18 @@ public class Parser {
             String findPrompt = scanner.nextLine();
             return handleFind(findPrompt);
 
+        case "assign":
+            String assignPrompt = scanner.nextLine();
+            return handleAssign(assignPrompt);
+
+        case "remove":
+            String removePrompt = scanner.nextLine();
+            return handleRemove(removePrompt);
+
+        case "search":
+            String searchPrompt = scanner.nextLine();
+            return handleSearch(searchPrompt);
+
         case "deadline":
             assert command.equals("deadline") : "The command should be deadline";
             String deadlinePrompt = scanner.nextLine();
@@ -193,6 +205,44 @@ public class Parser {
         listSize--;
 
         return new DeleteCommand(index - 1);
+    }
+
+    private AssignTagCommand handleAssign(String prompt) throws DukeException {
+        String[] tokens = prompt.split(" #");
+
+        if (tokens.length != 2 || tokens[0].isBlank() || tokens[1].isBlank()) {
+            throw new DukeException("Chewie can't assign the tag");
+        }
+
+        int index = Integer.parseInt(tokens[0].trim());
+        String tag = tokens[1].trim();
+
+        return new AssignTagCommand(index - 1,tag);
+    }
+
+    private RemoveTagCommand handleRemove(String prompt) throws DukeException {
+        String[] tokens = prompt.split(" #");
+
+        if (tokens.length != 2 || tokens[0].isBlank() || tokens[1].isBlank()) {
+            throw new DukeException("Chewie can't remove the tag");
+        }
+
+        int index = Integer.parseInt(tokens[0].trim());
+        String tag = tokens[1].trim();
+
+        return new RemoveTagCommand(index - 1,tag);
+    }
+
+    private SearchTagCommand handleSearch(String prompt) throws DukeException {
+        String[] tokens = prompt.split(" #");
+
+        if (tokens.length != 2 || tokens[1].isBlank()) {
+            throw new DukeException("Chewie can't remove the tag");
+        }
+
+        String tag = tokens[1].trim();
+
+        return new SearchTagCommand(tag);
     }
 
     private boolean checkInvalidIndex(int i ) {
