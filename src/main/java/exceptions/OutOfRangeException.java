@@ -1,6 +1,5 @@
 
 package exceptions;
-
 import exceptions.DukeException;
 
 public class OutOfRangeException extends DukeException {
