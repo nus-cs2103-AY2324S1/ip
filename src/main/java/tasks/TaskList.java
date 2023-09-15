@@ -138,18 +138,18 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks that contain a specified keyword in their descriptions and returns a formatted string.
+     * Searches for tasks that contain any of the specified keywords in their descriptions.
      *
-     * @param keyword The keyword to search for within task descriptions.
-     * @return A formatted string containing the matching tasks or a message if there are no matches.
+     * @param keywords The keywords to search for within task descriptions.
+     * @return A string containing the matching tasks or a message if no matches are found.
      */
-    public String findTask(String keyword) {
+    public String findTask(String ...keywords) {
         StringBuilder matchingTasksBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
         boolean hasMatch = false;
 
         for (int i = 1; i <= this.tasks.size(); ++i) {
             Task currTask = this.tasks.get(i - 1);
-            if (currTask.hasKeyWord(keyword)) {
+            if (containsKeywords(currTask, keywords)) {
                 hasMatch = true;
                 String taskNumber = String.format("%3d.", i);
                 matchingTasksBuilder.append(String.format("%s %s\n", taskNumber, currTask));
@@ -160,9 +160,25 @@ public class TaskList {
             matchingTasksBuilder.append("No tasks matched your keyword!\n");
         }
 
-        matchingTasksBuilder.append(getTaskCountMessage());
-        return matchingTasksBuilder.toString();
+        return String.format("%s%s", matchingTasksBuilder, getTaskCountMessage());
     }
+
+    /**
+     * Checks if a task contains any of the specified keywords within its description.
+     *
+     * @param task     The task to check for keyword matches.
+     * @param keywords The keywords to search for within the task's description.
+     * @return true if the task contains any of the specified keywords, false otherwise.
+     */
+    private boolean containsKeywords(Task task, String[] keywords) {
+        for (String keyword : keywords) {
+            if (task.hasKeyWord(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Returns a string indicating the number of tasks in the task list.
