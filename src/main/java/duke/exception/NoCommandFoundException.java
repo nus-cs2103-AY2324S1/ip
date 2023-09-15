@@ -11,8 +11,8 @@ public class NoCommandFoundException extends DukeException {
     }
 
     @Override
-    public ErrorMessage generateErrorMessage(String content) {
-        return new ErrorMessage("Sorry, I don't know what " + content + " means.");
+    public ErrorMessage generateErrorMessage() {
+        return new ErrorMessage("Sorry, I don't know what " + getMessage() + " means.");
     }
 }
 

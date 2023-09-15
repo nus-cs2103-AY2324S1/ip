@@ -11,7 +11,7 @@ public class EmptyTaskDescException extends DukeException {
     }
 
     @Override
-    public ErrorMessage generateErrorMessage(String content) {
+    public ErrorMessage generateErrorMessage() {
         return new ErrorMessage("A task description cannot be empty.");
     }
 }

@@ -10,19 +10,22 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * Represent a message that can be displayed in the GUI.
  */
 public class Message extends HBox {
-    private static final Image USER_IMAGE =
+    protected static final Image USER_IMAGE =
             new Image("https://se-education.org/guides/tutorials/images/javafx/DaUser.png");
-    private static final Image BOT_IMAGE =
+    protected static final Image BOT_IMAGE =
             new Image("https://se-education.org/guides/tutorials/images/javafx/DaDuke.png");
     private final String content;
 
     private final Label label;
     private ImageView image;
+
+    private Color color = Color.BLACK;
     /**
      * Constructs a message with the given content.
      *
@@ -34,6 +37,7 @@ public class Message extends HBox {
         this.label = new Label();
         label.setText(content);
         label.setWrapText(true);
+        label.setTextFill(color);
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(this.label);
     }
@@ -52,6 +56,19 @@ public class Message extends HBox {
         this.image.setFitWidth(100.0);
         this.image.setFitHeight(100.0);
         this.getChildren().addAll(this.image);
+    }
+
+    /**
+     * Constructs a message with the given content, image and text color.
+     *
+     * @param content The content of the message.
+     * @param image The image associated with this message.
+     * @param color The color of the text.
+     */
+    public Message(String content, Image image, Color color) {
+        this(content, image);
+        this.color = color;
+        label.setTextFill(color);
     }
     /**
      * Converts a list of tasks into a list of messages.
@@ -123,31 +140,40 @@ public class Message extends HBox {
     }
 
     /**
+     * Returns a copy of this Message instance.
+     *
+     * @return A clone of this message.
+     */
+    protected Message clone() {
+        return new Message(this.content, this.image.getImage(), this.color);
+    }
+    /**
      * Flips the message, changing its alignment and layout.
      * This method creates a new message with the same content but with the image on the left side.
      *
      * @return A flipped message.
      */
     public Message flip() {
-        Message flippedMessage = new Message(this.content, this.image.getImage());
+        Message flippedMessage = clone();
         flippedMessage.setAlignment(Pos.TOP_LEFT);
         flippedMessage.getChildren().clear();
         flippedMessage.getChildren().addAll(flippedMessage.image, flippedMessage.label);
         return flippedMessage;
     }
+
     /**
      * Formats the message such that it appears on the users side.
      * @return A message from the user.
      */
     public Message fromUser() {
-        return new Message(this.content, USER_IMAGE);
+        return new Message(this.content, USER_IMAGE, color);
     }
     /**
      * Formats the message such that it appears on the bots side.
      * @return A message from the bot.
      */
     public Message fromDuke() {
-        return new Message(this.content, BOT_IMAGE).flip();
+        return new Message(this.content, BOT_IMAGE, color).flip();
     }
 
     @Override

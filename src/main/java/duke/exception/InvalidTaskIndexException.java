@@ -11,7 +11,7 @@ public class InvalidTaskIndexException extends DukeException {
     }
 
     @Override
-    public ErrorMessage generateErrorMessage(String content) {
-        return new ErrorMessage(content + " isn't a number.");
+    public ErrorMessage generateErrorMessage() {
+        return new ErrorMessage(getMessage() + " isn't a number.");
     }
 }

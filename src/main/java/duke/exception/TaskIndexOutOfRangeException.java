@@ -11,7 +11,7 @@ public class TaskIndexOutOfRangeException extends DukeException {
     }
 
     @Override
-    public ErrorMessage generateErrorMessage(String content) {
-        return new ErrorMessage(content + 1 + " is out of range of the task list.");
+    public ErrorMessage generateErrorMessage() {
+        return new ErrorMessage(getMessage() + 1 + " is out of range of the task list.");
     }
 }

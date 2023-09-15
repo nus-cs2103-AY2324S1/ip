@@ -11,7 +11,7 @@ public class InvalidTimeFormatException extends DukeException {
     }
 
     @Override
-    public ErrorMessage generateErrorMessage(String content) {
-        return new ErrorMessage(content + " isn't the right time format.");
+    public ErrorMessage generateErrorMessage() {
+        return new ErrorMessage(getMessage() + " isn't the right time format.");
     }
 }

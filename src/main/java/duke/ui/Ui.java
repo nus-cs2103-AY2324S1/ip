@@ -65,7 +65,7 @@ public class Ui {
      * @param e The DukeException that triggered the error.
      */
     public void showError(DukeException e) {
-        dialogContainer.getChildren().addAll(e.generateErrorMessage(e.getMessage()).fromDuke());
+        dialogContainer.getChildren().addAll(e.generateErrorMessage().fromDuke());
     }
 
     /**

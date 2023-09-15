@@ -7,10 +7,9 @@ import duke.message.ErrorMessage;
  */
 public class DuplicateTaskException extends DukeException {
     public DuplicateTaskException(String message) {
-        super(message);
+        super(message + " is already in the task list!");
     }
-    @Override
-    public ErrorMessage generateErrorMessage(String content) {
-        return new ErrorMessage(content + " is already in the task list!");
+    public ErrorMessage generateErrorMessage() {
+        return new ErrorMessage( getMessage() + " is already in the task list!");
     }
 }

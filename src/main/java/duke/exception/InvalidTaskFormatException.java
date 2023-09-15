@@ -11,7 +11,7 @@ public class InvalidTaskFormatException extends DukeException {
     }
 
     @Override
-    public ErrorMessage generateErrorMessage(String content) {
-        return new ErrorMessage(content + " isn't the right format for this kind of task.");
+    public ErrorMessage generateErrorMessage() {
+        return new ErrorMessage(getMessage() + " isn't the right format for this kind of task.");
     }
 }

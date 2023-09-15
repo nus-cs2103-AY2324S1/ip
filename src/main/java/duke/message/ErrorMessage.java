@@ -1,11 +1,16 @@
 package duke.message;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+
 /**
  * Represents an error message that can be displayed to the user.
  * Extends the {@link Message} class.
  */
 public class ErrorMessage extends Message {
+
+    private static Color ERROR_COLOR = Color.RED;
     public ErrorMessage(String content) {
-        super(content);
+        super(content, BOT_IMAGE, ERROR_COLOR);
     }
 }

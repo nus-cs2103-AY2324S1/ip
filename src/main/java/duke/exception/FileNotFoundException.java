@@ -9,7 +9,7 @@ public class FileNotFoundException extends DukeException {
         super(name);
     }
     @Override
-    public ErrorMessage generateErrorMessage(String content) {
-        return new ErrorMessage("There is no file at " + content);
+    public ErrorMessage generateErrorMessage() {
+        return new ErrorMessage("There is no file at " + getMessage());
     }
 }
