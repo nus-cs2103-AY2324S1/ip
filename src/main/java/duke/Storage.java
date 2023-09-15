@@ -39,7 +39,6 @@ public class Storage {
             // create data directory if it does not exist
             Files.createDirectories(Paths.get("./data"));
             File f = new File(filePath);
-            f.createNewFile();
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 Task task = Parser.stringToTask(s.nextLine());
