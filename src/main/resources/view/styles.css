@@ -1,0 +1,20 @@
+.root {
+    -fx-background-color: #FFB6C1;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #FFB6C1;
+    -fx-text-fill: #000000;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #FFB6C1;
+    -fx-text-fill: #000000;
+}
+
+.label {
+    -fx-text-fill: #FF69B4;
+}
