@@ -29,6 +29,22 @@ public abstract class Parser {
         case "unmark":
             Parser.response = TaskMaster.unmark(Integer.parseInt(split[1]));
             break;
+        case "peekN":
+            try {
+                Parser.peekNotes(split);
+                break;
+            } catch (IllegalArgumentException e) {
+                Parser.response = e.getMessage() + "\nTry again: ";
+                break;
+            }
+        case "editN":
+            try {
+                Parser.editNotes(split);
+                break;
+            } catch (IllegalArgumentException e) {
+                Parser.response = e.getMessage() + "\nTry again: ";
+                break;
+            }
         case "find":
             try {
                 Parser.find(split);
@@ -46,7 +62,7 @@ public abstract class Parser {
         }
     }
 
-    private static void parseTask(String keyword, String[] split) {
+    private static void parseTask(String keyword, String[] split) throws IllegalArgumentException {
         switch (keyword) {
             case "todo": {
                 parseTodo(split);
@@ -66,7 +82,7 @@ public abstract class Parser {
         }
     }
 
-    private static void parseTodo(String[] split) {
+    private static void parseTodo(String[] split) throws IllegalArgumentException {
         String description = "";
         for (int i = 1; i < split.length; ++i) {
             description = description + split[i] + " ";
@@ -79,7 +95,7 @@ public abstract class Parser {
         Parser.response = TaskMaster.addTask(new Todos(description));
     }
 
-    private static void parseDeadline(String[] split) {
+    private static void parseDeadline(String[] split) throws IllegalArgumentException {
         int i = 1;
         if (i == split.length) {
             throw new IllegalArgumentException(
@@ -111,7 +127,7 @@ public abstract class Parser {
         Parser.response = TaskMaster.addTask(new Deadlines(description, time));
     }
 
-    private static void parseEvent(String[] split) {
+    private static void parseEvent(String[] split) throws IllegalArgumentException {
         int i = 1;
         if (i == split.length) {
             throw new IllegalArgumentException(
@@ -173,6 +189,30 @@ public abstract class Parser {
         Parser.response = TaskMaster.findTask(key);
     }
 
+    private static void peekNotes(String[] split) throws IllegalArgumentException {
+        if (split.length == 1) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! You must enter an index to see its notes.");
+        }
+        // need to handle the case where user did not put integer for the parameter
+        Parser.response = TaskMaster.peekNotes(Integer.parseInt(split[1]));
+    }
+
+    private static void editNotes(String[] split) throws IllegalArgumentException {
+        if (split.length == 1) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! You must enter an index to see its notes.");
+        }
+        // need to handle the case where user did not put integer for the parameter
+        String notes = "";
+        for (int i = 2; i < split.length; ++i) {
+            notes = notes + split[i] + " ";
+        }
+        if (!notes.isEmpty()) {
+            notes = notes.substring(0, notes.length() - 1);
+        }
+        Parser.response = TaskMaster.editNotes(Integer.parseInt(split[1]), notes);
+    }
 
     public static String getResponse() {
         return response;

@@ -3,6 +3,7 @@ package duke;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String notes = "";
 
     public Task(String description) {
         this.description = description;
@@ -31,5 +32,14 @@ public class Task {
 
     public String getSavingFormat() {
         return getTaskType() + " [" + getStatusIcon() + "] " + description;
+    }
+
+    // Extension
+    public void editNotes(String newNotes) {
+        this.notes = newNotes;
+    }
+
+    public String getNotes() {
+        return this.notes;
     }
 }

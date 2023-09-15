@@ -41,4 +41,11 @@ public abstract class TaskMaster {
     public static String findTask(String key) {
         return tasks.findTask(key);
     }
+
+    public static String peekNotes(int index) {
+        return tasks.peekNotes(index);
+    }
+    public static String editNotes(int index, String notes) {
+        return tasks.editNotes(index, notes);
+    }
 }

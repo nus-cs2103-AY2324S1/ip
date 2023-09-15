@@ -135,4 +135,39 @@ public class TaskList {
             return "There is no previously saved task!\n";
         }
     }
+
+    /**
+     * Peek the notes for a task from the TaskList based on its index.
+     * @param index The index (1-based) of the task to be removed.
+     */
+    public String peekNotes(int index) {
+        assert index > 0 && index <= tasks.size() : "Task index out of bounds!";
+
+        Task targetTask = tasks.get(index - 1);
+        String notes = targetTask.getNotes();
+        if (notes.isEmpty()) {
+            return "You have not added any notes for the task:\n" + targetTask.toString();
+        }
+        return "Your notes for the task:\n" + targetTask.toString()
+                + "\n is: " + targetTask.getNotes();
+    }
+
+    /**
+     * Add notes for a task from the TaskList based on its index.
+     * @param index The index (1-based) of the task to be removed.
+     * @param notes The notes of the task to be added.
+     */
+    public String editNotes(int index, String notes) {
+        assert index > 0 && index <= tasks.size() : "Task index out of bounds!";
+
+        Task targetTask = tasks.get(index - 1);
+        targetTask.editNotes(notes);
+        if (notes.isEmpty()) {
+            return "Your have successfully deleted the notes for the task: \n"
+                    + targetTask.toString();
+        }
+        return "Your notes for the task:\n" + targetTask.toString()
+                + "\n is successfully updated! Current notes:\n" + targetTask.getNotes();
+    }
+
 }
