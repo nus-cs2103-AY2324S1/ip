@@ -10,12 +10,13 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     private static boolean isExit = false;
 
-    public static void parse(String userCommand, TaskList taskList) {
+    public static void parse(String userCommand, TaskList taskList, Ui ui) {
         String[] splitMessage = userCommand.split(" ");
         String instruction = splitMessage[0];
         switch (instruction) {
             case "bye":
                 isExit = true;
+                ui.printByeMessage();
                 break;
             case "list":
                 // Prints out the list

@@ -30,7 +30,7 @@ public class Kevin{
 
         while (!isExit) {
             String userCommand = ui.readUserCommand();
-            Parser.parse(userCommand, this.taskList);
+            Parser.parse(userCommand, this.taskList, this.ui);
             isExit = Parser.getIsExit();
         }
     }
