@@ -42,10 +42,12 @@ public class UnmarkCommand extends Command {
         Task task = tasks.get(index);
         tasks.unmarkTask(index);
         storage.updateFile(tasks);
+        ui.updateLatestUnmarked(index);
 
         String res = "OK, I've marked this task as not done yet:" + "\n"
                 + "[" + task.getStatusIcon() + "] " + task.getDescription();
         ui.updateMessage(res);
+        ui.updateRecentCommand("unmark");
     }
 
     /**

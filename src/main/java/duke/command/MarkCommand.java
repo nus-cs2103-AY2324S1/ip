@@ -42,11 +42,13 @@ public class MarkCommand extends Command {
         Task task = tasks.get(index);
         tasks.markTask(index);
         storage.updateFile(tasks);
+        ui.updateLatestMarked(index);
+
 
         String res = "Nice! I've marked this task as done:" + "\n"
                 + "[" + task.getStatusIcon() + "] " + task.getDescription();
         ui.updateMessage(res);
-
+        ui.updateRecentCommand("mark");
     }
 
     /**
