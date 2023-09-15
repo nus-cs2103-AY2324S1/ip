@@ -28,9 +28,18 @@ public class ParserTest {
     public void getEventDescription_success() throws BotException {
         assertEquals("project meeting",
                 new Parser().getEventDescription(
-                        "event project meeting /from 2019-11-11 1200 /to 2019-11-11 1200"));
+                        "event project meeting /from 2019-11-11 1200 /to 2019-11-11 1200 /at home"));
     }
 
+    @Test
+    public void getLocation_success() throws BotException {
+        assertEquals("home",
+                new Parser().getLocation(
+                        "event project meeting /from 2019-11-11 1200 /to 2019-11-11 1200 /at home"));
+        assertEquals("library",
+                new Parser().getLocation(
+                        "deadline assignment /by 2011-11-11 1200 /at library"));
+    }
     @Test
     public void getEventDescription_exceptionThrown() throws BotException {
         try {

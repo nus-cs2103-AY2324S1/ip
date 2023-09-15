@@ -3,11 +3,13 @@ package ruiz;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 
 import javafx.util.Duration;
+import ruiz.task.Task;
 import ruiz.ui.Ui;
 import ruiz.command.Command;
 import ruiz.exception.BotException;
@@ -54,7 +56,8 @@ public class Ruiz {
                     delay.play();
                     return ui.printBye();
                 case LIST:
-                    message = ui.getTasks(this.tasks.getTaskList());
+                    ArrayList<Task> taskList = this.tasks.getTaskList();
+                    message = ui.getTasks(taskList);
                     break;
                 case MARK:
                     message = this.tasks.markTask(input);

@@ -65,7 +65,8 @@ public class Parser {
             throw new BotException("OOPS!!! The description of a todo cannot be empty.");
         }
         assert input != null : "input should not be null";
-        String todoDescription = input.split(" ", 2)[1];
+        String inputWithoutLocation = input.split(" /at ")[0];
+        String todoDescription = inputWithoutLocation.split(" ", 2)[1];
         assert todoDescription != null : "todoDescription should not be null";
         return todoDescription;
     }
@@ -83,7 +84,8 @@ public class Parser {
                     + " it should be in the format 'deadline *** /by ***'");
         }
         assert input != null : "input should not be null";
-        String deadlineDescription = input.split(" ", 2)[1].split(" /by ")[0];
+        String inputWithoutLocation = input.split(" /at ")[0];
+        String deadlineDescription = inputWithoutLocation.split(" ", 2)[1].split(" /by ")[0];
         assert deadlineDescription != null : "deadlineDescription should not be null";
         return deadlineDescription;
     }
@@ -102,7 +104,8 @@ public class Parser {
                     + "");
         }
         assert input != null : "input should not be null";
-        String by = input.split(" ", 2)[1].split(" /by ")[1];
+        String inputWithoutLocation = input.split(" /at ")[0];
+        String by = inputWithoutLocation.split(" ", 2)[1].split(" /by ")[1];
         assert by != null : "by should not be null";
         return by;
     }
@@ -120,7 +123,8 @@ public class Parser {
                     + "it should be in the format 'event *** /from *** /to ***'");
         }
         assert input != null : "input should not be null";
-        String eventDescription = input.split(" ", 2)[1].split(" /from")[0];
+        String inputWithoutLocation = input.split(" /at ")[0];
+        String eventDescription = inputWithoutLocation.split(" ", 2)[1].split(" /from")[0];
         assert eventDescription != null : "eventDescription should not be null";
         return eventDescription;
     }
@@ -138,7 +142,8 @@ public class Parser {
                     + "it should be in the format 'event *** /from *** /to ***'");
         }
         assert input != null : "input should not be null";
-        String beginning = input.split(" ", 2)[1].split(" /from ")[1].split(" /")[0];
+        String inputWithoutLocation = input.split(" /at ")[0];
+        String beginning = inputWithoutLocation.split(" ", 2)[1].split(" /from ")[1].split(" /")[0];
         assert beginning != null : "beginning should not be null";
         return beginning;
     }
@@ -150,12 +155,13 @@ public class Parser {
      * @return time the event finishes by input by the user.
      * @throws BotException if the event is in an invalid format.
      */
-    public String getEventTo(String input) throws BotException {
+    public String getEventEnd(String input) throws BotException {
         if (input.split("/").length <= 2) {
             throw new BotException("OOPS!!! The description the event is incomplete.");
         }
         assert input != null : "input should not be null";
-        String to = input.split(" ", 2)[1].split(" /from ")[1].split("/to ")[1];
+        String inputWithoutLocation = input.split(" /at ")[0];
+        String to = inputWithoutLocation.split(" ", 2)[1].split(" /from ")[1].split("/to ")[1];
         assert to != null : "to should not be null";
         return to;
     }
@@ -197,6 +203,15 @@ public class Parser {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         assert taskIndex >= 0 : "taskIndex should be greater than 0";
         return taskIndex;
+    }
+
+    /**
+     * Returns the task number of the task to be deleted.
+     * @param input input of the user.
+     * @return the task number of the task to be deleted.
+     */
+    public String getLocation(String input) {
+        return input.split(" /at ")[1];
     }
 }
 
