@@ -8,18 +8,34 @@ import java.io.Serializable;
 public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
+    protected String priority;
 
     /**
      * Creates a Task object with a description.
+     *
      * @param description Name of Task
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = null;
+    }
+
+    /**
+     * Creates a Task object with a description and a priority.
+     *
+     * @param description Name of Task
+     * @param priority    Priority of Task. Can be high, medium, or low.
+     */
+    public Task(String description, String priority) {
+        this.description = description;
+        this.isDone = false;
+        this.priority = priority;
     }
 
     /**
      * Displays status icon [ ] or [X] depending on Task isDone value.
+     *
      * @return String [ ] or [X]
      */
     public String getStatusIcon() {
@@ -46,10 +62,19 @@ public class Task implements Serializable {
 
     /**
      * String representation of Task, including Status icon and Task name.
+     *
      * @return String representation of Task, including Status icon and Task name.
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + this.description;
+        return getStatusIcon() + " " + this.description + " " + this.getPriorityString();
+    }
+
+    /**
+     * Returns a String representation of the Task's priority.
+     * @return
+     */
+    public String getPriorityString() {
+        return this.priority == null ? "" : "(priority: " + this.priority + ")";
     }
 }

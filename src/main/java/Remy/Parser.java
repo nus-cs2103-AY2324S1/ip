@@ -49,4 +49,22 @@ public class Parser {
             throw new ChatbotException("No such command lah.");
         }
     }
+
+    /**
+     * Returns true if a priority String matches either "high", "medium" or "low".
+     *
+     * @param input
+     * @return
+     */
+    public static boolean checkValidPriority(String input) throws ChatbotException {
+        String formattedInput = input.toLowerCase();
+        if (formattedInput.equals("high")
+                || formattedInput.equals("medium")
+                || formattedInput.equals("low")) {
+            return true;
+        } else {
+            throw new ChatbotException("Your inputted priority is: " + input + "\n"
+                    + "Priority can only be 'high', 'medium', or 'low'.");
+        }
+    }
 }

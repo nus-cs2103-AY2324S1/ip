@@ -25,6 +25,21 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructs new Deadline object with a description, due date, and priority.
+     * Due date is stored in dd MMM yyyy format (e.g. 15 Oct 2023).
+     * @param description
+     * @param by
+     * @param priority
+     * @throws DateTimeParseException
+     */
+    public Deadline(String description, String by, String priority) throws DateTimeParseException {
+        super(description, priority);
+
+        LocalDate temp = LocalDate.parse(by);
+        this.by = temp.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
+
+    /**
      * Returns String representation of Deadline.
      * @return String representation of Deadline.
      */
