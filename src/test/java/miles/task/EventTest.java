@@ -35,8 +35,7 @@ public class EventTest {
     public void missingDescription() throws MilesException {
         String testString = "event /from 2019-10-15 1800 /to";
 
-        MilesException expectedException = assertThrows(MilesException.class, 
-            () -> {
+        MilesException expectedException = assertThrows(MilesException.class, () -> {
                 Event.splitEventString(testString);
             });
         
@@ -49,8 +48,7 @@ public class EventTest {
     public void missingFrom() throws MilesException {
         String testString = "event project meeting /to 2019-10-15 2000";
 
-        MilesException expectedException = assertThrows(MilesException.class, 
-            () -> {
+        MilesException expectedException = assertThrows(MilesException.class, () -> {
                 Event.splitEventString(testString);
             });
         
@@ -63,8 +61,7 @@ public class EventTest {
     public void missingTo() throws MilesException {
         String testString = "event project meeting /from 2019-10-15 1800";
         
-        MilesException expectedException = assertThrows(MilesException.class, 
-            () -> {
+        MilesException expectedException = assertThrows(MilesException.class, () -> {
                 Event.splitEventString(testString);
             });
         
