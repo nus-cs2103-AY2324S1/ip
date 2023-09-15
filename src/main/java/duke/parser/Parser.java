@@ -60,7 +60,7 @@ public class Parser {
      * @throws DukeException If date format is wrong.
      */
     public String getBy(String input) throws DukeException {
-        if (input.split("/by", 2).length <= 1) {
+        if (input.split("/by", 0).length <= 1) {
             throw new DukeException("☹ OOPS!!! You forgot to include the deadline.");
         }
         return input.split(" ", 2)[1].split(" /by ")[1];

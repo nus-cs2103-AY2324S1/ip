@@ -1,5 +1,8 @@
 package duke.data;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import duke.data.exception.DukeException;
@@ -119,6 +122,47 @@ public class TaskList {
             }
         }
         return result;
+    }
+
+    public ArrayList<Task> viewSchedule(String date) {
+        assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t : this.tasklist) {
+            if (t instanceof Event) {
+                Event event = (Event) t;
+                try {
+                    LocalDate parsedDate = LocalDate.parse(date);
+                    String formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    if (isDateMatched(formattedDate, event.getStart()) || isDateMatched(formattedDate,
+                            event.getEnd())) {
+                        result.add(event);
+                    }
+                } catch (DateTimeParseException e) {
+                    if (isDateMatched(date, event.getStart()) || isDateMatched(date, event.getEnd())) {
+                        result.add(event);
+                    }
+                }
+            } else if (t instanceof Deadline) {
+                Deadline deadline = (Deadline) t;
+                try {
+                    LocalDate parsedDate = LocalDate.parse(date);
+                    String formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    if (isDateMatched(formattedDate, deadline.getDeadline())) {
+                        result.add(deadline);
+                    }
+                } catch (DateTimeParseException e) {
+                    if (isDateMatched(date, deadline.getDeadline())) {
+                        result.add(deadline);
+                    }
+                }
+            }
+        }
+        return result;
+
+    }
+
+    public boolean isDateMatched(String actual, String expected) {
+        return actual.contains(expected);
     }
 
 

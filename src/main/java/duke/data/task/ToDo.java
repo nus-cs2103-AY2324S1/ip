@@ -7,7 +7,7 @@ public class ToDo extends Task {
 
     @Override
     public String saveString() {
-        return "T" + super.saveString();
+        return "T" + super.saveString() + "\r\n";
     }
 
     @Override

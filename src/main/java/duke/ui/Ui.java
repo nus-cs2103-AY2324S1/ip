@@ -50,7 +50,15 @@ public class Ui {
 
 
     public String printSearchList(ArrayList<Task> arr) {
-        String ans = "Here are the matching tasks in your list:";
+        String ans = "Here are the matching tasks in your list:\n";
+        for (Task t : arr) {
+            ans += String.format("%d. %s%n", arr.indexOf(t) + 1, t.toString());
+        }
+        return ans;
+    }
+
+    public String printSchedule(ArrayList<Task> arr, String date) {
+        String ans = String.format("Here is your schedule on: %s\n", date);
         for (Task t : arr) {
             ans += String.format("%d. %s%n", arr.indexOf(t) + 1, t.toString());
         }
