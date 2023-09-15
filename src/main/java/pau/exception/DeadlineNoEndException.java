@@ -6,13 +6,7 @@ package pau.exception;
 public class DeadlineNoEndException extends Exception {
     /**
      * Constructs a DeadlineNoEndException with an error message.
-     *
-     * @param errorMessage Error message that is printed when exception is thrown.
      */
-    public DeadlineNoEndException(String errorMessage) {
-        int cryingEmojiUnicode = 0x1F62D;
-
-        System.out.println("when is this due" + new String(Character.toChars(cryingEmojiUnicode)));
-        System.out.println(errorMessage);
+    public DeadlineNoEndException() {
     }
 }

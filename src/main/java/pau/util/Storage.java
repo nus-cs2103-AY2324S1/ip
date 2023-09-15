@@ -3,7 +3,6 @@ package pau.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -38,7 +37,6 @@ public class Storage {
     public TaskList loadTasks() {
         try {
             Path path = Paths.get(filepath);
-            Files.createDirectory(path);
 
             File toLoad = new File(filepath);
             Scanner scan = new Scanner(toLoad);
@@ -49,7 +47,7 @@ public class Storage {
             }
             return list;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("there is a problem loading the tasks...");
         }
         return new TaskList();
     }

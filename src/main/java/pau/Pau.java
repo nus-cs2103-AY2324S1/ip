@@ -2,28 +2,16 @@ package pau;
 
 import java.util.Scanner;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import pau.task.TaskList;
+import pau.ui.Ui;
 import pau.util.Parser;
 import pau.util.Storage;
-import pau.util.Ui;
 
 
 /**
  * Represents the Pau chatbot.
  */
-public class Pau extends Application {
+public class Pau {
     /**
      * The list of tasks.
      */
@@ -37,63 +25,46 @@ public class Pau extends Application {
      */
     private Ui ui;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image pau = new Image(this.getClass().getResourceAsStream("/images/Pau.png"));
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-
     /**
      * Constructs a new Pau chatbot.
      *
      * @param filePath The path to the file containing tasks to be loaded.
      */
     public Pau(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.list = storage.loadTasks();
     }
-
-    public Pau() {
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(pau))
-        );
-        userInput.clear();
-    }
-
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "Pau heard: " + input;
+    public String getResponse(String input) {
+        String output = Parser.parseCommand(input, list);
+        storage.saveTasksToFile(list);
+        return output;
+    }
+
+    public String introduce() {
+        return ui.introduction() + list.checkList();
+    }
+
+    public String sayGoodbye() {
+        return ui.exit();
     }
 
     /**
      * Runs the chatbot.
      */
     public void run() {
-        this.ui.introduction();
+        System.out.println(this.ui.introduction());
         Scanner scan = new Scanner(System.in);
-        this.list = this.storage.loadTasks();
-        list.checkList();
+        System.out.println(list.checkList());
         String input = scan.nextLine();
 
         while (!(input.equals("bye"))) {
-            Parser.parseCommand(input, list);
+            System.out.println(Parser.parseCommand(input, list));
             this.storage.saveTasksToFile(list);
             input = scan.nextLine();
         }
@@ -102,91 +73,6 @@ public class Pau extends Application {
 
     public static void main(String[] args) {
         new Pau("./data/paulist.txt").run();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("PAU");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-    }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
 
 }

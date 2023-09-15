@@ -46,16 +46,17 @@ public class TaskList {
     /**
      * Prints out a list of the tasks the user has.
      */
-    public void checkList() {
+    public String checkList() {
         if (this.listSize() == 0) {
             int starEyesEmoji = 0x1F929;
-            System.out.println("yay you don't have anything to do" + new String(Character.toChars(starEyesEmoji)));
+            return "yay you don't have anything to do" + new String(Character.toChars(starEyesEmoji));
         } else {
-            System.out.println("sian you still have to complete these:");
+            String output = "sian you still have to complete these:\n";
             for (int i = 0; i < this.listSize(); i++) {
                 Task curr = this.taskList.get(i);
-                System.out.println((i + 1) + ". " + curr.toString());
+                output += (i + 1) + ". " + curr.toString() + "\n";
             }
+            return output;
         }
     }
 
@@ -64,17 +65,18 @@ public class TaskList {
      *
      * @param input The task the user wants to mark as done.
      */
-    public void markTask(String input) {
+    public String markTask(String input) {
         int starEyesEmoji = 0x1F929;
-        System.out.println("good job, you've completed a task! You're so productive!"
-                + new String(Character.toChars(starEyesEmoji)));
+        String output = "good job, you've completed a task! You're so productive!"
+                + new String(Character.toChars(starEyesEmoji)) + "\n";
         String parts[] = input.split(" ");
 
         int taskNo = Integer.parseInt(parts[1]);
         Task checkedTask = this.taskList.get(taskNo - 1);
 
         checkedTask.markAsDone();
-        System.out.println(checkedTask.toString());
+        output += checkedTask.toString();
+        return output;
     }
 
     /**
@@ -82,14 +84,15 @@ public class TaskList {
      *
      * @param input The task the user wants to unmark.
      */
-    public void unMarkTask(String input) {
+    public String unMarkTask(String input) {
         String parts[] = input.split(" ");
         int taskNo = Integer.parseInt(parts[1]);
         Task checkedTask = this.taskList.get(taskNo - 1);
 
         checkedTask.markAsUndone();
-        System.out.println("why are you not going to " + checkedTask.description + "? remember to do it later!");
-        System.out.println(checkedTask.toString());
+        String output = "why are you not going to " + checkedTask.description + "? remember to do it later!\n";
+        output += checkedTask.toString();
+        return output;
     }
 
     /**
@@ -97,31 +100,33 @@ public class TaskList {
      *
      * @param input The task the user wants to delete.
      */
-    public void deleteTask(String input) {
+    public String deleteTask(String input) {
+        String output;
         try {
             String parts[] = input.split(" ");
             int taskNo = Integer.parseInt(parts[1]);
             if (taskNo > this.listSize()) {
-                throw new NoSuchTaskException("you can't delete this task");
+                throw new NoSuchTaskException();
             }
             Task checkedTask = this.taskList.get(taskNo - 1);
             this.taskList.remove(checkedTask);
             if (checkedTask.getStatusIcon().equals("X")) {
-                System.out.println("good job! you're officially done with this:");
-                System.out.println(checkedTask.toString());
+                output = "good job! you're officially done with this:\n";
             } else {
-                System.out.println("not you running away from your responsibilities, "
-                        + "i guess you don't have to do this now:");
-                System.out.println(checkedTask.toString());
+                output = "not you running away from your responsibilities, "
+                        + "i guess you don't have to do this now:\n";
             }
+            output += checkedTask.toString() + "\n";
         } catch (NoSuchTaskException e) {
+            return "there is no such task!!";
         }
 
         if (this.listSize() == 0) {
-            System.out.println("THERES NOTHING LEFT TO DO!!!!");
+            output += "THERES NOTHING LEFT TO DO!!!!";
         } else {
-            System.out.println("but still sucks to be you, you still have " + this.listSize() + " tasks");
+            output += "but still sucks to be you, you still have " + this.listSize() + " tasks";
         }
+        return output;
     }
 
     /**
@@ -129,20 +134,23 @@ public class TaskList {
      *
      * @param input The ToDo the user wants to add.
      */
-    public void addToDo(String input) {
+    public String addToDo(String input) {
+        String output = "";
         try {
             ToDo item = new ToDo(input.replace("todo ", ""));
 
             if (item.description.isEmpty()) {
-                throw new NoDescException("here's literally how to create a todo: todo [task name]");
+                throw new NoDescException();
             }
 
             this.taskList.add(item);
             if (input.contains("todo")) {
-                System.out.println("todo added: " + item.toString());
-                System.out.println("You have this many stuff to complete: " + this.listSize());
+                output = "todo added: " + item.toString() + "\n";
+                output += "You have this many stuff to complete: " + this.listSize();
             }
+            return output;
         } catch (NoDescException e) {
+            return "oi write something please";
         }
     }
 
@@ -151,25 +159,31 @@ public class TaskList {
      *
      * @param input The Deadline the user wants to add.
      */
-    public void addDeadline(String input) {
+    @SuppressWarnings("checkstyle:ArrayTypeStyle")
+    public String addDeadline(String input) {
+        String output = "";
         try {
             String parts[] = input.split("/by ");
             if (input.replace("deadline", "").isEmpty()) {
-                throw new NoDescException("how am i suppose to know what is due...");
+                throw new NoDescException();
             }
             if (!input.contains("/by")) {
-                throw new DeadlineNoEndException("here's literally how to create a deadline: "
-                        + "deadline [task name] /by [date]");
+                throw new DeadlineNoEndException();
             }
 
             Deadline item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
             this.taskList.add(item);
             if (input.contains("deadline")) {
-                System.out.println("deadline added: " + item.toString());
-                System.out.println("You have this many stuff to complete: " + this.listSize());
+                output = "deadline added: " + item.toString() + "\n";
+                output += "You have this many stuff to complete: " + this.listSize();
             }
+            return output;
         } catch (NoDescException e) {
+            return "oi write something please";
         } catch (DeadlineNoEndException e) {
+            int cryingEmojiUnicode = 0x1F62D;
+
+            return "when is this due" + new String(Character.toChars(cryingEmojiUnicode));
         }
     }
 
@@ -178,11 +192,12 @@ public class TaskList {
      *
      * @param input The Event the user wants to add.
      */
-    public void addEvent(String input) {
+    public String addEvent(String input) {
+        String output = "";
         try {
             String parts[] = input.split("/from");
             if (parts.length == 1) {
-                throw new NoDescException("how am i suppose to know what is going on...");
+                throw new NoDescException();
             }
 
             String time[] = parts[1].split("/to");
@@ -190,10 +205,12 @@ public class TaskList {
             Event item = new Event(parts[0].replace("event ", ""), time[0], time[1]);
             this.taskList.add(item);
             if (input.contains("event")) {
-                System.out.println("event added: " + item.toString());
-                System.out.println("You have this many stuff to complete: " + this.listSize());
+                output = "event added: " + item.toString() + "\n";
+                output += "You have this many stuff to complete: " + this.listSize() + "\n";
             }
+            return output;
         } catch (NoDescException e) {
+            return e.getMessage();
         }
     }
 
@@ -202,18 +219,20 @@ public class TaskList {
      *
      * @param input The keyword the user wants to find.
      */
-    public void findTask(String input) {
+    public String findTask(String input) {
         String parts[] = input.split("find ");
         String keyword = parts[1];
+        String output = "Pau found these: \n";
 
         int count = 1;
         for (int i = 0; i < listSize(); i++) {
             Task curr = this.getTask(i);
             if (curr.description.contains(keyword)) {
-                System.out.println(count + ". " + curr.toString());
+                output += count + ". " + curr.toString() + "\n";
                 count++;
             }
         }
+        return output;
     }
 
     /**
