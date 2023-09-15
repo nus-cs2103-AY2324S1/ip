@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("fluke.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "fluke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
