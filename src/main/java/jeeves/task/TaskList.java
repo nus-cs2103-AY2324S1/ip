@@ -89,19 +89,24 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         boolean hasMatch = false;
         for (Task currTask: taskList) {
+            // Process the object as a string if it is not null, else skip over it
             if (currTask != null) {
                 String currDesc = currTask.getDesc();
-                if (currDesc.contains(searchTerm)) {
-                    if (!hasMatch) {
-                        sb.append("Here are the matching tasks Master: \n");
-                        hasMatch = true;
-                    }
+                if (currDesc.contains(searchTerm) && !hasMatch) {
+                    // For the first match, append a success message to the output string
+                    sb.append("Here are the matching tasks Master: \n");
+                    sb.append(currTask.toString());
+                    sb.append("\n");
+                    hasMatch = true;
+                } else if (currDesc.contains(searchTerm)) {
+                    // For every match, append it to the output string
                     sb.append(currTask.toString());
                     sb.append("\n");
                 }
             }
         }
         if (!hasMatch) {
+            // If no matches are found at all, simply returns this error message
             sb.append("I could not find anything matching '").append(searchTerm).append("' Master");
         }
         return sb.toString();
