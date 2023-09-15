@@ -1,19 +1,19 @@
-import dan.command.Command;
-import dan.command.ExitCommand;
-import dan.exceptions.DanException;
-import dan.storage.Storage;
-import dan.task.TaskList;
-import dan.ui.Ui;
+import veneto.command.Command;
+import veneto.command.ExitCommand;
+import veneto.exceptions.DanException;
+import veneto.storage.Storage;
+import veneto.task.TaskList;
+import veneto.ui.Ui;
 
 
-public class Dan {
+public class Veneto {
     /** Fields */
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
 
     /** Constructor */
-    public Dan(String filePath) {
+    public Veneto(String filePath) {
         try {
             ui = new Ui();
             storage = new Storage(filePath);
@@ -28,7 +28,7 @@ public class Dan {
 
     /** Methods */
     public static void main(String[] args) {
-        new Dan("data/dan.txt").run();
+        new Veneto("data/dan.txt").run();
     }
 
 

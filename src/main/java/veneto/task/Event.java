@@ -1,6 +1,4 @@
-package dan.task;
-
-import dan.task.Task;
+package veneto.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

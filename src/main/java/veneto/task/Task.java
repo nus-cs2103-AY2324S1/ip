@@ -1,7 +1,7 @@
-package dan.task;
+package veneto.task;
 
-import dan.exceptions.DanException;
-import dan.exceptions.DanOperateException;
+import veneto.exceptions.DanException;
+import veneto.exceptions.DanOperateException;
 
 public class Task {
     // fields

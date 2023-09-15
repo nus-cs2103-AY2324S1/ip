@@ -1,6 +1,6 @@
-package dan.command;
+package veneto.command;
 
-import dan.task.TaskList;
+import veneto.task.TaskList;
 
 public class ListCommand extends Command {
     /** Fields */

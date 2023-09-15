@@ -1,11 +1,11 @@
-package dan.parser;
+package veneto.parser;
 
-import dan.command.*;
-import dan.exceptions.DanException;
-import dan.task.Deadline;
-import dan.task.Event;
-import dan.task.Task;
-import dan.task.ToDo;
+import veneto.command.*;
+import veneto.exceptions.DanException;
+import veneto.task.Deadline;
+import veneto.task.Event;
+import veneto.task.Task;
+import veneto.task.ToDo;
 
 public class Parser {
     /** Methods */

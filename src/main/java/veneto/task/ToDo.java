@@ -1,6 +1,4 @@
-package dan.task;
-
-import dan.task.Task;
+package veneto.task;
 
 public class ToDo extends Task {
 
