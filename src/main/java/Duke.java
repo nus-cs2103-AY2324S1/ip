@@ -5,8 +5,6 @@ import duke.tasks.Task;
 import duke.tasks.Todo;
 import duke.tasks.Event;
 import duke.tasks.Deadline;
-import duke.exception.UnknownCommandException;
-import duke.exception.EmptyDescriptionException;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -73,6 +71,7 @@ public class Duke extends Application {
      */
     public String deleteTask(String taskIndex) throws IOException {
         int index = Integer.parseInt(taskIndex) - 1;
+        assert index >= 0 && index < tasks.getSize() : "Invalid task index!";
         Task removedTask = tasks.removeTask(index);
         String response = "Noted. I've removed this task:\n  " + removedTask +
                 "\nNow you have " + tasks.getSize() + " tasks in the list.\n";
@@ -88,6 +87,7 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String addTodo(String task) throws IOException {
+        assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
         Task newTask = new Todo(task);
         tasks.addTask(newTask);
         String response = "Got it. I've added this task:\n  " + newTask +
@@ -105,6 +105,7 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String addDeadline(String task) throws DateTimeParseException, IOException {
+        assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
         String[] parts = task.split(" /by ");
         if (parts.length < 2) {
             return "Please use the format 'deadline <task description> /by yyyy-MM-dd'\n";
@@ -127,6 +128,7 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String addEvent(String task) throws DateTimeParseException, IOException {
+        assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
         StringBuilder response = new StringBuilder();
 
         String[] parts = task.split(" /from "); // second part will consist the timings
@@ -180,6 +182,7 @@ public class Duke extends Application {
      */
     public String markTaskDone(String task) throws IOException {
         int index = Integer.parseInt(task) - 1;
+        assert index >= 0 && index < tasks.getSize() : "Invalid task index for mark task!";
         Task taskMarked = tasks.markDone(index);
         String response = "\nNice! I've marked this task as done:\n  " +
                 taskMarked + "\n";
@@ -196,6 +199,7 @@ public class Duke extends Application {
      */
     public String unmarkTaskDone(String task) throws IOException {
         int index = Integer.parseInt(task) - 1;
+        assert index >= 0 && index < tasks.getSize() : "Invalid task index for unmark task!";
         Task taskUnmarked = tasks.unmarkDone(index);
         String response = "\nOK, I've marked this task as not done yet:\n  " +
                 taskUnmarked + "\n";
@@ -210,6 +214,7 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String findAndListTasks(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Search keyword cannot be empty or null!";
         StringBuilder dukeResponse = new StringBuilder();
         ArrayList<Task> matchedTasks = tasks.findTasks(keyword);
         if (matchedTasks.size() == 0) {
