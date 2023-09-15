@@ -87,7 +87,8 @@ public class AddCommand extends Command {
             System.out.println(newTask);
             Ui.printLine();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Invalid duke.command");
+            System.out.println("Invalid command. Type \"help\" to see the " +
+                            "list of available commands.");
             Ui.printLine();
         }
     }

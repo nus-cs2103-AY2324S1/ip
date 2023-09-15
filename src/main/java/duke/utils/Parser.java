@@ -21,6 +21,9 @@ public class Parser {
         }
 
         switch (command) {
+            case "help":
+                return new HelpCommand();
+
             case "bye":
                 return new ExitCommand();
 
@@ -71,7 +74,8 @@ public class Parser {
 
             default:
                 try {
-                    throw(new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
+                    throw(new DukeException("I'm sorry, but I don't know what that " +
+                            "means. Type \"help\" for the list of available commands."));
                 } catch (DukeException invalidCommand) {
                     System.out.println(invalidCommand.getMessage());
                     Ui.printLine();

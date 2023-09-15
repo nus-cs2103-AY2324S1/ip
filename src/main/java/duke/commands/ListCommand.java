@@ -14,6 +14,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(Storage storage, ArrayList<Task> tasks) {
+        System.out.println("Here are your current tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
             System.out.println((i + 1) + "." + currentTask);
