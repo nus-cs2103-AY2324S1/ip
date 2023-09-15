@@ -24,6 +24,6 @@ public class DeleteTaskCommand extends Command {
     taskList.remove(index);
     storage.updateTaskData(taskList);
 
-    ui.horoOutput("Removed task");
+    ui.horoOutput("Removed task \n" + taskList);
   }
 }

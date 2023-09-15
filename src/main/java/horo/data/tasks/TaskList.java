@@ -82,4 +82,15 @@ public class TaskList extends HoroList<Task> {
   public ArrayList<Task> getTasks() {
     return list;
   }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder("-------Tasks-------\n");
+
+    for (int i = 0; i < list.size(); i++) {
+      sb.append((i + 1) + ". " + list.get(i) + "\n");
+    }
+
+    return sb.toString();
+  }
 }

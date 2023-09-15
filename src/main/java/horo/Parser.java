@@ -118,7 +118,7 @@ public abstract class Parser {
       case "unmark":
         c = new UnmarkCommand(input);
         break;
-      case "delete":
+      case "delete task":
         c = new DeleteTaskCommand(input);
         break;
       case "todo":
