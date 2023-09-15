@@ -1,18 +1,24 @@
 package dude.command;
 
+import java.io.IOException;
+
 import dude.Note;
 import dude.NoteList;
 import dude.Storage;
 import dude.TaskList;
 import dude.Ui;
-import dude.task.ToDo;
 
-import java.io.IOException;
-
+/**
+ * Represents a command that adds an Note.
+ */
 public class AddNoteCommand extends Command {
 
     private String noteDescription;
 
+    /**
+     * Creates an Add Note Command to add a note to the list.
+     * @param noteDescription Short description of note to be added.
+     */
     public AddNoteCommand(String noteDescription) {
         this.noteDescription = noteDescription;
     }
