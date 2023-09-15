@@ -11,10 +11,10 @@ public class Deadline extends Task {
      * Constructor for Deadline class for stdin inputs
      * @param description
      */
-    public Deadline(String description) {
-        super(description.substring(0, description.indexOf(" /by")));
+    public Deadline(String description, TaskList list) {
+        super(description.substring(0, description.indexOf(" /by")), list);
         this.by = description.substring(description.indexOf(" /by ") + 5);
-        setDate(this.by);  
+        setDate(this.by);
     }
 
     /**

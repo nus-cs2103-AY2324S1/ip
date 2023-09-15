@@ -27,6 +27,7 @@ public class Duke extends Application {
     private static final String chatBotName = "CHAD CCP";
     private TaskList list;
     private final Ui ui;
+    private final Parser parser = new Parser();
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -66,7 +67,7 @@ public class Duke extends Application {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
+                Command c = this.parser.parse(fullCommand);
                 System.out.println(Ui.LINE);
                 System.out.println(c.execute(list, ui, storage));
                 System.out.println(Ui.LINE);
@@ -178,7 +179,7 @@ public class Duke extends Application {
     }
     private String getResponse(String input) {
         try {
-            Command command = Parser.parse(input);
+            Command command = this.parser.parse(input);
             assert command != null : "Parsed command should not be null";
             String responseString = command.execute(list, ui, storage);
             assert responseString != null && !responseString.isEmpty() : "Response should not be null or empty";

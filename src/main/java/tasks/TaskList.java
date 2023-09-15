@@ -142,4 +142,13 @@ public class TaskList extends ArrayList<Task> {
                 " " + (this.size() == 1 ? "task" : "tasks") +
                 " in the list.";
     }
+
+    public Task findDuplicateTask(String description) {
+        for (Task t : this) {
+            if (t.getDescription().equals(description)) {
+                return t;
+            }
+        }
+        return null;
+    }
 }

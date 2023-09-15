@@ -13,8 +13,8 @@ public class Event extends Task {
      * Constructor for Event class.
      * @param m String containing the description of the events
      */
-    public Event(String m) {
-        super(m.substring(0, m.indexOf(" /from")));
+    public Event(String m, TaskList list) {
+        super(m.substring(0, m.indexOf(" /from")), list);
         int indexOfFirstSlash = m.indexOf("/from ");
         int indexOfSecondSlash = m.indexOf("/to ", m.indexOf("/to "));
         this.from = m.substring(indexOfFirstSlash + 6, indexOfSecondSlash - 1);
@@ -29,7 +29,7 @@ public class Event extends Task {
      * @param from String containing the starting date of the event.
      * @param to String containing the ending date of the event.
      */
-    public Event (String m, String from, String to) {
+    public Event(String m, String from, String to) {
       super(m);
       this.from = from;
       this.to = to;
@@ -68,7 +68,10 @@ public class Event extends Task {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-  
+    /**
+     * Returns the string representation of the event.
+     * @return String containing the string representation of the event.
+     */
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
