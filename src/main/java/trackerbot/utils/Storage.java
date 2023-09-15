@@ -62,6 +62,9 @@ public class Storage {
             while (input.hasNextLine()) {
                 tasks.importSave(parseSaveLine(input.nextLine()));
             }
+        } catch (TrackerBotException e) {
+            tasks.clear();
+            throw e;
         } catch (IOException e) {
             throw new TrackerBotException("Failed to load save file: " + e.getMessage());
         }
