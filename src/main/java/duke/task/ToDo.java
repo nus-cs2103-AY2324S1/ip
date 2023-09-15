@@ -1,4 +1,7 @@
 package duke.task;
+
+import java.time.LocalDate;
+
 /**
  * Represents a todo task.
  */
@@ -24,6 +27,11 @@ public class ToDo extends Task {
     @Override
     public String toSaveFormat() {
         return "T | " + (super.isDone() ? "1" : "0") + " | " + this.getTaskName();
+    }
+
+    @Override
+    public LocalDate getTaskDate() {
+        return null;
     }
 
 }

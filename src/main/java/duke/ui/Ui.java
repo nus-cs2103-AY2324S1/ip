@@ -181,6 +181,14 @@ public class Ui {
         return result.toString();
     }
 
+    public void showSort() {
+        System.out.println("Noted. I've sorted the tasks in your list.");
+    }
+
+    public String showSortGui() {
+        return "Noted. I've sorted the tasks in your list.";
+    }
+
     public void showClear() {
         System.out.println("Noted. I've cleared all the tasks in your list.");
     }

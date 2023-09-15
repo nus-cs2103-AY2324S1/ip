@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import duke.exceptions.TimeParsingException;
 import duke.time.Time;
+
 /**
  * Represents an event task.
  */
@@ -11,12 +12,13 @@ public class Event extends Task {
 
     private final LocalDate startTime;
     private final LocalDate endTime;
+
     /**
      * Creates an event task.
      *
-     * @param taskName The name of the task.
+     * @param taskName  The name of the task.
      * @param startTime The start time of the task.
-     * @param endTime The end time of the task.
+     * @param endTime   The end time of the task.
      * @throws TimeParsingException If the start time or end time is not in the correct format.
      */
     public Event(String taskName, String startTime, String endTime) throws TimeParsingException {
@@ -24,13 +26,14 @@ public class Event extends Task {
         this.startTime = Time.parseTime(startTime);
         this.endTime = Time.parseTime(endTime);
     }
+
     /**
      * Creates an event task.
      *
-     * @param taskName The name of the task.
+     * @param taskName  The name of the task.
      * @param startTime The start time of the task.
-     * @param endTime The end time of the task.
-     * @param isDone Whether the task is done.
+     * @param endTime   The end time of the task.
+     * @param isDone    Whether the task is done.
      * @throws TimeParsingException If the start time or end time is not in the correct format.
      */
     public Event(String taskName, String startTime, String endTime, boolean isDone) throws TimeParsingException {
@@ -54,5 +57,10 @@ public class Event extends Task {
         return "E | " + (super.isDone() ? "1" : "0") + " | " + this.getTaskName() + " | "
                 + Time.formatTimeStoring(startTime) + "--"
                 + Time.formatTimeStoring(endTime);
+    }
+
+    @Override
+    public LocalDate getTaskDate() {
+        return startTime;
     }
 }
