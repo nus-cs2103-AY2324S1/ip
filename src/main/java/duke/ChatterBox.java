@@ -258,6 +258,10 @@ public class ChatterBox extends Application {
 
             break;
 
+        case "edit":
+            //insert editing command here
+            break;
+
         default:
 
             if (command.equals("todo")) {
