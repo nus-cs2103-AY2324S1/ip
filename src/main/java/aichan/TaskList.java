@@ -73,4 +73,26 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return this.arrTask;
     }
+
+    /**
+     * Delete all marked tasks in the list.
+     *
+     *  @return String contains list of deleted tasks.
+     */
+    public String deleteMarkedTasks() {
+        String markedTasks = "";
+        int size = this.getSize();
+        int numberOfDeletedTask = 0;
+        // taskId here refer to the original Id of the task.
+        for (int taskId = 1; taskId <= size; taskId++) {
+            // after delete some tasks, we need to minus the numberOfDeletedTask to get a task with its old taskId
+            Task t = this.getTask(taskId - numberOfDeletedTask);
+            if (t.getIsDone()) {
+                markedTasks = markedTasks + taskId + "." + t.toString() + "\n";
+                this.deleteTask(taskId - numberOfDeletedTask);
+                numberOfDeletedTask++;
+            }
+        }
+        return markedTasks;
+    }
 }
