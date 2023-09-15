@@ -34,7 +34,7 @@ public class UnmarkTaskCommand extends Command {
     public String execute() {
         try {
             Optional<Task> optionalTask = dukeBot.unmarkTask(taskId - 1);
-            return optionalTask.map(task -> uiService.formatDeleteTask(task, dukeBot.getNumberOfTasks()))
+            return optionalTask.map(task -> uiService.formatUnmarkTask(task))
                 .orElseGet(() -> uiService.formatInvalidTaskIndexProvided(taskId, dukeBot.getNumberOfTasks()));
         } catch (DukeStorageException e) {
             return uiService.formatStorageUnmarkFailure();
