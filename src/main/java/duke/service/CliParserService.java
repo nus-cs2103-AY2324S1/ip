@@ -86,9 +86,9 @@ public class CliParserService {
     /**
      * Represents the result of parsing a command line into its main command and arguments.
      */
-    static final class ParseResult {
-        private String commandType;
-        private List<String> arguments;
+    public static final class ParseResult {
+        private final String commandType;
+        private final List<String> arguments;
 
         /**
          * Constructs a new parse result.
