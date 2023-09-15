@@ -51,18 +51,11 @@ public class Parser {
     /**
      * Splits the command field of mass operation commands into its nested fields.
      *
-     * @param type The enumerated type of Command to create the mass operation.
      * @param commandField The description of the Commands, separated by MASS_COMMAND_DELIMITER.
-     * @return An array of commands corresponding to the type and commandField of the input.
+     * @return An array of Strings corresponding to a command input.
      */
-    public static Command[] parseMassOpFields(CommandType type, String commandField) {
-        String[] separatedCommands = commandField.split(MASS_COMMAND_DELIMITER);
-        Command[] result = new Command[separatedCommands.length];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = Command.of(type, separatedCommands[i]);
-        }
-
-        return result;
+    public static String[] parseMassOpFields(String commandField) {
+        return commandField.split(MASS_COMMAND_DELIMITER);
     }
 
     /**
