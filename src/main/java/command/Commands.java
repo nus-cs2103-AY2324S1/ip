@@ -149,7 +149,6 @@ public class Commands {
 
         case TODO:
             response = taskList.addToDo(this.taskDescription, print);
-
             break;
 
         case MARK:
@@ -176,7 +175,7 @@ public class Commands {
         // Adding the user's command input into the previous command stack
         if (print) {
             switch (primaryCommand) {
-            case TODO: case DEADLINE: case EVENT: case MARK: case UNMARK: case DELETE:
+            case TODO: case MARK: case UNMARK: case DELETE:
                 taskList.addCommand(this);
                 break;
 
@@ -244,11 +243,23 @@ public class Commands {
 
             case DEADLINE:
                 response = taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, print);
-                taskList.addCommand(this);
                 break;
 
             default:
                 return null;
+            }
+
+            // Adding the user's command input into the previous command stack
+            if (print) {
+                switch (super.primaryCommand) {
+
+                case DEADLINE:
+                    taskList.addCommand(this);
+                    break;
+
+                default:
+
+                }
             }
             return response;
         }
@@ -275,11 +286,23 @@ public class Commands {
             case EVENT:
                 response = taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
                         this.phaseThree.dateTime, print);
-                taskList.addCommand(this);
                 break;
 
             default:
                 return null;
+            }
+
+            // Adding the user's command input into the previous command stack
+            if (print) {
+                switch (super.primaryCommand) {
+
+                case DEADLINE:
+                    taskList.addCommand(this);
+                    break;
+
+                default:
+
+                }
             }
             return response;
         }

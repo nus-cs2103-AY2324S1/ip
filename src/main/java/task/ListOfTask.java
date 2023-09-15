@@ -140,14 +140,16 @@ public class ListOfTask {
         listOfTask.forEach(task -> {
             // For each item in the array list, I am accessing the arrays above to update
             // my list string, my iterator, and my found counter.
-            if (task.getTaskDescription().contains(str)) {
-                if (list[0] == null) {
-                    list[0] = listIndex[0] + "." + task + "\n";
-                } else {
-                    list[0] += listIndex[0] + "." + task + "\n";
-                }
-                foundCounter[0]++;
+            if (!task.getTaskDescription().contains(str)) {
+                listIndex[0]++;
+                return;
             }
+            if (list[0] == null) {
+                list[0] = listIndex[0] + "." + task + "\n";
+            } else {
+                list[0] += listIndex[0] + "." + task + "\n";
+            }
+            foundCounter[0]++;
             listIndex[0]++;
         });
 

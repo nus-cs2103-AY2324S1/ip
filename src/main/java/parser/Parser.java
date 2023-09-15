@@ -76,18 +76,19 @@ public class Parser {
                 String task = this.commandPhaseParse();
                 String command2 = this.phaseTwo();
 
-                if (task != null) {
-                    Parser phaseTwo = new Parser(command2);
-                    Commands c = phaseTwo.parse();
-                    if (c.checkCommand(BY)) {
-                        return Commands.of(mainCmd, task, c);
-                    } else {
-                        // Wrong format
-                        throw new NullPointerException();
-                    }
-                } else {
+                if (task == null) {
                     // No task name
                     throw new DukeException("Please add the task name");
+                }
+
+                Parser phaseTwo = new Parser(command2);
+                Commands c = phaseTwo.parse();
+
+                if (c.checkCommand(BY)) {
+                    return Commands.of(mainCmd, task, c);
+                } else {
+                    // Wrong format
+                    throw new NullPointerException();
                 }
             } catch (DukeUnknownCommandException | NullPointerException e) {
                 // Wrong format
@@ -101,26 +102,26 @@ public class Parser {
                 String secondaryCommand = this.phaseTwo();
                 String tertiaryCommand = this.phaseThree();
 
-                if (task != null) {
-                    Parser phaseTwo = new Parser(secondaryCommand);
-                    Commands secCmd = phaseTwo.parse();
-                    Parser phaseThree = new Parser(tertiaryCommand);
-                    Commands terCmd = phaseThree.parse();
-
-                    if (!secCmd.compareTime(terCmd)) {
-                        throw new DukeFromEarlierThanToException("From must be earlier than To");
-                    }
-
-                    if (secCmd.checkCommand(FROM) && terCmd.checkCommand(TO)) {
-                        return Commands.of(mainCmd, task, secCmd, terCmd);
-                    } else {
-                        // Wrong format
-                        throw new NullPointerException();
-                    }
-                } else {
-                    // No task name
+                if (task == null) {
                     throw new DukeException("Please add the task name");
                 }
+
+                Parser phaseTwo = new Parser(secondaryCommand);
+                Commands secCmd = phaseTwo.parse();
+                Parser phaseThree = new Parser(tertiaryCommand);
+                Commands terCmd = phaseThree.parse();
+
+                if (!secCmd.compareTime(terCmd)) {
+                    throw new DukeFromEarlierThanToException("From must be earlier than To");
+                }
+
+                if (secCmd.checkCommand(FROM) && terCmd.checkCommand(TO)) {
+                    return Commands.of(mainCmd, task, secCmd, terCmd);
+                } else {
+                    // Wrong format
+                    throw new NullPointerException();
+                }
+
             } catch (DukeUnknownCommandException | NullPointerException e) {
                 // Wrong format
                 throw new DukeNullPointerException("The format for the command is: "
