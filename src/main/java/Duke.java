@@ -55,7 +55,6 @@ public class Duke extends Application {
         try {
             loadedTasks = storage.loadTasks();
         } catch (IOException e) {
-            loadedTasks = new ArrayList<>();
             throw new IOException("Error loading tasks from storage.", e);
         }
 
@@ -73,10 +72,19 @@ public class Duke extends Application {
         int index = Integer.parseInt(taskIndex) - 1;
         assert index >= 0 && index < tasks.getSize() : "Invalid task index!";
         Task removedTask = tasks.removeTask(index);
-        String response = "Noted. I've removed this task:\n  " + removedTask +
-                "\nNow you have " + tasks.getSize() + " tasks in the list.\n";
         storage.saveTasks(tasks.getTasks());
-        return response;
+        return generateTaskRemovedMessage(removedTask);
+    }
+
+    /**
+     * Generates the message to be displayed when a task is removed.
+     *
+     * @param task The task that is removed.
+     * @return The message to be displayed when a task is removed.
+     */
+    private String generateTaskRemovedMessage(Task task) {
+        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n",
+                task, tasks.getSize());
     }
 
     /**
@@ -90,10 +98,19 @@ public class Duke extends Application {
         assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
         Task newTask = new Todo(task);
         tasks.addTask(newTask);
-        String response = "Got it. I've added this task:\n  " + newTask +
-                "\nNow you have " + tasks.getSize() + " tasks in the list.\n";
         storage.saveTasks(tasks.getTasks());
-        return response;
+        return generateTaskAddedMessage(newTask);
+    }
+
+    /**
+     * Generates the message to be displayed when a task is added.
+     *
+     * @param task The task that is added.
+     * @return The message to be displayed when a task is added.
+     */
+    private String generateTaskAddedMessage(Task task) {
+        return String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.\n",
+                task, tasks.getSize());
     }
 
     /**
@@ -104,19 +121,32 @@ public class Duke extends Application {
      * @throws IOException If there is an error saving the tasks to the file.
      * @return The response to the user.
      */
-    public String addDeadline(String task) throws DateTimeParseException, IOException {
+    public String addDeadline(String task) throws IllegalArgumentException, DateTimeParseException, IOException {
         assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
         String[] parts = task.split(" /by ");
-        if (parts.length < 2) {
-            return "Please use the format 'deadline <task description> /by yyyy-MM-dd'\n";
-        }
-        LocalDate.parse(parts[1]);
+
+        guardForValidDeadlineFormat(parts);
+
         Task newTask = new Deadline(parts[0], parts[1]);
         tasks.addTask(newTask);
-        String response = "Got it. I've added this task:\n  " + newTask +
-                "\nNow you have " + tasks.getSize() + " tasks in the list.\n";
         storage.saveTasks(tasks.getTasks());
-        return response;
+
+        return generateTaskAddedMessage(newTask);
+    }
+
+    /**
+     * Guards for a valid deadline format.
+     *
+     * @param parts The parts of the deadline task.
+     * @throws IllegalArgumentException If the deadline format is invalid.
+     * @throws DateTimeParseException If the date format is invalid.
+     */
+    private void guardForValidDeadlineFormat(String[] parts) throws IllegalArgumentException, DateTimeParseException{
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Please use the format 'deadline <task description> /by yyyy-MM-dd'");
+        }
+
+        LocalDate.parse(parts[1]); // Validates the date
     }
 
     /**
@@ -127,37 +157,45 @@ public class Duke extends Application {
      * @throws IOException If there is an error saving the tasks to the file.
      * @return The response to the user.
      */
-    public String addEvent(String task) throws DateTimeParseException, IOException {
+    public String addEvent(String task) throws IllegalArgumentException, DateTimeParseException, IOException {
         assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
-        StringBuilder response = new StringBuilder();
+        String[] parts = validateEventFormat(task);
 
-        String[] parts = task.split(" /from "); // second part will consist the timings
+        Task newTask = new Event(parts[0], parts[1], parts[2]);
+        tasks.addTask(newTask);
+        storage.saveTasks(tasks.getTasks());
+
+        return generateTaskAddedMessage(newTask);
+    }
+
+    /**
+     * Validates the event format.
+     *
+     * @param task The description of the event task.
+     * @throws IllegalArgumentException If the event format is invalid.
+     * @throws DateTimeParseException If the date format is invalid.
+     * @return The parts of the event task.
+     */
+    private String[] validateEventFormat(String task) throws IllegalArgumentException, DateTimeParseException{
+        String[] parts = task.split(" /from "); // second part will consist of the timings
+
         if (parts.length < 2) {
-            return "Please use the format 'event <event description> /from yyyy-MM-dd "
-                    + "/to yyyy-MM-dd'\n";
+            throw new IllegalArgumentException("Please use the format 'event <event description> " +
+                    "/from yyyy-MM-dd /to yyyy-MM-dd'");
         }
 
         String[] times = parts[1].split(" /to ");
         if (times.length < 2) {
-            return "Please use the format 'event <event description> /from yyyy-MM-dd "
-                    + "/to yyyy-MM-dd'\n";
+            throw new IllegalArgumentException("Please use the format 'event <event description> " +
+                    "/from yyyy-MM-dd /to yyyy-MM-dd'");
         }
 
-        // Throws exception if invalid format
+        // Validates the date formats
         LocalDate.parse(times[0]);
         LocalDate.parse(times[1]);
 
-        Task newTask = new Event(parts[0], times[0], times[1]);
-        tasks.addTask(newTask);
-
-        response.append("Got it. I've added this task:\n  ").append(newTask)
-                .append("\nNow you have ").append(tasks.getSize()).append(" tasks in the list.\n");
-
-        storage.saveTasks(tasks.getTasks());
-
-        return response.toString();
+        return new String[] {parts[0], times[0], times[1]};
     }
-
 
     /**
      * Lists all the tasks in the list.
@@ -165,10 +203,9 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String listTasks() {
-        StringBuilder response = new StringBuilder();
-        response.append("Here are the tasks in your list: \n");
+        StringBuilder response = new StringBuilder("Here are the tasks in your list: \n");
         for (int i = 0; i < tasks.getSize(); i++) {
-            response.append((i + 1)).append(".").append(tasks.getTask(i)).append("\n");
+            response.append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
         }
         return response.toString();
     }
@@ -181,13 +218,7 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String markTaskDone(String task) throws IOException {
-        int index = Integer.parseInt(task) - 1;
-        assert index >= 0 && index < tasks.getSize() : "Invalid task index for mark task!";
-        Task taskMarked = tasks.markDone(index);
-        String response = "\nNice! I've marked this task as done:\n  " +
-                taskMarked + "\n";
-        storage.saveTasks(tasks.getTasks());
-        return response;
+        return modifyTaskStatus(task, true);
     }
 
     /**
@@ -198,13 +229,27 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String unmarkTaskDone(String task) throws IOException {
+        return modifyTaskStatus(task, false);
+    }
+
+    /**
+     * Modifies the status of a task.
+     *
+     * @param task The index of the task to be modified.
+     * @param markAsDone Whether to mark the task as done or not done.
+     * @throws IOException If there is an error saving the tasks to the file.
+     * @return The response to the user.
+     */
+    private String modifyTaskStatus(String task, boolean markAsDone) throws IOException {
         int index = Integer.parseInt(task) - 1;
         assert index >= 0 && index < tasks.getSize() : "Invalid task index for unmark task!";
-        Task taskUnmarked = tasks.unmarkDone(index);
-        String response = "\nOK, I've marked this task as not done yet:\n  " +
-                taskUnmarked + "\n";
+
+        Task modifiedTask = markAsDone ? tasks.markDone(index) : tasks.unmarkDone(index);
+        String statusMessage = markAsDone ? "Nice! I've marked this task as done:\n  "
+                : "OK, I've marked this task as not done yet:\n  ";
+
         storage.saveTasks(tasks.getTasks());
-        return response;
+        return statusMessage + modifiedTask + "\n";
     }
 
     /**
@@ -215,17 +260,19 @@ public class Duke extends Application {
      */
     public String findAndListTasks(String keyword) {
         assert keyword != null && !keyword.trim().isEmpty() : "Search keyword cannot be empty or null!";
-        StringBuilder dukeResponse = new StringBuilder();
+        StringBuilder response = new StringBuilder();
+
         ArrayList<Task> matchedTasks = tasks.findTasks(keyword);
-        if (matchedTasks.size() == 0) {
-            dukeResponse.append("No tasks found with the keyword: ").append(keyword).append("\n");
-            return dukeResponse.toString();
+        if (matchedTasks.isEmpty()) {
+            response.append("No tasks found with the keyword: ").append(keyword).append("\n");
+        } else {
+            response.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchedTasks.size(); i++) {
+                response.append(i + 1).append(".").append(matchedTasks.get(i)).append("\n");
+            }
         }
-        dukeResponse.append("Here are the matching tasks in your list:");
-        for (int i = 0; i < matchedTasks.size(); i++) {
-            dukeResponse.append(i + 1).append(".").append(matchedTasks.get(i));
-        }
-        return dukeResponse.toString();
+
+        return response.toString();
     }
 
     /**
@@ -389,7 +436,7 @@ public class Duke extends Application {
             l.setMaxWidth(Double.MAX_VALUE);
 
             // Make the HBox (DialogBox) stretch its children to maximum width
-            HBox.setHgrow(l, Priority.ALWAYS); // Add this line to stretch the Label
+            HBox.setHgrow(l, Priority.ALWAYS);
 
             this.getChildren().addAll(l);
 
