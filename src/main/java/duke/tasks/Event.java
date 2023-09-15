@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Encapsulates an Event task. Event tasks have a start time, end time and description.
  */
-public class Event extends Task {
+public class Event extends Task implements Comparable<Event> {
 
     private LocalDate startDate;
     private LocalDate endDate;
@@ -41,6 +41,18 @@ public class Event extends Task {
     @Override
     public String tasktoString() {
         return "E | " + super.tasktoString() + " | " + this.startDate + " | " + this.endDate;
+    }
+
+    /**
+     * Specifies the natural ordering of event tasks.
+     *
+     * @param event the object to be compared.
+     * @return A negative integer, zero, or a positive integer as this event is less than,
+     *         equal to, or greater than the specified event.
+     */
+    @Override
+    public int compareTo(Event event) {
+        return this.startDate.compareTo(event.startDate);
     }
 
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -210,7 +211,7 @@ public class TaskList {
      * @param target The search target to match to.
      * @return All the matching tasks as a string.
      */
-    public String getMatchingTasks(String target) {
+    private String getMatchingTasks(String target) {
         StringBuilder s = new StringBuilder("Here are the matching tasks in your list:\n");
         int counter = 1;
         for (int i = 0; i < list.size(); i++) {
@@ -223,6 +224,21 @@ public class TaskList {
     }
 
     /**
+     * Returns all the specified type of tasks in the current list in sorted order.
+     *
+     * @param sortedTasks List of sorted tasks.
+     * @param taskType    Type of task of sorted tasks.
+     * @return List of sorted tasks as a string.
+     */
+    private String getSortedTasks(List<? extends Task> sortedTasks, String taskType) {
+        StringBuilder s = new StringBuilder("Here are the sorted " + taskType + "s in your list:\n");
+        for (int i = 0; i < sortedTasks.size(); i++) {
+            s.append("" + (i + 1) + ". " + sortedTasks.get(i) + "\n");
+        }
+        return s.toString();
+    }
+
+    /**
      * Extracts the search target from the user input and calls printMatchingTasks
      * to print the results that match.
      *
@@ -230,7 +246,7 @@ public class TaskList {
      * @return All the matching tasks as a string.
      * @throws DukeException If the user left the search target blank.
      */
-    public String find(String input) throws DukeException {
+    public String handleFind(String input) throws DukeException {
         // Define regular expressions for pattern matching for todo
         Pattern todoPattern = Pattern.compile("find\\s+(.*?)$");
 
@@ -245,5 +261,61 @@ public class TaskList {
 
         String target = matcher.group(1); // Extract search target
         return getMatchingTasks(target); // Returns results
+    }
+
+
+    /**
+     * Extracts the task type from the user input and calls printSortedTasks
+     * to print the specified tasks type in sorted order.
+     *
+     * @param input The text input by user.
+     * @return All the sorted tasks as a string.
+     * @throws DukeException If the user left the task type blank or if the task type is invalid.
+     */
+    public String handleSort(String input) throws DukeException {
+        // Define regular expressions for pattern matching for todo
+        Pattern todoPattern = Pattern.compile("sort\\s+(.*?)$");
+
+        // Match the input string with the pattern
+        Matcher matcher = todoPattern.matcher(input.trim());
+
+        // Check if the input string matches the pattern
+        if (!matcher.matches()) {
+            // find description is empty
+            throw new DukeException("OOPS!!! Field after sort cannot be empty :(");
+        }
+
+        String taskType = matcher.group(1); // Extract task type
+        List<? extends Task> sortedTasks = sortTasks(taskType);
+        return getSortedTasks(sortedTasks, taskType);
+
+    }
+
+    /**
+     * Sorts the specified type of tasks in the current list by endDate for deadline
+     * and startDate for event
+     *
+     * @param taskType The type of task to be sorted.
+     * @return List of sorted tasks.
+     * @throws DukeException If the task type is invalid.
+     */
+    private List<? extends Task> sortTasks(String taskType) throws DukeException {
+        if (taskType.equals("deadline")) {
+            List<Deadline> deadlines = list.stream()
+                    .filter(task -> task instanceof Deadline)
+                    .map(task -> (Deadline) task)
+                    .sorted()
+                    .collect(Collectors.toList());
+            return deadlines;
+        } else if (taskType.equals("event")) {
+            List<Event> events = list.stream()
+                    .filter(task -> task instanceof Event)
+                    .map(task -> (Event) task)
+                    .sorted()
+                    .collect(Collectors.toList());
+            return events;
+        } else {
+            throw new DukeException("OOPS!!! Task type for sort is invalid :(");
+        }
     }
 }

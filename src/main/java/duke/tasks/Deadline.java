@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Encapsulates a Deadline task. Deadline tasks have an end time and description.
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Comparable<Deadline> {
     private LocalDate endDate;
 
     /**
@@ -37,5 +37,17 @@ public class Deadline extends Task {
     @Override
     public String tasktoString() {
         return "D | " + super.tasktoString() + " | " + this.endDate;
+    }
+
+    /**
+     * Specifies the natural ordering of deadline tasks.
+     *
+     * @param deadline the object to be compared.
+     * @return A negative integer, zero, or a positive integer as this
+     *         deadline is less than, equal to, or greater than the specified deadline.
+     */
+    @Override
+    public int compareTo(Deadline deadline) {
+        return this.endDate.compareTo(deadline.endDate);
     }
 }
