@@ -26,12 +26,12 @@ public class Ui {
      */
     public void showWelcome() {
         String logo =
-                ".______     ______   .___________.\n"
-                        + "|   _  \\   /  __  \\  |           |\n"
-                        + "|  |_)  | |  |  |  | `---|  |----`\n"
-                        + "|   _  <  |  |  |  |     |  |     \n"
-                        + "|  |_)  | |  `--'  |     |  |     \n"
-                        + "|______/   \\______/      |__|     \n";
+            ".______     ______   .___________.\n"
+                + "|   _  \\   /  __  \\  |           |\n"
+                + "|  |_)  | |  |  |  | `---|  |----`\n"
+                + "|   _  <  |  |  |  |     |  |     \n"
+                + "|  |_)  | |  `--'  |     |  |     \n"
+                + "|______/   \\______/      |__|     \n";
 
         currentMessage += "Hello I'm\n" + logo + "What can I do for you?";
     }
@@ -56,7 +56,7 @@ public class Ui {
      * @param message The message to be displayed.
      */
     public void showMessage(String message) {
-        currentMessage += message;
+        currentMessage += message + "\n";
     }
 
     /**
@@ -94,7 +94,7 @@ public class Ui {
      */
     public void deleteMessage(Task task, int total) {
         currentMessage += "Noted. I've removed this task: \n" + task + "\n"
-                + "Now you have " + total + " tasks in the list.";
+            + "Now you have " + total + " tasks in the list.";
     }
 
     /**
@@ -115,7 +115,7 @@ public class Ui {
      */
     public void addMessage(Task task, int total) {
         currentMessage += "Got it. I've added this task: \n" + task + "\n"
-                + "Now you have " + total + " tasks in the list.";
+            + "Now you have " + total + " tasks in the list.";
     }
 
     /**
