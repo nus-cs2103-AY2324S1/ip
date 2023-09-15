@@ -1,6 +1,10 @@
 package brandon.chatbot.tasks;
 
+import brandon.chatbot.Tag;
 import brandon.chatbot.common.DukeException;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Represents a todo task.
@@ -13,8 +17,8 @@ public class Todo extends Task {
      * @param title of the todo task.
      * @throws DukeException if the title of the task is blank.
      */
-    public Todo(String title) throws DukeException {
-        super(title);
+    public Todo(String title, Optional<ArrayList<Tag>> tags) throws DukeException {
+        super(title, tags);
     }
 
     @Override

@@ -1,5 +1,7 @@
-package brandon.chatbot.commands;
+package brandon.chatbot.commands.taskcommands;
 
+import brandon.chatbot.commands.Command;
+import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.tasks.Task;
 import brandon.chatbot.tasks.TaskList;
 

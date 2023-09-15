@@ -1,5 +1,6 @@
 package brandon.chatbot.commands;
 
+import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.tasks.TaskList;
 
 /**

@@ -2,12 +2,10 @@ package brandon.chatbot;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Locale;
 
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
-import brandon.chatbot.commands.ExitCommand;
-import brandon.chatbot.commands.UnknownCommand;
+import brandon.chatbot.commands.generalcommands.UnknownCommand;
 import brandon.chatbot.parser.Parser;
 import brandon.chatbot.storage.Storage;
 import brandon.chatbot.tasks.TaskList;
@@ -30,7 +28,7 @@ public class Duke {
             storage.save(tasks);
             return result;
         } catch (Exception e) {
-            return new UnknownCommand().execute();
+            return new UnknownCommand(e.getMessage()).execute();
         }
     }
 

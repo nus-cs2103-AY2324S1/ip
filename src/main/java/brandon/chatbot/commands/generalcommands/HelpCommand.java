@@ -1,4 +1,7 @@
-package brandon.chatbot.commands;
+package brandon.chatbot.commands.generalcommands;
+
+import brandon.chatbot.commands.Command;
+import brandon.chatbot.commands.CommandResult;
 
 public class HelpCommand extends Command {
     public final static String HELP_MESSAGE = "Here is the list of things I can do...\n" +

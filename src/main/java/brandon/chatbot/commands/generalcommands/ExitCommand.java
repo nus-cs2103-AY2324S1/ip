@@ -1,4 +1,7 @@
-package brandon.chatbot.commands;
+package brandon.chatbot.commands.generalcommands;
+
+import brandon.chatbot.commands.Command;
+import brandon.chatbot.commands.CommandResult;
 
 /**
  * Represents a command that exits from the duke program.
