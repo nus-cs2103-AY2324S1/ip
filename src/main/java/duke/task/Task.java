@@ -77,4 +77,50 @@ public abstract class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.getDescription());
     }
+
+    /**
+     * Compares two tasks by their description.
+     */
+    public static int compareByName(Task task1, Task task2) {
+        return task1.description.compareTo(task2.description);
+    }
+
+    /**
+     * Compares two tasks by their type.
+     * Todo < Deadline < Event
+     */
+    public static int compareByType(Task task1, Task task2) {
+        if (task1 instanceof Todo && task2 instanceof Todo) {
+            return 0;
+        } else if (task1 instanceof Todo) {
+            return -1;
+        } else if (task2 instanceof Todo) {
+            return 1;
+        }
+
+        if (task1 instanceof Deadline && task2 instanceof Deadline) {
+            return 0;
+        } else if (task1 instanceof Deadline) {
+            return -1;
+        } else if (task2 instanceof Deadline) {
+            return 1;
+        }
+
+        if (task1 instanceof Event && task2 instanceof Event) {
+            return 0;
+        } else if (task1 instanceof Event) {
+            return -1;
+        } else if (task2 instanceof Event) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Compares two tasks by their completion status.
+     */
+    public static int compareByCompletion(Task task1, Task task2) {
+        return Boolean.compare(task1.isCompleted, task2.isCompleted);
+    }
 }

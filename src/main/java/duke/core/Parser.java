@@ -15,6 +15,7 @@ import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.SortCommand;
 import duke.command.UnmarkCommand;
 import duke.task.Task.TaskType;
 
@@ -81,6 +82,8 @@ public class Parser {
             return new DeleteCommand(parameterMap);
         case "find":
             return new FindCommand(parameterMap);
+        case "sort":
+            return new SortCommand(parameterMap);
         default:
             throw new DukeException("Please enter a valid command.");
         }

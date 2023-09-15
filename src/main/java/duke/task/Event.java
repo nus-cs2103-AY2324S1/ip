@@ -38,7 +38,6 @@ public class Event extends Task {
         this.endDatetime = endDatetime;
     }
 
-
     @Override
     public String getDataString() {
         DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd-MM-yyyy[ HHmm]");
