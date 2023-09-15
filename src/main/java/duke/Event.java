@@ -41,6 +41,14 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public LocalDateTime getStartDateTime() {
+        return this.start;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return this.end;
+    }
+
     /**
      * Returns the string representation of the {@code Event}, to be
      * saved in the text file.

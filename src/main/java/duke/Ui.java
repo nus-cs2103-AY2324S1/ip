@@ -189,6 +189,11 @@ public class Ui {
         return String.format("Invalid %s time interval. Please try again.%n", taskType);
     }
 
+    public String getScheduleClashMessage(String details) {
+        return String.format("There already exists a task %s at the same time. Please try again.",
+            details);
+    }
+
     public String getExitMessage(int status) {
         if (status == 0) {
             return "Finally I can rest. Bye!";
