@@ -34,6 +34,7 @@ public class Duke {
      * Obtains the response by notDuke based on the user input.
      *
      * @param input The string that the user has entered
+     * @return String response of the string input
      */
     public String getResponse(String input) {
         if (!Parser.parsable(input)) {

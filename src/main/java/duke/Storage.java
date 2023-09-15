@@ -112,8 +112,12 @@ public class Storage {
         case "E":
             String from = itemParts[3];
             String to = itemParts[4];
-            arrList.add(new Event(name, from, to, itemComplete));
-            break;
+            try {
+                arrList.add(new Event(name, from, to, itemComplete));
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid Event format in storage!");
+            }
         default:
             System.out.println("Error when reading file");
         }
