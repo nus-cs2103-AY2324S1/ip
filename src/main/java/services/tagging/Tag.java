@@ -18,7 +18,11 @@ public class Tag {
     }
 
     public static Tag getTag(String tagName) {
-        return allTags.get(tagName);
+        if (allTags.get(tagName) == null) {
+            return new Tag(tagName);
+        } else {
+            return allTags.get(tagName);
+        }
     }
 
     @Override
