@@ -14,7 +14,7 @@ import process.Unmark;
 import task.TaskManager;
 
 /**
- * Main class for the chatbot
+ * Main class of the chatbot
  */
 public class Evan {
     private ComplexProcess process = null;
