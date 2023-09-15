@@ -51,7 +51,7 @@ application {
 mainClassName = 'duke.ChatterBox'
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "chatterbox"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
