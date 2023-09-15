@@ -30,10 +30,6 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public static String getTabSpace() {
-        return " ".repeat(12);
-    }
-
     public DateTimeFormatter getDateTimeformatter() {
         return Woof.getDateTimeFormatter();
     }
@@ -48,34 +44,12 @@ public abstract class Task {
     }
 
     /**
-     * Adds line breaks with tabs to the description text to ensure lines do not exceed 36 characters.
-     */
-    protected void formatDescriptionWithLineBreaks() {
-        int currentLineLength = 0;
-        int maxLineLength = 36;
-        StringBuilder formattedDescription = new StringBuilder();
-
-        for (int i = 0; i < this.description.length(); i++) {
-            char currentChar = this.description.charAt(i);
-            if (currentLineLength >= maxLineLength) {
-                formattedDescription.append(getTabSpace());
-                currentLineLength = 0;
-            }
-            if (currentLineLength != 0 || currentChar != ' ') {
-                formattedDescription.append(currentChar);
-            }
-            currentLineLength++;
-        }
-        this.description = formattedDescription.toString();
-    }
-
-    /**
      * Gets a tab space for doing to the next line of a task
      *
      * @return The tab space "            ".
      */
     protected String getTabSpace() {
-        return "\n" + " ".repeat(12);
+        return " ".repeat(12);
     }
 
     /**

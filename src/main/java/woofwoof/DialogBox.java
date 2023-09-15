@@ -23,44 +23,96 @@ import javafx.scene.text.Text;
  */
 public class DialogBox extends HBox {
     /**
-     * Private constructor to create a new `DialogBox` with a label and an image view.
+     * Private constructor to create a new `DialogBox`.
      *
-     * @param text The text content to be displayed in the dialog box.
+     * @param message The text content to be displayed in the dialog box.
      * @param img  The image to be displayed in the dialog box.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String message, Image img) {
         this.setPadding(new Insets(10.0, 0.0, 10.0, 0.0));
+        DropShadow dropShadow = createDropShadow();
+        Circle displayPicture = createDisplayPicture(img);
+        Text text = createText(message);
+        Rectangle messageBubble = createMessageBubble(text);
 
+        displayPicture.setEffect(dropShadow);
+        messageBubble.setEffect(dropShadow);
+        StackPane bubbleDialog = createBubbleDialog(messageBubble, text);
+        this.getChildren().addAll(bubbleDialog, displayPicture);
+    }
+
+    /**
+     * Create and configure the drop shadow effect for elements.
+     *
+     * @return The configured DropShadow effect.
+     */
+    private DropShadow createDropShadow() {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
         dropShadow.setColor(new Color(0.0, 0.0, 0.0, 0.5));
+        return dropShadow;
+    }
 
-        Insets bubbleMargin = new Insets(20.0); // top, right, bottom, left
-
+    /**
+     * Create and configure the display picture (circle with an image fill).
+     *
+     * @param img The display image to be displayed.
+     * @return The configured Circle element for the display picture.
+     */
+    private Circle createDisplayPicture(Image img) {
         Circle displayPicture = new Circle(0, 0, 50);
         displayPicture.setFill(new ImagePattern(img));
+        displayPicture.setEffect(createDropShadow());
+        return displayPicture;
+    }
 
-        Text message = new Text(text);
-        double messageBubbleHeight = message.getBoundsInLocal().getHeight() * 1.26 + 20;
+    /**
+     * Create a Text element with the given message content.
+     *
+     * @param message The text content to be displayed.
+     * @return The configured Text element.
+     */
+    private Text createText(String message) {
+        return new Text(message);
+    }
+
+    /**
+     * Create and configure the message bubble (rounded rectangle).
+     *
+     * @param text The Text element to calculate the height of the bubble.
+     * @return The configured Rectangle element for the message bubble.
+     */
+    private Rectangle createMessageBubble(Text text) {
+        double messageBubbleHeight = text.getBoundsInLocal().getHeight() * 1.255 + 20;
         Rectangle messageBubble = new Rectangle(560, messageBubbleHeight);
         messageBubble.setFill(Color.WHITE);
         messageBubble.setArcWidth(30);
         messageBubble.setArcHeight(30);
+        messageBubble.setEffect(createDropShadow());
+        return messageBubble;
+    }
 
+    /**
+     * Create a StackPane to combine the message bubble and text message.
+     *
+     * @param messageBubble The message bubble element.
+     * @param message       The text message element.
+     * @return The configured StackPane containing the message bubble and text message.
+     */
+    private StackPane createBubbleDialog(Rectangle messageBubble, Text message) {
+        Insets bubbleMargin = new Insets(20.0); // top, right, bottom, left
         StackPane bubbleDialog = new StackPane(messageBubble, message);
         StackPane.setMargin(message, bubbleMargin);
         bubbleDialog.setAlignment(Pos.TOP_LEFT);
         bubbleDialog.setStyle(
             "-fx-padding: 0px 20px 0px 20px;"
         );
-
-        displayPicture.setEffect(dropShadow);
-        messageBubble.setEffect(dropShadow);
-        this.getChildren().addAll(bubbleDialog, displayPicture);
+        return bubbleDialog;
     }
 
     /**
-     * Flips the dialog box, changing the alignment to place the ImageView on the left and text on the right.
+     * Flips the dialog box, changing the alignment to place the display picture on the left and message bubble
+     * on the right.
      */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
@@ -72,23 +124,23 @@ public class DialogBox extends HBox {
     /**
      * Creates a new user dialog box.
      *
-     * @param text The text content to be displayed in the user dialog box.
-     * @param img  The image to be displayed in the user dialog box.
+     * @param message The message content to be displayed in the user dialog box.
+     * @param img  The display image to be displayed in the user dialog box.
      * @return A new `DialogBox` representing the user's dialog.
      */
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(String message, Image img) {
+        return new DialogBox(message, img);
     }
 
     /**
-     * Creates a new dialog box and flips it to place the ImageView on the left and text on the right.
+     * Creates a new dialog box and flips it to place the ImageView on the left and message on the right.
      *
-     * @param text The text content to be displayed in the application dialog box.
-     * @param img  The image to be displayed in the application dialog box.
+     * @param message The message content to be displayed in the application dialog box.
+     * @param img  The display image to be displayed in the application dialog box.
      * @return A new `DialogBox` representing the application's dialog.
      */
-    public static DialogBox getBotDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getBotDialog(String message, Image img) {
+        var db = new DialogBox(message, img);
         db.flip();
         return db;
     }

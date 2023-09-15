@@ -1,5 +1,6 @@
 #userInput {
     -fx-control-inner-background: #C5CBEC;
+    -fx-max-height: 60.0;
 }
 
 /* Hide the arrow buttons for the vertical scroll bar */
