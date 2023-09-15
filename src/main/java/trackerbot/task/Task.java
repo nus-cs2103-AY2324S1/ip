@@ -9,7 +9,7 @@ import trackerbot.exception.TrackerBotException;
  * with no DateTime fields, use the To-do subtype instead.</p>
  *
  * @author WZWren
- * @version A-JavaDoc
+ * @version A-CodeQuality
  */
 public abstract class Task {
     /** The description of the task instance. **/
@@ -108,28 +108,24 @@ public abstract class Task {
 
     /**
      * Flags the task to be completed, if able.
-     * @return true if the task is successfully marked to completion,
-     *         false if the task is already completed.
+     * @throws TrackerBotException if the Task is already done.
      */
-    public boolean markTask() {
+    public void markTask() throws TrackerBotException {
         if (isDone) {
-            return false;
+            throw new TrackerBotException("The specified task is already completed.");
         }
         isDone = true;
-        return true;
     }
 
     /**
      * Flags the task to be incomplete, if able.
-     * @return true if the task is successfully marked to be incomplete,
-     *         false if the task is already marked as incomplete.
+     * @throws TrackerBotException if the Task is already still in progress.
      */
-    public boolean unmarkTask() {
+    public void unmarkTask() throws TrackerBotException {
         if (!isDone) {
-            return false;
+            throw new TrackerBotException("This task is already in progress.");
         }
         isDone = false;
-        return true;
     }
 
     /**

@@ -13,7 +13,7 @@ import trackerbot.utils.Storage;
  * as part of the requirements for the iP.
  *
  * @author WZWren
- * @version Level-10
+ * @version A-CodeQuality
  */
 public class TrackerBot {
     /** Name of the app. **/
@@ -77,13 +77,7 @@ public class TrackerBot {
      */
     public String handleInput(String input) {
         Command command = Parser.parseCommand(input);
-        try {
-            // TODO: This is a bit weird... Why is there different levels of handling on uiHandler?
-            command.execute(tasks, uiHandler);
-        } catch (TrackerBotException e) {
-            uiHandler.setError(e.getMessage());
-        }
-
+        command.execute(tasks, uiHandler);
         return uiHandler.getMessage();
     }
 }

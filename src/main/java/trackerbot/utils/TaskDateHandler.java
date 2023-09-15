@@ -12,9 +12,12 @@ import trackerbot.exception.TrackerBotException;
 /**
  * Handles Date-related methods for Task.
  * @author WZWren
- * @version A-JavaDocs
+ * @version A-Assertions
  */
 public class TaskDateHandler {
+    private static final String DATE_INPUT_FORMAT = "d/M[/yyyy][ HHmm]";
+    private static final String DATE_UI_FORMAT = "dd MMM yyyy, EEE @ hh:mma";
+
     /** Prevent the instantiation of TaskDateHandler object. **/
     private TaskDateHandler() {}
 
@@ -31,7 +34,7 @@ public class TaskDateHandler {
             throws TrackerBotException {
         try {
             DateTimeFormatter format = new DateTimeFormatterBuilder()
-                    .append(DateTimeFormatter.ofPattern("d/M[/yyyy][ HHmm]"))
+                    .append(DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT))
                     .parseDefaulting(ChronoField.YEAR_OF_ERA, LocalDateTime.now().get(ChronoField.YEAR_OF_ERA))
                     .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                     .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
@@ -113,7 +116,7 @@ public class TaskDateHandler {
      */
     public static String convertDateToUi(LocalDateTime date) {
         DateTimeFormatter format = new DateTimeFormatterBuilder()
-                .append(DateTimeFormatter.ofPattern("dd MMM yyyy, EEE @ hh:mma"))
+                .append(DateTimeFormatter.ofPattern(DATE_UI_FORMAT))
                 .toFormatter();
         return date.format(format);
     }

@@ -51,7 +51,8 @@ public class TaskDateHandlerTest {
             fail();
         } catch (TrackerBotException e) {
             assertEquals("Error in parsing input to date: "
-                    + "Text '' could not be parsed at index 0", e.getMessage());
+                    + "Text '' could not be parsed at index 0"
+                    + "\nAdditional Date Fields should be in the format DD/MM(/YYYY)( HHmm)", e.getMessage());
         }
     }
 
@@ -62,7 +63,8 @@ public class TaskDateHandlerTest {
             fail();
         } catch (TrackerBotException e) {
             assertEquals("Error in parsing input to date: "
-                    + "Text '21//2 2359' could not be parsed at index 3", e.getMessage());
+                    + "Text '21//2 2359' could not be parsed at index 3"
+                    + "\nAdditional Date Fields should be in the format DD/MM(/YYYY)( HHmm)", e.getMessage());
         }
     }
 
@@ -73,7 +75,8 @@ public class TaskDateHandlerTest {
             fail();
         } catch (TrackerBotException e) {
             assertEquals("Error in parsing input to date: "
-                    + "Text '21/2/20 2359' could not be parsed, unparsed text found at index 4", e.getMessage());
+                    + "Text '21/2/20 2359' could not be parsed, unparsed text found at index 4"
+                    + "\nAdditional Date Fields should be in the format DD/MM(/YYYY)( HHmm)", e.getMessage());
         }
     }
 }

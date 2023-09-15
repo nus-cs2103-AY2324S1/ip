@@ -20,9 +20,12 @@ import trackerbot.task.TaskList;
  * [.\TrackerBot\data.txt].</p>
  *
  * @author WZWren
- * @version A-JavaDoc
+ * @version A-CodeQuality
  */
 public class Storage {
+    private static final String PARENT_FOLDER = "TrackerBot";
+    private static final String DATA_FILE = "data.txt";
+
     /** Prevent the instantiation of Storage object. */
     private Storage() {};
 
@@ -36,8 +39,8 @@ public class Storage {
      * @see Task#toSaveString()
      */
     private static Task parseSaveLine(String saveStr) throws TrackerBotException {
-        String delimiter = "|";
-        String[] args = saveStr.split("[|]");
+        final String delimiter = "[|]";
+        String[] args = saveStr.split(delimiter);
         return Task.ofSaveString(args[0], Arrays.copyOfRange(args, 1, args.length));
     }
 
@@ -53,7 +56,7 @@ public class Storage {
      * @see Task#toSaveString()
      */
     public static void read(TaskList tasks) throws TrackerBotException {
-        Path path = Paths.get("TrackerBot", "data.txt");
+        Path path = Paths.get(PARENT_FOLDER, DATA_FILE);
         if (Files.notExists(path)) {
             return;
         }
@@ -79,7 +82,7 @@ public class Storage {
      * @throws TrackerBotException If the save data fails to generate, with specified reason.
      */
     public static void save(TaskList tasks) throws TrackerBotException {
-        Path path = Paths.get("TrackerBot", "data.txt");
+        Path path = Paths.get(PARENT_FOLDER, DATA_FILE);
         File file = path.toFile();
         try {
             Files.createDirectories(path.getParent());
