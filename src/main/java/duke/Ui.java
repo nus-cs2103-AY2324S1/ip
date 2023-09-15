@@ -47,6 +47,21 @@ public class Ui {
     }
 
     /**
+     * Returns the list of contacts to the user.
+     *
+     * @param contacts The list of contacts as a string.
+     * @return List of contacts.
+     */
+    public static String listOfContacts(String contacts) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     " + "Here are your contacts:" + "\n");
+        sb.append(contacts + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
+    }
+
+    /**
      * Returns the added task to the user.
      *
      * @param taskStr The new task as a string.
@@ -59,6 +74,23 @@ public class Ui {
         sb.append("     Got it. I've added this task:" + "\n");
         sb.append("       " + taskStr + "\n");
         sb.append("     Now you have " + size + " tasks in the list." + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
+    }
+
+    /**
+     * Returns the added contact to the user.
+     *
+     * @param contactStr The new contact as a string.
+     * @param size The number of contacts.
+     * @return Added contact as a string.
+     */
+    public static String addContact(String contactStr, int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     Got it. I've added this contact:" + "\n");
+        sb.append("       " + contactStr + "\n");
+        sb.append("     Now you have " + size + " contacts." + "\n");
         sb.append(line + "\n");
         return sb.toString();
     }
@@ -147,6 +179,23 @@ public class Ui {
         sb.append("     Noted. I've removed this task:" + "\n");
         sb.append("       " + task.toString() + "\n");
         sb.append("     Now you have " + size + " tasks in the list." + "\n");
+        sb.append(line + "\n");
+        return sb.toString();
+    }
+
+    /**
+     * Returns the deleted contact to the user.
+     *
+     * @param contact The deleted contact.
+     * @param size The number of contacts left.
+     * @return Contact being deleted as a string.
+     */
+    public static String removeContact(Contact contact, int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(line + "\n");
+        sb.append("     Noted. I've removed this contact:" + "\n");
+        sb.append("       " + contact.toString() + "\n");
+        sb.append("     Now you have " + size + " contact." + "\n");
         sb.append(line + "\n");
         return sb.toString();
     }

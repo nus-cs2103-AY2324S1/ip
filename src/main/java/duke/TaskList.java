@@ -26,7 +26,6 @@ public class TaskList {
         this.startFile = startFile;
         assert this.startFile.exists();
         this.list = new ArrayList<Task>();
-        Scanner scan = new Scanner(System.in);
         try {
             Scanner fileScan = new Scanner(startFile);
             DateTimeFormatter fileDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");

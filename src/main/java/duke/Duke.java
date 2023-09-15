@@ -9,8 +9,12 @@ import java.util.Scanner;
 public class Duke {
     /** Stores file information and handles the file operations **/
     private Storage storage;
+    /** Stores contact information and handles the file operations **/
+    private Storage contactStorage;
     /** Stores the list of tasks **/
     private TaskList tasks;
+    /** Stores the list of contacts **/
+    private ContactList contacts;
     /** Instance of Ui to handle user interactions **/
     private Ui ui;
 
@@ -22,7 +26,9 @@ public class Duke {
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+        this.contactStorage = new Storage("contacts");
         this.tasks = new TaskList(storage.load());
+        this.contacts = new ContactList(contactStorage.load());
         File checkFile = new File(filePath);
         assert checkFile.exists();
     }
@@ -35,7 +41,7 @@ public class Duke {
         Scanner scan = new Scanner(System.in);
         String input = Ui.getInput(scan);
         while (!input.equals("bye")) {
-            Parser.parseInput(input, this.tasks, this.storage);
+            Parser.parseInput(input, this.tasks, this.contacts, this.storage, this.contactStorage);
             input = Ui.getInput(scan);
         }
         Ui.bye();
@@ -56,7 +62,7 @@ public class Duke {
         if (input.equals("bye")) {
             return Ui.bye();
         } else {
-            return Parser.parseInput(input, this.tasks, this.storage);
+            return Parser.parseInput(input, this.tasks, this.contacts, this.storage, this.contactStorage);
         }
     }
 }
