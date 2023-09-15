@@ -31,6 +31,14 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Updates the date of the deadline task. Depending on what type of task it is, error is thrown
+     * when the task does not support the updating of a particular date.
+     *
+     * @param by The new deadline date for the deadline task.
+     * @param from An empty string, else an error is thrown.
+     * @param to An empty string, else an error is thrown.
+     */
     public void updateDates(String by, String from, String to) {
         if (!from.isBlank() || !to.isBlank()) {
             throw new ZeanException("Cannot update from/to dates for deadline task!");

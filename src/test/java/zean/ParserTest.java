@@ -221,8 +221,8 @@ public class ParserTest {
     public void emptyInfoUpdateTest() {
         Exception exception = assertThrows(ZeanException.class, () ->
                 Parser.parse("update 1  ", new TaskList()));
-        assertEquals("You forgot to specify the information for me to update." +
-                        "\nUse \"/description\", \"/by\", \"/from\", \"/to\" to update the info accordingly.",
+        assertEquals("You forgot to specify the information for me to update."
+                        + "\nUse \"/description\", \"/by\", \"/from\", \"/to\" to update the info accordingly.",
                 exception.getMessage());
     }
 

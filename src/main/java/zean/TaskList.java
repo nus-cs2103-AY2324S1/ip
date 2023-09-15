@@ -140,6 +140,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Updates the description of the task.
+     *
+     * @param index The index of the task seen by the user, which starts from 1.
+     * @param description The new description of the task.
+     */
     public void updateTaskDescription(int index, String description) {
         if (index > this.count || index <= 0) {
             throw new ZeanException("Hmm, this task does not exist :|");
@@ -150,6 +156,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates the date of the task. Depending on what type of task it is, error is thrown
+     * when the task does not support the updating of a particular date.
+     *
+     * @param index The index of the task seen by the user, which starts from 1.
+     * @param by The new deadline date for deadline task.
+     * @param from The new start date for event task.
+     * @param to The new end date for event task.
+     */
     public void updateTaskDates(int index, String by, String from, String to) {
         if (index > this.count || index <= 0) {
             throw new ZeanException("Hmm, this task does not exist :|");

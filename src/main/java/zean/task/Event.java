@@ -37,6 +37,14 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Updates the date of the event task. Depending on what type of task it is, error is thrown
+     * when the task does not support the updating of a particular date.
+     *
+     * @param by An empty string, else an error is thrown.
+     * @param from The new start date for event task.
+     * @param to The new end date for event task.
+     */
     public void updateDates(String by, String from, String to) {
         if (!by.isBlank()) {
             throw new ZeanException("Cannot update by date for event task!");

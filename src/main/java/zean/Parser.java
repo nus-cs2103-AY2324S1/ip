@@ -202,12 +202,12 @@ public class Parser {
         String from = getSubstring(input, "/from");
         String to = getSubstring(input, "/to");
         if (description.isBlank() && by.isBlank() && from.isBlank() && to.isBlank()) {
-            throw new ZeanException("You forgot to specify the information for me to update." +
-                    "\nUse \"/description\", \"/by\", \"/from\", \"/to\" to update the info accordingly.");
+            throw new ZeanException("You forgot to specify the information for me to update."
+                    + "\nUse \"/description\", \"/by\", \"/from\", \"/to\" to update the info accordingly.");
         }
-        if ((!by.isBlank() && !DATE_PATTERN.matcher(by).matches()) ||
-                (!from.isBlank() && !DATE_PATTERN.matcher(from).matches()) ||
-                (!to.isBlank() && !DATE_PATTERN.matcher(to).matches())) {
+        if ((!by.isBlank() && !DATE_PATTERN.matcher(by).matches())
+                || (!from.isBlank() && !DATE_PATTERN.matcher(from).matches())
+                || (!to.isBlank() && !DATE_PATTERN.matcher(to).matches())) {
             throw new ZeanException("Hmm, I don't understand the date. "
                     + "Use this format: YYYY-MM-DD");
         }
