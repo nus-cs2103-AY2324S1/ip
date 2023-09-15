@@ -35,7 +35,7 @@ public class Parser {
     private static final String EVENT_COMMAND = "event";
     private static final String FIND_COMMAND = "find";
     private static final String BYE_COMMAND = "bye";
-    
+
     /**
      * Constructor for a Parser object.
      * Currently, requires no arguments to initialize.
@@ -78,7 +78,7 @@ public class Parser {
         }
         return args;
     }
-    
+
     static ArrayList<String> parseMarkCommand(String input) throws OutOfBoundIdException, NotIntegerIdException,
             MissingIdException {
         ArrayList<String> args = new ArrayList<>();
@@ -91,7 +91,7 @@ public class Parser {
         args.add(idString);
         return args;
     }
-    
+
     static ArrayList<String> parseUnmarkCommand(String input) throws OutOfBoundIdException, NotIntegerIdException,
             MissingIdException {
         ArrayList<String> args = new ArrayList<>();

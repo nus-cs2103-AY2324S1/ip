@@ -43,7 +43,7 @@ public class Storage {
                 // Theoretically impossible to enter this block under normal circumstances
             }
         }
-        
+
         // Checks if the data file exists
         dataFilePath = Paths.get(filePathString);
         // If the file does not exist, create it for the user

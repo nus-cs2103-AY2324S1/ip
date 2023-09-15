@@ -53,12 +53,12 @@ public class Jeeves {
         ArrayList<String> tokens;
         try {
             tokens = parser.parseUserInput(inputLine);
-        } catch (MissingByException | MissingDescriptionException | MissingFromException | MissingToException |
-                 OutOfBoundIdException | NotIntegerIdException | MissingIdException e) {
+        } catch (MissingByException | MissingDescriptionException | MissingFromException | MissingToException
+                 | OutOfBoundIdException | NotIntegerIdException | MissingIdException e) {
             return e.getMessage();
         }
         assert !tokens.isEmpty();
-        
+
         String currentCommand = tokens.get(0);
         // Performs a different action depending on the input received
         // Unless a specific pre-defined command is received, the program will
@@ -89,7 +89,7 @@ public class Jeeves {
         return "Apologies Master, I am unable to understand that command.\n"
                         + "I will improve myself to better serve you in the future.\n";
     }
-    
+
     private static String processListCommand() {
         // Displays a different message if no task is being tracked
         StringBuilder sb = new StringBuilder();
@@ -109,7 +109,7 @@ public class Jeeves {
         sb.append("\n");
         return sb.toString();
     }
-    
+
     private static String processMarkCommand(ArrayList<String> tokens) {
         // Get the id and try to process the marking
         int id = Integer.parseInt(tokens.get(1));
@@ -129,7 +129,7 @@ public class Jeeves {
             return e.getMessage();
         }
     }
-    
+
     private static String processUnmarkCommand(ArrayList<String> tokens) {
         int id = Integer.parseInt(tokens.get(1));
 
@@ -148,7 +148,7 @@ public class Jeeves {
             return e.getMessage();
         }
     }
-    
+
     private static String processDeleteCommand(ArrayList<String> tokens) {
         int id = Integer.parseInt(tokens.get(1));
 
@@ -203,7 +203,7 @@ public class Jeeves {
                 + newEvent
                 + "\n";
     }
-    
+
     private static void processByeCommand() {
         // Before the actual termination of the program, writes the current task list to the external file.
         storage.writeTasklistToFile(tasks.getTaskListDataAsString());
