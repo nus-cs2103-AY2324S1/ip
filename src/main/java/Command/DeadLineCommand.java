@@ -42,6 +42,8 @@ public class DeadLineCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert description != null : "Description cannot be null.";
+        assert by != null : "by attribute cannot be null.";
         DeadLine deadline = new DeadLine(description, by);
         taskList.addTask(deadline);
         storage.saveTask(taskList.getTasks());
