@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -66,6 +67,22 @@ public class TimeUtilTest {
             }
         }
     }
+
+    @Test
+    public void testParseDateTimeString_withDaysOfWeekInputs() {
+        List<String> daysOfWeekInputs = List.of("monday", "tuesday", "wednesday", "thursday", "friday",
+            "saturday", "sunday");
+        for (String input : daysOfWeekInputs) {
+            try {
+                LocalDateTime actual = TimeUtil.parseDateTimeString(input);
+                DayOfWeek expectedDay = DayOfWeek.valueOf(input.toUpperCase());
+                assertEquals(expectedDay, actual.getDayOfWeek());
+            } catch (TimeUtilException e) {
+                fail();
+            }
+        }
+    }
+
 
     @Test
     public void testParseDateTimeString_withInvalidInputs() {
