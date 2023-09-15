@@ -247,7 +247,7 @@ public class Ui {
     }
 
     public String fileErrorString() {
-        return "A file-related error occured.";
+        return "A file-related error occurred.";
     }
 
 

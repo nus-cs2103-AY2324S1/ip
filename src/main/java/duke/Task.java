@@ -38,7 +38,7 @@ public class Task {
      */
     public void mark() {
         this.done = true;
-        }
+    }
 
     /**
      * Marks the Task as undone.
@@ -55,6 +55,7 @@ public class Task {
      */
     @Override
     public String toString() {
+        assert (this.name != null);
         if (done) {
             return DONE_MARKER + this.name;
         } else {

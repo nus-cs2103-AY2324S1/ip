@@ -22,6 +22,7 @@ public class Parser {
 
     /** Returns the first value of the parsed input */
     public String command() {
+        assert (this.input[0] instanceof String);
         return this.input[0];
     }
 
@@ -38,11 +39,13 @@ public class Parser {
      * @return The second value of parsed input with unit subtraction.
      * */
     public int num() {
+        assert (this.number() >= 0);
         return this.number() - 1;
     }
 
     /** Returns the second value of the parsed input as a String. */
     public String word() {
+        assert (this.input[1] instanceof String);
         return this.input[1];
     }
 

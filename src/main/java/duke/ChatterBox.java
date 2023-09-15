@@ -56,7 +56,6 @@ public class ChatterBox extends Application {
      */
     public ChatterBox() throws IOException, DukeException {
         this(new Ui(), new TaskList(), new Storage());
-        //this.run();
         ArrayList<Task> taskList = this.tl.getTaskList();
         this.store.fileToTaskList(this.tl);
 
@@ -182,6 +181,7 @@ public class ChatterBox extends Application {
         } catch (DukeException e) {
             throw new RuntimeException(e);
         }
+        assert (res != null);
         return "ChatterBox:" + res;
     }
 
@@ -205,6 +205,9 @@ public class ChatterBox extends Application {
         String command = p.command();
         String fullLine = p.fullLine;
         String finalOutput = "";
+
+        assert (command instanceof String);
+        assert (command != null);
 
         switch (command) {
         case "bye":
@@ -305,6 +308,7 @@ public class ChatterBox extends Application {
             break;
         }
 
+        assert (finalOutput != null);
         return finalOutput;
 
     }

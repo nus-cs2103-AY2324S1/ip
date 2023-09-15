@@ -25,6 +25,7 @@ public class Storage {
             f.createNewFile();
         }
 
+        assert(f.exists());
         this.file = f;
     }
 
@@ -56,6 +57,7 @@ public class Storage {
             String typeOfTask = sArray[0];
             boolean isDone = sArray[1].equals("1") ? true : false;
 
+            assert(typeOfTask instanceof String);
             switch (typeOfTask) {
             case "T":
                 boolean isTodoDone = isDone;
