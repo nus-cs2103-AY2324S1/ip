@@ -59,6 +59,10 @@ public class Parser {
             case DELETE:
                 // explicit fall-through
                 return executeCommandWithIntegerArgs(commandType, args);
+            case TAG:
+            case UNTAG:
+                // explicit fall-through
+                return executeTagCommand(commandType, args);
             case TODO:
             case DEADLINE:
             case EVENT:
@@ -130,6 +134,28 @@ public class Parser {
                 String description = varargs[0], from = varargs[1], to = varargs[2];
                 return taskList.addTask(description, CommandType.EVENT, from, to);
             }
+            default:
+                // the program should never reach this point.
+                return null;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidArgumentException(command.name());
+        }
+    }
+
+    /** Executes the tag command with the given description and optional arguments. */
+    private String executeTagCommand(CommandType command, String args) throws JarvisException {
+        try {
+            String[] varargs = args.split(" ", 2);
+            int taskNumber = Integer.parseInt(varargs[0]);
+            String[] tags = varargs[1].split(" ");
+
+            switch (command) {
+            case TAG:
+                return taskList.addTagsToTask(taskNumber, tags);
+
+            case UNTAG:
+                return taskList.deleteTagsFromTask(taskNumber, tags);
             default:
                 // the program should never reach this point.
                 return null;

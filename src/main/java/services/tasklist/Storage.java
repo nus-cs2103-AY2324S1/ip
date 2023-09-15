@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -66,7 +67,8 @@ public class Storage implements IStorage {
                 assert encodedTask.length() > 0 : "encoded task should not be empty";
 
                 String[] varargs = encodedTask.split(" \\| ");
-                assert varargs.length >= 3 : "encoded task should have at least 3 parts";
+                assert varargs.length >= 4 : "encoded task should have at least 3 parts "
+                        + "(type, isDone, tags, description)";
 
                 String taskType = varargs[0];
                 assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E")
@@ -75,13 +77,13 @@ public class Storage implements IStorage {
                 Task task;
                 switch (varargs[0]) {
                 case "T":
-                    task = new Todo(varargs[2]);
+                    task = new Todo(varargs[3]);
                     break;
                 case "D":
-                    task = new Deadline(varargs[2], varargs[3]);
+                    task = new Deadline(varargs[3], varargs[4]);
                     break;
                 case "E":
-                    task = new Event(varargs[2], varargs[3], varargs[4]);
+                    task = new Event(varargs[3], varargs[4], varargs[5]);
                     break;
                 default:
                     // the program should never reach this point.
@@ -92,6 +94,15 @@ public class Storage implements IStorage {
                 if (isDone.equals("1")) {
                     task.setDone();
                 }
+
+                if (!varargs[2].equals("")) {
+                    // the tags currently have a leading "#" character.
+                    String[] tagsWithHashes = varargs[2].split(" ");
+                    // remove the leading "#" character.
+                    String[] tags = Arrays.stream(tagsWithHashes).map(s -> s.substring(1)).toArray(String[]::new);
+                    task.addTags(tags);
+                }
+
                 taskList.add(task);
             }
             scanner.close();

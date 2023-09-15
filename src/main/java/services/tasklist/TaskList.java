@@ -85,6 +85,28 @@ public class TaskList implements ITaskList {
     }
 
     @Override
+    public String addTagsToTask(int taskNumber, String[] tagNames) throws SaveToFileException, IndexOutOfRangeException {
+        if (taskNumber <= 0 || taskNumber > taskCount) {
+            throw new IndexOutOfRangeException(taskNumber, taskCount);
+        }
+        Task taskToTag = tasks.get(taskNumber - 1);
+        taskToTag.addTags(tagNames);
+        repo.save(tasks);
+        return "added tags " + taskToTag.showAllTags() + " to the task:\n\t" + taskToTag;
+    }
+
+    @Override
+    public String deleteTagsFromTask(int taskNumber, String[] tagNames) throws SaveToFileException, IndexOutOfRangeException {
+        if (taskNumber <= 0 || taskNumber > taskCount) {
+            throw new IndexOutOfRangeException(taskNumber, taskCount);
+        }
+        Task taskToTag = tasks.get(taskNumber - 1);
+        taskToTag.deleteTags(tagNames);
+        repo.save(tasks);
+        return "deleted tags from the task:\n\t" + taskToTag;
+    }
+
+    @Override
     public String findTask(String keyword) {
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.toString().contains(keyword))

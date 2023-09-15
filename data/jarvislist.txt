@@ -1,3 +1,1 @@
-T | 1 | sahdsf
-T | 1 | sj
-T | 0 | gaming
+T | 0 | #urgent | go home

@@ -23,13 +23,14 @@ public class Event extends Task {
 
     @Override
     public String encode() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startTime + " | " + endTime;
+        return "E | " + (isDone ? "1" : "0") + " | " + showAllTags() + " | " + description + " | "
+                + startTime + " | " + endTime;
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + startTime.format(outputFormatter)
+                + "\n(from: " + startTime.format(outputFormatter)
                 + " to: " + endTime.format(outputFormatter) + ")";
     }
 }
