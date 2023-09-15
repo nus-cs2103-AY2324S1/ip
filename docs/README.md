@@ -1,5 +1,7 @@
 # User Guide
 
+## Bot
+
 ## Features
 
 ### Todo Command
