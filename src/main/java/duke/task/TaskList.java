@@ -99,4 +99,22 @@ public class TaskList {
         }
         return result.toArray(new Task[0]);
     }
+
+    public Task[] findTaskWithTag(String tag) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t : list) {
+            if (t.hasTag(tag)) {
+                result.add(t);
+            }
+        }
+        return result.toArray(new Task[0]);
+    }
+
+    public void assignTaskWithTag(int index, String tag) {
+        list.get(index).assignTag(tag);
+    }
+
+    public void removeTagFromTask(int index, String tag) {
+        list.get(index).removeTag(tag);
+    }
 }

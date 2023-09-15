@@ -29,6 +29,37 @@ public class Ui {
         return result;
     }
 
+    public String assignTagPrompt(Task task) {
+        String result = "Chewie gotcha, tag added to task :\n";
+        result += task.getStatus() + task.getTaskName() + " " + tagPrompt(task);
+
+        return result;
+    }
+
+    public String removeTagPrompt(Task task) {
+        String result = "Chewie gotcha, tag removed from task :\n";
+        result += task.getStatus() + task.getTaskName() + " " + tagPrompt(task);
+
+        return result;
+    }
+
+    public String findTaskWithTagPrompt(Task[] tasks) {
+         String result = "Chewie found these tasks with the tag :\n";
+
+         for (int i = 0; i < tasks.length; i++) {
+             Task t = tasks[i];
+             result += (i+1) + ". " + t.getStatus() + t.getTaskName() + " " + tagPrompt(t) + "\n";
+         }
+        return result;
+    }
+
+    private String tagPrompt(Task task) {
+        String result = "( ";
+        for (String t :task.getTags()) {
+            result += "#" + t + " ";
+        }
+        return result + ")";
+    }
     /**
      * Display the message of marking a task
      *
@@ -36,7 +67,7 @@ public class Ui {
      */
     public String markPrompt(Task task) {
         String result = "Rrrruuuurrr, Chewie has marked the task.\n";
-        result += task.getStatus() + task.getTaskName();
+        result += task.getStatus() + task.getTaskName() + " " + tagPrompt(task);
 
         return result;
     }
@@ -48,7 +79,7 @@ public class Ui {
      */
     public String unmarkPrompt(Task task) {
         String result = "Rrrruuuurrr, Chewie has unmarked the task.\n";
-        result += task.getStatus() + task.getTaskName();
+        result += task.getStatus() + task.getTaskName() + " " + tagPrompt(task);
         return result;
     }
 
@@ -58,7 +89,9 @@ public class Ui {
      * @param task task created
      */
     public String deletePrompt(Task task) {
-        String result = "Chewie gotcha, task removed:\n" + task.getStatus() + task.getTaskName();
+        String result = "Chewie gotcha, task removed:\n" + task.getStatus()
+                + task.getTaskName() + " " + tagPrompt(task);
+
         result += "\nChewie now find " + (Duke.getListSize() - 1) + " tasks in the list" + "\n";
         return result;
     }
@@ -77,7 +110,7 @@ public class Ui {
             int index = i + 1;
             Task task = list.get(i);
 
-            result += index + "." + task.getStatus() + task.getTaskName() + "\n";
+            result += index + "." + task.getStatus() + task.getTaskName() + " " + tagPrompt(task) + "\n";
         }
         return result;
     }
@@ -93,7 +126,7 @@ public class Ui {
             int index = i + 1;
             Task task = list[i];
 
-            result += index + "." + task.getStatus() + task.getTaskName() + "\n";
+            result += index + "." + task.getStatus() + task.getTaskName() + " " + tagPrompt(task) + "\n";
         }
 
         return result;

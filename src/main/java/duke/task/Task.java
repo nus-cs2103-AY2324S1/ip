@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 /**
  * Encapsulates of data related to a single task of user
  *
@@ -8,12 +10,14 @@ package duke.task;
 public class Task {
 
     private String name;
-
     private boolean done;
+
+    private ArrayList<String> tags;
 
     public Task(String task) {
         name = task;
         done = false;
+        tags = new ArrayList<>();
     }
 
     /**
@@ -67,6 +71,27 @@ public class Task {
      */
     public String getStatus() {
         return done ? "[X]" : "[ ]";
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void assignTag(String tag) {
+        tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        tags.remove(tag);
+    }
+
+    public boolean hasTag(String tag) {
+        for (String t : tags) {
+            if (tag.equals(t)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
