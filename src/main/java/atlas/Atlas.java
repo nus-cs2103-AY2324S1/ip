@@ -16,7 +16,7 @@ public class Atlas {
 
 
     /**
-     * Constructs a Atlas object
+     * Constructs an Atlas object
      * @param fileDir Relative path to save task list
      * @param fileName Name of file to save task list
      */

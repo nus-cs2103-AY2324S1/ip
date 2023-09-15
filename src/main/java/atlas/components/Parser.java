@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Optional;
 
 import atlas.commands.AddTaskCommand;
 import atlas.commands.Command;
@@ -213,24 +215,32 @@ public class Parser {
     /**
      * Creates a task based on a line read from a save file
      * @param fileArgs Line containing task saved data
-     * @return Task initialised with arguments
+     * @return An Optional object containing the Task initialised with arguments if successful,
+     *      otherwise an empty Optional object
      * @throws IllegalArgumentException Thrown if line does not have 2 delimiters " | "
      */
-    public static Task parseFileTasks(String fileArgs) throws IllegalArgumentException {
+    public static Optional<Task> parseFileTasks(String fileArgs) {
         final String fileTaskDelimiter = " \\| ";
         String[] args = fileArgs.split(fileTaskDelimiter);
 
         boolean hasPrefixStatusArgs = args.length == 3;
         if (!hasPrefixStatusArgs) {
-            throw new IllegalArgumentException("Save file is corrupted, skipping line");
+            return Optional.empty();
         }
 
         String taskTypePrefix = args[0];
         String taskStatus = args[1];
         String taskArgs = args[2];
 
-        Task loadedTask = createTaskFromPrefix(taskTypePrefix, taskArgs);
-        return markTaskByStatus(loadedTask, taskStatus);
+        try {
+            Task loadedTask = createTaskFromPrefix(taskTypePrefix, taskArgs);
+            return Optional.of(markTaskByStatus(loadedTask, taskStatus));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Task line is corrupted, skipping task");
+        } catch (UnsupportedTaskType e) {
+            System.out.println("Unsupported task type " + e.getTaskType() + ", skipping task");
+        }
+        return Optional.empty();
     }
 
     /**
@@ -265,11 +275,10 @@ public class Parser {
         final String taskMarkedKeyword = "true";
         boolean isMarked = taskStatus.equals(taskMarkedKeyword);
         if (isMarked) {
-            task.markDone();
+            return task.markDone();
         } else {
-            task.markNotDone();
+            return task.markNotDone();
         }
-        return task;
     }
 
     /**
@@ -354,13 +363,11 @@ public class Parser {
      * @param input String representation of one or more one-based indices
      * @return Array of zero-based indices in integer form
      */
-    protected int[] parseMultipleOneBasedIndicesToZeroBased(String input) {
+    protected Integer[] parseMultipleOneBasedIndicesToZeroBased(String input) {
         final String indexDelimiter = " ";
         String[] splitIndices = input.split(indexDelimiter);
-        int[] output = new int[splitIndices.length];
-        for (int i = 0; i < splitIndices.length; ++i) {
-            output[i] = parseOneBasedIndexToZeroBased(splitIndices[i]);
-        }
-        return output;
+        return Arrays.stream(splitIndices)
+                .map(this::parseOneBasedIndexToZeroBased)
+                .toArray(Integer[]::new);
     }
 }
