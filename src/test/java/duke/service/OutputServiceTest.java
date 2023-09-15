@@ -4,7 +4,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import duke.tasks.Task;
-import duke.tasks.TaskList;
 import duke.tasks.TodoTask;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
