@@ -21,6 +21,7 @@ public class Database {
     /**
      * Takes in a list of tasks and overwrites it onto the text file
      * @param list list of tasks
+     * @throws IOException from file handling errors
      */
     public static void saveTasks(ArrayList<Task> list) throws IOException {
         //Open file and feed it into writer
@@ -40,6 +41,8 @@ public class Database {
     /**
      * Retrieves the list of task records from the text file and returns it in an arraylist
      * @return list of tasks saved in the text file
+     * @throws IOException from file handling errors
+     * @throws ArrayIndexOutOfBoundsException for file data corruption errors
      */
     public static ArrayList<Task> loadTasks() throws IOException, ArrayIndexOutOfBoundsException {
         ArrayList<Task> list = new ArrayList<>();

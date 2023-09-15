@@ -1,5 +1,6 @@
 package parser;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -12,7 +13,7 @@ import exception.InvalidTimeException;
  */
 public class Time {
 
-    private static DateTimeFormatter[] FORMATS = new DateTimeFormatter[]{
+    private static final DateTimeFormatter[] FORMATS = new DateTimeFormatter[]{
             DateTimeFormatter.ofPattern("MMM-d-yyyy"),
             DateTimeFormatter.ofPattern("MMM-dd-yyyy"),
             DateTimeFormatter.ofPattern("d-MMM-yyyy"),
@@ -166,6 +167,11 @@ public class Time {
         int intTime = Integer.parseInt(time);
         int hour = (int) Math.floor(intTime / 100.0);
         int minute = intTime - (hour * 100);
-        return lDate.atTime(hour, minute).format(stdFormat);
+        try {
+            return lDate.atTime(hour, minute).format(stdFormat);
+        } catch (DateTimeException e) {
+            throw new InvalidTimeException();
+        }
+
     }
 }

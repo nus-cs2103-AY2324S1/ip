@@ -7,7 +7,7 @@ import task.Deadlines;
 import task.TaskManager;
 
 /**
- * A class for the process of creating a deadline task
+ * A class for the process of creating a Deadline Task object
  */
 public class Deadline implements ComplexProcess {
     private enum Stage {
@@ -18,16 +18,6 @@ public class Deadline implements ComplexProcess {
     private String name = null;
     private String deadline = null;
     private boolean isComplete = false;
-
-    @Override
-    public String firstInstruction() {
-        return "So you want to add a task with deadline. Tell me what's the task.";
-    }
-
-    @Override
-    public boolean isComplete() {
-        return isComplete;
-    }
 
     @Override
     public String processInput(String input) {
@@ -81,5 +71,15 @@ public class Deadline implements ComplexProcess {
         }
         isComplete = true;
         return tasks.addTask(new Deadlines(name, deadline));
+    }
+
+    @Override
+    public String firstInstruction() {
+        return "So you want to add a task with deadline. Tell me what's the task.";
+    }
+
+    @Override
+    public boolean isComplete() {
+        return isComplete;
     }
 }

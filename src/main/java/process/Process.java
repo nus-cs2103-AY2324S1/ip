@@ -1,7 +1,7 @@
 package process;
 
 /**
- * An interface to define the behavior of a process in general
+ * An interface to define the behavior of a process of handling user input
  */
 public interface Process {
     /**
@@ -10,5 +10,5 @@ public interface Process {
      * @param input String message captured by the user
      * @return String message of appropriate response for the user input
      */
-    String processInput(String input);
+    public String processInput(String input);
 }

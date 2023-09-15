@@ -3,6 +3,8 @@ package parser;
 import enums.Command;
 import exception.InvalidCommandException;
 import exception.MissingArgumentException;
+import exception.MissingIndexException;
+import exception.MissingKeywordException;
 
 /**
  * Class to help parse complex strings from user input
@@ -32,7 +34,7 @@ public class CommandParser {
         //ensure that arguments exist
         String args = input.substring(firstWord.length());
         if (args.isBlank()) {
-            throw new MissingArgumentException();
+            throwAppropriateMissingArgumentException(firstWord);
         }
 
         return args.substring(1);
@@ -59,5 +61,22 @@ public class CommandParser {
             return false;
         }
         return true;
+    }
+
+    private static void throwAppropriateMissingArgumentException(String command)
+            throws MissingArgumentException {
+        Command commandEnum = Command.valueOf(command.toUpperCase());
+        switch (commandEnum) {
+        case MARK:
+            throw new MissingIndexException();
+        case UNMARK:
+            throw new MissingIndexException();
+        case DELETE:
+            throw new MissingIndexException();
+        case FIND:
+            throw new MissingKeywordException();
+        default:
+            throw new MissingArgumentException();
+        }
     }
 }

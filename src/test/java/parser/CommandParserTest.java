@@ -10,7 +10,6 @@ import exception.InvalidCommandException;
 import exception.MissingArgumentException;
 
 
-
 public class CommandParserTest {
     @Test
     public void testBlankSpaces() {

@@ -6,7 +6,7 @@ import parser.CommandParser;
 import task.TaskManager;
 
 /**
- * A class for the process of creating a delete task
+ * A class for the process of creating a Delete Task object
  */
 public class Delete implements SimpleProcess {
     private TaskManager tasks = TaskManager.init();

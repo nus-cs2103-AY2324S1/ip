@@ -17,9 +17,13 @@ import task.TaskManager;
  * Main class for the chatbot
  */
 public class Evan {
-    private static TaskManager tasks = TaskManager.init();
     private ComplexProcess process = null;
 
+    /**
+     * Returns the response of the chatbot for a given input
+     * @param input of user
+     * @return response of chatbot
+     */
     public String getResponse(String input) {
         if (process != null) {
             return getExistingProcessResponse(input);
@@ -40,14 +44,15 @@ public class Evan {
         if (input.equals(Command.BYE.toString())) {
             return "Bye. Hope to see you again soon!";
         } else if (input.equals(Command.LIST.toString())) {
-            return tasks.printTasks();
-        } else if (input.equals(Command.TODO.toString())) {
+            TaskManager taskManager = TaskManager.init();
+            return taskManager.getAllTasks();
+        } else if (input.equals(Command.TODO.toString()) || input.equals("t")) {
             process = new ToDo();
             return process.firstInstruction();
-        } else if (input.equals(Command.DEADLINE.toString())) {
+        } else if (input.equals(Command.DEADLINE.toString()) || input.equals("d")) {
             process = new Deadline();
             return process.firstInstruction();
-        } else if (input.equals(Command.EVENT.toString())) {
+        } else if (input.equals(Command.EVENT.toString()) || input.equals("e")) {
             process = new Event();
             return process.firstInstruction();
         } else if (input.startsWith(Command.DELETE.toString())) {
@@ -68,6 +73,10 @@ public class Evan {
         }
     }
 
+    /**
+     * Gets the string introduction of the bot and its commands
+     * @return string introduction of the chatbot and its commands
+     */
     public String getIntro() {
         StringBuilder stringBuilder = new StringBuilder("Hello! I'm Evan, your personal task planning assistant\n")
                 .append("What can I do for you?\n\n")
