@@ -8,6 +8,11 @@ import duke.Duke;
 public class UpdateNameCommand extends UpdateCommand {
     private final String newName;
 
+    /**
+     * Instantiates a new command to update name of an event.
+     * @param index The index of the event in the task list.
+     * @param newName The new name of the task.
+     */
     public UpdateNameCommand(int index, String newName) {
         super(index);
         this.newName = newName;

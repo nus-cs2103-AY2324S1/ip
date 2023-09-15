@@ -10,9 +10,9 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.ui.text.TextUi;
 import duke.ui.graphic.DukeApplication;
 import duke.ui.graphic.MainWindow;
+import duke.ui.text.TextUi;
 import javafx.application.Application;
 
 /**
@@ -169,7 +169,7 @@ public class Duke {
     public void markTaskAsDone(int index) {
         try {
             Task task = this.taskList.markTaskAsDone(index);
-            assert task.isDone(): "Task given must be marked done";
+            assert task.isDone() : "Task given must be marked done";
             this.userInterface.notifyMarkDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
             this.userInterface.notifyError("invalid task index");
@@ -184,7 +184,7 @@ public class Duke {
     public void markTaskAsNotDone(int index) {
         try {
             Task task = this.taskList.markTaskAsNotDone(index);
-            assert !task.isDone(): "Task given must be marked not done";
+            assert !task.isDone() : "Task given must be marked not done";
             this.userInterface.notifyMarkNotDone(task);
         } catch (TaskList.TaskIndexOutOfRange e) {
             this.userInterface.notifyError("invalid task index");
@@ -253,11 +253,11 @@ public class Duke {
     }
 
     /**
-     * Update the deadline of the task of the given index with the new deadline.
+     * Updates the deadline of the task of the given index with the new deadline.
      * @param index The index of the task to be updated.
      * @param newDeadlineTime The new deadline of the task.
      */
-    public void updateDeadline (int index, LocalDateTime newDeadlineTime) {
+    public void updateDeadline(int index, LocalDateTime newDeadlineTime) {
         try {
             Task task = this.taskList.updateDeadline(index, newDeadlineTime);
             this.userInterface.notifyModified(task);
@@ -269,7 +269,7 @@ public class Duke {
     }
 
     /**
-     * Update the start time of the event with the given index.
+     * Updates the start time of the event with the given index.
      * @param index The index of the task.
      * @param newStartTime The new start time of the task.
      */
@@ -284,6 +284,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Updates end time of the event with the given index.
+     * @param index The index of the task.
+     * @param newEndTime The new end time of the task.
+     */
     public void updateEndTime(int index, LocalDateTime newEndTime) {
         try {
             Task task = this.taskList.updateEndTime(index, newEndTime);

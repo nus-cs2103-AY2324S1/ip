@@ -42,7 +42,7 @@ public class TaskList {
             case EVENT:
                 return "an event";
             default:
-                assert false: "Task type must be indicated when calling this method!";
+                assert false : "Task type must be indicated when calling this method!";
                 return "a task";
             }
         }
@@ -89,7 +89,7 @@ public class TaskList {
     public Task markTaskAsDone(int index) throws TaskIndexOutOfRange {
         try {
             this.taskList.get(index).markAsDone();
-            assert this.taskList.get(index).isDone(): "Task must be marked done";
+            assert this.taskList.get(index).isDone() : "Task must be marked done";
             return this.taskList.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRange();
@@ -105,7 +105,7 @@ public class TaskList {
     public Task markTaskAsNotDone(int index) throws TaskIndexOutOfRange {
         try {
             this.taskList.get(index).markAsNotDone();
-            assert !this.taskList.get(index).isDone(): "Task must be marked not done";
+            assert !this.taskList.get(index).isDone() : "Task must be marked not done";
             return this.taskList.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfRange();
