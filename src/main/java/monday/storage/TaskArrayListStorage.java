@@ -9,13 +9,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import monday.monday.ui.Ui;
 import monday.task.Task;
 
 
 /**
  * Class for handling the storage of tasks in a file.
  */
-public class Storage {
+public class TaskArrayListStorage {
     //CHECKSTYLE.OFF: AbbreviationAsWordInName
     //CHECKSTYLE.OFF: MemberName
     private final String FILEPATH;
@@ -23,11 +24,11 @@ public class Storage {
     //CHECKSTYLE.ON: MemberName
 
     /**
-     * Constructs a Storage object with the specified file path.
+     * Constructs a TaskArrayListStorage object with the specified file path.
      *
      * @param fileName the name of the file to store the tasks
      */
-    public Storage(String fileName) {
+    public TaskArrayListStorage(String fileName) {
         this.FILEPATH = fileName;
         File file = new File(fileName);
         if (!file.getParentFile().exists()) {
@@ -37,7 +38,7 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
+                Ui.printErrorMessage("Error creating file: ", e);
             }
         }
     }
@@ -49,9 +50,8 @@ public class Storage {
      * @throws IOException if an I/O error occurs while saving the tasks
      */
     public void save(ArrayList<Task> tasks) throws IOException {
-        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILEPATH))) {
-            output.writeObject(tasks);
-        }
+        ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILEPATH));
+        output.writeObject(tasks);
     }
 
     /**
@@ -65,8 +65,8 @@ public class Storage {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(FILEPATH))) {
             // We know the objects inside are all Tasks,therefore we can suppress the unchecked warning.
             @SuppressWarnings("unchecked")
-            ArrayList<Task> tasklists = (ArrayList<Task>) input.readObject();
-            return tasklists;
+            ArrayList<Task> tasklist = (ArrayList<Task>) input.readObject();
+            return tasklist;
         } catch (EOFException e) {
             return new ArrayList<>();
         }
