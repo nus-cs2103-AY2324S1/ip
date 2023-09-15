@@ -2,8 +2,8 @@ package trackerbot.task;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeParseException;
 
+import trackerbot.exception.TrackerBotException;
 import trackerbot.utils.TaskDateHandler;
 
 /**
@@ -22,10 +22,10 @@ public class Deadline extends Task {
      *
      * @param desc The description of the Deadline task.
      * @param by The String representation of the deadline to parse into a LocalDateTime object.
-     * @throws DateTimeParseException if the deadline cannot be parsed by TaskDateHandler.
+     * @throws TrackerBotException if the deadline cannot be parsed by TaskDateHandler.
      * @see trackerbot.utils.TaskDateHandler#convertInputToDate
      */
-    public Deadline(String desc, String by) throws DateTimeParseException {
+    public Deadline(String desc, String by) throws TrackerBotException {
         super(desc);
         this.by = TaskDateHandler.convertInputToDate(by);
     }
@@ -35,11 +35,11 @@ public class Deadline extends Task {
      *
      * @param args The arguments for constructing Deadline, containing isDone status in index
      *             0, description in index 1 and an epoch Date string in index 2
-     * @throws DateTimeParseException if the deadline cannot be parsed by TaskDateHandler.
-     * @throws NumberFormatException if the epoch save string is corrupted.
+     * @throws TrackerBotException if the deadline cannot be parsed by TaskDateHandler.
+     *                             or if the epoch save string is corrupted.
      * @see trackerbot.utils.TaskDateHandler#convertSaveToDate
      */
-    protected Deadline(String[] args) throws DateTimeParseException, NumberFormatException {
+    protected Deadline(String[] args) throws TrackerBotException {
         super(args);
         this.by = TaskDateHandler.convertSaveToDate(args[2]);
     }

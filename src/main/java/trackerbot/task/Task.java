@@ -1,7 +1,5 @@
 package trackerbot.task;
 
-import java.time.format.DateTimeParseException;
-
 import trackerbot.exception.TrackerBotException;
 
 /**
@@ -62,29 +60,29 @@ public abstract class Task {
      * @param type The String representation of the Task in the save file.
      * @param args The Arguments for each task in the save file.
      * @return A Task corresponding to the type and args of the save string.
-     * @throws IllegalArgumentException if the save file is corrupted.
-     * @throws DateTimeParseException if the DateTime field is invalid.
+     * @throws TrackerBotException if the save file is corrupted, or if
+     *                             the DateTime field is invalid.
      */
     public static Task ofSaveString(String type, String... args)
-            throws IllegalArgumentException, DateTimeParseException {
+            throws TrackerBotException {
         switch (type) {
         case "T":
             if (args.length != 2) {
-                throw new IllegalArgumentException("Todos should have exactly 2 arguments.");
+                throw new TrackerBotException("Todos should have exactly 2 arguments.");
             }
             return new Todo(args);
         case "D":
             if (args.length != 3) {
-                throw new IllegalArgumentException("Deadline should have exactly 3 arguments.");
+                throw new TrackerBotException("Deadline should have exactly 3 arguments.");
             }
             return new Deadline(args);
         case "E":
             if (args.length != 4) {
-                throw new IllegalArgumentException("Events should have exactly 4 arguments.");
+                throw new TrackerBotException("Events should have exactly 4 arguments.");
             }
             return new Event(args);
         default:
-            throw new IllegalArgumentException("Unknown Task type.");
+            throw new IllegalStateException("Unknown Task type.");
         }
     }
 

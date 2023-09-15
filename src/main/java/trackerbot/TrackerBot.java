@@ -13,7 +13,7 @@ import trackerbot.utils.Storage;
  * as part of the requirements for the iP.
  *
  * @author WZWren
- * @version Level-10
+ * @version A-CodeQuality
  */
 public class TrackerBot {
     /** Name of the app. **/

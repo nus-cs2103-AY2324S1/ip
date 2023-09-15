@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ import trackerbot.task.TaskList;
  * [.\TrackerBot\data.txt].</p>
  *
  * @author WZWren
- * @version A-JavaDoc
+ * @version A-CodeQuality
  */
 public class Storage {
     private static final String PARENT_FOLDER = "TrackerBot";
@@ -39,9 +38,9 @@ public class Storage {
      * @return The Task object from parsing the String.
      * @see Task#toSaveString()
      */
-    private static Task parseSaveLine(String saveStr) throws DateTimeParseException {
-        String delimiter = "|";
-        String[] args = saveStr.split("[|]");
+    private static Task parseSaveLine(String saveStr) throws TrackerBotException {
+        final String delimiter = "[|]";
+        String[] args = saveStr.split(delimiter);
         return Task.ofSaveString(args[0], Arrays.copyOfRange(args, 1, args.length));
     }
 
@@ -66,17 +65,11 @@ public class Storage {
             while (input.hasNextLine()) {
                 tasks.importSave(parseSaveLine(input.nextLine()));
             }
+        } catch (TrackerBotException e) {
+            tasks.clear();
+            throw e;
         } catch (IOException e) {
             throw new TrackerBotException("Failed to load save file: " + e.getMessage());
-        } catch (DateTimeParseException e) {
-            tasks.clear();
-            throw new TrackerBotException("Failed to parse date: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            tasks.clear();
-            throw new TrackerBotException("Corrupted save data in DateTime.");
-        } catch (IllegalArgumentException e) {
-            tasks.clear();
-            throw new TrackerBotException("Corrupted save data in Arguments.");
         }
     }
 

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeParseException;
 
+import trackerbot.exception.TrackerBotException;
 import trackerbot.utils.TaskDateHandler;
 
 /**
@@ -30,12 +31,16 @@ public class Event extends Task {
      * @param from The String representation of the start date to parse into a LocalDateTime object.
      * @param to The String representation of the end date to parse into a LocalDateTime object.
      * @throws DateTimeParseException if the deadline cannot be parsed by TaskDateHandler.
-     * @see trackerbot.utils.TaskDateHandler#convertInputToDate
+     * @see trackerbot.utils.TaskDateHandler#convertInputToDate(String, String)
      */
-    public Event(String desc, String from, String to) throws DateTimeParseException {
+    public Event(String desc, String from, String to) throws TrackerBotException {
         super(desc);
-        this.from = TaskDateHandler.convertInputToDate(from);
-        this.to = TaskDateHandler.convertInputToDate(to);
+        LocalDateTime[] fromToPair = TaskDateHandler.convertInputToDate(from, to);
+        assert fromToPair.length == 2 : "input conversion to date failed without exception";
+        this.from = fromToPair[0];
+        this.to = fromToPair[1];
+
+        assert this.to.isAfter(this.from) : "start date should be earlier than end date";
     }
 
     /**
@@ -43,14 +48,18 @@ public class Event extends Task {
      *
      * @param args The arguments for constructing Event, containing isDone status in index
      *             0, description in index 1 and an epoch Date string in index 2 and 3.
-     * @throws DateTimeParseException if the event dates cannot be parsed by TaskDateHandler.
-     * @throws NumberFormatException if the epoch save string is corrupted.
-     * @see trackerbot.utils.TaskDateHandler#convertSaveToDate
+     * @throws TrackerBotException if the event dates cannot be parsed by TaskDateHandler,
+     *                             or if the epoch save string is corrupted.
+     * @see trackerbot.utils.TaskDateHandler#convertSaveToDate(String, String)
      */
-    protected Event(String[] args) throws DateTimeParseException, NumberFormatException {
+    protected Event(String[] args) throws TrackerBotException {
         super(args);
-        this.from = TaskDateHandler.convertSaveToDate(args[2]);
-        this.to = TaskDateHandler.convertSaveToDate(args[3]);
+        LocalDateTime[] fromToPair = TaskDateHandler.convertSaveToDate(args[2], args[3]);
+        assert fromToPair.length == 2 : "input conversion to date failed without exception";
+        this.from = fromToPair[0];
+        this.to = fromToPair[1];
+
+        assert this.to.isAfter(this.from) : "start date should be earlier than end date";
     }
 
     @Override

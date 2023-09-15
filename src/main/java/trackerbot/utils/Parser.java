@@ -1,6 +1,5 @@
 package trackerbot.utils;
 
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import trackerbot.command.Command;
@@ -58,24 +57,20 @@ public class Parser {
      */
     public static Task parseAdd(CommandType type, String commandField) throws TrackerBotException {
         Task newTask;
-        try {
-            switch (type) {
-            case TODO:
-                newTask = createTodo(commandField);
-                break;
-            case DEADLINE:
-                newTask = createDeadline(commandField);
-                break;
-            case EVENT:
-                newTask = createEvent(commandField);
-                break;
-            default:
-                throw new IllegalStateException("Uncaught CommandType: " + type.getKeyword());
-            }
-            return newTask;
-        } catch (DateTimeParseException e) {
-            throw new TrackerBotException("Additional Date Fields should be in the format DD/MM(/YYYY)( HHmm).");
+        switch (type) {
+        case TODO:
+            newTask = createTodo(commandField);
+            break;
+        case DEADLINE:
+            newTask = createDeadline(commandField);
+            break;
+        case EVENT:
+            newTask = createEvent(commandField);
+            break;
+        default:
+            throw new IllegalStateException("Uncaught CommandType: " + type.getKeyword());
         }
+        return newTask;
     }
 
     private static Task createTodo(String commandField) throws TrackerBotException {
@@ -86,17 +81,16 @@ public class Parser {
         return new Todo(commandField.trim());
     }
 
-    private static Task createDeadline(String commandField)
-            throws TrackerBotException, DateTimeParseException {
-        final String FLAG = "/by";
-        final String FORMAT = "^.+ /by .+";
+    private static Task createDeadline(String commandField) throws TrackerBotException {
+        final String flag = "/by";
+        final String format = "^.+ /by .+";
         String[] segments;
 
-        if (!commandField.matches(FORMAT)) {
+        if (!commandField.matches(format)) {
             throw new TrackerBotException("Improper format: deadline [description] /by [end-date]");
         }
 
-        segments = commandField.split(FLAG);
+        segments = commandField.split(flag);
         if (segments.length > 2) {
             throw new TrackerBotException("Too many flags: deadline [description] /by [end-date]");
         }
@@ -111,18 +105,17 @@ public class Parser {
         return new Deadline(segments[0].trim(), segments[1].trim());
     }
 
-    private static Task createEvent(String commandField)
-            throws TrackerBotException, DateTimeParseException {
-        final String FLAG = "/from|/to";
-        final String FORMAT = "^.+ /from .+ /to .+";
+    private static Task createEvent(String commandField) throws TrackerBotException {
+        final String flag = "/from|/to";
+        final String format = "^.+ /from .+ /to .+";
         String[] segments;
 
-        if (!commandField.matches(FORMAT)) {
+        if (!commandField.matches(format)) {
             throw new TrackerBotException(
                     "Improper format: event [description] /from [start-date] /to [end-date]");
         }
 
-        segments = commandField.split(FLAG);
+        segments = commandField.split(flag);
         if (segments.length > 3) {
             throw new TrackerBotException(
                     "Too many flags: event [description] /from [start-date] /to [end-date]");
