@@ -27,6 +27,7 @@ public class Storage {
      */
 
     public Storage(String filepath) {
+        assert !filepath.equals("");
         this.filepath = filepath;
     }
 
