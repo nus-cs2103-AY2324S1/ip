@@ -19,10 +19,10 @@ import duke.tasks.Todo;
 public class Storage {
 
     /** File path to where the tasks are saved. */
-    private static final String filePath = "./data/hardrive.txt";
+    private static final String FILE_PATH = "./data/hardrive.txt";
 
     /** Directory path to where the file is located. */
-    private static final String dataFolderPath = "./data";
+    private static final String DATA_FOLDER_PATH = "./data";
 
     /**
      * Loads the tasks from the hard drive.
@@ -34,7 +34,7 @@ public class Storage {
         ArrayList<Task> store = new ArrayList<>();
         try {
 
-            File f = new File(filePath); // create a File for the given file path
+            File f = new File(FILE_PATH); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             int index = 0;
             while (s.hasNext()) {
@@ -93,12 +93,12 @@ public class Storage {
      */
     public void save(ArrayList<Task> store) {
         try {
-            File dataFolder = new File(dataFolderPath);
+            File dataFolder = new File(DATA_FOLDER_PATH);
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs();
             }
 
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(FILE_PATH);
             for (Task element : store) {
                 String data = element.transformFormat();
                 fw.write(data);

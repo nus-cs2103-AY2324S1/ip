@@ -125,16 +125,16 @@ public class TaskList {
      */
     public String findTasks(String keyword) {
         StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
-        boolean found = false;
+        boolean isFound = false;
 
         for (int i = 0; i < store.size(); i++) {
             if (store.get(i).getDescription().contains(keyword)) {
-                found = true;
+                isFound = true;
                 output.append(i + 1).append(".").append(store.get(i)).append("\n");
             }
         }
 
-        if (!found) {
+        if (!isFound) {
             output.append("No matching tasks found.\n");
         }
 

@@ -10,7 +10,7 @@ package duke.tasks;
 public class Task {
     private TaskType type;
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a new Task instance with the specified type and description.
@@ -21,7 +21,7 @@ public class Task {
     public Task(TaskType type, String description) {
         this.description = description;
         this.type = type;
-        this.done = false; // Default value for a new task
+        this.isDone = false; // Default value for a new task
     }
 
     /**
@@ -46,7 +46,7 @@ public class Task {
             printType = "";
             break;
         }
-        String indicator = done ? "X" : " ";
+        String indicator = isDone ? "X" : " ";
         return "[" + printType + "][" + indicator + "] " + description;
     }
 
@@ -54,14 +54,14 @@ public class Task {
      * Sets the task's completion status to 'done'.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Resets the task's completion status to 'not done'.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -85,7 +85,7 @@ public class Task {
             printType = "";
             break;
         }
-        return printType + " | " + this.done + " | " + this.description;
+        return printType + " | " + this.isDone + " | " + this.description;
     }
 
     /**
@@ -112,7 +112,7 @@ public class Task {
      * @return A {@code boolean} representing the completion of the task.
      */
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
     /**
      * Modifies the description of this task.
