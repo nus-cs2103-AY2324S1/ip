@@ -13,5 +13,6 @@ enum Command {
     DEADLINE,
     EVENT,
     FIND,
+    SORT,
     INVALID
 }

@@ -65,7 +65,10 @@ public class Duke {
                 response = tasks.addDeadline(input);
                 break;
             case FIND:
-                response = tasks.find(input);
+                response = tasks.handleFind(input);
+                break;
+            case SORT:
+                response = tasks.handleSort(input);
                 break;
             default:
                 // invalid input
