@@ -33,16 +33,22 @@ public class Parser {
                 return ui.farewell();
             case "list":
                 return tasks.listAllTasks();
+            case "t": // 't' as an alias for 'todo'
             case "todo":
                 return tasks.createTask(TaskClass.TODO, userInput);
+            case "d": // 'd' as an alias for 'deadline'
             case "deadline":
                 return tasks.createTask(TaskClass.DEADLINE, userInput);
+            case "e": // 'e' as an alias for 'event'
             case "event":
                 return tasks.createTask(TaskClass.EVENT, userInput);
+            case "m": // 'm' as an alias for 'mark'
             case "mark":
                 return tasks.updateTask(TaskAction.MARK, userInput);
+            case "u": // 'u' as an alias for 'unmark'
             case "unmark":
                 return tasks.updateTask(TaskAction.UNMARK, userInput);
+            case "del": // 'del' as an alias for 'delete'
             case "delete":
                 return tasks.updateTask(TaskAction.DELETE, userInput);
             case "find":
