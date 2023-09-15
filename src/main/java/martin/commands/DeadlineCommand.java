@@ -7,6 +7,9 @@ import martin.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command that handles the addition of Deadline tasks.
+ */
 public class DeadlineCommand implements Command {
 
     private String command;
@@ -18,9 +21,12 @@ public class DeadlineCommand implements Command {
     }
 
     /**
-    * Adds a new Deadline task to the task list and returns a confirmation message.
-    * @return String A confirmation message of the added Deadline task.
-    **/
+     * Adds a new Deadline task to the task list.
+     *
+     * @return A confirmation message indicating that the Deadline task has been added.
+     * @throws EmptyTaskDescriptionException If the description of the deadline or its date is missing.
+     * @throws MartinException If there's an error executing the command.
+     */
     @Override
     public String execute() throws MartinException {
         if (command.length() <= 8) {

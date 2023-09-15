@@ -9,50 +9,77 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
+/**
+ * Represents a command that shows Tasks on the specified date.
+ */
 public class DateCommand implements Command {
 
-    private String dateStr;
+    private String command;
     private ArrayList<Task> tasks;
 
-    public DateCommand(String dateStr, ArrayList<Task> tasks) {
-        this.dateStr = dateStr;
+    public DateCommand(String command, ArrayList<Task> tasks) {
+        this.command = command;
         this.tasks = tasks;
     }
-    
+
     /**
-    * Returns a String of the tasks that are scheduled on a specific date.
-    * @return String A formatted string containing the tasks on the specified date.
-    */
+     * Executes the command, returning a formatted string of tasks for the given date.
+     * 
+     * @return A string representation of tasks for the given date.
+     * @throws MartinException If there's an error executing the command.
+     */
     @Override
     public String execute() throws MartinException {
+        LocalDate date = parseDate(command);
+        return formatTasksForDate(date);
+    }
+
+    /**
+     * Parses the date from the given command.
+     *
+     * @param command The input command string.
+     * @return LocalDate The parsed date.
+     * @throws InvalidDateFormatException When the date format is incorrect.
+     */
+    private LocalDate parseDate(String command) throws InvalidDateFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        LocalDate date;
-        StringBuilder response = new StringBuilder();
-    
+        String[] parts = command.split(" ", 2);  // Splits into two parts
+
+        if (parts.length < 2) {
+            throw new InvalidDateFormatException("Invalid date format. The command is missing a date.");
+        }
+
+        String dateStr = parts[1].trim();
+        
         try {
-            date = LocalDate.parse(dateStr, formatter);
+            return LocalDate.parse(dateStr, formatter);
         } catch (DateTimeParseException e) {
             throw new InvalidDateFormatException("Invalid date format. Please use the format 'd/M/yyyy'.");
         }
+    }
 
+    /**
+     * Formats the tasks for the given date.
+     * 
+     * @param date The date for which tasks should be formatted.
+     * @return A string representation of tasks for the given date.
+     */
+    private String formatTasksForDate(LocalDate date) {
+        StringBuilder response = new StringBuilder();
         response.append("Tasks on ").append(date.format(DateTimeFormatter.ofPattern("M d yyyy"))).append(":\n");
-        int count = 0;
-        boolean hasTasks = false;
 
-        for (Task task : tasks) {
-            if (task instanceof Deadline) {
-                Deadline d = (Deadline) task;
-                if (d.getBy().toLocalDate().equals(date)) {
-                    response.append((count + 1)).append(". ").append(task).append("\n");
-                    hasTasks = true;
-                }
-            }
-            count++;
-        }
+        // Get tasks for the date
+        String tasksOnDate = tasks.stream()
+            .filter(task -> task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date))
+            .map(task -> task.toString())
+            .collect(Collectors.joining("\n"));
 
-        if (!hasTasks) {
+        if (tasksOnDate.isEmpty()) {
             response.append("No tasks on this date.\n");
+        } else {
+            response.append(tasksOnDate);
         }
 
         return response.toString();

@@ -6,6 +6,9 @@ import martin.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command that handles the deletion of tasks from the task list.
+ */
 public class DeleteCommand implements Command {
 
     private String command;
@@ -17,9 +20,12 @@ public class DeleteCommand implements Command {
     }
 
     /**
-    * Deletes the task at the specified index provided by the command.
-    * @return String A confirmation message of the deleted task.
-    */
+     * Deletes the task at the specified index provided by the command.
+     *
+     * @return A confirmation message of the deleted task.
+     * @throws InvalidTaskNumberException If the specified task number is invalid or out of range.
+     * @throws MartinException If there's any other error executing the command.
+     */
     @Override
     public String execute() throws MartinException {
         try {

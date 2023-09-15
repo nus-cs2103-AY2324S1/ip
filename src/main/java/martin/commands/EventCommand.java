@@ -7,6 +7,9 @@ import martin.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command that handles the addition of events to the task list.
+ */
 public class EventCommand implements Command {
 
     private String command;
@@ -18,9 +21,12 @@ public class EventCommand implements Command {
     }
 
     /**
-    * Adds a new Event task to the task list.
-    * @return String A confirmation message of the added event.
-    */
+     * Adds a new Event task to the task list.
+     *
+     * @return A confirmation message indicating that the event has been added.
+     * @throws EmptyTaskDescriptionException If the event description or its time is empty.
+     * @throws MartinException If there's any other error executing the command.
+     */
     @Override
     public String execute() throws MartinException {
         if (command.length() <= 5) {
