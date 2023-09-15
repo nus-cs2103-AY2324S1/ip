@@ -2,7 +2,7 @@ package monday;
 
 import java.util.Scanner;
 
-import monday.monday.exception.MondayExceptions;
+import monday.monday.exception.MondayException;
 import monday.monday.parser.Parser;
 import monday.monday.ui.Ui;
 import monday.task.TaskList;
@@ -14,6 +14,8 @@ import monday.task.TaskList;
 public class Monday {
 
     private final TaskList taskList = new TaskList("./data/duke.txt");
+
+    private final Parser p = new Parser(taskList);
 
     /**
      * Starts the Monday application.
@@ -33,15 +35,15 @@ public class Monday {
             }
             Ui.printSeparator();
             try {
-                System.out.println(Parser.mondayParser(userInput, taskList));
-            } catch (MondayExceptions e) {
-                System.out.println(e);
+                System.out.println(p.parseCommands(userInput));
+            } catch (MondayException e) {
+                Ui.printErrorMessage("", e);
             } catch (NumberFormatException e) {
-                System.out.println("Mark/UnMark number error. " + e.getMessage());
+                Ui.printErrorMessage("Mark/UnMark number error: ", e);
             } catch (IllegalArgumentException e) {
-                System.out.println("Argument Error: " + e.getMessage());
+                Ui.printErrorMessage("Argument Error: ", e);
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Index out of Bound Error: " + e.getMessage());
+                Ui.printErrorMessage("Index out of Bound Error: ", e);
             }
             Ui.printSeparator();
         }
@@ -50,8 +52,8 @@ public class Monday {
 
     public String getResponse(String input) {
         try {
-            return Parser.mondayParser(input, taskList);
-        } catch (MondayExceptions e) {
+            return p.parseCommands(input);
+        } catch (MondayException e) {
             return e.toString();
         }
     }
