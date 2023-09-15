@@ -2,7 +2,11 @@ package duke.command;
 
 import duke.data.Storage;
 import duke.exception.DukeException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 import duke.ui.Ui;
 
 import java.io.IOException;
@@ -24,11 +28,9 @@ public class Parser {
     public void processCommand(String command, Ui ui, TaskList taskList, Storage storage) throws DukeException {
         if (command.equals("bye")) {
             ui.bye();
-        }
-        else if (command.equals("list")) {
+        } else if (command.equals("list")) {
             ui.printList(taskList);
-        }
-        else if (command.startsWith("mark")) {
+        } else if (command.startsWith("mark")) {
             int index = 0;
             for (int i = 5; i < command.length(); ++i) {
                 index *= 10;
@@ -36,8 +38,7 @@ public class Parser {
             }
             taskList.getTask(index - 1).markAsDone();
             ui.markTaskDone(taskList.getTask(index - 1));
-        }
-        else if (command.startsWith("unmark")) {
+        } else if (command.startsWith("unmark")) {
             int index = 0;
             for (int i = 7; i < command.length(); ++i) {
                 index *= 10;
@@ -45,8 +46,7 @@ public class Parser {
             }
             taskList.getTask(index - 1).markAsNotDone();
             ui.markTaskNotDone(taskList.getTask(index - 1));
-        }
-        else if (command.startsWith("delete")) {
+        } else if (command.startsWith("delete")) {
             int index = 0;
             for (int i = 7; i < command.length(); ++i) {
                 index *= 10;
@@ -54,13 +54,11 @@ public class Parser {
             }
             Task task = taskList.deleteTask(index - 1);
             ui.deleteTask(task, taskList.size());
-        }
-        else if (command.startsWith("find")) {
+        } else if (command.startsWith("find")) {
             String str = command.substring(5);
             ArrayList<Task> tasks = taskList.contains(str);
             ui.printMatchingTasks(tasks);
-        }
-        else {
+        } else {
             addTask(command, ui, taskList);
         }
         try {
@@ -81,14 +79,16 @@ public class Parser {
      */
     public void addTask(String task, Ui ui, TaskList taskList) throws DukeException {
         if (task.startsWith("todo")) {
-            if (task.length() < 6) throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            if (task.length() < 6) {
+                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            }
             Todo todo = new Todo(task.substring(5));
             taskList.addTask(todo);
             ui.addTask(todo, taskList.size());
-        }
-        else if (task.startsWith("deadline")) {
-            if (task.length() < 10) throw new DukeException("☹ OOPS!!! The description of a deadline " +
-                    "cannot be empty.");
+        } else if (task.startsWith("deadline")) {
+            if (task.length() < 10) {
+                throw new DukeException("cannot be empty." + "☹ OOPS!!! The description of a deadline ");
+            }
             String description = "";
             String by = "";
             for (int i = 9; i < task.length(); ++i) {
@@ -101,15 +101,19 @@ public class Parser {
             Deadline deadline = new Deadline(description, by);
             taskList.addTask(deadline);
             ui.addTask(deadline, taskList.size());
-        }
-        else if (task.startsWith("event")) {
-            if (task.length() < 7) throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+        } else if (task.startsWith("event")) {
+            if (task.length() < 7) {
+                throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+            }
             int slash1 = -1;
             int slash2 = -1;
             for (int i = 0; i < task.length(); ++i) {
                 if (task.charAt(i) == '/') {
-                    if (slash1 == -1) slash1 = i;
-                    else slash2 = i;
+                    if (slash1 == -1) {
+                        slash1 = i;
+                    } else {
+                        slash2 = i;
+                    }
                 }
             }
             String description = task.substring(6, slash1 - 1);
