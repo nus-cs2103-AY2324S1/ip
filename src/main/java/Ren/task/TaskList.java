@@ -187,8 +187,9 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (Task task : this.tasks) {
-            builder.append(task).append("\n");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            // 1. [T][✘] read book
+            builder.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
         }
         return builder.toString();
     }
