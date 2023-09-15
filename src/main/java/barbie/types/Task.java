@@ -1,4 +1,4 @@
-package types;
+package barbie.types;
 
 /**
  * Represents all Tasks that can be added into the list of Tasks saved by Barbie.

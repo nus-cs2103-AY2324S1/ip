@@ -1,4 +1,4 @@
-package exceptions;
+package barbie.exceptions;
 
 /**
  * Throws an exception when changing the status or deleting a Task.

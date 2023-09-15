@@ -1,9 +1,11 @@
+package barbie;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import types.Deadlines;
-import types.Party;
-import types.Task;
+import barbie.types.Deadlines;
+import barbie.types.Party;
+import barbie.types.Task;
 
 
 /**

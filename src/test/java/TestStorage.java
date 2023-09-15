@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import types.Task;
+import barbie.types.Task;
 
 /**
  * Tests the Storage class.

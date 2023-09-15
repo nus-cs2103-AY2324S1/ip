@@ -3,9 +3,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import barbie.Utils;
 import org.junit.jupiter.api.Test;
 
-import types.Task;
+import barbie.types.Task;
 
 /**
  * Tests the Utils class.

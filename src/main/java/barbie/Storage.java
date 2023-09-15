@@ -1,3 +1,5 @@
+package barbie;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,10 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import types.Deadlines;
-import types.Party;
-import types.Task;
-import types.Todo;
+import barbie.types.Deadlines;
+import barbie.types.Party;
+import barbie.types.Task;
+import barbie.types.Todo;
 
 
 
@@ -20,6 +22,8 @@ import types.Todo;
  * This class deals with all file reading and writing.
  */
 public class Storage {
+    static Path path = Paths.get("barbie.txt");
+
 
     /**
      * Writes to the file given, in the format of [type][status] [desc].
@@ -28,10 +32,9 @@ public class Storage {
      * that the task is marked as undone in this method.
      * The type is also always Todo, as it takes in the "desc" parameter only.
      *
-     * @param path the path of file to write to
      * @param desc the description of the Task
      */
-    protected static void addToList(Path path, String desc) {
+    public static void addToList(String desc) {
         String line = "T" + "," + 0 + "," + desc + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -48,11 +51,10 @@ public class Storage {
      * that the task is marked as undone in this method.
      * The type is also always Deadline, as it takes in the "desc" and "deadline" parameter only.
      *
-     * @param path the path of the file to write to
      * @param desc the description of the Task
      * @param deadline the deadline the task has to be completed by
      */
-    protected static void addToList(Path path, String desc, LocalDate deadline) {
+    public static void addToList(String desc, LocalDate deadline) {
         String line = "D" + "," + 0 + "," + desc + "," + deadline + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -69,12 +71,11 @@ public class Storage {
      * that the task is marked as undone in this method.
      * The type is also always Party, as it takes in the "desc", "from" and "to" parameter.
      *
-     * @param path the path of the file to write to
      * @param desc the description of the Task
      * @param from the start time of the event
      * @param to the end time of the event
      */
-    public static void addToList(Path path, String desc, LocalDate from, LocalDate to) {
+    public static void addToList(String desc, LocalDate from, LocalDate to) {
 
         String line = "P" + "," + 0 + "," + desc + "," + from + "," + to + "\n";
         try {
@@ -123,8 +124,8 @@ public class Storage {
                         task.mark();
                     }
                     finalList.add(task);
-                    System.out.println(finalList);
                 });
+                System.out.println(finalList);
 
             }
 
@@ -139,11 +140,10 @@ public class Storage {
     /**
      * Changes the status of a Task in the storage file.
      *
-     * @param path path of the storage file (to allow for saving to a specified list. See Level-7.1)
      * @param status status to change the current Task to
      * @param lineToChange the Task number to change
      */
-    protected static void changeLineStatus(Path path, String status, int lineToChange) {
+    public static void changeLineStatus(String status, int lineToChange) {
         try {
             List<String> lines = Files.readAllLines(path);
 
@@ -163,10 +163,9 @@ public class Storage {
     /**
      * Deletes the line of the task from the list, and shifts the rest accordingly.
      *
-     * @param path path of the storage file
      * @param lineToDelete the Task number to delete
      */
-    protected static void deleteLine(Path path, int lineToDelete) {
+    public static void deleteLine(int lineToDelete) {
         try {
             List<String> lines = Files.readAllLines(path);
 
@@ -180,5 +179,4 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
-
 }

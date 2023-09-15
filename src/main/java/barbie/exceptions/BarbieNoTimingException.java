@@ -1,4 +1,4 @@
-package exceptions;
+package barbie.exceptions;
 
 /**
  * Throws an exception when no timing is given when initiating a Deadline or a Party.

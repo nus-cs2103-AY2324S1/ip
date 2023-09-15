@@ -1,9 +1,9 @@
-package types;
+package barbie.types;
 
 /**
  * Represents the subset of Tasks that only have a description.
  */
-public class Todo extends types.Task {
+public class Todo extends Task {
     /**
      * Initialises an instance of a Todo.
      *
