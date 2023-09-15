@@ -11,6 +11,7 @@ import atlas.commands.DeleteTaskCommand;
 import atlas.commands.FindCommand;
 import atlas.commands.ListByDateCommand;
 import atlas.commands.ListCommand;
+import atlas.commands.ListRemindersCommand;
 import atlas.commands.MarkTaskCommand;
 import atlas.commands.UnknownCommand;
 import atlas.commands.UnmarkTaskCommand;
@@ -60,6 +61,8 @@ public class Parser {
                 return parseArguments(Command.Type.DATE, splitInput[1]);
             case "find":
                 return parseArguments(Command.Type.FIND, splitInput[1]);
+            case "remind":
+                return new ListRemindersCommand();
             default:
                 return new UnknownCommand();
             }
@@ -109,52 +112,84 @@ public class Parser {
 
     /**
      * Creates a Todo task based on arguments passed in
-     * @param args String containing the name of the Todo
-     * @return Todo task containing the specified name
+     * @param args String containing the name of the Todo and optionally a date from which
+     *             to start reminders. If a reminder date is included, the format of the
+     *             args should be: "[name] /remind [reminder start date]"
+     * @return Todo task containing the specified name and reminder (if provided)
      */
     private static Todo parseTodoArgs(String args) {
-        String name = parseNonEmptyString(args);
+        String[] nameAndReminder = splitArgsAndReminders(args);
+        String name = nameAndReminder[0];
+
+        boolean hasReminder = nameAndReminder.length == 2;
+        if (hasReminder) {
+            LocalDate reminderStartDate = parseDate(nameAndReminder[1]);
+            return new Todo(name, reminderStartDate);
+        }
         return new Todo(name);
     }
 
     /**
+     * Splits task args and reminder dates into separate elements
+     * @param args String containing task args and optionally reminder dates. If the latter is
+     *             included, the string format should be: "[task args] /remind [reminder start date]"
+     * @return Either an array of 2 elements [task args, reminder date], or just [task args] if
+     *      the reminder date is not provided
+     */
+    private static String[] splitArgsAndReminders(String args) {
+        final String reminderDelimiter = " /remind ";
+        return args.split(reminderDelimiter);
+    }
+
+    /**
      * Creates a Deadline task based on the arguments passed in
-     * @param args String in the following format: [name of task] /by [date]
+     * @param args String in the following format: "[name of task] /by [date]
+     *             (/remind [reminder start date])"
      * @return Deadline task containing the specified name and deadline
      * @throws IllegalArgumentException Thrown if wrong number of arguments provided
      */
     private static Deadline parseDeadlineArgs(String args) throws IllegalArgumentException {
+        String[] argsAndReminder = splitArgsAndReminders(args);
+
         final String nameDateDelimiter = " /by ";
-        String[] deadlineArgs = args.split(nameDateDelimiter);
+        String[] deadlineArgs = argsAndReminder[0].split(nameDateDelimiter);
         boolean hasNameAndDate = deadlineArgs.length == 2;
         if (!hasNameAndDate) {
             throw new IllegalArgumentException("Deadlines should be created with the following format:\n"
-                    + "deadline [name] /by [date]");
+                    + "deadline [name] /by [date] (/remind [reminder start date])");
         }
 
         String name = parseNonEmptyString(deadlineArgs[0]);
         LocalDateTime byTime = parseDateTime(deadlineArgs[1]);
+
+        boolean hasReminder = argsAndReminder.length == 2;
+        if (hasReminder) {
+            LocalDate reminderStartDate = parseDate(argsAndReminder[1]);
+            return new Deadline(name, byTime, reminderStartDate);
+        }
         return new Deadline(name, byTime);
     }
 
     /**
      * Creates an Event task based on the arguments passed in
-     * @param args String in the following format: [name of task] /from [start time] /to [end time]
+     * @param args String in the following format: "[name of task] /from [start time] /to [end time]
+     *             (/remind [reminder start date])"
      * @return Event task containing the specified name, start time, and end time
      * @throws IllegalArgumentException Thrown if wrong number of arguments provided
      */
     private static Event parseEventArgs(String args) throws IllegalArgumentException {
         IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created "
-                + "with the following format:\n event [name] /from [start time] /to [end time]");
+                + "with the following format:\n event [name] /from [start time] /to [end time]"
+                + " (/remind [reminder start date])");
+
+        String[] argsAndReminder = splitArgsAndReminders(args);
 
         final String nameDateDelimiter = " /from ";
-        String[] splitNameDates = args.split(nameDateDelimiter);
-        boolean hasNameAndDates = args.length() == 2;
+        String[] splitNameDates = argsAndReminder[0].split(nameDateDelimiter);
+        boolean hasNameAndDates = splitNameDates.length == 2;
         if (!hasNameAndDates) {
             throw badFormat;
         }
-
-        String name = splitNameDates[0];
 
         final String datesDelimiter = " /to ";
         String[] splitTime = splitNameDates[1].split(datesDelimiter);
@@ -163,8 +198,15 @@ public class Parser {
             throw badFormat;
         }
 
+        String name = splitNameDates[0];
         LocalDateTime startTime = parseDateTime(splitTime[0]);
         LocalDateTime endTime = parseDateTime(splitTime[1]);
+
+        boolean hasReminder = argsAndReminder.length == 2;
+        if (hasReminder) {
+            LocalDate reminderStartDate = parseDate(argsAndReminder[1]);
+            return new Event(name, startTime, endTime, reminderStartDate);
+        }
         return new Event(name, startTime, endTime);
     }
 
@@ -255,7 +297,7 @@ public class Parser {
      * @return LocalDate object
      * @throws DateTimeParseException Thrown if string is not of dd-MM-yyyy format
      */
-    protected LocalDate parseDate(String dateInput) throws DateTimeParseException {
+    protected static LocalDate parseDate(String dateInput) throws DateTimeParseException {
         try {
             return LocalDate.parse(dateInput, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
