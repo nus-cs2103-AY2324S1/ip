@@ -14,7 +14,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static Path filePath = Paths.get(".", "data", "duke.txt"); // ./data/duke.txt
+    static final Path FILEPATH = Paths.get(".", "data", "duke.txt"); // Filepath: "./data/duke.txt"
 
     public String getResponse(String input) {
         Parser parser = new Parser(ui, tasks);
@@ -28,7 +28,7 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILEPATH);
         assert storage != null;
         tasks = new TaskList(storage.loadTaskList());
     }
