@@ -11,8 +11,30 @@ import duke.core.Storage;
  * Class to store and handle tasks.
  */
 public class TaskList {
-    private boolean hasLoadingError = false;
+    private boolean hasLoadingError;
+    private SortBy sortBy = SortBy.NONE;
     private ArrayList<Task> taskArray = new ArrayList<>();
+
+    /**
+     * Enum to represent the sort setting of the task list.
+     */
+    public enum SortBy {
+        NONE(""),
+        NAME("name"),
+        TASK("task type"),
+        COMPLETION("completion status");
+
+        private String settingName;
+
+        private SortBy(String settingName) {
+            this.settingName = settingName;
+        }
+
+        @Override
+        public String toString() {
+            return this.settingName;
+        }
+    }
 
     /**
      * Constructor for empty TaskList.
@@ -65,6 +87,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         taskArray.add(task);
+        this.sort(this.sortBy);
     }
 
     /**
@@ -77,6 +100,7 @@ public class TaskList {
     public Task markAsDone(int taskIndex) throws DukeException {
         try {
             Task markedTask = taskArray.get(taskIndex).markAsDone();
+            this.sort(this.sortBy);
             return markedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task number provided does not exist.");
@@ -93,6 +117,7 @@ public class TaskList {
     public Task markAsUndone(int taskIndex) throws DukeException {
         try {
             Task unmarkedTask = taskArray.get(taskIndex).markAsUndone();
+            this.sort(this.sortBy);
             return unmarkedTask;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task number provided does not exist.");
@@ -122,5 +147,29 @@ public class TaskList {
      */
     public void storeTasks(Storage storage) throws DukeException {
         storage.writeFile("tasks.txt", taskArray.stream().map(task -> task.getDataString()));
+    }
+
+    /**
+     * Sorts the task list by the specified sort type.
+     *
+     * @param sortType Sort type to sort the task list by.
+     */
+    public void sort(SortBy sortType) {
+        this.sortBy = sortType;
+        switch (sortType) {
+        case NONE:
+            break;
+        case NAME:
+            taskArray.sort(Task::compareByName);
+            break;
+        case TASK:
+            taskArray.sort(Task::compareByType);
+            break;
+        case COMPLETION:
+            taskArray.sort(Task::compareByCompletion);
+            break;
+        default:
+            break;
+        }
     }
 }
