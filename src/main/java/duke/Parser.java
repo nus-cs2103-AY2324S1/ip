@@ -8,6 +8,7 @@ import duke.commands.ExitCommand;
 import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
+import duke.commands.SortCommand;
 import duke.commands.UnmarkCommand;
 import duke.exceptions.CommandDetailException;
 import duke.exceptions.CommandNotRecognizedException;
@@ -41,7 +42,6 @@ public class Parser {
         String trimmedInput = input.trim();
         String[] splitInput = trimmedInput.split(" ", 2);
         String command = splitInput[0].toLowerCase();
-        assert splitInput.length >= 1 : "Command should have a command word";
         try {
             switch (command) {
             case "bye": {
@@ -68,6 +68,9 @@ public class Parser {
             }
             case "clear": {
                 return new ClearCommand();
+            }
+            case "sort": {
+                return new SortCommand();
             }
             default: {
                 Task task = parseTask(trimmedInput);

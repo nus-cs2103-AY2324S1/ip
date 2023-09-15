@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import duke.exceptions.CommandDetailException;
 
@@ -21,6 +22,7 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
     }
+
     /**
      * Deletes a task from the list.
      *
@@ -43,6 +45,7 @@ public class TaskList {
             throw new CommandDetailException("OOPS!!! There is no such task!");
         }
     }
+
     /**
      * Marks a task as done.
      *
@@ -56,6 +59,7 @@ public class TaskList {
     public void unmarkTask(int index) throws CommandDetailException {
         this.getTask(index).setUndone();
     }
+
     /**
      * Finds tasks that contain the specified keyword.
      *
@@ -76,9 +80,14 @@ public class TaskList {
         return tasks.size();
     }
 
+    public void sort() {
+        Collections.sort(tasks);
+    }
+
     public void clearTasks() {
         tasks = new ArrayList<>();
     }
+
     /**
      * Converts the list of tasks to a string representation.
      *

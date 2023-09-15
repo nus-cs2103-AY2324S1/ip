@@ -1,10 +1,12 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 /**
  * Represents an abstract task in the Duke application.
  * This class provides common functionality and structure for various types of tasks.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     private final String taskName;
     private boolean isDone;
 
@@ -94,6 +96,15 @@ public abstract class Task {
         return this.isDone;
     }
 
+
+    /**
+     * Retrieves the date associated with the task (if any).
+     * Must be implemented by subclasses.
+     *
+     * @return The date of the task, or null if not applicable.
+     */
+    public abstract LocalDate getTaskDate();
+
     /**
      * Provides a string representation of the task, including its type, status, name, and time.
      *
@@ -102,5 +113,26 @@ public abstract class Task {
     @Override
     public String toString() {
         return this.getTaskType() + this.getTaskStatus() + " " + this.getTaskName() + this.getTaskTime();
+    }
+
+    /**
+     * Compares this task with another task.
+     * Tasks are compared by their dates, if applicable.
+     * If both tasks do not have dates, they are compared by their names.
+     *
+     * @param other The other task to compare with.
+     * @return A negative integer if this task is less than the other task,
+     *         a positive integer if this task is greater than the other task,
+     *         or zero if the tasks are equal.
+     */
+    @Override
+    public int compareTo(Task other) {
+        if (this.getTaskDate() == null) {
+            return -1;
+        } else if (other.getTaskDate() == null) {
+            return 1;
+        } else {
+            return this.getTaskDate().compareTo(other.getTaskDate());
+        }
     }
 }
