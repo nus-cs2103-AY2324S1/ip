@@ -12,4 +12,12 @@ public class Contact {
         this.name = name;
         this.contactNum = contactNum;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getContactNum() {
+        return this.contactNum;
+    }
 }
