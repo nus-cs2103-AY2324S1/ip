@@ -33,18 +33,7 @@ public class Sidtacphi {
      * Starts the Sidtacphi bot.
      */
     private static void startBot() {
-        String logo = " _______  ___   ______   _______  _______  _______  _______  __   __  ___  \n"
-                + "|       ||   | |      | |       ||   _   ||       ||       ||  | |  ||   | \n"
-                + "|  _____||   | |  _    ||_     _||  |_|  ||       ||    _  ||  |_|  ||   | \n"
-                + "| |_____ |   | | | |   |  |   |  |       ||       ||   |_| ||       ||   | \n"
-                + "|_____  ||   | | |_|   |  |   |  |       ||      _||    ___||       ||   | \n"
-                + " _____| ||   | |       |  |   |  |   _   ||     |_ |   |    |   _   ||   | \n"
-                + "|_______||___| |______|   |___|  |__| |__||_______||___|    |__| |__||___| \n";
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello from\n" + logo + "\n");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-
+        Ui.printIntro();
         readInputs();
     }
 
@@ -52,8 +41,7 @@ public class Sidtacphi {
      * Stops the Sidtacphi bot.
      */
     private static void stopBot() {
-        System.out.println("\nSidtacphi: Goodbye non-Euclidean life form.");
-        System.out.println("\n____________________________________________________________");
+        Ui.printGoodbye();
     }
 
     /**

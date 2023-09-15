@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 public class Storage {
-    public Storage() {
+    private Storage() {
     }
 
     /**
@@ -23,7 +23,6 @@ public class Storage {
         module.addSerializer(Task.class, new TaskSerializer());
         mapper.registerModule(module);
         try {
-            System.out.println("saving json...");
             mapper.writeValue(new File("tasks.json"), taskList);
         } catch (IOException e) {
             System.out.print(e);
