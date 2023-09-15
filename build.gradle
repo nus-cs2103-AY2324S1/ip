@@ -32,10 +32,13 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "kevin"
+    archiveFileName = 'kevin.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
+
+mainClassName = 'Kevin.Kevin'
 
 run{
     standardInput = System.in
