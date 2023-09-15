@@ -11,25 +11,21 @@ import process.Mark;
 import process.SimpleProcess;
 import process.ToDo;
 import process.Unmark;
-import task.TaskList;
+import task.TaskManager;
 
 /**
  * Main class for the chatbot
  */
 public class Evan {
-    private static TaskList tasks = TaskList.init();
+    private static TaskManager tasks = TaskManager.init();
     private ComplexProcess process = null;
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     public String getResponse(String input) {
         if (process != null) {
             return getExistingProcessResponse(input);
         }
 
-        return startProcessAndGetResponse(input);
+        return startProcessThenGetResponse(input);
     }
 
     private String getExistingProcessResponse(String input) {
@@ -40,30 +36,30 @@ public class Evan {
         return response;
     }
 
-    private String startProcessAndGetResponse(String input) {
-        if (input.equals(Command.BYE.getCommand())) {
+    private String startProcessThenGetResponse(String input) {
+        if (input.equals(Command.BYE.toString())) {
             return "Bye. Hope to see you again soon!";
-        } else if (input.equals(Command.LIST.getCommand())) {
+        } else if (input.equals(Command.LIST.toString())) {
             return tasks.printTasks();
-        } else if (input.equals(Command.TODO.getCommand())) {
+        } else if (input.equals(Command.TODO.toString())) {
             process = new ToDo();
-            return process.start();
-        } else if (input.equals(Command.DEADLINE.getCommand())) {
+            return process.firstInstruction();
+        } else if (input.equals(Command.DEADLINE.toString())) {
             process = new Deadline();
-            return process.start();
-        } else if (input.equals(Command.EVENT.getCommand())) {
+            return process.firstInstruction();
+        } else if (input.equals(Command.EVENT.toString())) {
             process = new Event();
-            return process.start();
-        } else if (input.startsWith(Command.DELETE.getCommand())) {
+            return process.firstInstruction();
+        } else if (input.startsWith(Command.DELETE.toString())) {
             SimpleProcess simpleProcess = new Delete();
             return simpleProcess.processInput(input);
-        } else if (input.startsWith(Command.MARK.getCommand())) {
+        } else if (input.startsWith(Command.MARK.toString())) {
             SimpleProcess simpleProcess = new Mark();
             return simpleProcess.processInput(input);
-        } else if (input.startsWith(Command.UNMARK.getCommand())) {
+        } else if (input.startsWith(Command.UNMARK.toString())) {
             SimpleProcess simpleProcess = new Unmark();
             return simpleProcess.processInput(input);
-        } else if (input.startsWith(Command.FIND.getCommand())) {
+        } else if (input.startsWith(Command.FIND.toString())) {
             SimpleProcess simpleProcess = new Find();
             return simpleProcess.processInput(input);
         } else {
@@ -81,7 +77,8 @@ public class Evan {
                 .append("event: create a new event task\n")
                 .append("mark: mark a task as complete\n")
                 .append("unmark: mark a task as incomplete\n")
-                .append("delete: delete a task from the list\n");
+                .append("delete: delete a task from the list\n")
+                .append("find: find a task from the list\n");
         return stringBuilder.toString();
     }
 }

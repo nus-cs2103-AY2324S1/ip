@@ -10,5 +10,5 @@ public interface Process {
      * @param input String message captured by the user
      * @return String message of appropriate response for the user input
      */
-    public String processInput(String input);
+    String processInput(String input);
 }

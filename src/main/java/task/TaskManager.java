@@ -8,19 +8,17 @@ import storage.Database;
 /**
  * Class for manipulating the list of tasks
  */
-public class TaskList {
-    private static TaskList obj;
+public class TaskManager {
+    private static TaskManager obj;
     private ArrayList<Task> list;
 
     /**
      * private constructor
      */
-    private TaskList() {
+    private TaskManager() {
         try {
-            list = Database.loadData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException e) {
+            list = Database.loadTasks();
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 
@@ -30,9 +28,9 @@ public class TaskList {
      * factory method to enforce one instance of the list manager
      * @return an instance of the list manager
      */
-    public static TaskList init() {
+    public static TaskManager init() {
         if (obj == null) {
-            obj = new TaskList();
+            obj = new TaskManager();
         }
         return obj;
     }
@@ -45,7 +43,7 @@ public class TaskList {
         list.add(task);
 
         try {
-            Database.save(list);
+            Database.saveTasks(list);
         } catch (IOException e) {
             return "Oops! Sorry! There is an issue with the file database. "
                     + "You are required to delete the file and recreate one with the same name.";
@@ -93,7 +91,7 @@ public class TaskList {
         element.markAsDone();
 
         try {
-            Database.save(list);
+            Database.saveTasks(list);
         } catch (IOException e) {
             return "Oops! Sorry! There is an issue with the file database. "
                     + "You are required to delete the file and recreate one with the same name.";
@@ -101,7 +99,6 @@ public class TaskList {
 
         StringBuilder dialog = new StringBuilder();
         dialog.append("Nice! I've marked this task as done:\n")
-                .append("       ")
                 .append(element);
         return dialog.toString();
     }
@@ -115,10 +112,11 @@ public class TaskList {
         element.markAsNotDone();
 
         try {
-            Database.save(list);
+            Database.saveTasks(list);
         } catch (IOException e) {
-            return "Oops! Sorry! There is an issue with the file database. "
-                    + "You are required to delete the file and recreate one with the same name.";
+            return "There is an issue with the file database. "
+                    + "You are required to delete the file in your User/[username]/EvanData folder "
+                    + "and rerun the program.";
         }
 
         StringBuilder dialog = new StringBuilder();
@@ -138,18 +136,17 @@ public class TaskList {
         list.remove(index - 1);
 
         try {
-            Database.save(list);
+            Database.saveTasks(list);
         } catch (IOException e) {
-            return "Oops! Sorry! There is an issue with the file database. "
+            return "There is an issue with the file database. "
                     + "You are required to delete the file and recreate one with the same name.";
         }
 
         StringBuilder dialog = new StringBuilder();
         dialog.append("Noted. I've removed this task:\n")
-                .append("       ")
                 .append(element)
                 .append("\n")
-                .append("     Now you have ")
+                .append("Now you have ")
                 .append(list.size())
                 .append(" tasks in the list.");
         return dialog.toString();
@@ -161,7 +158,7 @@ public class TaskList {
      */
     public String findTask(String keyword) {
         StringBuilder dialog = new StringBuilder("Here are the matching tasks in your list with its correct "
-                + "corresponding index numbers: \n     ");
+                + "corresponding index numbers: \n");
 
         Task[] tasks = list.toArray(new Task[0]);
 
@@ -173,7 +170,7 @@ public class TaskList {
                 dialog.append(listIndex)
                         .append(".")
                         .append(task)
-                        .append("\n     ");
+                        .append("\n");
             }
         }
         return dialog.toString();

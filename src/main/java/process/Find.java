@@ -4,13 +4,13 @@ import exception.InvalidCommandException;
 import exception.InvalidInputException;
 import exception.MissingArgumentException;
 import parser.CommandParser;
-import task.TaskList;
+import task.TaskManager;
 
 /**
  * A class for the process of creating a find task
  */
 public class Find implements SimpleProcess {
-    private TaskList tasks = TaskList.init();
+    private TaskManager tasks = TaskManager.init();
 
     @Override
     public String processInput(String input) {

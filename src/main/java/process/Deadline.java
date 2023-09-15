@@ -4,7 +4,7 @@ import exception.InvalidDateException;
 import exception.InvalidTimeException;
 import parser.Time;
 import task.Deadlines;
-import task.TaskList;
+import task.TaskManager;
 
 /**
  * A class for the process of creating a deadline task
@@ -13,14 +13,14 @@ public class Deadline implements ComplexProcess {
     private enum Stage {
         FIRST, SECOND, THIRD
     }
-    private TaskList tasks = TaskList.init();
+    private TaskManager tasks = TaskManager.init();
     private Stage stage = Stage.FIRST;
     private String name = null;
     private String deadline = null;
     private boolean isComplete = false;
 
     @Override
-    public String start() {
+    public String firstInstruction() {
         return "So you want to add a task with deadline. Tell me what's the task.";
     }
 
@@ -69,7 +69,7 @@ public class Deadline implements ComplexProcess {
     }
 
     private String processLastStep(String input) {
-        if (!input.toLowerCase().equals(enums.Command.SKIP.getCommand())) {
+        if (!input.toLowerCase().equals(enums.Command.SKIP.toString())) {
             try {
                 deadline = Time.formatTime(deadline, input);
             } catch (InvalidTimeException | InvalidDateException e) {

@@ -3,13 +3,13 @@ package process;
 import exception.InvalidCommandException;
 import exception.MissingArgumentException;
 import parser.CommandParser;
-import task.TaskList;
+import task.TaskManager;
 
 /**
  * A class for the process of creating a delete task
  */
 public class Delete implements SimpleProcess {
-    private TaskList tasks = TaskList.init();
+    private TaskManager tasks = TaskManager.init();
     @Override
     public String processInput(String input) {
         assert input.toLowerCase().startsWith("delete") : "user input does not start with the correct word";
