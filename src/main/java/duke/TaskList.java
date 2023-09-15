@@ -13,7 +13,7 @@ import java.util.ListIterator;
  */
 
 public class TaskList {
-    private static ArrayList<Task> storeTask = new ArrayList<>(1);   //stores all the tasks
+    private static ArrayList<Task> storeTask = new ArrayList<>(1); //stores all the tasks
     /**
      * Displays the entire list of tasks to user.
      */

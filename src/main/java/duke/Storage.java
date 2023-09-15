@@ -1,5 +1,4 @@
 package duke;
-import dukeUiElements.Ui;
 import task.Task;
 import task.ToDo;
 import task.Deadline;
@@ -27,7 +26,7 @@ public class Storage {
         if (Files.exists(pathOfDirectory)) {
             List<String> fileLines = Files.readAllLines(pathOfDirectory);
             for (String task : fileLines) {
-                String[] taskVariablesTemp = task.split("\\|");     //since "|" is a special character, use "//"
+                String[] taskVariablesTemp = task.split("\\|"); //since "|" is a special character, use "//"
                 if (taskVariablesTemp[0].equals("T")) {
                     storeTask.add(new ToDo(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2]));
                 } else if (taskVariablesTemp[0].equals("D")) {

@@ -27,10 +27,10 @@ public class Parser {
      */
     public static String parse(String userInput) throws DukeException {
         String[] userInputList = userInput.split(" ", 2);
+        assert userInputList != null;
         String userTaskChoiceKey = userInputList[0];
         //Stores enum value. might throw exception if invalid input entered.
         TaskKeyVal taskKeyVal = TaskKeyVal.valueOf(userTaskChoiceKey);
-
         if (taskKeyVal == TaskKeyVal.bye) {
             return userExit();
         } else if (taskKeyVal == TaskKeyVal.list) {
@@ -54,12 +54,12 @@ public class Parser {
         } else if (taskKeyVal == TaskKeyVal.find) {
             String findThis = userInputList[1];
             return TaskList.taskToBeFound(findThis);
-        } else {                                                                    //in case wrong input like Delete abc entered
+        } else { //in case wrong input like Delete abc entered
             throw new DukeException("OOPS!!! Sorry, but i do not know what that means :-(");
         }
     }
 
-    private static boolean enumCheck (String input){
+    private static boolean enumCheck(String input) {
         for (TaskKeyVal taskKey : TaskKeyVal.values()) {
             if (taskKey.name().equalsIgnoreCase(input)) {
                 return true;
@@ -69,7 +69,7 @@ public class Parser {
     }
     private static String userExit() {
         try {
-            Files.write(Duke.pathOfDirectory, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);    //closes file and truncates it
+            Files.write(Duke.pathOfDirectory, new byte[0], StandardOpenOption.TRUNCATE_EXISTING); //closes file and truncates it
             for (int i = 0; i < TaskList.getTaskSize(); i++) {
                 String taskToString = TaskList.getStoreTask().get(i).storeToDiskFormat() + "\n";
                 Files.write(Duke.pathOfDirectory, taskToString.getBytes(), StandardOpenOption.APPEND);
