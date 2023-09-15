@@ -2,7 +2,6 @@ package glen.util;
 
 import glen.task.Deadline;
 import glen.task.Event;
-import glen.task.Task;
 import glen.task.Todo;
 
 import java.io.File;
@@ -78,7 +77,7 @@ public class Storage {
                 System.out.println("File has been created successfully: " + this.file.getPath());
             }
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
             System.out.println("There is an error creating the file.");
         }
     }
@@ -99,7 +98,7 @@ public class Storage {
             fw.write(fileFormat);
             fw.close();
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
     }
