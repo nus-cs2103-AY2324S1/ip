@@ -47,7 +47,7 @@ public abstract class Command {
         case "delete":
             return new Delete(content);
         default:
-            throw new NoCommandFoundException(commandName);
+            throw new NoCommandFoundException(commandName + " " + content);
         }
     }
 
