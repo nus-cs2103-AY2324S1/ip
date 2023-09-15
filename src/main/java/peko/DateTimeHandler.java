@@ -1,6 +1,9 @@
 package peko;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class DateTimeHandler {
     private LocalDateTime date;
@@ -31,6 +34,8 @@ public class DateTimeHandler {
         min = timeString%100;
         date = LocalDateTime.of(year,month,day,hour,min);
         dateTimeString = date.getMonth() +  " " + date.getDayOfMonth() + " " + date.getYear();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMMM dd yyyy HH:mm");
+        dateTimeString = date.format(format);
     }
 
 
@@ -41,7 +46,9 @@ public class DateTimeHandler {
      * @return A formatted string representation of date and time.
      */
     public String stringDisplay() {
-        return dateTimeString + " " + hour + ":" + ((min < 10) ? "0" + min : min);
+        return dateTimeString;
+
+        //return dateTimeString + " " + hour + ":" + ((min < 10) ? "0" + min : min);
     }
 
     /**
@@ -54,5 +61,13 @@ public class DateTimeHandler {
     @Override
     public String toString() {
         return day + "/" + month + "/" + year + " " + hour + ((min < 10) ? "0" + min : min);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof DateTimeHandler) {
+            return date.equals(((DateTimeHandler) o).date);
+        }
+        return false;
     }
 }

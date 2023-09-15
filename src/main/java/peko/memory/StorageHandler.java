@@ -137,6 +137,7 @@ public class StorageHandler {
             todoList[i] = todoList[i+1];
             i++;
         }
+        todoList[i] = null;
         size--;
         SaveHandler.saveTo();
     }

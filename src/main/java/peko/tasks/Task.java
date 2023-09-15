@@ -8,6 +8,7 @@ import peko.exceptions.InvalidTaskException;
  * It serves as the base class for various task types, such as ToDos, Deadlines, and Events.
  */
 public class Task {
+    protected String tag;
     protected String name;
     protected boolean status;
 
@@ -69,5 +70,16 @@ public class Task {
     public String toStore() {
         String state = status ? "0" : "1";
         return state + " | " + this.name;
+    }
+    public boolean getStatus() {
+        return this.status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
+            return this.name.equals(((Task) o).name);
+        }
+        return false;
     }
 }

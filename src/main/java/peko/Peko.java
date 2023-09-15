@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import peko.memory.SaveHandler;
 import peko.memory.StorageHandler;
 
+public class Peko extends Application {
 /**
  * The `Peko` class is the main application class for the Peko chat application. It handles user input,
  * manages the graphical user interface (GUI), and orchestrates interactions with other components.
@@ -44,7 +45,7 @@ public class Peko extends Application {
      */
     public static void main(String[] args) {
         //Application.launch(GUIController.class, args);
-        new Peko().run();
+        //new Peko().run();
 
     }
 
@@ -154,15 +155,14 @@ public class Peko extends Application {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
-
         return textToAdd;
     }
     private void handleUserInput() {
         String text = userInput.getText();
-        Label userText = new Label(text);
         userInputHandler.newInput(text);
-        userInputHandler.processInput();
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label userText = new Label(text);
+        System.out.println("Processing");
+        Label dukeText = new Label(userInputHandler.getResponse());
         DialogBox userDB = DialogBox.getUserDialog(userText, new ImageView(user));
         DialogBox pekoDB = DialogBox.getPekoDialog(dukeText, new ImageView(peko));
         dialogContainer.getChildren().addAll(
@@ -171,5 +171,6 @@ public class Peko extends Application {
         );
         userInput.clear();
     }
+
 
 }

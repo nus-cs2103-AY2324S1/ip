@@ -32,7 +32,8 @@ public class Deadline extends Task {
         String[] temp = split[0].split(" ",2);
         //System.out.println(Arrays.toString(temp));
 
-        this.name = temp[0];
+        this.name = split[0];
+        System.out.println(split[0]);
 
         dateTimeHandler = new DateTimeHandler(split[1]);
     }
@@ -57,5 +58,12 @@ public class Deadline extends Task {
         String state = this.status ? "0" : "1";
         String output = "D" + " | " + state + " | " + this.name + " | " + dateTimeHandler.toString();
         return output;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Deadline) {
+            return this.name.equals(((Deadline) o).name) && dateTimeHandler.equals(((Deadline) o).dateTimeHandler);
+        }
+        return false;
     }
 }
