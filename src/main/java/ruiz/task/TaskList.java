@@ -36,6 +36,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> getTaskList() {
+        assert this.taskList != null : "taskList should not be null";
         return this.taskList;
     }
 
@@ -110,8 +111,9 @@ public class TaskList {
      */
     public String addTodo(String input) throws BotException {
         String content = parser.getTodoDescription(input);
+        String location = parser.getLocation(input);
         assert content != null : "toDo should not be null";
-        Task temp = new ToDo(content);
+        Task temp = new ToDo(content, location);
         this.taskList.add(temp);
         return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
@@ -125,9 +127,10 @@ public class TaskList {
      */
     public String addDeadline(String input) throws BotException, IOException {
         String description = parser.getDeadlineDescription(input);
+        String location = parser.getLocation(input);
         assert description != null : "description should not be null";
         String by = parser.getBy(input);
-        Task temp = new Deadline(description, by);
+        Task temp = new Deadline(description, by, location);
         this.taskList.add(temp);
         return ui.addedNewTaskMsg(temp, this.getTaskListSize());
     }
@@ -142,8 +145,9 @@ public class TaskList {
     public String addEvent(String input) throws BotException, IOException {
         String description = parser.getEventDescription(input);
         String beginning = parser.getEventBeginning(input);
-        String to = parser.getEventTo(input);
-        Task temp = new Event(description, beginning, to);
+        String end = parser.getEventEnd(input);
+        String location = parser.getLocation(input);
+        Task temp = new Event(description, beginning, end, location);
 
         this.taskList.add(temp);
         return ui.addedNewTaskMsg(temp, this.getTaskListSize());

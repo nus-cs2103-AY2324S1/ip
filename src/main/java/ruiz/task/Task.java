@@ -6,15 +6,17 @@ package ruiz.task;
 public class Task {
     private boolean isCompleted;
     private String description;
+    private String location;
 
     /**
      * A constructor for the public Task class.
      *
      * @param description contains the description of the task.
      */
-    public Task(String description) {
+    public Task(String description, String location) {
         this.isCompleted = false;
         this.description = description;
+        this.location = location;
     }
 
     /**

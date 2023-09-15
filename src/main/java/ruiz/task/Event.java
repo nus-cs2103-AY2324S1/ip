@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     protected LocalDateTime eventStart;
     protected LocalDateTime eventEnd;
+    protected String location;
 
     /**
      * A constructor the public Event class
@@ -18,12 +19,12 @@ public class Event extends Task {
      * @param from        the beginning time of the event.
      * @param to          the ending time of the event.
      */
-    public Event(String description, String from, String to) throws DateTimeParseException {
-        super(description);
+    public Event(String description, String from, String to, String location) throws DateTimeParseException {
+        super(description, location);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.eventStart = LocalDateTime.parse(from, formatter);
         this.eventEnd = LocalDateTime.parse(to, formatter);
-
+        this.location = location;
     }
 
     /**
@@ -35,7 +36,14 @@ public class Event extends Task {
     @Override
     public String formatSaveTaskString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "E" + super.formatSaveTaskString() + " | " + eventStart.format(formatter) + " | " + eventEnd.format(formatter);
+        return "E"
+                + super.formatSaveTaskString()
+                + " | "
+                + eventStart.format(formatter)
+                + " | "
+                + eventEnd.format(formatter)
+                + " | "
+                + location;
     }
 
     /**
@@ -47,6 +55,14 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        return "[E]" + super.toString() + " (from: " + eventStart.format(formatter) + " to: " + eventEnd.format(formatter) + ")";
+        return "[E]"
+                + super.toString()
+                + " (from: "
+                + eventStart.format(formatter)
+                + " to: "
+                + eventEnd.format(formatter)
+                + ")"
+                + " at: "
+                + location;
     }
 }

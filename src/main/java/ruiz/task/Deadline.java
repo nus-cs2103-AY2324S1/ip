@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     protected LocalDateTime taskDeadline;
+    protected String location;
 
     /**
      * A constructor for the public Deadline class.
@@ -16,10 +17,11 @@ public class Deadline extends Task {
      * @param description the description of the deadline.
      * @param by          the deadline of the task.
      */
-    public Deadline(String description, String by) throws DateTimeParseException {
-        super(description);
+    public Deadline(String description, String by, String location) throws DateTimeParseException {
+        super(description, location);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.taskDeadline = LocalDateTime.parse(by, formatter);
+        this.location = location;
     }
 
     /**
@@ -30,7 +32,12 @@ public class Deadline extends Task {
     @Override
     public String formatSaveTaskString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "D" + super.formatSaveTaskString() + " | " + this.taskDeadline.format(formatter);
+        return "D"
+                + super.formatSaveTaskString()
+                + " | "
+                + this.taskDeadline.format(formatter)
+                + " | "
+                + location;
     }
 
     /**
@@ -41,6 +48,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        return "[D]" + super.toString() + " (by: " + this.taskDeadline.format(formatter) + ")";
+        return "[D]"
+                + super.toString()
+                + " (by: "
+                + this.taskDeadline.format(formatter)
+                + ")"
+                + " at: "
+                + location;
     }
 }

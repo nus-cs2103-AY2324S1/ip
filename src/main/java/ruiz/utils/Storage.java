@@ -57,9 +57,10 @@ public class Storage {
             String category = input[0];
             String marked = input[1];
             String description = input[2];
+            String location = input[input.length - 1];
             switch (category) {
             case "T":
-                ToDo todo = new ToDo(description);
+                ToDo todo = new ToDo(description, location);
                 taskList.add(todo);
                 if (!marked.equals("0")) {
                     todo.mark();
@@ -67,7 +68,7 @@ public class Storage {
                 break;
             case "D":
                 String by = input[3];
-                Deadline deadline = new Deadline(description, by);
+                Deadline deadline = new Deadline(description, by, location);
                 taskList.add(deadline);
                 if (!marked.equals("0")) {
                     deadline.mark();
@@ -76,7 +77,7 @@ public class Storage {
             case "E":
                 String from = input[3];
                 String to = input[4];
-                Event event = new Event(description, from, to);
+                Event event = new Event(description, from, to, location);
                 taskList.add(event);
                 if (!marked.equals("0")) {
                     event.mark();

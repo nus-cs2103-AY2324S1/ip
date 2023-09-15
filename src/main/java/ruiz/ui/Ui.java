@@ -35,6 +35,9 @@ public class Ui {
      * @return list of tasks currently.
      */
     public String getTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            return "You have no tasks in your list\n";
+        }
         String message = "";
         for (int i = 0; i < tasks.size(); i++) {
             message += (i + 1) + ". " + tasks.get(i).toString() + "\n";
