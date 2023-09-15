@@ -6,5 +6,4 @@ E | N | book fair | 2000-11-11 | 2000-11-11
 T | N | jebfw
 T | N | adf
 T | N | daifb
-T | N | adfbaiufbewibflwEBGFIUabgiRBIURBGDBFGJFDBGJSFjfgnfsjng
-T | N | isdbfgisbg fsogbfodbg orwiufbdgif fbgowrbgowr orgbrob orbgorwb obgwrogb wowrbgou
+D | N | da | 2020-01-01

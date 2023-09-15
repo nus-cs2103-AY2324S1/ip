@@ -190,7 +190,7 @@ public class TaskList {
         try {
             String desc = input[1];
             if (desc.strip().equals("")) {
-                throw new DukeException("    ☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException("    OOPS!!! The description of a todo cannot be empty.");
             }
             ToDo t = new ToDo(desc);
             taskList.add(t);
@@ -199,7 +199,7 @@ public class TaskList {
             System.out.println("    Number of tasks: " + taskList.size());
             return "Got it. I've added this task:\n" + t.toString() + "\n" + "Number of tasks: " + taskList.size();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    ☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("    OOPS!!! The description of a todo cannot be empty.");
             return "OOPS!!! The description of a todo cannot be empty.";
         } catch (DukeException e) {
             System.out.println(e.getMessage());

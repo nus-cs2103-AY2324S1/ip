@@ -33,32 +33,33 @@ public class Parser {
     public String parse(String s) {
         String[] input = s.split(" ", 2);
         String command = input[0];
+        String output = "";
         ui.horizontalLine();
         if (command.equals("list")) {
-            return tasks.showList(input);
+            output = tasks.showList(input);
         } else if (command.equals("mark")) {
-            return tasks.markTask(input);
+            output = tasks.markTask(input);
         } else if (command.equals("unmark")) {
-            return tasks.unmarkTask(input);
+            output = tasks.unmarkTask(input);
         } else if (command.equals("delete")) {
-            return tasks.deleteTask(input);
+            output = tasks.deleteTask(input);
         } else if (command.equals("deadline")) {
-            return tasks.addDeadline(input);
+            output = tasks.addDeadline(input);
         } else if (command.equals("event")) {
-            return tasks.addEvent(input);
+            output = tasks.addEvent(input);
         } else if (command.equals("todo")) {
-            return tasks.addToDo(input);
+            output = tasks.addToDo(input);
         } else if (command.equals("find")) {
-            return tasks.findTasks(input);
+            output = tasks.findTasks(input);
         } else if (command.equals("bye")) {
             this.isFinished = true;
-            ui.bye();
+            output = ui.bye();
             Platform.exit();
-        } else {
-            ui.printErrorMessage();
+        } else{
+            output = ui.printErrorMessage();
         }
         ui.horizontalLine();
-        return ui.printErrorMessage();
+        return output;
     }
 
     /**

@@ -38,7 +38,7 @@ public class Ui {
      * Displays an error message.
      */
     public String printErrorMessage() {
-        System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 }
