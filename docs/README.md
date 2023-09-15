@@ -10,7 +10,7 @@
 1. Ensure that you are using java 11.
 2. Download the jar file from the version on github.
 3. Navigate to the directory containing the jar file.
-4. Run java -jar Duke.jar to begin.
+4. Run java -jar duke.jar to begin.
 5. A chatbot should appear.
 
 ## Features
