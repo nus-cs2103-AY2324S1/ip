@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the command to find a task
+     * Executes the command to find a task.
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage manager.
