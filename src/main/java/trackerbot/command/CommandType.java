@@ -9,6 +9,8 @@ package trackerbot.command;
  * @see trackerbot.command.Command#of
  */
 public enum CommandType {
+    /** Command to declare a mass command. **/
+    MASS("mass"),
     /** Command to exit the program. **/
     BYE("bye"),
     /** Command to list all tasks in the task list. **/
