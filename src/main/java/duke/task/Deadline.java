@@ -17,8 +17,8 @@ public class Deadline extends Task {
      * @param duedate The due date and time of the task.
      * @param done The completion status of the task.
      */
-    public Deadline(String task, String duedate, boolean done) {
-        super(task, done);
+    public Deadline(String task, String duedate, boolean reminderStatus, boolean done) {
+        super(task, reminderStatus, done);
         this.duedate = stringToDateObj(duedate);
     }
 

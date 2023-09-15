@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
-    Deadline deadline = new Deadline("task", "11/11/2002 11:11", false);
+    Deadline deadline = new Deadline("task", "11/11/2002 11:11", false, false);
     @Test
     public void testMarkDeadline() {
         assertEquals(true, deadline.markTask(), "Marking deadline should work");

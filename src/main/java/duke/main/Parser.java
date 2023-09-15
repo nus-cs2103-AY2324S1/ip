@@ -31,6 +31,10 @@ public class Parser {
             return new ListCommand(null);
         }
 
+        if (headCommand.equals("reminder")) {
+            return new ReminderCommand(null);
+        }
+
         if (splitCommand.length < 2) {
             throw new EmptyTaskException();
         }
@@ -50,15 +54,19 @@ public class Parser {
             return new MarkCommand(index, true);
 
         case "unmark":
-             index = Integer.parseInt(commandDetails) - 1;
-             return new MarkCommand(index, false);
+            index = Integer.parseInt(commandDetails) - 1;
+            return new MarkCommand(index, false);
+
+        case "remind":
+            index = Integer.parseInt(commandDetails) - 1;
+            return new RemindCommand(index);
 
         case "find":
             return new FindCommand(commandDetails);
 
         case "todo":
             task = commandDetails;
-            Todo todo = new Todo(task, false);
+            Todo todo = new Todo(task, false, false);
             return new AddCommand(todo);
 
         case "deadline":
@@ -68,7 +76,7 @@ public class Parser {
             }
             task = details[0];
             String duedate = details[1];
-            Deadline deadline = new Deadline(task, duedate, false);
+            Deadline deadline = new Deadline(task, duedate, false, false);
             return new AddCommand(deadline);
 
         case "event":
@@ -83,7 +91,7 @@ public class Parser {
             }
             String start = timeDetails[0];
             String end = timeDetails[1];
-            Event event = new Event(task, start, end, false);
+            Event event = new Event(task, start, end, false, false);
             return new AddCommand(event);
 
         default:

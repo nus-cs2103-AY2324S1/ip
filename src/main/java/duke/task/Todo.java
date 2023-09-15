@@ -10,8 +10,8 @@ public class Todo extends Task{
      * @param task The description of the task.
      * @param done The completion status of the task.
      */
-    public Todo(String task, boolean done) {
-        super(task, done);
+    public Todo(String task, boolean reminderStatus, boolean done) {
+        super(task, reminderStatus, done);
     }
 
     /**

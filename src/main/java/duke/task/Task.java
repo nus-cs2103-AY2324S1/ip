@@ -2,7 +2,8 @@ package duke.task;
 
 public class Task {
     private String task;
-    private boolean done;
+    private boolean markedStatus;
+    private boolean reminderStatus = false;
 
     /**
      * The Task class represents a basic task with a description and completion status.
@@ -10,9 +11,10 @@ public class Task {
      * @param task
      * @param done
      */
-    public Task(String task, boolean done) {
+    public Task(String task, boolean reminderStatus, boolean done) {
         this.task = task;
-        this.done = done;
+        this.markedStatus = done;
+        this.reminderStatus = reminderStatus;
     }
 
     /**
@@ -22,7 +24,7 @@ public class Task {
      */
     public String toString() {
         String message;
-        if (this.done) {
+        if (this.markedStatus) {
             message = "[X] " + this.task;
         } else {
             message = "[ ] " + this.task;
@@ -36,7 +38,12 @@ public class Task {
      * @return The formatted string suitable for saving to file.
      */
     public String getTaskFileString() {
-        return (done ? "1" : "0") + " , " + this.task;
+        String markString = markedStatus ? "1" : "0";
+        String reminderString = reminderStatus ? "1" : "0";
+        String fileString = markString + " , "
+                + reminderString + " , "
+                + this.task;
+        return fileString;
     }
 
     /**
@@ -45,8 +52,8 @@ public class Task {
      * @return The updated completion status.
      */
     public boolean markTask() {
-        this.done = true;
-        return this.done;
+        this.markedStatus = true;
+        return this.markedStatus;
     }
 
     /**
@@ -55,8 +62,8 @@ public class Task {
      * @return The updated completion status.
      */
     public boolean unmarkTask() {
-        this.done = false;
-        return this.done;
+        this.markedStatus = false;
+        return this.markedStatus;
     }
 
     /**
@@ -66,5 +73,17 @@ public class Task {
      */
     public boolean contains(String keyword) {
         return this.task.contains(keyword);
+    }
+
+    public boolean isMarked() {
+        return this.markedStatus;
+    }
+
+    public boolean isReminder() {
+        return this.reminderStatus;
+    }
+
+    public void setReminder() {
+        this.reminderStatus = true;
     }
 }

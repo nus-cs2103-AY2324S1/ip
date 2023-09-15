@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
-    Todo todo = new Todo("task", false);
+    Todo todo = new Todo("task", false, false);
     @Test
     public void testMarkTodo() {
         assertEquals(true, todo.markTask(), "Marking todo should work");
