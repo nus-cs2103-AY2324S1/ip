@@ -2,6 +2,7 @@ package ui;
 import java.util.ArrayList;
 
 import duke.DukeException;
+import task.Statistics;
 import task.Task;
 import tasklist.TaskList;
 
@@ -15,7 +16,7 @@ import tasklist.TaskList;
 public class Ui {
 
     private static final String HELP_DESK = "List of Commands: Add, Deadline, Event, Todo, Echo,"
-            + "Mark, Unmark, Delete, Find, Bye\n"
+            + "Mark, Unmark, Delete, Find, Stats, Bye\n"
             + "1. Add - Add a task to the list\n"
             + "2. Deadline - Add a task with a deadline\n"
             + "3. Event - Add an event task\n"
@@ -25,7 +26,8 @@ public class Ui {
             + "7. Unmark - Unmark a task as done\n"
             + "8. Delete - Delete a task\n"
             + "9. Find - Find tasks by keyword\n"
-            + "10. Bye - Exit the program";
+            + "10. Stats - Shows your work progress\n"
+            + "11. Bye - Exit the program";
 
     /**
      * Displays a welcome message to the user when the application starts.
@@ -154,6 +156,22 @@ public class Ui {
                 output.append((i + 1)).append(".").append(matchingTasks.get(i).toString()).append("\n");
             }
         }
+        return output.toString();
+    }
+
+    /**
+     * Generates a textual representation of task statistics and returns it as a formatted string.
+     *
+     * @param statistics The `Statistics` object containing task statistics to be displayed.
+     * @return A formatted string containing task statistics information.
+     */
+    public String showStatistics(Statistics statistics) {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the task statistics:\n");
+        output.append("Tasks completed last week: " + statistics.getTasksCompletedThisWeek() + "\n");
+        output.append(String.format("%.2f%% completed this week\n", statistics.getPercentageCompletedThisWeek()));
+        output.append("Total tasks completed: " + statistics.getTotalTasksCompleted() + "\n");
+        output.append(String.format("%.2f%% total completed\n", statistics.getPercentageTotalCompleted()));
         return output.toString();
     }
 }
