@@ -31,16 +31,7 @@ public abstract class Parser {
             break;
         case "find":
             try {
-                String key = "";
-                for (int i = 1; i < split.length; ++i) {
-                    key = key + split[i] + " ";
-                }
-                if (key.isEmpty()) {
-                    throw new IllegalArgumentException(
-                            "☹ OOPS!!! You must enter a keyword to search for tasks.");
-                }
-                key = key.substring(0, key.length() - 1);
-                Parser.response = TaskMaster.findTask(key);
+                Parser.find(split);
                 break;
             } catch (IllegalArgumentException e) {
                 Parser.response = e.getMessage() + "\nTry again: ";
@@ -48,110 +39,140 @@ public abstract class Parser {
             }
         default:
             try {
-                switch (keyword) {
-                case "todo": {
-                    String description = "";
-                    for (int i = 1; i < split.length; ++i) {
-                        description = description + split[i] + " ";
-                    }
-                    if (description.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The description of a todo cannot be empty.");
-                    }
-                    description = description.substring(0, description.length() - 1);
-                    Parser.response = TaskMaster.addTask(new Todos(description));
-                    break;
-                }
-                case "deadline": {
-                    int i = 1;
-                    if (i == split.length) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The description of a deadline cannot be empty.");
-                    }
-                    String temp = split[i];
-                    String description = "";
-                    while (!temp.equals("/by")) {
-                        description = description + temp + " ";
-                        i += 1;
-                        temp = split[i];
-                    }
-                    i += 1;
-                    if (description.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The description of a deadline cannot be empty.");
-                    }
-                    description = description.substring(0, description.length() - 1);
-                    String time = "";
-                    while (i < split.length) {
-                        time = time + split[i] + " ";
-                        i += 1;
-                    }
-                    if (time.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The time/date of a deadline cannot be empty.");
-                    }
-                    time = time.substring(0, time.length() - 1);
-                    Parser.response = TaskMaster.addTask(new Deadlines(description, time));
-                    break;
-                }
-                case "event": {
-                    int i = 1;
-                    if (i == split.length) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The description of an event cannot be empty.");
-                    }
-                    String temp = split[i];
-                    String description = "";
-                    while (!temp.equals("/from")) {
-                        description = description + temp + " ";
-                        i += 1;
-                        temp = split[i];
-                    }
-                    i += 1;
-                    if (description.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The description of an event cannot be empty.");
-                    }
-                    description = description.substring(0, description.length() - 1);
-                    String start = "";
-                    if (i == split.length) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The starting time of an event cannot be empty.");
-                    }
-                    temp = split[i];
-                    while (!temp.equals("/to")) {
-                        start = start + temp + " ";
-                        i += 1;
-                        temp = split[i];
-                    }
-                    i += 1;
-                    if (start.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The starting time of an event cannot be empty.");
-                    }
-                    start = start.substring(0, start.length() - 1);
-                    String end = "";
-                    while (i < split.length) {
-                        end = end + split[i] + " ";
-                        i += 1;
-                    }
-                    if (end.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "☹ OOPS!!! The ending time of an event cannot be empty.");
-                    }
-                    end = end.substring(0, end.length() - 1);
-                    Parser.response = TaskMaster.addTask(new Events(description, start, end));
-                    break;
-                }
-                default:
-                    throw new IllegalArgumentException(
-                            "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
+                Parser.parseTask(keyword, split);
             } catch (IllegalArgumentException | DateTimeParseException e) {
                 Parser.response = e.getMessage() + "\nTry again: ";
             }
         }
     }
+
+    private static void parseTask(String keyword, String[] split) {
+        switch (keyword) {
+            case "todo": {
+                parseTodo(split);
+                break;
+            }
+            case "deadline": {
+                parseDeadline(split);
+                break;
+            }
+            case "event": {
+                parseEvent(split);
+                break;
+            }
+            default:
+                throw new IllegalArgumentException(
+                        "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    private static void parseTodo(String[] split) {
+        String description = "";
+        for (int i = 1; i < split.length; ++i) {
+            description = description + split[i] + " ";
+        }
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+        description = description.substring(0, description.length() - 1);
+        Parser.response = TaskMaster.addTask(new Todos(description));
+    }
+
+    private static void parseDeadline(String[] split) {
+        int i = 1;
+        if (i == split.length) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+        String temp = split[i];
+        String description = "";
+        while (!temp.equals("/by")) {
+            description = description + temp + " ";
+            i += 1;
+            temp = split[i];
+        }
+        i += 1;
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+        description = description.substring(0, description.length() - 1);
+        String time = "";
+        while (i < split.length) {
+            time = time + split[i] + " ";
+            i += 1;
+        }
+        if (time.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The time/date of a deadline cannot be empty.");
+        }
+        time = time.substring(0, time.length() - 1);
+        Parser.response = TaskMaster.addTask(new Deadlines(description, time));
+    }
+
+    private static void parseEvent(String[] split) {
+        int i = 1;
+        if (i == split.length) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The description of an event cannot be empty.");
+        }
+        String temp = split[i];
+        String description = "";
+        while (!temp.equals("/from")) {
+            description = description + temp + " ";
+            i += 1;
+            temp = split[i];
+        }
+        i += 1;
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The description of an event cannot be empty.");
+        }
+        description = description.substring(0, description.length() - 1);
+        String start = "";
+        if (i == split.length) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The starting time of an event cannot be empty.");
+        }
+        temp = split[i];
+        while (!temp.equals("/to")) {
+            start = start + temp + " ";
+            i += 1;
+            temp = split[i];
+        }
+        i += 1;
+        if (start.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The starting time of an event cannot be empty.");
+        }
+        start = start.substring(0, start.length() - 1);
+        String end = "";
+        while (i < split.length) {
+            end = end + split[i] + " ";
+            i += 1;
+        }
+        if (end.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! The ending time of an event cannot be empty.");
+        }
+        end = end.substring(0, end.length() - 1);
+        Parser.response = TaskMaster.addTask(new Events(description, start, end));
+    }
+
+    private static void find(String[] split) throws IllegalArgumentException {
+        String key = "";
+        for (int i = 1; i < split.length; ++i) {
+            key = key + split[i] + " ";
+        }
+        if (key.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "☹ OOPS!!! You must enter a keyword to search for tasks.");
+        }
+        key = key.substring(0, key.length() - 1);
+        Parser.response = TaskMaster.findTask(key);
+    }
+
 
     public static String getResponse() {
         return response;

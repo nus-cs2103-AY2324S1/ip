@@ -15,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class DialogBox extends HBox {
-
     private Label text;
     private ImageView displayPicture;
 
