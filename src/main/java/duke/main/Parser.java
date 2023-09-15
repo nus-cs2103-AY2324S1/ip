@@ -71,6 +71,17 @@ public class Parser {
         return new String[]{taskName, dueDate};
     }
 
+    protected String[] parseNote(String input) throws InvalidArgumentException {
+        String suffix = input.substring(input.indexOf(" ") + 1);
+        String parts[] = suffix.split(" ", 2);
+        if (parts.length != 2) {
+            throw new InvalidArgumentException("Invalid format for note. " +
+                    "Please use: note index description");
+        }
+        return parts;
+    }
+
+
     /**
      * Parses the task name, start time, and end time for an Event task from the user input.
      *

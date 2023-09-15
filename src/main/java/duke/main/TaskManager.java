@@ -103,6 +103,7 @@ public class TaskManager {
      * @throws InvalidArgumentException If the index is out of range.
      */
     public String delete(int index) throws InvalidArgumentException {
+        assert index >= 1;
         if (index > numOfTasks) {
             throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " duke.tasks.");
         }
@@ -112,6 +113,24 @@ public class TaskManager {
         list.remove(index);
         String response = ui.deleteTask(removedTask.getTaskName(), numOfTasks);
         return response;
+    }
+
+    public String getDescription(int index) throws InvalidArgumentException {
+        assert index >= 1;
+        if (index > numOfTasks) {
+            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " duke.tasks.");
+        }
+        index -= 1;
+        Task task = list.get(index);
+        String note = task.getNote();
+        return ui.getDescription(note);
+    }
+
+    protected String addNote(int index, String note) {
+        index -= 1;
+        Task task = list.get(index);
+        task.addNote(note);
+        return ui.addNote(index + 1, task.getTaskName());
     }
 
     /**

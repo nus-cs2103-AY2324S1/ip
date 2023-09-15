@@ -104,6 +104,10 @@ import javafx.scene.Node;
                         return handleDelete(input, taskManager);
                     case "find":
                         return handleFind(input, taskManager);
+                    case "note":
+                        return handleNote(input, taskManager);
+                    case "describe":
+                        return handleDescribe(input, taskManager);
                     case "bye":
                         break;
                     default:
@@ -122,6 +126,23 @@ import javafx.scene.Node;
             ArrayList<Task> filteredList = taskManager.filterList(keyword);
             return ui.displayFilteredList(filteredList, filteredList.size());
         }
+
+        private String handleNote(String input, TaskManager taskManager) throws InvalidArgumentException, StorageException {
+            String[] parsedInput = parser.parseNote(input);
+            String i = parsedInput[0];
+            String note = parsedInput[1];
+            int index;
+            try {
+                index = Integer.parseInt(i);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Use the format note index description! Eg. note 1 complete asap");
+            }
+
+            String response = taskManager.addNote(index, note);
+            updateStorage();
+            return response;
+        }
+
 
 
         /**
@@ -245,4 +266,16 @@ import javafx.scene.Node;
                 throw new InvalidArgumentException("Please enter a numerical index!");
             }
         }
+
+        private String handleDescribe(String input, TaskManager taskManager) throws InvalidArgumentException {
+            String[] words = input.split(" ");
+            try {
+                int index = Integer.parseInt(words[1]);
+                String response = taskManager.getDescription(index);
+                return response;
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Please enter a numerical index!");
+            }
+        }
+
     }
