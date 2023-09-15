@@ -1,0 +1,8 @@
+deadline return book /by Monday
+event for rc /from Saturday 9am /to 1pm
+delete 5
+delete 3
+book
+list
+bye
+
