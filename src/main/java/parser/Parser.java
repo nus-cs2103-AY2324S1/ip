@@ -230,7 +230,7 @@ public class Parser {
         if (input.charAt(4) != ' ') {
             throw new DukeException("Invalid command");
         }
-        Pattern markFormat = Pattern.compile("mark \\d+");
+        Pattern markFormat = Pattern.compile("mark \\d+$");
         if (!markFormat.matcher(input).find()) {
             throw new DukeException("Invalid mark format");
         }
@@ -245,7 +245,7 @@ public class Parser {
         if (input.charAt(6) != ' ') {
             throw new DukeException("Invalid command");
         }
-        Pattern unmarkFormat = Pattern.compile("unmark \\d+");
+        Pattern unmarkFormat = Pattern.compile("unmark \\d+$");
         if (!unmarkFormat.matcher(input).find()) {
             throw new DukeException("Invalid unmark format");
         }
@@ -260,7 +260,7 @@ public class Parser {
         if (input.charAt(6) != ' ') {
             throw new DukeException("Invalid command");
         }
-        Pattern delFormat = Pattern.compile("delete \\d+");
+        Pattern delFormat = Pattern.compile("delete \\d+$");
         if (!delFormat.matcher(input).find()) {
             throw new DukeException("Invalid delete format");
         }

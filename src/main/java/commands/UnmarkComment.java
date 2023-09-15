@@ -33,6 +33,9 @@ public class UnmarkComment extends Command {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is empty, nothing to unmark");
         }
+        if (index >= tasks.getSize()) {
+            throw new DukeException("Unmark out of range");
+        }
         Task selTask = tasks.getTask(index);
         selTask.taskNotCompleted();
         try {

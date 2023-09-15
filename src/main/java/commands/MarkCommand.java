@@ -32,6 +32,9 @@ public class MarkCommand extends Command {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is empty, nothing to mark");
         }
+        if (index >= tasks.getSize()) {
+            throw new DukeException("Mark out of range");
+        }
         Task task = tasks.getTask(index);
         task.taskCompleted();
         try {

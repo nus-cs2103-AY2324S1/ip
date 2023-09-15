@@ -33,6 +33,9 @@ public class DeleteCommand extends Command {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is already empty, nothing to delete");
         }
+        if (index >= tasks.getSize()) {
+            throw new DukeException("Delete out of range");
+        }
         Task task = tasks.remTask(index);
         try {
             dF.deleteTaskFromFile(index);
