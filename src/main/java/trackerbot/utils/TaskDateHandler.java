@@ -27,7 +27,8 @@ public class TaskDateHandler {
      * @return The LocalDateTime object from the parsed String
      * @throws TrackerBotException if the input does not match the format string
      */
-    public static LocalDateTime convertInputToDate(String input) throws TrackerBotException {
+    public static LocalDateTime convertInputToDate(String input)
+            throws TrackerBotException {
         try {
             DateTimeFormatter format = new DateTimeFormatterBuilder()
                     .append(DateTimeFormatter.ofPattern("d/M[/yyyy][ HHmm]"))
@@ -40,6 +41,29 @@ public class TaskDateHandler {
             throw new TrackerBotException("Error in parsing input to date: " + e.getMessage()
                     + "\nAdditional Date Fields should be in the format DD/MM(/YYYY)( HHmm)");
         }
+    }
+
+    /**
+     * Converts the start date and end date inputs into a pair of LocalDateTime.
+     * <p>The inputs should be in the format: [d/M/yyyy HHmm]</p>
+     * <p>The year and time are optional. If not given, the year is assumed
+     * to be the current year, and the time is assumed to be 0000.</p>
+     * @param fromStr The start date input String to parse into a Date object.
+     * @param toStr The end date input String to parse into a Date object.
+     * @return A LocalDateTime array of length 2, parsed from the input Strings
+     * @throws TrackerBotException if the input does not match the format string, or
+     *                             if the start date is not earlier than the end date.
+     */
+    public static LocalDateTime[] convertInputToDate(String fromStr, String toStr)
+            throws TrackerBotException {
+        LocalDateTime startDate = convertInputToDate(fromStr);
+        LocalDateTime endDate = convertInputToDate(toStr);
+
+        if (!(endDate.isAfter(startDate))) {
+            throw new TrackerBotException("Start date should be before end date.");
+        }
+
+        return new LocalDateTime[] {startDate, endDate};
     }
 
     /**
@@ -59,6 +83,27 @@ public class TaskDateHandler {
         } catch (DateTimeParseException e) {
             throw new TrackerBotException("Time field is out of range.");
         }
+    }
+
+    /**
+     * Converts the start date and end save date input into a pair of LocalDateTime.
+     * <p>The String should be in epoch timestamp format.</p>
+     * @param fromStr The start date input String to parse into a Date object.
+     * @param toStr The end date input String to parse into a Date object.
+     * @return A LocalDateTime array of length 2, parsed from the input Strings
+     * @throws TrackerBotException if the input does not match the format string, or
+     *                             if the start date is not earlier than the end date.
+     */
+    public static LocalDateTime[] convertSaveToDate(String fromStr, String toStr)
+            throws TrackerBotException {
+        LocalDateTime startDate = convertSaveToDate(fromStr);
+        LocalDateTime endDate = convertSaveToDate(toStr);
+
+        if (!(endDate.isAfter(startDate))) {
+            throw new TrackerBotException("Save date violates time constraints.");
+        }
+
+        return new LocalDateTime[] {startDate, endDate};
     }
 
     /**
