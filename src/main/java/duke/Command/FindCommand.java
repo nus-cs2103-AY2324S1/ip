@@ -8,17 +8,19 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
-
+/**
+ * Class that handles the find command.
+ */
 public class FindCommand extends Command {
-    private String keyword;
+    private String input;
 
-    public FindCommand(String keyword) {
-        this.keyword = keyword;
+    public FindCommand(String input) {
+        this.input = input;
     }
 
     @Override
     public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
-
+        String keyword = input.substring(5).trim();
         TaskList foundTasks = new TaskList();
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
@@ -26,7 +28,6 @@ public class FindCommand extends Command {
                 foundTasks.addTask(task);
             }
         }
-
         if (foundTasks.getSize() > 0) {
             storage.writeTasksToFile(tasks);
             return ui.printFindTask(foundTasks);
@@ -36,8 +37,4 @@ public class FindCommand extends Command {
 
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
