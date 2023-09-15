@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Dookie dookie = new Dookie();
 
     @Override
     public void start(Stage stage) {
@@ -24,7 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(dookie);
             stage.show();
 
             // Display Duke's welcome message in the GUI

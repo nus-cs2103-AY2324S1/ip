@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Dookie dookie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -34,8 +34,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Dookie d) {
+        dookie = d;
     }
 
     public VBox getDialogContainer() {
@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() { // This method is called whenever a query is sent.
         String input = userInput.getText();
         // Get response based on Duke
-        String response = duke.getResponse(input);
+        String response = dookie.getResponse(input);
         appendDialog(input, response);
         userInput.clear();
 

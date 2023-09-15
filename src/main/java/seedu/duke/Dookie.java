@@ -1,10 +1,10 @@
 package seedu.duke;
 
 /**
- * Encapsulates the Duke class
+ * Encapsulates the Dookie class
  * Duke is the chatbot that runs the program.
  */
-public class Duke {
+public class Dookie {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -13,7 +13,7 @@ public class Duke {
     /**
      * Creates a new Duke instance.
      */
-    public Duke() {
+    public Dookie() {
         ui = new Ui();
         storage = new Storage("./data/duke.txt");
 
