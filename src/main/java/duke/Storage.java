@@ -43,13 +43,13 @@ public class Storage {
             Path parentDirectory = filePath.getParent();
             if (!Files.exists(parentDirectory)) {
                 Files.createDirectories(parentDirectory);
-                System.out.println("    Parent directories created: " + parentDirectory.toAbsolutePath());
+                System.out.println("Parent directories created: " + parentDirectory.toAbsolutePath());
             }
 
             // Create the file if it doesn't exist
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
-                System.out.println("    File created: " + filePath);
+                System.out.println("File created: " + filePath);
             }
 
             // Read the existing content from the file
@@ -63,7 +63,7 @@ public class Storage {
             }
             reader.close();
         } catch (IOException e) {
-            System.out.println("    Data file corrupted.");
+            System.out.println("Data file corrupted.");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -80,12 +80,12 @@ public class Storage {
             Path parentDirectory = filePath.getParent();
             if (!Files.exists(parentDirectory)) {
                 Files.createDirectories(parentDirectory);
-                System.out.println("    Parent directories created: " + parentDirectory.toAbsolutePath());
+                System.out.println("Parent directories created: " + parentDirectory.toAbsolutePath());
             }
             // Create the file if it doesn't exist
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
-                System.out.println("    File created: " + filePath);
+                System.out.println("File created: " + filePath);
             }
             // Write new content to the file
             StringBuilder toWrite = new StringBuilder();
@@ -97,7 +97,7 @@ public class Storage {
             writer.write(toWrite.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("    An error occurred: " + e.getMessage());
+            System.out.println("An error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -122,14 +122,14 @@ public class Storage {
                 t = new Event(details[2].strip(),
                         LocalDate.parse(details[3].strip()), LocalDate.parse(details[4].strip()));
             } else {
-                throw new DukeException("    Data file corrupted.");
+                throw new DukeException("Data file corrupted.");
             }
             if (details[1].strip().equals("Y")) {
                 t.markAsDone();
             }
             return t;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("    Data file corrupted.");
+            throw new DukeException("Data file corrupted.");
         }
     }
 }

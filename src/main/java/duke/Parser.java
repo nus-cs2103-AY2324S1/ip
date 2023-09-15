@@ -8,18 +8,15 @@ import javafx.application.Platform;
  * @author Teo Kai Sheng
  */
 public class Parser {
-    private Ui ui;
     private TaskList tasks;
     private boolean isFinished;
 
     /**
      * Constructor to create a Parser.
      *
-     * @param ui Instance to handle the printing of user interface.
      * @param tasks Instance of TaskList to handle commands.
      */
-    public Parser(Ui ui, TaskList tasks) {
-        this.ui = ui;
+    public Parser(TaskList tasks) {
         this.tasks = tasks;
         this.isFinished = false;
     }
@@ -34,7 +31,7 @@ public class Parser {
         String[] input = s.split(" ", 2);
         String command = input[0];
         String output = "";
-        ui.horizontalLine();
+        Ui.horizontalLine();
         if (command.equals("list")) {
             output = tasks.showList(input);
         } else if (command.equals("mark")) {
@@ -53,12 +50,12 @@ public class Parser {
             output = tasks.findTasks(input);
         } else if (command.equals("bye")) {
             this.isFinished = true;
-            output = ui.bye();
+            output = Ui.bye();
             Platform.exit();
         } else{
-            output = ui.printErrorMessage();
+            output = Ui.unknownCommandErrorMessage();
         }
-        ui.horizontalLine();
+        Ui.horizontalLine();
         assert output != null;
         return output;
     }

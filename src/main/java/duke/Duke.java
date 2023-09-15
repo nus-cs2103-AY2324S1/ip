@@ -13,11 +13,10 @@ import java.util.Scanner;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
     static final Path FILEPATH = Paths.get(".", "data", "duke.txt"); // Filepath: "./data/duke.txt"
 
     public String getResponse(String input) {
-        Parser parser = new Parser(ui, tasks);
+        Parser parser = new Parser(tasks);
         String response = parser.parse(input);
         assert response != null;
         return response;
@@ -27,7 +26,6 @@ public class Duke {
      * Constructor to start the program.
      */
     public Duke() {
-        ui = new Ui();
         storage = new Storage(FILEPATH);
         assert storage != null;
         tasks = new TaskList(storage.loadTaskList());
@@ -37,10 +35,10 @@ public class Duke {
      * Runs the program.
      */
     public void run() {
-        ui.greet();
+        Ui.greet();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        Parser parser = new Parser(ui, tasks);
+        Parser parser = new Parser(tasks);
         assert input != null;
         parser.parse(input);
         while (!parser.isDone()) {

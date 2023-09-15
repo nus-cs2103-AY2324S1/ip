@@ -70,7 +70,7 @@ public class StorageTest {
             fail(); // test should not reach this line
         } catch (DukeException e) {
             // saved entry is of incorrect format
-            assertEquals("    Data file corrupted.", e.getMessage());
+            assertEquals("Data file corrupted.", e.getMessage());
         }
     }
 
@@ -83,7 +83,7 @@ public class StorageTest {
             fail(); // test should not reach this line
         } catch (DukeException e) {
             // saved entry has unknown symbol
-            assertEquals("    Data file corrupted.", e.getMessage());
+            assertEquals("Data file corrupted.", e.getMessage());
         }
     }
 }

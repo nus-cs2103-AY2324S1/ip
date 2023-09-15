@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-
     static final String INITIAL_RESPONSE = "Hello, I'm your task manager :)\nWhat can I do for you?";
+    static final String FINAL_RESPONSE = "Bye. Hope to see you again soon!";
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void getExitMessage() {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog("Bye. Hope to see you again soon!", dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(FINAL_RESPONSE, dukeImage));
     }
 
     /**
