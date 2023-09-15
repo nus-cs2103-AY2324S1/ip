@@ -23,24 +23,26 @@ public class Gui extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private Parser parser;
+    private Storage storage;
+    private TaskList taskList;
+
 
     /**
      * Default constructor for Gui class, initializes the parser and Tasklist.
      */
     public Gui() {
         DtFormat dtf = new DtFormat();
-        TaskList tasks;
         Ui ui = new Ui(dtf);
-        Storage storage = new Storage("./data/");
+        storage = new Storage("./data/");
 
         try {
-            tasks = new TaskList(storage.load(), dtf);
+            taskList = new TaskList(storage.load(), dtf);
         } catch (DukeException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
+            taskList = new TaskList();
         }
-        CommandHandler ch = new CommandHandler(tasks, ui, dtf);
-        this.parser = new Parser(dtf, ui, tasks, ch);
+        CommandHandler ch = new CommandHandler(taskList, ui, dtf);
+        this.parser = new Parser(dtf, ui, taskList, ch);
     }
 
     /**
@@ -124,8 +126,9 @@ public class Gui extends Application {
         try {
             String ret = parser.parse(input);
             if (ret.equals("bye")) {
-                return "bye";
+                storage.save(taskList.getItems());
             }
+            return ret;
         } catch (DukeException e) {
             ex = e;
         }
