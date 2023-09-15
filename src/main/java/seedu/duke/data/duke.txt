@@ -3,3 +3,6 @@
 [E][ ] party (from: sat to: sun)
 [T][ ] homework
 [T][ ] (homework2)
+[E][X] party (from: sat to: sun)
+[T][X] saikang
+[E][ ] birthday (from: 2000-12-20 to: 2000-12-20)
