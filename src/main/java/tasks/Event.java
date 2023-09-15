@@ -46,6 +46,19 @@ public class Event extends Task {
         this.start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
+    public void edit(String newDetails) {
+        String newDescription = newDetails.split(" ")[0];
+
+        super.editDescription(newDescription);
+
+        //todo edit period
+        this.from = from;
+        this.to = to;
+
+        this.start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+
+    }
+
     @Override
     public String getType() {
         return SYMBOL;
