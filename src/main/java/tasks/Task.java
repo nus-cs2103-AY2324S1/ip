@@ -40,6 +40,7 @@ public class Task {
      */
     @Override
     public String toString() {
+        assert !type.equals(" ") : "Type must be a character related to its task type";
         return "  [" + type + "]" + "[" + (marked ? "X" : " ") + "] " + name;
     }
 }

@@ -32,8 +32,9 @@ public class FileStorage {
      * @throws DukeException if there is any situation where the FileWriter fails to write.
      */
     public void write(TaskList userList) throws DukeException {
+        assert userList == null : "A list should be present such that a write would occur";
         try {
-            FileWriter fw = new FileWriter(this.fileData);
+            FileWriter fw = new FileWriter(fileData);
             for (int i = 0; i < userList.size(); i++) {
                 fw.write(userList.get(i).toString());
                 fw.write("\n");
@@ -51,9 +52,10 @@ public class FileStorage {
      * @throws DukeException if the content on the file cannot be recognised.
      */
     public ArrayList<Task> read() throws DukeException {
+        assert fileData == null : "FileStorage should be initialise before calling for read hence cannot be null";
         try {
             ArrayList<Task> dataList = new ArrayList<>();
-            Scanner scanner = new Scanner(this.fileData);
+            Scanner scanner = new Scanner(fileData);
             Task task;
             //System.out.println("reading");
             while (scanner.hasNext()) {
