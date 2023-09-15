@@ -48,7 +48,7 @@ A new todo will be created and added to the list.
 
 ```
 Got it. I've added this task:
-          [T][ ] buy honey
+          [T][] buy honey
 Now you have 1 task in the list
 ```
 
@@ -66,7 +66,7 @@ A new event will be created and added to the list.
 
 ```
 Got it. I've added this task:
-          [E][ ] buy honey (from: Monday 4pm to: 6pm)
+          [E][] buy honey (from: Monday 4pm to: 6pm)
 Now you have 1 task in the list
 ```
 
@@ -84,7 +84,7 @@ A new deadline will be created and added to the list.
 
 ```
 Got it. I've added this task:
-          [D][ ] buy honey (by: Oct 15 2023)
+          [D][] buy honey (by: Oct 15 2023)
 Now you have 1 task in the list
 ```
 
@@ -119,7 +119,7 @@ Tasks marked undone will have existing `X` removed.
 
 ```
 OK, I've marked this task as not done yet:
-          [D][ ] buy honey (by: Oct 15 2023)
+          [D][] buy honey (by: Oct 15 2023)
 ```
 
 ### `delete` - Deletes an existing task
@@ -136,7 +136,7 @@ Deleted tasks will no longer be present in the tasklist.
 
 ```
 Noted. I've removed this task:
-          [D][ ] buy honey (by: Oct 15 2023)
+          [D][] buy honey (by: Oct 15 2023)
 Now you have 0 tasks in the list
 ```
 
@@ -154,7 +154,7 @@ Displays the list of all tasks with matching keywords.
 
 ```
 Here are the matching tasks in your list:
-          1. [D][ ] buy honey (by: Oct 15 2023)
+          1. [D][] buy honey (by: Oct 15 2023)
 ```
 
 ### `postpone` - Postpone a deadline task
@@ -171,5 +171,5 @@ List is updated, where deadline task now has a new deadline.
 
 ```
 OK, I have postponed this task:
-          1. [D][ ] buy honey (by: Oct 20 2023)
+          1. [D][] buy honey (by: Oct 20 2023)
 ```
