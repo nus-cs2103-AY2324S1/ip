@@ -1,5 +1,6 @@
 package brandon.chatbot.commands.taskcommands;
 
+import brandon.chatbot.Message;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.tasks.Task;
@@ -13,32 +14,8 @@ import java.util.List;
  */
 public class ListCommand extends Command {
     public static final String LIST_SUCCESS = "ok... I'm listing..";
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
-
-
-    public String showTasks(TaskList tasks) {
-        final ArrayList<String> formattedTasks = new ArrayList<>();
-        for (Task t : tasks.getList()) {
-            formattedTasks.add(t.getStatus());
-        }
-        return getIndexedListForViewing(formattedTasks);
-    }
-
-    private static String getIndexedListForViewing(List<String> listItems) {
-        final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 1;
-        for (String listItem : listItems) {
-            formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
-            displayIndex++;
-        }
-        return formatted.toString();
-    }
-    private static String getIndexedListItem(int visibleIndex, String listItem) {
-        return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
-    }
-
     @Override
     public CommandResult execute() {
-        return new CommandResult(LIST_SUCCESS + "\n" + showTasks(tasks));
+        return new CommandResult(LIST_SUCCESS + "\n" + Message.showTasks(tasks));
     }
 }

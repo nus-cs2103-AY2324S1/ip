@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import brandon.chatbot.Tag;
+import brandon.chatbot.tag.Tag;
 import brandon.chatbot.common.DukeException;
 
 /**

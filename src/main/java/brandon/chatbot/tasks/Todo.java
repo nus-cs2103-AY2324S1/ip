@@ -1,6 +1,6 @@
 package brandon.chatbot.tasks;
 
-import brandon.chatbot.Tag;
+import brandon.chatbot.tag.Tag;
 import brandon.chatbot.common.DukeException;
 
 import java.util.ArrayList;

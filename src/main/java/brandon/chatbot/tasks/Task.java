@@ -1,9 +1,9 @@
 package brandon.chatbot.tasks;
 
-import brandon.chatbot.Tag;
+import brandon.chatbot.tag.Tag;
 import brandon.chatbot.common.DukeException;
 
-import javax.swing.text.html.Option;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -29,6 +29,14 @@ public class Task {
         this.tagOptional = tagOptional;
     }
 
+    public boolean hasTag(Tag t) {
+        if (tagOptional.isPresent()) {
+            ArrayList<Tag> tagList = tagOptional.get();
+            return tagList.contains(t);
+        }
+
+        return false;
+    }
     /**
      * Sets the done value of the Task, which indicates if the task is done.
      *
@@ -36,6 +44,10 @@ public class Task {
      */
     public void setDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public Optional<ArrayList<Tag>> getTagOptional() {
+        return this.tagOptional;
     }
 
     /**

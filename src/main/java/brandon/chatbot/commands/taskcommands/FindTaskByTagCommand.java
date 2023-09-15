@@ -4,33 +4,31 @@ import brandon.chatbot.Message;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.tag.Tag;
-import brandon.chatbot.tasks.Task;
 import brandon.chatbot.tasks.TaskList;
 
 import java.util.ArrayList;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-/**
- * Represents a command that finds a task in the task list with a given keyword.
- */
-public class FindCommand extends Command {
+public class FindTaskByTagCommand extends Command {
     private static final String FIND_SUCCESS = "ok... I'm finding the task...\n";
     private String title;
+    private ArrayList<Tag> tags;
 
-    public FindCommand(String title) {
+    public FindTaskByTagCommand(String title, ArrayList<Tag> tags) {
         this.title = title;
+        this.tags = tags;
     }
-
     @Override
     public CommandResult execute() {
         TaskList newList = new TaskList();
-        for (Task t: tasks.getList()) {
-            if (t.toString().contains(title)) {
-                newList.addTask(t);
+        for (Tag t : tags) {
+            if (newList.isEmpty()) {
+                newList.appendTaskList(tagTaskMap.getTaskList(t));
+            } else {
+                newList = newList.filterTaskWithTag(t);
             }
         }
 
         return new CommandResult(FIND_SUCCESS + Message.showTasks(newList));
     }
+
 }

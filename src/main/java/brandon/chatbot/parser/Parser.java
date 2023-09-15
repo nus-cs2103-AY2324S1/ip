@@ -5,19 +5,12 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import brandon.chatbot.Tag;
-import brandon.chatbot.commands.taskcommands.AddDeadlineCommand;
-import brandon.chatbot.commands.taskcommands.AddEventCommand;
-import brandon.chatbot.commands.taskcommands.AddTodoCommand;
+import brandon.chatbot.commands.taskcommands.*;
+import brandon.chatbot.tag.Tag;
 import brandon.chatbot.commands.Command;
-import brandon.chatbot.commands.taskcommands.DeleteCommand;
 import brandon.chatbot.commands.generalcommands.ExitCommand;
-import brandon.chatbot.commands.taskcommands.FindCommand;
 import brandon.chatbot.commands.generalcommands.HelpCommand;
-import brandon.chatbot.commands.taskcommands.ListCommand;
-import brandon.chatbot.commands.taskcommands.MarkCommand;
 import brandon.chatbot.commands.generalcommands.UnknownCommand;
-import brandon.chatbot.commands.taskcommands.UnmarkCommand;
 import brandon.chatbot.common.DukeException;
 
 /**
@@ -25,7 +18,9 @@ import brandon.chatbot.common.DukeException;
  */
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final Pattern TODO_FIND_ARGS_FORMAT = Pattern.compile("(?<title>[^#]+)(?<tags>.*)");
+    public static final Pattern TASK_FIND_ARGS_FORMAT = Pattern.compile("(?<title>[^#]+)?(?<tags>.*)");
+    public static final Pattern TODO_ARGS_FORMAT = Pattern.compile("(?<title>[^#]+)(?<tags>.*)");
+
     public static final Pattern TAG_ARGS_FORMAT = Pattern.compile("(#(?<tag>[^#]+))");
     public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile(
             "(?<title>[^/]+)"
@@ -87,15 +82,25 @@ public class Parser {
      * @return the command that finds the task with the given name.
      */
     private Command prepareFind(String arg) {
-        final Matcher matcher = TODO_FIND_ARGS_FORMAT.matcher(arg.trim());
+        final Matcher matcher = TASK_FIND_ARGS_FORMAT.matcher(arg.trim());
         if (!matcher.matches()) {
             return new UnknownCommand();
         }
-        return new FindCommand(matcher.group("title").strip());
+        try {
+            String title = matcher.group("title");
+            String tagArgs = matcher.group("tags");
+            Optional<ArrayList<Tag>> tags = Optional.ofNullable(parseTags(tagArgs));
+            if (tags.isPresent()) {
+                return new FindTaskByTagCommand(title, tags.get());
+            }
+            return new FindCommand(title);
+        } catch (Exception e) {
+            return new UnknownCommand();
+        }
     }
 
     private Command prepareTodo(String args) {
-        final Matcher matcher = TODO_FIND_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = TODO_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             System.out.println("not working at all!");
@@ -107,7 +112,7 @@ public class Parser {
             Optional<ArrayList<Tag>> tags = Optional.ofNullable(parseTags(tagArgs));
             return new AddTodoCommand(title, tags);
         } catch (Exception e) {
-            return new UnknownCommand(e.getMessage());
+            return new UnknownCommand();
         }
     }
 

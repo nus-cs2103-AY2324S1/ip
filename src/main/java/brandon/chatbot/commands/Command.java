@@ -1,6 +1,6 @@
 package brandon.chatbot.commands;
 
-import brandon.chatbot.commands.CommandResult;
+import brandon.chatbot.tag.TagTaskMap;
 import brandon.chatbot.tasks.TaskList;
 
 /**
@@ -9,6 +9,7 @@ import brandon.chatbot.tasks.TaskList;
 public class Command {
 
     protected TaskList tasks;
+    protected TagTaskMap tagTaskMap;
 
     /**
      * Constructs an instance of Command and assigns the parameter value to the tasks TaskList class member.
@@ -31,9 +32,12 @@ public class Command {
 
     /**
      * Assigns the TaskList parameter to the class variable tasks.
+     *
      * @param tasks
+     * @param tags
      */
-    public void setData(TaskList tasks) {
+    public void setData(TaskList tasks, TagTaskMap tags) {
         this.tasks = tasks;
+        this.tagTaskMap = tags;
     }
 }

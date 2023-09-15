@@ -1,6 +1,6 @@
 package brandon.chatbot.commands.taskcommands;
 
-import brandon.chatbot.Tag;
+import brandon.chatbot.tag.Tag;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.common.DukeException;
