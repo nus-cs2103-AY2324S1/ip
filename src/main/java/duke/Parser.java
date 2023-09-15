@@ -34,10 +34,10 @@ public class Parser {
             throw new DukeException("Chewie don't see any command");
         }
 
+        listSize = Duke.getListSize();
         scanner = new Scanner(input);
 
         String command = scanner.next();
-        listSize = Duke.getListSize();
 
         switch (command) {
         case "bye":
@@ -118,8 +118,10 @@ public class Parser {
         }
 
         String[] deadlineRemain = prompt.split(" /by ");
+        boolean isValidDeadline = deadlineRemain.length != 2 || deadlineRemain[0].isBlank()
+                || deadlineRemain[1].isBlank();
 
-        if (deadlineRemain.length != 2 || deadlineRemain[0].isBlank() || deadlineRemain[1].isBlank()) {
+        if (isValidDeadline) {
             throw new DukeException("Chewie says deadline's description is wrong.");
         }
 
@@ -142,7 +144,9 @@ public class Parser {
 
         String[] eventRemain = prompt.split(" /from ");
 
-        if (eventRemain.length != 2 || eventRemain[0].isBlank()) {
+        boolean isValidEvent = eventRemain.length != 2 || eventRemain[0].isBlank();
+
+        if (isValidEvent) {
             throw new DukeException("Chewie says event's description is wrong.");
         }
 
@@ -169,26 +173,30 @@ public class Parser {
     }
 
     private MarkCommand handleMark (int index) throws DukeException{
-        if (index < 1 || index > listSize)
+        if (checkInvalidIndex(index)) {
             throw new DukeException("The list doesn't have this index.");
-
+        }
         return new MarkCommand(index - 1);
     }
 
     private UnmarkCommand handleUnmark (int index) throws DukeException{
-        if (index < 1 || index > listSize)
+        if (checkInvalidIndex(index)) {
             throw new DukeException("The list doesn't have this index.");
-
+        }
         return new UnmarkCommand(index - 1);
     }
 
     private DeleteCommand handleDelete (int index) throws DukeException{
-        if (index < 1 || index > listSize)
+        if (checkInvalidIndex(index)) {
             throw new DukeException("The list doesn't have this index.");
-
+        }
         listSize--;
 
         return new DeleteCommand(index - 1);
+    }
+
+    private boolean checkInvalidIndex(int i ) {
+        return i < 1 || i > listSize;
     }
 
     private FindCommand handleFind (String prompt) throws DukeException{

@@ -33,7 +33,6 @@ public class Storage {
         String json = gson.toJson(save);
 
         assert save != null : "The save data should exists";
-        // write to save file
         try {
             File saveFile = new File(fileName);
             FileWriter fw = new FileWriter(saveFile);
@@ -60,18 +59,7 @@ public class Storage {
             save = new SaveData(new Task[0]);
 
         } finally {
-
-            for (int i = 0; i < save.type.length; i++) {
-                String s = save.type[i];
-
-                if (s.equals("Task.ToDo")) {
-                    list.add(save.toDos[i]);
-                } else if (s.equals("Task.Events")) {
-                    list.add(save.events[i]);
-                } else {
-                    list.add(save.deadlines[i]);
-                }
-            }
+            setupTaskList(list);
         }
     }
 
@@ -89,19 +77,24 @@ public class Storage {
         } catch (FileNotFoundException e) {
             save = new SaveData(new Task[0]);
             isNewSave = true;
+
             assert isNewSave : "The application should have new save";
         } finally {
+            setupTaskList(list);
+        }
+    }
 
-            for (int i = 0; i < save.type.length; i++) {
-                String s = save.type[i];
+    private void setupTaskList (TaskList list) {
 
-                if (s.equals("Task.ToDo")) {
-                    list.add(save.toDos[i]);
-                } else if (s.equals("Task.Events")) {
-                    list.add(save.events[i]);
-                } else {
-                    list.add(save.deadlines[i]);
-                }
+        for (int i = 0; i < save.type.length; i++) {
+            String s = save.type[i];
+
+            if (s.equals("Task.ToDo")) {
+                list.add(save.toDos[i]);
+            } else if (s.equals("Task.Events")) {
+                list.add(save.events[i]);
+            } else {
+                list.add(save.deadlines[i]);
             }
         }
     }

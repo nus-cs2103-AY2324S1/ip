@@ -28,21 +28,26 @@ public class SaveData {
         deadlines = new Deadline[n];
         events = new Events[n];
 
-        for (int i = 0; i < n; i++) {
+        storeData(list);
+    }
+
+    private void storeData (Task[] list) {
+
+        for (int i = 0; i < list.length; i++) {
             type[i] = list[i].getType();
 
             switch (type[i]) {
-                case "Task.ToDo":
-                    toDos[i] = (ToDo) list[i];
-                    break;
+            case "Task.ToDo":
+                toDos[i] = (ToDo) list[i];
+                break;
 
-                case "Task.Deadline":
-                    deadlines[i] = (Deadline) list[i];
-                    break;
+            case "Task.Deadline":
+                deadlines[i] = (Deadline) list[i];
+                break;
 
-                case "Task.Events":
-                    events[i] = (Events) list[i];
-                    break;
+            case "Task.Events":
+                events[i] = (Events) list[i];
+                break;
 
             }
         }
