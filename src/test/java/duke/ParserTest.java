@@ -68,9 +68,7 @@ public class ParserTest {
             assertEquals("[D][X] return book (by: Jan 15 2019)", task.toString());
             fail();
         } catch (InvalidTaskException e) {
-            fail();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            assertEquals("Index 5 out of bounds for length 5", e.getMessage());
+            assertEquals("ERROR: Missing the /by marker", e.getMessage());
         }
     }
 

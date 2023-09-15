@@ -50,7 +50,7 @@ public class Parser {
      * @param userInput the entire user input.
      * @param actionWord the type of task the user wants to add.
      * @return the Task the user wants to add into Duke.
-     * @throws InvalidTaskException if the description of the task is missing or the task type is invalid.
+     * @throws InvalidTaskException if a part of the task description is missing or the task type is invalid.
      */
     public Task parseAddTaskInput(String userInput, String actionWord) throws InvalidTaskException {
         String[] userInputSegmented = userInput.split(" ");
@@ -72,12 +72,15 @@ public class Parser {
         }
     }
 
-    private Deadline parseDeadlineInput(String[] userInputSegmented) {
+    private Deadline parseDeadlineInput(String[] userInputSegmented) throws InvalidTaskException {
         int startIndex = 0;
         assert Arrays.asList(userInputSegmented).contains("/by");
 
         while (true) {
             startIndex++;
+            if (startIndex == userInputSegmented.length) {
+                throw new InvalidTaskException("ERROR: Missing the /by marker");
+            }
             if (userInputSegmented[startIndex].equals("/by")) {
                 startIndex++;
                 break;
@@ -89,13 +92,16 @@ public class Parser {
                 String.join(" ", Arrays.copyOfRange(userInputSegmented, startIndex, userInputSegmented.length)));
     }
 
-    private Event parseEventInput(String[] userInputSegmented) {
+    private Event parseEventInput(String[] userInputSegmented) throws InvalidTaskException {
         int fromIndex = 0;
         int toIndex = 0;
 
         while (fromIndex < userInputSegmented.length) {
             fromIndex++;
             toIndex++;
+            if (fromIndex == userInputSegmented.length) {
+                throw new InvalidTaskException("ERROR: Missing the /from marker");
+            }
             if (userInputSegmented[fromIndex].equals("/from")) {
                 fromIndex++;
                 toIndex++;
@@ -105,6 +111,9 @@ public class Parser {
 
         while (toIndex < userInputSegmented.length) {
             toIndex++;
+            if (toIndex == userInputSegmented.length) {
+                throw new InvalidTaskException("ERROR: Missing the /to marker");
+            }
             if (userInputSegmented[toIndex].equals("/to")) {
                 toIndex++;
                 break;

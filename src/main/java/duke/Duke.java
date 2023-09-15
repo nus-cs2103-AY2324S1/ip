@@ -66,14 +66,14 @@ public class Duke {
                         Task task = this.parser.parseAddTaskInput(input, actionWord);
                         return this.taskList.addTask(task);
                     } catch (InvalidTaskException e) {
-                        System.out.println(e.getMessage());
+                        return e.getMessage();
                     }
                 } else {
                     throw new InvalidInputException("ERROR: Invalid input");
                 }
             }
         } catch (InvalidInputException e) {
-            return "INVALID INPUT";
+            return e.getMessage();
         }
         return "ERROR";
     }
