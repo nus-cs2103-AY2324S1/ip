@@ -1,29 +1,47 @@
-# User Guide
+# Horo App User Guide
 
-## Features 
+The Horo application is a simple Java application to manage tasks and basic expense management, optimized for use via a Command Line Interface (CLI).
 
-### Feature-ABC
+## Features
 
-Description of the feature.
+### Task Management
 
-### Feature-XYZ
+There are 3 kinds of tasks you can add.
 
-Description of the feature.
+**Todo**
+`todo <description>`
+**Deadline**
+`deadline <description> /by yyyy/mm/dd HH:mm`
+**Event**
+`event <description> /from yyyy/mm/dd HH:mm /to yyyy/mm/dd HH:mm`
 
-## Usage
+List tasks (Also shows the number associated with the task)
+`list task`
 
-### `Keyword` - Describe action
+Mark task as done
+`mark <number>`
 
-Describe the action and its outcome.
+Mark task as not done
+`mark <number>`
 
-Example of usage: 
+Delete task
+`delete task <number>`
 
-`keyword (optional arguments)`
+Find task
+`find <query>`
 
-Expected outcome:
+### Expense Management
 
-Description of the outcome.
+Add expense
+`expense <amount> <description>`
 
-```
-expected output
-```
+List expenses (Also shows the number associated with the expense)
+`list expense`
+
+Delete expense
+`delete expense <number>`
+
+### Others
+
+Exit the application
+`bye`
