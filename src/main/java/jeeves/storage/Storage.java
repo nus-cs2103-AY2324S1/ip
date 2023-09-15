@@ -37,6 +37,7 @@ public class Storage {
         if (Files.notExists(dataDirPath)) {
             try {
                 Files.createDirectories(dataDirPath);
+                assert Files.exists(dataDirPath);
             } catch (IOException e) {
                 // Do nothing if an error is encountered since the directory existence is already checked
                 // Theoretically impossible to enter this block
@@ -47,6 +48,7 @@ public class Storage {
         if (Files.notExists(dataFilePath)) {
             try {
                 Files.createFile(dataFilePath);
+                assert Files.exists(dataFilePath);
             } catch (IOException e) {
                 // Do nothing if an error is encountered since the file existence is already checked
                 // Theoretically impossible to enter this block
@@ -67,7 +69,8 @@ public class Storage {
             bw.flush();
             bw.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            // Terminates the program if an IOException is met
+            System.exit(1);
         }
     }
 
@@ -87,6 +90,7 @@ public class Storage {
             while ((currLine = br.readLine()) != null) {
                 // Extract the information to populate the array list
                 String[] currData = currLine.split("\\|");
+                assert currData.length >= 3;
                 String taskType = currData[0];
                 boolean status = Integer.parseInt(currData[1]) == 1;
                 String desc = currData[2];
@@ -95,10 +99,12 @@ public class Storage {
                     taskList.add(new Todo(desc, status));
                     break;
                 case "D":
+                    assert currData.length == 4;
                     LocalDate deadline = LocalDate.parse(currData[3]);
                     taskList.add(new Deadline(desc, deadline, status));
                     break;
                 case "E":
+                    assert currData.length == 5;
                     String startTime = currData[3];
                     String endTime = currData[4];
                     taskList.add(new Event(desc, startTime, endTime, status));
@@ -107,7 +113,8 @@ public class Storage {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            // Terminates the program if an IOException is met
+            System.exit(1);
         }
         return taskList;
     }

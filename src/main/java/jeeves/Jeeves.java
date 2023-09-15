@@ -2,6 +2,7 @@ package jeeves;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javafx.application.Application;
 import jeeves.exception.DeletedIdException;
@@ -39,6 +40,9 @@ public class Jeeves {
      * @param args Optional command line arguments.
      */
     public static void main(String[] args) {
+        assert Objects.nonNull(storage);
+        assert Objects.nonNull(tasks);
+        assert Objects.nonNull(parser);
         Application.launch(Ui.class);
     }
 
@@ -49,13 +53,15 @@ public class Jeeves {
      */
     public static String processInput(String inputLine) {
         // Reads the user input and parses the relevant tokens for use
-        ArrayList<String> tokens = null;
+        ArrayList<String> tokens;
         try {
             tokens = parser.parseUserInput(inputLine);
         } catch (MissingByException | MissingDescriptionException | MissingFromException | MissingToException |
                  OutOfBoundIdException | NotIntegerIdException | MissingIdException e) {
             return e.getMessage();
         }
+        assert !tokens.isEmpty();
+        
         String currentCommand = tokens.get(0);
         // Performs a different action depending on the input received
         // Unless a specific pre-defined command is received, the program will
