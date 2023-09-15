@@ -22,11 +22,8 @@ public class ArchiveHandler {
     }
 
     private static void fileManager() {
-        try {
-            printWriter = new PrintWriter(file.getAbsoluteFile());
-            printWriter.write("");
-            printWriter.close();
-        } catch (FileNotFoundException e) {
+        if (!file.exists()) {
+
             File temp = new File(file.getParentFile(), "List.txt");
             file = temp;
         }

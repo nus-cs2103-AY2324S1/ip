@@ -9,7 +9,7 @@ import peko.memory.*;
 public class ArchiveHandlerTest {
     @Test
     public void storeTest() throws InvalidTaskException {
-        Task t = new ToDos("Help");
+        Task t = new ToDos("ye");
         ArchiveHandler.archive(t);
     }
 }
