@@ -41,6 +41,7 @@ public class MainWindow extends AnchorPane {
      * Creates a dialog box to greet the user.
      */
     public void greetUser() {
+        assert fluke != null;
         dialogContainer.getChildren().add(
             DialogBox.getDukeDialog(fluke.getGreeting(), dukeImage)
         );
@@ -52,6 +53,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null;
+        assert fluke != null;
+        assert dialogContainer != null;
         String input = userInput.getText();
         String response = fluke.getResponse(input);
         dialogContainer.getChildren().addAll(

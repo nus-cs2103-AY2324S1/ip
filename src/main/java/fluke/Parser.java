@@ -67,7 +67,9 @@ public class Parser {
         if (!typeIsFound) {
             throw new SaveFileParsingException();
         }
-        switch (typeMatcher.group()) {
+        String type = typeMatcher.group();
+        assert type.equals("[T]") || type.equals("[D]") || type.equals("[E]");
+        switch (type) {
         case "[T]":
             taskType = Fluke.Command.TODO;
             break;
@@ -89,6 +91,7 @@ public class Parser {
             throw new SaveFileParsingException();
         }
         String mark = markMatcher.group();
+        assert mark.equals("[ ]") || mark.equals("[X]");
         switch (mark) {
         case "[ ]":
             isMarked = false;
