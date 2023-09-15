@@ -59,6 +59,7 @@ public class Parser {
             output = ui.printErrorMessage();
         }
         ui.horizontalLine();
+        assert output != null;
         return output;
     }
 
