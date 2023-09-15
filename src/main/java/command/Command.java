@@ -1,6 +1,5 @@
 package command;
 
-
 import java.time.format.DateTimeFormatter;
 
 import enums.CommandWord;
@@ -62,15 +61,5 @@ public abstract class Command {
      */
     public boolean isByeCommand() {
         return CommandWord.commandWordToValueMap(Parser.getArgs(rawCommand)[0]).equals(CommandWord.BYE);
-    }
-
-    /**
-     * Checks if there is an error based on the validation result.
-     *
-     * @param validationError The validation error message.
-     * @return True if there is an error (validationError is not empty), false otherwise.
-     */
-    protected boolean isValidationError(String validationError) {
-        return !validationError.isEmpty();
     }
 }

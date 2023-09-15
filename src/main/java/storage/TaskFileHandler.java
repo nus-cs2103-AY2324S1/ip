@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import exceptions.DukeStorageException;
+import exceptions.WoofStorageException;
 import tasks.Task;
 import tasks.TaskList;
 
@@ -27,7 +27,7 @@ public class TaskFileHandler {
      * Reads tasks from the JSON file and returns a `TaskList` object.
      *
      * @return A `TaskList` containing the tasks read from the file.
-     * @throws DukeStorageException If there is an issue with reading or parsing the file.
+     * @throws WoofStorageException If there is an issue with reading or parsing the file.
      */
     public static TaskList readFromFile() {
         createFileIfNotExists();
@@ -40,7 +40,7 @@ public class TaskFileHandler {
         try (FileReader r = new FileReader(FILE_PATH)) {
             tasks = gson.fromJson(r, Task[].class);
         } catch (IOException e) {
-            throw new DukeStorageException("Error reading from file: " + e.getMessage());
+            throw new WoofStorageException("Error reading from file: " + e.getMessage());
         }
 
         return new TaskList(tasks);
@@ -50,7 +50,7 @@ public class TaskFileHandler {
      * Saves tasks to the JSON file.
      *
      * @param taskList The `TaskList` containing tasks to be saved.
-     * @throws DukeStorageException If there is an issue with writing to the file.
+     * @throws WoofStorageException If there is an issue with writing to the file.
      */
     public static void saveToFile(TaskList taskList) {
         Task[] tasks = taskList.getTasks();
@@ -62,14 +62,14 @@ public class TaskFileHandler {
         try (FileWriter w = new FileWriter(FILE_PATH)) {
             gson.toJson(tasks, w);
         } catch (IOException e) {
-            throw new DukeStorageException("Error writing to file: " + e.getMessage());
+            throw new WoofStorageException("Error writing to file: " + e.getMessage());
         }
     }
 
     /**
      * Creates the JSON file if it does not exist.
      *
-     * @throws DukeStorageException If there is an issue with file creation.
+     * @throws WoofStorageException If there is an issue with file creation.
      */
     private static void createFileIfNotExists() {
         File file = new File(FILE_PATH);
@@ -78,7 +78,7 @@ public class TaskFileHandler {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
-                throw new DukeStorageException("Error creating file: " + e.getMessage());
+                throw new WoofStorageException("Error creating file: " + e.getMessage());
             }
         }
     }

@@ -3,6 +3,9 @@ package command;
 import java.time.LocalDate;
 
 import enums.CommandWord;
+import enums.ExceptionMessage;
+import exceptions.WoofException;
+import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.DeadlineTask;
 import tasks.TaskList;
@@ -28,32 +31,59 @@ public class DeadlineCommand extends Command {
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
-     * @return an empty string if the command is valid, or an error message if it's invalid.
+     * @throws WoofInvalidCommandException is the command is invalid.
      */
-    public static String validate(String rawCommand) {
+    public static void validate(String rawCommand) throws WoofInvalidCommandException {
         assert rawCommand != null : "raw command cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 4) {
-            return "Invalid number of arguments for deadline command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
+                    CommandWord.DEADLINE.getValue()
+                )
+            );
+        }
+
+        if (args[0] == null || args[1] == null || args[2] == null || args[3] == null) {
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.NULL_ARGUMENT.getValueFormat(
+                    CommandWord.DEADLINE.getValue()
+                )
+            );
+        }
+
+        if (args[0].isEmpty() || args[1].isEmpty() || args[2].isEmpty() || args[3].isEmpty()) {
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.EMPTY_ARGUMENT.getValueFormat(
+                    CommandWord.DEADLINE.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.DEADLINE)) {
-            return "Invalid command word for deadline command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
+                    CommandWord.DEADLINE.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[2]).equals(CommandWord.BY)) {
-            return "Invalid subcommand '/by' for deadline command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_SUB_COMMAND_WORD.getValueFormat(
+                    CommandWord.BY.getValue()
+                )
+            );
         }
 
-        if (!Woof.validateDateTime(args[3])) {
-            return "Invalid date/time format for the '/by' field.";
+        try {
+            Woof.validateDateTime(args[3]);
+        } catch (WoofException e) {
+            throw new WoofInvalidCommandException(e.getMessage());
         }
-
-        return ""; // Return an empty string if the command is valid
     }
-
 
     /**
      * Executes the "deadline" command. It parses the command, validates it, and adds a new
@@ -65,10 +95,10 @@ public class DeadlineCommand extends Command {
         assert taskList != null : "task list cannot be null";
 
         String rawCommand = super.getRawCommand();
-        String validationError = validate(rawCommand);
-
-        if (!validationError.isEmpty()) {
-            return validationError; // Return the error message
+        try {
+            validate(rawCommand);
+        } catch (WoofInvalidCommandException e) {
+            return e.getMessage();
         }
 
         String[] args = Parser.getArgs(rawCommand);

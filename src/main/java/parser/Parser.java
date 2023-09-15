@@ -60,8 +60,11 @@ public class Parser {
         assert rawCommand != null : "raw command cannot be null";
 
         ArrayList<String> result = new ArrayList<>();
-        String[] words = rawCommand.trim().split("\\s+");
-        assert words.length > 0 : "words need a main command";
+
+        String[] words = rawCommand.split("\\s+");
+        if (words.length == 0) {
+            return result.toArray(new String[0]);
+        }
 
         String mainCommand = words[0];
         assert mainCommand != null : "main command cannot be null";

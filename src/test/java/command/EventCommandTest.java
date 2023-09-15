@@ -1,7 +1,9 @@
 package command;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.EventTask;
 import tasks.Task;
 import tasks.TaskList;
@@ -35,12 +38,18 @@ public class EventCommandTest {
     @Test
     public void testValidate() {
         // Arrange, Act, Assert
-        assertEquals("", EventCommand.validate("event some task /from 2023-01-01 /to 2023-12-31"));
-
-        assertNotEquals("", EventCommand.validate("event"));
-        assertNotEquals("", EventCommand.validate("event some task /from 2023-01-01"));
-        assertNotEquals("", EventCommand.validate("event some task /to 2023-12-31"));
-        assertNotEquals("", EventCommand.validate("event /from 2023-01-01 /to 2023-12-31"));
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> EventCommand.validate("event some task /from 2023-01-01 /to 2023-12-31")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> EventCommand.validate("event")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> EventCommand.validate("event some task /from 2023-01-01")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> EventCommand.validate("event some task /to 2023-12-31")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> EventCommand.validate("event /from 2023-01-01 /to 2023-12-31"))
+        );
     }
 
     @Test

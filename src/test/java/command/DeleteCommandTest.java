@@ -1,7 +1,9 @@
 package command;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.Task;
@@ -45,13 +48,20 @@ public class DeleteCommandTest {
         TaskList taskList = new TaskList(new Task[]{task1, task2, task3});
 
         // Act, Assert
-        assertEquals("", DeleteCommand.validate("delete 1", taskList));
-        assertEquals("", DeleteCommand.validate("delete 2", taskList));
-
-        assertNotEquals("", DeleteCommand.validate("delete", taskList));
-        assertNotEquals("", DeleteCommand.validate("delete a", taskList));
-        assertNotEquals("", DeleteCommand.validate("delete 0", taskList));
-        assertNotEquals("", DeleteCommand.validate("delete 4", taskList));
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> DeleteCommand.validate("delete 1", taskList)), (
+            ) -> assertDoesNotThrow((
+            ) -> DeleteCommand.validate("delete 2", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeleteCommand.validate("delete", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeleteCommand.validate("delete a", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeleteCommand.validate("delete 0", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeleteCommand.validate("delete 4", taskList))
+        );
     }
 
     @Test

@@ -1,6 +1,8 @@
 package command;
 
 import enums.CommandWord;
+import enums.ExceptionMessage;
+import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
 import ui.Ui;
@@ -25,22 +27,44 @@ public class ByeCommand extends Command {
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
-     * @return An empty string if the command is valid, or an error message if it's invalid.
      */
-    public static String validate(String rawCommand) {
+    public static void validate(String rawCommand) {
         assert rawCommand != null : "raw command cannot be null";
-
+  
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 1) {
-            return "Invalid number of arguments for the 'bye' command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
+                    CommandWord.BYE.getValue()
+                )
+            );
+        }
+
+
+        if (args[0] == null) {
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.NULL_ARGUMENT.getValueFormat(
+                    CommandWord.BYE.getValue()
+                )
+            );
+        }
+
+        if (args[0].isEmpty()) {
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.EMPTY_ARGUMENT.getValueFormat(
+                    CommandWord.BYE.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.BYE)) {
-            return "Invalid command word for the 'bye' command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
+                    CommandWord.BYE.getValue()
+                )
+            );
         }
-
-        return ""; // Return an empty string if the command is valid
     }
 
 
@@ -51,11 +75,13 @@ public class ByeCommand extends Command {
      */
     public String execute(TaskList taskList) {
         assert taskList != null : "task list cannot be null";
-
-        String validationError = validate(super.getRawCommand());
-        if (isValidationError(validationError)) {
-            return validationError;
+  
+        try {
+            validate(super.getRawCommand());
+        } catch (WoofInvalidCommandException e) {
+            return e.getMessage();
         }
+
         return Ui.getByeUserMessage();
     }
 }

@@ -1,6 +1,8 @@
 package command;
 
 import enums.CommandWord;
+import enums.ExceptionMessage;
+import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
 
@@ -21,22 +23,31 @@ public class FindCommand extends Command {
      * Validates the `FindCommand` based on the raw command input.
      *
      * @param rawCommand The raw command input by the user.
-     * @return An empty string if the command is valid, or an error message if it's invalid.
+     * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
+     *     error message.
      */
-    public static String validate(String rawCommand) {
+    public static void validate(String rawCommand) throws WoofInvalidCommandException {
         assert rawCommand != null : "raw command cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
+
         if (args.length < 2) {
-            return "Invalid number of arguments for find command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
+                    CommandWord.FIND.getValue()
+                )
+            );
         }
 
         if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.FIND)) {
-            return "Invalid command word for find command.";
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
+                    CommandWord.FIND.getValue()
+                )
+            );
         }
-
-        return ""; // Return an empty string if the command is valid
     }
+
 
     /**
      * Executes the `FindCommand` to search for tasks based on the specified keyword.
@@ -47,11 +58,11 @@ public class FindCommand extends Command {
         assert taskList != null : "task list cannot be null";
 
         String rawCommand = super.getRawCommand();
-        String validationError = validate(rawCommand);
-        if (isValidationError(validationError)) {
-            return validationError;
+        try {
+            validate(rawCommand);
+        } catch (WoofInvalidCommandException e) {
+            return e.getMessage();
         }
-
         String[] args = Parser.getArgs(rawCommand);
         String keySentence = args[1];
         return taskList.findTask(keySentence.split("\\s+"));

@@ -1,22 +1,33 @@
 package command;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.TaskList;
+
 public class ByeCommandTest {
 
     @Test
     public void testValidate() {
         // Arrange, Act, Assert
-        assertEquals("", ByeCommand.validate("bye"));
-
-        assertNotEquals("", ByeCommand.validate("bye some argument"));
-        assertNotEquals("", ByeCommand.validate("list"));
-        assertNotEquals("", ByeCommand.validate("todo some task"));
-        assertNotEquals("", ByeCommand.validate("deadline some task"));
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> ByeCommand.validate("bye")), (
+            ) -> assertThrows(WoofInvalidCommandException.class, (
+            ) -> ByeCommand.validate("bye some argument")), (
+            ) -> assertThrows(WoofInvalidCommandException.class, (
+            ) -> ByeCommand.validate("list")), (
+            ) -> assertThrows(WoofInvalidCommandException.class, (
+            ) -> ByeCommand.validate("todo some task")), (
+            ) -> assertThrows(WoofInvalidCommandException.class, (
+            ) -> ByeCommand.validate("deadline some task"))
+        );
     }
 
     @Test
