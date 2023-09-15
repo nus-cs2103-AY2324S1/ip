@@ -41,6 +41,7 @@ public class Parser {
         String trimmedInput = input.trim();
         String[] splitInput = trimmedInput.split(" ", 2);
         String command = splitInput[0].toLowerCase();
+        assert splitInput.length >= 1 : "Command should have a command word";
         try {
             switch (command) {
             case "bye": {
@@ -96,6 +97,7 @@ public class Parser {
     protected Task parseTask(String input) throws TimeParsingException, CommandDetailException {
         String[] splitInput = input.split(" ", 2);
         String command = splitInput[0].toLowerCase();
+        assert splitInput.length > 1 : "Command should have a command word";
 
         try {
             switch (command) {

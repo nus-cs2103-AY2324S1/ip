@@ -8,10 +8,6 @@ import duke.exceptions.TimeParsingException;
 /**
  * Provides utility methods for parsing and formatting date-time representations in the Duke application.
  * Supports specific date formats for displaying and storing purposes.
- *
- * @author YourName
- * @version 1.0
- * @since 2023-08-31
  */
 public class Time {
     /**
@@ -24,6 +20,7 @@ public class Time {
      */
     public static final LocalDate parseTime(String time) throws TimeParsingException {
         try {
+            assert time != null : "Time string should not be null";
             return LocalDate.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (Exception e) {
             throw new TimeParsingException("Unable to parse time: " + time);
