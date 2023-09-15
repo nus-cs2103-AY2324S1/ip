@@ -5,6 +5,7 @@ import aichan.command.AddEventCommand;
 import aichan.command.AddToDoCommand;
 import aichan.command.Command;
 import aichan.command.DeleteCommand;
+import aichan.command.DeleteMarkedCommand;
 import aichan.command.ExitCommand;
 import aichan.command.FindCommand;
 import aichan.command.ListCommand;
@@ -36,6 +37,8 @@ public class Parser {
             return new ExitCommand();
         } else if (commandType.equals(ActionType.LIST.toString())) {
             return new ListCommand();
+        } else if (commandType.equals(ActionType.DELETEMARKED.toString())){
+            return new DeleteMarkedCommand();
         } else if (commandType.equals(ActionType.MARK.toString())) {
             return new MarkCommand(strToNum(checkLen(inputs)));
         } else if (commandType.equals(ActionType.UNMARK.toString())) {

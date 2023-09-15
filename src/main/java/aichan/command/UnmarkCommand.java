@@ -37,6 +37,7 @@ public class UnmarkCommand extends Command {
             throw new AiChanException("Please provide a valid task number.");
         }
         Task task = tasks.getTask(taskId);
+        assert task != null;
         task.unmark();
         storage.saveTasks(tasks);
         return "OK, I've marked this task as not done yet:\n"

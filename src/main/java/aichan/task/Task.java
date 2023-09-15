@@ -76,6 +76,15 @@ public class Task {
     }
 
     /**
+     * Getter of attribute isDone.
+     *
+     * @return Boolean indicate that whether the task is done or not.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /**
      * Returns the string representation of the task.
      *
      * @return A string indicates whether the task is done followed by its description.

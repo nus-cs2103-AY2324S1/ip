@@ -37,6 +37,7 @@ public class MarkCommand extends Command {
             throw new AiChanException("Please provide a valid task number.");
         }
         Task task = tasks.getTask(taskId);
+        assert task != null;
         task.mark();
         storage.saveTasks(tasks);
         return "Nice! I've marked this task as done:\n"

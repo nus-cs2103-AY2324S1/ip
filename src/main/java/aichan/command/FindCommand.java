@@ -26,7 +26,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Displays the tasks, if they have any of the keywords.
+     * Displays tasks which task name contain any keyword of the keywords.
      *
      * @param tasks A list of tasks.
      * @param ui User interface to display message.

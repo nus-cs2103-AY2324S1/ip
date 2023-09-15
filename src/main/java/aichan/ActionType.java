@@ -12,7 +12,8 @@ public enum ActionType {
     EVENT("event"),
     LIST("list"),
     BYE("bye"),
-    FIND("find");
+    FIND("find"),
+    DELETEMARKED("deleteMarked");
 
     private final String action;
     private ActionType(String action) {
