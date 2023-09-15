@@ -43,24 +43,24 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of tasks.
-     *
-     * @param ui The Ui object used to print the tasks.
+     * Returns the list of tasks as a String.
      */
-    public void listTasks(Ui ui) {
+    public String listTasks() {
+        String taskListString = "";
         for (int index = 0; index < tasks.size(); index++) {
-            ui.printTaskListFormat(tasks.get(index), index + 1);
+            taskListString += Ui.taskListFormatString(tasks.get(index), index + 1);
         }
+        return taskListString;
     }
 
     /**
-     * Prints the deadlines that fall on the date of the given time,
-     * and the events that are ongoing at that time.
+     * Returns a list of the deadlines that fall on the date of the given time,
+     * and the events that are ongoing at that time, as a String.
      *
-     * @param ui The Ui object used to print the tasks.
      * @param queryDate The time to query.
      */
-    public void listTasks(Ui ui, LocalDateTime queryDate) {
+    public String listTasks(LocalDateTime queryDate) {
+        String taskListString = "";
         for (int index = 0; index < tasks.size(); index++) {
             if (queryDate != null) {
                 Task currTask = tasks.get(index);
@@ -78,20 +78,23 @@ public class TaskList {
                     continue;
                 }
             }
-            ui.printTaskListFormat(tasks.get(index), index + 1);
+            taskListString += Ui.taskListFormatString(tasks.get(index), index + 1);
         }
+        return taskListString;
     }
 
-    public void listTasks(Ui ui, String findStr) {
+    public String listTasks(String findStr) {
         if (findStr == null || findStr.isEmpty()) {
-            return;
+            return "Please enter a search term";
         }
+        String taskListString = "";
         for (int index = 0; index < tasks.size(); index++) {
             Task currTask = tasks.get(index);
             if (currTask.getDescription().contains(findStr)) {
-                ui.printTaskListFormat(tasks.get(index), index + 1);
+                taskListString += Ui.taskListFormatString(tasks.get(index), index + 1);
             }
         }
+        return taskListString;
     }
 
     /**
