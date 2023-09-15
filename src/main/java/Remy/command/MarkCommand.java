@@ -17,6 +17,7 @@ public class MarkCommand extends Command {
 
     /**
      * Creates new Mark Command that parses user input to identify the Task to be marked as completed.
+     *
      * @param input Input submitted by the user.
      * @throws ChatbotException if input is in the wrong format or has missing information.
      */
@@ -34,7 +35,7 @@ public class MarkCommand extends Command {
 
         int index = Integer.parseInt(matcher.group(1)) - 1;
 
-        if (index <= 0) {
+        if (index < 0) {
             throw new ChatbotException("invalid index bro");
         }
 
@@ -43,9 +44,10 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the previously indicated Task as completed.
+     *
      * @param taskList The TaskList to be acted on.
-     * @param ui Handles User interaction.
-     * @param storage Handles saving the updated TaskList.
+     * @param ui       Handles User interaction.
+     * @param storage  Handles saving the updated TaskList.
      * @throws ChatbotException if given index does not match any Task on the TaskList.
      */
     @Override

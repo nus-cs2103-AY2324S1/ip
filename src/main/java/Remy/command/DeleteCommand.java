@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
         }
         int index = Integer.parseInt(input.substring(7)) - 1;
 
-        if (index <= 0) {
+        if (index < 0) {
             throw new ChatbotException("bro, the number must be larger than 0");
         }
 
