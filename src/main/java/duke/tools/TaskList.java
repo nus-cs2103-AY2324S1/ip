@@ -33,7 +33,7 @@ public class TaskList {
      * @return the String that is printed when a ToDo is created.
      */
     public String handleTodo(String descr) {
-        String res = null;
+        String res;
         try {
             ToDo newTodo = new ToDo(descr);
             newTodo.checkValidity();
@@ -111,7 +111,7 @@ public class TaskList {
             boolean indexIsValid = taskIndex < taskList.size() || taskIndex > 0;
             assert indexIsValid : "Invalid index";
             if (!indexIsValid) {
-                throw new IndexOutOfBoundsException("Please enter a valid index.");
+                throw new IndexOutOfBoundsException();
             }
         } catch (NumberFormatException e) {
             res = "Please enter a valid index.";

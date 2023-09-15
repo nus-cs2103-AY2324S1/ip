@@ -6,7 +6,7 @@ public class Ui {
     /**
      * Method that prints chatbot intro
      */
-    public String printIntro() {
+    public static String printIntro() {
         String output = line + "\n";
         output += "Hey, I'm joyayaya! What's the move today?\n";
         output += line;

@@ -1,12 +1,15 @@
 package duke.gui;
 
 import duke.Duke;
-import duke.gui.DialogBox;
+import duke.tools.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
@@ -30,6 +33,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Label welcomeMessage = new Label(Ui.printIntro());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcomeMessage.getText(), dukeImage));
     }
 
     public void setDuke(Duke d) {
@@ -51,7 +57,13 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (input.equals("bye")) {
-            javafx.application.Platform.exit();
+            Label byeMessage = new Label(Ui.printOutro());
+            dialogContainer.getChildren().add(byeMessage);
+            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            pause.setOnFinished(event -> {
+                javafx.application.Platform.exit();
+            });
+            pause.play();
         }
     }
 }

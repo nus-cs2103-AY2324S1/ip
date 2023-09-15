@@ -56,7 +56,6 @@ public class Storage {
      */
     public void read() {
         this.savedFile = new File(filePath);
-
         try {
             Scanner sc = new Scanner(savedFile);
             while (sc.hasNextLine()) {
@@ -65,46 +64,29 @@ public class Storage {
                 String type = taskArr[0];
                 String status = taskArr[1];
                 String description = taskArr[2];
-
+                Task newTask;
                 switch (type) {
                 case "T":
-                    ToDo newTodo = new ToDo(description);
-                    if (status.equals("1")) {
-                        Task todoTask = (Task) newTodo;
-                        todoTask.markDone();
-                        taskList.add(todoTask);
-                    } else {
-                        taskList.add(newTodo);
-                    }
+                    newTask = new ToDo(description);
                     break;
                 case "D":
                     String deadline = taskArr[3];
                     String deadlineDetails = description + "/by " + deadline;
-                    Deadline newDeadline = new Deadline(deadlineDetails);
-                    if (status.equals("1")) {
-                        Task deadlineTask = (Task) newDeadline;
-                        deadlineTask.markDone();
-                        taskList.add(deadlineTask);
-                    } else {
-                        taskList.add(newDeadline);
-                    }
+                    newTask = new Deadline(deadlineDetails);
                     break;
                 case "E":
                     String date = taskArr[3];
                     String[] parts = date.split("to");
                     String eventDetails = description + "/from " + parts[0].trim() + "/to " + parts[1].trim();
-                    Event newEvent = new Event(eventDetails);
-                    if (status.equals("1")) {
-                        Task eventTask = (Task) newEvent;
-                        eventTask.markDone();
-                        taskList.add(eventTask);
-                    } else {
-                        taskList.add(newEvent);
-                    }
+                    newTask = new Event(eventDetails);
                     break;
                 default:
                     throw new DukeException("You have no tasks yet today!");
                 }
+                if (status.equals("1")) {
+                    newTask.markDone();
+                }
+                taskList.add(newTask);
             }
         } catch (FileNotFoundException e) {
             System.out.println("No such file");
@@ -113,7 +95,7 @@ public class Storage {
                     System.out.println("File created: " + savedFile.getAbsolutePath());
                 }
             } catch (IOException exc) {
-                System.err.println("An error occurred: " + e.getMessage());
+                System.err.println(e.getMessage());
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());

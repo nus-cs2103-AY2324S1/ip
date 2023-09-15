@@ -18,6 +18,7 @@ public class Duke {
     public Duke() {
         this.ui = new Ui();
         this.storage.read();
+        this.ui.printIntro();
         ArrayList<Task> tasks = this.storage.getTaskList();
         this.taskList = new TaskList(tasks);
     }
@@ -57,7 +58,7 @@ public class Duke {
                 try {
                     return this.taskList.mark(task);
                 } catch (IndexOutOfBoundsException e) {
-                    return e.getMessage();
+                    return " There aren't that many tasks. Please enter a valid index.";
                 } catch (DukeException dukeException) {
                     return dukeException.getMessage();
                 }
