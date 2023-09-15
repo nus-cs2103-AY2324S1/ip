@@ -29,6 +29,8 @@ public class ByeCommand extends Command {
      * @param rawCommand The raw command string.
      */
     public static void validate(String rawCommand) {
+        assert rawCommand != null : "raw command cannot be null";
+  
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 1) {
@@ -72,6 +74,8 @@ public class ByeCommand extends Command {
      * @param taskList The task list (not used in this command).
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+  
         try {
             validate(super.getRawCommand());
         } catch (WoofInvalidCommandException e) {

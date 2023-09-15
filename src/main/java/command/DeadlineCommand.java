@@ -34,6 +34,8 @@ public class DeadlineCommand extends Command {
      * @throws WoofInvalidCommandException is the command is invalid.
      */
     public static void validate(String rawCommand) throws WoofInvalidCommandException {
+        assert rawCommand != null : "raw command cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 4) {
@@ -90,6 +92,8 @@ public class DeadlineCommand extends Command {
      * @param taskList The task list to which the deadline task is added.
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String rawCommand = super.getRawCommand();
         try {
             validate(rawCommand);

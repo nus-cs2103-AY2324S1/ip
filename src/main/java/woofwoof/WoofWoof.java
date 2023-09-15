@@ -154,7 +154,7 @@ public class WoofWoof extends Application {
     @FXML
     private void handleUserSubmit() {
         String message = this.userInput.getText();
-        if (!message.isEmpty()) {
+        if (!message.trim().isEmpty()) {
             String response = processMessage(message);
             this.dialogArea.getChildren().addAll(
                     DialogBox.getUserDialog(wrapText(message, "\n", 52), this.user),
@@ -210,6 +210,8 @@ public class WoofWoof extends Application {
      * @return The result message of executing the command.
      */
     private String updateFileAndExecute(Command command) {
+        assert command != null : "command cannot be null";
+
         this.taskList = TaskFileHandler.readFromFile();
         String result = command.execute(this.taskList);
         TaskFileHandler.saveToFile(this.taskList);
@@ -219,12 +221,16 @@ public class WoofWoof extends Application {
     /**
      * Adds line breaks with a separator to the text.
      */
-    public static String wrapText(String text, String separator, int length) {
+    public static String wrapText(String message, String separator, int length) {
+        assert message != null : "text cannot be null";
+        assert separator != null : "seperator cannot be null";
+        assert length > 0 : "length has to be more than 0";
+
         int currentLineLength = 0;
         StringBuilder result = new StringBuilder();
 
-        for (int i = 0; i < text.length(); i++) {
-            char currentChar = text.charAt(i);
+        for (int i = 0; i < message.length(); i++) {
+            char currentChar = message.charAt(i);
             if (currentChar == '\n') {
                 currentLineLength = 0;
             }

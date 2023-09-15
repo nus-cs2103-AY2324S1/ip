@@ -29,7 +29,10 @@ public class ListCommand extends Command {
      * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
      *     error message.
      */
+
     public static void validate(String rawCommand) throws WoofInvalidCommandException {
+        assert rawCommand != null : "raw command cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length != 1) {
@@ -57,6 +60,8 @@ public class ListCommand extends Command {
      * @param taskList The task list from which tasks are listed.
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String rawCommand = super.getRawCommand();
         try {
             validate(rawCommand);

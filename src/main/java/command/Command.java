@@ -24,6 +24,8 @@ public abstract class Command {
      */
 
     public Command(String rawCommand) {
+        assert rawCommand != null : "command cannot be null";
+
         this.rawCommand = rawCommand;
     }
 

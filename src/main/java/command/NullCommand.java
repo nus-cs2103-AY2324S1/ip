@@ -31,6 +31,8 @@ public class NullCommand extends Command {
      *     error message.
      */
     public static void validate(String rawCommand) throws WoofInvalidCommandException {
+        assert rawCommand != null : "raw command cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
 
         if (args.length == 0) {
@@ -57,6 +59,8 @@ public class NullCommand extends Command {
      * @param taskList The task list (not used in this command).
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String rawCommand = super.getRawCommand();
         try {
             validate(rawCommand);

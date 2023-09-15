@@ -32,6 +32,9 @@ public class DeleteCommand extends Command {
      *     error message.
      */
     public static void validate(String rawCommand, TaskList taskList) throws WoofInvalidCommandException {
+        assert rawCommand != null : "raw command cannot be null";
+        assert taskList != null : "task list cannot be null";
+
         String[] args = Parser.getArgs(rawCommand);
 
         try {
@@ -66,6 +69,8 @@ public class DeleteCommand extends Command {
      * @param taskList The task list from which the task is deleted.
      */
     public String execute(TaskList taskList) {
+        assert taskList != null : "task list cannot be null";
+
         String rawCommand = super.getRawCommand();
         try {
             validate(rawCommand, taskList);
