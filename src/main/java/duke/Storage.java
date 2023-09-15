@@ -26,6 +26,8 @@ public class Storage {
      * @param filePath The directory path where the user data file is to be stored.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path should not be null or empty!";
+
         this.file = new File(filePath, fileName);
         //Making a new dir if the specified one does not exit
         if (!file.getParentFile().exists()) {
@@ -40,6 +42,8 @@ public class Storage {
      * @param inputs The string to be written to the file.
      */
     public String write(String inputs) {
+        assert inputs != null : "Input to write should not be null!";
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(inputs);
             return "write successful !!\n";
@@ -56,6 +60,8 @@ public class Storage {
      * @return The line from the file containing the key, or an error message.
      */
     public ArrayList<String> read(String key) {
+        assert key != null && !key.trim().isEmpty() : "Search key should not be null or empty!";
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             ArrayList<String> lines = new ArrayList<>();
             String line;
@@ -76,15 +82,21 @@ public class Storage {
     }
 
     private ArrayList<String> convertToDisplayFormat(ArrayList<String> lines) {
+        assert lines != null && !lines.isEmpty() : "Lines to convert should not be null or empty!";
+
         ArrayList<String> ans = new ArrayList<>();
         for (String line : lines) {
             String[] split = line.split("|");
+            assert split.length >= 4 : "Each line should have at least 4 parts separated by '|'";
+
             if (split[0].equals("[T]")) {
                 ans.add("[T]" + split[2] + " " + split[4]);
             } else if (split[0].equals("[D]")) {
+                assert split.length >= 7 : "Deadline lines should have at least 7 parts separated by '|'";
                 ans.add("[D]" + split[2] + " " + split[4]
                         + " (by: " + split[6] + ")");
             } else {
+                assert split.length >= 9 : "Event lines should have at least 9 parts separated by '|'";
                 ans.add("[D]" + split[2] + " " + split[4]
                         + " (from: " + split[6] + ", to: " + split[8] + ")");
             }

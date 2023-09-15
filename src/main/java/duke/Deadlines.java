@@ -18,6 +18,10 @@ public class Deadlines extends Task {
      */
     public Deadlines(String description, String date) {
         super(description);
+
+        assert description != null && !description.trim().isEmpty() : "Description should not be null or empty";
+        assert date != null && !date.trim().isEmpty() : "Date should not be null or empty";
+
         this.date = date;
         this.dt = new DateTime(date);
     }
@@ -29,6 +33,9 @@ public class Deadlines extends Task {
      */
     @Override
     public String getSavingFormat() {
+        // Assert that all necessary data members are not null before formatting.
+        assert date != null && !date.trim().isEmpty() : "Date should not be null or empty when saving";
+
         return "[D] | [" + getStatusIcon() + "] | "
                 + description + " | " + date;
     }

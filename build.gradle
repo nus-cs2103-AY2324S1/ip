@@ -44,13 +44,15 @@ test {
 }
 
 application {
-    mainClass.set("Duke")
+    mainClass.set("Launcher")
+    applicationDefaultJvmArgs = ['-ea']
 }
+mainClassName = 'Launcher'
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "duke2.0"
     archiveClassifier = null
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'duke2.0.jar'
     dependsOn("distZip", "distTar")
 }
 
@@ -60,4 +62,5 @@ checkstyle {
 
 run{
     standardInput = System.in
+    jvmArgs '-ea'
 }
