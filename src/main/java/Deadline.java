@@ -1,8 +1,8 @@
 public class Deadline extends Task {
     private String deadline;
 
-    public Deadline(String Task, String deadline) throws DukeException{
-        super(Task);
+    public Deadline(String task, String deadline) throws DukeException{
+        super(task);
         this.deadline = deadline;
 
         // if (task.isBlank() || task.isEmpty()) {
@@ -12,6 +12,14 @@ public class Deadline extends Task {
         // if (deadline.isBlank() || deadline.isEmpty()) {
         //     throw new DukeException("The deadline of a Deadline task cannot be empty.");
         // }
+    }
+
+    @Override
+    public String toFileString() {
+        if (super.isDone) {
+            return "D | 1 | " + super.task + " | " + this.deadline;
+        } 
+        return "D | 0 | " + super.task + " | " + this.deadline;
     }
 
     @Override
