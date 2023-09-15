@@ -1,7 +1,9 @@
 package command;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.TodoTask;
@@ -40,13 +43,21 @@ public class MarkCommandTest {
         taskList.addTask(new TodoTask("Task 2"));
 
         // Act, Assert
-        assertEquals("", MarkCommand.validate("mark 1", taskList));
-        assertEquals("", MarkCommand.validate("mark 2", taskList));
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> MarkCommand.validate("mark 1", taskList)), (
+            ) -> assertDoesNotThrow((
+            ) -> MarkCommand.validate("mark 2", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> MarkCommand.validate("mark", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> MarkCommand.validate("mark 0", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> MarkCommand.validate("mark 3", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> MarkCommand.validate("mark a", taskList))
+        );
 
-        assertNotEquals("", MarkCommand.validate("mark", taskList));
-        assertNotEquals("", MarkCommand.validate("mark 0", taskList));
-        assertNotEquals("", MarkCommand.validate("mark 3", taskList));
-        assertNotEquals("", MarkCommand.validate("mark a", taskList));
     }
 
     @Test

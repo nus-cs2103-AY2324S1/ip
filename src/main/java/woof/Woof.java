@@ -6,6 +6,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import command.Command;
+import enums.ExceptionMessage;
+import exceptions.WoofException;
 import parser.Parser;
 import storage.TaskFileHandler;
 import tasks.TaskList;
@@ -57,7 +59,7 @@ public class Woof {
         try {
             LocalDate.parse(string, getDateTimeFormatter());
         } catch (DateTimeParseException e) {
-            return false;
+            throw new WoofException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.getValueFormat());
         }
         return true;
     }

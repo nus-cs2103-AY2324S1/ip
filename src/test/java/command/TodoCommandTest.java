@@ -1,7 +1,9 @@
 package command;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.TaskList;
 import tasks.TodoTask;
 
@@ -31,13 +34,19 @@ public class TodoCommandTest {
     }
     @Test
     public void testValidate() {
-        // Arrange, Act, Assert
-        assertEquals("", TodoCommand.validate("todo some task"));
-
-        assertNotEquals("", TodoCommand.validate("todo"));
-        assertNotEquals("", TodoCommand.validate("event some task"));
-        assertNotEquals("", TodoCommand.validate("deadline some task"));
+        // Act and Assert
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> TodoCommand.validate("todo some task")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> TodoCommand.validate("todo")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> TodoCommand.validate("event some task")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> TodoCommand.validate("deadline some task"))
+        );
     }
+
 
     @Test
     public void testExecuteCreateTask() {

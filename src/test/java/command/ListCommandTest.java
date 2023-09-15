@@ -1,7 +1,9 @@
 package command;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.TaskList;
@@ -35,15 +38,23 @@ public class ListCommandTest {
 
     @Test
     public void testValidate() {
-        // Arrange, Act, Assert
-        assertEquals("", ListCommand.validate("list"));
-
-        assertNotEquals("", ListCommand.validate("/list"));
-        assertNotEquals("", ListCommand.validate("list some argument"));
-        assertNotEquals("", ListCommand.validate("todo"));
-        assertNotEquals("", ListCommand.validate("event some task"));
-        assertNotEquals("", ListCommand.validate("deadline some task"));
+        // Act and Assert
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> ListCommand.validate("list")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> ListCommand.validate("/list")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> ListCommand.validate("list some argument")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> ListCommand.validate("todo")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> ListCommand.validate("event some task")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> ListCommand.validate("deadline some task"))
+        );
     }
+
 
     @Test
     public void testExecuteListsTasks() {

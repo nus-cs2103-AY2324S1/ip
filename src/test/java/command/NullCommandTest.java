@@ -1,7 +1,9 @@
 package command;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.TodoTask;
@@ -34,19 +37,17 @@ public class NullCommandTest {
 
     @Test
     public void testValidate() {
-        // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new TodoTask("Task 2"));
-
-        // Act, Assert
-        assertEquals("", UnmarkCommand.validate("unmark 1", taskList));
-        assertEquals("", UnmarkCommand.validate("unmark 2", taskList));
-
-        assertNotEquals("", UnmarkCommand.validate("unmark", taskList));
-        assertNotEquals("", UnmarkCommand.validate("unmark 0", taskList));
-        assertNotEquals("", UnmarkCommand.validate("unmark 3", taskList));
-        assertNotEquals("", UnmarkCommand.validate("unmark a", taskList));
+        // Arrange, Act, Assert
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> NullCommand.validate("hehe")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> NullCommand.validate("    ")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> NullCommand.validate("unmark task 1")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> NullCommand.validate("todo abc"))
+        );
     }
 
     @Test

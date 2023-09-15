@@ -59,6 +59,9 @@ public class Parser {
     public static String[] getArgs(String rawCommand) {
         ArrayList<String> result = new ArrayList<>();
         String[] words = rawCommand.split("\\s+");
+        if (words.length == 0) {
+            return result.toArray(new String[0]);
+        }
         String mainCommand = words[0];
         StringBuilder subCommand = new StringBuilder();
 

@@ -1,12 +1,15 @@
 package command;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import exceptions.WoofInvalidCommandException;
 import tasks.DeadlineTask;
 import tasks.Task;
 import tasks.TaskList;
@@ -16,12 +19,18 @@ public class DeadlineCommandTest {
     @Test
     public void testValidate() {
         // Arrange, Act, Assert
-        assertEquals("", DeadlineCommand.validate("deadline study /by 2023-01-01"));
-        assertEquals("", DeadlineCommand.validate("deadline       study /by 2023-01-01"));
-
-        assertNotEquals("", DeadlineCommand.validate("deadline"));
-        assertNotEquals("", DeadlineCommand.validate("deadline study /by 2023/01/01"));
-        assertNotEquals("", DeadlineCommand.validate("deadline /by 2023-01-01"));
+        assertAll((
+            ) -> assertDoesNotThrow((
+            ) -> DeadlineCommand.validate("deadline study /by 2023-01-01")), (
+            ) -> assertDoesNotThrow((
+            ) -> DeadlineCommand.validate("deadline       study /by 2023-01-01")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeadlineCommand.validate("deadline")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeadlineCommand.validate("deadline study /by 2023/01/01")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeadlineCommand.validate("deadline /by 2023-01-01"))
+        );
     }
 
     @Test
