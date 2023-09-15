@@ -31,6 +31,12 @@ import javafx.scene.image.ImageView;
  * user's requests. 
  */
 public class ChatterBox extends Application {
+    private static final String USER_IMAGE_LOCATION = "/DaUser.jpg";
+    private static final String DUKE_IMAGE_LOCATION = "/DaDuke.jpg";
+    private static final Double ANCHOR_LENGTH = 1.0;
+    private static final double MIN_HEIGHT = 600.0;
+    private static final double MIN_WIDTH = 400.0;
+    private static final double V_VALUE = 1.0;
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -42,8 +48,8 @@ public class ChatterBox extends Application {
     private TaskList tl = new TaskList();
     private Storage store = new Storage();
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/DaUser.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/DaDuke.jpg"));
+    private Image user = new Image(this.getClass().getResourceAsStream(USER_IMAGE_LOCATION));
+    private Image duke = new Image(this.getClass().getResourceAsStream(DUKE_IMAGE_LOCATION));
 
     /**
      * Constructs an empty ChatterBox object.
@@ -89,16 +95,16 @@ public class ChatterBox extends Application {
         //Step 2. Formatting the window to look as expected
         stage.setTitle("ChatterBox");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinHeight(MIN_HEIGHT);
+        stage.setMinWidth(MIN_WIDTH);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(MIN_WIDTH, MIN_HEIGHT);
 
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-        scrollPane.setVvalue(1.0);
+        scrollPane.setVvalue(V_VALUE);
         scrollPane.setFitToWidth(true);
 
         // You will need to import `javafx.scene.layout.Region` for this.
@@ -106,13 +112,13 @@ public class ChatterBox extends Application {
         userInput.setPrefWidth(325.0);
         sendButton.setPrefWidth(55.0);
 
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setTopAnchor(scrollPane, ANCHOR_LENGTH);
 
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
+        AnchorPane.setBottomAnchor(sendButton, ANCHOR_LENGTH);
+        AnchorPane.setRightAnchor(sendButton, ANCHOR_LENGTH);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setLeftAnchor(userInput , ANCHOR_LENGTH);
+        AnchorPane.setBottomAnchor(userInput, ANCHOR_LENGTH);
 
         // more code to be added here later
 
@@ -131,7 +137,7 @@ public class ChatterBox extends Application {
         });
 
         //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(V_VALUE));
 
     }
 

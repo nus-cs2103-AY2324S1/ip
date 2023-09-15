@@ -10,7 +10,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 
 public class DialogBox extends HBox {
-
+    private static final double FIT_WIDTH = 100.0;
+    private static final double FIT_HEIGHT = 100.0;
     private Label text;
     private ImageView displayPicture;
 
@@ -19,8 +20,8 @@ public class DialogBox extends HBox {
         displayPicture = iv;
 
         text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
+        displayPicture.setFitWidth(FIT_WIDTH);
+        displayPicture.setFitHeight(FIT_HEIGHT);
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
