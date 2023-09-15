@@ -51,38 +51,85 @@ public class Parser {
      */
     public static Task stringToTask(String string) throws DukeException {
         String[] words = string.split("\\s\\|\\s");
-        String taskType = words[0];
-        boolean done;
+        if (checkTaskFormat(words)) {
+            return createTask(words);
+        } else {
+            // should not reach this line
+            assert false;
+            throw new DukeException("Task is not in the correct format");
+        }
+    }
+
+    /**
+     * Checks if the task is marked as done.
+     *
+     * @param words The separate fields of the task.
+     * @return True if the task is marked as done, false otherwise.
+     * @throws DukeException If the marked field is invalid.
+     */
+    private static boolean checkTaskMarked(String[] words) throws DukeException {
         if (words[1].equals("0")) {
-            done = false;
+            return false;
         } else if (words[1].equals("1")) {
-            done = true;
+            return true;
         } else {
             assert false : "isMarked should be 0 or 1";
             throw new DukeException("Field 2 (isMarked) is invalid");
         }
-        Task t;
+    }
+
+    /**
+     * Checks if the string representation of the task stored is in the correct format.
+     *
+     * @param words The separate fields of the task.
+     * @return True if the task is in the correct format, throws an exception otherwise.
+     * @throws DukeException If the task is not in the correct format.
+     */
+    private static boolean checkTaskFormat(String[] words) throws DukeException {
+        String taskType = words[0];
         switch (taskType) {
         case "T":
             if (words.length != 3) {
                 throw new DukeException("Incorrect Format for todo task in file");
-            } else {
-                t = new Todo(words[2]);
             }
             break;
         case "D":
             if (words.length != 4) {
                 throw new DukeException("Incorrect Format for deadline task in file");
-            } else {
-                t = new Deadline(stringToDate(words[3]), words[2]);
             }
             break;
         case "E":
             if (words.length != 5) {
                 throw new DukeException("Incorrect Format for event task in file");
-            } else {
-                t = new Event(stringToDate(words[3]), stringToDate(words[4]), words[2]);
             }
+            break;
+        default:
+            throw new DukeException("Field 1 (Task type) is invalid");
+        }
+        return true;
+    }
+
+    /**
+     * Creates a Task object from the string representation of the task stored.
+     *
+     * @param words The separate fields of the task.
+     * @return Task object created from the string representation.
+     * @throws DukeException If the task type is invalid.
+     */
+    private static Task createTask(String[] words) throws DukeException {
+        Task t;
+        String taskType = words[0];
+        boolean done = checkTaskMarked(words);
+
+        switch (taskType) {
+        case "T":
+            t = new Todo(words[2]);
+            break;
+        case "D":
+            t = new Deadline(stringToDate(words[3]), words[2]);
+            break;
+        case "E":
+            t = new Event(stringToDate(words[3]), stringToDate(words[4]), words[2]);
             break;
         default:
             throw new DukeException("Field 1 (Task type) is invalid");
@@ -93,6 +140,7 @@ public class Parser {
         }
         return t;
     }
+
 
     /**
      * Converts the String input date to LocalDate.

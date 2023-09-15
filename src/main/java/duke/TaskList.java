@@ -123,15 +123,16 @@ public class TaskList {
         Matcher matcher = todoPattern.matcher(input.trim());
 
         // Check if the input string matches the pattern
-        if (matcher.matches()) {
-            String description = matcher.group(1); // Extract task description
-            Task task = new Todo(description);
-            return addTask(task);
-        } else {
+        if (!matcher.matches()) {
             // Todo description is empty
             throw new DukeException("OOPS!!! The description of a todo cannot be empty."
                     + "\ntodo {description}");
         }
+
+        String description = matcher.group(1); // Extract task description
+        Task task = new Todo(description);
+        return addTask(task);
+
     }
 
     /**
@@ -150,17 +151,17 @@ public class TaskList {
         Matcher matcher = eventPattern.matcher(input);
 
         // Check if the input string matches the pattern
-        if (matcher.matches()) {
-            String description = matcher.group(1); // Extract event name
-            LocalDate startDate = Parser.stringToDate(matcher.group(2)); // Extract start date
-            LocalDate endDate = Parser.stringToDate(matcher.group(3)); // Extract end date
-            Task task = new Event(startDate, endDate, description);
-            return addTask(task);
-        } else {
+        if (!matcher.matches()) {
             // User did not follow event format
             throw new DukeException("Input for event doesn't match the expected format."
                     + "\nevent {task} /from {startDate in YYYY-MM-DD} /to {endDate in YYYY-MM-DD}");
         }
+
+        String description = matcher.group(1); // Extract event name
+        LocalDate startDate = Parser.stringToDate(matcher.group(2)); // Extract start date
+        LocalDate endDate = Parser.stringToDate(matcher.group(3)); // Extract end date
+        Task task = new Event(startDate, endDate, description);
+        return addTask(task);
     }
 
     /**
@@ -178,16 +179,16 @@ public class TaskList {
         Matcher matcher = deadlinePattern.matcher(input);
 
         // Check if the input string matches the pattern
-        if (matcher.matches()) {
-            String description = matcher.group(1); // Extract task description
-            LocalDate dueDate = Parser.stringToDate(matcher.group(2)); // Extract due date
-            Task task = new Deadline(dueDate, description);
-            return addTask(task);
-        } else {
+        if (!matcher.matches()) {
             // User did not follow deadline format
             throw new DukeException("Input for deadline doesn't match the expected format."
                     + "\ndeadline {description} /by {endDate in YYYY-MM-DD}");
         }
+
+        String description = matcher.group(1); // Extract task description
+        LocalDate dueDate = Parser.stringToDate(matcher.group(2)); // Extract due date
+        Task task = new Deadline(dueDate, description);
+        return addTask(task);
     }
 
     /**
@@ -237,12 +238,12 @@ public class TaskList {
         Matcher matcher = todoPattern.matcher(input.trim());
 
         // Check if the input string matches the pattern
-        if (matcher.matches()) {
-            String target = matcher.group(1); // Extract search target
-            return getMatchingTasks(target); // Returns results
-        } else {
+        if (!matcher.matches()) {
             // find description is empty
             throw new DukeException("OOPS!!! Field after find cannot be empty :(");
         }
+
+        String target = matcher.group(1); // Extract search target
+        return getMatchingTasks(target); // Returns results
     }
 }
