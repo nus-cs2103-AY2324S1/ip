@@ -41,6 +41,7 @@ public class TaskList {
      * @throws DukeStorageException If an error occurs while saving to storage.
      */
     public boolean addTask(Task task) throws DukeStorageException {
+        assert task != null : "task should not be null!";
         storageService.saveTask(task);
         return this.taskList.add(task);
     }
@@ -58,6 +59,7 @@ public class TaskList {
         }
         storageService.deleteTask(index);
         Task removedTask = taskList.remove(index);
+        assert removedTask != null : "There should not have been null tasks in the list!";
         return Optional.of(removedTask);
     }
 
@@ -73,6 +75,7 @@ public class TaskList {
             return Optional.empty();
         }
         Task task = taskList.get(index);
+        assert task != null : "There should not have been null tasks in the list!";
         task.markAsDone();
         storageService.saveTasks(taskList);
         return Optional.of(task);
@@ -90,6 +93,7 @@ public class TaskList {
             return Optional.empty();
         }
         Task task = taskList.get(index);
+        assert task != null : "There should not have been null tasks in the list!";
         task.markAsNotDone();
         storageService.saveTasks(taskList);
         return Optional.of(task);
