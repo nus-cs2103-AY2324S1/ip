@@ -19,7 +19,7 @@ import tasklist.TaskList;
  * @author raydenlim
  * @version 0.0.0
  */
-public class Storage { // Previously named TaskListManager, serves the same purpose
+public class Storage {
     private File file;
     private String taskDataPath;
     private TaskList taskList;
