@@ -1,5 +1,6 @@
 package seedu.duke;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -13,6 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
 
@@ -110,7 +114,16 @@ public class Main extends Application {
             DialogBox.getUserDialog(userText, new ImageView(patrick)), 
             DialogBox.getDukeDialog(dukeText, new ImageView(spongebob))
         );
+        if (dukeText.getText().equals("Bye, patrick this window will magically disappear in 3 seconds")) {
+            scheduleExitAfterDelay();
+        }
         userInput.clear();
+    }
+
+    private void scheduleExitAfterDelay() {
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.schedule(() -> Platform.exit(), 3, TimeUnit.SECONDS); // Change the delay as needed (2 seconds in this example)
+        executorService.shutdown();
     }
 
 }

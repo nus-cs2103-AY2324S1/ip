@@ -86,7 +86,7 @@ public class Command {
 
         switch (commandType) {
             case BYE:
-                break;
+                return Command.byeCommand();
             case LIST:
                 return Command.listCommand(tasks);
             case MARK:
@@ -99,7 +99,7 @@ public class Command {
             case EVENT:
                 try {
                     return Command.taskCommand(userInput, tasks, commandType);
-                } catch (WrongFormatException|EmptyDescriptionException|UnknownCommandException e) {
+                } catch (WrongFormatException | EmptyDescriptionException | UnknownCommandException e) {
                     return e.getMessage();
                 }
             case FIND:
@@ -107,7 +107,6 @@ public class Command {
             default:
                 return "Sorry I dont know what you mean";
         }
-        return "Sorry I dont know what you mean";
     }
 
     public static void todoCommand(TaskList tasks, String[] inputParts, String userInput) throws EmptyDescriptionException {
@@ -143,6 +142,10 @@ public class Command {
         } catch (Exception e) {
             throw new WrongFormatException("OOPS events need to be in this format, event project meeting /from Mon 2pm /to 4pm");
         }
+    }
+
+    public static String byeCommand() {
+        return "Bye, patrick this window will magically disappear in 3 seconds";
     }
 
 
