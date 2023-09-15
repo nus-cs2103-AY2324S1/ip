@@ -35,30 +35,20 @@ public class Storage {
         if (saveFile.exists()) {
             // parse the file and write to list
             try {
-                readFile(saveFile);
+                Scanner fileScanner = new Scanner(saveFile);
+                while (fileScanner.hasNextLine()) {
+                    String line = fileScanner.nextLine();
+                    if (!line.equals("")) {
+                        Task task = Parser.parseTask(line);
+                        tasksReadFromStorage.add(task);
+                    }
+                }
             } catch (FileNotFoundException f) {
                 throw new FlukeException(f.getMessage());
             }
             return tasksReadFromStorage;
         } else {
             return new ArrayList<>();
-        }
-    }
-
-    /**
-     * Helper function to read file
-     * @param saveFile the save file to read
-     * @throws FileNotFoundException if file cannot be found
-     * @throws FlukeException if there is an error parsing the file
-     */
-    private void readFile(File saveFile) throws FileNotFoundException, FlukeException {
-        Scanner fileScanner = new Scanner(saveFile);
-        while (fileScanner.hasNextLine()) {
-            String line = fileScanner.nextLine();
-            if (!line.equals("")) {
-                Task task = Parser.parseTask(line);
-                tasksReadFromStorage.add(task);
-            }
         }
     }
 

@@ -14,13 +14,13 @@ import fluke.tasks.Todo;
  * various methods related to managing the list of tasks, such as adding and deleting.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private final ArrayList<Task> listOfTasks;
 
     /**
      * Constructs a TaskList with an empty list of tasks.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        this.listOfTasks = new ArrayList<>();
     }
 
     /**
@@ -28,15 +28,15 @@ public class TaskList {
      * @param initialTasks the initial list of tasks
      */
     public TaskList(ArrayList<Task> initialTasks) {
-        this.tasks = initialTasks;
+        this.listOfTasks = initialTasks;
     }
 
     /**
      * Getter for the list of tasks.
      * @return the list of tasks.
      */
-    public ArrayList<Task> getTasks() {
-        return tasks;
+    public ArrayList<Task> getListOfTasks() {
+        return listOfTasks;
     }
 
     /**
@@ -44,7 +44,7 @@ public class TaskList {
      * @return size of the list of tasks.
      */
     public int getSize() {
-        return tasks.size();
+        return listOfTasks.size();
     }
 
     /**
@@ -52,7 +52,7 @@ public class TaskList {
      * @param task task to be added.
      */
     private void addTask(Task task) {
-        tasks.add(task);
+        listOfTasks.add(task);
     }
 
     /**
@@ -102,12 +102,13 @@ public class TaskList {
      */
     public Task deleteTask(int index) throws TaskDoesNotExistException {
         // check if task exists
-        if (tasks.size() <= index) {
+        if (index < listOfTasks.size()) {
+            Task taskToBeDeleted = listOfTasks.get(index);
+            listOfTasks.remove(index);
+            return taskToBeDeleted;
+        } else {
             throw new TaskDoesNotExistException();
         }
-        Task taskToBeDeleted = tasks.get(index);
-        tasks.remove(index);
-        return taskToBeDeleted;
     }
 
     /**
@@ -118,12 +119,13 @@ public class TaskList {
      */
     public Task markTaskAsDone(int index) throws TaskDoesNotExistException {
         // check if task exists
-        if (tasks.size() <= index) {
+        if (index < listOfTasks.size()) {
+            Task task = listOfTasks.get(index);
+            task.markAsDone();
+            return task;
+        } else {
             throw new TaskDoesNotExistException();
         }
-        Task task = tasks.get(index);
-        task.markAsDone();
-        return task;
     }
 
     /**
@@ -134,12 +136,13 @@ public class TaskList {
      */
     public Task markTaskAsUndone(int index) throws TaskDoesNotExistException {
         // check if task exists
-        if (tasks.size() <= index) {
+        if (index < listOfTasks.size()) {
+            Task task = listOfTasks.get(index);
+            task.markAsUndone();
+            return task;
+        } else {
             throw new TaskDoesNotExistException();
         }
-        Task task = tasks.get(index);
-        task.markAsUndone();
-        return task;
     }
 
     /**
@@ -150,7 +153,7 @@ public class TaskList {
     public TaskList findTask(String keyword) {
         ArrayList<Task> newListOfTasks = new ArrayList<>();
         for (int i = 0; i < this.getSize(); i++) {
-            Task task = this.tasks.get(i);
+            Task task = this.listOfTasks.get(i);
             if (task.hasKeyword(keyword)) {
                 newListOfTasks.add(task);
             }
@@ -165,11 +168,11 @@ public class TaskList {
     @Override
     public String toString() {
         String str = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            Task task = listOfTasks.get(i);
             int number = i + 1;
             str += (number + "." + task);
-            if (i != tasks.size() - 1) {
+            if (i != listOfTasks.size() - 1) {
                 str += "\n";
             }
         }

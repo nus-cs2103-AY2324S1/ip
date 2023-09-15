@@ -187,7 +187,7 @@ public class Fluke {
         }
         // 2. save to file
         try {
-            this.storage.save(tasks.getTasks());
+            this.storage.save(tasks.getListOfTasks());
         } catch (IOException i) {
             throw new FlukeException(i.getMessage());
         }
