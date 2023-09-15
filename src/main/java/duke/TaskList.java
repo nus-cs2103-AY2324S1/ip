@@ -19,11 +19,12 @@ public class TaskList {
     /**
      * Prints the list.
      */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        StringBuilder fullList = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + "." + list.get(i));
+            fullList.append(i + 1).append(". ").append(list.get(i)).append("\n");
         }
+        return fullList.toString();
     }
 
     /**
@@ -31,12 +32,13 @@ public class TaskList {
      *
      * @param task Task to be added into the list.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.list.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(list.get(count));
         count++;
-        System.out.println("Now you have " + count + " tasks in the list.");
+        return "Got it. I've added this task:\n"
+                       + list.get(count - 1) + "\n"
+                       + "Now you have " + (count - 1) + " tasks in the list.";
+
     }
 
     /**
@@ -44,12 +46,12 @@ public class TaskList {
      *
      * @param index Index of the item to be removed from the list.
      */
-    public void deleteTask(int index) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(list.get(index));
+    public String deleteTask(int index) {
         this.list.remove(index);
         count--;
-        System.out.println("Now you have " + count + " tasks in the list");
+        return "Noted. I've removed this task:\n"
+                       + list.get(index) + "\n"
+                       + "Now you have " + count + " tasks in the list";
     }
 
     /**
@@ -67,10 +69,10 @@ public class TaskList {
         return null;
     }
 
-    public void findTask(String input, TaskList list) {
+    public String findTask(String input, TaskList list) {
         int[] indexList = new int[100];
         int counter = 0;
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder tasksFound = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < count; i++) {
             if (list.getTask(i).toString().contains(input)) {
                 indexList[counter] = i;
@@ -78,11 +80,15 @@ public class TaskList {
             }
         }
         if (counter == 0) {
-            System.out.println("Oops, there are no matching tasks in your list");
+            tasksFound = new StringBuilder("Oops, there are no matching tasks in your list");
         } else {
             for(int j = 0; j < counter; j++) {
-                System.out.println((indexList[j] + 1) + "." + list.getTask(indexList[j]).toString());
+                tasksFound.append(indexList[j] + 1)
+                        .append(".")
+                        .append(list.getTask(indexList[j]).toString())
+                        .append("\n");
             }
         }
+        return tasksFound.toString();
     }
 }
