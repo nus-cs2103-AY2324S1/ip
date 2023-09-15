@@ -1,7 +1,6 @@
 package dude.command;
 
 import dude.Storage;
-import dude.Ui;
 import dude.exception.DudeException;
 import dude.task.Task;
 import dude.task.TaskList;
@@ -31,12 +30,10 @@ public class DeleteTaskCommand extends DudeCommand {
      * Deletes task from task list and saves list to disk.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DudeException {
+    public String execute(TaskList taskList, Storage storage) throws DudeException {
         Task removedTask = taskList.remove(taskIndex);
         storage.save(taskList.toArrayList());
-        ui.printMessage(
-                String.format(DELETED_TASK_MSG, removedTask, taskList.getNumTasks())
-        );
+        return String.format(DELETED_TASK_MSG, removedTask, taskList.getNumTasks());
     }
 
     /**

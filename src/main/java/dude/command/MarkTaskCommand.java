@@ -1,7 +1,6 @@
 package dude.command;
 
 import dude.Storage;
-import dude.Ui;
 import dude.exception.DudeException;
 import dude.task.Task;
 import dude.task.TaskList;
@@ -30,12 +29,11 @@ public class MarkTaskCommand extends DudeCommand {
      * Marks task as done and saves list to disk.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DudeException {
+    public String execute(TaskList taskList, Storage storage) throws DudeException {
         Task task = taskList.getTask(taskIndex);
         task.markAsDone();
         storage.save(taskList.toArrayList());
-        ui.printMessage(
-                String.format(MARKED_AS_DONE_PREFIX + task));
+        return String.format(MARKED_AS_DONE_PREFIX + task);
     }
 
     /**
