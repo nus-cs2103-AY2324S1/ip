@@ -49,7 +49,7 @@ public class Joe {
      */
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
+            Command c = Parser.parseUserInput(input);
             return c.execute(tasks, storage);
         } catch (JoeException e) {
             return e.getMessage();

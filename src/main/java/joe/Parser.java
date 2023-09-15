@@ -56,7 +56,7 @@ public class Parser {
      * @param input The user input string.
      * @return The corresponding Command object.
      */
-    public static Command parse(String input) {
+    public static Command parseUserInput(String input) {
         //Validate input is in correct format
         Matcher m = COMMAND_PATTERN.matcher(input.trim());
         if (!m.matches()) {
@@ -69,7 +69,6 @@ public class Parser {
 
         return parseToCommand(type, args);
     }
-
     private static Command parseToCommand(CommandType type, String args) {
         switch (type) {
         case bye:
