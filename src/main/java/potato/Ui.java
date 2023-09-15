@@ -12,8 +12,8 @@ public class Ui {
         System.out.println("Hey GURL I'm Potato\n" + "How can I help ya?");
     }
 
-    public void showGoodbye() {
-        System.out.println("You're cancelled. Leave.");
+    public String showGoodbye() {
+        return "You're cancelled. Leave.";
     }
 
     public void showLine() {

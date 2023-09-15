@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,6 +21,7 @@ public class Potato extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    // private boolean isExit = false;
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -30,7 +30,7 @@ public class Potato extends Application {
     private Scene scene;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaPotato.png"));
+    private Image potato = new Image(this.getClass().getResourceAsStream("/images/DaPotato.png"));
 
     public Potato() {
         storage = new Storage("./Potato.txt");
@@ -80,7 +80,6 @@ public class Potato extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -92,7 +91,7 @@ public class Potato extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
@@ -118,7 +117,7 @@ public class Potato extends Application {
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getDukeDialog(dukeText, new ImageView(potato))
         );
         userInput.clear();
     }
@@ -128,7 +127,14 @@ public class Potato extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + "hehe";
+        String response = "HOHO ";
+        try {
+            Command c = Parser.parse(input);
+            response += c.execute(tasks, ui, storage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return response;
     }
 
     public void run() {

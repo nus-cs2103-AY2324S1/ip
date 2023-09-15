@@ -11,7 +11,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.delete(input, storage);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return tasks.delete(input, storage);
     }
 }
