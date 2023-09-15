@@ -43,11 +43,12 @@ test {
 }
 
 application {
-    mainClass.set("pooh.Pooh")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "pooh"
+    archiveFileName = "pooh.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

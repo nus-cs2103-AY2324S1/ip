@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
 
     private Pooh pooh;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/piglet.jpeg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/piglet.png"));
     private Image poohImage = new Image(this.getClass().getResourceAsStream("/images/pooh.png"));
 
     @FXML
