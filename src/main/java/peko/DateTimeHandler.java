@@ -41,4 +41,12 @@ public class DateTimeHandler {
     public String toString() {
         return day + "/" + month + "/" + year + " " + hour + ((min < 10) ? "0" + min : min);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof DateTimeHandler) {
+            return date.equals(((DateTimeHandler) o).date);
+        }
+        return false;
+    }
 }

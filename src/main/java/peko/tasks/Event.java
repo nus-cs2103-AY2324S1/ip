@@ -3,6 +3,8 @@ package peko.tasks;
 import peko.DateTimeHandler;
 import peko.exceptions.InvalidTaskException;
 
+import java.util.Date;
+
 public class Event extends Task {
     private char type = 'E';
     private DateTimeHandler startHandler;
@@ -41,5 +43,18 @@ public class Event extends Task {
     public String toStore() {
         String curr = this.status ? "0" : "1";
         return "E" + " | " + curr + " | " + this.name + " | " + startHandler.toString() + " | " + endHandler.toString();
+    }
+
+    private boolean equalDateTimeChecker(DateTimeHandler d1, DateTimeHandler d2) {
+        return d1.equals(d2);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            return name.equals(((Event) o).name) && equalDateTimeChecker(((Event) o).startHandler, startHandler)
+                    && equalDateTimeChecker(((Event) o).endHandler, endHandler);
+        }
+        return false;
     }
 }
