@@ -9,22 +9,22 @@ import java.util.ArrayList;
  * Provides methods for displaying messages and error messages to the user.
  */
 public class Ui {
-    private static final String separators = "____________________________________________________________";
-    private String text1 = " Hello! I'm Novo\n" + " What can I do for you?\n" + separators + "\n";
-    private String text2 = " Bye. Hope to see you again soon!";
+    private static final String SEPARATORS = "____________________________________________________________";
+    private static final String HI = " Hello! I'm Novo\n" + " What can I do for you?\n" + SEPARATORS + "\n";
+    private static final String BYE = " Bye. Hope to see you again soon!";
 
     /**
      * Displays the welcome text to the user.
      */
     public String displayWelcomeText() {
-        return separators + "\n" + text1;
+        return SEPARATORS + "\n" + HI;
     }
 
     /**
      * Displays the goodbye text to the user.
      */
     public String displayGoodbyeText() {
-        return separators + "\n" + text2 + "\n" + separators;
+        return SEPARATORS + "\n" + BYE + "\n" + SEPARATORS;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Ui {
      * @param message The error message to display.
      */
     public String showErrorMessage(String message) {
-        return separators + "\n" + message + "\n" + separators;
+        return SEPARATORS + "\n" + message + "\n" + SEPARATORS;
     }
 
     /**
@@ -43,8 +43,8 @@ public class Ui {
      * @param remainingNumberTasks The number of tasks remaining in the list.
      */
     public String displayDeleteTask(Task deletedTask, int remainingNumberTasks) {
-        return separators + "\n" + "Noted. I've removed this task:" + "\n" + deletedTask.toString() + "\n"
-            + "Now you have " + remainingNumberTasks + " tasks in the list." + separators;
+        return SEPARATORS + "\n" + "Noted. I've removed this task:" + "\n" + deletedTask.toString() + "\n"
+            + "Now you have " + remainingNumberTasks + " tasks in the list." + SEPARATORS;
     }
 
     /**
@@ -54,8 +54,8 @@ public class Ui {
      * @param newNumber The new total number of tasks in the list.
      */
     public String displayAddedTask(Task newTask, int newNumber) {
-        return separators + "\n" + "Got it. I've added this task:" + "\n" + newTask.toString() + "\n"
-            + "Now you have " + newNumber + " tasks in the list." + separators;
+        return SEPARATORS + "\n" + "Got it. I've added this task:" + "\n" + newTask.toString() + "\n"
+            + "Now you have " + newNumber + " tasks in the list." + SEPARATORS;
     }
 
     /**
@@ -64,12 +64,12 @@ public class Ui {
      * @param taskList The TaskList containing the tasks to be displayed.
      */
     public String displayTaskList(TaskList taskList) {
-        StringBuilder message = new StringBuilder(separators + "\n" + "Here are the tasks in your list:"
+        StringBuilder message = new StringBuilder(SEPARATORS + "\n" + "Here are the tasks in your list:"
             + "\n");
         for (int i = 0; i < taskList.numTasks(); i++) {
             message.append((i + 1)).append(".").append(taskList.getTask(i).toString()).append("\n");
         }
-        message.append(separators);
+        message.append(SEPARATORS);
         return message.toString();
     }
 
@@ -79,8 +79,8 @@ public class Ui {
      * @param markedTask The task that was marked as done.
      */
     public String displayMarked(Task markedTask) {
-        return separators + "\n" + "Nice! I've marked this task as done:" + "\n" + markedTask.toString()
-            + separators;
+        return SEPARATORS + "\n" + "Nice! I've marked this task as done:" + "\n" + markedTask.toString()
+            + SEPARATORS;
     }
 
     /**
@@ -89,8 +89,8 @@ public class Ui {
      * @param markedTask The task that was marked as not done.
      */
     public String displayUnmarked(Task markedTask) {
-        return separators + "\n" + "OK, I've marked this task as not done yet:" + "\n" + markedTask.toString()
-            + separators;
+        return SEPARATORS + "\n" + "OK, I've marked this task as not done yet:" + "\n" + markedTask.toString()
+            + SEPARATORS;
     }
 
     /**
@@ -103,12 +103,12 @@ public class Ui {
      * @param searchedTask An ArrayList of Task objects containing the tasks to be displayed.
      */
     public String displaySearched(ArrayList<Task> searchedTask) {
-        StringBuilder message = new StringBuilder(separators + "\n" + "Here are the matching tasks in your list:"
+        StringBuilder message = new StringBuilder(SEPARATORS + "\n" + "Here are the matching tasks in your list:"
             + "\n");
         for (int i = 0; i < searchedTask.size(); i++) {
             message.append((i + 1)).append(".").append(searchedTask.get(i).toString()).append("\n");
         }
-        message.append(separators);
+        message.append(SEPARATORS);
         return message.toString();
     }
 
@@ -116,49 +116,49 @@ public class Ui {
      * Displays an error message for an empty todo description.
      */
     public String printToDoException() {
-        return separators + "\n" + "☹ OOPS!!! The description of a todo cannot be empty." + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! The description of a todo cannot be empty." + "\n" + SEPARATORS;
     }
 
     /**
      * Displays an error message for an unrecognized command.
      */
     public String printNoSuchElementException() {
-        return separators + "\n" + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + "\n" + SEPARATORS;
     }
 
     /**
      * Displays an error message for an empty event description.
      */
     public String printEventException() {
-        return separators + "\n" + "☹ OOPS!!! The description of an event cannot be empty." + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! The description of an event cannot be empty." + "\n" + SEPARATORS;
     }
 
     /**
      * Displays an error message for an empty deadline description.
      */
     public String printDeadlineException() {
-        return separators + "\n" + "☹ OOPS!!! The description of a deadline cannot be empty." + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! The description of a deadline cannot be empty." + "\n" + SEPARATORS;
     }
 
     /**
      * Displays an error message for an unspecified task to mark.
      */
     public String printMarkException() {
-        return separators + "\n" + "☹ OOPS!!! The task to mark must be specified." + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! The task to mark must be specified." + "\n" + SEPARATORS;
     }
 
     /**
      * Displays an error message for an unspecified task to unmark.
      */
     public String printUnmarkException() {
-        return separators + "\n" + "☹ OOPS!!! The task to unmark must be specified." + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! The task to unmark must be specified." + "\n" + SEPARATORS;
     }
 
     /**
      * Displays an error message for a search command in the wrong format.
      */
     public String printSearchException() {
-        return separators + "\n" + "☹ OOPS!!! The task to search must be specified." + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! The task to search must be specified." + "\n" + SEPARATORS;
     }
 
     /**
@@ -167,15 +167,15 @@ public class Ui {
      * @return
      */
     public String printDeadlineFormatException() {
-        return separators + "\n" + "☹ OOPS!!! Enter in the format: deadline (task) /by dd/MM/yyyy HHmm"
-            + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! Enter in the format: deadline (task) /by dd/MM/yyyy HHmm"
+            + "\n" + SEPARATORS;
     }
 
     /**
      * Displays an error message for a event task in the wrong format.
      */
     public String printEventFormatException() {
-        return separators + "\n" + "☹ OOPS!!! Enter in the format: \n event (task) /from yyyy/MM/dd HHmm /to yyyy/MM/dd HHmm"
-            + "\n" + separators;
+        return SEPARATORS + "\n" + "☹ OOPS!!! Enter in the format: \n event (task) /from yyyy/MM/dd HHmm /to "
+            + "yyyy/MM/dd HHmm" + "\n" + SEPARATORS;
     }
 }

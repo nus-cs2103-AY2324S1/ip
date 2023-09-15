@@ -18,6 +18,9 @@ import duke.task.Todo;
  */
 public class Storage {
     private static String filePath = "./data/duke.txt";
+    private static final String EVENT_TASK = "Event";
+    private static final String DEADLINE_TASK = "Deadline";
+    private static final String TODO_TASK = "Todo";
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -43,11 +46,11 @@ public class Storage {
             for (Task task : tasks) {
                 String taskType = "";
                 if (task instanceof Event) {
-                    taskType = "Event";
+                    taskType = EVENT_TASK;
                 } else if (task instanceof Todo) {
-                    taskType = "Todo";
+                    taskType = TODO_TASK;
                 } else if (task instanceof Deadline) {
-                    taskType = "Deadline";
+                    taskType = DEADLINE_TASK;
                 }
 
                 String statusIcon = (task.getStatusIcon().equals("X")) ? "1" : "0";
@@ -163,4 +166,3 @@ public class Storage {
         return tasks;
     }
 }
-

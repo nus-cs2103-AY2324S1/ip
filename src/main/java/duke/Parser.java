@@ -1,8 +1,5 @@
 package duke;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.DeleteCommand;
@@ -52,59 +49,13 @@ public class Parser {
             if (arguments.isEmpty() || !arguments.contains("/from")) {
                 throw new DukeException.EventException();
             }
-
-            String userCommandE = userInput.split(" ")[0];
-            String argsE = userInput.replaceFirst(userCommandE, "").trim();
-            String[] splitTheArgumentsE = argsE.split("/from", 2);
-
-            if (splitTheArgumentsE.length != 2 || !splitTheArgumentsE[1].contains("/to")) {
-                throw new DukeException.EventFormatException();
-            }
-            String theDescriptionE = splitTheArgumentsE[0].trim();
-            String[] theDateTimeE = splitTheArgumentsE[1].trim().split("/to", 2);
-
-            String fromDateTime = theDateTimeE[0].trim();
-            String toDateTime = theDateTimeE[1].trim();
-
-            DateTimeValidator validatorE = new DateTimeValidator("yyyy/MM/dd HHmm");
-            boolean isDateValidE = validatorE.validateDate(fromDateTime) && validatorE.validateDate(toDateTime);
-
-            if (isDateValidE) {
-                LocalDateTime parsedFromDate = LocalDateTime.parse(fromDateTime,
-                    DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-                LocalDateTime parsedToDate = LocalDateTime.parse(toDateTime,
-                    DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-                return new AddCommand(AddCommand.TaskType.EVENT, theDescriptionE, parsedFromDate, parsedToDate);
-            }
+            return EventParser.parseEventCommand(arguments);
         case "deadline":
             // Solution below adapted and inspired by https://chat.openai.com/share/b706b4df-ab30-4d0f-93eb-b85617616319
-
             if (arguments.isEmpty()) {
                 throw new DukeException.DeadlineException();
             }
-
-            String userCommandD = userInput.split(" ")[0];
-            String argsD = userInput.replaceFirst(userCommandD, "").trim();
-            String[] splitTheArgumentsD = argsD.split("/by", 2);
-
-            if (splitTheArgumentsD.length != 2) {
-                throw new DukeException.DeadlineFormatException();
-            }
-
-            String theDescriptionD = splitTheArgumentsD[0];
-            String[] theDateTimeD = splitTheArgumentsD[1].trim().split(" ", 2);
-
-            String date = theDateTimeD[0];
-            String time = theDateTimeD[1];
-
-            DateTimeValidator validator = new DateTimeValidator("dd/MM/yyyy HHmm");
-            boolean isDateValid = validator.validateDate(date + " " + time);
-
-            if (isDateValid) {
-                LocalDateTime parsedDateTime = LocalDateTime.parse(date + " " + time,
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-                return new AddCommand(AddCommand.TaskType.DEADLINE, theDescriptionD, parsedDateTime);
-            }
+            return DeadlineParser.parseDeadlineCommand(arguments);
         case "unmark":
             if (arguments.isEmpty()) {
                 throw new DukeException.UnmarkException();

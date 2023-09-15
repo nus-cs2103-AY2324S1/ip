@@ -1,11 +1,3 @@
-T | 1 | buy food
-T | 1 | buy groceries
-T | 0 | buy cheese
-T | 1 | buy food
-<<<<<<< HEAD
-T | 1 | eat food
-=======
-T | 0 | eat food
-T | 0 | buy milk
-T | 1 | get milk
->>>>>>> branch-Level-10
+E | 0 | project | September 12 2023 3pm - December 22 2023 3pm
+T | 0 | hello
+T | 1 | cool
