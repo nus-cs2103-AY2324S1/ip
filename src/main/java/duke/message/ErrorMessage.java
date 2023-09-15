@@ -1,6 +1,5 @@
 package duke.message;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 /**
@@ -9,7 +8,7 @@ import javafx.scene.paint.Color;
  */
 public class ErrorMessage extends Message {
 
-    private static Color ERROR_COLOR = Color.RED;
+    private static final Color ERROR_COLOR = Color.RED;
     public ErrorMessage(String content) {
         super(content, BOT_IMAGE, ERROR_COLOR);
     }
