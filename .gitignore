@@ -15,3 +15,13 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# all .class files should be ignored according to the guideline
+*.class
+
+# Ignore the data files generated on local machine
+tasks.txt
+
+# Ignore jar files
+*.jar
+
