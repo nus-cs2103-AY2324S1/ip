@@ -14,19 +14,17 @@ import duke.Command.MarkCommand;
 import duke.Command.ToDoCommand;
 import duke.Command.UnmarkCommand;
 import duke.Exception.DukeException;
-import duke.task.Task;
 
 
 /**
- * Interpretes and executes the inputs that the user passes in.
+ * Interprets and executes the inputs that the user passes in.
  */
 public class Parser {
     private static Ui ui = new Ui();
 
 
     /**
-     * Deals with user inputs beginning with mark, unmark,
-     * delete, list.
+     * Deals with user inputs beginning with mark, unmark, delete, list and find.
      * It also deals with what happens when the user types in an unrecognised
      * command.
      *
@@ -39,40 +37,16 @@ public class Parser {
 
     public static Command userCommand(String input, Storage storage, TaskList tasks) throws DukeException,
             NumberFormatException {
-
         if (input.startsWith("mark")) {
-            int taskIndex = Integer.parseInt(input.substring(5));
-
-            if (taskIndex > tasks.getSize()) {
-                throw new DukeException("This number is out of bounds!");
-            }
-            if (tasks.getTask(taskIndex - 1).getStatusIcon() == "X") {
-                throw new DukeException("This task has already been marked as done!");
-            }
-            return new MarkCommand(taskIndex - 1);
-
+            return new MarkCommand(input);
         } else if (input.startsWith("unmark")) {
-            int taskIndex = Integer.parseInt(input.substring(7));
-            if (taskIndex > tasks.getSize()) {
-                throw new DukeException("This number is out of bounds!");
-            }
-            if (tasks.getTask(taskIndex - 1).getStatusIcon() == " ") {
-                throw new DukeException("This task has already been marked as not done!");
-            }
-            return new UnmarkCommand(taskIndex - 1);
-
+            return new UnmarkCommand(input);
         } else if (input.startsWith("delete")) {
-            int pos = Integer.parseInt(input.substring(7).trim());
-            if (pos > tasks.getSize() || pos == 0) {
-                throw new DukeException("This number is out of bounds! ");
-            }
-            Task element = tasks.getTask(pos - 1);
-            return new DeleteCommand(element, pos - 1);
+            return new DeleteCommand(input);
         } else if (input.startsWith("list")) {
             return new ListCommand();
         } else if (input.startsWith("find")) {
-            String keyword = input.substring(5).trim();
-            return new FindCommand(keyword);
+            return new FindCommand(input);
         } else if (input.equals("bye")) {
             return new ByeCommand();
         } else {
@@ -92,45 +66,11 @@ public class Parser {
      */
     public static Command addToList(String input, Storage storage, TaskList tasks) throws DukeException {
         if (input.startsWith("todo")) {
-            if (input.trim().length() <= 4) {
-                throw new DukeException("Sorry! The description of a todo cannot be empty :(");
-            }
-            return new ToDoCommand(input.substring(5));
+            return new ToDoCommand(input);
         } else if (input.startsWith("deadline")) {
-            if (input.trim().length() <= 8) {
-                throw new DukeException("Sorry! The description of a deadline cannot be empty :(");
-            }
-            if (!input.contains("/by")) {
-                throw new DukeException("Hey bud! Please include when the deadline is! "
-                        + "\nFor example you can type: deadline read /by 2023-09-01 1700");
-            }
-            int index = input.lastIndexOf("/by");
-            if (input.substring(9, index).isEmpty()) {
-                throw new DukeException("Sorry! The description of a deadline cannot be empty :(");
-            }
-
-            return new DeadlineCommand(input.substring(9, index - 1), input.substring(index + 4));
-
+            return new DeadlineCommand(input);
         } else if (input.startsWith("event")) {
-            if (input.trim().length() <= 5) {
-                throw new DukeException("Sorry! The description of a event cannot be empty :(");
-            }
-            if (!input.contains("/from")) {
-                throw new DukeException("Hey bud! Please include when the event is!"
-                        + "\nFor example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
-            }
-            int indexFrom = input.lastIndexOf("/from");
-            int indexTo = input.lastIndexOf("/to");
-
-            if ((input.substring(6, indexFrom).isEmpty())) {
-                throw new DukeException("Sorry! The description of an event cannot be empty :(");
-            }
-            if (!input.contains("/to")) {
-                throw new DukeException("Hey bud! Please include when the end date of the event is!"
-                        + "\nFor example you can type: event hangout /from 2023-09-01 1700 /to 2023-09-01 2000");
-            }
-            return new EventCommand(input.substring(6, indexFrom - 1),
-                    input.substring(indexFrom + 6, indexTo - 1), input.substring(indexTo + 4));
+            return new EventCommand(input);
         } else {
             return userCommand(input, storage, tasks);
         }

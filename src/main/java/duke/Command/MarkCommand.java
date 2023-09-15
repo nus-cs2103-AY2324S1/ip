@@ -7,25 +7,31 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
-
+/**
+ * Class that handles the mark command.
+ */
 public class MarkCommand extends Command {
-    private int index;
+    private String input;
 
-    public MarkCommand(int index) {
-        this.index = index;
+    public MarkCommand(String input) {
+        this.input = input;
     }
 
     @Override
     public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
-        tasks.markTaskAsDone(index);
+        int taskIndex = Integer.parseInt(input.substring(5));
+
+        if (taskIndex > tasks.getSize()) {
+            throw new DukeException("This number is out of bounds!");
+        }
+        if (tasks.getTask(taskIndex - 1).getStatusIcon() == "X") {
+            throw new DukeException("This task has already been marked as done!");
+        }
+        tasks.markTaskAsDone(taskIndex - 1);
         storage.writeTasksToFile(tasks);
-        return ui.printMarkTasksAsDone(index, tasks);
+        return ui.printMarkTasksAsDone(taskIndex - 1, tasks);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 
 }
 
