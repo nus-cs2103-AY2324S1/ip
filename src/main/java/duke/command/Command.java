@@ -38,6 +38,6 @@ public class Command {
     }
 
     boolean isValidIndex(int index, TaskList tasks) {
-        return index >= tasks.getSize() || index < 0;
+        return index < tasks.getSize() && index >= 0;
     }
 }
