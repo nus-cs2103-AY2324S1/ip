@@ -6,12 +6,15 @@ import evo.commands.ByeCommand;
 import evo.commands.Command;
 import evo.commands.DeadlineCommand;
 import evo.commands.DeleteCommand;
+import evo.commands.DoAfterCommand;
 import evo.commands.EventCommand;
 import evo.commands.FindCommand;
 import evo.commands.ListCommand;
 import evo.commands.MarkCommand;
 import evo.commands.ToDoCommand;
 import evo.commands.UnmarkCommand;
+
+import evo.exceptions.DoAfterException;
 import evo.exceptions.InvalidDateAndTimeInputException;
 import evo.exceptions.InvalidDateInputException;
 import evo.exceptions.InvalidInputException;
@@ -29,6 +32,7 @@ import evo.exceptions.NoSuchTaskDeleteException;
 import evo.exceptions.NoSuchTaskException;
 import evo.exceptions.NoTaskDeleteException;
 import evo.exceptions.NoTaskFindException;
+
 import evo.tasks.TaskList;
 
 /**
@@ -134,6 +138,27 @@ public class Parser {
                     throw new MissingTaskToFindException("Please specify a keyword to find a task.");
                 }
                 return new FindCommand(actionType[1]);
+            } else if (Objects.equals(actionType[0], "do")) {
+                // DoAfterTask Command
+                int len = actionType.length;
+                if (actionType.length == 1) {
+                    assert len > 0 : "No command found";
+                    throw new DoAfterException("Please specify the task description and the specific time/task after "
+                            + "which the task should be done.");
+                }
+                if (!fullCommand.contains("after")) {
+                    throw new DoAfterException("Please specify the specific time/task after which the task should "
+                            + "be done.");
+                }
+                if (Objects.equals(actionType[len - 1], "after")) {
+                    throw new DoAfterException("Please specify the specific time/task after which the task should "
+                            + "be done.");
+                }
+                if (len < 4) {
+                    throw new DoAfterException("Missing task description or the specific time/task after which the "
+                            + "task should be done.");
+                }
+                return new DoAfterCommand(actionType);
             } else if (Objects.equals(actionType[0], "todo")) {
                 // Adds to do Command
                 int len = actionType.length;
