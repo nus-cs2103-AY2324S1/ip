@@ -21,7 +21,6 @@ Screenshot of Smolbrain Chatbot:
    * `mark 1` : Marks the 3rd task shown in the current task list.
    * `bye` : Exits the app.
 6. Refer to the Features below for details of each command.
-
 <br><br>
 
 ## Key Features 
