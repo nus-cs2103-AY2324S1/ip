@@ -19,6 +19,10 @@ public class Task {
         return isDone ? "[X]" : "[ ]";
     }
 
+    public String getTaskDescription() {
+        return this.taskDescription;
+    }
+
     /**
      * Changes the status of the task from 'not done' to 'done' or vice versa
      */

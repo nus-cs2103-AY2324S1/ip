@@ -73,10 +73,15 @@ public class Storage {
      */
     public static Task textToTask(String text) throws DukeException {
         String[] arr = text.split(" [|] ");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HHmm");
+
         String identifier = arr[0];
         String status = arr[1];
         boolean isDone;
         Task task = null;
+
         if (status.equals("[ ]")) {
             isDone = false;
         } else {
@@ -90,19 +95,19 @@ public class Storage {
             break;
         case "D":
             String deadline = arr[2];
+
             String by = arr[3];
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
             LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+
             task = new Deadline(deadline, dateTime, isDone);
             break;
         case "E":
             String event = arr[2];
+
             String from = arr[3].substring(0, arr[3].indexOf("-"));
-            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
-            LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter1);
+            LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
 
             String to = arr[3].substring(arr[3].indexOf("-") + 1);
-            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HHmm");
             LocalTime dateTimeTo = LocalTime.parse(to, formatter2);
 
             task = new Event(event, dateTimeFrom, dateTimeTo, isDone);
@@ -216,7 +221,7 @@ public class Storage {
      * @param newDeadline new deadline in String
      * @throws IOException if File cannot be opened / located
      */
-    public void updateFileAfterPostpone(Deadline postponedTask, int lineNumber, String newDeadline) throws IOException {
+    public void updateFileAfterPostpone(Task postponedTask, int lineNumber, String newDeadline) throws IOException {
         String updatedContent = "";
         File f = new File(this.filePath);
         Scanner scanner = new Scanner(f);
@@ -245,7 +250,7 @@ public class Storage {
      * @param newTo new time in which the event ends in String
      * @throws IOException if File cannot be opened / located
      */
-    public void updateFileAfterReschedule(Event rescheduledTask, int lineNumber, String newFrom, String newTo)
+    public void updateFileAfterReschedule(Task rescheduledTask, int lineNumber, String newFrom, String newTo)
             throws IOException{
         String updatedContent = "";
         File f = new File(this.filePath);

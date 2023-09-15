@@ -7,6 +7,8 @@ import duke.Ui;
 import duke.DukeException;
 import duke.Parser;
 
+import commands.Command;
+
 /**
  * Duke class that runs the chatbot.
  */
@@ -22,7 +24,8 @@ public class Duke {
         tasks = new TaskList(storage.load());
     }
     public String getResponse(String input) throws DukeException, IOException {
-        return Parser.parseAndExecute(input, ui, tasks, storage);
+        Command c = Parser.parse(input);
+        return c.execute(tasks, ui, storage);
     }
 
     /**
@@ -38,7 +41,8 @@ public class Duke {
                 ui.bye();
                 break;
             }
-            Parser.parseAndExecute(command, ui, tasks, storage);
+            Command c = Parser.parse(command);
+            c.execute(tasks, ui, storage);
         }
 
     }

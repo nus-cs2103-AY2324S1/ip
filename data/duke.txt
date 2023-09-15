@@ -1,4 +1,6 @@
 T | [X] | read book
-D | [X] | return book | 20230808 0900
-E | [X] | project meeting | 20230709 1600-1800
-E | [X] | project meeting | 20230815 0900-1000
+D | [ ] | return book | 20230608 1500
+T | [X] | join sports club
+T | [ ] | borrow book
+D | [ ] | hw | 20230814 1400
+E | [ ] | seminar | 20230808 1600-1700
