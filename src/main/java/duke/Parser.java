@@ -1,5 +1,10 @@
 package duke;
 
+import exceptions.DukeException;
+import exceptions.EmptyDescriptionException;
+import exceptions.OutOfRangeException;
+import exceptions.UnknownCommandException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,6 +13,8 @@ import java.time.format.DateTimeParseException;
  * Converts user command into a Task
  */
 public class Parser {
+    public Parser() {
+    }
 
     /**
      * Converts user command into Task and adds it into the list
