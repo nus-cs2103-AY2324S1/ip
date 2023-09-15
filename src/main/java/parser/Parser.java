@@ -1,14 +1,6 @@
 package parser;
 
-import commands.AddCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.ExitCommand;
-import commands.FindCommand;
-import commands.IncorrectCommand;
-import commands.ListoutCommand;
-import commands.MarkCommand;
-import commands.UnmarkCommand;
+import commands.*;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -61,11 +53,27 @@ public class Parser {
         case "listout":
             c = checkListout(split);
             break;
+        case "undo":
+            c = checkUndo(split);
+            break;
         default:
             c = new IncorrectCommand("idk what u saying BRO.");
 
         }
         return c;
+    }
+
+    /**
+     * Checks the user input for an "undo" command and returns the corresponding command object.
+     *
+     * @param split The user input string split into tokens.
+     * @return An "UndoCommand" if the input is a valid undo command, otherwise an "IncorrectCommand."
+     */
+    private static Command checkUndo(String[] split) {
+        if (split.length > 1) {
+            return new IncorrectCommand("Cannot have anything after undo");
+        }
+        return new UndoCommand();
     }
 
 

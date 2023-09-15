@@ -62,6 +62,13 @@ public class TaskList {
     }
 
     /**
+     * Removes the latest task in the list
+     */
+    public void removeLatest() {
+        toDos.remove(toDos.size() - 1);
+    }
+
+    /**
      * Finds the index of a task with the specified description in the task list.
      *
      * @param task The description of the task to be found.

@@ -169,4 +169,11 @@ public class Ui {
     public String todoMessage(Task task) {
         return ("ADDED todo FOR YOU!!!!\n" + task.toString());
     }
+
+    /**
+     * Displays a message indicating the undo-ing of a task.
+     */
+    public String undoMessage() {
+        return "Undid the latest task you edited!!!!!!";
+    }
 }
