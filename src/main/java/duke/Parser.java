@@ -13,7 +13,8 @@ public class Parser {
      * @param storage Stores the file and handles file methods.
      * @return Bot response.
      */
-    public static String parseInput(String input, TaskList tasks, Storage storage) {
+    public static String parseInput(String input, TaskList tasks, ContactList contacts,
+        Storage storage, Storage contactStorage) {
         try {
             if (input.equals("list")) {
                 return ListCommand.execute(input, tasks, storage);
@@ -31,6 +32,12 @@ public class Parser {
                 return DeleteCommand.execute(input, tasks, storage);
             } else if (input.startsWith("find ") || (input.startsWith("find") && input.length() == 4)) {
                 return FindCommand.execute(input, tasks, storage);
+            } else if (input.startsWith("contacts") || (input.startsWith("contacts") && input.length() == 13)) {
+                return ShowContactsCommand.execute(input, contacts, contactStorage);
+            } else if (input.startsWith("contact ") || (input.startsWith("contact") && input.length() == 7)) {
+                return ContactCommand.execute(input, contacts, contactStorage);
+            } else if (input.startsWith("remove ") || (input.startsWith("remove") && input.length() == 6)) {
+                return RemoveContactCommand.execute(input, contacts, contactStorage);
             } else {
                 throw new InvalidTextException();
             }
