@@ -9,8 +9,8 @@ import atlas.components.Parser;
  * Event is a task with a start time and end time
  */
 public class Event extends Task {
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     /**
      * Constructs a new Event object
@@ -24,6 +24,20 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Constructs a new Event object with reminders
+     * @param name Name of event
+     * @param startTime Start time of event
+     * @param endTime End time of event
+     * @param reminderStartDate Date starting from which reminders should be sent
+     */
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime,
+                 LocalDate reminderStartDate) {
+        super(name, reminderStartDate);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
@@ -33,8 +47,15 @@ public class Event extends Task {
 
     @Override
     public String generateSaveString() {
-        return String.format("E | %b | %s /from %s /to %s", isDone, name, startTime.format(
-                Parser.DATETIME_FORMATTER),
+        if (hasReminder()) {
+            assert reminderStartDate != null;
+            return String.format("E | %b | %s /from %s /to %s /remind %s", isDone, name,
+                    startTime.format(Parser.DATETIME_FORMATTER),
+                    endTime.format(Parser.DATETIME_FORMATTER),
+                    reminderStartDate.format(Parser.DATE_FORMATTER));
+        }
+        return String.format("E | %b | %s /from %s /to %s", isDone, name,
+                startTime.format(Parser.DATETIME_FORMATTER),
                 endTime.format(Parser.DATETIME_FORMATTER));
     }
 

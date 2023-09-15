@@ -121,4 +121,18 @@ public class TaskList {
     public List<Task> getTasks() {
         return List.copyOf(tasks);
     }
+
+    /**
+     * Returns all tasks that the user should be reminded of now
+     * @return Tasks that user should be reminded of
+     */
+    public List<Task> getReminders() {
+        List<Task> reminders = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.shouldSendReminder()) {
+                reminders.add(t);
+            }
+        }
+        return reminders;
+    }
 }

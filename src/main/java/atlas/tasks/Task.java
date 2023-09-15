@@ -2,20 +2,35 @@ package atlas.tasks;
 
 import java.time.LocalDate;
 
+import atlas.components.Parser;
+
 /**
  * A Task is an object with a name and toggleable status
  */
 public abstract class Task {
-    protected String name;
+    protected final String name;
     protected boolean isDone;
+    protected final LocalDate reminderStartDate;
 
     /**
-     * Constructs a new Task with description
+     * Constructs a new Task with description, but with no reminders
      * @param name Name of task
      */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+        this.reminderStartDate = null;
+    }
+
+    /**
+     * Constructs a new Task with description and reminders
+     * @param name Name of task
+     * @param reminderStartDate Date starting from which reminders should be sent
+     */
+    public Task(String name, LocalDate reminderStartDate) {
+        this.name = name;
+        this.isDone = false;
+        this.reminderStartDate = reminderStartDate;
     }
 
     /**
@@ -55,8 +70,12 @@ public abstract class Task {
 
     @Override
     public String toString() {
-
-        return String.format("[%s] %s", this.getStatusIcon(), this.getName());
+        if (hasReminder()) {
+            assert reminderStartDate != null;
+            return String.format("[%s] %s (remind starting from: %s)", getStatusIcon(),
+                    getName(), reminderStartDate.format(Parser.DATE_FORMATTER));
+        }
+        return String.format("[%s] %s", getStatusIcon(), getName());
     }
 
     /**
@@ -80,5 +99,29 @@ public abstract class Task {
      */
     public boolean hasKeyword(String keyword) {
         return name.contains(keyword);
+    }
+
+    /**
+     * Returns whether the user should be reminded about this task
+     * @return True if user should be reminded, false otherwise
+     */
+    public boolean shouldSendReminder() {
+        if (hasReminder()) {
+            boolean isTaskUncompleted = !isDone;
+            LocalDate today = LocalDate.now();
+            assert reminderStartDate != null;
+            boolean isTimeForReminders = !reminderStartDate.isAfter(today);
+
+            return isTaskUncompleted && isTimeForReminders;
+        }
+        return false;
+    }
+
+    /**
+     * Returns whether the user has set a reminder for this task
+     * @return True if a reminder has been set, false otherwise
+     */
+    protected boolean hasReminder() {
+        return reminderStartDate != null;
     }
 }
