@@ -17,6 +17,8 @@ import trackerbot.task.Todo;
  * @version A-CodeQuality
  */
 public class Parser {
+    private static final String MASS_COMMAND_DELIMITER = "::";
+
     /**
      * Splits the user input into its keyword and commandField components.
      * <p>Parser does not directly handle the Command logic of the input. After
@@ -43,7 +45,24 @@ public class Parser {
             rest = scanner.nextLine().trim();
         }
 
-        return Command.of(keyword, rest);
+        return Command.of(CommandType.getCommandType(keyword), rest);
+    }
+
+    /**
+     * Splits the command field of mass operation commands into its nested fields.
+     *
+     * @param type The enumerated type of Command to create the mass operation.
+     * @param commandField The description of the Commands, separated by MASS_COMMAND_DELIMITER.
+     * @return An array of commands corresponding to the type and commandField of the input.
+     */
+    public static Command[] parseMassOpFields(CommandType type, String commandField) {
+        String[] separatedCommands = commandField.split(MASS_COMMAND_DELIMITER);
+        Command[] result = new Command[separatedCommands.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Command.of(type, separatedCommands[i]);
+        }
+
+        return result;
     }
 
     /**

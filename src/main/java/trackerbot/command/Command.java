@@ -48,17 +48,18 @@ public abstract class Command {
      * @param commandField The description of the user input.
      * @return Some subtype of Command related to keyword.
      */
-    public static Command of(String keyword, String commandField) {
-        CommandType parsedType = CommandType.getCommandType(keyword);
-
+    public static Command of(CommandType keyword, String commandField) {
         Command result;
-        switch (parsedType) {
+        switch (keyword) {
+        case MASS:
+            result = new MassCommand(commandField);
+            break;
         case TODO:
             // Fallthrough
         case DEADLINE:
             // Fallthrough
         case EVENT:
-            result = new AddCommand(parsedType, commandField);
+            result = new AddCommand(keyword, commandField);
             break;
         case DELETE:
             result = new DeleteCommand(commandField);
@@ -66,7 +67,7 @@ public abstract class Command {
         case MARK:
             // Fallthrough
         case UNMARK:
-            result = new ToggleCommand(parsedType, commandField);
+            result = new ToggleCommand(keyword, commandField);
             break;
         case FIND:
             result = new FindCommand(commandField);

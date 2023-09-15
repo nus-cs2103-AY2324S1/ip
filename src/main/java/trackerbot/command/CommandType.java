@@ -52,7 +52,7 @@ public enum CommandType {
         return keyword;
     }
 
-    static CommandType getCommandType(String keyword) {
+    public static CommandType getCommandType(String keyword) {
         CommandType result = CommandType.UNKNOWN;
         for (CommandType command: CommandType.values()) {
             if (keyword.equals(command.getKeyword())) {
