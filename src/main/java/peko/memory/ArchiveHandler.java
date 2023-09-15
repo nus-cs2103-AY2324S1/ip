@@ -17,11 +17,12 @@ public class ArchiveHandler {
     private static File file = new File("src/main/Archive.txt");
     private static PrintWriter printWriter;
     private static ArrayList<Task> list = new ArrayList<>();
-    private static HashMap<Task, Boolean> map = new HashMap<>();
+    private static HashMap<String, Boolean> map = new HashMap<>();
     public static void archive(Task task) {
-        if (!map.get(task)) {
+        fileManager();
+        System.out.println(task.toString());
+        if (!map.getOrDefault(task.toString(), false)) {
 
-            fileManager();
             String toStore = task.toStore() + "\n";
             try {
                 Writer temp;
@@ -47,7 +48,8 @@ public class ArchiveHandler {
                     String[] arr = s.split(" \\| ");
                     Task t = stringToTask(arr);
                     if (t != null) {
-                        map.put(t, true);
+                        System.out.println(t);
+                        map.put(t.toString(), true);
                         list.add(t);
                     }
 
