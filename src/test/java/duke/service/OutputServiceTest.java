@@ -1,12 +1,13 @@
 package duke.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OutputServiceTest {
     @Test
