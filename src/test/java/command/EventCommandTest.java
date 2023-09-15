@@ -40,7 +40,7 @@ public class EventCommandTest {
         assertNotEquals("", EventCommand.validate("event"));
         assertNotEquals("", EventCommand.validate("event some task /from 2023-01-01"));
         assertNotEquals("", EventCommand.validate("event some task /to 2023-12-31"));
-        assertNotEquals("", EventCommand.validate("deadline some task /from 2023-01-01 /to 2023-12-31"));
+        assertNotEquals("", EventCommand.validate("event /from 2023-01-01 /to 2023-12-31"));
     }
 
     @Test

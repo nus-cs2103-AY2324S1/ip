@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import woof.Woof;
+import woofwoof.WoofWoof;
 
 /**
  * The `Task` class represents a task in the Woof application.
@@ -25,9 +26,12 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-        this.description = description.trim();
-        formatDescriptionWithLineBreaks();
+        this.description = WoofWoof.wrapText(description, '\n' + getTabSpace(), 39);
         this.isDone = false;
+    }
+
+    public static String getTabSpace() {
+        return " ".repeat(12);
     }
 
     public DateTimeFormatter getDateTimeformatter() {

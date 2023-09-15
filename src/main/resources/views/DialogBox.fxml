@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Circle?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
-         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="dialog">
-    </Label>
-    <ImageView fx:id="displayPicture" fitHeight="100" fitWidth="100">
-    </ImageView>
+<!--NOT USED-->
+<fx:root alignment="TOP_RIGHT"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17.0.1"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <Circle fx:id="displayPicture"/>
+    <Rectangle fx:id="messageBubble"/>
 </fx:root>

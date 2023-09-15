@@ -12,6 +12,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -34,7 +36,7 @@ public class WoofWoof extends Application {
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private VBox dialogContainer;
+    private VBox dialogArea;
     @FXML
     private TextArea userInput;
     @FXML
@@ -76,18 +78,18 @@ public class WoofWoof extends Application {
         this.woof = w;
     }
 
+    /**
+     * Starts the WoofWoof application.
+     *
+     * @param primaryStage The primary stage for the application.
+     */
     @Override
     public void start(Stage primaryStage) {
-        FXMLLoader fxmlLoader = new FXMLLoader(WoofWoof.class.getResource("/views/WoofWoof.fxml"));
-        URL fontResource = getClass().getResource("/fonts/sono/static/sono-light.ttf");
-        Font.loadFont(Objects.requireNonNull(fontResource).toExternalForm(), 13);
-        this.dialogContainer = new VBox();
-        this.scrollPane = new ScrollPane();
-        this.userInput = new TextArea();
-        this.sendButton = new Button();
-
+        loadAndSetCustomFont();
         try {
+            FXMLLoader fxmlLoader = new FXMLLoader(WoofWoof.class.getResource("/views/WoofWoof.fxml"));
             this.scene = new Scene(fxmlLoader.load());
+            loadAndSetCustomCursor();
             loadCssStyles();
             primaryStage.setScene(this.scene);
             primaryStage.setTitle("Woof Woof");
@@ -99,17 +101,40 @@ public class WoofWoof extends Application {
         }
     }
 
+    /**
+     * Loads, get, and set a custom font.
+     */
+    private void loadAndSetCustomFont() {
+        URL fontResource = getClass().getResource("/fonts/sono/static/sono-light.ttf");
+        Font.loadFont(Objects.requireNonNull(fontResource).toExternalForm(), 13);
+    }
+
+    /**
+     * Loads, get, and set a custom cursor with fixed properties.
+     */
+    private void loadAndSetCustomCursor() {
+        String imagePath = "/images/paw.png";
+        double imageWidth = 40.0;
+        double imageHeight = 40.0;
+        double hotspotX = 20.0;
+        double hotspotY = 20.0;
+        Image cursorImage = new Image(imagePath, imageWidth, imageHeight, false, true);
+        ImageCursor imageCursor = new ImageCursor(cursorImage, hotspotX, hotspotY);
+        this.scene.setOnMouseEntered(e -> {
+            scene.setCursor(imageCursor);
+        });
+    }
 
     /**
      * Load CSS styles from file paths and apply them to the scene.
      */
     private void loadCssStyles() {
         String[] cssFilePaths = {
-            "/styles/woof.css",
-            "/styles/scrollPane.css",
-            "/styles/userInput.css",
-            "/styles/dialogContainer.css",
-            "/styles/sendButton.css",
+            "/styles/woofwoof/root.css",
+            "/styles/woofwoof/dialogArea.css",
+            "/styles/woofwoof/scrollPane.css",
+            "/styles/woofwoof/userInput.css",
+            "/styles/woofwoof/sendButton.css",
         };
         for (String cssFilePath : cssFilePaths) {
             String css = Objects.requireNonNull(getClass().getResource(cssFilePath)).toExternalForm();
@@ -125,9 +150,9 @@ public class WoofWoof extends Application {
         String message = this.userInput.getText();
         if (!message.isEmpty()) {
             String response = processMessage(message);
-            this.dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(message, this.user),
-                    DialogBox.getBotDialog(response, this.doggo)
+            this.dialogArea.getChildren().addAll(
+                    DialogBox.getUserDialog(wrapText(message, "\n", 52), this.user),
+                    DialogBox.getBotDialog(wrapText(response, "\n", 52), this.doggo)
             );
             this.userInput.clear();
         }
@@ -140,7 +165,7 @@ public class WoofWoof extends Application {
     private void scheduleCloseAfterDelay() {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.schedule(() -> Platform.runLater(() -> {
-            Stage currentStage = (Stage) this.dialogContainer.getScene().getWindow();
+            Stage currentStage = (Stage) this.dialogArea.getScene().getWindow();
             currentStage.close();
             executorService.shutdown();
         }),
@@ -173,6 +198,31 @@ public class WoofWoof extends Application {
         String result = command.execute(this.taskList);
         TaskFileHandler.saveToFile(this.taskList);
         return result;
+    }
+
+    /**
+     * Adds line breaks with a separator to the text.
+     */
+    public static String wrapText(String text, String separator, int length) {
+        int currentLineLength = 0;
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < text.length(); i++) {
+            char currentChar = text.charAt(i);
+            if (currentChar == '\n') {
+                currentLineLength = 0;
+            }
+            if (currentLineLength >= length) {
+                result.append(separator);
+                currentLineLength = 0;
+            }
+            if (currentLineLength != 0 || currentChar != ' ') {
+                result.append(currentChar);
+                currentLineLength++;
+            }
+
+        }
+        return result.toString();
     }
 
     /**

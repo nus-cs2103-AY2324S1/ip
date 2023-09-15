@@ -32,7 +32,7 @@ public class DeadlineTask extends Task {
      * @return A string representation of the deadline date.
      */
     public String getDeadline() {
-        return String.format("%s~By: %s", getTabSpace(), endDate.format(super.getDateTimeformatter()));
+        return String.format("\n%s~By: %s", getTabSpace(), endDate.format(super.getDateTimeformatter()));
     }
 
     /**

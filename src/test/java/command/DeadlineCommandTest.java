@@ -21,7 +21,7 @@ public class DeadlineCommandTest {
 
         assertNotEquals("", DeadlineCommand.validate("deadline"));
         assertNotEquals("", DeadlineCommand.validate("deadline study /by 2023/01/01"));
-        assertNotEquals("", DeadlineCommand.validate("deadline /by 2023/01/01"));
+        assertNotEquals("", DeadlineCommand.validate("deadline /by 2023-01-01"));
     }
 
     @Test

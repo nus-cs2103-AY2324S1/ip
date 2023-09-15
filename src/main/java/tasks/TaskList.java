@@ -117,9 +117,9 @@ public class TaskList {
         Task task = this.tasks.get(taskIndex);
         this.tasks.remove(taskIndex);
         return String.format("Ok! I've deleted this task:\n "
-                        + "     %s\n"
-                        + "%s",
-                task, getTaskCountMessage());
+                  + "    %s\n"
+                  + "%s",
+                  task, getTaskCountMessage());
     }
 
     /**

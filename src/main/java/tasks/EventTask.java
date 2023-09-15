@@ -39,11 +39,11 @@ public class EventTask extends Task {
      * @return A string representation of the event date range.
      */
     public String getEventRange() {
-        return String.format("%s~From: %s%s~To  : %s",
-                getTabSpace(),
-                startDate.format(super.getDateTimeformatter()),
-                getTabSpace(),
-                endDate.format(super.getDateTimeformatter()));
+        return String.format("\n%s~From: %s\n%s~To  : %s",
+            getTabSpace(),
+            startDate.format(super.getDateTimeformatter()),
+            getTabSpace(),
+            endDate.format(super.getDateTimeformatter()));
     }
 
     /**

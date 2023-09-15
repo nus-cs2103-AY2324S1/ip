@@ -66,11 +66,13 @@ public class Parser {
         for (int i = 1; i < words.length; i++) {
             String currentWord = words[i];
             if (currentWord.startsWith("/")) {
-                result.add(subCommand.toString().trim());
+                if (!subCommand.toString().trim().isEmpty()) {
+                    result.add(subCommand.toString().trim());
+                }
                 result.add(currentWord);
                 subCommand = new StringBuilder();
             } else {
-                subCommand.append(" ").append(currentWord);
+                subCommand.append(" ").append(currentWord.trim());
             }
         }
 
