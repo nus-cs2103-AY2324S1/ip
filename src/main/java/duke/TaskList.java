@@ -49,6 +49,7 @@ public class TaskList {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
             list.get(index);
+            assert index > 0 && index < list.size();
             StringBuilder s = new StringBuilder("Noted! I've deleted this task from the list:\n"
                     + list.get(index) + "\n");
             list.remove(index);
@@ -74,6 +75,7 @@ public class TaskList {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
             list.get(index).markAsDone();
+            assert index > 0 && index < list.size();
             return "Nice! I've marked this task as done:\n" + "" + list.get(index);
         } catch (IndexOutOfBoundsException e) {
             // number input is invalid
@@ -95,6 +97,7 @@ public class TaskList {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
             list.get(index).unMark();
+            assert index > 0 && index < list.size();
             return "Nice! I've marked this task as not done yet:\n" + "" + list.get(index);
         } catch (IndexOutOfBoundsException e) {
             // number input is invalid
