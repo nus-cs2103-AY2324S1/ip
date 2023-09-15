@@ -52,67 +52,13 @@ public class AddCommand extends Command {
         try {
             switch (category) {
             case "T":
-                if (words.length < 2) {
-                    throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
-                }
-
-                //creating the to do
-                Todo todo = new Todo(words[1]);
-
-                //adding to taskArr and updates the storage
-                tasks.addTask(todo);
-                storage.updateFile(tasks);
-
-                //printing messages
-                String message = "Got it. I've added this task: \n" + todo
-                        + "\nNow you have " + tasks.size() + " tasks in the list.";
-
-                ui.updateMessage(message);
+                this.addTodo(tasks, ui, storage);
                 break;
             case "D":
-                if (words.length < 2) {
-                    throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
-                }
-
-                String text = words[1];
-                String[] split = text.split(" /by ", 2);
-                String desc = split[0];
-                String by = split[1];
-                Deadline dl = new Deadline(desc, by);
-
-                //add task to taskArr and updating the storage
-                tasks.addTask(dl);
-                storage.updateFile(tasks);
-
-                //printing the messages
-                String dlMessage = "Got it. I've added this task: \n" + dl
-                        + "\nNow you have " + tasks.size() + " tasks in the list.";
-                ui.updateMessage(dlMessage);
-
+                this.addDeadline(tasks, ui, storage);
                 break;
             case "E":
-                if (words.length < 2) {
-                    throw new DukeException("OOPS!!! The description of a event cannot be empty.");
-                }
-
-                String text2 = words[1];
-                String[] slice = text2.split(" /from ", 2);
-                String descr = slice[0].trim();
-                String[] slicess = slice[1].split(" /to ", 2);
-                String from = slicess[0].trim();
-                String to = slicess[1].trim();
-
-                Event e = new Event(descr, from, to);
-
-                //add task to taskArr and updating storage
-                tasks.addTask(e);
-                storage.updateFile(tasks);
-
-                //print messages
-                String eMessage = "Got it. I've added this task: \n" + e
-                        + "\nNow you have " + tasks.size() + " tasks in the list. ";
-                ui.updateMessage(eMessage);
-
+                this.addEvent(tasks, ui, storage);
                 break;
             default:
                 throw new DukeException(ui.messageCard("There may be wrong parameters inputted in, "
@@ -121,5 +67,93 @@ public class AddCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new DukeException(e.getMessage());
         }
+    }
+
+    /**
+     * Adds a todo task to the task list.
+     *
+     * @param tasks   The list of tasks to which the task will be added.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage handler for updating task data.
+     * @throws DukeException If there is an issue adding the task.
+     */
+    private void addTodo(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (words.length < 2) {
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+
+        //creating the to do
+        Todo todo = new Todo(words[1]);
+
+        //adding to taskArr and updates the storage
+        tasks.addTask(todo);
+        storage.updateFile(tasks);
+
+        //printing messages
+        String message = "Got it. I've added this task: \n" + todo
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
+
+        ui.updateMessage(message);
+    }
+
+    /**
+     * Adds a deadline task to the task list.
+     *
+     * @param tasks   The list of tasks to which the task will be added.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage handler for updating task data.
+     * @throws DukeException If there is an issue adding the task.
+     */
+    private void addDeadline(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (words.length < 2) {
+            throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+        }
+
+        String text = words[1];
+        String[] split = text.split(" /by ", 2);
+        String desc = split[0];
+        String by = split[1];
+        Deadline dl = new Deadline(desc, by);
+
+        //add task to taskArr and updating the storage
+        tasks.addTask(dl);
+        storage.updateFile(tasks);
+
+        //printing the messages
+        String dlMessage = "Got it. I've added this task: \n" + dl
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
+        ui.updateMessage(dlMessage);
+    }
+
+    /**
+     * Adds an event task to the task list.
+     *
+     * @param tasks   The list of tasks to which the task will be added.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage handler for updating task data.
+     * @throws DukeException If there is an issue adding the task.
+     */
+    private void addEvent(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (words.length < 2) {
+            throw new DukeException("OOPS!!! The description of a event cannot be empty.");
+        }
+
+        String text2 = words[1];
+        String[] slice = text2.split(" /from ", 2);
+        String descr = slice[0].trim();
+        String[] slicess = slice[1].split(" /to ", 2);
+        String from = slicess[0].trim();
+        String to = slicess[1].trim();
+
+        Event e = new Event(descr, from, to);
+
+        //add task to taskArr and updating storage
+        tasks.addTask(e);
+        storage.updateFile(tasks);
+
+        //print messages
+        String eMessage = "Got it. I've added this task: \n" + e
+                + "\nNow you have " + tasks.size() + " tasks in the list. ";
+        ui.updateMessage(eMessage);
     }
 }
