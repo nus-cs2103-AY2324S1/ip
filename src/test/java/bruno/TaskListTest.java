@@ -42,7 +42,7 @@ public class TaskListTest {
 
     @Test void testAddToDo_withoutDescription_exceptionThrown() {
         Exception exception = assertThrows(BrunoEmptyException.class, () -> taskList.addToDo("todo"));
-        assertEquals("Ruff Ruff! Description of todo cannot be empty! ❌", exception.getMessage());
+        assertEquals("Ruff Ruff! Description of todo cannot be empty!", exception.getMessage());
     }
 
     @Test void testAddDeadline_normalInput_correctOutputGenerated() {
@@ -59,13 +59,13 @@ public class TaskListTest {
     @Test void testAddDeadline_withoutDescription_exceptionThrown() {
         Exception exception = assertThrows(BrunoEmptyException.class, ()
                 -> taskList.addDeadline("deadline " + "/by 2023-08-30 19:00"));
-        assertEquals("Ruff Ruff! Description of deadline cannot be empty! ❌", exception.getMessage());
+        assertEquals("Ruff Ruff! Description of deadline cannot be empty!", exception.getMessage());
     }
 
     @Test void testAddDeadline_withoutDeadline_exceptionThrown() {
         Exception exception = assertThrows(BrunoMissingDeadlineException.class, ()
                 -> taskList.addDeadline("deadline work"));
-        assertEquals("Ruff Ruff! You cannot add a Deadline task without setting the deadline! ❌",
+        assertEquals("Ruff Ruff! You cannot add a Deadline task without setting the deadline!",
                 exception.getMessage());
     }
 
@@ -88,12 +88,12 @@ public class TaskListTest {
     @Test void testAddEvent_withoutDescription_exceptionThrown() {
         Exception e = assertThrows(BrunoEmptyException.class, ()
                 -> taskList.addEvent("event /from " + "2023-08-31 10:00 /to " + "2023-08-31 11:00"));
-        assertEquals("Ruff Ruff! Description of event cannot be empty! ❌", e.getMessage());
+        assertEquals("Ruff Ruff! Description of event cannot be empty!", e.getMessage());
     }
 
     @Test void testAddEvent_withoutStartEndTime_exceptionThrown() {
         Exception e = assertThrows(BrunoMissingEventException.class, () -> taskList.addEvent("event work"));
-        assertEquals("Ruff Ruff! You cannot add an Event task without setting start and end time! ❌",
+        assertEquals("Ruff Ruff! You cannot add an Event task without setting start and end time!",
                 e.getMessage());
     }
 

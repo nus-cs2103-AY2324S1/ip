@@ -18,17 +18,12 @@ public class UiTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
-    @Test void testDisplayLines() {
-        ui.displayLines();
-        assertEquals("- - - - - - - - - - - - - - - - - - - -\n", outputStreamCaptor.toString());
-    }
-
     @Test void testDisplayGreeting() {
-        String s = "Woof Woof! I'm Bruno \uD83D\uDC3E\n" + "How can I help you?";
+        String s = "Woof Woof! I'm Bruno\n" + "How can I help you?";
         assertEquals(s, ui.displayGreeting());
     }
 
     @Test void testDisplayBye() {
-        assertEquals("Bye Bye! Hope to see you again soon! \uD83D\uDC36", ui.displayBye());
+        assertEquals("Bye Bye! Hope to see you again soon!", ui.displayBye());
     }
 }

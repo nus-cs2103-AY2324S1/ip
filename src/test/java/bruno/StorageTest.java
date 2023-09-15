@@ -93,7 +93,7 @@ public class StorageTest {
     @Test void testLoadFile_invalidTaskType_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write("X|⭕️|work");
+            fileWriter.write("X|🔴|work");
             storage.loadFile(taskList);
         } catch (IOException e) {
             fail();
@@ -105,7 +105,7 @@ public class StorageTest {
     @Test void testLoadFile_incorrectDateFormat_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write("D|⭕️|work|23-08-2023 18:00");
+            fileWriter.write("D|🟢|work|23-08-2023 18:00");
             storage.loadFile(taskList);
         } catch (IOException e) {
             fail();
@@ -117,7 +117,7 @@ public class StorageTest {
     @Test void testLoadFile_missingDeadline_exceptionThrown() {
         File file = new File(dirPath + fileName);
         try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write("D|⭕️|work");
+            fileWriter.write("D|🔴|work");
             storage.loadFile(taskList);
         } catch (IOException e) {
             fail();

@@ -24,14 +24,14 @@ public class UI {
      */
     public String displayGreeting() {
         String name = "Bruno";
-        return "Woof Woof! I'm " + name + " 🐾" + "\nHow can I help you?";
+        return "Woof Woof! I'm " + name + "\nHow can I help you?";
     }
 
     /**
      * Displays the "bye" message when the command "bye" is entered.
      */
     public String displayBye() {
-        return "Bye Bye! Hope to see you again soon! 🐶";
+        return "Bye Bye! Hope to see you again soon!";
     }
 
     /**

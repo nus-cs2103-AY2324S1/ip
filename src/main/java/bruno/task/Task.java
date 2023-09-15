@@ -40,7 +40,7 @@ public class Task {
      * @return The string representation of the task, for the file.
      */
     public String getFileString() {
-        return (isDone ? "✅" : "⭕️") + "|" + description + "|" + note;
+        return (isDone ? "🟢" : "🔴") + "|" + description + "|" + note;
     }
 
     /**

@@ -9,6 +9,6 @@ public class BrunoNegativeArgException extends BrunoException {
     private String activity;
 
     public BrunoNegativeArgException(String activity) {
-        super("Ruff Ruff! Task numbers to be " + activity + "ed cannot be negative! ❌");
+        super("Ruff Ruff! Task numbers to be " + activity + "ed cannot be negative!");
     }
 }
