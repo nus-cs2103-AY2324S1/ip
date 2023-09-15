@@ -7,6 +7,9 @@ import martin.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command that to mark a task at a specified index.
+ */
 public class MarkCommand implements Command {
 
     private String command;
@@ -18,9 +21,13 @@ public class MarkCommand implements Command {
     }
 
     /**
-    * Marks the task at the specified index as done.
-    * @return String A message indicating the task has been marked as done or an error message.
-    */
+     * Marks the task at the specified index as done.
+     * 
+     * @return String A message indicating the task has been marked as done or an error message.
+     * @throws InvalidTaskNumberException If an invalid task number is given.
+     * @throws TaskAlreadyDoneException If the task to be marked is already marked as done.
+     * @throws MartinException If there's any other error executing the command.
+     */
     @Override
     public String execute() throws MartinException {
         try {

@@ -4,6 +4,9 @@ import martin.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command that searches and lists tasks that contain a given keyword.
+ */
 public class FindCommand implements Command {
 
     private String command;
@@ -15,9 +18,10 @@ public class FindCommand implements Command {
     }
 
     /**
-    * Finds tasks that match the given keyword.
-    * @return String The list of matching tasks.
-    */
+     * Finds tasks that match the given keyword.
+     *
+     * @return A formatted string listing all the tasks that match the keyword.
+     */
     @Override
     public String execute() {
         ArrayList<Task> matchingTasks = new ArrayList<>();

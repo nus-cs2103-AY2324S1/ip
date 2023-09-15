@@ -7,6 +7,9 @@ import martin.task.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Adds a new Todo task to the task list.
+ */
 public class TodoCommand implements Command {
 
     private String command;
@@ -18,9 +21,12 @@ public class TodoCommand implements Command {
     }
 
     /**
-    * Adds a new ToDo task to the task list.
-    * @return String A message indicating the task has been added or an error message.
-    */
+     * Adds a new ToDo task to the task list.
+     * 
+     * @return A string indicating the task has been added or an error message.
+     * @throws EmptyTaskDescription If no task description is given in the input.
+     * @throws MartinException If there's any other error executing the command.
+     */
     @Override
     public String execute() throws MartinException {
         if (command.length() <= 4) {

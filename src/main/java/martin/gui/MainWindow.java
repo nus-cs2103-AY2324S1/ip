@@ -114,6 +114,7 @@ public class MainWindow extends Application {
 
     /**
      * Input processing of user, and displaying of the user's text and Martin's reply.
+     * 
      * @throws IOException
      */
     private void handleUserInput() throws IOException {
