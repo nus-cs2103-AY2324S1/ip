@@ -13,6 +13,7 @@ import command.FindCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
+import command.StatisticsCommand;
 import command.ToDoCommand;
 import command.UnmarkCommand;
 import duke.DukeException;
@@ -146,6 +147,8 @@ public class Parser {
             return new HelpCommand();
         case "find":
             return createFindCommand(input);
+        case "stats":
+            return new StatisticsCommand();
         default:
             throw new DukeException("I'm sorry, but I don't understand that command.");
         }
