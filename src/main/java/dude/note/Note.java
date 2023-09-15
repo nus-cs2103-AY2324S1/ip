@@ -30,7 +30,9 @@ public class Note {
     }
 
     public boolean containKeywords(String keywords) {
-        return this.description.contains(keywords);
+        String lowercaseKeywords = keywords.toLowerCase();
+        String lowercaseDescription = this.description.toLowerCase();
+        return lowercaseDescription.contains(lowercaseKeywords);
     }
 
     /**
