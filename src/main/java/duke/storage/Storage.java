@@ -44,7 +44,7 @@ public class Storage {
                 storageFile.createNewFile();
             }
         } catch (IOException e) {
-            throw new DukeException("OOPS !!! It seems that a new file cannot be created.");
+            throw new DukeException("OOPS! It seems that a new file cannot be created.");
         }
     }
 
@@ -63,32 +63,35 @@ public class Storage {
                 String type = task.substring(1, 2);
                 String mark = task.substring(4, 5);
                 String description = task.substring(7);
-
-                if (type.equals("T")) {
+                switch(type) {
+                case "T":
                     Task todo = new Todo(description);
                     if (mark.equals("X")) {
                         todo.markDone();
                     }
                     listOfTasks.add(todo);
-                } else if (type.equals("E")) {
-                    String[] s = description.split(" \\(from: | to: |\\)");
-                    LocalDate from = LocalDate.parse(s[1], formatter);
-                    LocalDate to = LocalDate.parse(s[2], formatter);
-                    Task event = new Event(s[0], from.toString(), to.toString());
+                    break;
+                case "E":
+                    String[] eventSplit = description.split(" \\(from: | to: |\\)");
+                    LocalDate from = LocalDate.parse(eventSplit[1], formatter);
+                    LocalDate to = LocalDate.parse(eventSplit[2], formatter);
+                    Task event = new Event(eventSplit[0], from.toString(), to.toString());
                     if (mark.equals("X")) {
                         event.markDone();
                     }
                     listOfTasks.add(event);
-                } else if (type.equals("D")) {
-                    String[] s = description.split(" \\(by: |\\)");
-                    LocalDate by = LocalDate.parse(s[1], formatter);
-                    Task deadline = new Deadline(s[0], by.toString());
+                    break;
+                case "D":
+                    String[] deadlineSplit = description.split(" \\(by: |\\)");
+                    LocalDate by = LocalDate.parse(deadlineSplit[1], formatter);
+                    Task deadline = new Deadline(deadlineSplit[0], by.toString());
                     if (mark.equals("X")) {
                         deadline.markDone();
                     }
                     listOfTasks.add(deadline);
-                } else {
-                    throw new DukeException("OOPS !!! Can't Load task from File");
+                    break;
+                default:
+                    throw new DukeException("OOPS! Can't Load task from File");
                 }
             }
             return listOfTasks;
@@ -98,7 +101,6 @@ public class Storage {
             throw new DukeException("OOPS! Can't Load task from File");
         }
     }
-
 
     /**
      * Writes the list of tasks to the storage file
@@ -115,7 +117,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("OOPS! Failed to write task to file.");
+            throw new DukeException("OOPS! Failed to write task to file.");
         }
     }
 }

@@ -23,14 +23,10 @@ public class Deadline extends Task {
      * @param by the due date.
      * @throws DukeException If the date format is wrong.
      */
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, String by) {
         super(description);
-        try {
-            this.by = LocalDate.parse(by);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format! Please input in the form of yyyy-MM-dd");
+        this.by = LocalDate.parse(by);
         }
-    }
 
     /**
      * Returns the string representation of the deadline task.

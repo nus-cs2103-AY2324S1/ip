@@ -24,14 +24,10 @@ public class Event extends Task {
      * @param to the end date.
      * @throws DukeException If the date format is wrong.
      */
-    public Event(String description, String from, String to) throws DukeException {
+    public Event(String description, String from, String to) {
         super(description);
-        try {
-            this.from = LocalDate.parse(from);
-            this.to = LocalDate.parse(to);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format! Please input in the form of yyyy-MM-dd");
-        }
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
     }
 
     /**

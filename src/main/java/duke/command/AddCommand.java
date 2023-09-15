@@ -24,6 +24,51 @@ public class AddCommand extends Command {
         this.command = command;
     }
 
+    public String todoCommand(String taskDescription, TaskList tasks, Ui ui) {
+        if (taskDescription.isEmpty()) {
+            return ui.errorPrint(new DukeException("OOPS! The description of a todo cannot be empty."));
+        }
+        Task todoTask = new Todo(taskDescription);
+        tasks.add(todoTask);
+        return ui.taskPrint(todoTask, tasks.getTaskCount());
+    }
+
+    public String deadlineCommand(String taskDescription, TaskList tasks, Ui ui) {
+        if (taskDescription.isEmpty()) {
+            return ui.errorPrint(new DukeException("OOPS! The description of a deadline cannot be empty."));
+        }
+        String[] deadlineParts = taskDescription.split(" /by ");
+        if (deadlineParts.length != 2) {
+            return ui.errorPrint(new DukeException("Oops! The deadline command is of the wrong format!"));
+        }
+        try {
+            Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+            tasks.add(deadlineTask);
+            return ui.taskPrint(deadlineTask, tasks.getTaskCount());
+        } catch (DateTimeParseException e) {
+            return ui.errorPrint(
+                    new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd"));
+        }
+    }
+
+    public String eventCommand(String taskDescription, TaskList tasks, Ui ui) {
+        if (taskDescription.isEmpty()) {
+            return ui.errorPrint(new DukeException("OOPS! The description of an event cannot be empty."));
+        }
+        String[] eventParts = taskDescription.split(" /from | /to ");
+        if (eventParts.length != 3) {
+            return ui.errorPrint(new DukeException("Oops! The event command is of the wrong format!"));
+        }
+        try {
+            Task eventTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
+            tasks.add(eventTask);
+            return ui.taskPrint(eventTask, tasks.getTaskCount());
+        } catch (DateTimeParseException e) {
+            return ui.errorPrint(
+                    new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd"));
+        }
+    }
+
     /**
      * Executes the command.
      *
@@ -33,46 +78,18 @@ public class AddCommand extends Command {
      * @throws DukeException If the command execution fails.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (command.equalsIgnoreCase("todo")) {
-            return ui.errorPrint(new DukeException("OOPS! The description of a todo cannot be empty."));
-        } else if (command.equalsIgnoreCase("deadline")) {
-            return ui.errorPrint(new DukeException("OOPS! The description of a deadline cannot be empty."));
-        } else if (command.equalsIgnoreCase("event")) {
-            return ui.errorPrint(new DukeException("OOPS! The description of an event cannot be empty."));
-        }
-        String task = command.substring(0, command.indexOf(" "));
-        if (task.toLowerCase().startsWith("todo")) {
-            Task currTask = new Todo(command.replaceFirst("(?i)todo", ""));
-            tasks.add(currTask);
-            return ui.taskPrint(currTask, tasks.getTaskCount());
-        } else if (task.toLowerCase().startsWith("event")) {
-            String[] s = command.replaceFirst("(?i)event ", "").split(" /from | /to ");
-            try {
-                Task currTask = new Event(s[0], s[1], s[2]);
-                tasks.add(currTask);
-                return ui.taskPrint(currTask, tasks.getTaskCount());
-            } catch (DateTimeParseException e) {
-                return ui.errorPrint(
-                        new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd")
-                );
-            } catch (Exception e) {
-                return ui.errorPrint(new DukeException("Oops! The event command is of the wrong format!"));
-            }
-        } else if (task.toLowerCase().startsWith("deadline")) {
-            String[] s = command.replaceFirst("(?i)deadline ", "").split(" /by ");
-            try {
-                Task currTask = new Deadline(s[0], s[1]);
-                tasks.add(currTask);
-                return ui.taskPrint(currTask, tasks.getTaskCount());
-            } catch (DateTimeParseException e) {
-                return ui.errorPrint(
-                        new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd")
-                );
-            } catch (Exception e) {
-                return ui.errorPrint(new DukeException("Oops! The deadline command is of the wrong format!"));
-            }
-        } else {
-            return ui.errorPrint(new DukeException("Oops! I'm sorry, I don't know what that means."));
+        String task = command.split(" ")[0].toLowerCase();
+        String taskDescription = command.replaceFirst("(?i)" + task, "").trim();
+
+        switch (task) {
+        case "todo":
+            return todoCommand(taskDescription, tasks, ui);
+        case "deadline":
+            return deadlineCommand(taskDescription, tasks, ui);
+        case "event":
+            return eventCommand(taskDescription, tasks, ui);
+        default:
+            return ui.errorPrint(new DukeException("Oops! I'm sorry, I don't know what that means..."));
         }
     }
 
