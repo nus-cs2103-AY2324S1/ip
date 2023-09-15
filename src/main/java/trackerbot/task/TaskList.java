@@ -10,7 +10,7 @@ import trackerbot.utils.Parser;
  * Collection of Tasks for use in TrackerBot.
  *
  * @author WZWren
- * @version A-JavaDoc
+ * @version A-CodeQuality
  */
 public class TaskList {
     /**
@@ -33,7 +33,7 @@ public class TaskList {
      * @throws TrackerBotException if the addition of the task encounters an error during parse.
      * @see trackerbot.utils.Parser#parseAdd
      */
-    public String add(CommandType type, String commandField) throws TrackerBotException {
+    public String addTask(CommandType type, String commandField) throws TrackerBotException {
         Task newTask = Parser.parseAdd(type, commandField);
         tasks.add(newTask);
         return "I am tracking this task now:\n  " + newTask.toString();
@@ -48,15 +48,7 @@ public class TaskList {
      */
     public String markTask(int index) throws TrackerBotException {
         Task task = getTask(index);
-        // happy path: the task does not exist.
-        if (task == null) {
-            throw new TrackerBotException("The specified task does not exist.");
-        }
-
-        if (!task.markTask()) {
-            throw new TrackerBotException("The specified task is already completed.");
-        }
-
+        task.markTask();
         return "This task has been marked as completed.\n  " + task;
     }
 
@@ -69,16 +61,7 @@ public class TaskList {
      */
     public String unmarkTask(int index) throws TrackerBotException {
         Task task = getTask(index);
-        // happy path: the task does not exist.
-        if (task == null) {
-            throw new TrackerBotException("The specified task does not exist.");
-        }
-
-        // we can use an exception here to denote the task is completed
-        if (!task.unmarkTask()) {
-            throw new TrackerBotException("This task is already in progress.");
-        }
-
+        task.unmarkTask();
         return "The task has been marked as incomplete.\n  " + task;
     }
 
@@ -88,13 +71,8 @@ public class TaskList {
      * @return The reply String to be passed into Ui.
      * @throws TrackerBotException if the Task specified does not exist.
      */
-    public String delete(int index) throws TrackerBotException {
+    public String deleteTask(int index) throws TrackerBotException {
         Task task = getTask(index);
-        // happy path: the task does not exist.
-        if (task == null) {
-            throw new TrackerBotException("The specified task does not exist.");
-        }
-
         tasks.remove(index - 1);
         return "I have removed this task off of my list.\n  " + task + "\n"
                 + tasks.size() + " task(s) remain on my list.";
@@ -127,7 +105,6 @@ public class TaskList {
         }
 
         if (result.length() == 0) {
-            // we do not throw an error here - having no matches is a valid result from find.
             return "No results match your search.";
         }
 
@@ -144,7 +121,6 @@ public class TaskList {
      * @return A String representation of the Task List, to pass directly into Ui.
      */
     public String list() {
-        // happy path: prints an appropriate message and exit the method.
         if (tasks.size() == 0) {
             return "No tasks have been added to the list yet.";
         }
@@ -179,10 +155,9 @@ public class TaskList {
      * @param index The index of the list to check.
      * @return The Task object at the index, if it exists, and null otherwise.
      */
-    private Task getTask(int index) {
-        // happy path: return null if out of bounds.
+    private Task getTask(int index) throws TrackerBotException {
         if (index <= 0 || index > tasks.size()) {
-            return null;
+            throw new TrackerBotException("The specified task does not exist.");
         }
         return tasks.get(index - 1);
     }
