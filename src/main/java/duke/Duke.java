@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 
 import java.util.Scanner;
 
-
 /**
  * Program to run a task manager that can add, delete and mark tasks.
  *
@@ -23,6 +22,7 @@ public class Duke {
         //assert response != null;
         return response;
     }
+
     /**
      * Constructor to start the program.
      */

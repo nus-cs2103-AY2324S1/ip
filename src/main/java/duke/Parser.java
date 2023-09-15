@@ -1,6 +1,5 @@
 package duke;
 
-
 import javafx.application.Platform;
 
 /**
@@ -29,6 +28,7 @@ public class Parser {
      * Parses the user input and calls the appropriate task command.
      *
      * @param s User input picked up by the scanner.
+     * @return The String representation of the output.
      */
     public String parse(String s) {
         String[] input = s.split(" ", 2);
