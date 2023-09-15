@@ -58,7 +58,7 @@ public class Ui {
             }
             todoListString.append(task);
         }
-        return "Here are the matching tasks in your list:" + todoListString.toString().stripTrailing();
+        return "Here are the matching tasks in your list:\n" + todoListString.toString().stripTrailing();
     }
 
     /**
