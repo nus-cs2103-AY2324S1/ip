@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,7 +15,7 @@ public class Storage {
     /**
      * Saves current taskList as a json file.
      */
-    public static void saveAsJson(List<Task> taskList) {
+    public static void saveAsJson(TaskList taskList) {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = 
            new SimpleModule("TaskSerializer", new Version(1, 0, 0, null, null, null));
@@ -32,17 +31,17 @@ public class Storage {
     /**
      * Reads json file and save to taskList.
      */
-    public static List<Task> readJson(List<Task> taskList) {
+    public static TaskList readJson(TaskList taskList) {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module =
             new SimpleModule("TaskDeserializer", new Version(1, 0, 0, null, null, null));
         module.addDeserializer(Task.class, new TaskDeserializer());
         mapper.registerModule(module);
 
-        List<Task> resultList = new ArrayList<>();
+        TaskList resultList = new TaskList();
 
         try {
-            resultList = mapper.readValue(new File("tasks.json"), new TypeReference<ArrayList<Task>>(){});
+            resultList.addAll(mapper.readValue(new File("tasks.json"), new TypeReference<ArrayList<Task>>(){}));
         } catch (IOException e) {
             // If no such file exists
             new File("tasks.json");
