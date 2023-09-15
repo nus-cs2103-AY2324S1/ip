@@ -7,20 +7,20 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
     /**
      * Constructs an event task with description and date-time range.
      *
      * @param description Description of the event.
-     * @param from Starting date and time of the event.
-     * @param to Ending date and time of the event.
+     * @param start Starting date and time of the event.
+     * @param end Ending date and time of the event.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.start = start;
+        this.end = end;
     }
 
     /**
@@ -28,8 +28,8 @@ public class Event extends Task {
      *
      * @return Starting date and time.
      */
-    public LocalDateTime getFrom() {
-        return from;
+    public LocalDateTime getStart() {
+        return start;
     }
 
     /**
@@ -37,14 +37,14 @@ public class Event extends Task {
      *
      * @return Ending date and time.
      */
-    public LocalDateTime getTo() {
-        return to;
+    public LocalDateTime getEnd() {
+        return end;
     }
 
     @Override
     public String display() {
         return "[E] " + super.display() + " (from: "
-                + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + " to: "
-                + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")";
+                + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + " to: "
+                + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")";
     }
 }

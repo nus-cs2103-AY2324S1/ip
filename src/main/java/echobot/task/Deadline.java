@@ -7,17 +7,17 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected LocalDate dueDate;
 
     /**
      * Constructs a deadline task with description and due date.
      *
      * @param description Description of the deadline.
-     * @param by Due date of the deadline.
+     * @param dueDate Due date of the deadline.
      */
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate dueDate) {
         super(description);
-        this.by = by;
+        this.dueDate = dueDate;
     }
 
     /**
@@ -25,13 +25,13 @@ public class Deadline extends Task {
      *
      * @return Due date.
      */
-    public LocalDate getBy() {
-        return by;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
     @Override
     public String display() {
         return "[D] " + super.display() + " (by: "
-                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                + dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

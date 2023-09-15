@@ -15,51 +15,52 @@ import echobot.task.Deadline;
 import echobot.task.Event;
 import echobot.task.Task;
 import echobot.task.Todo;
-import echobot.ui.Ui;
 
 public class MarkCommandTest {
     @Test
     public void testMarkCommand() {
         ArrayList<Task> tasks = new ArrayList<>();
+
         Task task1 = new Todo("Buy groceries");
-        LocalDate by = LocalDate.now();
-        Task task2 = new Deadline("Finish homework", by);
-        LocalDateTime from = LocalDateTime.now();
-        LocalDateTime to = LocalDateTime.now().plusHours(10);
-        Task task3 = new Event("Meeting", from, to);
+        LocalDate dueDate = LocalDate.now();
+        Task task2 = new Deadline("Finish homework", dueDate);
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = LocalDateTime.now().plusHours(10);
+        Task task3 = new Event("Meeting", start, end);
 
         tasks.add(task1);
         tasks.add(task2);
         tasks.add(task3);
 
-
         MarkCommand markCommand = new MarkCommand(2);
-        String response = markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt", null), null, null);
+        String response = markCommand.doCommand(tasks, new Storage("./data/dummy.txt", null), null);
 
         assertTrue(task2.isTaskDone());
 
         // Verify the response message
         String expectedResponse = "Nice! I've marked this task as done:\n";
-        expectedResponse += "[X] Finish homework (by: " + by.toString() + ")";
+        expectedResponse += "[X] Finish homework (by: " + dueDate.toString() + ")";
         Assertions.assertEquals(expectedResponse, response);
     }
 
     @Test
     public void anotherTestMarkCommand() {
         ArrayList<Task> tasks = new ArrayList<>();
+
         Task task1 = new Todo("Buy groceries");
-        LocalDate by = LocalDate.now();
-        Task task2 = new Deadline("Finish homework", by);
-        LocalDateTime from = LocalDateTime.now();
-        LocalDateTime to = LocalDateTime.now().plusHours(10);
-        Task task3 = new Event("Meeting", from, to);
+        LocalDate dueDate = LocalDate.now();
+        Task task2 = new Deadline("Finish homework", dueDate);
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = LocalDateTime.now().plusHours(10);
+        Task task3 = new Event("Meeting", start, end);
 
         tasks.add(task1);
         tasks.add(task2);
         tasks.add(task3);
 
         MarkCommand markCommand = new MarkCommand(1);
-        String response = markCommand.doCommand(tasks, new Ui(), new Storage("./data/dummy.txt", null), null, null);
+        String response = markCommand.doCommand(tasks,
+                new Storage("./data/dummy.txt", null), null);
 
         assertFalse(task3.isTaskDone());
 

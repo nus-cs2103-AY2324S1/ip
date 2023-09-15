@@ -3,8 +3,6 @@ package echobot.command;
 import java.util.ArrayList;
 
 import echobot.storage.Storage;
-import echobot.ui.Ui;
-import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
 /**
@@ -18,7 +16,7 @@ public abstract class Command <T> {
         TODO, DEADLINE, EVENT
     }
 
-    public abstract String doCommand(ArrayList<T> type, Ui ui, Storage storage, Scene scene, VBox dialogContainer);
+    public abstract String doCommand(ArrayList<T> type, Storage storage, VBox dialogContainer);
 
     /**
      * Extracts the task number from the user input.

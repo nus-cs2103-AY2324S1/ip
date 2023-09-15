@@ -6,8 +6,6 @@ import echobot.storage.Storage;
 import echobot.task.Deadline;
 import echobot.task.Event;
 import echobot.task.Task;
-import echobot.ui.Ui;
-import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
 /**
@@ -31,13 +29,11 @@ public class UnmarkCommand extends Command<Task> {
      * and saves the updated task list to storage.
      *
      * @param tasks           The list of tasks.
-     * @param ui              The user interface component.
      * @param storage         The storage component for saving tasks.
-     * @param scene           The JavaFX scene.
      * @param dialogContainer The container for displaying dialog messages.
      * @return The response message indicating the task was marked as not done.
      */
-    public String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {
+    public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
         if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);
 
@@ -47,9 +43,9 @@ public class UnmarkCommand extends Command<Task> {
             responseText += "[" + task.getStatusIcon() + "] " + task.getDescription();
 
             if (task instanceof Event) {
-                responseText += " (from: " + ((Event) task).getFrom() + " to: " + ((Event) task).getTo() + ")";
+                responseText += " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")";
             } else if (task instanceof Deadline) {
-                responseText += " (by: " + ((Deadline) task).getBy() + ")";
+                responseText += " (by: " + ((Deadline) task).getDueDate() + ")";
             }
 
             storage.saveTasks(tasks, dialogContainer); // Save after unmarking

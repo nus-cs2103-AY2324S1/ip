@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import echobot.storage.Storage;
 import echobot.task.Task;
-import echobot.ui.Ui;
-import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
 /**
@@ -13,7 +11,7 @@ import javafx.scene.layout.VBox;
  */
 public class ListCommand extends Command<Task> {
     @Override
-    public String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {
+    public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
         StringBuilder responseText = new StringBuilder();
 
         responseText.append("Here are the tasks in your list:\n");

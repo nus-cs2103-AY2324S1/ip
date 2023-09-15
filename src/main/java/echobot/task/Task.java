@@ -1,8 +1,8 @@
 package echobot.task;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import echobot.parser.Parser;
 
 /**
  * Represents a task.
@@ -35,11 +35,11 @@ public class Task {
             type = "T";
         } else if (this instanceof Deadline) {
             type = "D";
-            dateTime = " | " + ((Deadline) this).getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            dateTime = " | " + ((Deadline) this).getDueDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } else if (this instanceof Event) {
             type = "E";
-            dateTime = " | " + ((Event) this).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | "
-                    + ((Event) this).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            dateTime = " | " + ((Event) this).getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | "
+                    + ((Event) this).getEnd().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         return type + " | " + (isDone ? "1" : "0") + " | " + description + dateTime;
@@ -64,15 +64,15 @@ public class Task {
             task = new Todo(description);
             break;
         case "D":
-            String by = parts[3];
+            String dueDate = parts[3];
             // Use parseDate method to convert to LocalDate
-            task = new Deadline(description, parseDate(by));
+            task = new Deadline(description, Parser.parseDate(dueDate));
             break;
         case "E":
-            String from = parts[3];
-            String to = parts[4];
+            String start = parts[3];
+            String end = parts[4];
             // Use parseDateTime method to convert to LocalDateTime
-            task = new Event(description, parseDateTime(from), parseDateTime(to));
+            task = new Event(description, Parser.parseDateTime(start), Parser.parseDateTime(end));
             break;
         default:
             throw new IllegalArgumentException("Invalid task type: " + type);
@@ -83,26 +83,6 @@ public class Task {
         }
 
         return task;
-    }
-
-    /**
-     * Parse date and time string into a LocalDateTime object.
-     *
-     * @param dateTime Date and time string.
-     * @return LocalDateTime object.
-     */
-    private static LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-    }
-
-    /**
-     * Parses date string into a LocalDate object.
-     *
-     * @param date Date string.
-     * @return LocalDate object.
-     */
-    private static LocalDate parseDate(String date) {
-        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     /**

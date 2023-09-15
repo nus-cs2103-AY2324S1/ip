@@ -16,16 +16,17 @@ import javafx.scene.layout.VBox;
 
 
 /**
- * Handles loading and saving tasks.
+ * The Storage class handles loading and saving tasks and notes.
  */
 public class Storage {
     private String tasksFilePath;
     private String notesFilePath;
 
     /**
-     * Constructs a Storage instance with the specified file path.
+     * Constructs a Storage object with file paths for tasks and notes.
      *
-     * @param tasksFilePath The path to the file where tasks are stored.
+     * @param tasksFilePath The file path for storing tasks.
+     * @param notesFilePath The file path for storing notes.
      */
     public Storage(String tasksFilePath, String notesFilePath) {
         this.tasksFilePath = tasksFilePath;
@@ -84,6 +85,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Loads notes from the notes file and returns them as a list.
+     *
+     * @return The list of notes.
+     */
     public ArrayList<Note> loadNotes() {
         ArrayList<Note> notes = new ArrayList<>();
         File file = new File(notesFilePath);
@@ -131,6 +137,12 @@ public class Storage {
         return notes;
     }
 
+    /**
+     * Saves the list of tasks to the tasks file.
+     *
+     * @param tasks           The list of tasks to be saved.
+     * @param dialogContainer The container for displaying dialog messages.
+     */
     public void saveTasks(ArrayList<Task> tasks, VBox dialogContainer) {
         try (PrintWriter writer = new PrintWriter(tasksFilePath)) {
             for (Task task : tasks) {
@@ -141,6 +153,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of notes to the notes file.
+     *
+     * @param notes           The list of notes to be saved.
+     * @param dialogContainer The container for displaying dialog messages.
+     */
     public void saveNotes(ArrayList<Note> notes, VBox dialogContainer) {
         // Save notes to notesFilePath
         try (PrintWriter writer = new PrintWriter(notesFilePath)) {

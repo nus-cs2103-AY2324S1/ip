@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import echobot.storage.Storage;
 import echobot.task.Task;
-import echobot.ui.Ui;
-import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
 /**
@@ -28,18 +26,20 @@ public class FindCommand extends Command<Task> {
      */
     public ArrayList<Task> findTasks(ArrayList<Task> tasks, String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+
         for (Task task : tasks) {
             if (task.getDescription().toLowerCase().matches(".*\\b" + keyword.toLowerCase() + "\\b.*")) {
                 assert task.getDescription() != null : "Task description should not be null.";
                 matchingTasks.add(task);
             }
         }
+
         return matchingTasks;
     }
 
 
     @Override
-    public String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {
+    public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
         ArrayList<Task> matchingTasks = findTasks(tasks, keyword);
 
         if (!matchingTasks.isEmpty()) {
@@ -47,12 +47,11 @@ public class FindCommand extends Command<Task> {
 
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task task = matchingTasks.get(i);
-                responseText += (i + 1) + ". " + task.display() + "\n";
+                responseText += "    " + (i + 1) + ". " + task.display() + "\n";
             }
 
         } else {
             responseText = "No tasks match the keyword: " + keyword + "\n";
-
         }
 
         return responseText;

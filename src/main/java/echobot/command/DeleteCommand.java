@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import echobot.storage.Storage;
 import echobot.task.Task;
-import echobot.ui.Ui;
-import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
 /**
@@ -25,7 +23,7 @@ public class DeleteCommand extends Command<Task> {
     }
 
     @Override
-    public String doCommand(ArrayList<Task> tasks, Ui ui, Storage storage, Scene scene, VBox dialogContainer) {
+    public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
         if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task deletedTask = tasks.remove(taskNum - 1);
 
