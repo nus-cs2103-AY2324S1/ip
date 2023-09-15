@@ -40,7 +40,7 @@ public class MarkCommand extends Command{
         if (tasks.checkIndexWithinRange(index)) {
             throw new NobitaException("Selected task number not in list");
         }
-        assert index > 0 && index <= tasks.getTasksSize() : "Index should be within tasks range";
+        assert index >= 0 && index < tasks.getTasksSize() : "Index should be within tasks range";
         Task task = tasks.markComplete(index);
         String outputMessage = "Nice! I've marked this task as done:\n" + task;
         ui.showMessage(outputMessage);

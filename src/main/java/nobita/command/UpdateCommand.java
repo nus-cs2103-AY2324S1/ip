@@ -6,28 +6,27 @@ import nobita.task.Task;
 import nobita.task.TaskList;
 import nobita.ui.Ui;
 
-/**
- * Class that encapsulates UnmarkCommand which extends from Command.
- *
- * @author Zheng Chenglong
- *
- */
-public class UnmarkCommand extends Command{
-
+public class UpdateCommand extends Command {
     /** The index of task to be marked*/
     private final int index;
 
+    private final String updateField;
+
+    private final String updateValue;
+
     /**
-     * Constructs UnmarkCommand using the index of the task.
+     * Constructs UpdateCommand using the index, update field and update value of task.
      *
      * @param index the index of the task to be marked.
      */
-    public UnmarkCommand(int index) {
+    public UpdateCommand(int index, String updateField, String updateValue) {
         this.index = index;
+        this.updateField = updateField;
+        this.updateValue = updateValue;
     }
 
     /**
-     * Command that executes the unmarking of task.
+     * Command that executes the updating of task.
      *
      * @param tasks Contains all current tasks.
      * @param ui Ui for interacting with user.
@@ -41,8 +40,8 @@ public class UnmarkCommand extends Command{
             throw new NobitaException("Selected task number not in list");
         }
         assert index >= 0 && index < tasks.getTasksSize() : "Index should be within tasks range";
-        Task task = tasks.markIncomplete(index);
-        String outputMessage = "OK, I've marked this task as not done yet:\n" + task;
+        Task task = tasks.updateTask(index, updateField, updateValue);
+        String outputMessage = "OK, I've update this task:\n" + task;
         ui.showMessage(outputMessage);
         return outputMessage;
     };

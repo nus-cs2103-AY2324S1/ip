@@ -1,5 +1,7 @@
 package nobita.task;
 
+import nobita.exception.NobitaException;
+
 import java.util.StringJoiner;
 
 /**
@@ -10,7 +12,7 @@ import java.util.StringJoiner;
 public class Task {
 
     /** The name of the task */
-    private final String taskName;
+    private String taskName;
 
     /** Whether the task is completed or not */
     private boolean isComplete = false;
@@ -75,5 +77,22 @@ public class Task {
         StringJoiner joiner = new StringJoiner(";");
         joiner.add(this.isComplete ? "1" : "0").add(this.taskName);
         return joiner.toString();
+    }
+
+    /**
+     * Update a field of the task.
+     *
+     * @param updateField The field of task to be updated.
+     * @param updateValue The value of the field to be updated to.
+     * @return The updated task.
+     * @throws NobitaException If specified update field does not exist.
+     */
+    public Task setField(String updateField, String updateValue) throws NobitaException {
+        if (updateField.toLowerCase().equals("/name")) {
+            this.taskName = updateValue;
+        } else {
+            throw new NobitaException("ToDo task do not have " + updateValue + " field.");
+        }
+        return this;
     }
 }

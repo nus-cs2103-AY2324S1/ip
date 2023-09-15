@@ -1,5 +1,7 @@
 package nobita.task;
 
+import nobita.exception.NobitaException;
+
 import java.util.StringJoiner;
 
 /**

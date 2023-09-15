@@ -1,5 +1,7 @@
 package nobita.task;
 
+import nobita.exception.NobitaException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,6 +25,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Getter for number of tasks.
+     *
      * @return An integer representing number of total tasks.
      */
     public int getTasksSize() {
@@ -31,6 +34,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Add a task to the list.
+     *
      * @param task The task to be added to list.
      */
     public void addTask(Task task) {
@@ -73,6 +77,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Rrturn all tasks in ArrayList.
+     *
      * @return An ArrayList that contains all tasks.
      */
     public ArrayList<Task> getAllTasks() {
@@ -81,9 +86,9 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Print all tasks that matches the query.
-     * @param query The query to compare with all tasks name.
      *
-     * @Return A TaskList containing all match tasks.
+     * @param query The query to compare with all tasks name.
+     * @return A TaskList containing all match tasks.
      */
     public TaskList findTask(String query) {
         TaskList matchedQuery = new TaskList();
@@ -97,11 +102,12 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Check if a task index is within the tasklist.
+     *
      * @param ind The task index to be checked.
      * @return True if task index fall within the tasklist, False otherwise.
      */
     public boolean checkIndexWithinRange(int ind) {
-        return ind < 1 || ind > this.tasks.size();
+        return ind < 0 || ind >= this.tasks.size();
     }
 
     /**
@@ -131,6 +137,20 @@ public class TaskList implements Iterable<Task> {
             listInd++;
         }
         return tasksStringBuilder.toString();
+    }
+
+    /**
+     * Update a task field.
+     *
+     * @param targetTask The index of the task to update.
+     * @param updateField The field of the task to update.
+     * @param updateValue The value of the field to update to.
+     * @return The Task that is updated.
+     * @throws NobitaException If error occur while updating task.
+     */
+    public Task updateTask(int targetTask, String updateField, String updateValue) throws NobitaException {
+        Task task = this.tasks.get(targetTask);
+        return task.setField(updateField, updateValue);
     }
 }
 
