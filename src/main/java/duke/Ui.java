@@ -58,6 +58,18 @@ public class Ui {
         return output;
     }
 
+    public static String updateTaskErrorMessage() {
+        String output = "Format: update taskNumber /(desc, by, from, to) value, e.g. update 1 /from 2023-12-30";
+        System.out.println(output);
+        return output;
+    }
+
+    public static String wrongTaskTypeErrorMessage() {
+        String output = "This task type does not have the required field.";
+        System.out.println(output);
+        return output;
+    }
+
     public static String unmarkTaskErrorMessage() {
         String output = "Please enter a number e.g., unmark 1";
         System.out.println(output);

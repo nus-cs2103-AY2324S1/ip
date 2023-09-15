@@ -102,8 +102,8 @@ public class TaskList {
             Task task = taskList.get(toDelete - 1);
             String deletedTask = task.toString();
             taskList.remove(toDelete - 1);
-            String output = "Noted. I've removed this task:\n" +
-                    deletedTask + "\n" + "Number of tasks: " + taskList.size();
+            String output = "Noted. I've removed this task:\n"
+                    + deletedTask + "\n" + "Number of tasks: " + taskList.size();
             System.out.println(output);
             return output;
         } catch (IndexOutOfBoundsException e) {
@@ -131,8 +131,8 @@ public class TaskList {
             }
             Event e = new Event(desc, LocalDate.parse(from), LocalDate.parse(to));
             taskList.add(e);
-            String output = "Got it. I've added this task:\n" +
-                    e.toString() + "\n" + "Number of tasks: " + taskList.size();
+            String output = "Got it. I've added this task:\n"
+                    + e.toString() + "\n" + "Number of tasks: " + taskList.size();
             System.out.println(output);
             return output;
         } catch (DukeException e) {
@@ -160,8 +160,8 @@ public class TaskList {
             }
             Deadline d = new Deadline(desc, LocalDate.parse(deadline));
             taskList.add(d);
-            String output = "Got it. I've added this task:\n" +
-                    d.toString() + "\n" + "Number of tasks: " + taskList.size();
+            String output = "Got it. I've added this task:\n"
+                    + d.toString() + "\n" + "Number of tasks: " + taskList.size();
             System.out.println(output);
             return output;
         } catch (DukeException e) {
@@ -187,8 +187,8 @@ public class TaskList {
             }
             ToDo t = new ToDo(desc);
             taskList.add(t);
-            String output = "Got it. I've added this task:\n" +
-                    t.toString() + "\n" + "Number of tasks: " + taskList.size();
+            String output = "Got it. I've added this task:\n"
+                    + t.toString() + "\n" + "Number of tasks: " + taskList.size();
             System.out.println(output);
             return output;
         } catch (IndexOutOfBoundsException e) {
@@ -225,6 +225,69 @@ public class TaskList {
             return Ui.findTasksErrorMessage();
         } catch (DukeException e) {
             return e.getMessage();
+        }
+    }
+
+    public String updateTask(String[] input) {
+        try {
+            String[] s1 = input[1].split("/", 2);
+            String[] s2 = s1[1].split(" ", 2);
+            String taskNumber = s1[0].strip();
+            String updateType = s2[0].strip();
+            String newValue = s2[1].strip();
+            if (Integer.parseInt(taskNumber) > taskList.size()) {
+                throw new DukeException(Ui.taskNotFoundErrorMessage());
+            }
+            if (taskNumber.equals("") || updateType.equals("") || newValue.equals("")) {
+                throw new DukeException(Ui.updateTaskErrorMessage());
+            }
+            Task task = taskList.get(Integer.parseInt(taskNumber) - 1);
+            updateTaskValue(task, updateType, newValue);
+            String output = "OK, I've updated this task:\n" + task.toString();
+            System.out.println(output);
+            return output;
+        } catch (IndexOutOfBoundsException e) {
+            return Ui.updateTaskErrorMessage();
+        } catch (NumberFormatException e) {
+            return Ui.updateTaskErrorMessage();
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return Ui.invalidDateErrorMessage();
+        }
+    }
+
+    private void updateTaskValue(Task task, String toUpdate, String newValue) throws DukeException {
+        switch (toUpdate) {
+        case "desc":
+            task.updateDescription(newValue);
+            break;
+        case "by":
+            if (task instanceof Deadline) {
+                Deadline d = (Deadline) task;
+                d.updateByDate(LocalDate.parse(newValue));
+            } else {
+                throw new DukeException(Ui.wrongTaskTypeErrorMessage());
+            }
+            break;
+        case "from":
+            if (task instanceof Event) {
+                Event e = (Event) task;
+                e.updateFromDate(LocalDate.parse(newValue));
+            } else {
+                throw new DukeException(Ui.wrongTaskTypeErrorMessage());
+            }
+            break;
+        case "to":
+            if (task instanceof Event) {
+                Event e = (Event) task;
+                e.updateToDate(LocalDate.parse(newValue));
+            } else {
+                throw new DukeException(Ui.wrongTaskTypeErrorMessage());
+            }
+            break;
+        default:
+            throw new DukeException(Ui.updateTaskErrorMessage());
         }
     }
 }
