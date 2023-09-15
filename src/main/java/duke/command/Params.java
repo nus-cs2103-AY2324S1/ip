@@ -13,16 +13,7 @@ public class Params {
     /**
      * Map containing parameter names as keys and their corresponding values as values.
      */
-    private Map<String, String> paramMap;
-
-    /**
-     * Constructs a Params object with the provided parameter map.
-     *
-     * @param paramMap The map of parameters.
-     */
-    public Params(Map<String, String> paramMap) {
-        this.paramMap = paramMap;
-    }
+    private final Map<String, String> paramMap;
 
     /**
      * Constructs a Params object with an empty parameter map.
@@ -93,7 +84,7 @@ public class Params {
     /**
      * Returns a string representation of the parameters.
      *
-     * @return A string representing the parameters in the format "paramName1: paramValue1, ...
+     * @return A string representing the parameters in the format "paramName1: paramValue1, ..."
      */
     @Override
     public String toString() {

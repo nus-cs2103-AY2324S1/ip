@@ -73,31 +73,22 @@ public class Parser {
         String arg = paramArray[0].trim();
         paramsMap.setArgument(arg);
 
-        if (paramArray.length > 1) {
-            for (int i = 1; i < paramArray.length; i++) {
-                String[] keyValue = paramArray[i].trim().split("\\s+", 2);
+        if (paramArray.length == 1) {
+            return paramsMap;
+        }
 
-                if (keyValue.length == 2) {
-                    String key = keyValue[0];
-                    String value = keyValue[1].trim();
-
-                    paramsMap.setParam(key, value);
-                } else {
-                    throwException("Invalid parameter format", "command /param1 ... /param2 ... /param3 ...");
-                }
+        for (int i = 1; i < paramArray.length; i++) {
+            String[] keyValue = paramArray[i].trim().split("\\s+", 2);
+            if (keyValue.length != 2) {
+                throw new DukeException(String.format("%s\n\n\tUsage: %s", "Invalid parameter format",
+                    "command /param1 ... /param2 ... /param3 ..."));
             }
+
+            String key = keyValue[0];
+            String value = keyValue[1].trim();
+
+            paramsMap.setParam(key, value);
         }
         return paramsMap;
-    }
-
-    /**
-     * Throws a DukeException with a formatted error message including usage information.
-     *
-     * @param message   The error message to display.
-     * @param usageText The usage information for the command.
-     * @throws DukeException The exception with the formatted error message.
-     */
-    private static void throwException(String message, String usageText) throws DukeException {
-        throw new DukeException(String.format("%s\n\n\tUsage: %s", message, usageText));
     }
 }
