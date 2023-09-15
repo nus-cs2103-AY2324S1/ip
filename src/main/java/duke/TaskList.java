@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -58,4 +60,19 @@ public class TaskList {
         return matchingTasks;
     }
 
+    public void postponeDeadline(int index, LocalDateTime newDateTime) throws DukeException {
+        if (!(this.tasks.get(index) instanceof Deadline)) {
+            throw new DukeException("Wrong type of task");
+        }
+
+        ((Deadline) this.tasks.get(index)).postpone(newDateTime);
+    }
+
+    public void rescheduleEvent(int index, LocalDateTime newStartTime, LocalTime newEndTime) throws DukeException {
+        if (!(this.tasks.get(index) instanceof Event)) {
+            throw new DukeException("Wrong type of task");
+        }
+
+        ((Event) this.tasks.get(index)).reschedule(newStartTime, newEndTime);
+    }
 }

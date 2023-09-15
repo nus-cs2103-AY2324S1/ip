@@ -18,12 +18,12 @@ public class Deadline extends Task {
         this.identifier = "[D]";
     }
 
-    public void changeDeadline(LocalDateTime newBy) {
+    public void postpone(LocalDateTime newBy) {
         this.by = newBy;
     }
     @Override
     public String toString() {
-        return this.identifier + super.toString() + "(by: "
+        return this.identifier + super.toString() + " (by: "
                 + by.format(DateTimeFormatter.ofPattern("LLL dd yyyy Ka")) + ")";
     }
 }
