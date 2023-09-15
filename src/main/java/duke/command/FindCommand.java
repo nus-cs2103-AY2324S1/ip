@@ -48,7 +48,7 @@ public class FindCommand extends Command {
     /**
      * Returns whether executing this command should result in exiting the program.
      *
-     * @return true if the command should result in program exit, false otherwise.
+     * @return false since it is not an exit command.
      */
     @Override
     public boolean isExit() {

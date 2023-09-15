@@ -42,11 +42,13 @@ public class DeleteCommand extends Command {
         //remove task and updating
         tasks.deleteTask(index);
         storage.updateFile(tasks);
+        ui.updateDeletedTask(task);
 
         //printing messages
         String res = "Noted. I've removed this task: \n" + task + "\nNow you have "
                 + tasks.size() + " tasks in the list.";
         ui.updateMessage(res);
+        ui.updateRecentCommand("delete");
     }
 
     /**

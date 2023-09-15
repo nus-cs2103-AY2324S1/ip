@@ -32,7 +32,7 @@ public class AddCommand extends Command {
     /**
      * Checks if the AddCommand should trigger the program to exit.
      *
-     * @return True if the command is an exit command, false otherwise.
+     * @return false since it is not an exit command.
      */
     @Override
     public boolean isExit() {
@@ -94,6 +94,7 @@ public class AddCommand extends Command {
                 + "\nNow you have " + tasks.size() + " tasks in the list.";
 
         ui.updateMessage(message);
+        ui.updateRecentCommand("add");
     }
 
     /**
@@ -123,6 +124,7 @@ public class AddCommand extends Command {
         String dlMessage = "Got it. I've added this task: \n" + dl
                 + "\nNow you have " + tasks.size() + " tasks in the list.";
         ui.updateMessage(dlMessage);
+        ui.updateRecentCommand("add");
     }
 
     /**
@@ -155,5 +157,6 @@ public class AddCommand extends Command {
         String eMessage = "Got it. I've added this task: \n" + e
                 + "\nNow you have " + tasks.size() + " tasks in the list. ";
         ui.updateMessage(eMessage);
+        ui.updateRecentCommand("add");
     }
 }

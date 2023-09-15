@@ -7,6 +7,7 @@ import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.UndoCommand;
 import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
@@ -27,11 +28,13 @@ public class Parser {
         assert fullCommand != null && fullCommand != "" : "User command cannot be empty!";
 
         String[] words = fullCommand.split(" ", 2);
-        String firstWord = words[0];
+        String type = words[0];
 
-        switch (firstWord) {
+        switch (type) {
         case "bye":
             return new ExitCommand();
+        case "undo":
+            return new UndoCommand();
         case "list":
             return new ListCommand();
         case "mark":
