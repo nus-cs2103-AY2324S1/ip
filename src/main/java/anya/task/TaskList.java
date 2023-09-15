@@ -53,6 +53,14 @@ public class TaskList {
         return this.tasks.get(index);
     }
 
+    public Task mark(int index) {
+        return this.tasks.get(index).markAsDone();
+    }
+
+    public Task unmark(int index) {
+        return this.tasks.get(index).markAsNotDone();
+    }
+
     /**
      * Returns the number of tasks in the `TaskList`.
      *
@@ -79,13 +87,13 @@ public class TaskList {
      *
      * @param input The keyword to search for in task descriptions.
      */
-    public void find(String input) {
+    public TaskList find(String input) {
         TaskList matchingTasks = new TaskList();
         for (Task t : tasks) {
             if (t.getDescription().contains(input)) {
                 matchingTasks.add(t);
             }
         }
-        matchingTasks.list();
+        return matchingTasks;
     }
 }
