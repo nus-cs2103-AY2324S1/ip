@@ -11,7 +11,7 @@ public class DateParserTest {
     @Test
     public void transformDateTimeFormat_validDateTimeString_transformed() throws InvalidDateTimeException {
         String input = "2023-08-28 1430";
-        String expectedOutput = "Aug 28 2023, 2:30pm";
+        String expectedOutput = "Aug 28 2023, 2:30PM";
 
         assertEquals(expectedOutput, DateParser.transformDateTimeFormat(input));
     }
