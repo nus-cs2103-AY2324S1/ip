@@ -70,6 +70,7 @@ public class Duke extends Application {
      */
     public String deleteTask(String taskIndex) throws IOException {
         int index = Integer.parseInt(taskIndex) - 1;
+        assert index >= 0 && index < tasks.getSize() : "Invalid task index!";
         Task removedTask = tasks.removeTask(index);
         storage.saveTasks(tasks.getTasks());
         return generateTaskRemovedMessage(removedTask);
@@ -94,6 +95,7 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String addTodo(String task) throws IOException {
+        assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
         Task newTask = new Todo(task);
         tasks.addTask(newTask);
         storage.saveTasks(tasks.getTasks());
@@ -120,6 +122,7 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String addDeadline(String task) throws IllegalArgumentException, DateTimeParseException, IOException {
+        assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
         String[] parts = task.split(" /by ");
 
         guardForValidDeadlineFormat(parts);
@@ -155,6 +158,7 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String addEvent(String task) throws IllegalArgumentException, DateTimeParseException, IOException {
+        assert task != null && !task.trim().isEmpty() : "Task description cannot be empty or null!";
         String[] parts = validateEventFormat(task);
 
         Task newTask = new Event(parts[0], parts[1], parts[2]);
@@ -238,9 +242,12 @@ public class Duke extends Application {
      */
     private String modifyTaskStatus(String task, boolean markAsDone) throws IOException {
         int index = Integer.parseInt(task) - 1;
+        assert index >= 0 && index < tasks.getSize() : "Invalid task index for unmark task!";
+
         Task modifiedTask = markAsDone ? tasks.markDone(index) : tasks.unmarkDone(index);
         String statusMessage = markAsDone ? "Nice! I've marked this task as done:\n  "
                 : "OK, I've marked this task as not done yet:\n  ";
+
         storage.saveTasks(tasks.getTasks());
         return statusMessage + modifiedTask + "\n";
     }
@@ -252,7 +259,9 @@ public class Duke extends Application {
      * @return The response to the user.
      */
     public String findAndListTasks(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Search keyword cannot be empty or null!";
         StringBuilder response = new StringBuilder();
+
         ArrayList<Task> matchedTasks = tasks.findTasks(keyword);
         if (matchedTasks.isEmpty()) {
             response.append("No tasks found with the keyword: ").append(keyword).append("\n");
