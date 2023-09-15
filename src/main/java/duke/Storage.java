@@ -14,7 +14,9 @@ import tasks.TaskList;
  */
 public class Storage {
 
+    //CHECKSTYLE.OFF: AbbreviationAsWordInName
     private final String FILENAME;
+    //CHECKSTYLE.ON: AbbreviationAsWordInName
 
     /**
      * Constructor, initializes the file name indicated by the user.

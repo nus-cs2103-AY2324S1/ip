@@ -27,6 +27,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userAvatar.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/dukeAvatar.png"));
 
+    /**
+     * Initializes chatbox window with the intro message.
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.getIntroMessage(), dukeImage));
