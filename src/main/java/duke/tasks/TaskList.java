@@ -45,7 +45,8 @@ public class TaskList {
         int initialSize = store.size();
         store.add(task);
         assert store.size() == initialSize + 1 : "Task addition failed!";
-        return String.format("Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n", task, store.size());
+        return String.format("Got it. I've added this task:"
+                + "\n\t%s\nNow you have %d tasks in the list.\n", task, store.size());
     }
 
     /**
@@ -60,7 +61,8 @@ public class TaskList {
         validateIndex(index);
         Task task = store.remove(index - 1);
         assert store.size() == initialSize - 1 : "Task deletion failed!";
-        return String.format("Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.\n", task, store.size());
+        return String.format("Noted. I've removed this task:"
+                + "\n\t%s\nNow you have %d tasks in the list.\n", task, store.size());
     }
 
     /**
@@ -194,17 +196,5 @@ public class TaskList {
         }
 
         return "Updated task:\n\t" + task;
-    }
-
-    /**
-     * Validates the provided index for array list access.
-     *
-     * @param index The index to validate.
-     * @throws InvalidIndexException If the index is out of bounds.
-     */
-    private void validateIndex(int index) throws InvalidIndexException {
-        if (index <= 0 || index > store.size()) {
-            throw new InvalidIndexException();
-        }
     }
 }
