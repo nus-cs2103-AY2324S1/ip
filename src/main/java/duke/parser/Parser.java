@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duke.Duke;
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidFormatException;
 import duke.exceptions.UnknownCommandException;
 import duke.tasks.Commands;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
+import duke.tasks.SortOrder;
+import duke.tasks.SortType;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.TodoTask;
@@ -30,7 +33,7 @@ public class Parser {
     private static final String FROM_EMPTY = "\uD83D\uDE21 Missing from!";
     private static final String TO_EMPTY = "\uD83D\uDE21 Missing to!";
     private static final String TIME_FORMAT_ERROR = "\uD83D\uDE21 Time format invalid!";
-    private static final String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD";
+    private static final String INVALID_DATE_FORMAT = "\uD83D\uDE21 Invalid date format! Try using YYYY-MM-DD HH:mm";
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -65,10 +68,10 @@ public class Parser {
      *
      * @param inputString The input string entered by the user.
      * @param taskList    The list of tasks
-     * @return true if the program can continue, false if the program has to halt.
+     * @return an array list of modified tasks
      * @throws DukeException
      */
-    public static ArrayList<Task> parseInput(String inputString, TaskList taskList) throws DukeException {
+    public static ArrayList<Task> parseInput(String inputString, TaskList taskList, Duke duke) throws DukeException {
 
         Commands inputCommand = getInputCommand(inputString);
         ArrayList<Task> modifiedTasks = new ArrayList<>();
@@ -80,21 +83,35 @@ public class Parser {
         }
         case MARK: {
             // check if is number
-            int index = Integer.parseInt(inputString.split(" ")[1]);
+            String[] inputArgs = inputString.split(" ");
+            if (inputArgs.length != 2) {
+                throw new InvalidFormatException("Invalid format for Mark!", inputString);
+            }
+            int index = Integer.parseInt(inputArgs[1]);
             Task markedTask = taskList.markAsDone(index);
             modifiedTasks.add(markedTask);
 
             break;
         }
         case UNMARK: {
-            int index = Integer.parseInt(inputString.split(" ")[1]);
+            // check if is number
+            String[] inputArgs = inputString.split(" ");
+            if (inputArgs.length != 2) {
+                throw new InvalidFormatException("Invalid format for Unmark!", inputString);
+            }
+            int index = Integer.parseInt(inputArgs[1]);
             Task unmarkedTask = taskList.markAsUnDone(index);
             modifiedTasks.add(unmarkedTask);
 
             break;
         }
         case DELETE: {
-            int index = Integer.parseInt(inputString.split(" ")[1]);
+            // check if is number
+            String[] inputArgs = inputString.split(" ");
+            if (inputArgs.length != 2) {
+                throw new InvalidFormatException("Invalid format for Delete!", inputString);
+            }
+            int index = Integer.parseInt(inputArgs[1]);
             Task removedTask = taskList.removeFromList(index);
             modifiedTasks.add(removedTask);
 
@@ -207,6 +224,14 @@ public class Parser {
 
             modifiedTasks = filtered;
 
+            break;
+        }
+        case SORT: {
+            String[] args = inputString.replace("sort ", "").split(" ");
+            SortType type = SortType.parseString(args[0]);
+            SortOrder order = SortOrder.parseString(args[1]);
+
+            duke.setSort(type, order);
             break;
         }
 

@@ -62,8 +62,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         try {
-            ArrayList<Task> modifiedTasks = Parser.parseInput(input, duke.getTaskList());
-            String response = Ui.getResponseMessage(Parser.getInputCommand(input), modifiedTasks, duke.getTaskList());
+            ArrayList<Task> modifiedTasks = Parser.parseInput(input, duke.getTaskList(), duke);
+            String response = Ui.getResponseMessage(Parser.getInputCommand(input),
+                    modifiedTasks,
+                    duke.getTaskList(),
+                    duke.getSortType(),
+                    duke.getSortOrder());
             assert !response.isEmpty() : " Response message is blank!";
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog((input), crop(userImage, true)),
@@ -73,7 +77,7 @@ public class MainWindow extends AnchorPane {
 
             duke.save();
         } catch (DukeException e) {
-            String response = e.getMessage();
+            String response = e.getErrorMessage();
 
             assert !response.isEmpty() : " Error message is blank!";
             dialogContainer.getChildren().addAll(

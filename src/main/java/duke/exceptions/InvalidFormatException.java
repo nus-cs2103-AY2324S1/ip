@@ -20,7 +20,9 @@ public class InvalidFormatException extends DukeException {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + "\n" + incorrectReason + "\n  " + this.incorrectInput;
+    public String getErrorMessage() {
+        return super.getErrorMessage() + "\n" + this.incorrectReason + "\n  " + this.incorrectInput;
     }
+
+
 }

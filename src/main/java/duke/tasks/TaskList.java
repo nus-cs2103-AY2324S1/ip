@@ -2,15 +2,18 @@ package duke.tasks;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import duke.exceptions.NotFoundException;
+
 /**
  * Stores the list of tasks that the user has.
  * Provides additional methods for operating on the tasks.
  */
 public class TaskList {
-    private ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list;
 
     /**
      * The constructor for a basic TaskList.
@@ -99,11 +102,11 @@ public class TaskList {
 
     /**
      * Gets all tasks.
-     *
      */
     public ArrayList<Task> getTasks() {
         return this.list;
     }
+
     /**
      * Encodes the current Duke. Tasks in a string, each task separated by a newline.
      *
@@ -142,6 +145,83 @@ public class TaskList {
             resultMsg.append(task);
             resultMsg.append("\n");
         }
+
+        return resultMsg.toString();
+
+    }
+
+    public String getTasksAsText(SortType sortType, SortOrder sortOrder) {
+        // assume ASC by default
+        ArrayList<Task> result = new ArrayList<>();
+
+        switch (sortType) {
+        case ID: {
+            // default case: sorted by ID
+            // don't do anything
+            result = new ArrayList<>(this.list);
+            break;
+        }
+        case NAME: {
+            // sort by name
+            result = new ArrayList<>(this.list);
+            result.sort(Comparator.comparing(Task::getName));
+            break;
+        }
+        case TYPE: {
+            // sort by type: todos first, then deadlines, then events
+            for (Task t : this.list) {
+                if (t instanceof TodoTask) {
+                    result.add(t);
+                }
+            }
+            for (Task t : this.list) {
+                if (t instanceof DeadlineTask) {
+                    result.add(t);
+                }
+            }
+            for (Task t : this.list) {
+                if (t instanceof EventTask) {
+                    result.add(t);
+                }
+            }
+            break;
+        }
+        case DEADLINE: {
+            // sort by todos first, then events and deadlines by the start time
+            ArrayList<TimedTask> nonTodos = new ArrayList<>();
+            for (Task t : this.list) {
+                if (t instanceof TimedTask) {
+                    nonTodos.add((TimedTask) t);
+                } else {
+                    result.add(t);
+                }
+            }
+
+            Collections.sort(nonTodos);
+            result.addAll(nonTodos);
+
+
+            break;
+        }
+        default: {
+            System.out.println("meh");
+        }
+        }
+
+        if (sortOrder == SortOrder.DESC) {
+            // reverse the array
+            Collections.reverse(result);
+        }
+
+
+        StringBuilder resultMsg = new StringBuilder();
+
+        for (int i = 0; i < result.size(); i++) {
+            Task task = result.get(i);
+            resultMsg.append(task);
+            resultMsg.append("\n");
+        }
+
 
         return resultMsg.toString();
     }

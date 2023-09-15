@@ -12,7 +12,8 @@ public enum Commands {
     TODO,
     DEADLINE,
     EVENT,
-    FIND;
+    FIND,
+    SORT;
 
     /**
      * Tests to see if a string contains this enum.

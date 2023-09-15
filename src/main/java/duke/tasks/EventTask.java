@@ -8,11 +8,7 @@ import java.time.format.DateTimeFormatter;
  *
  * Contains a start time, and an end time.
  */
-public class EventTask extends Task {
-
-    private LocalDateTime fromDateTime;
-    private LocalDateTime toDateTime;
-
+public class EventTask extends TimedTask {
     /**
      * Constructor for an Event Task
      *
@@ -21,9 +17,8 @@ public class EventTask extends Task {
      * @param toDateTime The time the event ends
      */
     public EventTask(String itemName, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
-        super(itemName);
-        this.fromDateTime = fromDateTime;
-        this.toDateTime = toDateTime;
+        super(itemName, fromDateTime, toDateTime);
+
     }
 
     /**
@@ -35,9 +30,8 @@ public class EventTask extends Task {
      * @param toDateTime The time the event ends
      */
     public EventTask(int id, String itemName, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
-        super(id, itemName);
-        this.fromDateTime = fromDateTime;
-        this.toDateTime = toDateTime;
+        super(id, itemName, fromDateTime, toDateTime);
+
     }
 
 
@@ -48,13 +42,18 @@ public class EventTask extends Task {
 
     @Override
     public String encodeTask() {
-        return super.encodeTask() + " | " + this.fromDateTime + " | " + this.toDateTime;
+        return super.encodeTask() + " | " + this.getStart() + " | " + this.getEnd();
     }
 
     @Override
     public String toString() {
         return super.toString()
-                + " (from: " + this.fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"))
-                + " to: " + this.toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
+                + " (from: " + this.getStart().format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"))
+                + " to: " + this.getEnd().format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";
+    }
+
+    @Override
+    public int compareTo(TimedTask o) {
+        return this.getStart().compareTo(o.getStart());
     }
 }
