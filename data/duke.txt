@@ -5,5 +5,4 @@ D | N | write book | 2022-11-11
 E | N | book fair | 2000-11-11 | 2000-11-11
 T | N | jebfw
 T | N | adf
-T | N | daifb
 D | N | da | 2020-01-01

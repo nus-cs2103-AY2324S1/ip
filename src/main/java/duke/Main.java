@@ -23,7 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
-            stage.setOnCloseRequest(event -> {
+            stage.setOnHidden(event -> {
                 duke.updateTaskList();
                 fxmlLoader.<MainWindow>getController().getExitMessage();
             });
