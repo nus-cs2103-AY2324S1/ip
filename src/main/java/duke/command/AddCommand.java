@@ -24,6 +24,51 @@ public class AddCommand extends Command {
         this.command = command;
     }
 
+    public String todoCommand(String taskDescription, TaskList tasks, Ui ui) {
+        if (taskDescription.isEmpty()) {
+            return ui.errorPrint(new DukeException("OOPS! The description of a todo cannot be empty."));
+        }
+        Task todoTask = new Todo(taskDescription);
+        tasks.add(todoTask);
+        return ui.taskPrint(todoTask, tasks.getTaskCount());
+    }
+
+    public String deadlineCommand(String taskDescription, TaskList tasks, Ui ui) {
+        if (taskDescription.isEmpty()) {
+            return ui.errorPrint(new DukeException("OOPS! The description of a deadline cannot be empty."));
+        }
+        String[] deadlineParts = taskDescription.split(" /by ");
+        if (deadlineParts.length != 2) {
+            return ui.errorPrint(new DukeException("Oops! The deadline command is of the wrong format!"));
+        }
+        try {
+            Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+            tasks.add(deadlineTask);
+            return ui.taskPrint(deadlineTask, tasks.getTaskCount());
+        } catch (DateTimeParseException e) {
+            return ui.errorPrint(
+                    new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd"));
+        }
+    }
+
+    public String eventCommand(String taskDescription, TaskList tasks, Ui ui) {
+        if (taskDescription.isEmpty()) {
+            return ui.errorPrint(new DukeException("OOPS! The description of an event cannot be empty."));
+        }
+        String[] eventParts = taskDescription.split(" /from | /to ");
+        if (eventParts.length != 3) {
+            return ui.errorPrint(new DukeException("Oops! The event command is of the wrong format!"));
+        }
+        try {
+            Task eventTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
+            tasks.add(eventTask);
+            return ui.taskPrint(eventTask, tasks.getTaskCount());
+        } catch (DateTimeParseException e) {
+            return ui.errorPrint(
+                    new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd"));
+        }
+    }
+
     /**
      * Executes the command.
      *
@@ -38,47 +83,14 @@ public class AddCommand extends Command {
 
         switch (task) {
         case "todo":
-            if (taskDescription.isEmpty()) {
-                return ui.errorPrint(new DukeException("OOPS! The description of a todo cannot be empty."));
-            }
-            Task todoTask = new Todo(taskDescription);
-            tasks.add(todoTask);
-            return ui.taskPrint(todoTask, tasks.getTaskCount());
-
+            return todoCommand(taskDescription, tasks, ui);
         case "deadline":
-            if (taskDescription.isEmpty()) {
-                return ui.errorPrint(new DukeException("OOPS! The description of a deadline cannot be empty."));
-            }
-            String[] deadlineParts = taskDescription.split(" /by ");
-            if (deadlineParts.length != 2) {
-                return ui.errorPrint(new DukeException("Oops! The deadline command is of the wrong format!"));
-            }
-            try {
-                Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
-                tasks.add(deadlineTask);
-                return ui.taskPrint(deadlineTask, tasks.getTaskCount());
-            } catch (DateTimeParseException e) {
-                return ui.errorPrint(
-                        new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd"));
-            }
+            return deadlineCommand(taskDescription, tasks, ui);
         case "event":
-            if (taskDescription.isEmpty()) {
-                return ui.errorPrint(new DukeException("OOPS! The description of an event cannot be empty."));
-            }
-            String[] eventParts = taskDescription.split(" /from | /to ");
-            if (eventParts.length != 3) {
-                return ui.errorPrint(new DukeException("Oops! The event command is of the wrong format!"));
-            }
-            try {
-                Task eventTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
-                tasks.add(eventTask);
-                return ui.taskPrint(eventTask, tasks.getTaskCount());
-            } catch (DateTimeParseException e) {
-                return ui.errorPrint(
-                        new DukeException("Invalid date format! Please input date using the format yyyy-MM-dd"));
-            }
+            return eventCommand(taskDescription, tasks, ui);
         default:
-            return ui.errorPrint(new DukeException("Oops! I'm sorry, I don't know what that means."));
+            return ui.errorPrint(new DukeException("Oops! I'm sorry, I don't know what that means..."));
         }
     }
+
 }

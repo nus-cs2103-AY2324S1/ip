@@ -24,7 +24,7 @@ public class Event extends Task {
      * @param to the end date.
      * @throws DukeException If the date format is wrong.
      */
-    public Event(String description, String from, String to) throws DukeException {
+    public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
