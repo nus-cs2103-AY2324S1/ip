@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -82,6 +83,7 @@ public class TaskList {
                 throw new DukeException("Error: There are no items in the list!");
             }
             res = new StringBuilder(Ui.line);
+            Collections.sort(tasks);
             for (int i = 0; i < taskCount; i++) {
                 Task task = tasks.get(i);
                 int index = i + 1;
@@ -102,6 +104,7 @@ public class TaskList {
      */
     public static String displayList(ArrayList<Task> tasks) {
         String res = Ui.line + "\n";
+        Collections.sort(tasks);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             int index = i + 1;

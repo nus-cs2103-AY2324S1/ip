@@ -36,90 +36,90 @@ class ParserTest {
     void testBye() {
         Parser parser = new Parser();
         parser.setUserInput("bye");
-        assertTrue(parser.bye());
+        assertTrue(parser.isBye());
 
         parser.setUserInput("not bye");
-        assertFalse(parser.bye());
+        assertFalse(parser.isBye());
     }
 
     @Test
     void testList() {
         Parser parser = new Parser();
         parser.setUserInput("list");
-        assertTrue(parser.list());
+        assertTrue(parser.isList());
 
         parser.setUserInput("not list");
-        assertFalse(parser.list());
+        assertFalse(parser.isList());
     }
 
     @Test
     void testMark() {
         Parser parser = new Parser();
         parser.setUserInput("mark 1");
-        assertTrue(parser.mark());
+        assertTrue(parser.isMark());
 
         parser.setUserInput("not mark");
-        assertFalse(parser.mark());
+        assertFalse(parser.isMark());
     }
 
     @Test
     void testUnMark() {
         Parser parser = new Parser();
         parser.setUserInput("unmark 1");
-        assertTrue(parser.unMark());
+        assertTrue(parser.isUnmark());
 
         parser.setUserInput("not unmark");
-        assertFalse(parser.unMark());
+        assertFalse(parser.isUnmark());
     }
 
     @Test
     void testDelete() {
         Parser parser = new Parser();
         parser.setUserInput("delete 1");
-        assertTrue(parser.delete());
+        assertTrue(parser.isDelete());
 
         parser.setUserInput("not delete");
-        assertFalse(parser.delete());
+        assertFalse(parser.isDelete());
     }
 
     @Test
     void testTodo() {
         Parser parser = new Parser();
         parser.setUserInput("todo Buy groceries");
-        assertTrue(parser.todo());
+        assertTrue(parser.isTodo());
 
         parser.setUserInput("not todo");
-        assertFalse(parser.todo());
+        assertFalse(parser.isTodo());
     }
 
     @Test
     void testDeadline() {
         Parser parser = new Parser();
         parser.setUserInput("deadline Complete assignment /by 2023-09-30");
-        assertTrue(parser.deadline());
+        assertTrue(parser.isDeadline());
 
         parser.setUserInput("not deadline");
-        assertFalse(parser.deadline());
+        assertFalse(parser.isDeadline());
     }
 
     @Test
     void testEvent() {
         Parser parser = new Parser();
         parser.setUserInput("event Conference /from 2023-09-01 /to 2023-09-05");
-        assertTrue(parser.event());
+        assertTrue(parser.isEvent());
 
         parser.setUserInput("not event");
-        assertFalse(parser.event());
+        assertFalse(parser.isEvent());
     }
 
     @Test
     void testFind() {
         Parser parser = new Parser();
         parser.setUserInput("find task");
-        assertTrue(parser.find());
+        assertTrue(parser.isFind());
 
         parser.setUserInput("not find");
-        assertFalse(parser.find());
+        assertFalse(parser.isFind());
     }
 
     @Test

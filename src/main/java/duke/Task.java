@@ -3,7 +3,7 @@ package duke;
 /**
  * The Task class represents a generic task item with a description and completion status.
  */
-public class Task {
+public class Task implements Comparable<Task> {
     Boolean done = false;
     String task;
     static String line = "______________________________________________________________________________________\n";
@@ -57,7 +57,6 @@ public class Task {
     public String getTask() {
         return "." + this.toString();
     }
-
     /**
      * Returns a string representation of the task with checkbox status.
      *
@@ -67,5 +66,9 @@ public class Task {
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
         return checkbox + task;
+    }
+
+    public int compareTo(Task otherTask) {
+        return this.task.compareTo(otherTask.task);
     }
 }
