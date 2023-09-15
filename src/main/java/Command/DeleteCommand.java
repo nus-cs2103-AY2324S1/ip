@@ -42,6 +42,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
+            assert taskIndex > 0 && taskIndex < taskList.getTaskCount() : "Invalid task index/ out of range";
             Task removedTask = taskList.deleteTask(taskIndex);
             storage.saveTask(taskList.getTasks());
             return ui.showDeletedTask(removedTask, taskList.getTaskCount());

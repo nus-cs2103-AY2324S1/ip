@@ -39,9 +39,9 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assert taskToAdd != null : "Task to add cannot be null.";
         taskList.addTask(taskToAdd);
         storage.saveTask(taskList.getTasks());
         return ui.showTaskAdded(taskToAdd, taskList.getTaskCount());
-
     }
 }

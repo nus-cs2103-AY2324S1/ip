@@ -94,10 +94,6 @@ public class Parser {
         String[] words = input.split(" ");
         String command = words[0].toLowerCase();
 
-        if (words.length < 2 && !command.equals("bye") && !command.equals("list") && !command.equals("help")) {
-            throw new DukeException("The description of the command cannot be empty.");
-        }
-
         switch (command) {
         case "bye":
             return new ByeCommand();
@@ -108,6 +104,9 @@ public class Parser {
             Task todoTask = new ToDo(todoDesc);
             return new ToDoCommand(todoTask);
         case "add":
+            if (words.length < 2) {
+                throw new DukeException("Please specify a task to add.");
+            }
             String addDesc = input.substring(4).trim();
             Task addTask = new Add(addDesc);
             return new AddCommand(addTask);
@@ -150,6 +149,9 @@ public class Parser {
             String echoText = input.substring(5).trim(); // Extract the text
             return new EchoCommand(echoText);
         case "delete":
+            if (words.length < 2) {
+                throw new DukeException("Please provide me a task index to delete");
+            }
             int taskNumToDel = Integer.parseInt(words[1]) - 1;
             return new DeleteCommand(taskNumToDel);
         case "help":

@@ -34,7 +34,6 @@ dependencies {
 }
 
 configurations {
-    // Define a configuration named 'runtime' that selects the appropriate classifier
     runtime {
         if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
             resolutionStrategy.eachDependency { DependencyResolveDetails details ->
@@ -72,15 +71,17 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("app.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "duke"
+    archiveFileName = 'duke.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run {
     standardInput = System.in
+    enableAssertions = true;
 }
