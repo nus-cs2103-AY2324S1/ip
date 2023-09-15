@@ -53,6 +53,10 @@ public class Deadline extends Task {
 
     @Override
     public String getReminder(LocalDate currDate, int days) {
+        if (this.status) {
+            return null;
+        }
+
         if (this.date.getYear() != currDate.getYear()) {
             return null;
         }

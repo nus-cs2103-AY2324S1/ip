@@ -60,6 +60,10 @@ public class Event extends Task {
 
     @Override
     public String getReminder(LocalDate currDate, int days) {
+        if (this.status) {
+            return null;
+        }
+
         if (this.endDate.getYear() != currDate.getYear()) {
             return null;
         }
