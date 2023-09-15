@@ -2,6 +2,8 @@ package duke.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import duke.tasks.Task;
 
@@ -72,12 +74,10 @@ public class OutputService {
      * @param taskList The list of tasks to be formatted.
      */
     public List<String> formatTaskList(List<Task> taskList) {
-        List<String> tasksWithNumber = new ArrayList<>();
-        for (int i = 0; i < taskList.size(); ++i) {
-            String taskNumber = String.format("%s. ", i + 1);
-            tasksWithNumber.add(taskNumber + taskList.get(i));
-        }
-        return tasksWithNumber;
+        return Stream.iterate(0, i -> i + 1)
+            .limit(taskList.size())
+            .map(i -> String.format("%s. %s", i + 1, taskList.get(i))) // taskList is 0-indexed. display is 1-indexed.
+            .collect(Collectors.toList());
     }
 
     private String appendNewLine(String line) {
