@@ -26,6 +26,14 @@ public class Event extends Task{
         LocalDate.parse(to);
     }
 
+    public Event(String description, String[] tags, String from, String to) {
+        super(description, tags);
+        this.from = from;
+        this.to = to;
+        LocalDate.parse(from);
+        LocalDate.parse(to);
+    }
+
     /**
      * Get description of the event
      *

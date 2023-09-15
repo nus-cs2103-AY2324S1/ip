@@ -8,6 +8,10 @@ public class ToDo extends Task{
         super(description);
     }
 
+    public ToDo(String description, String[] tags) {
+        super(description, tags);
+    }
+
     /**
      * Get the description of the task
      *
