@@ -74,6 +74,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public String mark(int index) {
+        assert !tasks.isEmpty() : "Your task list is empty, please add more elements.";
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
@@ -92,6 +93,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public String unMark(int index) {
+        assert !tasks.isEmpty() : "Your task list is empty, please add more elements.";
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
@@ -110,6 +112,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public String delete(int index) {
+        assert !tasks.isEmpty() : "Your task list is empty, please add more elements.";
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
@@ -127,18 +130,15 @@ public class TaskList {
      * @return Message with the list of tasks containing the keyword.
      */
     public String find(String keyword) {
-        if (tasks.isEmpty()) {
-            return ("Your list is empty.");
-        } else {
-            int matchingTaskCount = 1;
-            StringBuilder ans = new StringBuilder("Here are the matching tasks in your list:\n");
-            for (Task curr : tasks) {
-                if (curr.toString().contains(keyword)) {
-                    ans.append(matchingTaskCount).append(".").append(curr).append("\n");
-                    matchingTaskCount++;
-                }
+        assert !tasks.isEmpty() : "Your task list is empty, please add more elements.";
+        int matchingTaskCount = 1;
+        StringBuilder ans = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (Task curr : tasks) {
+            if (curr.toString().contains(keyword)) {
+                ans.append(matchingTaskCount).append(".").append(curr).append("\n");
+                matchingTaskCount++;
             }
-            return ans.toString();
         }
+        return ans.toString();
     }
 }
