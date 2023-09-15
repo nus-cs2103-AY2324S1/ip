@@ -14,6 +14,19 @@ import tasklist.TaskList;
  */
 public class Ui {
 
+    private static final String HELP_DESK = "List of Commands: Add, Deadline, Event, Todo, Echo,"
+            + "Mark, Unmark, Delete, Find, Bye\n"
+            + "1. Add - Add a task to the list\n"
+            + "2. Deadline - Add a task with a deadline\n"
+            + "3. Event - Add an event task\n"
+            + "4. Todo - Add a todo task\n"
+            + "5. Echo - Echo a message\n"
+            + "6. Mark - Mark a task as done\n"
+            + "7. Unmark - Unmark a task as done\n"
+            + "8. Delete - Delete a task\n"
+            + "9. Find - Find tasks by keyword\n"
+            + "10. Bye - Exit the program";
+
     /**
      * Displays a welcome message to the user when the application starts.
      *
@@ -49,17 +62,7 @@ public class Ui {
      * @return A list of available commands.
      */
     public String showCommands() {
-        return "List of Commands: Add, Deadline, Event, Todo, Echo, Mark, Unmark, Delete, Find, Bye\n"
-                + "1. Add - Add a task to the list\n"
-                + "2. Deadline - Add a task with a deadline\n"
-                + "3. Event - Add an event task\n"
-                + "4. Todo - Add a todo task\n"
-                + "5. Echo - Echo a message\n"
-                + "6. Mark - Mark a task as done\n"
-                + "7. Unmark - Unmark a task as done\n"
-                + "8. Delete - Delete a task\n"
-                + "9. Find - Find tasks by keyword\n"
-                + "10. Bye - Exit the program";
+        return HELP_DESK;
     }
 
     /**
