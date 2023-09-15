@@ -106,7 +106,10 @@ public class Task {
     public static Task createTask(String command) throws IncompleteInputException, InvalidInputException {
         String[] splittedCommand = command.split(" ", 2);
         String taskType = splittedCommand[0];
+
         if (splittedCommand.length == 1) {
+            assert taskType != null && !taskType.isEmpty() : "Task type cannot be null or empty";
+
             if (taskType.equals("todo") || taskType.equals("deadline") || taskType.equals("event")) {
                 throw new IncompleteInputException("The description of a " + taskType + " cannot be empty.");
             } else {
@@ -185,7 +188,9 @@ public class Task {
     public static LocalDate parseDate(String date) {
         for (DatesAndTimesFormatter formatter : DatesAndTimesFormatter.values()) {
             try {
-                return LocalDate.parse(date, formatter.formatter);
+                LocalDate parsedDate = LocalDate.parse(date, formatter.formatter);
+                assert parsedDate != null : "Parsed date cannot be null";
+                return parsedDate;
             } catch (Exception e) {
                 continue;
             }

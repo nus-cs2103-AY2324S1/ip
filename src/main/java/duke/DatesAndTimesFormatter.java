@@ -21,6 +21,7 @@ public enum DatesAndTimesFormatter {
      */
     DatesAndTimesFormatter(DateTimeFormatter formatter) {
         this.formatter = formatter;
+        assert this.formatter != null : "Formatter cannot be null";
     }
 
     /**

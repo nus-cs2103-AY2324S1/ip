@@ -35,6 +35,7 @@ public class TaskList extends ArrayList<Task> {
      * @param task the task to be added to the TaskList.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         this.add(task);
     }
 
@@ -44,6 +45,7 @@ public class TaskList extends ArrayList<Task> {
      * @param index the (index - 1) of the task to be deleted from the TaskList.
      */
     public void deleteTask(int index) {
+        assert index > 0 && index <= this.size() : "Invalid index for task deletion";
         Task.decreaseTaskCountByOne();
         this.remove(index - 1);
     }
