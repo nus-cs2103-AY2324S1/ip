@@ -5,7 +5,8 @@ package duke;
  * System.out formatting, line formatting, and other output formatting.
  */
 public class Ui {
-
+    private static final String TABS_SPACING = "___________________________________";
+    private static final String WHITE_SPACING = "      ";
     /** Default constructor */
     public Ui() {}
 
@@ -15,7 +16,7 @@ public class Ui {
      * @param s The input String to be printed.
      */
     public String tabPrinter(String s) {
-        return "      " + s;
+        return WHITE_SPACING + s;
     }
 
     /**
@@ -26,7 +27,7 @@ public class Ui {
      * @param s The input String to be printed.
      */
     public static String staticTabPrinter(String s) {
-        return "      " + s;
+        return WHITE_SPACING + s;
     }
 
     /**
@@ -34,7 +35,7 @@ public class Ui {
      */
     public String linePrinter() {
         return this.tabPrinter
-                ("___________________________________") + "\n";
+                (TABS_SPACING) + "\n";
 
 
     }

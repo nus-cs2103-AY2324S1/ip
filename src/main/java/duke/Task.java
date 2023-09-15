@@ -7,6 +7,8 @@ import java.util.*;
  * instead of abstract to facilitate debugging.
  */
 public class Task {
+    private static final String DONE_MARKER = "[X] ";
+    private static final String UNDONE_MARKER = "[ ] ";
     boolean done;
     String name;
 
@@ -54,9 +56,9 @@ public class Task {
     @Override
     public String toString() {
         if (done) {
-            return "[X] " + this.name;
+            return DONE_MARKER + this.name;
         } else {
-            return "[ ] " + this.name;
+            return UNDONE_MARKER + this.name;
         }
     }
 

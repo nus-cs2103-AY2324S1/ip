@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * LocalDate Object whose information is parsed from the Task's name.
  */
 public class Deadline extends Task {
-
+    private static final String DATE_FORMAT = "MMM d yyyy";
     LocalDate deadline;
 
     /**
@@ -53,7 +53,7 @@ public class Deadline extends Task {
     public String toString() {
         String parsedName = this.name.split(" \\(")[0];
         String stringDate = this.deadline
-                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                .format(DateTimeFormatter.ofPattern(DATE_FORMAT));
 
         String doneString = this.done ? "[X] " : "[ ] ";
 

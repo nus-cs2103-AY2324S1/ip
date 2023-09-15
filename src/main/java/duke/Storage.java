@@ -10,7 +10,7 @@ import java.util.Scanner;
  * This class handles FileIO related operations for the Main class.
  */
 public class Storage {
-
+    private static final String DATA_LOCATION = "data.txt";
     public File file;
 
     /**
@@ -19,7 +19,7 @@ public class Storage {
      * @throws IOException
      */
     public Storage() throws IOException {
-        File f = new File("data.txt");
+        File f = new File(DATA_LOCATION);
 
         if (!f.exists()) {
             f.createNewFile();
@@ -54,22 +54,23 @@ public class Storage {
             String s = scf.nextLine();
             String[] sArray = s.split("\\|");
             String typeOfTask = sArray[0];
+            boolean isDone = sArray[1].equals("1") ? true : false;
 
             switch (typeOfTask) {
             case "T":
-                boolean isTodoDone = sArray[1].equals("1") ? true : false;
+                boolean isTodoDone = isDone;
                 String todoName = sArray[2];
                 tl.add(new ToDo(isTodoDone, todoName));
                 break;
 
             case "E":
-                boolean isEventDone = sArray[1].equals("1") ? true : false;
+                boolean isEventDone = isDone;
                 String eventName = sArray[2];
                 tl.add(new Event(isEventDone, eventName));
                 break;
 
             case "D":
-                boolean isDeadlineDone = sArray[1].equals("1") ? true : false;
+                boolean isDeadlineDone = isDone;
                 String deadlineName = sArray[2];
                 tl.add(new Deadline(isDeadlineDone, deadlineName));
                 break;
