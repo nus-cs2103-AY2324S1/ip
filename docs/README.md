@@ -1,11 +1,8 @@
 # User Guide
 
----
 Pooh is a Personal Assistant Chatbot that helps users to manage their day-to-day tasks.
 
 ## Features
-
----
 
 ### Creating Tasks
 
@@ -36,8 +33,6 @@ You can search through all your existing tasks in Pooh and find task(s) that mat
 All tasks in Pooh are automatically saved into a local file as you enter commands, and are loaded when you start Pooh.
 
 ## Usage
-
----
 
 ### `todo` - Adds a new todo task
 
