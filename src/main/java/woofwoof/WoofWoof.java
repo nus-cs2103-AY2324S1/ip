@@ -32,14 +32,18 @@ import woof.Woof;
  * It handles user interactions and the core functionality of the application.
  */
 public class WoofWoof extends Application {
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogArea;
     @FXML
+    private Button clearButton;
+    @FXML
     private TextArea userInput;
     @FXML
     private Button sendButton;
+
 
     private Scene scene;
 
@@ -65,6 +69,10 @@ public class WoofWoof extends Application {
                 handleUserSubmit();
             }
         });
+        this.sendButton.setOnMouseEntered(e -> this.sendButton.setStyle("-fx-base: #C1E1C1"));
+        this.sendButton.setOnMouseExited(e -> this.sendButton.setStyle("-fx-base: #C5CBEC"));
+        this.clearButton.setOnMouseEntered(e -> this.clearButton.setStyle("-fx-base: #FAA0A0"));
+        this.clearButton.setOnMouseExited(e -> this.clearButton.setStyle("-fx-base: #C5CBEC"));
         this.sendButton.setOnMouseClicked(event -> handleUserSubmit());
     }
 
@@ -119,9 +127,7 @@ public class WoofWoof extends Application {
         double hotspotY = 20.0;
         Image cursorImage = new Image(imagePath, imageWidth, imageHeight, false, true);
         ImageCursor imageCursor = new ImageCursor(cursorImage, hotspotX, hotspotY);
-        this.scene.setOnMouseEntered(e -> {
-            scene.setCursor(imageCursor);
-        });
+        this.scene.setOnMouseEntered(e -> scene.setCursor(imageCursor));
     }
 
     /**
@@ -129,11 +135,12 @@ public class WoofWoof extends Application {
      */
     private void loadCssStyles() {
         String[] cssFilePaths = {
-            "/styles/woofwoof/root.css",
-            "/styles/woofwoof/dialogArea.css",
-            "/styles/woofwoof/scrollPane.css",
-            "/styles/woofwoof/userInput.css",
-            "/styles/woofwoof/sendButton.css",
+            "/styles/dialogArea.css",
+            "/styles/root.css",
+            "/styles/scrollPane.css",
+            "/styles/sendButton.css",
+            "/styles/userInput.css",
+            "/styles/clearButton.css",
         };
         for (String cssFilePath : cssFilePaths) {
             String css = Objects.requireNonNull(getClass().getResource(cssFilePath)).toExternalForm();
@@ -157,6 +164,16 @@ public class WoofWoof extends Application {
         }
         Platform.runLater(() -> this.scrollPane.setVvalue(1.0));
     }
+
+    /**
+     * Handles user clear, clears the dialog area and text area.
+     */
+    @FXML
+    private void handleUserClear() {
+        this.dialogArea.getChildren().clear();
+        this.userInput.clear();
+    }
+
 
     /**
      * Schedule the closing of the JavaFX stage after a 1-second delay.

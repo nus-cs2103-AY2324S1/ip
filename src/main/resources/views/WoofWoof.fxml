@@ -24,8 +24,15 @@
               VBox.vgrow="ALWAYS"
         />
     </ScrollPane>
+    <Button fx:id="clearButton"
+            onAction="#handleUserClear"
+            mnemonicParsing="false"
+            text="Clear"
+            AnchorPane.leftAnchor="20.0"
+            AnchorPane.bottomAnchor="20.0"
+    />
     <TextArea fx:id="userInput" wrapText="true"
-              AnchorPane.leftAnchor="20.0"
+              AnchorPane.leftAnchor="140.0"
               AnchorPane.rightAnchor="140.0"
               AnchorPane.bottomAnchor="20.0"
     />
