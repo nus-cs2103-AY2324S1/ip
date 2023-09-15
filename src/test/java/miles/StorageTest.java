@@ -1,13 +1,13 @@
 package miles;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import miles.task.Deadline;
 import miles.task.Event;
 import miles.task.Task;
 import miles.task.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test 
@@ -29,7 +29,7 @@ public class StorageTest {
         assertEquals(task2.toString(), task2Expected.toString());
 
         Task task3 = taskList.getTask(2);
-        Task task3Expected = new ToDo ("todo eat mcgriddles");
+        Task task3Expected = new ToDo("todo eat mcgriddles");
         assertEquals(task3.toString(), task3Expected.toString());
     }
 

@@ -21,13 +21,13 @@ public class UnmarkCommand extends Command {
     /**
      * Returns task number from user input.
      * @param input user input
-     * @return      task number 
+     * @return      task number
      */
     public int getTaskNumber(String input) {
         return super.getTaskNumber("unmark", input);
     }
 
-    @Override 
+    @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         int taskNum = getTaskNumber(input);
         taskList.markTaskAsUndone(taskNum);

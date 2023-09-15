@@ -6,6 +6,9 @@ import miles.TaskList;
 import miles.Ui;
 import miles.task.Event;
 
+/**
+ * Represents an add event command.
+ */
 public class AddEventCommand extends Command {
     private String input;
 

@@ -8,8 +8,8 @@ import miles.MilesException;
  * Represents a task that has a deadline.
  */
 public class Deadline extends Task {
-    private LocalDateTime deadline;
     private static String NO_DESC_ERROR_MSG = "OOPS!!! The description of a deadline cannot be empty.";
+    private LocalDateTime deadline;
 
     /**
      * Constructor to create a new deadline task when given a task string.
@@ -18,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String task) throws MilesException {
         super(getTask(task));
-        deadline = this.convertToDateTime(this.getDeadline(task)); 
+        deadline = this.convertToDateTime(this.getDeadline(task));
     }
 
     /**
@@ -66,7 +66,7 @@ public class Deadline extends Task {
      */
     public static String getTask(String taskString) throws MilesException {
         String[] strings = splitDeadlineString(taskString);
-        assert strings.length == 2: "The array should have 2 elements.";
+        assert strings.length == 2 : "The array should have 2 elements.";
         String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
@@ -84,7 +84,7 @@ public class Deadline extends Task {
      */
     public String getDeadline(String taskString) throws MilesException {
         String[] strings = splitDeadlineString(taskString);
-        assert strings.length == 2: "The array should have 2 elements.";
+        assert strings.length == 2 : "The array should have 2 elements.";
         String deadline = strings[1];
 
         if (checkAllWhiteSpace(deadline)) {
@@ -103,9 +103,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representing the deadline which would form a part of the string to be saved 
+     * Returns a string representing the deadline which would form a part of the string to be saved
      * in the text file.
-     * 
      * @return string representing the deadline to be saved in the text file
      */
     public String saveDeadline() {
@@ -114,12 +113,11 @@ public class Deadline extends Task {
 
     /**
      * Returns a string to be saved in the text file, specifically for an deadline.
-     * 
      * @return a string to be saved in the text file
      */
     @Override
     public String saveStringToFile() {
-        return "D" + super.saveStringToFile() + " | " + this.saveDeadline(); 
+        return "D" + super.saveStringToFile() + " | " + this.saveDeadline();
     }
 
     @Override
