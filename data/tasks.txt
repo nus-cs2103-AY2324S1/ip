@@ -1,9 +1,9 @@
-T | 0 | a
-T | 0 | b
 T | 0 | m
 T | 0 | r
-T | 0 | x
 T | 0 | aa
 T | 0 | aaa
 T | 0 | Aaa
 T | 0 | aAa
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat

@@ -8,11 +8,6 @@ import java.util.ArrayList;
 public class TaskList {
 
     /**
-     * Indentation for responses.
-     */
-    private static final String INDENTATION = "     ";
-
-    /**
      * Response when list is empty.
      */
     private static final String EMPTY_TASK_LIST_RESPONSE = "The list is empty, you donkey!";
@@ -98,14 +93,11 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
 
         if (this.tasks.size() == 0) {
-            sb.append(INDENTATION)
-                    .append(EMPTY_TASK_LIST_RESPONSE)
-                    .append("\n");
+            sb.append(EMPTY_TASK_LIST_RESPONSE).append("\n");
         } else {
-            sb.append(INDENTATION).append(NON_EMPTY_TASK_LIST_RESPONSE).append("\n");
+            sb.append(NON_EMPTY_TASK_LIST_RESPONSE).append("\n");
             for (int i = 0; i < this.tasks.size(); i++) {
-                sb.append(INDENTATION)
-                        .append(i + 1)
+                sb.append(i + 1)
                         .append(".")
                         .append(tasks.get(i).toString())
                         .append("\n");

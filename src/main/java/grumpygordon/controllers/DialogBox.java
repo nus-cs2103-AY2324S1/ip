@@ -43,12 +43,8 @@ public class DialogBox extends HBox {
         }
         Circle clip = new Circle(50, 50, 50);
         displayPicture.setClip(clip);
-
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-
-        dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.setText(text);
     }
 
     /**
@@ -63,7 +59,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.setBackground(new Background(new BackgroundFill(Color.YELLOW,
+        db.setBackground(new Background(new BackgroundFill(new Color(0.82, 0.90, 1, 0.4),
                 CornerRadii.EMPTY,
                 Insets.EMPTY)));
         return db;
@@ -72,7 +68,7 @@ public class DialogBox extends HBox {
     public static DialogBox getGordonDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
-        db.setBackground(new Background(new BackgroundFill(Color.HOTPINK,
+        db.setBackground(new Background(new BackgroundFill(Color.rgb(250, 250, 250),
                 CornerRadii.EMPTY,
                 Insets.EMPTY)));
         return db;
