@@ -12,6 +12,9 @@ import java.util.Scanner;
  * Storage system for Duke program.
  */
 public class Storage {
+
+    private static final String FILE_NOT_INITIALIZED = "File not initialized";
+
     /** Default file path. */
     private static final String FILE_PATH = "../../duke.txt";
     /** The file to parse */
@@ -68,6 +71,7 @@ public class Storage {
      */
     public String[] readLines() throws DukeException {
         Scanner sc;
+        assert this.file != null : FILE_NOT_INITIALIZED;
         try {
             sc = new Scanner(this.file);
         } catch (FileNotFoundException e) {
