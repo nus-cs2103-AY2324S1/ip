@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public abstract class Task {
     public static final String DISCRIMINATOR = " || ";
     protected String name;
-    protected boolean status;
+    protected boolean isDone;
     protected TaskTypes type;
 
     /**
@@ -18,7 +18,7 @@ public abstract class Task {
      * @return this Task that has been marked as done.
      */
     public Task mark() {
-        this.status = true;
+        this.isDone = true;
         return this;
     }
 
@@ -28,7 +28,7 @@ public abstract class Task {
      * @return this Task that has been marked as not done.
      */
     public Task unmark() {
-        this.status = false;
+        this.isDone = false;
         return this;
     }
 
@@ -38,7 +38,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String statusMark = this.status ? "[✓]" : "[✕]";
+        String statusMark = this.isDone ? "[✓]" : "[✕]";
         return String.format("%s %s", statusMark, name);
     }
 

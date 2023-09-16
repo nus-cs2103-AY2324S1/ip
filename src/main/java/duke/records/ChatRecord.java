@@ -20,7 +20,7 @@ public class ChatRecord {
     }
 
     /**
-     * Load the data from local storage to the current records instance.
+     * Loads the data from local storage to the current records instance.
      *
      * @return the status of the import.
      */

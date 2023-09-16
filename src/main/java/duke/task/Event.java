@@ -22,7 +22,7 @@ public class Event extends Task {
      */
     public Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
-        this.status = false;
+        this.isDone = false;
         this.startDate = startDate;
         this.endDate = endDate;
         this.type = TaskTypes.EVENT;
@@ -38,7 +38,7 @@ public class Event extends Task {
      */
     public Event(String name, boolean status, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
-        this.status = status;
+        this.isDone = status;
         this.startDate = startDate;
         this.endDate = endDate;
         this.type = TaskTypes.EVENT;
@@ -46,7 +46,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String statusMark = this.status ? "[✓]" : "[✕]";
+        String statusMark = this.isDone ? "[✓]" : "[✕]";
         return String.format("[E]%s %s (from: %s to: %s)", statusMark, name,
                 TimeParser.returnTime(startDate), TimeParser.returnTime(endDate));
     }
@@ -54,13 +54,13 @@ public class Event extends Task {
     @Override
     public String toSave() {
         return String.format("E%s%s%s%d%s%s to %s", DISCRIMINATOR, name, DISCRIMINATOR,
-                Boolean.compare(status, false), DISCRIMINATOR, TimeParser.toSaveString(startDate),
+                Boolean.compare(isDone, false), DISCRIMINATOR, TimeParser.toSaveString(startDate),
                 TimeParser.toSaveString(endDate));
     }
 
     @Override
     public String getReminder(LocalDate currDate, int days) {
-        if (this.status) {
+        if (this.isDone) {
             return null;
         }
 

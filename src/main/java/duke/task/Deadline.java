@@ -21,7 +21,7 @@ public class Deadline extends Task {
     public Deadline(String name, LocalDateTime date) {
         this.name = name;
         this.date = date;
-        this.status = false;
+        this.isDone = false;
         this.type = TaskTypes.DEADLINE;
     }
 
@@ -35,25 +35,25 @@ public class Deadline extends Task {
     public Deadline(String name, boolean status, LocalDateTime date) {
         this.name = name;
         this.date = date;
-        this.status = status;
+        this.isDone = status;
         this.type = TaskTypes.DEADLINE;
     }
 
     @Override
     public String toString() {
-        String statusMark = this.status ? "[✓]" : "[✕]";
+        String statusMark = this.isDone ? "[✓]" : "[✕]";
         return String.format("[D]%s %s (by: %s)", statusMark, name, TimeParser.returnTime(date));
     }
 
     @Override
     public String toSave() {
         return String.format("D%s%s%s%d%s%s", DISCRIMINATOR, name, DISCRIMINATOR,
-                Boolean.compare(status, false), DISCRIMINATOR, TimeParser.toSaveString(date));
+                Boolean.compare(isDone, false), DISCRIMINATOR, TimeParser.toSaveString(date));
     }
 
     @Override
     public String getReminder(LocalDate currDate, int days) {
-        if (this.status) {
+        if (this.isDone) {
             return null;
         }
 
