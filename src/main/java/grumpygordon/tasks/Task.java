@@ -71,4 +71,12 @@ public abstract class Task {
      * @return String representation of the save format of a Task.
      */
     public abstract String toSaveFormat();
+
+    /**
+     * Returns the description of a Task.
+     * @return String representation of the description of a Task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
 }

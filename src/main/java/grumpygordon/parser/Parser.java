@@ -68,12 +68,13 @@ public class Parser {
      * Regex for datetime.
      */
     private static final String DATETIME_REGEX = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) \\d{2}:\\d{2}";
+    private static final String LOCALDATETIME_REGEX = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T\\d{2}:\\d{2}";
     /**
      * Regex for datetime.
      */
     public static boolean isValidDateTime(String datetime) {
         datetime = datetime.strip();
-        return Pattern.matches(DATETIME_REGEX, datetime);
+        return Pattern.matches(DATETIME_REGEX, datetime) || Pattern.matches(LOCALDATETIME_REGEX, datetime);
     }
 
     /**
@@ -83,7 +84,7 @@ public class Parser {
      * @throws GrumpyGordonDateTimeFormatException If the datetime format is invalid
      */
     public static LocalDateTime parseDateTime(String datetime) throws GrumpyGordonDateTimeFormatException {
-        if (isValidDateTime(datetime)) {
+        if (isValidDateTime(datetime) && Pattern.matches(DATETIME_REGEX, datetime)) {
             try {
                 datetime = datetime.strip();
                 String[] arr = datetime.split(" ");
@@ -95,6 +96,12 @@ public class Parser {
                         Integer.parseInt(date[2]),
                         Integer.parseInt(time[0]),
                         Integer.parseInt(time[1]));
+            } catch (DateTimeException e) {
+                throw new GrumpyGordonDateTimeFormatException("That datetime does not exist.\n");
+            }
+        } else if (isValidDateTime(datetime) && Pattern.matches(LOCALDATETIME_REGEX, datetime)) {
+            try {
+                return LocalDateTime.parse(datetime);
             } catch (DateTimeException e) {
                 throw new GrumpyGordonDateTimeFormatException("That datetime does not exist.\n");
             }

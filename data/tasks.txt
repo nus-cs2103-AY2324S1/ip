@@ -1,9 +1,4 @@
-T | 0 | m
-T | 0 | r
-T | 0 | aa
-T | 0 | aaa
-T | 0 | Aaa
-T | 0 | aAa
-T | 0 | eat
-T | 0 | eat
-T | 0 | eat
+E | 0 | Dance class | 2023-10-16T18:00 | 2023-10-16T21:00
+T | 1 | Go gym
+D | 0 | Submit 2100 assignment | 2023-09-23T13:00
+T | 0 | Buy toilet paper
