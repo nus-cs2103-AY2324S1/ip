@@ -1,3 +1,5 @@
+package Chewy;
+
 import Exceptions.*;
 import Exceptions.InvalidCommandException; // warning is shown in javadocs if not imported
 import Exceptions.InvalidTaskException; // warning is shown in javadocs if not imported
@@ -55,7 +57,9 @@ public class Parser {
             // Line does not start with a task value (T,D,E), file corrupted, throw error
             throw new IllegalArgumentException("Invalid Tasks.Task Type");
         }
-        if (isDone) task.markAsDone();
+        if (isDone) {
+            task.markAsDone();
+        }
         return task;
     }
 
@@ -87,9 +91,8 @@ public class Parser {
     public static String getTaskDesc(String userInput) throws DukeException {
         String[] inputParts = userInput.split(" ", 2);
 
-        // Check if a valid addTask command is entered
+        // Check if a valid addTask command is entered and if there is a description
         if (inputParts.length < 2) throw new NoDescriptionException();
-        // Check if description is empty
         if (inputParts[1].trim().equals("")) throw new NoDescriptionException();
         return inputParts[1].trim();
     }

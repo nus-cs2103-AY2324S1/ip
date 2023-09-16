@@ -1,12 +1,14 @@
+package Chewy;
+
 import Exceptions.DukeException;
-import java.util.Scanner;
-public class Duke {
+
+public class Chewy {
     private final Ui ui;
     private TaskList taskList;
     private final Storage storage;
     public static final String DATA_FILE_PATH = "data/duke.txt";
 
-    public Duke(String filepath) {
+    public Chewy(String filepath) {
         this.ui = new Ui();
         this.storage = new Storage(filepath);
         try {
@@ -48,31 +50,35 @@ public class Duke {
      */
     public String getResponse(String userInput) {
         try {
-            if (userInput.equals("bye")) {
-                return this.ui.displayFarewellMessage();
-            } else if (userInput.equals("help")) {
-                return this.ui.displayHelpMessage();
-            } else if (userInput.equals("list")) {
-                return this.taskList.listTasks();
-            } else if (userInput.startsWith("mark")) {
-                return this.taskList.markTaskAsDone(userInput)
-                        + this.taskList.saveTask(this.storage.filepath);
-            } else if (userInput.startsWith("unmark")) {
-                return this.taskList.unmarkTaskAsDone(userInput)
-                        + this.taskList.saveTask(this.storage.filepath);
-            } else if (userInput.startsWith("delete")) {
-                return this.taskList.deleteTask(userInput)
-                        + this.taskList.saveTask(this.storage.filepath);
-            } else if (userInput.startsWith("find")) {
-                return this.taskList.findTasks(userInput);
-            } else {
-                return this.taskList.addTask(userInput)
-                        + this.taskList.saveTask(this.storage.filepath);
-            }
+            return getResponseFromUserInput(userInput);
         } catch (DukeException e) {
             return this.ui.showDukeError(e);
         } catch (Exception e) {
             return this.ui.showException(e);
+        }
+    }
+
+    private String getResponseFromUserInput(String userInput) throws DukeException {
+        if (userInput.equals("bye")) {
+            return this.ui.displayFarewellMessage();
+        } else if (userInput.equals("help")) {
+            return this.ui.displayHelpMessage();
+        } else if (userInput.equals("list")) {
+            return this.taskList.listTasks();
+        } else if (userInput.startsWith("mark")) {
+            return this.taskList.markTaskAsDone(userInput)
+                    + this.taskList.saveTask(this.storage.filepath);
+        } else if (userInput.startsWith("unmark")) {
+            return this.taskList.unmarkTaskAsDone(userInput)
+                    + this.taskList.saveTask(this.storage.filepath);
+        } else if (userInput.startsWith("delete")) {
+            return this.taskList.deleteTask(userInput)
+                    + this.taskList.saveTask(this.storage.filepath);
+        } else if (userInput.startsWith("find")) {
+            return this.taskList.findTasks(userInput);
+        } else {
+            return this.taskList.addTask(userInput)
+                    + this.taskList.saveTask(this.storage.filepath);
         }
     }
 }

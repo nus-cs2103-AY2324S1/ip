@@ -1,6 +1,8 @@
 package Tasks;
 
 import Exceptions.DukeException;
+import Exceptions.InvalidTaskFormatException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,41 +15,27 @@ public class Event extends Task {
     private LocalDateTime endTime;
     public Event(String description) throws DukeException {
         super(description);
-        // TODO: Check if /from is before /to
-        // TODO: Date.now() when "today" is entered
-        String[] fromParts = description.split("/from");
-        String[] toParts = description.split("/to");
+        initializeEvent();
+    }
 
-        if (fromParts.length >= 2) {
-            this.description = fromParts[0].split("/to")[0].trim();
-            String[] partAfterFrom = fromParts[1].split("/to");
-            String startTimeString = partAfterFrom[0].trim(); // it should be in (d/M/yyyy h:m a) eg (15/3/2023 6:40 PM)
+    private void initializeEvent() throws DukeException {
+        String[] splitString = description.split("/from");
 
-            // Format the string and parse it into startTime
-            this.startTime = super.parseDateTime(startTimeString);
-            if (partAfterFrom.length >= 2) {
-                // '/to' is after '/from'
-                String endTimeString = partAfterFrom[1].trim();
-                // Format the string and parse it into endTime
-                this.endTime = super.parseDateTime(endTimeString);
-            } else {
-                // '/to' is before '/from'
-                String endTimeString = fromParts[0].split("/to")[1].trim();
-                // Format the string and parse it into endTime
-                this.endTime = super.parseDateTime(endTimeString);
-            }
-        } else if (toParts.length >= 2) {
-            String[] parts = toParts[1].split("/from");
-            this.description = toParts[0].trim();
-            String endTimeString = parts[0].trim();
-            // Format the string and parse it into endTime
-            this.endTime = super.parseDateTime(endTimeString);
-            if (parts.length > 1) {
-                String startTimeString = parts[1].trim();
-                // Format the string and parse it into endTime
-                this.startTime = super.parseDateTime(startTimeString);
-            }
+        if (splitString.length < 2) throw new InvalidTaskFormatException();
+
+        this.description = splitString[0].split("/to")[0].trim();
+        String[] partFromTo = splitString[1].split("/to");
+        String startTimeString = partFromTo[0].trim();
+        this.startTime = super.parseDateTime(startTimeString);
+        String endTimeString;
+        if (partFromTo.length >= 2) {
+            // Formats the string if '/to' comes after '/from'
+            endTimeString = partFromTo[1].trim();
+        } else {
+            // Formats the string if '/to' comes before '/from'
+            endTimeString = splitString[0].split("/to")[1].trim();
         }
+        this.endTime = super.parseDateTime(endTimeString);
     }
 
     public Event(String description, String startTimeString, String endTimeString) {

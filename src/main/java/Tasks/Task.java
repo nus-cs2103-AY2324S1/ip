@@ -14,7 +14,6 @@ import java.time.format.DateTimeParseException;
  * Represents a task the user has created.
  */
 public abstract class Task {
-    // TODO: Make this class abstract?
     protected String description;
     protected boolean isDone = false;
     public static final String DATE_FORMAT ="d/M/yyyy";

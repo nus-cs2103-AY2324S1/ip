@@ -1,7 +1,9 @@
+package Chewy;
+
 import Exceptions.DukeException;
 
 /**
- * Represents the User Interface of the Duke App.
+ * Represents the User Interface of the Chewy App.
  * Each <Code>Ui</Code> method displays a message to the user.
  */
 public class Ui {
