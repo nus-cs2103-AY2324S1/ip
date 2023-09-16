@@ -1,10 +1,12 @@
 package duke.util;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import duke.Duke;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
+import duke.exception.InvalidDateException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
@@ -30,7 +32,7 @@ public class Parser {
      * They are stored as an enumeration.
      */
     public enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, FIND, DEADLINE, TODO, EVENT, UNKNOWN
+        BYE, LIST, MARK, UNMARK, DELETE, FIND, DEADLINE, TODO, EVENT, VIEW, UNKNOWN
     }
 
     /**
@@ -67,6 +69,7 @@ public class Parser {
      * - deadline {taskname} /by {time}: to add a new task as a deadline task.
      * - todo {taskname}: to add a new task as a to-do item. (No need to provide time).
      * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event task (with given start time and end time).
+     * - view {date}: list down the tasks that are to be done on that day.
      * Note that the commands are not case-sensitive. For instance: "BYE", "ByE", "bYe" will all be treated as the "bye" command.
      *
      * @param userInput The user's input to be parsed.
@@ -105,6 +108,8 @@ public class Parser {
                 return Todo.handleTodoTask(userInput);
             case EVENT:
                 return Event.handleEventTask(userInput);
+            case VIEW:
+                return taskList.viewSchedule(userInput);
             default:
                 throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
             }
@@ -115,6 +120,8 @@ public class Parser {
             return e.printExceptionMessage();
         } catch (InvalidCommandException e) {
             return e.printExceptionMessage();
+        } catch (InvalidDateException e) {
+            return e.toString();
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Please enter valid Integer index!\n"
                     + String.format("You currently have %d task(s)", taskList.listOfTasks.size());
