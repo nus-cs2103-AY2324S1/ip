@@ -1,5 +1,6 @@
 package trackerbot.command;
 
+import trackerbot.exception.TrackerBotException;
 import trackerbot.gui.UiHandler;
 import trackerbot.task.TaskList;
 
@@ -12,7 +13,7 @@ class ListCommand extends Command {
     }
 
     @Override
-    public void executeAsMassOp(TaskList tasks, UiHandler uiHandler) {
-        // TODO: Implement the mass operation
+    public void executeAsMassOp(TaskList tasks, UiHandler uiHandler) throws TrackerBotException {
+        throw new TrackerBotException("List command cannot be executed as a mass operation.");
     }
 }
