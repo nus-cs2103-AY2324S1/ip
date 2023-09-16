@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.DukeInvalidDateException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -46,6 +47,25 @@ public class Storage {
         }
     }
 
+    private Task getTaskByType(String taskType, String[] taskInfo) {
+        try {
+            switch (taskType) {
+            case "T":
+                return new ToDo(taskInfo[1]);
+            case "D":
+                return new Deadline(taskInfo[1], taskInfo[2]);
+            case "E":
+                return new Event(taskInfo[1], taskInfo[2], taskInfo[3]);
+            default:
+                return null;
+            }
+        } catch (DukeException exception) {
+            Ui.printLines("Something went wrong when loading tasks :(");
+        }
+
+        return null;
+    }
+
     /**
      * Gets data from the data file and
      * passes it to the task list.
@@ -63,25 +83,10 @@ public class Storage {
             String taskType = currentTask[0];
             String[] taskInfo = currentTask[1].split(Pattern.quote("|"), 0);
 
-            Task task;
+            Task task = getTaskByType(taskType, taskInfo);
 
-            try {
-                switch (taskType) {
-                case "T":
-                    task = new ToDo(taskInfo[1]);
-                    break;
-                case "D":
-                    task = new Deadline(taskInfo[1], taskInfo[2]);
-                    break;
-                case "E":
-                    task = new Event(taskInfo[1], taskInfo[2], taskInfo[3]);
-                    break;
-                default:
-                    continue;
-                }
-            } catch (DukeInvalidDateException exception) {
-                Ui.printLines("Something went wrong when loading tasks :(");
-                break;
+            if (task == null) {
+                continue;
             }
 
             if (taskInfo[0].equals("1")) {
