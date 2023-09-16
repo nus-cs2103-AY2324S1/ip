@@ -70,7 +70,7 @@ public class Ui {
      * @param date Specified date.
      */
     public void listTasks(Ui ui, TaskList tasks, LocalDate date) {
-        tasks.listTasks(ui, date);
+        tasks.listTasksOn(ui, date);
     }
 
     /**

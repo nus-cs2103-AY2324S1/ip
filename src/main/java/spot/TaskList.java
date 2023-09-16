@@ -2,6 +2,8 @@ package spot;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import spot.exception.SpotException;
 import spot.task.Deadline;
@@ -23,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Constructs a new Tasklist object with pre-existing ArrayList of Tasks.
+     * Constructs a new TaskList object with pre-existing ArrayList of Tasks.
      *
      * @param tasks Pre-existing ArrayList of Tasks.
      */
@@ -188,7 +190,7 @@ public class TaskList {
      *
      * @param position Specified position.
      * @throws SpotException  If the task at the specified position does not exist
-     *     or does not have a end date.
+     *     or does not have an end date.
      */
     public void updateTaskEnd(Ui ui, int position, LocalDate end) throws SpotException {
         if (position < 0 || position > tasks.size()) {
@@ -217,27 +219,36 @@ public class TaskList {
     }
 
     /**
+     * Lists all tasks in the given ArrayList of Tasks.
+     *
+     * @param taskList Given ArrayList of Tasks.
+     * @param ui Current Ui object.
+     */
+    public void listTasks(ArrayList<Task> taskList, Ui ui) {
+        if (taskList.size() == 0) {
+            ui.setMessage("You don't have any matching tasks for now! Want Spot to help find some?");
+        } else {
+            ui.setMessage("Spot's got a list of matching tasks, here!");
+            for (int i = 0; i < taskList.size(); i++) {
+                int position = i + 1;
+                ui.setMessage(position + ". " + taskList.get(i));
+            }
+        }
+    }
+
+    /**
      * Lists all tasks in the current TaskList that fall on a specified date.
      *
      * @param ui Current Ui object.
      * @param date Specified date.
      */
-    public void listTasks(Ui ui, LocalDate date) {
-        if (tasks.size() == 0) {
-            ui.setMessage("You don't have any tasks for now! Want Spot to help find some?");
-        } else {
-            int position = 1;
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                if (task.fallsOn(date)) {
-                    ui.setMessage(position + ". " + task);
-                    position += 1;
-                }
-            }
-            if (position <= 1) {
-                ui.setMessage("Spot thinks you don't have any tasks on " + date + "!\n");
-            }
-        }
+    public void listTasksOn(Ui ui, LocalDate date) {
+        List<Task> filteredList = tasks
+                .stream()
+                .filter(t -> t.fallsOn(date))
+                .collect(Collectors.toList());
+        ArrayList<Task> taskList = new ArrayList<>(filteredList);
+        listTasks(taskList, ui);
     }
 
     /**
@@ -246,21 +257,12 @@ public class TaskList {
      * @param ui Current Ui object.
      * @param keyword Specified keyword.
      */
-    public void findTasks(Ui ui, String keyword) {
-        if (tasks.size() == 0) {
-            ui.setMessage("You don't have any tasks for now! Want Spot to help find some?");
-        } else {
-            int position = 1;
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                if (task.descriptionContains(keyword)) {
-                    ui.setMessage(position + ". " + task);
-                    position += 1;
-                }
-            }
-            if (position <= 1) {
-                ui.setMessage("Spot can't find any tasks matching the keyword: " + keyword + "\n");
-            }
-        }
+    public void listTasksMatching(Ui ui, String keyword) {
+        List<Task> filteredList = tasks
+                .stream()
+                .filter(t -> t.descriptionContains(keyword))
+                .collect(Collectors.toList());
+        ArrayList<Task> taskList = new ArrayList<>(filteredList);
+        listTasks(taskList, ui);
     }
 }

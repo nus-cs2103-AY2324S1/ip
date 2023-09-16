@@ -37,9 +37,9 @@ public class Spot {
             Command c = Parser.parseCommand(input);
             c.execute(tasks, ui, storage);
             isExit = c.isExit();
-            return ui.getOutput();
         } catch (SpotException e) {
             ui.setError(e.getMessage());
+        } finally {
             return ui.getOutput();
         }
     }

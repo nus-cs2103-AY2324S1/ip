@@ -32,7 +32,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpotException {
-        tasks.findTasks(ui, keyword);
+        tasks.listTasksMatching(ui, keyword);
     };
 
     /**
