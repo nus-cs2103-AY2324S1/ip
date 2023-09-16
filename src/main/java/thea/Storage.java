@@ -93,6 +93,7 @@ public class Storage {
                 }
             }
         }
+        assert(Files.exists(path));
         try (BufferedWriter bufferWriter = Files.newBufferedWriter(path)) {
             for (int i = 0; i < tasks.size(); i++) {
                 bufferWriter.write(tasks.get(i).toMemoryFormat());
