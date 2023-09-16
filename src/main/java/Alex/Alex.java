@@ -5,20 +5,34 @@ package Alex;
  */
 public class Alex {
 
+    public String getResponse(String input) {
+        Command c = Parser.parse(input);
+        String output = c.execute();
+        return output;
+    }
     /**
-     * This method you initialize our Alex bot to execute, get input from users, process input and give output to user.
+     * This method you initialize our Alex bot in command line to execute, get input from users, process input
+     * and give output to user.
      */
     public void run() {
-        Ui.greet();
+        String greeting = Ui.greet();
+        System.out.println(greeting);
 
         while (true) {
-            String command = Ui.readUserInput();
-            Command c = Parser.parse(command);
-            c.execute();
+            try {
+                String command = Ui.readUserInput();
+                Command c = Parser.parse(command);
+                String output = c.execute();
+                System.out.println(output);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
+
 
     public static void main(String[] args) {
         new Alex().run();
     }
+
 }

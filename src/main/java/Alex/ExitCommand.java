@@ -10,8 +10,9 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        Ui.bye();
+    public String execute() {
+        String output = Ui.bye();
         System.exit(0);
+        return output;
     }
 }

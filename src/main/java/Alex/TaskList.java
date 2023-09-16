@@ -39,16 +39,15 @@ public class TaskList {
      * A static method that is used to store a task specified by the user.
      * @param task the task object representing the task specified by the user.
      */
-    public static void store(Task task) {
+    public static String store(Task task) {
         userinputs.add(task);
         numberOfElements++;
-        System.out.println(Ui.horizontalLine
-                + "Got it. I've added this task:\n"
+        String output = "Got it. I've added this task:\n"
                 + "  "
                 + task.toString() + "\n"
-                + "Now you have " + numberOfElements + " tasks in the list.\n"
-                + Ui.horizontalLine
-        );
+                + "Now you have " + numberOfElements + " tasks in the list.";
+
+        return output;
     }
 
     /**
@@ -58,13 +57,15 @@ public class TaskList {
      * @param task the task object representing the task specified by the user.
      * @param printToUser a boolean parameter used to specify wheter to print the message to the user after storing.
      */
-    public static void store(Task task, boolean printToUser) {
+    public static String store(Task task, boolean printToUser) {
+        String output = null;
         if (printToUser) {
-            store(task);
+            output = store(task);
         } else {
             userinputs.add(task);
             numberOfElements++;
         }
+        return output;
     }
 
     /**
@@ -89,15 +90,13 @@ public class TaskList {
     /**
      * A static method that is used to print all the task(s) stored in TaskList.
      */
-    public static void printAllContent() {
+    public static String getAllContent() {
         String tobePrinted = "";
         for (int i = 0; i < numberOfElements; i++) {
             tobePrinted = tobePrinted + (i + 1) + ". " + userinputs.get(i).toString() + "\n";
         }
-        System.out.println(Ui.horizontalLine
-                + tobePrinted
-                + Ui.horizontalLine
-        );
+
+        return tobePrinted;
     }
 
     /**
@@ -106,22 +105,22 @@ public class TaskList {
      * @param index the index of the task to be removed.
      * @throws AlexException if an error occurs when an invalid task index is passed into this method.
      */
-    public static void delete(int index) throws AlexException {
+    public static String delete(int index) {
         if (index > numberOfElements) {
             String message = "OOPS!!! There is/are only " + numberOfElements + " task(s) stored";
-            throw new AlexException(message);
+            return message;
         } else if (index < 0) {
             String message = "OOPS!!! Task number cannot be negative, task number starts from 0";
-            throw new AlexException(message);
+            return message;
         }
         Task tobeRemoved = userinputs.remove(index - 1);
         numberOfElements--;
-        System.out.println(Ui.horizontalLine
-                + "Noted. I've removed this task:\n"
+        String output = "Noted. I've removed this task:\n"
                 + "  " + tobeRemoved.toString() + "\n"
-                + "Now you have 4 tasks in the list.\n"
-                + Ui.horizontalLine
-        );
+                + "Now you have " + getNumberOfElements() + " tasks in the list.\n";
+
+        return output;
+
     }
 
     /**
@@ -131,7 +130,7 @@ public class TaskList {
      * @param date a string representing the date in which the user wants to view all the task(s) in that day.
      * @throws DateTimeParseException if an error occurs when parsing the string representing a date.
      */
-    public static void printTaskForDate(String date) throws DateTimeParseException {
+    public static String getTaskForDate(String date) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate parsedDate = LocalDate.parse(date, formatter);
         String tobePrinted = "";
@@ -155,17 +154,14 @@ public class TaskList {
                 }
             }
         }
-        System.out.println(
-                Ui.horizontalLine
-                        + "There is/are a total of " + (count - 1) + " task(s) on the give date " + date + "\n"
-                        + tobePrinted
-                        + Ui.horizontalLine
-        );
+
+        String output = "There is/are a total of " + (count - 1) + " task(s) on the give date " + date + ":\n"
+                        + tobePrinted;
+        return output;
     }
 
-    public static void printTaskForMatchWord(String word) {
-        String tobePrinted = Ui.horizontalLine
-                + "Here are the matching tasks in your list:\n";
+    public static String getTaskForMatchWord(String word) {
+        String tobePrinted = "Here are the matching tasks in your list:\n";
         int count = 1;
         String regex = "\\b" + word + "\\b";
         Pattern pattern = Pattern.compile(regex);
@@ -178,8 +174,7 @@ public class TaskList {
                 count++;
             }
         }
-        tobePrinted += Ui.horizontalLine;
-        System.out.println(tobePrinted);
+        return tobePrinted;
     }
 
 }

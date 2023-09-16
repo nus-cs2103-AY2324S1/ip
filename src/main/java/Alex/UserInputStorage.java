@@ -45,7 +45,7 @@ public class UserInputStorage {
      * A static method that is used to store all the task(s) in TaskList to the file Alex.txt
      * after every termination of the Alex bot execution.
      */
-    public static void storeToFile() {
+    public static String storeToFile() {
         try {
             FileWriter fw = new FileWriter("data/Alex.txt");
             int numberOfElements = TaskList.getNumberOfElements();
@@ -71,9 +71,9 @@ public class UserInputStorage {
                 }
             }
             fw.close();
-            System.out.println("User data is successfully stored");
+            return "User data is successfully stored";
         } catch (IOException | AlexException e) {
-            System.out.println("Something went wrong when saving users data to Alex.txt: " + e.getMessage());
+            return "Something went wrong when saving users data to Alex.txt: " + e.getMessage();
         }
     }
 

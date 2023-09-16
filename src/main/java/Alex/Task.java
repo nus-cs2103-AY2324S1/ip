@@ -51,15 +51,13 @@ public class Task {
     /**
      * A method that is used to mark this task to be done.
      */
-    public void mark() {
+    public String mark() {
         this.isDone = true;
-        String tobePrinted = Ui.horizontalLine
-                    + "Nice! I've marked this task as done:\n"
+        String tobePrinted = "Nice! I've marked this task as done:\n"
                     + "   "
-                    + this
-                    + "\n"
-                    + Ui.horizontalLine;
-        System.out.println(tobePrinted);
+                    + this;
+
+        return tobePrinted;
     }
 
     /**
@@ -68,27 +66,26 @@ public class Task {
      *
      * @param printToUser A boolean parameter to indicate whether or not to print message after marking.
      */
-    public void mark(boolean printToUser) {
+    public String mark(boolean printToUser) {
+        String output = null;
         if (printToUser) {
-            this.mark();
+            output = this.mark();
         } else {
             this.isDone = true;
         }
+        return output;
     }
 
     /**
      * A method that is used to ummark this task to be undone.
      */
-    public void unmark() {
+    public String unmark() {
         this.isDone = false;
-        String tobePrinted = Ui.horizontalLine
-                    + "OK, I've marked this task as not done yet:\n"
+        String tobePrinted = "OK, I've marked this task as not done yet:\n"
                     + "   "
-                    + this
-                    + "\n"
-                    + Ui.horizontalLine;
+                    + this;
 
-        System.out.println(tobePrinted);
+        return tobePrinted;
     }
 
     @Override

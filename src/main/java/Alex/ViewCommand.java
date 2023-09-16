@@ -28,17 +28,20 @@ public class ViewCommand extends Command {
      * the task(s) of a specific date to the standard output.
      */
     @Override
-    public void execute() {
+    public String execute() {
+        String output = null;
         switch(this.viewType) {
         case LISTALL:
-            TaskList.printAllContent();
-            break;
+            output = TaskList.getAllContent();
+            return output;
 
         case LISTONEDAY:
             try {
-                TaskList.printTaskForDate(command);
+                output = TaskList.getTaskForDate(command);
+                return output;
             } catch (DateTimeParseException e) {
-                Ui.printAlertForDate();
+                output = Ui.getAlertForDate();
+                return output;
             } finally {
                 break;
             }
@@ -49,13 +52,16 @@ public class ViewCommand extends Command {
                     throw new AlexException("");
                 }
                 String toMatch = command.substring(5).stripTrailing();
-                TaskList.printTaskForMatchWord(toMatch);
+                output = TaskList.getTaskForMatchWord(toMatch);
+                return output;
             } catch (AlexException e) {
-                Ui.printAlertForFind();
+                output = Ui.getAlertForFind();
+                return output;
             } finally {
                 break;
             }
         }
+        return output;
 
     }
 

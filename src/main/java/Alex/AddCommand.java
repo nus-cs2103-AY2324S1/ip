@@ -29,7 +29,8 @@ public class AddCommand extends Command {
      * The execute method of AddCommand class is to actually add the task specified by user to the TaskList.
      */
     @Override
-    public void execute() {
+    public String execute() {
+        String output = null;
         switch(this.addType) {
         case TODO:
             try {
@@ -39,14 +40,14 @@ public class AddCommand extends Command {
                     throw new AlexException(message);
                 }
                 Task todo = new ToDos(command.substring(5));
-                TaskList.store(todo);
+                output = TaskList.store(todo);
+                return output;
             } catch (IndexOutOfBoundsException e) {
-                Ui.printAlertForTodo();
+                output = Ui.getAlertForTodo();
+                return output;
             } catch (AlexException e) {
-                System.out.println(Ui.horizontalLine
-                        + e.getMessage() + "\n"
-                        + Ui.horizontalLine
-                );
+                output = e.getMessage();
+                return output;
             } finally {
                 break;
             }
@@ -66,14 +67,14 @@ public class AddCommand extends Command {
                 String description = startIndex > 9 ? command.substring(9, startIndex) : "";
                 String by = command.substring(endIndex);
                 Task deadline = new Deadline(description, by);
-                TaskList.store(deadline);
+                output = TaskList.store(deadline);
+                return output;
             } catch (AlexException e) {
-                System.out.println(Ui.horizontalLine
-                        + e.getMessage() + "\n"
-                        + Ui.horizontalLine
-                );
+                output = e.getMessage();
+                return output;
             } catch (DateTimeParseException e) {
-                Ui.printAlertForDeadline();
+                output = Ui.getAlertForDeadline();
+                return output;
             } finally {
                 break;
             }
@@ -107,18 +108,20 @@ public class AddCommand extends Command {
                 String toTime = command.substring(secondEnd);
 
                 Task event = new Event(description, fromTime, toTime);
-                TaskList.store(event);
+                output = TaskList.store(event);
+                return output;
             } catch (AlexException e) {
-                System.out.println(Ui.horizontalLine
-                        + e.getMessage() + "\n"
-                        + Ui.horizontalLine
-                );
+                output = e.getMessage();
+                return output;
             } catch (DateTimeParseException e) {
-                Ui.printAlertForEvent();
+                output = Ui.getAlertForEvent();
+                return output;
             } finally {
                 break;
             }
         }
+
+        return output;
     }
 
 }
