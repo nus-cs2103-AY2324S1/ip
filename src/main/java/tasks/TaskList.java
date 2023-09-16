@@ -22,6 +22,7 @@ public class TaskList {
 
     /**
      * A function which returns a list of tasks which matches the given description
+     *
      * @param description The description of the task to search for
      * @return A list of tasks which loosely matches the description
      */
@@ -61,6 +62,12 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    @JsonIgnore
+    public List<Event> getEvents() {
+        return tasks.stream().filter(task -> task instanceof Event)
+            .map(e -> (Event) e).collect(
+                Collectors.toList());
+    }
 
 
 }
