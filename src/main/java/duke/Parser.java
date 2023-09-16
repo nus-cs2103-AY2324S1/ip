@@ -108,11 +108,11 @@ public class Parser {
                 mode = "deadline";
                 continue;
             }
-            if (Objects.equals(command, "/from") && taskType == DEADLINE_CHAR) {
+            if (Objects.equals(command, "/from") && taskType == EVENT_CHAR) {
                 mode = "from";
                 continue;
             }
-            if (Objects.equals(command, "/to") && taskType == DEADLINE_CHAR) {
+            if (Objects.equals(command, "/to") && taskType == EVENT_CHAR) {
                 mode = "to";
                 continue;
             }
@@ -130,7 +130,7 @@ public class Parser {
         } else if (taskType == DEADLINE_CHAR) {
             return new String[] {title.toString(), deadline.toString()};
         } else {
-            return new String[] {title.toString(), deadline.toString(), to.toString()};
+            return new String[] {title.toString(), from.toString(), to.toString()};
         }
     }
 
