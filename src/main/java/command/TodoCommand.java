@@ -8,26 +8,32 @@ import ui.Ui;
 
 
 /**
- * A class that is part of the command family, this in particular calls for todo tasks.
+ * The class that will execute the Todo Task command.
+ * This class extends from the Command class.
  */
 public class TodoCommand extends Command {
     private final String task;
+    /**
+     * Constructs the class.
+     *
+     * @param task The information of the task.
+     */
     public TodoCommand(String task) {
         this.task = task;
     }
 
     /**
-     * A method that will add a Todo task to the tasklist.
+     * Executes the Command of creating an todo Task.
      *
-     * @param tasklist contains all the past few tasks excuted.
-     * @param ui contains the user interface that will be shown to the user depending on the inputs.
-     * @param fileStorage Writing and reading on text files.
+     * @param taskList The TaskLIst that contains all the tasks.
+     * @param ui The user interface that will be shown to the user.
+     * @param fileStorage The File that will be written and read from.
      * @throws DukeException If user inputs is invalid.
      */
-    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, FileStorage fileStorage) throws DukeException {
         Todo task = new Todo(this.task);
-        tasklist.add(task);
-        fileStorage.write(tasklist);
-        return ui.showTaskAdded(task, tasklist);
+        taskList.add(task);
+        fileStorage.write(taskList);
+        return ui.showTaskAdded(task, taskList);
     }
 }

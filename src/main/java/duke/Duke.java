@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.Scanner;
 
 import command.Command;
 import dukeexception.DukeException;
@@ -10,7 +9,8 @@ import parser.Parser;
 import ui.Ui;
 
 /**
- * A class that the chatbot program will run from.
+ * The main program of the chat_bot.
+ * Works with the MainWindow to provide inputs for GUI
  */
 public class Duke {
 
@@ -19,48 +19,43 @@ public class Duke {
     private final Ui userInterface;
 
     /**
-     * A constructor method to initialise the bot.
+     * Initialises the Chat_Bot.
      *
-     * @param filePath the file that will be written or read from.
+     * @param filePath The file that will be written or read from.
      */
     public Duke(String filePath) {
         this.userInterface = new Ui();
         this.fileStorage = new FileStorage(filePath);
         try {
-            //System.out.println("here");
             userList = new TaskList(fileStorage.read());
         } catch (DukeException e) {
-            //System.out.println("new userlist");
-            this.userList = new TaskList();
+            userList = new TaskList();
             System.out.println("File Empty");
         }
     }
 
     /**
-     * A method that will need the user to input what Text file they would like to use.
+     * Starts the class up.
      *
-     * @param args arguments use to start the program.
+     * @param args The arguments use to start the program.
      */
     public static void main(String[] args) {
-        System.out.println("\n \n" + "Please Input the txt file you wish to access");
-        Scanner scanner = new Scanner(System.in);
-        String textFile = scanner.nextLine();
         new Duke("Testing.txt").run();
     }
 
     /**
-     * A method to run the program.
+     * Runs the UserInterface inputs and provide outputs.
      */
     public void run() {
         userInterface.showGreetings();
-        boolean isExit = false;
-        while (!isExit) {
+        boolean isCmdExit = false;
+        while (!isCmdExit) {
             try {
                 String fullCommand = userInterface.readCommand();
                 userInterface.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.excute(userList, userInterface, fileStorage);
-                isExit = c.isExit();
+                c.execute(userList, userInterface, fileStorage);
+                isCmdExit = c.isExit();
             } catch (DukeException e) {
                 userInterface.showError(e.getMessage());
             } finally {
@@ -70,15 +65,26 @@ public class Duke {
         userInterface.closeScanner();
     }
 
+    /**
+     * Gets the response from the chat box inputs.
+     *
+     * @param input The input users put in.
+     * @return A String output given out dependent on the input.
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.excute(userList, userInterface, fileStorage);
+            return c.execute(userList, userInterface, fileStorage);
         } catch (DukeException e) {
             return e.getMessage();
         }
     }
 
+    /**
+     * Runs the greeting of the Chat Bot.
+     *
+     * @return A String that shows greetings.
+     */
     public String start() {
         return userInterface.showGreetings() + "\n Enter clear if you would like to start a new list";
     }

@@ -1,12 +1,14 @@
 package tasks;
 
 /**
- * A child class to Task, this in particular is for todo tasks.
+ * The class that will create a Todo line task.
+ * This class extends from the tasks class.
  */
 public class Todo extends Task {
     /**
-     * A constructor method for Todo.
-     * @param name the name of the task.
+     * Constructs the method.
+     *
+     * @param name The name of the task.
      */
     public Todo(String name) {
         super(name);

@@ -7,25 +7,31 @@ import tasks.Task;
 import ui.Ui;
 
 /**
- * A class that will call for the unmark command
+ * The class that will execute the Unmark Task command.
+ * This class extends from the Command class.
  */
 public class UnmarkCommand extends Command {
     private final int index;
+    /**
+     * Constructs the class.
+     *
+     * @param index The index that will be UnMarked.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
 
     /**
-     * A method that will mark the task as unMarked.
+     * Executes the Command of UnMarking a task.
      *
-     * @param tasklist contains all the past few tasks excuted.
-     * @param ui contains the user interface that will be shown to the user depending on the inputs.
-     * @param fileStorage Writing and reading on text files.
+     * @param taskList The TaskLIst that contains all the tasks.
+     * @param ui The user interface that will be shown to the user.
+     * @param fileStorage The File that will be written and read from.
      * @throws DukeException If user inputs is invalid.
      */
-    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
-        Task task = tasklist.unmarkTask(this.index);
-        fileStorage.write(tasklist);
+    public String execute(TaskList taskList, Ui ui, FileStorage fileStorage) throws DukeException {
+        Task task = taskList.unmarkTask(this.index);
+        fileStorage.write(taskList);
         return ui.showUnMarkedTask(task);
     }
 }

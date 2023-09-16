@@ -18,18 +18,18 @@ import command.UnmarkCommand;
 import dukeexception.DukeException;
 
 /**
- * A parser that takes the input data and checks its syntax followed bt excute it.
+ * The parser that takes the input data and checks its syntax followed bt execute it.
  */
 public class Parser {
 
     //final String UNKNOWN_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
 
     /**
-     * A method that takes the user input and calls the right command for it.
+     * Takes the user input and calls the right command for it.
      *
-     * @param fullCommand the user command input.
-     * @return a command that will be excute base on the users input.
-     * @throws DukeException if the command is invalid in any ways.
+     * @param fullCommand The user command input.
+     * @return A command that will be executed base on the users input.
+     * @throws DukeException If the command is invalid in any ways.
      */
     public static Command parse(String fullCommand) throws DukeException {
         String[] split = fullCommand.split(" ", 2);

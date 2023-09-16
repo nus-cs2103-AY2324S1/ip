@@ -26,13 +26,12 @@ public class FileStorage {
     }
 
     /**
-     * A method that will write all the data from the tasklist to the file.
+     * Writes all the data from the taskList to the file.
      *
-     * @param userList contains all the tasks by the user.
-     * @throws DukeException if there is any situation where the FileWriter fails to write.
+     * @param userList The List that contains all the tasks by the user.
+     * @throws DukeException If there is any situation where the FileWriter fails to write.
      */
     public void write(TaskList userList) throws DukeException {
-        assert userList == null : "A list should be present such that a write would occur";
         try {
             FileWriter fw = new FileWriter(fileData);
             for (int i = 0; i < userList.size(); i++) {
@@ -46,51 +45,44 @@ public class FileStorage {
     }
 
     /**
-     * A method that will read all the information on a textFile and load it back into the program
+     * Reads all the information on a textFile and load it back into the program
      *
-     * @return ArrayList a list of all the task by user.
-     * @throws DukeException if the content on the file cannot be recognised.
+     * @return ArrayList The list of all the task by user.
+     * @throws DukeException If the content on the file cannot be recognised.
      */
     public ArrayList<Task> read() throws DukeException {
-        assert fileData == null : "FileStorage should be initialise before calling for read hence cannot be null";
         try {
             ArrayList<Task> dataList = new ArrayList<>();
             Scanner scanner = new Scanner(fileData);
-            Task task;
-            //System.out.println("reading");
             while (scanner.hasNext()) {
+                Task task = new Task();
                 String inputs = scanner.nextLine();
-                if (inputs.startsWith("  [T]")) {
-                    String info = inputs.substring(9);
+                String info = inputs.substring(9);
+                assert !inputs.trim().startsWith("[ ]") : "There should be a allocated type for the task";
+                if (inputs.trim().startsWith("[T]")) {
                     task = new Todo(info);
-                    if (inputs.substring(6).startsWith("X")) {
-                        task.markDone();
-                    }
-                    dataList.add(task);
-                } else if (inputs.startsWith("  [D]")) {
-                    String info = inputs.substring(9);
+                } else if (inputs.trim().startsWith("  [D]")) {
                     String[] split = info.split("\\(by: |\\)");
                     task = new Deadline(split[0], split[1]);
-                    if (inputs.substring(6).startsWith("X")) {
-                        task.markDone();
-                    }
-                    dataList.add(task);
-                } else if (inputs.startsWith("  [E]")) {
-                    String info = inputs.substring(9);
+                } else if (inputs.trim().startsWith("  [E]")) {
                     String[] split = info.split("\\(from: | to: |\\)");
                     task = new Event(split[0], split[1], split[2]);
-                    if (inputs.substring(6).startsWith("X")) {
-                        task.markDone();
-                    }
+                }
+                isTaskMarked(task, inputs);
+                if (!task.isItEmpty()) {
                     dataList.add(task);
                 }
             }
             scanner.close();
-            //System.out.println(count);
             return dataList;
         } catch (FileNotFoundException e) {
             throw new DukeException("Invalid file");
         }
     }
 
+    private static void isTaskMarked(Task task, String inputs) {
+        if (inputs.substring(6).startsWith("X")) {
+            task.markDone();
+        }
+    }
 }

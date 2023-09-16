@@ -7,7 +7,8 @@ import tasks.Event;
 import ui.Ui;
 
 /**
- * A class that is part of the command, for this in particular it will result in event being stored.
+ * The class that will execute the Event Task command.
+ * This class extends from the Command class.
  */
 public class EventCommand extends Command {
     private final String task;
@@ -15,11 +16,11 @@ public class EventCommand extends Command {
     private final String endDate;
 
     /**
-     * Constructor method that will initialise all content of the user input.
+     * Constructs the class.
      *
-     * @param task the task the user wants to do
-     * @param startDate the starting date
-     * @param endDate the ending date
+     * @param task The task the user wants to do.
+     * @param startDate The starting date.
+     * @param endDate The ending date.
      */
     public EventCommand(String task, String startDate, String endDate) {
         this.task = task;
@@ -28,17 +29,17 @@ public class EventCommand extends Command {
     }
 
     /**
-     * This method will form a task depending on the user inputs.
+     * Executes the Command of creating an event Task.
      *
-     * @param tasklist contains all the past few tasks excuted.
-     * @param ui contains the user interface that will be shown to the user depending on the inputs.
-     * @param fileStorage Writing and reading on text files.
+     * @param taskList The TaskLIst that contains all the tasks.
+     * @param ui The user interface that will be shown to the user.
+     * @param fileStorage The File that will be written and read from.
      * @throws DukeException If user inputs is invalid.
      */
-    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, FileStorage fileStorage) throws DukeException {
         Event task = new Event(this.task, this.startDate, this.endDate);
-        tasklist.add(task);
-        fileStorage.write(tasklist);
-        return ui.showTaskAdded(task, tasklist);
+        taskList.add(task);
+        fileStorage.write(taskList);
+        return ui.showTaskAdded(task, taskList);
     }
 }

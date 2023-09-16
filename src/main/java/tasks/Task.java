@@ -1,42 +1,47 @@
 package tasks;
 
 /**
- * A parent class that represents the task that the user will input.
+ * The parent class that represents the task that the user will input.
  */
 public class Task {
     private String type;
-    private final String name;
+    private String name;
     private boolean marked;
+    private boolean isEmpty = false;
 
     /**
-     * A Constructor method for task.
-     * @param name the name of the task.
+     * Constructs the method for task.
+     * @param name The name of the task.
      */
     public Task(String name) {
         this.name = name;
         this.marked = false;
     }
+    public Task() {
+        this.isEmpty = true;
+    }
+    public boolean isItEmpty() { return isEmpty; }
     public void setType(String type) {
         this.type = type;
     }
 
     /**
-     * A method that will mark a task as marked.
+     * Marks a task as marked.
      */
     public void markDone() {
         marked = true;
     }
 
     /**
-     * A method that will unmark a task.
+     * UnMarks a task.
      */
     public void unmarkDone() {
         marked = false;
     }
     /**
-     * A method that will represent the task.
+     * Represent the task in String.
      *
-     * @return the syntax that will be shown to the user.
+     * @return The syntax that will be shown to the user.
      */
     @Override
     public String toString() {

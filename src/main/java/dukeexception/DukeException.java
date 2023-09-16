@@ -1,14 +1,14 @@
 package dukeexception;
 
 /**
- * An Exceptional class for any errors faced by the user inputs.
+ * The Exceptional class for any errors faced by the user inputs.
  */
 public class DukeException extends Exception {
 
     /**
-     * Constructor method that creates the exception.
+     * Constructs the exception when a method creates it.
      *
-     * @param message the message that we want to output to the user.
+     * @param message The message that we want to output to the user.
      */
     public DukeException(String message) {
         super(message);

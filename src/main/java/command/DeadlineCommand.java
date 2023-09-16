@@ -7,17 +7,18 @@ import tasks.Deadline;
 import ui.Ui;
 
 /**
- * A class that is part of the command, for this in particular this will store a task that has a deadline.
+ * The class that will execute the Deadline Task command.
+ * This class extends from the Command class.
  */
 public class DeadlineCommand extends Command {
     private final String task;
     private final String deadDate;
 
     /**
-     * A constructor method to call for the method.
+     * Constructs the class.
      *
-     * @param task the task that is input by the user.
-     * @param deadDate the deadline of the task.
+     * @param task The task that is input by the user.
+     * @param deadDate The deadline of the task.
      */
     public DeadlineCommand(String task, String deadDate) {
         this.task = task;
@@ -25,17 +26,17 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * A method that will take down the deadline task that the user input.
+     * Executes the Command of creating a deadline task.
      *
-     * @param tasklist contains all the past few tasks excuted.
-     * @param ui contains the user interface that will be shown to the user depending on the inputs.
-     * @param fileStorage Writing and reading on text files.
+     * @param taskList The TaskLIst that contains all the tasks.
+     * @param ui The user interface that will be shown to the user.
+     * @param fileStorage The File that will be written and read from.
      * @throws DukeException If user inputs is invalid.
      */
-    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, FileStorage fileStorage) throws DukeException {
         Deadline task = new Deadline(this.task, this.deadDate);
-        tasklist.add(task);
-        fileStorage.write(tasklist);
-        return ui.showTaskAdded(task, tasklist);
+        taskList.add(task);
+        fileStorage.write(taskList);
+        return ui.showTaskAdded(task, taskList);
     }
 }

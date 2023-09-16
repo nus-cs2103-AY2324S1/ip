@@ -7,19 +7,19 @@ import ui.Ui;
 
 
 /**
- * A class that is part of the command, for this particularly it will end the program.
- * @author LinWanLeii
+ * The class that will execute the Bye command.
+ * This class extends from the Command class.
  */
 public class ByeCommand extends Command {
 
     /**
-     * A method that will end the program.
+     * Executes the Command of ending the Chat bot.
      *
-     * @param taskList contains all the past few tasks excuted.
-     * @param ui contains the user interface that will be shown to the user depending on the inputs.
-     * @param fileStorage Writing and reading on text files.
+     * @param taskList The TaskLIst that contains all the tasks.
+     * @param ui The user interface that will be shown to the user.
+     * @param fileStorage The File that will be written and read from.
      */
-    public String excute(TaskList taskList, Ui ui, FileStorage fileStorage) {
+    public String execute(TaskList taskList, Ui ui, FileStorage fileStorage) {
         this.isExit = true;
         return ui.showGoodbye();
     }

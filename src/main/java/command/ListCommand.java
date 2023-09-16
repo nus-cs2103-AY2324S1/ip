@@ -6,18 +6,19 @@ import ui.Ui;
 
 
 /**
- * A class that excutes the list command.
+ * The class that will execute the List Task command.
+ * This class extends from the Command class.
  */
 public class ListCommand extends Command {
 
     /**
-     * A method that will list out all the task stored in the TaskList.
+     * Executes the Command of Listing all the task in the TaskList.
      *
-     * @param tasklist contains all the past few tasks excuted.
-     * @param ui contains the user interface that will be shown to the user depending on the inputs.
-     * @param fileStorage Writing and reading on text files.
+     * @param taskList The TaskLIst that contains all the tasks.
+     * @param ui The user interface that will be shown to the user.
+     * @param fileStorage The File that will be written and read from.
      */
-    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) {
-        return ui.showList(tasklist);
+    public String execute(TaskList taskList, Ui ui, FileStorage fileStorage) {
+        return ui.showList(taskList);
     }
 }

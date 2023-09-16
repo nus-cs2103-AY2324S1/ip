@@ -16,19 +16,19 @@ public abstract class Command {
     /**
      * Returns whether the program should stop running as the end point "bye" is hit.
      *
-     * @return boolean value shows whether the program should be completed and exited.
+     * @return A boolean value shows whether the program should be completed and exited.
      */
     public boolean isExit() {
         return isExit;
     }
 
     /**
-     * An abstract method that will excute the task provided depending on the user input.
+     *  Executes an abstract method that will execute the task provided depending on the user input.
      *
-     * @param tasklist contains all the past few tasks excuted.
-     * @param ui contains the user interface that will be shown to the user depending on the inputs.
-     * @param fileStorage Writing and reading on text files.
+     * @param taskList The TaskLIst that contains all the tasks.
+     * @param ui The user interface that will be shown to the user.
+     * @param fileStorage The File that will be written and read from.
      * @throws DukeException If user inputs is invalid.
      */
-    public abstract String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException;
+    public abstract String execute(TaskList taskList, Ui ui, FileStorage fileStorage) throws DukeException;
 }

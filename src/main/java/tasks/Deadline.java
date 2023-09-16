@@ -1,15 +1,16 @@
 package tasks;
 
 /**
- * A child class to Task, this in particular is a deadline task.
+ * The class that will create a deadline line task.
+ * This class extends from the tasks class.
  */
 public class Deadline extends Task {
     private final String deadline;
 
     /**
-     * A constructor method.
-     * @param name the name of the task.
-     * @param deadline the deadline of the task.
+     * Constructs the method.
+     * @param name The name of the task.
+     * @param deadline The deadline of the task.
      */
     public Deadline(String name, String deadline) {
         super(name);
@@ -18,9 +19,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * * A method that will represent the task.
+     * Represent the task in string.
      *
-     * @return the syntax that will be shown to the user.
+     * @return The syntax that will be shown to the user.
      */
     @Override
     public String toString() {

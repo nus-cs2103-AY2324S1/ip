@@ -1,16 +1,18 @@
 package tasks;
 
 /**
- * A child class to Task, for this in particular it is for events tasks.
+ * The class that will create an Event line task.
+ * This class extends from the tasks class.
  */
 public class Event extends Task {
     private final String start;
     private final String end;
     /**
-     * A Constructor method.
-     * @param name the name of the task.
-     * @param start the start date of the task.
-     * @param end the end date of the task.
+     * Constructs the method.
+     *
+     * @param name The name of the task.
+     * @param start The start date of the task.
+     * @param end The end date of the task.
      */
     public Event(String name, String start, String end) {
         super(name);
@@ -20,9 +22,9 @@ public class Event extends Task {
     }
 
     /**
-     * A method that will represent the task.
+     * Represents the task.
      *
-     * @return the syntax that will be shown to the user.
+     * @return The syntax that will be shown to the user.
      */
     @Override
     public String toString() {
