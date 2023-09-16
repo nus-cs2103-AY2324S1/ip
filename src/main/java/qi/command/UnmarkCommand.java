@@ -12,7 +12,7 @@ import qi.ui.Ui;
  */
 public class UnmarkCommand extends Command {
 
-    private int taskId;
+    private final int taskId;
 
     /**
      * Takes in the Id of the task to be unmarked.
@@ -21,7 +21,6 @@ public class UnmarkCommand extends Command {
      *               of the task in the list.
      */
     public UnmarkCommand(int taskId) {
-        super(false);
         this.taskId = taskId;
     }
 

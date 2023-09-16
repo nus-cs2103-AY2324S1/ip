@@ -54,6 +54,13 @@ public class Storage {
 
             while (sc.hasNext()) {
                 String task = sc.nextLine();
+                assert task != null && task.length() > 8;
+                assert task.charAt(1) == 'T' || task.charAt(1) == 'D' || task.charAt(1) == 'E';
+                assert task.charAt(4) == ' ' || task.charAt(4) == 'X';
+                assert task.charAt(0) == '[' && task.charAt(3) == '['
+                        && task.charAt(2) == ']' && task.charAt(5) == ']'
+                        && task.charAt(6) == ' ';
+
                 if (task.charAt(1) == 'T') {
                     loadTodo(task, list);
                     continue;

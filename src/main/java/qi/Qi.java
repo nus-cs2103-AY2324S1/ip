@@ -13,9 +13,9 @@ import qi.ui.Ui;
  */
 public class Qi {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Takes in the file path as a string.

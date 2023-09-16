@@ -8,11 +8,6 @@ import qi.ui.Ui;
  * Represents the last interaction of the chatbot with users.
  */
 public class ExitCommand extends Command {
-
-    public ExitCommand() {
-        super(true);
-    }
-
     /**
      * Prints goodbye message on the screen and terminates the program.
      *

@@ -12,7 +12,7 @@ import qi.ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-    private int taskId;
+    private final int taskId;
 
     /**
      * Takes in the Id of the task to be removed.
@@ -21,7 +21,6 @@ public class DeleteCommand extends Command {
      *               of the task in the list.
      */
     public DeleteCommand(int taskId) {
-        super(false);
         this.taskId = taskId;
     }
 

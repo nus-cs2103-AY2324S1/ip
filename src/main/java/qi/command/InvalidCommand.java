@@ -8,10 +8,6 @@ import qi.ui.Ui;
  * Represent the execution when the input is invalid.
  */
 public class InvalidCommand extends Command {
-    public InvalidCommand() {
-        super(false);
-    }
-
     /**
      * Notifies users that the input is invalid and allows them to retry.
      *

@@ -8,7 +8,7 @@ import qi.ui.Ui;
  * Represents the process of find tasks that match with a key word.
  */
 public class FindCommand extends Command {
-    private String keyWord;
+    private final String keyWord;
 
     /**
      * Takes in the key word to find task.
@@ -16,7 +16,6 @@ public class FindCommand extends Command {
      * @param keyWord Key word to find task.
      */
     public FindCommand(String keyWord) {
-        super(false);
         this.keyWord = keyWord;
     }
 

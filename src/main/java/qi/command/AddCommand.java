@@ -17,7 +17,7 @@ import qi.ui.Ui;
  */
 public class AddCommand extends Command {
 
-    private Task task;
+    private final Task task;
 
     /**
      * Receives information of a Todo.
@@ -25,7 +25,6 @@ public class AddCommand extends Command {
      * @param taskDescription String description of a Todo.
      */
     public AddCommand(String taskDescription) {
-        super(false);
         this.task = new Todo(taskDescription);
     }
 
@@ -36,7 +35,6 @@ public class AddCommand extends Command {
      * @param deadline LocalDate representing the deadline of the task.
      */
     public AddCommand(String taskDescription, LocalDate deadline) {
-        super(false);
         this.task = new Deadline(taskDescription, deadline);
     }
 
@@ -48,7 +46,6 @@ public class AddCommand extends Command {
      * @param endTime String representation of the event end time.
      */
     public AddCommand(String taskDescription, String startTime, String endTime) {
-        super(false);
         this.task = new Event(taskDescription, startTime, endTime);
     }
 
