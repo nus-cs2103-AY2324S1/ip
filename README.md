@@ -16,7 +16,7 @@ Screenshot of Smolbrain Chatbot:
    * `list` : Lists all current saved tasks.
    * `todo NewTodo` : Adds a new task of type **Todo** with the title `NewTodo` to the chatbot.
    * `delete 3` : Deletes the 3rd task shown in the current task list.
-   * `mark 1` : Marks the 3rd task shown in the current task list.
+   * `mark 1` : Marks the 1st task shown in the current task list.
    * `bye` : Exits the app.
 6. Refer to the Features below for details of each command.
 
@@ -28,7 +28,7 @@ Screenshot of Smolbrain Chatbot:
 
 ### Creation of tasks
 
-There are 3 different type of tasks available: **Todo**, **Deadline** and **Event**.
+There are 3 different types of tasks available: **Todo**, **Deadline** and **Event**.
 * **Todo** : A task with only a description.
 * **Deadline** : A task with a description with the associated due date and time.
 * **Event** : A task with a description with the starting and ending date and times.
@@ -64,7 +64,7 @@ Adds a new **Todo** task to the chatbot.
 
 Format: `todo [DESCRIPTION]`
 
-* `[DESCRIPTION]` can have multiple spaces separating words. 
+* `[DESCRIPTION]` can have multiple spaces for separating words. 
 * By default, the task is unmarked and has a priority level of 0.
 
 Examples: 
@@ -79,7 +79,7 @@ Adds a new **Deadline** task to the chatbot with the due date and time.
 
 Format: `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`
 
-* `[DESCRIPTION]` can have multiple spaces separating words. 
+* `[DESCRIPTION]` can have multiple spaces for separating words. 
 * By default, the task is unmarked and has a priority level of 0.
 * Date and time must be given in the exact format `DD/MM/YYYY HHmm`, as described above in the notes.
 
@@ -95,7 +95,7 @@ Adds a new **Event** task to the chatbot with the starting and ending date and t
 
 Format: `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`
 
-* `[DESCRIPTION]` can have multiple spaces separating words. 
+* `[DESCRIPTION]` can have multiple spaces for separating words. 
 * By default, the task is unmarked and has a priority level of 0.
 * Date and time must be given in the exact format `DD/MM/YYYY HHmm`, as described above in the notes.
 
@@ -117,8 +117,8 @@ Format: `mark [INDEX]`
 
 Examples: 
 * `mark 1` : Marks the task indexed at 1.
-* `mark -1` : Error message displayed saying "OOPS!!! Please provide a valid number within the range.".
-* `mark 11` : If there are less than 11 tasks, an error message displayed saying "OOPS!!! Please provide a valid number within the range.".
+* `mark -1` : Error message displayed saying `OOPS!!! Please provide a valid number within the range.`.
+* `mark 11` : If there are less than 11 tasks, an error message is displayed saying `OOPS!!! Please provide a valid number within the range.`.
 
 <br>
 
@@ -134,8 +134,8 @@ Format: `unmark [INDEX]`
 
 Examples: 
 * `unmark 3` : Unmarks the task indexed at 3.
-* `unmark -3` : Error message displayed saying "OOPS!!! Please provide a valid number within the range.".
-* `unmark 15` : If there are less than 15 tasks, an error message displayed saying "OOPS!!! Please provide a valid number within the range.".
+* `unmark -3` : Error message displayed saying `OOPS!!! Please provide a valid number within the range.`.
+* `unmark 15` : If there are less than 15 tasks, an error message is displayed saying `OOPS!!! Please provide a valid number within the range.`.
 
 <br>
 
@@ -151,8 +151,8 @@ Format: `delete [INDEX]`
 
 Examples: 
 * `delete 2` : Deletes the task indexed at 2.
-* `delete -6` : Error message displayed saying "OOPS!!! Please provide a valid number within the range.".
-* `delete 8` : If there are less than 8 tasks, an error message is displayed saying "OOPS!!! Please provide a valid number within the range.".
+* `delete -6` : Error message displayed saying `OOPS!!! Please provide a valid number within the range.`.
+* `delete 8` : If there are less than 8 tasks, an error message is displayed saying `OOPS!!! Please provide a valid number within the range.`.
 
 <br>
 
@@ -172,8 +172,8 @@ Format: `priority [INDEX] [PRIORITY_LEVEL]`
 Examples: 
 * `priority 2 0` : Sets the task indexed at 2 to priority level 0.
 * `priority 5 3` : Sets the task indexed at 5 to priority level 3.
-* `priority 1 6` : Error message displayed saying "OOPS!!! Please provide a valid priotity level from 0 to 3.".
-* `priority 5 -3` : Error message displayed saying "OOPS!!! Please provide a valid priotity level from 0 to 3.".
+* `priority 1 6` : Error message displayed saying `OOPS!!! Please provide a valid priotity level from 0 to 3.`.
+* `priority 5 -3` : Error message displayed saying `OOPS!!! Please provide a valid priotity level from 0 to 3.`.
 
 <br>
 
@@ -190,7 +190,6 @@ Format: `find [KEYWORD]`
 
 Examples: 
 * `find Book` : Returns `Book reading` and `Booking`.
-* `find Birthday Par` : Returns `Birthday Party`, but not `birthday Party`.
 * `find Birthday Par` : Returns `Birthday Party`, but not `birthday Party`.
 * `find ck ba` : Returns `Pack bags` and `Crack back`.
 
@@ -220,7 +219,7 @@ Smolbrain chatbot data are saved in the computer automatically after any command
 
 ### Editing data file
 
-Smolbrain chatbot data are saved in the computer automatically as a TXT file named `data.txt` in the same directory as your `smolbrain.jar` file.
+Smolbrain chatbot data is saved in the computer automatically as a TXT file named `data.txt` in the same directory as your `smolbrain.jar` file.
 Tasks are encoded in the format `[TYPE][MARKED][PRIORITY_LEVEL][BODY]`.
 * `[TYPE]` refers to the task type: `T` for **Todo**, `D` for **Deadline**, `E` for **Event**.
 * `[MARKED]` refers to marked state of task: `1` for marked, `0` for unmarked.
@@ -234,7 +233,7 @@ Tasks are encoded in the format `[TYPE][MARKED][PRIORITY_LEVEL][BODY]`.
 
 ### Deleting data
 
-Deleting the `data.txt` file in the same directory as your `smolbrain.jar` file will delete all saved data. When app is reopened again, it will restart as new app.
+Deleting the `data.txt` file in the same directory as your `smolbrain.jar` file will delete all saved data. When app is reopened again, it will restart as a new app.
 
 <br><br>
 
