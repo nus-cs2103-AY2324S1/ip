@@ -13,5 +13,4 @@ public class TaskComparator implements Comparator<Task> {
         return task1.compareTo(task2);
     }
 
-
 }
