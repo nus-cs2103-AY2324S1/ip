@@ -71,7 +71,7 @@ public class Storage {
     }
 
     /**
-     * Save the given TaskList into a local data file.
+     * Saves the given TaskList into a local data file.
      *
      * @param taskList The given TaskList to be saved locally.
      */
