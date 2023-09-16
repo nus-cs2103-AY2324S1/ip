@@ -3,8 +3,12 @@ package duke.storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.time.format.DateTimeFormatter;
 
 import duke.task.Task;
@@ -45,11 +49,12 @@ public class Storage {
             Scanner taskScanner = new Scanner(taskFile);
             Parser parser = new Parser(ui);
 
-            while (taskScanner.hasNextLine()) {
-                String task = taskScanner.nextLine();
-                Task newTask = parser.parseFileTask(task);
-                list.add(newTask);
-            }
+            List<String> lines = Files.lines(Paths.get("tasks.txt"))
+                    .collect(Collectors.toList());
+
+            list = lines.stream()
+                    .map(parser::parseFileTask)
+                    .collect(Collectors.toCollection(ArrayList::new));
 
             taskScanner.close();
             assert list != null : "Task list should not be null";
@@ -75,15 +80,16 @@ public class Storage {
     public void writeFile(TaskList list) throws Exception {
         FileWriter fw = new FileWriter("tasks.txt");
 
-        try {
-            FileWriter taskWriter = new FileWriter("tasks.txt");
-            for (int i = 0; i < list.getSize(); i++) {
-                taskWriter.write(list.getTask(i).toFileString() + "\n");
+        FileWriter taskWriter = new FileWriter("tasks.txt");
+        list.stream().forEach(task -> {
+            try {
+                taskWriter.write(task.toFileString() + "\n");
+            } catch (Exception e) {
+                ui.showError("Error writing to file.");
             }
-            taskWriter.close();
-        } catch (Exception e) {
-            System.out.println("Error writing to file.");
-        }
+        });
+
+        taskWriter.close();
 
         assert fw != null : "File writer should not be null";
         fw.close();

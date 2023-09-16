@@ -1,5 +1,8 @@
 package duke.ui;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -56,9 +59,10 @@ public class Ui {
         } else {
             output += "You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:\n";
         }
-        for (int i = 1; i <= taskList.getSize(); i++) {
-            output += (i + ". " + taskList.getTask(i - 1) + "\n");
-        }
+
+        output += IntStream.range(0, taskList.getSize())
+                .mapToObj(i -> (i + 1) + ". " + taskList.getTask(i) + "\n")
+                .collect(Collectors.joining());
 
         assert output != null : "Output should not be null";
         return output;

@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 /**
  * Represents a list of tasks.
@@ -87,5 +88,14 @@ public class TaskList {
             return taskList.list.equals(this.list);
         }
         return false;
+    }
+
+    /**
+     * Returns a stream of the tasks in the task list.
+     * 
+     * @return A stream of the tasks in the task list.
+     */
+    public Stream<Task> stream() {
+        return this.list.stream();
     }
 }
