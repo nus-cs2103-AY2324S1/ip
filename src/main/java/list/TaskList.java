@@ -8,13 +8,13 @@ import tasks.Task;
 
 
 /**
- * A class that stores Tasks inside an Arraylist.
+ * The class that stores Tasks inside an Arraylist.
  */
 public class TaskList {
 
     private final ArrayList<Task> taskList;
     /**
-     * A Constructor method that will create a new TaskList.
+     * Constructs method that will create a new TaskList.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -27,10 +27,10 @@ public class TaskList {
     }
 
     /**
-     * A method that will convert a TaskList to an ArrayList.
+     * Converts a TaskList to an ArrayList.
      *
-     * @param userList the TaskList that is going to be converted.
-     * @return an Arraylist that is converted from TaskList.
+     * @param userList The TaskList that is going to be converted.
+     * @return An Arraylist that is converted from TaskList.
      */
     public ArrayList<Task> convert(TaskList userList) {
         for (int i = 0; i < userList.size(); i++) {
@@ -39,37 +39,37 @@ public class TaskList {
         return taskList;
     }
     /**
-     * A method that returns the size of the TaskList.
+     * Returns the size of the TaskList.
      *
-     * @return the size of the TaskList.
+     * @return The size of the TaskList.
      */
     public int size() {
         return taskList.size(); }
 
     /**
-     * A method that will get the task in the list.
+     * Gets the task in the list.
      *
-     * @param i the index of the task needed.
-     * @return the task that is called for.
+     * @param i The index of the task needed.
+     * @return The task that is called for.
      */
 
     public Task get(int i) {
         return taskList.get(i); }
 
     /**
-     * A method that adds a task to the TaskList.
+     * Adds a task to the TaskList.
      *
-     * @param task the task that the user wants to add.
+     * @param task The task that the user wants to add.
      */
     public void add(Task task) {
         taskList.add(task); }
 
     /**
-     * A method that will delete a task depending on the index provided.
+     * Deletes a task depending on the index provided.
      *
-     * @param i the index of the task.
-     * @return the task that has been removed.
-     * @throws DukeException if the index is out of bound.
+     * @param i The index of the task.
+     * @return The task that has been removed.
+     * @throws DukeException If the index is out of bound.
      */
     public Task deleteTask(int i) throws DukeException {
         if (i > this.taskList.size() || i < 1) {
@@ -81,11 +81,11 @@ public class TaskList {
     }
 
     /**
-     * A method that will mark a task as done.
+     * Marks a task as done.
      *
-     * @param i the index of the task.
-     * @return the task that is marked.
-     * @throws DukeException if the index is out of bound.
+     * @param i The index of the task.
+     * @return The task that is marked.
+     * @throws DukeException If the index is out of bound.
      */
     public Task markTask(int i) throws DukeException {
         if (i > this.taskList.size() || i < 1) {
@@ -97,11 +97,11 @@ public class TaskList {
     }
 
     /**
-     * A method that will unmark a task as done.
+     * UnMark a task as done.
      *
-     * @param i the index of the task.
-     * @return the task that is unmarked.
-     * @throws DukeException if the index is out of bound.
+     * @param i The index of the task.
+     * @return The task that is unmarked.
+     * @throws DukeException If the index is out of bound.
      */
     public Task unmarkTask(int i) throws DukeException {
         if (i > this.taskList.size() || i < 1) {
@@ -113,9 +113,9 @@ public class TaskList {
     }
 
     /**
-     * A method that clears the TaskList
+     * Clears the TaskList
      *
-     * @return an empty list
+     * @return An empty list
      */
     public TaskList clear() {
         this.taskList.clear();

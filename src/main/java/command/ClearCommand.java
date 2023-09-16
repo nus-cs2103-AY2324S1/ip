@@ -7,20 +7,21 @@ import ui.Ui;
 
 
 /**
- * A class that is part of the command, for this particularly it will clear all the past tasks.
+ * The class that will execute the Clear command.
+ * This class extends from the Command class.
  */
 public class ClearCommand extends Command {
 
     /**
-     * A method that will excute the clearing of all past cases.
+     * Executes the Command of clearing all the task in the TaskList.
      *
-     * @param tasklist contains all the past few tasks excuted.
-     * @param ui contains the user interface that will be shown to the user depending on the inputs.
-     * @param fileStorage Writing and reading on text files.
+     * @param taskList The TaskLIst that contains all the tasks.
+     * @param ui The user interface that will be shown to the user.
+     * @param fileStorage The File that will be written and read from.
      * @throws DukeException If user inputs is invalid.
      */
-    public String excute(TaskList tasklist, Ui ui, FileStorage fileStorage) throws DukeException {
-        fileStorage.write(tasklist.clear());
+    public String execute(TaskList taskList, Ui ui, FileStorage fileStorage) throws DukeException {
+        fileStorage.write(taskList.clear());
         return ui.showClearTask();
     }
 }
