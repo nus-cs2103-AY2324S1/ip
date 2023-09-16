@@ -69,7 +69,7 @@ public class Ui {
             returnMessage += "Nice! I've marked this task as done:\n";
 
         } else {
-            System.out.println("     OK, I've marked this task as not done yet:");
+            returnMessage += "OK, I've marked this task as not done yet:\n";
         }
 
         returnMessage += task.toString();

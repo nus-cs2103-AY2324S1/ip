@@ -53,6 +53,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "noac.jar"
     archiveBaseName = "noac"
     archiveClassifier = null
     dependsOn("distZip", "distTar")

@@ -19,7 +19,7 @@ public class Parser {
      * @return The correct command to be executed based on input.
      * @throws NoacException For any errors that needs to be displayed to user.
      */
-    public static Command parse(String fullCommand) throws NoacException{
+    public static Command parse(String fullCommand) throws NoacException {
 
         Command returnCommand;
 
@@ -55,6 +55,8 @@ public class Parser {
                     description += userInputArr[i] + " ";
                 }
 
+                assert description.length() > 1: "Description too short";
+
                 description = description.substring(0, description.length() - 1);
 
                 returnCommand = new TodoCommand(description);
@@ -89,8 +91,10 @@ public class Parser {
             }
 
             if (by.length() == 0 || description.length() == 0) {
-                throw new NoacException("OOPS!!! The description and by of a deadline cannot \n     be empty");
+                throw new NoacException("OOPS!!! The description and by of a deadline cannot be empty");
             }
+
+            assert afterBy: "afterBy must be true";
 
             by = by.substring(0, by.length() - 1);
             description = description.substring(0, description.length() - 1);
@@ -133,6 +137,11 @@ public class Parser {
                 throw new NoacException("OOPS!!! The description, from and to of a event cannot \n     be empty!");
             }
 
+            assert from.length() > 1: "from too short";
+            assert to.length() > 1: "to too short";
+            assert descript.length() > 1: "descript too short";
+
+
             from = from.substring(0, from.length() - 1);
             to = to.substring(0, to.length() - 1);
             descript = descript.substring(0, descript.length() - 1);
@@ -147,7 +156,6 @@ public class Parser {
                 throw new NoacException("OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
 
             } else if (!userInputArr[1].matches("\\d+")) {
-
                 throw new NoacException("OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
             }
 
@@ -163,6 +171,7 @@ public class Parser {
             if (userInputArr.length != 2) {
                 throw new NoacException("OOPS!!! Please input date in this format yyyy-MM-dd");
             }
+
             try {
                 localDate = LocalDate.parse(userInputArr[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
@@ -185,6 +194,8 @@ public class Parser {
             for (int i = 1; i < userInputArr.length; i++) {
                 searchString += userInputArr[i] + " ";
             }
+
+            assert searchString.length() >= 1: "searchString too short";
 
             returnCommand = new FindCommand(searchString.trim());
 
