@@ -225,6 +225,7 @@ Smolbrain chatbot data are saved in the computer automatically as a TXT file nam
 <br><br>
 
 ## Command summary
+
 | Action | Format, Example |
 | --- | --- |
 | Add todo | `todo [DESCRIPTION]`|
@@ -240,6 +241,7 @@ Smolbrain chatbot data are saved in the computer automatically as a TXT file nam
 
 
 ## Command summary
+
 | Action | Format, Example |
 | --- | --- |
 | Add todo | `todo [DESCRIPTION]`<br>e.g. `todo Create a new recipe`|
