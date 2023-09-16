@@ -5,7 +5,7 @@ import tasks.TaskList;
 /**
  * This class encapsulates a command given to the Duke application to run a certain set of instructions.
  */
-abstract class Command {
+public interface Command {
 
     /**
      * Execute the set of instructions based on the Command subclass

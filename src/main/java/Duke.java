@@ -39,10 +39,8 @@ public class Duke {
      * Constructs a new Duke object, along with a Storage object and an Ui object.
      */
     public Duke() {
-
         storage = new Storage();
         this.tasks = new TaskList(storage.load());
-
     }
 
     /**

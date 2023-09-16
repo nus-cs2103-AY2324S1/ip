@@ -25,19 +25,7 @@ public class Storage {
         File directory = new File("data");
         File file = new File(FILE_PATH);
 
-        try {
-            if (!directory.exists()) {
-                directory.mkdir();
-                boolean var = file.createNewFile();
-                assert var == true : "var should be true";
-            }
-
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        createFileIfDoesNotExist(directory, file);
     }
 
     /**
@@ -87,6 +75,22 @@ public class Storage {
             writer.close();
             System.out.println("Updated task list saved under data/duke.txt");
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createFileIfDoesNotExist(File directory, File file) {
+        try {
+            if (!directory.exists()) {
+                directory.mkdir();
+                boolean var = file.createNewFile();
+                assert var == true : "var should be true";
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
