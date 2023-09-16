@@ -12,11 +12,11 @@ import duke.task.Task;
  * @author Zi Xiang
  * @version CS2103T AY23/24 Sem 1
  */
-public class UI {
+public class Ui {
     /** Generates a line spacer */
     private Scanner s;
 
-    public UI() {
+    public Ui() {
         this.s = new Scanner(System.in);
     }
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
+import duke.Ui;
 import duke.task.Task;
 
 /**
@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task task = tasks.mark(index);
         storage.rewrite(tasks);
         return (ui.showMarkMessage(task));

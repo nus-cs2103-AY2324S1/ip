@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
+import duke.Ui;
 
 /**
  * The ListCommand is a command that
@@ -15,7 +15,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         return (tasks.display());
     }
 }

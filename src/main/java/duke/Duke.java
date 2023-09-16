@@ -15,7 +15,7 @@ import duke.exception.DukeException;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
-    private UI ui;
+    private Ui ui;
     private String uiOutput;
     private boolean hasCreatedFile = false;
 
@@ -24,7 +24,7 @@ public class Duke {
      * @param filePath the location of the storage file.
      */
     public Duke(String filePath) {
-        ui = new UI();
+        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
