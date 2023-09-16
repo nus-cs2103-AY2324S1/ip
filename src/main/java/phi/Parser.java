@@ -5,9 +5,11 @@ package phi;
  */
 public class Parser {
     private final TaskList tasks;
+    private final Ui ui;
 
     public Parser(TaskList tasks) {
         this.tasks = tasks;
+        this.ui = new Ui();
     }
 
     /**
@@ -19,20 +21,27 @@ public class Parser {
      */
     public String handle(String input) {
         try {
-            if (input.startsWith("list")) {
+            // Handling of Bye
+            if (input.equals("bye")) {
+                return ui.goodbye();
+
+                // Handling of List
+            } else if (input.startsWith("list")) {
                 if (!input.equals("list")) {
                     return ("Nice job did you mean \"list\" coz what you gave wasn't an accepted input");
                 } else {
                     return tasks.printList();
                 }
 
+                // Handling of Mark
             } else if (input.startsWith("mark")) {
                 return tasks.doTask(input);
 
+                // Handling of Unmark
             } else if (input.startsWith("unmark")) {
                 return tasks.undoTask(input);
 
-            // Handling of Todo
+                // Handling of Todo
             } else if (input.startsWith("todo")) {
                 if (input.equals("todo")) {
                     return "You gotta put an actual message in...";
@@ -42,7 +51,7 @@ public class Parser {
                 String taskMsg = input.substring(5);
                 return tasks.addTask(new ToDo(taskMsg, false));
 
-            // Handling of Deadline
+                // Handling of Deadline
             } else if (input.startsWith("deadline")) {
                 if (input.equals("deadline")) {
                     return "You gotta put an actual message in...";
@@ -61,7 +70,7 @@ public class Parser {
                 String deadlineString = input.substring(byFlag + 4);
                 return tasks.addTask(new Deadline(taskMsg, false, deadlineString));
 
-            // Handling of Event
+                // Handling of Event
             } else if (input.startsWith("event")) {
                 if (input.equals("event")) {
                     return "You gotta put an actual message in...";
@@ -92,13 +101,15 @@ public class Parser {
                 String toStr = input.substring(toFlagEnd);
                 return tasks.addTask(new Event(taskMsg, false, fromStr, toStr));
 
+                // Handling of Delete
             } else if (input.startsWith("delete")) {
                 return tasks.deleteTask(input);
 
+                // Handling of Help
             } else if (input.equals("help")) {
                 return Ui.helpMsg();
 
-            // Handling of Find
+                // Handling of Find
             } else if (input.startsWith("find")) {
                 if (input.equals("find")) {
                     return "You gotta put something for me to find...";
@@ -106,6 +117,7 @@ public class Parser {
                 String keyword = input.substring(5);
                 return tasks.findTasks(keyword);
             }
+
         } catch (IllegalArgumentException e) {
             return e.getMessage();
         }

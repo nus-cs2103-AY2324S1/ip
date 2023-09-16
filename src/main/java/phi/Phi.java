@@ -1,38 +1,39 @@
 package phi;
 import java.util.Scanner;
+import javafx.fxml.FXML;
+
+
 
 /**
  * Represents the core of the PHI chatbot. The root of the program will run from here.
  *
  * @author phiphi-tan
- * @version 1.0.0
  */
-public class Phi {
-    private final Ui phiUi;
+public class Phi  {
+    private final Ui ui;
     private final Storage taskStorage;
     private final TaskList tasks;
-    private final Parser phiParser;
+    private final Parser parser;
 
     /**
      * Constructor for a new instance of Phi
-     *
-     * @param filePath the file path of the .txt file to be loaded from storage
+     * Storage is loaded with the hardcoded file path of the .txt file
      */
-    public Phi(String filePath) {
-        phiUi = new Ui();
-        taskStorage = new Storage(filePath);
+    public Phi() {
+        this.ui = new Ui();
+        taskStorage = new Storage("./data/tasklist.txt");
         tasks = taskStorage.readFromFile();
-        phiParser = new Parser(tasks);
+        this.parser = new Parser(tasks);
     }
 
     public static void main(String[] args) {
-        new Phi("./data/tasklist.txt").run();
+        new Phi().run();
     }
 
     private void run() {
-        phiUi.greeting();
+        System.out.println(ui.greeting());
         takeInput();
-        phiUi.goodbye();
+        System.out.println(ui.goodbye());
     }
 
     /**
@@ -42,11 +43,23 @@ public class Phi {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine().trim();
         while (!input.equals("bye")) {
-            System.out.println(phiParser.handle(input));
+            System.out.println(this.parser.handle(input));
             taskStorage.writeToFile(tasks);
             System.out.println();
             input = sc.nextLine().trim();
         }
         sc.close();
     }
+
+    /**
+     * Generates response to user input, and writes data to file after
+     */
+    @FXML
+    public String getResponse(String input) {
+        String response = this.parser.handle(input.trim());
+        taskStorage.writeToFile(tasks);
+        return response;
+    }
+
 }
+

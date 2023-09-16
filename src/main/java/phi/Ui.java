@@ -7,22 +7,21 @@ public class Ui {
     /**
      * Greeting message procedure
      */
-    public void greeting() {
+    public String greeting() {
         String logo = " ___ _  _ ___\n"
                 + "| _ \\ || |_ _|\n"
                 + "|  _/ __ || | \n"
                 + "|_| |_||_|___| \n";
         String greetingMsg = "Hellos! I'm PHI (Programmed Human Interaction)\nWhat can I do for you?\n";
 
-        System.out.println(logo + greetingMsg);
+        return logo + greetingMsg;
     }
 
     /**
      * Exit message procedure
      */
-    public void goodbye() {
-        String exitMsg = "okk THANKS FOR COMING BYE!";
-        System.out.println(exitMsg);
+    public String goodbye() {
+        return "okk THANKS FOR COMING BYE!";
     }
 
     /**
