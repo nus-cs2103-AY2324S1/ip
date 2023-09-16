@@ -57,8 +57,8 @@ public class AddCommand extends Command {
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(command);
                 if (!matcher.find()) {
-                    String message = "Please enter a deadline task in the format: " +
-                            "deadline (description) /by yyyy-MM-dd HHmm";
+                    String message = "Please enter a deadline task in the format: "
+                            + "deadline (description) /by yyyy-MM-dd HHmm";
                     throw new AlexException(message);
                 }
                 int startIndex = matcher.start();

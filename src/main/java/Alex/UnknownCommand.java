@@ -12,7 +12,7 @@ public class UnknownCommand extends Command {
      *
      * @param command The user input string.
      */
-    public UnknownCommand (String command) {
+    public UnknownCommand(String command) {
         this.command = command;
     }
 

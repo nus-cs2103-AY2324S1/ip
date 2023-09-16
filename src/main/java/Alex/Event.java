@@ -1,14 +1,14 @@
 package Alex;
 
-import java.time.Month;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeParseException;
 
 /**
  * A class that can be instantiated to represent the task that has a from date and an end date.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected String fromTime;
     protected String toTime;
 
@@ -73,7 +73,7 @@ public class Event extends Task{
         int toDay = parsedToTime.getDayOfMonth();
         int toYear = parsedToTime.getYear();
         return "[E]" + super.toString()
-                + " (from: " + fromHour +":" + fromMinute + " " + fromDay + " " + fromMonth + " " + fromYear + " "
+                + " (from: " + fromHour + ":" + fromMinute + " " + fromDay + " " + fromMonth + " " + fromYear + " "
                 + " to: " + toHour + ":" + toMinute + " " + toDay + " " + toMonth + " " + toYear + ")";
     }
 }

@@ -106,7 +106,7 @@ public class TaskList {
      * @param index the index of the task to be removed.
      * @throws AlexException if an error occurs when an invalid task index is passed into this method.
      */
-    public static void delete(int index) throws AlexException{
+    public static void delete(int index) throws AlexException {
         if (index > numberOfElements) {
             String message = "OOPS!!! There is/are only " + numberOfElements + " task(s) stored";
             throw new AlexException(message);
