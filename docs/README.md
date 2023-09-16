@@ -226,16 +226,16 @@ Smolbrain chatbot data are saved in the computer automatically as a TXT file nam
 
 ## Command summary
 
-| Action | Format, Example |
-| --- | --- |
-| Add todo | `todo [DESCRIPTION]`|
-| Add deadline | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`|
-| Add event | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`|
-| Mark | `mark [INDEX]` |
-| Unmark | `unmark [INDEX]`|
-| Delete | `delete [INDEX]`|
-| Priority | `priority [INDEX] [PRIORITY_LEVEL]`|
-| Find | `find [KEYWORD]`|
+| Action | Format | Example |
+| --- | --- | --- |
+| Add todo | `todo [DESCRIPTION]`|e.g. `todo Create a new recipe`|
+| Add deadline | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`| e.g. `deadline Homework assignment /by 20/12/2023 1800` |
+| Add event | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`| e.g. `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` |
+| Mark | `mark [INDEX]`| e.g. `mark 2` |
+| Unmark | `unmark [INDEX]`| e.g. `unmark 5` |
+| Delete | `delete [INDEX]`| e.g. `delete 1` |
+| Priority | `priority [INDEX] [PRIORITY_LEVEL]`| e.g. `priority 7 3` |
+| Find | `find [KEYWORD]`| e.g. `find book` |
 | List | `list` |
 | Exit | `bye` |
 
