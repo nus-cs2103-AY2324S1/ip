@@ -77,6 +77,9 @@ public class Crusader {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            assert ui != null;
+            assert taskList != null;
+            assert storage != null;
             return c.execute(ui, taskList, storage);
         } catch (CrusaderException e) {
             return e.getMessage();
