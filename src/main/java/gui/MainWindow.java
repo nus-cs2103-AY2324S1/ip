@@ -2,7 +2,6 @@ package gui;
 
 import duke.Duke;
 import duke.DukeException;
-import duke.storage.Storage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
