@@ -32,5 +32,3 @@ jobs:
 
       - name: Build and check with Gradle
         run: ./gradlew check
-
-        run: runtest.bat
