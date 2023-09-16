@@ -14,7 +14,7 @@ EnigmaBot is a chat-bot capable of storing and tracking tasks for the user. Enig
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar EnigmaBot.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](Ui.png)
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -22,7 +22,7 @@ EnigmaBot is a chat-bot capable of storing and tracking tasks for the user. Enig
 
 ## Features 
 
-**:information_source: Notes about the command format:**<br>
+**Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` and square brackets are the parameters to be supplied by the user.<br>
   e.g. in `todo [n/DESC]`, `[n/DESC]` is a parameter which can be used as `todo n/eat apple`.
@@ -54,7 +54,7 @@ Examples:
 
 ### Creating a event: `event`
 
-Creates a 'event task with the description and date given.
+Creates a 'event` task with the description and date given.
 
 Format: `event [DESC] /from [YYYY-MM-DD HHHH] /to [YYYY-MM-DD HHHH]`
 
