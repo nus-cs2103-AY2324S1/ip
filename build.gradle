@@ -28,14 +28,16 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("veneto.Veneto")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "veneto"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    //archiveFileName = 'veneto-v1.0.0.jar'
 }
+
 
 run{
     standardInput = System.in
