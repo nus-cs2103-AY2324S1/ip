@@ -116,27 +116,30 @@ public class TaskList {
      * @throws IllegalCommandException task if command is in invalid format
      */
     public String changeMark(String command, Scanner tokeniser) throws IllegalCommandException {
+        // nothing specified after command
         if (!tokeniser.hasNext()) {
             throw new IllegalCommandException("do that without specifying a task number");
         }
+        // specified content is not an integer
         String content = tokeniser.next();
-        if (isInteger(content)) {
-            int id = Integer.parseInt(content);
-            if (id > getNumberOfTask()) {
-                throw new IllegalCommandException("do that... this task does not exist :(");
-            } else {
-                if (command.equals("mark")) {
-                    String message = markDone(id - 1);
-                    if (isAllComplete()) {
-                        message += list();
-                    }
-                    return message;
-                } else {
-                    return markNotDone(id - 1);
-                }
-            }
-        } else {
+        if (!isInteger(content)) {
             throw new IllegalCommandException("do that... try a number instead");
+        }
+        // if number of task does not exist
+        int id = Integer.parseInt(content);
+        if (id > getNumberOfTask() || id <= 0) {
+            throw new IllegalCommandException("do that... this task does not exist :(");
+        }
+        // checks which mark command it is
+        String message;
+        switch (command) {
+        case "mark":
+            return message = isAllComplete() ? markDone(id - 1) + list()
+                    : markDone(id - 1);
+        case "unmark":
+            return markNotDone(id - 1);
+        default:
+            throw new IllegalCommandException("help mark or unmark that");
         }
     }
 
@@ -147,9 +150,7 @@ public class TaskList {
                     "\" :(";
         } else {
             StringBuilder displayList = new StringBuilder();
-            displayList.append("Here are task(s) matching \"" +
-                    keyword +
-                    "\" in your list: \n");
+            displayList.append("Here are task(s) matching \"" + keyword + "\" in your list: \n");
             for (int i = 0; i < taskList.size(); i++) {
                 displayList.append(i + 1 + ".").append(taskList.get(i).toString());
             }
@@ -165,28 +166,29 @@ public class TaskList {
      * @throws IllegalCommandException invalid format of command
      */
     public String deleteTask(Scanner tokeniser) throws IllegalCommandException {
+        // nothing specified after command
         if (!tokeniser.hasNext()) {
             throw new IllegalCommandException("do that without specifying a task number");
         }
+        // specified content is n ot an integer
         String content = tokeniser.next();
         if (isInteger(content)) {
-            int id = Integer.parseInt(content);
-            if (id > getNumberOfTask()) {
-                throw new IllegalCommandException("do that... this task does not exist :(");
-            } else {
-                Task removedTask = remove(id - 1);
-                assert removedTask != null: "removed task must exist";
-                String message = "Happily scratched this off your list:\n"
-                        + Ui.indentLineBy(removedTask.toString(), 2) + "Now you have "
-                        + getNumberOfTask() + " tasks in the list!";
-                if (isAllComplete()) {
-                    message += list();
-                }
-                return message;
-            }
-        } else {
             throw new IllegalCommandException("do that... try a number instead");
         }
+        // if number of task does not exist
+        int id = Integer.parseInt(content);
+        if (id > getNumberOfTask() || id <= 0) {
+            throw new IllegalCommandException("do that... this task does not exist :(");
+        }
+        Task removedTask = remove(id - 1);
+        assert removedTask != null: "removed task must exist";
+        String message = "Happily scratched this off your list:\n"
+                + Ui.indentLineBy(removedTask.toString(), 2) + "Now you have "
+                + getNumberOfTask() + " tasks in the list!";
+        if (isAllComplete()) {
+            message += list();
+        }
+        return message;
     }
 
     private String markDone(int index) {
