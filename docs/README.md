@@ -1,4 +1,4 @@
-# Trash Gremlin Caelus
+# Trash Gremlin Caelus User Guide
 
 A chatbot that can help keep track of a list of tasks. Note that all indexes begin at 1.
 
