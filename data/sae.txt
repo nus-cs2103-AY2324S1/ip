@@ -1,2 +1,5 @@
 D | 1 | sleep | 2 January 2003 3pm
 E | 0 | sleep | 2pm | 3pm
+T | 0 | eat
+T | 1 | shit
+T | 0 | pee

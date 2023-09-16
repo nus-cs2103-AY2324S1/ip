@@ -43,6 +43,10 @@ public class Parser {
                     handleEvent(store, commandTask);
                     break;
 
+                case "find":
+                    store.findKeyword(commandTask[1]);
+                    break;
+
                 default:
                     throw new IllegalArgumentException("Invalid command.");
             }
@@ -95,5 +99,6 @@ public class Parser {
         String[] eventParts = commandTask[1].split("/from|/to");
         store.addEventTask(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
     }
+
 }
 

@@ -136,4 +136,22 @@ public class TaskList {
     public int size(){
         return tasks.size();
     }
+
+    public void findKeyword(String keyword) {
+        StringBuilder str = new StringBuilder();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String taskName = task.toString();
+            if (taskName.contains(keyword)) {
+                str = str.append("\n" + (i + 1) + "." + taskName);
+            }
+        }
+        if (str.length() > 1) {
+            System.out.println("Here are the matching tasks in your list: ");
+            System.out.println(str);
+        } else {
+            System.out.println("No tasks match the keyword given.");
+        }
+    }
 }
