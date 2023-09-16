@@ -9,7 +9,7 @@ import dre.task.TaskList;
  * Represents a command to add a new task.
  */
 public class AddCommand extends Command {
-    private final Task task;
+    private final Task NEW_TASK;
 
     /**
      * Creates an AddCommand for the specified task.
@@ -17,7 +17,7 @@ public class AddCommand extends Command {
      * @param task The task to be added.
      */
     public AddCommand(Task task) {
-        this.task = task;
+        this.NEW_TASK = task;
     }
 
     /**
@@ -28,8 +28,9 @@ public class AddCommand extends Command {
      * @param storage The storage object to update stored tasks.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.addTask(task);
-        return ui.generateAddedTaskString(task, tasks.size());
+    public String execute(TaskList tasks,
+                          Ui ui, Storage storage) {
+        tasks.addTask(NEW_TASK);
+        return ui.generateAddedTaskString(NEW_TASK, tasks.size());
     }
 }

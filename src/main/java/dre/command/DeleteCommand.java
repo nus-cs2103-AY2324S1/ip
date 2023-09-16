@@ -9,7 +9,7 @@ import dre.task.TaskList;
  * Represents a command to delete a task.
  */
 public class DeleteCommand extends Command {
-    private final int index;
+    private final int INDEX;
 
     /**
      * Creates a DeleteCommand with the specified task index within the task list.
@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
      * @param index The index of the task to be deleted.
      */
     public DeleteCommand(int index) {
-        this.index = index;
+        this.INDEX = index;
     }
 
     /**
@@ -28,10 +28,11 @@ public class DeleteCommand extends Command {
      * @param storage The storage object to update stored tasks.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks,
+                          Ui ui, Storage storage) {
         try {
-            tasks.deleteTask(index);
-            return ui.generateDeletedTaskString(tasks.getTask(index));
+            tasks.deleteTask(INDEX);
+            return ui.generateDeletedTaskString(tasks.getTask(INDEX));
         } catch (DreException e) {
             e.printStackTrace();
             return ui.generateErrorString(e.getMessage());

@@ -51,7 +51,7 @@ public class Dre extends Application {
         try {
             tasks = new TaskList(storage.load());
         } catch (Exception e) {
-            ui.generateLoadingErrorString(); //do i need this anymore?
+            ui.generateLoadingErrorString();
             tasks = new TaskList();
             e.printStackTrace();
         }

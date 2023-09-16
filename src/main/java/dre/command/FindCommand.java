@@ -10,7 +10,7 @@ import dre.ui.Ui;
  * This command is intended to help users search for specific tasks within their list.
  */
 public class FindCommand extends Command {
-    private final String keyword;
+    private final String KEYWORD;
 
     /**
      * Creates a new FindCommand with the specified keyword.
@@ -18,7 +18,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword used to search for tasks.
      */
     public FindCommand(String keyword) {
-        this.keyword = keyword;
+        this.KEYWORD = keyword;
     }
 
     /**
@@ -31,8 +31,9 @@ public class FindCommand extends Command {
      * @throws DreException If there are issues during the command execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DreException {
-        TaskList foundTasks = tasks.findTasksByKeyword(keyword);
+    public String execute(TaskList tasks,
+                          Ui ui, Storage storage) throws DreException {
+        TaskList foundTasks = tasks.findTasksByKeyword(KEYWORD);
         return ui.generateFoundTasksString(foundTasks);
     }
 }

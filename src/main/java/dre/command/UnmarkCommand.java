@@ -9,7 +9,7 @@ import dre.task.TaskList;
  * Represents a command to unmark a task.
  */
 public class UnmarkCommand extends Command {
-    private final int index;
+    private final int TASK_INDEX;
 
     /**
      * Creates an UnmarkCommand with the specified task index.
@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
      * @param index The index of the task to be unmarked.
      */
     public UnmarkCommand(int index) {
-        this.index = index;
+        this.TASK_INDEX = index;
     }
 
     /**
@@ -30,8 +30,8 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            tasks.unmark(index);
-            return ui.generateUnmarkedTaskString(tasks.getTask(index));
+            tasks.unmark(TASK_INDEX);
+            return ui.generateUnmarkedTaskString(tasks.getTask(TASK_INDEX));
         } catch (DreException e) {
             return ui.generateErrorString(e.getMessage());
         }
