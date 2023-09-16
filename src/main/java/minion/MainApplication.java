@@ -22,8 +22,15 @@ public class MainApplication extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            Scene scene = new Scene(ap, 1000, 800);
             stage.setScene(scene);
+//            stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+//                // Do whatever you want
+//                stage.sizeToScene();
+//            });
+//            stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+//                // Do whatever you want
+//            });
             fxmlLoader.<MainWindow>getController().setupChatbot(minion, stage);
             stage.show();
         } catch (IOException e) {

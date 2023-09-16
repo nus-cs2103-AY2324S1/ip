@@ -52,6 +52,8 @@ public class ToDo extends Task {
     }
 
     /**
+     *
+     *
      * Checks whether this object equals the other object.
      * @param o other object.
      * @return whether this object equals the other object.
