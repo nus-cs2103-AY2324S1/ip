@@ -58,31 +58,31 @@ public class Parser {
             String fullInput = input.getFullInput();
             int numberOfWords = input.getLength();
             switch (command) {
-                case "list":
-                    output = ui.showList(tasks, numberOfWords);
-                    break;
-                case "mark":
-                case "unmark":
-                case "delete":
-                    output = ui.showManipulateTasks(tasks, command, fullInput, numberOfWords);
-                    break;
-                case "todo":
-                    output = ui.showAddToDo(tasks, fullInput, numberOfWords);
-                    break;
-                case "deadline":
-                    output = ui.showAddDeadline(tasks, fullInput, numberOfWords, this);
-                    break;
-                case "event":
-                    output = ui.showAddEvent(tasks, fullInput, numberOfWords, this);
-                    break;
-                case "find":
-                    output = ui.showFind(tasks, fullInput, numberOfWords);
-                    break;
-                case "bye":
-                    output = ui.showBye(numberOfWords);
-                    break;
-                default:
-                    throw new InvalidCommandException("No such command exists");
+            case "list":
+                output = ui.showList(tasks, numberOfWords);
+                break;
+            case "mark":
+            case "unmark":
+            case "delete":
+                output = ui.showManipulateTasks(tasks, command, fullInput, numberOfWords);
+                break;
+            case "todo":
+                output = ui.showAddToDo(tasks, fullInput, numberOfWords);
+                break;
+            case "deadline":
+                output = ui.showAddDeadline(tasks, fullInput, numberOfWords, this);
+                break;
+            case "event":
+                output = ui.showAddEvent(tasks, fullInput, numberOfWords, this);
+                break;
+            case "find":
+                output = ui.showFind(tasks, fullInput, numberOfWords);
+                break;
+            case "bye":
+                output = ui.showBye(numberOfWords);
+                break;
+            default:
+                throw new InvalidCommandException("No such command exists");
             }
         } catch (DukeException e) {
             output = e.getMessage() + "\nPlease try again";

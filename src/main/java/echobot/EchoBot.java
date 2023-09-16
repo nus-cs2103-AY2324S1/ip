@@ -5,17 +5,8 @@ import echobot.utilities.Parser;
 import echobot.utilities.Storage;
 import echobot.utilities.TaskList;
 import echobot.utilities.Ui;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
+import java.io.File;
 
 /**
  * The main class for EchoBot Chatbot
@@ -52,6 +43,8 @@ public class EchoBot {
         } else {
             tasks = new TaskList();
         }
+        File txtFile = new File(FILE_PATH);
+        assert txtFile.exists();
     }
 
     /**
@@ -61,6 +54,8 @@ public class EchoBot {
     public String getResponse(String input) {
         Input parsedInput = parser.parse(input);
         String output = parser.handleInput(tasks, parsedInput, ui);
+        File txtFile = new File(FILE_PATH);
+        assert txtFile.exists();
         tasks.overwriteTasksData(storage);
         return output;
     }
