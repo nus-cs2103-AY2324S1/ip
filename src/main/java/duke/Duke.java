@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.Duration;
+import java.util.Comparator;
 import java.util.List;
 
 import exceptions.ParserException;
@@ -177,6 +179,37 @@ public class Duke {
     }
 
     /**
+     * Finds the earliest x hour slot.
+     */
+    public void freeTime() {
+        try {
+            int hours = parser.getIndex() + 1;
+            List<Event> events = taskList.getEvents();
+            if (events.isEmpty()) {
+                ui.addPrintStatement("You have no events! Any time is a free time!");
+            } else {
+                events.sort(Comparator.comparing(Event::getStartDate));
+                for (int i = 0; i < events.size() - 1; i++) {
+                    Event current = events.get(i);
+                    Event next = events.get(i + 1);
+                    Duration timediff = Duration.between(current.getEndDate(), next.getStartDate());
+                    long freehours = timediff.toHours();
+                    if (hours <= freehours) {
+                        ui.addPrintStatement(
+                            "the earliest free timeslot is: " + current.getEndDateName());
+                        return;
+                    }
+                }
+                ui.addPrintStatement(
+                    "The earliest free timeslot is: " + events.get(events.size() - 1)
+                        .getEndDateName());
+            }
+        } catch (IndexOutOfBoundsException ex) {
+            ui.addPrintStatement("Please enter a valid time!");
+        }
+    }
+
+    /**
      * Displays greetings text
      */
     public String start() {
@@ -229,6 +262,10 @@ public class Duke {
         }
         case "find": {
             findTask();
+            break;
+        }
+        case "free": {
+            freeTime();
             break;
         }
         default:
