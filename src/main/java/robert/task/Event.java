@@ -60,7 +60,7 @@ public class Event extends Task {
     }
 
     /**
-     * A getter of the starting date.
+     * Gets the starting date.
      *
      * @return the start date.
      */
@@ -69,7 +69,7 @@ public class Event extends Task {
     }
 
     /**
-     * A getter of the ending date.
+     * Gets the ending date.
      *
      * @return the end date.
      */
@@ -78,7 +78,7 @@ public class Event extends Task {
     }
 
     /**
-     * An identifier on whether the task is happening on a particular date.
+     * Identifies whether the task is happening on a particular date.
      *
      * @return a boolean.
      */

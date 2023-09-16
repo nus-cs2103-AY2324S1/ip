@@ -139,7 +139,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * A private class to initialise an iterator.*
+     * Initialises an iterator.
      */
     private class TaskIterator implements Iterator<Task> {
 

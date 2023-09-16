@@ -34,7 +34,7 @@ public class Task {
     }
 
     /**
-     * A getter of the description.
+     * Gets the description.
      *
      * @return the description.
      */
@@ -43,7 +43,7 @@ public class Task {
     }
 
     /**
-     * A getter of the status icon.
+     * Gets the status icon.
      *
      * @return the status icon of either "X" or " ".
      */
