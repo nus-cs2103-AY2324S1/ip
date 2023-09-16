@@ -1,5 +1,5 @@
 package duke;
-import dukeUiElements.Ui;
+import dukeuielements.Ui;
 import task.Task;
 import task.ToDo;
 import task.Deadline;
@@ -13,7 +13,8 @@ import java.util.ListIterator;
  */
 
 public class TaskList {
-    private static ArrayList<Task> storeTask = new ArrayList<>(1); //stores all the tasks
+    //stores all the tasks
+    private static ArrayList<Task> storeTask = new ArrayList<>(1);
     /**
      * Displays the entire list of tasks to user.
      */
@@ -30,7 +31,7 @@ public class TaskList {
      */
     public static String userMarkUnmark(String taskNumber, String userMarkerChoice) {
         Task taskItem = storeTask.get(Integer.parseInt(taskNumber) - 1);
-        return Ui.indent + taskItem.changeStatus(userMarkerChoice);
+        return taskItem.changeStatus(userMarkerChoice);
     }
 
     /**
@@ -80,8 +81,8 @@ public class TaskList {
      * @param delUserChoice The task number to be deleted (based on number on list).
      * @throws DukeException  If TaskList is empty or invalid selection by user.
      */
-    public static String deleteTask(int delUserChoice) throws DukeException{
-        if ((delUserChoice - 1) < 0) {                                          //if number entered smaller than 1, array will go negative index.
+    public static String deleteTask(int delUserChoice) throws DukeException {
+        if ((delUserChoice - 1) < 0) { //if number entered smaller than 1, array will go negative index.
             throw new DukeException("Invalid Task entered. Please try again...");
         } else if (storeTask.isEmpty()) {
             throw new DukeException("Task Scheduler is empty... Please try again!");

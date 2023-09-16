@@ -1,5 +1,5 @@
 package duke;
-import dukeUiElements.Ui;
+import dukeuielements.Ui;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -31,31 +31,37 @@ public class Parser {
         String userTaskChoiceKey = userInputList[0];
         //Stores enum value. might throw exception if invalid input entered.
         TaskKeyVal taskKeyVal = TaskKeyVal.valueOf(userTaskChoiceKey);
-        if (taskKeyVal == TaskKeyVal.bye) {
+
+        switch (taskKeyVal) {
+        case bye:
             return userExit();
-        } else if (taskKeyVal == TaskKeyVal.list) {
+        case list:
             return TaskList.userListChoice();
-        } else if (taskKeyVal == TaskKeyVal.mark || taskKeyVal == TaskKeyVal.unmark) {
+        case mark:
+        case unmark:
             String userMarkerChoice = userInputList[1];
             return TaskList.userMarkUnmark(userMarkerChoice, userTaskChoiceKey);
-        } else if (userInputList.length == 1 && enumCheck(userTaskChoiceKey)) {
-            throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
-        } else if (taskKeyVal == TaskKeyVal.ToDo) {
+        case ToDo:
             return TaskList.addToDo(userInputList[1]);
-        } else if (taskKeyVal == TaskKeyVal.Deadline) {
+        case Deadline:
             String[] deadlineList = userInputList[1].split("/", 2);
             return TaskList.addDeadline(deadlineList[0], deadlineList[1]);
-        } else if (taskKeyVal == TaskKeyVal.Event) {
+        case Event:
             String[] eventList = userInputList[1].split("/", 3);
             return TaskList.addEvent(eventList[0], eventList[1], eventList[2]);
-        } else if (taskKeyVal == TaskKeyVal.Delete) {
+        case Delete:
             Integer delUserChoice = Integer.parseInt(userInputList[1]);
             return TaskList.deleteTask(delUserChoice);
-        } else if (taskKeyVal == TaskKeyVal.find) {
+        case find:
             String findThis = userInputList[1];
             return TaskList.taskToBeFound(findThis);
-        } else { //in case wrong input like Delete abc entered
-            throw new DukeException("OOPS!!! Sorry, but i do not know what that means :-(");
+
+        default:
+            if (userInputList.length == 1 && enumCheck(userTaskChoiceKey)) {
+                throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
+            } else { //in case wrong input like Delete abc entered
+                throw new DukeException("OOPS!!! Sorry, but i do not know what that means :-(");
+            }
         }
     }
 
