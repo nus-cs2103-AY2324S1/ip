@@ -1,10 +1,11 @@
 package duke.userio;
 
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.ToDo;
-import duke.task.Deadline;
-import duke.task.Event;
+
 
 /**
  * Class to generate appropriate responses.
@@ -141,14 +142,18 @@ public class Ui {
         return ("Update successful! This is the updated task list:\n" + taskList);
     }
 
+    /**
+     * Informs user update failed and tells what is the right format for updating a task.
+     * @return String to notify failure and right format of updating task.
+     */
     public String updateFailedResponse() {
-        return ("Update was unsuccessful :( Please return in this format:\n" +
-                "update {task index in task list} {attribute of task} {content to update with} while ensuring the task" +
-                " has the necessary attribute (See end of message) \n" +
-                "For example: update 1 from 10/10/2023 , update 3 description Wash dishes\n\n" +
-                "ToDo: description\n" +
-                "Deadline: description, by\n" +
-                "Event: description, from, to");
+        return ("Update was unsuccessful :( Please return in this format:\n"
+                + "update {task index in task list} {attribute of task} {content to update with} "
+                + "while ensuring the task has the necessary attribute (See end of message) \n"
+                + "For example: update 1 from 10/10/2023 , update 3 description Wash dishes\n\n"
+                + "ToDo: description\n"
+                + "Deadline: description, by\n"
+                + "Event: description, from, to");
     }
     /**
      * Informs user the given input does not work.

@@ -2,9 +2,10 @@ package duke.filemanagement;
 
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.ToDo;
-import duke.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -96,7 +97,7 @@ public class Storage {
      */
     public String getTaskDetails(String line) {
         String[] lineSplit = line.split("\\[");
-        return  lineSplit[2].split("] ")[1];
+        return lineSplit[2].split("] ")[1];
     }
 
     /**
@@ -142,7 +143,8 @@ public class Storage {
             while (scanner.hasNextLine()) {
 
                 String line = scanner.nextLine();
-                // line is represented as: "A. [B][C] Details" where A is index of task, B is type of task, C is mark status
+                // line is represented as:
+                // "A. [B][C] Details" where A is index of task, B is type of task, C is mark status
                 String taskType = getTaskType(line);
                 boolean markStatus = getMarkStatus(line);
                 String taskDetails = getTaskDetails(line);
@@ -158,9 +160,11 @@ public class Storage {
                     case "E":
                         taskToAdd = produceEventTask(taskDetails, markStatus);
                         break;
+                    default:
+                        System.out.println("There is an invalid taskType, task will not be added");
                 }
-                assert taskToAdd != null : "taskToAdd should be updated to a Task from null if a line is scanned in " +
-                        "task file";
+                assert taskToAdd != null : "taskToAdd should be updated to a Task from null if a line is scanned in "
+                        + "task file";
                 taskList.addTask(taskToAdd);
             }
         } catch (FileNotFoundException e) {

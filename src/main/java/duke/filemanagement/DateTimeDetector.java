@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles checking for date and time in a String and formatting them accordingly
+ */
 public class DateTimeDetector {
     // List of formats
     private final DateTimeFormatter t112h = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
@@ -132,7 +135,7 @@ public class DateTimeDetector {
                 System.out.println("includes time");
                 dt = parseDateWithTime(date);
                 System.out.println(dt.toString());
-//                assert dt != null : "d be updated with parsed input date and not null";
+                assert dt != null : "d be updated with parsed input date and not null";
                 return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
             } else {
                 d = parseDateOnly(date);
