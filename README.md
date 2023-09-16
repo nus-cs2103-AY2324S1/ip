@@ -24,7 +24,7 @@ See User Guide [here](http://nixonwidjaja.github.io/ip/)
 
 # Get Started
 - You can download the jar file [here](https://github.com/nixonwidjaja/ip/releases)
-- Make sure you have Java and JRE installed
+- Make sure you have Java and JRE installed on your device
 - Run the jar file
 
 ##
