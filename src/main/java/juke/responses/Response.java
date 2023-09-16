@@ -1,6 +1,8 @@
 package juke.responses;
 
+import juke.Juke;
 import juke.commons.classes.JukeObject;
+import juke.commons.utils.StringUtils;
 
 /**
  * Represents the two-sided conversation between Juke and the user. Future implementation of this class
@@ -27,12 +29,14 @@ public class Response extends JukeObject {
 
     /**
      * Returns a {@code Response} containing the inputs from the user.
+     * Note that the user input must be wrapped as the actions do not automatically wrap the
+     * user input.
      *
      * @param inputMessage User response
      * @return {@code Response} containing the inputs from the user
      */
     public static Response ofUser(String inputMessage) {
-        return new Response(inputMessage, null);
+        return new Response(StringUtils.wrap(inputMessage, Juke.MAX_STRING_LENGTH), null);
     }
 
     /**
