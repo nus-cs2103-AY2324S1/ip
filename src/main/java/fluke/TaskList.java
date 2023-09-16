@@ -127,6 +127,17 @@ public class TaskList {
     }
 
     /**
+     * Interface to enforce error handling for a Function
+     * In this case, it is a function that changes a specific task (via index) in the task list.
+     * @param <Integer> the index of the task
+     * @param <Task> the task that the function was performed on
+     */
+    @FunctionalInterface
+    public interface ApplyToTaskWithIndexFunction<Integer, Task> {
+        Task apply(Integer t) throws TaskDoesNotExistException;
+    }
+
+    /**
      * Marks a task in the task list as not done.
      * @param index index of the task in the list
      * @return the marked task.
@@ -156,6 +167,56 @@ public class TaskList {
             }
         }
         return new TaskList(newListOfTasks);
+    }
+
+    /**
+     * Returns the first index in the list which is out of bounds of tasks.
+     * Checking this helps prevent IndexOutOfBounds
+     * @param indexes to be checked
+     * @return -1 if all indexes are valid.
+     */
+    public int findFirstInvalidIndex(int[] indexes) {
+        for (int i = 0; i < indexes.length; i++) {
+            if (indexes[i] >= tasks.size()) {
+                return indexes[i];
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Executes a function multiple times. This function must be a function which takes in indexes only.
+     * @param f the function to execute multiple times
+     * @param indexes the indexes of the tasks
+     * @return list of tasks which had the function executed on.
+     * @throws TaskDoesNotExistException if at least one of the indexes given are invalid.
+     */
+    public Task[] doMultiple(ApplyToTaskWithIndexFunction<Integer, Task> f, int[] indexes)
+            throws TaskDoesNotExistException {
+        // check for any invalid indexes
+        int index = findFirstInvalidIndex(indexes);
+        if (index != -1) {
+            throw new TaskDoesNotExistException(index + 1);
+        }
+        // reverse indexes list because delete does not work in order
+        int len = indexes.length;
+        int[] reversedIndexes = new int[len];
+        for (int i = 0; i < len; i++) {
+            reversedIndexes[len - 1 - i] = indexes[i];
+        }
+        // initialise list of tasks to return later for ui to show
+        ArrayList<Task> doneTasks = new ArrayList<>();
+        // apply function to each item in the list
+        for (int i: reversedIndexes) {
+            Task doneTask = f.apply(i);
+            doneTasks.add(doneTask);
+        }
+        // reverse the list back and convert back to array
+        Task[] t = new Task[doneTasks.size()];
+        for (int j = 0; j < doneTasks.size(); j++) {
+            t[doneTasks.size() - 1 - j] = doneTasks.get(j);
+        }
+        return t;
     }
 
     /**

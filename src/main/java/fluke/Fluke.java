@@ -116,9 +116,10 @@ public class Fluke {
      * @throws FlukeException if an error occurs while marking a task as done, for instance, with invalid inputs.
      */
     private String markTaskAsDone(String command) throws FlukeException {
-        int index = Parser.parseMarkAsDoneCommand(command);
-        Task taskMarked = tasks.markTaskAsDone(index);
-        return this.ui.getTaskMarkedAsDone(taskMarked);
+        int[] indexes = Parser.parseMarkAsDoneCommand(command);
+        TaskList.ApplyToTaskWithIndexFunction<Integer, Task> f = (i) -> tasks.markTaskAsDone(i);
+        Task[] tasksMarked = tasks.doMultiple(f, indexes);
+        return this.ui.getTaskMarkedAsDone(tasksMarked);
     }
 
     /**
@@ -127,9 +128,10 @@ public class Fluke {
      * @throws FlukeException if an error occurs while marking a task as not done, for instance, with invalid inputs.
      */
     private String markTaskAsUndone(String command) throws FlukeException {
-        int index = Parser.parseMarkAsUndoneCommand(command);
-        Task taskMarked = tasks.markTaskAsUndone(index);
-        return this.ui.getTaskMarkedAsUndone(taskMarked);
+        int[] indexes = Parser.parseMarkAsUndoneCommand(command);
+        TaskList.ApplyToTaskWithIndexFunction<Integer, Task> f = (i) -> tasks.markTaskAsUndone(i);
+        Task[] tasksMarked = tasks.doMultiple(f, indexes);
+        return this.ui.getTaskMarkedAsUndone(tasksMarked);
     }
 
     /**
@@ -138,9 +140,10 @@ public class Fluke {
      * @throws FlukeException if an error occurs while deleting a task, for instance, with invalid inputs.
      */
     private String deleteTask(String command) throws FlukeException {
-        int index = Parser.parseDeleteCommand(command);
-        Task deleted = tasks.deleteTask(index);
-        return this.ui.getTaskDeleted(deleted, tasks);
+        int[] indexes = Parser.parseDeleteCommand(command);
+        TaskList.ApplyToTaskWithIndexFunction<Integer, Task> f = (i) -> tasks.deleteTask(i);
+        Task[] deleted = tasks.doMultiple(f, indexes);
+        return this.ui.getTaskDeleted(tasks, deleted);
     }
 
     /**
