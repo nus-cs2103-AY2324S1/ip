@@ -7,7 +7,7 @@ import chatbot.Parser;
 class ParserTest {
 
     @Test
-    void testDetermineTaskType() {
+    void testMarker_inputTask_DetermineTaskType() {
         assertEquals(Parser.TaskType.TODO, Parser.determineTaskType("todo Read a book"));
         assertEquals(Parser.TaskType.DEADLINE, Parser.determineTaskType("deadline Submit assignment /by tomorrow"));
         assertEquals(Parser.TaskType.UNKNOWN, Parser.determineTaskType("unknownCommand"));

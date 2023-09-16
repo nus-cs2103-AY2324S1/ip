@@ -3,7 +3,6 @@ package chatbot;
 import chatbot.command.Command;
 import chatbot.task.TaskManager;
 
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,6 +13,12 @@ public class Chatbot {
         assert taskManager != null : "Task Manager must be initialise";
     }
 
+    /**
+     * Process user input and return bot response.
+     *
+     * @param input user input
+     * @return string bot response
+     */
     public String processUserInput(String input) {
         assert input != null : "Input cannot be empty";
         try {

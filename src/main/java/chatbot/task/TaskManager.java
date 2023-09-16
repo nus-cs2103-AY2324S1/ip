@@ -153,24 +153,13 @@ public class TaskManager {
         return "Bye. Hope to see you again soon!\n";
     }
 
-    /**
-     * Print the date.
-     *
-     * @param date date
-     */
-    public void printTasksOnDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate targetDate = LocalDate.parse(date, formatter);
-        for (Task task : tasks.getAllTasks()) {
-            if (task instanceof Deadlines) {
-                Deadlines deadlineTask = (Deadlines) task;
-                if (targetDate.equals(deadlineTask.getDateTime().toLocalDate())) {
-                    System.out.println(task);
-                }
-            }
-        }
-    }
 
+    /**
+     * Help to find task by just the keyword.
+     *
+     * @param keyword keyword
+     * @return a list of task containing the keyword
+     */
     public List<Task> findTaskByKeyboard(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks.getAllTasks()) {

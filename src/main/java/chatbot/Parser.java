@@ -22,12 +22,24 @@ public class Parser {
      */
     public static TaskType determineTaskType(String userInput) {
         assert userInput != null : "userInput cannot be null";
-        if (userInput.startsWith("todo")) return TaskType.TODO;
-        if (userInput.startsWith("deadline")) return TaskType.DEADLINE;
-        if (userInput.startsWith("event")) return TaskType.EVENT;
-        if (userInput.startsWith("mark")) return TaskType.MARK;
-        if (userInput.startsWith("unmark")) return TaskType.UNMARK;
-        if ("bye".equalsIgnoreCase(userInput)) return TaskType.BYE;
+        if (userInput.startsWith("todo")) {
+            return TaskType.TODO;
+        }
+        if (userInput.startsWith("deadline")) {
+            return TaskType.DEADLINE;
+        }
+        if (userInput.startsWith("event")) {
+            return TaskType.EVENT;
+        }
+        if (userInput.startsWith("mark")) {
+            return TaskType.MARK;
+        }
+        if (userInput.startsWith("unmark")) {
+            return TaskType.UNMARK;
+        }
+        if ("bye".equalsIgnoreCase(userInput)) {
+            return TaskType.BYE;
+        }
         return TaskType.UNKNOWN;
     }
 
