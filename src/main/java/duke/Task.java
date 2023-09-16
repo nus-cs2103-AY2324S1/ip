@@ -31,6 +31,7 @@ public abstract class Task {
             throw new RuntimeException("Command not recognized"); //literally should not run
         }
     }
+
     /**
      * Creates the task by takes a string representing the description of the task.
      *
@@ -87,5 +88,27 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
+    }
+
+    /**
+     * Updates the information about a specific task.
+     *
+     * @param attribute the attribute to update. Attributes: description, deadline, start, end
+     * @param updatedInfo the information to update the attribute with. If it is time related, it must be in the format.
+     * @return The response of the update
+     * @throws DukeException
+     */
+    public String update(TaskAttribute attribute, String updatedInfo) throws DukeException {
+        String initial = "";
+        if (attribute.equals(TaskAttribute.description)) {
+            initial = this.description;
+            this.description = updatedInfo;
+            return formatUpdateResponse(attribute, initial, updatedInfo);
+        }
+        throw new DukeException(String.format("Unknown attribute: %s for %s", attribute, this));
+    }
+
+    protected String formatUpdateResponse(TaskAttribute attribute, String initial, String next) {
+        return String.format("Changed %s: %s -> %s\nFor %s", attribute.name(), initial, next, this);
     }
 }

@@ -8,6 +8,8 @@ import java.util.Scanner;
  */
 public class UserInterface {
 
+    private static String TERMINATE_READER_STRING = "";
+
     /** Scanner to scan line input. */
     private Scanner sc = new Scanner(System.in);
     /** Storage to store the save file. */
@@ -52,65 +54,13 @@ public class UserInterface {
         Reading:
         while (true) {
             String line = sc.nextLine();
-            if (line.length() == 0) {
-                display("Err: No command input");
-                continue;
-            }
-            String[] instructions = line.split(" ", 2);
-            Commands cmd = Commands.get(instructions[0]);
-            String response;
-            switch (cmd) {
-            case bye:
-                this.save();
-                break Reading;
-            case list:
-                response = list.toString();
-                display(response);
-                break;
-            case deadline:
-                // Fallthrough
-            case todo:
-                // Fallthrough
-            case event:
-                try {
-                    Task task = Parser.parseTask(cmd, instructions);
-                    response = list.add(task);
-                    display(response);
-                } catch (DukeException e) {
-                    display(e.toString());
-                }
-                break;
-            case mark:
-                try {
-                    response = list.markDone(instructions[1]);
-                    display(response);
-                } catch (IndexOutOfBoundsException e) {
-                    display("Err: Index not in range of list.");
-                }
-                break;
-            case unmark:
-                try {
-                    response = list.markUndone(instructions[1]);
-                    display(response);
-                } catch (IndexOutOfBoundsException e) {
-                    display("Err: Index not in range of list.");
-                }
-                break;
-            case delete:
-                try {
-                    response = list.delete(instructions[1]);
-                    display(response);
-                } catch (IndexOutOfBoundsException e) {
-                    display("Err: Index not in range of list.");
-                }
-                break;
-            case find:
-                response = Parser.findAll(instructions, list);
-            default:
-                response = "Err: Unknown command - " + instructions[0];
-                display(response);
+            String response = parseLine(line);
+            if (response.equals(TERMINATE_READER_STRING)) {
+                display("Bye");
                 break;
             }
+            display(response);
+
         }
         sc.close();
     }
@@ -153,7 +103,7 @@ public class UserInterface {
      */
     public String parseLine(String line) {
         if (line.length() == 0) {
-            return wrapper("Err: No command input");
+            return "Err: No command input";
         }
         String[] instructions = line.split(" ", 2);
         Commands cmd = Commands.get(instructions[0]);
@@ -161,49 +111,36 @@ public class UserInterface {
         switch (cmd) {
         case bye:
             this.save();
-            return wrapper("Bye");
+            return TERMINATE_READER_STRING;
         case list:
             response = list.toString();
-            return wrapper(response);
+            break;
         case deadline:
             // Fallthrough
         case todo:
             // Fallthrough
         case event:
-            try {
-                Task task = Parser.parseTask(cmd, instructions);
-                response = list.add(task);
-                return wrapper(response);
-            } catch (DukeException e) {
-                return wrapper(e.toString());
-            }
+            response = Parser.parseTaskAndAddToList(cmd, instructions, list);
+            break;
         case mark:
-            try {
-                response = list.markDone(instructions[1]);
-                return wrapper(response);
-            } catch (IndexOutOfBoundsException e) {
-                return wrapper("Err: Index not in range of list.");
-            }
+            response = list.markDone(instructions[1]);
+            break;
         case unmark:
-            try {
-                response = list.markUndone(instructions[1]);
-                return wrapper(response);
-            } catch (IndexOutOfBoundsException e) {
-                return wrapper("Err: Index not in range of list.");
-            }
+            response = list.markUndone(instructions[1]);
+            break;
         case delete:
-            try {
-                response = list.delete(instructions[1]);
-                return wrapper(response);
-            } catch (IndexOutOfBoundsException e) {
-                return wrapper("Err: Index not in range of list.");
-            }
+            response = list.delete(instructions[1]);
+            break;
         case find:
             response = Parser.findAll(instructions, list);
-            return wrapper(response);
+            break;
+        case update:
+            response = Parser.parseUpdate(instructions, list);
+            break;
         default:
             response = "Err: Unknown command - " + instructions[0];
-            return wrapper(response);
+            break;
         }
+        return response;
     }
 }

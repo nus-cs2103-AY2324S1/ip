@@ -8,6 +8,8 @@ import java.util.Collection;
  */
 public class StoreList {
 
+    private static String INDEX_OUT_OF_BOUNDS_MSG = "Err: Index provided is out of position of the list";
+
     /** The list of task. */
     ArrayList<Task> list;
 
@@ -80,7 +82,7 @@ public class StoreList {
         } catch (NumberFormatException e) {
             return "Err: Index provided is not an integer";
         } catch (IndexOutOfBoundsException e) {
-            return "Err: Index provided is out of position of the list";
+            return INDEX_OUT_OF_BOUNDS_MSG;
         }
     }
 
@@ -101,7 +103,7 @@ public class StoreList {
         } catch (NumberFormatException e) {
             return "Err: Index provided is not an integer";
         } catch (IndexOutOfBoundsException e) {
-            return "Err: Index provided is out of position of the list";
+            return INDEX_OUT_OF_BOUNDS_MSG;
         }
     }
 
@@ -125,7 +127,7 @@ public class StoreList {
         } catch (NumberFormatException e) {
             return "Err: Index provided is not an integer";
         } catch (IndexOutOfBoundsException e) {
-            return "Err: Index provided is out of position of the list";
+            return INDEX_OUT_OF_BOUNDS_MSG;
         }
     }
 
@@ -177,5 +179,25 @@ public class StoreList {
         });
 
         return result;
+    }
+
+    /**
+     * Updates the task given the index and the attribute of the task to be updated.
+     *
+     * @param attribute the attribute of the task to update.
+     * @param index the index of the task in the list. This index starts from 1.
+     * @param updatedInfo the new info to update with.
+     * @return response: error msg if not successful.
+     */
+    public String updateTask(TaskAttribute attribute, int index, String updatedInfo) {
+        try {
+            Task task = this.list.get(index - 1);
+            String response = task.update(attribute, updatedInfo);
+            return response;
+        } catch (DukeException e) {
+            return e.toString();
+        } catch (IndexOutOfBoundsException e) {
+            return INDEX_OUT_OF_BOUNDS_MSG;
+        }
     }
 }

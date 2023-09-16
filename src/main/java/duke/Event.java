@@ -35,17 +35,8 @@ public class Event extends Task {
 
         DateTimeOptional startDate, endDate;
 
-        try {
-            startDate = DateTimeOptional.parseDateTime(timeLine[0]);
-        } catch (DateTimeException e) {
-            throw new DukeException.DukeDateTimeException(timeLine[0]);
-        }
-
-        try {
-            endDate = DateTimeOptional.parseDateTime(timeLine[1]);
-        } catch (DateTimeException e) {
-            throw new DukeException.DukeDateTimeException(timeLine[1]);
-        }
+        startDate = DateTimeOptional.parseDateTime(timeLine[0]);
+        endDate = DateTimeOptional.parseDateTime(timeLine[1]);
 
         return new Event(instructions[0], startDate, endDate);
     }
@@ -94,4 +85,27 @@ public class Event extends Task {
                 this.endTime.displayText()
         );
     }
+
+    @Override
+    public String update(TaskAttribute attribute, String updatedInfo) throws DukeException {
+        String initial;
+        String next;
+        switch (attribute) {
+        case start:
+            initial = this.startTime.displayText();
+            this.startTime = DateTimeOptional.parseDateTime(updatedInfo);
+            next = this.startTime.displayText();
+            break;
+        case end:
+            initial = this.endTime.displayText();
+            this.endTime = DateTimeOptional.parseDateTime(updatedInfo);
+            next = this.endTime.displayText();
+            break;
+        default:
+            return super.update(attribute, updatedInfo);
+        }
+        return this.formatUpdateResponse(attribute, initial, next);
+    }
+
+
 }
