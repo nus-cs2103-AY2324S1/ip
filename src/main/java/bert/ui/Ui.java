@@ -4,10 +4,16 @@ import bert.common.Messages;
 
 import java.util.Scanner;
 
+/**
+ * Represents a ui which deals with interactions with the user.
+ */
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
     private final Scanner sc;
 
+    /**
+     * Constructs a Ui instance.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
@@ -34,6 +40,9 @@ public class Ui {
         );
     }
 
+    /**
+     * Generates and prints the error message when an error occurs during loading.
+     */
     public void showLoadingError() {
         showToUser(
                 DIVIDER,
@@ -42,6 +51,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Generates and prints the error message when an error occurs in the program.
+     *
+     * @param errorMessage the description of the error
+     */
     public void showError(String errorMessage) {
         showToUser(
                 DIVIDER,
@@ -50,6 +64,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Generates and prints the result of a successful command execution.
+     *
+     * @param message the message provided by the command
+     */
     public void showResult(String message) {
         showToUser(
                 DIVIDER,
@@ -58,12 +77,22 @@ public class Ui {
         );
     }
 
+    /**
+     * Generates and prints messages to the user.
+     *
+     * @param message input strings which will be printed out to the user
+     */
     public void showToUser(String... message) {
         for (String m : message) {
             System.out.println(m);
         }
     }
 
+    /**
+     * Reads the entire line of user input.
+     *
+     * @return a string representation of the user input
+     */
     public String readCommand() {
         return sc.nextLine().trim();
     }

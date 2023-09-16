@@ -10,12 +10,23 @@ import bert.commands.ListCommand;
 import bert.commands.MarkCommand;
 import bert.commands.UnmarkCommand;
 import bert.exceptions.BertEmptyTaskException;
-import bert.exceptions.BertInvalidTaskException;
+import bert.exceptions.BertInvalidCommandException;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a parser that parses user input.
+ */
 public class Parser {
-    public Command parse(String fullCommand) throws BertInvalidTaskException, BertEmptyTaskException {
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param fullCommand full user input string including the command and its associated arguments
+     * @return the Command based on user input
+     * @throws BertInvalidCommandException if the user inputs an invalid command
+     * @throws BertEmptyTaskException if the argument that follows a todo, deadline or event command is empty
+     */
+    public Command parse(String fullCommand) throws BertInvalidCommandException, BertEmptyTaskException {
         String command;
         String arguments = "";
         int indexOfFirstSpace = fullCommand.indexOf(" ");
@@ -52,7 +63,7 @@ public class Parser {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
             default:
-                throw new BertInvalidTaskException();
+                throw new BertInvalidCommandException();
         }
     }
 
