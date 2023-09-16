@@ -1,21 +1,12 @@
 package echobot;
 
+import java.io.File;
+
 import echobot.utilities.Input;
 import echobot.utilities.Parser;
 import echobot.utilities.Storage;
 import echobot.utilities.TaskList;
 import echobot.utilities.Ui;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * The main class for EchoBot Chatbot
@@ -26,7 +17,7 @@ public class EchoBot {
     private static boolean isRunning = false;
 
     /** File path to the tasks.txt */
-    public static final String FILE_PATH = "./tasks.txt";
+    private static final String FILE_PATH = "./tasks.txt";
 
     /** Variable to store task list */
     private Storage storage;
@@ -52,6 +43,8 @@ public class EchoBot {
         } else {
             tasks = new TaskList();
         }
+        File txtFile = new File(FILE_PATH);
+        assert txtFile.exists();
     }
 
     /**
@@ -61,21 +54,23 @@ public class EchoBot {
     public String getResponse(String input) {
         Input parsedInput = parser.parse(input);
         String output = parser.handleInput(tasks, parsedInput, ui);
+        File txtFile = new File(FILE_PATH);
+        assert txtFile.exists();
         tasks.overwriteTasksData(storage);
         return output;
     }
 
-	/**
-	 * Starts the current session
-	 */
-	public static void startBot() {
-		isRunning = true;
-	}
+    /**
+     * Starts the current session
+     */
+    public static void startBot() {
+        isRunning = true;
+    }
 
-	/** Ends the current session */
-	public static void stopBot() {
-		isRunning = false;
-	}
+    /** Ends the current session */
+    public static void stopBot() {
+        isRunning = false;
+    }
 
     public boolean isRunning() {
         return isRunning;

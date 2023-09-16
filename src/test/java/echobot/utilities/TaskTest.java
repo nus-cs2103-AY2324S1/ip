@@ -14,6 +14,6 @@ public class TaskTest {
         assertEquals(task.isDone(), false);
         task.markAsDone();
         String stringRepresentation = task.convertToString();
-        assertEquals("[D][X] homework (by: Aug 03 2023)", stringRepresentation);
+        assertEquals("[D][X] homework\n\t (by: Aug 03 2023)", stringRepresentation);
     }
 }

@@ -5,12 +5,6 @@ package echobot.utilities;
  */
 public class Event extends Task {
 
-    /** Start time of the task */
-    private String startDate;
-
-    /** End time of the task */
-    private String endDate;
-
     /**
      * Creates a new instance of an event task
      *
@@ -20,15 +14,5 @@ public class Event extends Task {
      */
     public Event(String name, String startDate, String endDate) {
         super(name, Type.EVENT, "(from: " + startDate + " to: " + endDate + ")");
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public String getStart() {
-        return this.startDate;
-    }
-
-    public String getEnd() {
-        return this.endDate;
     }
 }

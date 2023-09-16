@@ -5,9 +5,6 @@ package echobot.utilities;
  */
 public class Deadline extends Task {
 
-    /** Deadline of a deadline task */
-    private String deadline;
-
     /**
      * Creates new instance of a deadline task
      *
@@ -16,10 +13,5 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String deadline) {
         super(name, Type.DEADLINE, "(by: " + deadline + ")");
-        this.deadline = deadline;
-    }
-
-    public String getDeadline() {
-        return this.deadline;
     }
 }
