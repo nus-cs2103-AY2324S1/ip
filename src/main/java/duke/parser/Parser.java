@@ -42,10 +42,10 @@ public class Parser {
         String[] parsedText = parseText(input);
         String action = parsedText[0];
         String arguments = parsedText[1];
-        boolean marked = false;
+        boolean isMarked = false;
         if (isRestoring) {
             String marker = arguments.substring(arguments.length() - 1);
-            marked = marker.equals("1");
+            isMarked = marker.equals("1");
             arguments = arguments.substring(0, arguments.length() - 1);
         }
 
@@ -53,7 +53,7 @@ public class Parser {
         case AddCommand.COMMAND_WORD_D:
         case AddCommand.COMMAND_WORD_E:
         case AddCommand.COMMAND_WORD_T:
-            return handleAdd(action, arguments, marked);
+            return handleAdd(action, arguments, isMarked);
         case DeleteCommand.COMMAND_WORD:
             if (arguments.equals("")) {
                 throw new InvalidArgumentException();
@@ -118,7 +118,7 @@ public class Parser {
     }
 
     /**
-     * Parses user text into the action type and the arguments
+     * Parses user text into the action type and the arguments.
      *
      * @param text the text to be parsed
      * @return String[] where the first index is the action type and second index is the arguments
