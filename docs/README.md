@@ -227,6 +227,21 @@ Smolbrain chatbot data are saved in the computer automatically as a TXT file nam
 ## Command summary
 | Action | Format, Example |
 | --- | --- |
+| Add todo | `todo [DESCRIPTION]`|
+| Add deadline | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`|
+| Add event | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`|
+| Mark | `mark [INDEX]` |
+| Unmark | `unmark [INDEX]`|
+| Delete | `delete [INDEX]`|
+| Priority | `priority [INDEX] [PRIORITY_LEVEL]`|
+| Find | `find [KEYWORD]`|
+| List | `list` |
+| Exit | `bye` |
+
+
+## Command summary
+| Action | Format, Example |
+| --- | --- |
 | Add todo | `todo [DESCRIPTION]`<br>e.g. `todo Create a new recipe`|
 | Add deadline | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`<br> e.g. `deadline Homework assignment /by 20/12/2023 1800` |
 | Add event | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`<br> e.g. `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` |
