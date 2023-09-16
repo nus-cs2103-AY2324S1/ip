@@ -38,170 +38,202 @@ public class TaskList {
      *
      * @throws DogeBotException If tasklist is empty.
      */
-    public static void list() throws DogeBotException {
+    public static String list() throws DogeBotException {
         if (tasks.size() == 0) {
             throw new DogeBotException("Oops ! Your list is empty ! Try adding some tasks first c:");
         }
 
-        System.out.println("Stuff to do:");
+        StringBuilder result = new StringBuilder("Stuff to do:\n");
         int i = 1;
         for (Task task : tasks) {
             if (task == null) {
                 break;
             }
-            System.out.println(i++ + ". " + task.toString());
+            result.append(i++ + ". " + task.toString() + "\n");
         }
+        return result.toString();
     }
 
     /**
      * Marks a task with its index as input.
      *
-     * @param index Index of task to mark.
+     * @param input User input for mark command.
+     * @return Output from processing mark command.
      * @throws DogeBotException If tasklist is empty.
      */
-    public static void mark(int index) throws DogeBotException {
+    public static String mark(String input) throws DogeBotException {
         if (tasks.size() == 0) {
             throw new DogeBotException("Oops ! Try adding some tasks first c:");
         }
 
+        StringBuilder result = new StringBuilder();
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
         tasks.get(index).markTask(true);
-        System.out.println("Good job on completing a task ! You deserve a cookie C:");
-        System.out.println("\t" + tasks.get(index).toString());
+        result.append("Good job on completing a task ! You deserve a cookie C:\n");
+        result.append("\t" + tasks.get(index).toString());
+
+        return result.toString();
     }
 
     /**
      * Unmarks a task with its index as input.
      *
-     * @param index Index of task to unmark.
-     * @throws DogeBotException If task list is empty.
+     * @param input User input for unmark command.
+     * @return Output from processing unmark command.
+     * @throws DogeBotException If tasklist is empty.
      */
-    public static void unmark(int index) throws DogeBotException {
+    public static String unmark(String input) throws DogeBotException {
         if (tasks.size() == 0) {
             throw new DogeBotException("Oops ! Try adding some tasks first c:");
         }
 
+        StringBuilder result = new StringBuilder();
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
         tasks.get(index).markTask(false);
-        System.out.println("Oh nyo, did someone make a mistake ?");
-        System.out.println("\t" + tasks.get(index).toString());
+        result.append("Oh nyo, did someone make a mistake ?\n");
+        result.append("\t" + tasks.get(index).toString());
+
+        return result.toString();
     }
 
     /**
-     * Prints current number of tasks.
-     */
-    public static void updateTasksCounter() {
-        System.out.println("You now have " + tasks.size() + " task(s) in your list");
-    }
-
-    /**
-     * Creates a new ToDos task.
+     * Gets current number of tasks.
      *
-     * @param words User command for todos task.
-     * @throws DogeBotException If input is empty.
+     * @return Number of tasks.
      */
-    public static void todo(String words) throws DogeBotException {
-        if (words.isBlank()) {
+    public static String updateTasksCounter() {
+        return "You now have " + tasks.size() + " task(s) in your list";
+    }
+
+    /**
+     * Creates a new ToDos task from user input.
+     *
+     * @param input User input for a ToDos task.
+     * @return Output from processing a ToDos task.
+     * @throws DogeBotException If input in empty.
+     */
+    public static String todo(String input) throws DogeBotException {
+        String[] split = input.split("todo ");
+        if (split.length == 0) {
             throw new DogeBotException("Oops ! The description of a todo cannot be empty :(");
         }
 
-        System.out.println("Mama mia ! I've just added this task:");
-        Task temp = new ToDos(words, false);
+        String taskDescription = split[1];
+        StringBuilder result = new StringBuilder();
+        result.append("Mama mia ! I've just added this task:\n");
+        Task temp = new ToDos(taskDescription, false);
         tasks.add(temp);
-        System.out.println("\t" + temp.toString());
-        updateTasksCounter();
+        result.append("\t" + temp.toString() + "\n");
+        result.append(updateTasksCounter());
+
+        return result.toString();
     }
 
     /**
-     * Creates new Deadline task.
+     * Creates new Deadline task from user input.
      *
-     * @param words User command for deadline task.
+     * @param input User input for a deadline task.
+     * @return Output from processing a deadline task.
      * @throws DogeBotException If input is empty.
      */
-    public static void deadline(String words) throws DogeBotException {
-        if (words.isBlank()) {
+    public static String deadline(String input) throws DogeBotException {
+        String[] split = input.split("deadline ");
+        if (split.length == 0) {
             throw new DogeBotException("Oops ! The description of a deadline cannot be empty :(");
         }
 
-        int split = words.indexOf("/by");
-        // substring w/o the spaces
-        String taskDescription = words.substring(0, split - 1);
-        String taskDeadline = words.substring(split + 4, words.length());
-
-        System.out.println("Mama mia ! I've just added this task:");
+        StringBuilder result = new StringBuilder();
+        result.append("Mama mia ! I've just added this task:\n");
+        String taskDescription = input.split("deadline ")[1].split(" /by")[0];
+        String taskDeadline = input.split("/by ")[1];
         Task temp = new Deadline(taskDescription, taskDeadline, false);
         tasks.add(temp);
-        System.out.println("\t" + temp.toString());
-        updateTasksCounter();
+        result.append("\t" + temp.toString() + "\n");
+        result.append(updateTasksCounter());
+
+        return result.toString();
     }
 
     /**
-     * Creates new Event task.
+     * Creates new Event task from user input.
      *
-     * @param words User command for event task.
+     * @param input User input for an event task.
+     * @return Output from processing an event task.
      * @throws DogeBotException If input is empty.
      */
-    public static void event(String words) throws DogeBotException {
-        if (words.isBlank()) {
+    public static String event(String input) throws DogeBotException {
+        String[] split = input.split("event ");
+        if (split.length == 0) {
             throw new DogeBotException("Oops ! The description of an event cannot be empty :(");
         }
 
-        // substring w/o the spaces
-        int startSplit = words.indexOf("/from");
-        String taskDescription = words.substring(0, startSplit - 1);
-        int endSplit = words.indexOf("/to", startSplit + 1); // find "/" after startSplit index
-        String start = words.substring(startSplit + 6, endSplit - 1);
-        String end = words.substring(endSplit + 4, words.length());
-
-        System.out.println("Mama mia ! I've just added this task:");
+        StringBuilder result = new StringBuilder();
+        String taskDescription = input.split("event ")[1].split(" /from")[0];
+        String start = input.split("/from ")[1].split(" /to")[0];
+        String end = input.split("/to ")[1];
+        result.append("Mama mia ! I've just added this task:\n");
         Task temp = new Event(taskDescription, start, end, false);
         tasks.add(temp);
-        System.out.println("\t" + temp.toString());
-        updateTasksCounter();
+        result.append("\t" + temp.toString() + "\n");
+        result.append(updateTasksCounter());
+
+        return result.toString();
     }
 
     /**
-     * Deletes a task with its index as input.
+     * Deletes a task with index from user input.
      *
-     * @param index Index of task to delete.
+     * @param input User input to delete a task.
+     * @return Output from processing task deletion.
      * @throws DogeBotException If task list is empty.
      */
-    public static void delete(int index) throws DogeBotException {
+    public static String delete(String input) throws DogeBotException {
         if (tasks.size() == 0) {
             throw new DogeBotException("Oops ! There's no tasks in your list to delete :O");
         }
 
+        StringBuilder result = new StringBuilder();
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
         Task curr = tasks.get(index);
-        System.out.println("Got it~ This task has been removed:");
-        System.out.println("\t" + curr.toString());
+        result.append("Got it~ This task has been removed:\n");
+        result.append("\t" + curr.toString() + "\n");
         tasks.remove(index);
-        updateTasksCounter();
+        result.append(updateTasksCounter());
+
+        return result.toString();
     }
 
     /**
      * Retrieves tasks with the input keyword.
      *
-     * @param s Input keyword.
+     * @param input User input with keyword.
+     * @return The list of tasks with input keyword.
      * @throws DogeBotException If input keyword is empty.
      */
-    public static void find(String s) throws DogeBotException {
-        if (s.isBlank()) {
+    public static String find(String input) throws DogeBotException {
+        String[] split = input.split("find ");
+        if (split.length == 0) {
             throw new DogeBotException("Oops ! The keyword cannot be empty :(");
         }
-
+        String keyword = input.split(" ")[1];
         ArrayList<Task> found = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.hasWord(s)) {
+            if (task.hasWord(keyword)) {
                 found.add(task);
             }
         }
 
         if (found.size() == 0) {
-            System.out.println("Oh nyo, looks like there's no tasks matching that keyword :(");
-        } else {
-            System.out.println("Found it~ Here are your matching tasks:");
-            int i = 1;
-            for (Task task : found) {
-                System.out.println(i++ + ". " + task.toString());
-            }
+            return "Oh nyo, looks like there's no tasks matching that keyword :(";
         }
+
+        StringBuilder result = new StringBuilder();
+        result.append("Found it~ Here are your matching tasks:\n");
+        int i = 1;
+        for (Task task : found) {
+            result.append(i++ + ". " + task.toString() + "\n");
+        }
+
+        return result.toString();
     }
 }

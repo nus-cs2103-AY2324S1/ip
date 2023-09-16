@@ -1,8 +1,5 @@
 package dogebot;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 /**
  * Parser class handles user commands and calls the next appropriate method for its respective action.
  *
@@ -15,58 +12,48 @@ public class Parser {
      *
      * @return Loop status.
      */
-    public boolean scan() {
-        Scanner sc = new Scanner(System.in);
-        boolean isLoop = true;
+    public String scan(String input) {
+        String commandType = input.split(" ")[0];
+        String result = "";
 
         try {
-            switch (sc.next().toLowerCase()) {
+            switch (commandType.toLowerCase()) {
             case "bye":
-                isLoop = false;
-                System.out.println("Bye~ See you again");
+                result = "Bye~ See you again";
                 break;
             case "list":
-                TaskList.list();
+                result = TaskList.list();
                 break;
             case "mark":
-                TaskList.mark(sc.nextInt() - 1);
+                result = TaskList.mark(input);
                 break;
             case "unmark":
-                TaskList.unmark(sc.nextInt() - 1);
+                result = TaskList.unmark(input);
                 break;
             case "todo":
-                TaskList.todo(sc.nextLine().trim()); // sc.nextLine() to get the remaining words
+                result = TaskList.todo(input);
                 break;
             case "deadline":
-                TaskList.deadline(sc.nextLine().trim());
+                result = TaskList.deadline(input);
                 break;
             case "event":
-                TaskList.event(sc.nextLine().trim());
+                result = TaskList.event(input);
                 break;
             case "delete":
-                TaskList.delete(sc.nextInt() - 1);
+                result = TaskList.delete(input);
                 break;
             case "find":
-                TaskList.find(sc.nextLine().trim());
+                result = TaskList.find(input);
                 break;
             default:
-                System.out.println("Wuff, I'm not sure what that means :(");
-                sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
+                result = "Wuff, I'm not sure what that means :(";
             }
-        } catch (InputMismatchException e) {
-            sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
-            System.out.println("Oops ! Integers only please :c");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oh no :( I think that number is too big~");
+            return "Oh no :( I think that number is too big~";
         } catch (DogeBotException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
 
-        if (isLoop) {
-            return true;
-        } else {
-            sc.close();
-            return false;
-        }
+        return result;
     }
 }

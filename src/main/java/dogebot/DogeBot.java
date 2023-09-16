@@ -15,7 +15,7 @@ public class DogeBot {
     private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "OneDrive", "Desktop", "iP",
         "src", "main");
     private static File file;
-    private Ui ui;
+    protected Ui ui;
     private Parser userInput;
     private Storage storage;
 
@@ -41,18 +41,19 @@ public class DogeBot {
     }
 
     /**
-     * Runs the DogeBot program.
+     * Gets Responses from DogeBot to be output in GUI.
+     *
+     * @param input User input.
+     * @return Output from DogeBot.
      */
-    public void run() {
-        ui.intro();
-        boolean isLoop = true;
-        while (isLoop) {
-            isLoop = userInput.scan();
-        }
-        storage.save(tasks);
-    }
+    public String getResponse(String input) {
+        String response = userInput.scan(input);
 
-    public static void main(String[] args) {
-        new DogeBot("tasklist.txt").run();
+        // save to harddisk i.e. "tasklist.txt"
+        if (response.equals("Bye~ See you again")) {
+            storage.save(tasks);
+        }
+
+        return response;
     }
 }

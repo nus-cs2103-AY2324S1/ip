@@ -11,12 +11,14 @@ public class Ui {
             + " \\_,` | \\-'  /   )`-')" + "    _` |   _ \\    _` |   _ \\  __ \\    _ \\   __| \n"
             + "  \"\") `\"`    \\  ((`\"`" + "    (   |  (   |  (   |   __/  |   |  (   |  |   \n"
             + " ___Y  ,    .'7 /|" + "      \\__,_| \\___/  \\__, | \\___| _.__/  \\___/  \\__| \n"
-            + "(_,___/...-` (_/_/" + "                    |___/";
+            + "(_,___/...-` (_/_/" + "                    |___/\n";
 
     /**
-     * Prints the intro logo and message.
+     * DogeBot's intro logo and message.
+     *
+     * @return intro logo and message.
      */
-    public void intro() {
-        System.out.println(LOGO + "\nHi ! I'm DogeBot \nHow may I help you today ?\n");
+    public String intro() {
+        return LOGO + "Hi ! I'm DogeBot \nHow may I help you today ?";
     }
 }
