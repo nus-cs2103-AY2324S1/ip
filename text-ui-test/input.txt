@@ -1,0 +1,3 @@
+event asd /from 123 /to 321
+list
+bye
