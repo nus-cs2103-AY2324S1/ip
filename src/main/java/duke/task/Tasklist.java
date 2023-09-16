@@ -75,57 +75,66 @@ public class Tasklist {
             if (s.length() <= 5) {
                 throw new DukeMissingArgumentException();
             } else {
-                Todo t = new Todo(str.substring(5, str.length()).toString());
-                tasks.add(t);
-                task = t;
+                return addTodo(str);
             }
         } else if (cmd.equals("deadline")) {
             if (s.length() <= 9) {
                 throw new DukeMissingArgumentException();
             } else {
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
-                    String t = str.substring(9, str.length()).toString();
-                    String[] arr = t.split("/by ");
-                    LocalDateTime deadline = LocalDateTime.parse(arr[1], formatter);
-                    Deadline d = new Deadline(arr[0], deadline);
-                    tasks.add(d);
-                    task = d;
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeMissingArgumentException();
-                } catch (DateTimeParseException e) {
-                    return "Please enter the start/end time in the format of <DD/MM/YY HH:MM>!";
-                }
+                return addDeadline(str);
             }
         } else if (cmd.equals("event")) {
             if (s.length() <= 6) {
                 throw new DukeMissingArgumentException();
             } else {
-                try {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
-                    String t = str.substring(6, str.length()).toString();
-                    String[] arr = t.split("/from ");
-                    String[] times = arr[1].split(" /to ");
-                    LocalDateTime startTime = LocalDateTime.parse(times[0], formatter);
-                    LocalDateTime endTime = LocalDateTime.parse(times[1], formatter);
-                    if (startTime.isAfter(endTime)) {
-                        return "End time must be after the start time!";
-                    }
-                    Event e = new Event(arr[0], startTime, endTime);
-                    tasks.add(e);
-                    task = e;
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeMissingArgumentException();
-                } catch (DateTimeParseException e) {
-                    return "Please enter the start/end time in the format of <DD/MM/YY HH:MM>!";
-                }
+                return addEvent(str);
             }
         } else {
             throw new DukeInvalidArgumentException();
         }
-        return Ui.add(task, tasks.size());
     }
 
+    private String addEvent(StringBuilder str) throws DukeMissingArgumentException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+            String t = str.substring(6, str.length()).toString();
+            String[] arr = t.split("/from ");
+            String[] times = arr[1].split(" /to ");
+            LocalDateTime startTime = LocalDateTime.parse(times[0], formatter);
+            LocalDateTime endTime = LocalDateTime.parse(times[1], formatter);
+            if (startTime.isAfter(endTime)) {
+                return "End time must be after the start time!";
+            }
+            Event e = new Event(arr[0], startTime, endTime);
+            tasks.add(e);
+            return Ui.add(e, tasks.size());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeMissingArgumentException();
+        } catch (DateTimeParseException e) {
+            return "Please enter the start/end time in the format of <DD/MM/YY HH:MM>!";
+        }
+    }
+    private String addDeadline(StringBuilder str) throws DukeMissingArgumentException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+            String t = str.substring(9, str.length()).toString();
+            String[] arr = t.split("/by ");
+            LocalDateTime deadline = LocalDateTime.parse(arr[1], formatter);
+            Deadline d = new Deadline(arr[0], deadline);
+            tasks.add(d);
+            return Ui.add(d, tasks.size());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeMissingArgumentException();
+        } catch (DateTimeParseException e) {
+            return "Please enter the start/end time in the format of <DD/MM/YY HH:MM>!";
+        }
+    }
+
+    private String addTodo(StringBuilder str) {
+        Todo t = new Todo(str.substring(5, str.length()).toString());
+        tasks.add(t);
+        return Ui.add(t, tasks.size());
+    }
     /**
      * Deletes a task from the list based on the provided index.
      *

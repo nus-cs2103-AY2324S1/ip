@@ -12,7 +12,7 @@ public abstract class Task {
     /**
      * Completion status of the task.
      */
-    protected boolean done;
+    protected boolean isDone;
 
     /**
      * Name or description of the task.
@@ -35,21 +35,21 @@ public abstract class Task {
         for (int i = 0; i < name.length(); ++i) {
             tracker.get((int) name.charAt(i)).add(i);
         }
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the task as completed.
      */
     public void mark() {
-        done = true;
+        isDone = true;
     }
 
     /**
      * Unmarks the task, setting it as not completed.
      */
     public void unmark() {
-        done = false;
+        isDone = false;
     }
 
     /**
@@ -88,7 +88,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (done) {
+        if (isDone) {
             return "[X] " + name;
         } else {
             return "[ ] " + name;

@@ -43,7 +43,7 @@ public class Event extends Task {
      */
     @Override
     public String stringifyTask() {
-        return String.format("E|%d|%s|%s|%s", this.done ? 1 : 0, this.name
+        return String.format("E|%d|%s|%s|%s", this.isDone ? 1 : 0, this.name
                 , from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
                 , to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
     }
