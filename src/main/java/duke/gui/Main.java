@@ -25,41 +25,26 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
     private Duke duke = new Duke();
-    @Override
-    public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-        userInput = new TextField();
-        sendButton = new Button("Send");
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
+    private void createStage(Stage stage) {
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(450.0);
+    }
 
-        mainLayout.setPrefSize(450.0, 600.0);
-
+    private void createScrollPane() {
         scrollPane.setPrefSize(435, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
+    }
 
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
+    private void createAnchorPane() {
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
@@ -67,7 +52,9 @@ public class Main extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
+    private void createDialog() {
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
             userInput.clear();
@@ -89,6 +76,30 @@ public class Main extends Application {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(new Label(duke.getIntroduction()), new ImageView(bot))
         );
+    }
+
+    @Override
+    public void start(Stage stage) {
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        createStage(stage);
+        mainLayout.setPrefSize(450.0, 600.0);
+        createScrollPane();
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        userInput.setPrefWidth(375.0);
+        sendButton.setPrefWidth(55.0);
+
+        createAnchorPane();
+        createDialog();
     }
     /**
      * Creates a label with the specified text and adds it to the dialog container.
