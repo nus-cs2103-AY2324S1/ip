@@ -31,8 +31,10 @@ public class Parser {
      * @throws DukeException If the first word of the input is not a valid command.
      */
     public Command parse(String input) throws DukeException {
+        assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
         Command command = this.getCommand(input);
+        assert command != null : "command should not be null";
         switch(command) {
         case BYE:
             return Command.BYE;
@@ -88,6 +90,7 @@ public class Parser {
     }
 
     private Command getCommand(String input) throws DukeException {
+        assert input != null : "input should not be null";
         if (input.equals("bye")) {
             return Command.BYE;
         }

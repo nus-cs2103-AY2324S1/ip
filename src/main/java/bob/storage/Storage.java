@@ -18,7 +18,9 @@ public class Storage {
         try {
             File dataDirectory = new File("./data");
             dataDirectory.mkdir();
+            assert dataDirectory.exists() : "data directory should exist";
             File taskFile = new File("./data/duke.txt");
+            assert taskFile.exists() : "taskFile should exist";
             if (taskFile.createNewFile()) {
                 System.out.println("Created new file to store your tasks!");
             } else {
