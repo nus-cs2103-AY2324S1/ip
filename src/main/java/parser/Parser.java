@@ -202,6 +202,8 @@ public class Parser {
      * @throws FishronException If the deadline format is invalid.
      */
     public static Deadline parseDeadline(String description, String by) throws FishronException {
+        assert description != null;
+        assert by != null;
         return new Deadline(description, by);
     }
 
@@ -215,6 +217,9 @@ public class Parser {
      * @throws FishronException If the date/time format is invalid.
      */
     public static Event parseEvent(String description, String from, String to) throws FishronException {
+        assert description != null;
+        assert from != null;
+        assert to != null;
         return new Event(description, from, to);
     }
 }

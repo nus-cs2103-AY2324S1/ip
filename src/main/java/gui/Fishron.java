@@ -23,8 +23,6 @@ import ui.Ui;
  * The main class for the Fishron task management application.
  */
 public class Fishron extends Application {
-
-    // Fields
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -59,9 +57,6 @@ public class Fishron extends Application {
 
     @Override
     public void start(Stage stage) {
-        // Step 1. Setting up required components
-
-        // The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -77,7 +72,6 @@ public class Fishron extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // Step 2. Formatting the window to look as expected
         stage.setTitle("Fishron");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -92,7 +86,6 @@ public class Fishron extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -107,7 +100,6 @@ public class Fishron extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        // Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -168,33 +160,10 @@ public class Fishron extends Application {
     }
 
     /**
-     * Runs the Fishron application in console mode.
-     */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parse(fullCommand, this.taskList);
-                command.execute(taskList, ui, storage);
-                isExit = command.isExit();
-            } catch (FishronException e) {
-                ui.showErrorMessage(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
      * The main entry point of the Fishron application.
      *
      * @param args The command line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Fishron("./data/fishron.txt").run();
     }
 }
