@@ -1,0 +1,6 @@
+title: "AdaBot"
+theme: minima
+markdown: kramdown
+
+plugins:
+  - jemoji
