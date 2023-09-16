@@ -40,7 +40,6 @@ public class FilterCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws RobertException {
-
         int deadlineIndex = 0;
         StringBuilder deadlinesOnDate = new StringBuilder();
         for (Task task : tasks) {
@@ -65,13 +64,11 @@ public class FilterCommand extends Command {
         }
 
         String output = "";
-
         if (deadlineIndex > 0) {
             output += (deadlineIndex == 1 ? "This is the task that is" : "Here are the tasks that are")
                     + " due on " + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":\n";
         }
         output += deadlinesOnDate.toString();
-
         if (eventIndex > 0) {
             output += (eventIndex == 1 ? "This is the task that is" : "Here are the tasks that are")
                     + " happening on " + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":\n";

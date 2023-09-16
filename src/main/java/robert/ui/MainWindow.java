@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Setter for Robert.
+     * Sets Robert as the chatbot.
      *
      * @param robert an instance of the chatbot.
      */
@@ -78,7 +78,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Display command written by user.
+     * Displays command written by user.
      */
     @FXML
     private void displayUserTextBubble(String text) {
@@ -88,7 +88,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Display replies by Robert.
+     * Displays reply by Robert.
      */
     @FXML
     private void displayRobertTextBubble(String text) {
@@ -98,7 +98,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Initialise buffer time for exiting GUI.
+     * Initialises buffer time for exiting GUI.
      */
     @FXML
     private void initialiseClosingSequence() {
@@ -114,7 +114,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Scroll down the GUI for new text bubbles.
+     * Scrolls down the GUI for new text bubbles.
      */
     @FXML
     private void scrollDown() {
@@ -124,7 +124,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Restrict the input length of user commands.
+     * Restricts the input length of user commands.
      */
     @FXML
     private void restrictInputLength() {

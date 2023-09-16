@@ -12,7 +12,7 @@ import robert.task.TaskList;
 public abstract class Command {
 
     /**
-     * Abstract method that executes the intended task for its subclass.
+     * Executes the intended task for its subclass.
      *
      * @param tasks the list of tasks to be added onto.
      * @param storage the storage that loads stored tasks from hard disk.

@@ -38,7 +38,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * A getter of the due date.
+     * Gets the due date.
      *
      * @return the due date.
      */
@@ -47,7 +47,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * An identifier on whether the task is due on a particular date.
+     * Identifies whether the task is due on a particular date.
      *
      * @return a boolean.
      */
