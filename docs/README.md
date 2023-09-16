@@ -1,29 +1,95 @@
 # User Guide
+## ForsakenX - An interactive Duke chatbot
 
 ## Features 
+* `<UPPERCASE>` words are arguments supplied by the user.
+### Adding a todo: `todo`
 
-### Feature-ABC
+Adds a todo to the task list. 
 
-Description of the feature.
+Format: `todo <DESCRIPTION>`
 
-### Feature-XYZ
+Example: 
+* `todo Do Tutorial 4`
 
-Description of the feature.
+### Adding a deadline: `deadline`
 
-## Usage
+Adds a deadline to the task list.
 
-### `Keyword` - Describe action
+Format: `deadline <DESCRIPTION> /by <DATETIME>`
 
-Describe the action and its outcome.
+* DATETIME must be in `yyyy-MM-dd HH:mm` format. 
 
-Example of usage: 
+Example:
+* `deadline Do MA3220 Assignment 2 /by 2023-10-02 22:00`
 
-`keyword (optional arguments)`
+### Adding an event: `event`
 
-Expected outcome:
+Adds an event to the task list.
 
-Description of the outcome.
+Format: `event <DESCRIPTION> /from <FROM_DATETIME> /to <TO_DATETIME>`
 
-```
-expected output
-```
+Example:
+* `event HS2909 Midterm /from 21 Sep 16:00 /to 21 Sep 17:00`
+
+### Viewing the task list: `list`
+
+Shows a list of all tasks.
+
+Format: `list`
+
+### Deleting a task: `delete`
+
+Deletes a task based on its index.
+* Index is a positive integer, starting from 1.
+
+Format: `delete <INDEX>`
+
+Example:
+* `delete 3` deletes the 3rd task in the list.
+
+### Marking a task as done: `mark`
+
+Marks a task as done based on its index.
+* Index is a positive integer, starting from 1.
+* Output icon: `...[X]...`.
+
+Format: `mark <INDEX>`
+
+Example: `mark 3` marks the 3rd task in the list as done.
+
+### Marking a task as _not_ done: `unmark`
+
+Marks a task as  _not_ done based on its index.
+* Index is a positive integer, starting from 1.
+* Output icon: `...[ ]...`.
+
+Format: `unmark <INDEX>`
+
+Example: `unmark 2` marks the 2nd task in the list as not done.
+
+### Finding a task by keyword: `find`
+
+Finds related tasks based on keyword.
+* Will return ALL tasks with description containing the keyword, including partial words!
+* Keyword is case-sensitive, so `all` will not match `ALL`.
+
+Format: `find <KEYWORD>`
+
+Example: `find CS2103` will return all tasks containing `CS2103`.
+* `CS21030` will be matched.
+* `CS2103 Homework` will be matched.
+* `cs2103` will not be matched.
+
+### Exiting the program: `bye`
+
+Exits the program.
+
+Format: `bye`
+
+### Saving the data
+All tasks will be saved in the hard disk automatically after any
+commands that changes the data. No manual save is required.
+* Suggestion: Do not open the `duke.txt` file in the `data` folder 
+as any unexpected changes that makes the format invalid will cause 
+a loading error.
