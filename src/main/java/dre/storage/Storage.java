@@ -13,7 +13,7 @@ import dre.exception.DreException;
  */
 public class Storage {
 
-    private final String dataFilePath;
+    private final String DATA_FILE_PATH;
 
     /**
      * Creates a new storage manager.
@@ -21,7 +21,7 @@ public class Storage {
      * @param filePath The path to the file for saving/loading tasks.
      */
     public Storage(String filePath) {
-        this.dataFilePath = filePath;
+        this.DATA_FILE_PATH = filePath;
     }
 
     /**
@@ -32,9 +32,9 @@ public class Storage {
     public List<Task> load() {
         List<Task> list = new ArrayList<>();
         try {
-            File file = new File(dataFilePath);
+            File file = new File(DATA_FILE_PATH);
             if (file.exists()) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(dataFilePath))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         Task task = Parser.parseTask(line);
@@ -58,10 +58,10 @@ public class Storage {
      * @param taskList The list of tasks to save.
      */
     public void save(TaskList taskList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath))) {
-            for (int i = 0; i < taskList.size(); i++) {
-                // since getTask uses an index starting from 1
-                Task task = taskList.getTask(i + 1);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
+            for (int i = 1; i <= taskList.size(); i++) {
+                //TaskList indexing starts from 1.
+                Task task = taskList.getTask(i);
                 writer.write(task.fileSaveFormat());
                 writer.newLine();
             }

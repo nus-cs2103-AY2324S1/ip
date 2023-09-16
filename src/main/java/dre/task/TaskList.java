@@ -29,6 +29,15 @@ public class TaskList {
     }
 
     /**
+     * Changes the index starting from 1 in the wrapper class to start from 0.
+     * @param index the index to be adjusted
+     * @return adjusted index
+     */
+    private int adjustIndex(int index) {
+        return index - 1;
+    }
+
+    /**
      * Marks a task as done using its index.
      *
      * @param index The index of the task to be marked as done.
@@ -36,7 +45,7 @@ public class TaskList {
      */
     public void mark(int index) throws DreException {
         try {
-            Task task = tasks.get(index - 1);
+            Task task = tasks.get(adjustIndex(index));
             task.done();
         } catch (IndexOutOfBoundsException e) {
             throw new DreException("Invalid dre.task index.");
@@ -51,7 +60,7 @@ public class TaskList {
      */
     public void unmark(int index) throws DreException {
         try {
-            Task task = tasks.get(index - 1);
+            Task task = tasks.get(adjustIndex(index));
             task.undo();
         } catch (IndexOutOfBoundsException e) {
             throw new DreException("Invalid dre.task index.");
@@ -67,7 +76,7 @@ public class TaskList {
      */
     public Task getTask(int index) throws DreException {
         try {
-            return tasks.get(index - 1);
+            return tasks.get(adjustIndex(index));
         } catch (IndexOutOfBoundsException e) {
             throw new DreException("Invalid dre.task index.");
         }
@@ -81,7 +90,7 @@ public class TaskList {
      */
     public void deleteTask(int index) throws DreException {
         try {
-            tasks.remove(index - 1);
+            tasks.remove(adjustIndex(index));
         } catch (IndexOutOfBoundsException e) {
             throw new DreException("Invalid dre.task index.");
         }

@@ -9,7 +9,7 @@ import dre.exception.DreException;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private final int index;
+    private final int TASK_INDEX;
 
     /**
      * Creates a MarkCommand with the specified task index.
@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
      * @param index The index of the task to be marked.
      */
     public MarkCommand(int index) {
-        this.index = index;
+        this.TASK_INDEX = index;
     }
 
     /**
@@ -31,8 +31,8 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DreException {
         try {
-            tasks.mark(index);
-            return ui.generateMarkedTaskString(tasks.getTask(index));
+            tasks.mark(TASK_INDEX);
+            return ui.generateMarkedTaskString(tasks.getTask(TASK_INDEX));
         } catch (IndexOutOfBoundsException e) {
             return ui.generateErrorString("Invalid task index.");
         }
