@@ -106,7 +106,7 @@ public class Parser {
             Ui.setOutMessage("Wrong format, make sure your command is in the format:\n"
                     + "       todo [DESCRIPTION]");
         } else {
-            Task todo = new Todo(splitInput[1]);
+            Task todo = new Todo(splitInput[1].trim());
             taskList.addTask(todo, true);
         }
     }
@@ -120,7 +120,7 @@ public class Parser {
     private static void parseDeadline(String[] splitInput, TaskList taskList) {
         try {
             String[] deadVar = splitInput[1].split(" /by ", 2);
-            Task deadline = new Deadline(deadVar[0], parseDate(deadVar[1]));
+            Task deadline = new Deadline(deadVar[0].trim(), parseDate(deadVar[1]));
             taskList.addTask(deadline, true);
         } catch (ArrayIndexOutOfBoundsException e) { // String not split due to improper format
             Ui.setOutMessage("Wrong format, make sure your command is in the format:\n"
@@ -147,7 +147,7 @@ public class Parser {
             if (start.isAfter(end)) { // Checks that event start <= end
                 Ui.setOutMessage("An event cannot end before it starts... might wanna check your dates");
             } else {
-                Task event = new Event(eventVar[0], start, end);
+                Task event = new Event(eventVar[0].trim(), start, end);
                 taskList.addTask(event, true);
             }
         } catch (ArrayIndexOutOfBoundsException e) { // String not split due to improper format
@@ -186,8 +186,9 @@ public class Parser {
      * @return Chatbot reply to user command.
      */
     public static String parseCommand(String userInput, TaskList taskList) {
-        String[] splitInput = userInput.split(" ", 2); // Limit 2 to only separate out command word.
-        switch (splitInput[0].toLowerCase()) { // break statements are redundant due to return statements.
+        String[] splitInput = userInput.trim().split(" ", 2); // Limit 2 to only separate out command word.
+        String command = splitInput[0].toLowerCase();
+        switch (command) { // break statements are redundant due to return statements.
         case "help":
             return parseHelp();
         case "mark":

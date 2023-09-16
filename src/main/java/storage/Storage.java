@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import duke.Parser;
@@ -79,12 +80,14 @@ public class Storage {
             return "An error occured where the file cannot be read";
         }
         assert taskList != null : "TaskList loading in data cannot be a null object.";
+        // Variable is initialised here instead of try block for error printing.
+        String data = "";
         try {
             File dataFile = new File(fileLocation);
             Scanner reader = new Scanner(dataFile);
 
             while (reader.hasNextLine()) {
-                String data = reader.nextLine();
+                data = reader.nextLine();
                 String[] splitInput = data.split(" \\| ");
                 boolean isDone = splitInput[1].equals("X");
 
@@ -92,28 +95,32 @@ public class Storage {
                 Task currentTask;
                 switch(splitInput[0]) {
                 case "T":
-                    currentTask = new Todo(splitInput[2]);
+                    currentTask = new Todo(splitInput[2].trim());
                     break;
                 case "D":
-                    currentTask = new Deadline(splitInput[2], Parser.parseDate(splitInput[3]));
+                    currentTask = new Deadline(splitInput[2].trim(), Parser.parseDate(splitInput[3]));
                     break;
                 case "E":
                     LocalDateTime start = Parser.parseDate(splitInput[3]);
                     LocalDateTime end = Parser.parseDate(splitInput[4]);
-                    currentTask = new Event(splitInput[2], start, end);
+                    currentTask = new Event(splitInput[2].trim(), start, end);
                     break;
                 default:
-                    return String.format("Unknown symbol [%s] detected", splitInput[0]);
+                    return String.format("Unknown symbol [%s] detected, the line will be overwritten:\n     [%s]",
+                            splitInput[0], data);
                 }
                 currentTask.setStatus(isDone);
                 taskList.addTask(currentTask, false);
             }
-        } catch (ArrayIndexOutOfBoundsException e) { // File formatted with wrong no. of " | " dividers for task types.
-            return "There seems to be a problem with reading in data from:\n      [" + fileLocation
-                    + "]\n\n     Proceeding will overwrite the current data file.";
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            // File formatted with wrong no. of " | " dividers for task types, or wrong date format.
+            return "There seems to be a problem with reading in data from:\n      ["
+                    + fileLocation
+                    + "]\n\nThe following line has an error and will be overwritten:\n     ["
+                    + data + "]";
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return "File loaded successfully :D";
+        return "All data from file has been loaded successfully :D";
     }
 }

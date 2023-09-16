@@ -29,7 +29,6 @@ public class TaskList {
      */
     public String setStatusByIndex(int index, boolean isCompleted) {
         try {
-            assert index >= 0 : "Index cannot be < 0";
             Task pendingTask = taskList.get(index);
             pendingTask.isDone = isCompleted;
             return "Task updated as requested:\n       " + pendingTask;
@@ -58,7 +57,6 @@ public class TaskList {
      */
     public void deleteTask(int index) {
         try {
-            assert index >= 0 : "Index cannot be < 0";
             Task delete = taskList.remove(index);
             Ui.taskOutput(delete, Ui.Action.REMOVE, taskList.size());
         } catch (IndexOutOfBoundsException e) { // When index falls outside ArrayList.

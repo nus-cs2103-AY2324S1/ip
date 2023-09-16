@@ -15,9 +15,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Duke duke = new Duke();
+    public static String loadOutput = "";
 
     @Override
     public void start(Stage stage) {
+        // Preload chatbot with data from storage file, saves output as .
+        loadOutput = duke.loadData();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
@@ -26,9 +29,6 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
             stage.setTitle("Jyuuni");
-
-            // Preload chatbot with data from storage file and print status to console.
-            System.out.println(duke.loadData());
         } catch (IOException e) {
             e.printStackTrace();
         }
