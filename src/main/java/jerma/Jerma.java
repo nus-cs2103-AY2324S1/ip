@@ -10,14 +10,9 @@ import jerma.utils.TaskList;
 import jerma.utils.Ui;
 
 public class Jerma {
-    private TaskList tasks;
-    private Ui ui;
-    private Boolean[] running;
-
-    public Jerma() {
-        ui = new Ui();
-        running = new Boolean[] { true };
-    }
+    private TaskList tasks = new TaskList();
+    private Ui ui = new Ui();
+    private Boolean[] running = new Boolean[] { true };
 
     public String load() {
         try {

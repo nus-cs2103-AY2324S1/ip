@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("jerma.Jerma")
+    mainClass.set("jerma.Launcher")
 }
 
 shadowJar {

@@ -57,5 +57,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, sterImage),
                 DialogBox.getJermaDialog(response, jermaImage));
         userInput.clear();
+
+        if (response.contains("See ya soon!")) {
+            javafx.application.Platform.exit();
+        }
     }
 }
