@@ -10,7 +10,7 @@ You can access the user guide [here](https://et-irl.github.io/ip/)!
 
 To use BauBauBot, follow these simple steps:
 
-1. **Download the JAR File**: You can download the JAR file for BauBauBot from the latest releases on our [GitHub page](https://github.com/et-irl/ip/releases).
+1. **Download the JAR File**: You can download the JAR file for BauBauBot from the latest releases from [here](https://github.com/et-irl/ip/releases).
 
 2. **Run the JAR File**: After downloading the JAR file, open your command terminal and navigate to the directory where the JAR file is located. Use the following command to run BauBauBot:
 
