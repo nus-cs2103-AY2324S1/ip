@@ -126,7 +126,7 @@ public class Parser {
                     String substringAfterUpdate = input.substring(7);
                     int taskIndex = Integer.parseInt(substringAfterUpdate.split(" ")[0]) - 1;
                     String componentToUpdate = substringAfterUpdate.split(" ")[1];
-                    String contentForUpdate = substringAfterUpdate.split(" ")[2];
+                    String contentForUpdate = substringAfterUpdate.split(" ", 3)[2];
                     taskList.updateTask(taskIndex, componentToUpdate, contentForUpdate);
                     String updatedList = taskList.outputNumberedList();
                     response = ui.updateResponse(updatedList);
