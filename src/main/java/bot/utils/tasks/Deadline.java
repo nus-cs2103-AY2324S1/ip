@@ -88,7 +88,7 @@ class Deadline extends Task {
     }
 
     /**
-     * String representation of the deadline.
+     * Gets the string representation of the deadline.
      *
      * @return String representation.
      */
@@ -100,7 +100,7 @@ class Deadline extends Task {
     }
 
     /**
-     * Get the deadline time.
+     * Gets the deadline time.
      *
      * @return Deadline time.
      */

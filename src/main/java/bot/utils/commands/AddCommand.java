@@ -7,7 +7,7 @@ import bot.utils.Ui;
 import bot.utils.tasks.Task;
 
 /**
- * Bot.Command to add tasks to the task list.
+ * Command to add tasks to the task list.
  */
 class AddCommand extends Command {
     /**

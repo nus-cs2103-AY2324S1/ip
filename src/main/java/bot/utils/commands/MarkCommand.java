@@ -7,7 +7,7 @@ import bot.utils.TaskList;
 import bot.utils.Ui;
 
 /**
- * Bot.Command to mark the task as done or not done.
+ * Command to mark the task as done or not done.
  */
 class MarkCommand extends Command {
     /**

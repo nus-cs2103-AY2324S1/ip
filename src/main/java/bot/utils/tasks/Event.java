@@ -98,7 +98,7 @@ class Event extends Task {
     }
 
     /**
-     * Get event start time.
+     * Gets event start time.
      *
      * @return Event start time.
      */
@@ -107,7 +107,7 @@ class Event extends Task {
     }
 
     /**
-     * Get event end time.
+     * Gets event end time.
      *
      * @return Event end time.
      */
@@ -116,7 +116,7 @@ class Event extends Task {
     }
 
     /**
-     * String representation of the event.
+     * Gets the string representation of the event.
      *
      * @return String representation.
      */

@@ -72,7 +72,7 @@ class ToDo extends Task {
     }
 
     /**
-     * String representation of the todo.
+     * Gets the string representation of the todo.
      *
      * @return String representation.
      */
@@ -82,7 +82,7 @@ class ToDo extends Task {
     }
 
     /**
-     * Get data string representation.
+     * Gets data string representation.
      *
      * @return Data string.
      */
