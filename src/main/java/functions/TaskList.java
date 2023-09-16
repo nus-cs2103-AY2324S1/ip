@@ -24,7 +24,7 @@ public class TaskList {
     public TaskList(ArrayList<String> taskDetails) {
         this.tasks = new ArrayList<>();
         for (String details : taskDetails) {
-            loadTask(details);
+            handleLoadTask(details);
         }
     }
 
@@ -40,41 +40,54 @@ public class TaskList {
      *
      * @param input The input string representing the task details.
      */
-    private void loadTask(String input) {
+    private void handleLoadTask(String input) {
         Task t = null;
         if (input.startsWith("[D]")) {
-            int y = input.indexOf("(by: ");
-            String desc = input.substring(7, y - 1);
-            int end = input.indexOf(")");
-            String by = input.substring(y + 5, end);
-            LocalDateTime date = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
-            t = new Deadline(desc, date);
+            t = loadDeadlineTask(input);
         }
         if (input.startsWith("[T]")) {
             String desc = input.substring(7);
             t = new ToDo(desc);
         }
         if (input.startsWith("[E]")) {
-            int fromIndex = input.indexOf("(from: ");
-            int toIndex = input.indexOf("to: ");
-            String desc = input.substring(7, input.indexOf("(") - 1);
-            String s = input.substring(fromIndex + 7, toIndex - 1).trim();
-            String e = input.substring(toIndex + 4, input.indexOf(")")).trim();
-            LocalDateTime start = LocalDateTime.parse(s, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
-            LocalDateTime end = LocalDateTime.parse(e, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
-            t = new Event(desc, start, end);
+            t = loadEventTask(input);
         }
         if (input.startsWith("[F]")) {
-            int y = input.indexOf("(for: ");
-            String desc = input.substring(7, y - 1);
-            int d = input.indexOf(")");
-            String duration = input.substring(y + 6, d);
-            t = new FixedDuration(desc, duration);
+            t = loadFixedDurationTask(input);
         }
+        assert t != null : "File has been corrupted";
         tasks.add(t);
         if (input.substring(3, 5).equals("[X]")) {
             t.markAsDone();
         }
+    }
+
+    private Task loadDeadlineTask(String input) {
+        int y = input.indexOf("(by: ");
+        String desc = input.substring(7, y - 1);
+        int end = input.indexOf(")");
+        String by = input.substring(y + 5, end);
+        LocalDateTime date = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+        return new Deadline(desc, date);
+    }
+
+    private Task loadEventTask(String input) {
+        int fromIndex = input.indexOf("(from: ");
+        int toIndex = input.indexOf("to: ");
+        String desc = input.substring(7, input.indexOf("(") - 1);
+        String s = input.substring(fromIndex + 7, toIndex - 1).trim();
+        String e = input.substring(toIndex + 4, input.indexOf(")")).trim();
+        LocalDateTime start = LocalDateTime.parse(s, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+        LocalDateTime end = LocalDateTime.parse(e, DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+        return new Event(desc, start, end);
+    }
+
+    private Task loadFixedDurationTask(String input) {
+        int y = input.indexOf("(for: ");
+        String desc = input.substring(7, y - 1);
+        int d = input.indexOf(")");
+        String duration = input.substring(y + 6, d);
+        return new FixedDuration(desc, duration);
     }
 
     /**

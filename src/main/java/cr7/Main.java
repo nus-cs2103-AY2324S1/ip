@@ -1,4 +1,4 @@
-package CR7;
+package cr7;
 
 import java.io.IOException;
 

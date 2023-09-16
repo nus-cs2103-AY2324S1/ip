@@ -53,8 +53,7 @@ public class Parser {
     public static LocalDateTime parseDate(String dateString) {
         for (DateTimeFormat format : DateTimeFormat.values()) {
             try {
-                LocalDateTime d = LocalDateTime.parse(dateString, format.getFormatter());
-                return d;
+                return LocalDateTime.parse(dateString, format.getFormatter());
             } catch (DateTimeParseException e) {
                 // Try the next format
             }
@@ -70,94 +69,94 @@ public class Parser {
      * @return A Command object representing the parsed command.
      */
     public static Command parse(String input) {
-        assert input != null && input.length() == 0 : "String should not be null or empty";
         String[] words = input.split(" ");
         String first = words[0];
-
         switch (first) {
             case "bye":
                 return new ExitCommand();
-
             case "list":
                 return new ListCommand();
-
             case "delete":
-                int s = Integer.valueOf(words[1]);
+                int s = Integer.parseInt(words[1]);
                 return new DeleteCommand(s);
-
             case "mark":
-                int sMark = Integer.valueOf(words[1]);
+                int sMark = Integer.parseInt(words[1]);
                 return new MarkCommand(sMark);
-
             case "unmark":
-                int sUnmark = Integer.valueOf(words[1]);
+                int sUnmark = Integer.parseInt(words[1]);
                 return new UnmarkCommand(sUnmark);
-
             case "find":
                 String search = words[1];
                 return new SearchCommand(search);
-
             case "todo":
-                if (input.length() <= 5) {
-                    return new ErrorCommand("The description of a task cannot be empty.\n");
-                }
-                String todoDesc = input.substring(5);
-                return new AddCommand(todoDesc);
-
-
+                return handleToDo(input);
             case "fixed":
-                if (input.length() <= 6) {
-                    return new ErrorCommand("The description of a task cannot be empty.\n");
-                }
-                int y = input.indexOf("/for ");
-                if (y == -1) {
-                    return new ErrorCommand("Please enter the duration of the task in the correct format.\n");
-                }
-                String fixedDesc = input.substring(6, y - 1);
-                String duration = input.substring(y + 5);
-                return new AddCommand(fixedDesc, duration);
-
-
+                return handleFixed(input);
             case "deadline":
-                if (input.length() <= 9) {
-                    return new ErrorCommand("The description of a task cannot be empty.\n");
-                }
-                int z = input.indexOf("/by ");
-                if (z == -1) {
-                    return new ErrorCommand("Please enter the deadline of the task in the correct format.\n");
-                }
-                String desc = input.substring(9, z - 1);
-                String d = input.substring(z + 4);
-                LocalDateTime date = parseDate(d);
-                if (date == null) {
-                    return new ErrorCommand("PLease enter the date and time in the correct format. \n");
-                }
-                return new AddCommand(desc, date);
-
-
+                return handleDeadline(input);
             case "event":
-                if (input.length() <= 6) {
-                    return new ErrorCommand("The description of a task cannot be empty.\n");
-                }
-                int fromIndex = input.indexOf("/from ");
-                int toIndex = input.indexOf("/to ");
-                if (fromIndex == -1 || toIndex == -1) {
-                    return new ErrorCommand("Please enter the start and end time of the task in the correct format.\n");
-                }
-                String name = input.substring(6, input.indexOf("/") - 1);
-                String g = input.substring(fromIndex + 6, toIndex).trim();
-                String e = input.substring(toIndex + 4).trim();
-                LocalDateTime start = parseDate(g);
-                LocalDateTime end = parseDate(e);
-                if (start == null || end == null) {
-                    return new ErrorCommand("PLease enter the date and time in the correct format. \n");
-                }
-                return new AddCommand(name, start, end);
-
-
+                return handleEvent(input);
             default:
                 return new ErrorCommand("I'm sorry, but I don't know what that means :(\n");
         }
+    }
+
+    private static Command handleToDo(String input) {
+        if (input.length() <= 5) {
+            return new ErrorCommand("The description of a task cannot be empty.\n");
+        }
+        String todoDesc = input.substring(5);
+        return new AddCommand(todoDesc);
+    }
+
+    private static Command handleFixed(String input) {
+        if (input.length() <= 6) {
+            return new ErrorCommand("The description of a task cannot be empty.\n");
+        }
+        int y = input.indexOf("/for ");
+        if (y == -1) {
+            return new ErrorCommand("Please enter the duration of the task in the correct format.\n");
+        }
+        String fixedDesc = input.substring(6, y - 1);
+        String duration = input.substring(y + 5);
+        return new AddCommand(fixedDesc, duration);
+    }
+
+    private static Command handleDeadline(String input) {
+        if (input.length() <= 9) {
+            return new ErrorCommand("The description of a task cannot be empty.\n");
+        }
+        int z = input.indexOf("/by ");
+        if (z == -1) {
+            return new ErrorCommand("Please enter the deadline of the task in the correct format.\n");
+        }
+        String desc = input.substring(9, z - 1);
+        String d = input.substring(z + 4);
+        LocalDateTime date = parseDate(d);
+        if (date == null) {
+            return new ErrorCommand("PLease enter the date and time in the correct format. \n");
+        }
+        return new AddCommand(desc, date);
+    }
+
+    public static Command handleEvent(String input) {
+        if (input.length() <= 6) {
+            return new ErrorCommand("The description of a task cannot be empty.\n");
+        }
+        int fromIndex = input.indexOf("/from ");
+        int toIndex = input.indexOf("/to ");
+        if (fromIndex == -1 || toIndex == -1) {
+            return new ErrorCommand("Please enter the start and end time of the task in the correct format.\n");
+        }
+        String name = input.substring(6, input.indexOf("/") - 1);
+        String g = input.substring(fromIndex + 6, toIndex).trim();
+        String e = input.substring(toIndex + 4).trim();
+        LocalDateTime start = parseDate(g);
+        LocalDateTime end = parseDate(e);
+        if (start == null || end == null) {
+            return new ErrorCommand("PLease enter the date and time in the correct format. \n");
+        }
+        return new AddCommand(name, start, end);
     }
 }
 
