@@ -1,22 +1,20 @@
 # Duke
 
-## Features 
-<div style="background-color: #4f0b87; padding: 5px;">
+## Features
 
-Add a task
+1. Add a task
 
-Delete a task
+2. Delete a task
 
-Mark a task as done
+3. Mark a task as done
 
-Unmark a task as incomplete
+4. Unmark a task as incomplete
 
-List the tasks stored
+5. List the tasks stored
 
-Filter the tasks stored
+6. Filter the tasks stored
 
-Save the tasks onto local hard disk
-</div>
+7. Save the tasks onto local hard disk
 
 ## Adding a task: `todo` `deadline` `event`
 
