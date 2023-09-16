@@ -1,8 +1,8 @@
 package tasks;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -56,11 +56,19 @@ public class Event extends Task {
         return false;
     }
 
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public String getStartDateName() {
         return this.startDate.toString();
     }
 
-    public String getEndDate() {
+    public String getEndDateName() {
         return this.endDate.toString();
     }
 
