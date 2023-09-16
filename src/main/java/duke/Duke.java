@@ -2,8 +2,7 @@ package duke;
 
 import duke.exceptions.FileIoException;
 import duke.tasks.*;
-import duke.io.Loader;
-import duke.io.Saver;
+import duke.io.Storage;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.UnknownCommandException;
 
