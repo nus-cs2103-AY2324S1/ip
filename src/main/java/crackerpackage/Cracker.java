@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 
 
 
-
 import crackerpackage.tasks.Task;
 import exceptions.EmptyDescriptionException;
 import exceptions.IllegalFormatException;
@@ -51,7 +50,7 @@ public class Cracker {
     public String getResponse(String input) {
         try {
             Type command = Parser.parseCommand(input);
-            assert command != null;
+
             switch (command) {
                 case MARK:
                     list.markDone(Parser.parseIndex(input));
