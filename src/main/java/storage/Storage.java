@@ -24,7 +24,6 @@ public class Storage {
     private FileWriter pw;
     private String currdir;
     private TaskList tasks;
-    private Ui userUi = new Ui();
 
     /**
      * Constructor for the Storage class.
@@ -56,20 +55,20 @@ public class Storage {
                     String taskName = parser.taskNameFromTextFile(taskInfo, "[T] ");
                     Task newTask = new ToDos(taskName, isDone);
                     tasks.add(newTask);
-                    results.append(i + ". " + newTask + "\n");
+                    results.append(i).append(". ").append(newTask).append("\n");
                 } else if (taskInfo.contains("[E]")) {
                     String taskName = parser.taskNameFromTextFile(taskInfo, "[E] ");
                     String taskFrom = parser.taskFromFromTextFile(taskInfo);
                     String taskTo = parser.taskToFromTextFile(taskInfo);
                     Task newTask = new Events(taskName, taskFrom, taskTo, isDone);
                     tasks.add(newTask);
-                    results.append(i + ". " + newTask + "\n");
+                    results.append(i).append(". ").append(newTask).append("\n");
                 } else if (taskInfo.contains("[D]")) {
                     String taskName = parser.taskNameFromTextFile(taskInfo, "[D] ");
                     String taskBy = parser.taskByFromTextFile(taskInfo);
                     Task newTask = new Deadlines(taskName, taskBy, isDone);
                     tasks.add(newTask);
-                    results.append(i + ". " + newTask + "\n");
+                    results.append(i).append(". ").append(newTask).append("\n");
                 }
             }
         } catch (IOException e) {
@@ -99,8 +98,7 @@ public class Storage {
      * @throws IOException If an I/O operation is interrupted.
      */
     public void overwrite() throws IOException {
-        FileWriter nw = new FileWriter(currdir);
-        pw = nw;
+        pw = new FileWriter(currdir);
         pw.flush();
         for (int i = 0; i < tasks.size(); i++) {
             write(tasks.retrieve(i));
