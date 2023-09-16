@@ -12,7 +12,7 @@ public class JukeTodo extends JukeTask {
     private static final String TASK_DESCRIPTOR = "[T] ";
 
     /**
-     * Constructor to create a {@code JukeTodo}.
+     * Creates an instance of {@code JukeTodo}.
      *
      * @param task Task description
      */
@@ -35,7 +35,7 @@ public class JukeTodo extends JukeTask {
     }
 
     /**
-     * Returns the string which represents this object when it is saved into the datafile.
+     * Returns the String which represents this object when it is saved into the datafile.
      *
      * @return Datafile representation of this object
      */
@@ -45,18 +45,20 @@ public class JukeTodo extends JukeTask {
     }
 
     /**
-     * Compares this {@code JukeTodo} object with the specified {@code JukeTask} object.
+     * Compares this {@code JukeTodo} object with the input {@code JukeTask} object.
      *
      * @param task the {@code JukeTask} object to be compared with
      * @param sortOrder the order to sort the tasks by
      * @param sortType the type of sort to perform on the tasks
-     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
-     *     the specified object.
+     * @return -1 if this {@code JukeTodo} object is before the input {@code JukeTask} object,
+     *     0 if they are of the same date order, and 1 if this {@code JukeTodo} object is after
+     *     the input {@code JukeTask} object
      */
     @Override
     public int sortBy(JukeTask task, SortOrderEnum sortOrder, SortTypeEnum sortType) {
         switch (sortType) {
         case DESCRIPTION:
+            // reuses the superclass's description comparator method
             return super.sortBy(task, sortOrder, sortType);
         case DEADLINE:
         case END_DATE:
@@ -68,12 +70,13 @@ public class JukeTodo extends JukeTask {
     }
 
     /**
-     * Compares the start date between this {@code JukeTodo} object with another {@code JukeTask} object.
+     * Compares the start date between this {@code JukeTodo} object with the input {@code JukeTask} object.
      *
      * @param task the {@code JukeTask} object to be compared with
      * @param sortOrder the order to sort the tasks by
-     * @return -1 if this {@code JukeDeadline} object is before the {@code JukeTask} object passed in, 0 if they are the
-     *     same, and 1 if this {@code JukeDeadline} object is after the {@code JukeTask} object passed in
+     * @return -1 if the start date of this {@code JukeDeadline} object is before the start date of the input
+     *     {@code JukeTask} object, 0 if they are the same, and 1 if the start date of this {@code JukeDeadline}
+     *     object is after the start date of the input {@code JukeTask} object
      */
     private int compareStartDate(JukeTask task, SortOrderEnum sortOrder) {
         if (task instanceof JukeEvent || task instanceof JukeDeadline) {

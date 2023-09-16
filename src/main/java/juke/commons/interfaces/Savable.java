@@ -5,7 +5,7 @@ package juke.commons.interfaces;
  */
 public interface Savable {
     /**
-     * Returns the string which represents this object when it is saved into the datafile.
+     * Returns the String which represents this object when it is saved into the datafile.
      *
      * @return Datafile representation of this object
      */

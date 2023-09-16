@@ -11,7 +11,7 @@ import juke.tasks.JukeTask;
  */
 public interface TaskSortable<T extends JukeTask> {
     /**
-     * Sorts the objects of type {@code T} in the specified order and by the specified type.
+     * Sorts the objects of type {@code T} in the specified order and by the specified sort type.
      *
      * @param task the {@code JukeTask} object to be compared with
      * @param sortOrder the order to sort the tasks by

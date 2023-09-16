@@ -18,13 +18,13 @@ import juke.storage.Storage;
 import juke.tasks.TaskList;
 import juke.ui.components.DialogBox;
 
+//@@author asdfghjkxd-reused
+// Code is largely reused with some major modifications from
+// https://se-education.org/guides/tutorials/javaFxPart4.html
 /**
  * Controller class for the main window of the application.
  */
 public class MainWindow extends AnchorPane {
-    /** Name of the application. */
-    public static final String APPLICATION_NAME = "Juke";
-
     /** Offset for the widgets. */
     public static final double OFFSETS = 1.5d;
 
@@ -68,8 +68,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Initialises the main window and configures it with the specified
-     * parameters.
+     * Initialises the main window and configures it with the preconfigured parameters.
      */
     public void initialize() {
         // anchor the widgets to the parent layout's edges
@@ -104,10 +103,12 @@ public class MainWindow extends AnchorPane {
             Response response = Response.ofUser(inputCommand);
             JukeCommand action = JukeCommand.of(inputCommand, this.taskList);
 
+            // invokes the exit action should the user key in "bye" as the command
             if (action instanceof JukeExitCommand) {
                 exit();
             }
 
+            // otherwise, execute the command and get the responses from the user and Juke
             Response returns = action.execute(response);
             String inputMessage = returns.getInputMessage();
             String outputMessage = returns.getOutputMessage();
@@ -132,8 +133,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Returns a UserDialog object that contains the inputs given by
-     * the user.
+     * Returns a UserDialog object that contains the inputs by the user.
      *
      * @param userInput User input
      * @return {@code UserDialog} object
@@ -143,8 +143,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Returns a JukeDialog object that contains the outputs returned by
-     * Juke.
+     * Returns a JukeDialog object that contains the outputs from Juke.
      *
      * @param jukeOutput Juke output
      * @return {@code JukeDialog} object
@@ -155,7 +154,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Returns a DialogBox object that contains the introductory message
-     * when the user first starts Juke.
+     * when the user first launch Juke.
      *
      * @return {@code JukeDialog} object with the introductory message
      */
@@ -165,10 +164,11 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Forces an exit of the application. This may be deprecated in the future
-     * if the application is to deprecate support for the "bye" command.
+     * Forces the application to exit. This may be deprecated in the future
+     * if the "bye" command is deprecated.
      */
     private void exit() {
         System.exit(0);
     }
 }
+//@@author

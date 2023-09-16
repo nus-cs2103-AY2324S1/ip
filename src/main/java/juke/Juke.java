@@ -9,15 +9,15 @@ import juke.responses.Response;
 import juke.ui.Ui;
 
 /**
- * Juke Virtual Assistant
+ * Juke Virtual Assistant.
  */
 public class Juke {
-    /** Represents the longest string that can be printed. */
+    /** Represents the max character width of any String printed to screen. */
     public static final int MAX_STRING_LENGTH = 35;
 
     /**
-     * Runs when this Java file is compiled and executed. This method is used to start {@code Juke}
-     * and begin the request-response cycle.
+     * Runs the main event loop for Juke. This method invokes the inner {@code start()}
+     * method to start the UI.
      *
      * @param args CLI Arguments
      */

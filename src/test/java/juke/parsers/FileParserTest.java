@@ -12,6 +12,9 @@ import juke.tasks.JukeDeadline;
 import juke.tasks.JukeEvent;
 import juke.tasks.JukeTodo;
 
+//@@author asdfghjkxd-reused
+// Code is reused with minor modification from GitHub Copilot autocompletion.
+// Some test cases, as well as the data, may have been inevitably reused during the autocompletion process.
 /**
  * Tests for the FileParser class.
  */
@@ -74,3 +77,4 @@ public class FileParserTest {
                 "E|F|testing|2020-08-15T15:34|2020-07-15T15:34"));
     }
 }
+//@@author

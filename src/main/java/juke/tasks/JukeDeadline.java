@@ -9,8 +9,8 @@ import juke.exceptions.JukeStateException;
 import juke.exceptions.arguments.JukeIllegalArgumentException;
 
 /**
- * Represents a Deadline task. Deadline tasks contain a deadline which is
- * represented by a {@code LocalDateTime} object.
+ * Represents a Deadline task. Deadline tasks contain a deadline which is represented by a
+ * {@code LocalDateTime} object.
  */
 public class JukeDeadline extends JukeTask {
     /** String which represents the Task Identifier. */
@@ -47,7 +47,7 @@ public class JukeDeadline extends JukeTask {
     }
 
     /**
-     * Returns the string which represents this object when it is saved into the datafile.
+     * Returns the String which represents this object when it is saved into the datafile.
      *
      * @return Datafile representation of this object
      */
@@ -57,30 +57,33 @@ public class JukeDeadline extends JukeTask {
     }
 
     /**
-     * Compares this {@code JukeDeadline}'s deadline with respect to the localDateTime object passed in. This method
+     * Compares this {@code JukeDeadline}'s deadline with respect to the localDateTime object input. This method
      * is mainly used for sorting, and should not be invoked directly by the user.
      *
      * @param localDateTime {@code LocalDateTime} object to compare with
-     * @return -1 if this {@code JukeDeadline}'s deadline is before the localDateTime object passed in, 0 if they are
-     *     the same, and 1 if this {@code JukeDeadline}'s deadline is after the localDateTime object passed in
+     * @return -1 if this {@code JukeDeadline}'s deadline is before the input {@code LocalDateTime} object,
+     *     0 if they are the same, and 1 if this {@code JukeDeadline}'s deadline is after the
+     *     input {@code LocalDateTime} object
      */
     public int compareDeadline(LocalDateTime localDateTime) {
         return localDateTime.compareTo(this.deadline);
     }
 
     /**
-     * Compares this {@code JukeTask} object with the specified {@code JukeTask} object for order.
+     * Compares this {@code JukeTask} object with the input {@code JukeTask} object for order. This method should
+     * not be directly invoked by the user as it is mainly used for sorting.
      *
      * @param task the {@code JukeTask} object to be compared with
      * @param sortOrder the order to sort the tasks by
      * @param sortType the type of sort to perform on the tasks
-     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
-     *     the specified object.
+     * @return -1 if this {@code JukeDeadline} object is before the {@code JukeTask} object passed in, 0 if they
+     *     are the same, and 1 if this {@code JukeDeadline} object is after the {@code JukeTask} object passed in
      */
     @Override
     public int sortBy(JukeTask task, SortOrderEnum sortOrder, SortTypeEnum sortType) {
         switch (sortType) {
         case DESCRIPTION:
+            // reuses the superclass's description comparator method
             return super.sortBy(task, sortOrder, sortType);
         case DEADLINE:
         case END_DATE:
@@ -93,12 +96,14 @@ public class JukeDeadline extends JukeTask {
     }
 
     /**
-     * Compares the start date between this {@code JukeDeadline} object with another {@code JukeTask} object.
+     * Compares the start date between this {@code JukeDeadline} object with another input {@code JukeTask} object.
+     * This method should not be directly invoked by the user as it is mainly used for sorting.
      *
      * @param task the {@code JukeTask} object to be compared with
      * @param sortOrder the order to sort the tasks by
-     * @return -1 if this {@code JukeDeadline} object is before the {@code JukeTask} object passed in, 0 if they are the
-     *     same, and 1 if this {@code JukeDeadline} object is after the {@code JukeTask} object passed in
+     * @return -1 if this {@code JukeDeadline} object's start date is before the start date of the
+     *     input {@code JukeTask} object, 0 if they are the same, and 1 if this {@code JukeDeadline}'s
+     *     start date is after the start date of the input {@code JukeTask} object
      */
     private int compareStartDate(JukeTask task, SortOrderEnum sortOrder) {
         if (task instanceof JukeEvent) {
@@ -119,13 +124,14 @@ public class JukeDeadline extends JukeTask {
     }
 
     /**
-     * Compares this {@code JukeDeadline}'s deadline or end date with respect to the input {@code JukeEvent} object.
+     * Compares the deadline or end date of this {@code JukeDeadline} object
+     * with another input {@code JukeEvent} object.
      *
      * @param task the {@code JukeTask} object to be compared with
      * @param sortOrder the order to sort the tasks by
-     * @return -1 if this {@code JukeDeadline}'s deadline or end date is before the {@code JukeEvent} object passed in,
-     *     0 if they are the same, and 1 if this {@code JukeDeadline}'s deadline or end date is after the
-     *     {@code JukeEvent} object passed in
+     * @return -1 if this {@code JukeDeadline} object's deadline is before the deadline/end date of the
+     *     input {@code JukeTask} object, 0 if they are the same, and 1 if this {@code JukeDeadline}'s
+     *     deadline is after the deadline/end date of the input {@code JukeTask} object
      */
     private int compareDeadlineOrEndDate(JukeTask task, SortOrderEnum sortOrder) {
         if (task instanceof JukeEvent) {
@@ -144,7 +150,7 @@ public class JukeDeadline extends JukeTask {
     }
 
     /**
-     * Returns String representation of this {@code JukeDeadline} object
+     * Returns String representation of this {@code JukeDeadline} object.
      *
      * @return String representation
      */

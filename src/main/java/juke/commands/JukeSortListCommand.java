@@ -20,7 +20,7 @@ public class JukeSortListCommand extends JukeCommand {
     private final TaskList taskList;
 
     /**
-     * Constructs an sort list command.
+     * Constructs a sort list command.
      *
      * @param sortOrder {@code SortOrderEnum} enum that describes the order of sorting
      * @param sortType {@code SortTypeEnum} enum that describes the type of sorting
@@ -33,10 +33,12 @@ public class JukeSortListCommand extends JukeCommand {
     }
 
     /**
-     * Carries out an action when the command is executed.
+     * Invokes an action when the command is executed. Note that sorting the task list is
+     * inherently destructive, and the initial order of the task list will be destroyed
+     * after the sort.
      *
      * @param response {@code Response} object that contains response from Juke and the user
-     * @return {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object composed with response from Juke or the user
      * @throws JukeIllegalArgumentException if there are any errors encountered when sorting
      */
     @Override

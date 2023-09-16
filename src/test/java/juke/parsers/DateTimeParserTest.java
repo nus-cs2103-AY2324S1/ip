@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import juke.exceptions.parsers.JukeDateFormatParseException;
 
+//@@author asdfghjkxd-reused
+// Code is reused from GitHub Copilot autocompletion. Some test cases, as well as the data, may have been
+// inevitably reused during the autocompletion process.
 /**
  * Tests for the DateTimeParser class.
  */
@@ -211,3 +214,4 @@ public class DateTimeParserTest {
         assertThrows(JukeDateFormatParseException.class, () -> DateTimeParser.parse("15?02?2023 14|23"));
     }
 }
+//@@author

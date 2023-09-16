@@ -9,8 +9,7 @@ import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
 
 /**
- * Action that finds a Task in the {@code TaskList} according to the
- * task description.
+ * Action that finds a Task in the {@code TaskList} according to the task description.
  */
 public class JukeFindTaskCommand extends JukeCommand {
     /** {@code TaskList} to manage all tasks. */
@@ -31,10 +30,10 @@ public class JukeFindTaskCommand extends JukeCommand {
     }
 
     /**
-     * Carries out an action when the command is executed.
+     * Invokes an action when the command is executed.
      *
      * @param response {@code Response} object that contains response from Juke and the user
-     * @return {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object composed with response from Juke or the user
      */
     @Override
     public Response execute(Response response) {
@@ -52,8 +51,7 @@ public class JukeFindTaskCommand extends JukeCommand {
                     .append("\":\n");
 
             for (JukeTask t : foundTasks) {
-                stringBuilder.append(t)
-                        .append("\n");
+                stringBuilder.append(t).append("\n");
             }
         }
 

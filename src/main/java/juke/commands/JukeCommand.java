@@ -23,8 +23,16 @@ import juke.tasks.TaskList;
  * Abstract class used to dispatch commands to the respective commands.
  */
 public abstract class JukeCommand extends JukeObject {
-    /** Regex to detect "|" in the topic, which is a reserved character for the datafile. */
+    //@@author asdfghjkxd-reused
+    // Regex strings are reused with major modification from ChatGPT, and is built and tested with
+    // https://regex101.com/.
+    /**
+     * Regex to detect "|" in the topic, which is a reserved character for the datafile.
+     * <p>
+     * Adapted from ChatGPT.
+     */
     private static final String ILLEGAL_TOPIC_REGEX = ".*\\|.*";
+    //@@author
 
     /**
      * Creates the specified {@code JukeCommand} of interest.
@@ -80,7 +88,7 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
-     * Creates a {@code JukeMarkTaskDoneCommand} object.
+     * Creates a {@code JukeMarkTaskDoneCommand} object. Command will mark a task as complete.
      *
      * @param args Parsed arguments
      * @param taskList {@code TaskList} object which manages all tasks
@@ -92,8 +100,8 @@ public abstract class JukeCommand extends JukeObject {
                                                           "mark [task number]");
         } else {
             try {
-                int i = Integer.parseInt(args[1]);
-                return new JukeMarkTaskDoneCommand(taskList, i - 1);
+                int index = Integer.parseInt(args[1]);
+                return new JukeMarkTaskDoneCommand(taskList, index - 1);
             } catch (NumberFormatException ex) {
                 throw new JukeIllegalArgumentException("Oh no! You must input a valid task number "
                                                                + "for the command \"mark\"!");
@@ -102,7 +110,7 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
-     * Creates a {@code JukeMarkTaskUndoneCommand} object.
+     * Creates a {@code JukeMarkTaskUndoneCommand} object. Command will mark a task as incomplete.
      *
      * @param args Parsed arguments
      * @param taskList {@code TaskList} object which manages all tasks
@@ -114,8 +122,8 @@ public abstract class JukeCommand extends JukeObject {
                                                           "unmark [task number]");
         } else {
             try {
-                int i = Integer.parseInt(args[1]);
-                return new JukeMarkTaskUndoneCommand(taskList, i - 1);
+                int index = Integer.parseInt(args[1]);
+                return new JukeMarkTaskUndoneCommand(taskList, index - 1);
             } catch (NumberFormatException ex) {
                 throw new JukeIllegalArgumentException("Oh no! You must input a valid task number "
                                                                + "for the command \"unmark\"!");
@@ -124,7 +132,7 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
-     * Creates a {@code JukeDeleteTaskCommand} object.
+     * Creates a {@code JukeDeleteTaskCommand} object. Command will delete a task.
      *
      * @param args Parsed arguments
      * @param taskList {@code TaskList} object which manages all tasks
@@ -136,8 +144,8 @@ public abstract class JukeCommand extends JukeObject {
                                                           "delete [task number]");
         } else {
             try {
-                int i = Integer.parseInt(args[1]);
-                return new JukeDeleteTaskCommand(taskList, i - 1);
+                int index = Integer.parseInt(args[1]);
+                return new JukeDeleteTaskCommand(taskList, index - 1);
             } catch (NumberFormatException ex) {
                 throw new JukeIllegalArgumentException("Oh no! You must input a valid task number "
                                                                + "for the command \"unmark\"!");
@@ -146,7 +154,7 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
-     * Creates a {@code JukeAddTaskCommand} object.
+     * Creates a {@code JukeAddTaskCommand} object. Command will add a Todo task.
      *
      * @param args Parsed arguments
      * @param taskList {@code TaskList} object which manages all tasks
@@ -159,7 +167,10 @@ public abstract class JukeCommand extends JukeObject {
                                                           "todo [description]");
         } else {
             // concatenate back the string
+            //@@author asdfghjkxd-reused
+            // Method is reused from https://www.spigotmc.org/threads/how-to-combine-args.239109/
             String newArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+            //@author
 
             if (Pattern.matches(JukeCommand.ILLEGAL_TOPIC_REGEX, newArgs)) {
                 throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
@@ -171,7 +182,7 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
-     * Creates a {@code JukeAddTaskCommand} object.
+     * Creates a {@code JukeAddTaskCommand} object. Command will add a Deadline task.
      *
      * @param args Parsed arguments
      * @param taskList {@code TaskList} object which manages all tasks
@@ -179,7 +190,10 @@ public abstract class JukeCommand extends JukeObject {
      */
     private static JukeAddTaskCommand deadline(String[] args, TaskList taskList) {
         // concatenate back the string
+        //@@author asdfghjkxd-reused
+        // Method is reused from https://www.spigotmc.org/threads/how-to-combine-args.239109/
         String newDeadlineArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        //@@author
 
         // check if fulfills regex
         if (!Parser.isMatchByString(newDeadlineArgs)) {
@@ -199,7 +213,7 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
-     * Creates a {@code JukeAddTaskCommand} object.
+     * Creates a {@code JukeAddTaskCommand} object. Command will add a Event task.
      *
      * @param args Parsed arguments
      * @param taskList {@code TaskList} object which manages all tasks
@@ -207,7 +221,10 @@ public abstract class JukeCommand extends JukeObject {
      */
     private static JukeAddTaskCommand event(String[] args, TaskList taskList) {
         // concatenate back the string
+        //@@author asdfghjkxd-reused
+        // Method is reused from https://www.spigotmc.org/threads/how-to-combine-args.239109/
         String newEventArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        //@@author
 
         // check if fulfills regex
         if (!Parser.isMatchFromToString(newEventArgs)) {
@@ -249,42 +266,57 @@ public abstract class JukeCommand extends JukeObject {
                                                           "find [word]");
         }
 
+        //@@author asdfghjkxd-reused
+        // Method is reused from https://www.spigotmc.org/threads/how-to-combine-args.239109/
         String newFindArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        //@@author
+
         return new JukeFindTaskCommand(taskList, newFindArgs);
     }
 
+    /**
+     * Creates a {@code JukeSortListCommand} object.
+     *
+     * @param args Parsed arguments
+     * @param taskList {@code TaskList} object which manages all tasks
+     * @return {@code JukeSortListCommand} object
+     */
     private static JukeSortListCommand sort(String[] args, TaskList taskList) {
         if (args.length == 1) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
-                                                          "sort [a/asc/ascending | "
-                                                                  + "d/desc/descending] "
-                                                                  + "[d/desc/description | "
-                                                                  + "dl/deadline | "
-                                                                  + "s/startstart date | "
-                                                                  + "e/end/end date]");
+                                                          "sort [a/asc/ascend/ascending | "
+                                                                  + "d/desc/ascend/descending] "
+                                                                  + "[d/des/descript/description | "
+                                                                  + "dl/dead/deadln/deadline | "
+                                                                  + "s/st/start/start date | "
+                                                                  + "e/en/end/end date]");
         }
 
         try {
+            //@@author asdfghjkxd-reused
+            // Method is reused from https://www.spigotmc.org/threads/how-to-combine-args.239109/
             String newSortArgs = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+            //@@author
+
             SortOrderEnum sortOrder = SortOrderEnum.ofOrder(args[1].toLowerCase());
             SortTypeEnum sortType = SortTypeEnum.ofType(newSortArgs.toLowerCase());
             return new JukeSortListCommand(sortOrder, sortType, taskList);
         } catch (IllegalArgumentException ex) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
-                                                          "sort [a/asc/ascending | "
-                                                                  + "d/desc/descending] "
-                                                                  + "[d/desc/description | "
-                                                                  + "dl/deadline | "
-                                                                  + "s/startstart date | "
-                                                                  + "e/end/end date]");
+                                                          "sort [a/asc/ascend/ascending | "
+                                                                  + "d/desc/ascend/descending] "
+                                                                  + "[d/des/descript/description | "
+                                                                  + "dl/dead/deadln/deadline | "
+                                                                  + "s/st/start/start date | "
+                                                                  + "e/en/end/end date]");
         }
     }
 
     /**
-     * Carries out an action when the command is executed.
+     * Invokes an action when the command is executed.
      *
      * @param response {@code Response} object that contains response from Juke and the user
-     * @return {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object composed with response from Juke or the user
      * @throws JukeException or any of its subclasses if there are any issues encountered
      *     during the execution of code
      */
