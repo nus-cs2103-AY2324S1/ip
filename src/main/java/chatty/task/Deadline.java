@@ -1,16 +1,17 @@
 package chatty.task;
 
 /**
- * Class that handles the Deadline task
+ * A class that represents a Deadline task.
  */
 public class Deadline extends Task {
 
     private final String deadline;
 
     /**
-     * ontructor for Deadline class that calls the constructor of the parent class to create a Task object
-     * @param taskDescription the deadline task to be added
-     * @param deadline THe deadline of the task to be added
+     * Constructor for the Deadline class that calls the constructor of the parent class to create a Task object.
+     *
+     * @param taskDescription The deadline task to be added.
+     * @param deadline        The deadline of the task to be added.
      */
     public Deadline(String taskDescription, String deadline) {
         super(taskDescription);
@@ -19,8 +20,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the String representation of the object
-     * @return String representation of the object
+     * Returns the String representation of the object.
+     *
+     * @return The String representation of the Deadline task.
      */
     @Override
     public String toString() {

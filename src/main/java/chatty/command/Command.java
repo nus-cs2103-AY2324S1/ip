@@ -6,35 +6,41 @@ import chatty.utils.Storage;
 import chatty.utils.Ui;
 
 /**
- * An abstract class that manage the command from the user
+ * An abstract class representing a command that can be executed by the Chatty chatbot.
+ * Commands are used to interact with the user, manipulate the task list, and manage the user interface.
+ * Each concrete subclass of this class defines specific behavior for a particular command type.
  */
 public abstract class Command {
 
     private boolean isExit;
 
     /**
-     * Constructor for Command class that takes in the state of the command that the user input
-     * @param isExit the state of the command entered by user
+     * Constructs a new command instance.
+     *
+     * @param isExit true if this command represents an exit command, false otherwise.
      */
     public Command(Boolean isExit) {
         this.isExit = isExit;
     }
 
     /**
-     * Return the state of the command
-     * @return a boolean value that represent the state of the command
+     * Checks if this command is an exit command.
+     *
+     * @return true if this command represents an exit command, false otherwise.
      */
     public boolean isExit() {
         return this.isExit;
     }
 
     /**
-     * Carry out each task according to the command entered
-     * @param taskList the tasklist with the current available task
-     * @param ui the current user interface
-     * @param storage the storage class that is responsible for updating the stored list when necessary
-     * @return the respective String after the action is carried out
-     * @throws ChattyException when the sotrage class couldn't save the data
+     * Executes the command's specific behavior using the provided task list, user interface, and storage.
+     * The concrete implementations of this method define the action to be taken for each command type.
+     *
+     * @param taskList The task list with the current available tasks.
+     * @param ui The current user interface for displaying messages.
+     * @param storage The storage responsible for updating stored data, if necessary.
+     * @return A String representing the result or response of executing the command.
+     * @throws ChattyException if the storage class encounters an error while saving data.
      */
     public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws ChattyException;
 }

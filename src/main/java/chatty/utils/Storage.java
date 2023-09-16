@@ -14,9 +14,8 @@ import chatty.task.TaskList;
 import chatty.task.ToDo;
 
 /**
- * Responsible to save the existing list
- * to a hardware storage. The list will autoload when
- * user restart duke chatbot.
+ * Responsible for saving and loading tasks to/from a hardware storage.
+ * The task list will autoload when the user restarts the Chatty chatbot.
  */
 public class Storage {
 
@@ -24,8 +23,9 @@ public class Storage {
     private File file;
 
     /**
-     * Constructor for the Storage path
-     * @param filePath the path to the storage file
+     * Constructor for the Storage class.
+     *
+     * @param filePath The path to the storage file.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -42,8 +42,9 @@ public class Storage {
     }
 
     /**
-     * Save the added task to the storage file
-     * @param taskList the list with all the task
+     * Save the added tasks to the storage file.
+     *
+     * @param taskList The list with all the tasks to be saved.
      */
     public void saveTask(TaskList taskList) {
         try {
@@ -61,9 +62,10 @@ public class Storage {
     }
 
     /**
-     * Load the file when the user starts the bot again
-     * @param taskList the list that contains the added task
-     * @throws IOException when the task cannot be loaded
+     * Load the tasks from the storage file when the user starts the bot again.
+     *
+     * @param taskList The list that contains the added tasks.
+     * @throws IOException When the tasks cannot be loaded.
      * @throws ChattyException
      */
     @SuppressWarnings("checkstyle:MissingSwitchDefault")
@@ -92,10 +94,11 @@ public class Storage {
     }
 
     /**
-     * Handles the case when the task to be loaded is a todo task
-     * @param taskList the list with the added task
-     * @param task The ask to be added
-     * @throws InvalidTaskNumberException when the index of the task is not valid
+     * Handles the case when the task to be loaded is a todo task.
+     *
+     * @param taskList The list with the added tasks.
+     * @param task The task to be added.
+     * @throws InvalidTaskNumberException When the index of the task is not valid.
      */
     private void loadTodoTask(TaskList taskList, String task) throws InvalidTaskNumberException {
         String taskDescription = task.substring(7);
@@ -108,10 +111,11 @@ public class Storage {
 
 
     /**
-     * Handles the case when the task to be loaded is a deadline task
-     * @param taskList the list with the added task
-     * @param task The ask to be added
-     * @throws InvalidTaskNumberException when the index of the task is not valid
+     * Handles the case when the task to be loaded is a deadline task.
+     *
+     * @param taskList The list with the added tasks.
+     * @param task The task to be added.
+     * @throws InvalidTaskNumberException When the index of the task is not valid.
      */
     private void loadDeadlineTask(TaskList taskList, String task) throws InvalidTaskNumberException {
         int colonIndex = task.indexOf(":");
@@ -124,11 +128,13 @@ public class Storage {
         }
     }
 
+
     /**
-     * Handles the case when the task to be loaded is a event task
-     * @param taskList the list with the added task
-     * @param task The ask to be added
-     * @throws InvalidTaskNumberException when the index of the task is not valid
+     * Handles the case when the task to be loaded is an event task.
+     *
+     * @param taskList The list with the added tasks.
+     * @param task The task to be added.
+     * @throws InvalidTaskNumberException When the index of the task is not valid.
      */
     private void loadEventTask(TaskList taskList, String task) throws InvalidTaskNumberException {
         int colon1Index = task.indexOf(':');

@@ -1,7 +1,7 @@
 package chatty.task;
 
 /**
- * Class that handles the Event task
+ * A class that represents an Event task.
  */
 public class Event extends Task {
 
@@ -9,10 +9,11 @@ public class Event extends Task {
     private final String endTime;
 
     /**
-     * ontructor for Event class that calls the constructor of the parent class to create a Task object
-     * @param taskDescription the event task to be added
-     * @param startTime the start time of the event task
-     * @param endTime the end time of the event task
+     * Constructor for the Event class that calls the constructor of the parent class to create a Task object.
+     *
+     * @param taskDescription The event task to be added.
+     * @param startTime       The start time of the event task.
+     * @param endTime         The end time of the event task.
      */
     public Event(String taskDescription, String startTime, String endTime) {
         super(taskDescription);
@@ -23,8 +24,9 @@ public class Event extends Task {
     }
 
     /**
-     * Return the String representation of the object
-     * @return String representation of the object
+     * Returns the String representation of the object.
+     *
+     * @return The String representation of the Event task.
      */
     @Override
     public String toString() {

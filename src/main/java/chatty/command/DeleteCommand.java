@@ -6,7 +6,9 @@ import chatty.utils.Storage;
 import chatty.utils.Ui;
 
 /**
- * A class that handle the delete command that the user entered
+ * A class that handles the delete command entered by the user.
+ * When the user provides a delete command, an instance of this class is created to
+ * delete a task from the task list.
  */
 public class DeleteCommand extends Command {
 
@@ -14,8 +16,10 @@ public class DeleteCommand extends Command {
 
 
     /**
-     * Contructor for delete command
-     * @param i the index of the task the user wants to delete
+     * Constructor for the delete command instance.
+     * Initializes the instance with the index of the task the user wants to delete.
+     *
+     * @param i The index of the task the user wants to delete.
      */
     public DeleteCommand(int i) {
         super(false);
@@ -23,12 +27,15 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Delete the task specified by the user
-     * @param taskList the tasklist with the current task
-     * @param ui the current user interface
-     * @param storage helps to update the data when necessary
-     * @return the string that shows the user that the task has been deleted successfully
-     * @throws ChattyException when storage could not update the files
+     * Executes the delete command to remove a task from the task list.
+     * This method deletes the specified task from the task list, updates the storage,
+     * and returns a message confirming the task deletion.
+     *
+     * @param taskList The task list with the current available tasks.
+     * @param ui The current user interface for displaying messages.
+     * @param storage The storage class that is responsible for updating stored data.
+     * @return A String indicating that the task has been deleted successfully.
+     * @throws ChattyException If storage encounters an issue while saving the task list.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws ChattyException {

@@ -5,22 +5,23 @@ import chatty.exception.InvalidTaskNumberException;
 import java.util.ArrayList;
 
 /**
- * A class that creates and handle the list of task added by the user
+ * A class that creates and manages a list of tasks added by the user.
  */
 public class TaskList {
 
     private ArrayList<Task> taskList;
 
     /**
-     * Constructor for TaskList class that creaes a new ArrayList to store the tasks
+     * Constructor for the TaskList class that creates a new ArrayList to store the tasks.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * Method that finds the current size of the task list
-     * @return the size of the current task list, in int value
+     * Retrieves the current size of the task list.
+     *
+     * @return The size of the current task list, as an integer value.
      */
     public int listSize() {
         int size = this.taskList.size();
@@ -28,20 +29,23 @@ public class TaskList {
         return size;
     }
 
+
     /**
-     * Method that helps to add in new task into the list
-     * @param task
+     * Adds a new task to the task list.
+     *
+     * @param task The task to be added.
      */
     public void addTask(Task task) {
         this.taskList.add(task);
     }
 
     /**
-     * Method that delete a task from the current list of task
-     * @param i the index of the task that the user wants to delete
-     * @return the task that is being removed
-     * @throws InvalidTaskNumberException when the index of the task entered by the user is out of the range of the
-     *                                      available task
+     * Deletes a task from the current list of tasks.
+     *
+     * @param i The index of the task that the user wants to delete.
+     * @return The task that is being removed.
+     * @throws InvalidTaskNumberException When the index of the task entered by the user is out of the range of the
+     *                                   available tasks.
      */
     public Task deleteTask(int i) throws InvalidTaskNumberException {
         assert i > 0 && i <= this.listSize() : "Invalid task index: " + i;
@@ -52,11 +56,12 @@ public class TaskList {
     }
 
     /**
-     * Method that get the task that the user want to change status
-     * @param i the index of the task that the user wants to change status
-     * @param status the status that user wants to change the task to, indicated by boolean value
-     * @throws InvalidTaskNumberException when the index of the task entered by the user is out of the range of the
-     *      *                                      available task
+     * Retrieves the task that the user wants to change status.
+     *
+     * @param i      The index of the task that the user wants to change status.
+     * @param status The status that the user wants to change the task to, indicated by a boolean value.
+     * @throws InvalidTaskNumberException When the index of the task entered by the user is out of the range of the
+     *                                   available tasks.
      */
     public void markTask(int i, boolean status) throws InvalidTaskNumberException {
         assert i > 0 && i <= this.listSize() : "Invalid task index: " + i;
@@ -68,9 +73,10 @@ public class TaskList {
     }
 
     /**
-     * Method that prints out the task
-     * @param i the index of the task of interest
-     * @return the task indicated by the index, in String
+     * Prints out the task at the specified index.
+     *
+     * @param i The index of the task of interest.
+     * @return The task indicated by the index, as a String.
      */
     public String showTask(int i) {
         Task taskToShow = taskList.get(i - 1);
@@ -78,9 +84,10 @@ public class TaskList {
     }
 
     /**
-     * Method that check if the task contains the keyword. Add it into another list if it contains the keyword
-     * @param keyword the keyword to search for the relevant task
-     * @return the list of task matching the keyword entered
+     * Checks if the tasks contain a specific keyword and returns a list of tasks matching the keyword.
+     *
+     * @param keyword The keyword to search for relevant tasks.
+     * @return A list of tasks matching the entered keyword.
      */
     public String containsKeyword(String keyword) {
         StringBuilder listWithKeyword = new StringBuilder();
@@ -96,9 +103,10 @@ public class TaskList {
     }
 
     /**
-     * Method that return the task of interest
-     * @param i the index of the task to be returned
-     * @return the task indicated by index i
+     * Retrieves the task at the specified index.
+     *
+     * @param i The index of the task to be returned.
+     * @return The task indicated by index i.
      */
     public Task getTask(int i) {
         return taskList.get(i);

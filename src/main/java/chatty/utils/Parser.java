@@ -20,155 +20,177 @@ import chatty.exception.IncompleteMessageException;
 import chatty.exception.InvalidTaskNumberException;
 
 /**
- * Responsible to do the parsing required for the chatbot
+ * Responsible for parsing user input and generating appropriate commands for the chatbot.
  */
 public class Parser {
 
+
     /**
-     * return the specific command to execute depending on the command given by the user
-     * @param input the input by user
-     * @return The specific command
-     * @throws DetailsUnknownException when the user did not enter the details for the task
-     * @throws IncompleteMessageException when the user did not enter the task description
-     * @throws InvalidTaskNumberException when the task number entered by the user is out of the range
+     * Parse user input and return the specific command to execute.
+     *
+     * @param input The input provided by the user.
+     * @return The specific command to execute.
+     * @throws DetailsUnknownException     When the user did not enter the details for the task.
+     * @throws IncompleteMessageException  When the user did not enter the task description.
+     * @throws InvalidTaskNumberException  When the task number entered by the user is out of range.
      */
     public static Command parse(String input) throws DetailsUnknownException,
             IncompleteMessageException, InvalidTaskNumberException {
 
-        assert input != null && !input.isEmpty() : "Input string should not be null or empty.";
+        String[] parts = input.split(" ", 2);
+        String commandWord = parts[0].toLowerCase();
+        String commandArgs = parts.length > 1 ? parts[1] : "";
 
-        String exitC = "bye";
-        String listC = "list";
-        String deleteC = "delete";
-        String doneC = "mark";
-        String undoneC = "unmark";
-        String deadlineC = "deadline";
-        String eventC = "event";
-        String todoC = "todo";
-        String findC = "find";
-
-        if (input.equalsIgnoreCase(exitC)) {
+        switch (commandWord) {
+        case "bye":
             return new ExitCommand();
-        }
-
-        if (input.equalsIgnoreCase(listC)) {
+        case "list":
             return new ListCommand();
+        case "done":
+            return parseDoneCommand(commandArgs);
+        case "undone":
+            return parseUndoneCommand(commandArgs);
+        case "delete":
+            return parseDeleteCommand(commandArgs);
+        case "deadline":
+            return parseDeadlineCommand(commandArgs);
+        case "todo":
+            return parseTodoCommand(commandArgs);
+        case "event":
+            return parseEventCommand(commandArgs);
+        case "find":
+            return parseFindCommand(commandArgs);
+        default:
+            return new CommandNotFound();
         }
-
-        if (input.startsWith(doneC)) {
-            if (input.length() == doneC.length() - 1) {
-                throw new IncompleteMessageException("Done");
-            }
-
-            String getIndex = input.substring(doneC.length() + 1);
-            int taskIndex = Integer.parseInt(getIndex);
-            return new DoneCommand(taskIndex);
-        }
-
-        if (input.startsWith(undoneC)) {
-            if (input.length() == undoneC.length() - 1) {
-                throw new IncompleteMessageException("Undone");
-            }
-
-            String getIndex = input.substring(undoneC.length() + 1);
-            int taskIndex = Integer.parseInt(getIndex);
-            return new UndoneCommand(taskIndex);
-        }
-
-        if (input.startsWith(deleteC)) {
-            if (input.length() == deleteC.length() - 1) {
-                throw new IncompleteMessageException("Delete");
-            }
-
-            try {
-                String getIndex = input.substring(deleteC.length() + 1);
-                int taskIndex = Integer.parseInt(getIndex);
-                return new DeleteCommand(taskIndex);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidTaskNumberException();
-            }
-        }
-
-        if (input.startsWith(deadlineC)) {
-            try {
-
-                if (input.length() == deadlineC.length() - 1) {
-                    throw new IncompleteMessageException("D");
-                }
-
-                // return [deadline, chatty.task/by deadline]
-                String[] inputArr = input.split(" ", 2);
-                // return [chatty.task description, deadline]
-                String[] splitInput = inputArr[1].split("/by ", 2);
-                String taskDescription = splitInput[0];
-                LocalDate date = LocalDate.parse(splitInput[1]);
-                String formattedDate = Parser.formatDate(date);
-                return new DeadlineCommand(taskDescription, formattedDate);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DetailsUnknownException();
-            } catch (IncompleteMessageException e) {
-                e.getMessage();
-            }
-        }
-
-        if (input.startsWith(todoC)) {
-            try {
-                if (input.length() == todoC.length() || input.length() == todoC.length() + 1) {
-                    throw new IncompleteMessageException("T");
-                }
-
-                //return [todoC, taskDescription];
-                String[] inputArr = input.split(" ", 2);
-                String taskDescription = inputArr[1];
-                return new ToDoCommand(taskDescription);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DetailsUnknownException();
-            }
-        }
-
-        if (input.startsWith(eventC)) {
-            try {
-                if (input.length() == eventC.length() - 1) {
-                    throw new IncompleteMessageException("E");
-                }
-
-                //return [event, chatty.task/from time /to time]
-                String[] inputArr = input.split(" ", 2);
-                //return [taskDescription, /from time /to time]
-                String[] splitInput = inputArr[1].split("/from ", 2);
-                String taskDescription = splitInput[0];
-                String[] splitTime = splitInput[1].split(" /to ", 2);
-                LocalDate start = LocalDate.parse(splitTime[0]);
-                String formattedStart = Parser.formatDate(start);
-                LocalDate end = LocalDate.parse(splitTime[1]);
-                String formattedEnd = Parser.formatDate(end);
-                return new EventCommand(taskDescription, formattedStart, formattedEnd);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DetailsUnknownException();
-            } catch (IncompleteMessageException e) {
-                e.getMessage();
-            }
-        }
-
-        if (input.startsWith(findC)) {
-            if (input.length() == findC.length() - 1) {
-                throw new IncompleteMessageException("F");
-            }
-
-            //return [find, keyword]
-            String[] inputArr = input.split(" ", 2);
-            String keyword = inputArr[1];
-            return new FindCommand(keyword);
-        }
-
-        return new CommandNotFound();
     }
 
     /**
-     * Format the date in LocalDate format to String
-     * @param date the date in LocalDate format
-     * @return the formatted date in String representation
+     * Parse and create a DoneCommand based on the user input.
+     *
+     * @param args The command arguments.
+     * @return A DoneCommand to mark a task as done.
+     * @throws IncompleteMessageException  When the user did not provide a task number.
+     * @throws InvalidTaskNumberException  When the task number entered by the user is invalid.
      */
+    private static Command parseDoneCommand(String args) throws IncompleteMessageException,
+            InvalidTaskNumberException {
+        if (args.isEmpty()) {
+            throw new IncompleteMessageException("Done");
+        }
+        int taskIndex = Integer.parseInt(args);
+        return new DoneCommand(taskIndex);
+    }
+
+    /**
+     * Parse and create an UndoneCommand based on the user input.
+     *
+     * @param args The command arguments.
+     * @return An UndoneCommand to mark a task as not done.
+     * @throws IncompleteMessageException  When the user did not provide a task number.
+     * @throws InvalidTaskNumberException  When the task number entered by the user is invalid.
+     */
+    private static Command parseUndoneCommand(String args) throws IncompleteMessageException,
+            InvalidTaskNumberException {
+        if (args.isEmpty()) {
+            throw new IncompleteMessageException("Undone");
+        }
+        int taskIndex = Integer.parseInt(args);
+        return new UndoneCommand(taskIndex);
+    }
+
+    /**
+     * Parse and create a DeleteCommand based on the user input.
+     *
+     * @param args The command arguments.
+     * @return A DeleteCommand to delete a task.
+     * @throws IncompleteMessageException  When the user did not provide a task number.
+     * @throws InvalidTaskNumberException  When the task number entered by the user is invalid.
+     */
+    private static Command parseDeleteCommand(String args) throws IncompleteMessageException,
+            InvalidTaskNumberException {
+        if (args.isEmpty()) {
+            throw new IncompleteMessageException("Delete");
+        }
+        int taskIndex = Integer.parseInt(args);
+        return new DeleteCommand(taskIndex);
+    }
+
+    /**
+     * Parse and create a DeadlineCommand based on the user input.
+     *
+     * @param args The command arguments.
+     * @return A DeadlineCommand to add a deadline task.
+     * @throws DetailsUnknownException When the user did not provide details for the task.
+     */
+    private static Command parseDeadlineCommand(String args) throws DetailsUnknownException {
+        String[] splitInput = args.split("/by ", 2);
+        if (splitInput.length != 2) {
+            throw new DetailsUnknownException();
+        }
+        String taskDescription = splitInput[0];
+        LocalDate date = LocalDate.parse(splitInput[1]);
+        String formattedDate = Parser.formatDate(date);
+        return new DeadlineCommand(taskDescription, formattedDate);
+    }
+
+    /**
+     * Parse and create a ToDoCommand based on the user input.
+     *
+     * @param args The command arguments.
+     * @return A ToDoCommand to add a to-do task.
+     * @throws IncompleteMessageException When the user did not provide a task description.
+     */
+    private static Command parseTodoCommand(String args) throws IncompleteMessageException {
+        if (args.isEmpty()) {
+            throw new IncompleteMessageException("T");
+        }
+        return new ToDoCommand(args);
+    }
+
+    /**
+     * Parse and create an EventCommand based on the user input.
+     *
+     * @param args The command arguments.
+     * @return An EventCommand to add an event task.
+     * @throws DetailsUnknownException When the user did not provide details for the task.
+     */
+    private static Command parseEventCommand(String args) throws DetailsUnknownException {
+        String[] splitInput = args.split("/from ", 2);
+        if (splitInput.length != 2) {
+            throw new DetailsUnknownException();
+        }
+        String taskDescription = splitInput[0];
+        String[] splitTime = splitInput[1].split(" /to ", 2);
+        LocalDate start = LocalDate.parse(splitTime[0]);
+        String formattedStart = Parser.formatDate(start);
+        LocalDate end = LocalDate.parse(splitTime[1]);
+        String formattedEnd = Parser.formatDate(end);
+        return new EventCommand(taskDescription, formattedStart, formattedEnd);
+    }
+
+    /**
+     * Parse and create a FindCommand based on the user input.
+     *
+     * @param args The command arguments.
+     * @return A FindCommand to search for tasks.
+     * @throws IncompleteMessageException When the user did not provide a search keyword.
+     */
+    private static Command parseFindCommand(String args) throws IncompleteMessageException {
+        if (args.isEmpty()) {
+            throw new IncompleteMessageException("F");
+        }
+        return new FindCommand(args);
+    }
+
+
+    /**
+     * Format a LocalDate to a string representation.
+     *
+     * @param date The LocalDate to be formatted.
+     * @return The formatted date in String representation.
+     */
+
     public static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedDate = date.format(formatter);
