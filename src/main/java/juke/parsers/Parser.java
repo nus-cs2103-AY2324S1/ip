@@ -2,7 +2,7 @@ package juke.parsers;
 
 import java.util.regex.Pattern;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
 
 /**
  * Contains methods used to parse the commands given by the user. Note that excessive whitespaces surrounding
@@ -10,30 +10,56 @@ import juke.core.JukeObject;
  * whitespaces in the first place, mimicking how commands are parsed in shells like zsh and bash.
  * <p>
  * This parser may not be instantiated. All methods are exposed via static methods.
+ * <p>
+ * Note: The regex patterns below are adapted and modified from ChatGPT, to better meet the requirements of
+ * Juke. <a href="https://regex101.com/">This</a> was used to build and test the new regex patterns.
  */
 public abstract class Parser extends JukeObject {
-    /** String regex for splitting a command by any number of spaces. */
+    //@@author asdfghjkxd-reused
+    // Regex strings are reused with major modification from ChatGPT, and is built and tested with
+    // https://regex101.com/.
+    /**
+     * String regex for splitting a command by any number of spaces. The regex pattern below are
+     * adapted from ChatGPT, modified to better meet the requirements of Juke.
+     * <p>
+     * <a href="https://regex101.com/">This</a> was used to build and test the new regex patterns.
+     */
     private static final String SPACE_REGEX = "\\s+";
 
     /**
      * String regex for checking a command by "/by", preceded or proceeded by any number of whitespaces
-     * or characters.
+     * or characters. The regex pattern below are adapted from ChatGPT, modified to better meet the
+     * requirements of Juke.
+     * <p>
+     * <a href="https://regex101.com/">This</a> was used to build and test the new regex patterns.
      */
     private static final String CHECKING_BY_STRING_REGEX = ".*\\s+/by\\s+.*";
 
-    /** String regex for splitting a command by "/by", preceded or proceeded by any number of whitespaces. */
+    /**
+     * String regex for splitting a command by "/by", preceded or proceeded by any number of whitespaces.
+     * The regex pattern below are adapted from ChatGPT, modified to better meet the requirements of Juke.
+     * <p>
+     * <a href="https://regex101.com/">This</a> was used to build and test the new regex patterns.
+     */
     private static final String SPLITTING_BY_STRING_REGEX = "\\s+/by\\s+";
 
     /**
      * String regex for checking a command for "/from" and "/to", preceded or proceeded by any number of whitespaces
-     * or characters.
+     * or characters. The regex pattern below are adapted from ChatGPT, modified to better meet the requirements
+     * of Juke.
+     * <p>
+     * <a href="https://regex101.com/">This</a> was used to build and test the new regex patterns.
      */
     private static final String CHECKING_FROM_TO_STRING_REGEX = ".*\\s+/from\\s+.*\\s+/to\\s+.*";
 
     /**
      * String regex for splitting a command by "/from" and "/to", , preceded or proceeded by any number of whitespaces.
+     * The regex pattern below are adapted from ChatGPT, modified to better meet the requirements of Juke.
+     * <p>
+     * <a href="https://regex101.com/">This</a> was used to build and test the new regex patterns.
      */
     private static final String SPLITTING_FROM_TO_STRING_REGEX = "\\s+/from\\s+|\\s+/to\\s+";
+    //@@author
 
     /**
      * Parses a command by a space. This method is used to obtain the first command in the command chain.

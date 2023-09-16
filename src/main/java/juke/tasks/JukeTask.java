@@ -1,16 +1,21 @@
 package juke.tasks;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
+import juke.commons.enums.SortOrderEnum;
+import juke.commons.enums.SortTypeEnum;
+import juke.commons.interfaces.Savable;
+import juke.commons.interfaces.TaskSortable;
 import juke.exceptions.JukeStateException;
+import juke.exceptions.arguments.JukeIllegalArgumentException;
 
 /**
- * Abstract Class that represents a task that the user adds to {@code Juke}.
+ * Abstract Class that represents a task that the user can add to Juke.
  */
-public abstract class JukeTask extends JukeObject {
-    /** Icon to display when the task is completed. */
+public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTask>, Savable {
+    /** String to represent when the task is completed. */
     private static final String COMPLETED_INDICATOR = "[✓] ";
 
-    /** Icon to display when the task not completed. */
+    /** String to represent when the task not completed. */
     private static final String INCOMPLETE_INDICATOR = "[ ] ";
 
     /** Task description. */
@@ -20,7 +25,9 @@ public abstract class JukeTask extends JukeObject {
     private boolean isCompleted;
 
     /**
-     * Creates an instance of {@code JukeTask}.
+     * Creates an instance of {@code JukeTask}. Since this is an abstract method,
+     * this method is purely for subclasses to call for initialising common aspects of
+     * the tasks.
      *
      * @param taskName Task description
      */
@@ -56,17 +63,7 @@ public abstract class JukeTask extends JukeObject {
     }
 
     /**
-     * Converts the task object to a String representation.
-     *
-     * @return String representation of JukeTask
-     */
-    @Override
-    public String toString() {
-        return (this.isCompleted ? JukeTask.COMPLETED_INDICATOR : JukeTask.INCOMPLETE_INDICATOR) + taskName;
-    }
-
-    /**
-     * Returns the string which represents this object when it is saved into the datafile.
+     * Returns the String which represents this object when it is saved into the datafile.
      *
      * @return Datafile representation of this object
      */
@@ -83,5 +80,39 @@ public abstract class JukeTask extends JukeObject {
      */
     public boolean stringMatches(String word) {
         return this.taskName.contains(word);
+    }
+
+    /**
+     * Converts the task object to its corresponding String representation.
+     *
+     * @return String representation of JukeTask
+     */
+    @Override
+    public String toString() {
+        return (this.isCompleted ? JukeTask.COMPLETED_INDICATOR : JukeTask.INCOMPLETE_INDICATOR) + taskName;
+    }
+
+    /**
+     * Compares this {@code JukeTask} object with the specified {@code JukeTask} object for order. This method
+     * compares task description only.
+     * <p>
+     * This method is present mainly for polymorphism and method reuse.
+     *
+     * @param task the {@code JukeTask} object to be compared with
+     * @param sortOrder the order to sort the tasks by
+     * @param sortType the type of sort to perform on the tasks
+     * @return -1 if this {@code JukeTask} object is before the {@code JukeTask} object passed in, 0 if they
+     *     are the same, and 1 if this {@code JukeTask} object is after the {@code JukeTask} object passed in
+     */
+    @Override
+    public int sortBy(JukeTask task, SortOrderEnum sortOrder, SortTypeEnum sortType) {
+        switch (sortOrder) {
+        case ASCENDING:
+            return this.taskName.compareTo(task.taskName);
+        case DESCENDING:
+            return this.taskName.compareTo(task.taskName) * -1;
+        default:
+            throw new JukeIllegalArgumentException("Oh no! I cannot sort the list in that order!");
+        }
     }
 }

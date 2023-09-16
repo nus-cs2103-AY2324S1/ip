@@ -2,7 +2,7 @@ package juke.parsers;
 
 import java.time.LocalDateTime;
 
-import juke.core.JukeObject;
+import juke.commons.classes.JukeObject;
 import juke.exceptions.parsers.JukeDataFileParseException;
 import juke.tasks.JukeDeadline;
 import juke.tasks.JukeEvent;
@@ -16,8 +16,18 @@ import juke.tasks.JukeTodo;
  * static methods.
  */
 public abstract class FileParser extends JukeObject {
-    /** Regex String used to parse the datafile lines. */
+    //@@author asdfghjkxd-reused
+    // Regex strings are reused with major modification from ChatGPT, and is built and tested with
+    // https://regex101.com/.
+    /**
+     * Regex String used to parse the datafile lines. The regex patterns below are
+     * adapted from ChatGPT, modified to better meet the requirements of
+     * Juke.
+     * <p>
+     * <a href="https://regex101.com/">This</a> was used to build and test the new regex patterns.
+     */
     private static final String FILE_SEPARATOR_REGEX = "\\|";
+    //@@author
 
     /**
      * Parses a single task into a {@code JukeTask} object.

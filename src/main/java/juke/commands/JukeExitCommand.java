@@ -1,7 +1,11 @@
 package juke.commands;
 
+import juke.Juke;
+import juke.commons.utils.StringUtils;
+import juke.responses.Response;
+
 /**
- * Action that is invoked when the user wishes to quit the assistant.
+ * Action that is invoked when the user wishes to quit Juke.
  */
 public class JukeExitCommand extends JukeCommand {
     /** The farewell statement used by the assistant when the user decides to quit the assistant. */
@@ -13,10 +17,14 @@ public class JukeExitCommand extends JukeCommand {
     public JukeExitCommand() {}
 
     /**
-     * Carries out an action when the command is executed.
+     * Invokes an action when the command is executed.
+     *
+     * @param response {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object composed with response from Juke or the user
      */
     @Override
-    public void execute() {
-        System.out.print(JukeExitCommand.EXIT_STRING);
+    public Response execute(Response response) {
+        return response.withJuke(
+                StringUtils.wrap(JukeExitCommand.EXIT_STRING, Juke.MAX_STRING_LENGTH));
     }
 }

@@ -1,0 +1,58 @@
+<!--
+@@author asdfghjkxd-reused
+Code reused from https://se-education.org/guides/tutorials/javaFxPart4.html, with some minor changes.
+-->
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+
+<fx:root alignment="TOP_LEFT" maxHeight="Infinity" maxWidth="450.0"
+         prefWidth="450.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1" spacing="10.0">
+    <children>
+        <ImageView fx:id="displayImage" fitHeight="100.0d" fitWidth="100.0d">
+            <clip>
+                <Circle radius="50.0d" centerX="50.0" centerY="50.0"/>
+            </clip>
+            <image>
+                <!--
+                @@author asdfghjkxd-reused
+                Image reused from https://se-education.org/guides/tutorials/javaFxPart3.html.
+                -->
+                <Image url="@/images/DaDuke.png" />
+                <!--
+                @@author
+                -->
+            </image>
+        </ImageView>
+        <StackPane fx:id="dialogBubble">
+            <children>
+                <Region fx:id="backgroundRegion" maxWidth="350.0">
+                    <background>
+                        <Background>
+                            <fills>
+                                <BackgroundFill fill="lightblue">
+                                    <radii>
+                                        <CornerRadii radius="20.0" />
+                                    </radii>
+                                </BackgroundFill>
+                            </fills>
+                        </Background>
+                    </background>
+                </Region>
+                <Label fx:id="textLabel" wrapText="true"/>
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets top="10.0" right="5.0" bottom="10.0" left="5.0"/>
+    </padding>
+</fx:root>
+
+<!--
+@@author
+-->

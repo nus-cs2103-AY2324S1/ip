@@ -1,8 +1,9 @@
 package juke.exceptions;
 
 /**
- * Represents the error when the user tries to modify the state of any
- * {@code JukeObject} unsuccessfully.
+ * Represents the error when the user tries to illegally modify the state of any
+ * {@code JukeObject} or if the user tries to modify the state of any {@code JukeObject}
+ * unsuccessfully.
  */
 public class JukeStateException extends JukeException {
     /**

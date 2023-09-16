@@ -1,8 +1,7 @@
 package juke.exceptions.arguments;
 
 /**
- * Exception that is thrown when an illegal command argument is entered into
- * the command line.
+ * Represents an illegal command argument being entered into the command line.
  */
 public class JukeIllegalCommandArgumentException extends JukeIllegalArgumentException {
     /** String representing the expected arguments for a command. */
