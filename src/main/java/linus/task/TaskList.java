@@ -1,9 +1,12 @@
 package linus.task;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.util.Pair;
 import linus.exception.LinusException;
 
 /**
@@ -119,4 +122,40 @@ public class TaskList {
                 .filter(task -> task.description.contains(keyword))
                 .collect(Collectors.toList());
     }
+
+    /**
+     * Computes the statistics of the tasks.
+     *
+     * @param duration
+     * @param taskType
+     * @param isFilterByDone
+     * @return A list of pairs of (LocalDate, Integer), which indicates
+     *     the number of tasks on a given date.
+     */
+    public List<Pair<LocalDate, Integer>> showStats(int duration, String taskType, boolean isFilterByDone) {
+        List<Task> filteredTasks = tasks;
+
+        // Filter by  and isMarked
+        if (taskType != null) {
+            filteredTasks = filteredTasks.stream()
+                    .filter(task -> task.getClass().getSimpleName().toLowerCase().equals(taskType))
+                    .filter(task -> !isFilterByDone || task.isDone())
+                    .collect(Collectors.toList());
+        }
+
+        List<Pair<LocalDate, Integer>> stats = new ArrayList<>();
+        for (int i = duration - 1; i >= 0; i--) {
+            stats.add(new Pair<>(LocalDate.now().minusDays(i), 0));
+        }
+        LocalDate firstDay = LocalDate.now().minusDays(duration - 1);
+        for (Task task : filteredTasks) {
+            long index = ChronoUnit.DAYS.between(firstDay, task.createdOn);
+            if (index < 0) {
+                continue;
+            }
+            stats.set((int) index, new Pair<>(task.createdOn, stats.get((int) index).getValue() + 1));
+        }
+        return stats;
+    }
+
 }
