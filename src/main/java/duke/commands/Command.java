@@ -1,7 +1,6 @@
 package duke.commands;
 
 import duke.TaskList;
-import duke.Ui;
 
 /**
  * Represents a generic command interface with a run method defining the
@@ -13,7 +12,7 @@ public interface Command {
      *
      * @param input    The command to be run.
      * @param taskList The application's task list.
-     * @param ui       The UI of the application.
+     * @return The string output of the command's execution.
      */
-    void run(String input, TaskList taskList, Ui ui);
+    String run(String input, TaskList taskList);
 }

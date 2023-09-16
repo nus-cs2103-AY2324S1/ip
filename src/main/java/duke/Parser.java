@@ -249,17 +249,16 @@ public class Parser {
      * Executes a command given an input.
      *
      * @param input The input of the user.
-     * @throws UnknownCommandException If no known command can be found from
-     *                                 the input.
+     * @return The string output of the command's execution.
+     * @throws UnknownCommandException If no known command can be found from the input.
      */
-    public void executeCommand(String input, TaskList taskList, Ui ui) throws UnknownCommandException {
+    public String executeCommand(String input, TaskList taskList) throws UnknownCommandException {
         // Separate the command name and the command input
         String[] args = input.split(" ");
         String commandName = args[0];
-
-        Command command = commandMap.get(commandName);
+        Command command = this.commandMap.get(commandName);
         if (command != null) {
-            command.run(input, taskList, ui);
+            return command.run(input, taskList);
         } else {
             throw new UnknownCommandException(Messages.UNKNOWN_COMMAND_ERROR_MESSAGE);
         }

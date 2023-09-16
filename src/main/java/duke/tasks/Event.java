@@ -18,7 +18,7 @@ public class Event extends Task {
     }
 
     /**
-     * Creates a new {@code Event} instance
+     * Creates a new {@code Event} instance.
      *
      * @param description The description of the event.
      * @param isDone      The indication of the event being marked.

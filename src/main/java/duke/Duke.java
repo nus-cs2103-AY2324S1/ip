@@ -11,32 +11,34 @@ import duke.exceptions.UnknownCommandException;
  * Serves as the entry point to run the application.
  */
 public class Duke {
-    public static void main(String[] args) {
-        Ui ui = new Ui();
-        TaskList taskList = new TaskList();
-        Parser app = new Parser();
+    private final TaskList taskList = new TaskList();
+    private final Parser parser = new Parser();
 
-        // Load tasks from storage
+    /**
+     * Creates a new {@code Duke} instance.
+     */
+    public Duke() {
         try {
             Storage storage = new DukeStorage();
-            taskList.setStorage(storage);
-            taskList.loadTasks();
+            this.taskList.setStorage(storage);
+            this.taskList.loadTasks();
         } catch (IOException | InsufficientArgumentsException
                  | DateTimeParseException | StorageCreationException e) {
-            ui.displayError(e.getMessage());
+            System.out.println(e.getMessage());
         }
+    }
 
-        // Greet the user
-        ui.displayMessage(Messages.GREETING_MESSAGE, true, true);
-
-        // Read user input until program exits
-        while (true) {
-            String input = ui.getInput();
-            try {
-                app.executeCommand(input, taskList, ui);
-            } catch (UnknownCommandException e) {
-                ui.displayError(e.getMessage());
-            }
+    /**
+     * Gets the output of a command execution, given an input.
+     *
+     * @param input The input command string.
+     * @return The output string.
+     */
+    public String getResponse(String input) {
+        try {
+            return parser.executeCommand(input, taskList);
+        } catch (UnknownCommandException e) {
+            return e.getMessage();
         }
     }
 }

@@ -1,10 +1,9 @@
 package duke.commands;
 
 import duke.TaskList;
-import duke.Ui;
 
 /**
- * Find items from application state.
+ * Finds items from application state.
  */
 public class FindCommand implements Command {
     /**
@@ -12,12 +11,11 @@ public class FindCommand implements Command {
      *
      * @param input    The user input.
      * @param taskList The application's task list.
-     * @param ui       The UI of the application.
+     * @return The string output of the command's execution.
      */
     @Override
-    public void run(String input, TaskList taskList, Ui ui) {
+    public String run(String input, TaskList taskList) {
         String[] args = input.split(" ", 2);
-        String output = taskList.searchTasks(args[1]);
-        ui.displayMessage(output);
+        return taskList.searchTasks(args[1]);
     }
 }

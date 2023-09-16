@@ -6,8 +6,6 @@ package duke;
 public class Messages {
 
     // Regular messages
-    public static final String HORIZONTAL_LINE =
-            "____________________________________________________________";
     public static final String GREETING_MESSAGE = " Hello! I'm ChatNat!\n What can I do for you?";
 
     public static final String LIST_MESSAGE = " Here are the tasks in your list:";

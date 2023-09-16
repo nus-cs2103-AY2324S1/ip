@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.Messages;
 import duke.TaskList;
-import duke.Ui;
+import javafx.application.Platform;
 
 /**
  * Terminates the program.
@@ -13,11 +13,11 @@ public class ExitCommand implements Command {
      *
      * @param input    The user input.
      * @param taskList The application's task list.
-     * @param ui       The UI of the application.
+     * @return The string output of the command's execution.
      */
     @Override
-    public void run(String input, TaskList taskList, Ui ui) {
-        ui.displayMessage(Messages.EXIT_MESSAGE);
-        System.exit(0);
+    public String run(String input, TaskList taskList) {
+        Platform.exit();
+        return Messages.EXIT_MESSAGE;
     }
 }

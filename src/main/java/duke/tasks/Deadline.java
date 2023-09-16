@@ -16,7 +16,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Creates a new {@code Deadline} instance
+     * Creates a new {@code Deadline} instance.
      *
      * @param description The description of the deadline.
      * @param isDone      The indication of the deadline being marked.
