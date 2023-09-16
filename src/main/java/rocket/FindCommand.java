@@ -22,9 +22,10 @@ public class FindCommand extends Command {
     }
 
     private TaskList getMatchingTasks(TaskList tasks, String stringToFind) {
+        String caseInsensitiveStringToFind  = stringToFind.toLowerCase();
         TaskList matchingTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
-            if (String.valueOf(tasks.get(i)).contains(stringToFind)) {
+            if (String.valueOf(tasks.get(i)).contains(caseInsensitiveStringToFind)) {
                 matchingTasks.add(tasks.get(i));
             }
         }
