@@ -170,7 +170,7 @@ public abstract class JukeCommand extends JukeObject {
             //@@author asdfghjkxd-reused
             // Method is reused from https://www.spigotmc.org/threads/how-to-combine-args.239109/
             String newArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-            //@author
+            //@@author
 
             if (Pattern.matches(JukeCommand.ILLEGAL_TOPIC_REGEX, newArgs)) {
                 throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
