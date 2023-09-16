@@ -2,10 +2,10 @@ package Alex;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.format.DateTimeParseException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,6 +22,9 @@ public class UserInputStorage {
      */
     public static final DateTimeFormatter TIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * This static method prints out all the user data stored in the file data/Alex.txt
+     */
     public static void printFileContent() {
         try {
             File userDataFile = new File("data/Alex.txt");
@@ -134,7 +137,8 @@ public class UserInputStorage {
                                 + " is wrong" + "\n"
                                 + "The correct data format for a deadline task should be: \n"
                                 + "   "
-                                + "D (description) /by yyyy-MM-dd HHmm (1/0) where 1 indicates done and 0 indicates undone";
+                                + "D (description) /by yyyy-MM-dd HHmm (1/0) where 1 indicates done and"
+                                + " 0 indicates undone";
                         System.out.println(message);
                         System.exit(0);
                     }
@@ -171,8 +175,8 @@ public class UserInputStorage {
                                 + "is wrong" + "\n"
                                 + "The correct data format for an event task should be: \n"
                                 + "   "
-                                + "E (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm (1/0) " +
-                                "where 1 indicates done and 0 indicates undone";
+                                + "E (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm (1/0) "
+                                + "where 1 indicates done and 0 indicates undone";
                         System.out.println(message);
                         System.exit(0);
                     }
@@ -185,7 +189,7 @@ public class UserInputStorage {
                 }
             }
 
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             File userDataFile = new File("data/Alex.txt");
             try {
                 userDataFile.createNewFile();
@@ -197,7 +201,7 @@ public class UserInputStorage {
         } catch (AlexException | NumberFormatException | IndexOutOfBoundsException e) {
             String message = "OOPS!!! The program terminates because the data format at line "
                     + (TaskList.getNumberOfElements() + 1)
-                    + "is wrong" +"\n"
+                    + "is wrong" + "\n"
                     + "The correct data format for a todo task should be: \n"
                     + "   "
                     + "T (description) (1/0) where 1 indicates done and 0 indicates undone\n"
@@ -206,8 +210,8 @@ public class UserInputStorage {
                     + "D (description) /by yyyy-MM-dd HHmm (1/0) where 1 indicates done and 0 indicates undone\n"
                     + "The correct data format for a event task should be: \n"
                     + "   "
-                    + "E (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm (1/0)" +
-                    "where 1 indicates done and 0 indicates undone";
+                    + "E (description) /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm (1/0)"
+                    + "where 1 indicates done and 0 indicates undone";
             System.out.println(message);
             System.exit(0);
         }

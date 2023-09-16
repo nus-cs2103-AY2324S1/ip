@@ -1,9 +1,9 @@
 package Alex;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.time.Month;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeParseException;
 
 /**
  * A class that can be instantiated to represent the task that has a specific deadline.
@@ -45,7 +45,7 @@ public class Deadline extends Task {
         int day = parsedDateTime.getDayOfMonth();
         int year = parsedDateTime.getYear();
         return "[D]" + super.toString()
-                + " (by: " + hour +":"+ minute + " " + day + " " + month + " " + year + ")";
+                + " (by: " + hour + ":" + minute + " " + day + " " + month + " " + year + ")";
     }
 
 }

@@ -26,7 +26,7 @@ public class Parser {
         } else if (command.equals("list")) {
             View view = View.LISTALL;
             c = new ViewCommand(command, view);
-        } else if(commandLength == 10 && command.matches("\\d{4}-\\d{2}-\\d{2}")) {
+        } else if (commandLength == 10 && command.matches("\\d{4}-\\d{2}-\\d{2}")) {
             View view = View.LISTONEDAY;
             c = new ViewCommand(command, view);
         } else if (commandLength >= 4 && command.substring(0, 4).equals("todo")) {

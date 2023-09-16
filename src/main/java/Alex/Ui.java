@@ -105,8 +105,8 @@ public class Ui {
      * in a wrong format.
      */
     public static void printAlertForDeadline() {
-        String message = "Please enter a deadline task in the format: " +
-                "deadline (description) /by yyyy-MM-dd HHmm\n";
+        String message = "Please enter a deadline task in the format: "
+                + "deadline (description) /by yyyy-MM-dd HHmm\n";
         System.out.println(Ui.horizontalLine
                 + message
                 + Ui.horizontalLine
@@ -132,8 +132,8 @@ public class Ui {
      * view the task(s) of a specific date but key in the command in a wrong format.
      */
     public static void printAlertForDate() {
-        String message = "OOPS!! To view the task(s) on a specific date,please key in the date " +
-                "in the format yyyy-MM-dd only.\n"
+        String message = "OOPS!! To view the task(s) on a specific date,please key in the date "
+                + "in the format yyyy-MM-dd only.\n"
                 + "Please also ensure that your key in date is a valid date\n"
                 + "Note that it is case sensitive\n";
         System.out.println(
