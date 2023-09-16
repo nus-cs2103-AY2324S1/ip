@@ -2,6 +2,8 @@ package duchess;
 
 import java.time.LocalDate;
 
+import java.util.ArrayList;
+
 /**
  * A deadline is a Task but with a deadline.
  */
@@ -53,7 +55,13 @@ class Deadline extends Task {
      */
     @Override
     public String toSaveString() {
-        return String.format("D|%s|%s|", super.toSaveString(), this.deadline);
+        String saveString = String.format("D|%s|by:%s|", super.toSaveString(), this.deadline);
+        
+        for (String tag : this.tags) {
+            saveString += String.format("#%s", tag);
+        }
+
+        return saveString;
     }
 
     /**
@@ -63,24 +71,39 @@ class Deadline extends Task {
      */
     public static Deadline fromSaveString(String s) {
         String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
-        // Not enough arguments; minmally, it needs the Type, the Marked status, the Name and the Deadline.
-        if (splitString.length < 4) {
-            return null;
-        }
 
         TaskStatus taskStatus = TaskStatus.UNMARKED;
         String name = "";
-        String deadline = "";
+        String deadlineString = "";
+        ArrayList<String> tags = new ArrayList<>();
 
         if (Integer.parseInt(splitString[1]) == 1) {
             taskStatus = TaskStatus.MARKED;
         }
 
         name = splitString[2];
-        deadline = splitString[3];
+
+        if (splitString[3].startsWith("by:")) {
+            deadlineString = splitString[3].substring(3);
+        }
+
+        for (int i = 4; i < splitString.length; i++) {
+            String dataString = splitString[i];
+            
+            if (dataString.startsWith("#")) {
+                tags.add(dataString.substring(1));
+            }
+        }
 
         try {
-            return new Deadline(name, deadline, taskStatus);
+            Deadline deadline = new Deadline(name, deadlineString, taskStatus);
+            
+            for (String tag : tags) {
+                deadline.addTag(tag);
+            }
+
+            return deadline;
+
         } catch (DuchessException e) {
             return null;
         }

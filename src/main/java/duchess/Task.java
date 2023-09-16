@@ -11,7 +11,7 @@ public abstract class Task {
     private String name;
     private TaskStatus status;
 
-    private ArrayList<String> tags;
+    protected ArrayList<String> tags;
 
     /**
      * Returns a new Task object with the given parameters.
