@@ -54,7 +54,15 @@ public class Duke extends Application {
     }
 
     public Duke() {
-
+        this.ui = new Ui();
+        this.storage = new Storage("data/duke.txt");
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            System.out.println(e);
+            tasks = new TaskList();
+        }
+        this.parser = new Parser(ui, storage, tasks);
     }
 
     /**
@@ -107,8 +115,8 @@ public class Duke extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
     }
