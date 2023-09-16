@@ -61,6 +61,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String originalInput = ui.getInput();
+                assert originalInput != null && !originalInput.isEmpty() : "Input should not be null or empty.";
                 Command command = Parser.parse(originalInput);
                 command.execute(taskList, ui, storage);
                 isExit = command.isExit();
@@ -79,6 +80,7 @@ public class Duke {
         try {
             Command command = Parser.parse(input);
             String msg = command.execute(this.taskList, this.ui, this.storage);
+            assert msg != null : "Command execution returned a null message.";
             return "Chatty: \n" + msg;
         } catch (ChattyException e) {
             return e.getMessage();

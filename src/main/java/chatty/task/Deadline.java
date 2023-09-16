@@ -14,6 +14,7 @@ public class Deadline extends Task {
      */
     public Deadline(String taskDescription, String deadline) {
         super(taskDescription);
+        assert deadline != null : "Deadline should not be null when creating a Deadline task.";
         this.deadline = deadline;
     }
 

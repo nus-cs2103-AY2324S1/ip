@@ -29,11 +29,12 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("chatty.gui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'chattyGui.jar'
+    archiveBaseName = "chattyGui"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

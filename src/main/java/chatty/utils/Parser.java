@@ -35,6 +35,8 @@ public class Parser {
     public static Command parse(String input) throws DetailsUnknownException,
             IncompleteMessageException, InvalidTaskNumberException {
 
+        assert input != null && !input.isEmpty() : "Input string should not be null or empty.";
+
         String exitC = "bye";
         String listC = "list";
         String deleteC = "delete";
