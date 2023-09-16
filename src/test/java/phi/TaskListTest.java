@@ -3,6 +3,8 @@ package phi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import phi.task.ToDo;
+import phi.util.TaskList;
 
 public class TaskListTest {
     @Test

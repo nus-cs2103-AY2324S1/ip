@@ -1,4 +1,4 @@
-package phi;
+package phi.task;
 
 /**
  * Abstract parent class of all task types. Cannot be instantiated.

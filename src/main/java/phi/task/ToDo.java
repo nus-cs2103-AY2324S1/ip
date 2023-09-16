@@ -1,4 +1,4 @@
-package phi;
+package phi.task;
 
 /**
  * Represents the ToDo task type

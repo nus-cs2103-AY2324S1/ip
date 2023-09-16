@@ -1,4 +1,4 @@
-package phi;
+package phi.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +14,7 @@ public class Event extends Task {
     /**
      * Constructor for a new Event instance
      *
-     * @param msg       message to be displayed
+     * @param msg       Message to be displayed
      * @param isDone    Boolean determining if task is completed
      * @param start     User-specified start time of task
      * @param end       User-specified end time of task

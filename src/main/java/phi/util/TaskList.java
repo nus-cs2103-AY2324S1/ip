@@ -1,4 +1,9 @@
-package phi;
+package phi.util;
+
+import phi.task.Deadline;
+import phi.task.Event;
+import phi.task.Task;
+import phi.task.ToDo;
 
 import java.util.ArrayList;
 import java.util.Scanner;

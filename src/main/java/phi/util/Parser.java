@@ -1,4 +1,9 @@
-package phi;
+package phi.util;
+
+import phi.task.Deadline;
+import phi.task.Event;
+import phi.task.ToDo;
+import phi.ui.Ui;
 
 /**
  * Represents the handling of user-commands and making sense of them

@@ -1,4 +1,4 @@
-package phi;
+package phi.ui;
 
 /**
  * Represents user interactions
