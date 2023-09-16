@@ -7,14 +7,14 @@ import java.time.LocalDate;
  */
 public class Task {
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Creates a default generic task.
      */
     public Task() {
         description = "default";
-        done = false;
+        isDone = false;
     }
 
     /**
@@ -24,7 +24,7 @@ public class Task {
      */
     public Task(String newTask){
         description = newTask;
-        done = false;
+        isDone = false;
     }
 
     /**
@@ -33,30 +33,30 @@ public class Task {
      * @return true if the task is done, false otherwise.
      */
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
     /**
      * Marks the task as done, no matter the current status of task.
      */
     public void done() {
-        done = true;
+        isDone = true;
     }
 
     /**
      * Unmarks the task as not done, no matter the current status of task.
      */
     public void undo() {
-        done = false;
+        isDone = false;
     }
 
     /**
-     * For display and saving purposes, shows whether the task is done.
+     * Generates the status icon that indicates whether the task is done.
      *
      * @return The status icon.
      */
     public String getStatusIcon() {
-        return (done ? "X" : " ");
+        return (isDone ? "X" : " ");
     }
 
     /**

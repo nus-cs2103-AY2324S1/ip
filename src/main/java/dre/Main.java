@@ -9,12 +9,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * GUI for Dre using FXML.
  */
 public class Main extends Application {
 
-    private Dre duke = new Dre();
+    private Dre dre = new Dre();
 
+    /**
+     * Starts and displays the Dre application GUI.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -22,7 +27,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDre(dre);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

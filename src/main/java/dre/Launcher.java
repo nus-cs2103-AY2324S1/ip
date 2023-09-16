@@ -3,10 +3,16 @@ package dre;
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues.
+ * Launcher class to initialize the Dre application.
+ * Works around classpath issues.
  */
 public class Launcher {
-    public static void main(String[] args) {
+    /**
+     * The main entry point for the Dre application.
+     *
+     * @param args The command-line arguments.
+     */
+    public static void main(String... args) {
         Application.launch(Main.class, args);
     }
 }

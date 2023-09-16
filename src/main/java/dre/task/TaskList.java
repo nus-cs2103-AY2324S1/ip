@@ -53,7 +53,7 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task as done using its index.
+     * Marks a task as undone using its index.
      *
      * @param index The index of the task to be unmarked.
      * @throws DreException If the provided index is invalid.

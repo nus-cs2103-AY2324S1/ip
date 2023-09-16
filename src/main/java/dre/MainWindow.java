@@ -29,20 +29,29 @@ public class MainWindow extends AnchorPane {
     private Dre dre;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDre.jpg"));
+    private Image dreImage = new Image(this.getClass().getResourceAsStream("/images/DaDre.jpg"));
 
+    /**
+     * Initializes the MainWindow with the appropriate configurations.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Dre d) {
+    /**
+     * Sets the instance of Dre to be used by this window.
+     *
+     * @param d The instance of Dre to be set.
+     */
+    public void setDre(Dre d) {
         dre = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by creating two dialog boxes: one to echo the user input and the other
+     * to show Dre's reply. These are appended to the dialog container.
+     * The user input is cleared after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -50,15 +59,22 @@ public class MainWindow extends AnchorPane {
         String response = dre.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDreDialog(response, dreImage)
         );
         userInput.clear();
 
-        //close window
         if (input.equals("bye")) {
-            PauseTransition delay = new PauseTransition(Duration.seconds(1));
-            delay.setOnFinished(event -> javafx.application.Platform.exit());
-            delay.play();
+            closeWindow();
         }
+    }
+
+    /**
+     * Closes the application window after a short delay.
+     */
+    @FXML
+    private void closeWindow() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> javafx.application.Platform.exit());
+        delay.play();
     }
 }
