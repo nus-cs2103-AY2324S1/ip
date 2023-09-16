@@ -29,8 +29,16 @@ public class AddCommand implements Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.add(task);
         storage.save(taskList.getTasks());
-        // ui.showMessage("Task " + task.getTask() + " successfully added");
-        output.append("Task ").append(task.getTask()).append(" successfully added\n");
-        output.append(taskList.printSize());
+        setOutput("Task " + task.getTask() + "successfully added \n" + taskList.printSize());
+    }
+
+    /**
+     * Replaces existing string in Output with a new string.
+     *
+     * @param string String to be replaced.
+     */
+    private void setOutput(String string) {
+        output.delete(0, output.length());
+        output.append(string);
     }
 }
