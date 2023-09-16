@@ -8,9 +8,6 @@ import qi.ui.Ui;
  * Represents the process of listing out the tasks in the list.
  */
 public class ListCommand extends Command {
-    public ListCommand() {
-        super(false);
-    }
 
     /**
      * Shows the tasks available in the list.

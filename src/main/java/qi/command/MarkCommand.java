@@ -12,7 +12,7 @@ import qi.ui.Ui;
  */
 public class MarkCommand extends Command {
 
-    private int taskId;
+    private final int taskId;
 
     /**
      * Takes in the Id of the task to be marked as done.
@@ -21,7 +21,6 @@ public class MarkCommand extends Command {
      *               of the task in the list.
      */
     public MarkCommand(int taskId) {
-        super(false);
         this.taskId = taskId;
     }
 
