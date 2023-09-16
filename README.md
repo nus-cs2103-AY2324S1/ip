@@ -2,11 +2,7 @@
 
 botM is a task manager app.
 
-Features:
-- help: 
-
-
-
+Commands:
 
 ## See all commands: `help`
 Prints the list of commands.  
