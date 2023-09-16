@@ -6,6 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -29,13 +30,11 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaBot.png"));
     private Image welcomeImage = new Image(this.getClass().getResourceAsStream("/images/DaWelcome.png"));
-
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         DialogBox welcomeMessage = DialogBox.showWelcomeMessage(welcomeImage);
         dialogContainer.getChildren().add(welcomeMessage);
-
     }
     public void setScene(Scene s) {
         scene = s;
@@ -57,6 +56,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBotDialog(response, botImage)
         );
+        //dialogContainer.getChildren().forEach(child -> VBox.setVgrow(child, Priority.ALWAYS));
         userInput.clear();
     }
 }
