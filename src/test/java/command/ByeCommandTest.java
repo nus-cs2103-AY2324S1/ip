@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -37,7 +38,9 @@ public class ByeCommandTest {
         assertAll((
             ) -> assertDoesNotThrow((
             ) -> ByeCommand.validate("bye")), (
-            ) -> assertThrows(WoofInvalidCommandException.class, (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> ByeCommand.validate("")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> ByeCommand.validate("bye some argument")), (
             ) -> assertThrows(WoofInvalidCommandException.class, (
             ) -> ByeCommand.validate("list")), (

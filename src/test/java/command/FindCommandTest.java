@@ -44,6 +44,8 @@ public class FindCommandTest {
             ) -> assertDoesNotThrow((
             ) -> FindCommand.validate("find keyword extra argument")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> FindCommand.validate("")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> FindCommand.validate("/find keyword")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> FindCommand.validate("find")), (
@@ -64,10 +66,10 @@ public class FindCommandTest {
         taskList.addTask(new EventTask("Task 3", startDate, endDate));
 
         FindCommand findCommand = new FindCommand("find 2");
-        String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator()
+        String expectedOutput = "Here are your matching tasks in your list:" + System.lineSeparator()
                 + "  2. [D][ ] Task 2" + System.lineSeparator()
                 + "            ~By: 2023-12-31" + System.lineSeparator()
-                + "You have 3 tasks in the task list." + System.lineSeparator();
+                + "You have 3 tasks in the task list.";
 
         // Act
         String actualOutput = findCommand.execute(taskList);
@@ -90,13 +92,13 @@ public class FindCommandTest {
 
 
         FindCommand findCommand = new FindCommand("find 2 ing");
-        String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator()
+        String expectedOutput = "Here are your matching tasks in your list:" + System.lineSeparator()
                 + "  1. [T][ ] Eating" + System.lineSeparator()
                 + "  2. [T][ ] Sleeping" + System.lineSeparator()
                 + "  3. [T][ ] Drinking" + System.lineSeparator()
                 + "  5. [T][ ] Task 2" + System.lineSeparator()
                 + "  7. [T][ ] 22" + System.lineSeparator()
-                + "You have 7 tasks in the task list." + System.lineSeparator();
+                + "You have 7 tasks in the task list.";
 
         // Act
         String actualOutput = findCommand.execute(taskList);
@@ -114,9 +116,9 @@ public class FindCommandTest {
         taskList.addTask(new EventTask("Task 3", LocalDate.parse("2023-01-01"), LocalDate.parse("2023-12-31")));
 
         FindCommand findCommand = new FindCommand("find NonExistentTask");
-        String expectedOutput = "Here are the matching tasks in your list:" + System.lineSeparator()
+        String expectedOutput = "Here are your matching tasks in your list:" + System.lineSeparator()
                + "No tasks matched your keyword!" + System.lineSeparator()
-               + "You have 3 tasks in the task list." + System.lineSeparator();
+               + "You have 3 tasks in the task list.";
 
         // Act
         String actualOutput = findCommand.execute(taskList);

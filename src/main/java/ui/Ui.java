@@ -2,6 +2,8 @@ package ui;
 
 import java.util.Scanner;
 
+import enums.WoofMessage;
+
 /**
  * The `Ui` class provides user interface-related functionality for the Woof application.
  * It includes methods for generating and returning messages, getting user input, and printing divider lines.
@@ -23,7 +25,7 @@ public class Ui {
      * @return A welcome message.
      */
     public static String getHelloWorldMessage() {
-        return "Woof Woof! I'm Doggo\nWhat can I do for you?";
+        return WoofMessage.HI.toFormattedString();
     }
 
     /**
@@ -60,8 +62,7 @@ public class Ui {
      * @return A farewell message.
      */
     public static String getByeUserMessage() {
-        return "Bye. Hope to see you again soon!\n"
-                + "Closing Woof Woof...\n";
+        return WoofMessage.BYE.toFormattedString();
     }
 
     /**
@@ -70,7 +71,7 @@ public class Ui {
      * @return A message indicating confusion.
      */
     public static String getConfusedMessage() {
-        return "OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+        return WoofMessage.CONFUSED.toFormattedString();
     }
 
     /**

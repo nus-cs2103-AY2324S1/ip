@@ -27,12 +27,44 @@ public class DeadlineTask extends Task {
     }
 
     /**
+     * Constructs a `DeadlineTask` with the given description and deadline date.
+     *
+     * @param description The description of the task.
+     * @param endDate     The deadline date of the task.
+     * @param isDone      The optional is done to mark a task as per is done.
+     */
+    public DeadlineTask(String description, LocalDate endDate, Boolean isDone) {
+        super(description, isDone);
+        this.endDate = endDate;
+    }
+
+    /**
      * Gets the deadline date formatted as a string.
      *
      * @return A string representation of the deadline date.
      */
     public String getDeadline() {
-        return String.format("\n%s~By: %s", getTabSpace(), endDate.format(super.getDateTimeformatter()));
+        return String.format("%s~By: %s\n", getTabStopTwo(), endDate.format(super.getDateTimeformatter()));
+    }
+
+    /**
+     * Retrieves the type of task associated with this object, which is "DEADLINE."
+     *
+     * @return The task type, which is "DEADLINE" for objects of this class.
+     */
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.DEADLINE;
+    }
+
+    /**
+     * Retrieves the datetime associated with deadlines, the end date and time, represented as a long value.
+     *
+     * @return The end date and time as a long value.
+     */
+    @Override
+    public long getDateTimeLong() {
+        return this.endDate.toEpochDay();
     }
 
     /**
@@ -42,7 +74,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return TaskType.DEADLINE.toSymbol() + super.toString() + getDeadline();
+        return String.format("%s%s%s", TaskType.DEADLINE.toSymbol(), super.toString() , getDeadline());
     }
 
     /**

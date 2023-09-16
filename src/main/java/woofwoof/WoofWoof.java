@@ -8,6 +8,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import command.Command;
+import enums.FilePath;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -23,8 +24,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import parser.Parser;
-import storage.TaskFileHandler;
-import tasks.TaskList;
 import woof.Woof;
 
 /**
@@ -43,18 +42,14 @@ public class WoofWoof extends Application {
     private TextArea userInput;
     @FXML
     private Button sendButton;
-
-
     private Scene scene;
-
-    private TaskList taskList;
 
     private Woof woof;
     private final Image user = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/userDisplayPicture.jpeg"))
+        Objects.requireNonNull(this.getClass().getResourceAsStream(FilePath.USER_DISPLAY_PICTURE.toValue()))
     );
     private final Image doggo = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/botDisplayPicture.jpeg"))
+        Objects.requireNonNull(this.getClass().getResourceAsStream(FilePath.BOT_DISPLAY_PICTURE.toValue()))
     );
 
     /**
@@ -63,7 +58,6 @@ public class WoofWoof extends Application {
      */
     @FXML
     public void initialize() {
-        this.taskList = TaskFileHandler.readFromFile();
         this.userInput.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 handleUserSubmit();
@@ -109,18 +103,18 @@ public class WoofWoof extends Application {
     }
 
     /**
-     * Loads, get, and set a custom font.
+     * Loads, gets, and sets a custom font.
      */
     private void loadAndSetCustomFont() {
-        URL fontResource = getClass().getResource("/fonts/sono/static/sono-light.ttf");
+        URL fontResource = getClass().getResource(FilePath.CUSTOM_FONT.toValue());
         Font.loadFont(Objects.requireNonNull(fontResource).toExternalForm(), 13);
     }
 
     /**
-     * Loads, get, and set a custom cursor with fixed properties.
+     * Loads, gets, and sets a custom cursor with fixed properties.
      */
     private void loadAndSetCustomCursor() {
-        String imagePath = "/images/paw.png";
+        String imagePath = FilePath.CUSTOM_CURSOR.toValue();
         double imageWidth = 40.0;
         double imageHeight = 40.0;
         double hotspotX = 20.0;
@@ -135,12 +129,12 @@ public class WoofWoof extends Application {
      */
     private void loadCssStyles() {
         String[] cssFilePaths = {
-            "/styles/dialogArea.css",
-            "/styles/root.css",
-            "/styles/scrollPane.css",
-            "/styles/sendButton.css",
-            "/styles/userInput.css",
-            "/styles/clearButton.css",
+            FilePath.ROOT_CSS.toValue(),
+            FilePath.SCROLL_PANE_CSS.toValue(),
+            FilePath.DIALOG_AREA_CSS.toValue(),
+            FilePath.CLEAR_BUTTON_CSS.toValue(),
+            FilePath.USER_INPUT_CSS.toValue(),
+            FilePath.SEND_BUTTON_CSS.toValue(),
         };
         for (String cssFilePath : cssFilePaths) {
             String css = Objects.requireNonNull(getClass().getResource(cssFilePath)).toExternalForm();
@@ -157,8 +151,8 @@ public class WoofWoof extends Application {
         if (!message.trim().isEmpty()) {
             String response = processMessage(message);
             this.dialogArea.getChildren().addAll(
-                    DialogBox.getUserDialog(wrapText(message, "\n", 52), this.user),
-                    DialogBox.getBotDialog(wrapText(response, "\n", 52), this.doggo)
+                DialogBox.getUserDialog(Woof.wrapText(message, "\n", 52), this.user),
+                DialogBox.getBotDialog(Woof.wrapText(response, "\n", 52), this.doggo)
             );
             this.userInput.clear();
         }
@@ -196,55 +190,13 @@ public class WoofWoof extends Application {
      * @return The response message.
      */
     private String processMessage(String message) {
+        assert message != null : "message cannot be null";
+
         Command command = Parser.parse(message);
         if (command.isByeCommand()) {
             scheduleCloseAfterDelay();
         }
-        return updateFileAndExecute(command);
-    }
-
-    /**
-     * Updates the task list by executing a command, saving the file, and returning the result.
-     *
-     * @param command The command to be executed.
-     * @return The result message of executing the command.
-     */
-    private String updateFileAndExecute(Command command) {
-        assert command != null : "command cannot be null";
-
-        this.taskList = TaskFileHandler.readFromFile();
-        String result = command.execute(this.taskList);
-        TaskFileHandler.saveToFile(this.taskList);
-        return result;
-    }
-
-    /**
-     * Adds line breaks with a separator to the text.
-     */
-    public static String wrapText(String message, String separator, int length) {
-        assert message != null : "text cannot be null";
-        assert separator != null : "seperator cannot be null";
-        assert length > 0 : "length has to be more than 0";
-
-        int currentLineLength = 0;
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < message.length(); i++) {
-            char currentChar = message.charAt(i);
-            if (currentChar == '\n') {
-                currentLineLength = 0;
-            }
-            if (currentLineLength >= length) {
-                result.append(separator);
-                currentLineLength = 0;
-            }
-            if (currentLineLength != 0 || currentChar != ' ') {
-                result.append(currentChar);
-                currentLineLength++;
-            }
-
-        }
-        return result.toString();
+        return Woof.updateFileAndExecute(command);
     }
 
     /**

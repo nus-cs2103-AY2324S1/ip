@@ -26,7 +26,7 @@ public class ListCommand extends Command {
      *
      * @param rawCommand The raw command string.
      * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
-     *     error message.
+     *                                     error message.
      */
 
     public static void validate(String rawCommand) throws WoofInvalidCommandException {

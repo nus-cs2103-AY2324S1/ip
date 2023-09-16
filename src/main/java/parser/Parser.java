@@ -11,6 +11,7 @@ import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.NullCommand;
+import command.SortCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
 import enums.CommandWord;
@@ -29,6 +30,12 @@ public class Parser {
         switch (CommandWord.commandWordToValueMap(getArgs(rawCommand)[0])) {
         case BYE:
             return new ByeCommand(rawCommand);
+        case DEADLINE:
+            return new DeadlineCommand(rawCommand);
+        case DELETE:
+            return new DeleteCommand(rawCommand);
+        case EVENT:
+            return new EventCommand(rawCommand);
         case FIND:
             return new FindCommand(rawCommand);
         case LIST:
@@ -37,14 +44,10 @@ public class Parser {
             return new MarkCommand(rawCommand);
         case UNMARK:
             return new UnmarkCommand(rawCommand);
-        case DELETE:
-            return new DeleteCommand(rawCommand);
+        case SORT:
+            return new SortCommand(rawCommand);
         case TODO:
             return new TodoCommand(rawCommand);
-        case DEADLINE:
-            return new DeadlineCommand(rawCommand);
-        case EVENT:
-            return new EventCommand(rawCommand);
         default:
             return new NullCommand(rawCommand);
         }

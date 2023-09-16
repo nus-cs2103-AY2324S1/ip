@@ -25,10 +25,11 @@ public class DeadlineCommand extends Command {
 
     /**
      * Validates the "deadline" command.
-     * It checks if the command is correctly formatted.
+     * It checks if the command is correctly formatted and if the specified task index is valid.
      *
      * @param rawCommand The raw command string.
-     * @throws WoofInvalidCommandException is the command is invalid.
+     * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
+     *                                     error message.
      */
     public static void validate(String rawCommand) throws WoofInvalidCommandException {
         assert rawCommand != null : "raw command cannot be null";

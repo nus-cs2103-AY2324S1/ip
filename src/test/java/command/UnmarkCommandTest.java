@@ -48,6 +48,8 @@ public class UnmarkCommandTest {
             ) -> assertDoesNotThrow((
             ) -> UnmarkCommand.validate("unmark 2", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> UnmarkCommand.validate("", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> UnmarkCommand.validate("unmark", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> UnmarkCommand.validate("unmark 0", taskList)), (
@@ -62,14 +64,11 @@ public class UnmarkCommandTest {
     public void testExecuteMarksTaskAsDone() {
         // Arrange
         TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
+        taskList.addTask(new TodoTask("Task 1", true));
         taskList.addTask(new TodoTask("Task 2"));
-
-        MarkCommand markCommand = new MarkCommand("mark 1");
         UnmarkCommand unmarkCommand = new UnmarkCommand("unmark 1");
 
         // Act
-        markCommand.execute(taskList);
         unmarkCommand.execute(taskList);
 
         // Assert
@@ -81,14 +80,12 @@ public class UnmarkCommandTest {
     public void testExecuteNoTaskMarkedIfValidationFails() {
         // Arrange
         TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
+        taskList.addTask(new TodoTask("Task 1", true));
         taskList.addTask(new TodoTask("Task 2"));
 
-        MarkCommand markCommand = new MarkCommand("mark 1");
         MarkCommand invalidCommand = new MarkCommand("unmark    1");
 
         // Act
-        markCommand.execute(taskList);
         invalidCommand.execute(taskList);
 
         // Assert

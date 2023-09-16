@@ -48,6 +48,8 @@ public class MarkCommandTest {
             ) -> assertDoesNotThrow((
             ) -> MarkCommand.validate("mark 2", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> MarkCommand.validate("", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> MarkCommand.validate("mark", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> MarkCommand.validate("mark 0", taskList)), (
@@ -65,7 +67,6 @@ public class MarkCommandTest {
         TaskList taskList = new TaskList(null);
         taskList.addTask(new TodoTask("Task 1"));
         taskList.addTask(new TodoTask("Task 2"));
-
         MarkCommand markCommand = new MarkCommand("mark 1");
 
         // Act

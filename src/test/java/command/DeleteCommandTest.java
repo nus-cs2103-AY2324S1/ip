@@ -53,6 +53,8 @@ public class DeleteCommandTest {
             ) -> assertDoesNotThrow((
             ) -> DeleteCommand.validate("delete 2", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeleteCommand.validate("", taskList)), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> DeleteCommand.validate("delete", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> DeleteCommand.validate("delete a", taskList)), (

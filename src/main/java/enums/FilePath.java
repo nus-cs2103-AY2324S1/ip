@@ -1,0 +1,39 @@
+package enums;
+
+/**
+ * The `FilePath` enum represents file paths used in the Woof application.
+ */
+public enum FilePath {
+    USER_DISPLAY_PICTURE("/images/userDisplayPicture.jpeg"),
+    BOT_DISPLAY_PICTURE("/images/botDisplayPicture.jpeg"),
+    CUSTOM_FONT("/fonts/sono/static/sono-light.ttf"),
+    CUSTOM_CURSOR("/images/paw.png"),
+    DIALOG_AREA_CSS("/styles/dialogArea.css"),
+    ROOT_CSS("/styles/root.css"),
+    SCROLL_PANE_CSS("/styles/scrollPane.css"),
+    SEND_BUTTON_CSS("/styles/sendButton.css"),
+    USER_INPUT_CSS("/styles/userInput.css"),
+    CLEAR_BUTTON_CSS("/styles/clearButton.css"),
+    DEFAULT_STORAGE_PATH("data/tasks.json");
+
+    private final String value;
+
+    /**
+     * Constructs a `FilePath` enum with the given value.
+     *
+     * @param value The string representation of the file path.
+     */
+    FilePath(String value) {
+        this.value = value;
+    }
+
+    /**
+     * Gets the string representation of the file path.
+     *
+     * @return The string representation of the file path.
+     */
+    public String toValue() {
+        return this.value;
+    }
+}
+

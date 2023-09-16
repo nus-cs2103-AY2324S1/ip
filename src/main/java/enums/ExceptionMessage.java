@@ -35,12 +35,12 @@ public enum ExceptionMessage {
     }
 
     /**
-     * Gets the string representation of the exception message with the appropriate command word.
+     * Gets the string representation of the exception message with the appropriate args word.
      *
      * @param args The arguments to replace placeholders in the exception message.
      * @return The string representation of the exception message with the appropriate command word.
      */
-    public String getValueFormat(String ... args) {
-        return String.format(this.value, (Object) args);
+    public String toFormattedString(String ... args) {
+        return String.format(this.value, args);
     }
 }

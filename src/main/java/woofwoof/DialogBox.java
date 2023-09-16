@@ -92,7 +92,7 @@ public class DialogBox extends HBox {
     private Rectangle createMessageBubble(Text text) {
         assert text != null : "text cannot be null";
 
-        double messageBubbleHeight = text.getBoundsInLocal().getHeight() * 1.255 + 20;
+        double messageBubbleHeight = text.getBoundsInLocal().getHeight() * 1.255 + 40;
         Rectangle messageBubble = new Rectangle(560, messageBubbleHeight);
         messageBubble.setFill(Color.WHITE);
         messageBubble.setArcWidth(30);
