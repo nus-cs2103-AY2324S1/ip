@@ -1,7 +1,5 @@
 package tasks;
 
-import tasks.Task;
-
 /**
  * This class encapsulates a ToDo child class
  * that contains a description.

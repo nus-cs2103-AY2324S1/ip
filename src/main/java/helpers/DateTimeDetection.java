@@ -1,11 +1,9 @@
 package helpers;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 /**
  * This helper class detects the input to be either a date, a time, or both.

@@ -1,7 +1,5 @@
 package tasks;
 
-import tasks.Task;
-
 /**
  * This class encapsulates an Event child class
  * that contains a description, a start date/time and an end date/time.

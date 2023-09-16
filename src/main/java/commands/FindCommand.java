@@ -1,10 +1,13 @@
 package commands;
 
+import java.util.ArrayList;
+
 import tasks.Task;
 import tasks.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * This class instructs the application to find all tasks that match the keyword.
+ */
 public class FindCommand implements Command {
 
     public static final String COMMAND_WORD = "find";
@@ -26,5 +29,5 @@ public class FindCommand implements Command {
         }
 
         return message;
-     }
+    }
 }

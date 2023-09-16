@@ -1,20 +1,22 @@
 package ui;
 
+import static messages.Message.MESSAGE_EXIT;
+import static messages.Message.MESSAGE_INSTRUCTIONS;
+import static messages.Message.MESSAGE_WELCOME;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
-
-import static messages.Message.MESSAGE_WELCOME;
-import static messages.Message.MESSAGE_EXIT;
-import static messages.Message.MESSAGE_INSTRUCTIONS;
 
 /**
  * This class handles all the user interactions for the Duke application,
  * responsible for receiving input and displaying output.
  */
 public class Ui {
+    private static final String LINE_DIVIDER = "────────────────────────────────────";
     private final Scanner in;
     private final PrintStream out;
+
 
     /**
      * Constructs a Ui object.
@@ -34,10 +36,6 @@ public class Ui {
         this.out = out;
     }
 
-    /**
-     * A line divider.
-     */
-    private static final String LINE_DIVIDER = "────────────────────────────────────";
 
     /**
      * Prints the line divider onto the console.

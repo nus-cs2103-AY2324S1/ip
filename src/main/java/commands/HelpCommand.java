@@ -1,7 +1,8 @@
 package commands;
 
-import tasks.TaskList;
 import static messages.Message.MESSAGE_INSTRUCTIONS;
+
+import tasks.TaskList;
 
 /**
  * This class instructs the application to list the available commands for the user.

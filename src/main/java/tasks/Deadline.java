@@ -1,9 +1,8 @@
 package tasks;
 
-import helpers.DateTimeDetection;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.LocalDate;
+
+import helpers.DateTimeDetection;
 
 /**
  * This class encapsulates a Deadline child class
@@ -48,14 +47,14 @@ public class Deadline extends Task {
 
     @Override
     public String toText() {
-        return "D " + this.getDoneStatus() + " " +
-                this.description + " /" +
-                this.end.toString().replace("T", " ");
+        return "D " + this.getDoneStatus() + " "
+                + this.description + " /"
+                + this.end.toString().replace("T", " ");
     }
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() +
-                " (" + DateTimeDetection.formatDateTime(this.end) + ")";
+        return "[D] " + super.toString()
+                + " (" + DateTimeDetection.formatDateTime(this.end) + ")";
     }
 }

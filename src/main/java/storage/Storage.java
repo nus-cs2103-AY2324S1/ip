@@ -1,9 +1,14 @@
 package storage;
 
-import tasks.Task;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * This class handles loading and saving user inputs for
@@ -52,7 +57,6 @@ public class Storage {
             e.printStackTrace();
             return null;
         }
-
     }
 
     /**
@@ -80,6 +84,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the text file to save to if it does not exist.
+     *
+     * @param directory The directory containing the file.
+     * @param file The file.
+     */
     public void createFileIfDoesNotExist(File directory, File file) {
         try {
             if (!directory.exists()) {
