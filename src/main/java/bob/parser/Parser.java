@@ -93,27 +93,27 @@ public class Parser {
         case MARK:
             if (commandWordCount == 1) {
                 throw new DukeException(INPUT_TASK_NUMBER);
-            } else if (commandWordCount > 2) {
-                throw new DukeException(INVALID_COMMAND);
-            } else {
-                return new MarkCommand(input);
             }
+            if (commandWordCount > 2) {
+                throw new DukeException(INVALID_COMMAND);
+            }
+            return new MarkCommand(input);
         case UNMARK:
             if (commandWordCount == 1) {
                 throw new DukeException(INPUT_TASK_NUMBER);
-            } else if (commandWordCount > 2) {
-                throw new DukeException(INVALID_COMMAND);
-            } else {
-                return new UnmarkCommand(input);
             }
+            if (commandWordCount > 2) {
+                throw new DukeException(INVALID_COMMAND);
+            }
+            return new UnmarkCommand(input);
         case DELETE:
             if (commandWordCount == 1) {
                 throw new DukeException(INPUT_TASK_NUMBER);
-            } else if (commandWordCount > 2) {
-                throw new DukeException(INVALID_COMMAND);
-            } else {
-                return new DeleteCommand(input);
             }
+            if (commandWordCount > 2) {
+                throw new DukeException(INVALID_COMMAND);
+            }
+            return new DeleteCommand(input);
         case FIND:
             if (input.length() == 4) {
                 throw new DukeException("Input something to search for.");

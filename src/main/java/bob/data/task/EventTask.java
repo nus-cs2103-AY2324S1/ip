@@ -31,12 +31,11 @@ public class EventTask extends Task {
             this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             LocalDateTime start = LocalDateTime.parse(startDate, formatter);
             LocalDateTime end = LocalDateTime.parse(endDate, formatter);
-            if (start.isBefore(end)) {
-                this.startDate = start;
-                this.endDate = end;
-            } else {
+            if (end.isBefore(start)) {
                 throw new DukeException("Your start date is either the same or after your end date!");
             }
+            this.startDate = start;
+            this.endDate = end;
         } catch (DateTimeParseException e) {
             System.out.println("There was an error parsing the date given.");
             e.printStackTrace();

@@ -1,8 +1,6 @@
 package bob.data.command;
 
 import bob.data.task.TaskList;
-import bob.storage.Storage;
-import bob.ui.Ui;
 
 /**
  * Marks a task in the list as incomplete.
@@ -18,7 +16,7 @@ public class UnmarkCommand extends Command {
         this.input = input;
     }
     @Override
-    public String execute(Storage storage, TaskList list, Ui ui) {
+    public String execute(TaskList list) {
         return list.setTaskIncomplete(this.input);
     }
 }

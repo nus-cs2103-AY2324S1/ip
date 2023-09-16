@@ -157,9 +157,10 @@ public class TaskList {
     }
 
     /**
-     * Writes all the tasks in the ArrayList to the file.
+     * Saves all tasks in the list to the file.
+     * @return A string with the farewell message.
      */
-    public void close() {
+    public String close() {
         try {
             FileWriter writer = new FileWriter(this.storage.getFile());
             for (Task task : tasks) {
@@ -170,6 +171,7 @@ public class TaskList {
             System.out.println("An error occurred while saving your tasks.");
             e.printStackTrace();
         }
+        return "Bye!";
     }
 
     /**
