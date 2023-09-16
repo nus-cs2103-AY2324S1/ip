@@ -98,11 +98,40 @@ public abstract class Task {
         return false;
     }
 
+    /**
+     * Compares the Task's description with that of the specified task lexicographically.
+     * Returns an integer that is negative, zero, or positive if the Task's description is
+     * less than, equal to, or greater than that of the other task respectively.
+     *
+     * @param otherTask The other Task to be compared with.
+     * @return An integer representing the comparison.
+     */
     public int compareDescription(Task otherTask) {
         return this.description.compareTo(otherTask.description);
     }
 
+    /**
+     * Compares the Task's date with that of the specified task chronologically.
+     * This method compares using the task deadline for DeadlineTasks and
+     * the starting time for EventTasks. Tasks without specified dates (e.g. ToDoTasks)
+     * will always be considered greater than those with dates.
+     * Returns an integer that is negative, zero, or positive if the Task's date is
+     * less than, equal to, or greater than that of the other task respectively.
+     *
+     * @param otherTask The other Task to be compared with.
+     * @return An integer representing the comparison.
+     */
     public abstract int compareDate(Task otherTask);
 
+    /**
+     * Compares the Task's type with that of the specified task.
+     * Task types are compared in the following order:
+     * ToDoTask < DeadlineTask < EventTask.
+     * Returns an integer that is negative, zero, or positive if the Task's type is
+     * less than, equal to, or greater than that of the other task respectively.
+     *
+     * @param otherTask The other Task to be compared with.
+     * @return An integer representing the comparison.
+     */
     public abstract int compareType(Task otherTask);
 }

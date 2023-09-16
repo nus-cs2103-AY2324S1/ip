@@ -52,6 +52,9 @@ public class ToDoTask extends Task {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int compareDate(Task otherTask) {
         if (otherTask instanceof DeadlineTask) {
@@ -64,6 +67,9 @@ public class ToDoTask extends Task {
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int compareType(Task otherTask) {
         if (otherTask instanceof DeadlineTask) {

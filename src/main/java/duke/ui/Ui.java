@@ -22,7 +22,7 @@ public class Ui {
     }
 
     /**
-     * Gets the chatbot's greeting message.
+     * Returns the chatbot's greeting message.
      */
     public String playGreeting() {
         return "Howdy, I'm " + botName + ", your friendly personal assistant!\n"
@@ -30,14 +30,14 @@ public class Ui {
     }
 
     /**
-     * Plays the chatbot's goodbye message.
+     * Returns the chatbot's goodbye message.
      */
     public String playGoodbye() {
         return "See ya later, alligator! I'm waiting here if you need anything :>";
     }
 
     /**
-     * Plays the message after a task has been marked as completed.
+     * Returns the message played after a task has been marked as completed.
      *
      * @param taskDescription The description of the Task marked.
      */
@@ -47,7 +47,7 @@ public class Ui {
     }
 
     /**
-     * Plays the message after a task has been unmarked as completed.
+     * Returns the message played after a task has been unmarked as completed.
      *
      * @param taskDescription The description of the Task unmarked.
      */
@@ -57,7 +57,7 @@ public class Ui {
     }
 
     /**
-     * Plays the message after a task has been removed from the task list.
+     * Returns the message played after a task has been removed from the task list.
      *
      * @param taskDescription The description of the Task removed.
      * @param taskCount The total number of Tasks in the TaskList after removal.
@@ -69,7 +69,7 @@ public class Ui {
     }
 
     /**
-     * Plays the message after a task has been added to the task list.
+     * Returns the message played after a task has been added to the task list.
      *
      * @param taskDescription The description of the Task added.
      * @param taskCount The total number of Tasks in the TaskList after addition.
@@ -81,7 +81,7 @@ public class Ui {
     }
 
     /**
-     * Plays a message and prints the specified TaskList as a numbered list.
+     * Returns a message and prints the specified TaskList as a numbered list.
      *
      * @param taskList The TaskList to be printed.
      */
@@ -92,7 +92,7 @@ public class Ui {
 
 
     /**
-     * Plays a message and prints the specified task list of search results from find to console.
+     * Returns a message and prints the specified task list of search results from find to console.
      *
      * @param searchResults The TaskList containing the search results.
      */
@@ -101,6 +101,12 @@ public class Ui {
                 + searchResults.printTasksAsList();
     }
 
+    /**
+     * Returns a message and prints the specified task list of search results from find to console.
+     *
+     * @param sortedList The new sorted TaskList.
+     * @param sortOrder The sort order the list is sorted by.
+     */
     public String printSortedList(TaskList sortedList, TaskList.SortOrder sortOrder) {
         return "Okie dokie, I've sorted the tasks by "
                 + sortOrder.toString()
@@ -109,7 +115,7 @@ public class Ui {
     }
 
     /**
-     * Plays an error message with the specified exception message.
+     * Returns an error message with the specified exception message.
      *
      * @param exceptionMessage The ExceptionMessage to be shown.
      */

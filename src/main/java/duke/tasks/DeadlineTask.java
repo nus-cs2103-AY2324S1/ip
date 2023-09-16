@@ -62,6 +62,9 @@ public class DeadlineTask extends Task {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int compareDate(Task otherTask) {
         if (otherTask instanceof ToDoTask) {
@@ -77,6 +80,9 @@ public class DeadlineTask extends Task {
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int compareType(Task otherTask) {
         if (otherTask instanceof DeadlineTask) {
@@ -89,6 +95,14 @@ public class DeadlineTask extends Task {
         return 0;
     }
 
+    /**
+     * Compares the Task's deadline with the specified date.
+     * Returns an integer that is negative, zero, or positive if the Task's deadline is
+     * less than, equal to, or greater than the date respectively.
+     *
+     * @param date The date to be compared with.
+     * @return An integer representing the comparison.
+     */
     public int compareByDate(LocalDateTime date) {
         return this.by.compareTo(date);
     }
