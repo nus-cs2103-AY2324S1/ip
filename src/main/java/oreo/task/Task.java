@@ -55,7 +55,6 @@ public abstract class Task implements Comparable<Task> {
      */
     public static Task generateTask(String command, Scanner tokeniser) throws IllegalCommandException,
             IllegalDateTimeException {
-        Task newTask;
         if (!tokeniser.hasNext()) {
             throw new IllegalCommandException("process an empty task");
         }
@@ -63,40 +62,56 @@ public abstract class Task implements Comparable<Task> {
         String contents = tokeniser.nextLine();
         assert !contents.isEmpty(): "contents should not be empty";
 
-        if (command.equals("todo")) {
-            if (contents.contains("/by")) {
-                throw new IllegalCommandException("do that for a todo, "
-                        + "are you thinking of a deadline?");
-            } else if (contents.contains("/from") || contents.contains("/to")) {
-                throw new IllegalCommandException("do that for a todo,"
-                        + "are you thinking of an event?");
-            }
-            newTask = new ToDo(contents);
-        } else if (command.equals("deadline")){
-            if (!contents.contains("/by")) {
-                throw new IllegalCommandException("set a deadline wihtout a \"/by\"");
-            } else if (contents.contains("/from") || contents.contains("/to")) {
-                throw new IllegalCommandException("do that for a deadline,"
-                        + "are you thinking of an event?");
-            }
-            String[] parts = contents.split(" /by ", 2);
-            String[] dateTime = TimeParser.parseInputOut(parts[1]);
-            newTask = new Deadline(parts[0], dateTime[0], dateTime[1]);
-        } else {
-            if (!contents.contains("/from") || !contents.contains("/to")) {
-                throw new IllegalCommandException("set an event wihtout a \"/from\" and/or \"/to\"");
-            } else if (contents.contains("/by")) {
-                throw new IllegalCommandException("do that for an event,"
-                        + "are you thinking of a deadline?");
-            }
-            String[] message = contents.split(" /from ", 2);
-            String[] fromto = message[1].split(" /to ", 2);
-            String[] fromDateTime = TimeParser.parseInputOut(fromto[0]);
-            String[] toDateTime = TimeParser.parseInputOut(fromto[1]);
-            newTask = new Event(message[0], fromDateTime[0], fromDateTime[1],
-                    toDateTime[0], toDateTime[1]);
+        switch (command) {
+        case "todo" :
+            return processToDoCommand(contents);
+        case "deadline":
+            return processDeadlineCommand(contents);
+        case "event" :
+            return processEventCommand(contents);
+        default:
+            throw new IllegalCommandException("create such a task");
         }
-        return newTask;
+    }
+
+    private static Task processToDoCommand(String contents) throws IllegalCommandException {
+        if (contents.contains("/by")) {
+            throw new IllegalCommandException("do that for a todo, "
+                    + "are you thinking of a deadline?");
+        } else if (contents.contains("/from") || contents.contains("/to")) {
+            throw new IllegalCommandException("do that for a todo,"
+                    + "are you thinking of an event?");
+        }
+        return new ToDo(contents);
+    }
+
+    private static Task processDeadlineCommand(String contents) throws IllegalCommandException,
+            IllegalDateTimeException {
+        if (!contents.contains("/by")) {
+            throw new IllegalCommandException("set a deadline wihtout a \"/by\"");
+        } else if (contents.contains("/from") || contents.contains("/to")) {
+            throw new IllegalCommandException("do that for a deadline,"
+                    + "are you thinking of an event?");
+        }
+        String[] parts = contents.split(" /by ", 2);
+        String[] dateTime = TimeParser.parseInputOut(parts[1]);
+        return new Deadline(parts[0], dateTime[0], dateTime[1]);
+    }
+
+    private static Task processEventCommand(String contents) throws IllegalCommandException,
+            IllegalDateTimeException {
+        if (!contents.contains("/from") || !contents.contains("/to")) {
+            throw new IllegalCommandException("set an event wihtout a \"/from\" and/or \"/to\"");
+        } else if (contents.contains("/by")) {
+            throw new IllegalCommandException("do that for an event,"
+                    + "are you thinking of a deadline?");
+        }
+        String[] message = contents.split(" /from ", 2);
+        String[] fromto = message[1].split(" /to ", 2);
+        String[] fromDateTime = TimeParser.parseInputOut(fromto[0]);
+        String[] toDateTime = TimeParser.parseInputOut(fromto[1]);
+        return new Event(message[0], fromDateTime[0], fromDateTime[1],
+                toDateTime[0], toDateTime[1]);
     }
 
     public boolean isComplete() {
