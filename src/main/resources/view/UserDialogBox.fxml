@@ -4,24 +4,40 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="140.0" minWidth="400.0" prefWidth="400.0" style="-fx-border-color: #e5e7eb; -fx-border-width: 0 0 1px 0;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         minHeight="80.0" minWidth="400.0" prefWidth="400.0"
+         style="-fx-border-color: #e5e7eb; -fx-border-width: 0 0 1px 0;"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17">
     <children>
-        <Label fx:id="dialog" minHeight="97.0" prefWidth="286.0" style="-fx-border-color: #065f46; -fx-background-color: #86efac; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="Label" wrapText="true">
+        <Label fx:id="dialog" minHeight="55.0" prefWidth="290.0"
+               style="-fx-border-color: #065f46; -fx-background-color: #86efac; -fx-background-radius: 12px; -fx-border-radius: 12px;"
+               text="Label" wrapText="true">
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </padding>
             <HBox.margin>
-                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
             </HBox.margin>
         </Label>
-        <ImageView fx:id="displayPicture" fitHeight="58.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+        <VBox alignment="BOTTOM_RIGHT">
+            <children>
+                <ImageView fx:id="displayPicture" fitHeight="55.0"
+                           fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                    <VBox.margin>
+                        <Insets bottom="2.0"/>
+                    </VBox.margin>
+                </ImageView>
+            </children>
             <HBox.margin>
-                <Insets left="6.0" right="6.0" top="42.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </HBox.margin>
-        </ImageView>
+        </VBox>
     </children>
     <padding>
-        <Insets bottom="15.0" left="10.0" right="5.0" top="15.0" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
 </fx:root>
