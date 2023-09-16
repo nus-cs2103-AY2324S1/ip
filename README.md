@@ -14,7 +14,7 @@ If you are a fast typer, Robert can accomplish tracking tasks faster than tradit
 
 ## Functionalities
 
-View all the commands that are available in the Robert app [here](leezhanpeng.github.io/ip).
+View all the commands that are available in the Robert app [here](https://leezhanpeng.github.io/ip).
 
 ## How to use Robert
 1. Download `robert.jar` [here](https://github.com/leezhanpeng/ip/releases/tag/v0.2).
