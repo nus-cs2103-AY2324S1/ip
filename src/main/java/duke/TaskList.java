@@ -37,7 +37,7 @@ public class TaskList {
         List<Task> filteredTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            if (task.getDescription().contains(description)) {
+            if (task.getDescription().trim().toLowerCase().contains(description.trim().toLowerCase())) {
                 filteredTasks.add(task);
             }
         }
