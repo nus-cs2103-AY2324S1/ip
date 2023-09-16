@@ -10,7 +10,7 @@ public class MarkTaskMessage extends Message {
     private final Task task;
 
     /**
-     * Constructor for MarkTaskMessage.
+     * Calls constructor for MarkTaskMessage.
      * @param task Task to be marked.
      */
     public MarkTaskMessage(Task task) {

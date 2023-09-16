@@ -17,14 +17,14 @@ public class TaskList {
     private final ArrayList<Task> list;
 
     /**
-     * Constructor for TaskList.
+     * Calls constructor for TaskList.
      */
     public TaskList() {
         this.list = new ArrayList<>();
     }
 
     /**
-     * Constructor for TaskList.
+     * Calls constructor for TaskList.
      * @param list ArrayList of Tasks.
      */
     public TaskList(ArrayList<Task> list) {

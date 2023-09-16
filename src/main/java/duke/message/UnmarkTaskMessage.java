@@ -10,7 +10,7 @@ public class UnmarkTaskMessage extends Message {
     private final Task task;
 
     /**
-     * Constructor for UnmarkTaskMessage.
+     * Calls constructor for UnmarkTaskMessage.
      * @param task Task to be unmarked.
      */
     public UnmarkTaskMessage(Task task) {

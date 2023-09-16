@@ -11,7 +11,7 @@ public class TaskListMessage extends Message {
     private final String[] list;
 
     /**
-     * Constructor for TaskListMessage.
+     * Calls constructor for TaskListMessage.
      * @param list ArrayList of Tasks.
      */
     public TaskListMessage(ArrayList<Task> list) {

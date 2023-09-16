@@ -5,7 +5,7 @@ package duke.exception;
  */
 public class InvalidCommandException extends Exception {
     /**
-     * Constructor for InvalidCommandException.
+     * Calls constructor for InvalidCommandException.
      */
     public InvalidCommandException() {
         super();

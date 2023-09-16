@@ -11,7 +11,7 @@ public class AddTaskMessage extends Message {
     private final int totalTasks;
 
     /**
-     * Constructor for AddTaskMessage.
+     * Calls constructor for AddTaskMessage.
      * @param task Task to be added.
      * @param totalTasks Total number of tasks.
      */

@@ -11,7 +11,7 @@ public class DeleteTaskMessage extends Message {
     private final int totalTasks;
 
     /**
-     * Constructor for DeleteTaskMessage.
+     * Calls constructor for DeleteTaskMessage.
      * @param task Task to be deleted.
      * @param totalTasks Total number of tasks.
      */

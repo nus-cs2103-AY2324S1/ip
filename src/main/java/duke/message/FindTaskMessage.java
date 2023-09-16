@@ -12,7 +12,7 @@ public class FindTaskMessage extends Message {
     private final ArrayList<Task> tasks;
 
     /**
-     * Constructor for FindTaskMessage.
+     * Calls constructor for FindTaskMessage.
      * @param tasks Tasks to be found.
      */
     public FindTaskMessage(ArrayList<Task> tasks) {

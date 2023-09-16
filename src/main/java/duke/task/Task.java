@@ -8,7 +8,7 @@ public abstract class Task {
     protected final String name;
 
     /**
-     * Constructor for Task.
+     * Calls constructor for Task.
      * @param name Name of Task.
      */
     public Task(String name, boolean isDone) {
@@ -17,14 +17,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark Task as done.
+     * Marks Task as done.
      */
     public void markTask() {
         this.isDone = true;
     }
 
     /**
-     * Mark Task as not done.
+     * Marks Task as not done.
      */
     public void unmarkTask() {
         this.isDone = false;

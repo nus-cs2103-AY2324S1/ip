@@ -142,14 +142,14 @@ public class UserInputParser {
         }
     }
     /**
-     * Returns the isActive.
+     * Returns isActive.
      * @return isActive.
      */
     public static boolean getIsActive() {
         return UserInputParser.isActive;
     }
     /**
-     * Sets the isActive.
+     * Sets isActive.
      *
      * @param isActive isActive.
      */

@@ -7,7 +7,7 @@ public class ErrorMessage extends Message {
     private final String message;
 
     /**
-     * Constructor for ErrorMessage.
+     * Calls constructor for ErrorMessage.
      * @param message Error message.
      */
     public ErrorMessage(String message) {

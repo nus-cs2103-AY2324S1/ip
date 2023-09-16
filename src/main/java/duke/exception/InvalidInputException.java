@@ -5,7 +5,7 @@ package duke.exception;
  */
 public class InvalidInputException extends Exception {
     /**
-     * Constructor for InvalidInputException.
+     * Calls constructor for InvalidInputException.
      * @param message Error message.
      */
     public InvalidInputException(String message) {

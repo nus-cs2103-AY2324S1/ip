@@ -7,7 +7,7 @@ public class TodoTask extends Task {
     private final String type = "T";
 
     /**
-     * Constructor for TodoTask.
+     * Calls constructor for TodoTask.
      * @param name Name of TodoTask.
      */
     public TodoTask(String name, boolean isDone) {

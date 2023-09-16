@@ -9,7 +9,7 @@ public class EventsTask extends Task {
     private final String to;
 
     /**
-     * Constructor for EventsTask.
+     * Calls constructor for EventsTask.
      * @param name Name of EventsTask.
      * @param from From of EventsTask.
      * @param to To of EventsTask.

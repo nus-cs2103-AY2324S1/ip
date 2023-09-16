@@ -19,7 +19,7 @@ public class Duke {
     private final Ui ui;
 
     /**
-     * Constructor for Duke.
+     * Calls constructor for Duke.
      */
     public Duke() {
         String filePath = "data/duke.txt";
@@ -37,7 +37,7 @@ public class Duke {
     }
 
     /**
-     * Main method.
+     * Runs Duke.
      * @param args Arguments.
      */
     public static void main(String[] args) {

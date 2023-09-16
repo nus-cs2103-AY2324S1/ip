@@ -17,7 +17,7 @@ import duke.templates.MessageTemplates;
 public class Storage {
     private final String filePath;
     /**
-     * Constructor for Storage.
+     * Calls constructor for Storage.
      * @param filePath Path to file.
      */
     public Storage(String filePath) {

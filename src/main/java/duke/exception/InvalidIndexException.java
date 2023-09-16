@@ -5,7 +5,7 @@ package duke.exception;
  */
 public class InvalidIndexException extends Exception {
     /**
-     * Constructor for InvalidIndexException.
+     * Calls constructor for InvalidIndexException.
      */
     public InvalidIndexException() {
         super();

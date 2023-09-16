@@ -8,7 +8,7 @@ public class DeadlinesTask extends Task {
     private final String deadline;
 
     /**
-     * Constructor for DeadlinesTask.
+     * Calls constructor for DeadlinesTask.
      * @param name Name of DeadlinesTask.
      * @param deadline Deadline of DeadlinesTask.
      */
