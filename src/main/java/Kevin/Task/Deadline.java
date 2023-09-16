@@ -19,7 +19,7 @@ public class Deadline extends Task {
         this.isDone = isDone;
     }
 
-    public static Deadline createNewDeadlineTask(String description) throws DateTimeParseException{
+    public static Deadline createNewDeadlineTask(String description) throws DateTimeParseException {
         String[] splitMessage = description.split(" /by ");
         LocalDate date = LocalDate.parse(splitMessage[1]);
         return new Deadline(splitMessage[0], date);

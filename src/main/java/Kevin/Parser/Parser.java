@@ -22,15 +22,13 @@ public class Parser {
                 // Prints out the list
                 taskList.listAllTasks();
                 break;
-            case "mark": {
+            case "mark":
                 taskList.markTaskDone(splitMessage[1]);
                 break;
-            }
-            case "unmark": {
+            case "unmark":
                 taskList.unmarkTaskDone(splitMessage[1]);
                 break;
-            }
-            case "delete": {
+            case "delete":
                 try {
                     taskList.deleteTask(splitMessage[1]);
                 } catch (TaskListEmptyException e) {
@@ -39,7 +37,6 @@ public class Parser {
                     System.out.println(Ui.line);
                 }
                 break;
-            }
             default:
                 // Add new tasks to the task list
                 try {
