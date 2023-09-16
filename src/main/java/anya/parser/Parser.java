@@ -1,7 +1,5 @@
 package anya.parser;
 
-import java.util.Scanner;
-
 import anya.command.Command;
 import anya.exception.AnyaException;
 import anya.exception.InvalidArgumentException;
@@ -43,6 +41,7 @@ public class Parser {
      * @return The command represented by the user input, or {@code Command.UNKNOWN} if the input is not recognized.
      */
     public Command parseCommand(String input) {
+        assert input != null : "Input cannot be null";
         if (input.equals("bye")) {
             return Command.BYE;
         }
@@ -82,6 +81,7 @@ public class Parser {
      * @return The output of the command in String.
      */
     public String parse(String input) throws AnyaException {
+        assert input != null : "Input cannot be null";
         String[] arguments = input.split(" ", 2);
         Command command = parseCommand(arguments[0]);
 
@@ -92,6 +92,7 @@ public class Parser {
             details = arguments[1];
         }
 
+        assert tasks != null : "Tasks list cannot be null";
         switch (command) {
         case BYE:
             return executeByeCommand();
@@ -134,10 +135,10 @@ public class Parser {
     private String executeDeleteCommand(String details) throws InvalidArgumentException {
         validateDeleteArguments(details);
         validateTypeOfArguments(details);
-        int taskNumber = Integer.parseInt(details);
+        int taskNumber = Integer.parseInt(details) - 1;
         validateTaskNumber(taskNumber);
 
-        Task t = tasks.get(taskNumber - 1);
+        Task t = tasks.get(taskNumber);
         tasks.remove(t);
         return ui.showTaskDeleteSuccess(t, tasks);
     }
