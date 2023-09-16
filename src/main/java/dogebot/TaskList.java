@@ -113,11 +113,12 @@ public class TaskList {
      * @throws DogeBotException If input in empty.
      */
     public static String todo(String input) throws DogeBotException {
-        String taskDescription = input.split("todo ")[1];
-        if (taskDescription.isBlank()) {
+        String[] split = input.split("todo ");
+        if (split.length == 0) {
             throw new DogeBotException("Oops ! The description of a todo cannot be empty :(");
         }
 
+        String taskDescription = split[1];
         StringBuilder result = new StringBuilder();
         result.append("Mama mia ! I've just added this task:\n");
         Task temp = new ToDos(taskDescription, false);
@@ -136,13 +137,14 @@ public class TaskList {
      * @throws DogeBotException If input is empty.
      */
     public static String deadline(String input) throws DogeBotException {
-        String taskDescription = input.split("deadline ")[1].split(" /by")[0];
-        if (taskDescription.isBlank()) {
+        String[] split = input.split("deadline ");
+        if (split.length == 0) {
             throw new DogeBotException("Oops ! The description of a deadline cannot be empty :(");
         }
 
         StringBuilder result = new StringBuilder();
         result.append("Mama mia ! I've just added this task:\n");
+        String taskDescription = input.split("deadline ")[1].split(" /by")[0];
         String taskDeadline = input.split("/by ")[1];
         Task temp = new Deadline(taskDescription, taskDeadline, false);
         tasks.add(temp);
@@ -160,12 +162,13 @@ public class TaskList {
      * @throws DogeBotException If input is empty.
      */
     public static String event(String input) throws DogeBotException {
-        String taskDescription = input.split("event ")[1].split(" /from")[0];
-        if (taskDescription.isBlank()) {
+        String[] split = input.split("event ");
+        if (split.length == 0) {
             throw new DogeBotException("Oops ! The description of an event cannot be empty :(");
         }
 
         StringBuilder result = new StringBuilder();
+        String taskDescription = input.split("event ")[1].split(" /from")[0];
         String start = input.split("/from ")[1].split(" /to")[0];
         String end = input.split("/to ")[1];
         result.append("Mama mia ! I've just added this task:\n");
@@ -208,11 +211,11 @@ public class TaskList {
      * @throws DogeBotException If input keyword is empty.
      */
     public static String find(String input) throws DogeBotException {
-        String keyword = input.split(" ")[1];
-        if (keyword.isBlank()) {
+        String[] split = input.split("find ");
+        if (split.length == 0) {
             throw new DogeBotException("Oops ! The keyword cannot be empty :(");
         }
-
+        String keyword = input.split(" ")[1];
         ArrayList<Task> found = new ArrayList<>();
         for (Task task : tasks) {
             if (task.hasWord(keyword)) {

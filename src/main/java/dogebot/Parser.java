@@ -1,7 +1,5 @@
 package dogebot;
 
-import java.util.InputMismatchException;
-
 /**
  * Parser class handles user commands and calls the next appropriate method for its respective action.
  *
@@ -50,12 +48,10 @@ public class Parser {
             default:
                 result = "Wuff, I'm not sure what that means :(";
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Oops ! Integers only please :c");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oh no :( I think that number is too big~");
+            return "Oh no :( I think that number is too big~";
         } catch (DogeBotException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
 
         return result;
