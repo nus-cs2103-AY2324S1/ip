@@ -61,4 +61,35 @@ public class DeadlineTask extends Task {
         }
         return false;
     }
+
+    @Override
+    public int compareDate(Task otherTask) {
+        if (otherTask instanceof ToDoTask) {
+            return -1;
+        } else if (otherTask instanceof EventTask) {
+            EventTask event = (EventTask) otherTask;
+            int comparisonResult = event.compareFromDate(this.by);
+            return -comparisonResult;
+        } else if (otherTask instanceof DeadlineTask) {
+            DeadlineTask otherDeadlineTask = (DeadlineTask) otherTask;
+            return this.by.compareTo(otherDeadlineTask.by);
+        }
+        return 0;
+    }
+
+    @Override
+    public int compareType(Task otherTask) {
+        if (otherTask instanceof DeadlineTask) {
+            return 0;
+        } else if (otherTask instanceof EventTask) {
+            return -1;
+        } else if (otherTask instanceof ToDoTask) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public int compareByDate(LocalDateTime date) {
+        return this.by.compareTo(date);
+    }
 }

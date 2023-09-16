@@ -64,6 +64,8 @@ public class Parser {
             return handleDeleteTask(userInput);
         case "find":
             return handleFind(userInput);
+        case "sort":
+            return handleSort(userInput);
         default:
             return handleInvalidInput();
         }
@@ -96,7 +98,7 @@ public class Parser {
             return handleInvalidInput();
         }
 
-        assert wordsInInput.length == 2 && wordsInInput[0].equals("mark") : "mark/unmark: invalid input";
+        assert wordsInInput.length == 2 : "mark/unmark: invalid input";
         try {
             TaskList taskList = Duke.duke.getTaskList();
             int index = Integer.parseInt(wordsInInput[1]) - 1;
@@ -109,9 +111,9 @@ public class Parser {
             }
             return handleInvalidInput();
         } catch (NumberFormatException e) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.MarkCommand_NumberFormatException);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.MARK_COMMAND_NUMBER_FORMAT_EXCEPTION);
         } catch (IndexOutOfBoundsException e) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.TaskList_IndexOutOfBoundsException);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.TASK_LIST_INDEX_OUT_OF_BOUNDS_EXCEPTION);
         }
     }
 
@@ -122,7 +124,7 @@ public class Parser {
 
         String taskDescription = userInput.substring(5);
         if (taskDescription.isBlank()) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.ADD_TASK_MISSING_DESCRIPTION);
         }
 
         ToDoTask newToDoTask = new ToDoTask(taskDescription);
@@ -146,7 +148,7 @@ public class Parser {
 
         String taskDescription = taskDescriptionSections[0];
         if (taskDescription.isBlank()) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.ADD_TASK_MISSING_DESCRIPTION);
         }
 
         String taskDeadlineSegment = taskDescriptionSections[1];
@@ -156,7 +158,7 @@ public class Parser {
 
         String taskDeadline = taskDeadlineSegment.substring(3);
         if (taskDeadline.isBlank()) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDeadline);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.ADD_TASK_MISSING_DEADLINE);
         }
 
         try {
@@ -165,7 +167,7 @@ public class Parser {
             DeadlineTask newDeadlineTask = new DeadlineTask(taskDescription, deadline);
             return handleAddTask(newDeadlineTask);
         } catch (DateTimeParseException e) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_DateTimeParseException);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.ADD_TASK_DATE_TIME_PARSE_EXCEPTION);
         }
     }
 
@@ -186,7 +188,7 @@ public class Parser {
 
         String taskDescription = taskDescriptionSections[0];
         if (taskDescription.isBlank()) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingDescription);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.ADD_TASK_MISSING_DESCRIPTION);
         }
 
         String taskFromSegment = taskDescriptionSections[1];
@@ -198,7 +200,7 @@ public class Parser {
         String taskFrom = taskFromSegment.substring(5);
         String taskTo = taskToSegment.substring(3);
         if (taskFrom.isBlank() || taskTo.isBlank()) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_MissingStartEndDate);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.ADD_TASK_MISSING_START_END_DATE);
         }
 
         try {
@@ -208,7 +210,7 @@ public class Parser {
             EventTask newEventTask = new EventTask(taskDescription, from, to);
             return handleAddTask(newEventTask);
         } catch (DateTimeParseException e) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.AddTask_DateTimeParseException);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.ADD_TASK_DATE_TIME_PARSE_EXCEPTION);
         }
     }
 
@@ -239,9 +241,9 @@ public class Parser {
             taskList.removeTask(index);
             return ui.playRemoveTask(deletedTask.toString(), taskList.getTaskCount());
         } catch (NumberFormatException e) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.DeleteCommand_NumberFormatException);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.DELETE_COMMAND_NUMBER_FORMAT_EXCEPTION);
         } catch (IndexOutOfBoundsException e) {
-            return ui.playExceptionMessage(Ui.ExceptionMessage.TaskList_IndexOutOfBoundsException);
+            return ui.playExceptionMessage(Ui.ExceptionMessage.TASK_LIST_INDEX_OUT_OF_BOUNDS_EXCEPTION);
         }
     }
 
@@ -256,7 +258,35 @@ public class Parser {
         return ui.printKeywordSearchResults(matchingTasks);
     }
 
+    private String handleSort(String userInput) {
+        String[] wordsInInput = userInput.split(" ");
+        if (wordsInInput.length > 2) {
+            return handleInvalidInput();
+        }
+
+        if (wordsInInput.length < 2) {
+            return ui.playExceptionMessage(Ui.ExceptionMessage.SORT_TASKS_MISSING_SORT_ORDER);
+        }
+
+        assert wordsInInput.length == 2 && wordsInInput[0].equals("sort") : "sort: invalid input";
+        TaskList tasks = Duke.duke.getTaskList();
+        String sortOrderString = wordsInInput[1];
+        switch  (sortOrderString) {
+        case "description":
+            tasks.sort(TaskList.SortOrder.TASK_DESCRIPTION);
+            return ui.printSortedList(tasks, TaskList.SortOrder.TASK_DESCRIPTION);
+        case "date":
+            tasks.sort(TaskList.SortOrder.TASK_DATE);
+            return ui.printSortedList(tasks, TaskList.SortOrder.TASK_DATE);
+        case "type":
+            tasks.sort(TaskList.SortOrder.TASK_TYPE);
+            return ui.printSortedList(tasks, TaskList.SortOrder.TASK_TYPE);
+        default:
+            return ui.playExceptionMessage(Ui.ExceptionMessage.SORT_TASKS_INVALID_SORT_ORDER);
+        }
+    }
+
     private String handleInvalidInput() {
-        return ui.playExceptionMessage(Ui.ExceptionMessage.InvalidInput);
+        return ui.playExceptionMessage(Ui.ExceptionMessage.INVALID_INPUT);
     }
 }

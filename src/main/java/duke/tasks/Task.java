@@ -97,4 +97,12 @@ public abstract class Task {
         }
         return false;
     }
+
+    public int compareDescription(Task otherTask) {
+        return this.description.compareTo(otherTask.description);
+    }
+
+    public abstract int compareDate(Task otherTask);
+
+    public abstract int compareType(Task otherTask);
 }

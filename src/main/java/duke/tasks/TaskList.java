@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Encapsulates a task list to be managed by the chatbot.
@@ -119,5 +120,34 @@ public class TaskList {
             }
         }
         return output;
+    }
+
+    public void sort(SortOrder sortOrder) {
+        tasks.sort(sortOrder.comparator);
+    }
+
+    public enum SortOrder {
+        TASK_DESCRIPTION((t1, t2) -> t1.compareDescription(t2)),
+        TASK_DATE((t1, t2) -> t1.compareDate(t2)),
+        TASK_TYPE((t1, t2) -> t1.compareType(t2));
+
+        private Comparator<? super Task> comparator;
+        SortOrder(Comparator<? super Task> comparator) {
+            this.comparator = comparator;
+        }
+
+        @Override
+        public String toString() {
+            switch (this) {
+            case TASK_DESCRIPTION:
+                return "description";
+            case TASK_DATE:
+                return "date";
+            case TASK_TYPE:
+                return "type";
+            default:
+                return "null";
+            }
+        }
     }
 }
