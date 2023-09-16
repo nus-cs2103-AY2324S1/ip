@@ -6,7 +6,7 @@ import tasks.ToDo;
 /**
  * The class for executing an addition command of a todo task
  */
-public class ToDoCommand extends Command{
+public class ToDoCommand extends Command {
 
     private TaskList taskList;
     private String description;

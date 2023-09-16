@@ -1,10 +1,12 @@
 package functions;
 
-import tasks.Task;
-
 import java.util.ArrayList;
 
+import tasks.Task;
 
+/**
+ * A class for storing a list of tasks.
+ */
 public class TaskList {
 
     private ArrayList<Task> taskList;
@@ -41,7 +43,7 @@ public class TaskList {
      *
      * @param task the task to add
      */
-    public void add(Task task){
+    public void add(Task task) {
         this.taskList.add(task);
     }
 

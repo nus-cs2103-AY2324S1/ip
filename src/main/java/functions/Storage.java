@@ -17,7 +17,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
-
+    /**
+     * Loads the task list from the file specified by the file path.
+     *
+     * @return the loaded task list.
+     * @throws IOException if there is an error reading the file.
+     */
     public TaskList load() throws IOException {
         Load load = new Load(this.filePath);
         return load.load();

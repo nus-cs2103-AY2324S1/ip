@@ -1,11 +1,11 @@
-package Runner;
+package runner;
+
+import java.io.IOException;
 
 import functions.Parser;
 import functions.Storage;
 import functions.TaskList;
 import functions.Ui;
-
-import java.io.IOException;
 
 /**
  * Cupid is a task tracking bot that manages a list of tasks and provides responses based on user input.

@@ -6,7 +6,7 @@ import tasks.Task;
 /**
  * The class for executing a find command from a TaskList
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     private TaskList taskList;
     private String functionDescription;

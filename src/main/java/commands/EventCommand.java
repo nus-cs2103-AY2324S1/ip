@@ -1,14 +1,10 @@
 package commands;
 
+import java.time.LocalDateTime;
+
 import functions.TaskList;
-import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
-import tasks.ToDo;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * The class for executing an addition command of an event task
@@ -68,8 +64,8 @@ public class EventCommand extends Command {
             message += "Added: " + newEvent.getTaskAsString();
             return message;
         } catch (Exception e) {
-            return "Sorry, I did not understand that. Please enter in the following format: \n" +
-                    "event {description} /from {start datetime} /to {end datetime}.";
+            return "Sorry, I did not understand that. Please enter in the following format: \n"
+                    + "event {description} /from {start datetime} /to {end datetime}.";
         }
     }
 
@@ -94,7 +90,7 @@ public class EventCommand extends Command {
             Event event = (Event) task;
 
             LocalDateTime startDate = parseDateTime(event.getStartDate());
-            LocalDateTime endDate =  parseDateTime(event.getEndDate());
+            LocalDateTime endDate = parseDateTime(event.getEndDate());
 
             boolean isBeforeEventEnd = fromDate.isBefore(endDate);
             boolean isAfterEventStart = toDate.isAfter(startDate);

@@ -1,5 +1,8 @@
 package functions;
 
+/**
+ * A class for handling user interface messages.
+ */
 public class Ui {
 
     /**

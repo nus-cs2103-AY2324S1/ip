@@ -1,12 +1,11 @@
 package commands;
 
-
 import functions.TaskList;
 
 /**
  * The class for executing a list command to list out all tasks in the task list
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     private TaskList taskList;
 
     /**
@@ -27,8 +26,8 @@ public class ListCommand extends Command{
             return "There are no tasks stored currently!";
         }
 
-        for (int i=0; i<taskList.size(); i++) {
-            message += String.format("%d. %s", i+1, taskList.get(i).getTaskAsString());
+        for (int i = 0; i < taskList.size(); i++) {
+            message += String.format("%d. %s", i + 1, taskList.get(i).getTaskAsString());
             message += "\n";
         };
         return message;

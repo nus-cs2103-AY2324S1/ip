@@ -1,10 +1,10 @@
 package commands;
 
-import functions.TaskList;
-import tasks.Deadline;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import functions.TaskList;
+import tasks.Deadline;
 
 /**
  * Represents a command to load a deadline task into a task list.

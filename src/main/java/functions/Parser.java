@@ -45,9 +45,9 @@ public class Parser {
             ChatFunction function = ChatFunction.valueOf(inputArray[0].toUpperCase());
 
             int firstSpaceIndex = input.indexOf(" ");
-            String functionDescription = input.substring(firstSpaceIndex+1);
+            String functionDescription = input.substring(firstSpaceIndex + 1);
 
-            Command command= null;
+            Command command = null;
 
             switch (function) {
             case LIST:
@@ -75,11 +75,11 @@ public class Parser {
                 break;
 
             case EVENT:
-                command  = new EventCommand(this.taskList, functionDescription);
+                command = new EventCommand(this.taskList, functionDescription);
                 break;
 
             case FIND:
-                command  = new FindCommand(this.taskList, functionDescription);
+                command = new FindCommand(this.taskList, functionDescription);
                 break;
 
             case HELP:
@@ -90,10 +90,10 @@ public class Parser {
                 break;
             }
 
-            assert command != null: "Command should not be null or empty";
+            assert command != null : "Command should not be null or empty";
 
             String result = command.execute();
-            assert result != null: "Result should not be null or empty String";
+            assert result != null : "Result should not be null or empty String";
 
             return result;
         } catch (IllegalArgumentException e) {

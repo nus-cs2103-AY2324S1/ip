@@ -1,19 +1,19 @@
 package functions;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 /**
  * A utility class for saving a file.
  */
 public class Save {
-    TaskList taskList;
+    private TaskList taskList;
     private String saveFilePath;
-    private static final String tempFilePath = "temp.txt";
+    private final String tempFilePath = "temp.txt";
 
     /**
      * A public constructor to initialize Save
@@ -25,7 +25,7 @@ public class Save {
         this.taskList = taskList;
         this.saveFilePath = saveFilePath;
         saveFile();
-        };
+    };
 
     /**
      * A function to write task list into a .txt file specified by user

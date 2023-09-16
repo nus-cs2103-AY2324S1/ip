@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute() {
         try {
-            int targetTaskIdx = Integer.parseInt(this.inputArray[1]) -1;
+            int targetTaskIdx = Integer.parseInt(this.inputArray[1]) - 1;
             Task task = this.taskList.get(targetTaskIdx);
             task.markAsDone();
             String message = "";
@@ -32,9 +32,11 @@ public class MarkCommand extends Command {
             message += task.getTaskAsString();
             return message;
         } catch (NumberFormatException e) {
-            return "Invalid number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.";
+            return "Invalid number provided. Please provide in the form of 'mark {task number}'."
+                    + " Eg: 'mark 1' to mark task 1.";
         } catch (IndexOutOfBoundsException e) {
-            return "Invalid task number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.";
+            return "Invalid task number provided. Please provide in the form of 'mark {task number}'."
+                    + " Eg: 'mark 1' to mark task 1.";
         }
     }
 }

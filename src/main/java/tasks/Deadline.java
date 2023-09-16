@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private String TaskIcon = "[D]";
+    private String taskIcon = "[D]";
     private LocalDateTime deadline;
 
     /**
@@ -36,7 +36,8 @@ public class Deadline extends Task {
 
     @Override
     public String getTaskAsString() {
-        String message = String.format("%s[%s] %s (by: %s)", this.TaskIcon,this.getStatusIcon(), this.getDescription(), this.getDeadlineDate());
+        String message = String.format("%s[%s] %s (by: %s)", this.taskIcon, this.getStatusIcon(),
+                this.getDescription(), this.getDeadlineDate());
         return message;
     }
 

@@ -1,4 +1,4 @@
-package Runner;
+package runner;
 
 import functions.Ui;
 import javafx.animation.PauseTransition;
@@ -29,6 +29,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/DaDuke.png"));
+
 
     @FXML
     public void initialize() {
