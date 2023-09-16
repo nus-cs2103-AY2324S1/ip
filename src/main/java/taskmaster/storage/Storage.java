@@ -28,11 +28,11 @@ public class Storage {
         try {
             File file = new File(filePath);
 
-//            //Assert file exists
-//            assert file.exists() : "File does not exist";
             if (!file.exists()) {
                 file.createNewFile();
             }
+
+            assert file.exists() : "File does not exist";
 
             Scanner scanner = new Scanner(file);
 

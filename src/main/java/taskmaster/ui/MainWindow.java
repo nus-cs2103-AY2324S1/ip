@@ -24,7 +24,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     private Taskmaster taskmaster;
 
-
     @FXML
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

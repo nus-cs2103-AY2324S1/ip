@@ -12,9 +12,7 @@ import javafx.application.Application;
 import java.util.Scanner;
 public class Taskmaster {
     private static final String FILE_PATH = "/Data.txt";
-    public static boolean activated = true;
     private Storage storage;
-    private Scanner scanner;
     private Ui ui;
     private Parser parser;
     private TaskList taskList;
@@ -22,7 +20,6 @@ public class Taskmaster {
     public Taskmaster() {
         String workingDirectory = System.getProperty("user.dir");
         this.storage = new Storage(workingDirectory + FILE_PATH);
-        this.scanner = new Scanner(System.in);
         this.ui = new Ui();
         this.parser = new Parser();
         this.taskList = new TaskList();
@@ -30,8 +27,7 @@ public class Taskmaster {
         this.ui.printHello();
     }
 
-    public static void main(String[] args) throws DukeException {
-//        new Taskmaster().run();
+    public static void main(String[] args) {
         Application.launch(Main.class);
     }
 
