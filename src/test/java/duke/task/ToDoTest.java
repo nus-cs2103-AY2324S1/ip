@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
     private ToDo task = new ToDo("task");
+
     @Test
     public void createToDo_success() {
         assertEquals("[T][ ] task", task.toString());
@@ -15,5 +16,11 @@ public class ToDoTest {
     public void markToDo_success() {
         task.markDone();
         assertEquals("[T][X] task", task.toString());
+    }
+
+    @Test
+    public void unmarkToDo_success() {
+        task.unmarkDone();
+        assertEquals("[T][ ] task", task.toString());
     }
 }

@@ -30,19 +30,28 @@ public class Parser {
         + "e.g. deadline report /by 2023-12-31";
     private static final String EMPTY_EVENT_DATE = "Please specify event start and end dates using /from and /to\n"
         + "e.g. event holiday /from 2023-06-01 /to 2023-06-30";
-    private static final String EMPTY_DEADLINE_DESC = "The description of a deadline cannot be empty.";
-    private static final String EMPTY_EVENT_DESC = "The description of a event cannot be empty.";
-    private static final String EMPTY_KEYWORD = "What are you trying to find?";
-    private static final String EMPTY_MARK_INDEX = "Please specify the index of which task you would like to mark.";
-    private static final String EMPTY_UNMARK_INDEX = "Please specify the index of which task you would like to unmark.";
-    private static final String EMPTY_TODO_DESC = "The description of a todo cannot be empty.";
+    private static final String EMPTY_DEADLINE_DESC = "The description of a deadline cannot be empty.\n"
+        + "e.g. deadline report /by 2023-12-31";
+    private static final String EMPTY_EVENT_DESC = "The description of a event cannot be empty.\n"
+        + "e.g. event holiday /from 2023-06-01 /to 2023-06-30";
+    private static final String EMPTY_KEYWORD = "What are you trying to find?\n"
+        + "e.g. find holiday";
+    private static final String EMPTY_DELETE_INDEX = "Please specify the index of which task you would "
+        + "like to delete.\ne.g. delete 3";
+    private static final String EMPTY_MARK_INDEX = "Please specify the index of which task you would like to mark.\n"
+        + "e.g. mark 3";
+    private static final String EMPTY_UNMARK_INDEX = "Please specify the index of which task you would "
+        + "like to unmark.\ne.g. unmark 3";
+    private static final String EMPTY_TODO_DESC = "The description of a todo cannot be empty.\n"
+        + "e.g. todo workout";
     private static final String ERROR_DATE_PARSE_FILE = "Error parsing date in file";
     private static final String ERROR_NUMBER_FORMAT = "Seems like it's not a number.";
     private static final String ERROR_PARSING_FILE = "Error parsing file data";
-    private static final String INVALID_COMMAND = "I'm sorry, but I don't know what that means :-(";
-    private static final String INVALID_DATE = "Please provide date with the following format: YYYY-MM-DD";
+    private static final String INVALID_COMMAND = "I'm sorry, but I don't know what that means :(";
+    private static final String INVALID_DATE = "Please provide a valid date with the following format: YYYY-MM-DD";
     private static final String INVALID_END_DATE = "Your end date is before start date";
     private static final String INVALID_QUERY_LIST = "Invalid query list of 0 length.";
+    private static final String OVERPARAMETER = "You provide too many parameters for this command.";
 
     /**
      * Converts a String date from YYYY-MM-DD to d MMM yyyy format.
@@ -246,7 +255,8 @@ public class Parser {
      */
     public static Command parse(String input) throws DukeException {
         List<String> queryList = convertToList(input);
-        assert queryList.size() > 0 : INVALID_QUERY_LIST;
+        int size = queryList.size();
+        assert size > 0 : INVALID_QUERY_LIST;
         switch (queryList.get(0)) {
 
         case "":
@@ -255,12 +265,15 @@ public class Parser {
         case "10":
         case "b":
         case "bye":
+            if (size > 1) {
+                throw new DukeException(OVERPARAMETER);
+            }
             return new ByeCommand();
 
         case "8":
         case "a":
         case "date":
-            if (queryList.size() < 2) {
+            if (size < 2) {
                 throw new DukeException(INVALID_DATE);
             }
             return new DateCommand(queryList.get(1));
@@ -276,6 +289,7 @@ public class Parser {
     }
 
     private static Command parseHelper(List<String> queryList) throws DukeException {
+        int size = queryList.size();
         switch (queryList.get(0)) {
 
         case "3":
@@ -292,11 +306,17 @@ public class Parser {
         case "1":
         case "l":
         case "list":
+            if (size > 1) {
+                throw new DukeException(OVERPARAMETER);
+            }
             return new ListCommand();
 
         case "5":
         case "m":
         case "mark":
+            if (size > 2) {
+                throw new DukeException(OVERPARAMETER);
+            }
             try {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
                 return new MarkCommand(index);
@@ -312,16 +332,22 @@ public class Parser {
     }
 
     private static Command parseHelper2(List<String> queryList) throws DukeException {
+        int size = queryList.size();
         switch (queryList.get(0)) {
 
         case "9":
         case "del":
         case "delete":
+            if (size > 2) {
+                throw new DukeException(OVERPARAMETER);
+            }
             try {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
                 return new DeleteCommand(index);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException(EMPTY_DELETE_INDEX);
             } catch (NumberFormatException e) {
-                throw new DukeException(e);
+                throw new DukeException(ERROR_NUMBER_FORMAT);
             }
 
         case "4":
@@ -332,6 +358,9 @@ public class Parser {
         case "6":
         case "u":
         case "unmark":
+            if (size > 2) {
+                throw new DukeException(OVERPARAMETER);
+            }
             try {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
                 return new UnmarkCommand(index);

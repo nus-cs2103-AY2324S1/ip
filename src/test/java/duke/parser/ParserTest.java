@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import duke.DukeException;
 
 public class ParserTest {
-    private static final String INVALID_DATE = "Please provide date with the following format: YYYY-MM-DD";
+    private static final String INVALID_DATE = "Please provide a valid date with the following format: YYYY-MM-DD";
 
     @Test
     public void convertToDmy_correctDate_success() {
