@@ -30,9 +30,10 @@ public class Parser {
      */
     public static Command parse(String prompt) throws CrusaderException {
         Command returnCommand;
-        switch (prompt.contains(" ")
-                ? prompt.split(" ")[0]
-                : prompt) {
+        String firstWord = prompt.contains(" ")
+                           ? prompt.split(" ")[0]
+                           : prompt;
+        switch (firstWord) {
         case "bye":
             returnCommand = new ByeCommand();
             break;
