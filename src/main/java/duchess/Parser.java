@@ -260,7 +260,7 @@ public class Parser {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to tag... ;-;");
         }
 
-        return Integer.parseInt(m.group(2).trim());
+        return Integer.parseInt(m.group(2).trim()) - 1;
     }
 
     /**
