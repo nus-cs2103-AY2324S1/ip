@@ -83,10 +83,13 @@ public class AddCommand extends Command {
 
         switch (task) {
         case "todo":
+        case "t":
             return todoCommand(taskDescription, tasks, ui);
         case "deadline":
+        case "d":
             return deadlineCommand(taskDescription, tasks, ui);
         case "event":
+        case "e":
             return eventCommand(taskDescription, tasks, ui);
         default:
             return ui.errorPrint(new DukeException("Oops! I'm sorry, I don't know what that means..."));

@@ -41,6 +41,7 @@ public class Task {
     public void unmarkDone() {
         this.isDone = false;
     }
+
     /**
      * Returns the string representation of the task.
      */
@@ -50,7 +51,7 @@ public class Task {
     }
 
     /**
-     * Checks whether or not the list of tasks cntain the specific keyword.
+     * Checks whether or not the list of tasks contain the specific keyword.
      *
      * @param keyword the keyword to be searched in the list of tasks.
      * @return boolean depending on if the keyword exists.
