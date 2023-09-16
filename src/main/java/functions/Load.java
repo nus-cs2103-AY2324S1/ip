@@ -77,7 +77,7 @@ public class Load {
                commandResult = "Error";
             }
 
-            assert commandResult == "Ok";
+            assert commandResult != "Ok": "Error in loading task";
 
         }
         f.close();
