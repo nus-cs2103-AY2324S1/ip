@@ -30,11 +30,7 @@ public class MainWindowController extends VBox {
     }
 
     public void loadTasksFromFile() {
-        // Create the save file, if it does not exist.
-        Storage.createSaveFile();
-
-        // Load tasks from the save file.
-        duchessGUI.setStoredTasks(Storage.loadTasksFromFile());
+        this.duchessGUI.loadTasks();
     }
 
     @FXML
@@ -42,7 +38,7 @@ public class MainWindowController extends VBox {
         chat_vbox.heightProperty().addListener(observable -> scrollPane.setVvalue(1D));
 
         chat_vbox.getChildren().addAll(
-                DialogBox.getDuchessDialog(Ui.printGreetingGUI(), duchessImage)
+                DialogBox.getDuchessDialog(Ui.printGreeting(), duchessImage)
                 );
 
         userinput_textfield.clear();
@@ -53,7 +49,7 @@ public class MainWindowController extends VBox {
         String input = userinput_textfield.getText();
         String response = duchessGUI.getResponse(input);
         
-        if (response.equals(Ui.printFarewellGUI())) {
+        if (response.equals(Ui.printFarewell())) {
             Platform.exit();
         }
 
@@ -65,6 +61,6 @@ public class MainWindowController extends VBox {
     }
 
     public void saveTasksToFile() {
-        Storage.saveTasksToFile(this.duchessGUI.getStoredTasks());
+        this.duchessGUI.saveTasks();
     }
 }

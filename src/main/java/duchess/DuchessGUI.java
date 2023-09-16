@@ -18,6 +18,14 @@ public class DuchessGUI {
         });
     }
 
+    public void saveTasks() {
+        this.duchess.saveTasks();
+    }
+
+    public void loadTasks() {
+        this.duchess.loadTasks();
+    }
+
     /**
      * Returns, as a String, the response of DuchessGUI when a user input command is given.
      *

@@ -387,11 +387,7 @@ public class Duchess {
     public void run() {
         this.executeCallbackHandler(Ui.printGreeting());
 
-        // Create the save file, if it does not exist.
-        Storage.createSaveFile();
-
-        // Load tasks from the save file.
-        this.storedTasks = Storage.loadTasksFromFile();
+        this.loadTasks();
 
         Scanner sc = new Scanner(System.in);
         String userInput = "";
@@ -413,9 +409,21 @@ public class Duchess {
         sc.close();
 
         // Save the tasks.
-        Storage.saveTasksToFile(this.storedTasks);
+        this.saveTasks();
 
         this.executeCallbackHandler(Ui.printFarewell());
+    }
+
+    public void saveTasks() {
+        Storage.saveTasksToFile(this.storedTasks);
+    }
+
+    public void loadTasks() {
+        // Create the save file, if it does not exist.
+        Storage.createSaveFile();
+
+        // Load tasks from the save file.
+        this.storedTasks = Storage.loadTasksFromFile();
     }
 
     public static void main(String[] args) {
