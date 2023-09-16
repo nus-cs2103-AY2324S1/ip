@@ -131,6 +131,9 @@ public class TaskList {
      */
     @Override
     public String toString() {
+        if (tasks.size() == 0) {
+            return "You currently have no tasks in the list. Try adding one with /todo, /deadline or /event.";
+        }
         return "Here are the tasks in your list:" + enumerateTasks();
     }
 
