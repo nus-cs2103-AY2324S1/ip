@@ -7,6 +7,9 @@ import spot.TaskList;
 import spot.Ui;
 import spot.exception.SpotException;
 
+/**
+ * Represents a command to update a task's end date.
+ */
 public class UpdateEndCommand extends Command {
 
     private int position;

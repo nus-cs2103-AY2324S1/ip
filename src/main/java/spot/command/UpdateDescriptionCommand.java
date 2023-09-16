@@ -5,6 +5,9 @@ import spot.TaskList;
 import spot.Ui;
 import spot.exception.SpotException;
 
+/**
+ * Represents a command to update a task's description.
+ */
 public class UpdateDescriptionCommand extends Command {
 
     private int position;

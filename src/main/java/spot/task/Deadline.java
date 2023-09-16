@@ -1,9 +1,9 @@
 package spot.task;
 
-import spot.exception.SpotException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import spot.exception.SpotException;
 
 /**
  * Represents a deadline.

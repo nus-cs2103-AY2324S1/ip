@@ -1,8 +1,8 @@
 package spot.task;
 
-import spot.exception.SpotException;
-
 import java.time.LocalDate;
+
+import spot.exception.SpotException;
 
 /**
  * Represents a task.

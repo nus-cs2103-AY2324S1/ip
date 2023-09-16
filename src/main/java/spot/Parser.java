@@ -191,7 +191,7 @@ public class Parser {
             String description = keywords[1].trim();
             if (description.isEmpty()) {
                 throw new SpotException("Spot needs you to provide a valid "
-                        +  "description for this task!");
+                        + "description for this task!");
             }
 
             return new UpdateDescriptionCommand(position, description);
