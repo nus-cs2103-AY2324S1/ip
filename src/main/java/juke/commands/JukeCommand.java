@@ -285,7 +285,7 @@ public abstract class JukeCommand extends JukeObject {
         if (args.length == 1) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
                                                           "sort [a/asc/ascend/ascending | "
-                                                                  + "d/desc/ascend/descending] "
+                                                                  + "d/desc/descend/descending] "
                                                                   + "[d/des/descript/description | "
                                                                   + "dl/dead/deadln/deadline | "
                                                                   + "s/st/start/start date | "
@@ -304,7 +304,7 @@ public abstract class JukeCommand extends JukeObject {
         } catch (IllegalArgumentException ex) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
                                                           "sort [a/asc/ascend/ascending | "
-                                                                  + "d/desc/ascend/descending] "
+                                                                  + "d/desc/descend/descending] "
                                                                   + "[d/des/descript/description | "
                                                                   + "dl/dead/deadln/deadline | "
                                                                   + "s/st/start/start date | "
