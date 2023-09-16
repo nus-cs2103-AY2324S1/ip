@@ -48,7 +48,7 @@ public class TaskList {
     }
 
     /**
-     * Add a given Task into the TaskList.
+     * Adds a given Task into the TaskList.
      *
      * @param task The given Task to be added into the TaskList
      */
@@ -71,13 +71,12 @@ public class TaskList {
             return null;
         }
         Task taskRemoved = this.list.remove(index);
-        //this.list.sort(taskComparator);
 
         return taskRemoved;
     }
 
     /**
-     * Update the status of the Task of given index to completed and
+     * Updates the status of the Task of given index to completed and
      * returns the Task. If given index is out of bound, returns null.
      *
      * @param index The index of the Task to be marked complete.
@@ -93,7 +92,7 @@ public class TaskList {
     }
 
     /**
-     * Update the status of the Task of given index to uncompleted and
+     * Updates the status of the Task of given index to uncompleted and
      * returns the Task. If given index is out of bound, returns null.
      *
      * @param index The index of the Task to be marked incomplete.
