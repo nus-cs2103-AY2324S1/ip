@@ -13,12 +13,25 @@ public class Deadline extends Task {
         this.day = day;
     }
 
+    /**
+     * Default constructor method.
+     *
+     * @param description Description of this deadline task.
+     * @param day The date this task is due.
+     * @param isDone Status of this task, either done or not done.
+     */
     public Deadline(String description, LocalDate day, boolean isDone) {
         super(description);
         this.day = day;
         this.isDone = isDone;
     }
 
+    /**
+     * This is a factory method which generates an Deadline task.
+     *
+     * @param description Description of this Deadline task.
+     * @return The Deadline task.
+     */
     public static Deadline createNewDeadlineTask(String description) throws DateTimeParseException{
         String[] splitMessage = description.split(" /by ");
         LocalDate date = LocalDate.parse(splitMessage[1]);
@@ -31,6 +44,12 @@ public class Deadline extends Task {
                 this.day.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * This method returns the string representation of this Deadline task
+     * in a format which can be stored in the hard disk.
+     *
+     * @return The string representation of this Deadline task.
+     */
     @Override
     public String toFileString() {
         return "[D]" + super.toString() + " (by: " + this.day + ")";

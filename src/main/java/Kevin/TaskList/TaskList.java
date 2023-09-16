@@ -11,6 +11,10 @@ import Kevin.Exception.IllegalCommandException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class contains the task list
+ * e.g., it has operations to add/delete tasks in the list.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
@@ -20,6 +24,9 @@ public class TaskList {
         this.storage = storage;
     }
 
+    /**
+     * Lists out all the tasks in the task list.
+     */
     public void listAllTasks() {
         int count = 1;
         System.out.println(Ui.line + "\n" + "Here are the tasks in your list:");
@@ -31,6 +38,11 @@ public class TaskList {
         System.out.println(Ui.line);
     }
 
+    /**
+     * This method deletes a task specified by the parameter.
+     * @param taskNumber Index of the task to be deleted.
+     * @throws TaskListEmptyException If there is no task in the task list.
+     */
     public void deleteTask(String taskNumber) throws TaskListEmptyException {
         if (tasks.size() < 1) {
             throw new TaskListEmptyException("OOPS!!! You cannot delete an empty list.");
@@ -47,7 +59,10 @@ public class TaskList {
     }
 
 
-
+    /**
+     * This method marks a specific task to be done.
+     * @param taskNumber Index of the task to be marked.
+     */
     public void markTaskDone(String taskNumber) {
         Task currentTask = tasks.get(Integer.parseInt(taskNumber) - 1);
         currentTask.setIsDone();
@@ -57,6 +72,10 @@ public class TaskList {
         System.out.println(Ui.line);
     }
 
+    /**
+     * This method marks a specific task to be not done.
+     * @param taskNumber Index of the task to be marked.
+     */
     public void unmarkTaskDone(String taskNumber) {
         Task currentTask = tasks.get(Integer.parseInt(taskNumber) - 1);
         currentTask.setNotDone();
@@ -66,6 +85,12 @@ public class TaskList {
         System.out.println(Ui.line);
     }
 
+    /**
+     * This method adds a new task into the task list.
+     * @param userInput Task description.
+     * @throws DescriptionIncompleteException If the description does not follow the command.
+     * @throws IllegalCommandException If an undefined command is entered.
+     */
     public void addNewTask(String userInput) throws DescriptionIncompleteException, IllegalCommandException {
         String[] splitMessage = userInput.split(" ", 2);
         String instruction = splitMessage[0];

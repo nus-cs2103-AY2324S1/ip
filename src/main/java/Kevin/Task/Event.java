@@ -13,6 +13,14 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Default constructor method.
+     *
+     * @param description Description of this event task.
+     * @param startTime The starting time of this event.
+     * @param endTime The ending time of this event.
+     * @param isDone Status of this task, either done or not done.
+     */
     public Event(String description, LocalDate startTime, LocalDate endTime, boolean isDone) {
         super(description);
         this.startTime = startTime;
@@ -20,6 +28,12 @@ public class Event extends Task {
         this.isDone = isDone;
     }
 
+    /**
+     * This is a factory method which generates an Event task.
+     *
+     * @param description Description of this Event task.
+     * @return The Event task.
+     */
     public static Event createNewEventTask(String description) {
         String[] splitMessage1 = description.split(" /from ");
         String[] splitMessage2 = splitMessage1[1].split(" /to ");
@@ -34,6 +48,12 @@ public class Event extends Task {
                 this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * This method returns the string representation of this Event task
+     * in a format which can be stored in the hard disk.
+     *
+     * @return The string representation of this Event task.
+     */
     @Override
     public String toFileString() {
         return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
