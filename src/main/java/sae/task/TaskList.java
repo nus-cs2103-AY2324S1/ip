@@ -43,10 +43,13 @@ public class TaskList {
 
     public void listTasks() {
         int len = tasks.size();
-        for (int i = 0; i < len; i++) {
+        StringBuilder str = new StringBuilder();
+        str.append("1." + tasks.get(0).toString());
+        for (int i = 1; i < len; i++) {
             Task curr = tasks.get(i);
-            System.out.println((i + 1) + "." + curr.toString());
+            str = str.append("\n" + (i + 1) + "." + curr.toString());
         }
+        System.out.println(str.toString());
     }
 
     public void addToDoTask(String description) {
