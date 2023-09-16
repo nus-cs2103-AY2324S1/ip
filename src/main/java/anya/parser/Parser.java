@@ -41,6 +41,7 @@ public class Parser {
      * @return The command represented by the user input, or {@code Command.UNKNOWN} if the input is not recognized.
      */
     public Command parseCommand(String input) {
+        assert input != null : "Input cannot be null";
         if (input.equals("bye")) {
             return Command.BYE;
         }
@@ -80,6 +81,7 @@ public class Parser {
      * @return The output of the command in String.
      */
     public String parse(String input) throws AnyaException {
+        assert input != null : "Input cannot be null";
         String[] arguments = input.split(" ", 2);
         Command command = parseCommand(arguments[0]);
         String details;
@@ -89,6 +91,7 @@ public class Parser {
             details = arguments[1];
         }
 
+        assert tasks != null : "Tasks list cannot be null";
         switch (command) {
         case BYE:
             return executeByeCommand();
