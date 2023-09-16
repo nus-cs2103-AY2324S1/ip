@@ -39,6 +39,11 @@ public class DeadlineCommand implements Command {
             throw new DukeException("Error 404!!! The description of a deadline cannot be empty.\n");
         } else {
             String[] partDeadline = taskDetail.split("/by");
+
+            if (partDeadline.length != 2) {
+                throw new DukeException("Error 404!!! Format should be: <description> /by <deadline>\n");
+            }
+
             Task curr = new Deadline(partDeadline[0], partDeadline[1].trim());
             tasks.add(curr);
             this.indexTask = tasks.size();

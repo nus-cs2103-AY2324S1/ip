@@ -36,7 +36,7 @@ public class TodoCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.taskDetail.equals("")) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty.\n");
+            throw new DukeException("Error 404!!! The description of a todo cannot be empty.\n");
         } else {
             Task curr = new Todo(this.taskDetail);
             tasks.add(curr);

@@ -37,10 +37,20 @@ public class EventCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (taskDetail.equals("")) {
-            throw new DukeException("OOPS!!! The description of a event cannot be empty.\n");
+            throw new DukeException("Error 404!!! The description of a event cannot be empty.\n");
         } else {
             String[] partFrom = taskDetail.split("/from");
+
+            if (partFrom.length != 2) {
+                throw new DukeException("Error 404!!! Format should be: <description> /from <date> /to <date>\n");
+            }
+
             String[] partTo = partFrom[1].split("/to");
+
+            if (partTo.length != 2) {
+                throw new DukeException("Error 404!!! Format should be: <description> /from <date> /to <date>\n");
+            }
+
             Task curr = new Event(partFrom[0], partTo[0].trim(), partTo[1].trim());
             tasks.add(curr);
             this.indexTask = tasks.size();

@@ -45,8 +45,10 @@ public class Duke {
                 Command command = Parser.parse(input.trim());
                 command.execute(tasks, ui, storage);
                 UndoCommand.saveCommand(command);
-            } catch (DukeException | DateTimeException e) {
-                ui.showError(e.getMessage());
+            } catch (DukeException ex) {
+                ui.showError(ex.getMessage());
+            } catch (DateTimeException e) {
+                ui.showError("Error 404!!! Please enter the correct date format (YYYY-MM-DD).");
             }
         }
     }

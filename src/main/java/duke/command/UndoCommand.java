@@ -38,11 +38,9 @@ public class UndoCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (UndoCommand.previousCommands.size() == 0) {
-            ui.sendMessage("Error 404!!! There is no command to be undone.");
+            ui.sendMessage("Error 404!!! There is no command to undo.");
         } else {
-            ui.sendMessage("Undoing the previous command...");
             UndoCommand.previousCommands.pop().undoTask(tasks).execute(tasks, ui, storage);
-            //ui.sendMessage("Undo Command is executed successfully.");
         }
     }
 
