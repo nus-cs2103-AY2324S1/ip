@@ -24,12 +24,14 @@ public class Storage {
     private FileWriter pw;
     private String currdir;
     private TaskList tasks;
+    private FileWriter archive;
 
     /**
      * Constructor for the Storage class.
      *
      * @param dir   The directory where the data is stored.
      * @param tasks The TaskList instance for managing tasks.
+     * @throws IOException
      */
     public Storage(String dir, TaskList tasks) {
         this.currdir = dir;
@@ -72,11 +74,12 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("\nERROR: OUTPUT.txt file is not found in directory ./src/main/java/OUTPUT.txt!\n"
+            results.append("\nERROR: OUTPUT.txt file is not found in directory ./src/main/java/OUTPUT.txt!\n"
                     + "Creating OUTPUT.txt in the given directory now.");
         } finally {
             // Instance of PrintWriter to write new outputs to the file
             pw = new FileWriter("./src/main/java/OUTPUT.txt", true);
+            archive = new FileWriter("./src/main/java/Archive.txt", true);
         }
         return results.toString();
     }
@@ -90,6 +93,17 @@ public class Storage {
     public void write(Task task) throws IOException {
         pw.write(task.toString() + "\n");
         pw.flush();
+    }
+
+    /**
+     * Adds the deleted task to the Archive.txt file.
+     * 
+     * @param task The task to be added to the Archive.txt file.
+     * @throws IOException
+     */
+    public void archive(Task task) throws IOException {
+        archive.write(task.toString() + "\n");
+        archive.flush();
     }
 
     /**

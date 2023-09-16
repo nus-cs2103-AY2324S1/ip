@@ -49,10 +49,37 @@ public class Ui {
                 return deleteCommand(command, tasks, store);
             } else if (command.toLowerCase().contains("find ")) {
                 return findCommand(command, tasks);
+            } else if (command.toLowerCase().contains("archive")) {
+                return archiveCommand(command, tasks, store);
             } else {
                 return processTask(command, tasks, parser, commands);
             }
         }
+    }
+
+    /**
+     * Handles the "archive" command to archive a task.
+     *
+     * @param input The user's input.
+     * @param tasks The task list.
+     * @param store The storage for saving tasks to a file.
+     * @return A response message.
+     * @throws IOException If an error occurs while performing file operations.
+     */
+    private String archiveCommand(String input, TaskList tasks, Storage store) throws IOException {
+        StringBuilder result = new StringBuilder();
+        int number = parser.findNum(input);
+        try {
+            Task index = tasks.retrieve(number - 1);
+            store.archive(index);
+            tasks.remove(index);
+            result.append("I have archived the following task:\n").append(index.toString()).append("\nYour list has ")
+                    .append(tasks.size()).append(" items left\n\n");
+        } catch (IndexOutOfBoundsException e) {
+            result.append(number).append(" is too high! List size is only ").append(tasks.size()).append("\n");
+        }
+        store.overwrite();
+        return result.toString();
     }
 
     /**
