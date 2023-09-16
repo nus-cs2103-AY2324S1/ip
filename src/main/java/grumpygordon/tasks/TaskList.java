@@ -98,7 +98,7 @@ public class TaskList {
             sb.append(NON_EMPTY_TASK_LIST_RESPONSE).append("\n");
             for (int i = 0; i < this.tasks.size(); i++) {
                 sb.append(i + 1)
-                        .append(".")
+                        .append(". ")
                         .append(tasks.get(i).toString())
                         .append("\n");
             }

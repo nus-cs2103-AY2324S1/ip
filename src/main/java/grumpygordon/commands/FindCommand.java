@@ -34,7 +34,7 @@ public class FindCommand extends Command {
         int count = 0;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.getTask(i).toString().contains(pattern)) {
+            if (tasks.getTask(i).toString().toLowerCase().contains(pattern.toLowerCase())) {
                 if (count == 0) {
                     sb.append("Here are the matching tasks in your list:\n");
                 }

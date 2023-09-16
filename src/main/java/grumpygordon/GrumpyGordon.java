@@ -32,6 +32,7 @@ public class GrumpyGordon {
         try {
             this.tasks = storage.loadTasks();
         } catch (GrumpyGordonInitialisationException e) {
+            System.out.println("erorr whenloadtask" + e.getMessage());
             this.tasks = new TaskList();
         }
     }
