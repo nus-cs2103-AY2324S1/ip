@@ -31,7 +31,7 @@ class AddCommand extends Command {
 
         for (int i = 0; i < commandFields.length; i++) {
             try {
-                String successStr = tasks.addTask(type, commandFields[i]);
+                String successStr = tasks.addTask(type, commandFields[i].trim());
                 successLog.append("\n");
                 successLog.append(successStr);
             } catch (TrackerBotException e) {
