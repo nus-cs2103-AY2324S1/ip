@@ -57,50 +57,50 @@ Tasks can be set with a priority level to indicate how urgent they are.
 
 <br>
 
-### Adding a **todo** task: `todo`
+### Adding a **Todo** task: `todo`
 
-Adds a new **todo** task to the chatbot. 
+Adds a new **Todo** task to the chatbot. 
 
 Format: `todo [DESCRIPTION]`
 
 * `[DESCRIPTION]` can have multiple spaces separating words. 
-* By default, the todo is unmarked and has a priority level of 0.
+* By default, the task is unmarked and has a priority level of 0.
 
 Examples: 
-* `todo Housework` : Creates a new **todo** task with the description `Housework`.
-* `todo Create a new recipe` : Creates a new **todo** task with the description `Create a new recipe`.
+* `todo Housework` : Creates a new **Todo** task with the description `Housework`.
+* `todo Create a new recipe` : Creates a new **Todo** task with the description `Create a new recipe`.
 
 <br>
 
-### Adding a **deadline** task: `deadline`
+### Adding a **Deadline** task: `deadline`
 
-Adds a new **deadline** task to the chatbot with the due date and time. 
+Adds a new **Deadline** task to the chatbot with the due date and time. 
 
 Format: `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`
 
 * `[DESCRIPTION]` can have multiple spaces separating words. 
-* By default, the deadline is unmarked and has a priority level of 0.
+* By default, the task is unmarked and has a priority level of 0.
 * Date and time must be given in the exact format `DD/MM/YYYY HHmm`, as described above in the notes.
 
 Examples: 
-* `deadline Homework assignment /by 20/12/2023 1800` : Creates a new **deadline** task with the description `Homework assignment`, with due date and time set to 20 Dec 2023 at 18:00.
-* `deadline Cleaning /by 03/08/2023 0900` : Creates a new **deadline** task with the description `Cleaning`, with due date and time set to 03 Aug 2023 at 09:00.
+* `deadline Homework assignment /by 20/12/2023 1800` : Creates a new **Deadline** task with the description `Homework assignment`, with due date and time set to 20 Dec 2023 at 18:00.
+* `deadline Cleaning /by 03/08/2023 0900` : Creates a new **Deadline** task with the description `Cleaning`, with due date and time set to 03 Aug 2023 at 09:00.
 
 <br>
 
-### Adding an **event** task: `event`
+### Adding an **Event** task: `Event`
 
-Adds a new **event** task to the chatbot with the starting and ending date and times.
+Adds a new **Event** task to the chatbot with the starting and ending date and times.
 
 Format: `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`
 
 * `[DESCRIPTION]` can have multiple spaces separating words. 
-* By default, the event is unmarked and has a priority level of 0.
+* By default, the task is unmarked and has a priority level of 0.
 * Date and time must be given in the exact format `DD/MM/YYYY HHmm`, as described above in the notes.
 
 Examples: 
-* `event Swimming /from 04/01/2023 0900 /to 04/01/2023 1100` : Creates a new **event** task with the description `Swimming`, with starting date and time set to 04 Jan 2023 at 09:00, ending date and time set to 04 Jan 2023 at 11:00.
-* `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` : Creates a new **event** task with the description `Birthday party`, with starting date and time set to 11 Oct 2023 at 18:00, ending date and time set to 11 Oct 2023 at 22:00.
+* `event Swimming /from 04/01/2023 0900 /to 04/01/2023 1100` : Creates a new **Event** task with the description `Swimming`, with starting date and time set to 04 Jan 2023 at 09:00, ending date and time set to 04 Jan 2023 at 11:00.
+* `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` : Creates a new **Event** task with the description `Birthday party`, with starting date and time set to 11 Oct 2023 at 18:00, ending date and time set to 11 Oct 2023 at 22:00.
 
 <br>
 
@@ -225,7 +225,7 @@ Tasks are encoded in the format `[TYPE][MARKED][PRIORITY_LEVEL][BODY]`.
 * `[MARKED]` refers to marked state of task: `1` for marked, `0` for unmarked.
 * `[PRIORITY_LEVEL]` refers to the assigned priority level of the task, with possible values 0, 1, 2 and 3.
 * `[BODY]` refers to task description, along with other parameters such as `/from` and its due date and time
-<br>e.g. `D12Complete homework /by 22/10/2023 1800` refers to a **deadline** task with description `complete Homework`, due date and time of `22 Oct 2023 18:00`, that is marked and has priority level of 2.
+<br>e.g. `D12Complete homework /by 22/10/2023 1800` refers to a **Deadline** task with description `complete Homework`, due date and time of `22 Oct 2023 18:00`, that is marked and has priority level of 2.
 
 > ⚠️ **Caution:** If your changes to the data file does not follow the above encoding and makes its format invalid, Smolbrain chatbot might parse the data wrongly and give corrupted task data.
 
@@ -241,9 +241,9 @@ Deleting the `data.txt` file in the same directory as your `smolbrain.jar` file 
 
 | Action | Format, Example |
 | --- | --- |
-| Add todo | `todo [DESCRIPTION]`<br>e.g. `todo Create a new recipe`|
-| Add deadline | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`<br> e.g. `deadline Homework assignment /by 20/12/2023 1800` |
-| Add event | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`<br> e.g. `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` |
+| Add **Todo** | `todo [DESCRIPTION]`<br>e.g. `todo Create a new recipe`|
+| Add **Deadline** | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`<br> e.g. `deadline Homework assignment /by 20/12/2023 1800` |
+| Add **Event** | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`<br> e.g. `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` |
 | Mark | `mark [INDEX]`<br> e.g. `mark 2` |
 | Unmark | `unmark [INDEX]`<br> e.g. `unmark 5` |
 | Delete | `delete [INDEX]`<br> e.g. `delete 1` |
