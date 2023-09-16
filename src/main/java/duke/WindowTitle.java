@@ -8,6 +8,9 @@ import javafx.application.Application;
         import javafx.scene.layout.StackPane;
         import javafx.stage.Stage;
 
+/**
+ * Controller for WindowTitle.
+ */
 public class WindowTitle extends Application {
 
     @Override
