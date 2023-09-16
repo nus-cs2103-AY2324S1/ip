@@ -29,6 +29,7 @@ public class Parser {
      * @return The corresponding Task object, or null if invalid line.
      */
     public static Task parseTask(String line) {
+        assert line != null && !line.trim().isEmpty() : "Input line for task parsing is empty or null";
         String type = line.substring(0, 1);
         boolean isDone = line.charAt(2) == 'X';
         String description;
@@ -57,6 +58,7 @@ public class Parser {
         if (isDone) {
             task.done();
         }
+        assert task != null : "Failed to parse task from line";
         return task; //instead of adding to list, just return the dre.task.
     }
 
@@ -67,8 +69,10 @@ public class Parser {
      * @return The LocalDate representation of the dateString.
      */
     private static LocalDate parseDate(String dateString) {
+        assert dateString != null && !dateString.trim().isEmpty() : "Input date string is empty or null";
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(dateString, inputFormatter);
+        LocalDate parsedDate = LocalDate.parse(dateString, inputFormatter);
+        return parsedDate;
     }
 
     /**

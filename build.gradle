@@ -43,15 +43,12 @@ test {
 }
 
 application {
-    mainClass.set("dre.Main")
-    mainClassName = 'dre.Main'
+    mainClass.set("dre.Launcher")
 }
 
 
 shadowJar {
-    mainClassName = 'dre.Main'
     archiveBaseName = "dre"
-    archiveFileName = "dre.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

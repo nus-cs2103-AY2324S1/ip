@@ -48,8 +48,10 @@ public class Dre extends Application {
     public Dre() {
         ui = new Ui();
         storage = new Storage(DEFAULT_FILE_PATH);
+        assert storage != null : "Failed to initialize storage";
         try {
             tasks = new TaskList(storage.load());
+            assert tasks != null : "Failed to initialize tasks";
         } catch (Exception e) {
             ui.generateLoadingErrorString();
             tasks = new TaskList();
