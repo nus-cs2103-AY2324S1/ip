@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("bellcurvegod.BellCurveGod")
+    mainClass.set("bellcurvegod.gui.Main")
 }
 
 checkstyle {
