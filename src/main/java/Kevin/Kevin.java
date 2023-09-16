@@ -7,13 +7,20 @@ import Kevin.Ui.Ui;
 
 import java.io.FileNotFoundException;
 
-
+/**
+ * Encapsulates the chatbot.
+ */
 public class Kevin{
     private  static final String filePath = "src/main/java/Database.txt";
     private Ui ui;
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Default constructor for this chabot.
+     *
+     * @param filePath This is the file path to which the tasks will be stored at.
+     */
     public Kevin(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath, this.taskList);
@@ -24,6 +31,10 @@ public class Kevin{
         }
     }
 
+    /**
+     * This method is automatically called to
+     * start the conversation with the bot.
+     */
     public void run() {
         this.ui.printGreetMessage();
         boolean isExit = false;

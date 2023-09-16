@@ -7,9 +7,20 @@ import Kevin.Exception.DescriptionIncompleteException;
 import Kevin.Exception.IllegalCommandException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A class which deals with making sense of the user command
+ */
 public class Parser {
     private static boolean isExit = false;
 
+    /**
+     * This static method takes in user command and
+     * performs tasks specific to that command.
+     *
+     * @param userCommand User command
+     * @param taskList A taskList object
+     * @param ui An Ui object
+     */
     public static void parse(String userCommand, TaskList taskList, Ui ui) {
         String[] splitMessage = userCommand.split(" ");
         String instruction = splitMessage[0];
