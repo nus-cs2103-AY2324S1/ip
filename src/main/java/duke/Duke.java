@@ -49,15 +49,20 @@ public class Duke {
         duke.run();
     }
 
-    public String getResponse(String input) throws CCException {
-        if (input.equals("bye")) {
-            return ui.displayFarewell();
-        } else {
-            Command command = parser.parseInput(input);
-            String response = executeCommand(command);
-            storage.saveTasksToFile(tasks);
-            return response;
+    public String getResponse(String input) {
+        try {
+            if (input.equals("bye")) {
+                return ui.displayFarewell();
+            } else {
+                Command command = parser.parseInput(input);
+                String response = executeCommand(command);
+                storage.saveTasksToFile(tasks);
+                return response;
+            }
+        } catch (CCException e) {
+            System.err.println(e.getMessage());
         }
+        return "";
     }
 
     /**
