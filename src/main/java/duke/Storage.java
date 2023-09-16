@@ -23,6 +23,7 @@ public class Storage {
      * @throws IOException If the file does not exist and cannot be created.
      */
     public Storage(String filePath) throws IOException {
+        assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
         this.file = new File(filePath);
         if (!file.exists()) {

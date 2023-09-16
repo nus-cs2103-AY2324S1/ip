@@ -22,6 +22,7 @@ public class Duke {
      * @param filePath The path to the file where the tasks are stored.
      */
     public Duke(String filePath) {
+        assert filePath != null : "File path cannot be null";
         ui = new Ui();
         try {
             storage = new Storage(filePath);
