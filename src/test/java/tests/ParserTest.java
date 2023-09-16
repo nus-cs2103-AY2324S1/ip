@@ -1,11 +1,15 @@
-package gui;
-import exceptions.FishronException;
+package tests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
+import exceptions.FishronException;
 import parser.Parser;
 import tasks.Deadline;
 import tasks.ToDo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ParserTest {
     @Test
     public void testParseTodo() {
