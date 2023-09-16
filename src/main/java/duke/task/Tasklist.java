@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  * Represents a list of tasks with functionality to add, delete, mark, and unmark tasks.
@@ -23,9 +25,15 @@ public class Tasklist {
     private ArrayList<Task> tasks;
 
     /**
+     * A set to check if the any task shares the same name
+     */
+    private HashSet<String> set;
+
+    /**
      * Initializes an empty task list.
      */
     public Tasklist() {
+        this.set = new HashSet<>();
         this.tasks = new ArrayList<>();
     }
 
@@ -106,6 +114,10 @@ public class Tasklist {
                 return "End time must be after the start time!";
             }
             Event e = new Event(arr[0], startTime, endTime);
+            if (set.contains(e.toString())) {
+                return Ui.duplicateMessage(e);
+            }
+            set.add(e.toString());
             tasks.add(e);
             return Ui.add(e, tasks.size());
         } catch (IndexOutOfBoundsException e) {
@@ -121,6 +133,10 @@ public class Tasklist {
             String[] arr = t.split("/by ");
             LocalDateTime deadline = LocalDateTime.parse(arr[1], formatter);
             Deadline d = new Deadline(arr[0], deadline);
+            if (set.contains(d.toString())) {
+                return Ui.duplicateMessage(d);
+            }
+            set.add(d.toString());
             tasks.add(d);
             return Ui.add(d, tasks.size());
         } catch (IndexOutOfBoundsException e) {
@@ -132,6 +148,10 @@ public class Tasklist {
 
     private String addTodo(StringBuilder str) {
         Todo t = new Todo(str.substring(5, str.length()).toString());
+        if (set.contains(t.toString())) {
+            return Ui.duplicateMessage(t);
+        }
+        set.add(t.toString());
         tasks.add(t);
         return Ui.add(t, tasks.size());
     }
