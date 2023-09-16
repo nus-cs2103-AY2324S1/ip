@@ -1,35 +1,37 @@
 package sae.task;
 
-import sae.task.Task;
-
 /**
- * The sae.task.Todo class represents a simple sae.task without any additional details.
- * It extends the sae.task.Task class and inherits its description field.
+ * The Todo class represents a simple task without any additional details.
+ * It extends the Task class and inherits its description field.
  */
 public class Todo extends Task {
 
     /**
-     * Constructs a new sae.task.Todo sae.task with the given description.
+     * Constructs a new Todo task with the given description.
      *
-     * @param description The description of the sae.task.
+     * @param description The description of the task.
      */
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * Overrides the toString method to format the sae.task.Todo sae.task's details.
+     * Overrides the toString method to format the Todo task's details.
      *
-     * @return A formatted string representing the sae.task.Todo sae.task.
+     * @return A formatted string representing the Todo task.
      */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
-
+    /**
+     * Converts the Todo task to a formatted string for file storage.
+     *
+     * @return A formatted string representing the Todo task for file storage.
+     */
     public String toFileString() {
         String completionStatus = isDone ? "1" : "0";
-        return String.format("%s | %s | %s" , "T", completionStatus, description.trim());
+        return String.format("%s | %s | %s", "T", completionStatus, description.trim());
     }
 }

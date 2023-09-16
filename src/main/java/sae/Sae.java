@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * The Sae class represents an interactive sae.task manager.
+ * The Sae class represents an interactive task manager.
  * Users can add, list, mark, and unmark tasks using this program.
  */
 public class Sae {
@@ -20,8 +20,11 @@ public class Sae {
     private final Ui ui;
     private final Parser parser;
 
-
-
+    /**
+     * Constructs a new Sae instance.
+     *
+     * @param filePath The file path for task data storage.
+     */
     public Sae(String filePath) {
         TaskList temp;
         this.storage = new Storage(filePath);
@@ -35,6 +38,9 @@ public class Sae {
         this.store = temp;
     }
 
+    /**
+     * Runs the sae application.
+     */
     public void run() {
         ui.greetUser();
 
@@ -66,9 +72,13 @@ public class Sae {
         input.close();
     }
 
+    /**
+     * The main method to start the Sae application.
+     *
+     * @param args The command-line arguments (not used in this program).
+     */
     public static void main(String[] args) {
         Sae sae = new Sae("./data/sae.txt");
         sae.run();
     }
-
 }
