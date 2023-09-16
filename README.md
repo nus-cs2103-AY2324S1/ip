@@ -1,24 +1,51 @@
-# Duke project template
+# botM
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+botM is a task manager app.
 
-## Setting up in Intellij
+Features:
+- help: 
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-2. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-3. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-4. After that, locate the `src/main/java/duke.Duke.java` file, right-click it, and choose `Run duke.Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+
+
+## See all commands: `help`
+Prints the list of commands.  
+Format: `help`
+
+## Print goodbye message: `bye`
+Prints a goodbye message.  
+Format: `bye`
+
+## See all tasks: `list`
+Prints the list of tasks you have.  
+Format: `list`
+
+## Set task as complete: `mark`
+Marks the task given by the task number as complete.  
+Format: `mark (task number)`  
+Example: `mark 1`
+
+## Remove task from task list: `delete`
+Delete the task given by the task number.  
+Format: `delete (task number)`  
+Example: `delete 1`
+
+## Add todo task: `todo`
+Creates a todo task with a required title.  
+Format: `todo <title>`  
+Example: `todo Homework`
+
+## deadline
+Creates a deadline task with a required title and a optional deadline.  
+Format: `deadline <title> /by <deadline>`  
+Example: `deadline Promotion /by Sunday` 
+
+## event
+Creates a event task with a required title and a optional from time and to time.  
+Format: `event <title> /from <fromTime> /to <toTime>`  
+Example: `event Concert /from Sunday 2pm /to Sunday 4pm`
+
+## find
+Finds all tasks that match the keyword provided.  
+Format: `find <keyword>`  
+Example: `find chocolate` finds all tasks that have "chocolate" somewhere in their titles.
