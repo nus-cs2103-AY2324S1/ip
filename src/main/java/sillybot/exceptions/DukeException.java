@@ -1,7 +1,7 @@
-package duke.exceptions;
+package sillybot.exceptions;
 
 /**
- * Represents a Duke exception for handling program execution errors.
+ * Represents a SillyBot exception for handling program execution errors.
  */
 public class DukeException extends Exception {
     /**

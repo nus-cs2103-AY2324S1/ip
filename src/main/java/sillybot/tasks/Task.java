@@ -1,10 +1,10 @@
-package duke.tasks;
+package sillybot.tasks;
 
 import java.time.LocalDate;
 
-import duke.DatesAndTimesFormatter;
-import duke.exceptions.IncompleteInputException;
-import duke.exceptions.InvalidInputException;
+import sillybot.DatesAndTimesFormatter;
+import sillybot.exceptions.IncompleteInputException;
+import sillybot.exceptions.InvalidInputException;
 
 /**
  * Represents a Task object that can be a Todo, Deadline or Event.
@@ -22,7 +22,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
         taskCount++;
     }
 
@@ -58,17 +58,18 @@ public class Task {
      * @param task The Task to be set as done.
      * @return The message to the user.
      */
-    public String setAsDone(Task task) {
+    public String markTaskAsDone(Task task) {
         this.isDone = true;
-        System.out.println("Whoa... are you kidding me? You did that!?" + "\n" + task);
-        return "Whoa... are you kidding me? You did that!?" + "\n" + task;
+        String output = "Whoa... are you kidding me? You did that!?";
+
+        return output + "\n" + task;
     }
 
     /**
      * Sets the Task as done.
      * Used only for Tasks read from the file to avoid printing the message to the user.
      */
-    public void setAsDoneFromFile() {
+    public void markTaskAsDoneFromFile() {
         this.isDone = true;
     }
 
@@ -79,10 +80,11 @@ public class Task {
      * @param task The Task to be set as undone.
      * @return The message to the user.
      */
-    public String setAsUndone(Task task) {
+    public String unmarkTaskAsUndone(Task task) {
         this.isDone = false;
-        System.out.println("HAHHAA! I knew it! You won't be able to!" + "\n" + task);
-        return "HAHHAA! I knew it! You won't be able to!" + "\n" + task;
+        String output = "HAHHAA! I knew it! You won't be able to!";
+
+        return output + "\n" + task;
     }
 
     /**
@@ -95,6 +97,82 @@ public class Task {
     }
 
     /**
+     * Checks if the Task command contain valid TaskType.
+     *
+     * @param splittedCommands The command input by the user.
+     * @return taskType The type of Task (Todo, Deadline, Event).
+     * @throws IncompleteInputException If the command is incomplete.
+     * @throws InvalidInputException   If the command is invalid.
+     */
+    private static String getTaskType(String[] splittedCommands)
+            throws IncompleteInputException,
+            InvalidInputException {
+        String taskType = splittedCommands[0];
+        boolean isLengthInvalid = splittedCommands.length == 1;
+        boolean isTaskTypeValid = taskType.equals("todo") || taskType.equals("deadline") || taskType.equals("event");
+
+        if (isLengthInvalid) {
+            if (isTaskTypeValid) {
+                throw new IncompleteInputException("The description of a " + taskType + " cannot be empty.");
+            }
+
+            throw new InvalidInputException("That is some garbage input you have there.");
+        }
+        return taskType;
+    }
+
+    /**
+     * Creates a Todo Task.
+     *
+     * @param taskDescription The description of the Todo Task.
+     * @return The Todo Task.
+     */
+    private static Todo createTodoTask(String taskDescription) {
+        return new Todo(taskDescription);
+    }
+
+    /**
+     * Creates a Deadline Task.
+     *
+     * @param taskDescription The description of the Deadline Task.
+     * @return The Deadline Task.
+     * @throws IncompleteInputException If the command is incomplete.
+     */
+    private static Deadline createDeadlineTask(String taskDescription) throws IncompleteInputException {
+        String[] deadlineSplit = taskDescription.split(" /by ");
+
+        if (deadlineSplit.length == 1) {
+            throw new IncompleteInputException("Deadline what ah? Why leave it empty?");
+        }
+
+        String deadlineDescription = deadlineSplit[0];
+        String deadlineBy = deadlineSplit[1];
+
+        return new Deadline(deadlineDescription, deadlineBy);
+    }
+
+    /**
+     * Creates an Event Task.
+     *
+     * @param taskDescription The description of the Event Task.
+     * @return The Event Task.
+     * @throws IncompleteInputException If the command is incomplete.
+     */
+    private static Event createEventTask(String taskDescription) throws IncompleteInputException {
+        String[] eventSplit = taskDescription.split(" /from ");
+
+        if (eventSplit.length == 1) {
+            throw new IncompleteInputException("Event what ah? Why leave empty?");
+        }
+
+        String eventDescription = eventSplit[0];
+        String eventFrom = eventSplit[1].split(" /to ")[0];
+        String eventTo = eventSplit[1].split(" /to ")[1];
+
+        return new Event(eventDescription, eventFrom, eventTo);
+    }
+
+    /**
      * Returns the type of Task (Todo, Deadline, Event).
      * Checks the user command and creates the appropriate Task.
      *
@@ -104,42 +182,19 @@ public class Task {
      * @throws InvalidInputException    If the command is invalid.
      */
     public static Task createTask(String command) throws IncompleteInputException, InvalidInputException {
-        String[] splittedCommand = command.split(" ", 2);
-        String taskType = splittedCommand[0];
+        String[] splittedCommands = command.split(" ", 2);
+        String taskType = getTaskType(splittedCommands);
+        String taskDescription = splittedCommands[1];
 
-        if (splittedCommand.length == 1) {
-            assert taskType != null && !taskType.isEmpty() : "Task type cannot be null or empty";
-
-            if (taskType.equals("todo") || taskType.equals("deadline") || taskType.equals("event")) {
-                throw new IncompleteInputException("The description of a " + taskType + " cannot be empty.");
-            } else {
-                throw new InvalidInputException("That is some garbage input you have there.");
-            }
-        } else {
-            String taskDescription = splittedCommand[1];
-            switch (taskType) {
-            case "todo":
-                return new Todo(taskDescription);
-            case "deadline":
-                String[] deadlineSplit = taskDescription.split(" /by ");
-                if (deadlineSplit.length == 1) {
-                    throw new IncompleteInputException("Deadline what ah? Why leave empty?");
-                }
-                String deadlineDescription = deadlineSplit[0];
-                String deadlineBy = deadlineSplit[1];
-                return new Deadline(deadlineDescription, deadlineBy);
-            case "event":
-                String[] eventSplit = taskDescription.split(" /from ");
-                if (eventSplit.length == 1) {
-                    throw new IncompleteInputException("Event what ah? Why leave empty?");
-                }
-                String eventDescription = eventSplit[0];
-                String eventFrom = eventSplit[1].split(" /to ")[0];
-                String eventTo = eventSplit[1].split(" /to ")[1];
-                return new Event(eventDescription, eventFrom, eventTo);
-            default:
-                throw new InvalidInputException("That is some garbage input you have there.");
-            }
+        switch (taskType) {
+        case "todo":
+            return createTodoTask(taskDescription);
+        case "deadline":
+            return createDeadlineTask(taskDescription);
+        case "event":
+            return createEventTask(taskDescription);
+        default:
+            throw new InvalidInputException("That is some garbage input you have there.");
         }
     }
 
@@ -153,7 +208,8 @@ public class Task {
         char taskType = taskLine.charAt(1);
         char taskStatus = taskLine.charAt(5);
         String taskDescription = taskLine.substring(8);
-        Task task = null;
+        Task task;
+
         switch (taskType) {
         case 'T':
             task = new Todo(taskDescription);
@@ -173,9 +229,11 @@ public class Task {
             System.out.println("Unknown task type. Returning null...");
             return null;
         }
+
         if (taskStatus == 'X') {
-            task.setAsDoneFromFile();
+            task.markTaskAsDoneFromFile();
         }
+
         return task;
     }
 
@@ -192,9 +250,10 @@ public class Task {
                 assert parsedDate != null : "Parsed date cannot be null";
                 return parsedDate;
             } catch (Exception e) {
-                continue;
+                // Do nothing
             }
         }
+
         System.out.println("Unknown date format. Returning null...");
         return null;
     }

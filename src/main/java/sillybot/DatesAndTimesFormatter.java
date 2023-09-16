@@ -1,4 +1,4 @@
-package duke;
+package sillybot;
 
 import java.time.format.DateTimeFormatter;
 
@@ -13,16 +13,6 @@ public enum DatesAndTimesFormatter {
     SLASH_FORMAT("dd/MM/yyyy");
 
     public final DateTimeFormatter formatter;
-
-    /**
-     * Creates a DatesAndTimesFormatter object.
-     *
-     * @param formatter The DateTimeFormatter to be used.
-     */
-    DatesAndTimesFormatter(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-        assert this.formatter != null : "Formatter cannot be null";
-    }
 
     /**
      * Creates a DatesAndTimesFormatter object.

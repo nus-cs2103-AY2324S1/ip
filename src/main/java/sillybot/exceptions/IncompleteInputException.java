@@ -1,4 +1,4 @@
-package duke.exceptions;
+package sillybot.exceptions;
 
 /**
  * Represents an exception when the user inputs an incomplete input.

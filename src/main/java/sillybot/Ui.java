@@ -1,12 +1,10 @@
-package duke;
+package sillybot;
 
-import java.util.Scanner;
-
-import duke.exceptions.WrongMarkException;
-import duke.tasks.Task;
+import sillybot.exceptions.WrongMarkException;
+import sillybot.tasks.Task;
 
 /**
- * Represents a Ui object that deals with user input and output.
+ * Represents an Ui object that deals with user input and output.
  */
 public class Ui {
     /**
@@ -21,9 +19,7 @@ public class Ui {
      * @return The welcome message.
      */
     public String showWelcome() {
-        separatorLines();
-        String logo = ""
-                + "  /\\______/\\ \n"
+        String logo = "  /\\______/\\ \n"
                 + " /  O    O  \\ \n"
                 + "|    -_-     | \n"
                 + "|   \\___/    | \n"
@@ -40,29 +36,7 @@ public class Ui {
      * @return The exit message.
      */
     public String showExit() {
-        separatorLines();
-        System.out.println("See ya! I know you are gonna procrastinate again.");
-        separatorLines();
         return "See ya! I know you are gonna procrastinate again.";
-    }
-
-    /**
-     * Prints the separator lines.
-     */
-    public void separatorLines() {
-        System.out.println("_".repeat(50));
-    }
-
-    /**
-     * Gets the user input.
-     *
-     * @return The user input.
-     */
-    public String getUserInput() {
-        Scanner sc = new Scanner(System.in);
-        separatorLines();
-        System.out.println("What do you want to do, eh?");
-        return sc.nextLine();
     }
 
     /**
@@ -71,7 +45,6 @@ public class Ui {
      * @throws WrongMarkException If the task is already done.
      */
     public String showAlreadyDone() throws WrongMarkException {
-        separatorLines();
         throw new WrongMarkException("So silly ah! How mark already done work? You trying to be smart?");
     }
 
@@ -81,8 +54,6 @@ public class Ui {
      * @return The message for invalid index.
      */
     public String showInvalidIndex() {
-        separatorLines();
-        System.out.println("Aiyo! That does not even exist!");
         return "Aiyo! That does not even exist!";
     }
 
@@ -90,7 +61,6 @@ public class Ui {
      * Prints message if task is already undone.
      */
     public String showAlreadyUndone() throws WrongMarkException {
-        separatorLines();
         throw new WrongMarkException("Yea I know you didn't do it! Why tell me again? Start working now!");
     }
 
@@ -101,10 +71,13 @@ public class Ui {
      * @return The message for deleting task.
      */
     public String deleteTaskMessage(Task task) {
-        separatorLines();
-        String output = "HAhahah! You couldn't do it. Could ya?\n" + task + "\n"
-                + "Now you have " + Task.getTaskCount() + " tasks in the list.";
-        System.out.println(output);
+        String output = "HAhahah! You couldn't do it. Could ya?\n"
+                + task
+                + "\n"
+                + "Now you have "
+                + Task.getTaskCount()
+                + " tasks in the list.";
+
         return output;
     }
 
@@ -115,10 +88,13 @@ public class Ui {
      * @return The message for adding task.
      */
     public String addTaskMessage(Task task) {
-        separatorLines();
-        String output = "For some reason I believe you are gonna do that!\n" + task + "\n"
-                + "Now you have " + Task.getTaskCount() + " tasks in the list.";
-        System.out.println(output);
+        String output = "For some reason I believe you are gonna do that!\n"
+                + task
+                + "\n"
+                + "Now you have "
+                + Task.getTaskCount()
+                + " tasks in the list.";
+
         return output;
     }
 
@@ -128,19 +104,13 @@ public class Ui {
      * @return The error message.
      */
     public String showSaveError() {
-        separatorLines();
-        System.out.println("Something went wrong while saving your tasks. Remember I am silly! :(.");
         return "Something went wrong while saving your tasks. Remember I am silly! :(.";
     }
 
     /**
      * Prints error message for loading task.
-     *
-     * @return The error message.
      */
-    public String showLoadingError() {
-        separatorLines();
+    public void showLoadingError() {
         System.out.println("Something went wrong while loading your tasks. :(.");
-        return "Something went wrong while loading your tasks. :(.";
     }
 }

@@ -1,19 +1,19 @@
-package duke;
+package sillybot;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import sillybot.tasks.Task;
+import sillybot.tasks.TaskList;
 
 /**
  * Represents a Storage object that handles the loading and saving of tasks.
  */
 public class Storage {
-    private String filePath;
-    private File file;
+    private final String filePath;
+    private final File file;
     private Scanner sc;
 
     /**
@@ -26,6 +26,7 @@ public class Storage {
         assert filePath != null : "File path cannot be null";
         this.filePath = filePath;
         this.file = new File(filePath);
+
         if (!file.exists()) {
             System.out.println("File does not exist. Creating file...");
             file.getParentFile().mkdirs();
@@ -42,9 +43,11 @@ public class Storage {
      */
     public void save(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
+
         for (Task task : tasks) {
             fw.write(task.toString() + "\n");
         }
+
         fw.close();
     }
 
@@ -55,11 +58,10 @@ public class Storage {
      * @throws IOException If the file does not exist and cannot be created.
      */
     public Scanner load() throws IOException {
-        if (sc != null) {
-            return sc;
-        } else {
+        if (sc == null) {
             sc = new Scanner(this.file);
-            return sc;
         }
+
+        return sc;
     }
 }
