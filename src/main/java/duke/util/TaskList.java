@@ -3,9 +3,14 @@ package duke.util;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import duke.exception.EmptyDescriptionException;
+import duke.exception.InvalidDateException;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 
 /**
@@ -226,9 +231,9 @@ public class TaskList {
         int taskCount = 0;
         StringBuilder matchingTasks = new StringBuilder(String.format(
                 "\t Here are your tasks that contains '%s':", matchingKeyword));
-        for (Task listOfTask : listOfTasks) {
-            if (listOfTask.getDescription().contains(matchingKeyword)) {
-                matchingTasks.append("\n\t ").append(listOfTask);
+        for (Task task : listOfTasks) {
+            if (task.getDescription().contains(matchingKeyword)) {
+                matchingTasks.append("\n\t ").append(task);
                 taskCount++;
             }
         }
@@ -241,5 +246,48 @@ public class TaskList {
             return String.format("\t Hm there are no matching tasks with '%s'. "
                     + "Try with another keyword.", matchingKeyword);
         }
+    }
+
+    protected String viewSchedule(String userInput) throws InvalidDateException {
+        String[] details = userInput.split("\\s+"); // Split by space
+        String requestedDate = details[1].trim();  // Get requested date
+
+        if (!isValidDate(requestedDate)) {
+            throw new InvalidDateException();
+        }
+
+        String requestedDateString = LocalDate.parse(requestedDate).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+
+        StringBuilder message = new StringBuilder(
+                String.format("Here are your scheduled tasks happening on %s :", requestedDateString));
+        ArrayList<Task> scheduledTasks = printSchedule(LocalDate.parse(requestedDate));
+
+        for (Task task : scheduledTasks) {
+            message.append("\n\t ").append(task);
+        }
+        return message.toString();
+    }
+
+    protected ArrayList<Task> printSchedule(LocalDate requestedDate) {
+        ArrayList<Task> scheduledTasks = new ArrayList<>();
+
+        for (Task task : listOfTasks) {
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                LocalDate dueDate = deadlineTask.getDueDate();
+                if (requestedDate.equals(dueDate)) {
+                    scheduledTasks.add(task);
+                }
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                LocalDate startDate = eventTask.getStartTime();
+                LocalDate endDate = eventTask.getEndTime();
+                if (!requestedDate.isBefore(startDate) && !requestedDate.isAfter(endDate)) {
+                    scheduledTasks.add(task);
+                }
+            }
+        }
+
+        return scheduledTasks;
     }
 }
