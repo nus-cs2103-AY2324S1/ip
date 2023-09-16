@@ -120,8 +120,10 @@ public class Parser {
                 LocalDate toDate = LocalDate.parse(dateParameters[1]);
                 return new AddCommand(eventDescription, fromDate, toDate);
             } catch (DateTimeException e) {
-                throw new RobertException("Date provided does not match format.\n"
-                        + "Please write your date in the format of 'YYYY-MM-DD'.");
+                throw new RobertException("Your date seems to be incorrect.\n"
+                        + "Please write your date in the format of 'YYYY-MM-DD'.\n"
+                        + "If it is in the correct format, make sure the correct "
+                        + "values are written.");
             }
 
         case "deadline":
@@ -149,8 +151,10 @@ public class Parser {
                 LocalDate byDate = LocalDate.parse(deadlineParameters[1]);
                 return new AddCommand(deadlineDescription, byDate);
             } catch (DateTimeException e) {
-                throw new RobertException("Date provided does not match format.\n"
-                        + "Please write your date in the format of 'YYYY-MM-DD'.");
+                throw new RobertException("Your date seems to be incorrect.\n"
+                        + "Please write your date in the format of 'YYYY-MM-DD'.\n"
+                        + "If it is in the correct format, make sure the correct "
+                        + "values are written.");
             }
 
         case "delete":
@@ -180,8 +184,10 @@ public class Parser {
                 LocalDate date = LocalDate.parse(splitCommand[1]);
                 return new FilterCommand(date);
             } catch (DateTimeException e) {
-                throw new RobertException("Date provided does not match format.\n"
-                        + "Please write your date in the format of 'YYYY-MM-DD'.");
+                throw new RobertException("Your date seems to be incorrect.\n"
+                        + "Please write your date in the format of 'YYYY-MM-DD'.\n"
+                        + "If it is in the correct format, make sure the correct "
+                        + "values are written.");
             }
 
         case "find":
