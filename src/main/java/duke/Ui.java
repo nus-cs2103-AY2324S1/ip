@@ -17,7 +17,7 @@ public class Ui {
      * Shows welcome message.
      */
     public static String showWelcomeMessage() {
-        return ("Hello I'm iP, use 'help' to learn about the commands available");
+        return ("Hello I'm botM, use 'help' to learn about the commands available");
     }
 
     /**
@@ -31,7 +31,7 @@ public class Ui {
      * Shows help message.
      */
     public static String showHelpMessage() {
-        String startingLine = "Hello, I'm iP, please use one of the following commands:";
+        String startingLine = "Hello, I'm botM, please use one of the following commands:";
         String byeInfo = "bye: Prints a goodbye message.";
         String helpInfo = "help: Prints the list of commands.";
         String listInfo = "list: Prints the list of tasks you have.";
