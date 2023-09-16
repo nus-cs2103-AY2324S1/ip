@@ -1,4 +1,4 @@
-package exceptions;
+package barbie.exceptions;
 
 /**
  * Parent class for all Barbie-related Exceptions.
@@ -10,6 +10,6 @@ public class BarbieException extends Exception {
      * @param message to print
      */
     public BarbieException(String message) {
-        super("\tBarbie Error!!\n\t" + message);
+        super("Barbie Error!!\n" + message);
     }
 }

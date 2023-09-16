@@ -1,4 +1,4 @@
-package exceptions;
+package barbie.exceptions;
 
 /**
  * Throws an exception for any Task initiated with no description.

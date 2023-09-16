@@ -4,10 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import barbie.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
+ * NO LONGER USABLE after Level 10 iteration.
  * Tests the Ui class.
  */
 public class TestUi {

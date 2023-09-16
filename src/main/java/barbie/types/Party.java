@@ -1,4 +1,4 @@
-package types;
+package barbie.types;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -36,10 +36,10 @@ public class Party extends Task {
     /**
      * Overrides the toString() method to return a customised String for each Todo.
      *
-     * @return String with "P" type and with the "~from:xx, to:xx~" tag.
+     * @return String with "P" type and with the "(from:xx, to:xx)" tag.
      */
     @Override
     public String toString() {
-        return "{P}" + super.toString() + "~from: " + this.from + ", to: " + this.to + "~";
+        return "[P]" + super.toString() + "(from: " + this.from + ", to: " + this.to + ")";
     }
 }

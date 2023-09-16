@@ -1,4 +1,4 @@
-package exceptions;
+package barbie.exceptions;
 
 /**
  * Represents a "no such command" error.
