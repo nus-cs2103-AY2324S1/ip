@@ -1,6 +1,4 @@
-# ChatGPA 5.0
-
-## User Guide
+# ChatGPA 5.0 User Guide
 
 ## Features
 
