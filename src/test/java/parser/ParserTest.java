@@ -1,7 +1,6 @@
 package parser;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * The ParserTest class contains unit tests for the Parser class.
@@ -26,6 +25,11 @@ public class ParserTest {
         String taskName = parser.taskName("todo 123");
 
         // Assert
-        assertEquals("123", taskName);
+        assert taskName.equals("123") : "Expected '123' but got '" + taskName + "'";
+    }
+
+    public static void main(String[] args) {
+        ParserTest parserTest = new ParserTest();
+        parserTest.testList();
     }
 }

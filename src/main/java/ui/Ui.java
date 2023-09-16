@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+/**
+ * The <code>Ui</code> class provides methods for interacting with the user.
+ */
 public class Ui {
     private Parser parser;
     private TaskList tasks;

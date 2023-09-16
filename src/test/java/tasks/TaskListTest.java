@@ -1,6 +1,9 @@
 package tasks;
 
 import org.junit.jupiter.api.Test;
+
+import parser.ParserTest;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -33,7 +36,12 @@ public class TaskListTest {
         Task retrieveTask = tasks.retrieve(0);
 
         // Assert
-        assertTrue(task.checkDone());
-        assertEquals("[T] [X] 123", retrieveTask.toString());
+        assert task.checkDone() : "Expected task to be marked as done";
+        assert retrieveTask.toString().equals("[T] [X] 123") : "Expected '[T] [X] 123' but got '" + retrieveTask.toString() + " instead!";
+    }
+
+    public static void main(String[] args) {
+        ParserTest parserTest = new ParserTest();
+        parserTest.testList();
     }
 }
