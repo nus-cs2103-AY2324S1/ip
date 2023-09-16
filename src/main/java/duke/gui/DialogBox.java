@@ -42,12 +42,16 @@ public class DialogBox extends HBox {
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
-    private void flip() {
+    private void flip(String text) {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.setStyle("-fx-background-color: rgb(91, 127, 245); -fx-background-radius: 0 10 10 10;");
+        if (text.contains("OOPS")) {
+            dialog.setStyle("-fx-background-color: rgb(222, 78, 94); -fx-background-radius: 0 10 10 10;");
+        } else {
+            dialog.setStyle("-fx-background-color: rgb(91, 127, 245); -fx-background-radius: 0 10 10 10;");
+        }
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
@@ -56,7 +60,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
+        db.flip(text);
         return db;
     }
 }
