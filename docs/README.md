@@ -99,12 +99,12 @@ The following table provides a quick summary of the commands that Juke can under
 Before delving into the different commands that `Juke` can understand, here are some notations
 which you should take note of:
 
-| Notation/Symbols                          | Description                                                                                    |
-|-------------------------------------------|------------------------------------------------------------------------------------------------|
-| [...]                                     | Square brackets describe mandatory inputs that, <br>if omitted, will cause errors to appear    |
-| <...>                                     | Angular brackets represents parameters which you need to <br> substitute with your own inputs  |
-| (_ OR _) **or** [_ OR _] **or** _ OR _    | The "OR" word is used to denote one mandatory <br>input from the two inputs (represented by _) |
-| (_ AND _) **or** [_ AND _] **or** _ AND _ | The "OR" word is used to denote two mandatory <br>input from the two inputs (represented by _) |
+| Notation/Symbols                                          | Description                                                                                    |
+|-----------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| [...]                                                     | Square brackets describe mandatory inputs that, <br>if omitted, will cause errors to appear    |
+| <...>                                                     | Angular brackets represents parameters which you need to <br> substitute with your own inputs  |
+| ( ... OR ... ) **or** [ ... OR ... ] **or** ... OR ...    | The "OR" word is used to denote one mandatory <br>input from the two inputs (represented by _) |
+| ( ... AND ... ) **or** [ ... AND ... ] **or** ... AND ... | The "OR" word is used to denote two mandatory <br>input from the two inputs (represented by _) |
 
 ### `todo` - Creates a `Todo` Task
 
@@ -191,7 +191,7 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
     * `HH`: 2-digit number representing the hour in 24 hours
     * `MM`: 2-digit number representing the minutes
 
-> **ℹ️Note**  
+> **ℹ️ Note**  
 > The date formats used in `event` follows closely to what `deadline` uses!
 
 #### Examples
@@ -258,7 +258,7 @@ This command helps you to mark an event as completed!
 mark [TASK INDEX]
 ```
 
-> **ℹ️Note**  
+> **ℹ️ Note**  
 > The task index is relative to the current order of the task list! If you are not sure 
 > what the order of the list is, use the `list` command!
 
@@ -274,7 +274,7 @@ If successful, `Juke` will respond with:
 Task marked as done: <TASK>
 ```
 
-> **ℹ️Note**  
+> **ℹ️ Note**  
 > The task indicator will turn from `[]` to `[✓]`
 
 #### Possible Errors
@@ -294,7 +294,7 @@ This command helps you to mark an event as incompleted!
 unmark [TASK INDEX]
 ```
 
-> **ℹ️Note**  
+> **ℹ️ Note**  
 > The task index is relative to the current order of the task list! If you are not sure
 > what the order of the list is, use the `list` command!
 
@@ -310,7 +310,7 @@ If successful, `Juke` will respond with:
 Task marked as undone: <TASK>
 ```
 
-> **ℹ️Note**  
+> **ℹ️ Note**  
 > The task indicator will turn from `[✓]` to `[]`
 
 #### Possible Errors
@@ -330,7 +330,7 @@ This command helps you to delete a Task from your task list!
 delete [TASK INDEX]
 ```
 
-**ℹ️Note**  
+**ℹ️ Note**  
 The task index is relative to the current order of the task list! If you are not sure
 what the order of the list is, use the `list` command!
 
@@ -363,7 +363,7 @@ This command helps you find a Task by its task name!
 find [QUERY]
 ```
 
-> **ℹ️Note**  
+> **ℹ️ Note**  
 > The query can be any valid task name String (does not contain the illegal character `|`)!
 
 #### Examples
@@ -400,12 +400,12 @@ This command helps you to stay organised by allowing you to sort your task list!
 sort [SORT ORDER] [SORT BY]
 ```
 
-> **ℹ️Note**   
+> **ℹ️ Note**   
 > The values that `[SORT ORDER]` can take are:
 > * `a` OR `asc` OR `ascend` OR `ascending`: Sorts the list in ascending order
 > * `d` OR `desc` OR `descend` OR `descending`: Sorts the list in descending order
 
-> **ℹ️Note**  
+> **ℹ️ Note**  
 > The values that `[SORT BY]` can take are:
 > * `d` OR `des` OR `descript` OR `description`: Sorts the list by task description
 > * `s` OR `st` OR `start` OR `start date`: Sorts the list by start date
