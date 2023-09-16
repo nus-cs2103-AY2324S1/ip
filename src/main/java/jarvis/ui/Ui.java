@@ -20,7 +20,7 @@ public class Ui {
      * @param task Newly added task.
      */
     public String showAdd(int size, Task task) {
-        return "Added the following task to the list.\n\n"
+        return "Added the following task to the list. \n\n"
                 + size + ") " + task.toString() + "\n\n"
                 + "You currently have " + size + " tasks in your list.\n";
     }
@@ -61,14 +61,6 @@ public class Ui {
         return size == 0
                 ? "Your task list is empty! Add a task to view it here."
                 : "Tasks displayed. Your guidance is requested.";
-    }
-
-    /**
-     * Returns out the list of tasks which match with the keyword.
-     * @param word Entered keyword.
-     */
-    public String showFind(String word) {
-        return "Finding tasks that contain the entered keyword (" + word + ")";
     }
 
 }

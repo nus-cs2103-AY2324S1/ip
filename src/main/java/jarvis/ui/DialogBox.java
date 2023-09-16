@@ -47,9 +47,15 @@ public class DialogBox extends HBox {
         }
         dialog.setText(text);
         dialog.setWrapText(true);
-        dialog.setPrefWidth(260);
         circle.setFill(new ImagePattern(img));
-        messageOutline.setPrefWidth(280);
+        int messageWidth = text.length() * 10;
+        if (messageWidth < 260) {
+            dialog.setPrefWidth(messageWidth);
+            messageOutline.setPrefWidth(messageWidth + 20);
+        } else {
+            dialog.setPrefWidth(260);
+            messageOutline.setPrefWidth(280);
+        }
         messageOutline.prefHeightProperty().bind(dialog.heightProperty());
         messageOutline.getStyleClass().clear();
         if (isUser) {
@@ -80,5 +86,6 @@ public class DialogBox extends HBox {
     }
 
 }
+
 
 

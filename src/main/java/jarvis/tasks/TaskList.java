@@ -90,14 +90,14 @@ public class TaskList {
      */
     public String filterByName(String name) {
         int count = 1;
-        StringBuilder filteredString = new StringBuilder();
+        StringBuilder filteredString = new StringBuilder("The following tasks match the entered keyword: \n\n");
         for (Task t : this.tasks) {
             if (t.contains(name)) {
                 filteredString.append(count).append(") ").append(t.toString()).append("\n\n");
                 count++;
             }
         }
-        return filteredString.toString();
+        return count == 1 ? "No tasks were found containing the entered keyword!" : filteredString.toString();
     }
 
     public String getDeadlines() {
