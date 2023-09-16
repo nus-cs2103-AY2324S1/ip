@@ -64,6 +64,7 @@ public class Storage {
             myReader.close();
             return data.toString();
         } catch (FileNotFoundException e) {
+            System.out.println("There is no file found, likely to be first-time user.");
             return "";
         }
     }

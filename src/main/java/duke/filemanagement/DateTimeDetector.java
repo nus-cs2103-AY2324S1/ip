@@ -141,6 +141,7 @@ public class DateTimeDetector {
             }
 
         } catch (DateTimeParseException e) {
+            System.out.println("DateTime not formatted as input's format does not match");
             return date;
         }
     }

@@ -7,7 +7,7 @@ help you manage your tasks efficiently and save you time! Start using it and you
 
 ### Adding task: `todo`,`deadline`,`event`
 
-Adds a type of task into task list.  
+Adds a type of task into task list.
 
 Format:  
 - `todo TODO_NAME`,  
