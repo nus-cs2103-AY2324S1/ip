@@ -1,8 +1,8 @@
 package jerma.tasks; //same package as the class being tested
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class TodoTest {
     private final Task todo = new Todo("desc");

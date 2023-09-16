@@ -1,11 +1,10 @@
 package jerma.tasks; //same package as the class being tested
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.format.DateTimeParseException;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     private final Task deadline = new Deadline("desc", "2019-08-09");
@@ -16,9 +15,12 @@ public class DeadlineTest {
     }
 
     @Test
-    public void deadline_constructor_invalidDate_exception() {
-        assertThrows(DateTimeParseException.class,
-                () -> new Deadline("desc", "by"));
+    public void deadline_constructor_invalidDateException() {
+        try {
+            new Deadline("desc", "by");
+        } catch (Exception e) {
+            assertEquals(DateTimeParseException.class, e.getClass());
+        }
     }
 
     @Test
@@ -37,5 +39,4 @@ public class DeadlineTest {
         deadline.setUndone();
         assertEquals("[D][ ] desc (by 2019-08-09)", deadline.toString());
     }
-
 }

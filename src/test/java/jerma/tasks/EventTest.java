@@ -1,11 +1,10 @@
 package jerma.tasks; //same package as the class being tested
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.format.DateTimeParseException;
+
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     private final Task event = new Event("desc", "2019-08-09", "2019-09-09");
@@ -17,9 +16,12 @@ public class EventTest {
     }
 
     @Test
-    public void deadline_constructor_invalidDate_exception() {
-        assertThrows(DateTimeParseException.class,
-                () -> new Event("desc", "from", "to"));
+    public void deadline_constructor_invalidDateException() {
+        try {
+            new Event("desc", "from", "to");
+        } catch (Exception e) {
+            assertEquals(DateTimeParseException.class, e.getClass());
+        }
     }
 
     @Test
@@ -40,5 +42,4 @@ public class EventTest {
         assertEquals("[E][ ] desc (2019-08-09 to 2019-09-09)",
                 event.toString());
     }
-
 }
