@@ -47,11 +47,9 @@ public class MainWindow extends AnchorPane {
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
-     *
-     * @throws DukeException if any error occurs.
      */
     @FXML
-    private void handleUserInput() throws DukeException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response;
         try {
@@ -67,8 +65,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
 
-        // If "bye" command, disable user from continue typing and sending commands.
-        if (input.strip().equalsIgnoreCase("bye")) {
+        // If first 3 letters are "bye" command, disable user from continue typing and sending commands.
+        if (input.substring(0, 3).equalsIgnoreCase("bye")) {
             userInput.setDisable(true);
             sendButton.setDisable(true);
         }

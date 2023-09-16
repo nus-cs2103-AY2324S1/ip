@@ -20,8 +20,8 @@ public class EventCommand extends Command {
      * @throws DukeException If any error occurs.
      */
     public EventCommand(String input) throws DukeException {
-        if (input == null) {
-            // Empty description.
+        if (input == null || input.isEmpty()) {
+            // Catches empty description, but allows empty description with from and to date.
             throw new DukeException(" ☹ OOPS!!! The description of an event cannot be empty.");
         } else if (!input.contains("/from")) {
             // No from date.
@@ -31,8 +31,13 @@ public class EventCommand extends Command {
             throw new DukeException(" ☹ OOPS!!! To when?");
         }
         String[] tokens = input.split("/from");
-        this.event = new Event(tokens[0].strip(), tokens[1].split("/to")[0].strip(),
-                tokens[1].split("/to")[1].strip());
+        try {
+            this.event = new Event(tokens[0].strip(), tokens[1].split("/to")[0].strip(),
+                    tokens[1].split("/to")[1].strip());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Empty /from or /to clause.
+            throw new DukeException("Nice try, but your <from> or <to> is invalid!");
+        }
     }
 
     /**

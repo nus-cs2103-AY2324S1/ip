@@ -20,15 +20,20 @@ public class DeadlineCommand extends Command {
      * @throws DukeException If any error occurs.
      */
     public DeadlineCommand(String input) throws DukeException {
-        if (input == null) {
-            // Empty description.
+        if (input == null || input.isEmpty()) {
+            // Catches empty description, but allows empty description with a deadline.
             throw new DukeException(" ☹ OOPS!!! The description of a deadline cannot be empty.");
         } else if (!input.contains("/by")) {
             // No by date.
             throw new DukeException(" ☹ OOPS!!! By when?");
         }
         String[] tokens = input.split("/by");
-        this.deadline = new Deadline(tokens[0].strip(), tokens[1].strip());
+        try {
+            this.deadline = new Deadline(tokens[0].strip(), tokens[1].strip());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Empty /by clause.
+            throw new DukeException("Nice try, did you leave your <by> empty?");
+        }
     }
 
     /**

@@ -20,11 +20,15 @@ public class MarkCommand extends Command {
      * @throws DukeException If any error occurs.
      */
     public MarkCommand(String input) throws DukeException {
-        if (input == null) {
+        if (input == null || input.isEmpty()) {
             // No index.
             throw new DukeException(" ☹ Which task?");
         }
-        this.index = Integer.parseInt(input.strip());
+        try {
+            this.index = Integer.parseInt(input.strip());
+        } catch (NumberFormatException e) {
+            throw new DukeException(String.format("Surely marking %s-th task make sense.", input));
+        }
     }
 
     /**

@@ -19,7 +19,7 @@ public class FindCommand extends Command {
      * @throws DukeException If any error occurs.
      */
     public FindCommand(String input) throws DukeException {
-        if (input == null) {
+        if (input == null || input.isEmpty()) {
             // No keyword to find.
             throw new DukeException(" ☹ OOPS!!! What exactly are you finding?");
         }

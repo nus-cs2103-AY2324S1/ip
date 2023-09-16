@@ -20,7 +20,7 @@ public class ToDoCommand extends Command {
      * @throws DukeException If any error occurs.
      */
     public ToDoCommand(String input) throws DukeException {
-        if (input == null) {
+        if (input == null || input.isEmpty()) {
             // No description.
             throw new DukeException(" ☹ OOPS!!! The description of a todo cannot be empty.");
         }
