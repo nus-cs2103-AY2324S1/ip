@@ -65,12 +65,17 @@ public class Parser {
      */
     private static final String EVENT_INFO_REGEX = ".*\\s+/from\\s+.*\\s+/to\\s+.*";
     /**
-     * Regex for datetime.
+     * Regex for datetime from user input.
      */
     private static final String DATETIME_REGEX = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) \\d{2}:\\d{2}";
+    /**
+     * Regex for datetime from saved format.
+     */
     private static final String LOCALDATETIME_REGEX = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T\\d{2}:\\d{2}";
     /**
-     * Regex for datetime.
+     * Checks if a string is a valid datetime.
+     * @param datetime String to be checked
+     * @return Boolean that represents whether the string is a valid datetime
      */
     public static boolean isValidDateTime(String datetime) {
         datetime = datetime.strip();

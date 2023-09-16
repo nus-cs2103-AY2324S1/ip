@@ -14,7 +14,6 @@ public class TaskComparator implements Comparator<Task> {
      */
     @Override
     public int compare(Task t1, Task t2) {
-        System.out.println("task1 desc: " + t1.toString());
         return t1.getDescription().compareTo(t2.getDescription());
     }
 }
