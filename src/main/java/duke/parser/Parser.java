@@ -24,6 +24,7 @@ public class Parser {
     public static Command parse(String input) {
         String[] splittedCommand = input.split(" ");
         if (input.equals("list")) {
+
             return new ListCommand();
         } else if (splittedCommand[0].equalsIgnoreCase("mark") && splittedCommand.length == 2
                 && isInteger((splittedCommand[1]))) {
