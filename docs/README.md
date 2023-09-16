@@ -7,13 +7,22 @@
 Adds a new task to the task list
 
 #### Adding a new Todo
+
+A Todo is a task with only task name.
+
 Format: `todo TASK_NAME`
 
 
 #### Adding a new Deadline
+
+A Deadline is a task with a completion date.
+
 Format: `deadline DEADLINE_NAME /by DATE`
 
 #### Adding a new Event
+
+An Event is a task with a time range.
+
 Format: `event EVENT_NAME /from DATE_1 /to DATE_2`
 
 Expected outcome:
@@ -48,6 +57,9 @@ Here are the tasks in your list:
 ```
 
 ### Marking a task as done/undone
+
+Marks a task to be completed or incompleted.
+
 Format: 
 mark `TASK_INDEX`
 
@@ -67,6 +79,9 @@ OK, I've marked this task as not done yet: TASK_NAME
 ```
 
 ### Finding a task
+
+Find tasks that contains a matching substring.
+
 Format: `find TASK_NAME`
 
 Expected outcome:
@@ -84,6 +99,9 @@ Here are the matching tasks in your list:
 ![](/find_example.png)
 
 ### Adding a new tag
+
+Adds a new tag to the tag list.
+
 Format: `add tag #TAG_NAME`
 
 Expected outcome:
@@ -95,6 +113,9 @@ Now you have TOTAL_TAGS tags in the list.
 ```
 
 ### Deleting tag
+
+Deletes a tag from a tag list.
+
 Format: `delete tag #TAG_INDEX`
 
 Expected outcome:
@@ -106,7 +127,10 @@ Now you have TOTAL_TASKS tasks in the list.
 ```
 
 ### Tagging a task
-Format: `untag TASK_NAME`
+
+Associates a tag with a specific task in the task list.
+
+Format: `tag TASK_NAME TASK_INDEX`
 
 Expected outcome:
 
@@ -117,7 +141,10 @@ Nice! I've tagged this task: TASK
 ![](/tag_example.png)
 
 ### Untagging a task
-Format: `tag TASK_NAME TASK_INDEX`
+
+Removes a tag from a specific task in the task list.
+
+Format: `untag TASK_NAME`
 
 Expected outcome:
 
@@ -126,6 +153,9 @@ Nice! I've untagged this task: TASK
 ```
 
 ### Viewing tags list
+
+Shows all the tags in the tag list.
+
 Format: `tags`
 Expected outcome:
 
@@ -134,6 +164,9 @@ Here are the tags you have:
 ```
 
 ### Exiting the application
+
+Show the goodbye message and save the data.
+
 Format: `bye`
 
 Expected outcome:
