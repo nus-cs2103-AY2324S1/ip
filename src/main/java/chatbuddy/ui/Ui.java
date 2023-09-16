@@ -38,11 +38,21 @@ public class Ui {
     public String showTaskList(ArrayList<String> taskStrings, String message) {
         StringBuilder sb = new StringBuilder(message);
         sb.append(System.lineSeparator());
+        addTaskStringsToStringBuilder(taskStrings, sb);
+        return sb.toString();
+    }
+
+    /**
+     * Adds task strings to the string builder.
+     *
+     * @param taskStrings The list of tasks represented by Strings.
+     * @param sb The StringBuilder to append the strings to.
+     */
+    private void addTaskStringsToStringBuilder(ArrayList<String> taskStrings, StringBuilder sb) {
         for (int i = 0; i < taskStrings.size(); i++) {
             String taskString = taskStrings.get(i);
             sb.append(String.format("%1s. %2s\n", i + 1, taskString));
         }
-        return sb.toString();
     }
 
     /**
