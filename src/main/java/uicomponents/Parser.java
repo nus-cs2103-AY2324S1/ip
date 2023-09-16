@@ -69,6 +69,27 @@ public class Parser {
     }
 
     /**
+     * Returns a task based on the content saved in the storage.
+     * @param arr
+     * @return
+     * @throws EmptyDescriptionException
+     * @throws IllegalFormatException
+     */
+    public static Task parseTask(String[] arr) throws EmptyDescriptionException, IllegalFormatException {
+        switch (arr[0].charAt(0)) {
+            case 'T':
+                return new Todo(arr[2]);
+            case 'E':
+                return new Event(arr[2], arr[3], arr[4]);
+            case 'D':
+                return new Deadline(arr[2], arr[3]);
+            default:
+                System.out.println("Corrupt file detected");
+                return null;
+        }
+    }
+
+    /**
      * Returns the number involved in the command.
      *
      * @param input the command to be parsed
