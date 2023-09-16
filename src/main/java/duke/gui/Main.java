@@ -26,7 +26,9 @@ public class Main extends Application {
     private VBox dialogContainer;
     private TextField userInput;
 
-    private String message = " Hello! I'm ChatBot\n" + " What can I do for you?\n";
+    private static final String message = " Hello! I'm ChatBot\n"
+            + " What can I do for you?" + "\n\n"
+            + "Enter \"help\" to view the list of commands.";
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/siri.png"));
@@ -129,17 +131,14 @@ public class Main extends Application {
         Label userText = new Label(userInputText);
 
         if (userInputText.equalsIgnoreCase("bye")) {
-            // Display the user's "bye" message in the chat
             dialogContainer.getChildren().add(DialogBox.getUserDialog(userText, new ImageView(user)));
 
             Label dukeText = new Label(duke.getResponse(userInputText));
             dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeText, new ImageView(chat)));
 
-            // Disable user input
             userInput.setDisable(true);
             sendButton.setDisable(true);
 
-            // Delay for a moment before exiting the application
             PauseTransition pause = new PauseTransition(Duration.seconds(0.6));
             pause.setOnFinished(event -> Platform.exit());
             pause.play();

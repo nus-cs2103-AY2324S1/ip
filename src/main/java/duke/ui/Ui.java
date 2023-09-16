@@ -9,7 +9,9 @@ import duke.task.TaskList;
  * @author Armando Jovan Kusuma
  */
 public class Ui {
-    private static final String MESSAGE = " Hello! I'm ChatBot\n" + " What can I do for you?";
+    private static final String MESSAGE = " Hello! I'm ChatBot\n"
+            + " What can I do for you?" + "\n\n"
+            + "Enter help to view the list of commands";
 
     /**
      * Greets the user at the start.
@@ -79,7 +81,7 @@ public class Ui {
      * Prints the list of tasks.
      *
      * @param tasksList the list of tasks.
-     * @param count the amount of tasks in the tasks list.
+     * @param count     the amount of tasks in the tasks list.
      * @return the list of tasks.
      */
     public String listOfTasks(TaskList tasksList, int count) {
@@ -121,4 +123,27 @@ public class Ui {
         return output;
     }
 
+    public String helpPrint() {
+        String todo = "* T / Todo {task description} - To add a new Todo Task";
+        String deadline = "* D / Deadline {task description} " +
+                "/by {date (using yyyy-MM-dd format)} - To add a Deadline Task";
+        String event = "* E / Event {task description} " +
+                "/from {date (using yyyy-MM-dd format)} " +
+                "/to {date (using yyyy-MM-dd format)} - To add a Event Task";
+        String list = "* L / List - To show the list of tasks";
+        String mark = "* M / Mark {task number} - To mark a task as done";
+        String unmark = "* Um / Unmark {task number} - To un-mark a task";
+        String delete = "* Del / Delete {task number} - To delete a specific task";
+        String help = "* H / Help - to open up the commands";
+        String find = "* F / Find {keyword} - To find a task with the specific keyword";
+        String bye = "* Bye - To exit the chat-bot";
+
+        String message = "Hi! I'm here to help!" + "\n\n"
+                + "Here are the list of commands you can do: " + "\n\n"
+                + todo + "\n\n" + deadline + "\n\n" + event + "\n\n"
+                + list + "\n\n" + mark + "\n \n" + unmark + "\n\n"
+                + help + "\n\n" + find  + "\n\n" + delete + "\n\n" + bye + "\n\n";
+
+        return message;
+    }
 }
