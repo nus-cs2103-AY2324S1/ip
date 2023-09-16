@@ -1,6 +1,5 @@
-package dre.gui;
+package dre;
 
-import dre.Main;
 import javafx.application.Application;
 
 /**
