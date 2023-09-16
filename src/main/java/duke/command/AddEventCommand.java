@@ -2,12 +2,11 @@ package duke.command;
 
 import java.time.LocalDate;
 
+import duke.exception.DukeException;
+import duke.task.Event;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-import duke.exception.DukeException;
-import duke.task.Event;
-
 /**
  * The AddEventCommand is the command for adding an Event into the task list.
  */

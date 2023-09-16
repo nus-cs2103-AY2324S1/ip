@@ -1,10 +1,10 @@
 package duke.command;
 
+import duke.exception.DukeException;
+import duke.task.ToDo;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-import duke.exception.DukeException;
-import duke.task.ToDo;
 
 /**
  * The AddToDoCommand is the command for adding a ToDo to the task list.

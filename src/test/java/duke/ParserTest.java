@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import duke.util.Parser;
 import org.junit.jupiter.api.Test;
 
 import duke.command.AddDeadlineCommand;
@@ -16,8 +15,10 @@ import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkDoneCommand;
+import duke.command.SortCategoryCommand;
 import duke.command.UnmarkDoneCommand;
 import duke.exception.DukeException;
+import duke.util.Parser;
 
 public class ParserTest {
     @Test
@@ -32,6 +33,7 @@ public class ParserTest {
         assertTrue(Parser.parse("event orientation week /from 2023-07-31 /to 2023-08-04", 4)
                 instanceof AddEventCommand);
         assertTrue(Parser.parse("find book", 4) instanceof FindCommand);
+        assertTrue(Parser.parse("sort", 4) instanceof SortCategoryCommand);
     }
 
     @Test
