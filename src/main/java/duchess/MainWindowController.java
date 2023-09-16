@@ -49,7 +49,11 @@ public class MainWindowController extends VBox {
         String input = userinput_textfield.getText();
         String response = duchessGUI.getResponse(input);
         
-        if (response.equals(Ui.printFarewell())) {
+        if (Parser.isExitCommand(input)) {
+            chat_vbox.getChildren().addAll(
+                    DialogBox.getDuchessDialog(Ui.printFarewell(), duchessImage)
+                    );
+            userinput_textfield.clear();
             Platform.exit();
         }
 
