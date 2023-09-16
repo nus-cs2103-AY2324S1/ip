@@ -5,65 +5,34 @@ package duchess;
  */
 public class Ui {
     /**
-     * Prints text, but with a consistent formatting in Duchess style.
+     * Formats text in a consistent formatting in Duchess style.
      *
-     * @param s - the string to be printed.
+     * @param s - the string to be formatted.
+     * @return    the formatted text.
      */
-    public static void duchessPrint(String s) {
-        System.out.println(String.format("[D]: %s", s));
+    public static String duchessFormat(String s) {
+        return String.format("[D]: %s \n", s);
     }
 
     /**
-     * Prints greeting to the user and returns.
-     */
-    public static void printGreeting() {
-        Ui.duchessPrint("(^O^)／ Heya~");
-        Ui.duchessPrint("I am ~~Duchess~~!!");
-        Ui.duchessPrint("What can I do for you!! o_O");
-    }
-
-    /**
-     * Prints farewell/exit message.
-     */
-    public static void printFarewell() {
-        Ui.duchessPrint("Bye bye!! Hope to see you again (＾▽＾)");
-    }
-
-    // Duchess-GUI
-
-    /**
-     * Returns the entered text, but with a consistent formatting in Duchess style.
+     * Formats greeting to the user and returns.
      *
-     * @param s - the string to be printed.
-     * @return    the duchess-formatted text.
+     * @return the formatted greeting.
      */
-    public static String duchessPrintGUI(String s) {
-        return String.format("[D]: %s\n", s);
+    public static String printGreeting() {
+        String s = "";
+        s += Ui.duchessFormat("(^O^)／ Heya~");
+        s += Ui.duchessFormat("I am ~~Duchess~~!!");
+        s += Ui.duchessFormat("What can I do for you!! o_O");
+        return s;
     }
 
     /**
-     * Returns the duchess greeting to the user.
+     * Returns farewell/exit message.
      *
-     * @return the Duchess Greeting.
+     * @return the formatted farewell message.
      */
-    public static String printGreetingGUI() {
-        String returnString = "";
-
-        returnString += Ui.duchessPrintGUI("(^O^)／ Heya~");
-        returnString += Ui.duchessPrintGUI("I am ~~Duchess~~!!");
-        returnString += Ui.duchessPrintGUI("What can I do for you!! o_O");
-
-        return returnString;
-    }
-
-    /**
-     * Prints farewell/exit message.
-     */
-    public static String printFarewellGUI() {
-        String returnString = "";
-
-        returnString += Ui.duchessPrintGUI("Bye bye!! Hope to see you again (＾▽＾)");
-
-        return returnString;
+    public static String printFarewell() {
+        return Ui.duchessFormat("Bye bye!! Hope to see you again (＾▽＾)");
     }
 }
