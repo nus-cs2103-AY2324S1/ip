@@ -1,4 +1,4 @@
-package CR7;
+package cr7;
 
 import commands.*;
 import functions.*;
@@ -14,14 +14,6 @@ public class CR7 {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
-
-    /**
-     * Runs the CR7.CR7 application by displaying a welcome message, processing user commands,
-     * and executing corresponding actions.
-     */
-    public void run() {
-        ui.showWelcome();
-    }
 
     /**
      * Constructs a CR7.CR7 object with the provided file path for data storage.
@@ -42,17 +34,23 @@ public class CR7 {
     }
 
     /**
-     * The main method to start the CR7.CR7 application.
+     * Creates a CR7.CR7 object to start the application.
      *
      * @param args The command-line arguments (not used in this context).
      */
     public static void main(String[] args) {
-        new CR7("src/main/data/CR7.CR7.txt").run();
+        new CR7("src/main/data/CR7.CR7.txt");
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Retrieves a response based on the given input command.
+     *
+     * @param input A non-null and non-empty string representing a user command.
+     * @return A string containing a prefixed statement followed
+     *         by the response of the executed command. If an error occurs while processing
+     *         the command, an error message is returned.
+     * @throws AssertionError if the input is null or empty.
+     * @throws IOException if any IO-related error occurs during command execution.
      */
     public String getResponse(String input) {
         try {
