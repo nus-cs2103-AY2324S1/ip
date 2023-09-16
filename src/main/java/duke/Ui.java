@@ -17,7 +17,7 @@ public class Ui {
      * Shows welcome message.
      */
     public static String showWelcomeMessage() {
-        return ("Hello I'm iP");
+        return ("Hello I'm iP, use 'Help' to learn about the commands available");
     }
 
     /**
