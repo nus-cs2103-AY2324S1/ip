@@ -29,6 +29,7 @@ public class Duke extends Application {
 
     public Duke() {
         ui = new Ui();
+        assert ui != null;
         try {
             Storage.readFromDisk(pathOfDirectory, TaskList.getStoreTask());
         } catch (IOException e) {
@@ -131,6 +132,7 @@ public class Duke extends Application {
     private String getResponse(String input) {
         try {
             String dukeResponse = Parser.parse(input);
+            assert dukeResponse != null;
             if (dukeResponse.equals("bye")) {
                 return "Bye. Hope to see you again soon!";
             } else {
