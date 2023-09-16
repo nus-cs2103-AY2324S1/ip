@@ -6,7 +6,7 @@ import duke.exceptions.WrongMarkException;
 import duke.tasks.Task;
 
 /**
- * Represents a Ui object that deals with user input and output.
+ * Represents an Ui object that deals with user input and output.
  */
 public class Ui {
     /**
@@ -22,8 +22,7 @@ public class Ui {
      */
     public String showWelcome() {
         separatorLines();
-        String logo = ""
-                + "  /\\______/\\ \n"
+        String logo = "  /\\______/\\ \n"
                 + " /  O    O  \\ \n"
                 + "|    -_-     | \n"
                 + "|   \\___/    | \n"

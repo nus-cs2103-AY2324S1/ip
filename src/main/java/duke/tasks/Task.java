@@ -150,7 +150,7 @@ public class Task {
         char taskType = taskLine.charAt(1);
         char taskStatus = taskLine.charAt(5);
         String taskDescription = taskLine.substring(8);
-        Task task = null;
+        Task task;
         switch (taskType) {
         case 'T':
             task = new Todo(taskDescription);
@@ -187,7 +187,7 @@ public class Task {
             try {
                 return LocalDate.parse(date, formatter.formatter);
             } catch (Exception e) {
-                continue;
+                // Do nothing
             }
         }
         System.out.println("Unknown date format. Returning null...");

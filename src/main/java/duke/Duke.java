@@ -10,7 +10,7 @@ import duke.tasks.TaskList;
  */
 public class Duke {
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
     private Storage storage;
 
     /**

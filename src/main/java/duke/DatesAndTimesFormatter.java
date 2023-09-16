@@ -17,15 +17,6 @@ public enum DatesAndTimesFormatter {
     /**
      * Creates a DatesAndTimesFormatter object.
      *
-     * @param formatter The DateTimeFormatter to be used.
-     */
-    DatesAndTimesFormatter(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
-
-    /**
-     * Creates a DatesAndTimesFormatter object.
-     *
      * @param format The format of the DateTimeFormatter to be used.
      */
     DatesAndTimesFormatter(String format) {

@@ -12,8 +12,8 @@ import duke.tasks.TaskList;
  * Represents a Storage object that handles the loading and saving of tasks.
  */
 public class Storage {
-    private String filePath;
-    private File file;
+    private final String filePath;
+    private final File file;
     private Scanner sc;
 
     /**
@@ -54,11 +54,9 @@ public class Storage {
      * @throws IOException If the file does not exist and cannot be created.
      */
     public Scanner load() throws IOException {
-        if (sc != null) {
-            return sc;
-        } else {
+        if (sc == null) {
             sc = new Scanner(this.file);
-            return sc;
         }
+        return sc;
     }
 }
