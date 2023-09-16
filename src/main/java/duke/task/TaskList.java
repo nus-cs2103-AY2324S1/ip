@@ -84,6 +84,8 @@ public class TaskList {
      * @return Response message to be sent by the bot.
      */
     public String deleteTask(int taskIndex) {
+        assert taskIndex > 0 : "Task index should be a positive integer";
+
         Task deletedTask = tasks.get(taskIndex - 1);
 
         tasks.remove(taskIndex - 1);
@@ -100,6 +102,8 @@ public class TaskList {
      * @return Response message to be sent by the bot.
      */
     public String markTask(int taskIndex) {
+        assert taskIndex > 0 : "Task index should be a positive integer";
+
         Task task = this.tasks.get(taskIndex - 1);
         task.markAsDone();
 
@@ -114,6 +118,8 @@ public class TaskList {
      * @return Response message to be sent by the bot.
      */
     public String unmarkTask(int taskIndex) {
+        assert taskIndex > 0 : "Task index should be a positive integer";
+
         Task task = this.tasks.get(taskIndex - 1);
         task.markAsNotDone();
 

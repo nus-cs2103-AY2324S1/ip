@@ -41,6 +41,9 @@ public class Duke {
             throws DukeInvalidDateException {
         Task newTask;
 
+        assert command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT :
+                "Command should be a TODO, DEADLINE, or EVENT command";
+
         if (command == Command.TODO) {
             newTask = new ToDo(taskInfo);
         } else if (command == Command.DEADLINE) {
@@ -49,6 +52,7 @@ public class Duke {
         } else { // command == Command.EVENT
             String[] eventInfo = taskInfo.split(" /from ");
             String[] eventTime = eventInfo[1].split(" /to ");
+
             newTask = new Event(eventInfo[0], eventTime[0], eventTime[1]);
         }
 
@@ -64,15 +68,17 @@ public class Duke {
      * @return Response message to be sent by the bot.
      */
     private static String editTask(Command command, int taskIndex) {
+        assert taskIndex > 0 : "Task index should be a positive integer";
+        assert command == Command.DELETE || command == Command.MARK || command == Command.UNMARK :
+                "Command should be a DELETE, MARK, or UNMARK command";
+
         if (command == Command.DELETE) {
             return tasks.deleteTask(taskIndex);
         } else if (command == Command.MARK) {
             return tasks.markTask(taskIndex);
-        } else if (command == Command.UNMARK) {
+        } else { // command == Command.UNMARK
             return tasks.unmarkTask(taskIndex);
         }
-
-        return Ui.getResponse("Something went wrong :(");
     }
 
     /**
@@ -94,17 +100,14 @@ public class Duke {
      * @return Response message to be sent by the bot.
      */
     private static String executeSingleCommand(Command command) {
-        String response;
+        assert command == Command.LIST || command == Command.BYE :
+                "Command should be a LIST or BYE command";
 
         if (command == Command.LIST) {
-            response = Ui.getResponse(tasks.toString());
-        } else if (command == Command.BYE) {
-            response = Ui.getExitMessage();
-        } else {
-            response = Ui.getResponse("Something went wrong :(");
+            return Ui.getResponse(tasks.toString());
+        } else { //command == Command.BYE
+            return Ui.getExitMessage();
         }
-
-        return response;
     }
 
     /**
@@ -119,8 +122,8 @@ public class Duke {
         String response;
 
         if (command == Command.BYE) {
-            response = Ui.getExitMessage();
             storage.writeTasks(tasks);
+            response = executeSingleCommand(command);
             return response;
         } else if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
             if (inputs.length == 1 || inputs[1].equals("")) {
