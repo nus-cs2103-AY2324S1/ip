@@ -2,7 +2,7 @@ package thea;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents a Parser that translates the user input from String to Command class.
@@ -22,89 +22,103 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws EmptyDescriptionException,
             WrongCommandException, WrongDateTimeFormatException {
-        String[] commandWords = fullCommand.split(" ", 2);
-        ArrayList<String> commandWordsArray = new ArrayList<>();
-        Collections.addAll(commandWordsArray, commandWords);
-        String command = commandWords[0];
+        String[] splitCommand = fullCommand.split(" ", 2);
+        ArrayList<String> commandWords = new ArrayList<>(List.of(splitCommand));
+        String command = commandWords.get(0);
+        int index;
         switch (command) {
         case "bye":
             return new ExitCommand();
         case "list":
             return new PrintListCommand();
-        case "mark": {
-            int index = Integer.parseInt(commandWords[1]) - 1;
+        case "mark":
+            index = Integer.parseInt(commandWords.get(1)) - 1;
             return new MarkCommand(index);
-        }
-        case "unmark": {
-            int index = Integer.parseInt(commandWords[1]) - 1;
+        case "unmark":
+            index = Integer.parseInt(commandWords.get(1)) - 1;
             return new UnmarkCommand(index);
-        }
-        case "delete": {
-            int index = Integer.parseInt(commandWords[1]) - 1;
+        case "delete":
+            index = Integer.parseInt(commandWords.get(1)) - 1;
             return new DeleteCommand(index);
-        }
         case "find":
-            return new FindCommand(commandWords[1]);
+            return new FindCommand(commandWords.get(1));
         case "todo":
-            if (commandWordsArray.size() != 1) {
-                ToDo todo = new ToDo(commandWords[1]);
-                return new AddCommand("T", todo);
-            } else {
+            if(commandWords.size() == 1) {
                 throw new EmptyDescriptionException("The description of a todo cannot be empty! '^'");
             }
+            ToDo todo = new ToDo(commandWords.get(1));
+            return new AddCommand("T", todo);
         case "deadline":
-            if (commandWordsArray.size() != 1) {
-                String relevantData = commandWords[1];
-                String[] nameAndTime = relevantData.split(" /by ");
-                try {
-                    String[] dateYearMonthDay = nameAndTime[1].split(" ")[0].split("-");
-                    String[] timeHourMinute = nameAndTime[1].split(" ")[1].split(":");
-                    LocalDateTime dueDate = LocalDateTime.of(Integer.parseInt(dateYearMonthDay[0]),
-                            Integer.parseInt(dateYearMonthDay[1]),
-                            Integer.parseInt(dateYearMonthDay[2]),
-                            Integer.parseInt(timeHourMinute[0]),
-                            Integer.parseInt(timeHourMinute[1]));
-                } catch (Exception e) {
-                    throw new WrongDateTimeFormatException("I cannot understand your due date '^' "
-                            + "Please write your due date in format yyyy-MM-dd HH:mm");
-                }
-                Deadline deadline = new Deadline(nameAndTime[0], nameAndTime[1]);
-                return new AddCommand("D", deadline);
-            } else {
-                throw new EmptyDescriptionException("The description of a deadline cannot be empty! '^'");
-            }
+            Deadline deadline = createDeadline(commandWords);
+            return new AddCommand("D", deadline);
         case "event":
-            if (commandWordsArray.size() != 1) {
-                String relevantData = commandWords[1];
-                String[] nameAndTime = relevantData.split(" /from | /to ");
-                try {
-                    String[] dateYearMonthDayFrom = nameAndTime[1].split(" ")[0].split("-");
-                    String[] timeHourMinuteFrom = nameAndTime[1].split(" ")[1].split(":");
-                    String[] dateYearMonthDayTo = nameAndTime[2].split(" ")[0].split("-");
-                    String[] timeHourMinuteTo = nameAndTime[2].split(" ")[1].split(":");
-                    LocalDateTime from = LocalDateTime.of(
-                            Integer.parseInt(dateYearMonthDayFrom[0]),
-                            Integer.parseInt(dateYearMonthDayFrom[1]),
-                            Integer.parseInt(dateYearMonthDayFrom[2]),
-                            Integer.parseInt(timeHourMinuteFrom[0]),
-                            Integer.parseInt(timeHourMinuteFrom[1]));
-                    LocalDateTime to = LocalDateTime.of(
-                            Integer.parseInt(dateYearMonthDayTo[0]),
-                            Integer.parseInt(dateYearMonthDayTo[1]),
-                            Integer.parseInt(dateYearMonthDayTo[2]),
-                            Integer.parseInt(timeHourMinuteTo[0]),
-                            Integer.parseInt(timeHourMinuteTo[1]));
-                } catch (Exception e) {
-                    throw new WrongDateTimeFormatException("I cannot understand your date and time '^' "
-                            + "Please write your event date and time in format yyyy-MM-dd HH:mm");
-                }
-                Event event = new Event(nameAndTime[0], nameAndTime[1], nameAndTime[2]);
-                return new AddCommand("E", event);
-            } else {
-                throw new EmptyDescriptionException("The description of an event cannot be empty! '^'");
-            }
+            Event event = createEvent(commandWords);
+            return new AddCommand("E", event);
         default:
             throw new WrongCommandException("Sorry, I don't understand what that means.. '^'");
+        }
+    }
+
+    /**
+     * Creates an Event class from user command.
+     *
+     * @param commandWords user input in ArrayList of Strings.
+     * @return the created Event task.
+     * @throws EmptyDescriptionException if user tries to add a new task with no description.
+     * @throws WrongDateTimeFormatException if the inputted date time fails to follow the expected date time format.
+     */
+    private static Event createEvent(ArrayList<String> commandWords) throws EmptyDescriptionException, WrongDateTimeFormatException {
+        if(commandWords.size() == 1) {
+            throw new EmptyDescriptionException("The description of an event cannot be empty! '^'");
+        }
+        String eventData = commandWords.get(1);
+        String[] nameAndTime = eventData.split(" /from | /to ");
+        String eventName = nameAndTime[0];
+        String eventStartDate = nameAndTime[1];
+        String eventFinishDate = nameAndTime[2];
+        checkDateValidity(eventStartDate);
+        checkDateValidity(eventFinishDate);
+        return new Event(eventName, eventStartDate, eventFinishDate);
+    }
+
+    /**
+     * Creates a Deadline class from user command.
+     *
+     * @param commandWords user input in ArrayList of Strings.
+     * @return the created Deadline task.
+     * @throws EmptyDescriptionException if user tries to add a new task with no description.
+     * @throws WrongDateTimeFormatException if the inputted date time fails to follow the expected date time format.
+     */
+    private static Deadline createDeadline(ArrayList<String> commandWords) throws EmptyDescriptionException, WrongDateTimeFormatException {
+        if(commandWords.size() == 1) {
+            throw new EmptyDescriptionException("The description of a deadline cannot be empty! '^'");
+        }
+        String deadlineData = commandWords.get(1);
+        String[] nameAndTime = deadlineData.split(" /by ");
+        String deadlineName = nameAndTime[0];
+        String deadlineDate = nameAndTime[1];
+        checkDateValidity(deadlineDate);
+        return new Deadline(deadlineName, deadlineDate);
+    }
+
+    /**
+     * Validates a string of date to be of a specified format.
+     *
+     * @param date the date to be validated
+     * @throws WrongDateTimeFormatException when the date is not in expected format.
+     */
+    private static void checkDateValidity(String date) throws WrongDateTimeFormatException {
+        try {
+            String[] dateYearMonthDay = date.split(" ")[0].split("-");
+            String[] timeHourMinute = date.split(" ")[1].split(":");
+            LocalDateTime dueDate = LocalDateTime.of(Integer.parseInt(dateYearMonthDay[0]),
+                    Integer.parseInt(dateYearMonthDay[1]),
+                    Integer.parseInt(dateYearMonthDay[2]),
+                    Integer.parseInt(timeHourMinute[0]),
+                    Integer.parseInt(timeHourMinute[1]));
+        } catch (Exception e) {
+            throw new WrongDateTimeFormatException("I cannot understand your date '^' "
+                    + "Please write your date(s) in format yyyy-MM-dd HH:mm");
         }
     }
 }
