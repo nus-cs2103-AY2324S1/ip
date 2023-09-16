@@ -78,8 +78,8 @@ public class Storage {
         } finally {
             // Instance of PrintWriter to write new outputs to the file
             pw = new FileWriter("./src/main/java/OUTPUT.txt", true);
-            return results.toString();
         }
+        return results.toString();
     }
 
     /**
