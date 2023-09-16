@@ -65,7 +65,7 @@ public class TaskList {
     }
 
     /**
-     * Get the task at the specific index of the list.
+     * Gets the task at the specific index of the list.
      *
      * @param index Position of the task in the list.
      * @return The task at the index position.
