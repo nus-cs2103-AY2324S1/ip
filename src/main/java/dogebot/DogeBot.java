@@ -41,30 +41,19 @@ public class DogeBot {
     }
 
     /**
-     * Empty constructor for Launcher.
-     */
-    public DogeBot() {
-    }
-
-    /**
-     * Runs the DogeBot program.
-     */
-    public void run() {
-        // ui.intro();
-        boolean isLoop = true;
-        while (isLoop) {
-            isLoop = userInput.scan();
-        }
-        storage.save(tasks);
-    }
-
-    /**
      * Gets Responses from DogeBot to be output in GUI.
      *
      * @param input User input.
      * @return Output from DogeBot.
      */
     public String getResponse(String input) {
-        return "DogeBot heard: " + input;
+        String response = userInput.scan(input);
+
+        // save to harddisk i.e. "tasklist.txt"
+        if (response.equals("Bye~ See you again")) {
+            storage.save(tasks);
+        }
+
+        return response;
     }
 }
