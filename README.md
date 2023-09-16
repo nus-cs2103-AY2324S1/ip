@@ -2,11 +2,11 @@
 
 ## Features
 
-### Manage tasks, deadlines and events
+### 1. Manage tasks, deadlines and events
 
 Add, delete and mark completed todos, events and deadlines.
 
-### Find tasks
+### 2. Find tasks
 
 Easily find tasks by searching for keywords.
 
