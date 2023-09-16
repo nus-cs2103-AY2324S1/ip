@@ -14,7 +14,7 @@ import java.util.Scanner;
 import crackerpackage.tasks.Deadline;
 import crackerpackage.tasks.Event;
 import crackerpackage.tasks.Task;
-import crackerpackage.tasks.Todo;
+import uicomponents.Parser;
 
 /**
  * A Storage that stores tasks for the bot.
@@ -97,20 +97,7 @@ public class Storage {
             String[] arr = taskString.split("\\|");
 
             try {
-                Task task = null;
-                switch (taskString.charAt(0)) {
-                case 'T':
-                    task = new Todo(arr[2]);
-                    break;
-                case 'E':
-                    task = new Event(arr[2], arr[3], arr[4]);
-                    break;
-                case 'D':
-                    task = new Deadline(arr[2], arr[3]);
-                    break;
-                default:
-                    System.out.println("Corrupt file detected");
-                }
+                Task task = Parser.parseTask(arr);
                 if (Boolean.parseBoolean(arr[1])) {
                     task.markDone();
                 }

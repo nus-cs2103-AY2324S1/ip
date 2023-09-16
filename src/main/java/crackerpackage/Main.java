@@ -7,7 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import uicomponents.*;
+import uicomponents.MainWindow;
+
 
 /**
  * A GUI for Duke using FXML.
@@ -16,6 +17,13 @@ public class Main extends Application {
 
     private Cracker duke = new Cracker();
 
+    /**
+     * Sets up the stage for the application
+     * @param stage the primary stage for this application, onto which
+     *              the application scene can be set.
+     *              Applications may create other stages, if needed, but they will not be
+     *              primary stages.
+     */
     @Override
     public void start(Stage stage) {
         try {
