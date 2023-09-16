@@ -1,7 +1,5 @@
 package qi.ui;
 
-import java.util.Scanner;
-
 import qi.task.Task;
 import qi.tasklist.TaskList;
 
@@ -9,31 +7,12 @@ import qi.tasklist.TaskList;
  * Represents the interactions of the chatbot with users.
  */
 public class Ui {
-
-    private Scanner sc;
-
-    /**
-     * Initializes the chatbot
-     */
-    public Ui() {
-        sc = new Scanner(System.in);
-    }
-
     /**
      * Prints welcoming message on the screen.
      */
     public String showWelcome() {
         return "Hello! I'm Qi\n"
             + "What can I do for you?";
-    }
-
-    /**
-     * Reads string input from users.
-     *
-     * @return String input read.
-     */
-    public String readCommand() {
-        return this.sc.nextLine();
     }
 
     /**
@@ -119,14 +98,5 @@ public class Ui {
      */
     public String showLoadingError() {
         return "Cannot load file!";
-    }
-
-    /**
-     * Shows errors while executing task.
-     *
-     * @param e Content of the error message.
-     */
-    public String showError(String e) {
-        return "" + e;
     }
 }

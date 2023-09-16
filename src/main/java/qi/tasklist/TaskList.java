@@ -71,11 +71,12 @@ public class TaskList {
     public String matchingKeyWord(String keyWord) {
         StringBuilder ans = new StringBuilder();
         for (int i = 0; i < this.size(); i++) {
-            if (this.taskList.get(i).isMatching(keyWord)) {
-                int id = i + 1;
-                ans.append("     " + id + " " + this.showTask(id));
-                ans.append('\n');
+            if (!this.taskList.get(i).isMatching(keyWord)) {
+                continue;
             }
+            int id = i + 1;
+            ans.append("     ").append(id).append(". ").append(showTask(id));
+            ans.append('\n');
         }
 
         return ans.toString();
@@ -91,8 +92,7 @@ public class TaskList {
         StringBuilder ans = new StringBuilder();
         for (int i = 0; i < this.taskList.size(); i++) {
             int id = i + 1;
-            String temp = "     " + id + ". " + showTask(id);
-            ans.append(temp);
+            ans.append("     ").append(id).append(". ").append(showTask(id));
             ans.append('\n');
         }
         return ans.toString();
