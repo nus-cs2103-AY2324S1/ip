@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import duke.exception.KoraException;
+import duke.list.CommandList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -63,7 +64,7 @@ public class Storage {
             String[] array;
             while (s.hasNextLine()) {
                 array = s.nextLine().split("/ ");
-                taskList.addNoSaveTask(checkTask(array));
+                taskList.addTask(checkTask(array));
             }
         } catch (IOException e) {
             throw new KoraException("Unable to scan!");
@@ -111,5 +112,27 @@ public class Storage {
         }
 
         return currentTask;
+    }
+
+    public void loadCommand(CommandList commandList) throws KoraException {
+        createFile();
+        File f = new File(path);
+        try {
+            Scanner s = new Scanner(f);
+            String[] array;
+            while (s.hasNextLine()) {
+                array = s.nextLine().split("/ ");
+                commandList.saveCommand(array);
+            }
+        } catch (IOException e) {
+            throw new KoraException("Unable to scan!");
+        }
+    }
+    public void saveCommand(CommandList commandList) throws KoraException {
+        try (FileWriter fw = new FileWriter(path, false)) {
+            fw.write(commandList.saveFormat());
+        } catch (IOException e) {
+            throw new KoraException("Couldn't add!");
+        }
     }
 }

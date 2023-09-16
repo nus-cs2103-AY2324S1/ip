@@ -1,7 +1,9 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.SetCommand;
 import duke.exception.KoraException;
+import duke.list.CommandList;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.list.TaskList;
@@ -13,12 +15,14 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    private TaskList taskList;
-    private Storage storage;
+    private final TaskList taskList;
+    private Storage storageTask;
+    private Storage storageCommand;
     private Ui ui;
     private boolean isExit = false;
+    private final CommandList commandList;
 
-
+    private Parser parser;
 
 
     /**
@@ -26,10 +30,14 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        storage = new Storage("./data/savedtask.txt");
+        storageTask = new Storage("./data/savedtask.txt");
+        storageCommand = new Storage("./data/savedCommand.txt");
         taskList = new TaskList();
+        commandList = new CommandList();
+        parser = new Parser(commandList);
         try {
-            storage.loadTask(taskList);
+            storageTask.loadTask(taskList);
+            storageCommand.loadCommand(commandList);
         } catch (KoraException e) {
             System.out.println(e.getMessage());
         }
@@ -42,8 +50,13 @@ public class Duke {
      */
     public Command getResponse(String userInput) {
         try {
-            Command command = Parser.parse(userInput);
-            command.execute(taskList, storage);
+            Command command = parser.parse(userInput);
+            if (command.isSetCommand()) {
+                //SetCommand setCommand = (SetCommand) command;
+                command.executeSet(commandList, storageCommand);
+            } else {
+                command.execute(taskList, storageTask);
+            }
             command.printOutput(command.getCommandMessage());
             return command;
         } catch (KoraException e) {

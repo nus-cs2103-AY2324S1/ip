@@ -1,28 +1,21 @@
 package duke.parser;
 
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.FindCommand;
-import duke.command.InvalidCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.ToDoCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 
 import duke.exception.KoraException;
+import duke.list.CommandList;
 
 /**
  * Parser class process user input and generates command.
  */
 public class Parser {
 
+    private CommandList commandList;
     /**
      * Class constructor of Parser.
      */
-    public Parser() {
+    public Parser(CommandList commandList) {
+        this.commandList = commandList;
     }
 
     /**
@@ -31,35 +24,57 @@ public class Parser {
      * @return Command to be executed.
      * @throws KoraException For invalid input.
      */
-    public static Command parse(String userInput) throws KoraException {
+    public Command parse(String userInput) throws KoraException {
         assert !userInput.equals("") : "Input should not be empty.";
         String[] userInputArray = userInput.split("/");
+        String commandType = getCommandType(userInputArray[0].split(" ")[0]);
         Command command;
         try {
-            if (userInputArray[0].contains("bye")) {
-                command = new ByeCommand();
-            } else if (userInputArray[0].contains("list")) {
-                command = new ListCommand();
-            } else if (userInputArray[0].contains("unmark")) {
-                command = new UnmarkCommand(userInputArray);
-            } else if (userInputArray[0].contains("mark")) {
-                command = new MarkCommand(userInputArray);
-            } else if (userInputArray[0].contains("deadline")) {
-                command = new DeadlineCommand(userInputArray);
-            } else if (userInputArray[0].contains("event")) {
-                command = new EventCommand(userInputArray);
-            } else if (userInputArray[0].contains("todo")) {
-                command = new ToDoCommand(userInputArray);
-            } else if (userInputArray[0].contains("delete")) {
-                command = new DeleteCommand(userInputArray);
-            } else if (userInputArray[0].contains("find")) {
-                command = new FindCommand(userInputArray);
-            } else {
-                command = new InvalidCommand();
+            switch (commandType) {
+                case "bye":
+                    command = new ByeCommand();
+                    break;
+                case "list":
+                    command = new ListCommand();
+                    break;
+                case "unmark":
+                    command = new UnmarkCommand(userInputArray);
+                    break;
+                case "mark":
+                    command = new MarkCommand(userInputArray);
+                    break;
+                case "deadline":
+                    command = new DeadlineCommand(userInputArray);
+                    break;
+                case "event":
+                    command = new EventCommand(userInputArray);
+                    break;
+                case "todo":
+                    command = new ToDoCommand(userInputArray);
+                    break;
+                case "delete":
+                    command = new DeleteCommand(userInputArray);
+                    break;
+                case "find":
+                    command = new FindCommand(userInputArray);
+                    break;
+                case "set":
+                    command = new SetCommand(userInput);
+                    break;
+                case "unset":
+                    command = new UnsetCommand(userInput);
+                    break;
+                default:
+                    command = new InvalidCommand();
+                    break;
             }
         } catch (Exception e) {
             throw new KoraException(e.getMessage());
         }
         return command;
+    }
+
+    private String getCommandType(String input) {
+        return commandList.getCommandType(input);
     }
 }

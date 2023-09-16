@@ -12,7 +12,7 @@ public class ToDoCommand extends Command {
     private String commandMessage = "";
     public ToDoCommand(String[] details) throws KoraException {
 
-        taskDetails = details[0].replace("todo", "").replace(" ", "");
+        taskDetails = details[0].replace(details[0].split(" ")[0], "").replace(" ", "");
         if (taskDetails.equals("")) {
             throw new KoraException("ToDo must have details!");
         }

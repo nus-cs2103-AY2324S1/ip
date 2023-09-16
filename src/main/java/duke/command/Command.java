@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.list.CommandList;
 import duke.storage.Storage;
 import duke.list.TaskList;
 
@@ -45,4 +46,11 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+    public boolean isSetCommand() {
+        return false;
+    }
+
+    public void executeSet(CommandList commandList, Storage storage) throws KoraException {
+        return;
+    };
 }

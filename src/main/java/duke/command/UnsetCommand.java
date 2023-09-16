@@ -5,13 +5,13 @@ import duke.list.CommandList;
 import duke.list.TaskList;
 import duke.storage.Storage;
 
-public class SetCommand extends Command {
+public class UnsetCommand extends Command {
     private String commandMessage = "";
 
     private String commandType;
     private String commandName;
 
-    public SetCommand(String input) {
+    public UnsetCommand(String input) {
         commandType = input.split(" ")[1];
         commandName = input.split(" ")[2];
     }
@@ -22,15 +22,14 @@ public class SetCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Storage storage) {
-
+    public void execute(TaskList taskList, Storage storage) throws KoraException {
     }
 
     @Override
     public void executeSet(CommandList commandList, Storage storage) throws KoraException {
-        commandList.addCommandName(commandType, commandName);
+        commandList.deleteCommandName(commandType, commandName);
         storage.saveCommand(commandList);
-        commandMessage = "Wow! I have successfully added the command name: " + commandName + " for " + commandType;
+        commandMessage = "Wow! I have successfully deleted the command name: " + commandName + " for " + commandType;
     }
     @Override
     public boolean isSetCommand() {
