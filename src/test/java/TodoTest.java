@@ -1,3 +1,4 @@
+import Exceptions.DukeException;
 import Tasks.Todo;
 import org.junit.jupiter.api.Test;
 
@@ -5,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
     @Test
-    public void printString_markAndUnmark_success(){
+    public void printString_markAndUnmark_success() throws DukeException {
         Todo todo = new Todo("xxx");
         assertEquals("[T][ ] xxx", todo.toString());
         todo.markAsDone();

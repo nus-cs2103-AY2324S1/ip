@@ -4,10 +4,8 @@ import Exceptions.*;
 import Exceptions.InvalidCommandException; // warning is shown in javadocs if not imported
 import Exceptions.InvalidTaskException; // warning is shown in javadocs if not imported
 import Exceptions.NoDescriptionException; // warning is shown in javadocs if not imported
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+import Tasks.*;
+import static Chewy.TaskList.validTasks;
 
 /**
  * Parser that helps with parsing user inputs as Strings to various
@@ -53,8 +51,12 @@ public class Parser {
                 task = new Event(description);
             }
             break;
+        case "DA":
+            String deadlineString = lineParts[3];
+            task = new DoAfter(description, deadlineString);
+            break;
         default:
-            // Line does not start with a task value (T,D,E), file corrupted, throw error
+            // Line does not start with a task value (T,D,E,DA), file corrupted, throw error
             throw new IllegalArgumentException("Invalid Tasks.Task Type");
         }
         if (isDone) {
@@ -76,7 +78,8 @@ public class Parser {
 
         // Check if a valid addTask command is entered
         String inputCommand = inputParts[0];
-        if (!(inputCommand.equals("todo") || inputCommand.equals("deadline") || inputCommand.equals("event"))) {
+
+        if (!validTasks.contains(inputCommand)) {
             throw new InvalidCommandException();
         }
         return inputCommand;

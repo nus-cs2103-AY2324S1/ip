@@ -2,10 +2,7 @@ package Chewy;
 
 import Exceptions.DukeException;
 import Exceptions.InvalidTaskException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+import Tasks.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -18,6 +15,7 @@ import java.util.List;
  */
 public class TaskList {
     List<Task> taskList;
+    public static final List<String> validTasks = List.of("todo", "deadline", "event", "doafter");
     public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
@@ -60,17 +58,20 @@ public class TaskList {
         assert !taskDesc.isBlank();
         Task task;
         switch (inputCommand) {
-            case "todo":
-                task = new Todo(taskDesc);
-                break;
-            case "deadline":
-                task = new Deadline(taskDesc);
-                break;
-            case "event":
-                task = new Event(taskDesc);
-                break;
-            default:
-                throw new DukeException("Error, see 'help' for a list of commands");
+        case "todo":
+            task = new Todo(taskDesc);
+            break;
+        case "deadline":
+            task = new Deadline(taskDesc);
+            break;
+        case "event":
+            task = new Event(taskDesc);
+            break;
+        case "doafter":
+            task = new DoAfter(taskDesc);
+            break;
+        default:
+            throw new DukeException("Error, see 'help' for a list of commands");
         }
         taskList.add(task);
         return "Got it. I've added this task:\n\t" + task + "\n"
