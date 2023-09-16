@@ -108,8 +108,8 @@ public class Ui {
      * Shows the error message to the user
      * @param errorMessage Error message to be shown
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
     /**
      * Shows the help message to the user
