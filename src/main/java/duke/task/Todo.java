@@ -26,7 +26,7 @@ public class Todo extends Task {
      */
     @Override
     public String stringifyTask() {
-        return String.format("T|%d|%s", this.done ? 1 : 0, this.name);
+        return String.format("T|%d|%s", this.isDone ? 1 : 0, this.name);
     }
 
     /**
