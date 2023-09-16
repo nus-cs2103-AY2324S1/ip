@@ -36,6 +36,12 @@ public class Aj extends Application {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image ajImage = new Image(this.getClass().getResourceAsStream("/images/aj_bot.png"));
 
+    private String latestCommand;
+
+    private Task lastTaskAdded;
+    private Task lastTaskRemoved;
+    private String lastTaskRemovedEntry;
+
     /**
      * Takes in description portion of user input and mark the task specified in the taskList and database.
      *
@@ -96,6 +102,7 @@ public class Aj extends Application {
             throws IndexOutOfRangeException, IOException {
         this.storage.addData(cmdString + descString + ",false");
         this.taskList.addTask(task);
+        this.lastTaskAdded = task;
         outMsg.append("Got it. I've added this task:\n");
         outMsg.append(task).append("\n");
         outMsg.append(this.ui.printNumTask());
@@ -116,8 +123,9 @@ public class Aj extends Application {
         outMsg.append("Noted. I've removed this task:\n");
         Task removedTask = this.taskList.getTask(idx);
         this.taskList.removeTask(idx);
-        this.storage.deleteData(idx);
-        outMsg.append(removedTask);
+        this.lastTaskRemovedEntry = this.storage.deleteData(idx);
+        this.lastTaskRemoved = removedTask;
+        outMsg.append(removedTask).append("\n");
         outMsg.append(this.ui.printNumTask());
     }
 
@@ -132,6 +140,39 @@ public class Aj extends Application {
         outMsg.append(this.ui.printNumTask());
     }
 
+
+    public void undoCommand(StringBuilder outMsg) throws IndexOutOfRangeException, IOException {
+        String[] cmdAndDesc = this.parser.parseCommand(this.latestCommand);
+        String cmdString;
+        if (cmdAndDesc.length != 0) { // if user input is not a single command
+            cmdString = cmdAndDesc[0];
+            String descString = cmdAndDesc[1];
+            switch (cmdString) {
+            case "mark":
+                unmarkTask(outMsg, descString);
+                break;
+            case "unmark":
+                markTask(outMsg, descString);
+                break;
+            case "delete":  // adds the last task removed into taskList again
+                this.storage.addData(this.lastTaskRemovedEntry); // add entry to database
+                this.taskList.addTask(this.lastTaskRemoved); // add to tasklist
+                outMsg.append("Readded task ").append(this.lastTaskRemoved).append("!!!");
+                break;
+            default: // latest command is add task
+                outMsg.append("Noted. I've removed this task:\n");
+                int idx = this.taskList.getSize() - 1;
+                Task removedTask = this.taskList.getTask(idx);
+                this.taskList.removeTask(idx);
+                this.storage.deleteData(idx);
+                outMsg.append(removedTask);
+            }
+        } else {
+            outMsg.append("Latest command \"").append(this.latestCommand).append("\" is not undoable!");
+        }
+    }
+
+
     /**
      * Takes in command portion of userinput and carry out respective action.
      *
@@ -139,9 +180,10 @@ public class Aj extends Application {
      * @param cmdString Command portion of user input.
      * @throws NoSuchCommandException    If command does not exist.
      * @throws EmptyDescriptionException If second part of user input does not exist.
+     * @throws IOException               Arose if there is issue updating database.
      */
     public void getSingleCommandResponse(StringBuilder outMsg, String cmdString)
-            throws NoSuchCommandException, EmptyDescriptionException {
+            throws NoSuchCommandException, EmptyDescriptionException, IndexOutOfRangeException, IOException {
         switch (cmdString) {
         case "list":
             outMsg.append(this.ui.printList());
@@ -151,6 +193,9 @@ public class Aj extends Application {
             break;
         case "help":
             outMsg.append(this.ui.getHelpMessage());
+            break;
+        case "undo":
+            undoCommand(outMsg);
             break;
         default:
             this.ui.checkCommand(cmdString);
@@ -342,6 +387,7 @@ public class Aj extends Application {
         } catch (AjException | IOException e) {
             outMsg = e.getMessage();
         }
+        this.latestCommand = userInput; // set user input as latest command
         return outMsg;
     }
 

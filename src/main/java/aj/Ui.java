@@ -21,10 +21,11 @@ public class Ui {
 
     public String getHelpMessage() {
         return "Here is a list of commands you can try:\n\n" + "list - To list your added tasks\n" + "mark - To mark "
-                + "a " + "task as completed\n" + "unmark - To unmark a tast\n" + "delete - To delete a task\n" +
+                + "a " + "task as completed\n" + "unmark - To unmark a task\n" + "delete - To delete a task\n" +
                 "find " + "- To " + "find any keyword related to the task\n" + "todo - To create a 'Todo' task\n" +
-                "deadline -" + " To " + "craete" + " a 'deadline' task\n" + "event - To create an 'event' " + "task\n"
-                + "\n\n\n" + "To get " + "more " + "specific help for each command, type the command itself!!!\n";
+                "deadline -" + " To " + "creete" + " a 'deadline' task\n" + "event - To create an 'event' " + "task\n"
+                + "undo - To undo latest command \n" + "\n\n\n" + "To get " + "more " + "specific help for " + "each " +
+                "command, type the command itself!!!\n";
     }
 
     /**

@@ -104,18 +104,20 @@ public class Storage {
      * @param idx Index of that Task to be deleted (starting from 0).
      * @throws IOException Arose if there is issue updating database.
      */
-    public void deleteData(int idx) throws IOException { // get linenumber and delete that entry
+    public String deleteData(int idx) throws IOException { // get linenumber and delete that entry
         Path myPath = Paths.get(this.FILEPATH);
-
+        String deletedLine = "";
         List<String> fileContent = new ArrayList<>(Files.readAllLines(myPath, StandardCharsets.UTF_8));
 
         for (int i = 0; i < fileContent.size(); i++) {
             if (i == idx) {
+                deletedLine = fileContent.get(i);
                 fileContent.remove(i);
                 break;
             }
         }
         Files.write(myPath, fileContent, StandardCharsets.UTF_8);
+        return deletedLine;
     }
 
     /**
@@ -126,7 +128,6 @@ public class Storage {
      */
     public void addData(String str) throws IOException { // get linenumber and delete that entry
         Path myPath = Paths.get(this.FILEPATH);
-
         List<String> fileContent = new ArrayList<>(Files.readAllLines(myPath, StandardCharsets.UTF_8));
         fileContent.add(str);
         Files.write(myPath, fileContent, StandardCharsets.UTF_8);
