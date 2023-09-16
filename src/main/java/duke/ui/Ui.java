@@ -43,7 +43,7 @@ public class Ui {
      * Prints a farewell message.
      */
     public void byeGreeting() {
-        showMessage("Bye. Hope to see you again soon!");
+        showMessage("Bye. Not enough sleep, gotta rest (not a program btw)");
     }
 
     /**

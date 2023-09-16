@@ -30,7 +30,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public String executeGui(TaskList taskList, Ui ui, Storage storage) {
-        return "Bye. Hope to see you again soon!";
+        return "Bye! Not enough sleep, gotta rest (not a program btw)";
     }
 
     @Override

@@ -74,7 +74,7 @@ public class TaskList {
     }
 
     /**
-     * Marks the Task object in the list based on its index.
+     * Marks the Task object as done in the list based on its index.
      *
      * @param index Index of the Task object.
      * @return Task object that is marked.
@@ -90,7 +90,7 @@ public class TaskList {
     }
 
     /**
-     * Unmark the Task object in the list based on its index.
+     * Marks the Task object as not done in the list based on its index.
      *
      * @param index Index of the Task object.
      * @return Task object that is unmarked.
