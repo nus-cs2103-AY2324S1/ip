@@ -3,6 +3,11 @@ package duke.task;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
 /** Task class that contains a task string */
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME
@@ -15,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public class Task {
     private boolean isDone = false;
     private final String task;
+    private String[] tags = {};
 
     /**
      * Initialize Task.
@@ -41,6 +47,25 @@ public class Task {
 
     public String getTask() {
         return task;
+    }
+
+    public void addTag(String tag) {
+        boolean found = false;
+        for (String tempTag : tags) {
+            if (Objects.equals(tempTag, tag)) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            tags = Arrays.copyOf(tags, tags.length + 1);
+            tags[tags.length - 1] = tag;
+        }
+    }
+
+    public String[] getTags() {
+        return tags;
     }
 
     @Override

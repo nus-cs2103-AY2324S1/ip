@@ -3,13 +3,7 @@ package duke.main;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import duke.command.AddCommand;
-import duke.command.ChangeMarkCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
+import duke.command.*;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidDateFormatException;
 import duke.exception.InvalidParametersException;
@@ -52,31 +46,38 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "delete":
-            checkLength();
+            checkAtLeast2();
             return new DeleteCommand(splitText[1]);
         case "todo":
-            checkLength();
+            checkAtLeast2();
             return new AddCommand(new ToDo(splitText[1]));
         case "event":
-            checkLength();
+            checkAtLeast2();
             LocalDate from = getDateWithCommand(splitText[1], "from");
             LocalDate to = getDateWithCommand(splitText[1], "to");
             task = getTask(splitText[1]);
             return new AddCommand(new Event(task, from, to));
         case "deadline":
-            checkLength();
+            checkAtLeast2();
             LocalDate by = getDateWithCommand(splitText[1], "by");
             task = getTask(splitText[1]);
             return new AddCommand(new Deadline(task, by));
         case "mark":
-            checkLength();
+            checkAtLeast2();
             return new ChangeMarkCommand(splitText[1], true);
         case "unmark":
-            checkLength();
+            checkAtLeast2();
             return new ChangeMarkCommand(splitText[1], false);
         case "find":
-            checkLength();
+            checkAtLeast2();
             return new FindCommand(splitText[1]);
+        case "tags":
+            checkAtLeast2();
+            return new ViewTagsCommand(splitText[1]);
+        case "tag":
+            checkAtLeast2();
+            String[] params = getParams(splitText[1], 2);
+            return new TagCommand(params[0], params[1]);
         default:
             throw new InvalidCommandException("I don't understand.");
         }
@@ -148,12 +149,28 @@ public class Parser {
     }
 
     /**
+     * Attempts to split string into given number of parameters.
+     *
+     * @param str String to split.
+     * @param numOfParams Max number of words to be split.
+     * @return Array of parameters.
+     */
+    private static String[] getParams(String str, int numOfParams) throws MissingParametersException {
+        String[] splitStr = str.split(" ", numOfParams);
+
+        if (splitStr.length < numOfParams || splitStr.length > numOfParams) {
+            throw new MissingParametersException("Invalid Number of parameters, ideally " + numOfParams);
+        }
+        return splitStr;
+    }
+
+    /**
      * Checks length of user input. User input with length less than 2 implies
      * there are no parameters.
      *
      * @throws MissingParametersException Throws if there are no parameters found after the command.
      */
-    private static void checkLength() throws MissingParametersException {
+    private static void checkAtLeast2() throws MissingParametersException {
         if (splitText.length < 2) {
             throw new MissingParametersException("You need to add something after the command LOL");
         }

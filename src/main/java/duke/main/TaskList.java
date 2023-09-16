@@ -46,6 +46,16 @@ public class TaskList {
     }
 
     /**
+     * Adds a new tag to task.
+     *
+     * @param index Index of task.
+     * @param tag Tag to be added.
+     */
+    public void addTag(int index, String tag) {
+        tasks.get(index).addTag(tag);
+    }
+
+    /**
      * Prints out the list of tasks.
      */
     public String print() {
@@ -83,6 +93,25 @@ public class TaskList {
         } else {
             return output.toString();
         }
+    }
+
+    public String printTags(int index) {
+        if (tasks.isEmpty()) {
+            return "You have no tasks added yet :(\n";
+        }
+
+        StringBuilder output = new StringBuilder();
+        Task task = tasks.get(index);
+        String[] taskTags = task.getTags();
+
+        String tempString = "Tags for " + task.getTask() + ": \n";
+        output.append(tempString);
+        for (String tag : taskTags) {
+            tempString = "#" + tag + "\n";
+            output.append(tempString);
+        }
+
+        return output.toString();
     }
 
     /**

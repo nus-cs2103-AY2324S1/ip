@@ -29,7 +29,7 @@ public interface Command {
         return false;
     }
 
-    default String getOutput () {
+    default String getOutput() {
         return output.toString();
     }
 }
