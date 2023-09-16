@@ -76,7 +76,7 @@ public class Ui {
         String result =  INDENT + "Here are the matching tasks in your list:";
         int index = 1;
         for (Task task : taskList) {
-            result += INDENT_BIG + index + "." + task.getTaskForPrinting();
+            result += "\n" + INDENT_BIG + index + "." + task.getTaskForPrinting();
             index++;
         }
         return result;
@@ -88,9 +88,9 @@ public class Ui {
      * @param taskList The list of tasks to be displayed.
      */
     public String displayList(ArrayList<Task> taskList) {
-        String result = INDENT + "Here are the tasks in your list:";
+        String result = INDENT + "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
-            result += INDENT_BIG + (i + 1) + "." + taskList.get(i).getTaskForPrinting();
+            result += "\n" + INDENT_BIG + (i + 1) + "." + taskList.get(i).getTaskForPrinting();
         }
         return result;
     }
