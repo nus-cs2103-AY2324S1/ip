@@ -136,10 +136,16 @@ public class Parser {
             String name = parts[0];
             String dates = parts[1];
             String[] datesplit = dates.split("/to", 2);
-            String startDate = datesplit[0];
-            String endDate = datesplit[1];
 
-            result = new Event(name, parseDate(startDate), parseDate(endDate));
+            LocalDateTime startDateTime = parseDate(datesplit[0]);
+            LocalDateTime endDateTime = parseDate(datesplit[1]);
+
+            if (!startDateTime.isBefore(endDateTime)) {
+                throw new ParserException(
+                    "The end date time must be later than the start date time");
+            }
+
+            result = new Event(name, startDateTime, endDateTime);
         } catch (StringIndexOutOfBoundsException ex) {
             throw new ParserException("The event command cannot be empty!");
         } catch (ArrayIndexOutOfBoundsException ex) {
