@@ -1,6 +1,7 @@
 package duke.main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import duke.task.Task;
 
@@ -60,7 +61,7 @@ public class TaskList {
     }
 
     /**
-     * Prints out the list of tasks.
+     * Prints out the list of tasks using a search string.
      *
      * @param stringToSearch String to search with.
      */
@@ -70,19 +71,13 @@ public class TaskList {
         }
 
         StringBuilder output = new StringBuilder();
-        boolean isFound = false;
 
-        for (int i = 0; i < tasks.size(); i++) {
-            for (String s : stringToSearch) {
-                Task tempTask = tasks.get(i);
-                if (tempTask.getTask().contains(s)) {
-                    output.append((i + 1)).append(". ").append(tempTask).append("\n");
-                    isFound = true;
-                }
-            }
-        }
+        tasks.stream()
+                .filter(task -> Arrays.stream(stringToSearch).anyMatch(s -> task.getTask().contains(s)))
+                .forEachOrdered(task -> output.append((tasks.indexOf(task) + 1))
+                        .append(". ").append(task).append("\n"));
 
-        if (!isFound) {
+        if (output.length() == 0) {
             return "No tasks found with given string(s).\n";
         } else {
             return output.toString();
