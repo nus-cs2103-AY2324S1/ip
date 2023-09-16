@@ -31,9 +31,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+        String formattedTo = this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+
         return "[E]" + super.toString() + " (from: "
-                + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + " to: "
-                + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))  + ")";
+                + formattedFrom + " to: "
+                + formattedTo + ")";
     }
 
     /**
@@ -43,9 +46,12 @@ public class Event extends Task {
      */
     @Override
     public String printToFile() {
+        String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        String formattedTo = this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+
         return "E|" + super.printToFile() + "|"
-                + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + "|"
-                + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                + formattedFrom + "|"
+                + formattedTo;
     }
 
     /**

@@ -44,74 +44,20 @@ public class Storage {
         try {
             File file = new File(this.filePath);
             file.getParentFile().mkdirs();
-            if (!file.createNewFile()) {
-                Scanner scanner = new Scanner(file);
 
-                while (scanner.hasNextLine()) {
-                    String[] fileLineInput = scanner.nextLine().split("\\|");
-
-                    String taskType = fileLineInput[0];
-
-                    switch (taskType) {
-                    case "T":
-                        if (fileLineInput.length != 3) {
-                            throw new NoacException("OOPS!!! Corrupted Save file");
-                        }
-
-                        Todo todo = new Todo(fileLineInput[2]);
-                        if (fileLineInput[1].equals("1")) {
-                            todo.markAsDone();
-                        }
-
-                        returnList.add(todo);
-
-                        break;
-
-                    case "D":
-                        if (fileLineInput.length != 4) {
-                            throw new NoacException("OOPS!!! Corrupted Save file");
-                        }
-
-                        Deadline deadline;
-                        try {
-                            deadline = new Deadline(fileLineInput[2], Parser.parseDate(fileLineInput[3]));
-                        } catch (DateTimeParseException e) {
-                            throw new NoacException("OOPS!!! Corrupted Save file");
-                        }
-
-                        if (fileLineInput[1].equals("1")) {
-                            deadline.markAsDone();
-                        }
-
-                        returnList.add(deadline);
-
-                        break;
-
-                    case "E":
-                        if (fileLineInput.length != 5) {
-                            throw new NoacException("OOPS!!! Corrupted Save file");
-                        }
-
-                        Event event;
-                        try{
-                            event = new Event(fileLineInput[2],Parser.parseDate(fileLineInput[3]) , Parser.parseDate(fileLineInput[4]));
-                        } catch (DateTimeParseException e) {
-                            throw new NoacException("OOPS!!! Corrupted Save file");
-                        }
-
-                        if (fileLineInput[1].equals("1")) {
-                            event.markAsDone();
-                        }
-
-                        returnList.add(event);
-
-                        break;
-
-                    default:
-                        throw new NoacException("OOPS!!! Corrupted Save file");
-                    }
-                }
+            if (file.createNewFile()) {
+                return returnList;
             }
+
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String[] fileLineInput = scanner.nextLine().split("\\|");
+                String taskType = fileLineInput[0];
+
+                handleDifferentTask(taskType, fileLineInput, returnList);
+            }
+
         } catch (IOException e) {
             throw new NoacException("OOPS!!! Corrupted Save file");
         }
@@ -139,6 +85,85 @@ public class Storage {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    private ArrayList<Task> handleDifferentTask(String taskType, String[] fileLineInput, ArrayList<Task> returnList) throws NoacException {
+        switch (taskType) {
+            case "T":
+                returnList = handleCaseTodo(fileLineInput, returnList);
+                break;
+
+            case "D":
+                returnList = handleCaseDeadline(fileLineInput, returnList);
+                break;
+
+            case "E":
+                returnList = handleCaseEvent(fileLineInput, returnList);
+                break;
+
+            default:
+                throw new NoacException("OOPS!!! Corrupted Save file");
+        }
+        return returnList;
+    }
+
+
+    private ArrayList<Task> handleCaseTodo(String[] fileLineInput, ArrayList<Task> returnList) throws NoacException{
+        if (fileLineInput.length != 3) {
+            throw new NoacException("OOPS!!! Corrupted Save file");
+        }
+
+        Todo todo = new Todo(fileLineInput[2]);
+        if (fileLineInput[1].equals("1")) {
+            todo.markAsDone();
+        }
+
+        returnList.add(todo);
+
+        return returnList;
+    }
+
+    private ArrayList<Task> handleCaseDeadline(String[] fileLineInput, ArrayList<Task> returnList) throws NoacException{
+        if (fileLineInput.length != 4) {
+            throw new NoacException("OOPS!!! Corrupted Save file");
+        }
+
+        Deadline deadline;
+        try {
+            deadline = new Deadline(fileLineInput[2], Parser.parseDate(fileLineInput[3]));
+        } catch (DateTimeParseException e) {
+            throw new NoacException("OOPS!!! Corrupted Save file");
+        }
+
+        if (fileLineInput[1].equals("1")) {
+            deadline.markAsDone();
+        }
+
+        returnList.add(deadline);
+
+        return returnList;
+    }
+
+    private ArrayList<Task> handleCaseEvent(String[] fileLineInput, ArrayList<Task> returnList) throws NoacException{
+        if (fileLineInput.length != 5) {
+            throw new NoacException("OOPS!!! Corrupted Save file");
+        }
+
+        Event event;
+        try{
+            event = new Event(fileLineInput[2],Parser.parseDate(fileLineInput[3]) , Parser.parseDate(fileLineInput[4]));
+        } catch (DateTimeParseException e) {
+            throw new NoacException("OOPS!!! Corrupted Save file");
+        }
+
+        if (fileLineInput[1].equals("1")) {
+            event.markAsDone();
+        }
+
+        returnList.add(event);
+
+        return returnList;
     }
 
 }

@@ -14,7 +14,7 @@ public abstract class Command {
     private boolean isExit = false;
 
     /**
-     * Abstract execute functions with the relevant parameters.
+     * Abstracts execute functions with the relevant parameters.
      *
      * @param tasks List of all the task.
      * @param ui UI for printing result to user.
@@ -24,7 +24,7 @@ public abstract class Command {
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NoacException;
 
     /**
-     * Determine if command is bye or not.
+     * Determines if command is bye or not.
      *
      * @return The boolean for where to exit or not.
      */

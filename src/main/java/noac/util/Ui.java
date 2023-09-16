@@ -136,14 +136,15 @@ public class Ui {
         String returnMessage = "";
 
         if (tasks.size() == 0) {
-            returnMessage += "There are no matching tasks in your list. :(\n";
-        } else {
-            returnMessage += "Here are the matching tasks in your list:\n";
-
-            for(int i = 0 ; i < tasks.size(); i++) {
-                returnMessage += tasks.get(i).toString() + "\n";
-            }
+            return returnMessage + "There are no matching tasks in your list. :(\n";
         }
+
+        returnMessage += "Here are the matching tasks in your list:\n";
+
+        for(int i = 0 ; i < tasks.size(); i++) {
+            returnMessage += tasks.get(i).toString() + "\n";
+        }
+
         return returnMessage;
     }
 }
