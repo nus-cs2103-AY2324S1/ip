@@ -35,29 +35,6 @@ public class Qi {
         }
     }
 
-//    /**
-//     * Starts the interaction with users once being called.
-//     */
-//    public void run() {
-//        ui.showWelcome();
-//
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                ui.showLine();
-//                Command c = Parser.parse(fullCommand);
-//                c.execute(tasks, ui, storage);
-//                isExit = c.isExit();
-//            } catch (QiException e) {
-//                ui.showError(e.getMessage());
-//            } finally {
-//                ui.showLine();
-//                System.out.println();
-//            }
-//        }
-//    }
-
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
@@ -69,7 +46,7 @@ public class Qi {
     }
 
     public String showWelcome() {
-        return this.ui.showWelcome();
+        return "Qi:\n" + this.ui.showWelcome();
     }
 }
 

@@ -13,7 +13,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String checkBox = this.done ? "[D][X] " : "[D][ ] ";
+        String checkBox = this.isDone ? "[D][X] " : "[D][ ] ";
         String description = String.format("%s (by: %s)", this.task,
                 this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         return checkBox + description;

@@ -40,7 +40,7 @@ public class Parser {
                 int taskId = Integer.parseInt(command.substring(5));
                 return new MarkCommand(taskId);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new QiException("☹ OOPS!!! Please specify which task you want to mark.");
+                throw new QiException("OOPS!!! Please specify which task you want to mark!");
             }
         }
 
@@ -49,7 +49,7 @@ public class Parser {
                 int taskId = Integer.parseInt(command.substring(7));
                 return new UnmarkCommand(taskId);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new QiException("☹ OOPS!!! Please specify which task you want to unmark.");
+                throw new QiException("OOPS!!! Please specify which task you want to unmark!");
             }
         }
 
@@ -58,7 +58,7 @@ public class Parser {
                 String task = command.substring(5);
                 return new AddCommand(task);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new QiException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new QiException("OOPS!!! The description of a todo cannot be empty!");
             }
         }
 
@@ -73,7 +73,7 @@ public class Parser {
 
                 return new AddCommand(task, LocalDate.parse(deadline));
             } catch (StringIndexOutOfBoundsException e) {
-                throw new QiException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new QiException("OOPS!!! The description of a deadline cannot be empty!");
             }
         }
 
@@ -96,7 +96,7 @@ public class Parser {
                 String endTime = command.substring(idx2 + 4);
                 return new AddCommand(task, startTime, endTime);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new QiException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new QiException("OOPS!!! The description of an event cannot be empty!");
             }
         }
 
@@ -105,7 +105,7 @@ public class Parser {
                 int taskId = Integer.parseInt(command.substring(7));
                 return new DeleteCommand(taskId);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new QiException("☹ OOPS!!! Please specify which task you want to delete.");
+                throw new QiException("OOPS!!! Please specify which task you want to delete!");
             }
         }
 
@@ -114,7 +114,7 @@ public class Parser {
                 String keyWord = command.substring(5);
                 return new FindCommand(keyWord);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new QiException("☹ OOPS!!! Please specify the keyword you want to find.");
+                throw new QiException("OOPS!!! Please specify the keyword you want to find!");
             }
         }
 

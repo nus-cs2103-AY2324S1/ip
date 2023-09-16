@@ -12,7 +12,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String checkBox = this.done ? "[E][X] " : "[E][ ] ";
+        String checkBox = this.isDone ? "[E][X] " : "[E][ ] ";
         String description = String.format("%s (from: %s to: %s)", this.task, this.startTime, this.endTime);
         return checkBox + description;
     }
