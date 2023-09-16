@@ -113,7 +113,6 @@ Expected outcome:
 ```
 Nice! I've tagged this task: TASK
 ```
-<img src="/tag_example.png" alt="Tag Example" width="300" height="200">
 
 ![](/tag_example.png)
 
