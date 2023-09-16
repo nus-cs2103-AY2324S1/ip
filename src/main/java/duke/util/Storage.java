@@ -31,6 +31,7 @@ public class Storage {
     public ArrayList<String> load() throws NoFileException {
         File f = new File(filePath);
         ArrayList<String> fileData = new ArrayList<>();
+
         try {
             Scanner fileReader = new Scanner(f);
             while (fileReader.hasNextLine()) {
@@ -54,6 +55,7 @@ public class Storage {
             ArrayList<String> tasks = taskList.toWriteFormat();
             FileWriter fw = new FileWriter(this.filePath);
             for (String task : tasks) {
+                assert task != null : "adding null task";
                 fw.append(task);
                 fw.append(System.lineSeparator());
             }

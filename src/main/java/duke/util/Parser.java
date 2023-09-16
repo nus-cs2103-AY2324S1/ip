@@ -27,6 +27,9 @@ public class Parser {
      * @throws DukeException Exceptions that will be encountered during parsing
      */
     public static Command parseUserInput(String userInput) throws DukeException {
+
+        assert userInput != null;
+
         String[] fields = userInput.split("\\s+");
         switch (fields[0]) {
         case "list":
