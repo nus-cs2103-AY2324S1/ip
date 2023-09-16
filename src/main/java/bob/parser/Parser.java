@@ -1,5 +1,15 @@
 package bob.parser;
 
+import bob.data.command.ByeCommand;
+import bob.data.command.Command;
+import bob.data.command.DeadlineCommand;
+import bob.data.command.DeleteCommand;
+import bob.data.command.EventCommand;
+import bob.data.command.FindCommand;
+import bob.data.command.ListCommand;
+import bob.data.command.MarkCommand;
+import bob.data.command.TodoCommand;
+import bob.data.command.UnmarkCommand;
 import bob.data.exception.DukeException;
 
 /**
@@ -11,7 +21,7 @@ public class Parser {
     /**
      * Commands to be run based on the user's input.
      */
-    public enum Command {
+    public enum CommandType {
         BYE,
         LIST,
         MARK,
@@ -27,94 +37,98 @@ public class Parser {
      * Returns a command to be executed given a specified input provided by the user.
      *
      * @param input The input of the user.
-     * @return A command to be exectued which is based on the user input.
+     * @return A command to be executed which is based on the user input.
      * @throws DukeException If the first word of the input is not a valid command.
      */
     public Command parse(String input) throws DukeException {
-        String[] inputSplit = input.split(" ");
-        Command command = this.getCommand(input);
-        switch(command) {
+        CommandType commandType = getCommandType(input);
+        return validateCommand(commandType, input);
+    }
+
+    private CommandType getCommandType(String input) throws DukeException {
+        if (input.equals("bye")) {
+            return CommandType.BYE;
+        }
+        if (input.equals("list")) {
+            return CommandType.LIST;
+        }
+        if (input.startsWith("mark")) {
+            return CommandType.MARK;
+        }
+        if (input.startsWith("unmark")) {
+            return CommandType.UNMARK;
+        }
+        if (input.startsWith("delete")) {
+            return CommandType.DELETE;
+        }
+        if (input.startsWith("find")) {
+            return CommandType.FIND;
+        }
+        if (input.startsWith("todo")) {
+            return CommandType.TODO;
+        }
+        if (input.startsWith("deadline")) {
+            return CommandType.DEADLINE;
+        }
+        if (input.startsWith("event")) {
+            return CommandType.EVENT;
+        }
+        throw new DukeException("No such command.");
+    }
+
+    public Command validateCommand(CommandType commandType, String input) throws DukeException {
+        int commandWordCount = input.split(" ").length;
+        switch(commandType) {
         case BYE:
-            return Command.BYE;
+            return new ByeCommand();
         case LIST:
-            return Command.LIST;
+            return new ListCommand();
         case MARK:
-            if (inputSplit.length == 1) {
+            if (commandWordCount == 1) {
                 throw new DukeException(INPUT_TASK_NUMBER);
-            } else if (inputSplit.length > 2) {
+            } else if (commandWordCount > 2) {
                 throw new DukeException(INVALID_COMMAND);
             } else {
-                return Command.MARK;
+                return new MarkCommand(input);
             }
         case UNMARK:
-            if (inputSplit.length == 1) {
+            if (commandWordCount == 1) {
                 throw new DukeException(INPUT_TASK_NUMBER);
-            } else if (inputSplit.length > 2) {
+            } else if (commandWordCount > 2) {
                 throw new DukeException(INVALID_COMMAND);
             } else {
-                return Command.UNMARK;
+                return new UnmarkCommand(input);
             }
         case DELETE:
-            if (inputSplit.length == 1) {
+            if (commandWordCount == 1) {
                 throw new DukeException(INPUT_TASK_NUMBER);
-            } else if (inputSplit.length > 2) {
+            } else if (commandWordCount > 2) {
                 throw new DukeException(INVALID_COMMAND);
             } else {
-                return Command.DELETE;
+                return new DeleteCommand(input);
             }
         case FIND:
             if (input.length() == 4) {
                 throw new DukeException("Input something to search for.");
             }
-            return Command.FIND;
+            return new FindCommand(input);
         case TODO:
-            if (input.length() == 4 || inputSplit.length == 1) {
+            if (input.length() == 4 || commandWordCount == 1) {
                 throw new DukeException("Description of a todo cannot be empty");
             }
-            return Command.TODO;
+            return new TodoCommand(input);
         case DEADLINE:
-            if (input.length() == 8 || inputSplit.length == 1) {
+            if (input.length() == 8 || commandWordCount == 1) {
                 throw new DukeException("Description of a deadline cannot be empty");
             }
-            return Command.DEADLINE;
+            return new DeadlineCommand(input);
         case EVENT:
-            if (input.length() == 5 || inputSplit.length == 1) {
+            if (input.length() == 5 || commandWordCount == 1) {
                 throw new DukeException("Description of an event cannot be empty");
             }
-            return Command.EVENT;
+            return new EventCommand(input);
         default:
             throw new DukeException("No such command.");
         }
-    }
-
-    private Command getCommand(String input) throws DukeException {
-        if (input.equals("bye")) {
-            return Command.BYE;
-        }
-        if (input.equals("list")) {
-            return Command.LIST;
-        }
-        if (input.startsWith("mark")) {
-            return Command.MARK;
-        }
-        if (input.startsWith("unmark")) {
-            return Command.UNMARK;
-        }
-        if (input.startsWith("delete")) {
-            return Command.DELETE;
-        }
-        if (input.startsWith("find")) {
-            return Command.FIND;
-        }
-        if (input.startsWith("todo")) {
-            return Command.TODO;
-        }
-        if (input.startsWith("deadline")) {
-            return Command.DEADLINE;
-        }
-        if (input.startsWith("event")) {
-            return Command.EVENT;
-        }
-        throw new DukeException("I don't understand your command.");
     }
 }

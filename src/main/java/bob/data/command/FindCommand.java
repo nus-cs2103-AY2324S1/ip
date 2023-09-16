@@ -6,13 +6,13 @@ import bob.ui.Ui;
 
 public class FindCommand extends Command {
     private String taskToFind;
-    public FindCommand(String taskDescription, String taskToFind) {
-        super(taskDescription);
+    public FindCommand(String taskToFind) {
+        super();
         this.taskToFind = taskToFind;
     }
 
     @Override
-    public void execute(Storage storage, TaskList list, Ui ui) {
-        ui.print(list.find(this.taskToFind));
+    public String execute(Storage storage, TaskList list, Ui ui) {
+        return list.find(this.taskToFind);
     }
 }

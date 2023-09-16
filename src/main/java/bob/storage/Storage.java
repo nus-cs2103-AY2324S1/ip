@@ -52,7 +52,6 @@ public class Storage {
     /**
      * Reads the tasks in the datafile and writes it to the ArrayList for use by the chatbot.
      * @param list The ArrayList to store the tasks in.
-     * @return an ArrayList of tasks that were previously written in the datafile.
      * @throws FileNotFoundException if file cannot be found.
      * @throws DukeException if the EventTask is instantiated with wrong dates.
      */
