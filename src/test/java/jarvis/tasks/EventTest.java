@@ -15,7 +15,7 @@ public class EventTest {
         LocalDateTime to = LocalDateTime.parse("21/08/02 2000", formatter);
         Task task = new Event("Group Meeting", from, to, false);
         task.completeTask(true);
-        assertEquals("[E] [X] Group Meeting"
+        assertEquals("\uD83D\uDCC5 \u2611 Group Meeting"
                 + " (from: Aug 21 2002 07:00 PM to: Aug 21 2002 08:00 PM)", task.toString());
     }
 

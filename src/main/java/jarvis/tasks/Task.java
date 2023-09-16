@@ -12,7 +12,7 @@ public abstract class Task {
     private String description;
 
     /** Completion status of the task. */
-    private boolean completed;
+    private boolean isCompleted;
 
     /**
      * Constructs the task class.
@@ -21,7 +21,7 @@ public abstract class Task {
     public Task(String action) {
         assert !action.isBlank() : "Description of task is empty!";
         this.description = action;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -32,7 +32,7 @@ public abstract class Task {
     public Task(String action, boolean status) {
         assert !action.isBlank() : "Description of task is empty!";
         this.description = action;
-        this.completed = status;
+        this.isCompleted = status;
     }
 
     /**
@@ -41,7 +41,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return (this.completed ? "\u2611" : "\u2610") + " " + this.description;
+        return (this.isCompleted ? "\u2611" : "\u2610") + " " + this.description;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Task {
      * @return Required string representation in file format.
      */
     public String toFile() {
-        return " | " + (this.completed ? "X" : "O") + " | " + this.description;
+        return " | " + (this.isCompleted ? "X" : "O") + " | " + this.description;
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class Task {
      * @param isMark Given boolean value.
      */
     public void completeTask(boolean isMark) {
-        this.completed = isMark;
+        this.isCompleted = isMark;
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class Task {
      * @return Status of completion.
      */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     public boolean contains(String name) {
