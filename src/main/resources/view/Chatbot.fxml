@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="chatbot.ChatbotController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatbot.ChatbotController">
 
     <ScrollPane fx:id="scrollPane" fitToWidth="true" layoutY="5.0" prefHeight="345.0" prefWidth="590.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
         <content>
-            <VBox fx:id="dialogContainer" spacing="10.0"/>
+            <VBox fx:id="dialogContainer" spacing="10.0" />
         </content>
     </ScrollPane>
 
-    <TextField fx:id="inputField" onAction="#handleSendButtonClick" layoutY="355.0" prefHeight="30.0" prefWidth="500.0" promptText="Enter your command here..." AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0"/>
-    <Button fx:id="sendButton" layoutX="510.0" layoutY="355.0" prefHeight="30.0" prefWidth="80.0" text="Send" onAction="#handleSendButtonClick" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="5.0" />
+    <TextField fx:id="inputField" layoutY="355.0" onAction="#handleSendButtonClick" prefHeight="30.0" prefWidth="500.0" promptText="Enter your command here..." AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" />
+    <Button fx:id="sendButton" layoutX="510.0" layoutY="355.0" onAction="#handleSendButtonClick" prefHeight="30.0" prefWidth="80.0" text="Send" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="5.0" />
+   <ImageView fitHeight="120.0" fitWidth="164.0" pickOnBounds="true" preserveRatio="true" />
 
 
 </AnchorPane>

@@ -131,9 +131,6 @@ public class TaskManager {
         }
     }
 
-    public void printTasks() {
-        tasks.printTasks();
-    }
 
     /**
      * delete the task in the list and print.

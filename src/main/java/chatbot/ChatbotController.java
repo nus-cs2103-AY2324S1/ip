@@ -26,6 +26,7 @@ public class ChatbotController {
     private Chatbot chatbot;
 
     public void initialize() {
+      //DaDuke.png and DaUser.png both gotten from CS2103T page
         botImage = loadImage("/DaDuke.png");
         userImage = loadImage("/DaUser.png");
 

@@ -8,6 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Incharge with the function and the dislay of dialog box.
+ * some code are extract from CS2103T page.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
