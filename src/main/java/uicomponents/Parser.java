@@ -39,6 +39,8 @@ public class Parser {
             return Cracker.Type.LIST;
         case "bye":
             return Cracker.Type.QUIT;
+        case "clear":
+            return Cracker.Type.CLEAR;
 
         default:
             return Cracker.Type.UNKNOWN;

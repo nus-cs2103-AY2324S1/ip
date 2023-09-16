@@ -1,12 +1,7 @@
 package crackerpackage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.*;
+import java.nio.file.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -23,6 +18,8 @@ import uicomponents.Parser;
  */
 public class Storage {
 
+    final private File ARCHIVE = new File("./data/archive.txt");
+    final private File DATA_DIRECTORY = new File("./data");
     private File file;
 
     /**
@@ -45,9 +42,11 @@ public class Storage {
 
         FileWriter writer = null;
 
-        if (!this.file.exists()) {
+        if (!this.file.exists() && !DATA_DIRECTORY.exists()) {
             Path path = FileSystems.getDefault().getPath("data");
             Files.createDirectory(path);
+            this.file.createNewFile();
+        } else if (!this.file.exists()) {
             this.file.createNewFile();
         }
         writer = new FileWriter(file);
@@ -110,5 +109,41 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Puts the task in an archive
+     *
+     * @param task the task to be put in archive
+     */
+    public void archive(String task) {
+        if (!this.ARCHIVE.exists() && !DATA_DIRECTORY.exists()) {
+            Path path = FileSystems.getDefault().getPath("data");
+            try {
+                Files.createDirectory(path);
+                this.ARCHIVE.createNewFile();
+            } catch(IOException e){
+                //should not happen
+                System.out.println(e);
+                System.out.println("Error creating archive");
+            }
+        } else if (!this.ARCHIVE.exists()) {
+            try {
+                this.ARCHIVE.createNewFile();
+            } catch(IOException e) {
+                //should not happen
+                System.out.println(e);
+                System.out.println("Error creating archive");
+            }
+        }
+        try {
+            FileWriter fr = new FileWriter(ARCHIVE, true);
+            BufferedWriter br = new BufferedWriter(fr);
+            br.write(task + "\n");
+            br.close();
+            fr.close();
+        } catch (IOException e){
+            //should not happen
+            System.out.println("Error creating archive");
+        }
+    }
 
 }

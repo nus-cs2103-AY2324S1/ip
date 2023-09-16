@@ -35,7 +35,8 @@ public class Cracker {
         UNKNOWN,
         LIST,
         QUIT,
-        FIND
+        FIND,
+        CLEAR
     }
 
     public String getResponse(String input) {
@@ -51,6 +52,7 @@ public class Cracker {
                 return reply.modifyTaskReply(list.getTask(Parser.parseIndex(input)));
             case DELETE:
                 String cachedReply = reply.deleteTaskReply(list.getTask(Parser.parseIndex(input)), list.size() - 1);
+                storage.archive(list.getTask(Parser.parseIndex(input)).toString());
                 list.deleteTask(Parser.parseIndex(input));
                 return cachedReply;
             case TASK:
@@ -73,6 +75,15 @@ public class Cracker {
                     return "Bye! Your tasks have been saved!";
                 } catch (IOException e) {
                     return "Something wrong happened when saving your tasks";
+                }
+            case CLEAR:
+                try {
+                    while(true){
+                        storage.archive(list.getTask(0).toString());
+                        list.deleteTask(0);
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    return "All tasks have been cleared!";
                 }
             default:
                 return "";
