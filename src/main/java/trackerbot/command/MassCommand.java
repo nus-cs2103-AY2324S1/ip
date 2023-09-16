@@ -5,7 +5,7 @@ import trackerbot.gui.UiHandler;
 import trackerbot.task.TaskList;
 import trackerbot.utils.Parser;
 
-public class MassCommand extends Command {
+class MassCommand extends Command {
     private final String commandFields;
 
     MassCommand(String commandFields) {
