@@ -16,7 +16,7 @@ import robert.ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Robert robert = new Robert("data/tasks.txt");
+    private Robert robert = new Robert("src/data/tasks.txt");
 
     @Override
     public void start(Stage stage) {
