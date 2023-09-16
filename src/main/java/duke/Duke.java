@@ -58,6 +58,7 @@ public class Duke {
      * Represents the storage functionality for Duke.
      */
     private Storage storage;
+    private boolean isRunning;
 
 
 
@@ -67,15 +68,18 @@ public class Duke {
     public Duke() {
         this.tasks = new Tasklist();
         this.storage = new Storage(FILE_PATH);
+        this.isRunning = true;
     }
 
     /**
      * Saves tasks to storage and exits the application.
      */
     private void exit() {
+        assert this.isRunning;
         try {
             storage.saveFile(tasks);
             Ui.exit();
+            this.isRunning = false;
         } catch (IOException e) {
             System.out.println("Error when saving data!");
         }
