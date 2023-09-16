@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("gui.Fishron")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
@@ -54,6 +54,7 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {

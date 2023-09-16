@@ -153,4 +153,12 @@ public class Ui {
         }
         return output;
     }
+
+    /**
+     * Displays a message to indicate that the input is unrecognised.
+     * @return A String to represent an error for an invalid input.
+     */
+    public String showUnrecognisedInput() {
+        return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    }
 }

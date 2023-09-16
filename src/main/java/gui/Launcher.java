@@ -13,7 +13,6 @@ public class Launcher {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        // Launch the Fishron application using JavaFX Application.launch
         Application.launch(Fishron.class, args);
     }
 }

@@ -31,6 +31,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert taskList != null;
         this.taskList.add(task);
     }
 
@@ -40,6 +41,7 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
+        assert taskList != null;
         this.taskList.remove(index - 1);
     }
 
@@ -58,6 +60,7 @@ public class TaskList {
      * @return The number of tasks.
      */
     public int getSize() {
+        assert taskList != null;
         return this.taskList.size();
     }
 
@@ -67,6 +70,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void markAsDone(int index) {
+        assert taskList != null;
         this.taskList.get(index - 1).markAsDone();
     }
 
@@ -76,6 +80,7 @@ public class TaskList {
      * @param index The index of the task to be marked as undone.
      */
     public void markAsUndone(int index) {
+        assert taskList != null;
         this.taskList.get(index - 1).markAsUndone();
     }
 
@@ -86,6 +91,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert taskList != null;
         return this.taskList.get(index - 1);
     }
 
@@ -96,6 +102,7 @@ public class TaskList {
      * @return An ArrayList of tasks containing the specified keyword.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
+        assert taskList != null;
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
