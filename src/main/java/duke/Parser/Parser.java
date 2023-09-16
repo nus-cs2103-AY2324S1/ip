@@ -78,7 +78,10 @@ public class Parser {
             } else if (command.equals("MARK")){
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index <= tasks.getNumberOfTask() - 1) {
+                    if (index < 0) {
+                        throw new DukeException("There is no task number " + (index + 1));
+                    } else if (index <= tasks.getNumberOfTask() - 1) {
+                        assert index > -1;
                         tasks.getTask(index).changeMarkStatus(true);
                         return ui.markAsDone(tasks.getTask(index));
                     } else {
@@ -88,7 +91,10 @@ public class Parser {
             } else if (command.equals("UNMARK")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index <= tasks.getNumberOfTask() - 1) {
+                    if (index < 0) {
+                        throw new DukeException("There is no task number " + (index + 1));
+                    } else if (index <= tasks.getNumberOfTask() - 1) {
+                        assert index > -1;
                         tasks.getTask(index).changeMarkStatus(false);
                         return ui.markAsNotDone(tasks.getTask(index));
                     } else {
@@ -98,7 +104,10 @@ public class Parser {
             } else if (command.equals("DELETE")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index <= tasks.getNumberOfTask() - 1) {
+                    if (index < 0) {
+                        throw new DukeException("There is no task number " + (index + 1));
+                    } else if (index <= tasks.getNumberOfTask() - 1) {
+                        assert index > -1;
                         targetTask = tasks.getTask(index);
                         tasks.deleteTask(index);
                         return ui.deleteTask(targetTask, tasks.getNumberOfTask());
