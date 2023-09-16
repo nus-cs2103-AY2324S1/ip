@@ -92,9 +92,9 @@ public class TaskList {
     }
 
     /**
-     * Returns a stream of tasks.
+     * Returns a stream of the tasks in the task list.
      * 
-     * @return A stream of tasks.
+     * @return A stream of the tasks in the task list.
      */
     public Stream<Task> stream() {
         return this.list.stream();

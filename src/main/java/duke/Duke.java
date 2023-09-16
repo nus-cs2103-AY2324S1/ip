@@ -2,7 +2,6 @@ package duke;
 
 import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.InvalidCommand;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskList;
