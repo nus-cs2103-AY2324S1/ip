@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextArea?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextArea fx:id="dialog" text="Your Text Here" wrapText="true" editable="false" focusTraversable="false" style="-fx-text-fill: black; -fx-control-inner-background: lightgreen;">
+            <padding>
+                <Insets right="10.0" />
+            </padding>
+            <font>
+                <Font name="Georgia" size="14.0" />
+            </font>
+        </TextArea>
+        <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
