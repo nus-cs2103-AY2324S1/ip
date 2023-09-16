@@ -28,12 +28,28 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public void markDone() {
+    /**
+     * Marks a task as done.
+     * @return boolean whether successfully marked as done
+     */
+    public boolean markDone() {
+        if (this.isDone) {
+            return false;
+        }
         this.isDone = true;
+        return true;
     }
 
-    public void unmarkDone() {
+    /**
+     * Marks a task as not done.
+     * @return boolean whether successfully marked as not done
+     */
+    public boolean unmarkDone() {
+        if (!this.isDone) {
+            return false;
+        }
         this.isDone = false;
+        return true;
     }
 
     public boolean isToday(String dateStr) throws DukeException {

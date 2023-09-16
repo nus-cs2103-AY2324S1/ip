@@ -26,7 +26,7 @@ public class Ui {
      * Displays the list of all available commands.
      */
     public String all() {
-        String res = "New user? Here are my command list and their alias:\n";
+        String res = "Here are my command list and their alias:\n";
         res += "1. list / l\n";
         res += "2. deadline / d\n";
         res += "3. event / e\n";
@@ -120,13 +120,17 @@ public class Ui {
     }
 
     /**
-     * Marks specified task as done.
-     * @param tasks TaskList
+     * Marks a task as done.
      * @param task task to be marked
+     * @param success whether task is successfully marked
      */
-    public String mark(TaskList tasks, Task task) {
+    public String mark(Task task, boolean success) {
         String res = "";
-        res += "Nice! I've marked this task as done:\n";
+        if (success) {
+            res += "Nice! I've marked this task as done:\n";
+        } else {
+            res += "This task was already marked as done:\n";
+        }
         res += "  " + task.toString();
         return res;
     }
@@ -140,13 +144,17 @@ public class Ui {
     }
 
     /**
-     * Marks specified task as undone.
-     * @param tasks TaskList
+     * Marks a task as not done.
      * @param task task to be unmarked
+     * @param success whether task is successfully unmarked
      */
-    public String unmark(TaskList tasks, Task task) {
+    public String unmark(Task task, boolean success) {
         String res = "";
-        res += "OK, I've marked this task as not done yet:\n";
+        if (success) {
+            res += "OK, I've marked this task as not done yet:\n";
+        } else {
+            res += "This task was already marked as not done yet:\n";
+        }
         res += "  " + task.toString();
         return res;
     }

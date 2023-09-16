@@ -26,12 +26,23 @@ import duke.task.ToDo;
  * Provides static methods to parse user queries and data file.
  */
 public class Parser {
-    private static final String emptyDeadlineDate = "Please specify deadline date using /by\n"
+    private static final String EMPTY_DEADLINE_DATE = "Please specify deadline date using /by\n"
         + "e.g. deadline report /by 2023-12-31";
-    private static final String emptyEventDate = "Please specify event start and end dates using /from and /to\n"
+    private static final String EMPTY_EVENT_DATE = "Please specify event start and end dates using /from and /to\n"
         + "e.g. event holiday /from 2023-06-01 /to 2023-06-30";
-    private static final String invalidDate = "Please provide date with the following format: YYYY-MM-DD";
-    private static final String invalidEndDate = "Your end date is before start date";
+    private static final String EMPTY_DEADLINE_DESC = "The description of a deadline cannot be empty.";
+    private static final String EMPTY_EVENT_DESC = "The description of a event cannot be empty.";
+    private static final String EMPTY_KEYWORD = "What are you trying to find?";
+    private static final String EMPTY_MARK_INDEX = "Please specify the index of which task you would like to mark.";
+    private static final String EMPTY_UNMARK_INDEX = "Please specify the index of which task you would like to unmark.";
+    private static final String EMPTY_TODO_DESC = "The description of a todo cannot be empty.";
+    private static final String ERROR_DATE_PARSE_FILE = "Error parsing date in file";
+    private static final String ERROR_NUMBER_FORMAT = "Seems like it's not a number.";
+    private static final String ERROR_PARSING_FILE = "Error parsing file data";
+    private static final String INVALID_COMMAND = "I'm sorry, but I don't know what that means :-(";
+    private static final String INVALID_DATE = "Please provide date with the following format: YYYY-MM-DD";
+    private static final String INVALID_END_DATE = "Your end date is before start date";
+    private static final String INVALID_QUERY_LIST = "Invalid query list of 0 length.";
 
     /**
      * Converts a String date from YYYY-MM-DD to d MMM yyyy format.
@@ -44,7 +55,7 @@ public class Parser {
             LocalDate date = LocalDate.parse(dateStr);
             return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         } catch (DateTimeException e) {
-            throw new DukeException(invalidDate);
+            throw new DukeException(INVALID_DATE);
         }
     }
 
@@ -69,7 +80,7 @@ public class Parser {
     public static Task parseFile(String s) throws DukeException {
         String[] q = s.trim().split(",>");
         List<String> queryList = Arrays.asList(q);
-        assert queryList.size() > 0 : "Not a valid data.";
+        assert queryList.size() > 0 : INVALID_QUERY_LIST;
         try {
             switch (q[0]) {
             case "deadline":
@@ -79,10 +90,10 @@ public class Parser {
             case "todo":
                 return new ToDo(q[1], q[2].equals("X"));
             default:
-                throw new DukeException("Error parsing file data");
+                throw new DukeException(ERROR_PARSING_FILE);
             }
         } catch (DateTimeException e) {
-            throw new DukeException("Error parsing date in file");
+            throw new DukeException(ERROR_DATE_PARSE_FILE);
         }
     }
 
@@ -93,9 +104,9 @@ public class Parser {
      * @throws DukeException if no deadline description, invalid format, or invalid date
      */
     private static Deadline parseUserDeadline(List<String> queryList) throws DukeException {
-        assert queryList.size() > 0 : "Invalid query list of 0 length.";
+        assert queryList.size() > 0 : INVALID_QUERY_LIST;
         if (queryList.size() < 2) {
-            throw new DukeException("The description of a deadline cannot be empty.");
+            throw new DukeException(EMPTY_DEADLINE_DESC);
         }
         String name = "";
         String deadlineString = "";
@@ -114,13 +125,13 @@ public class Parser {
             }
         }
         if (deadlineString.equals("")) {
-            throw new DukeException(emptyDeadlineDate);
+            throw new DukeException(EMPTY_DEADLINE_DATE);
         }
         try {
             LocalDate deadline = LocalDate.parse(deadlineString);
             return new Deadline(name, deadline);
         } catch (DateTimeException e) {
-            throw new DukeException(invalidDate);
+            throw new DukeException(INVALID_DATE);
         }
     }
 
@@ -131,9 +142,9 @@ public class Parser {
      * @throws DukeException if no event description, invalid format, or invalid date
      */
     private static Event parseUserEvent(List<String> queryList) throws DukeException {
-        assert queryList.size() > 0 : "Invalid query list of 0 length.";
+        assert queryList.size() > 0 : INVALID_QUERY_LIST;
         if (queryList.size() < 2) {
-            throw new DukeException("The description of a event cannot be empty.");
+            throw new DukeException(EMPTY_EVENT_DESC);
         }
         String name = "";
         String fromStr = "";
@@ -162,18 +173,30 @@ public class Parser {
                 toStr += queryList.get(i);
             }
         }
+        return checkEvent(name, fromStr, toStr);
+    }
+
+    /**
+     * Checks event parameters to be valid.
+     * @param name event name
+     * @param fromStr from date
+     * @param toStr to date
+     * @return event
+     * @throws DukeException if invalid parameters
+     */
+    private static Event checkEvent(String name, String fromStr, String toStr) throws DukeException {
         if (fromStr.equals("") || toStr.equals("")) {
-            throw new DukeException(emptyEventDate);
+            throw new DukeException(EMPTY_EVENT_DATE);
         }
         try {
             LocalDate from = LocalDate.parse(fromStr);
             LocalDate to = LocalDate.parse(toStr);
             if (from.compareTo(to) > 0) {
-                throw new DukeException(invalidEndDate);
+                throw new DukeException(INVALID_END_DATE);
             }
             return new Event(name, from, to);
         } catch (DateTimeException e) {
-            throw new DukeException(invalidDate);
+            throw new DukeException(INVALID_DATE);
         }
     }
 
@@ -184,9 +207,9 @@ public class Parser {
      * @throws DukeException if no todo description
      */
     public static ToDo parseUserToDo(List<String> queryList) throws DukeException {
-        assert queryList.size() > 0 : "Invalid query list of 0 length.";
+        assert queryList.size() > 0 : INVALID_QUERY_LIST;
         if (queryList.size() < 2) {
-            throw new DukeException("The description of a todo cannot be empty.");
+            throw new DukeException(EMPTY_TODO_DESC);
         }
         String name = "";
         for (int i = 1; i < queryList.size(); i++) {
@@ -203,9 +226,9 @@ public class Parser {
      * @throws DukeException if no keywoard given
      */
     public static String parseUserFind(List<String> queryList) throws DukeException {
-        assert queryList.size() > 0 : "Invalid query list of 0 length.";
+        assert queryList.size() > 0 : INVALID_QUERY_LIST;
         if (queryList.size() < 2) {
-            throw new DukeException("What are you trying to find?");
+            throw new DukeException(EMPTY_KEYWORD);
         }
         String keyword = "";
         for (int i = 1; i < queryList.size(); i++) {
@@ -223,7 +246,7 @@ public class Parser {
      */
     public static Command parse(String input) throws DukeException {
         List<String> queryList = convertToList(input);
-        assert queryList.size() > 0 : "Invalid query list of 0 length.";
+        assert queryList.size() > 0 : INVALID_QUERY_LIST;
         switch (queryList.get(0)) {
 
         case "":
@@ -238,7 +261,7 @@ public class Parser {
         case "a":
         case "date":
             if (queryList.size() < 2) {
-                throw new DukeException("Please specify date with the following format: YYYY-MM-DD");
+                throw new DukeException(INVALID_DATE);
             }
             return new DateCommand(queryList.get(1));
 
@@ -247,15 +270,13 @@ public class Parser {
         case "deadline":
             return new AddCommand(parseUserDeadline(queryList));
 
-        case "9":
-        case "del":
-        case "delete":
-            try {
-                int index = Integer.parseInt(queryList.get(1)) - 1;
-                return new DeleteCommand(index);
-            } catch (NumberFormatException e) {
-                throw new DukeException(e);
-            }
+        default:
+            return parseHelper(queryList);
+        }
+    }
+
+    private static Command parseHelper(List<String> queryList) throws DukeException {
+        switch (queryList.get(0)) {
 
         case "3":
         case "e":
@@ -280,9 +301,27 @@ public class Parser {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
                 return new MarkCommand(index);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Please specify the index of which task you would like to mark.");
+                throw new DukeException(EMPTY_MARK_INDEX);
             } catch (NumberFormatException e) {
-                throw new DukeException("Seems like it's not a number.");
+                throw new DukeException(ERROR_NUMBER_FORMAT);
+            }
+
+        default:
+            return parseHelper2(queryList);
+        }
+    }
+
+    private static Command parseHelper2(List<String> queryList) throws DukeException {
+        switch (queryList.get(0)) {
+
+        case "9":
+        case "del":
+        case "delete":
+            try {
+                int index = Integer.parseInt(queryList.get(1)) - 1;
+                return new DeleteCommand(index);
+            } catch (NumberFormatException e) {
+                throw new DukeException(e);
             }
 
         case "4":
@@ -297,13 +336,13 @@ public class Parser {
                 int index = Integer.parseInt(queryList.get(1)) - 1;
                 return new UnmarkCommand(index);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Please specify the index of which task you would like to unmark.");
+                throw new DukeException(EMPTY_UNMARK_INDEX);
             } catch (NumberFormatException e) {
-                throw new DukeException("Seems like it's not a number.");
+                throw new DukeException(ERROR_NUMBER_FORMAT);
             }
 
         default:
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            throw new DukeException(INVALID_COMMAND);
         }
     }
 }

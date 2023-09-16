@@ -8,12 +8,7 @@ import org.junit.jupiter.api.Test;
 import duke.DukeException;
 
 public class ParserTest {
-    private String emptyDeadlineDate = "Please specify deadline date using /by\n"
-        + "e.g. deadline report /by 2023-12-31";
-    private String emptyEventDate = "Please specify event start and end dates using /from and /to\n"
-        + "e.g. event holiday /from 2023-06-01 /to 2023-06-30";
-    private String invalidDate = "Please provide date with the following format: YYYY-MM-DD";
-    private String invalidEndDate = "Your end date is before start date";
+    private static final String INVALID_DATE = "Please provide date with the following format: YYYY-MM-DD";
 
     @Test
     public void convertToDmy_correctDate_success() {
@@ -30,7 +25,7 @@ public class ParserTest {
             Parser.convertToDmy("lol");
             fail();
         } catch (DukeException e) {
-            assertEquals(invalidDate, e.toString());
+            assertEquals(INVALID_DATE, e.toString());
         }
     }
 }

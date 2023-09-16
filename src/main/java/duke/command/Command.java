@@ -18,7 +18,7 @@ public abstract class Command {
     }
 
     /**
-     * All command classes implement this execute function.
+     * Provides a template to execute function.
      * @param tasks
      * @param ui
      * @throws DukeException

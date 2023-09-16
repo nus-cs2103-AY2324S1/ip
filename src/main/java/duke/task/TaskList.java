@@ -19,28 +19,26 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Marks task of specified index as done.
      * @param index Specified index
-     * @return Task marked as done
+     * @return boolean whether successfully marked as done
      * @throws DukeException if invalid task index
      */
-    public Task markDone(int index) throws DukeException {
+    public boolean markDone(int index) throws DukeException {
         if (index < 0 || index >= super.size()) {
             throw new DukeException("Invalid task index");
         }
-        super.get(index).markDone();
-        return super.get(index);
+        return super.get(index).markDone();
     }
 
     /**
      * Marks task of specified index as undone.
      * @param index Specified index
-     * @return Task marked as undone
+     * @return boolean whether successfully marked as undone
      * @throws DukeException if invalid task index
      */
-    public Task unmarkDone(int index) throws DukeException {
+    public boolean unmarkDone(int index) throws DukeException {
         if (index < 0 || index >= super.size()) {
             throw new DukeException("Invalid task index");
         }
-        super.get(index).unmarkDone();
-        return super.get(index);
+        return super.get(index).unmarkDone();
     }
 }

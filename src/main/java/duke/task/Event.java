@@ -10,7 +10,7 @@ import duke.DukeException;
  * Represents an event inherits from a Task.
  */
 public class Event extends Task {
-    private static final String invalidDate = "Please provide dates with the following format: YYYY-MM-DD";
+    private static final String INVALID_DATE = "Please provide dates with the following format: YYYY-MM-DD";
     private LocalDate from;
     private LocalDate to;
 
@@ -50,7 +50,7 @@ public class Event extends Task {
             LocalDate date = LocalDate.parse(dateStr);
             return this.from.compareTo(date) <= 0 && date.compareTo(to) <= 0;
         } catch (DateTimeException e) {
-            throw new DukeException(invalidDate);
+            throw new DukeException(INVALID_DATE);
         }
     }
 

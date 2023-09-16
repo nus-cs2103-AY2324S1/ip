@@ -63,8 +63,9 @@ public class MainWindow extends AnchorPane {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response from Duke.
+     * @param input user input
+     * @return Duke response
      */
     private String getResponse(String input) {
         try {
