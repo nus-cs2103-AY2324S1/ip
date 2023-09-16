@@ -1,6 +1,7 @@
 package oreo.parser;
 
 import oreo.command.*;
+import oreo.exception.IllegalCommandException;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -28,19 +29,23 @@ public class Parser {
         }
 
         switch (command) {
-        case("bye") :
+        case "bye" :
             return new ByeCommand();
-        case("list") :
+        case "list" :
             return new ListCommand();
-        case("unmark") :
-        case("mark") :
+        case "unmark" :
+        case "mark" :
             return new MarkUnmarkCommand(command, tokeniser);
-        case("delete") :
+        case "delete" :
             return new DeleteCommand(tokeniser);
-        case("find") :
+        case "find" :
             return new FindCommand(tokeniser);
-        default:
+        case "todo":
+        case "deadline" :
+        case "event" :
             return new AddCommand(command, tokeniser);
+        default:
+            return new InvalidCommand();
         }
     }
 }

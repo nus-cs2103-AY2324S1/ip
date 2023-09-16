@@ -71,6 +71,7 @@ public class MainWindow extends AnchorPane {
             String fileCorruptMessage = "saved file is corrupt, creating new file...";
             dialogContainer.getChildren().addAll(
                     DialogBox.getOreoDialog(fileCorruptMessage, oreoImage));
+            greetUser();
         }
     }
 

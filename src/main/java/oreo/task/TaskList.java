@@ -110,7 +110,7 @@ public class TaskList {
      * @param command mark or unmark
      * @param tokeniser number for which task is to be mark/unmark
      * @return String of whether mark/unmark was succesful or if all task is complete
-     * @throws IllegalCommandExceptiontask if command is in invalid format
+     * @throws IllegalCommandException task if command is in invalid format
      */
     public String changeMark(String command, Scanner tokeniser) throws IllegalCommandException {
         if (!tokeniser.hasNext()) {

@@ -56,12 +56,10 @@ public abstract class Task implements Comparable<Task> {
     public static Task generateTask(String command, Scanner tokeniser) throws IllegalCommandException,
             IllegalDateTimeException {
         Task newTask;
-        if (!command.equals("todo") && !command.equals("deadline")
-            && !command.equals("event")) {
-            throw new IllegalCommandException("do that");
-        } else if (!tokeniser.hasNext()) {
+        if (!tokeniser.hasNext()) {
             throw new IllegalCommandException("process an empty task");
         }
+
         if (command.equals("todo")) {
             String contents = tokeniser.nextLine();
             if (contents.contains("/by")) {
