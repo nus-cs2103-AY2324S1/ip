@@ -71,6 +71,7 @@ public class Parser {
      * @throws InvalidCommandException If the command is invalid.
      */
     public static String getCommand(String userInput) throws DukeException {
+        assert !userInput.isBlank() : "user input should not be empty";
         String[] inputParts = userInput.split(" ", 2);
 
         // Check if a valid addTask command is entered

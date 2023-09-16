@@ -18,6 +18,7 @@ public class Event extends Task {
         initializeEvent();
     }
 
+<<<<<<< HEAD
     private void initializeEvent() throws DukeException {
         String[] splitString = description.split("/from");
 
@@ -34,12 +35,50 @@ public class Event extends Task {
         } else {
             // Formats the string if '/to' comes before '/from'
             endTimeString = splitString[0].split("/to")[1].trim();
+=======
+        if (fromParts.length >= 2) {
+            assert !fromParts[0].isBlank();
+            this.description = fromParts[0].split("/to")[0].trim();
+            assert !fromParts[1].isBlank();
+            String[] partAfterFrom = fromParts[1].split("/to");
+            String startTimeString = partAfterFrom[0].trim(); // it should be in (d/M/yyyy h:m a) eg (15/3/2023 6:40 PM)
+
+            // Format the string and parse it into startTime
+            this.startTime = super.parseDateTime(startTimeString);
+            if (partAfterFrom.length >= 2) {
+                // '/to' is after '/from'
+                assert !partAfterFrom[0].isBlank();
+                assert !partAfterFrom[1].isBlank();
+                String endTimeString = partAfterFrom[1].trim();
+                // Format the string and parse it into endTime
+                this.endTime = super.parseDateTime(endTimeString);
+            } else {
+                // '/to' is before '/from'
+                String endTimeString = fromParts[0].split("/to")[1].trim();
+                // Format the string and parse it into endTime
+                this.endTime = super.parseDateTime(endTimeString);
+            }
+        } else if (toParts.length >= 2) {
+            assert !toParts[0].isBlank();
+            assert !toParts[1].isBlank();
+            String[] parts = toParts[1].split("/from");
+            this.description = toParts[0].trim();
+            String endTimeString = parts[0].trim();
+            // Format the string and parse it into endTime
+            this.endTime = super.parseDateTime(endTimeString);
+            if (parts.length > 1) {
+                String startTimeString = parts[1].trim();
+                // Format the string and parse it into endTime
+                this.startTime = super.parseDateTime(startTimeString);
+            }
+>>>>>>> master
         }
         this.endTime = super.parseDateTime(endTimeString);
     }
 
     public Event(String description, String startTimeString, String endTimeString) {
         super(description);
+        assert !startTimeString.isBlank() && !endTimeString.isBlank() : "No start and end time";
         this.startTime = LocalDateTime.parse(startTimeString);
         this.endTime = LocalDateTime.parse(endTimeString);
     }
