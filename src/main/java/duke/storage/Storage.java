@@ -15,17 +15,21 @@ import duke.task.Task;
  */
 public class Storage {
 
-    /** The file path of the storage */
+    /** The complete file path of the storage file, including directory and file name. */
     private final String completeFilePath;
 
+    /** The directory path where the storage file is located. */
     private final String directoryPath;
 
+    /** The file object representing the storage file. */
     private final File saveFile;
 
     /**
-     * Constructs a Storage object with the given file path.
+     * Constructs a Storage object with the given directory name and file name.
      *
-     * @param filePath The file path of the file to be used for storage.
+     * @param directoryName The name of the directory where the file is stored.
+     * @param fileName The name of the file for storage.
+     * @throws DukeException If there's an error while initializing the storage.
      */
     public Storage(String directoryName, String fileName) throws DukeException {
         this.directoryPath = "./" + directoryName;
@@ -37,6 +41,8 @@ public class Storage {
 
     /**
      * Checks if the duke.txt file exists, and if not, creates an empty one.
+     *
+     * @throws DukeException If there's an error creating the file or directory.
      */
     private void createFileIfNotExists() throws DukeException {
         try {
