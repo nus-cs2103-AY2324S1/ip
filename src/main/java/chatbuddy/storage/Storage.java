@@ -36,14 +36,25 @@ public class Storage {
      * @throws ChatBuddyException If there is an error creating or finding the file.
      */
     public ArrayList<Task> load() throws ChatBuddyException {
-        // load file from hard disk
+        File file = getFile();
+        ArrayList<Task> taskList = getTasks(file);
+        return taskList;
+    }
+
+    /**
+     * Returns file based on filePath.
+     *
+     * @return The file with the given filePath.
+     * @throws ChatBuddyException If there is an error creating the file if the file does not exist.
+     */
+    private File getFile() throws ChatBuddyException {
         File file = new File(this.filePath);
         File parentDirectory = file.getParentFile();
 
-        // check for existence of parentDirectory and file
         if (!parentDirectory.exists()) {
             parentDirectory.mkdir();
         }
+
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -52,20 +63,28 @@ public class Storage {
             }
         }
 
-        // load data from file
+        return file;
+    }
+
+    /**
+     * Returns a list of tasks based on the data in the file.
+     *
+     * @param file The file to read the data from.
+     * @return A list of tasks based on the data in the file.
+     * @throws ChatBuddyException If the file is not found.
+     */
+    private ArrayList<Task> getTasks(File file) throws ChatBuddyException {
         ArrayList<Task> taskList = new ArrayList<>();
 
         try {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
-                // populate task array
                 Task task = Parser.parseToTask(fileScanner.nextLine());
                 taskList.add(task);
             }
         } catch (FileNotFoundException e) {
             throw new ChatBuddyException("Data file not found.");
         }
-
         return taskList;
     }
 
@@ -80,13 +99,24 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
             ArrayList<String> taskStrings = tasks.getTaskStringsToSave();
-            for (String taskString : taskStrings) {
-                fileWriter.write(taskString + System.lineSeparator());
-            }
+            writeListToFile(fileWriter, taskStrings);
             fileWriter.close();
         } catch (IOException e) {
             throw new ChatBuddyException("Error saving data into file.");
         }
 
+    }
+
+    /**
+     * Adds list of strings to a file.
+     *
+     * @param fileWriter The filewriter used to write the strings into the file.
+     * @param taskStrings The list of strings to add to the file.
+     * @throws IOException If there is an error writing the string to the file.
+     */
+    private void writeListToFile(FileWriter fileWriter, ArrayList<String> taskStrings) throws IOException {
+        for (String taskString : taskStrings) {
+            fileWriter.write(taskString + System.lineSeparator());
+        }
     }
 }

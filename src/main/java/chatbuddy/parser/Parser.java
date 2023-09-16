@@ -85,7 +85,8 @@ public class Parser {
      * @throws ChatBuddyException If the description of the task is empty or consists only of whitespace.
      */
     private static TodoCommand prepareAddTodo(String args) throws ChatBuddyException {
-        if (args.trim().equals("")) {
+        boolean isDescriptionEmpty = args.trim().equals("");
+        if (isDescriptionEmpty) {
             throw new ChatBuddyException("The description of a todo cannot be empty.");
         }
         return new TodoCommand(args);
@@ -101,8 +102,11 @@ public class Parser {
     private static DeadlineCommand prepareAddDeadline(String args) throws ChatBuddyException {
         String[] arr = args.split(" /by ");
         String taskDescription = arr[0].trim();
+
         // check validity of arguments
-        if (taskDescription.equals("") || arr.length == 1 || arr[1].trim().equals("")) {
+        boolean isDescriptionEmpty = taskDescription.equals("");
+        boolean isDeadlineGiven = arr.length > 1 && !arr[1].trim().equals("");
+        if (isDescriptionEmpty || !isDeadlineGiven) {
             throw new ChatBuddyException("Please input deadlines in the format "
                     + "'deadline [task description] /by [deadline in dd/MM/yyyy]'.\n"
                     + "The task description and deadline cannot be empty.");
@@ -125,14 +129,19 @@ public class Parser {
         // check validity of arguments
         String[] arr = args.split(" /from ");
         String taskDescription = arr[0].trim();
-        if (taskDescription.equals("") || arr.length == 1 || arr[1].trim().equals("")) {
+
+        boolean isDescriptionEmpty = taskDescription.equals("");
+        boolean isFromKeywordGiven = arr.length > 1;
+        if (isDescriptionEmpty || !isFromKeywordGiven) {
             throw new ChatBuddyException("Please input events in the format "
                     + "'event [task description] /from [dd/MM/yyyy HHmm] /to [dd/MM/yyyy HHmm]'.\n"
                     + "The task description, from datetime and to datetime cannot be empty.");
         }
 
         String[] dateTimeArgs = arr[1].trim().split(" /to ");
-        if (dateTimeArgs[0].trim().equals("") || dateTimeArgs.length == 1 || dateTimeArgs[1].trim().equals("")) {
+        boolean isFromGiven = !dateTimeArgs[0].trim().equals("");
+        boolean isToGiven = dateTimeArgs.length > 1 && !dateTimeArgs[1].trim().equals("");
+        if (!isFromGiven || !isToGiven) {
             throw new ChatBuddyException("Please input events in the format "
                     + "'event [task description] /from [dd/MM/yyyy HHmm] /to [dd/MM/yyyy HHmm]'.\n"
                     + "The task description, from datetime and to datetime cannot be empty.");
@@ -240,14 +249,11 @@ public class Parser {
         // create task object
         Task task;
         if (taskType.equals("T")) {
-            task = new ToDo(taskDescription);
+            task = createToDo(taskDescription);
         } else if (taskType.equals("D")) {
-            LocalDate by = parseDate(taskData[3]);
-            task = new Deadline(taskDescription, by);
+            task = createDeadline(taskDescription, taskData[3]);
         } else if (taskType.equals("E")) {
-            LocalDateTime from = parseDateTime(taskData[3]);
-            LocalDateTime to = parseDateTime(taskData[4]);
-            task = new Event(taskDescription, from, to);
+            task = createEvent(taskDescription, taskData[3], taskData[4]);
         } else {
             throw new ChatBuddyException("Error parsing data from file");
         }
@@ -258,5 +264,43 @@ public class Parser {
         }
 
         return task;
+    }
+
+    /**
+     * Returns a ToDo object with the given task description.
+     *
+     * @param taskDescription The description of the task.
+     * @return A ToDo object with the given task description.
+     */
+    private static ToDo createToDo(String taskDescription) {
+        return new ToDo(taskDescription);
+    }
+
+    /**
+     * Returns a Deadline object with the given description and deadline.
+     *
+     * @param taskDesc The description of the task.
+     * @param deadline The string representing the deadline of the task.
+     * @return A Deadline object with the given description and deadline.
+     * @throws ChatBuddyException If the deadline is not given in the correct format.
+     */
+    private static Task createDeadline(String taskDesc, String deadline) throws ChatBuddyException {
+        LocalDate by = parseDate(deadline);
+        return new Deadline(taskDesc, by);
+    }
+
+    /**
+     * Returns an Event object with the given description, from and to datetime.
+     *
+     * @param taskDesc The description of the task.
+     * @param fromString The string representing the start date and time of the task.
+     * @param toString The string representing the end date and time of the task.
+     * @return The Event object with the given description, from and to datetime.
+     * @throws ChatBuddyException If the from or to date time is not in the correct format.
+     */
+    private static Task createEvent(String taskDesc, String fromString, String toString) throws ChatBuddyException {
+        LocalDateTime from = parseDateTime(fromString);
+        LocalDateTime to = parseDateTime(toString);
+        return new Event(taskDesc, from, to);
     }
 }
