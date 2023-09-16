@@ -73,7 +73,7 @@ public class Parser {
             }
             return new String[]{description[0], interval[0], interval[1]};
         } else {
-            assert this.words.length > 1 && !this.words[1].contains("/from") && !this.words[1].contains("/to")
+            assert this.words.length > 1 && (!this.words[1].contains("/from") || !this.words[1].contains("/to"))
                     : "Invalid user input";
             throw new DukeException(ExceptionTypes.INVALIDCOMMANDEVENT);
         }
