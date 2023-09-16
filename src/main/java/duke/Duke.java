@@ -24,7 +24,7 @@ public class Duke {
      */
     private Scanner sc;
     /**
-     * Variable to access the file where alll of the task is stored.
+     * Variable to access the file where all task is stored.
      */
     private Storage storage;
 
@@ -44,7 +44,7 @@ public class Duke {
     }
 
     /**
-     * Get the response for the chatbot.
+     * Gets the response for the chatbot.
      * @param input Command input by the user.
      * @return the response
      */

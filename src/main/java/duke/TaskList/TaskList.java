@@ -5,21 +5,21 @@ import duke.Task.Task;
 import java.util.ArrayList;
 
 /**
- * Combine all tasks into single list.
+ * Combines all tasks into single list.
  */
 public class TaskList {
 
     private ArrayList<Task> tasks;
 
     /**
-     * Create the list for the tasks.
+     * Creates the list for the tasks.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Add a new task to the list.
+     * Adds a new task to the list.
      * @param task Task to be added.
      */
     public void addTask(Task task) {
@@ -27,7 +27,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a task from the list
+     * Deletes a task from the list
      * @param index Index of the task to be deleted.
      */
     public void deleteTask(int index) {
@@ -35,7 +35,7 @@ public class TaskList {
     }
 
     /**
-     * Get task from the list.
+     * Gets task from the list.
      * @param index Index of the task.
      * @return Task that correspond to the index.
      */
@@ -44,7 +44,7 @@ public class TaskList {
     }
 
     /**
-     * Get the number of task in the list.
+     * Gets the number of task in the list.
      * @return Size of the list.
      */
     public int getNumberOfTask() {

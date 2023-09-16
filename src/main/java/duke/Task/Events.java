@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represent task belong to events.
+ * Represents task belong to events.
  */
 public class Events extends Task {
     /**
@@ -20,7 +20,7 @@ public class Events extends Task {
     private LocalDate end;
 
     /**
-     * Create the event task.
+     * Creates the event task.
      * @param name Description of the event.
      * @param start Starting time of the event.
      * @param end Ending time of the event.
@@ -36,20 +36,20 @@ public class Events extends Task {
     }
 
     /**
-     * Create the string to be saved in storage.
+     * Creates the string to be saved in storage.
      * @return String that will be saved in storage.
      */
     @Override
     public String writeString() {
         if (this.getMarkStatus()) {
             return "E,0," + this.getName() + "," + this.start + "," + this.end + "\n";
-        } else  {
+        } else {
             return "E,1," + this.getName() + "," + this.start + "," + this.end + "\n";
         }
     }
 
     /**
-     * Convert the task to a string.
+     * Converts the task to a string.
      * @return String that represent the event.
      */
     @Override
@@ -64,7 +64,7 @@ public class Events extends Task {
     }
 
     /**
-     * Check whether the input is a valid event.
+     * Checks whether the input is a valid event.
      * @param input Task that will be checked.
      * @return Boolean that represent whether the input is a event.
      * @throws DukeException Exception where the event is not valid.
@@ -73,9 +73,9 @@ public class Events extends Task {
         if(input.split( " ")[0].equals("event")) {
             if (input.split(" ").length == 1) {
                 throw new DukeException("OOPS! The description of event cannot be empty");
-            } else if (!input.contains("/from")){
+            } else if (!input.contains("/from")) {
                 throw new DukeException("OOPS! The description of event does not contain /from");
-            } else if (!input.contains("/to")){
+            } else if (!input.contains("/to")) {
                 throw new DukeException("OOPS! The description of event does not contain /to");
             } else {
                 return true;
