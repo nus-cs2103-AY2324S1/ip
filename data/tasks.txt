@@ -1,5 +1,4 @@
-T | 0 | clean the dishes
-D | 0 | assignment | 2023-12-22
-E | 0 | concert | 2023-09-20 | 2023-09-22
-D | 0 | project | 2023-12-22
-E | 0 | party | 2023-12-15 | 2023-12-31
+D | 0 | Assignment | 2023-11-25
+D | 0 | Project | 2023-11-25
+E | 0 | Exams | 2023-11-10 | 2023-12-02
+T | 0 | CS2103 Assignment
