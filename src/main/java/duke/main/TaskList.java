@@ -32,6 +32,7 @@ public class TaskList {
      */
     public void add(Task task) {
         tasks.add(task);
+        assert task == tasks.get(tasks.size() - 1);
     }
 
     /**
