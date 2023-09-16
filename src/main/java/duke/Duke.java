@@ -1,6 +1,8 @@
 package duke;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import duke.command.Command;
@@ -46,10 +48,12 @@ public class Duke {
         } else if (command == Command.DEADLINE) {
             String[] deadlineInfo = taskInfo.split(" /by ");
             newTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-        } else { // command == Command.EVENT
+        } else if (command == Command.EVENT) {
             String[] eventInfo = taskInfo.split(" /from ");
             String[] eventTime = eventInfo[1].split(" /to ");
             newTask = new Event(eventInfo[0], eventTime[0], eventTime[1]);
+        } else {
+            return Ui.getResponse("Something went wrong :(");
         }
 
         return tasks.addTask(newTask);
@@ -70,9 +74,9 @@ public class Duke {
             return tasks.markTask(taskIndex);
         } else if (command == Command.UNMARK) {
             return tasks.unmarkTask(taskIndex);
+        } else {
+            return Ui.getResponse("Something went wrong :(");
         }
-
-        return Ui.getResponse("Something went wrong :(");
     }
 
     /**
@@ -94,17 +98,35 @@ public class Duke {
      * @return Response message to be sent by the bot.
      */
     private static String executeSingleCommand(Command command) {
-        String response;
-
         if (command == Command.LIST) {
-            response = Ui.getResponse(tasks.toString());
+            return Ui.getResponse(tasks.toString());
         } else if (command == Command.BYE) {
-            response = Ui.getExitMessage();
+            return Ui.getExitMessage();
         } else {
-            response = Ui.getResponse("Something went wrong :(");
+            return Ui.getResponse("Something went wrong :(");
+        }
+    }
+
+    private static void checkInput(Command command, String[] inputs) throws DukeException {
+        ArrayList<Command> argumentNeededCommands = new ArrayList<Command>(Arrays.asList(Command.TODO, Command.DEADLINE
+                , Command.EVENT, Command.DELETE, Command.FIND, Command.MARK, Command.UNMARK));
+        ArrayList<Command> indexNeededCommands = new ArrayList<Command>(Arrays.asList(Command.DELETE, Command.MARK, Command.UNMARK));
+
+        if (argumentNeededCommands.contains(command)) {
+            if (inputs.length == 1 || inputs[1].equals("")) {
+                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
+            }
         }
 
-        return response;
+        if (indexNeededCommands.contains(command)) {
+            try {
+                if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
+                    throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
+                }
+            } catch (NumberFormatException exception) {
+                throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
+            }
+        }
     }
 
     /**
@@ -117,16 +139,13 @@ public class Duke {
      */
     private static String runCommandAndGetResponse(Command command, String[] inputs) throws DukeException {
         String response;
+        checkInput(command, inputs);
 
         if (command == Command.BYE) {
             response = Ui.getExitMessage();
             storage.writeTasks(tasks);
             return response;
         } else if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
-            if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
-            }
-
             if (command == Command.TODO) {
                 response = addTask(Command.TODO, inputs[1]);
             } else if (command == Command.DEADLINE) {
@@ -135,54 +154,14 @@ public class Duke {
                 response = addTask(Command.EVENT, inputs[1]);
             }
         } else if (command == Command.DELETE) {
-            if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
-            }
-
-            try {
-                if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
-                    throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
-                }
-            } catch (NumberFormatException exception) {
-                throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
-            }
-
             response = editTask(Command.DELETE, Integer.parseInt(inputs[1]));
         } else if (command == Command.LIST) {
             response = executeSingleCommand(Command.LIST);
         } else if (command == Command.FIND) {
-            if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
-            }
-
             response = executeFindCommand(inputs[1]);
         } else if (command == Command.MARK) {
-            if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
-            }
-
-            try {
-                if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
-                    throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
-                }
-            } catch (NumberFormatException exception) {
-                throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
-            }
-
             response = editTask(Command.MARK, Integer.parseInt(inputs[1]));
         } else if (command == Command.UNMARK) {
-            if (inputs.length == 1 || inputs[1].equals("")) {
-                throw new DukeEmptyArgumentException("OOPS!!! Argument for this command cannot be empty.");
-            }
-
-            try {
-                if (!tasks.isValidIndex(Integer.parseInt(inputs[1]))) {
-                    throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
-                }
-            } catch (NumberFormatException exception) {
-                throw new DukeInvalidIndexException(Integer.toString(tasks.getSize()));
-            }
-
             response = Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
         } else {
             throw new DukeUnknownCommandException(inputs[0]);
