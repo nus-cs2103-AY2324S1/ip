@@ -22,7 +22,7 @@ Mark a task as done or undone.
 Run the jar file with:
 
 ```
-java -jar RoeBot
+java -jar RoeBot.jar
 ```
 
 ## Caution
