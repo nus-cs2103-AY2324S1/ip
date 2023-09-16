@@ -34,7 +34,7 @@ public class Duke {
     // Messages
     private static final String MESSAGE_ALREADY_ENDED_CHAT = "Max has left the chat!";
     private static final String MESSAGE_GREET_USER =
-            "Hello! I'm Max!%nWhat can I do for you?%nType `help` to get started.";
+            "Hello! I'm Max!%nWhat can I do for you?%nType `help` (without backticks) to get started.";
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_TEMPLATE_HELP_DATETIME_FORMAT =
             "The date/time format must be yyyy-MM-dd HH:mm.%n";
@@ -55,7 +55,7 @@ public class Duke {
         + "`edit <task number> [/d <new description>] [/b <deadline date/time>] [/s <start date/time>] "
         + "[/e <end date/time>]` - Updates the corresponding fields in the specified task.%n"
         + MESSAGE_TEMPLATE_HELP_DATETIME_FORMAT
-        + "You can any number of fields to update and in any order.%n%n"
+        + "You can specify any number of fields to update and in any order.%n%n"
         + "`help` - Shows this help message.";
 
 
@@ -176,7 +176,7 @@ public class Duke {
     }
 
     /**
-     * Try to mark a task as done.
+     * Attempts to mark a task as done.
      *
      * @param argument The task number, as a String.
      * @return Output of the mark command.
@@ -194,7 +194,7 @@ public class Duke {
     }
 
     /**
-     * Try to unmark a task as done.
+     * Attempts to mark a task as done.
      *
      * @param argument The task number, as a String.
      * @return Output of the unmark command.
@@ -212,7 +212,7 @@ public class Duke {
     }
 
     /**
-     * Try to add a Deadline task.
+     * Attempts to add a Deadline task.
      *
      * @param argument The description and date/time of the Deadline task.
      * @return Output of the add Deadline command.
@@ -232,7 +232,7 @@ public class Duke {
     }
 
     /**
-     * Try to add an Event task.
+     * Attempts to add an Event task.
      *
      * @param argument The description, start date/time and end date/time of the Event task.
      * @return Output of the add Event command.
@@ -250,7 +250,7 @@ public class Duke {
     }
 
     /**
-     * Try to delete a task.
+     * Attempts to delete a task.
      *
      * @param argument The task number, as a String.
      * @return Output of the delete command.
@@ -268,7 +268,7 @@ public class Duke {
     }
 
     /**
-     * Try to find a task.
+     * Attempts to find a task.
      *
      * @param argument The search term.
      * @return Output of the find command.
@@ -285,7 +285,7 @@ public class Duke {
     }
 
     /**
-     * Try to edit a task.
+     * Attempts to edit a task.
      */
     private static String executeEditTask(String argument) throws DukeIllegalArgumentException {
         String output;
@@ -307,7 +307,7 @@ public class Duke {
     }
 
     /**
-     * Entrypoint to launch the Duke GUI.
+     * Launches the Duke GUI.
      */
     public static void main(String[] args) {
         Launcher.main(args);

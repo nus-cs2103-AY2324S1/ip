@@ -8,7 +8,8 @@ public class ParserTest {
 
     @Test
     public void parser_validCommand_success() {
-        String[] validCommands = {"bye", "mark", "unmark", "list", "todo", "deadline", "event", "delete"};
+        String[] validCommands =
+            {"bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "find", "edit", "help"};
         for (String vc : validCommands) {
             assertEquals(Parser.Command.valueOf(vc.toUpperCase()), new Parser(vc).getCommand());
         }
@@ -16,7 +17,7 @@ public class ParserTest {
 
     @Test
     public void parser_invalidCommand_success() {
-        String[] invalidCommands = {"bai", "asdfghjkl"};
+        String[] invalidCommands = {"bai", "asdfghjkl", "      "};
         for (String ic : invalidCommands) {
             assertEquals(Parser.Command.INVALID, new Parser(ic).getCommand());
         }

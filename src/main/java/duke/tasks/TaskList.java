@@ -4,7 +4,9 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import duke.exceptions.DukeIOException;
 import duke.exceptions.DukeIllegalArgumentException;
@@ -83,6 +85,51 @@ public class TaskList {
     }
 
     /**
+     * Adds a Todo task to the TaskList. This method is private.
+     *
+     * @param description The description of the Todo task.
+     * @return Message that the task was added.
+     */
+    private String addTodo(String description) {
+        Task toDoTask = new ToDo(description);
+        this.tasks.add(toDoTask);
+        this.exportData();
+        return String.format(MESSAGE_ADD_TASK_TEMPLATE,
+                toDoTask, this.tasks.size(), formatTaskPlurality());
+    }
+
+    /**
+     * Adds a Deadline task to the TaskList. This method is private.
+     *
+     * @param description The description of the Deadline task.
+     * @param by The deadline of the Deadline task.
+     * @return Message that the task was added.
+     */
+    private String addDeadline(String description, String by) {
+        Task deadlineTask = new Deadline(description, by);
+        this.tasks.add(deadlineTask);
+        this.exportData();
+        return String.format(MESSAGE_ADD_TASK_TEMPLATE,
+                deadlineTask, this.tasks.size(), formatTaskPlurality());
+    }
+
+    /**
+     * Adds an Event task to the TaskList. This method is private.
+     *
+     * @param description The description of the Event task.
+     * @param start The start date/time of the Event task.
+     * @param end The end date/time of the Event task.
+     * @return Message that the task was added.
+     */
+    private String addEvent(String description, String start, String end) {
+        Task eventTask = new Event(description, start, end);
+        this.tasks.add(eventTask);
+        this.exportData();
+        return String.format(MESSAGE_ADD_TASK_TEMPLATE,
+                eventTask, this.tasks.size(), formatTaskPlurality());
+    }
+
+    /**
      * Adds a task to the TaskList. This method is private.
      *
      * @param taskType The type of task to add.
@@ -106,25 +153,13 @@ public class TaskList {
 
         switch (taskType) {
         case TODO:
-            Task toDoTask = new ToDo(description);
-            this.tasks.add(toDoTask);
-            this.exportData();
-            output = String.format(MESSAGE_ADD_TASK_TEMPLATE,
-                    toDoTask, this.tasks.size(), formatTaskPlurality());
+            output = this.addTodo(description);
             break;
         case DEADLINE:
-            Task deadlineTask = new Deadline(description, by);
-            this.tasks.add(deadlineTask);
-            this.exportData();
-            output = String.format(MESSAGE_ADD_TASK_TEMPLATE,
-                    deadlineTask, this.tasks.size(), formatTaskPlurality());
+            output = this.addDeadline(description, by);
             break;
         case EVENT:
-            Task eventTask = new Event(description, start, end);
-            this.tasks.add(eventTask);
-            this.exportData();
-            output = String.format(MESSAGE_ADD_TASK_TEMPLATE,
-                    eventTask, this.tasks.size(), formatTaskPlurality());
+            output = this.addEvent(description, start, end);
             break;
         default:
             break;
@@ -274,6 +309,29 @@ public class TaskList {
     }
 
     /**
+     * Splits the editCommand into a map of flags and values.
+     *
+     * @param editCommand The edit command to be split.
+     * @param flags The flags to split. (eg: dbse)
+     * @return A map of flags and values.
+     */
+    private Map<String, String> splitCommandIntoFlagsAndValues(String editCommand, String flags) {
+        List<List<String>> flagsAndValuesList =
+                Arrays.stream(editCommand.split(String.format(" ((?=/[%s] ))", flags)))
+                        .map(String::trim)
+                        .filter(s -> s.matches(String.format("/[%s] .*", flags)))
+                        .map(s -> List.of(s.substring(0, 2), s.substring(3)))
+                        .collect(toList());
+
+        Map<String, String> flagsAndValuesMap = new HashMap<>();
+        for (List<String> flagAndValue : flagsAndValuesList) {
+            flagsAndValuesMap.put(flagAndValue.get(0), flagAndValue.get(1));
+        }
+
+        return flagsAndValuesMap;
+    }
+
+    /**
      * Edits a task in the TaskList.
      *
      * @param num The number of the task in the list to be edited.
@@ -286,52 +344,27 @@ public class TaskList {
         }
         Task editingTask = tasks.get(index);
 
-        String newDescription = null;
-        String newBy = null;
-        String newStartDateTime = null;
-        String newEndDateTime = null;
-
         // Split the edit command into flags and values
-        List<List<String>> flagsAndValues = Arrays.stream(editCommand.split(" ((?=/[dbse] ))"))
-                .map(String::trim)
-                .filter(s -> s.matches("/[dbse] .*"))
-                .map(s -> List.of(s.substring(0, 2), s.substring(3)))
-                .collect(toList());
-
-        for (List<String> flagAndValue : flagsAndValues) {
-            String flag = flagAndValue.get(0);
-            String value = flagAndValue.get(1);
-
-            // Check which flag was found
-            if ("/d".equals(flag)) {
-                newDescription = value;
-            } else if ("/b".equals(flag)) {
-                newBy = value;
-            } else if ("/s".equals(flag)) {
-                newStartDateTime = value;
-            } else if ("/e".equals(flag)) {
-                newEndDateTime = value;
-            }
-        }
+        Map<String, String> flagsAndValuesMap = splitCommandIntoFlagsAndValues(editCommand, "dbse");
+        String newDescription = flagsAndValuesMap.getOrDefault("/d", null);
+        String newBy = flagsAndValuesMap.getOrDefault("/b", null);
+        String newStartDateTime = flagsAndValuesMap.getOrDefault("/s", null);
+        String newEndDateTime = flagsAndValuesMap.getOrDefault("/e", null);
 
         // Check if any parameters were supplied
         if (newDescription == null && newBy == null && newStartDateTime == null && newEndDateTime == null) {
             return MESSAGE_TASK_NOT_UPDATED;
         }
-
         // Respond accordingly based on task type
         if (editingTask instanceof ToDo) {
             return updateTodoTask((ToDo) editingTask, newDescription);
         }
-
         if (editingTask instanceof Deadline) {
             return updateDeadlineTask((Deadline) editingTask, newDescription, newBy);
         }
-
         if (editingTask instanceof Event) {
             return updateEventTask((Event) editingTask, newDescription, newStartDateTime, newEndDateTime);
         }
-
         // Should not reach here.
         throw new DukeIllegalArgumentException("Task type not recognised.");
     }

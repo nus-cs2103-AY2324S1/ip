@@ -59,7 +59,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void add_wrongTaskType_exceptionThrown() {
+    public void add_wrongTodoTask_exceptionThrown() {
         String fileName = "test_add.txt";
         Storage storage = new Storage(fileName);
         storage.save("");
@@ -78,7 +78,15 @@ public class TaskListTest {
         } catch (Exception e) {
             assertEquals("Only ToDo tasks can be added with just a description.", e.getMessage());
         }
+    }
 
+    @Test
+    public void add_wrongDeadlineTask_exceptionThrown() {
+        String fileName = "test_add.txt";
+        Storage storage = new Storage(fileName);
+        storage.save("");
+
+        TaskList taskList = new TaskList(fileName);
         // Trying to add as Deadline
         try {
             taskList.add(TaskList.TaskType.TODO, "todo", "2023-08-26 23:59");
@@ -94,7 +102,15 @@ public class TaskListTest {
             assertEquals("Only Deadline tasks can be added with a description and deadline.",
                     e.getMessage());
         }
+    }
 
+    @Test
+    public void add_wrongEventTask_exceptionThrown() {
+        String fileName = "test_add.txt";
+        Storage storage = new Storage(fileName);
+        storage.save("");
+
+        TaskList taskList = new TaskList(fileName);
         // Trying to add as Event
         try {
             taskList.add(TaskList.TaskType.TODO, "todo", "2023-08-26 23:59", "2023-08-27 23:59");
