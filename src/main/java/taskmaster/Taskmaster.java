@@ -11,7 +11,7 @@ import javafx.application.Application;
 
 import java.util.Scanner;
 public class Taskmaster {
-    private static final String FILE_PATH = "./Data.txt";
+    private static final String FILE_PATH = "/Data.txt";
     public static boolean activated = true;
     private Storage storage;
     private Scanner scanner;
@@ -20,7 +20,8 @@ public class Taskmaster {
     private TaskList taskList;
 
     public Taskmaster() {
-        this.storage = new Storage(FILE_PATH);
+        String workingDirectory = System.getProperty("user.dir");
+        this.storage = new Storage(workingDirectory + FILE_PATH);
         this.scanner = new Scanner(System.in);
         this.ui = new Ui();
         this.parser = new Parser();
