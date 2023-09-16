@@ -10,9 +10,10 @@ Screenshot of Smolbrain Chatbot:
 1. Ensure that Java `11` or above installed in your Computer.
 2. Download the latest `smolbrain.jar` from [here](https://github.com/pzl111/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the _home folder_ for your Smolbrain Chatbot.
-4. To run the application, either:
-   * Double-click the jar file to open.
-   * Or open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar smolbrain.jar` command to run the application.
+4. To run the application, open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar smolbrain.jar` command to run the application.
+
+> ⚠️**Important:** Running the jar file by double-clicking and opening via `Java(TM) Platform SE binary` might cause an exception displayed `OOPS!!! java.io.IOException: Access is denied`. Run the application through the command terminal as shown above instead.
+
 5. Type the command in the command box and press Enter or click the SEND button to execute it. e.g. typing `list` and pressing Enter will list out all the current tasks saved.
    <br>Some example commands you can try:
    * `list` : Lists all current saved tasks.
@@ -20,7 +21,8 @@ Screenshot of Smolbrain Chatbot:
    * `delete 3` : Deletes the 3rd task shown in the current task list.
    * `mark 1` : Marks the 3rd task shown in the current task list.
    * `bye` : Exits the app.
-6. Refer to the Features below for details of each command.
+7. Refer to the Features below for details of each command.
+
 <br><br>
 
 ## Key Features 
