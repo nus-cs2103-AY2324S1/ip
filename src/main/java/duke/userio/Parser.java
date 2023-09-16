@@ -111,7 +111,6 @@ public class Parser {
                 break;
             case "find":
                 String inputToFind = input.substring(5);
-                System.out.println(inputToFind);
                 TaskList tempTl = new TaskList();
                 for (int i = 0; i < taskList.getSize(); i++) {
                     Task t = taskList.getTask(i);

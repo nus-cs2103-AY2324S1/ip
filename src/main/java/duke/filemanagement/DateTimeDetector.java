@@ -31,7 +31,6 @@ public class DateTimeDetector {
      * @return Boolean that represents if date includes time.
      */
     boolean includeTime(String date) {
-        System.out.println(date.contains(" "));
         return date.contains(" ");
     }
 
@@ -94,8 +93,6 @@ public class DateTimeDetector {
                 }
             } else {
                 // date is dd/MM/yyyy HHmm
-                System.out.println("date is now");
-                System.out.println(date);
                 return LocalDateTime.parse(date, t324h);
             }
         }
@@ -132,9 +129,7 @@ public class DateTimeDetector {
         LocalDateTime dt;
         try {
             if (includeTime(date)) {
-                System.out.println("includes time");
                 dt = parseDateWithTime(date);
-                System.out.println(dt.toString());
                 assert dt != null : "d be updated with parsed input date and not null";
                 return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
             } else {

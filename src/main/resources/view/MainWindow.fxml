@@ -7,16 +7,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="664.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutX="4.0" layoutY="952.0" onAction="#handleUserInput" prefHeight="44.0" prefWidth="905.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="91.0" AnchorPane.topAnchor="952.0">
+        <TextField fx:id="userInput" layoutX="11.0" layoutY="604.0" onAction="#handleUserInput" prefHeight="167.0" prefWidth="895.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="604.0">
          <font>
             <Font name="Calibri" size="12.0" />
-         </font></TextField>
-        <Button fx:id="sendButton" layoutX="920.0" layoutY="956.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="35.0" prefWidth="67.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="20.0" layoutY="10.0" prefHeight="930.0" prefWidth="960.0" vvalue="1.0">
+         </font>
+      </TextField>
+        <Button fx:id="sendButton" layoutX="830.0" layoutY="611.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="35.0" prefWidth="54.0" text="Send" />
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="11.0" layoutY="14.0" prefHeight="572.0" prefWidth="873.0" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="930.0" prefWidth="960.0" />
+                <VBox fx:id="dialogContainer" prefHeight="572.0" prefWidth="857.0" />
             </content>
         </ScrollPane>
     </children>

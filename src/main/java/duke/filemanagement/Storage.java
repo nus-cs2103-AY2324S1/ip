@@ -36,7 +36,7 @@ public class Storage {
             myWriter.write(content);
             myWriter.close();
         } catch (FileNotFoundException e) {
-            File f = new File("src/main/data");
+            File f = new File("./src/main/data");
             if (f.mkdir()) {
                 saveFile(content);
             } else {

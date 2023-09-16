@@ -33,8 +33,11 @@ public class Duke extends Application {
     private Scene scene;
 
 
+//    public Duke() {
+//        this("./src/main/data/duke.txt");
+//    }
     public Duke() {
-        this("src/main/data/duke.txt");
+        this("../duke.txt");
     }
 
     /**
