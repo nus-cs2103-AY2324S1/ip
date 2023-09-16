@@ -2,7 +2,6 @@ package robert.ui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -17,6 +16,8 @@ import robert.Robert;
  * @author Lee Zhan Peng
  */
 public class MainWindow extends AnchorPane {
+    private static final int MAX_INPUT_LENGTH = 35;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -24,35 +25,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
-    private Button introButton;
-    @FXML
-    private Button cmdButton;
-    @FXML
-    private Button taskButton;
-    @FXML
-    private VBox introTab;
-    @FXML
-    private VBox cmdTab;
-    @FXML
-    private VBox taskTab;
-
+    private ImageView displayPicture;
 
     private Robert robert;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image robertImage = new Image(this.getClass().getResourceAsStream("/images/DaRobert.png"));
 
-    @FXML
-    private ImageView introPicture;
-
-
     /**
      * Initialises the GUI of Robert with some configurations.
      */
     @FXML
     public void initialize() {
-        scrollPane.setFitToWidth(true);
-        introPicture.setImage(new Image(this.getClass().getResourceAsStream("/images/DaSecondRobert.png")));
+        displayPicture.setImage(new Image(this.getClass().getResourceAsStream("/images/DaRobert.png")));
     }
 
     /**
@@ -64,18 +49,14 @@ public class MainWindow extends AnchorPane {
         this.robert = robert;
 
         if (this.robert.hasReadFileWithError()) {
-            dialogContainer.getChildren().add(
-                    DialogBox.getRobertDialog(robert.getErrorReadingFileMessage(), robertImage)
-            );
+            displayRobertTextBubble(robert.getErrorReadingFileMessage());
         }
-        dialogContainer.getChildren().add(
-                DialogBox.getRobertDialog(robert.getWelcomeMessage(), robertImage)
-        );
+
+        displayRobertTextBubble(robert.getWelcomeMessage());
     }
 
     /**
      * Handles user input by funnelling it into Robert. Clears the user input after processing.
-     * Gives slight delay when exit is called.
      */
     @FXML
     private void handleUserInput() {
@@ -83,58 +64,75 @@ public class MainWindow extends AnchorPane {
         String response = robert.getResponse(input);
 
         if (!response.isEmpty()) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getRobertDialog(response, robertImage)
-            );
+            displayUserTextBubble(input);
+            displayRobertTextBubble(response);
         }
 
         if (!this.robert.isRunning()) {
-            userInput.setVisible(false);
-            new Thread(() -> {
-                try {
-                    Thread.sleep(2500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Platform.exit();
-            }).start();
+            initialiseClosingSequence();
+            return;
         }
 
-        // manually layout scrollPane for scrolling to the bottom.
-        scrollPane.applyCss();
-        scrollPane.layout();
-        scrollPane.setVvalue(1.0);
-
+        scrollDown();
         userInput.clear();
     }
 
     /**
-     * Show the introduction tab in GUI.
+     * Display command written by user.
      */
     @FXML
-    private void showIntroduction() {
-        cmdButton.toFront();
-        introButton.toFront();
-        introTab.toFront();
+    private void displayUserTextBubble(String text) {
+        dialogContainer.getChildren().add(
+                DialogBox.getUserDialog(text, userImage)
+        );
     }
 
     /**
-     * Show the commands tab in GUI.
+     * Display replies by Robert.
      */
     @FXML
-    private void showCommands() {
-        cmdButton.toFront();
-        cmdTab.toFront();
+    private void displayRobertTextBubble(String text) {
+        dialogContainer.getChildren().add(
+                DialogBox.getRobertDialog(text, robertImage)
+        );
     }
 
     /**
-     * Show the tasks tab in GUI.
+     * Initialise buffer time for exiting GUI.
      */
     @FXML
-    private void showTasks() {
-        cmdButton.toFront();
-        taskButton.toFront();
-        taskTab.toFront();
+    private void initialiseClosingSequence() {
+        userInput.setVisible(false);
+        new Thread(() -> {
+            try {
+                Thread.sleep(2500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.exit();
+        }).start();
+    }
+
+    /**
+     * Scroll down the GUI for new text bubbles.
+     */
+    @FXML
+    private void scrollDown() {
+        scrollPane.applyCss();
+        scrollPane.layout();
+        scrollPane.setVvalue(1.0);
+    }
+
+    /**
+     * Restrict the input length of user commands.
+     */
+    @FXML
+    private void restrictInputLength() {
+        String input = userInput.getText();
+
+        if (input.length() > MAX_INPUT_LENGTH) {
+            userInput.setText(input.substring(0, MAX_INPUT_LENGTH));
+            userInput.positionCaret(MAX_INPUT_LENGTH);
+        }
     }
 }
