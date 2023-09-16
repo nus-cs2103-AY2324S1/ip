@@ -1,5 +1,6 @@
 # Robert - User Guide
 ![Robert tagline](RobertTagline.png)
+
 Robert is an application designed for efficient task, deadline, and event
 management. It also offers functionality to mark and filter activities that 
 are tracked by the application. If you are a fast typer, Robert can accomplish
