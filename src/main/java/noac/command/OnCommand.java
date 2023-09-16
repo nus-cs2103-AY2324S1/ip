@@ -38,24 +38,40 @@ public class OnCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
 
+        ArrayList<Task> taskArrayList = getTasksOnDate(this.localDate, tasks);
+
+        return ui.showTasksOnDate(taskArrayList);
+    }
+
+
+    private ArrayList<Task> getTasksOnDate(LocalDate localDate, TaskList tasks) {
         ArrayList<Task> taskArrayList = new ArrayList<>();
+
+        String formattedOnDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.getTask(i) instanceof Deadline) {
-                if (localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(
-                        ((Deadline) tasks.getTask(i)).getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
+
+                String deadlineByFormattedDate = ((Deadline) tasks.getTask(i)).getBy()
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                if (formattedOnDate.equals(deadlineByFormattedDate)) {
                     taskArrayList.add(tasks.getTask(i));
                 }
             } else if (tasks.getTask(i) instanceof Event) {
-                if (localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(
-                        ((Event) tasks.getTask(i)).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-                        || localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(
-                                ((Event) tasks.getTask(i)).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))) {
+
+                String eventFromFormattedDate = ((Event) tasks.getTask(i)).getFrom()
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                String eventToFormattedDate = ((Event) tasks.getTask(i)).getTo()
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                if (formattedOnDate.equals(eventFromFormattedDate)
+                        || formattedOnDate.equals(eventToFormattedDate)) {
                     taskArrayList.add(tasks.getTask(i));
                 }
             }
         }
 
-        return ui.showTasksOnDate(taskArrayList);
+        return taskArrayList;
     }
 }

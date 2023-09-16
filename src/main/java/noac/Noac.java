@@ -19,7 +19,7 @@ public class Noac{
     }
 
     /**
-     * Initialise the storage, tasklist and ui objects.
+     * Initialises the storage, tasklist and ui objects.
      *
      * @param filePath File path for where to save the save file.
      */
