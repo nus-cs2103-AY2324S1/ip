@@ -69,4 +69,49 @@ public class EventTask extends Task {
         }
         return false;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareDate(Task otherTask) {
+        if (otherTask instanceof ToDoTask) {
+            return -1;
+        } else if (otherTask instanceof DeadlineTask) {
+            DeadlineTask deadlineTask = (DeadlineTask) otherTask;
+            int comparisonResult = deadlineTask.compareByDate(this.from);
+            return -comparisonResult;
+        } else if (otherTask instanceof EventTask) {
+            EventTask otherEvent = (EventTask) otherTask;
+            return this.from.compareTo(otherEvent.from);
+        }
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareType(Task otherTask) {
+        if (otherTask instanceof DeadlineTask) {
+            return 1;
+        } else if (otherTask instanceof EventTask) {
+            return 0;
+        } else if (otherTask instanceof ToDoTask) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Compares the Task's starting time with the specified date.
+     * Returns an integer that is negative, zero, or positive if the Task's deadline is
+     * less than, equal to, or greater than the date respectively.
+     *
+     * @param date The date to be compared with.
+     * @return An integer representing the comparison.
+     */
+    public int compareFromDate(LocalDateTime date) {
+        return this.from.compareTo(date);
+    }
 }

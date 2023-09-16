@@ -51,4 +51,34 @@ public class ToDoTask extends Task {
         }
         return false;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareDate(Task otherTask) {
+        if (otherTask instanceof DeadlineTask) {
+            return 1;
+        } else if (otherTask instanceof EventTask) {
+            return 1;
+        } else if (otherTask instanceof ToDoTask) {
+            return 0;
+        }
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareType(Task otherTask) {
+        if (otherTask instanceof DeadlineTask) {
+            return -1;
+        } else if (otherTask instanceof EventTask) {
+            return -1;
+        } else if (otherTask instanceof ToDoTask) {
+            return 0;
+        }
+        return 0;
+    }
 }
