@@ -32,7 +32,7 @@ public class Deadline extends Task {
      * @param description Description of this Deadline task.
      * @return The Deadline task.
      */
-    public static Deadline createNewDeadlineTask(String description) throws DateTimeParseException{
+    public static Deadline createNewDeadlineTask(String description) throws DateTimeParseException {
         String[] splitMessage = description.split(" /by ");
         LocalDate date = LocalDate.parse(splitMessage[1]);
         return new Deadline(splitMessage[0], date);

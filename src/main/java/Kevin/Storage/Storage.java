@@ -81,7 +81,7 @@ public class Storage {
         fileWriter.close();
     }
 
-    public void createNewFile(){
+    public void createNewFile() {
         System.out.println("We have detected that you're missing the database file");
         File file = new File(filePath);
         try {
