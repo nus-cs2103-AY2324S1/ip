@@ -111,6 +111,7 @@ Format: `bye`
 ### Saving the data
 All tasks will be saved in the hard disk automatically after any
 commands that changes the data. No manual save is required.
-* Suggestion: Do not open the `duke.txt` file in the `data` folder 
+* The file can be accessed via `[jarFileLocation]/data/duke.txt`
+* Suggestion for beginners: Do not edit the `duke.txt` file in the `data` folder 
 as any unexpected changes that makes the format invalid will cause 
 a loading error.
