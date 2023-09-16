@@ -52,48 +52,61 @@ public class Storage {
         try {
             Scanner sc = new Scanner(this.file);
 
-            String task;
-
             while (sc.hasNext()) {
-                task = sc.nextLine();
+                String task = sc.nextLine();
                 if (task.charAt(1) == 'T') {
-                    list.addTask(new Todo(task.substring(7)));
-                    if (task.charAt(4) == 'X') {
-                        list.mark(list.size(), true);
-                    }
-                } else if (task.charAt(1) == 'D') {
-                    int idx = 0;
-                    while (task.charAt(idx) != ':') {
-                        idx++;
-                    }
-                    list.addTask(new Deadline(task.substring(7, idx - 4),
-                            LocalDate.parse(task.substring(idx + 2, task.length() - 1),
-                                    DateTimeFormatter.ofPattern("MMM dd yyyy"))));
-                    if (task.charAt(4) == 'X') {
-                        list.mark(list.size(), true);
-                    }
-                } else {
-                    int idx1 = 0;
-                    while (task.charAt(idx1) != ':') {
-                        idx1++;
-                    }
-
-                    int idx2 = idx1 + 1;
-                    while (task.charAt(idx2) != ':') {
-                        idx2++;
-                    }
-
-                    list.addTask(new Event(task.substring(7, idx1 - 6),
-                            task.substring(idx1 + 2, idx2 - 3),
-                            task.substring(idx2 + 2, task.length() - 1)));
-                    if (task.charAt(4) == 'X') {
-                        list.mark(list.size(), true);
-                    }
+                    loadTodo(task, list);
+                    continue;
                 }
+
+                if (task.charAt(1) == 'D') {
+                    loadDeadline(task, list);
+                    continue;
+                }
+
+                loadEvent(task, list);
             }
         } catch (IOException e) {
             throw new QiException("Cannot read file!");
         }
+    }
+
+    private boolean isDone(String task) {
+        return task.charAt(4) == 'X';
+    }
+
+    private void loadTodo(String task, TaskList list) {
+        list.addTask(new Todo(task.substring(7)));
+        list.mark(list.size(), isDone(task));
+    }
+
+    private void loadDeadline(String task, TaskList list) {
+        int idx = 0;
+        while (task.charAt(idx) != ':') {
+            idx++;
+        }
+
+        list.addTask(new Deadline(task.substring(7, idx - 4),
+                LocalDate.parse(task.substring(idx + 2, task.length() - 1),
+                        DateTimeFormatter.ofPattern("MMM dd yyyy"))));
+        list.mark(list.size(), isDone(task));
+    }
+
+    private void loadEvent(String task, TaskList list) {
+        int idx1 = 0;
+        while (task.charAt(idx1) != ':') {
+            idx1++;
+        }
+
+        int idx2 = idx1 + 1;
+        while (task.charAt(idx2) != ':') {
+            idx2++;
+        }
+
+        list.addTask(new Event(task.substring(7, idx1 - 6),
+                task.substring(idx1 + 2, idx2 - 3),
+                task.substring(idx2 + 2, task.length() - 1)));
+        list.mark(list.size(), isDone(task));
     }
 
     /**
@@ -105,12 +118,14 @@ public class Storage {
     public void update(TaskList list) throws IOException {
         FileWriter fw = new FileWriter(this.file.getAbsolutePath());
         StringBuilder content = new StringBuilder();
+
         for (int i = 0; i < list.size(); i++) {
             content.append(list.showTask(i + 1));
             if (i < list.size() - 1) {
                 content.append('\n');
             }
         }
+
         fw.write(content.toString());
         fw.close();
     }
