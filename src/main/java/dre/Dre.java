@@ -38,7 +38,7 @@ public class Dre extends Application {
     private Scene scene;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDre.jpg"));
+    private Image dre = new Image(this.getClass().getResourceAsStream("/images/DaDre.jpg"));
 
     private final String DEFAULT_FILE_PATH = "data/dre.txt";
 
@@ -78,6 +78,16 @@ public class Dre extends Application {
         }
     }
 
+
+    /**
+     * Runs the main loop of the application, repeatedly reading user commands,
+     * parsing them, and executing the corresponding actions until the user exits.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -95,7 +105,7 @@ public class Dre extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("Duke");
+        stage.setTitle("Dre");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -152,7 +162,6 @@ public class Dre extends Application {
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
@@ -160,23 +169,24 @@ public class Dre extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Processes user input, creates two dialog boxes (one for user input and one for Dre's response),
+     * and appends them to the dialog container. Clears the user input field after processing.
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = getResponse(userText);
+        String dreText = getResponse(userText);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
-                DialogBox.getDukeDialog(dukeText, duke)
+                DialogBox.getDreDialog(dreText, dre)
         );
         userInput.clear();
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response based on the user input.
+     *
+     * @param input the user's input.
+     * @return a string response from Dre.
      */
     @FXML
     public String getResponse(String input) {
@@ -189,8 +199,6 @@ public class Dre extends Application {
             return e.getMessage();
         }
     }
-
-    //change this method to print the different responses.
 
     /**
      * The main method serves as the application's entry point.

@@ -12,6 +12,8 @@ public class Ui {
 
     /**
      * Displays an error message indicating issues with loading tasks from storage.
+     *
+     * @return loading error message
      */
     public String generateLoadingErrorString() {
         return "Error reading tasks from file.";
@@ -28,6 +30,8 @@ public class Ui {
 
     /**
      * Displays the welcome message to the user upon starting the application.
+     *
+     * @return welcome message
      */
     public String showWelcome() {
         return "Hello! I'm Dre\n" +
@@ -38,10 +42,6 @@ public class Ui {
      * Displays the goodbye message to the user upon exiting the application.
      */
     public String showGoodbye() {
-//        showLine();
-//        System.out.println("Bye. Hope to see you again soon!");
-//        showLine();
-
         return "Bye. Hope to see you again soon!";
     }
 
