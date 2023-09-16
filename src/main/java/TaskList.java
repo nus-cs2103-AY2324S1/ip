@@ -30,6 +30,7 @@ public class TaskList {
      * @return A message that confirms the task as saved.
      */
     public String saveTask(String filepath) {
+        assert filepath != null : "data filepath should be specified";
         System.out.println("Saving tasks...");
         try (PrintWriter writer = new PrintWriter(filepath)) {
             for (Task task: taskList) {
@@ -50,8 +51,11 @@ public class TaskList {
      * @throws DukeException If the command is not a valid addTask command.
      */
     public String addTask(String userInput) throws DukeException {
+        assert !userInput.isBlank() : "user input should not be empty";
         String inputCommand = Parser.getCommand(userInput);
         String taskDesc = Parser.getTaskDesc(userInput);
+        assert !inputCommand.isBlank();
+        assert !taskDesc.isBlank();
         Task task;
         switch (inputCommand) {
             case "todo":
@@ -81,9 +85,12 @@ public class TaskList {
      * @throws InvalidTaskException If the task id entered does not correspond to any task
      */
     public String deleteTask(String userInput) throws DukeException {
+        assert !userInput.isBlank() : "user input should not be empty";
         int taskId = Parser.getTaskId(userInput);
         if (taskId < 0 || taskId > taskList.size() - 1) throw new InvalidTaskException();
+        assert taskId >= 0 && taskId <= taskList.size() - 1 : "task Id should be between 0 and total tasks - 1";
         Task deletedTask = taskList.remove(taskId);
+        assert !taskList.contains(deletedTask) : "taskList should not contain the deleted task anymore";
         return "Noted. I've removed this task:\n\t" + deletedTask + "\n"
                 + String.format("Now you have %d tasks in the list%n", taskList.size());
     }
@@ -96,10 +103,13 @@ public class TaskList {
      * @throws InvalidTaskException If the task id entered does not correspond to any task
      */
     public String unmarkTaskAsDone(String userInput) throws DukeException {
+        assert !userInput.isBlank() : "user input should not be empty";
         int taskId = Parser.getTaskId(userInput);
         if (taskId < 0 || taskId > taskList.size() - 1) throw new InvalidTaskException();
+        assert taskId >= 0 && taskId <= taskList.size() - 1 : "task Id should be between 0 and total tasks - 1";
         Task selectedTask = taskList.get(taskId);
         selectedTask.unmarkAsDone();
+        assert selectedTask.getStatusIcon().equals("[ ]") : "task should be undone";
         return "OK, I've marked this task as not done yet:\n" + selectedTask + "\n";
     }
 
@@ -111,11 +121,13 @@ public class TaskList {
      * @throws InvalidTaskException If the task id entered does not correspond to any task
      */
     public String markTaskAsDone(String userInput) throws DukeException {
+        assert !userInput.isBlank() : "user input should not be empty";
         int taskId = Parser.getTaskId(userInput);
         if (taskId < 0 || taskId > taskList.size() - 1) throw new InvalidTaskException();
-        // Mark the selected task as done
+        assert taskId >= 0 && taskId <= taskList.size() - 1 : "task Id should be between 0 and total tasks - 1";
         Task selectedTask = taskList.get(taskId);
         selectedTask.markAsDone();
+        assert selectedTask.getStatusIcon().equals("[X]") : "task should be done";
         return "Nice! I've marked this task as done:\n" + selectedTask + "\n";
     }
 
@@ -135,6 +147,7 @@ public class TaskList {
                         task.toString());
                 taskListAsString.append(taskLine).append("\n");
             }
+            assert !taskListAsString.toString().isEmpty() : "tasks should not be empty";
             return "Here are the tasks in your list:\n" + taskListAsString;
         }
     }
@@ -156,11 +169,13 @@ public class TaskList {
                 taskListAsString.append("Here are the matching tasks in your list:\n");
             }
             count++;
+            assert count > 0;
             taskListAsString.append(count + "." + task + "\n");
         }
         if (count == 0) {
             return "No matching tasks found!";
         }
+        assert !taskListAsString.toString().isBlank() : "list of tasks should not be empty";
         return taskListAsString.toString();
     }
 }

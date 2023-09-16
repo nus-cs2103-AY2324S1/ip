@@ -16,7 +16,9 @@ public class Deadline extends Task {
         String[] splitString = description.split("/by", 2);
         // Should throw error if there are multiple "/by" or no "/by"
         if (splitString.length >=2) {
+            assert !splitString[0].isBlank() : "description should not be empty";
             this.description = splitString[0].trim();
+            assert !splitString[1].isBlank() : "deadline should not be empty";
             String deadlineString = splitString[1].trim();
             this.deadline = super.parseDate(deadlineString);
         }
