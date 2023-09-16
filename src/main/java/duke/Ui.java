@@ -21,7 +21,7 @@ public class Ui {
      * @return A String showing the welcome message
      */
     public String showIntro() {
-        String s = "Hello! I'm duke.Duke.\nWhat can I do for you?";
+        String s = "Hello! I'm May.\nWhat can I do for you?";
         return s;
     }
 
