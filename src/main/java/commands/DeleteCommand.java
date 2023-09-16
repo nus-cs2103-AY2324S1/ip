@@ -11,6 +11,12 @@ public class DeleteCommand extends Command {
     private TaskList taskList;
     private String[] inputArray;
 
+    /**
+     * Constructs a new DeleteCommand object with the specified task list and input array.
+     *
+     * @param taskList The task list to delete the task from.
+     * @param inputArray The input array containing the task number to be deleted.
+     */
     public DeleteCommand(TaskList taskList, String[] inputArray) {
         this.taskList = taskList;
         this.inputArray = inputArray;

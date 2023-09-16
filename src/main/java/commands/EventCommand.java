@@ -18,6 +18,12 @@ public class EventCommand extends Command {
     private TaskList taskList;
     private String functionDescription;
 
+    /**
+     * Constructs a new EventCommand object with the specified task list and function description.
+     *
+     * @param taskList The task list to add the event task to.
+     * @param functionDescription The description of the event task to be added.
+     */
     public EventCommand(TaskList taskList, String functionDescription) {
         this.taskList = taskList;
         this.functionDescription = functionDescription;
@@ -67,6 +73,15 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Parses a String format of datetime into a LocalDateTime object.
+     *
+     * @param newEvent an Event for comparison
+     * @param fromDate start date of event
+     * @param toDate end date of event
+     *
+     * @return a TaskList consisting of all the events that clashes with the one given in input
+     */
     public TaskList checkClash(Event newEvent, LocalDateTime fromDate, LocalDateTime toDate) {
 
         TaskList clashingTasks = new TaskList();

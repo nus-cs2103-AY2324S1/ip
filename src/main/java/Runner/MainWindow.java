@@ -33,6 +33,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcomeMsg = new Ui().welcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcomeMsg, dukeImage)
+        );
     }
 
     public void setDuke(Cupid cupid) {

@@ -12,6 +12,12 @@ public class DeadlineCommand extends Command{
     private TaskList taskList;
     private String functionDescription;
 
+    /**
+     * Constructs a new DeadlineCommand object with the specified task list and function description.
+     *
+     * @param taskList The task list to add the deadline task to.
+     * @param functionDescription The description of the deadline task to be added.
+     */
     public DeadlineCommand(TaskList taskList, String functionDescription) {
         this.taskList = taskList;
         this.functionDescription = functionDescription;

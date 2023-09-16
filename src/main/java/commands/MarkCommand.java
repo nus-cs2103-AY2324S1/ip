@@ -10,6 +10,12 @@ public class MarkCommand extends Command {
     private TaskList taskList;
     private String[] inputArray;
 
+    /**
+     * Constructs a new MarkCommand object with the specified task list and input array.
+     *
+     * @param taskList The task list to mark the task as done in.
+     * @param inputArray The input array containing the task number to be marked as done.
+     */
     public MarkCommand(TaskList taskList, String[] inputArray) {
         this.taskList = taskList;
         this.inputArray = inputArray;

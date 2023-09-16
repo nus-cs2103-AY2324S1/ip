@@ -7,6 +7,9 @@ import functions.Ui;
 
 import java.io.IOException;
 
+/**
+ * Cupid is a task tracking bot that manages a list of tasks and provides responses based on user input.
+ */
 public class Cupid {
 
     private String saveFilePath;
@@ -14,6 +17,12 @@ public class Cupid {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Creates a new instance of the Cupid bot with the specified save file path.
+     * If the save file exists, the task list is loaded from the file. Otherwise, a new empty task list is created.
+     *
+     * @param saveFilePath The path to the save file for the task list.
+     */
     public Cupid(String saveFilePath) {
         this.saveFilePath = saveFilePath;
         this.ui = new Ui();
@@ -30,6 +39,14 @@ public class Cupid {
 
     }
 
+    /**
+     * Processes the user input and returns a response from the Cupid bot.
+     * The user input is parsed using a Parser object, and the resulting response is returned as a String.
+     * After processing the user input, the task list is saved to the storage.
+     *
+     * @param input The user input to be processed.
+     * @return The response from the Cupid bot.
+     */
     public String getResponse(String input) {
 
         Parser parser = new Parser(input, this.taskList);

@@ -9,6 +9,11 @@ import functions.TaskList;
 public class ListCommand extends Command{
     private TaskList taskList;
 
+    /**
+     * Constructs a new ListCommand object with the specified task list.
+     *
+     * @param taskList The task list to list all tasks from.
+     */
     public ListCommand(TaskList taskList) {
         this.taskList = taskList;
     }

@@ -16,7 +16,7 @@ public class Save {
     private static final String tempFilePath = "temp.txt";
 
     /**
-     * A public constructor to initialize functions.Save
+     * A public constructor to initialize Save
      *
      * @param taskList  a task list to store tasks
      * @param saveFilePath file path of saved file
@@ -27,6 +27,9 @@ public class Save {
         saveFile();
         };
 
+    /**
+     * A function to write task list into a .txt file specified by user
+     */
     public void saveFile() {
 
         try {
@@ -57,6 +60,9 @@ public class Save {
         }
     }
 
+    /**
+     * A helper function to add contents into save file
+     */
     public static void addFileContents(String filePath, String contents) {
         try {
             FileWriter fw = new FileWriter(filePath, true);

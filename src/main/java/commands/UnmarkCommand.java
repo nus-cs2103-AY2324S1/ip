@@ -11,6 +11,12 @@ public class UnmarkCommand extends Command{
     private TaskList taskList;
     private String[] inputArray;
 
+    /**
+     * Constructs a new UnmarkCommand object with the specified task list and input array.
+     *
+     * @param taskList The task list to unmark the task as done in.
+     * @param inputArray The input array containing the task number to be unmarked as done.
+     */
     public UnmarkCommand(TaskList taskList, String[] inputArray) {
         this.taskList = taskList;
         this.inputArray = inputArray;
