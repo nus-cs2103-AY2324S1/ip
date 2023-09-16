@@ -1,5 +1,8 @@
 package jerma.tasks;
 
+/**
+ * Abstract class for Tasks
+ */
 public abstract class Task {
     protected String symbol;
     private String description;
@@ -7,7 +10,7 @@ public abstract class Task {
 
     /**
      * Constructor for a Task
-     * 
+     *
      * @param description The description of the task
      */
     public Task(String description) {
@@ -35,7 +38,7 @@ public abstract class Task {
 
     /**
      * Returns string representation of Task for saving purposes
-     * 
+     *
      * @return String representation of Task for saving purposes
      */
     public String save() {
@@ -44,7 +47,7 @@ public abstract class Task {
 
     /**
      * Returns string representation of Task
-     * 
+     *
      * @return String representation of Task
      */
     @Override

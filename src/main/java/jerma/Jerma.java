@@ -9,11 +9,19 @@ import jerma.utils.Storage;
 import jerma.utils.TaskList;
 import jerma.utils.Ui;
 
+/**
+ * Jerma class, contains the chatbot
+ */
 public class Jerma {
     private TaskList tasks = new TaskList();
     private Ui ui = new Ui();
     private Boolean[] running = new Boolean[] { true };
 
+    /**
+     * Loads tasklist from file
+     *
+     * @return Response string
+     */
     public String load() {
         try {
             tasks = Storage.load();
@@ -30,8 +38,10 @@ public class Jerma {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Parses the input and generates the bot's response.
+     *
+     * @param input The input string from the user
+     * @return The bot's response
      */
     public String getResponse(String input) {
         try {

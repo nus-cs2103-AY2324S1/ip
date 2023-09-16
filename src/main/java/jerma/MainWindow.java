@@ -37,6 +37,9 @@ public class MainWindow extends AnchorPane {
         this.jerma = jerma;
     }
 
+    /**
+     * Initialises chatbot on start
+     */
     public void onStart() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getJermaDialog(this.jerma.hello(), jermaImage));

@@ -3,6 +3,9 @@ package jerma.commands;
 import jerma.utils.TaskList;
 import jerma.utils.Ui;
 
+/**
+ * Command abstract class
+ */
 public abstract class Command {
     protected Ui ui;
     protected TaskList tasks;
@@ -12,5 +15,10 @@ public abstract class Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Executes the command
+     *
+     * @return Bot response
+     */
     public abstract String execute();
 }

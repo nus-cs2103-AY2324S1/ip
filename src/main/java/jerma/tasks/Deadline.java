@@ -3,12 +3,15 @@ package jerma.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline class. Is a Task with deadline date.
+ */
 public class Deadline extends Task {
     private LocalDate by;
 
     /**
      * Constructor for a Deadline Task
-     * 
+     *
      * @param description The description of the task
      * @param by          Date when the deadline should be complete by
      * @throws DateTimeParseException Thrown if date is not parseable
@@ -21,7 +24,7 @@ public class Deadline extends Task {
 
     /**
      * Returns string representation of Deadline Task for saving purposes
-     * 
+     *
      * @return String representation of Deadline Task for saving purposes
      */
     @Override
@@ -31,7 +34,7 @@ public class Deadline extends Task {
 
     /**
      * Returns string representation of Deadline Task
-     * 
+     *
      * @return String representation of Deadline Task
      */
     @Override

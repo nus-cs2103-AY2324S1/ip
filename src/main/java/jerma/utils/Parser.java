@@ -27,8 +27,20 @@ enum Keywords {
     }
 }
 
+/**
+ * Parser class, containing static method to parse user input
+ */
 public class Parser {
 
+    /**
+     * Parses user input into a Command
+     *
+     * @param input   User input string
+     * @param ui      Current Ui instance
+     * @param tasks   Current tasklist
+     * @param running State of the chatbot
+     * @return Command to be executed
+     */
     public static Command parse(String input, Ui ui, TaskList tasks,
             Boolean[] running) {
         String[] inputArgs = input.split(" ", 2);
@@ -71,8 +83,9 @@ public class Parser {
             return new Find(ui, tasks, inputArgs[1]);
         case HELP:
             return new Help(ui, tasks);
+        default:
+            throw new UnsupportedOperationException();
         }
 
-        throw new UnsupportedOperationException();
     }
 }

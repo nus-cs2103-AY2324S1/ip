@@ -1,9 +1,12 @@
 package jerma.tasks;
 
+/**
+ * Todo class. Is a Task with no additional fields.
+ */
 public class Todo extends Task {
     /**
      * Constructor for a Todo Task
-     * 
+     *
      * @param description The description of the task
      */
     public Todo(String description) {
@@ -13,7 +16,7 @@ public class Todo extends Task {
 
     /**
      * Returns string representation of Todo Task for saving purposes
-     * 
+     *
      * @return String representation of Todo Task for saving purposes
      */
     @Override
@@ -23,7 +26,7 @@ public class Todo extends Task {
 
     /**
      * Returns string representation of Todo Task
-     * 
+     *
      * @return String representation of Todo Task
      */
     @Override

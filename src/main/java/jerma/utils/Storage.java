@@ -11,11 +11,20 @@ import jerma.tasks.Event;
 import jerma.tasks.Task;
 import jerma.tasks.Todo;
 
+/**
+ * Storage class, contains static methods for saving to and loading from file.
+ */
 public class Storage {
     private static final Path SAVE_FOLDER = Paths.get(".", "data");
     private static final Path SAVE_PATH = Paths.get(SAVE_FOLDER.toString(),
             "save.txt");
 
+    /**
+     * Loads TaskList from file
+     *
+     * @return TaskList as read from file
+     * @throws IOException
+     */
     public static TaskList load() throws IOException {
         TaskList tasks = new TaskList();
         List<String> save = Files.readAllLines(SAVE_PATH);
@@ -49,6 +58,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves current tasklist to file
+     *
+     * @param tasks Current tasklist
+     * @throws IOException
+     */
     public static void save(TaskList tasks) throws IOException {
         Files.createDirectories(SAVE_FOLDER);
         if (!Files.exists(SAVE_PATH)) {

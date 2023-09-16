@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import jerma.tasks.Task;
 
+/**
+ * TaskList class, representing a List of Tasks. Inherits from Arraylist.
+ */
 public class TaskList extends ArrayList<Task> {
     @Override
     public String toString() {
