@@ -1,5 +1,12 @@
 package jarvis.parser;
 
+import static jarvis.exceptions.ExceptionMessages.INVALID_COMMAND;
+import static jarvis.exceptions.ExceptionMessages.INVALID_DATE;
+import static jarvis.exceptions.ExceptionMessages.INVALID_DEADLINE;
+import static jarvis.exceptions.ExceptionMessages.INVALID_EVENT;
+import static jarvis.exceptions.ExceptionMessages.INVALID_INDEX;
+import static jarvis.exceptions.ExceptionMessages.INVALID_RANGE;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,13 +28,6 @@ import jarvis.commands.RemindCommand;
  * @author Shishir
  */
 public class Parser {
-
-    private static final String INVALID_COMMAND = "I'm sorry, I couldn't understand that. Please try again!";
-    private static final String INVALID_INDEX = "Please enter a valid index!";
-    private static final String INVALID_DEADLINE = "Please ensure the entered deadline task is valid!";
-    private static final String INVALID_EVENT = "Please ensure the entered event task is valid!";
-    private static final String INVALID_DATE = "Please enter the date & time in a valid format! (DD/MM/YY HHMM)";
-    private static final String INVALID_RANGE = "Please ensure that the date range is valid!";
 
     /**
      * Returns a command based on user input.

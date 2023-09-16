@@ -1,5 +1,7 @@
 package jarvis.commands;
 
+import static jarvis.exceptions.ExceptionMessages.INVALID_TASK;
+
 import java.time.LocalDateTime;
 
 import jarvis.exceptions.DukeException;
@@ -87,7 +89,7 @@ public class AddCommand extends Command {
             task = new Event(this.description, this.from, this.till, false);
             break;
         default:
-            throw new DukeException("Invalid task type!");
+            throw new DukeException(INVALID_TASK);
         }
         tasks.add(task);
         storage.writeData(tasks.getAllTasks());

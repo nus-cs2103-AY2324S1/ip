@@ -22,7 +22,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.setTitle("Jarvis, Your Personal Task Manager!");
+            stage.setTitle(UiMessages.TITLE);
             fxmlLoader.<MainWindow>getController().setJarvis(jarvis);
             stage.show();
         } catch (IOException e) {

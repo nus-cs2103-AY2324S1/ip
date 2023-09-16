@@ -48,6 +48,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         dialog.setWrapText(true);
         circle.setFill(new ImagePattern(img));
+
         int messageWidth = text.length() * 10;
         if (messageWidth < 260) {
             dialog.setPrefWidth(messageWidth);
@@ -56,8 +57,10 @@ public class DialogBox extends HBox {
             dialog.setPrefWidth(260);
             messageOutline.setPrefWidth(280);
         }
+
         messageOutline.prefHeightProperty().bind(dialog.heightProperty());
         messageOutline.getStyleClass().clear();
+
         if (isUser) {
             messageOutline.getStyleClass().add("blue-background");
         } else {

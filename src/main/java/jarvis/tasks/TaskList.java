@@ -1,5 +1,8 @@
 package jarvis.tasks;
 
+import static jarvis.exceptions.ExceptionMessages.INVALID_INDEX;
+import static jarvis.exceptions.ExceptionMessages.INVALID_MARK;
+
 import java.util.ArrayList;
 
 import jarvis.exceptions.DukeException;
@@ -38,11 +41,10 @@ public class TaskList {
      */
     public void changeStatus(int index, boolean isMark) throws DukeException {
         if (index >= this.size()) {
-            throw new DukeException("I'm unable to perform the mark/unmark operation due to an invalid index!");
+            throw new DukeException(INVALID_INDEX);
         }
         if (this.tasks.get(index).isCompleted() == isMark) {
-            throw new DukeException("I'm unable to perform the mark/unmark operation because the task"
-                    + " is already marked/unmarked!");
+            throw new DukeException(INVALID_MARK);
         }
         this.tasks.get(index).completeTask(isMark);
     }
@@ -54,7 +56,7 @@ public class TaskList {
      */
     public void delete(int index) throws DukeException {
         if (index > this.size()) {
-            throw new DukeException("I'm unable to perform the delete operation due to an invalid index!");
+            throw new DukeException(INVALID_INDEX);
         }
         this.tasks.remove(index);
     }

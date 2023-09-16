@@ -1,5 +1,9 @@
 package jarvis.storage;
 
+import static jarvis.exceptions.ExceptionMessages.INVALID_DATE;
+import static jarvis.exceptions.ExceptionMessages.INVALID_RANGE;
+import static jarvis.exceptions.ExceptionMessages.INVALID_TASK;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -122,7 +126,7 @@ public class Storage {
 
         // Corrupted File
         if (split.length < 3) {
-            throw new DukeException("Invalid task format detected!");
+            throw new DukeException(INVALID_TASK);
         }
 
         String type = split[0];
@@ -131,12 +135,12 @@ public class Storage {
 
         // Check status is valid
         if (!status.equals("X") && !status.equals("O")) {
-            throw new DukeException("Invalid task status detected!");
+            throw new DukeException(INVALID_TASK);
         }
 
         // Check action is valid
         if (action.isBlank()) {
-            throw new DukeException("Invalid description of task detected!");
+            throw new DukeException(INVALID_TASK);
         }
 
         Task task;
@@ -153,17 +157,17 @@ public class Storage {
             case "E":
                 String[] interval = split[3].split(" - ", 2);
                 if (interval.length < 2) {
-                    throw new DukeException("Invalid range of task detected!");
+                    throw new DukeException(INVALID_RANGE);
                 } else {
                     task = new Event(action, LocalDateTime.parse(interval[0], formatter),
                             LocalDateTime.parse(interval[1], formatter), status.equals("X"));
                 }
                 break;
             default:
-                throw new DukeException("Invalid type of task detected!");
+                throw new DukeException(INVALID_TASK);
             }
         } catch (DateTimeParseException exc) {
-            throw new DukeException("Invalid date detected!");
+            throw new DukeException(INVALID_DATE);
         }
 
         return task;

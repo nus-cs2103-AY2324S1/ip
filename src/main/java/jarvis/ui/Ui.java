@@ -9,20 +9,15 @@ import jarvis.tasks.Task;
  * @author Shishir
  */
 public class Ui {
-    /** Returns a farewell message. */
-    public String leave() {
-        return "I shall now take my leave. Farewell!";
-    }
-
     /**
      * Returns an acknowledgment message on successful addition to the list.
      * @param size Length of the list.
      * @param task Newly added task.
      */
     public String showAdd(int size, Task task) {
-        return "Added the following task to the list. \n\n"
+        return UiMessages.ADDED_TASK
                 + size + ") " + task.toString() + "\n\n"
-                + "You currently have " + size + " tasks in your list.\n";
+                + String.format(UiMessages.TASK_COUNT, size);
     }
 
     /**
@@ -34,12 +29,11 @@ public class Ui {
     public String showStatus(int index, Task task, boolean isMark) {
         String message;
         if (isMark) {
-            message = "The following task is marked as complete:\n\n";
+            message = UiMessages.STATUS_MARKED;
         } else {
-            message = "The following task has been unmarked:\n\n";
+            message = UiMessages.STATUS_UNMARKED;
         }
-        return message + index + ") " + task.toString() + "\n\n"
-                + "Is there anything else I can assist you with?";
+        return message + index + ") " + task.toString() + "\n\n" + UiMessages.ASSIST;
     }
 
     /**
@@ -48,9 +42,7 @@ public class Ui {
      * @param task Newly deleted task.
      */
     public String showDelete(int index, Task task) {
-        return "The following task has been removed:\n"
-                + index + ") " + task.toString() + "\n"
-                + "Is there anything else I can assist you with?";
+        return UiMessages.DELETE_SUCCESS + index + ") " + task.toString() + "\n" + UiMessages.ASSIST;
     }
 
     /**
@@ -58,9 +50,7 @@ public class Ui {
      * @param size Size of the task list.
      */
     public String showList(int size) {
-        return size == 0
-                ? "Your task list is empty! Add a task to view it here."
-                : "Tasks displayed. Your guidance is requested.";
+        return size == 0 ? UiMessages.EMPTY_TASK_LIST : UiMessages.TASKS_DISPLAYED;
     }
 
 }

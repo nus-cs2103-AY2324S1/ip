@@ -3,6 +3,7 @@ package jarvis.commands;
 import jarvis.storage.Storage;
 import jarvis.tasks.TaskList;
 import jarvis.ui.Ui;
+import jarvis.ui.UiMessages;
 
 /**
  * Represents the ExitCommand Class.
@@ -19,7 +20,7 @@ public class ExitCommand extends Command {
      * @param storage Storage of the tasks.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.leave();
+        return UiMessages.FAREWELL;
     }
 
 }

@@ -42,8 +42,7 @@ public class MainWindow extends AnchorPane {
         this.dialogContainer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.dialogContainer.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         this.dialogBox.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        this.dialogBox.getChildren().add(DialogBox.getJarvisDialog("Greetings, I am Jarvis! How may I assist you"
-                + " today?", this.jarvisImg));
+        this.dialogBox.getChildren().add(DialogBox.getJarvisDialog(UiMessages.GREET, this.jarvisImg));
         String reminder = this.jarvis.getResponse("remind");
         this.dialogBox.getChildren().add(DialogBox.getJarvisDialog(reminder, this.jarvisImg));
     }
