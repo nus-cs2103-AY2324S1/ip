@@ -7,8 +7,8 @@ import duke.main.Ui;
 
 /** Command interface **/
 public interface Command {
-
     StringBuilder output = new StringBuilder();
+
     /**
      * Executes code related to the nature of command.
      *
@@ -23,15 +23,13 @@ public interface Command {
      * Checks whether the application is configured to exit.
      * By default, it will always return false unless stated otherwise.
      *
-     * @return Command
+     * @return False (no exit).
      */
     default boolean isExit() {
         return false;
     };
 
-    default String getString() {
-        String outputString = output.toString();
-        output.delete(0, output.length());
-        return outputString;
-    };
+    default String getOutput () {
+        return output.toString();
+    }
 }

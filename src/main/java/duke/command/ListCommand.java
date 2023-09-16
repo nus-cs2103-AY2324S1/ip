@@ -15,6 +15,7 @@ public class ListCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        output.delete(0, output.length());
         output.append(taskList.print());
     }
 

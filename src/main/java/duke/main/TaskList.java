@@ -72,11 +72,11 @@ public class TaskList {
         StringBuilder output = new StringBuilder();
         boolean isFound = false;
 
-        // TODO: Fix arrowhead coding
         for (int i = 0; i < tasks.size(); i++) {
             for (String s : stringToSearch) {
-                if (tasks.get(i).getTask().contains(s)) {
-                    output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+                Task tempTask = tasks.get(i);
+                if (tempTask.getTask().contains(s)) {
+                    output.append((i + 1)).append(". ").append(tempTask).append("\n");
                     isFound = true;
                 }
             }

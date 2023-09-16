@@ -103,14 +103,13 @@ public class Parser {
                 if (word.equals("/" + command)) {
                     isFound = true;
                 }
-            } else {
-                try {
-                    date = LocalDate.parse(word);
-                    break;
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateFormatException("Add a date in the foll0wing format: yyyyy-mm-dd");
-                }
-
+                continue;
+            }
+            try {
+                date = LocalDate.parse(word);
+                break;
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateFormatException("Add a date in the foll0wing format: yyyyy-mm-dd");
             }
         }
 
@@ -118,9 +117,9 @@ public class Parser {
             throw new MissingCommandException("Command " + command + "could not be isFound");
         } else if (date == null) {
             throw new MissingParametersException("Command " + command + " does not contain any parameters");
-        } else {
-            return date;
         }
+
+        return date;
     }
 
     /**
@@ -136,18 +135,16 @@ public class Parser {
 
         String[] splitStr = str.split(" ");
         for (String word : splitStr) {
-            if (!word.isEmpty() && word.charAt(0) != '/') {
-                task.append(" ").append(word);
-            } else {
+            if (word.isEmpty() || word.charAt(0) != '/') {
                 break;
             }
+            task.append(" ").append(word);
         }
 
-        if (task.length() > 0) {
-            return task.substring(1);
-        } else {
+        if (task.length() < 1) {
             throw new MissingParametersException("Task not found, please type a task >:(");
         }
+        return task.substring(1);
     }
 
     /**

@@ -33,12 +33,21 @@ public class DeleteCommand implements Command {
 
             taskList.remove(index);
             storage.save(taskList.getTasks());
-            //ui.showMessage("Task at index " + (index + 1) + "removed successfully.");
-            output.append("Task at index ").append(index + 1).append("removed successfully.");
+            setOutput("Task at index " + (index + 1) + " removed successfully.");
             taskList.printSize();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            output.append(taskList.print());
+            setOutput(taskList.print());
             throw new InvalidParametersException("Insert an integer from the list");
         }
+    }
+
+    /**
+     * Replaces existing string in Output with a new string.
+     *
+     * @param string String to be replaced.
+     */
+    private void setOutput(String string) {
+        output.delete(0, output.length());
+        output.append(string);
     }
 }
