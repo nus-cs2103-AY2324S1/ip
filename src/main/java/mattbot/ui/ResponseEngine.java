@@ -72,36 +72,79 @@ public class ResponseEngine {
         return INSUFFICIENT_ARGS + "\n" + command + " requires an argument.";
     }
 
+    /**
+     * Return back string indicating that the task has been marked.
+     * @param t Task to be marked.
+     * @return String indicating task has been marked.
+     */
     public String getMarked(Task t) {
         return COMPLETED + t.showName();
     }
 
+    /**
+     * Return back string indicating that the task has been unmarked.
+     * @param t Task to be unmarked.
+     * @return String indicating task has been unmarked.
+     */
     public String getUnmarked(Task t) {
         return UNCOMPLETED + t.showName();
     }
 
+    /**
+     * Return back string indicating the new todo was successfully created.
+     * @param t Todo to be created.
+     * @return String indicating Todo has been created.
+     */
     public String getNewTodo(Task t) {
         return NEW_TODO + t.showName();
     }
 
+    /**
+     * Return back string indicating the new deadline was successfully created.
+     * @param t Deadline to be created.
+     * @return String indicating Deadline has been created.
+     */
     public String getNewDeadline(Task t) {
         return NEW_DEADLINE + t.showName();
     }
+
+    /**
+     * Return back string indicating the new event was successfully created.
+     * @param t Event to be created.
+     * @return String indicating Event has been created.
+     */
     public String getNewEvent(Task t) {
         return NEW_EVENT + t.showName();
     }
+
+    /**
+     * Advise user that the date format entered is incorrect.
+     * @return An error message.
+     */
     public String errWrongDateFormat() {
         return WRONG_DATE_FORMAT;
     }
 
+    /**
+     * Advise user that there are no tasks to delete.
+     * @return An error message.
+     */
     public String errImpossibleTask() {
         return DELETE_IMPOSSIBLE;
     }
 
+    /**
+     * Advise user that the task was successfully deleted.
+     * @return A confirmation message.
+     */
     public String getDelete(Task t) {
         return DELETE_SUCCESS + t.showName();
     }
 
+    /**
+     * Advise user that tasks matching the description given have been found.
+     * @return A string containing all tasks that match the description.
+     */
     public String getFind(TaskList found) {
         Task t;
         StringBuilder output = new StringBuilder();
@@ -117,9 +160,18 @@ public class ResponseEngine {
         return output.toString();
     }
 
+    /**
+     * Advise user that nothing can be found.
+     * @return An error message.
+     */
     public String errFind() {
         return FIND_FAIL;
     }
+
+    /**
+     * Advise user that the input is incomprehensible.
+     * @return An error message.
+     */
     public String errParseUnsure() {
         return DO_NOT_UNDERSTAND;
     }
