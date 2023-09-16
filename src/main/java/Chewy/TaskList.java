@@ -1,3 +1,5 @@
+package Chewy;
+
 import Exceptions.DukeException;
 import Exceptions.InvalidTaskException;
 import Tasks.Deadline;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the list of tasks in the Duke App. A <code>TaskList</code> object contains
+ * Represents the list of tasks in the Chewy App. A <code>TaskList</code> object contains
  * the list of tasks and task operations.
  */
 public class TaskList {
@@ -70,7 +72,6 @@ public class TaskList {
             default:
                 throw new DukeException("Error, see 'help' for a list of commands");
         }
-        // Add task to task list
         taskList.add(task);
         return "Got it. I've added this task:\n\t" + task + "\n"
                 + String.format("Now you have %d tasks in the list%n", taskList.size());
@@ -169,8 +170,8 @@ public class TaskList {
                 taskListAsString.append("Here are the matching tasks in your list:\n");
             }
             count++;
+            taskListAsString.append(count).append(".").append(task).append("\n");
             assert count > 0;
-            taskListAsString.append(count + "." + task + "\n");
         }
         if (count == 0) {
             return "No matching tasks found!";

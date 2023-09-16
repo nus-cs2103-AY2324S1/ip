@@ -1,5 +1,6 @@
+package Chewy;
+
 import Exceptions.DukeException;
-import Exceptions.InvalidTaskException;
 import Exceptions.NoTaskFoundException;
 import Tasks.Task;
 import java.io.BufferedReader;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the Storage system of the Duke App. A <code>Storage</code> object stores
+ * Represents the Storage system of the Chewy App. A <code>Storage</code> object stores
  * the location where the data is loaded from
  */
 public class Storage {
@@ -28,7 +29,7 @@ public class Storage {
      */
     public List<Task> load() throws DukeException {
         System.out.println("Loading tasks...");
-        List<Task> tasks = new ArrayList<Task>();
+        List<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
             String line;
             while ((line = reader.readLine()) != null) {

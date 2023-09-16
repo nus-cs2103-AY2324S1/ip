@@ -1,3 +1,5 @@
+package Chewy;
+
 import javafx.application.Application;
 
 /**

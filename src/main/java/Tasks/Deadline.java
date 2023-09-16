@@ -1,5 +1,7 @@
 package Tasks;
 import Exceptions.DukeException;
+import Exceptions.InvalidTaskFormatException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -10,10 +12,20 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDate deadline;
     public Deadline(String description) throws DukeException {
-        // TODO: Date.now() when "today" is entered
         super(description);
-        // Split the input string by "/by" to separate description and deadline
+        initializeDeadline();
+    }
+
+    private void initializeDeadline() throws DukeException{
         String[] splitString = description.split("/by", 2);
+<<<<<<< HEAD
+
+        if (splitString.length != 2) throw new InvalidTaskFormatException();
+
+        this.description = splitString[0].trim();
+        String deadlineString = splitString[1].trim();
+        this.deadline = super.parseDate(deadlineString);
+=======
         // Should throw error if there are multiple "/by" or no "/by"
         if (splitString.length >=2) {
             assert !splitString[0].isBlank() : "description should not be empty";
@@ -22,6 +34,7 @@ public class Deadline extends Task {
             String deadlineString = splitString[1].trim();
             this.deadline = super.parseDate(deadlineString);
         }
+>>>>>>> master
     }
 
     public Deadline(String description, String deadlineString) {
