@@ -17,7 +17,7 @@ import trackerbot.task.Todo;
  * @version A-CodeQuality
  */
 public class Parser {
-    private static final String MASS_COMMAND_DELIMITER = "::";
+    private static final String MASS_COMMAND_DELIMITER = ";";
 
     /**
      * Splits the user input into its keyword and commandField components.
