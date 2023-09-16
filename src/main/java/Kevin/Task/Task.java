@@ -21,11 +21,6 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "]" + " " + this.description;
-    }
-
     /**
      * This method sets the status of this task to be done.
      */
@@ -40,7 +35,16 @@ public class Task {
         isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String toFileString() {
+        return "[" + this.getStatusIcon() + "]" + " " + this.description;
+    }
+
+    @Override
+    public String toString() {
         return "[" + this.getStatusIcon() + "]" + " " + this.description;
     }
 }

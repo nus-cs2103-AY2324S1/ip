@@ -53,7 +53,7 @@ public class TaskList {
         System.out.println(tasks.get(number - 1));
         tasks.remove(number - 1);
         // Update the file
-        storage.rewriteFile();
+        storage.rewriteFile(this.tasks);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(Ui.line);
     }
@@ -66,7 +66,7 @@ public class TaskList {
     public void markTaskDone(String taskNumber) {
         Task currentTask = tasks.get(Integer.parseInt(taskNumber) - 1);
         currentTask.setIsDone();
-        storage.rewriteFile();
+        storage.rewriteFile(this.tasks);
         System.out.println(Ui.line);
         System.out.println("Nice! I've marked this task as done:\n" + currentTask);
         System.out.println(Ui.line);
@@ -80,7 +80,7 @@ public class TaskList {
         Task currentTask = tasks.get(Integer.parseInt(taskNumber) - 1);
         currentTask.setNotDone();
         System.out.println(Ui.line);
-        storage.rewriteFile();
+        storage.rewriteFile(this.tasks);
         System.out.println("Nice! I've unmarked this task as done:\n" + currentTask);
         System.out.println(Ui.line);
     }
@@ -128,6 +128,18 @@ public class TaskList {
         System.out.println(Ui.line);
     }
 
+    public void findTask(String keyword) {
+        int count = 1;
+        System.out.println(Ui.line);
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task: tasks) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(count + "." + task);
+                count++;
+            }
+        }
+        System.out.println(Ui.line);
+    }
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }

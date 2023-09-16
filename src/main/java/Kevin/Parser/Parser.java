@@ -48,6 +48,9 @@ public class Parser {
                     System.out.println(Ui.line);
                 }
                 break;
+            case "find":
+                taskList.findTask(splitMessage[1]);
+                break;
             default:
                 // Add new tasks to the task list
                 try {

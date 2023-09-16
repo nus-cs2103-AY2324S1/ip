@@ -23,9 +23,9 @@ public class Kevin{
      */
     public Kevin(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath, this.taskList);
+        storage = new Storage(filePath);
         try {
-            taskList = new TaskList(storage.load(), this.storage);
+            this.taskList = new TaskList(storage.load(), this.storage);
         } catch (FileNotFoundException fileException) {
             storage.createNewFile();
         }
@@ -45,6 +45,7 @@ public class Kevin{
             isExit = Parser.getIsExit();
         }
     }
+
     public static void main(String[] args) {
         new Kevin(filePath).run();
     }

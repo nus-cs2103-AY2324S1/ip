@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,17 +16,14 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
-    private TaskList taskList;
 
     /**
      * Default constructor method.
      *
      * @param filePath The file where tasks are going to be written on.
-     * @param taskList This is where the file contents are going to be loaded to.
      */
-    public Storage(String filePath, TaskList taskList) {
+    public Storage(String filePath) {
         this.filePath = filePath;
-        this.taskList = taskList;
     }
 
     /**
@@ -93,10 +91,10 @@ public class Storage {
         }
     }
 
-    public void rewriteFile() {
+    public void rewriteFile(ArrayList<Task> tasks) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
-            for (Task task: taskList.getTasks()) {
+            for (Task task: tasks) {
                 fileWriter.write(task.toString() + "\n");
             }
             fileWriter.close();
