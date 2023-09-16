@@ -151,7 +151,7 @@ Format: `delete [INDEX]`
 Examples: 
 * `delete 2` : Deletes the task indexed at 2.
 * `delete -6` : Error message displayed saying "OOPS!!! Please provide a valid number within the range.".
-* `delete 8` : If there are less than 8 tasks, an error message displayed saying "OOPS!!! Please provide a valid number within the range.".
+* `delete 8` : If there are less than 8 tasks, an error message is displayed saying "OOPS!!! Please provide a valid number within the range.".
 
 <br>
 
@@ -221,3 +221,19 @@ Smolbrain chatbot data are saved in the computer automatically after any command
 
 Smolbrain chatbot data are saved in the computer automatically as a TXT file named `data.txt` in the same directory as your `smolbrain.jar` file.
 > ⚠️ **Caution:** If your changes to the data file makes its format invalid, Smolbrain chatbot will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+
+<br><br>
+
+## Command summary
+| Action | Format, Example |
+| --- | --- |
+| Add todo | `todo [DESCRIPTION]`<br>e.g. `todo Create a new recipe`|
+| Add deadline | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`<br> e.g. `deadline Homework assignment /by 20/12/2023 1800` |
+| Add event | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`<br> e.g. `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` |
+| Mark | `mark [INDEX]`<br> e.g. `mark 2` |
+| Unmark | `unmark [INDEX]`<br> e.g. `unmark 5` |
+| Delete | `delete [INDEX]`<br> e.g. `delete 1` |
+| Priority | `priority [INDEX] [PRIORITY_LEVEL]`<br> e.g. `priority 7 3` |
+| Find | `find [KEYWORD]`<br> e.g. `find book` |
+| List | `list` |
+| Exit | `bye` |
