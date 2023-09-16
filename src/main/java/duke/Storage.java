@@ -84,11 +84,26 @@ public class Storage {
             return this.createDeadlineFromStorage(input, description, isComplete);
         } else if (taskType.equals("E")) {
             return this.createEventFromStorage(input, description, isComplete);
+        } else if (taskType.equals("F")) {
+            return this.createFixedDurationTaskFromStorage(input, description, isComplete);
         } else {
             throw new DukeException("Unknown task type.");
         }
     }
 
+
+    /**
+     * Creates the FixedDurationTask from the storage input.
+     *
+     * @param input The input line.
+     * @param description The description of the FixedDurationTask.
+     * @param isComplete Whether the FixedDurationTask is completed.
+     * @return The Event.
+     */
+    private FixedDurationTask createFixedDurationTaskFromStorage(String input, String description, boolean isComplete) {
+        String duration = input.split(" \\| ")[3];
+        return new FixedDurationTask(description, isComplete, duration);
+    }
 
     /**
      * Creates the Event from the storage input.

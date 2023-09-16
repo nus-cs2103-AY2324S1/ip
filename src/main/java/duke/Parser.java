@@ -37,6 +37,9 @@ public class Parser {
             } else if (command.startsWith("event")) {
                 Event newEvent = createEventFromCommand();
                 return this.taskList.addTask(newEvent);
+            } else if (command.startsWith("fixedduration")) {
+                FixedDurationTask newFixedDurationTask = createFixedDurationTaskFromCommand();
+                return this.taskList.addTask(newFixedDurationTask);
             } else if (command.startsWith("delete")) {
                 return this.taskList.deleteTask(Integer.valueOf(command.split(" ")[1]) - 1);
             } else if (command.startsWith("bye")) {
@@ -52,6 +55,18 @@ public class Parser {
             Ui.printException(e);
         }
         return "Invalid command.";
+    }
+
+    /**
+     * Creates the new FixedDurationTask from the command.
+     *
+     * @return The new FixedDurationTask.
+     */
+    private FixedDurationTask createFixedDurationTaskFromCommand() {
+        String name = command.split(" /for ", 2)[0].split(" ", 2)[1];
+        String duration = command.split(" /for ", 2)[1];
+        FixedDurationTask newFixedDurationTask = new FixedDurationTask(name, duration);
+        return newFixedDurationTask;
     }
 
     /**
