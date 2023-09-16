@@ -48,13 +48,12 @@ test {
 }
 
 application {
-    mainClass.set("anya.Anya")
+    mainClass.set("anya.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "Anya"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{

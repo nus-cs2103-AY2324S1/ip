@@ -1,7 +1,5 @@
 package anya.parser;
 
-import java.util.Scanner;
-
 import anya.command.Command;
 import anya.exception.AnyaException;
 import anya.exception.InvalidArgumentException;
@@ -133,10 +131,10 @@ public class Parser {
     private String executeDeleteCommand(String details) throws InvalidArgumentException {
         validateDeleteArguments(details);
         validateTypeOfArguments(details);
-        int taskNumber = Integer.parseInt(details);
+        int taskNumber = Integer.parseInt(details) - 1;
         validateTaskNumber(taskNumber);
 
-        Task t = tasks.get(taskNumber - 1);
+        Task t = tasks.get(taskNumber);
         tasks.remove(t);
         return ui.showTaskDeleteSuccess(t, tasks);
     }
@@ -264,7 +262,7 @@ public class Parser {
     private void validateTaskNumber(int taskNumber) throws InvalidArgumentException {
         if (taskNumber < 0 || taskNumber > tasks.size() - 1) {
             throw new InvalidArgumentException("☹ Waku waku! "
-                    + "I don't see a task with the number:" + taskNumber + 1);
+                    + "I don't see a task with the number:" + (taskNumber + 1));
         }
     }
 }
