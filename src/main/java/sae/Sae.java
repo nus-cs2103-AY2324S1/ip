@@ -63,8 +63,6 @@ public class Sae {
             try {
                 parser.executeCommand(store, commandTask);
                 this.storage.saveTasks(store);
-            } catch (SaeException e) {
-                System.out.println("☹ " + e.getMessage());
             } catch (IOException e) {
                 System.out.println("An error occurred while saving tasks: " + e.getMessage());
             }

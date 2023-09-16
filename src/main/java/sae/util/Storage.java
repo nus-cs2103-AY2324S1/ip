@@ -32,8 +32,7 @@ public class Storage {
         if (!f.exists()) {
             createFile(f);
             throw new FileNotFoundException("The file has not been created. Try again.");
-        }
-        else {
+        } else {
             return readTasks(filePath);
         }
     }
