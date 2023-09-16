@@ -1,4 +1,4 @@
-package duke.gui;
+package sillybot.gui;
 
 import javafx.application.Application;
 /**

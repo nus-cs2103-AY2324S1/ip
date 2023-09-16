@@ -1,4 +1,4 @@
-package duke.tasks;
+package sillybot.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

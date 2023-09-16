@@ -1,7 +1,9 @@
-package duke.tasks;
+package sillybot.tasks;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import sillybot.exceptions.IncompleteInputException;
 
 /**
  * Represents a TaskList object that contains the tasks.
@@ -19,7 +21,7 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param tasks The file containing the tasks.
      */
-    public TaskList(Scanner tasks) {
+    public TaskList(Scanner tasks) throws IncompleteInputException {
         super();
 
         while (tasks.hasNextLine()) {
@@ -44,8 +46,8 @@ public class TaskList extends ArrayList<Task> {
      * @param index the (index - 1) of the task to be deleted from the TaskList.
      */
     public void deleteTask(int index) {
-        Task.decreaseTaskCountByOne();
         this.remove(index - 1);
+        Task.decreaseTaskCountByOne();
     }
 
     /**
@@ -60,6 +62,7 @@ public class TaskList extends ArrayList<Task> {
             output = new StringBuilder("Either you are a very productive person, or you have nothing to do.");
         } else {
             output = new StringBuilder("This is what you've been procrastinating about...");
+
             for (int i = 0; i < this.size(); i++) {
                 output.append("\n").append(i + 1).append(". ").append(this.get(i));
             }
@@ -71,22 +74,17 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Find tasks that contain the keyword.
      *
-     * @param keywords keywords to be searched.
+     * @param keyword keyword to be searched.
      * @return String containing the tasks that contain the keyword.
      */
-    public String findTasks(String... keywords) {
+    public String findTasks(String keyword) {
         int count = 0;
-        StringBuilder output = new StringBuilder();
+        StringBuilder output = new StringBuilder("you actually have this:");
 
         for (int i = 0; i < this.size(); i++) {
-            String description = this.get(i).getDescription();
-
-            for (String keyword : keywords) {
-                if (description.contains(keyword)) {
-                    output.append("\n").append(i + 1).append(". ").append(this.get(i));
-                    count++;
-                    break;
-                }
+            if (this.get(i).getDescription().contains(keyword)) {
+                output.append("\n").append(i + 1).append(". ").append(this.get(i));
+                count++;
             }
         }
 

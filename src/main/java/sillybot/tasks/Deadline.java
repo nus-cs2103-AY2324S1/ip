@@ -1,8 +1,8 @@
-package duke.tasks;
+package sillybot.tasks;
 
 import java.time.LocalDate;
 
-import duke.DatesAndTimesFormatter;
+import sillybot.DatesAndTimesFormatter;
 
 /**
  * Represents a Deadline object that is a Task.
@@ -21,6 +21,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         this.date = Task.parseDate(by);
+
         if (date != null) {
             this.by = date.format(DatesAndTimesFormatter.OUTPUT_FORMAT.formatter);
         }

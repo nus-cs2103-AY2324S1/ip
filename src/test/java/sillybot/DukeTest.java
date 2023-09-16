@@ -1,4 +1,4 @@
-package duke.tasks;
+package sillybot.tasks;
 
 public class DukeTest {
 }

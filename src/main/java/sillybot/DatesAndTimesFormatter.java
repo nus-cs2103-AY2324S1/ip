@@ -1,4 +1,4 @@
-package duke;
+package sillybot;
 
 import java.time.format.DateTimeFormatter;
 

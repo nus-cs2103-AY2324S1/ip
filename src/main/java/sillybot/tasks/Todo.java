@@ -1,4 +1,4 @@
-package duke.tasks;
+package sillybot.tasks;
 
 /**
  * Represents a Todo object that is a Task.

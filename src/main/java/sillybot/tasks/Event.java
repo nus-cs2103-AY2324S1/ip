@@ -1,8 +1,8 @@
-package duke.tasks;
+package sillybot.tasks;
 
 import java.time.LocalDate;
 
-import duke.DatesAndTimesFormatter;
+import sillybot.DatesAndTimesFormatter;
 
 /**
  * Represents an Event object that is a Task.
@@ -26,9 +26,11 @@ public class Event extends Task {
         this.to = to;
         this.startDate = Task.parseDate(from);
         this.endDate = Task.parseDate(to);
+
         if (startDate != null) {
             this.from = startDate.format(DatesAndTimesFormatter.OUTPUT_FORMAT.formatter);
         }
+
         if (endDate != null) {
             this.to = endDate.format(DatesAndTimesFormatter.OUTPUT_FORMAT.formatter);
         }
