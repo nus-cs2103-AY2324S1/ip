@@ -26,31 +26,5 @@ public class Thea {
             tasks = new TaskList();
         }
     }
-
-    /**
-     * Contains logic the main logic of Thea that needs to be run.
-     */
-    public void run() {
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readNextLine();
-            try {
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.getIsExit();
-            } catch (EmptyDescriptionException | WrongCommandException
-                     | WrongDateTimeFormatException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String greetings() {
-        return ui.greet();
-    }
 }
 
