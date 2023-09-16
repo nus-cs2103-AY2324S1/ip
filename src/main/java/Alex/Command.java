@@ -10,5 +10,5 @@ public abstract class Command {
     /**
      * A common method that needs to be overriden by the class extending from Command class.
      */
-    public abstract void execute();
+    public abstract String execute();
 }

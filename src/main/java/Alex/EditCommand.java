@@ -25,20 +25,21 @@ public class EditCommand extends Command {
      * mark task, unmark task and delete an existing class in TaskList.
      */
     @Override
-    public void execute() {
+    public String execute() {
+        String output = null;
         switch (this.editType) {
         case MARK:
             try {
                 int index = Integer.parseInt(command.substring(5));
                 Task targetedTask = TaskList.getTaskByIndex(index);
-                targetedTask.mark();
+                output = targetedTask.mark();
+                return output;
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                Ui.printAlertForMark();
+                output = Ui.getAlertForMark();
+                return output;
             } catch (AlexException e) {
-                System.out.println(Ui.horizontalLine
-                        + e.getMessage() + "\n"
-                        + Ui.horizontalLine
-                );
+                output = e.getMessage();
+                return output;
             } finally {
                 break;
             }
@@ -47,14 +48,14 @@ public class EditCommand extends Command {
             try {
                 int index = Integer.parseInt(command.substring(7));
                 Task targetedTask = TaskList.getTaskByIndex(index);
-                targetedTask.unmark();
+                output = targetedTask.unmark();
+                return output;
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                Ui.printAlertForUnmark();
+                output = Ui.getAlertForUnmark();
+                return output;
             } catch (AlexException e) {
-                System.out.println(Ui.horizontalLine
-                        + e.getMessage() + "\n"
-                        + Ui.horizontalLine
-                );
+                output = e.getMessage();
+                return output;
             } finally {
                 break;
             }
@@ -62,18 +63,16 @@ public class EditCommand extends Command {
         case DELETE:
             try {
                 int toDeleteIndex = Integer.parseInt(command.substring(7, 8));
-                TaskList.delete(toDeleteIndex);
+                output = TaskList.delete(toDeleteIndex);
+                return output;
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                Ui.printAlertForDelete();
-            } catch (AlexException e) {
-                System.out.println(Ui.horizontalLine
-                        + e.getMessage() + "\n"
-                        + Ui.horizontalLine
-                );
+                output = Ui.getAlertForDelete();
+                return output;
             } finally {
                 break;
             }
         }
+        return output;
     }
 
 

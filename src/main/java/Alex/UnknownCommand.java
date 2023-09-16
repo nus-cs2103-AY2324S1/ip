@@ -22,8 +22,9 @@ public class UnknownCommand extends Command {
      * to notify the user that the command typed by the user is defined or not known by the chat bot Alex.
      */
     @Override
-    public void execute() {
+    public String execute() {
 
-        Ui.printAlertForUnknown();
+        String output = Ui.getAlertForUnknown();
+        return output;
     }
 }
