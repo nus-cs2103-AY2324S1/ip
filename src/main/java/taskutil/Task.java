@@ -56,7 +56,7 @@ public abstract class Task {
      * @return True if task contains query.
      */
     public boolean contains(String query) {
-        return this.title.contains(query);
+        return this.title.toLowerCase().contains(query.toLowerCase());
     }
 
     /**
