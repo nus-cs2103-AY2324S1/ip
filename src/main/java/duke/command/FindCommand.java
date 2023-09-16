@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
+import duke.Ui;
 import duke.task.Task;
 
 /**
@@ -27,7 +27,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> found = tasks.find(text);
         return (ui.showFoundTask(found));
     }

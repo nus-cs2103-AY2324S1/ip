@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
+import duke.Ui;
 
 
 /**
@@ -29,5 +29,5 @@ public abstract class Command {
      * @param storage A storage object to handle file IO.
      * @throws IOException If file is corrupted.
      */
-    public abstract String execute(TaskList tasks, UI ui, Storage storage) throws IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
 }

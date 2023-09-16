@@ -35,7 +35,7 @@ public class ParserTest {
     @Test
     public void testAdd() {
         TaskList tasks = new TaskList();
-        UI ui = new UI();
+        Ui ui = new Ui();
         Storage storage = new Storage("storage.txt");
         try {
             Command c = Parser.parse("todo read book");

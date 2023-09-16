@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
+import duke.Ui;
 
 /**
  * The UnknownCommand represents a Command that
@@ -15,7 +15,7 @@ public class UnknownCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, UI ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         return (ui.showUnknownCommand());
     }
 }
