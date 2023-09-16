@@ -1,6 +1,7 @@
 package duke.filemanagement;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -64,32 +65,34 @@ public class DateTimeDetector {
      * @return LocalDate that represents parsed date.
      * @throws DateTimeParseException The date given does not follow any of the formats.
      */
-    public LocalDate parseDateWithTime(String date) throws DateTimeParseException {
+    public LocalDateTime parseDateWithTime(String date) throws DateTimeParseException {
         if (is12hFormat(date)) {
             if (isDateSplitWithDash(date)) {
                 if (doesDateStartWithYear(date)) {
                     // date is yyyy-MM-dd hh:mm
-                    return LocalDate.parse(date, t112h);
+                    return LocalDateTime.parse(date, t112h);
                 } else {
                     // date is dd-MMM-yyyy hh:mm
-                    return LocalDate.parse(date, t212h);
+                    return LocalDateTime.parse(date, t212h);
                 }
             } else {
                 // date is dd/MM/yyyy hh:mm
-                return LocalDate.parse(date, t312h);
+                return LocalDateTime.parse(date, t312h);
             }
         } else {
             if (isDateSplitWithDash(date)) {
                 if (doesDateStartWithYear(date)) {
                     // date is yyyy-MM-dd HHmm
-                    return LocalDate.parse(date, t124h);
+                    return LocalDateTime.parse(date, t124h);
                 } else {
                     // date is dd-MMM-yyyy HHmm
-                    return LocalDate.parse(date, t224h);
+                    return LocalDateTime.parse(date, t224h);
                 }
             } else {
                 // date is dd/MM/yyyy HHmm
-                return LocalDate.parse(date, t324h);
+                System.out.println("date is now");
+                System.out.println(date);
+                return LocalDateTime.parse(date, t324h);
             }
         }
     }
@@ -122,14 +125,18 @@ public class DateTimeDetector {
      */
     public String format(String date) {
         LocalDate d;
+        LocalDateTime dt;
         try {
             if (includeTime(date)) {
-                d = parseDateWithTime(date);
+                dt = parseDateWithTime(date);
+                assert dt != null : "d be updated with parsed input date and not null";
+                return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
             } else {
                 d = parseDateOnly(date);
+                assert d != null : "d be updated with parsed input date and not null";
+                return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             }
-            assert d != null : "d be updated with parsed input date and not null";
-            return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+
         } catch (DateTimeParseException e) {
             return date;
         }
