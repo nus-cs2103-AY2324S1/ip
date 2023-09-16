@@ -83,7 +83,7 @@ public class Ui {
     }
 
     /**
-     * Add the error message from a given Exeception.
+     * Adds the error message from a given Exeception.
      *
      * @param e The Exception thrown from the execution of a method.
      */
