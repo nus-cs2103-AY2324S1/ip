@@ -3,6 +3,7 @@ package tasks;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import enums.ExceptionMessage;
 import exceptions.WoofInvalidCommandException;
 
 /**
@@ -196,34 +197,23 @@ public class TaskList {
      *
      * @param text The text representing the task index to validate.
      */
-    public void validateTaskIndex(String text) {
+    public static void validateTaskIndex(String text, TaskList taskList) {
         int index;
         try {
             index = Integer.parseInt(text);
         } catch (NumberFormatException e) {
             throw new WoofInvalidCommandException(
-                String.format("Task index: '%s' is invalid, task index has to be in integer format.\n", text)
+                ExceptionMessage.INVALID_TASK_INDEX.getValueFormat(text)
             );
         } catch (Exception e) {
             throw new WoofInvalidCommandException(
-                String.format("Error while parsing task index: '%s'.\n", text)
+                ExceptionMessage.UNABLE_TO_PARSE_INDEX.getValueFormat(text, e.getMessage())
             );
         }
-
-        if (index < 1 || index > this.tasks.size()) {
+        if (index < 1 || index > taskList.size()) {
             throw new WoofInvalidCommandException(
-                String.format("Task index: '%s' is invalid, task index has to be in the list.\n", text)
+                ExceptionMessage.TASK_INDEX_NOT_IN_LIST.getValueFormat(text)
             );
         }
-    }
-
-    /**
-     * Checks if there is an error based on the validation result.
-     *
-     * @param validationError The validation error message.
-     * @return True if there is an error (validationError is not empty), false otherwise.
-     */
-    public boolean isValidationError(String validationError) {
-        return !validationError.isEmpty();
     }
 }

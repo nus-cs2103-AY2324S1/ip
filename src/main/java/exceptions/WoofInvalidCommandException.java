@@ -11,6 +11,6 @@ public class WoofInvalidCommandException extends WoofException {
      * @param message The error message describing the invalid command.
      */
     public WoofInvalidCommandException(String message) {
-        super(message);
+        super(String.format("command bad ... %s", message));
     }
 }

@@ -5,8 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import exceptions.WoofInvalidCommandException;
@@ -16,6 +20,19 @@ import tasks.TaskList;
 import woof.Woof;
 
 public class DeadlineCommandTest {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    @BeforeEach
+    public void setUpStreams() {
+        // Redirect System.out to the ByteArrayOutputStream
+        System.setOut(new PrintStream(this.outContent));
+    }
+
+    @AfterEach
+    public void restoreStreams() {
+        // Restore the original System.out
+        System.setOut(this.originalOut);
+    }
     @Test
     public void testValidate() {
         // Arrange, Act, Assert

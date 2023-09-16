@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import enums.ExceptionMessage;
 import exceptions.WoofStorageException;
 import tasks.Task;
 import tasks.TaskList;
@@ -40,7 +41,7 @@ public class TaskFileHandler {
         try (FileReader r = new FileReader(FILE_PATH)) {
             tasks = gson.fromJson(r, Task[].class);
         } catch (IOException e) {
-            throw new WoofStorageException("Error reading from file: " + e.getMessage());
+            throw new WoofStorageException(ExceptionMessage.UNABLE_TO_READ_FILE.getValueFormat(e.getMessage()));
         }
 
         return new TaskList(tasks);
@@ -62,7 +63,7 @@ public class TaskFileHandler {
         try (FileWriter w = new FileWriter(FILE_PATH)) {
             gson.toJson(tasks, w);
         } catch (IOException e) {
-            throw new WoofStorageException("Error writing to file: " + e.getMessage());
+            throw new WoofStorageException(ExceptionMessage.UNABLE_TO_SAVE_FILE.getValueFormat(e.getMessage()));
         }
     }
 
@@ -78,7 +79,7 @@ public class TaskFileHandler {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
-                throw new WoofStorageException("Error creating file: " + e.getMessage());
+                throw new WoofStorageException(ExceptionMessage.UNABLE_TO_CREATE_FILE.getValueFormat(e.getMessage()));
             }
         }
     }

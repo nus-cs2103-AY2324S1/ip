@@ -36,28 +36,11 @@ public class UnmarkCommand extends Command {
         assert taskList != null : "task list cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
-
-        try {
-            taskList.validateTaskIndex(args[1]);
-        } catch (Exception e) {
-            throw new WoofInvalidCommandException(e.getMessage());
-        }
-
-        if (args.length != 2) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.UNMARK.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.UNMARK)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.UNMARK.getValue()
-                )
-            );
-        }
+        validateArgsLengthEquals(CommandWord.UNMARK, args, 2);
+        validateNotNullArgs(CommandWord.UNMARK, args);
+        validateNotEmptyArgs(CommandWord.UNMARK, args);
+        validateCommandWord(CommandWord.UNMARK, args[0]);
+        validateTaskIndex(taskList, args[1]);
     }
 
     /**

@@ -6,12 +6,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import exceptions.WoofInvalidCommandException;
 import tasks.TaskList;
 
 public class ByeCommandTest {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    @BeforeEach
+    public void setUpStreams() {
+        // Redirect System.out to the ByteArrayOutputStream
+        System.setOut(new PrintStream(this.outContent));
+    }
+
+    @AfterEach
+    public void restoreStreams() {
+        // Restore the original System.out
+        System.setOut(this.originalOut);
+    }
 
     @Test
     public void testValidate() {
@@ -38,10 +56,6 @@ public class ByeCommandTest {
 
         // Act
         String actualOutput = byeCommand.execute(taskList);
-
-        // Restore System.out
-        System.setOut(System.out);
-
         String expectedOutput = "Bye. Hope to see you again soon!" + System.lineSeparator()
                 + "Closing Woof Woof..." + System.lineSeparator();
 
@@ -57,9 +71,6 @@ public class ByeCommandTest {
 
         // Act
         invalidCommand.execute(taskList);
-
-        // Restore System.out
-        System.setOut(System.out);
 
         // Assert
         assertNotEquals("", "Invalid number of arguments for the 'bye' command.");

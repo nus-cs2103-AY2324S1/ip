@@ -1,7 +1,6 @@
 package command;
 
 import enums.CommandWord;
-import enums.ExceptionMessage;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
@@ -36,28 +35,11 @@ public class DeleteCommand extends Command {
         assert taskList != null : "task list cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
-
-        try {
-            taskList.validateTaskIndex(args[1]);
-        } catch (Exception e) {
-            throw new WoofInvalidCommandException(e.getMessage());
-        }
-
-        if (args.length != 2) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.DELETE.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.DELETE)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.DELETE.getValue()
-                )
-            );
-        }
+        validateArgsLengthEquals(CommandWord.DELETE, args, 2);
+        validateNotNullArgs(CommandWord.DELETE, args);
+        validateNotEmptyArgs(CommandWord.DELETE, args);
+        validateCommandWord(CommandWord.DELETE, args[0]);
+        validateTaskIndex(taskList, args[1]);
     }
 
 

@@ -3,13 +3,10 @@ package command;
 import java.time.LocalDate;
 
 import enums.CommandWord;
-import enums.ExceptionMessage;
-import exceptions.WoofException;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.EventTask;
 import tasks.TaskList;
-import woof.Woof;
 
 /**
  * The `EventCommand` class represents a command to create a new event task.
@@ -39,50 +36,14 @@ public class EventCommand extends Command {
         assert rawCommand != null : "raw command cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
-
-        if (args.length != 6) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.EVENT.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.EVENT)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.EVENT.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[2]).equals(CommandWord.FROM)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_SUB_COMMAND_WORD.getValueFormat(
-                    CommandWord.FROM.getValue()
-                )
-            );
-        }
-
-        try {
-            Woof.validateDateTime(args[3]);
-        } catch (WoofException e) {
-            throw new WoofInvalidCommandException(e.getMessage());
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[4]).equals(CommandWord.TO)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_SUB_COMMAND_WORD.getValueFormat(
-                    CommandWord.TO.getValue()
-                )
-            );
-        }
-
-        try {
-            Woof.validateDateTime(args[5]);
-        } catch (WoofException e) {
-            throw new WoofInvalidCommandException(e.getMessage());
-        }
+        validateArgsLengthEquals(CommandWord.EVENT, args, 6);
+        validateNotNullArgs(CommandWord.EVENT, args);
+        validateNotEmptyArgs(CommandWord.EVENT, args);
+        validateCommandWord(CommandWord.EVENT, args[0]);
+        validateCommandWord(CommandWord.FROM, args[2]);
+        validateDateTime(args[3]);
+        validateCommandWord(CommandWord.TO, args[4]);
+        validateDateTime(args[5]);
     }
 
     /**

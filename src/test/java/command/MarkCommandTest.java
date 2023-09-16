@@ -22,17 +22,16 @@ import tasks.TodoTask;
 public class MarkCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-
     @BeforeEach
     public void setUpStreams() {
         // Redirect System.out to the ByteArrayOutputStream
-        System.setOut(new PrintStream(outContent));
+        System.setOut(new PrintStream(this.outContent));
     }
 
     @AfterEach
     public void restoreStreams() {
         // Restore the original System.out
-        System.setOut(originalOut);
+        System.setOut(this.originalOut);
     }
 
     @Test

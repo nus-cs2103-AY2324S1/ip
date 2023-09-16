@@ -1,7 +1,6 @@
 package command;
 
 import enums.CommandWord;
-import enums.ExceptionMessage;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
@@ -30,22 +29,10 @@ public class FindCommand extends Command {
         assert rawCommand != null : "raw command cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
-
-        if (args.length < 2) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.FIND.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.FIND)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.FIND.getValue()
-                )
-            );
-        }
+        validateArgsLengthMoreThanEquals(CommandWord.FIND, args, 2);
+        validateNotNullArgs(CommandWord.FIND, args);
+        validateNotEmptyArgs(CommandWord.FIND, args);
+        validateCommandWord(CommandWord.FIND, args[0]);
     }
 
 

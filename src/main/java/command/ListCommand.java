@@ -1,7 +1,6 @@
 package command;
 
 import enums.CommandWord;
-import enums.ExceptionMessage;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
@@ -34,22 +33,10 @@ public class ListCommand extends Command {
         assert rawCommand != null : "raw command cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
-
-        if (args.length != 1) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.LIST.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.LIST)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.LIST.getValue()
-                )
-            );
-        }
+        validateArgsLengthEquals(CommandWord.LIST, args, 1);
+        validateNotNullArgs(CommandWord.LIST, args);
+        validateNotEmptyArgs(CommandWord.LIST, args);
+        validateCommandWord(CommandWord.LIST, args[0]);
     }
 
 

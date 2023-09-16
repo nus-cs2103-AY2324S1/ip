@@ -11,6 +11,6 @@ public class WoofException extends RuntimeException {
      * @param message The error message describing the exception.
      */
     public WoofException(String message) {
-        super(message);
+        super(String.format("Woof! %s", message));
     }
 }

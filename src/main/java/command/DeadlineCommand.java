@@ -3,13 +3,10 @@ package command;
 import java.time.LocalDate;
 
 import enums.CommandWord;
-import enums.ExceptionMessage;
-import exceptions.WoofException;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.DeadlineTask;
 import tasks.TaskList;
-import woof.Woof;
 
 /**
  * The `DeadlineCommand` class represents a command to create a new deadline task.
@@ -37,52 +34,12 @@ public class DeadlineCommand extends Command {
         assert rawCommand != null : "raw command cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
-
-        if (args.length != 4) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.DEADLINE.getValue()
-                )
-            );
-        }
-
-        if (args[0] == null || args[1] == null || args[2] == null || args[3] == null) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.NULL_ARGUMENT.getValueFormat(
-                    CommandWord.DEADLINE.getValue()
-                )
-            );
-        }
-
-        if (args[0].isEmpty() || args[1].isEmpty() || args[2].isEmpty() || args[3].isEmpty()) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.EMPTY_ARGUMENT.getValueFormat(
-                    CommandWord.DEADLINE.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.DEADLINE)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.DEADLINE.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[2]).equals(CommandWord.BY)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_SUB_COMMAND_WORD.getValueFormat(
-                    CommandWord.BY.getValue()
-                )
-            );
-        }
-
-        try {
-            Woof.validateDateTime(args[3]);
-        } catch (WoofException e) {
-            throw new WoofInvalidCommandException(e.getMessage());
-        }
+        validateArgsLengthEquals(CommandWord.DEADLINE, args, 4);
+        validateNotNullArgs(CommandWord.DEADLINE, args);
+        validateNotEmptyArgs(CommandWord.DEADLINE, args);
+        validateCommandWord(CommandWord.DEADLINE, args[0]);
+        validateCommandWord(CommandWord.BY, args[2]);
+        validateDateTime(args[3]);
     }
 
     /**

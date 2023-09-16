@@ -1,7 +1,6 @@
 package command;
 
 import enums.CommandWord;
-import enums.ExceptionMessage;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
@@ -37,28 +36,11 @@ public class MarkCommand extends Command {
         assert taskList != null : "task list cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
-
-        try {
-            taskList.validateTaskIndex(args[1]);
-        } catch (Exception e) {
-            throw new WoofInvalidCommandException(e.getMessage());
-        }
-
-        if (args.length != 2) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.MARK.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.MARK)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.MARK.getValue()
-                )
-            );
-        }
+        validateArgsLengthEquals(CommandWord.MARK, args, 2);
+        validateNotNullArgs(CommandWord.MARK, args);
+        validateNotEmptyArgs(CommandWord.MARK, args);
+        validateCommandWord(CommandWord.MARK, args[0]);
+        validateTaskIndex(taskList, args[1]);
     }
 
 

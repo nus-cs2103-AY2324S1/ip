@@ -1,7 +1,6 @@
 package command;
 
 import enums.CommandWord;
-import enums.ExceptionMessage;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
@@ -34,22 +33,10 @@ public class TodoCommand extends Command {
         assert rawCommand != null : "raw command cannot be null";
 
         String[] args = Parser.getArgs(rawCommand);
-
-        if (args.length != 2) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.TODO.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.TODO)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.TODO.getValue()
-                )
-            );
-        }
+        validateArgsLengthEquals(CommandWord.TODO, args, 2);
+        validateNotNullArgs(CommandWord.TODO, args);
+        validateNotEmptyArgs(CommandWord.TODO, args);
+        validateCommandWord(CommandWord.TODO, args[0]);
     }
 
 

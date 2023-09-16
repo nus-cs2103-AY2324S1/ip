@@ -53,17 +53,15 @@ public class Woof {
      * Validates a date-time string using the application date-time formatter.
      *
      * @param string The date-time string to validate.
-     * @return `true` if the string is a valid date-time, `false` otherwise.
      */
-    public static boolean validateDateTime(String string) {
+    public static void validateDateTime(String string) {
         assert string != null : "datetime string cannot be null";
 
         try {
             LocalDate.parse(string, getDateTimeFormatter());
         } catch (DateTimeParseException e) {
-            throw new WoofException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.getValueFormat());
+            throw new WoofException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.getValueFormat(string));
         }
-        return true;
     }
 
     /**

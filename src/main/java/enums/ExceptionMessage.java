@@ -4,12 +4,22 @@ package enums;
  * The `ExceptionMessage` enum represents the possible exception messages used in the Woof application.
  */
 public enum ExceptionMessage {
-    INVALID_NUMBER_OF_ARGUMENTS("Invalid number of arguments for the '%s' command."),
-    NULL_ARGUMENT("null argument not allowed for '%s'"),
-    EMPTY_ARGUMENT("Empty argument not allowed for '%s'"),
-    INVALID_COMMAND_WORD("Invalid command word for '%s' command."),
-    INVALID_SUB_COMMAND_WORD("Invalid subcommand word for '%s' command."),
-    INVALID_DATE_TIME_FORMAT("Invalid datetime format");
+    // INVALID COMMAND EXCEPTION MESSAGES
+    INVALID_NUMBER_OF_ARGUMENTS("wrong number of arguments for '%s'!"),
+    NULL_ARGUMENT("null argument not allowed for '%s'!"),
+    EMPTY_ARGUMENT("I don't want empty arguments for '%s' :("),
+    INVALID_COMMAND_WORD("bad command word for '%s'..."),
+    INVALID_DATE_TIME_FORMAT("me no understand your datetime format '%s'"),
+
+    // STORAGE EXCEPTION MESSAGES
+    UNABLE_TO_READ_FILE("me can't '%s' file. Computer go '%s'"),
+    UNABLE_TO_SAVE_FILE("me can't save file. Computer go '%s'"),
+    UNABLE_TO_CREATE_FILE("me can't create file. Computer go '%s'"),
+
+    // TASK INDEX EXCEPTION MESSAGE
+    INVALID_TASK_INDEX("bad task index '%s', give me integer!"),
+    UNABLE_TO_PARSE_INDEX("idk how to parse '%s', Computer go '%s'"),
+    TASK_INDEX_NOT_IN_LIST("'%s' not in my task list");
 
     private final String value;
 

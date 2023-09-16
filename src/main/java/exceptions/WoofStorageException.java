@@ -12,6 +12,6 @@ public class WoofStorageException extends WoofException {
      * @param message The error message describing the storage-related exception.
      */
     public WoofStorageException(String message) {
-        super(message);
+        super(String.format("storage... %s", message));
     }
 }

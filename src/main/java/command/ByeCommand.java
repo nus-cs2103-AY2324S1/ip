@@ -1,7 +1,6 @@
 package command;
 
 import enums.CommandWord;
-import enums.ExceptionMessage;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
@@ -30,41 +29,12 @@ public class ByeCommand extends Command {
      */
     public static void validate(String rawCommand) {
         assert rawCommand != null : "raw command cannot be null";
-  
+
         String[] args = Parser.getArgs(rawCommand);
-
-        if (args.length != 1) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    CommandWord.BYE.getValue()
-                )
-            );
-        }
-
-
-        if (args[0] == null) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.NULL_ARGUMENT.getValueFormat(
-                    CommandWord.BYE.getValue()
-                )
-            );
-        }
-
-        if (args[0].isEmpty()) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.EMPTY_ARGUMENT.getValueFormat(
-                    CommandWord.BYE.getValue()
-                )
-            );
-        }
-
-        if (!CommandWord.commandWordToValueMap(args[0]).equals(CommandWord.BYE)) {
-            throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    CommandWord.BYE.getValue()
-                )
-            );
-        }
+        validateArgsLengthEquals(CommandWord.BYE, args, 1);
+        validateNotNullArgs(CommandWord.BYE, args);
+        validateNotEmptyArgs(CommandWord.BYE, args);
+        validateCommandWord(CommandWord.BYE, args[0]);
     }
 
 
@@ -75,7 +45,7 @@ public class ByeCommand extends Command {
      */
     public String execute(TaskList taskList) {
         assert taskList != null : "task list cannot be null";
-  
+
         try {
             validate(super.getRawCommand());
         } catch (WoofInvalidCommandException e) {
