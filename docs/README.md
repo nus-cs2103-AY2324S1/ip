@@ -25,7 +25,7 @@ text.
 Ensure that you are downloading the latest version of `Java 11` from the websites which contain
 the `JavaFX` library prepackaged in it.
 
-> [!WARNING]  
+> **⚠️Warning**  
 > If you decide not to use the above `Java 11` JDKs for any reason, ensure that the JDK you 
 > decide to use is at least `Java 11` and you install the relevant `JavaFX` library along with
 > the installation of the JDK!
@@ -191,7 +191,7 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
     * `HH`: 2-digit number representing the hour in 24 hours
     * `MM`: 2-digit number representing the minutes
 
-> [!NOTE]  
+> **ℹ️Note**  
 > The date formats used in `event` follows closely to what `deadline` uses!
 
 #### Examples
@@ -258,7 +258,7 @@ This command helps you to mark an event as completed!
 mark [TASK INDEX]
 ```
 
-> [!NOTE]  
+> **ℹ️Note**  
 > The task index is relative to the current order of the task list! If you are not sure 
 > what the order of the list is, use the `list` command!
 
@@ -274,7 +274,7 @@ If successful, `Juke` will respond with:
 Task marked as done: <TASK>
 ```
 
-> [!NOTE]  
+> **ℹ️Note**  
 > The task indicator will turn from `[]` to `[✓]`
 
 #### Possible Errors
@@ -294,7 +294,7 @@ This command helps you to mark an event as incompleted!
 unmark [TASK INDEX]
 ```
 
-> [!NOTE]  
+> **ℹ️Note**  
 > The task index is relative to the current order of the task list! If you are not sure
 > what the order of the list is, use the `list` command!
 
@@ -310,7 +310,7 @@ If successful, `Juke` will respond with:
 Task marked as undone: <TASK>
 ```
 
-> [!NOTE]  
+> **ℹ️Note**  
 > The task indicator will turn from `[✓]` to `[]`
 
 #### Possible Errors
@@ -330,7 +330,7 @@ This command helps you to delete a Task from your task list!
 delete [TASK INDEX]
 ```
 
-[!NOTE]  
+**ℹ️Note**  
 The task index is relative to the current order of the task list! If you are not sure
 what the order of the list is, use the `list` command!
 
@@ -363,7 +363,7 @@ This command helps you find a Task by its task name!
 find [QUERY]
 ```
 
-> [!NOTE]  
+> **ℹ️Note**  
 > The query can be any valid task name String (does not contain the illegal character `|`)!
 
 #### Examples
@@ -400,12 +400,12 @@ This command helps you to stay organised by allowing you to sort your task list!
 sort [SORT ORDER] [SORT BY]
 ```
 
-> [!NOTE]   
+> **ℹ️Note**   
 > The values that `[SORT ORDER]` can take are:
 > * `a` OR `asc` OR `ascend` OR `ascending`: Sorts the list in ascending order
 > * `d` OR `desc` OR `descend` OR `descending`: Sorts the list in descending order
 
-> [!NOTE]  
+> **ℹ️Note**  
 > The values that `[SORT BY]` can take are:
 > * `d` OR `des` OR `descript` OR `description`: Sorts the list by task description
 > * `s` OR `st` OR `start` OR `start date`: Sorts the list by start date
