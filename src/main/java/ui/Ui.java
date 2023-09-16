@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+branch-A-CodeQuality
  * The Ui class provides methods for interacting with the user.
+=======
+ * The Ui class provides methods for interacting with the user.
+ master
  */
 public class Ui {
     private Parser parser;
