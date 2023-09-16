@@ -246,7 +246,9 @@ public class Task {
     public static LocalDate parseDate(String date) {
         for (DatesAndTimesFormatter formatter : DatesAndTimesFormatter.values()) {
             try {
-                return LocalDate.parse(date, formatter.formatter);
+                LocalDate parsedDate = LocalDate.parse(date, formatter.formatter);
+                assert parsedDate != null : "Parsed date cannot be null";
+                return parsedDate;
             } catch (Exception e) {
                 // Do nothing
             }
