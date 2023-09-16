@@ -1,5 +1,5 @@
 package duke;
-import dukeUiElements.Ui;
+import dukeuielements.Ui;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,9 +30,9 @@ public class Duke {
         } catch (DukeException e) {
             return e.getMessage();
         } catch (NumberFormatException e) {
-            return Ui.indent + "Invalid character input";
+            return "Invalid character input";
         } catch (IndexOutOfBoundsException e) {
-            return Ui.indent + "Invalid entry / Task not in list... Please try again...";
+            return "Invalid entry / Task not in list... Please try again...";
         } catch (IllegalArgumentException e) {
             return "OOPS!!! Sorry, but i do not know what that means :-(";
         }

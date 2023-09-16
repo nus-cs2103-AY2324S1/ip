@@ -1,4 +1,6 @@
 package task;
+import dukeuielements.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,15 +10,15 @@ import java.time.format.DateTimeParseException;
  */
 public class Task {
     private String description;
-    private boolean status;
+    private boolean isFalseStatus;
     private String indent = "    ";
     public Task(String description) {
         this.description = description;
-        this.status = false;
+        this.isFalseStatus = false;
     }
     public Task(String description, boolean status) {
         this.description = description;
-        this.status = status;
+        this.isFalseStatus = status;
     }
 
     /**
@@ -25,16 +27,23 @@ public class Task {
      * @param userInput mark/unmark which specifies the command.
      */
     public String changeStatus(String userInput) {
-        if (!this.status && userInput.equals("mark")) {
-            this.status = !this.status;
-            return "Nice! Task completed successfully!" + "\n" + indent + this.toString();
-        } else if (!this.status && userInput.equals("unmark")) {
-            return "Task already unmarked! Please try again..." + "\n" + indent + this.toString();
-        } else if (this.status && userInput.equals("unmark")) {
-            this.status = !this.status;
-            return "Sure! Task status unchecked!" + "\n" + indent + this.toString();
-        } else {
-            return "Task already checked. Please try again..." + "\n" + indent + this.toString();
+        switch (userInput) {
+        case "mark":
+            if (!this.isFalseStatus) {
+                this.isFalseStatus = !this.isFalseStatus;
+                return "Nice! Task completed successfully!" + "\n" + indent + this.toString();
+            } else {
+                return "Task already checked. Please try again..." + "\n" + indent + this.toString();
+            }
+        case "unmark":
+            if (!this.isFalseStatus) {
+                return "Task already unmarked! Please try again..." + "\n" + indent + this.toString();
+            } else {
+                this.isFalseStatus = !this.isFalseStatus;
+                return "Sure! Task status unchecked!" + "\n" + indent + this.toString();
+            }
+        default:
+            return Ui.miscMsgPrint("Unknown error occurred!");
         }
     }
 
@@ -61,7 +70,7 @@ public class Task {
         return systemDateAndTime.format(outputFormat);
     }
     public int getStatus() {
-        return this.status ? 1 : 0;
+        return this.isFalseStatus ? 1 : 0;
     }
     public String getDescription() {
         return this.description;

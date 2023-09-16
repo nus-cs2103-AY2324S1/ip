@@ -23,23 +23,51 @@ public class Storage {
      */
     public static void readFromDisk(Path pathOfDirectory, ArrayList<Task> storeTask) throws IOException {
         Files.createDirectories(pathOfDirectory.getParent());
-        if (Files.exists(pathOfDirectory)) {
-            List<String> fileLines = Files.readAllLines(pathOfDirectory);
-            for (String task : fileLines) {
-                String[] taskVariablesTemp = task.split("\\|");     //since "|" is a special character, use "//"
-                if (taskVariablesTemp[0].equals("T")) {
-                    storeTask.add(new ToDo(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2]));
-                } else if (taskVariablesTemp[0].equals("D")) {
-                    storeTask.add(new Deadline(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
-                } else if (taskVariablesTemp[0].equals("E")) {
-                    storeTask.add(new Event(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
-                } else {
+        handleFileAccess(pathOfDirectory, storeTask);
+    }
 
-                }
-            }
+    private static void handleFileAccess(Path pathOfDirectory, ArrayList<Task> storeTask) throws IOException {
+        if (Files.exists(pathOfDirectory)) {
+            readFromFile(pathOfDirectory, storeTask);
         } else {
-            //Ui.errorPrint("Your file does not exist. Creating...");
-            Files.createFile(pathOfDirectory);
+            createNewFile(pathOfDirectory);
+        }
+    }
+
+    private static void readFromFile(Path pathOfDirectory, ArrayList<Task> storeTask) throws IOException {
+        List<String> fileLines = Files.readAllLines(pathOfDirectory);
+        for (String task : fileLines) {
+            //since "|" is a special character, use "//"
+            String[] taskVariablesTemp = task.split("\\|");
+            if (taskVariablesTemp[0].equals("T")) {
+                storeTask.add(new ToDo(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2]));
+            } else if (taskVariablesTemp[0].equals("D")) {
+                storeTask.add(new Deadline(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
+            } else if (taskVariablesTemp[0].equals("E")) {
+                storeTask.add(new Event(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
+            } else {
+
+            }
+        }
+    }
+    private static void createNewFile(Path pathOfDirectory) throws IOException {
+        Files.createFile(pathOfDirectory);
+    }
+
+    private static void handleTaskTypes(String[] taskVariablesTemp, ArrayList<Task> storeTask) {
+        String taskType = taskVariablesTemp[0];
+        switch(taskType) {
+        case "T":
+            storeTask.add(new ToDo(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2]));
+            break;
+        case "D":
+            storeTask.add(new Deadline(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
+            break;
+        case "E":
+            storeTask.add(new Event(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + taskType);
         }
     }
 }
