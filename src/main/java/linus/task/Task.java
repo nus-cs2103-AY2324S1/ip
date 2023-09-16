@@ -1,11 +1,15 @@
 package linus.task;
 
+import java.time.LocalDate;
+
 /**
  * Represents a Task.
  */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+
+    protected LocalDate createdOn;
 
     /**
      * Constructs a Task object with the specified description.
@@ -15,6 +19,11 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.createdOn = LocalDate.now();
+    }
+
+    public boolean isDone() {
+        return this.isDone;
     }
 
     /**

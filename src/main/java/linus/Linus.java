@@ -1,5 +1,8 @@
 package linus;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import linus.exception.LinusException;
 import linus.storage.Storage;
 import linus.task.Deadline;
@@ -15,6 +18,11 @@ import linus.util.Ui;
 public class Linus {
     private static final String FILE_PATH = "data/linus.txt";
 
+    private static final String STATS_COMMAND_REGEX =
+            "/duration (\\d+)"
+                    + "( /task (todo|deadline|event))?"
+                    + "( /done)?";
+
     private static enum Command {
         LIST,
         MARK,
@@ -24,6 +32,7 @@ public class Linus {
         TODO,
         DEADLINE,
         EVENT,
+        STATS,
         HELP,
         BYE
     }
@@ -57,7 +66,8 @@ public class Linus {
 
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return ui.printWelcomeMessage();
     }
 
@@ -109,10 +119,6 @@ public class Linus {
                 ui.printAddSuccessMessage(tasks.get(tasks.getList().size() - 1), tasks.getList().size());
                 break;
             case DEADLINE:
-                if (data == "") {
-                    throw new LinusException("☹ OOPS!!! The description of a deadline cannot be empty.");
-                }
-
                 items = data.split(" /by ");
                 if (items.length != 2) {
                     throw new LinusException(
@@ -128,14 +134,10 @@ public class Linus {
                 ui.printAddSuccessMessage(tasks.get(tasks.getList().size() - 1), tasks.getList().size());
                 break;
             case EVENT:
-                if (data == "") {
-                    throw new LinusException("☹ OOPS!!! The description of a todo cannot be empty.");
-                }
-
                 items = data.split(" /from | /to ");
                 if (items.length != 3) {
                     throw new LinusException(
-                            "☹ OOPS!!! Please specify the event in the correct format: "
+                            "☹ OOPS!!! Please specify the event in the correct format: \n"
                                     + "event <description> /from <date> /to <date>"
                     );
                 }
@@ -145,6 +147,26 @@ public class Linus {
 
                 tasks.add(new Event(description, from, to));
                 ui.printAddSuccessMessage(tasks.get(tasks.getList().size() - 1), tasks.getList().size());
+                break;
+            case STATS:
+                Pattern pattern = Pattern.compile(STATS_COMMAND_REGEX);
+                Matcher matcher = pattern.matcher(data);
+                if (matcher.matches()) {
+                    int duration = Integer.parseInt(matcher.group(1));
+                    String taskType = null;
+                    if (matcher.group(2) != null) {
+                        taskType = matcher.group(3);
+                    }
+                    boolean isFilterByDone = matcher.group(4) != null;
+                    ui.printStats(tasks.showStats(duration, taskType, isFilterByDone));
+                } else {
+                    throw new LinusException(
+                            "☹ OOPS!!! Please specify the stats in the correct format: \n"
+                                    + "stats /duration <number of days> /task <taskType> /done \n"
+                                    + "where /task <taskType> and /done are optional"
+                    );
+                }
+
                 break;
             default:
                 throw new IllegalArgumentException();

@@ -1,7 +1,9 @@
 package linus.util;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import javafx.util.Pair;
 import linus.task.Task;
 
 /**
@@ -9,6 +11,27 @@ import linus.task.Task;
  * A Ui object deals with interactions with the user.
  */
 public class Ui {
+    public static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
+    private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n"
+            + "\t%s\n"
+            + "Now you have %d tasks in the list.\n";
+    private static final String DELETE_TASK_MESSAGE = "Noted. I've removed this task:\n"
+            + "\t%s\n"
+            + "Now you have %d tasks in the list.\n";
+    private static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:\n"
+            + "\t%s\n";
+    private static final String UNMARK_TASK_MESSAGE = "OK, I've marked this task as not done yet:\n"
+            + "\t%s\n";
+    private static final String NO_MATCHING_TASKS_MESSAGE = "There are no matching tasks in your list.";
+
+    private static final String FIND_TASK_MESSAGE = "Here are the matching tasks in your list:\n";
+
+    private static final String NO_TASKS_MESSAGE = "There are no tasks in your list.";
+    private static final String LIST_TASK_MESSAGE = "Here are the tasks in your list:\n";
+
+    private static final String STATS_MESSAGE = "Your tasks for the past %d days: \n";
+    private static final String LOADING_ERROR_MESSAGE = "The file system experienced an unexpected error.";
+
     private static final String WELCOME_MESSAGE = "Hello from Linus!! \n "
             + "What can I do for you uwu \n"
             + "Type 'help' to see the list of commands.";
@@ -23,25 +46,6 @@ public class Ui {
             + "list\n"
             + "help\n"
             + "bye\n";
-    public static String BYE_MESSAGE = "Bye. Hope to see you again soon!";
-    public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n"
-            + "\t%s\n"
-            + "Now you have %d tasks in the list.\n";
-    public static final String DELETE_TASK_MESSAGE = "Noted. I've removed this task:\n"
-            + "\t%s\n"
-            + "Now you have %d tasks in the list.\n";
-    public static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:\n"
-            + "\t%s\n";
-    public static final String UNMARK_TASK_MESSAGE = "OK, I've marked this task as not done yet:\n"
-            + "\t%s\n";
-    public static final String NO_MATCHING_TASKS_MESSAGE = "There are no matching tasks in your list.";
-
-    public static final String FIND_TASK_MESSAGE = "Here are the matching tasks in your list:\n";
-
-    public static final String NO_TASKS_MESSAGE = "There are no tasks in your list.";
-    public static final String LIST_TASK_MESSAGE = "Here are the tasks in your list:\n";
-    public static final String LOADING_ERROR_MESSAGE = "The file system experienced an unexpected error.";
-
     private StringBuilder output = null;
 
     public Ui() {
@@ -95,6 +99,7 @@ public class Ui {
 
     /**
      * Prints a success message after a task is marked as done.
+     *
      * @param task
      * @param size
      */
@@ -104,6 +109,7 @@ public class Ui {
 
     /**
      * Prints a success message after a task is marked as not done yet.
+     *
      * @param task
      * @param size
      */
@@ -126,6 +132,7 @@ public class Ui {
 
     /**
      * Prints the list of tasks.
+     *
      * @param tasks
      */
     public void printList(List<Task> tasks) {
@@ -135,7 +142,7 @@ public class Ui {
     /**
      * Prints the given list with formatting.
      *
-     * @param tasks List of tasks to be printed.
+     * @param tasks   List of tasks to be printed.
      * @param message The message to be printed before printing the list.
      */
     public void printList(List<Task> tasks, String message) {
@@ -152,8 +159,22 @@ public class Ui {
     }
 
     /**
-     * Prints the welcome message.
+     * Prints the statistics of tasks number of tasks per day).
      *
+     * @param stats
+     */
+    public void printStats(List<Pair<LocalDate, Integer>> stats) {
+        addToOutput(String.format(STATS_MESSAGE, stats.size()));
+        for (int i = 0; i < stats.size(); i++) {
+            int oneBasedIndex = i + 1;
+            String formattedOutput = String.format("%d. %s: %d\n", oneBasedIndex, stats.get(i).getKey(),
+                    stats.get(i).getValue());
+            addToOutput(formattedOutput);
+        }
+    }
+
+    /**
+     * Prints the welcome message.
      */
     public String printWelcomeMessage() {
         return WELCOME_MESSAGE;
@@ -161,7 +182,6 @@ public class Ui {
 
     /**
      * Prints the exit message.
-     *
      */
     public void printExitMessage() {
         addToOutput(BYE_MESSAGE);
@@ -169,7 +189,6 @@ public class Ui {
 
     /**
      * Prints the help message.
-     *
      */
     public void printHelpMessage() {
         addToOutput(HELP_MESSAGE);
@@ -177,7 +196,6 @@ public class Ui {
 
     /**
      * Prints the loading error message.
-     *
      */
     public void showLoadingError() {
         addToOutput(LOADING_ERROR_MESSAGE);
