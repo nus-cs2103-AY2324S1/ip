@@ -16,7 +16,7 @@ import robert.Robert;
  * @author Lee Zhan Peng
  */
 public class MainWindow extends AnchorPane {
-    private static final int MAX_INPUT_LENGTH = 45;
+    private static final int MAX_INPUT_LENGTH = 60;
 
     @FXML
     private ScrollPane scrollPane;
