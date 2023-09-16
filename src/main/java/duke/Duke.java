@@ -30,9 +30,9 @@ public class Duke {
      * Constructs a Duke object with the given file path.
      * Initializes the user interface, storage, and task list.
      */
-    public Duke() {
+    public Duke() throws DukeException {
         ui = new Ui();
-        storage = new Storage("./src/main/java/duke.txt");
+        storage = new Storage("data", "duke.txt");
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {

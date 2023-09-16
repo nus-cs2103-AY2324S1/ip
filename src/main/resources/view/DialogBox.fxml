@@ -7,7 +7,7 @@
 
 <!-- FXML document for the DialogBox user interface -->
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-         prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
+         prefWidth="900.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
 
     <!-- Children elements within the DialogBox -->

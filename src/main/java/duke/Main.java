@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 
+import duke.exception.DukeException;
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,9 @@ public class Main extends Application {
 
     /** The Duke instance that handles the application's logic */
     private final Duke duke = new Duke();
+
+    public Main() throws DukeException {
+    }
 
     /**
      * Loads the main window using FXML, sets up the user interface,

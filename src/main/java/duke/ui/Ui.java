@@ -25,7 +25,17 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public void showWelcome() {
-        changeStatus("Hello! I'm Bob");
+        String logo =
+                "  _____                 _____     \n"
+                        + " |     _ _    \\            |     __    \\ \n"
+                        + " |    |__|    |            |    |__|    | \n"
+                        + " |              /   ___  |              / \n"
+                        + " |     __    \\/    _    \\|     __    \\ \n"
+                        + " |    |__|    |    |_|    |    |__|    | \n"
+                        + " |_____ / \\ ___ / |_____ /";
+        changeStatus("Hello! I am ");
+        changeStatus(logo);
+        showLine();
         changeStatus("What can I do for you?");
         showLine();
     }

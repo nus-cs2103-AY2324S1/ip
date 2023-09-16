@@ -16,30 +16,41 @@ import duke.task.Task;
 public class Storage {
 
     /** The file path of the storage */
-    private final String filePath;
+    private final String completeFilePath;
+
+    private final String directoryPath;
+
+    private final File saveFile;
 
     /**
      * Constructs a Storage object with the given file path.
      *
      * @param filePath The file path of the file to be used for storage.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String directoryName, String fileName) throws DukeException {
+        this.directoryPath = "./" + directoryName;
+        this.completeFilePath = this.directoryPath + "/" + fileName;
+        this.saveFile = new File(this.completeFilePath);
+
         createFileIfNotExists();
     }
 
     /**
      * Checks if the duke.txt file exists, and if not, creates an empty one.
      */
-    private void createFileIfNotExists() {
+    private void createFileIfNotExists() throws DukeException {
         try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.createNewFile();
+            File directory = new File(this.directoryPath);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            if (!this.saveFile.exists()) {
+                this.saveFile.createNewFile();
             }
         } catch (IOException e) {
             // Handle the exception, e.g., log an error message
-            System.err.println("Error creating the file: " + e.getMessage());
+            throw new DukeException("Cannot create new save file!");
         }
     }
 
@@ -52,7 +63,7 @@ public class Storage {
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(filePath);
+            File file = new File(this.completeFilePath);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -95,7 +106,7 @@ public class Storage {
      */
     public void save(ArrayList<Task> tasks) throws DukeException {
         try {
-            File file = new File(filePath);
+            File file = new File(this.completeFilePath);
             FileWriter writer = new FileWriter(file);
             for (Task task : tasks) {
                 writer.write(task.toFormattedString() + "\n");
