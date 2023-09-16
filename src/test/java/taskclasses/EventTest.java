@@ -25,11 +25,11 @@ public class EventTest {
     public void testToString() {
         LocalDate fromDate = LocalDate.of(2023, 9, 1);
         LocalDate toDate = LocalDate.of(2023, 9, 3);
-        Event event = new Event("Party", true, fromDate, toDate);
+        Event event = new Event("Party", fromDate, toDate);
 
         String formattedFromDate = fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String formattedToDate = toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String expected = "[E][X] Party (from: " + formattedFromDate + " to: " + formattedToDate + ")";
+        String expected = "[E][ ] Party (from: " + formattedFromDate + " to: " + formattedToDate + ")";
         assertEquals(expected, event.toString());
     }
 }

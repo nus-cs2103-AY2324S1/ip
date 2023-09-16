@@ -23,10 +23,10 @@ public class DeadlineTest {
     @Test
     public void testToString() {
         LocalDate dueDate = LocalDate.of(2023, 9, 1);
-        Deadline deadline = new Deadline("Submit report", true, dueDate);
+        Deadline deadline = new Deadline("Submit report", dueDate);
 
         String formattedDueDate = dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String expected = "[D][X] Submit report (by: " + formattedDueDate + ")";
+        String expected = "[D][ ] Submit report (by: " + formattedDueDate + ")";
         assertEquals(expected, deadline.toString());
     }
 }

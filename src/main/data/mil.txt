@@ -1,3 +1,5 @@
-T | 0 | study | #new
-D | 1 | sss | #heh | Sep 9 2023
-E | 0 | jhd | #new | Sep 9 2023 - Feb 12 2023
+T | 1 | laundry
+D | 0 | ip | Sep 22 2023
+T | 0 | shj
+T | 0 | sjisl
+T | 0 | shso

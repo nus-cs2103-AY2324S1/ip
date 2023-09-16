@@ -65,7 +65,6 @@ public class Task {
             LocalDate by = LocalDate.parse(parts[dateIndex].trim(), inputFormatter);
             return new Deadline(description, isDone, by, tag);
         } else if (type.equals("E")) {
-
             String[] dates = parts[dateIndex].split(" - ");
 
             String fromDateString = dates[0];
@@ -75,7 +74,7 @@ public class Task {
             LocalDate to = LocalDate.parse(toDateString, inputFormatter);
             return new Event(description, isDone, from, to, tag);
         } else {
-            return null; // Unknown task type
+            return null;
         }
     }
 
@@ -90,7 +89,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
