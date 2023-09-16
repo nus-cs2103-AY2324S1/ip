@@ -48,9 +48,9 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
         if (text.contains("OOPS")) {
-            dialog.setStyle("-fx-background-color: rgb(222, 78, 94); -fx-background-radius: 0 10 10 10;");
+            dialog.setStyle("-fx-background-color: #DE4E5E; -fx-background-radius: 0 10 10 10;");
         } else {
-            dialog.setStyle("-fx-background-color: rgb(91, 127, 245); -fx-background-radius: 0 10 10 10;");
+            dialog.setStyle("-fx-background-color: #5B7FF5; -fx-background-radius: 0 10 10 10;");
         }
     }
 

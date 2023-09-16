@@ -7,11 +7,10 @@
 }
 
 #dialog {
-  -fx-background-color: rgb(99, 111, 224);
+  -fx-background-color: "#636FE0";
   -fx-padding: 15;
   -fx-background-radius: 10 0 10 10;
   -fx-text-fill: "white";
-  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 0);
 }
 
 #userInput {
@@ -20,7 +19,7 @@
 }
 
 #sendButton {
-   -fx-background-color: "#6d2de0";
+   -fx-background-color: #6D2DE0;
    -fx-cursor: HAND;
    -fx-text-fill: "white";
    -fx-font-size: 20;
