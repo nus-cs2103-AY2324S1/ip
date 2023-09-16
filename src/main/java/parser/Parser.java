@@ -9,6 +9,7 @@ import command.ClearCommand;
 import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
+import command.DeleteMultipleCommand;
 import command.EventCommand;
 import command.FindCommand;
 import command.ListCommand;
@@ -56,14 +57,17 @@ public class Parser {
                 throw new DukeException("Invalid Index");
             }
         case "delete":
-            if (split.length > 2) {
-                throw new DukeException("Please state in this format (delete 1)");
+            if (!split[1].contains(",")) {
+                if (split.length > 2) {
+                    throw new DukeException("Please state in this format (delete 1)");
+                }
+                try {
+                    return new DeleteCommand(Integer.parseInt(split[1]));
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Invalid Index");
+                }
             }
-            try {
-                return new DeleteCommand(Integer.parseInt(split[1]));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Invalid Index");
-            }
+            return new DeleteMultipleCommand(split[1]);
         case "todo":
             if (split.length < 2 || split[1].isEmpty()) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");

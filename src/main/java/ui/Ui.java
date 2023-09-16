@@ -122,6 +122,33 @@ public class Ui {
     }
 
     /**
+     * Returns an input that multiple changes has been made.
+     *
+     * @param changedList The tasks that has been modified.
+     * @param newList The TaskList after all the changes being applied.
+     * @param input The type of changes that was made.
+     * @return A string that has the relevant changes.
+     */
+    public String showNewList(TaskList changedList, TaskList newList, String input) {
+        StringBuilder builder = new StringBuilder();
+        String delete = ("Noted. I've removed this task:");
+        String marked = ("Nice! I've marked this tasks as done:");
+        String unMarked = ("OK, I've unmarked this tasks as not done yet:");
+        for (int i = 0; i < changedList.size(); i++) {
+            int index = i + 1;
+            builder.append(index).append(".").append(changedList.get(i)).append('\n');
+        }
+        String bottom = ("Now you have " + newList.size() + " tasks in the list");
+        if (input.equals("del")) {
+            return delete + "\n" + builder + bottom;
+        }
+        if (input.equals("mark")) {
+            return marked + "\n" + builder + bottom;
+        }
+        return unMarked + "\n" + builder + bottom;
+    }
+
+    /**
      * Says BYE.
      */
     public String showGoodbye() {
