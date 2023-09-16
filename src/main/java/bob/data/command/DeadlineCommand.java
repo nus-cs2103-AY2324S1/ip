@@ -6,9 +6,16 @@ import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Add a DeadlineTask into the list.
+ */
 public class DeadlineCommand extends Command {
     private String input;
 
+    /**
+     * Creates a DeadlineCommand that creates a DeadlineTask given the specified input.
+     * @param input The user input with the details of the DeadlineTask.
+     */
     public DeadlineCommand(String input) {
         super();
         this.input = input;

@@ -4,6 +4,9 @@ import bob.data.task.TaskList;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Lists out all the task in the list.
+ */
 public class ListCommand extends Command {
     public ListCommand() {
         super();

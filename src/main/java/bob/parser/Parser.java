@@ -76,6 +76,13 @@ public class Parser {
         throw new DukeException("No such command.");
     }
 
+    /**
+     * Validates what the user types by ensuring the proper format for each command type is adhered to.
+     * @param commandType The type of command to check the format against.
+     * @param input The user input.
+     * @return A Command that when executed, will act as specified by the user.
+     * @throws DukeException
+     */
     public Command validateCommand(CommandType commandType, String input) throws DukeException {
         int commandWordCount = input.split(" ").length;
         switch(commandType) {

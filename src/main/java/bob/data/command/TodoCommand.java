@@ -6,8 +6,16 @@ import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Add a TodoTask into the list.
+ */
 public class TodoCommand extends Command {
     private String input;
+
+    /**
+     * Creates a TodoCommand that creates an TodoTask given the specified input.
+     * @param input The user input with the details of the TodoTask.
+     */
     public TodoCommand(String input) {
         super();
         this.input = input;

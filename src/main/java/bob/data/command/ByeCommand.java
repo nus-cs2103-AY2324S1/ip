@@ -4,6 +4,9 @@ import bob.data.task.TaskList;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Closes the GUI.
+ */
 public class ByeCommand extends Command {
     public ByeCommand() {
         super();
