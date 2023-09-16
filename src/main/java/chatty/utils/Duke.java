@@ -7,7 +7,7 @@ import chatty.exception.ChattyException;
 import chatty.task.TaskList;
 
 /**
- * Main class that will run according to the command given by the user
+ * Main class that manages and runs the Chatty chatbot.
  */
 public class Duke {
 
@@ -32,9 +32,11 @@ public class Duke {
         }
     }
 
+
     /**
-     * Constructor that will load the existing file if there is
-     * @param filePath the path to the existing file
+     * Constructor that loads existing data from a specified file path.
+     *
+     * @param filePath The path to the existing file.
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -52,7 +54,7 @@ public class Duke {
     }
 
     /**
-     * The method that will start the chatbot when called
+     * Start the chatbot's interaction with the user.
      */
     public void startChatting() {
         ui.showGreet();
@@ -72,9 +74,10 @@ public class Duke {
     }
 
     /**
-     * Get the chatbot response to be printed on the dialogue box when GUI is called
-     * @param input the input from the user
-     * @return The response given by the chatbot
+     * Get the chatbot's response to be displayed in the GUI.
+     *
+     * @param input The input from the user.
+     * @return The response given by the chatbot.
      */
     public String getResponse(String input) {
         try {

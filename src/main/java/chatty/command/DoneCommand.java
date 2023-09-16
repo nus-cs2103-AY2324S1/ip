@@ -6,15 +6,19 @@ import chatty.utils.Storage;
 import chatty.utils.Ui;
 
 /**
- * A class that handle the mark command that the user entered
+ * A class that handles the mark command entered by the user to mark a task as done.
+ * When the user provides a mark command, an instance of this class is created to
+ * mark a task as done in the task list.
  */
 public class DoneCommand extends Command {
 
     private int index;
 
     /**
-     * Contructor for exit command that will create a task object
-     * @param i the index of the task the user wants to mark as done
+     * Constructor for the DoneCommand instance.
+     * Initializes the instance with the index of the task the user wants to mark as done.
+     *
+     * @param i The index of the task the user wants to mark as done.
      */
     public DoneCommand(int i) {
         super(false);
@@ -22,12 +26,15 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Mark the indicated task as done
-     * @param taskList the tasklist with the current task
-     * @param ui the current user interface
-     * @param storage helps to update the data when necessary
-     * @return the string that shows the user that the task has been mark done
-     * @throws ChattyException when storage could not update the files
+     * Executes the mark command to mark a task as done in the task list.
+     * This method marks the specified task as done, updates the storage,
+     * and returns a message confirming the task has been marked as done.
+     *
+     * @param taskList The task list with the current available tasks.
+     * @param ui The current user interface for displaying messages.
+     * @param storage The storage class that is responsible for updating stored data.
+     * @return A String indicating that the task has been marked as done successfully.
+     * @throws ChattyException If storage encounters an issue while saving the task list.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws ChattyException {

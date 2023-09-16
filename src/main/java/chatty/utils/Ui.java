@@ -8,7 +8,7 @@ import chatty.task.TaskList;
 
 
 /**
- * Responsible for the interactions with user
+ * Responsible for interactions with the user.
  */
 public class Ui {
 
@@ -16,15 +16,16 @@ public class Ui {
 
     /**
      * Constructor for the Ui class.
-     * Initialise the chatbot
+     * Initializes the chatbot.
      */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
     /**
-     * Get the input from the user
-     * @return the input from the user
+     * Gets input from the user.
+     *
+     * @return The input from the user.
      */
     public String getInput() {
         String input = scanner.nextLine();
@@ -33,25 +34,27 @@ public class Ui {
     }
 
     /**
-     * Prints the greeting when the user start the chatbot
-     * @return The greeting
+     * Prints the greeting message when the user starts the chatbot.
+     *
+     * @return The greeting message.
      */
     public String showGreet() {
         return "Hi there! I'm Chatty! \n How can I help you today?";
     }
 
     /**
-     * Prints the exit line when te user wants to exit the chatbot
-     * @return The goodbye message
+     * Prints the exit message when the user wants to exit the chatbot.
+     *
+     * @return The goodbye message.
      */
     public String showExit() {
         return "Bye! Hope to see you again soon!";
     }
 
     /**
-     * Prints out the list of task in the task list
-     * @param taskList the task list to be printed for the user
-     * @return the list of task in the task list
+     * Prints the exit message when the user wants to exit the chatbot.
+     *
+     * @return The goodbye message.
      */
     public String showList(TaskList taskList) {
         assert taskList.listSize() >= 0 : "Task list size should not be negative.";
@@ -67,7 +70,8 @@ public class Ui {
     }
 
     /**
-     * Prints the message to show the user that the task has been mark done
+     * Prints the message to show the user that the task has been mark done.
+     *
      * @param i The index of the task the user wants to mark as done
      * @param taskList the task list consisting of all the available tasks
      * @return The specified message
@@ -77,7 +81,8 @@ public class Ui {
     }
 
     /**
-     * Prints the message to show the user that the task has been mark as undone
+     * Prints the message to show the user that the task has been mark as undone.
+     *
      * @param i The index of the task the user wants to mark as undone
      * @param taskList the task list consisting of all the available tasks
      * @return The specified message
@@ -89,6 +94,7 @@ public class Ui {
 
     /**
      * Prints the message to show the user that the task has been deleted
+     *
      * @param i The index of the task the user wants to delete
      * @param taskList the task list consisting of all the available tasks
      * @return The specified message
@@ -103,6 +109,7 @@ public class Ui {
 
     /**
      * Prints the message to show the user that the task has been added to the list
+     *
      * @param task The task to be added into the list
      * @param taskList the task list consisting of all the available tasks
      * @return The specified message
@@ -115,6 +122,7 @@ public class Ui {
 
     /**
      * Prints the message to tell the user that the command is not valid
+     *
      * @return The specified message
      */
     public String showInvalid() {
@@ -123,6 +131,7 @@ public class Ui {
 
     /**
      * Prints the list of task that matched the specified keyword
+     *
      * @param matchedTask the list of task that matched the keyword
      * @return The specified message + the list of matching task
      */

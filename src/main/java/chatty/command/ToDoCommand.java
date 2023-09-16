@@ -8,15 +8,18 @@ import chatty.utils.Storage;
 import chatty.utils.Ui;
 
 /**
- * A class that handle the todo command that the user entered
+ * A class that handles the 'todo' command entered by the user to add a new 'todo' task to the task list.
+ * When the user provides a 'todo' command with a task description, an instance of this class is created
+ * to add the specified 'todo' task to the task list.
  */
 public class ToDoCommand extends Command {
 
     private Task task;
 
     /**
-     * Contructor for find command that will create a task object
-     * @param taskDescription the task to be added into the list
+     * Constructor for the ToDoCommand instance.
+     *
+     * @param taskDescription The description of the 'todo' task to be added to the list.
      */
     public ToDoCommand(String taskDescription) {
         super(false);
@@ -24,13 +27,17 @@ public class ToDoCommand extends Command {
     }
 
     /**
-     * Add in the new todo task into the list
-     * @param taskList the tasklist with the current task
-     * @param ui the current user interface
-     * @param storage helps to update the data when necessary
-     * @return the string that tells the user that the task has been added
-     * @throws ChattyException when storage could not update the files
+     * Executes the 'todo' command to add a new 'todo' task to the task list.
+     * This method adds the 'todo' task to the task list, updates the storage (if required),
+     * and returns a string confirming the addition of the task.
+     *
+     * @param taskList The task list with the current available tasks.
+     * @param ui The current user interface for displaying messages.
+     * @param storage The storage class for updating the stored task list (if required).
+     * @return A String containing a confirmation message for the user.
+     * @throws ChattyException If storage encounters an error while saving the task list.
      */
+
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws ChattyException {
         taskList.addTask(this.task);
