@@ -31,7 +31,7 @@ public class UnmarkDoneCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.unmarkTask(index);
-        ui.printMessage("Beep Boop NICE! I've unmarked this task as done:\n\t\t" + tasks.get(index));
+        ui.printMessage("Beep Boop NICE! I've unmarked this task as done:\n" + tasks.get(index));
         storage.save(tasks.getAllTasks());
     }
 

@@ -74,7 +74,7 @@ public class Ui {
     public void printAddSuccessMessage(Task task, ArrayList<Task> list) {
         appendOutput("Got it. I've added this task:\n");
         String taskString = String.format("%s\n", task.toString());
-        String sizeString = String.format("Now you have %d tasks in the list.\n", list.size());
+        String sizeString = String.format("Now you have %d task(s) in the list.\n", list.size());
         appendOutput(taskString);
         appendOutput(sizeString);
     }
@@ -88,7 +88,7 @@ public class Ui {
     public void printDeleteSuccessMessage(int index, ArrayList<Task> list) {
         appendOutput("Noted. I've removed this task:\n");
         String taskString = String.format("%s\n", list.get(index).toString());
-        String sizeString = String.format("Now you have %d tasks in the list.\n", list.size() - 1);
+        String sizeString = String.format("Now you have %d task(s) in the list.\n", list.size() - 1);
         appendOutput(taskString);
         appendOutput(sizeString);
     }
