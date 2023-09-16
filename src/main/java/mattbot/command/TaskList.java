@@ -1,4 +1,4 @@
-package mattbot;
+package mattbot.command;
 
 import java.util.ArrayList;
 

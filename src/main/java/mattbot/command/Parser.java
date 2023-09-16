@@ -1,4 +1,4 @@
-package mattbot;
+package mattbot.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
