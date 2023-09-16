@@ -1,0 +1,73 @@
+list
+mark 1
+unmark 1
+delete 1
+delete 1
+delete 1
+list
+todo borrow book
+list
+deadline return book /by 2023-01-02 11:11
+list
+event project meeting /from 2023-04-01 20:00 /to 2023-04-02 23:00
+list
+mark
+unmark
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 2
+list
+unmark 3
+list
+unmark 1
+list
+todo
+todo     
+deadline
+deadline      
+deadline   book  /until next week
+deadline   x   /by  
+deadline       /by when
+deadline y /by tmr
+event
+event     
+event     /start   /end   
+event     /from    /to   
+event a   /from    /to   
+event b   /from  s /to    
+event     /from 76 /to 1234567
+event c /from 1 /to tomorrow
+event d /from 2022-02-02 00:01 /to tomorrow
+event e /from today /to 2022-02-02 00:01
+mark 0
+unmark 0
+mark -1
+unmark -1
+mark 2147483650
+unmark 2147483650
+mark a
+unmark b
+list
+asdfghjkl
+find book
+find meeting
+find asdfghjkl
+find
+find    
+delete
+delete -1
+delete 2147483650
+delete c
+delete 1
+list
+delete 1
+list
+delete 1
+list
+delete 1
+list
+bye

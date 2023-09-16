@@ -13,5 +13,7 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Tests
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED-UNIX.TXT
+/data/test_*.txt
