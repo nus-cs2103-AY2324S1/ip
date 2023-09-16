@@ -1,7 +1,7 @@
 package bert.tasks;
 
 /**
- * Represent a task that is either done or not done.
+ * Represents a task that is either done or not done.
  */
 public abstract class Task {
     protected String description;
@@ -10,7 +10,7 @@ public abstract class Task {
     /**
      * Creates a task that is initially undone.
      *
-     * @param description The description of the task that the user inputs
+     * @param description the description of the task that the user inputs
      */
     public Task(String description) {
         this.description = description;
@@ -20,8 +20,8 @@ public abstract class Task {
     /**
      * Creates a task that could be done or undone.
      *
-     * @param isDone Whether a task is done or undone
-     * @param description The description of the task that the user inputs
+     * @param isDone whether a task is done or undone
+     * @param description the description of the task that the user inputs
      */
     public Task(boolean isDone, String description) {
         this.isDone = isDone;
@@ -31,7 +31,7 @@ public abstract class Task {
     /**
      * Returns X if a task is done, returns a blank space if it is not.
      *
-     * @return A string which is either X or ' '
+     * @return a string which is either "X" or " "
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -52,9 +52,9 @@ public abstract class Task {
     }
 
     /**
-     * Returns the string of a formatted task for saving
+     * Returns the task in its save format.
      *
-     * @return String representation of formatted task
+     * @return the save format representation of the task
      */
     public String toSaveFormat() {
         return (isDone ? "1" : "0") + " | " + this.description;

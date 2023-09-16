@@ -5,7 +5,7 @@ import bert.commands.ExitCommand;
 import bert.commands.ListCommand;
 import bert.exceptions.BertEmptyTaskException;
 import bert.exceptions.BertException;
-import bert.exceptions.BertInvalidTaskException;
+import bert.exceptions.BertInvalidCommandException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ParserTest {
     @Test
     public void parse_emptyInput_exceptionThrown() {
-        assertThrows(BertInvalidTaskException.class,
+        assertThrows(BertInvalidCommandException.class,
                 () -> {
                     new Parser().parse("");
                 });
@@ -23,7 +23,7 @@ public class ParserTest {
 
     @Test
     public void parse_invalidCommand_exceptionThrown() {
-        assertThrows(BertInvalidTaskException.class,
+        assertThrows(BertInvalidCommandException.class,
                 () -> {
                     new Parser().parse("asdf");
                 });

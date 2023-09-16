@@ -1,13 +1,13 @@
 package bert.tasks;
 
 /**
- * Represent a task without any date/time attached to it.
+ * Represents a task without any date attached to it.
  */
 public class ToDo extends Task {
     /**
      * Creates a todo task that is initially undone.
      *
-     * @param description The description of the task that the user inputs
+     * @param description the description of the task that the user inputs
      */
     public ToDo(String description) {
         super(description);
@@ -16,8 +16,8 @@ public class ToDo extends Task {
     /**
      * Creates a todo task that could be done or undone.
      *
-     * @param isDone Whether the task is done or undone
-     * @param description The description of the task that the user inputs
+     * @param isDone whether the task is done or undone
+     * @param description the description of the task that the user inputs
      */
     public ToDo(boolean isDone, String description) {
         super(isDone, description);
@@ -26,8 +26,8 @@ public class ToDo extends Task {
     /**
      * Creates a todo task from the save format.
      *
-     * @param formattedTask The string representation of the todo task
-     * @return A todo task
+     * @param formattedTask the save format representation of the todo task
+     * @return a ToDo instance
      */
     public static ToDo createFromSaveFormat(String formattedTask) {
         String[] args = formattedTask.split(" \\| ");

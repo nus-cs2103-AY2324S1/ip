@@ -14,17 +14,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Deals with loading tasks from a file and saving tasks into a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance with a specified file path.
+     *
+     * @param filePath the file path to the file used for loading and saving tasks
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Saves the task list into data/tasks.txt.
+     * Saves a task list into the file.
      *
-     * @param tasks The task list to be saved
+     * @param tasks the task list to be saved
      */
     public void save(TaskList tasks) {
         try {
@@ -49,11 +57,10 @@ public class Storage {
     }
 
     /**
-     * Checks if data/tasks.txt exists. If the directory or the file does not exist,
-     * creates the directory and the file.
+     * Checks if the file at the specified file path exists.
+     * If the directory or the file does not exist, creates the directory and the file.
      *
-     * @throws IOException This exception is thrown when an error occurs while creating
-     *          the file.
+     * @throws IOException if an error occurs while creating the file
      */
     private void ensureTaskFileExists() throws IOException {
         File file = new File(this.filePath);
@@ -66,11 +73,11 @@ public class Storage {
     }
 
     /**
-     * Writes the textToAdd input into a file specified by filePath.
+     * Writes the textToAdd string into a file specified by filePath.
      *
-     * @param filePath The path to the file to be written
-     * @param textToAdd The String of text to be written in the file
-     * @throws IOException If an error occurs while opening the file.
+     * @param filePath the path to the file to be written into
+     * @param textToAdd the string of text to be written into the file
+     * @throws IOException if an error occurs while opening the file
      */
     private void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -79,10 +86,10 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the save data into the chatbot.
+     * Loads tasks from the file into a List instance.
      *
-     * @return A list of tasks read from the save data
-     * @throws FileNotFoundException If the save data file is not found
+     * @return a List instance containing the list of tasks read from the file
+     * @throws FileNotFoundException if the file is not found
      */
     public List<Task> load() throws FileNotFoundException {
         File file = new File(filePath);

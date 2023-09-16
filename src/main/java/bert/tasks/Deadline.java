@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represent a task that need to be done before a specific date/time.
+ * Represents a task that needs to be done before a specific date.
  */
 public class Deadline extends Task {
     protected LocalDate deadline;
@@ -12,8 +12,8 @@ public class Deadline extends Task {
     /**
      * Creates a deadline task that is initially undone.
      *
-     * @param description The description of the task that the user inputs
-     * @param deadline The deadline that the user inputs
+     * @param description the description of the task that the user inputs
+     * @param deadline the deadline that the user inputs
      */
     public Deadline(String description, LocalDate deadline) {
         super(description);
@@ -23,9 +23,9 @@ public class Deadline extends Task {
     /**
      * Creates a deadline task that could be done or undone.
      *
-     * @param isDone Whether the task is done or undone
-     * @param description The description of the task that the user inputs
-     * @param deadline The deadline that the user inputs
+     * @param isDone whether the task is done or undone
+     * @param description the description of the task that the user inputs
+     * @param deadline the deadline that the user inputs
      */
     public Deadline(boolean isDone, String description, LocalDate deadline) {
         super(isDone, description);
@@ -35,8 +35,8 @@ public class Deadline extends Task {
     /**
      * Creates a deadline task from the save format.
      *
-     * @param formattedTask The string representation of the deadline task
-     * @return A deadline task
+     * @param formattedTask the save format representation of the deadline task
+     * @return a Deadline instance
      */
     public static Deadline createFromSaveFormat(String formattedTask) {
         String[] args = formattedTask.split(" \\| ");
