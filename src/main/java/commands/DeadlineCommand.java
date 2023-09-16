@@ -15,8 +15,8 @@ import ui.UiMessage;
  * Handles creating a new {@link Deadline}.
  */
 public class DeadlineCommand extends Command {
-    private String description;
-    private LocalDateTime deadline;
+    private final String description;
+    private final LocalDateTime deadline;
 
     /**
      * The constructor method of the DeadlineCommand class.

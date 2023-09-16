@@ -12,7 +12,7 @@ import ui.UiCli;
  * Manages the list of tasks that the user has created.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * The constructor method of the TaskList class.

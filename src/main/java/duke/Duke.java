@@ -5,6 +5,7 @@ import java.io.IOException;
 import commands.Command;
 import data.TaskList;
 import data.exception.DukeException;
+import data.exception.InvalidDateParamException;
 import parser.Parser;
 import storage.Storage;
 import ui.UiCli;
@@ -17,23 +18,23 @@ public class Duke {
     /**
      * Handles all tasks created by the user.
      */
-    private TaskList tasks;
+    private final TaskList tasks;
 
     /**
      * Loads task from a persistent file and 
      * updates it when new tasks are created.
      */
-    private Storage storage;
+    private final Storage storage;
 
     /**
      * Parses the user command.
      */
-    private Parser parser;
+    private final Parser parser;
 
     /**
      * Handles displaying messages and errors on command line.
      */
-    private UiCli uiCli;
+    private final UiCli uiCli;
 
     /**
      * Constructor method of the Duke chatbot. Initializes its main components:
@@ -83,7 +84,7 @@ public class Duke {
                 UiMessage result = c.execute(tasks, storage, uiCli);
                 uiCli.displayMsg(result.getRawStringArr());
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (DukeException | InvalidDateParamException e) {
                 uiCli.displayError(e.toString());
             }
         }
@@ -94,7 +95,7 @@ public class Duke {
                 + "What can I do for you?";
     }
 
-    public String getResponse(String input) throws DukeException {
+    public String getResponse(String input) throws DukeException, InvalidDateParamException {
         Command c = parser.parse(input);
         UiMessage result = c.execute(tasks, storage, uiCli);
         return result.toString();

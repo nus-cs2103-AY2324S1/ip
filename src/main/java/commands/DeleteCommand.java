@@ -12,7 +12,7 @@ import ui.UiMessage;
  * Handles deleting a {@link Task} from {@link TaskList}.
  */
 public class DeleteCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * The constructor method for a DeleteCommand class.

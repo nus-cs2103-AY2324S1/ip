@@ -15,9 +15,9 @@ import ui.UiMessage;
  * Handles creating a new {@link Event}.
  */
 public class EventCommand extends Command {
-    private String description;
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final String description;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * The constructor method of the EventCommand class.

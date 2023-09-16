@@ -15,7 +15,7 @@ import commands.MarkCommand;
 import commands.TodoCommand;
 import common.DateParser;
 import data.exception.DukeException;
-import ui.UiCli;
+import data.exception.InvalidDateParamException;
 
 /**
  * The Parser class. Handles the parsing of user commands
@@ -36,14 +36,15 @@ public class Parser {
      * @throws DukeException Thrown when the command given
      *                       is unrecognized.
      */
-    public Command parse(String input) throws DukeException {
+    public Command parse(String input) throws DukeException, InvalidDateParamException {
+        String strippedInput = input.strip().trim();
         // Ignore empty user input
-        if (input.equals("")) {
+        if (strippedInput.equals("")) {
             return new EmptyCommand();
         }
 
         // Extract main command first
-        String command = input.split(" ")[0];
+        String command = strippedInput.split(" ")[0];
 
         // Parse main command
         switch (command) {
@@ -144,7 +145,7 @@ public class Parser {
      * @throws DukeException Thrown when no description
      *                       or invalid date is given.
      */
-    private Command parseDeadlineCommand(String input) throws DukeException {
+    private Command parseDeadlineCommand(String input) throws DukeException, InvalidDateParamException {
         // Split by the "/by" to separate the first and second part.
         String[] parseArr = input.split("/by ");
 
@@ -173,14 +174,7 @@ public class Parser {
         // Extract the date and add a new deadline to the task list.
         LocalDateTime date = DateParser.parseDateString(parseArr[1]);
         if (date == null) {
-            throw new DukeException(new String[] {
-                "Oops, looks like your date is in an invalid format...",
-                "Here are some valid formats:",
-                "2023-10-20, 20-10-2023, 2023/10/20, "
-                        + "20/10/2023, Oct 10 2023, 10 Oct 2023",
-                "You can provide a timing as well: "
-                        + "2023-10-20 1800"
-            });
+            throw new InvalidDateParamException();
         }
         return new DeadlineCommand(
             extractTail(header),
@@ -198,7 +192,7 @@ public class Parser {
      * @throws DukeException Thrown when no description
      *                       or invalid dates are given.
      */
-    private Command parseEventCommand(String input) throws DukeException {
+    private Command parseEventCommand(String input) throws DukeException, InvalidDateParamException {
         // Split by "/from" to separate the first and (second + third) part.
         String[] parseArr = input.split("/from ");
 
@@ -239,14 +233,7 @@ public class Parser {
         LocalDateTime fromDate = DateParser.parseDateString(dateParse[0].strip());
         LocalDateTime toDate = DateParser.parseDateString(dateParse[1].strip());
         if (fromDate == null || toDate == null) {
-            throw new DukeException(new String[] {
-                "Oops, looks like your date is in an invalid format...",
-                "Here are some valid formats:",
-                "2023-10-20, 20-10-2023, 2023/10/20, "
-                        + "20/10/2023, Oct 10 2023, 10 Oct 2023",
-                "You can provide a timing as well: "
-                        + "2023-10-20 1800"
-            });
+            throw new InvalidDateParamException();
         }
         return new EventCommand(
             extractTail(header),

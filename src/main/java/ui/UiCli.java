@@ -30,7 +30,7 @@ public class UiCli {
         }
     }
 
-    private static BufferedReader reader = new BufferedReader(
+    private static final BufferedReader reader = new BufferedReader(
         new InputStreamReader(System.in)
     );
 

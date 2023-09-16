@@ -1,7 +1,7 @@
 package ui;
 
 public class UiMessage {
-    private String[] message;
+    private final String[] message;
 
     public UiMessage(String[] message) {
         this.message = message;
@@ -17,10 +17,10 @@ public class UiMessage {
 
     @Override
     public String toString() {
-        String formatMsg = "";
+        StringBuilder formatMsg = new StringBuilder();
         for (String line : message) {
-            formatMsg += line + "\n";
+            formatMsg.append(line).append("\n");
         }
-        return formatMsg.strip();
+        return formatMsg.toString().strip();
     }
 }

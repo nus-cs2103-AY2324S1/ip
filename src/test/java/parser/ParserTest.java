@@ -2,6 +2,7 @@ package parser;
 
 import commands.*;
 import data.exception.DukeException;
+import data.exception.InvalidDateParamException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,7 +17,7 @@ public class ParserTest {
             Command c = parser.parse("");
             assertTrue(c instanceof EmptyCommand);
 
-        } catch (DukeException e) {
+        } catch (DukeException | InvalidDateParamException e) {
             fail("Exception should not be thrown");
         }
     }
@@ -52,7 +53,7 @@ public class ParserTest {
             assertTrue(todo instanceof TodoCommand);
             assertTrue(deadline instanceof DeadlineCommand);
             assertTrue(event instanceof EventCommand);
-        } catch (DukeException e) {
+        } catch (DukeException | InvalidDateParamException e) {
             fail("Exception should not be thrown");
         }
     }
@@ -70,7 +71,7 @@ public class ParserTest {
             parser.parse("deadline read /by 2023-10-20 1800");
             parser.parse("deadline read /by 2023-10-20 630");
             parser.parse("deadline read /by 2023-10-20 0630");
-        } catch (DukeException e) {
+        } catch (DukeException | InvalidDateParamException e) {
             fail("Exception should not be thrown");
         }
     }

@@ -14,7 +14,7 @@ import ui.UiMessage;
  * Finds the list of tasks containing a given keyword.
  */
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * The constructor method of the FindCommand class.

@@ -7,7 +7,7 @@ import ui.UiCli;
  * Used by {@link UiCli} to print error messages.
  */
 public class DukeException extends Exception {
-    private String msg;
+    private final String msg;
 
     /**
      * The constructor method of the DukeException class.

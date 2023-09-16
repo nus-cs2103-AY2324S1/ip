@@ -13,7 +13,7 @@ import ui.UiMessage;
  * Handles creating a new {@link Todo}.
  */
 public class TodoCommand extends Command {
-    private String description;
+    private final String description;
 
     /**
      * The constructor method of the TodoCommand class.
