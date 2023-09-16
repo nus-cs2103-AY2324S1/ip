@@ -220,7 +220,19 @@ Smolbrain chatbot data are saved in the computer automatically after any command
 ### Editing data file
 
 Smolbrain chatbot data are saved in the computer automatically as a TXT file named `data.txt` in the same directory as your `smolbrain.jar` file.
-> ⚠️ **Caution:** If your changes to the data file makes its format invalid, Smolbrain chatbot will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+Tasks are encoded in the format `[TYPE][MARKED][PRIORITY_LEVEL][BODY]`.
+* `[TYPE]` refers to the task type: `T` for **Todo**, `D` for **Deadline**, `E` for **Event**.
+* `[MARKED]` refers to marked state of task: `1` for marked, `0` for unmarked.
+* `[PRIORITY_LEVEL]` refers to the assigned priority level of the task, with possible values 0, 1, 2 and 3.
+* `[BODY]` refers to task description, along with other parameters such as `/from` and its due date and time
+e.g. `D12Complete homework /by 22/10/2023 1800` refers to a **deadline** task with description `complete Homework`, due date and time of `22 Oct 2023 18:00`, that is marked and has priority level of 2.
+> ⚠️ **Caution:** If your changes to the data file does not follow the above encoding and makes its format invalid, Smolbrain chatbot might parse the data wrongly and give corrupted task data.
+
+<br>
+
+### Deleting data
+
+Deleting the `data.txt` file in the same directory as your `smolbrain.jar` file will delete all saved data. When app is reopened again, it will restart as new app.
 
 <br><br>
 
