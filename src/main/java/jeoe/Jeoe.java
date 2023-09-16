@@ -60,7 +60,7 @@ public class Jeoe {
             // contains list of task, and has operations to add/delete tasks
             taskManager = new TaskManager(storageManager.load()); // load passes the string for TM to add task to arr
 
-            ui.showOpenString(); // leave it here so i know that program did get initialized
+            ui.showOpenString(); // leave it here so i know that program did get initialize
         } catch (Exception e) {
             System.out.println("Jeoe initialization failed");
         }
