@@ -8,25 +8,27 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import juke.exceptions.JukeInitialisationException;
-import juke.ui.windows.MainWindow;
 
 /**
- * User interface of Juke. Extends {@link Application} to allow
- * JavaFX to run this class like a GUI application.
+ * User interface of Juke.
  */
 public class Ui extends Application {
+    /** Name of the application. */
+    public static final String APPLICATION_NAME = "Juke";
+
     /** Height of the window. */
     public static final double WINDOW_HEIGHT = 700.0d;
 
     /** Width of the window. */
     public static final double WINDOW_WIDTH = 450.0d;
 
+    //@@author asdfghjkxd-reused
+    // Code is largely reused from https://se-education.org/guides/tutorials/javaFxPart2.html and
+    // https://se-education.org/guides/tutorials/javaFxPart4.html with very minor modifications.
     /**
      * Starts the JavaFX application.
      *
-     * @param stage the primary stage for this application, onto which
-     *     the application scene can be set. Applications may create
-     *     other stages, if needed, but they will not be primary stages.
+     * @param stage the scaffold of the application, whereby Nodes/widgets will be displayed.
      */
     @Override
     public void start(Stage stage) {
@@ -38,7 +40,7 @@ public class Ui extends Application {
 
             // specify the overall look of the window
             // window is non-resizable with a height of 700px and a width of 450px
-            stage.setTitle(MainWindow.APPLICATION_NAME);
+            stage.setTitle(Ui.APPLICATION_NAME);
             stage.setResizable(false);
             stage.setMinHeight(Ui.WINDOW_HEIGHT);
             stage.setMinWidth(Ui.WINDOW_WIDTH);
@@ -48,4 +50,5 @@ public class Ui extends Application {
                                                           + "FXML files to load up the GUI!");
         }
     }
+    //@@author
 }

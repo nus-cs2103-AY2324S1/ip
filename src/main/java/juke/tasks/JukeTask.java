@@ -9,13 +9,13 @@ import juke.exceptions.JukeStateException;
 import juke.exceptions.arguments.JukeIllegalArgumentException;
 
 /**
- * Abstract Class that represents a task that the user adds to {@code Juke}.
+ * Abstract Class that represents a task that the user can add to Juke.
  */
 public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTask>, Savable {
-    /** Icon to display when the task is completed. */
+    /** String to represent when the task is completed. */
     private static final String COMPLETED_INDICATOR = "[✓] ";
 
-    /** Icon to display when the task not completed. */
+    /** String to represent when the task not completed. */
     private static final String INCOMPLETE_INDICATOR = "[ ] ";
 
     /** Task description. */
@@ -25,7 +25,9 @@ public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTa
     private boolean isCompleted;
 
     /**
-     * Creates an instance of {@code JukeTask}.
+     * Creates an instance of {@code JukeTask}. Since this is an abstract method,
+     * this method is purely for subclasses to call for initialising common aspects of
+     * the tasks.
      *
      * @param taskName Task description
      */
@@ -61,7 +63,7 @@ public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTa
     }
 
     /**
-     * Returns the string which represents this object when it is saved into the datafile.
+     * Returns the String which represents this object when it is saved into the datafile.
      *
      * @return Datafile representation of this object
      */
@@ -81,7 +83,7 @@ public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTa
     }
 
     /**
-     * Converts the task object to a String representation.
+     * Converts the task object to its corresponding String representation.
      *
      * @return String representation of JukeTask
      */
@@ -92,16 +94,15 @@ public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTa
 
     /**
      * Compares this {@code JukeTask} object with the specified {@code JukeTask} object for order. This method
-     * can only compare this {@code JukeTask} with another {@code JukeTask} object based on the descriptions of the
-     * tasks.
+     * compares task description only.
      * <p>
      * This method is present mainly for polymorphism and method reuse.
      *
      * @param task the {@code JukeTask} object to be compared with
      * @param sortOrder the order to sort the tasks by
      * @param sortType the type of sort to perform on the tasks
-     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
-     *     the specified object.
+     * @return -1 if this {@code JukeTask} object is before the {@code JukeTask} object passed in, 0 if they
+     *     are the same, and 1 if this {@code JukeTask} object is after the {@code JukeTask} object passed in
      */
     @Override
     public int sortBy(JukeTask task, SortOrderEnum sortOrder, SortTypeEnum sortType) {

@@ -21,6 +21,8 @@ public class UserDialog extends DialogBox {
     @FXML
     private Region backgroundRegion;
 
+    //@@author asdfghjkxd-reused
+    // Style of loading the FXML file is reused from https://se-education.org/guides/tutorials/javaFxPart4.html.
     /** Text within the dialog box. */
     @FXML
     private Label textLabel;
@@ -51,4 +53,5 @@ public class UserDialog extends DialogBox {
                                                           + "FXML files to load up the GUI!");
         }
     }
+    //@@author
 }

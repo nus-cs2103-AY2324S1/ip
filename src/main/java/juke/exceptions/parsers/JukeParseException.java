@@ -4,7 +4,8 @@ import juke.exceptions.JukeException;
 
 /**
  * Represents an error thrown when any parser encounters an error with parsing
- * some input data.
+ * some input data. This exception is the superclass of all other exceptions that
+ * involve some parsing error in Juke.
  */
 public class JukeParseException extends JukeException {
     /**

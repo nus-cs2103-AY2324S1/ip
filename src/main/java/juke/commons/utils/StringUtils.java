@@ -10,14 +10,17 @@ public abstract class StringUtils {
      * Wraps the given text to the specified length. Text is automatically
      * delimited by the carriage return character.
      * <p>
-     * Inspiration for this method comes from:
-     * <a href="https://stackoverflow.com/questions/41056517/breaking-a-long-url-to-several-line-in-javadoc">...</a>
+     * Method is reused from https://stackoverflow.com/questions/7528045/large-string-split-into-lines-with-
+     * maximum-length-in-java with minor modifications.
      *
      * @param text Text to wrap
      * @param maxWrap Max number of characters that can exist on a line
      * @return Text wrapped to the specified maxWrap length
      */
     public static String wrap(String text, int maxWrap) {
+        //@@author asdfghjkxd-reused
+        // Reused from https://stackoverflow.com/questions/7528045/large-string-split-into-lines-with-
+        // maximum-length-in-java with minor modifications to the code
         StringTokenizer tokenizer = new StringTokenizer(text, " ");
         StringBuilder lineBuilder = new StringBuilder(text.length());
         int lineCounter = 0;
@@ -35,5 +38,6 @@ public abstract class StringUtils {
         }
 
         return lineBuilder.toString();
+        //@@author
     }
 }

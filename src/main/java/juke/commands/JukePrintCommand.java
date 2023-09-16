@@ -20,10 +20,10 @@ public class JukePrintCommand extends JukeCommand {
     }
 
     /**
-     * Carries out an action when the command is executed.
+     * Invokes an action when the command is executed.
      *
      * @param response {@code Response} object that contains response from Juke and the user
-     * @return {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object composed with response from Juke or the user
      */
     @Override
     public Response execute(Response response) {

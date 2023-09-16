@@ -6,6 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
+//@@author asdfghjkxd-reused
+// Class reused from https://se-education.org/guides/tutorials/javaFxPart3.html.
 /**
  * Abstract class that is used to represent a dialog box that is
  * displayed to the user through the GUI.
@@ -43,3 +45,4 @@ public abstract class DialogBox extends HBox {
         return new JukeDialog(text);
     }
 }
+//@@author

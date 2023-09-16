@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+//@@author asdfghjkxd-reused
+// Code is reused from GitHub Copilot autocompletion. Some test cases, as well as the data, may have been
+// inevitably reused during the autocompletion process.
 /**
  * Tests for the Parser class.
  */
@@ -189,3 +192,4 @@ public class ParserTest {
         assertFalse(Parser.isMatchFromToString("testing /from testdate/toenddate"));
     }
 }
+//@author

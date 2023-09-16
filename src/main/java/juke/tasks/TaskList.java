@@ -13,8 +13,8 @@ import juke.exceptions.storage.JukeStorageException;
 import juke.storage.Storage;
 
 /**
- * Manages {@code JukeTasks}. This class handles the addition/deletion/manipulation of
- * other child {@code JukeTasks} subsumed under its control.
+ * Manages all {@code JukeTask}s. This class handles the addition/deletion/manipulation of
+ * any {@code JukeTask}s that are created by the user.
  */
 public class TaskList extends JukeObject {
     /** Header for {@code TaskList} String representation. */
@@ -35,8 +35,7 @@ public class TaskList extends JukeObject {
     private final Storage storage;
 
     /**
-     * Creates an instance of {@code TaskList} that initialises the tasks within
-     * this {@code TaskList}.
+     * Creates an instance of {@code TaskList} with all tasks loaded from the datafile.
      *
      * @param storage The storage object that manages any I/O operations on the datafile
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
@@ -47,7 +46,7 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * Creates an instance of {@code TaskList}, from existing saved tasks.
+     * Creates an instance of {@code TaskList} from existing tasks.
      *
      * @return {@code TaskList} object
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
@@ -57,7 +56,7 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * Adds a task.
+     * Adds a task to the task list.
      *
      * @param task {@code JukeTask} object.
      * @return true if the task is added, else false
@@ -76,7 +75,7 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * Deletes a task by index.
+     * Deletes a task by index from the task list.
      *
      * @param task Index of {@code JukeTask} object
      * @return {@code JukeTask} deleted if the task is successfully deleted, else throws an exception
@@ -100,7 +99,7 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * Sets a task as complete.
+     * Marks a task in the task list as complete.
      *
      * @param index Index of task to act on.
      * @throws JukeIllegalArgumentException if the input argument is invalid
@@ -117,7 +116,7 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * Sets a task as incomplete.
+     * Marks a task as incomplete.
      *
      * @param index Index of task to act on.
      * @throws JukeIllegalArgumentException if the input argument is invalid
@@ -134,7 +133,7 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * Returns information of the task at the specified index.
+     * Returns information of the task at the input index.
      *
      * @param index Index of task to act on.
      * @return String representation of the task.
@@ -167,10 +166,10 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * Sorts the tasks in the {@code TaskList} by the specified {@code SortOrderEnum} and {@code SortTypeEnum}.
+     * Sorts the tasks in the {@code TaskList} by the input {@code SortOrderEnum} and {@code SortTypeEnum}.
      *
-     * @param sortOrder {@code SortOrderEnum} enum that describes the order of sorting
-     * @param sortType {@code SortTypeEnum} enum that describes the type of sorting
+     * @param sortOrder the order to sort the tasks by
+     * @param sortType the type of sort to perform on the tasks
      */
     public final void sort(SortOrderEnum sortOrder, SortTypeEnum sortType) {
         // stores the original copy of the tasks for error recovery
@@ -190,8 +189,8 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * Returns String representation of the {@code TaskList}. This consists of all the tasks
-     * managed by this {@code TaskList}.
+     * Returns String representation of the {@code TaskList}, which contains all tasks present
+     * within the task list.
      *
      * @return String representation of this {@code TaskList}.
      */

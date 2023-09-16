@@ -2,7 +2,8 @@ package juke.exceptions;
 
 /**
  * Exception that encapsulates the situation whereby Juke cannot
- * properly instantiate and should therefore exit.
+ * properly instantiate. This error cannot be recovered from and causes
+ * Juke to exit.
  * <p>
  * All {@code JukeInitialisationExceptions} and subclasses of it should cause
  * the program to exit, as there is no way for the program to continue

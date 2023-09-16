@@ -28,10 +28,10 @@ public class JukeMarkTaskDoneCommand extends JukeCommand {
     }
 
     /**
-     * Carries out an action when the command is executed.
+     * Invokes an action when the command is executed.
      *
      * @param response {@code Response} object that contains response from Juke and the user
-     * @return {@code Response} object that contains response from Juke and the user
+     * @return {@code Response} object composed with response from Juke or the user
      * @throws JukeStorageException if there are any errors encountered when reading the data file
      */
     @Override

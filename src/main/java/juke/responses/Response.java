@@ -3,7 +3,8 @@ package juke.responses;
 import juke.commons.classes.JukeObject;
 
 /**
- * Simple class that represents the responses from Juke or the user.
+ * Represents the two-sided conversation between Juke and the user. Future implementation of this class
+ * may see the use of a history list to capture more conversations between the user and Juke.
  */
 public class Response extends JukeObject {
     /** Represents the input message from the user. */
@@ -13,50 +14,32 @@ public class Response extends JukeObject {
     private final String outputMessage;
 
     /**
-     * Constructs an instance of {@code Response}.
+     * Constructs an instance of {@code Response}. This method is made private to
+     * prevent illegal instantiation from the user.
      *
-     * @param inputMessage User input
-     * @param outputMessage Juke output
+     * @param inputMessage String representing user input
+     * @param outputMessage String representing Juke output
      */
-    public Response(String inputMessage, String outputMessage) {
+    private Response(String inputMessage, String outputMessage) {
         this.inputMessage = inputMessage;
         this.outputMessage = outputMessage;
     }
 
     /**
-     * Returns a {@code Response} containing the response from the user.
+     * Returns a {@code Response} containing the inputs from the user.
      *
      * @param inputMessage User response
-     * @return {@code Response} containing the response from the user
+     * @return {@code Response} containing the inputs from the user
      */
     public static Response ofUser(String inputMessage) {
         return new Response(inputMessage, null);
     }
 
     /**
-     * Returns a {@code Response} containing the response from Juke.
-     *
-     * @param outputMessage Juke response
-     * @return {@code Response} containing the response from Juke
-     */
-    public static Response ofJuke(String outputMessage) {
-        return new Response(null, outputMessage);
-    }
-
-    /**
-     * Composes a {@code Response} with the user's input message. If called with a Response object that
-     * already has a user input, then the user input will be overwritten.
-     *
-     * @param inputMessage User input
-     * @return {@code Response} with the user's input message
-     */
-    public Response withUser(String inputMessage) {
-        return new Response(inputMessage, this.outputMessage);
-    }
-
-    /**
-     * Composes a {@code Response} with Juke's output message. If called with a Response object that
-     * already has a Juke output, then the Juke output will be overwritten.
+     * Composes a {@code Response} with Juke's output message. Be warned that if
+     * this method is called with a Response object that already has a Juke output,
+     * then the previous Juke output will be overwritten. This behaviour may be changed
+     * in a future implementation of the Response class.
      *
      * @param outputMessage Juke output
      * @return {@code Response} with Juke's output message

@@ -18,7 +18,9 @@ import juke.parsers.FileParser;
 import juke.tasks.JukeTask;
 
 /**
- * Manages the storage and retrieval of data from the data file.
+ * Manages the storage and retrieval of data from the data file. Internal runtime data is
+ * handled by the TaskList object, and any read/writes to the device's memory is routed through
+ * this class.
  */
 public class Storage extends JukeObject {
     /** Path to the data directory. */
@@ -36,10 +38,10 @@ public class Storage extends JukeObject {
     }
 
     /**
-     * Creates an instance of {@code Storage} and creates the files
+     * Creates an instance of {@code Storage} and the files
      * and directories required if necessary.
      *
-     * @return {@code Storage} instance
+     * @return {@code Storage} instance that is fully instantiated
      * @throws JukeInitialisationException if the directories or files cannot be
      *     created or initialised
      */
@@ -54,8 +56,8 @@ public class Storage extends JukeObject {
             }
         }
 
+        // if the dir exist but file doesn't, then just create the file
         if (!Files.exists(Storage.FILE_PATH)) {
-            // if the dir exist but file doesn't, then just create the file
             try {
                 Files.createFile(Storage.FILE_PATH);
             } catch (IOException ex) {
@@ -72,7 +74,9 @@ public class Storage extends JukeObject {
     }
 
     /**
-     * Returns a list of saved task from the datafile.
+     * Returns a list of saved task after the datafile is parsed by the {@code FileParser}.
+     * Code is inspired from https://jsparrow.github.io/rules/use-files-buffered-reader.html#code-changes
+     * and https://www.baeldung.com/java-buffered-reader.
      *
      * @return List of {@code JukeTasks} retrieved
      * @throws JukeStorageException If the file could not be opened or processed for any reason
@@ -95,6 +99,8 @@ public class Storage extends JukeObject {
 
     /**
      * Writes the list of tasks into the datafile.
+     * Code is inspired from https://jsparrow.github.io/rules/use-files-buffered-reader.html#code-changes
+     * and https://www.baeldung.com/java-buffered-reader.
      *
      * @param tasks List of {@code JukeTasks} to write
      * @throws JukeStorageException If the file could not be opened or written to for any reason

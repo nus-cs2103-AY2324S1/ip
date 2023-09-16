@@ -3,7 +3,8 @@ package juke.exceptions.arguments;
 import juke.exceptions.JukeException;
 
 /**
- * Exception that is thrown when illegal argument(s) is/are used anywhere.
+ * Represents illegal argument(s) being used anywhere in Juke. This exception is the
+ * superclass of all other exceptions that involve the use of illegal arguments/values.
  */
 public class JukeIllegalArgumentException extends JukeException {
     /**
