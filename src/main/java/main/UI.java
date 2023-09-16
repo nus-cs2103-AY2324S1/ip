@@ -1,6 +1,7 @@
 package main;
 
 import task.Task;
+import task.TaskList;
 
 import java.util.ArrayList;
 
@@ -88,5 +89,26 @@ public class UI {
     public void printByeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         this.printDivider();
+    }
+
+    public void showDelete(String input, TaskList taskList) {
+        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskList.getTaskArrayList().get(taskIndex));
+    }
+
+    public static void showAddTask(Task task) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+    }
+
+    public static void showMarked(Task task) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
+    }
+
+    public static void showUnmarked(Task task) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
     }
 }

@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import main.UI;
+
 /**
  * Wrapper class that contains ArrayList of type Task.
  */
@@ -25,8 +27,6 @@ public class TaskList {
      */
     public void deleteTask(String input) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(taskList.get(taskIndex));
         taskList.remove(taskIndex);
     }
 
@@ -49,7 +49,7 @@ public class TaskList {
 
         if (startTimeFormat != 1 || endTimeFormat != 1) {
             Event event = new Event(title, start, end);
-            System.out.println(event.toString());
+            UI.showAddTask(event);
             taskList.add(event);
         } else {
             try {
@@ -57,7 +57,7 @@ public class TaskList {
                 LocalDateTime startDateTime = LocalDateTime.parse(start, inputFormatWithTime);
                 LocalDateTime endDateTime = LocalDateTime.parse(end, inputFormatWithTime);
                 Event event = new Event(title, startDateTime, endDateTime);
-                System.out.println(event.toString());
+                UI.showAddTask(event);
                 taskList.add(event);
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date-time format. Stick to the given format of dd-MM-yyyy HHmm");
@@ -82,17 +82,15 @@ public class TaskList {
         int timeFormat = this.computeDateTimeFormat(time);
 
         if (timeFormat == 0) {
-            System.out.println("Got it. I've added this task:");
             Deadline deadline = new Deadline(title, time);
-            System.out.println(deadline.toString());
+            UI.showAddTask(deadline);
             taskList.add(deadline);
         } else {
             try {
                 DateTimeFormatter inputFormatWithTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
                 LocalDateTime dateTime = LocalDateTime.parse(time, inputFormatWithTime);
                 Deadline deadline = new Deadline(title, dateTime);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(deadline.toString());
+                UI.showAddTask(deadline);
                 taskList.add(deadline);
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date-time format. Stick to the given format of dd-MM-yyyy HHmm");
@@ -105,10 +103,8 @@ public class TaskList {
      * @param input user input specifying the details of the ToDoTask to be added.
      */
     public void addToDo(String input) throws DukeException {
-
-        System.out.println("Got it. I've added this task:");
         ToDo toDo = new ToDo(input);
-        System.out.println(toDo.toString());
+        UI.showAddTask(toDo);
         taskList.add(toDo);
     }
 
@@ -127,8 +123,7 @@ public class TaskList {
     public void mark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.setTaskDone(true);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(currTask);
+        UI.showMarked(currTask);
     }
 
     /**
@@ -138,8 +133,7 @@ public class TaskList {
     public void unmark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.setTaskDone(false);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(currTask);
+        UI.showUnmarked(currTask);
     }
 
     /**

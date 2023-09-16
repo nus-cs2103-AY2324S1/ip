@@ -29,7 +29,7 @@ public class Duke {
      * Constructor for Duke class
      * @param filePath file path from which past saved date, if available, should be read from
      */
-    private Duke(String filePath) {
+    public Duke(String filePath) {
         this.storage = new Storage(filePath, tasks);
         this.ui = new UI();
 
@@ -63,5 +63,14 @@ public class Duke {
             }
         }
     }
+
+    // public String getResponse(String input) {
+    //     try {
+    //         Command command = Parser.parse(input);
+    //         return command.execute(UI);
+    //     } catch (DukeException e) {
+    //         return e.getMessage();
+    //     }
+    // }
 }
 
