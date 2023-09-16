@@ -55,7 +55,7 @@ public class Storage {
     }
 
     /**
-     * Write data from ArrayList of tasks to a file.
+     * Writes data from ArrayList of tasks to a file.
      *
      * @param taskList An ArrayList of tasks.
      */

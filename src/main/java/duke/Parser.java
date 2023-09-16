@@ -42,6 +42,26 @@ public class Parser {
     }
 
     /**
+     * Parses help command.
+     *
+     * @return Chatbot message with details on all supported commands.
+     */
+    private static String parseHelp() {
+        return "Wanna know what I can do? Here you go:\n"
+                + "  [help] - The command you just did\n"
+                + "  [mark] - Marks a task as done\n"
+                + "  [unmark] - The opposite of mark\n"
+                + "  [delete] - Makes me forget your task\n"
+                + "  [todo] - Add a task with no date attached\n"
+                + "  [deadline] - Add a task with a deadline (duh)\n"
+                + "  [event] - Add a task with a start/end date\n"
+                + "  [schedule] - I'll find all tasks that have to be done before this date\n"
+                + "  [find] - Google but worse\n"
+                + "  [list] - I'll literally list out every task you have, done or not\n"
+                + "  [end] - Bye";
+    }
+
+    /**
      * Parses both the mark and unmark commands.
      *
      * @param splitInput User input containing index of task to be modified.
@@ -139,6 +159,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses Schedule command.
+     *
+     * @param splitInput User input containing arguments for Schedule command.
+     * @param taskList TaskList to be queried.
+     */
     private static String parseSchedule(String[] splitInput, TaskList taskList) {
         try {
             LocalDateTime queryDate = Parser.parseDate(splitInput[1]);
@@ -162,6 +188,8 @@ public class Parser {
     public static String parseCommand(String userInput, TaskList taskList) {
         String[] splitInput = userInput.split(" ", 2); // Limit 2 to only separate out command word.
         switch (splitInput[0].toLowerCase()) { // break statements are redundant due to return statements.
+        case "help":
+            return parseHelp();
         case "mark":
             return parseSetMark(splitInput, taskList, true);
         case "unmark":
@@ -187,7 +215,7 @@ public class Parser {
         case "end":
             return "Come back if you need anything else!";
         default:
-            return "Sorry, I don't recognise this comment :(";
+            return "You should try asking for [help]... no really do it";
         }
     }
 }

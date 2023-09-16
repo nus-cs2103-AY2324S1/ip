@@ -25,6 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
+            stage.setTitle("Jyuuni");
 
             // Preload chatbot with data from storage file and print status to console.
             System.out.println(duke.loadData());
