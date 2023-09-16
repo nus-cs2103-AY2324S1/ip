@@ -1,5 +1,10 @@
 package messages;
 
+/**
+ * This class encapsulates all the Messages the application will use.
+ * It is packaged into its own class for reusability and readability.
+ * It is recommended to statically import the specific MESSAGE_{type} that needs to be used.
+ */
 public class Message {
 
     public static final String LOGO = "  OOOO                         OOOO\n" +
@@ -22,4 +27,6 @@ public class Message {
                                                       "mark <task number>\n" + "unmark <task number>\n" +
                                                       "find <task description>\n" +
                                                       "delete <task number>\n" + "exit";
+
+    public static final String MESSAGE_VERSION = "NotCrazy ─ a CS2103T iP ─ Week 5 Update";
 }

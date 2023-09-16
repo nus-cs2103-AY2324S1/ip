@@ -5,7 +5,7 @@ import tasks.TaskList;
 /**
  * This class instructs the application to mark a task as done.
  */
-public class MarkCommand extends Command {
+public class MarkCommand implements Command {
 
     public static final String COMMAND_WORD = "mark";
     private int taskNumber;

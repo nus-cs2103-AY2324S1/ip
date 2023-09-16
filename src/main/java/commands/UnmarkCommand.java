@@ -5,7 +5,7 @@ import tasks.TaskList;
 /**
  * This class instructs the application to mark a task as not done.
  */
-public class UnmarkCommand extends Command {
+public class UnmarkCommand implements Command {
 
     public static final String COMMAND_WORD = "unmark";
 

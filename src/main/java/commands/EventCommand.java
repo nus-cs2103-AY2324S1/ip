@@ -6,7 +6,7 @@ import tasks.TaskList;
  * This child class instructs the application to create an Event object
  * to add to the task list.
  */
-public class EventCommand extends Command {
+public class EventCommand implements Command {
 
     public static final String COMMAND_WORD = "event";
     private String description;

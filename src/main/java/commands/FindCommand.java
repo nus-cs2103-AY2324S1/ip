@@ -5,7 +5,7 @@ import tasks.TaskList;
 
 import java.util.ArrayList;
 
-public class FindCommand extends Command {
+public class FindCommand implements Command {
 
     public static final String COMMAND_WORD = "find";
 

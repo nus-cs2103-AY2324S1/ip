@@ -6,7 +6,7 @@ import static messages.Message.MESSAGE_INSTRUCTIONS;
 /**
  * This class handles all unsupported or unknown commands the user inputs.
  */
-public class UnknownCommand extends Command {
+public class UnknownCommand implements Command {
 
     @Override
     public String execute(TaskList tasks) {

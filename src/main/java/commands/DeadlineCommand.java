@@ -6,7 +6,7 @@ import tasks.TaskList;
  * This child class instructs the application to create a Deadline object
  * to add to the task list.
  */
-public class DeadlineCommand extends Command {
+public class DeadlineCommand implements Command {
 
     public static final String COMMAND_WORD = "deadline";
     private String description;
