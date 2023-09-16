@@ -7,14 +7,14 @@ Screenshot of Smolbrain Chatbot:
 ![Screenshot](screenshot.png) 
 <br><br>
 ## Quick start
-1. Ensure that Java 11 or above installed in your Computer.
-2. Download the latest smolbrain.jar from here.
+1. Ensure that Java `11` or above installed in your Computer.
+2. Download the latest `smolbrain.jar` from here.
 3. Copy the file to the folder you want to use as the _home folder_ for your Smolbrain Chatbot.
 4. To run the application, either:
    * Double-click the jar file to open.
-   * Or open a command terminal, cd into the folder you put the jar file in, and use the java -jar smolbrain.jar command to run the application.
+   * Or open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar smolbrain.jar` command to run the application.
 5. Type the command in the command box and press Enter or click the SEND button to execute it. e.g. typing `list` and pressing Enter will list out all the current tasks saved.
-   Some example commands you can try:
+   <br>Some example commands you can try:
    * `list` : Lists all current saved tasks.
    * `todo NewTodo` : Adds a new task of type **Todo** with the title `NewTodo` to the chatbot.
    * `delete 3` : Deletes the 3rd task shown in the current task list.
@@ -166,7 +166,7 @@ Format: `priority [INDEX] [PRIORITY_LEVEL]`
 * Providing a non-positive index or index that is greater than the number of tasks will result in an error displayed.
 * Deleting tasks will re-order the indexing of remaining tasks.
 
-> ⚠️ The task **index comes first**, before the priority level.
+> ⚠️ The **task index comes first**, before the priority level.
 
 Examples: 
 * `priority 2 0` : Sets the task indexed at 2 to priority level 0.
@@ -225,8 +225,8 @@ Tasks are encoded in the format `[TYPE][MARKED][PRIORITY_LEVEL][BODY]`.
 * `[MARKED]` refers to marked state of task: `1` for marked, `0` for unmarked.
 * `[PRIORITY_LEVEL]` refers to the assigned priority level of the task, with possible values 0, 1, 2 and 3.
 * `[BODY]` refers to task description, along with other parameters such as `/from` and its due date and time
-e.g. `D12Complete homework /by 22/10/2023 1800` refers to a **deadline** task with description `complete Homework`, due date and time of `22 Oct 2023 18:00`, that is marked and has priority level of 2.
-> ⚠️ **Caution:** If your changes to the data file does not follow the above encoding and makes its format invalid, Smolbrain chatbot might parse the data wrongly and give corrupted task data.
+<br>e.g. `D12Complete homework /by 22/10/2023 1800` refers to a **deadline** task with description `complete Homework`, due date and time of `22 Oct 2023 18:00`, that is marked and has priority level of 2.
+<br>⚠️ **Caution:** If your changes to the data file does not follow the above encoding and makes its format invalid, Smolbrain chatbot might parse the data wrongly and give corrupted task data.
 
 <br>
 
