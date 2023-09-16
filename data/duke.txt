@@ -1,0 +1,4 @@
+0 todo eat apple
+1 deadline eat orange /by 2023-12-12 1800
+1 event eat banana /from 2023-12-12 1900 /to 2023-12-12 2000
+0 todo eat grapes
