@@ -16,7 +16,7 @@ import robert.Robert;
  * @author Lee Zhan Peng
  */
 public class MainWindow extends AnchorPane {
-    private static final int MAX_INPUT_LENGTH = 35;
+    private static final int MAX_INPUT_LENGTH = 45;
 
     @FXML
     private ScrollPane scrollPane;
@@ -68,13 +68,13 @@ public class MainWindow extends AnchorPane {
             displayRobertTextBubble(response);
         }
 
+        scrollDown();
+        userInput.clear();
+
         if (!this.robert.isRunning()) {
             initialiseClosingSequence();
             return;
         }
-
-        scrollDown();
-        userInput.clear();
     }
 
     /**
