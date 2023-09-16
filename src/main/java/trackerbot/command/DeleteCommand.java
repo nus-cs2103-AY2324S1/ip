@@ -11,8 +11,8 @@ import trackerbot.utils.Parser;
 class DeleteCommand extends Command {
     private final String commandField;
 
-    DeleteCommand(String commandFields) {
-        this.commandField = commandFields;
+    DeleteCommand(String commandField) {
+        this.commandField = commandField;
     }
 
     @Override

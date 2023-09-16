@@ -54,6 +54,30 @@ public class TaskList {
     }
 
     /**
+     * Attempts to toggle a collection of tasks in the list as complete.
+     * @param indexes The Set of all indexes to mark in the list.
+     * @return The reply String to be passed into Ui.
+     */
+    public String markTasks(HashSet<Integer> indexes, StringBuilder errorLog) {
+        ArrayList<Task> markedTasks = new ArrayList<>();
+        indexes.iterator().forEachRemaining((index) -> {
+            try {
+                Task task = getTask(index);
+                task.markTask();
+                markedTasks.add(task);
+            } catch (TrackerBotException e) {
+                errorLog.append("\n");
+                errorLog.append(index);
+                errorLog.append(" - ");
+                errorLog.append(e.getMessage());
+            }
+        });
+
+        return "These tasks have been marked as completed:\n\n"
+                + getListOfTasks(markedTasks) + "\n\n";
+    }
+
+    /**
      * Attempts to toggle the item at index as incomplete.
      * @param index The index of the Task in the TaskList, starting from 1.
      * @return The reply String to be passed into Ui.
@@ -64,6 +88,30 @@ public class TaskList {
         Task task = getTask(index);
         task.unmarkTask();
         return "The task has been marked as incomplete.\n  " + task;
+    }
+
+    /**
+     * Attempts to toggle a collection of tasks in the list as incomplete.
+     * @param indexes The Set of all indexes to unmark in the list.
+     * @return The reply String to be passed into Ui.
+     */
+    public String unmarkTasks(HashSet<Integer> indexes, StringBuilder errorLog) {
+        ArrayList<Task> unmarkedTasks = new ArrayList<>();
+        indexes.iterator().forEachRemaining((index) -> {
+            try {
+                Task task = getTask(index);
+                task.unmarkTask();
+                unmarkedTasks.add(task);
+            } catch (TrackerBotException e) {
+                errorLog.append("\n");
+                errorLog.append(index);
+                errorLog.append(" - ");
+                errorLog.append(e.getMessage());
+            }
+        });
+
+        return "These tasks have been marked as incomplete:\n\n"
+                + getListOfTasks(unmarkedTasks) + "\n\n";
     }
 
     /**
@@ -83,7 +131,6 @@ public class TaskList {
      * Attempts to delete a collection of tasks from the list.
      * @param indexes The Set of all indexes to remove from the list.
      * @return The reply String to be passed into Ui.
-     * @throws TrackerBotException if the Task specified does not exist.
      */
     public String deleteTasks(HashSet<Integer> indexes, StringBuilder errorLog) {
         ArrayList<Task> tasksToDelete = new ArrayList<>();
