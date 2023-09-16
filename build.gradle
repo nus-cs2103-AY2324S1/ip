@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("fishron.Fishron")
+    mainClass.set("gui.Fishron")
 }
 
 shadowJar {

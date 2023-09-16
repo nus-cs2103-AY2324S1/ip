@@ -1,13 +1,15 @@
-package gui;
+package tests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import commands.Command;
 import exceptions.FishronException;
-import org.junit.jupiter.api.Test;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddCommandTest {
 
