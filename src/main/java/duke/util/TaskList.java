@@ -40,6 +40,8 @@ public class TaskList {
 
     /**
      * Lists out all tasks available for the user.
+     *
+     * @return The string representation of the list of tasks.
      */
     protected String listAllTasks() {
         if (listOfTasks.isEmpty()) {
@@ -60,6 +62,12 @@ public class TaskList {
 
     /**
      * Deletes a task when given valid task index.
+     *
+     * @param deleteInput The input representing the delete command.
+     *                    It should contain task index to be deleted.
+     * @throws EmptyDescriptionException If there is no task index provided.
+     * @throws IOException If there is an error updating the data file.
+     * @return The message to indicate which task has been deleted after successful deletion.
      */
     public String deleteTask(String deleteInput)
             throws EmptyDescriptionException, IOException {
@@ -68,7 +76,7 @@ public class TaskList {
 
         //Check for valid length
         if (words.length <= 1) {
-            throw new EmptyDescriptionException("Please provide the ask index to be deleted.");
+            throw new EmptyDescriptionException("Please provide the task index to be deleted.");
         }
 
         //Try parsing into integer to get deleteIndex
@@ -108,6 +116,7 @@ public class TaskList {
      *
      * @param taskIndex The index of the Task to be marked as done.
      * @throws IOException If there is an issue with updating the data in the storage file.
+     * @return The message to indicate that the task is marked as done.
      */
     protected String markTask(int taskIndex) throws IOException {
         StringBuilder message = new StringBuilder();
@@ -137,6 +146,7 @@ public class TaskList {
      *
      * @param taskIndex The index of the Task to be marked as not done yet.
      * @throws IOException If there is an issue with updating the data in the storage file.
+     * @return The message to indicate that the task is marked as not done yet.
      */
     protected String unmarkTask(int taskIndex) throws IOException {
         StringBuilder message = new StringBuilder();
@@ -201,8 +211,10 @@ public class TaskList {
 
     /**
      * Finds all tasks that contain a given keyword.
+     * The keyword provided is case-sensitive.
      *
      * @param matchingKeyword The keyword given by the user to find all tasks containing it.
+     * @return The message representing the tasks found using the keyword provided.
      */
     protected String findTask(String matchingKeyword) {
         if (listOfTasks.isEmpty()) {
