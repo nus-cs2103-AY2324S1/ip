@@ -1,6 +1,7 @@
 package trackerbot.task;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import trackerbot.command.CommandType;
 import trackerbot.exception.TrackerBotException;
@@ -53,6 +54,30 @@ public class TaskList {
     }
 
     /**
+     * Attempts to toggle a collection of tasks in the list as complete.
+     * @param indexes The Set of all indexes to mark in the list.
+     * @return The reply String to be passed into Ui.
+     */
+    public String markTasks(HashSet<Integer> indexes, StringBuilder errorLog) {
+        ArrayList<Task> markedTasks = new ArrayList<>();
+        indexes.iterator().forEachRemaining((index) -> {
+            try {
+                Task task = getTask(index);
+                task.markTask();
+                markedTasks.add(task);
+            } catch (TrackerBotException e) {
+                errorLog.append("\n");
+                errorLog.append(index);
+                errorLog.append(" - ");
+                errorLog.append(e.getMessage());
+            }
+        });
+
+        return "These tasks have been marked as completed:\n\n"
+                + getListOfTasks(markedTasks) + "\n\n";
+    }
+
+    /**
      * Attempts to toggle the item at index as incomplete.
      * @param index The index of the Task in the TaskList, starting from 1.
      * @return The reply String to be passed into Ui.
@@ -66,6 +91,30 @@ public class TaskList {
     }
 
     /**
+     * Attempts to toggle a collection of tasks in the list as incomplete.
+     * @param indexes The Set of all indexes to unmark in the list.
+     * @return The reply String to be passed into Ui.
+     */
+    public String unmarkTasks(HashSet<Integer> indexes, StringBuilder errorLog) {
+        ArrayList<Task> unmarkedTasks = new ArrayList<>();
+        indexes.iterator().forEachRemaining((index) -> {
+            try {
+                Task task = getTask(index);
+                task.unmarkTask();
+                unmarkedTasks.add(task);
+            } catch (TrackerBotException e) {
+                errorLog.append("\n");
+                errorLog.append(index);
+                errorLog.append(" - ");
+                errorLog.append(e.getMessage());
+            }
+        });
+
+        return "These tasks have been marked as incomplete:\n\n"
+                + getListOfTasks(unmarkedTasks) + "\n\n";
+    }
+
+    /**
      * Attempts to delete the item at index.
      * @param index The index of the Task in the TaskList, starting from 1.
      * @return The reply String to be passed into Ui.
@@ -76,6 +125,30 @@ public class TaskList {
         tasks.remove(index - 1);
         return "I have removed this task off of my list.\n  " + task + "\n"
                 + tasks.size() + " task(s) remain on my list.";
+    }
+
+    /**
+     * Attempts to delete a collection of tasks from the list.
+     * @param indexes The Set of all indexes to remove from the list.
+     * @return The reply String to be passed into Ui.
+     */
+    public String deleteTasks(HashSet<Integer> indexes, StringBuilder errorLog) {
+        ArrayList<Task> tasksToDelete = new ArrayList<>();
+        indexes.iterator().forEachRemaining((index) -> {
+            try {
+                tasksToDelete.add(getTask(index));
+            } catch (TrackerBotException e) {
+                errorLog.append("\n");
+                errorLog.append(index);
+                errorLog.append(" - ");
+                errorLog.append(e.getMessage());
+            }
+        });
+
+        tasks.removeAll(tasksToDelete);
+        return "I have removed these tasks off of my list:\n\n"
+                + getListOfTasks(tasksToDelete) + "\n"
+                + tasks.size() + " task(s) remain on my list.\n\n";
     }
 
     /**
@@ -124,7 +197,7 @@ public class TaskList {
         if (tasks.size() == 0) {
             return "No tasks have been added to the list yet.";
         }
-        return "I am tracking these tasks:\n" + getListOfTasks();
+        return "I am tracking these tasks:\n" + getListOfTasks(tasks);
     }
 
     /**
@@ -166,7 +239,7 @@ public class TaskList {
      * Gets the String representation of the TaskList.
      * @return the String representation of the TaskList
      */
-    private String getListOfTasks() {
+    private String getListOfTasks(ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder();
 
         for (int i = 1; i < tasks.size() + 1; i++) {

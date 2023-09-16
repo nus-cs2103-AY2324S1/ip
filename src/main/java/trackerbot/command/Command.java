@@ -1,5 +1,6 @@
 package trackerbot.command;
 
+import trackerbot.exception.TrackerBotException;
 import trackerbot.gui.UiHandler;
 import trackerbot.task.TaskList;
 
@@ -21,6 +22,15 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, UiHandler uiHandler);
 
     /**
+     * Runs the command specified by the specific command, as a mass operation.
+     *
+     * @param tasks The Collection of Tasks stored by TrackerBot.
+     * @param uiHandler The UI object of TrackerBot, to pass status messages into.
+     * @throws TrackerBotException if the command cannot be executed as a mass operation.
+     */
+    public abstract void executeAsMassOp(TaskList tasks, UiHandler uiHandler) throws TrackerBotException;
+
+    /**
      * Factory method for Command.
      * <p>Depending on the keyword passed in, the method will generate an
      * appropriate instance of a subtype of Command. Currently, this method can generate
@@ -38,17 +48,18 @@ public abstract class Command {
      * @param commandField The description of the user input.
      * @return Some subtype of Command related to keyword.
      */
-    public static Command of(String keyword, String commandField) {
-        CommandType parsedType = getCommandType(keyword);
-
+    public static Command of(CommandType keyword, String commandField) {
         Command result;
-        switch (parsedType) {
+        switch (keyword) {
+        case MASS:
+            result = new MassCommand(commandField);
+            break;
         case TODO:
             // Fallthrough
         case DEADLINE:
             // Fallthrough
         case EVENT:
-            result = new AddCommand(parsedType, commandField);
+            result = new AddCommand(keyword, commandField);
             break;
         case DELETE:
             result = new DeleteCommand(commandField);
@@ -56,7 +67,7 @@ public abstract class Command {
         case MARK:
             // Fallthrough
         case UNMARK:
-            result = new ToggleCommand(parsedType, commandField);
+            result = new ToggleCommand(keyword, commandField);
             break;
         case FIND:
             result = new FindCommand(commandField);
@@ -69,17 +80,6 @@ public abstract class Command {
             break;
         default:
             result = new UnknownCommand();
-        }
-        return result;
-    }
-
-    private static CommandType getCommandType(String keyword) {
-        CommandType result = CommandType.UNKNOWN;
-        for (CommandType command: CommandType.values()) {
-            if (keyword.equals(command.getKeyword())) {
-                result = command;
-                break;
-            }
         }
         return result;
     }
