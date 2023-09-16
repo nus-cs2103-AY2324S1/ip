@@ -8,6 +8,8 @@ EnigmaBot is a chat-bot capable of storing and tracking tasks for the user. Enig
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
+1. Ensure you have JavaFX `17` installed in your Computer.
+
 1. Download the latest `EnigmaBot.jar` from [here](https://github.com/Jonyxzx/ip/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your chat-bot.
