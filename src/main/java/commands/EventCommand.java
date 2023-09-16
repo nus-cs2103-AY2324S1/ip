@@ -8,6 +8,7 @@ import tasks.ToDo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * The class for executing an addition command of an event task
@@ -45,15 +46,20 @@ public class EventCommand extends Command {
                 return "Please input a date in the correct format.";
             }
 
-            boolean isClash = checkClash(fromDate, toDate);
-
-            if (isClash) {
-                return "Unable to add event due to clash of timings for added event.";
-            }
-
             Event newEvent = new Event(eventDescription, fromDate, toDate);
             taskList.add(newEvent);
-            String message = "Added: " + newEvent.getTaskAsString();
+
+            TaskList clashingTasks = checkClash(newEvent, fromDate, toDate);
+
+            String message = "";
+
+            if (clashingTasks.size() > 0) {
+                message += "Please take note that you have the following tasks in conflict: \n";
+                message += new ListCommand(clashingTasks).execute();
+                message += "\n";
+            }
+
+            message += "Added: " + newEvent.getTaskAsString();
             return message;
         } catch (Exception e) {
             return "Sorry, I did not understand that. Please enter in the following format: \n" +
@@ -61,12 +67,12 @@ public class EventCommand extends Command {
         }
     }
 
-    public boolean checkClash(LocalDateTime fromDate, LocalDateTime toDate) {
+    public TaskList checkClash(Event newEvent, LocalDateTime fromDate, LocalDateTime toDate) {
 
         TaskList clashingTasks = new TaskList();
 
         for (Task task: this.taskList.getTaskList()) {
-            if (!(task instanceof Event)) {
+            if (!(task instanceof Event) || task.equals(newEvent)) {
                 continue;
             }
 
@@ -83,9 +89,6 @@ public class EventCommand extends Command {
             }
         }
 
-        if (clashingTasks.size() > 0) {
-            return true;
-        }
-        return false;
+        return clashingTasks;
     }
 }
