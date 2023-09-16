@@ -8,10 +8,10 @@ import duke.util.Ui;
  * Represents commands to be executed.
  */
 public abstract class Command {
-    private boolean exit;
+    private boolean isExit;
 
-    public Command(boolean exit) {
-        this.exit = exit;
+    public Command(boolean isExit) {
+        this.isExit = isExit;
     }
 
     /**
@@ -29,6 +29,6 @@ public abstract class Command {
      * @return True if the Command object is an ExitCommand.
      */
     public boolean isExit() {
-        return this.exit;
+        return this.isExit;
     }
 }
