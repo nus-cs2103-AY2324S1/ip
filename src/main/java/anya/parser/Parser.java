@@ -42,6 +42,7 @@ public class Parser {
      */
     public Command parseCommand(String input) {
         assert input != null : "Input cannot be null";
+        input = input.toLowerCase();
         if (input.equals("bye")) {
             return Command.BYE;
         }
@@ -68,6 +69,9 @@ public class Parser {
         }
         if (input.equals("find")) {
             return Command.FIND;
+        }
+        if (input.equals("help")) {
+            return Command.HELP;
         }
         return Command.UNKNOWN;
     }
@@ -119,9 +123,16 @@ public class Parser {
         case FIND: {
             return executeFindCommand(details);
         }
+        case HELP: {
+            return executeHelpCommand();
+        }
         default:
             throw new AnyaException("I'm sorry, but I don't know what that means (yet) :( ");
         }
+    }
+
+    private String executeHelpCommand() {
+        return ui.showHelp();
     }
 
     private String executeFindCommand(String details) {

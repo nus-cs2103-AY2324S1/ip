@@ -195,4 +195,24 @@ public class Ui {
     public String showInitError() {
         return MESSAGE_ERROR_INIT;
     }
+
+    /**
+     * Generates a help message listing available commands and their syntax.
+     *
+     * @return A String containing a list of available commands and their syntax.
+     */
+    public String showHelp() {
+        StringBuilder helpMessage = new StringBuilder("Available commands and their syntax:\n");
+        helpMessage.append("1. bye - Exit the application.\n");
+        helpMessage.append("2. list - List all tasks.\n");
+        helpMessage.append("3. mark <taskNumber> - Mark a task as done.\n");
+        helpMessage.append("4. unmark <taskNumber> - Mark a task as not done.\n");
+        helpMessage.append("5. todo <taskDescription> - Add a new todo task.\n");
+        helpMessage.append("6. deadline <taskDescription> /by <deadline> - Add a new deadline task.\n");
+        helpMessage.append("7. event <taskDescription> /from <startTime> /to <endTime> - Add a new event task.\n");
+        helpMessage.append("8. delete <taskNumber> - Delete a task.\n");
+        helpMessage.append("9. find <keyword> - Find tasks containing a keyword.\n");
+        helpMessage.append("10. help - Show this help message.\n");
+        return helpMessage.toString();
+    }
 }
