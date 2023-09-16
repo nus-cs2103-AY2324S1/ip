@@ -38,10 +38,10 @@ public class DeleteCommand implements Command {
         if (deleteIndex > tasks.size() || deleteIndex < 0) {
             throw new DukeException("Error 404!! Task does not exist");
         } else {
-            ui.sendMessage("Noted. I've removed this task:\n" + "\t" + tasks.get(deleteIndex).toString() + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list.");
             this.deletedTask = tasks.get(deleteIndex);
             tasks.remove(deleteIndex);
+            ui.sendMessage("Noted. I've removed this task:\n" + "\t" + deletedTask.toString() + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list.");
             storage.editData(tasks);
         }
     }

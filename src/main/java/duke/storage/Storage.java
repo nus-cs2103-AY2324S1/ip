@@ -3,7 +3,6 @@ package duke.storage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -71,11 +70,17 @@ public class Storage {
                 }
             }
             return loadedTask;
-        } catch (FileNotFoundException e) {
-            new File(filePath);
-            return loadedTask;
         } catch (IOException e) {
-            throw new DukeException("Error 404!!! Unable to read saved data safely.");
+            File file = new File(filePath);
+            if (!file.exists()) {
+                try {
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
+                } catch (IOException ex) {
+                    throw new DukeException("Error 404!!! Unable to load data safely.");
+                }
+            }
+            return loadedTask;
         }
     }
 }
