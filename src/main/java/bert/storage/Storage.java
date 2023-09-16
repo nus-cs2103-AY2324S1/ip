@@ -86,26 +86,26 @@ public class Storage {
      */
     public List<Task> load() throws FileNotFoundException {
         File file = new File(filePath);
-        Scanner sc = new Scanner(file);
+        Scanner fileScanner = new Scanner(file);
         List<Task> tasks = new ArrayList<>();
-        while (sc.hasNext()) {
-            String task = sc.nextLine();
-            switch (task.charAt(0)) {
+        while (fileScanner.hasNext()) {
+            String formattedTask = fileScanner.nextLine();
+            switch (formattedTask.charAt(0)) {
                 case 'T':
-                    ToDo t = ToDo.createFromSaveFormat(task);
+                    ToDo t = ToDo.createFromSaveFormat(formattedTask);
                     tasks.add(t);
                     break;
                 case 'D':
-                    Deadline d = Deadline.createFromSaveFormat(task);
+                    Deadline d = Deadline.createFromSaveFormat(formattedTask);
                     tasks.add(d);
                     break;
                 case 'E':
-                    Event e = Event.createFromSaveFormat(task);
+                    Event e = Event.createFromSaveFormat(formattedTask);
                     tasks.add(e);
                     break;
             }
         }
-        sc.close();
+        fileScanner.close();
         return tasks;
     }
 }

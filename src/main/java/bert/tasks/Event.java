@@ -46,10 +46,10 @@ public class Event extends Task {
     public static Event createFromSaveFormat(String formattedTask) {
         String[] args = formattedTask.split(" \\| ");
         boolean isDone = args[1].equals("1");
-        String[] times = args[3].split("-");
-        LocalDate ld1 = LocalDate.parse(times[0], DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        LocalDate ld2 = LocalDate.parse(times[1], DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return new Event(isDone, args[2], ld1, ld2);
+        String[] dates = args[3].split("-");
+        LocalDate start = LocalDate.parse(dates[0], DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        LocalDate end = LocalDate.parse(dates[1], DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return new Event(isDone, args[2], start, end);
     }
 
     @Override

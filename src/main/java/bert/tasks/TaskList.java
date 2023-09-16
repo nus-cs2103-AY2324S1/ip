@@ -21,10 +21,10 @@ public class TaskList {
      * @return The task that is being marked as done
      */
     public Task mark(int index) {
-        Task t = tasks.get(index);
-        t.markAsDone();
-        tasks.set(index, t);
-        return t;
+        Task taskToMark = tasks.get(index);
+        taskToMark.markAsDone();
+        tasks.set(index, taskToMark);
+        return taskToMark;
     }
 
     /**
@@ -34,10 +34,10 @@ public class TaskList {
      * @return The task that is being marked as undone
      */
     public Task unmark(int index) {
-        Task t = tasks.get(index);
-        t.markAsUndone();
-        tasks.set(index, t);
-        return t;
+        Task taskToUnmark = tasks.get(index);
+        taskToUnmark.markAsUndone();
+        tasks.set(index, taskToUnmark);
+        return taskToUnmark;
     }
 
     public void add(Task toAdd) {
@@ -51,8 +51,8 @@ public class TaskList {
      * @return The task that is being deleted
      */
     public Task delete(int index) {
-        Task t = tasks.remove(index);
-        return t;
+        Task removedTask = tasks.remove(index);
+        return removedTask;
     }
 
     public int size() {

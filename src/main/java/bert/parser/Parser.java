@@ -77,20 +77,20 @@ public class Parser {
         if (arguments.isBlank()) {
             throw new BertEmptyTaskException();
         }
-        String[] descriptionAndTime = arguments.split(" /by ");
-        LocalDate ld = LocalDate.parse(descriptionAndTime[1]);
-        return new AddDeadlineCommand(descriptionAndTime[0], ld);
+        String[] descriptionAndDeadline = arguments.split(" /by ");
+        LocalDate deadline = LocalDate.parse(descriptionAndDeadline[1]);
+        return new AddDeadlineCommand(descriptionAndDeadline[0], deadline);
     }
 
     private Command prepareEvent(String arguments) throws BertEmptyTaskException {
         if (arguments.isBlank()) {
             throw new BertEmptyTaskException();
         }
-        String[] descriptionAndTimes = arguments.split(" /from ");
-        String[] times = descriptionAndTimes[1].split(" /to ");
-        LocalDate ld1 = LocalDate.parse(times[0]);
-        LocalDate ld2 = LocalDate.parse(times[1]);
-        return new AddEventCommand(descriptionAndTimes[0], ld1, ld2);
+        String[] descriptionAndDates = arguments.split(" /from ");
+        String[] dates = descriptionAndDates[1].split(" /to ");
+        LocalDate start = LocalDate.parse(dates[0]);
+        LocalDate end = LocalDate.parse(dates[1]);
+        return new AddEventCommand(descriptionAndDates[0], start, end);
     }
 
     private Command prepareDelete(String arguments) {
