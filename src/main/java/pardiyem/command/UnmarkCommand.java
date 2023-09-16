@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import pardiyem.storage.Storage;
 import pardiyem.task.TaskList;
-import pardiyem.ui.Ui;
 
 public class UnmarkCommand extends Command {
 
@@ -31,19 +30,12 @@ public class UnmarkCommand extends Command {
      * Will call the markAsUndone method on the given Task object, show the execution message to the user, and modify the data file accordingly
      *
      * @param taskList the TaskList object to modify
-     * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
     public String execute(TaskList taskList, Storage storage) throws IOException {
         try {
             int i = Integer.parseInt(desc) - 1;
-            if (i < 0 || i >= taskList.size()) {
-                throw new ArrayIndexOutOfBoundsException(
-                    "Whoops, that number is not an index in the list. Please select a valid index");
-            }
-            String out = String.format("%s\n%s",
-                    taskList.getTask(i).markAsUndone(),
-                    taskList.getTask(i).toString());
+            String out = taskList.unmark(i);
             storage.save(taskList);
             return out;
         } catch (NumberFormatException e) {

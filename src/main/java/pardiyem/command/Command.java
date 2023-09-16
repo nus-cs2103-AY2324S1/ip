@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import pardiyem.storage.Storage;
 import pardiyem.task.TaskList;
-import pardiyem.ui.Ui;
 
 /**
  * Abstract class to represent a command given by a user
