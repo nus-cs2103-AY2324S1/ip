@@ -25,10 +25,10 @@ text.
 Ensure that you are downloading the latest version of `Java 11` from the websites which contain
 the `JavaFX` library prepackaged in it.
 
-[!WARNING]  
-If you decide not to use the above `Java 11` JDKs for any reason, ensure that the JDK you 
-decide to use is at least `Java 11` and you install the relevant `JavaFX` library along with
-the installation of the JDK!
+> [!WARNING]  
+> If you decide not to use the above `Java 11` JDKs for any reason, ensure that the JDK you 
+> decide to use is at least `Java 11` and you install the relevant `JavaFX` library along with
+> the installation of the JDK!
 
 Next, head to [this website](https://github.com/asdfghjkxd/ip/releases) and download the latest JAR file 
 attached in the latest release of `Juke`.
@@ -191,8 +191,8 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
     * `HH`: 2-digit number representing the hour in 24 hours
     * `MM`: 2-digit number representing the minutes
 
-[!NOTE]  
-The date formats used in `event` follows closely to what `deadline` uses!
+> [!NOTE]  
+> The date formats used in `event` follows closely to what `deadline` uses!
 
 #### Examples
 
@@ -258,9 +258,9 @@ This command helps you to mark an event as completed!
 mark [TASK INDEX]
 ```
 
-[!NOTE]  
-The task index is relative to the current order of the task list! If you are not sure 
-what the order of the list is, use the `list` command!
+> [!NOTE]  
+> The task index is relative to the current order of the task list! If you are not sure 
+> what the order of the list is, use the `list` command!
 
 #### Examples
 
@@ -274,8 +274,8 @@ If successful, `Juke` will respond with:
 Task marked as done: <TASK>
 ```
 
-[!NOTE]  
-The task indicator will turn from `[]` to `[✓]`
+> [!NOTE]  
+> The task indicator will turn from `[]` to `[✓]`
 
 #### Possible Errors
 
@@ -294,9 +294,9 @@ This command helps you to mark an event as incompleted!
 unmark [TASK INDEX]
 ```
 
-[!NOTE]  
-The task index is relative to the current order of the task list! If you are not sure
-what the order of the list is, use the `list` command!
+> [!NOTE]  
+> The task index is relative to the current order of the task list! If you are not sure
+> what the order of the list is, use the `list` command!
 
 #### Examples
 
@@ -310,8 +310,8 @@ If successful, `Juke` will respond with:
 Task marked as undone: <TASK>
 ```
 
-[!NOTE]  
-The task indicator will turn from `[✓]` to `[]`
+> [!NOTE]  
+> The task indicator will turn from `[✓]` to `[]`
 
 #### Possible Errors
 
@@ -363,8 +363,8 @@ This command helps you find a Task by its task name!
 find [QUERY]
 ```
 
-[!NOTE]  
-The query can be any valid task name String (does not contain the illegal character `|`)!
+> [!NOTE]  
+> The query can be any valid task name String (does not contain the illegal character `|`)!
 
 #### Examples
 
@@ -400,17 +400,17 @@ This command helps you to stay organised by allowing you to sort your task list!
 sort [SORT ORDER] [SORT BY]
 ```
 
-[!NOTE]  
-The values that `[SORT ORDER]` can take are:
-* `a` OR `asc` OR `ascend` OR `ascending`: Sorts the list in ascending order
-* `d` OR `desc` OR `descend` OR `descending`: Sorts the list in descending order
+> [!NOTE]   
+> The values that `[SORT ORDER]` can take are:
+> * `a` OR `asc` OR `ascend` OR `ascending`: Sorts the list in ascending order
+> * `d` OR `desc` OR `descend` OR `descending`: Sorts the list in descending order
 
-[!NOTE]
-The values that `[SORT BY]` can take are:
-* `d` OR `des` OR `descript` OR `description`: Sorts the list by task description
-* `s` OR `st` OR `start` OR `start date`: Sorts the list by start date
-* `e` OR `en` OR `end` OR `end date`: Sorts the list by end date
-* `d` OR `dead` OR `deadln` OR `deadline`: Sorts the list by deadline
+> [!NOTE]  
+> The values that `[SORT BY]` can take are:
+> * `d` OR `des` OR `descript` OR `description`: Sorts the list by task description
+> * `s` OR `st` OR `start` OR `start date`: Sorts the list by start date
+> * `e` OR `en` OR `end` OR `end date`: Sorts the list by end date
+> * `d` OR `dead` OR `deadln` OR `deadline`: Sorts the list by deadline
 
 #### Examples
 
