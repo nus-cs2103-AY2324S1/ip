@@ -46,7 +46,7 @@ public class TaskList {
      * @throws ChatBuddyException If the task number is invalid.
      */
     private void checkValidTaskNumber(int taskNum) throws ChatBuddyException {
-        if (taskNum > tasks.size()) {
+        if (taskNum <= 0 || taskNum > tasks.size()) {
             throw new ChatBuddyException("Please input a valid task number. There are only "
                     + getSize() + " tasks in the list.");
         }
@@ -59,6 +59,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
+        assert(tasks.get(tasks.size() - 1).equals(task));
     }
 
     /**
@@ -75,6 +76,7 @@ public class TaskList {
         // delete task from list
         int taskIndex = taskNum - 1;
         Task task = tasks.remove(taskIndex);
+        assert(!tasks.contains(task));
         return task;
     }
 
@@ -88,6 +90,8 @@ public class TaskList {
     public Task markTaskAsDone(int taskNum) throws ChatBuddyException {
         // check for valid task number
         checkValidTaskNumber(taskNum);
+
+        assert(taskNum > 0 && taskNum <= tasks.size());
 
         // mark task as done
         int taskIndex = taskNum - 1;
@@ -106,6 +110,8 @@ public class TaskList {
     public Task markTaskAsNotDone(int taskNum) throws ChatBuddyException {
         // check for valid task number
         checkValidTaskNumber(taskNum);
+
+        assert(taskNum > 0 && taskNum <= tasks.size());
 
         // mark task as done
         int taskIndex = taskNum - 1;
