@@ -56,6 +56,7 @@ public class Storage {
         for (int i = 0; i < list.size(); i++) {
             StringBuilder taskString = new StringBuilder();
             Task task = list.getTask(i);
+            assert task != null;
             taskString.append(list.getTaskString(i).charAt(1));
             taskString.append('|');
             taskString.append(task.getStatus());
