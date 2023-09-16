@@ -49,20 +49,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response;
-        try {
-            Command c = Parser.parse(input);
-            response = c.execute(thea.tasks, thea.ui, thea.storage);
-        } catch (EmptyDescriptionException | WrongCommandException
-                 | WrongDateTimeFormatException e) {
-            response = e.getMessage();
-        }
+        String response = getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getTheaDialog(response, theaImage)
         );
         userInput.clear();
+        exitProgramIfRequested(input);
+    }
+
+    private static void exitProgramIfRequested(String input) {
         if (input.equals("bye")) {
             Timer timer = new Timer();
             int fiveSeconds = 5 * 1000;
@@ -74,6 +71,19 @@ public class MainWindow extends AnchorPane {
             }, fiveSeconds);
         }
     }
+
+    private String getResponse(String input) {
+        String response;
+        try {
+            Command c = Parser.parse(input);
+            response = c.execute(thea.tasks, thea.ui, thea.storage);
+        } catch (EmptyDescriptionException | WrongCommandException
+                 | WrongDateTimeFormatException e) {
+            response = e.getMessage();
+        }
+        return response;
+    }
+
     private void greet() {
         dialogContainer.getChildren().add(
                 DialogBox.getTheaDialog(Ui.greet(), theaImage)
