@@ -1,3 +1,5 @@
+package veneto;
+
 import veneto.command.Command;
 import veneto.command.ExitCommand;
 import veneto.exceptions.DanException;
