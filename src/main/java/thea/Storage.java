@@ -33,31 +33,14 @@ public class Storage {
         String currentDir = System.getProperty("user.dir");
         Path dataDirPath = Paths.get(currentDir, "data");
         Path path = Paths.get(currentDir, "data", this.fileName);
-        if (!Files.exists(dataDirPath)) {
+        if (!Files.exists(dataDirPath) || !Files.exists(path)) {
             return new ArrayList<>();
         }
-        if (!Files.exists(path)) {
-            return new ArrayList<>();
-        }
-        String line;
         ArrayList<Task> retrievedTasks = new ArrayList<>();
-        Task task;
         try (BufferedReader bufferReader = Files.newBufferedReader(path)) {
-            line = bufferReader.readLine();
+            String line = bufferReader.readLine();
             while (line != null) {
-                String[] splitLine = line.split(" [|] ");
-                if (splitLine[0].equals("T")) {
-                    task = new ToDo(splitLine[2]);
-                } else if (splitLine[0].equals("D")) {
-                    task = new Deadline(splitLine[2], splitLine[3]);
-                } else if (splitLine[0].equals("E")) {
-                    task = new Event(splitLine[2], splitLine[3], splitLine[4]);
-                } else {
-                    throw new FileCorruptedException("Unexpected File Format Found. File might be corrupted.");
-                }
-                if (splitLine[1].equals("1")) {
-                    task.markAsDone();
-                }
+                Task task = parseTask(line);
                 retrievedTasks.add(task);
                 line = bufferReader.readLine();
             }
@@ -65,6 +48,34 @@ public class Storage {
             throw new RuntimeException(e);
         }
         return retrievedTasks;
+    }
+
+    /**
+     * Parses data from file.
+     *
+     * @return parsed task.
+     * @throws FileCorruptedException when the data is not in expected format.
+     */
+    private static Task parseTask(String line) throws FileCorruptedException {
+        String[] splitLine = line.split(" [|] ");
+        Task task;
+        switch (splitLine[0]) {
+        case "T":
+            task = new ToDo(splitLine[2]);
+            break;
+        case "D":
+            task = new Deadline(splitLine[2], splitLine[3]);
+            break;
+        case "E":
+            task = new Event(splitLine[2], splitLine[3], splitLine[4]);
+            break;
+        default:
+            throw new FileCorruptedException("Unexpected File Format Found. File might be corrupted.");
+        }
+        if (splitLine[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
     }
 
     /**
@@ -78,26 +89,31 @@ public class Storage {
         String currentDir = System.getProperty("user.dir");
         Path dataDirPath = Paths.get(currentDir, "data");
         Path path = Paths.get(currentDir, "data", this.fileName);
-        if (!Files.exists(dataDirPath)) {
-            try {
-                Files.createDirectories(dataDirPath);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            if (!Files.exists(path)) {
-                try {
-                    Files.createFile(path);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+        createFileIfNotExist(dataDirPath, path);
         try (BufferedWriter bufferWriter = Files.newBufferedWriter(path)) {
             for (int i = 0; i < tasks.size(); i++) {
                 bufferWriter.write(tasks.get(i).toMemoryFormat());
                 bufferWriter.newLine();
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Creates directory and file if they do not exist.
+     *
+     * @param dataDirPath path to directory.
+     * @param path path to file.
+     */
+    private static void createFileIfNotExist(Path dataDirPath, Path path) {
+        if (!Files.exists(dataDirPath)) try {
+            Files.createDirectories(dataDirPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        else if (!Files.exists(path)) try {
+            Files.createFile(path);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
