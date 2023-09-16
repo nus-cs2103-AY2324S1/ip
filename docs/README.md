@@ -47,57 +47,10 @@ The following image highlights some important aspect of the GUI:
 
 ![GUI](GUI.png)
 
-## Features 
+## Notations
 
-`Juke` is packed full of features to help you track your tasks!
-
-### Add a Task
-
-You can add a `Todo`, `Deadline` or `Event` task to `Juke` to help you better keep track 
-of tasks that you need to do!
-
-### Delete a Task
-
-You can also delete a Task from `Juke` to remove any unwanted task from your task list!
-
-### Mark a Task as Done
-
-You can mark a Task as complete to help you track your incomplete tasks!
-
-### Mark a Task as Undone
-
-Conversely, you can also mark a Task as incomplete to help you track your completed tasks!
-
-### Find your Task
-
-Need help searching for a Task in your Task list? Use the Find feature to help you search 
-for the Task that you are looking for!
-
-### Sort your Tasks
-
-You can sort your tasks by their description, start date, end date and deadline in ascending 
-or descending order to help you be on task!
-
-## Quick Summary
-
-The following table provides a quick summary of the commands that Juke can understand:
-
-| Command    | Description                                           |
-|------------|-------------------------------------------------------|
-| `todo`     | Creates a `Todo` Task                                 |
-| `deadline` | Creates a `Deadline` Task                             |
-| `event`    | Creates an `Event` Task                               |
-| `list`     | Lists all the Tasks that are present in the task list |
-| `mark`     | Marks a Task as complete                              |
-| `unmark`   | Marks a Task as incomplete                            |
-| `delete`   | Deletes a Task from the task list                     |
-| `find`     | Searches for a Task based on the task description     |
-| `sort`     | Sorts the task list                                   |
-
-## Usage
-
-Before delving into the different commands that `Juke` can understand, here are some notations
-which you should take note of:
+Before delving into the different commands that `Juke` can understand, here are some notations used in this User 
+Guide which you should take note of:
 
 | Notation/Symbols                                          | Description                                                                                    |
 |-----------------------------------------------------------|------------------------------------------------------------------------------------------------|
@@ -106,17 +59,20 @@ which you should take note of:
 | ( ... OR ... ) **or** [ ... OR ... ] **or** ... OR ...    | The "OR" word is used to denote one mandatory <br>input from the two inputs (represented by _) |
 | ( ... AND ... ) **or** [ ... AND ... ] **or** ... AND ... | The "OR" word is used to denote two mandatory <br>input from the two inputs (represented by _) |
 
-### `todo` - Creates a `Todo` Task
+## Features 
 
-This command helps you to create a `Todo` Task, which are Tasks that do not have 
-start dates, end dates or deadlines, and are tasks that are just completed or 
-incomplete!
+`Juke` is packed full of features to help you track your tasks!
+
+### Add a `Todo` Task
+
+You can add a `Todo` Task to help you track the tasks that you need to do! `Todo` tasks have 
+no deadlines, and are represented only by its completion status!
 
 #### Usage
 
 `todo [task name]`
 
-#### Examples 
+#### Examples
 
 * `todo task`
 * `todo this is also a valid task`
@@ -136,21 +92,20 @@ The following are examples of errors that could happen to the `todo` command:
 
 * `todo`: When the argument is ommitted, an error will occur
 
-### `deadline` - Creates a `Deadline` Task
+### Add a `Deadline` Task
 
-This command helps you to create a `Deadline` Task, which are completable tasks with a 
-deadline, but no start or end dates!
+Create a `Deadline` Task to track completable tasks with a deadline!
 
 #### Usage
 
 `deadline [task name] /by [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)MM(- OR /)YYYY)]`
 
 * Note the following
-  * `DD`: 2 digit number representing the day
-  * `MM`: 2 digit number representing the month
-  * `YYYY`: 4 digit number representing the year
-  * `HH`: 2 digit number representing the hour in 24 hours
-  * `MM`: 2 digit number representing the minutes
+    * `DD`: 2 digit number representing the day
+    * `MM`: 2 digit number representing the month
+    * `YYYY`: 4 digit number representing the year
+    * `HH`: 2 digit number representing the hour in 24 hours
+    * `MM`: 2 digit number representing the minutes
 
 #### Examples
 
@@ -172,10 +127,9 @@ The following are examples of errors that could happen to the `deadline` command
 * `deadline`, `deadline /by`: When the arguments are ommitted, an error will occur
 * `deadline error task /by gibberish`: When the date argument is invalid, an error will occur
 
-### `event` - Creates an `Event` Task
+### Create an `Event` Task
 
-This command helps you to create an `Event` Task, which are completable tasks with 
-start and end dates!
+Create `Event` Tasks to track completable tasks with start and end dates!
 
 #### Usage
 
@@ -215,9 +169,9 @@ The following are examples of errors that could happen to the `event` command:
 * `event error task /from gibberish /to gibberish 2`: When the date argument is invalid, an error will occur
 * `event error task 2 /from 01/01/2023 /to 01/01/2000`: When the start date is before the end date, an error will occur
 
-### `list` - Displays all the Tasks in your task list
+### List all Tasks
 
-This command helps you to view all the tasks in your task list!
+You may also view all Tasks that you have added so far to your task list!
 
 #### Usage
 
@@ -248,9 +202,42 @@ The following are examples of errors that could happen to the `list` command:
 * `ls`: Using shortened spellings will result in errors
 * 'list all my tasks`: Adding extra parameters will result in errors
 
-### `mark` - Marks a Task as completed
+### Delete a Task
 
-This command helps you to mark an event as completed!
+You can also delete a Task from `Juke` to remove any unwanted task from your task list!
+
+#### Usage
+
+```
+delete [TASK INDEX]
+```
+
+**ℹ️ Note**  
+The task index is relative to the current order of the task list! If you are not sure
+what the order of the list is, use the `list` command!
+
+#### Examples
+
+* `delete 1`
+
+#### Expected Outcome
+
+If successful, `Juke` will respond with:
+
+```
+Task deleted: <TASK>
+```
+
+#### Possible Errors
+
+The following are examples of errors that could happen to the `mark` command:
+
+* `delete 10000000`, `delete -1`: When attempting to delete a task that don't exist, an error will occur
+* `delete 1` and then `delete 1` again: When attempting to delete a task that is already deleted, an error will occur
+
+### Mark a Task as Done
+
+You can mark a Task as complete to help you track your incomplete tasks!
 
 #### Usage
 
@@ -259,7 +246,7 @@ mark [TASK INDEX]
 ```
 
 > **ℹ️ Note**  
-> The task index is relative to the current order of the task list! If you are not sure 
+> The task index is relative to the current order of the task list! If you are not sure
 > what the order of the list is, use the `list` command!
 
 #### Examples
@@ -281,12 +268,12 @@ Task marked as done: <TASK>
 
 The following are examples of errors that could happen to the `mark` command:
 
-* `mark 10000000`, `mark -1`: When attempting to mark a task that don't exist, an error will occur 
+* `mark 10000000`, `mark -1`: When attempting to mark a task that don't exist, an error will occur
 * `mark 1` and then `mark 1` again: When attempting to mark a task that is already marked, an error will occur
 
-### `unmark` - Marks a Task as incomplete
+### Mark a Task as Undone
 
-This command helps you to mark an event as incompleted!
+Conversely, you can also mark a Task as incomplete to help you track your completed tasks!
 
 #### Usage
 
@@ -320,42 +307,10 @@ The following are examples of errors that could happen to the `mark` command:
 * `unmark 10000000`, `unmark -1`: When attempting to unmark a task that don't exist, an error will occur
 * `unmark 1` and then `unmark 1` again: When attempting to unmark a task that is not marked, an error will occur
 
-### `delete` - Deletes a Task
+### Find your Task
 
-This command helps you to delete a Task from your task list!
-
-#### Usage
-
-```
-delete [TASK INDEX]
-```
-
-> **ℹ️ Note**  
-> The task index is relative to the current order of the task list! If you are not sure
-> what the order of the list is, use the `list` command!
-
-#### Examples
-
-* `delete 1`
-
-#### Expected Outcome
-
-If successful, `Juke` will respond with:
-
-```
-Task deleted: <TASK>
-```
-
-#### Possible Errors
-
-The following are examples of errors that could happen to the `mark` command:
-
-* `delete 10000000`, `delete -1`: When attempting to delete a task that don't exist, an error will occur
-* `delete 1` and then `delete 1` again: When attempting to delete a task that is already deleted, an error will occur
-
-### `find` - Finds a Task by task name
-
-This command helps you find a Task by its task name!
+Need help searching for a Task in your Task list? Use the Find feature to help you search 
+for the Task that you are looking for!
 
 #### Usage
 
@@ -390,9 +345,10 @@ The following are examples of errors that could happen to the `mark` command:
 
 * `find`: If the argument is omitted, an error will occur
 
-### `sort` - Sorts the task list
+### Sort your Tasks
 
-This command helps you to stay organised by allowing you to sort your task list!
+You can sort your tasks by their description, start date, end date and deadline in ascending 
+or descending order to help you be on task!
 
 #### Usage
 
@@ -438,12 +394,12 @@ Here's your list of tasks:
 The following are examples of errors that could happen to the `sort` command:
 
 * `sort`, `sort d`: If the argument is omitted, an error will occur
-* `sort ddescending ddeadline`: If the argument is not in any one of the permitted arguments above, 
+* `sort ddescending ddeadline`: If the argument is not in any one of the permitted arguments above,
   an error will occur
 
-### `bye` - Quits Juke
+### Exit Juke
 
-Leaving so soon? This command helps you to exit Juke!
+Leaving so soon? Exit Juke with ease!
 
 #### Usage
 
@@ -465,13 +421,30 @@ The following are examples of errors that could happen to the `bye` command:
 
 * `bye Juke`: If arguments are given, an error will occur
 
+## Quick Summary
+
+Congrats for reaching the end of the User Guide!
+
+Need a refresher? The following table provides a quick summary of the commands that Juke can understand:
+
+| Command    | Description                                           |
+|------------|-------------------------------------------------------|
+| `todo`     | Creates a `Todo` Task                                 |
+| `deadline` | Creates a `Deadline` Task                             |
+| `event`    | Creates an `Event` Task                               |
+| `list`     | Lists all the Tasks that are present in the task list |
+| `mark`     | Marks a Task as complete                              |
+| `unmark`   | Marks a Task as incomplete                            |
+| `delete`   | Deletes a Task from the task list                     |
+| `find`     | Searches for a Task based on the task description     |
+| `sort`     | Sorts the task list                                   |
+
 ## Glossary
 
 * **Command**: The possible inputs that you enter into the input box to tell Juke what you
-    want Juke to do
-* **GUI**: Graphical User Interface, an interactive interface that permits users to interact with graphical 
-    elements on the screen to perform tasks
+  want Juke to do
+* **GUI**: Graphical User Interface, an interactive interface that permits users to interact with graphical
+  elements on the screen to perform tasks
 * **Java**: General-purpose Programming Language that Juke is written in
 * **JavaFX**: A Java GUI library which Juke relies on to generate the graphical interface for users
-    to interact with
-
+  to interact with
