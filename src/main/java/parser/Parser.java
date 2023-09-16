@@ -1,14 +1,6 @@
 package parser;
 
-import commands.AddCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.ExitCommand;
-import commands.FindCommand;
-import commands.ListCommand;
-import commands.MarkDoneCommand;
-import commands.UnmarkCommand;
-import commands.UnsureCommand;
+import commands.*;
 import exceptions.FishronException;
 import tasks.Deadline;
 import tasks.Event;
@@ -29,12 +21,15 @@ public class Parser {
      * @throws FishronException If there is an issue with parsing or an invalid command.
      */
     public static Command parse(String input, TaskList taskList) throws FishronException {
+        isValidCommands(input, taskList);
 
         if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
         }
 
-        isValidCommands(input, taskList);
+        if (input.equalsIgnoreCase("help")) {
+            return new HelpCommand();
+        }
 
         if (input.equalsIgnoreCase("list")) {
             return new ListCommand();

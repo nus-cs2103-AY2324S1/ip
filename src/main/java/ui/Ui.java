@@ -27,7 +27,8 @@ public class Ui {
      * @return The welcome message as a string.
      */
     public String showWelcomeMessage() {
-        return "Hello! I'm Fishron\n" + "What can I do for you?";
+        return "Hello! I'm Fishron\n" + "What can I do for you?\n"
+                + showHelp();
     }
 
     /**
@@ -160,5 +161,25 @@ public class Ui {
      */
     public String showUnrecognisedInput() {
         return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    }
+
+    /**
+     * Displays a message to indicate the available inputs.
+     * @return A String to represent the inputs available.
+     */
+    public String showHelp() {
+        String message = "These are the functions that I support. \n"
+                + "Remember to input dates in this format dd-MM-yyyy HHmm.\n"
+                + "1. todo (Description)\n"
+                + "2. deadline (Description) /by DATE\n"
+                + "3. event (Description) /from DATE /to DATE\n"
+                + "4. mark (TaskNumber)\n"
+                + "5. unmark (TaskNumber)\n"
+                + "6. delete (TaskNumber)\n"
+                + "7. list\n"
+                + "8. bye\n"
+                + "9. find (Keyword)\n"
+                + "10. help";
+        return message;
     }
 }
