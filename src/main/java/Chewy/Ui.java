@@ -36,9 +36,13 @@ public class Ui {
             + " - todo <description>: Add a new todo task\n"
             + " - deadline <description> /by <date>: Add a new deadline task\n"
             + " - event <description> /from <start> /to <end>: Add a new event task with start and end time\n"
+            + " - doafter <description> /after <date>: Add a new doafter task to be done after a specific time\n"
             + " - list: Display the list of tasks\n"
             + " - mark <taskNumber>: Mark a task as done\n"
             + " - unmark <taskNumber>: Unmark a task as done\n"
+            + " - delete <taskNumber>: Delete a task\n"
+            + " - find <keyword>: Find tasks with the keyword\n"
+            + " - help: Display the list of commands\n"
             + " - bye: Exit Chewy\n";
         // Add more commands in the future
     }

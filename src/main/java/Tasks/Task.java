@@ -3,6 +3,7 @@ package Tasks;
 import Exceptions.DukeException;
 import Exceptions.InvalidDateFormatException;
 import Exceptions.InvalidDateTimeFormatException;
+import Exceptions.TaskSpecificException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,8 +36,9 @@ public abstract class Task {
 
     /**
      * Marks the Task as done.
+     * @throws TaskSpecificException If the DoAfter task is marked done before the doAfter date.
      */
-    public void markAsDone() {
+    public void markAsDone() throws TaskSpecificException {
         this.isDone = true;
     }
 
