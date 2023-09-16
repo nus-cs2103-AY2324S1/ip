@@ -5,7 +5,7 @@ import tasks.TaskList;
 /**
  * This class instructs the application to exit.
  */
-public class ExitCommand extends Command {
+public class ExitCommand implements Command {
 
     public static final String COMMAND_WORD = "exit";
     public static final String MESSAGE = "Bye my yeezy. Yeezup #GODDID";

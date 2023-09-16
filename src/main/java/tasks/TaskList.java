@@ -67,6 +67,8 @@ public class TaskList {
 
     /**
      * Prints onto the console all tasks on the current task list.
+     *
+     * @return The message to be displayed upon completion.
      */
     public String listTasks() {
 
@@ -88,6 +90,7 @@ public class TaskList {
      * Sets a particular task to 'Done' status.
      *
      * @param taskNumber The task to be set to 'Done' based on the order of the task list. Starts at 1.
+     * @return The message to be displayed upon completion.
      * @throws IndexOutOfBoundsException When the taskNumber does not exist.
      */
     public String markTaskDone(int taskNumber) throws IndexOutOfBoundsException {
@@ -100,8 +103,8 @@ public class TaskList {
 
         tasks.get(taskNumber - 1).setIsDone();
 
-        message += "That's the hustle ye. You is good on this task:\n" +
-                    tasks.get(taskNumber - 1);
+        message += "That's the hustle ye. You is good on this task:\n"
+                + tasks.get(taskNumber - 1);
 
         return message;
     }
@@ -110,6 +113,7 @@ public class TaskList {
      * Sets a particular task to 'Not Done' status.
      *
      * @param taskNumber The task to be set to 'Not Done' based on the order of the task list. Starts at 1.
+     * @return The message to be displayed upon completion.
      * @throws IndexOutOfBoundsException When the taskNumber does not exist.
      */
     public String unmarkTaskDone(int taskNumber) throws IndexOutOfBoundsException {
@@ -131,6 +135,7 @@ public class TaskList {
      * Deletes a Task from the task list.
      *
      * @param taskNumber The task to be set to deleted based on the order of the task list. Starts at 1.
+     * @return The message to be displayed upon completion.
      * @throws IndexOutOfBoundsException When the taskNumber does not exist.
      */
     public String deleteTask(int taskNumber) throws IndexOutOfBoundsException {
@@ -151,6 +156,7 @@ public class TaskList {
      * Adds a ToDo task object to the task list.
      *
      * @param description Description of the ToDo object.
+     * @return The message to be displayed upon completion.
      */
     public String addTodoTask(String description) {
 
@@ -158,7 +164,7 @@ public class TaskList {
         this.tasks.add(todo);
 
         String message = "";
-        message += "added new task:\n" + todo + "\n" +  getNumTasks();
+        message += "added new task:\n" + todo + "\n" + getNumTasks();
 
         return message;
     }
@@ -168,6 +174,7 @@ public class TaskList {
      *
      * @param description Description of the Deadline object.
      * @param end end Date/Time of the Deadline object.
+     * @return The message to be displayed upon completion.
      */
     public String addDeadlineTask(String description, String end) {
 
@@ -175,7 +182,7 @@ public class TaskList {
         this.tasks.add(deadline);
 
         String message = "";
-        message += "added new task:\n" + deadline + "\n" +  getNumTasks();
+        message += "added new task:\n" + deadline + "\n" + getNumTasks();
 
         return message;
     }
@@ -186,6 +193,7 @@ public class TaskList {
      * @param description Description of the Event object.
      * @param start start Date/Time of the Event object.
      * @param end end Date/Time of the Event object.
+     * @return The message to be displayed upon completion.
      */
     public String addEventTask(String description, String start, String end) {
 
@@ -198,6 +206,12 @@ public class TaskList {
         return message;
     }
 
+    /**
+     * Searches the Task List by the task description, according to the keyword given.
+     *
+     * @param keyword The keyword to search by.
+     * @return The filtered task list containing only tasks with their descriptions matching the keyword.
+     */
     public ArrayList<Task> findByKeyword(String keyword) {
         ArrayList<Task> filteredTaskList = new ArrayList<>();
 
@@ -212,6 +226,8 @@ public class TaskList {
 
     /**
      * Prints onto the console the number of tasks currently in the task list.
+     *
+     * @return The message to be displayed upon completion.
      */
     public String getNumTasks() {
         assert tasks.size() >= 0 : "task list is empty or not empty";

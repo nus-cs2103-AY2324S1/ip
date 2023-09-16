@@ -1,9 +1,14 @@
 package storage;
 
-import tasks.Task;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * This class handles loading and saving user inputs for
@@ -25,19 +30,7 @@ public class Storage {
         File directory = new File("data");
         File file = new File(FILE_PATH);
 
-        try {
-            if (!directory.exists()) {
-                directory.mkdir();
-                boolean var = file.createNewFile();
-                assert var == true : "var should be true";
-            }
-
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        createFileIfDoesNotExist(directory, file);
     }
 
     /**
@@ -64,7 +57,6 @@ public class Storage {
             e.printStackTrace();
             return null;
         }
-
     }
 
     /**
@@ -87,6 +79,28 @@ public class Storage {
             writer.close();
             System.out.println("Updated task list saved under data/duke.txt");
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates the text file to save to if it does not exist.
+     *
+     * @param directory The directory containing the file.
+     * @param file The file.
+     */
+    public void createFileIfDoesNotExist(File directory, File file) {
+        try {
+            if (!directory.exists()) {
+                directory.mkdir();
+                boolean var = file.createNewFile();
+                assert var == true : "var should be true";
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

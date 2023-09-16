@@ -6,7 +6,7 @@ import tasks.TaskList;
  * This child class instructs the application to create a ToDo object
  * to add to the task list.
  */
-public class TodoCommand extends Command {
+public class TodoCommand implements Command {
 
     public static final String COMMAND_WORD = "todo";
     private String description;
