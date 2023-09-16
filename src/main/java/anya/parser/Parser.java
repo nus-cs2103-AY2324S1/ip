@@ -84,6 +84,7 @@ public class Parser {
     public String parse(String input) throws AnyaException {
         String[] arguments = input.split(" ", 2);
         Command command = parseCommand(arguments[0]);
+
         String details;
         if (arguments.length == 1) {
             details = "";
@@ -144,7 +145,7 @@ public class Parser {
     private static void validateDeleteArguments(String details) throws InvalidArgumentException {
         // Error: No argument or Multiple arguments provided
         if (details.isEmpty() || details.split(" ").length != 1) {
-            throw new InvalidArgumentException("☹ Waku waku! Please input in the following format:\n"
+            throw new InvalidArgumentException("Please input in the following format:\n"
                     + "    delete <taskNumber>");
         }
     }
@@ -164,7 +165,7 @@ public class Parser {
     private static void validateEventTime(String details) throws InvalidArgumentException {
         // Error: Does not contain /from and /to
         if (!details.contains("/from") && !details.contains("/to")) {
-            throw new InvalidArgumentException("☹ Waku waku! Please input in the following format:\n"
+            throw new InvalidArgumentException("Please input in the following format:\n"
                     + "    event <taskName> /from <startTime> /to <endTime>");
         }
     }
@@ -172,7 +173,7 @@ public class Parser {
     private static void validateEventDetails(String details) throws InvalidArgumentException {
         // Error: No argument provided
         if (details.isEmpty()) {
-            throw new InvalidArgumentException("☹ Waku waku! Please input in the following format:\n"
+            throw new InvalidArgumentException("Please input in the following format:\n"
                     + "    event <taskName> /from <startTime> /to <endTime>");
         }
     }
@@ -191,7 +192,7 @@ public class Parser {
     private static void validateDeadlineDetails(String details, String[] info) throws InvalidArgumentException {
         // Error: No argument or wrong no of arguments provided
         if (details.isEmpty() || info.length != 2) {
-            throw new InvalidArgumentException("☹ Waku waku! Please input in the following format:\n"
+            throw new InvalidArgumentException("Please input in the following format:\n"
                     + "    deadline <taskName> /by <deadline>");
         }
     }
@@ -234,12 +235,11 @@ public class Parser {
     private String executeUnmarkCommand(String details) throws InvalidArgumentException {
         validateNumberOfArguments(details);
         validateTypeOfArguments(details);
-
         int taskNumber = Integer.parseInt(details) - 1;
         validateTaskNumber(taskNumber);
+
         Task t = tasks.get(taskNumber);
         tasks.unmark(taskNumber);
-
         return ui.showTaskUnmarkSuccess(t);
     }
 
@@ -248,23 +248,22 @@ public class Parser {
         try {
             Integer.parseInt(details);
         } catch (NumberFormatException e) {
-            throw new InvalidArgumentException("☹ Waku waku! "
-                    + "Please only input INTEGERs after the word unmark!");
+            throw new InvalidArgumentException("Please input in the following format:\n"
+                    + "    mark/unmark <taskName>");
         }
     }
 
     private static void validateNumberOfArguments(String details) throws InvalidArgumentException {
         // Error: No argument or Multiple arguments provided
         if (details.isEmpty() || details.split(" ").length != 1) {
-            throw new InvalidArgumentException("☹ Waku waku! "
-                    + "Please only input ONE integer after the word unmark!");
+            throw new InvalidArgumentException("Please input in the following format:\n"
+                    + "    mark/unmark <taskName>");
         }
     }
 
     private void validateTaskNumber(int taskNumber) throws InvalidArgumentException {
         if (taskNumber < 0 || taskNumber > tasks.size() - 1) {
-            throw new InvalidArgumentException("☹ Waku waku! "
-                    + "I don't see a task with the number:" + taskNumber + 1);
+            throw new InvalidArgumentException("I don't see a task with the number:" + (taskNumber + 1));
         }
     }
 }
