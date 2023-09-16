@@ -27,7 +27,7 @@ public interface Command {
      */
     default boolean isExit() {
         return false;
-    };
+    }
 
     default String getOutput () {
         return output.toString();
