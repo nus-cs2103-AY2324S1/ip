@@ -87,7 +87,7 @@ public class Ui {
      * @param message the error message to be outputted
      */
     public String showError(String message) {
-        return message + "\n";
+        return "[ERROR]\n\n" + message + "\n";
     }
 
     /**
