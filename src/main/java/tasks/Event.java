@@ -1,5 +1,8 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -10,18 +13,18 @@ public class Event extends Task {
 
     public static final String TASK_TYPE = "E";
 
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
 
     /**
-     * A event task. It has a start and end date
+     * An event task. It has a start and end date
      *
      * @param desc      users description of the event
      * @param startDate start date as a string.
      * @param endDate   end date as a string.
      */
-    public Event(String desc, String startDate, String endDate) {
+    public Event(String desc, LocalDateTime startDate, LocalDateTime endDate) {
         super(desc);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -32,12 +35,41 @@ public class Event extends Task {
         super("");
     }
 
-    public String getStartDate() {
-        return this.startDate;
+    /**
+     * Checks if the given event conflicts with the current event
+     *
+     * @param e the event to check for conflicts
+     * @return true if there is a conflict. False otherwise
+     */
+    @JsonIgnore
+    public boolean isConflict(Event e) {
+        if (startDate.isAfter(e.startDate) && startDate.isBefore(e.endDate) && endDate.isAfter(
+            e.endDate)) {
+            return true;
+        } else if (startDate.isBefore(e.startDate) && endDate.isAfter(e.endDate)) {
+            return true;
+        } else if (startDate.isBefore(e.startDate) && endDate.isAfter(e.startDate)) {
+            return true;
+        } else if (startDate.isAfter(e.startDate) && endDate.isBefore(e.endDate)) {
+            return true;
+        }
+        return false;
     }
 
-    public String getEndDate() {
-        return this.endDate;
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public String getStartDateName() {
+        return this.startDate.toString();
+    }
+
+    public String getEndDateName() {
+        return this.endDate.toString();
     }
 
 }

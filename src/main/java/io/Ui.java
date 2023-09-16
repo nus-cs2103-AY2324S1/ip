@@ -103,7 +103,7 @@ public class Ui {
             answer =
                 "[" + Event.TASK_TYPE + "]" + "[" + task.getDoneIcon() + "] " + task.getDescription()
                     + "("
-                    + eventTask.getStartDate() + " to " + eventTask.getEndDate() + ")";
+                    + eventTask.getStartDateName() + " to " + eventTask.getEndDateName() + ")";
         }
 
         return answer;
