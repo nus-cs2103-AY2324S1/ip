@@ -7,6 +7,7 @@ import io.Parser;
 import io.Ui;
 import javafx.application.Platform;
 import storage.Storage;
+import tasks.Event;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.Todo;
@@ -109,17 +110,35 @@ public class Duke {
 
     }
 
+    private boolean doesConflict(Event event) {
+        List<Event> events = taskList.getEvents();
+        if (events.isEmpty()) {
+            return false;
+        }
+        for (Event x : events) {
+            if (x.isConflict(event)) {
+                ui.addPrintStatement("The current task clashes with an existing task!");
+                ui.addPrintStatement(ui.displayTask(x));
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Contains core logic to add an event
      */
     public void addEvent() {
         try {
-            Task curentTask = parser.parseEvent();
-            taskList.add(curentTask);
-            ui.addPrintStatement("added:\t" + ui.displayTask(curentTask));
+            Event currentTask = parser.parseEvent();
+            if (!doesConflict(currentTask)) {
+                ui.addPrintStatement("added:\t" + ui.displayTask(currentTask));
+                taskList.add(currentTask);
+            }
         } catch (ParserException ex) {
             ui.addPrintStatement(ex.getMessage());
         }
+
     }
 
     /**
@@ -139,7 +158,6 @@ public class Duke {
             ui.addPrintStatement("Please enter a valid index!");
         }
     }
-
 
     /**
      * Contains core logic to find a task
