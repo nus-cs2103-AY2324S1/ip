@@ -52,12 +52,12 @@ public class Duke {
         Ui.welcome();
         // setting up
         Scanner sc = new Scanner(System.in);
-        String string = sc.nextLine();
-        assert string != null : "string should not be null";
         boolean isExit = false;
 
         // looping in the program
         while (!isExit) {
+            String string = sc.nextLine();
+            assert string != null : "string should not be null";
             // end the program
             try {
                 helper.printLine();
@@ -68,12 +68,13 @@ public class Duke {
                 System.out.println(e.getMessage());
             } finally {
                 helper.printLine();
-                string = sc.nextLine();
+            }
+            if (isExit) {
+                break;
             }
         }
         // end the program
         sc.close();
-        helper.bye();
     }
 
     public String getResponse(String input) {
