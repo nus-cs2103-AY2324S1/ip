@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Image userImage = new Image(Storage.toUrl("src", "main", "resources", "images", "DaUser.png").toString());
-    private Image dukeImage = new Image(Storage.toUrl("src", "main", "resources", "images", "DaDuke.png").toString());
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private Duke duke;
 

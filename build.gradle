@@ -53,7 +53,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = "duke.jar"
+    archiveFileName = "AdaBot.jar"
 }
 
 run{
