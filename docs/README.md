@@ -226,22 +226,6 @@ Smolbrain chatbot data are saved in the computer automatically as a TXT file nam
 
 ## Command summary
 
-| Action | Format | Example |
-| --- | --- | --- |
-| Add todo | `todo [DESCRIPTION]`|e.g. `todo Create a new recipe`|
-| Add deadline | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`| e.g. `deadline Homework assignment /by 20/12/2023 1800` |
-| Add event | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`| e.g. `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` |
-| Mark | `mark [INDEX]`| e.g. `mark 2` |
-| Unmark | `unmark [INDEX]`| e.g. `unmark 5` |
-| Delete | `delete [INDEX]`| e.g. `delete 1` |
-| Priority | `priority [INDEX] [PRIORITY_LEVEL]`| e.g. `priority 7 3` |
-| Find | `find [KEYWORD]`| e.g. `find book` |
-| List | `list` |
-| Exit | `bye` |
-
-
-## Command summary
-
 | Action | Format, Example |
 | --- | --- |
 | Add todo | `todo [DESCRIPTION]`<br>e.g. `todo Create a new recipe`|
@@ -254,3 +238,17 @@ Smolbrain chatbot data are saved in the computer automatically as a TXT file nam
 | Find | `find [KEYWORD]`<br> e.g. `find book` |
 | List | `list` |
 | Exit | `bye` |
+
+<br><br>
+
+## FAQ
+**Q:** Why do I get errors when adding a new deadline or event task?<br>
+**A:** Check if the date and time follows the `DD/MM/YYYY HHmm` format, specifically having 2 numbers for single numbered date and months, 24-hour time format with no semicolon character `:` between hours and minutes.
+
+
+**Q:** Can I have space separated task descriptions?<br>
+**A:** Yes, the descriptions can have any number of spaces between words, without affecting the command parsing.
+
+
+**Q:** Are there any characters that I cannot use for the task description?<br>
+**A:** There are no restrictions on special characters such as `%` or `$`. However, phrases that are interpreted as a command format such as `/from` and `/by` are not allowed and not parsed as part of the description.
