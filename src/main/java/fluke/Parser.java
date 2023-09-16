@@ -207,54 +207,69 @@ public class Parser {
     /**
      * Parses a Delete command.
      * @param command Command given by the user.
-     * @return index of the task in the task list.
+     * @return index(es) of the task in the task list.
      * @throws FlukeException if the input is invalid.
      */
-    public static int parseDeleteCommand(String command) throws FlukeException {
+    public static int[] parseDeleteCommand(String command) throws FlukeException {
         if (command.length() <= 7) {
             throw new InvalidInputException();
         }
-        int taskNumber = obtainTaskNumber(command.substring(7));
-        return taskNumber - 1;
+        int[] taskNumbers = obtainTaskNumber(command.substring(7));
+        for (int i = 0; i < taskNumbers.length; i++) {
+            taskNumbers[i]--;
+        }
+        return taskNumbers;
     }
 
     /**
      * Parses a Mark as Done Command.
      * @param command Command given by the user.
-     * @return index of the task in the task list to be marked.
+     * @return index(es) of the task in the task list to be marked.
      * @throws FlukeException if the input is invalid.
      */
-    public static int parseMarkAsDoneCommand(String command) throws FlukeException {
+    public static int[] parseMarkAsDoneCommand(String command) throws FlukeException {
         if (command.length() <= 5) {
             throw new InvalidInputException();
         }
-        int taskNumber = obtainTaskNumber(command.substring(5));
-        return taskNumber - 1;
+        int[] taskNumbers = obtainTaskNumber(command.substring(5));
+        System.out.println("reached");
+        for (int i = 0; i < taskNumbers.length; i++) {
+            taskNumbers[i]--;
+        }
+        return taskNumbers;
     }
 
     /**
      * Parses a Mark as Undone Command.
      * @param command Command given by the user.
-     * @return index of the task in the task list to be marked.
+     * @return index(es) of the task in the task list to be marked.
      * @throws FlukeException if the input is invalid.
      */
-    public static int parseMarkAsUndoneCommand(String command) throws FlukeException {
+    public static int[] parseMarkAsUndoneCommand(String command) throws FlukeException {
         if (command.length() <= 7) {
             throw new InvalidInputException();
         }
-        int taskNumber = obtainTaskNumber(command.substring(7));
-        return taskNumber - 1;
+        int[] taskNumbers = obtainTaskNumber(command.substring(7));
+        for (int i = 0; i < taskNumbers.length; i++) {
+            taskNumbers[i]--;
+        }
+        return taskNumbers;
     }
 
     /**
-     * Helper function to obtain a number from a string.
-     * @param taskNumberString String to obtain a number from.
-     * @return An integer
-     * @throws InvalidInputException if the string is not a valid number.
+     * Helper function to obtain a list of numbers from a string, separated by commas.
+     * @param taskNumberString String to obtain number(s) from.
+     * @return An array of integers
+     * @throws InvalidInputException if the string contains at least an invalid number.
      */
-    private static int obtainTaskNumber(String taskNumberString) throws InvalidInputException {
+    private static int[] obtainTaskNumber(String taskNumberString) throws InvalidInputException {
+        String[] numbers = taskNumberString.split(",");
+        int[] result = new int[numbers.length];
         try {
-            return Integer.parseInt(taskNumberString);
+            for (int i = 0; i < numbers.length; i++) {
+                result[i] = Integer.parseInt(numbers[i].trim());
+            }
+            return result;
         } catch (NumberFormatException e) {
             throw new InvalidInputException();
         }

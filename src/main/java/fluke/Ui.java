@@ -56,32 +56,33 @@ public class Ui {
     }
 
     /**
-     * shows the deletion of a task to the user.
-     * @param deletedTask the task deleted.
+     * Shows the deletion of task(s) to the user.
      * @param tasks the list of tasks.
+     * @param deletedTasks the task(s) deleted.
+     * @return
      */
-    public String getTaskDeleted(Task deletedTask, TaskList tasks) {
+    public String getTaskDeleted(TaskList tasks, Task... deletedTasks) {
         return "fluke.tasks.Task deleted! I hope it's the right one:\n"
-                + "  " + deletedTask + "\n"
+                + getSimpleTaskList(deletedTasks)
                 + "I think there are now " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
-     * Shows a task being marked as done to the user.
-     * @param markedTask the task marked as done.
+     * Shows tasks being marked as done to the user.
+     * @param markedTasks the task(s) marked as done.
      */
-    public String getTaskMarkedAsDone(Task markedTask) {
+    public String getTaskMarkedAsDone(Task... markedTasks) {
         return "I have marked this task as done, I hope it's the right one:\n"
-                + "  " + markedTask;
+                + getSimpleTaskList(markedTasks);
     }
 
     /**
-     * Shows a task being marked as not done to the user.
-     * @param markedTask the task marked as not done.
+     * Shows tasks being marked as not done to the user.
+     * @param markedTasks the task(s) marked as not done.
      */
-    public String getTaskMarkedAsUndone(Task markedTask) {
+    public String getTaskMarkedAsUndone(Task... markedTasks) {
         return "I have marked this task as not done yet, I hope it's the right one:\n"
-                + "  " + markedTask;
+                + getSimpleTaskList(markedTasks);
     }
 
     /**
@@ -98,5 +99,18 @@ public class Ui {
      */
     public String getLoadingError() {
         return getError("Failed to load!");
+    }
+
+    /**
+     * Helper function to provide a simple representation of a list of tasks
+     * @param tasks list of tasks
+     * @return string representation of the list of tasks
+     */
+    private String getSimpleTaskList(Task[] tasks) {
+        String taskList = "";
+        for (Task t: tasks) {
+            taskList += "  " + t + "\n";
+        }
+        return taskList;
     }
 }

@@ -12,4 +12,12 @@ public class TaskDoesNotExistException extends FlukeException {
     public TaskDoesNotExistException() {
         super(ERROR_MESSAGE);
     }
+
+    /**
+     * Constructs a TaskDoesNotExistException with a more specific error message.
+     * @param taskNumber the number of the task that the user is trying to access that does not exist.
+     */
+    public TaskDoesNotExistException(int taskNumber) {
+        super(ERROR_MESSAGE + " (task " + taskNumber + ")");
+    }
 }
