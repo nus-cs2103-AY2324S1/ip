@@ -37,7 +37,7 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) {
         try {
-            taskList.addTask(Parser.parseStringToTask(userInput, "deadline"));
+            taskList.addTask(Parser.parseInputToTask(userInput, "deadline"));
             storage.updateStorage(taskList);
             return ui.addTaskReply(userInput, taskList);
         } catch (InvalidDescriptionException e) {

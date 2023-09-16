@@ -4,14 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Scanner;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
+import duke.parser.Parser;
 import duke.tasks.TaskList;
-import duke.tasks.ToDo;
 
 
 
@@ -70,7 +66,6 @@ public class Storage {
             if (!taskFile.createNewFile()) {
                 tasks = getTasks();
             }
-
         } catch (IOException e) {
             System.out.println("Error occurred");
             e.printStackTrace();
@@ -88,44 +83,18 @@ public class Storage {
         TaskList taskList = new TaskList();
         try {
             Scanner scanner = new Scanner(new File(filePath));
-
             while (scanner.hasNextLine()) {
-                String str = scanner.nextLine();
-                char taskType = str.charAt(1);
-                boolean isMarked = str.charAt(4) == 'X';
-                String description = str.split("] ")[1];
+                String storageText = scanner.nextLine();
+                char taskType = storageText.charAt(1);
                 switch (taskType) {
                 case 'T':
-                    ToDo taskT = new ToDo(description);
-                    if (isMarked) {
-                        taskT.markAsDone();
-                    }
-                    taskList.addTask(taskT);
+                    taskList.addTask(Parser.parseStorageToToDo(storageText));
                     break;
                 case 'D':
-                    description = description.split(" \\(by: ")[0];
-                    String by = str.split(" \\(by: ")[1];
-                    LocalDate date = LocalDate.parse(by.split(" ")[0]);
-                    LocalTime time = LocalTime.parse(by.split(" ")[1].replaceAll(".$", ""));
-                    Deadline taskD = new Deadline(description, date, time);
-                    if (isMarked) {
-                        taskD.markAsDone();
-                    }
-                    taskList.addTask(taskD);
+                    taskList.addTask(Parser.parseStorageToDeadline(storageText));
                     break;
                 case 'E':
-                    description = description.split(" \\(from: ")[0];
-                    String from = String.join("", str.split("\\(from: ")[1]).split(" to: ")[0];
-                    String to = str.split(" to: ")[1];
-                    LocalDate fromDate = LocalDate.parse(from.split(" ")[0]);
-                    LocalTime fromTime = LocalTime.parse(from.split(" ")[1]);
-                    LocalDate toDate = LocalDate.parse(to.split(" ")[0]);
-                    LocalTime toTime = LocalTime.parse(to.split(" ")[1].replaceAll(".$", ""));
-                    Event taskE = new Event(description, fromDate, fromTime, toDate, toTime);
-                    if (isMarked) {
-                        taskE.markAsDone();
-                    }
-                    taskList.addTask(taskE);
+                    taskList.addTask(Parser.parseStorageToEvent(storageText));
                     break;
                 default:
                     break;
@@ -138,5 +107,4 @@ public class Storage {
             return taskList;
         }
     }
-
 }

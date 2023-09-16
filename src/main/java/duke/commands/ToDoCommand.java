@@ -37,7 +37,7 @@ public class ToDoCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) {
         try {
-            taskList.addTask(Parser.parseStringToTask(userInput, "todo"));
+            taskList.addTask(Parser.parseInputToTask(userInput, "todo"));
             storage.updateStorage(taskList);
             return ui.addTaskReply(userInput, taskList);
         } catch (InvalidDescriptionException e) {
