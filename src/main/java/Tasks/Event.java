@@ -1,6 +1,8 @@
 package Tasks;
 
 import Exceptions.DukeException;
+import Exceptions.InvalidTaskFormatException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,11 +15,27 @@ public class Event extends Task {
     private LocalDateTime endTime;
     public Event(String description) throws DukeException {
         super(description);
-        // TODO: Check if /from is before /to
-        // TODO: Date.now() when "today" is entered
-        String[] fromParts = description.split("/from");
-        String[] toParts = description.split("/to");
+        initializeEvent();
+    }
 
+<<<<<<< HEAD
+    private void initializeEvent() throws DukeException {
+        String[] splitString = description.split("/from");
+
+        if (splitString.length < 2) throw new InvalidTaskFormatException();
+
+        this.description = splitString[0].split("/to")[0].trim();
+        String[] partFromTo = splitString[1].split("/to");
+        String startTimeString = partFromTo[0].trim();
+        this.startTime = super.parseDateTime(startTimeString);
+        String endTimeString;
+        if (partFromTo.length >= 2) {
+            // Formats the string if '/to' comes after '/from'
+            endTimeString = partFromTo[1].trim();
+        } else {
+            // Formats the string if '/to' comes before '/from'
+            endTimeString = splitString[0].split("/to")[1].trim();
+=======
         if (fromParts.length >= 2) {
             assert !fromParts[0].isBlank();
             this.description = fromParts[0].split("/to")[0].trim();
@@ -53,7 +71,9 @@ public class Event extends Task {
                 // Format the string and parse it into endTime
                 this.startTime = super.parseDateTime(startTimeString);
             }
+>>>>>>> master
         }
+        this.endTime = super.parseDateTime(endTimeString);
     }
 
     public Event(String description, String startTimeString, String endTimeString) {

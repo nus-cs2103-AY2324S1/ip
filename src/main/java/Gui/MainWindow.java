@@ -1,4 +1,6 @@
-import javafx.application.Platform;
+package Gui;
+
+import Chewy.Chewy;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for Gui.MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -19,18 +21,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Chewy chewy;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/personicon.jpg"));
-    private Image chewyImage = new Image(this.getClass().getResourceAsStream("/images/chewbaccaicon.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/personicon.jpg"));
+    private final Image chewyImage = new Image(this.getClass().getResourceAsStream("/images/chewbaccaicon.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setChewy(Chewy chewy) {
+        this.chewy = chewy;
     }
 
     /**
@@ -39,19 +41,20 @@ public class MainWindow extends AnchorPane {
      */
     public void onStart() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getChewyDialog(this.duke.showWelcome(), chewyImage),
-                DialogBox.getChewyDialog(this.duke.loadTasks(), chewyImage)
+                DialogBox.getChewyDialog(this.chewy.showWelcome(), chewyImage),
+                DialogBox.getChewyDialog(this.chewy.loadTasks(), chewyImage)
         );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Chewy's reply
+     * and then appends them to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = chewy.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getChewyDialog(response, chewyImage)

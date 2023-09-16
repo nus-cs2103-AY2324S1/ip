@@ -1,5 +1,8 @@
+package Chewy;
+
 import java.io.IOException;
 
+import Gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Chewy using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke(Duke.DATA_FILE_PATH);
+    private final Chewy chewy = new Chewy(Chewy.DATA_FILE_PATH);
 
     /**
      * Starts the program as a java application.
@@ -29,7 +32,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             MainWindow mainWindow = fxmlLoader.<MainWindow>getController();
-            mainWindow.setDuke(duke);
+            mainWindow.setChewy(chewy);
             mainWindow.onStart();
             stage.show();
         } catch (IOException e) {
