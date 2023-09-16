@@ -10,7 +10,8 @@ public class Messages {
     /** A platform independent line separator. */
     public static final String LS = System.lineSeparator();
     public static final String MESSAGE_GREETING = "Hello! I'm Anya Forger.\n"
-                                                + "What can I do for you?";
+                                                + "What can I do for you?\n"
+                                                + "(try typing \"help\")";
     public static final String MESSAGE_ERROR_LOADING = "Error loading file.";
     public static final String MESSAGE_ERROR_INIT = "Error initializing Bot.";
     public static final String MESSAGE_EXIT = "Bye! Hope to see you again.";
