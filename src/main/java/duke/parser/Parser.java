@@ -77,16 +77,15 @@ public class Parser {
      */
     public static int taskToMark(String str, TaskList tasks)
             throws InvalidTaskIndexException, MissingTaskIndexException {
-        if (str.split(" ").length == 2) {
-            int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-            if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-                throw new InvalidTaskIndexException("Invalid Task Index.");
-            }
-            tasks.markTaskAsDone(taskIndex);
-            return taskIndex;
-        } else {
+        if (str.split(" ").length != 2) {
             throw new MissingTaskIndexException("Task Index Missing.");
         }
+        int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+        if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
+            throw new InvalidTaskIndexException("Invalid Task Index.");
+        }
+        tasks.markTaskAsDone(taskIndex);
+        return taskIndex;
     }
 
     /**
@@ -100,16 +99,16 @@ public class Parser {
      */
     public static int taskToUnmark(String str, TaskList tasks)
             throws InvalidTaskIndexException, MissingTaskIndexException {
-        if (str.split(" ").length == 2) {
-            int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-            if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-                throw new InvalidTaskIndexException("Invalid Task Index.");
-            }
-            tasks.markTaskAsUndone(taskIndex);
-            return taskIndex;
-        } else {
+        if (str.split(" ").length != 2) {
             throw new MissingTaskIndexException("Task Index Missing.");
+
         }
+        int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+        if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
+            throw new InvalidTaskIndexException("Invalid Task Index.");
+        }
+        tasks.markTaskAsUndone(taskIndex);
+        return taskIndex;
     }
 
     /**
@@ -121,12 +120,11 @@ public class Parser {
      * @throws InvalidKeywordException If the keyword is missing, or if there is more than 1 keyword.
      */
     public static TaskList findKeyword(String str, TaskList tasks) throws InvalidKeywordException {
-        if (str.split(" ").length == 2) {
-            String keyword = str.split(" ")[1];
-            return tasks.findTask(keyword);
-        } else {
+        if (str.split(" ").length != 2) {
             throw new InvalidKeywordException("Keyword given is not a single word.");
         }
+        String keyword = str.split(" ")[1];
+        return tasks.findTask(keyword);
     }
 
     /**
@@ -153,61 +151,147 @@ public class Parser {
     }
 
     /**
+     * Creates a ToDo task based on data from storage.
+     *
+     * @param storageText The stored text data.
+     * @return A ToDo task from storage.
+     */
+    public static Task parseStorageToToDo(String storageText) {
+        boolean isMarked = storageText.charAt(4) == 'X';
+        String description = storageText.split("] ")[1];
+        ToDo taskT = new ToDo(description);
+        if (isMarked) {
+            taskT.markAsDone();
+        }
+        return taskT;
+    }
+
+    /**
+     * Creates a Deadline task based on data from storage.
+     *
+     * @param storageText The stored text data.
+     * @return A Deadline task from storage.
+     */
+    public static Task parseStorageToDeadline(String storageText) {
+        boolean isMarked = storageText.charAt(4) == 'X';
+        String description = storageText.split("] ")[1];
+        description = description.split(" \\(by: ")[0];
+        String by = storageText.split(" \\(by: ")[1];
+        LocalDate date = LocalDate.parse(by.split(" ")[0]);
+        LocalTime time = LocalTime.parse(by.split(" ")[1].replaceAll(".$", ""));
+        Deadline taskD = new Deadline(description, date, time);
+        if (isMarked) {
+            taskD.markAsDone();
+        }
+        return taskD;
+    }
+
+    /**
+     * Creates an Event task based on data from storage.
+     *
+     * @param storageText The stored text data.
+     * @return An Event task from storage.
+     */
+    public static Task parseStorageToEvent(String storageText) {
+        boolean isMarked = storageText.charAt(4) == 'X';
+        String description = storageText.split("] ")[1];
+        description = description.split(" \\(from: ")[0];
+        String from = String.join("", storageText.split("\\(from: ")[1]).split(" to: ")[0];
+        String to = storageText.split(" to: ")[1];
+        LocalDate fromDate = LocalDate.parse(from.split(" ")[0]);
+        LocalTime fromTime = LocalTime.parse(from.split(" ")[1]);
+        LocalDate toDate = LocalDate.parse(to.split(" ")[0]);
+        LocalTime toTime = LocalTime.parse(to.split(" ")[1].replaceAll(".$", ""));
+        Event taskE = new Event(description, fromDate, fromTime, toDate, toTime);
+        if (isMarked) {
+            taskE.markAsDone();
+        }
+        return taskE;
+    }
+
+    /**
+     * Creates a ToDo task based on data from user input.
+     *
+     * @param userInput The user input string.
+     * @return A ToDo task from user input.
+     */
+    public static Task parseInputToToDo(String userInput) {
+        ToDo todo = new ToDo(userInput.split(" ")[1]);
+        return todo;
+    }
+
+    /**
+     * Creates a Deadline task based on data from user input.
+     *
+     * @param userInput The user input string.
+     * @return A Deadline task from user input.
+     */
+    public static Task parseInputToDeadline(String userInput) throws InvalidDateTimeException {
+        String fullTaskDescription = userInput.split(" ", 2)[1];
+        String description = fullTaskDescription.split(" /by ")[0];
+        String by = fullTaskDescription.split(" /by ")[1];
+        String[] datetime = by.split(" ");
+        try {
+            LocalDate date = LocalDate.parse(datetime[0]);
+            LocalTime time = LocalTime.parse(datetime[1]);
+            Deadline deadline = new Deadline(description, date, time);
+            return deadline;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Invalid Datetime.");
+        }
+    }
+
+    /**
+     * Creates an Event task based on data from user input.
+     *
+     * @param userInput The user input string.
+     * @return An Event task from user input.
+     */
+    public static Task parseInputToEvent(String userInput) throws InvalidDateTimeException {
+        String fullTaskDescription = userInput.split(" ", 2)[1];
+        String description = fullTaskDescription.split(" /from ")[0];
+        String from = String.join("", fullTaskDescription.split(" /from ")[1]).split(" /to ")[0];
+        String to = fullTaskDescription.split(" /to ")[1];
+        try {
+            String[] fromDatetime = from.split(" ");
+            String[] toDatetime = to.split(" ");
+            LocalDate fromDate = LocalDate.parse(fromDatetime[0]);
+            LocalTime fromTime = LocalTime.parse(fromDatetime[1]);
+            LocalDate toDate = LocalDate.parse(toDatetime[0]);
+            LocalTime toTime = LocalTime.parse(toDatetime[1]);
+            Event event = new Event(description, fromDate, fromTime, toDate, toTime);
+            return event;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Invalid Datetime");
+        }
+    }
+
+    /**
      * Parses a user input string into a task.
      *
-     * @param str The user input string.
+     * @param userInput The user input string.
      * @return The parsed task.
      * @throws InvalidDescriptionException If the task description is invalid.
      * @throws InvalidDateTimeException    If the task date and time are invalid.
      */
-    public static Task parseStringToTask(String str, String commandWord)
+    public static Task parseInputToTask(String userInput, String commandWord)
             throws InvalidDescriptionException, InvalidDateTimeException {
         switch(commandWord) {
         case "todo":
-            if (str.split(" ").length > 1) {
-                ToDo todo = new ToDo(str.split(" ")[1]);
-                return todo;
-            } else {
+            if (userInput.split(" ").length <= 1) {
                 throw new InvalidDescriptionException("Invalid description.");
             }
+            return parseInputToToDo(userInput);
         case "deadline":
-            if (str.split(" ").length > 3) {
-                String fullTaskDescription = str.split(" ", 2)[1];
-                String description = fullTaskDescription.split(" /by ")[0];
-                String by = fullTaskDescription.split(" /by ")[1];
-                String[] datetime = by.split(" ");
-                try {
-                    LocalDate date = LocalDate.parse(datetime[0]);
-                    LocalTime time = LocalTime.parse(datetime[1]);
-                    Deadline deadline = new Deadline(description, date, time);
-                    return deadline;
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException("Invalid Datetime.");
-                }
-            } else {
+            if (userInput.split(" ").length <= 3) {
                 throw new InvalidDescriptionException("Invalid description.");
             }
+            return parseInputToDeadline(userInput);
         case "event":
-            if (str.split(" ").length > 4) {
-                String fullTaskDescription = str.split(" ", 2)[1];
-                String description = fullTaskDescription.split(" /from ")[0];
-                String from = String.join("", fullTaskDescription.split(" /from ")[1]).split(" /to ")[0];
-                String to = fullTaskDescription.split(" /to ")[1];
-                try {
-                    String[] fromDatetime = from.split(" ");
-                    String[] toDatetime = to.split(" ");
-                    LocalDate fromDate = LocalDate.parse(fromDatetime[0]);
-                    LocalTime fromTime = LocalTime.parse(fromDatetime[1]);
-                    LocalDate toDate = LocalDate.parse(toDatetime[0]);
-                    LocalTime toTime = LocalTime.parse(toDatetime[1]);
-                    Event event = new Event(description, fromDate, fromTime, toDate, toTime);
-                    return event;
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException("Invalid Datetime");
-                }
-            } else {
+            if (userInput.split(" ").length <= 4) {
                 throw new InvalidDescriptionException("Invalid description.");
             }
+            return parseInputToEvent(userInput);
         default:
             return null;
         }
