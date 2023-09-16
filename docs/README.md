@@ -67,7 +67,7 @@ public class Main {
    - This feature only works for **deadlines**.
    - To view all "deadlines" that have a deadline within X days, try out this command ```reminder x_number_of_days```.
 
-### UI# (UG)
+### UI (UG)
 A task is generally represented as **"[][] task_description"** in the UI.
 
 For the first bracket, the character would correspond to: 
