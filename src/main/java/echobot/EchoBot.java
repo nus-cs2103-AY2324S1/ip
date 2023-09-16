@@ -8,6 +8,8 @@ import echobot.utilities.Storage;
 import echobot.utilities.TaskList;
 import echobot.utilities.Ui;
 
+import java.io.File;
+
 /**
  * The main class for EchoBot Chatbot
  */
