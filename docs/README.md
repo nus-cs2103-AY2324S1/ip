@@ -10,6 +10,8 @@
 6. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing Enter will list all tasks.
 7. Refer to the [Features](#features) below for details of each command.
 
+<br>
+
 ## Features
 
 ### `list` - Listing all tasks
@@ -20,6 +22,8 @@ Displays a list of all tasks in the task list.
 
 Format: `list`
 
+<br>
+
 ### `todo` - Adding a todo task
 
 Adds a todo task to the task list.
@@ -29,6 +33,8 @@ Format: `todo DESCRIPTION`
 
 Examples:
 - `todo read book`
+
+<br>
 
 ### `deadline` - Adding a deadline tasks
 
@@ -42,6 +48,8 @@ Examples:
 - `deadline return book /by 2022-09-30 23:59`
 - `deadline submit assignment /by 2023-02-25 08:03`
 
+<br>
+
 ### `event` - Adding an event task
 
 Adds an event task to the task list.
@@ -53,6 +61,8 @@ Format: `event DESCRIPTION /from START_DATETIME /to END_DATETIME`
 Examples:
 - `event singing lesson /from 2023-05-22 12:00 /to 2023-05-22 14:00`
 
+<br>
+
 ### `mark` - Marking a task as done
 
 Marks a task as done.
@@ -62,6 +72,8 @@ Format: `mark TASK_INDEX`
 Examples:
 - `list` followed by `mark 2` marks the second task in the task list as done.
 
+<br>
+
 ### `unmark` - Marking a task as undone
 
 Marks a task as undone.
@@ -70,6 +82,8 @@ Format: `unmark TASK_INDEX`
 
 Examples:
 - `list` followed by `unmark 2` marks the second task in the task list as undone.
+
+<br>
 
 ### `delete` - Deleting a task
 
@@ -83,6 +97,8 @@ Format: `delete TASK_INDEX`
 Examples:
 - `list` followed by `delete 1` deletes the first task in the task list.
 
+<br>
+
 ### `find` - Finding a task in the task list
 
 Displays a list of all tasks that contains the keyword.
@@ -92,17 +108,23 @@ Format: `find KEYWORD`
 - The search is case-insensitive. e.g. `find book` will match `Book`
 - Partial words will be matched. e.g. `find boo` will match `book`
 
+<br>
+
 ### `sort` - Sorting the tasks in the task list
 
 Sorts the tasks in the task list alphabetically.
 
 Format: `sort`
 
+<br>
+
 ### `bye` - Exiting the program
 
 Exits the program.
 
 Format: `bye`
+
+<br>
 
 ### Saving the data
 
