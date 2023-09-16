@@ -68,7 +68,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parser_invalidDate_exceptionThrow() {
+    public void parser_invalidDate_exceptionThrown() {
         try {
             assertTrue(Parser.parse("deadline return book /by June 6th 2023", 1)
                     instanceof AddDeadlineCommand);
