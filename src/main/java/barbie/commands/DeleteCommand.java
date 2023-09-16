@@ -24,8 +24,10 @@ public class DeleteCommand extends Command {
             return new BarbieListEmptyException().getMessage();
         }
 
+        String taskToDel = taskList.get(taskNumber).toString();
+
         taskList.remove(this.taskNumber);
         Storage.deleteLine(taskNumber);
-        return Ui.del() + "\n" + taskList.get(taskNumber);
+        return Ui.del() + "\n" + taskToDel;
     }
 }
