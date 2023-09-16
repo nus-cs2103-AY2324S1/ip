@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane {
         );
 
         // If first 3 letters are "bye" command, disable user from continue typing and sending commands.
-        if (input.substring(0, 3).equalsIgnoreCase("bye")) {
+        if (input.toLowerCase().startsWith("bye")) {
             userInput.setDisable(true);
             sendButton.setDisable(true);
         }
