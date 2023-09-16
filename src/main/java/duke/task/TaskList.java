@@ -2,12 +2,13 @@ package duke.task;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
-    public ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     /**
      * Initialises an empty task list.
@@ -73,11 +74,11 @@ public class TaskList {
 
     public TaskList findTasks(String searchTerm) {
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
-        for (Task task : this.list) {
-            if (task.description.contains(searchTerm)) {
-                matchingTasks.add(task);
-            }
-        }
+
+        matchingTasks = list.stream()
+                .filter(task -> task.description.contains(searchTerm))
+                .collect(Collectors.toCollection(ArrayList::new));
+
         return new TaskList(matchingTasks);
     }
 
