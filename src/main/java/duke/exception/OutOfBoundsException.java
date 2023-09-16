@@ -14,7 +14,7 @@ public class OutOfBoundsException extends DukeException {
      * @param taskCount The current number of tasks.
      */
     public OutOfBoundsException(int index, int taskCount) {
-        super(String.format("☹ OOPS!!! %d is out of range. %s", index, Formatter.getTaskCount(taskCount)));
+        super(String.format("OOPS!!! %d is out of range. %s", index, Formatter.getTaskCount(taskCount)));
     }
 
 }

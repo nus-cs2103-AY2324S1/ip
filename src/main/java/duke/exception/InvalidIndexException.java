@@ -9,7 +9,7 @@ public class InvalidIndexException extends DukeException {
      * Constructs InvalidIndexException.
      */
     public InvalidIndexException() {
-        super("☹ OOPS!!! Please enter a valid positive integer for the index.");
+        super("OOPS!!! Please enter a valid positive integer for the index.");
     }
 
 }

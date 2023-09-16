@@ -11,7 +11,7 @@ public class EmptyArgException extends DukeException {
      * @param arg The name of the argument in question.
      */
     public EmptyArgException(String arg) {
-        super(String.format("☹ OOPS!!! %s field should not be empty.", arg));
+        super(String.format("OOPS!!! %s field should not be empty.", arg));
     }
 
 }

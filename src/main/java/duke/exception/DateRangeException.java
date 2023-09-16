@@ -9,7 +9,7 @@ public class DateRangeException extends DukeException {
      * Constructs DateRangeException.
      */
     public DateRangeException() {
-        super("☹ OOPS!!! End date cannot be before start date.");
+        super("OOPS!!! End date cannot be before start date.");
     }
 
 }
