@@ -226,7 +226,8 @@ Tasks are encoded in the format `[TYPE][MARKED][PRIORITY_LEVEL][BODY]`.
 * `[PRIORITY_LEVEL]` refers to the assigned priority level of the task, with possible values 0, 1, 2 and 3.
 * `[BODY]` refers to task description, along with other parameters such as `/from` and its due date and time
 <br>e.g. `D12Complete homework /by 22/10/2023 1800` refers to a **deadline** task with description `complete Homework`, due date and time of `22 Oct 2023 18:00`, that is marked and has priority level of 2.
-<br>⚠️ **Caution:** If your changes to the data file does not follow the above encoding and makes its format invalid, Smolbrain chatbot might parse the data wrongly and give corrupted task data.
+
+> ⚠️ **Caution:** If your changes to the data file does not follow the above encoding and makes its format invalid, Smolbrain chatbot might parse the data wrongly and give corrupted task data.
 
 <br>
 
