@@ -63,7 +63,7 @@ public class Ui {
      * @param input The user's input.
      * @param tasks The task list.
      * @param store The storage for saving tasks to a file.
-     * @return A response message.
+     * @return A response message indicating which task has been archived
      * @throws IOException If an error occurs while performing file operations.
      */
     private String archiveCommand(String input, TaskList tasks, Storage store) throws IOException {
