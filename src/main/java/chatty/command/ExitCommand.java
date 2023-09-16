@@ -1,6 +1,5 @@
 package chatty.command;
 
-import chatty.exception.ChattyException;
 import chatty.task.TaskList;
 import chatty.utils.Storage;
 import chatty.utils.Ui;

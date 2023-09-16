@@ -27,7 +27,9 @@ public class Ui {
      * @return the input from the user
      */
     public String getInput() {
-        return scanner.nextLine();
+        String input = scanner.nextLine();
+        assert !input.isEmpty() : "User input should not be empty!";
+        return input;
     }
 
     /**
@@ -52,6 +54,7 @@ public class Ui {
      * @return the list of task in the task list
      */
     public String showList(TaskList taskList) {
+        assert taskList.listSize() >= 0 : "Task list size should not be negative.";
         if (taskList.listSize() == 0) {
             return "There is currently no chatty.task in your list.";
         } else {
@@ -92,6 +95,7 @@ public class Ui {
      * @exception InvalidTaskNumberException when the index of the task is not a valid index
      */
     public String showDelete(int i, TaskList taskList) throws InvalidTaskNumberException {
+        assert i >= 0 && i < taskList.listSize() : "Invalid task index: " + i;
         return "Alright, I've removed this chatty.task from the list: \n"
                 + "           " + taskList.deleteTask(i) + "\n"
                 + "Now you have" + taskList.listSize() + " task(s) in your list.";

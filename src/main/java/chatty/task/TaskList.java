@@ -23,7 +23,9 @@ public class TaskList {
      * @return the size of the current task list, in int value
      */
     public int listSize() {
-        return this.taskList.size();
+        int size = this.taskList.size();
+        assert size >= 0 : "Task list size should not be negative.";
+        return size;
     }
 
     /**
@@ -42,6 +44,7 @@ public class TaskList {
      *                                      available task
      */
     public Task deleteTask(int i) throws InvalidTaskNumberException {
+        assert i > 0 && i <= this.listSize() : "Invalid task index: " + i;
         if (i >= this.listSize() || i < 0) {
             throw new InvalidTaskNumberException();
         }
@@ -56,6 +59,7 @@ public class TaskList {
      *      *                                      available task
      */
     public void markTask(int i, boolean status) throws InvalidTaskNumberException {
+        assert i > 0 && i <= this.listSize() : "Invalid task index: " + i;
         if (i >= this.listSize() || i < 0) {
             throw new InvalidTaskNumberException();
         }
