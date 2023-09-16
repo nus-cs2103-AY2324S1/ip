@@ -43,6 +43,9 @@ public class TaskList {
     public Task remove(int index) {
         Task removedTask = taskList.remove(index);
         if (removedTask.isComplete()) numberOfCompletedTasks--;
+        System.out.println(numberOfCompletedTasks + " " + getNumberOfTask());
+        assert numberOfCompletedTasks <= getNumberOfTask():
+                "completed task must always be less than or equal total number of task";
         return removedTask;
     }
 
@@ -172,6 +175,7 @@ public class TaskList {
                 throw new IllegalCommandException("do that... this task does not exist :(");
             } else {
                 Task removedTask = remove(id - 1);
+                assert removedTask != null: "removed task must exist";
                 String message = "Happily scratched this off your list:\n"
                         + Ui.indentLineBy(removedTask.toString(), 2) + "Now you have "
                         + getNumberOfTask() + " tasks in the list!";

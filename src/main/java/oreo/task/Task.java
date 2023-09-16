@@ -60,10 +60,12 @@ public abstract class Task implements Comparable<Task> {
             throw new IllegalCommandException("process an empty task");
         }
 
+        String contents = tokeniser.nextLine();
+        assert !contents.isEmpty(): "contents should not be empty";
+
         if (command.equals("todo")) {
-            String contents = tokeniser.nextLine();
             if (contents.contains("/by")) {
-                throw new IllegalCommandException("do that for a todo,"
+                throw new IllegalCommandException("do that for a todo, "
                         + "are you thinking of a deadline?");
             } else if (contents.contains("/from") || contents.contains("/to")) {
                 throw new IllegalCommandException("do that for a todo,"
@@ -71,7 +73,6 @@ public abstract class Task implements Comparable<Task> {
             }
             newTask = new ToDo(contents);
         } else if (command.equals("deadline")){
-            String contents = tokeniser.nextLine();
             if (!contents.contains("/by")) {
                 throw new IllegalCommandException("set a deadline wihtout a \"/by\"");
             } else if (contents.contains("/from") || contents.contains("/to")) {
@@ -82,7 +83,6 @@ public abstract class Task implements Comparable<Task> {
             String[] dateTime = TimeParser.parseInputOut(parts[1]);
             newTask = new Deadline(parts[0], dateTime[0], dateTime[1]);
         } else {
-            String contents = tokeniser.nextLine();
             if (!contents.contains("/from") || !contents.contains("/to")) {
                 throw new IllegalCommandException("set an event wihtout a \"/from\" and/or \"/to\"");
             } else if (contents.contains("/by")) {

@@ -47,10 +47,6 @@ public class Oreo {
      * @throws IllegalCommandException If user inputs a command that
      *                                 is not accepted.
      */
-    public String getResponse(String input) {
-        return "Oreo heard: " + input;
-    }
-
     public void startUp() throws FileNotFoundException, IllegalDateTimeException {
             storage.readFile(tasks); // reads loaded file
     }
