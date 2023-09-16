@@ -14,8 +14,7 @@ import java.util.Scanner;
 import crackerpackage.tasks.Deadline;
 import crackerpackage.tasks.Event;
 import crackerpackage.tasks.Task;
-import crackerpackage.tasks.Todo;
-import uicomponents.*;
+import uicomponents.Parser;
 
 /**
  * A Storage that stores tasks for the bot.
