@@ -1,5 +1,6 @@
 package tasks;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -17,7 +18,7 @@ public class Event extends Task {
 
 
     /**
-     * A event task. It has a start and end date
+     * An event task. It has a start and end date
      *
      * @param desc      users description of the event
      * @param startDate start date as a string.
@@ -32,6 +33,27 @@ public class Event extends Task {
 
     public Event() {
         super("");
+    }
+
+    /**
+     * Checks if the given event conflicts with the current event
+     *
+     * @param e the event to check for conflicts
+     * @return true if there is a conflict. False otherwise
+     */
+    @JsonIgnore
+    public boolean isConflict(Event e) {
+        if (startDate.isAfter(e.startDate) && startDate.isBefore(e.endDate) && endDate.isAfter(
+            e.endDate)) {
+            return true;
+        } else if (startDate.isBefore(e.startDate) && endDate.isAfter(e.endDate)) {
+            return true;
+        } else if (startDate.isBefore(e.startDate) && endDate.isAfter(e.startDate)) {
+            return true;
+        } else if (startDate.isAfter(e.startDate) && endDate.isBefore(e.endDate)) {
+            return true;
+        }
+        return false;
     }
 
     public String getStartDate() {
