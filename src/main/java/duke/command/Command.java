@@ -1,4 +1,4 @@
-package chatterchicken.command;
+package duke.command;
 
 /**
  * The Command class represents a command provided by the user for the ChatterChicken task manager application.

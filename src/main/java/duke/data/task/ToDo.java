@@ -1,4 +1,4 @@
-package chatterchicken.data.task;
+package duke.data.task;
 
 /**
  * The ToDo class represents a to-do task in the task management application.

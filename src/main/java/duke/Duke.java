@@ -1,20 +1,26 @@
-package chatterchicken;
+package duke;
 
-import chatterchicken.command.Command;
-import chatterchicken.data.exception.CCException;
-import chatterchicken.parser.Parser;
-import chatterchicken.storage.Storage;
-import chatterchicken.tasklist.TaskList;
-import chatterchicken.ui.Ui;
+import duke.command.Command;
+import duke.data.exception.CCException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasklist.TaskList;
+import duke.ui.Gui;
+import duke.ui.Ui;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.util.Scanner;
 
 /**
- * The {@code ChatterChicken} class is the main class for the ChatterChicken task manager application.
+ * The {@code Duke} class is the main class for the Duke task manager application.
  * It initializes and coordinates the application's components, such as the UI, parser, storage, and task list.
  * The class also defines the main method for launching the application and the main loop for user interaction.
  */
-public class ChatterChicken {
+public class Duke {
 
     public static final String PATH = "src/main/data/task-list.txt";
     private TaskList tasks;
@@ -23,27 +29,44 @@ public class ChatterChicken {
     private final Ui ui;
 
     /**
-     * Initializes the ChatterChicken application by creating instances of the UI, parser, and storage.
+     * Initializes the Duke application by creating instances of the UI, parser, and storage.
      */
-    public ChatterChicken() {
+    public Duke() {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage(parser);
+        this.tasks = new TaskList(storage.loadTasksFromFile(), ui);
     }
 
     /**
-     * The main entry point of the ChatterChicken application.
+     * The main entry point of the Duke application.
      * Initializes the application, runs the main loop, and catches and displays exceptions.
      *
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        ChatterChicken chatterChicken = new ChatterChicken();
-        chatterChicken.run();
+        Duke duke = new Duke();
+        duke.run();
+    }
+
+    public String getResponse(String input) {
+        try {
+            if (input.equals("bye")) {
+                return ui.displayFarewell();
+            } else {
+                Command command = parser.parseInput(input);
+                String response = executeCommand(command);
+                storage.saveTasksToFile(tasks);
+                return response;
+            }
+        } catch (CCException e) {
+            System.err.println(e.getMessage());
+        }
+        return "";
     }
 
     /**
-     * Initiates the main loop of the ChatterChicken application.
+     * Initiates the main loop of the Duke application.
      * Reads user input, processes commands, and provides responses until the user chooses to exit.
      * Catches and displays exceptions.
      */
@@ -70,32 +93,34 @@ public class ChatterChicken {
      * @param command The parsed user command.
      * @throws CCException If an error occurs during command execution.
      */
-    private void executeCommand(Command command) throws CCException {
+    private String executeCommand(Command command) throws CCException {
         String action = command.getAction();
         String taskDescription = command.getTaskDescription();
+        String response;
         switch (action) {
         case "list":
-            tasks.printList();
+            response = tasks.printList();
             break;
         case "mark":
-            tasks.markTask(taskDescription);
+            response = tasks.markTask(taskDescription);
             break;
         case "unmark":
-            tasks.unmarkTask(taskDescription);
+            response = tasks.unmarkTask(taskDescription);
             break;
         case "delete":
-            tasks.deleteTask(taskDescription);
+            response = tasks.deleteTask(taskDescription);
             break;
         case "find":
-            tasks.find(taskDescription);
+            response = tasks.find(taskDescription);
             break;
         case "todo":
         case "deadline":
         case "event":
-            tasks.addTask(parser.parseTask(action, taskDescription));
+            response = tasks.addTask(parser.parseTask(action, taskDescription));
             break;
         default:
             throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
+        return response;
     }
 }

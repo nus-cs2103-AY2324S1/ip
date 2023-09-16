@@ -1,8 +1,8 @@
-package chatterchicken.tasklist;
+package duke.tasklist;
 
-import chatterchicken.data.exception.CCException;
-import chatterchicken.data.task.Task;
-import chatterchicken.ui.Ui;
+import duke.data.exception.CCException;
+import duke.data.task.Task;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,9 +36,9 @@ public class TaskList implements Iterable<Task> {
      * @param task The task to be added to the task list.
      * @throws CCException If there is an error in adding the task.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         taskList.add(task);
-        ui.displayAddTask(task, taskList.size());
+        return ui.displayAddTask(task, taskList.size());
     }
 
     /**
@@ -48,11 +48,11 @@ public class TaskList implements Iterable<Task> {
      * @param input The input containing task information to mark as done.
      * @throws CCException If there is an error in marking the task or if the input is invalid.
      */
-    public void markTask(String input) throws CCException {
+    public String markTask(String input) throws CCException {
         try {
             Task task = taskList.get(getIndex(input));
             task.setDone(true);
-            ui.displayMarkTask(task);
+            return ui.displayMarkTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for marking list of length " + taskList.size());
         }
@@ -65,11 +65,11 @@ public class TaskList implements Iterable<Task> {
      * @param input The input containing task information to unmark.
      * @throws CCException If there is an error in unmarking the task or if the input is invalid.
      */
-    public void unmarkTask(String input) throws CCException {
+    public String unmarkTask(String input) throws CCException {
         try {
             Task task = taskList.get(getIndex(input));
             task.setDone(false);
-            ui.displayUnmarkTask(task);
+            return ui.displayUnmarkTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for list of length " + taskList.size());
         }
@@ -82,25 +82,25 @@ public class TaskList implements Iterable<Task> {
      * @param input The input containing task information to be deleted.
      * @throws CCException If there is an error in deleting the task or if the input is invalid.
      */
-    public void deleteTask(String input) throws CCException {
+    public String deleteTask(String input) throws CCException {
         try {
             int index = getIndex(input);
             Task task = taskList.get(index);
             taskList.remove(index);
-            ui.displayDeleteTask(task, taskList.size());
+            return ui.displayDeleteTask(task, taskList.size());
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for list of length " + taskList.size());
         }
     }
 
-    public void find(String input) {
+    public String find(String input) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             if(task.getTaskDescription().contains(input)) {
                 matchingTasks.add(task);
             }
         }
-        ui.displayMatchingTasks(matchingTasks);
+        return ui.displayMatchingTasks(matchingTasks);
     }
 
     /**
@@ -116,8 +116,8 @@ public class TaskList implements Iterable<Task> {
     /**
      * Prints the list of tasks with their respective indexes.
      */
-    public void printList() {
-        ui.displayList(taskList);
+    public String printList() {
+        return ui.displayList(taskList);
     }
 
     @Override
