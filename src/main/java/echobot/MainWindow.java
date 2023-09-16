@@ -48,21 +48,18 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Outputs greetings by chatbot at the start of the app
+     */
     public void greetUser() {
-        echobot.startBot();
+        EchoBot.startBot();
         String greetings = "Welcome, User\n" + "What would you like to do?";
         dialogContainer.getChildren().addAll(
                 DialogBox.getEchoBotDialog(greetings, dukeImage)
         );
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     public String getResponse(String input) {
         return echobot.getResponse(input);
     }
-
-
 }

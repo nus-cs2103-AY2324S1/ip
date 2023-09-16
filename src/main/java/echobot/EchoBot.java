@@ -1,5 +1,7 @@
 package echobot;
 
+import java.io.File;
+
 import echobot.utilities.Input;
 import echobot.utilities.Parser;
 import echobot.utilities.Storage;
@@ -17,7 +19,7 @@ public class EchoBot {
     private static boolean isRunning = false;
 
     /** File path to the tasks.txt */
-    public static final String FILE_PATH = "./tasks.txt";
+    private static final String FILE_PATH = "./tasks.txt";
 
     /** Variable to store task list */
     private Storage storage;
@@ -60,17 +62,17 @@ public class EchoBot {
         return output;
     }
 
-	/**
-	 * Starts the current session
-	 */
-	public static void startBot() {
-		isRunning = true;
-	}
+    /**
+     * Starts the current session
+     */
+    public static void startBot() {
+        isRunning = true;
+    }
 
-	/** Ends the current session */
-	public static void stopBot() {
-		isRunning = false;
-	}
+    /** Ends the current session */
+    public static void stopBot() {
+        isRunning = false;
+    }
 
     public boolean isRunning() {
         return isRunning;

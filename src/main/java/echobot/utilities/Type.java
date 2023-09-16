@@ -6,5 +6,5 @@ package echobot.utilities;
 public enum Type {
     TODO,
     DEADLINE,
-    EVENT;
+    EVENT
 }

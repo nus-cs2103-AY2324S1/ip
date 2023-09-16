@@ -1,11 +1,11 @@
 package echobot.utilities;
 
-import echobot.exceptions.DukeException;
-import echobot.exceptions.InvalidCommandException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import echobot.exceptions.DukeException;
+import echobot.exceptions.InvalidCommandException;
 
 /**
  * Deals with making sense of user commands
@@ -52,7 +52,7 @@ public class Parser {
      * @return True or false signifying breaking or continuing the loop
      */
     public String handleInput(TaskList tasks, Input input, Ui ui) {
-        String output = "";
+        String output;
         try {
             String command = input.getCommand();
             String fullInput = input.getFullInput();

@@ -10,7 +10,7 @@ import echobot.exceptions.InvalidTaskNumberException;
 public class TaskList {
 
     /** Variable to store the tasks */
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
 
     /**
      * Creates a TaskList with a predefined list

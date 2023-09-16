@@ -1,7 +1,6 @@
 package echobot.utilities;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import echobot.EchoBot;
 import echobot.exceptions.EmptyListException;
@@ -16,26 +15,6 @@ import echobot.exceptions.MissingTaskNumberException;
  * Handles user interaction
  */
 public class Ui {
-
-    /** Variable to detect user input */
-    private Scanner sc = new Scanner(System.in);
-
-    /**
-     * Prints greetings to the user interface
-     */
-    public void greet() {
-        System.out.println("Welcome. My name is Duke");
-        System.out.println("What will you do today?");
-    }
-
-    /**
-     * Allows users to type in their inputs
-     *
-     * @return Input as String
-     */
-    public String startInputSession() {
-        return sc.nextLine().trim();
-    }
 
     /**
      * Shows the contents of the list of tasks
@@ -83,17 +62,17 @@ public class Ui {
         }
         String output = "";
         switch (command) {
-        case "mark":
-            output = tasks.manipulateTasks(fullInput, "mark", 5);
-            break;
-        case "unmark":
-            output = tasks.manipulateTasks(fullInput, "unmark", 7);
-            break;
-        case "delete":
-            output = tasks.manipulateTasks(fullInput, "delete", 7);
-            break;
-        default:
-            break;
+            case "mark":
+                output = tasks.manipulateTasks(fullInput, "mark", 5);
+                break;
+            case "unmark":
+                output = tasks.manipulateTasks(fullInput, "unmark", 7);
+                break;
+            case "delete":
+                output = tasks.manipulateTasks(fullInput, "delete", 7);
+                break;
+            default:
+                break;
         }
         return output;
     }
@@ -171,7 +150,7 @@ public class Ui {
         if (taskDesc.length != 2) {
             throw new InvalidTaskTimeException(
                     "Event task must have exactly one start and one end dates"
-                    + "using one /from and one /to tags, in that order");
+                            + "using one /from and one /to tags, in that order");
         }
         String taskName = taskDesc[0].trim();
         String[] fromAndTo = taskDesc[1].split("/to");
