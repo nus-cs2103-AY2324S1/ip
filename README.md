@@ -18,6 +18,8 @@ Features:
 - [x] Managing deadline
 - [ ] Reminders (coming soon)
 
+[User Guide](http://nixonwidjaja.github.io/ip/)
+
 ##
 If you Java programmer, you can use it to practice Java too. Here's the ```main``` method in ```Duke.java```:
 ```java
