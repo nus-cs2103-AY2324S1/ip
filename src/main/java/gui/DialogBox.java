@@ -60,7 +60,9 @@ public class DialogBox extends HBox {
      * @return DialogBox object for GUI display.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: #FFF8DC ;");
+        return db;
     }
 
     /**
