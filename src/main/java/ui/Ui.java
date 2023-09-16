@@ -8,16 +8,29 @@ import tasks.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 /**
- * The <code>Ui</code> class provides methods for interacting with the user.
+branch-A-CodeQuality
+ * The Ui class provides methods for interacting with the user.
+=======
+ * The Ui class provides methods for interacting with the user.
+ master
  */
 public class Ui {
     private Parser parser;
     private TaskList tasks;
     private Storage store;
 
+    /**
+     * Processes user commands and provides responses.
+     *
+     * @param storage The storage object for managing tasks.
+     * @param task    The task list.
+     * @param parse   The parser for parsing user input.
+     * @param command The user's command.
+     * @return A response to the user's command.
+     * @throws IOException If an error occurs while performing file operations.
+     */
     public String takeCommands(Storage storage, TaskList task, Parser parse, String command) throws IOException {
         parser = parse;
         tasks = task;
@@ -46,12 +59,27 @@ public class Ui {
         }
     }
 
+    /**
+     * Handles the "list" command to display the task list.
+     *
+     * @param tasks The task list.
+     * @return A string representing the task list.
+     */
     private String listCommand(TaskList tasks) {
         StringBuilder result = new StringBuilder();
         result.append(tasks.printList()).append("\n");
         return result.toString();
     }
 
+    /**
+     * Handles the "unmark" command to mark a task as undone.
+     *
+     * @param input The user's input.
+     * @param tasks The task list.
+     * @param store The storage for saving tasks to a file.
+     * @return A response message.
+     * @throws IOException If an error occurs while performing file operations.
+     */
     private String unmarkCommand(String input, TaskList tasks, Storage store) throws IOException {
         StringBuilder result = new StringBuilder();
         int number = parser.findNum(input);
@@ -65,6 +93,15 @@ public class Ui {
         return result.toString();
     }
 
+    /**
+     * Handles the "mark" command to mark a task as done.
+     *
+     * @param input The user's input.
+     * @param tasks The task list.
+     * @param store The storage for saving tasks to a file.
+     * @return A response message.
+     * @throws IOException If an error occurs while performing file operations.
+     */
     private String markCommand(String input, TaskList tasks, Storage store) throws IOException {
         StringBuilder result = new StringBuilder();
         int number = parser.findNum(input);
@@ -78,6 +115,15 @@ public class Ui {
         return result.toString();
     }
 
+    /**
+     * Handles the "delete" command to remove a task.
+     *
+     * @param input The user's input.
+     * @param tasks The task list.
+     * @param store The storage for saving tasks to a file.
+     * @return A response message.
+     * @throws IOException If an error occurs while performing file operations.
+     */
     private String deleteCommand(String input, TaskList tasks, Storage store) throws IOException {
         StringBuilder result = new StringBuilder();
         int number = parser.findNum(input);
@@ -93,6 +139,13 @@ public class Ui {
         return result.toString();
     }
 
+    /**
+     * Handles the "find" command to search for tasks.
+     *
+     * @param input The user's input.
+     * @param tasks The task list.
+     * @return A response message.
+     */
     private String findCommand(String input, TaskList tasks) {
         StringBuilder result = new StringBuilder();
         result.append("Here are the matching items in your list:\n").append("\n");
@@ -100,6 +153,16 @@ public class Ui {
         return result.toString();
     }
 
+    /**
+     * Processes user input to create and add tasks.
+     *
+     * @param input    The user's input.
+     * @param tasks    The task list.
+     * @param parser   The parser for parsing user input.
+     * @param commands The list of valid commands.
+     * @return A response message.
+     * @throws IOException If an error occurs while performing file operations.
+     */
     private String processTask(String input, TaskList tasks, Parser parser, ArrayList<String> commands) throws IOException {
         StringBuilder result = new StringBuilder();
         if (input.toLowerCase().contains("todo ")) {
@@ -128,5 +191,4 @@ public class Ui {
         }
         return result.toString();
     }
-
 }
