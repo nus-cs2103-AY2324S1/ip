@@ -50,8 +50,8 @@ public class Parser {
                 assert(!Objects.equals(taskDescription, ""));
                 return performFiltering(taskDescription, tasks);
             } else if (Objects.equals(action, "bye")) {
-                throw new Exception("Bye. Hope to see you again soon!"); }
-            else {
+                throw new Exception("Bye. Hope to see you again soon!");
+            } else {
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException DE) {
