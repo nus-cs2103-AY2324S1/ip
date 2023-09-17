@@ -24,6 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             ap.heightProperty().add(scene.getHeight());
             ap.widthProperty().add(scene.getHeight());
+            stage.setTitle("Oscar");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setOscar(oscar);
             stage.show();

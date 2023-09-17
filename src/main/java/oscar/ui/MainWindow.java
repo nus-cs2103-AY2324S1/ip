@@ -1,13 +1,22 @@
 package oscar.ui;
 
+import java.awt.event.ActionListener;
 import java.util.Objects;
+import javax.swing.Timer;
+import java.util.concurrent.TimeUnit;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import javafx.util.Duration;
+import oscar.command.ExitCommand;
 import oscar.Oscar;
 
 /**
@@ -45,7 +54,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
         String response = oscar.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -53,5 +62,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getOscarDialog(response, oscarImage)
         );
         userInput.clear();
+        if (response.equals(ExitCommand.EXIT_MESSAGE)) {
+            int delay = 3000; // delay of Oscar closing in milliseconds
+            ActionListener taskPerformer = event -> Platform.exit();
+            Timer timer = new Timer(delay, taskPerformer);
+            timer.setRepeats(false);
+            timer.start();
+        }
     }
 }

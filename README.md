@@ -2,7 +2,7 @@
 
 > "I understand that, without my agreement, Alpine F1 have put out a press release late this afternoon that I am driving for them next year. This is wrong and I have not signed a contract with Alpine for 2023. I will not be driving for Alpine next year." - Oscar Piastri ([source](https://twitter.com/OscarPiastri/status/1554527452231262210))
 
-Oscar is a chatbot named after F1 Driver Oscar Piastri. Oscar is, 
+Oscar is a chatbot named after F1 driver Oscar Piastri. Oscar is, 
 
 - text-based 📄 
 - user friendly 😃 
@@ -20,8 +20,10 @@ And it is 100% **FREE**!
 
 ### Features:
 
-- [X]  Managing tasks
+- [X] Managing tasks
 - [X] Managing deadlines
+- [X] Managing events
+- [X] Adding notes
 - [ ] Reminders (coming soon)
 
 If you Java programmer, you can use it to practice Java too. Here's the `main` method:

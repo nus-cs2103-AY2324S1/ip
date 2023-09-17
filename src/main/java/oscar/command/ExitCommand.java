@@ -7,6 +7,7 @@ import oscar.essential.Storage;
  * Command to terminate Oscar.
  */
 public class ExitCommand extends Command {
+    public static String EXIT_MESSAGE = "Goodbye for now. Oscar hopes to see you again soon!\n";
     /**
      * Displays message when terminating Oscar.
      *
@@ -16,6 +17,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(InfoList infos, Storage storage) {
-        return "Goodbye for now. Oscar hopes to see you again soon!\n";
+        return EXIT_MESSAGE;
     }
 }
