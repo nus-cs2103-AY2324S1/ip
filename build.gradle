@@ -51,7 +51,6 @@ shadowJar {
     archiveBaseName = "Oscar"
     archiveClassifier = null
     archiveVersion = "v0.2"
-    dependsOn("distZip", "distTar")
 }
 
 run{
