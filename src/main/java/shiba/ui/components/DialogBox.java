@@ -4,6 +4,7 @@ import java.util.TimerTask;
 
 import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import shiba.ui.MainWindow;
@@ -20,12 +21,16 @@ public class DialogBox extends ScrollPane {
     public DialogBox() {
         super();
 
-        setPrefSize(MainWindow.WINDOW_WIDTH, MainWindow.WINDOW_HEIGHT - CommandInput.TEXT_FIELD_HEIGHT);
         setFitToWidth(true);
         setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        AnchorPane.setLeftAnchor(this, 1.0);
+        AnchorPane.setRightAnchor(this, 1.0);
+        AnchorPane.setTopAnchor(this, 1.0);
+        AnchorPane.setBottomAnchor(this, CommandInput.TEXT_FIELD_HEIGHT + 1.0);
 
         dialogPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogPane.setFillWidth(true);
         setContent(dialogPane);
     }
 

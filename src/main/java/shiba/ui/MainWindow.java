@@ -21,8 +21,6 @@ import shiba.ui.components.SendButton;
  * Main JavaFX window for displaying the application UI.
  */
 public class MainWindow extends Application {
-    public static final int WINDOW_WIDTH = 600;
-    public static final int WINDOW_HEIGHT = 800;
     private static final int WINDOW_HEIGHT_CORRECTION = 40;
     private static MainWindow singleton;
 
@@ -55,9 +53,9 @@ public class MainWindow extends Application {
         timer = new Timer();
 
         primaryStage.setTitle(Shiba.getInstance().getName());
-        primaryStage.setResizable(false);
-        primaryStage.setMinHeight(WINDOW_HEIGHT + WINDOW_HEIGHT_CORRECTION);
-        primaryStage.setMinWidth(WINDOW_WIDTH);
+        primaryStage.setResizable(true);
+        primaryStage.setMinHeight(800 + WINDOW_HEIGHT_CORRECTION);
+        primaryStage.setMinWidth(600);
 
         primaryStage.show();
 

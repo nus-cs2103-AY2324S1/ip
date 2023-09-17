@@ -3,10 +3,12 @@ package shiba.ui.components;
 import java.util.ArrayList;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -17,8 +19,8 @@ public class DialogNode extends HBox {
     private static final Image USER_IMAGE = new Image(DialogNode.class.getResourceAsStream("/images/user.jpg"));
     private static final Image SHIBA_IMAGE = new Image(DialogNode.class.getResourceAsStream("/images/shiba.png"));
     private static final Font DIALOG_FONT = new Font("Comic Sans MS", 18);
-    private static final int IMAGE_SIZE = 150;
-    private static final int TEXT_PORTION_WIDTH = 410;
+    private static final int IMAGE_SIZE = 100;
+    private static final int TEXT_PORTION_WIDTH = 475;
     private static final int HORIZONTAL_SPACING = 10;
     private static final int VERTICAL_SPACING = 5;
 
@@ -58,7 +60,7 @@ public class DialogNode extends HBox {
         imageView.setFitWidth(IMAGE_SIZE);
 
         VBox vbox = new VBox(VERTICAL_SPACING);
-        vbox.setPrefWidth(TEXT_PORTION_WIDTH);
+        HBox.setHgrow(vbox, Priority.ALWAYS);
 
         if (isUser) {
             getChildren().addAll(vbox, imageView);
@@ -70,8 +72,11 @@ public class DialogNode extends HBox {
             Label textLabel = new Label(textNode.text);
             textLabel.setWrapText(true);
             textLabel.setFont(DIALOG_FONT);
-            textLabel.setPrefWidth(TEXT_PORTION_WIDTH - textNode.indentationLevel * SubNode.INDENTATION_WIDTH);
             textLabel.setPadding(new Insets(0, 0, 0, textNode.indentationLevel * SubNode.INDENTATION_WIDTH));
+            textLabel.setMaxWidth(Double.MAX_VALUE);
+            if (isUser) {
+                textLabel.setAlignment(Pos.CENTER_RIGHT);
+            }
             vbox.getChildren().add(textLabel);
         }
     }
