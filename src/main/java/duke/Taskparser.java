@@ -11,6 +11,7 @@ public class Taskparser {
     public static Task parseTask(String taskString) {
         String[] parts = taskString.split(" \\| ");
         String type = parts[0];
+		assert !type.equals(" ") : "Task type is missing";
         boolean isDone = Integer.parseInt(parts[1]) == 1;
         String description = parts[2];
         switch (type) {
