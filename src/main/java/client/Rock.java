@@ -10,6 +10,7 @@ import storage.Storage;
 import storage.StorageException;
 import tasks.Task;
 import tasks.TaskList;
+
 /**
  * Rock is the name of and the main program used
  * to run the chatbot for ip.
@@ -24,8 +25,11 @@ public class Rock {
     private boolean isTerminated = false;
     /**
      * Initialises the chatbot
-     * @param path Path to save and load chat bot data
+     * @param path Path to save and load chatbot data
      */
+    public Rock() {
+        this(filePath);
+    }
     public Rock(Path path) {
         this.taskList = new TaskList();
         this.ui = new Ui();
@@ -45,6 +49,13 @@ public class Rock {
             } catch (RockException e) {
                 this.ui.respond(e.getMessage());
             }
+        }
+    }
+    public String getResponse(String input) {
+        try {
+            return invoker.handle(input);
+        } catch (RockException e) {
+            return e.getMessage();
         }
     }
     /* Methods for Interactions with task list */
@@ -77,7 +88,7 @@ public class Rock {
         taskList.mark(index, completed);
     }
     /**
-     * Set the bot's task list as the given task list
+     * Set the bots task list as the given task list
      * @param taskList Task list to be set to
      */
     public void setTaskList(TaskList taskList) {
@@ -145,6 +156,6 @@ public class Rock {
         ui.close();
     }
     public static void main(String[] args) {
-        new Rock(filePath).run();
+        new Rock().run();
     }
 }
