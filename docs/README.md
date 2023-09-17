@@ -77,7 +77,7 @@ Penguin can display events occurring on a specified date.
 
 #### `schedule` - Display events occurring on a specified date. 
 
-Ask Penguin to display all events occurring on the specified date. 
+Ask Penguin to display all events occurring on the specified date.  
 
 Format: `schedule <DATE IN YYYY-MM-DD FORMAT>` 
 
