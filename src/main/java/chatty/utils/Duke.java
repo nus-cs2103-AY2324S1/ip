@@ -78,6 +78,7 @@ public class Duke {
      *
      * @param input The input from the user.
      * @return The response given by the chatbot.
+     *
      */
     public String getResponse(String input) {
         try {
