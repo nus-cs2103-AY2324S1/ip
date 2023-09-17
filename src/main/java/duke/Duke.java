@@ -13,7 +13,7 @@ public class Duke {
     }
 
     /**
-     * Constructor of Duke class.
+     * Constructs duke.
      *
      * @param filePath File path of the save file.
      */

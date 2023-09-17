@@ -9,6 +9,9 @@ import duke.task.Task;
 
 import java.time.LocalDate;
 
+/**
+ * This is a command to create a event task.
+ */
 public class EventCommand extends Command {
 
     private LocalDate from;
@@ -17,6 +20,13 @@ public class EventCommand extends Command {
 
     private String description;
 
+    /**
+     * Constructs event command.
+     *
+     * @param description The description of the event task.
+     * @param from The start date of the event task.
+     * @param to The end date of the event task.
+     */
     public EventCommand(String description, LocalDate from, LocalDate to) {
         this.description = description;
         this.from = from;

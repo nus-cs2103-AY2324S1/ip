@@ -6,10 +6,18 @@ import duke.TaskList;
 import duke.UiManager;
 import duke.task.Task;
 
+/**
+ * This is a command to delete a task.
+ */
 public class DeleteCommand extends Command {
 
     private int index;
 
+    /**
+     * Constructs a delete command.
+     *
+     * @param index The index of the task in the task list that going to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

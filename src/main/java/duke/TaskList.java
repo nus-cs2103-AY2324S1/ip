@@ -9,14 +9,14 @@ public class TaskList {
 
 
     /**
-     * Constructor.
+     * Constructs task list.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Alternative constructor.
+     * Constructs task list in another way.
      *
      * @param tasks Array list that already store tasks inside.
      */

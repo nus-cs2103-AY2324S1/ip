@@ -1,4 +1,5 @@
 package duke.command;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
@@ -8,11 +9,20 @@ import duke.task.Task;
 
 import java.time.LocalDate;
 
+/**
+ * This is a command to create a deadline task.
+ */
 public class DeadlineCommand extends Command {
 
     private String description;
     private LocalDate by;
 
+    /**
+     * Constructs deadline command.
+     *
+     * @param description Description of the deadline task.
+     * @param by Deadline of the deadline task.
+     */
     public DeadlineCommand(String description, LocalDate by) {
         this.description = description;
         this.by = by;

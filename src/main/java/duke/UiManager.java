@@ -14,14 +14,14 @@ public class UiManager {
     private Scanner sc;
 
     /**
-     * Constructor.
+     * Constructs UI manager.
      */
     public UiManager() {
 
     }
 
     /**
-     * Return welcome message as a string.
+     * Returns welcome message as a string.
      *
      * @return Welcome message as a string.
      */
@@ -123,24 +123,6 @@ public class UiManager {
             result += (i + 1) + "." + taskList.getTask(i).toString() + "\n";
         }
         return result;
-    }
-
-
-    /**
-     * Returns the error message as a string.
-     *
-     * @param s The error message.
-     * @return The error message as a string.
-     */
-    public String getErrorMessage(String s) {
-        return s;
-    }
-
-    /**
-     * Prints the line.
-     */
-    public String getsLine() {
-        return "_____________________________________________________________________________________";
     }
 
 }

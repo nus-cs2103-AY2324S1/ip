@@ -5,10 +5,18 @@ import duke.Storage;
 import duke.TaskList;
 import duke.UiManager;
 
+/**
+ * This is a command to find  task in the task list.
+ */
 public class FindCommand extends Command {
 
     private String keyword;
 
+    /**
+     * Constructs the find command.
+     *
+     * @param keyword The keyword to find.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }

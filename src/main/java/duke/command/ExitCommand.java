@@ -6,7 +6,10 @@ import duke.TaskList;
 import duke.UiManager;
 import javafx.application.Platform;
 
-public class ExitCommand extends Command{
+/**
+ * This is a command to exit this application.
+ */
+public class ExitCommand extends Command {
 
     @Override
     public boolean isExit() {

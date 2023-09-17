@@ -6,15 +6,22 @@ import duke.TaskList;
 import duke.UiManager;
 import duke.task.Task;
 
-import java.util.Objects;
-
+/**
+ * This is a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
 
     private int index;
 
+    /**
+     * Constructs mark command.
+     *
+     * @param index The index of the task in the task list that going to be marked.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }
+
     @Override
     public String execute(TaskList taskList, UiManager uiManager, Storage storage) throws DukeException {
         assert taskList != null: "Task list should not be null";

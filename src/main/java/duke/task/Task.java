@@ -5,7 +5,7 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructor.
+     * Constructs task.
      *
      * @param description Description of the task.
      */

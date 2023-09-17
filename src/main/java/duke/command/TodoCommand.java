@@ -7,10 +7,18 @@ import duke.UiManager;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * This is a command to create todo task.
+ */
 public class TodoCommand extends Command {
 
     private String description;
 
+    /**
+     * Constructs todo command.
+     *
+     * @param description The description of the todo task.
+     */
     public TodoCommand(String description) {
         this.description = description;
     }

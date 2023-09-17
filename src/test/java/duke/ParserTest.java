@@ -1,12 +1,8 @@
 package duke;
 
 import duke.command.*;
-
 import org.junit.jupiter.api.Test;
-
-
 import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
@@ -28,7 +24,7 @@ public class ParserTest {
             Parser.parseCommand("todo");
             fail();
         } catch (DukeException e) {
-            assertEquals("☹ OOPS!!! The description of a todo cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The description of a todo cannot be empty.", e.getMessage());
         }
     }
 
@@ -45,7 +41,7 @@ public class ParserTest {
             Parser.parseCommand("deadline");
             fail();
         } catch (DukeException e) {
-            assertEquals("☹ OOPS!!! The description of a deadline cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The description of a deadline cannot be empty.", e.getMessage());
         }
 
     }
@@ -64,7 +60,7 @@ public class ParserTest {
             Parser.parseCommand("event");
             fail();
         } catch (DukeException e) {
-            assertEquals("☹ OOPS!!! The description of a event cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The description of a event cannot be empty.", e.getMessage());
         }
     }
 
@@ -151,7 +147,7 @@ public class ParserTest {
             Parser.parseCommand("haha");
             fail();
         } catch (DukeException e) {
-            assertEquals("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
+            assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
     }
 

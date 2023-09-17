@@ -5,7 +5,11 @@ import duke.Storage;
 import duke.TaskList;
 import duke.UiManager;
 
+/**
+ * This is a command to list all the tasks in the task list.
+ */
 public class ListCommand extends Command {
+
     @Override
     public String execute(TaskList taskList, UiManager uiManager, Storage storage) throws DukeException {
         assert taskList != null: "Task list should not be null";

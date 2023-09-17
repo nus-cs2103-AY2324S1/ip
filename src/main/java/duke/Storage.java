@@ -1,7 +1,6 @@
 package duke;
 
 import duke.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +12,11 @@ public class Storage {
 
     private String path;
 
+    /**
+     * Constructs storage.
+     *
+     * @param path The path to the save file.
+     */
     public Storage(String path) {
         this.path = path;
     }
@@ -20,7 +24,7 @@ public class Storage {
 
 
     /**
-     * Save the task list into a file located at the certain path.
+     * Saves the task list into a file located at the certain path.
      *
      * @param taskList Task list that going to be saved.
      * @throws DukeException If catch any IOException.
@@ -38,7 +42,7 @@ public class Storage {
     }
 
     /**
-     * Load the save file from the save file and convert it into array list.
+     * Loads the save file from the save file and convert it into array list.
      *
      * @return Array list that store the task located in the save file.
      * @throws DukeException If the save file not found.
