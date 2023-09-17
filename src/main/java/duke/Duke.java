@@ -106,7 +106,7 @@ public class Duke {
         System.setOut(originalOut);
         String capturedOutput = byteArrayOutputStream.toString();
         capturedOutput = capturedOutput.replaceAll("_________________" +
-                "___________________________________________", "");
+                "___________________________________________\n", "");
 
         return this.name + " says: \n" + capturedOutput;
     }

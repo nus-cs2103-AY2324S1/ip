@@ -34,6 +34,6 @@ public class Ui {
      * Prints out a line divider.
      */
     public static void printLine() {
-        System.out.println("____________________________________________________________");
+        System.out.print("____________________________________________________________\n");
     }
 }
