@@ -9,11 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.TextAlignment;
 
 /**
  * An example of a custom control using FXML.
@@ -22,8 +21,7 @@ import javafx.scene.text.TextAlignment;
  */
 public class DialogBox extends HBox {
     @FXML
-//    private Label dialog;
-    private Text dialog;
+    private Label dialog;
     @FXML
     private ImageView displayPicture;
 
@@ -48,9 +46,12 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        Text text = (Text) getChildren().get(1);
-        text.setTextAlignment(TextAlignment.LEFT);
+        Label label = (Label) getChildren().get(1);
+        label.setStyle("-fx-background-color: #FFFFFF;\n" +
+                "    -fx-background-radius: 20px;\n" +
+                "    -fx-text-fill: black;");
         setAlignment(Pos.TOP_LEFT);
+
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
