@@ -43,6 +43,17 @@ public class Event extends Task {
         return this.end.format(DateTimeFormatter.ofPattern("ha"));
     }
 
+    public void updateDate(String date) {
+        this.date = LocalDate.parse(date);
+    }
+
+    public void updateStart(String start) {
+        this.start = LocalTime.parse(start, DateTimeFormatter.ofPattern("ha"));
+    }
+    public void updateEnd(String end) {
+        this.end = LocalTime.parse(end, DateTimeFormatter.ofPattern("ha"));
+    }
+
     @Override
     public String toString() {
         assert date != null : "Date should not be null";

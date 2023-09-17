@@ -19,33 +19,38 @@ import rayshawn.chatbot.commands.MarkCommand;
 import rayshawn.chatbot.commands.NoSuchCommand;
 import rayshawn.chatbot.commands.ToDoCommand;
 import rayshawn.chatbot.commands.UnmarkCommand;
+import rayshawn.chatbot.commands.UpdateCommand;
 import rayshawn.chatbot.exceptions.ChatBotException;
 
 /**
  * Parses user input.
  */
 public class Parser {
+    // Adapted from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[1-9]\\d*)");
 
-    public static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
-    public static final Pattern KEYWORDS_ARGS_FORMAT =
+    private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
-    public static final Pattern TODO_TASK_ARGS_FORMAT = Pattern.compile("(?<description>[^/]+)");
-    public static final Pattern DEADLINE_TASK_ARGS_FORMAT =
+    private static final Pattern TODO_TASK_ARGS_FORMAT = Pattern.compile("(?<description>[^/]+)");
+    private static final Pattern DEADLINE_TASK_ARGS_FORMAT =
             Pattern.compile("(?<description>[^/]+)"
-                    + " /by (?<date>[^/]+)"
+                    + " /by (?<date>(19|20)\\d{2}(\\/|-)(0[1-9]|1[1,2])(\\/|-)(0[1-9]|[12][0-9]|3[01]))"
             );
-    public static final Pattern EVENT_TASK_ARGS_FORMAT =
+    private static final Pattern EVENT_TASK_ARGS_FORMAT =
             Pattern.compile("(?<description>[^/]+)"
-                    + " /from (?<start>[^/]+)"
-                    + " /to (?<end>[^/]+)"
+                    + " /from (?<date>(19|20)\\d{2}(\\/|-)(0[1-9]|1[1,2])(\\/|-)(0[1-9]|[12][0-9]|3[01]))"
+                    + " (?<start>([0-9]|0[0-9]|1[0-2])(AM|PM))"
+                    + " /to (?<end>([0-9]|0[0-9]|1[0-2])(AM|PM))"
             );
 
-    /**
-     * Used to seperate command word from args
-     */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern UPDATE_TASK_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>[1-9]\\d*)"
+                + " (?<update>[^/]+)"
+                + " (?<info>[^/]+)"
+            );
+
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -65,7 +70,6 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        System.out.println(arguments);
 
         switch (commandWord) {
         case ByeCommand.COMMAND_WORD:
@@ -88,6 +92,8 @@ public class Parser {
             return prepareToDo(arguments);
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
+        case UpdateCommand.COMMAND_WORD:
+            return prepareUpdate(arguments);
         default:
             return new NoSuchCommand();
         }
@@ -129,6 +135,7 @@ public class Parser {
         try {
             return new EventCommand(
                     matcher.group("description"),
+                    matcher.group("date"),
                     matcher.group("start"),
                     matcher.group("end")
             );
@@ -183,6 +190,25 @@ public class Parser {
             return new FindCommand(matcher.group("description"));
         } catch (ChatBotException e) {
             return new IncorrectCommand(e.getMessage());
+        }
+    }
+
+    private Command prepareUpdate(String args) {
+        final Matcher matcher = UPDATE_TASK_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT_MESSAGE, UpdateCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            return new UpdateCommand(
+                    parseArgsAsDisplayedIndex(matcher.group("targetIndex")),
+                    matcher.group("update"),
+                    matcher.group("info")
+            );
+        } catch (ParseException pe) {
+            return new IncorrectCommand(String.format(INVALID_COMMAND_FORMAT_MESSAGE, MarkCommand.MESSAGE_USAGE));
+        } catch (NumberFormatException nfe) {
+            return new IncorrectCommand(INVALID_TASK_NUMBER_MESSAGE);
         }
     }
 

@@ -9,6 +9,9 @@ import rayshawn.chatbot.tasks.Task;
  * Represents the result of a command execution.
  */
 public class CommandResult {
+    // Adapted from
+    // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/commands/CommandResult.java
+
     public final String feedbackToUser;
     private final List<Task> tasks;
 

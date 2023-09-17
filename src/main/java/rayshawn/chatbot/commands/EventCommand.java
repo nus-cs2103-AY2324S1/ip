@@ -28,12 +28,8 @@ public class EventCommand extends Command {
      * @param end end time of task
      * @throws ChatBotException if any of the data is invalid
      */
-    public EventCommand(String description, String start, String end) throws ChatBotException {
-        assert description != null : "Description should not be null";
-        assert start != null : "Start time should not be null";
-        assert end != null : "End time should not be null";
-        String[] temp = start.split(" ");
-        this.toAdd = new Event(description, temp[0], temp[1], end);
+    public EventCommand(String description, String date, String start, String end) throws ChatBotException {
+        this.toAdd = new Event(description, date, start, end);
     }
 
     @Override

@@ -22,12 +22,16 @@ public class Deadline extends Task {
     }
 
     public String getDate() {
-        return this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    public void updateDate(String date) {
+        this.date = LocalDate.parse(date);
     }
 
     @Override
     public String toString() {
-        assert date != null : "Date should not be null";  // Assertion 1
-        return super.toString() + " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        assert date != null : "Date should not be null";
+        return super.toString() + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

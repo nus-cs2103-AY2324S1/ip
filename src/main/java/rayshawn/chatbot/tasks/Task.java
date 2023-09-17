@@ -6,7 +6,7 @@ package rayshawn.chatbot.tasks;
 public class Task {
     private String description;
     private String type;
-    private boolean done = false;
+    private boolean isDone = false;
 
     /**
      * Constructor for Task
@@ -23,14 +23,14 @@ public class Task {
     }
 
     public boolean isDone() {
-        return this.done;
+        return isDone;
     }
     public void markDone() {
-        this.done = true;
+        isDone = true;
     }
 
     public void unmarkDone() {
-        this.done = false;
+        isDone = false;
     }
 
     public String getType() {
@@ -43,12 +43,16 @@ public class Task {
         return description;
     }
 
+    public void updateDescription(String newDescription) {
+        description = newDescription;
+    }
+
     @Override
     public String toString() {
         assert description != null : "Description should not be null";
         assert type != null : "Type should not be null";
 
-        return String.format("[%s][%s] %s", this.type, done ? "X" : " ", this.description);
+        return String.format("[%s][%s] %s", type, isDone ? "X" : " ", description);
     }
 
 }

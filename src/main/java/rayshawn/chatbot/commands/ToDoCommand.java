@@ -8,6 +8,8 @@ import rayshawn.chatbot.tasks.ToDo;
  * Adds a todo task to the tasklist.
  */
 public class ToDoCommand extends Command {
+    // Adapted from
+    // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/commands/AddCommand.java
     public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a ToDo task to the task list. "
             + "Parameters: Description\n"
