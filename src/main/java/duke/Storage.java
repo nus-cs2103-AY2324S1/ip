@@ -22,6 +22,7 @@ public class Storage {
      */
     public void init(String pathName) throws IOException {
         storage = new File(pathName);
+        storage.getParentFile().mkdirs();
         storage.createNewFile();
     }
 

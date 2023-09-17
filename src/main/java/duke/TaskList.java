@@ -59,10 +59,10 @@ public class TaskList {
      * @throws IOException if the index exists and was deleted, but we cannot write the change to disk.
      */
     public boolean removeTask(int index) throws IOException {
-        if (index > taskList.size()) {
+        if (index > taskList.size() || index < 1) {
             return false;
         }
-        taskList.remove(index);
+        taskList.remove(index - 1);
         writeToDisk();
         return true;
     }
@@ -84,13 +84,13 @@ public class TaskList {
      * @throws IOException if we cannot save the marking to the disk.
      */
     public boolean setMark(int targetIndex, boolean isToBeMarkedAs) throws IOException {
-        if (targetIndex > taskList.size() || targetIndex < 0) {
+        if (targetIndex > taskList.size() || targetIndex < 1) {
             return false;
         }
         if (isToBeMarkedAs) {
-            taskList.get(targetIndex).markDone();
+            taskList.get(targetIndex - 1).markDone();
         } else {
-            taskList.get(targetIndex).markUndone();
+            taskList.get(targetIndex - 1).markUndone();
         }
         writeToDisk();
         return true;

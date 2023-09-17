@@ -2,7 +2,6 @@ package duke;
 
 import java.util.Objects;
 
-import dukeexception.CorruptedFileException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,15 +32,15 @@ public class UserInterface {
      * Initializes the images into the interface.
      * @param userImagePath relative path of the user image.
      * @param dukeImagePath relative path of the duke image.
-     * @throws CorruptedFileException if the files do not exist.
      */
-    public void init(String userImagePath, String dukeImagePath) throws CorruptedFileException {
+    public void init(String userImagePath, String dukeImagePath) {
         try {
             assert(userImagePath != null && dukeImagePath != null); // Means the arguments are passed wrongly.
             this.userImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(userImagePath)));
             this.dukeImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(dukeImagePath)));
         } catch (NullPointerException e) {
-            throw new CorruptedFileException();
+            this.userImg = null;
+            this.dukeImg = null;
         }
     }
     /**
@@ -65,7 +64,7 @@ public class UserInterface {
         String input = userInput.getText();
         assert (input != null);
         Label inputLabel = new Label(input);
-        DialogBox userDialog = DialogBox.getUserDialog(inputLabel, new ImageView(userImg));
+        DialogBox userDialog = DialogBox.getUserDialog(inputLabel, constrUserIV());
         dialogContainer.getChildren().add(userDialog);
         duke.handle(input);
         userInput.clear();
@@ -78,8 +77,23 @@ public class UserInterface {
     public void output(String output) {
         assert (output != null);
         Label dukeLabel = new Label(output);
-        DialogBox dukeDialog = DialogBox.getDukeDialog(dukeLabel, new ImageView(dukeImg));
+        DialogBox dukeDialog = DialogBox.getDukeDialog(dukeLabel, constrDukeIV());
         dialogContainer.getChildren().add(dukeDialog);
+    }
+
+    private ImageView constrDukeIV() {
+        if (dukeImg == null) {
+            return new ImageView();
+        } else {
+            return new ImageView(dukeImg);
+        }
+    }
+    private ImageView constrUserIV() {
+        if (userImg == null) {
+            return new ImageView();
+        } else {
+            return new ImageView(userImg);
+        }
     }
 
     /**
