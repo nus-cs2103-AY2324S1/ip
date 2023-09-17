@@ -22,18 +22,8 @@ public class Ui {
      * @return A welcome message as a string.
      */
     public String showWelcomeMessage() {
-        return "Hi! This is your AI assistant LoyBoy!\n Remember to type 'save' to save" +
-                " your list! What can I do for you today?";
-    }
-
-    /**
-     * Reads and returns user input as a string.
-     *
-     * @return The user's input as a string.
-     */
-    public String getUserInput() {
-        System.out.print("\nEnter a command: ");
-        return scanner.nextLine();
+        return "Hi! This is your AI assistant Sharky!\n Remember to type 'save' to save" +
+                " your list fo future reference! What can I do for you today?";
     }
 
     /**

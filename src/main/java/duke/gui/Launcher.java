@@ -1,5 +1,7 @@
-package duke;
+package duke.gui;
 
+import duke.DukeException;
+import duke.gui.Main;
 import javafx.application.Application;
 
 public class Launcher {
