@@ -42,7 +42,7 @@ public class Duke {
 
     public String getResponse(String input) {
         try {
-            this.ui.reset();
+            this.ui.resetResponse();
 
             Command command = Parser.parse(input);
 
