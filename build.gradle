@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("ben.Ben")
+    mainClass.set("ben.Launcher")
 }
 
 shadowJar {
