@@ -108,26 +108,6 @@ The following task is marked:
 ...
 ```
 
-### `sort` - Locating persons by name
-
-Sort tasks based on their date
-
-
-Example of usage:
-
-`sort`
-
-* The sort is sorted based on the date, giving a list of tasks that start from the earliest date.
-
-
-
-Description of the outcome.
-
-```
-Here is the sorted list:
-...
-```
-
 ### `todo/deadline/event` - Adding a task
 
 Add a task to the list
