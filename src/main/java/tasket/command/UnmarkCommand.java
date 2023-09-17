@@ -1,8 +1,9 @@
 package tasket.command;
 
-import tasket.storage.Storage;
+
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
+import tasket.storage.Storage;
 import tasket.ui.Ui;
 
 /**
@@ -12,6 +13,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * The constructor for unmark command.
+     *
      * @param index The index for the task to be deleted.
      */
     public UnmarkCommand(String index) {

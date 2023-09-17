@@ -7,6 +7,9 @@ import tasket.parser.Parser;
 import tasket.storage.Storage;
 import tasket.ui.Ui;
 
+/**
+ * The class for Tasket.
+ */
 public class Duke {
     private final Ui ui;
     private final Storage storage;

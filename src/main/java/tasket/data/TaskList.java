@@ -1,15 +1,15 @@
 package tasket.data;
 
-import tasket.task.Task;
-
 import java.util.ArrayList;
+
+import tasket.task.Task;
 
 /**
  * The class for task list.
  */
 public class TaskList {
 
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * The constructor for task list.

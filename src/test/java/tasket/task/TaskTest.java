@@ -18,9 +18,9 @@ import tasket.ui.Ui;
 
 public class TaskTest {
 
-    Ui ui;
-    Storage storage;
-    TaskList taskList;
+    private Ui ui;
+    private Storage storage;
+    private TaskList taskList;
 
     @BeforeEach
     public void setup() {
