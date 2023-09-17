@@ -20,13 +20,4 @@ public abstract class Command {
      */
     public abstract String execute(TaskList tasks, Storage storage)
             throws JoeException;
-
-    /**
-     * Checks if the command is an exit command.
-     *
-     * @return True if the command is an exit command; otherwise, false.
-     */
-    public boolean isExit() {
-        return isExit;
-    }
 }

@@ -53,7 +53,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void find_wordExists_success() {
+    public void findByDesc_wordExists_success() {
         LocalDateTime dt =
                 LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
@@ -68,7 +68,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void find_wordDoesNotExist_noResult() {
+    public void findByDesc_wordDoesNotExist_noResult() {
         LocalDateTime dt =
                 LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
@@ -83,7 +83,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void find_emptySearchString_allTasks() {
+    public void findByDesc_emptySearchString_allTasks() {
         LocalDateTime dt =
                 LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
@@ -100,7 +100,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void find_randomCase_success() {
+    public void findByDesc_randomCase_success() {
         LocalDateTime dt =
                 LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
@@ -117,7 +117,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void find_matchingCase_success() {
+    public void findByDesc_matchingCase_success() {
         LocalDateTime dt =
                 LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
@@ -132,7 +132,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void find_matchingCase_noResult() {
+    public void findByDesc_matchingCase_noResult() {
         LocalDateTime dt =
                 LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
@@ -144,5 +144,36 @@ public class TaskListTest {
         tasks.add(newEvent);
         TaskList res = tasks.findByDesc("cAse", true);
         assertEquals("No tasks available.", res.toString());
+    }
+
+    @Test
+    public void findAll_taskPrefix_success() {
+        LocalDateTime dt =
+                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        TaskList tasks = new TaskList();
+        TodoTask newTodo = new TodoTask("all lower case");
+        DeadlineTask newDeadline = (new DeadlineTask("ALL UPPER CASE", dt));
+        EventTask newEvent = (new EventTask("rAnDoM CaSe", dt, dt));
+        tasks.add(newTodo);
+        tasks.add(newDeadline);
+        tasks.add(newEvent);
+        TaskList res = tasks.findAll("[D]");
+        assertEquals("1.[D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)", res.toString());
+    }
+
+    @Test
+    public void findAll_datetime_success() {
+        LocalDateTime dt =
+                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        TaskList tasks = new TaskList();
+        TodoTask newTodo = new TodoTask("all lower case");
+        DeadlineTask newDeadline = (new DeadlineTask("ALL UPPER CASE", dt));
+        EventTask newEvent = (new EventTask("rAnDoM CaSe", dt, dt));
+        tasks.add(newTodo);
+        tasks.add(newDeadline);
+        tasks.add(newEvent);
+        TaskList res = tasks.findAll("Jan 2000");
+        assertEquals("1.[D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)\n"
+                + "2.[E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
     }
 }

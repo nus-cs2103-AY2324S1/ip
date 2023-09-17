@@ -56,11 +56,6 @@ public class Joe {
         }
     }
 
-    /**
-     * The main entry point of the Joe application.
-     *
-     * @param args The command-line arguments.
-     */
     public static void main(String[] args) {
         Application.launch(Ui.class, args);
     }

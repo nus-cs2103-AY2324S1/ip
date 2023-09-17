@@ -67,9 +67,10 @@ public class Parser {
         CommandType type = parseType(m.group(1));
         String args = m.group(2).trim();
 
-        return parseToCommand(type, args);
+        return makeCommand(type, args);
     }
-    private static Command parseToCommand(CommandType type, String args) {
+
+    private static Command makeCommand(CommandType type, String args) {
         switch (type) {
         case bye:
             return handleBye(args);
