@@ -69,8 +69,8 @@ public class TaskList {
             ui.chadMatchNotFoundOutput();
         } else {
             ui.chadMatchFoundOutput(matched);
-
         }
+        assert false: "Should always return an output";
     }
     public String displayChadFindTask(String keyword) {
         ArrayList<Task> matched = new ArrayList<>();
@@ -83,7 +83,6 @@ public class TaskList {
             return ui.displayChadMatchNotFoundOutput();
         } else {
             return ui.displayChadMatchFoundOutput(matched);
-
         }
     }
 

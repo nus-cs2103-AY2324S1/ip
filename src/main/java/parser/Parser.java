@@ -27,6 +27,7 @@ public class Parser {
     /**
      * Takes in a String array of the instructions from user
      * Runs the applicable methods based on the instruction from user
+     * For Duke Class (TextUI)
      *
      * @param inputArray array of string from the input of user
      * @return false if user gives command to stop bot, else returns true
@@ -167,6 +168,7 @@ public class Parser {
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 output = "The task index is invalid! Try again!";
             }
+            assert false: "Code should not reach here";
 
         } else if (inputArray[0].equals("unmark")) {
             try {
@@ -180,6 +182,7 @@ public class Parser {
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 output = "The task index is invalid! Try again!";
             }
+            assert false: "Code should not reach here";
 
         } else if (inputArray[0].equals("find")) {
             String name = inputArray[1];
@@ -198,6 +201,7 @@ public class Parser {
             } catch (Duke.DukeException e) {
                 output =  e.getMessage() + "\n";
             }
+            assert false: "Code should not reach here";
 
         } else if (inputArray[0].equals("deadline")) {
             try {
@@ -220,6 +224,7 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 output =  "Make sure the date format is: d MMM yyyy";
             }
+            assert false: "Code should not reach here";
 
         } else if (inputArray[0].equals("event")) {
             try {
@@ -244,6 +249,8 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 return "Make sure the date format is: d MMM yyyy";
             }
+            assert false: "Code should not reach here";
+
         } else if (inputArray[0].equals("delete")) {
             try {
                 Integer index = Integer.valueOf(inputArray[1]);
@@ -254,6 +261,7 @@ public class Parser {
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 output =  "The task index is invalid! Try again!";
             }
+            assert false: "Code should not reach here";
 
         } else {
             output = ui.displayChadOutput("Hmm? You are not making sense!");
