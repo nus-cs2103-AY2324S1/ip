@@ -11,13 +11,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="400.0"
-         type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/19.0.4"
-         xmlns:fx="http://javafx.com/fxml/1">
+
+<!-- We enforce prefHeight and prefWidth for the initial dimensions, however since stage is resizeable
+     this won't be effect if user resizes the stage. Note scrollPane sets dimensions too.-->
+<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="600" prefWidth="400"
+         maxHeight="-Infinity" maxWidth="-Infinity" type="javafx.scene.layout.AnchorPane"
+         xmlns="http://javafx.com/javafx/20.0.1">
     <!--fx:controller="dot.controllers.MainWindow">-->
     <children>
-        <HBox prefHeight="45.0" prefWidth="400.0" styleClass="top-border" AnchorPane.bottomAnchor="1.5">
-            <TextField fx:id="inputTextField" onAction="#handleUserInput" prefHeight="45.0" prefWidth="325.0"/>
+        <!-- Left and right anchors to expand HBox which encapsulates TextField and Button. -->
+        <HBox styleClass="top-border" AnchorPane.bottomAnchor="1.5"
+              AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+            <!-- Set HBox.hgrow to fit TextField to extended width of HBox. -->
+            <TextField fx:id="inputTextField" onAction="#handleUserInput" prefHeight="45.0" HBox.hgrow="ALWAYS"/>
             <Button fx:id="submitButton" layoutX="335.0" mnemonicParsing="false" onAction="#handleUserInput"
                     prefHeight="15.0" prefWidth="55.0" text="Send">
                 <HBox.margin>
@@ -26,11 +32,11 @@
             </Button>
         </HBox>
 
-        <StackPane prefHeight="55.0" prefWidth="400.0" AnchorPane.bottomAnchor="45.0">
+        <StackPane prefHeight="55.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                   AnchorPane.bottomAnchor="45.0">
             <children>
-                <Rectangle fx:id="errorRectangle" fill="red" height="80.0" opacity="0.5"
-                           visible="false" width="400.0"/>
-                <VBox alignment="CENTER" prefHeight="80.0" prefWidth="400.0">
+                <Rectangle fx:id="errorRectangle" fill="red" height="80.0" opacity="0.5" visible="false"/>
+                <VBox alignment="CENTER">
                     <children>
                         <Label fx:id="errorMessage" alignment="CENTER" text="Label" textAlignment="CENTER"
                                visible="false" wrapText="true" VBox.vgrow="NEVER">
@@ -45,10 +51,13 @@
                 </VBox>
             </children>
         </StackPane>
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="500.0"
-                    prefWidth="400.0" vbarPolicy="ALWAYS" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" minHeight="500.0"
+                    minWidth="400.0" vbarPolicy="ALWAYS" vvalue="1.0" AnchorPane.bottomAnchor="45.0"
+                    AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
             <content>
-                <VBox fx:id="messageContainer" prefWidth="385.0"/>
+                <!-- VBox takes the size of parent if no override -->
+                <VBox fx:id="messageContainer"/>
             </content>
         </ScrollPane>
     </children>
