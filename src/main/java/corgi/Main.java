@@ -23,7 +23,7 @@ public class Main extends Application {
 
         Image icon = new Image(this.getClass().getResourceAsStream("/images/icon.jpg"));
         stage.getIcons().add(icon);
-        
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
