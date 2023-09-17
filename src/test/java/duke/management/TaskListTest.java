@@ -1,5 +1,6 @@
-package duke;
+package duke.management;
 
+import duke.DukeException;
 import duke.management.TaskList;
 import duke.task.Todo;
 import org.junit.jupiter.api.Test;

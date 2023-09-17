@@ -2,9 +2,7 @@ package duke.management;
 
 import java.util.ArrayList;
 
-import duke.DukeException;
 import duke.note.Note;
-import duke.task.Task;
 
 /**
  * Contains an Arraylist of all notes.

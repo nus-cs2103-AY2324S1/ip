@@ -80,7 +80,7 @@ public class TaskList {
         for (int i = 0; i < tasklist.size(); i++) {
             int index = i + 1;
             Task t = tasklist.get(i);
-            response += index + "." + t.toString() + "\n";
+            response += index + ". " + t.toString() + "\n";
         }
         return response;
     }

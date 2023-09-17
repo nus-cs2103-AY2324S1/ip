@@ -1,4 +1,4 @@
-package duke;
+package duke.management;
 
 import duke.management.Storage;
 import org.junit.jupiter.api.BeforeEach;

@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 
+import duke.command.Command;
 import duke.management.NotesList;
 import duke.management.Parser;
 import duke.management.Storage;
@@ -14,14 +15,12 @@ public class Duke {
     private TaskList tasks;
     private NotesList notes;
     private Storage storage;
-    private Parser parser;
 
     /**
      * Duke Constructor.
      */
     public Duke() {
         this.storage = new Storage("./data");
-        this.parser = new Parser();
         try {
             this.tasks = new TaskList(storage.loadData());
             this.notes = new NotesList(storage.loadNotes());
@@ -32,7 +31,7 @@ public class Duke {
     }
 
     /**
-     * Save all updated data to the data file at the end of Duke.
+     * Saves tasks and notes into their respective data files.
      */
     public void saveToFile() {
         try {
@@ -51,7 +50,11 @@ public class Duke {
      */
     public String getResponse(String input) {
         assert !input.isEmpty() : "Input cannot be empty!";
-        String result = this.parser.parse(input, this.tasks, this.notes);
-        return result;
+        Command command = Parser.parse(input);
+        try {
+            return command.execute(tasks, notes);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }
