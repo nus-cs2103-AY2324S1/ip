@@ -39,19 +39,20 @@ public class Storage {
             ensureTaskFileExists();
         } catch (IOException e) {
             System.out.println(
-                    "____________________________________________________________\n" +
-                    "OOPS!!! An error occurred while creating the task file.\n" +
                     "____________________________________________________________\n"
+                    + "OOPS!!! An error occurred while creating the task file.\n"
+                    + "____________________________________________________________\n"
             );
             return;
         }
+
         try {
             writeToFile(filePath, tasks.toSaveFormat());
         } catch (IOException e) {
             System.out.println(
-                    "____________________________________________________________\n" +
-                    "OOPS!!! An error occurred while saving tasks.\n" +
                     "____________________________________________________________\n"
+                    + "OOPS!!! An error occurred while saving tasks.\n"
+                    + "____________________________________________________________\n"
             );
         }
     }
@@ -64,9 +65,11 @@ public class Storage {
      */
     private void ensureTaskFileExists() throws IOException {
         File file = new File(this.filePath);
+
         if (!file.getParentFile().isDirectory()) {
             file.getParentFile().mkdir();
         }
+
         if (!file.exists()) {
             file.createNewFile();
         }
@@ -93,26 +96,28 @@ public class Storage {
      */
     public List<Task> load() throws FileNotFoundException {
         File file = new File(filePath);
-        Scanner sc = new Scanner(file);
+        Scanner fileScanner = new Scanner(file);
         List<Task> tasks = new ArrayList<>();
-        while (sc.hasNext()) {
-            String task = sc.nextLine();
-            switch (task.charAt(0)) {
-                case 'T':
-                    ToDo t = ToDo.createFromSaveFormat(task);
-                    tasks.add(t);
-                    break;
-                case 'D':
-                    Deadline d = Deadline.createFromSaveFormat(task);
-                    tasks.add(d);
-                    break;
-                case 'E':
-                    Event e = Event.createFromSaveFormat(task);
-                    tasks.add(e);
-                    break;
+
+        while (fileScanner.hasNext()) {
+            String formattedTask = fileScanner.nextLine();
+            switch (formattedTask.charAt(0)) {
+            case 'T':
+                ToDo t = ToDo.createFromSaveFormat(formattedTask);
+                tasks.add(t);
+                break;
+            case 'D':
+                Deadline d = Deadline.createFromSaveFormat(formattedTask);
+                tasks.add(d);
+                break;
+            case 'E':
+                Event e = Event.createFromSaveFormat(formattedTask);
+                tasks.add(e);
+                break;
             }
         }
-        sc.close();
+
+        fileScanner.close();
         return tasks;
     }
 }

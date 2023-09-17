@@ -40,6 +40,7 @@ public class Bert {
      */
     public void run() {
         ui.showWelcome();
+
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -51,6 +52,7 @@ public class Bert {
                 ui.showError(e.getMessage());
             }
         }
+
         storage.save(tasks);
     }
 

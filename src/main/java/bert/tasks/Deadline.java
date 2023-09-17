@@ -41,19 +41,19 @@ public class Deadline extends Task {
     public static Deadline createFromSaveFormat(String formattedTask) {
         String[] args = formattedTask.split(" \\| ");
         boolean isDone = args[1].equals("1");
-        LocalDate ld = LocalDate.parse(args[3], DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return new Deadline(isDone, args[2], ld);
+        LocalDate deadline = LocalDate.parse(args[3], DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return new Deadline(isDone, args[2], deadline);
     }
 
     @Override
     public String toSaveFormat() {
-        return "D | " + super.toSaveFormat() + " | " +
-                this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return "D | " + super.toSaveFormat() + " | "
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " + this.description +
-                " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D][" + this.getStatusIcon() + "] " + this.description
+                + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
