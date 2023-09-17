@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        assert !list.equals(null): "list has been initialised";
+        assert !list.equals(null) : "list has been initialised";
         String message = list.delete(this.getIndex());
         return message;
     }
