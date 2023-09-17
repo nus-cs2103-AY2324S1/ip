@@ -47,13 +47,13 @@ public class Deadline extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "D | " + super.toSaveFormat() + " | " +
-                this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return "D | " + super.toSaveFormat() + " | "
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " + this.description +
-                " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D][" + this.getStatusIcon() + "] " + this.description
+                + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

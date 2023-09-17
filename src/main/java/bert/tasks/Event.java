@@ -54,15 +54,15 @@ public class Event extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "E | " + super.toSaveFormat() + " | " +
-                this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + "-" +
-                this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return "E | " + super.toSaveFormat() + " | "
+                + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + "-"
+                + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " + this.description +
-                " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
-                " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[E][" + this.getStatusIcon() + "] " + this.description
+                + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

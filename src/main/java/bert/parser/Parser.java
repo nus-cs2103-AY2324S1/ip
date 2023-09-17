@@ -27,32 +27,24 @@ public class Parser {
         }
 
         switch (command) {
-            // Typing 'list' prints out the list of tasks
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
-            // Typing 'mark x' marks a task at a specific index on the list
-            case MarkCommand.COMMAND_WORD:
-                return prepareMark(arguments);
-            // Typing 'unmark x' unmarks a task at a specific index on the list
-            case UnmarkCommand.COMMAND_WORD:
-                return prepareUnmark(arguments);
-            // Typing 'todo...' stores a todo task
-            case AddToDoCommand.COMMAND_WORD:
-                return prepareToDo(arguments);
-            // Typing 'deadline...' stores a deadline task
-            case AddDeadlineCommand.COMMAND_WORD:
-                return prepareDeadline(arguments);
-            // Typing 'event...' stores an event task
-            case AddEventCommand.COMMAND_WORD:
-                return prepareEvent(arguments);
-            // Typing 'delete x' deletes a task
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDelete(arguments);
-            // Typing 'bye' ends the program
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-            default:
-                throw new BertInvalidTaskException();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
+        case UnmarkCommand.COMMAND_WORD:
+            return prepareUnmark(arguments);
+        case AddToDoCommand.COMMAND_WORD:
+            return prepareToDo(arguments);
+        case AddDeadlineCommand.COMMAND_WORD:
+            return prepareDeadline(arguments);
+        case AddEventCommand.COMMAND_WORD:
+            return prepareEvent(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return prepareDelete(arguments);
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+        default:
+            throw new BertInvalidTaskException();
         }
     }
 
