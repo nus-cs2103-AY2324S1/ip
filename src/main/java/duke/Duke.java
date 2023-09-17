@@ -36,19 +36,10 @@ public class Duke {
     }
 
     /**
-     * save the current TaskList to duke.txt file
-     */
-    private void exit() {
-        try {
-            storage.save(tasks.getTasks());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Process the input from user and return the response result.
+     *
+     * @param input User input type String.
+     * @return output String type result that is written on the UI.
      */
     public String getResponse(String input) {
         try {

@@ -14,13 +14,13 @@ public class Ui {
     private final Scanner in;
 
     /** Indicator to terminate the chatBot */
-    private boolean exit;
+    private boolean isExit;
 
     public Ui() {
         this(System.in);
     }
     public Ui(InputStream in) {
-        this.exit = false;
+        this.isExit = false;
         this.in = new Scanner(in);
     }
 
@@ -29,7 +29,7 @@ public class Ui {
      * Output the greeting before chatBot terminates.
      */
     public String exitGreeting() {
-        this.exit = true;
+        this.isExit = true;
         return addMessageFormat("Bye. Hope to see you again soon!");
     }
 
@@ -121,7 +121,7 @@ public class Ui {
      * @return {@link this.exit}
      */
     public boolean isExit() {
-        return this.exit;
+        return this.isExit;
     }
 
     /**
