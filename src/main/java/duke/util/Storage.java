@@ -70,30 +70,33 @@ public class Storage {
      */
     private void loadToList(Scanner sc, List<Task> taskList) throws DukeException {
         while (sc.hasNext()) {
-            String[] temp = sc.nextLine().split(SEPARATOR);
+            String[] commandData = sc.nextLine().split(SEPARATOR);
             Task task;
-            switch (temp[0]) {
+            switch (commandData[0]) {
             case "T":
-                task = new Todo(temp[2]);
+                task = new Todo(commandData[2]);
                 break;
             case "D":
-                task = new Deadline(temp[2], Time.parseDateTime(temp[3]));
+                task = new Deadline(commandData[2], Time.parseDateTime(commandData[3]));
                 break;
             case "E":
-                task = new Event(temp[2], Time.parseDateTime(temp[3]), Time.parseDateTime(temp[4]));
+                task = new Event(commandData[2], Time.parseDateTime(commandData[3]),
+                        Time.parseDateTime(commandData[4]));
                 break;
             default:
                 throw new DukeException();
             }
+            if (taskList.stream().anyMatch(t -> t.equals(task))) {
+                throw new DukeException(); // Found duplicate tasks
+            }
 
-            if (temp[1].equals("1")) {
+            if (commandData[1].equals("1")) {
                 task.mark(true);
-            } else if (temp[1].equals("0")) {
+            } else if (commandData[1].equals("0")) {
                 task.mark(false);
             } else {
                 throw new DukeException();
             }
-
             taskList.add(task);
         }
     }

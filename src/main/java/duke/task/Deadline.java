@@ -72,4 +72,19 @@ public class Deadline extends Task {
                 super.toString(),
                 by.format(Time.DATE_TIME_DISPLAY_FORMATTER));
     }
+
+    /**
+     * Compares the current object with the given object, it returns true
+     * if the given object is a deadline task and has the same description.
+     *
+     * @param obj Object to be compared.
+     * @return The result of comparison.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }

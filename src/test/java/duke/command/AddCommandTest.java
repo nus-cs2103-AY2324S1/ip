@@ -60,6 +60,38 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicateCommand_exceptionThrown() {
+        AddCommand add1 = new AddCommand(Keyword.TODO, "test");
+        AddCommand add2 = new AddCommand(Keyword.TODO, "test");
+        UiStub ui = new UiStub();
+        StorageStub storage = new StorageStub();
+        TaskList taskList = new TaskList();
+        try {
+            add1.execute(taskList, ui, storage);
+            add2.execute(taskList, ui, storage);
+            fail();
+        } catch (DukeException e) {
+            assert true;
+        }
+    }
+
+    @Test
+    public void execute_duplicateWithDifferentTypeCommand_success() {
+        AddCommand add1 = new AddCommand(Keyword.TODO, "test");
+        AddCommand add2 = new AddCommand(Keyword.DEADLINE, "test /by 1/1/2023 00:00");
+        UiStub ui = new UiStub();
+        StorageStub storage = new StorageStub();
+        TaskList taskList = new TaskList();
+        try {
+            add1.execute(taskList, ui, storage);
+            add2.execute(taskList, ui, storage);
+            assert true;
+        } catch (DukeException e) {
+            fail();
+        }
+    }
+
+    @Test
     public void isExitTest() {
         AddCommand add = new AddCommand(Keyword.TODO, "");
         assertFalse(add.isExit());

@@ -25,9 +25,9 @@ public class PrintDateCommandTest {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
-        taskList.addTask(new Deadline("",
-                LocalDateTime.of(2023, 12, 2, 11, 59)), ui);
         try {
+            taskList.addTask(new Deadline("",
+                    LocalDateTime.of(2023, 12, 2, 11, 59)), ui);
             pd.execute(taskList, ui, storage);
             assert true;
         } catch (DukeException e) {
@@ -55,9 +55,9 @@ public class PrintDateCommandTest {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
-        taskList.addTask(new Deadline("",
-                LocalDateTime.of(2023, 12, 2, 11, 59)), ui);
         try {
+            taskList.addTask(new Deadline("",
+                    LocalDateTime.of(2023, 12, 2, 11, 59)), ui);
             mark.execute(taskList, ui, storage);
             fail();
         } catch (DukeException e) {
@@ -71,9 +71,9 @@ public class PrintDateCommandTest {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
-        taskList.addTask(new Deadline("",
-                LocalDateTime.of(2023, 12, 2, 11, 59)), ui);
         try {
+            taskList.addTask(new Deadline("",
+                    LocalDateTime.of(2023, 12, 2, 11, 59)), ui);
             mark.execute(taskList, ui, storage);
             fail();
         } catch (DukeException e) {

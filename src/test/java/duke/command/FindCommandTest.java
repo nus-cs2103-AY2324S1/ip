@@ -27,10 +27,10 @@ public class FindCommandTest {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
-        taskList.addTask(new Todo("test"), ui);
-        taskList.addTask(new Deadline("return books",
-                LocalDateTime.of(2023, 12, 2, 11, 59)), ui);
         try {
+            taskList.addTask(new Todo("test"), ui);
+            taskList.addTask(new Deadline("return books",
+                    LocalDateTime.of(2023, 12, 2, 11, 59)), ui);
             find.execute(taskList, ui, storage);
             assert true;
         } catch (DukeException e) {
@@ -58,11 +58,11 @@ public class FindCommandTest {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
-        taskList.addTask(new Event("test",
-                LocalDateTime.of(2023, 12, 2, 11, 59),
-                LocalDateTime.of(2023, 12, 5, 11, 59)),
-                ui);
         try {
+            taskList.addTask(new Event("test",
+                            LocalDateTime.of(2023, 12, 2, 11, 59),
+                            LocalDateTime.of(2023, 12, 5, 11, 59)),
+                    ui);
             find.execute(taskList, ui, storage);
             fail();
         } catch (DukeException e) {
