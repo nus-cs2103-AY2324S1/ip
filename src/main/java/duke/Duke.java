@@ -1,109 +1,59 @@
 package duke;
 
-import duke.exceptions.FileIoException;
-import duke.tasks.*;
-import duke.io.Storage;
+import duke.commands.Command;
 import duke.exceptions.EmptyDescriptionException;
-import duke.exceptions.UnknownCommandException;
+import duke.exceptions.StorageFileException;
+import duke.parsers.Parser;
+import duke.io.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+/**
+ * The main Duke class to run
+ */
 public class Duke {
+    private final Storage storage;
+    private TaskList list;
+    private final Ui ui;
 
-    private TaskList tasks;
-    private static final String LINE = "____________________________________________________________";
+    /**
+     * The constructor that takes in a String filePath that specifies the path for the storage file.
+     *
+     * @param filePath Specifies the path for the storage file
+     */
+    public Duke(String filePath) {
+        // Initialize the task list
+        this.list = new TaskList();
+        // Initialize the user interface
+        this.ui = new Ui();
+        // Initialize the storage object
+        this.storage = new Storage(filePath);
 
-    public Duke() {
+
         try {
-            tasks = new Loader("data/tasks.txt").load();
-        } catch (UnknownCommandException | FileIoException e) {
-            System.out.println("OOPS!!! Could not load data from file.");
+            // Attempt to load tasks from storage
+            this.list = this.storage.load();
+        } catch ( e) {
+
+        } catch ( e) {
+
         }
     }
 
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
+    public String getResponse(String input) {
+        try {
+            this.ui.reset();
 
-        System.out.println(LINE);
-        System.out.println("Hello! I'm DaDaYuan");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+            Command command = Parser.parse(input);
 
-        while (true) {
-            String input = scanner.nextLine();
-            System.out.println(LINE);
-
-            try {
-                if (input.equals("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println(LINE);
-                    new Saver("data/tasks.txt").save(tasks);
-                    break;
-                } else if (input.equals("list")) {
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
-                        System.out.println((i + 1) + "." + tasks.getTask(i));
-                    }
-                } else if (input.startsWith("todo")) {
-                    String description = input.length() > 5 ? input.substring(5) : "";
-                    if (description.isEmpty()) {
-                        throw new Exception("OOPS!!! The description of a todo cannot be empty.");
-                    } else {
-                        tasks.addTask(new Todo(description));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks.getTask(tasks.getNumberOfTasks() - 1));
-                        System.out.println("Now you have " + tasks.getNumberOfTasks() + " task(s) in the list.");
-                    }
-                } else if (input.startsWith("deadline")) {
-                    String[] parts = input.split(" /by ", 2);
-                    if (parts.length < 2) {
-                        throw new Exception("OOPS!!! The deadline of a task cannot be empty.");
-                    } else {
-                        String description = parts[0].substring(9);
-                        tasks.addTask(new Deadline(description, parts[1]));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks.getTask(tasks.getNumberOfTasks() - 1));
-                        System.out.println("Now you have " + tasks.getNumberOfTasks() + " task(s) in the list.");
-                    }
-                } else if (input.startsWith("event")) {
-                    String[] parts = input.split(" /from | /to ", 3);
-                    if (parts.length < 3) {
-                        throw new Exception("OOPS!!! The event timing details are incomplete.");
-                    } else {
-                        tasks.addTask(new Event(parts[0].substring(6), parts[1], parts[2]));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks.getTask(tasks.getNumberOfTasks() - 1));
-                        System.out.println("Now you have " + tasks.getNumberOfTasks() + " task(s) in the list.");
-                    }
-                } else if (input.startsWith("delete")) {
-                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index >= 0 && index < tasks.getNumberOfTasks()) {
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println("  " + tasks.getTask(index));
-                        tasks.removeTask(index);
-                        System.out.println("Now you have " + tasks.getNumberOfTasks() + " task(s) in the list.");
-                    }
-                } else {
-                    throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
-
-                new Saver("data/tasks.txt").save(tasks); // saving to file after each operation
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
-            System.out.println(LINE);
+            command.execute(this.list, this.ui, this.storage);
+i
+            return this.ui.getResponse();
+        } catch ( e) {
+            // append the error message to the ui's response
+            this.ui.appendResponse(e.getMessage());
+            return this.ui.getResponse();
         }
-
-        scanner.close();
-    }
-
-    public static void main(String[] args) {
-        new Duke().run();
     }
 }
 
