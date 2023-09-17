@@ -32,22 +32,19 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
 
-
-//    public Duke() {
-//        this("./src/main/data/duke.txt");
-//    }
+    
     public Duke() {
-        this("../duke.txt");
+        this("./src/main/data", "duke.txt");
     }
 
     /**
      * Constructor of Duke.
      * @param filepath Task file to be loaded into Duke.
      */
-    public Duke(String filepath) {
+    public Duke(String filepath, String filename) {
         this.taskList = new TaskList();
         this.ui = new Ui();
-        this.storage = new Storage(filepath);
+        this.storage = new Storage(filepath, filename);
         this.parser = new Parser(ui, taskList, botInUse, storage);
 
         storage.loadFileToTaskManager(taskList);

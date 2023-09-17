@@ -17,13 +17,15 @@ import java.io.IOException;
  */
 public class Storage {
     private String filepath;
+    private String filename;
 
     /**
      * Constructor of storage.
      * @param filepath Filepath that leads to the task file to be loaded into bot.
      */
-    public Storage(String filepath) {
+    public Storage(String filepath, String filename) {
         this.filepath = filepath;
+        this.filename = filename;
     }
 
     /**
@@ -32,12 +34,12 @@ public class Storage {
      */
     public void saveFile(String content) {
         try {
-            FileWriter myWriter = new FileWriter(filepath, false);
+            FileWriter myWriter = new FileWriter(filepath + "/" + filename, false);
             myWriter.write(content);
             myWriter.close();
         } catch (FileNotFoundException e) {
-            File f = new File("./src/main/data");
-            if (f.mkdir()) {
+            File f = new File(filepath);
+            if (f.mkdirs()) {
                 saveFile(content);
             } else {
                 System.out.println("An error occurred. File is not written.");
@@ -56,7 +58,7 @@ public class Storage {
      */
     public String readFile() throws FileNotFoundException {
         try {
-            File myObj = new File(filepath);
+            File myObj = new File(filepath + "/" + filename);
             Scanner myReader = new Scanner(myObj);
             StringBuilder data = new StringBuilder();
             while (myReader.hasNextLine()) {
