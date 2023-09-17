@@ -1,4 +1,5 @@
-T | 0 | [T][ ] [T][ ] read book
-D | 0 | [D][ ] [D][ ] return book (by: Oct 15 2023) (by: Oct 15 2023) | Oct 15 2023
-E | 0 | [E][ ] [E][ ] book event (from: 2pm to: 4pm) (from: 2pm to: 4pm) | 2pm | 4pm
-T | 0 | [T][ ] [T][ ] read
+T | 0 | read book
+D | 0 | return book | Oct 15 2023
+E | 0 | book event | 2pm | 4pm
+T | 0 | read
+T | 0 | read more

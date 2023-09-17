@@ -9,7 +9,6 @@ public class Task {
 
     /** To access whether a task is completed */
     protected boolean isDone;
-//    protected String cat;
 
     /** Task to be added to list
      *
@@ -18,7 +17,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        //this.cat = "";
     }
 
     /**

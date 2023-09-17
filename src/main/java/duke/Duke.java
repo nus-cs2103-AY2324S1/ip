@@ -1,13 +1,8 @@
 package duke;
 
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import exceptions.DukeException;
-import exceptions.EmptyDescriptionException;
-import exceptions.OutOfRangeException;
 import exceptions.UnknownCommandException;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -19,9 +14,6 @@ public class Duke {
 
     /** To access file which stores the saved tasks*/
     private final Storage storage;
-
-    /** Stores new instance of UI */
-    private final Ui ui;
 
     /** List to be updated as tasks are added or removed. */
     private final TaskList list;
@@ -38,7 +30,6 @@ public class Duke {
      * @throws FileNotFoundException
      */
     public Duke() throws FileNotFoundException {
-        ui = new Ui();
         storage = new Storage("duke.txt");
 //        try {
         list = new TaskList(storage.load());
@@ -57,66 +48,27 @@ public class Duke {
             if (input.equals("list")) {
                  message = list.printList();
             } else if (input.startsWith("mark ")) {
-                int num = input.charAt(5) - '0' - 1;
-                if (num >= 0 && num < list.count) {
-                    list.getTask(num).markAsDone();
-                    message = "Nice! I've marked this task done:" + list.getTask(num);
-                } else {
-                    System.out.println("Invalid");
-                }
+                message = Parser.parseMark(input, list);
             } else if (input.startsWith("unmark ")) {
-                int num = input.charAt(7) - '0' - 1;
-                if (num >= 0 && num < list.count) {
-                    list.getTask(num).markAsUndone();
-                    message = "OK, I've marked this task as not done yet:" + list.getTask(num);
-                } else {
-                    message = "Invalid";
-                }
+                message = Parser.parseUnmark(input, list);
             } else if (input.startsWith("todo ")) {
-                String des = input.substring(5);
-                if (des.isBlank()) {
-                    throw new EmptyDescriptionException();
-                }
-                message = list.addTask(new Todo(des));
+                message = Parser.parseToDo(input, list);
             } else if (input.startsWith("deadline ")) {
-                if (input.substring(9).isBlank()) {
-                    throw new EmptyDescriptionException();
-                }
-                String[] split = input.substring(9).split(" /by ");
-                String des = split[0];
-                LocalDate date = LocalDate.parse(split[1]);
-                String by = date.format(DateTimeFormatter.ofPattern("MMM d yyy"));
-                message = list.addTask(new Deadline(des, by));
-
+                message = Parser.parseDeadline(input, list);
             } else if (input.startsWith("event ")) {
-                if (input.substring(6).isBlank()) {
-                    throw new EmptyDescriptionException();
-                }
-                String[] split = input.substring(6).split(" /from ");
-                String des = split[0];
-                String[] fromto = split[1].split(" /to ");
-                String from = fromto[0];
-                String to = fromto[1];
-                message = list.addTask(new Event(des, from, to));
+                message = Parser.parseEvent(input, list);
             } else if (input.startsWith("delete ")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
-                if (index >= 0 && index <= list.count) {
-                    message = list.deleteTask(index);
-                } else {
-                    throw new OutOfRangeException();
-                }
+                message = Parser.parseDelete(input, list);
             } else if (input.equals("bye")) {
                 message = "slay";
+                //should exit
             } else if (input.startsWith("find ")) {
-                String description = input.substring(5);
-                message = list.findTask(description, list);
+                message = Parser.parseFind(input, list);
             } else {
                 throw new UnknownCommandException();
             }
         } catch (DukeException e) {
             message = e.getMessage();
-        } catch (DateTimeParseException e) {
-            message = "OOps invalid time input";
         }
 //        ui.showWelcome();
 //        boolean isExit = false;
