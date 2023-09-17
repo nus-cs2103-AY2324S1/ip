@@ -29,6 +29,17 @@ public class Storage {
     }
 
     /**
+     * Creates a file if it doesn't exist.
+     *
+     * @param f The file to be created.
+     * @throws IOException If an I/O error occurs during file creation.
+     */
+    private void createFile(File f) throws IOException {
+        f.getParentFile().mkdirs();
+        f.createNewFile();
+    }
+
+    /**
      * Creates a file if it doesn't exist and then loads tasks from it.
      *
      * @param filePath The path to the storage file.

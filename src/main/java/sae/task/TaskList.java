@@ -3,6 +3,7 @@ package sae.task;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import sae.util.Ui;
 
@@ -168,20 +169,22 @@ public class TaskList {
      * @return A string containing a list of matching tasks or a message indicating no matches.
      */
     public String findKeyword(String keyword) {
-        StringBuilder str = new StringBuilder();
+        List<String> matchingTasks = new ArrayList<>();
 
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             String taskName = task.toString();
             if (taskName.contains(keyword)) {
-                str = str.append("\n" + (i + 1) + "." + taskName);
+                matchingTasks.add((i + 1) + "." + taskName);
             }
         }
-        if (str.length() > 1) {
-            return "Here are the matching tasks in your list:\n" + str;
+
+        if (!matchingTasks.isEmpty()) {
+            return "Here are the matching tasks in your list:\n" + String.join("\n", matchingTasks);
         } else {
             return "No tasks match the keyword given.";
         }
     }
+
 
 }
