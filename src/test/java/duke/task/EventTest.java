@@ -43,9 +43,9 @@ public class EventTest {
             Event e = new Event("return book", Time.parseDateTime("1/12/2023 18:00"),
                     Time.parseDateTime("2/12/2023 20:00"));
             String expectedUnmark = "E" + Storage.SEPARATOR + "0" + Storage.SEPARATOR + "return book"
-                    + Storage.SEPARATOR + "1/12/2023 18:00" + Storage.SEPARATOR + "2/12/2023 20:00";
+                    + Storage.SEPARATOR + "1/12/2023 18:00" + Storage.SEPARATOR + "2/12/2023 20:00\n";
             String expectedMark = "E" + Storage.SEPARATOR + "1" + Storage.SEPARATOR + "return book"
-                    + Storage.SEPARATOR + "1/12/2023 18:00" + Storage.SEPARATOR + "2/12/2023 20:00";
+                    + Storage.SEPARATOR + "1/12/2023 18:00" + Storage.SEPARATOR + "2/12/2023 20:00\n";
             assertEquals(expectedUnmark, e.fileFormat());
             e.mark(true);
             assertEquals(expectedMark, e.fileFormat());

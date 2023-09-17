@@ -17,15 +17,16 @@ import duke.task.Task;
 import duke.task.Todo;
 
 /**
- * Storage class is used to load and save the task list to a file.
+ * Storage class is used to load and save the task list and settings to a file.
  */
 public class Storage {
 
     public static final String SEPARATOR = " !%&%! ";
     private final File folder;
-    private final File file;
-    private final String filePath;
     private final String folderPath;
+    private final File defaultFile;
+    private File file;
+    private String filePath;
 
     /**
      * Constructs a Storage object.
@@ -34,23 +35,32 @@ public class Storage {
      * @param fileName   The name of the file to store the task list.
      */
     public Storage(String folderPath, String fileName) {
-        this.filePath = folderPath + "/" + fileName;
         this.folderPath = folderPath;
-        this.file = new File(this.filePath);
-        this.folder = new File(this.folderPath);
+        this.filePath = folderPath + "/" + fileName;
+        this.defaultFile = new File(this.filePath);
+        this.file = this.defaultFile;
+        this.folder = new File(folderPath);
     }
 
     /**
      * Loads the task list from the file.
      * <p>If the file is not found or the format is wrong, it will throw an exception.</p>
      *
-     * @return List of tasks.
-     * @throws DukeException If the file is not found or the format is wrong.
+     * @param isLoadDefault Whether to load the default file.
+     * @param alterFileName The name of alternative file to load.
+     * @return The list of tasks.
      */
-    public List<Task> load() throws DukeException {
-        List<Task> taskList = new ArrayList<>();
-        assert file.exists() : "File should exist";
+    public List<Task> loadTasks(boolean isLoadDefault, String alterFileName) throws DukeException {
+        File file = isLoadDefault
+                ? this.defaultFile
+                : new File(this.folderPath + "/" + alterFileName);
+        if (!file.exists()) {
+            createFile(folder, file, file.getPath());
+            throw new DukeException(String.format("OOPS!!! The %s file is not found.\n"
+                    + "A new file is created.", isLoadDefault ? "default" : alterFileName));
+        }
 
+        List<Task> taskList = new ArrayList<>();
         try {
             Scanner sc = new Scanner(file);
             loadToList(sc, taskList);
@@ -58,6 +68,8 @@ public class Storage {
         } catch (FileNotFoundException | ArrayIndexOutOfBoundsException e) {
             throw new DukeException();
         }
+        this.file = file;
+        this.filePath = file.getPath();
         return taskList;
     }
 
@@ -102,28 +114,40 @@ public class Storage {
     }
 
     /**
-     * Creates a new file to store the task list.
+     * Creates a new file given the folder, file, and file path as string.
      * <p>If the file already exists, it will clear the file.<br>
      * If the folder does not exist, it will create the folder.<br>
      * If the file cannot be created, it will throw a runtime exception.</p>
+     *
+     * @param folder   The folder to store the file.
+     * @param file     The file to be created.
+     * @param filePath The path of the file.
      */
-    public void createFile() {
-        if (!this.folder.exists()) {
-            folder.mkdirs();
+    private void createFile(File folder, File file, String filePath) {
+        if (!folder.exists() && !folder.mkdirs()) {
+            throw new RuntimeException("Folder cannot be created");
         }
-        assert this.folder.exists() : "Folder should be created";
+        assert folder.exists() : "Folder should be created";
+
         try {
             if (!file.exists()) {
-                Files.createFile(Paths.get(this.filePath));
+                Files.createFile(Paths.get(filePath));
             } else {
                 clearFile();
             }
-            assert this.file.exists() : "File should be created";
+            assert file.exists() : "File should be created";
         } catch (IOException e) {
             /* Here is reach if something terrible happened.
                It is best to throw a runtime exception. */
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Creates a new file to store the task list.
+     */
+    public void createTaskFile() {
+        createFile(folder, file, filePath);
     }
 
     /**
@@ -137,24 +161,6 @@ public class Storage {
         FileWriter fw = new FileWriter(this.filePath);
         fw.write("");
         fw.close();
-    }
-
-    /**
-     * Appends the text to the end of the file.
-     *
-     * @param text The text to be appended.
-     * @throws DukeException If the file is not found.
-     */
-    public void appendFile(String text) throws DukeException {
-        assert file.exists() : "File should exist";
-        try {
-            FileWriter fw = new FileWriter(this.filePath, true);
-            fw.write(text);
-            fw.write("\n");
-            fw.close();
-        } catch (IOException e) {
-            throw new DukeException();
-        }
     }
 
     /**

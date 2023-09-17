@@ -189,4 +189,15 @@ public class Ui {
                       strBuilder.append(String.format("%s\n", line)));
         return strBuilder.substring(0, strBuilder.length() - 1);
     }
+
+    /**
+     * Shows the loading message to the user.
+     * @param isLoadDefault whether to load the default file.
+     * @param fileName      the fileName.
+     * @return the response message to the user.
+     */
+    public String showLoad(boolean isLoadDefault, String fileName) {
+        return String.format("Loading task list from %s...\n\ndone!\n",
+                              isLoadDefault ? "default file" : fileName);
+    }
 }

@@ -14,7 +14,7 @@ import duke.task.Task;
  */
 public class TaskList {
 
-    private final List<Task> taskList;
+    private List<Task> taskList;
 
     /**
      * Constructs a {@code TaskList} with the given list of tasks.
@@ -241,5 +241,14 @@ public class TaskList {
         return taskList.stream()
                        .map(Task::fileFormat)
                        .toArray(String[]::new);
+    }
+
+    /**
+     * Changes the task list to the given list of tasks.
+     *
+     * @param taskList the new list of tasks
+     */
+    public void changeTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 }

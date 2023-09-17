@@ -28,8 +28,8 @@ public class TodoTest {
     @Test
     public void fileFormatTest() {
         Todo t = new Todo("return book");
-        String expectedUnmark = "T" + Storage.SEPARATOR + "0" + Storage.SEPARATOR + "return book";
-        String expectedMark = "T" + Storage.SEPARATOR + "1" + Storage.SEPARATOR + "return book";
+        String expectedUnmark = "T" + Storage.SEPARATOR + "0" + Storage.SEPARATOR + "return book\n";
+        String expectedMark = "T" + Storage.SEPARATOR + "1" + Storage.SEPARATOR + "return book\n";
         assertEquals(expectedUnmark, t.fileFormat());
         t.mark(true);
         assertEquals(expectedMark, t.fileFormat());
