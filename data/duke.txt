@@ -3,3 +3,4 @@ D|buy medicine|1|Nov 20 2023 06:00 PM
 T|makan|0
 T|make food|0
 E|makanmakana|0|10|10
+T|Eat |0
