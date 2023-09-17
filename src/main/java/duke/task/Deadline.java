@@ -11,6 +11,8 @@ import duke.processors.TimeProcessor;
  */
 public class Deadline extends Task {
 
+    private final int DEADLINE_PREFIX = 8;
+
     /**
      * Constructor for deadline.
      *
@@ -23,20 +25,24 @@ public class Deadline extends Task {
     public Deadline(String Description) throws DukeException {
         super(Description);
         int index = Description.indexOf("/");
-        if (Description.split("\\s+").length == 1 || index == 9) {
+        if (Description.split("\\s+").length == 1
+                || index == DEADLINE_PREFIX + 1) {
             throw new DukeNoDescriptionException("Deadline");
         }
 
         if (index == -1) {
             throw new DukeNoDateException("Deadline");
         }
-        String content = Description.substring(9, index);
+        String content = Description.substring(DEADLINE_PREFIX + 1, index);
         String subString = Description.substring(index + 4);
         String time;
         if (subString.contains(" ")) {
             int indexOfSpace = subString.indexOf(" ");
             time = TimeProcessor.StringToDate(subString.substring(0, indexOfSpace));
-            time = time + subString.substring(indexOfSpace);
+            time = time
+                    + " "
+                    + TimeProcessor.StringToDate(
+                            subString.substring(indexOfSpace + 1));
         } else {
             time = TimeProcessor.StringToDate(Description.substring(index + 4));
         }

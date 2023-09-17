@@ -7,9 +7,12 @@ import duke.exception.DukeNoDescriptionException;
 import duke.processors.TimeProcessor;
 
 /**
- * A event class contains start time and end time.
+ * An event class contains start time and end time.
  */
 public class Event extends Task {
+
+    private final int EVENT_PREFIX = 5;
+
     /**
      * A constructor for event class.
      *
@@ -44,7 +47,7 @@ public class Event extends Task {
             throws DukeException {
         String time;
         int index = Description.indexOf("/");
-        String content = Description.substring(6, index);
+        String content = Description.substring(EVENT_PREFIX + 1, index);
         int lastIndex = Description.substring(index + 1).indexOf("/");
         if (lastIndex != -1) {
             lastIndex += (index + 1);
@@ -59,7 +62,8 @@ public class Event extends Task {
         if (startTime.contains(" ")) {
             int spaceIndex = startTime.indexOf(" ");
             String date = TimeProcessor.StringToDate(startTime.substring(0, spaceIndex));
-            startTime = "from: " + date + " " + startTime.substring(spaceIndex + 1);
+            startTime = "from: " + date + " "
+                    + TimeProcessor.StringToDate(startTime.substring(spaceIndex + 1));
         } else {
             startTime = "from: " + TimeProcessor.StringToDate(startTime);
         }
