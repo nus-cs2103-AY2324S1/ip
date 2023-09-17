@@ -9,7 +9,9 @@
 
 .image-background {
     -fx-background-image: url('../images/MainWindowBackground.png');
-    -fx-background-attachment: fixed;
+    -fx-background-attachment: fit;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
 }
 
 .top-border {
@@ -28,4 +30,3 @@
     -fx-background-color: rgba(58, 58, 57, 0.9);
     -fx-background-radius: 40.0;
 }
-

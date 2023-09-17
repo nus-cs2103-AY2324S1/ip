@@ -97,7 +97,9 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-        stage.setResizable(false);
+        stage.setResizable(true);
+        stage.setMinHeight(600);
+        stage.setMinWidth(400);
 
         MainWindow mainWindow = new MainWindow(this.dot, () -> {
             handleExitApp.accept(stage);

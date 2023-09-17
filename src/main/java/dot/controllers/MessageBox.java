@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import dot.errors.TaskError;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  * MessageBox is a dynamic HBox that can receive
@@ -29,6 +31,8 @@ public class MessageBox extends HBox {
     @FXML
     private ImageView messageImage;
 
+    private MainWindow mainWindowInstance;
+
     /**
      * Constructor for custom component MessageBox.
      *
@@ -37,7 +41,9 @@ public class MessageBox extends HBox {
      * @param nodeDetails    These are the nodes contaned within the MessageBox,
      *                       and can be stated in any order.
      */
-    public MessageBox(Pos alignment, Background textBackground, Object... nodeDetails) {
+    public MessageBox(Pos alignment, Background textBackground, MainWindow m,
+                      Object... nodeDetails) {
+        mainWindowInstance = m;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MessageBox.fxml"));
             fxmlLoader.setController(this);
@@ -74,6 +80,22 @@ public class MessageBox extends HBox {
         mask.setCenterX(diameter / 2);
         mask.setCenterY(diameter / 2);
         messageImage.setClip(mask);
+
+        // Set binding for MessageBox width to follow that of MainWindow (AnchorPane)
+        this.prefWidthProperty().bind(mainWindowInstance.widthProperty());
+
+        // Set binding for Message box font size to be multiplied by the extent
+        // which MainWindow is enlarged by, capped at 2
+        messageText.fontProperty().bind(Bindings.createObjectBinding(() -> {
+            double defaultFontSize = 13.0;
+            double defaultMainWindowWidth = 400;
+            double mainWindowWidth = mainWindowInstance.getWidth();
+            double maxMultiplier = 2.0;
+            double multiplier = mainWindowWidth / defaultMainWindowWidth < 1
+                    ? 1
+                    : Math.min(mainWindowInstance.getWidth() / defaultMainWindowWidth, maxMultiplier);
+            return new Font("Baskerville", defaultFontSize * multiplier);
+        }, mainWindowInstance.widthProperty()));
     }
 
 }
