@@ -8,8 +8,6 @@ import duke.command.MarkCommand;
 import duke.command.SearchCommand;
 import duke.command.UnmarkCommand;
 
-import java.util.ArrayList;
-
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
 
 /**
