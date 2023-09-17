@@ -29,6 +29,10 @@ public class Note {
         return "N | " + this.description + "\n";
     }
 
+    /**
+     * Checks if note contains specified keyword.
+     * @return boolean to represent if note contains the keyword.
+     */
     public boolean containKeywords(String keywords) {
         String lowercaseKeywords = keywords.toLowerCase();
         String lowercaseDescription = this.description.toLowerCase();

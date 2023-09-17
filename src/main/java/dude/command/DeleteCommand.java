@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
         try {
-            output = "Executing Delete Command";
+            output = "Executing Delete Command\n";
             Task deletedTask = taskList.deleteTask(taskIndex);
             int nTasks = taskList.getSize();
             output = output + ui.showDeletedTask(deletedTask, nTasks) + "\n";

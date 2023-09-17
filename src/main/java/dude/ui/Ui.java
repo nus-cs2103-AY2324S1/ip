@@ -131,8 +131,8 @@ public class Ui {
     /**
      * Prints a statement to show the command is unknown.
      */
-    public String showUnknownCommand() {
-        String reply = " OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+    public String showUnknownCommand(String input) {
+        String reply = String.format("OOPS!!! I'm sorry, but I don't know what %s means :-(\n", input);
         return reply;
     }
 

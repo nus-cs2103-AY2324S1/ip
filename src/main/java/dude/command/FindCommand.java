@@ -24,7 +24,7 @@ public class FindCommand extends Command {
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "Executing Find Command\n";
         TaskList searchResults = taskList.findTasks(searchKeywords);
-        output = output + ui.showTaskList(searchResults);
+        output = output + ui.showTaskList(searchResults) + "\n";
         return output;
     }
 }

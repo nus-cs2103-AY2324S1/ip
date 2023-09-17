@@ -43,6 +43,10 @@ public class Task {
         return doneStatus + " " + this.description;
     }
 
+    /**
+     * Checks if task contains specified keyword.
+     * @return boolean to represent if task contains the keyword.
+     */
     public boolean containKeywords(String keywords) {
         String lowercaseKeywords = keywords.toLowerCase();
         String lowercaseDescription = this.description.toLowerCase();
