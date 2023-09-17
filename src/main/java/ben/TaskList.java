@@ -72,6 +72,7 @@ public class TaskList {
      * @return The specified task.
      */
     public Task get(int index) {
+        assert index >= 0;
         return tasks.get(index);
     }
 
