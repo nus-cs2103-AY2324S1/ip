@@ -30,7 +30,7 @@ public class Parser {
      * space and extracting the first part of the command.
      * It will match the first part to a set of allowable
      * commands and return the respective {@link Command} instance.
-     * 
+     *
      * @param input The user command.
      * @return A {@link Command} instance created according to the user command.
      * @throws DukeException Thrown when the command given
@@ -79,25 +79,26 @@ public class Parser {
      * A method to extract and join the elements from index 1 to the end.
      * Used for situations where it is needed to extract 
      * "read a book" from "todo read a book".
-     * 
+     *
      * @param item The array containing the contents to be extracted.
      * @return A string that contains the extracted contents 
      *         joined by empty space.
      */
     private static String extractTail(String[] item) {
-        return String.join(" ",
-            Arrays.copyOfRange(
+        String[] tail = Arrays.copyOfRange(
                 item, 1, item.length
-            )
         );
+        assert item.length - tail.length == 1
+                : "length of tail should be one less than item passed in";
+        return String.join(" ", tail);
     }
 
     /**
      * Parses the content of a "mark" or "unmark" command.
      * Checks if a valid number is provided.
-     * 
+     *
      * @param input The mark command.
-     * @param type Indicates whether it is parsing 
+     * @param type Indicates whether it is parsing
      *             a mark or unmark command.
      * @return A {@link MarkCommand} instance.
      * @throws DukeException Thrown when no number is given.
@@ -111,13 +112,13 @@ public class Parser {
             });
         }
 
-        return new MarkCommand(parseArr[1], type == "mark");
+        return new MarkCommand(parseArr[1], type.equals("mark"));
     }
 
     /**
      * Parses the content of a "todo" command.
      * Checks if a description was provided.
-     * 
+     *
      * @param input The todo command.
      * @return A {@link TodoCommand} instance.
      * @throws DukeException Thrown when no description
@@ -139,7 +140,7 @@ public class Parser {
      * Parses the content of a "deadline" command.
      * Checks if a description was provided
      * and if a valid date was supplied using /by.
-     * 
+     *
      * @param input The deadline command.
      * @return A {@link DeadlineCommand} instance.
      * @throws DukeException Thrown when no description
@@ -152,7 +153,7 @@ public class Parser {
         // Extract the header (command + description).
         String[] header = parseArr[0].split(" ");
 
-        // Check if task descripton exists.
+        // Check if task description exists.
         if (header.length < 2) {
             throw new DukeException(new String[] {
                 "Looks like you're missing a description:",
@@ -177,8 +178,8 @@ public class Parser {
             throw new InvalidDateParamException();
         }
         return new DeadlineCommand(
-            extractTail(header),
-            date
+                extractTail(header),
+                date
         );
     }
 
@@ -186,7 +187,7 @@ public class Parser {
      * Parses the "event" command.
      * Checks if a description was provided
      * and valid dates supplied with /from and /to.
-     * 
+     *
      * @param input The event command.
      * @return An {@link EventCommand} instance.
      * @throws DukeException Thrown when no description
@@ -236,16 +237,16 @@ public class Parser {
             throw new InvalidDateParamException();
         }
         return new EventCommand(
-            extractTail(header),
-            fromDate,
-            toDate
+                extractTail(header),
+                fromDate,
+                toDate
         );
     }
 
     /**
      * Parses the delete command.
      * Checks if a valid number was given.
-     * 
+     *
      * @param input The delete command.
      * @return A {@link DeleteCommand} instance.
      * @throws DukeException Thrown when a number is not given.

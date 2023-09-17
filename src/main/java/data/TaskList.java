@@ -66,6 +66,7 @@ public class TaskList {
      */
     public void add(Task task) {
         this.tasks.add(task);
+        assert this.tasks.contains(task);
     }
 
     /**
@@ -115,6 +116,7 @@ public class TaskList {
         }
 
         Task removedTask = this.tasks.remove(taskIndex);
+        assert !this.tasks.contains(removedTask) : "deleted task still found in tasks";
         return removedTask;
     }
 
