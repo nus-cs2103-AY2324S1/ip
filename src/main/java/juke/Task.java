@@ -56,8 +56,7 @@ public class Task {
         StringBuilder tagString = new StringBuilder();
         if (tags.size() == 0) {
             tagString = new StringBuilder("*");
-        }
-        else {
+        } else {
             for (String tag : tags) {
                 tagString.append(tag).append(" ");
             }
