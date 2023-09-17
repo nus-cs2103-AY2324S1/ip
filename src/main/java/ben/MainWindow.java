@@ -45,7 +45,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = ben.getResponse(input);
-        if (input.toLowerCase().equals("bye")) {
+        if (input.equalsIgnoreCase("bye") ||
+                input.equalsIgnoreCase("b")) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getBenDialog(Ui.bye(), dukeImage)
