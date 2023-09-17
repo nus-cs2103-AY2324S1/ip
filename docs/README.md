@@ -4,9 +4,9 @@
 
 How do you get started?
 
-- Download the latest  ` .jar ` file from [here.](https://github.com/shishirbychapur/ip/releases)
+- Download the latest  ```.jar``` file from [here.](https://github.com/shishirbychapur/ip/releases)
 - Navigate to the directory of installation, and open Terminal.
-- Run ` java -jar Duke.jar ` and enjoy the luxury of having your own manager!
+- Run ```java -jar Jarvis.jar``` and enjoy the luxury of having your own manager!
 
 What are some of the features?
 
@@ -14,6 +14,7 @@ What are some of the features?
 2. Stores and retrieves data directly to/from a designated .txt file
 3. Enables marking/unmarking of tasks on completion
 4. Grants users the ability to search for their respective task
+5. Reminders users on overdue and upcoming events and deadlines.
 
 Why choose Jarvis?
 - [x]  **Easy** to learn
@@ -23,7 +24,7 @@ Why choose Jarvis?
 
 ## Features and Usage
 
-> [!IMPORTANT]
+> **Important:**
 > - Words in UPPER_CASE are the parameters to be supplied by the user. e.g. in ```todo TASKNAME```, ```TASKNAME``` is a parameter which can be used as ```todo Buy iPad```.
 > - The parameters can contain whitespaces (e.g. ```Buy iPad```), and must be seperated from the command and the type specifiers (```/by```, ```/from```, ```/to```) by atleast 1 whitespace character from both sides. e.g. ```todoTASKNAME``` and ```deadline TASKNAME/byDATE``` are invalid, but ```deadline TASKNAME /by DATE``` is valid. 
 > - Input date for tasks like ```event``` and ```deadline``` must follow the format ```DD/MM/YY HHMM``` with ```HHMM``` following the 24 hours format. e.g. ```23/09/23 1800```.
