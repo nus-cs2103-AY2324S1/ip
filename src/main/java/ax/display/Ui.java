@@ -110,4 +110,17 @@ public class Ui {
         }
         return res.toString();
     }
+
+    public static String listDueItems() {
+        StringBuilder res = new StringBuilder();
+        for (int i = 1; i < TaskList.getListItems().size() + 1; i++) {
+            if (TaskList.getListItems().get(i - 1).isDue()) {
+                System.out.printf("%d. %s%n", i, TaskList.getListItems().get(i - 1));
+                res.append(String.format("%d. %s%n, has been due since %s",
+                        i, TaskList.getListItems().get(i - 1),
+                        TaskList.getListItems().get(i - 1).getDueDate() )).append("\n");
+            }
+        }
+        return res.toString();
+    }
 }
