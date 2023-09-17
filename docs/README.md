@@ -13,7 +13,7 @@ Find tasks related to user given keyword.
 
 ## Usage
 
-### `todo {task details}` - Create a new Todo task
+### `todo {task_details}` - Create a new Todo task
 
 Example of usage: 
 
@@ -27,7 +27,7 @@ Got it. I've added this task:
 Now you have 1 tasks(s) in the list.
 ```
 
-### `deadline {task details} /by {due date}` - Create a new deadline task
+### `deadline {task_details} /by {due date}` - Create a new deadline task
 
 Example of usage: Creates a new deadline task and adds it to your list of tasks.
 
@@ -41,7 +41,7 @@ Got it. I've added this task:
 Now you have 1 tasks(s) in the list.
 ```
 
-### `event {task details} /from {start time} to {end time}` - Create a new event task
+### `event {task_details} /from {start time} /to {end time}` - Create a new event task
 
 Example of usage: 
 
@@ -84,7 +84,7 @@ Noted. I've removed this task:
 Now you have 3 tasks in the list.
 ```
 
-### `delete {start number} {to} {end number}` - delete tasks within a range
+### `delete {start_number to end_number}` - delete tasks within a range
 
 Example of usage:
 
@@ -100,7 +100,7 @@ Task 2 to Task 4 has been deleted.
 [T][] sleep4
 ```
 
-### `mark {task index}` - Marks specified task as done
+### `mark {task_index}` - Marks specified task as done
 
 Example of usage: 
 
@@ -112,7 +112,7 @@ Expected outcome: Marks the specified task at the index as done.
 Nice! I've marked this as done:
 [T][X] sleep
 ```
-### `unmark {task index}` - Marks specified task as not done
+### `unmark {task_index}` - Marks specified task as not done
 
 Example of usage: 
 
