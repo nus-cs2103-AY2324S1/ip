@@ -36,7 +36,7 @@ public class Launcher {
 
 
         /**
-         * Return the list of task descriptions
+         * Returns the list of task descriptions
          *
          * @return an ArrayList with the String of description of each task in the file
          */
@@ -55,7 +55,7 @@ public class Launcher {
         }
 
         /**
-         * Mark the task as done
+         * Marks the task as done
          *
          * @param input string that user key in to dictate which task to mark
          * @param number number of tasks in the list
@@ -76,7 +76,7 @@ public class Launcher {
         }
 
         /**
-         * Mark task as undone
+         * Marks task as undone
          *
          * @param input string that user key in to dictate which task to unmark
          * @param number number of tasks in the list
@@ -117,7 +117,7 @@ public class Launcher {
         }
 
         /**
-         * Remove the task from the list
+         * Removes the task from the list
          *
          * @param input string that user key in to dictate which task to delete
          * @param number number of task in the list
@@ -147,7 +147,7 @@ public class Launcher {
         }
 
         /**
-         * Add the given task to the ArrayList
+         * Adds the given task to the ArrayList
          * @param task task to be added into the ArrayList
          */
         public void add(Task task) {

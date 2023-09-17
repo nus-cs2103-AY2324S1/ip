@@ -9,7 +9,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Return the string representation of the task
+     * Returns the string representation of the task
      *
      * @return string the description of task
      */
@@ -19,7 +19,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Return the string representation of the task to be saved
+     * Returns the string representation of the task to be saved
      *
      * @return the right format of description of task to save into the file
      */

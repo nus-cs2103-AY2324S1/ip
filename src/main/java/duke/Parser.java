@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Parser {
     /**
-     * Read the input from the user and carry out the required action for Gui
+     * Reads the input from the user and carry out the required action for Gui
      *
      * @param input input from the user
      * @param list TaskList created

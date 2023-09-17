@@ -23,7 +23,7 @@ public abstract class Task {
     }
 
     /**
-     * Return the right representation for whether the task is done
+     * Returns the right representation for whether the task is done
      *
      * @return string X if done and white space if not done
      */
@@ -39,7 +39,7 @@ public abstract class Task {
     }
 
     /**
-     * Change boolean of isDone to false
+     * Changes boolean of isDone to false
      */
     public void markAsNotDone() {
         this.isDone = false;
@@ -64,7 +64,7 @@ public abstract class Task {
     }
 
     /**
-     * Reutrn the string representation of boolean isDone
+     * Returns the string representation of boolean isDone
      *
      * @return string [X] for done and [ ] for not done
      */

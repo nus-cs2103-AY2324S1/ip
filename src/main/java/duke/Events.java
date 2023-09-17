@@ -17,7 +17,7 @@ public class Events extends Task {
     }
 
     /**
-     * Return the string representation of an event in the right date format
+     * Returns the string representation of an event in the right date format
      *
      * @return string with the right date format
      */
@@ -28,9 +28,9 @@ public class Events extends Task {
     }
 
     /**
-     * Return a string representation that can be saved in the file
+     * Returns the string representation that can be saved in the file
      *
-     * @return a string representation of the right format to save in the file
+     * @return a string with the representation of the right format to save in the file
      */
     public String save() {
         return "E|" + super.status() + "|" + start + "|" + end;

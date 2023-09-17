@@ -4,7 +4,7 @@
 - [Listing all tasks: `list`](https://tayruxin.github.io/ip/###list-command)
 - [Adds a new ToDo Task: `todo`](https://tayruxin.github.io/ip/#adds-a-todo-task-todo) 
 - [Adds a new Deadline Task: `deadline`](https://tayruxin.github.io/ip/#adds-a-deadline-task-deadline)
-- [Adds a new Event Task: `event'](https://tayruxin.github.io/ip/#adds-a-new-event-task-event)
+- [Adds a new Event Task: `event`](https://tayruxin.github.io/ip/#adds-a-new-event-task-event)
 - [Delete a task: `delete`](https://tayruxin.github.io/ip/#delete-a-task-delete)
 - [Find a task: `find`](https://tayruxin.github.io/ip/#find-a-task-find)
 - [Set priority for a task: `setPriority`](https://tayruxin.github.io/ip/#set-priority-for-a-task-setpriority)

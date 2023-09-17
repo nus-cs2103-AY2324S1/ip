@@ -18,7 +18,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return the string representation of deadline in the right date and time format
+     * Returns the string representation of deadline in the right date and time format
      *
      * @return a string with the right date and time format
      */

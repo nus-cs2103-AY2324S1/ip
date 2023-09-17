@@ -13,7 +13,7 @@ public class Gui {
     }
 
     /**
-     * Print a message to GUI.
+     * Prints a message to GUI.
      *
      * @param msg The message to print
      */

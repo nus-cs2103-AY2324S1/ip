@@ -13,7 +13,7 @@ public class Ui {
 
 
     /**
-     * Print the message when the chatbot first starts
+     * Prints the message when the chatbot first starts
      */
     public void showWelcomeMessage() {
         System.out.println("Hello! I'm Muddy\n" + "What can I do for you?");
@@ -21,7 +21,7 @@ public class Ui {
 
 
     /**
-     * Print the message when the chatbot exits
+     * Prints the message when the chatbot exits
      */
     public void showGoodbyeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
@@ -29,7 +29,7 @@ public class Ui {
 
 
     /**
-     * Print the error message
+     * Prints the error message
      * @param errorMessage error message to be printer
      */
     public void showError(String errorMessage) {
@@ -37,7 +37,7 @@ public class Ui {
     }
 
     /**
-     * Print the given message
+     * Prints the given message
      *
      * @param message message to be printed
      */

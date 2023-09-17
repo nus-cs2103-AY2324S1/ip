@@ -17,7 +17,7 @@ public class Storage {
     }
 
     /**
-     * Load the list of tasks from the storage file
+     * Loads the list of tasks from the storage file
      *
      * @return the array list containing all the task from the file
      * @throws DukeException if file is not found or there is IO excpetion
