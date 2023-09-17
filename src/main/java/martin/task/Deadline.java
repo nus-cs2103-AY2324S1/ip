@@ -1,5 +1,6 @@
 package martin.task;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,6 +19,11 @@ public class Deadline extends Task {
 
     public LocalDateTime getBy() {
         return by;
+    }
+
+    @Override
+    public void snooze(Duration duration) {
+        this.by = this.by.plus(duration);
     }
 
     @Override

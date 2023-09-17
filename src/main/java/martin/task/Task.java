@@ -1,5 +1,6 @@
 package martin.task;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -28,21 +29,37 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * Checks if the task's description contains the specified keyword.
+     *   
+     * @param keyword The keyword to check against the task's description.
+     * @return true if the task's description contains the keyword, otherwise false.
+     */
     public boolean contains(String keyword) {
         return description.contains(keyword);
     }
 
     /**
-     * Convert the task to its file format representation.
+     * Snoozes or postpones the task by the given duration.
      * 
-     * @return String representation of task for file storage.
+     * @param duration The amount of time to snooze or postpone the task.
+     * @throws UnsupportedOperationException if the task type does not support snoozing.
+     */
+    public void snooze(Duration duration) {
+        throw new UnsupportedOperationException("This task type cannot be snoozed.");
+    }
+
+    /**
+     * Converts the task to its corresponding file format representation.
+     * 
+     * @return A string representation of the task suitable for file storage.
      */
     public String toFileFormat() {
         return (isDone ? "1" : "0") + " | " + description;
     }
 
     /**
-     * Convert a file format string back to a Task.
+     * Converts a file format string back to a Task.
      * 
      * @param fileFormatString String representation from file.
      * @return A new Task instance.

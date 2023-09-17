@@ -113,9 +113,9 @@ public class MainWindow extends Application {
     }
 
     /**
-     * Input processing of user, and displaying of the user's text and Martin's reply.
+     * Processes user input and displays both user's text and Martin's reply.
      * 
-     * @throws IOException
+     * @throws IOException If there is an error during input/output operation.
      */
     private void handleUserInput() throws IOException {
         String input = userInput.getText();
@@ -139,9 +139,11 @@ public class MainWindow extends Application {
     }
 
     /**
-     * Execute getResponse in Martin based on the given input.
+     * Executes the getResponse method in Martin using the provided input.
      * 
-     * @throws IOException
+     * @param input The input string to get a response for.
+     * @return The response from Martin for the given input.
+     * @throws IOException If there is an error during input/output operation.
      */
     private String getResponse(String input) throws IOException {
         return martin.getResponse(input);

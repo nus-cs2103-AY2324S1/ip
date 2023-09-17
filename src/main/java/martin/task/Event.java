@@ -1,13 +1,22 @@
 package martin.task;
 
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public void snooze(Duration duration) {
+        this.from = this.from.plus(duration);
+        this.to = this.to.plus(duration);
     }
 
     @Override
