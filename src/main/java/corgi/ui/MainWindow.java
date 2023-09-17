@@ -1,6 +1,7 @@
 package corgi.ui;
 
 import corgi.Corgi;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -54,7 +56,20 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getCorgiDialog(response, corgiImage)
         );
+
+        String lowerCaseInput = input.toLowerCase();
+
+        if (lowerCaseInput.equals("bye")) {
+            Platform.runLater(() -> {
+                handleByeCommand();
+            });
+        }
+
         userInput.clear();
+    }
+
+    private void handleByeCommand() {
+        Platform.exit();
     }
 }
 
