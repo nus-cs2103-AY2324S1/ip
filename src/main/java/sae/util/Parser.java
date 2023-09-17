@@ -12,7 +12,12 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
 
     public static String executeCommand(TaskList store, String str) {
+
+        assert str != null : "Input string 'str' is null.";
+
         String[] commandTask = str.split(" ", 2);
+
+        assert commandTask.length >= 1 : "Command task array should have at least one element.";
 
         String command = commandTask[0];
         if (commandTask.length == 0) {
@@ -48,6 +53,8 @@ public class Parser {
                     return ui.bidGoodbye();
 
                 default:
+                    assert false : "Unhandled command type: " + command;
+
                     throw new IllegalArgumentException("Invalid command.");
             }
         } catch (SaeException | IllegalArgumentException errorMessage) {
@@ -56,13 +63,19 @@ public class Parser {
     }
 
     private static String handleDeleteMarkUnmark(TaskList store, String command, String[] commandTask) {
+        assert store != null : "TaskList 'store' should not be null.";
+
         if (commandTask.length < 2) {
             throw new IllegalArgumentException("Command requires an index.");
         }
+
         int number = Integer.parseInt(commandTask[1]);
         if (number < 1 || number > store.size()) {
             throw new IllegalArgumentException("Invalid task index.");
         }
+
+        assert number >= 1 && number <= store.size() : "Invalid task index.";
+
         number--; // Adjust for 0-based indexing
         if (command.equals("delete")) {
             return store.deleteTask(number);
@@ -74,6 +87,8 @@ public class Parser {
     }
 
     private static String handleTodo(TaskList store, String[] commandTask) throws SaeException {
+        assert store != null : "TaskList 'store' should not be null.";
+
         if (commandTask.length < 2 || commandTask[1].isEmpty()) {
             throw new InvalidTodoException();
         }
@@ -81,6 +96,8 @@ public class Parser {
     }
 
     private static String handleDeadline(TaskList store, String[] commandTask) throws SaeException {
+        assert store != null : "TaskList 'store' should not be null.";
+
         if (commandTask.length < 2 || !commandTask[1].contains("/by")) {
             throw new InvalidDeadlineException();
         }
