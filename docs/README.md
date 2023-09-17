@@ -4,6 +4,8 @@ via a Command Line Interface (CLI), _benefitting fast typists_** while still hav
 
 Manage your tasks effectively with Ren! 🤩
 
+![Image of ](Ui.png)
+
 ## Features 
 _Read this User Guide from top to bottom for a good flow!_
 > ℹ️ **Notes about the command format:**
