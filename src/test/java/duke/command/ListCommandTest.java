@@ -23,8 +23,8 @@ public class ListCommandTest {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
-        taskList.addTask(new Todo("test"), ui);
         try {
+            taskList.addTask(new Todo("test"), ui);
             list.execute(taskList, ui, storage);
             assert true;
         } catch (DukeException e) {

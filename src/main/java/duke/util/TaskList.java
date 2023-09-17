@@ -39,9 +39,20 @@ public class TaskList {
      * @param ui the ui to show the added task message to the user
      * @return the response message to the user.
      */
-    public String addTask(Task task, Ui ui) {
+    public String addTask(Task task, Ui ui) throws DukeException {
         assert task != null : "Task cannot be null";
         assert ui != null : "Ui cannot be null";
+        Task[] duplicateTasks = taskList.stream()
+                                        .filter(t -> t.equals(task))
+                                        .toArray(Task[]::new);
+        if (duplicateTasks.length > 0) {
+            StringBuilder errMessage = new StringBuilder();
+            errMessage.append("OOPS!!! The following task already exists:\n");
+            IntStream.range(0, duplicateTasks.length)
+                     .forEach(i -> errMessage.append(
+                             String.format("  %s\n", duplicateTasks[i])));
+            throw new DukeException(errMessage.toString());
+        }
 
         taskList.add(task);
         return ui.showAddTask(task, taskList.size());

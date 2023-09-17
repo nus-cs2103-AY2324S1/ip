@@ -79,4 +79,20 @@ public abstract class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
+
+    /**
+     * Compares the current object with the given object, it returns true
+     * if the given object is a task and has the same description.
+     *
+     * @param obj Object to be compared.
+     * @return The result of comparison.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Task)) {
+            return false;
+        }
+        Task task = (Task) obj;
+        return this.description.equals(task.description);
+    }
 }

@@ -23,8 +23,8 @@ public class DeleteCommandTest {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
-        taskList.addTask(new Todo("test"), ui);
         try {
+            taskList.addTask(new Todo("test"), ui);
             del.execute(taskList, ui, storage);
             assert true;
         } catch (DukeException e) {
@@ -52,8 +52,8 @@ public class DeleteCommandTest {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub();
         TaskList taskList = new TaskList();
-        taskList.addTask(new Todo("test"), ui);
         try {
+            taskList.addTask(new Todo("test"), ui);
             del.execute(taskList, ui, storage);
             fail();
         } catch (DukeException e) {

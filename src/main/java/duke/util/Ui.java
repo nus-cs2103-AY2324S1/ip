@@ -30,7 +30,8 @@ public class Ui {
      */
     public String showLoadingError() {
         return "OOPS!!!Something terrible happened to the data file.\n"
-               + "Don't worry I will clean up the mess!";
+                + "Don't worry I will clean up the mess!\n\n"
+                + showWelcome();
     }
 
     /**

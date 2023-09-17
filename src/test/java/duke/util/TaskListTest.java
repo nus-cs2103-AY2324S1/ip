@@ -68,8 +68,8 @@ public class TaskListTest {
     public void listTask_nonEmptyList_success() {
         TaskList taskList = new TaskList();
         UiStub ui = new UiStub();
-        taskList.addTask(new Todo("test"), ui);
         try {
+            taskList.addTask(new Todo("test"), ui);
             taskList.listTask(ui);
             assert true;
         } catch (DukeException e) {

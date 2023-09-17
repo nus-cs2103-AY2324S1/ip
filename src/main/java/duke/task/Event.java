@@ -80,4 +80,19 @@ public class Event extends Task {
                 from.format(Time.DATE_TIME_DISPLAY_FORMATTER),
                 to.format(Time.DATE_TIME_DISPLAY_FORMATTER));
     }
+
+    /**
+     * Compares the current object with the given object, it returns true
+     * if the given object is an event task and has the same description.
+     *
+     * @param obj Object to be compared.
+     * @return The result of comparison.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }

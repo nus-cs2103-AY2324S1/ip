@@ -37,4 +37,19 @@ public class Todo extends Task {
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
+
+    /**
+     * Compares the current object with the given object, it returns true
+     * if the given object is a todo task and has the same description.
+     *
+     * @param obj Object to be compared.
+     * @return The result of comparison.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Todo)) {
+            return false;
+        }
+        return super.equals(obj);
+    }
 }
