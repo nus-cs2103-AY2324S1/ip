@@ -33,6 +33,7 @@ public class Ui {
      * @param numberOfTask Number of task in the TaskList.
      */
     public String addTask(Task task, int numberOfTask) {
+        assert numberOfTask >= 0;
         return printChat("Got it, I have added this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + numberOfTask
@@ -46,6 +47,7 @@ public class Ui {
      * @param numberOfTask Number of task in the TaskList.
      */
     public String deleteTask(Task task, int numberOfTask) {
+        assert numberOfTask >= 0;
         return printChat("Noted, I have removed this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + numberOfTask
@@ -91,6 +93,7 @@ public class Ui {
      */
     public String listing(TaskList tasks) {
         String listOfTask = "Here are the list of your task:\n";
+        assert tasks.getNumberOfTask() >= 0;
         for (int i = 0; i < tasks.getNumberOfTask(); i++) {
             listOfTask = listOfTask + tasks.getTask(i).toString() + "\n";
         }
@@ -104,6 +107,7 @@ public class Ui {
      */
     public String find(TaskList tasks, String input) {
         String match = "Here are the matching tasks in your list:\n";
+        assert tasks.getNumberOfTask() >= 0;
         for (int i = 0; i < tasks.getNumberOfTask(); i++) {
             if (tasks.getTask(i).getName().contains(input)) {
                 match = match + tasks.getTask(i).toString() + "\n";

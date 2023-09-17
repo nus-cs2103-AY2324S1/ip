@@ -53,11 +53,4 @@ public abstract class Task {
      * @return Boolean that represent whether the input is a task.
      * @throws DukeException Exception where the input is not a task.
      */
-    public static boolean isTask(String input) throws DukeException {
-        if(input.split( " ")[0].equals("todo") || input.split( " ")[0].equals("deadline") || input.split( " ")[0].equals("event")) {
-            return true;
-        } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
-        }
-    }
 }

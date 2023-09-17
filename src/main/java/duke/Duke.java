@@ -49,6 +49,7 @@ public class Duke {
      * @return the response
      */
     public String getResponse(String input) {
+        assert input.length() >= 0;
         try {
             return Parser.parse(input, ui, storage, tasks);
         } catch (DukeException e) {
