@@ -5,6 +5,8 @@ import java.util.List;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidInputException;
+import duke.notes.Note;
+import duke.notes.NoteList;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -19,6 +21,7 @@ public class Duke {
 
     private Storage storage;
     private TaskList tasks;
+    private NoteList notes;
     private Ui ui;
 
     /**
@@ -27,7 +30,51 @@ public class Duke {
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();
-        this.tasks = new TaskList(storage.readFile());
+        this.tasks = new TaskList(storage.readTaskFile());
+        this.notes = new NoteList(storage.readNoteFile());
+    }
+
+    private String taskAdded(String input, Commands command) throws DukeException {
+        if (command.equals(Commands.NOTE)) {
+            Note n = NoteList.createNote(input);
+            assert n != null : "Note was not created";
+            notes.addNote(n);
+            return ui.showNoteAdded(n.getNote());
+        } else {
+            Task t = TaskList.createTask(input, command, 0);
+            assert t != null : "Task was not created";
+            tasks.addTask(t);
+            return ui.showTaskAdded(t.getTask());
+        }
+    }
+
+    private String getList() {
+        String output;
+        if (tasks.isEmpty() && notes.isEmpty()) {
+            return ui.showNoTasks() + "\n" + ui.showNoNotes();
+        } else if (tasks.isEmpty()) {
+            return ui.showNoTasks() + "\n" + ui.showNotes(notes.getNotesDes(1));
+        } else {
+            return ui.showTasks(tasks.getTasksDes(1), 0)
+                    + "\n" + ui.showNotes(notes.getNotesDes(1));
+        }
+    }
+
+    private String taskActions(String input, Commands command) throws DukeException{
+        switch(command) {
+        case UNMARK:
+        case MARK:
+            return tasks.changeTaskCompletion(input, command);
+        case FIND:
+            List<String> matchingTasks = tasks.findTask(input);
+            return ui.showTasks(matchingTasks, 1);
+        case DELETET:
+            return tasks.deleteTask(input);
+        case DELETEN:
+            return notes.deleteNote(input);
+        default:
+            throw new InvalidInputException("Invalid input");
+        }
     }
 
     /**
@@ -36,52 +83,31 @@ public class Duke {
      * @return Toothless' response
      */
     public String getResponse(String input) {
-
         String output;
         Commands command = Parser.determineCommand(input);
 
         try {
-
             switch (command) {
             case TODO:
             case DEADLINE:
             case EVENT:
-                Task t = TaskList.createTask(input, command, 0);
-                assert t != null : "Task was not created";
-                tasks.addTask(t);
-                output = ui.showTaskAdded(t.getTask());
+            case NOTE:
+                output = taskAdded(input, command);
                 break;
-
             case LIST:
-                if (tasks.isEmpty()) {
-                    output = ui.showNoTasks();
-                } else {
-                    output = ui.showTasks(tasks.getTasksDes(1), 0);
-                }
+                output = getList();
                 break;
-
-
             case UNMARK:
             case MARK:
-                String completionStatus = tasks.changeTaskCompletion(input, command);
-                output = completionStatus;
-                break;
-
             case FIND:
-                List<String> matchingTasks = tasks.findTask(input);
-                output = ui.showTasks(matchingTasks, 1);
+            case DELETET:
+            case DELETEN:
+                output = taskActions(input, command);
                 break;
-
-            case DELETE:
-                String deleteStatus = tasks.deleteTask(input);
-                output = deleteStatus;
-                break;
-
             case BYE:
-                String savedStatus = storage.saveToDisk(tasks.getTasksDes(0));
+                String savedStatus = storage.saveToDisk(tasks.getTasksDes(0), notes.getNotesDes(0));
                 output = savedStatus + "\n" + ui.farewell();
                 break;
-
             case UNKNOWN:
             default:
                 throw new InvalidInputException("Invalid input");
@@ -93,7 +119,6 @@ public class Duke {
         } catch (Exception e) {
             output = ui.showGeneralError();
         }
-
         assert !output.isEmpty() : "No output received";
         return output;
     }

@@ -3,15 +3,17 @@ package duke.utils;
 import java.util.List;
 
 import duke.exceptions.DukeException;
+import duke.notes.Note;
 
 /**
  * User interface for the chatbot.
  */
 public class Ui {
 
-    private String farewell = "Goodbye. Hope to see you soon!\n"
-            + "---------------------------------";
+    private String farewell = "Goodbye. Hope to see you soon!";
     private String addTask = "A new task has been added!\n ";
+
+    private String addNote = "A new note has been added! \n";
 
     /**
      * Bids farewell to the user.
@@ -51,10 +53,25 @@ public class Ui {
     }
 
     /**
+     * Confirms that a note has been added.
+     * @param noteDescription Description of the note added.
+     */
+    public String showNoteAdded(String noteDescription) {
+        return addNote + noteDescription;
+    }
+
+    /**
      * Displays a message when there are no tasks in the list.
      */
     public String showNoTasks() {
         return "You have no tasks! Yay :)";
+    }
+
+    /**
+     * Displays a message when there are no notes in the list.
+     */
+    public String showNoNotes() {
+        return "There are no notes saved! Add some notes to view them :)";
     }
 
     /**
@@ -74,6 +91,24 @@ public class Ui {
             }
             for (int i = 0; i < tasksDescriptions.size(); i++) {
                 String description = (i + 1) + ": " + tasksDescriptions.get(i) + "\n";
+                output += description;
+            }
+            return output;
+        }
+    }
+
+    /**
+     * Lists out all the notes in the list.
+     * @param notesDescriptions The list of descriptions of the notes.
+     */
+    public String showNotes(List<String> notesDescriptions) {
+        String output = "";
+        if (notesDescriptions.isEmpty()) {
+            return showNoNotes();
+        } else {
+            output = "Here's your stored notes!\n";
+            for (int i = 0; i < notesDescriptions.size(); i++) {
+                String description = (i + 1) + ": " + notesDescriptions.get(i) + "\n";
                 output += description;
             }
             return output;

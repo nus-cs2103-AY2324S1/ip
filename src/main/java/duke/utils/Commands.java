@@ -7,11 +7,13 @@ public enum Commands {
     TODO,
     DEADLINE,
     EVENT,
+    NOTE,
     LIST,
     UNMARK,
     MARK,
     FIND,
-    DELETE,
+    DELETET,
+    DELETEN,
     BYE,
     UNKNOWN
 }

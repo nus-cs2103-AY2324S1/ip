@@ -55,34 +55,29 @@ public class TaskList {
      */
     public static Task createTask(String input, Commands command, int isDone)
             throws DukeException, DateTimeParseException {
-
         assert command != null: "No command received";
         assert !input.isEmpty() : "Wrong command provided";
 
-        try {
-            switch (command) {
-            case TODO:
-                String todoTitle = Parser.obtainTitle(input, Commands.TODO);
-                return new ToDo(todoTitle, isDone);
+        switch (command) {
+        case TODO:
+            String todoTitle = Parser.obtainTitle(input, Commands.TODO);
+            return new ToDo(todoTitle, isDone);
 
-            case DEADLINE:
-                String deadlineTitle = Parser.obtainTitle(input, Commands.DEADLINE);
-                String by = Parser.obtainDate(input, Commands.DEADLINE);
-                LocalDate byDate = DukeDateFormat.stringToDate(by);
-                return new Deadline(deadlineTitle, isDone, byDate);
+        case DEADLINE:
+            String deadlineTitle = Parser.obtainTitle(input, Commands.DEADLINE);
+            String by = Parser.obtainDate(input, Commands.DEADLINE);
+            LocalDate byDate = DukeDateFormat.stringToDate(by);
+            return new Deadline(deadlineTitle, isDone, byDate);
 
-            case EVENT:
-                String eventTitle = Parser.obtainTitle(input, Commands.EVENT);
-                String fromTo = Parser.obtainDate(input, Commands.EVENT);
-                LocalDate from = DukeDateFormat.stringToDate(fromTo.split("/to")[0]);
-                LocalDate to = DukeDateFormat.stringToDate(fromTo.split("/to")[1]);
-                return new Event(eventTitle, isDone, from, to);
+        case EVENT:
+            String eventTitle = Parser.obtainTitle(input, Commands.EVENT);
+            String fromTo = Parser.obtainDate(input, Commands.EVENT);
+            LocalDate from = DukeDateFormat.stringToDate(fromTo.split("/to")[0]);
+            LocalDate to = DukeDateFormat.stringToDate(fromTo.split("/to")[1]);
+            return new Event(eventTitle, isDone, from, to);
 
-            default:
-                throw new InvalidInputException("Invalid input");
-            }
-        } catch (DukeException | DateTimeParseException e) {
-            throw e;
+        default:
+            throw new InvalidInputException("Invalid input");
         }
     }
 
