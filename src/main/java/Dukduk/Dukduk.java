@@ -1,6 +1,5 @@
 package dukduk;
 
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -28,76 +27,59 @@ public class Dukduk {
     }
 
     /**
-     * Runs the Dukduk chatbot, handling user input and managing tasks.
+     * Manages the reply for inputs to dukduk chatbot.
      */
-    public void run() {
-        Ui.printGreetings();
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            try {
-                System.out.print(" ");
-                String input = scanner.nextLine();
-                Ui.printLine();
-
-                if (input.equalsIgnoreCase("bye")) {
-                    Ui.printExit();
-                    scanner.close();
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
+    public String reply(String input) {
+        try {
+            Parser parser = new Parser(input);
+            String firstInput = parser.getCommand();
+            switch (firstInput) {
+                case "bye":
+                    Storage.saveTasksToFile(filePath, this.tasks.getTasks());
+                    return this.ui.printExit();
+                case "list":
                     if (this.tasks.getTaskCount() == 0) {
                         System.out.println(" No tasks added yet.");
                     } else {
-                        Ui.printTasks(this.tasks.getTasks());
+                        return this.ui.printTasks(this.tasks.getTasks());
                     }
-                } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+                case "todo":
+                case "deadline":
+                case "event":
                     Task task = Parser.parseTask(input);
                     this.tasks.addTask(task);
                     Storage.saveTasksToFile(filePath, this.tasks.getTasks());
-                    Ui.addTask(this.tasks.getTasks());
-                } else if (input.startsWith("mark")) {
+                    return this.ui.addTask(this.tasks.getTasks());
+                case "mark":
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     this.tasks.markTaskAsDone(taskIndex);
                     Storage.saveTasksToFile(filePath, this.tasks.getTasks());
-                    Ui.markAsDone(this.tasks.getTasks(), taskIndex);
-                } else if (input.startsWith("unmark")) {
-                    int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                    this.tasks.unMarkTask(taskIndex);
+                    return this.ui.markAsDone(this.tasks.getTasks(), taskIndex);
+                case "unmark":
+                    int unmarkTaskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                    this.tasks.unMarkTask(unmarkTaskIndex);
                     Storage.saveTasksToFile(filePath, this.tasks.getTasks());
-                    Ui.markAsNotDone(this.tasks.getTasks(), taskIndex);
-                } else if (input.startsWith("delete")) {
+                    return this.ui.markAsNotDone(this.tasks.getTasks(), unmarkTaskIndex);
+                case "delete":
                     try {
                         String[] parts = input.split(" ");
                         if (parts.length != 2) {
                             throw new DukdukException("OOPS!!! Please specify the task number to delete.");
                         }
-                        int taskIndex = Integer.parseInt(parts[1]) - 1;
-                        this.tasks.deleteTask(taskIndex);
-                        Storage.saveTasksToFile(filePath, this.tasks.getTasks());
+                        int deleteTaskIndex = Integer.parseInt(parts[1]) - 1;
+                        return this.tasks.deleteTask(deleteTaskIndex);
                     } catch (DukdukException e) {
-                        Ui.printErrorMsg(e);
+                        this.ui.printErrorMsg(e);
                     }
-                } else if (input.startsWith("find")) {
+                case "find":
                     String keyword = input.substring(5).trim();
                     ArrayList<Task> matchingTasks = this.tasks.findTasks(keyword);
-                    Ui.printTasksIfFound(matchingTasks);
-                } else {
-                    throw new DukdukException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
-                Ui.printLine();
-            } catch (DukdukException e) {
-                Ui.printErrorMsg(e);
-                Ui.printLine();
+                    return this.ui.printTasksIfFound(matchingTasks);
+                default:
+                    return this.ui.printHelpMessage();
             }
+        } catch (DukdukException e) {
+            return this.ui.printErrorMsg(e);
         }
-    }
-
-    /**
-     * The main entry point for the Dukduk chatbot.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Dukduk("src/main/java/data/duke.txt").run();
     }
 }
