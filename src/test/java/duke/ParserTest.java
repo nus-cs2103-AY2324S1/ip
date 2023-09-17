@@ -12,17 +12,17 @@ public class ParserTest {
 
     @Test
     public void isValidDate_correctInput_test() {
-        assertTrue(Parser.isValidDate("20/11/2000 1800"));
+        assertTrue(DateParser.isValidDate("20/11/2000 1800"));
     }
 
     @Test
     public void isValidDate_invalidInput1_test() {
-        assertFalse(Parser.isValidDate("20-11-2000 1800"));
+        assertFalse(DateParser.isValidDate("20-11-2000 1800"));
     }
 
     @Test
     public void isValidDate_invalidInput2_test() {
-        assertFalse(Parser.isValidDate("20/11/2000"));
+        assertFalse(DateParser.isValidDate("20/11/2000"));
     }
 
     @Test
