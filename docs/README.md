@@ -4,7 +4,7 @@
 
 ### Add tasks
 
-Assign tasks to Beary for tracking. Tasks can be classified as todo, deadline and event.
+Assign tasks to Beary for tracking. Tasks can be classified as todo, deadline or event.
 
 ### List tasks
 
