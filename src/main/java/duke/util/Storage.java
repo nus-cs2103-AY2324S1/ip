@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import duke.exception.DukeException;
@@ -53,36 +54,24 @@ public class Storage {
      * @return Returns the string representation of a date YYYY-MM-DD.
      */
     private String formatDate(String date) {
-        String dateString = date;
-        String month = dateString.substring(0, 3);
-        String day = dateString.substring(4, 6);
-        String year = dateString.substring(7, 11);
+        HashMap<String, String> monthMap = new HashMap<>();
+        monthMap.put("Jan", "01");
+        monthMap.put("Feb", "02");
+        monthMap.put("Mar", "03");
+        monthMap.put("Apr", "04");
+        monthMap.put("May", "05");
+        monthMap.put("Jun", "06");
+        monthMap.put("Jul", "07");
+        monthMap.put("Aug", "08");
+        monthMap.put("Sep", "09");
+        monthMap.put("Oct", "10");
+        monthMap.put("Nov", "11");
+        monthMap.put("Dec", "12");
 
-        if (month.equals("Jan")) {
-            month = "01";
-        } else if (month.equals("Feb")) {
-            month = "02";
-        } else if (month.equals("Mar")) {
-            month = "03";
-        } else if (month.equals("Apr")) {
-            month = "04";
-        } else if (month.equals("May")) {
-            month = "05";
-        } else if (month.equals("Jun")) {
-            month = "06";
-        } else if (month.equals("Jul")) {
-            month = "07";
-        } else if (month.equals("Aug")) {
-            month = "08";
-        } else if (month.equals("Sep")) {
-            month = "09";
-        } else if (month.equals("Oct")) {
-            month = "10";
-        } else if (month.equals("Nov")) {
-            month = "11";
-        } else if (month.equals("Dec")) {
-            month = "12";
-        }
+        String[] parts = date.split("-");
+        String day = parts[0];
+        String month = monthMap.get(parts[1]);
+        String year = parts[2];
 
         return String.format("%s-%s-%s", year, month, day);
     }

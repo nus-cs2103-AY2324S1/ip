@@ -38,63 +38,144 @@ public class Parser {
         } else if (input.equals("list")) {
             return new ListCommand();
         } else if (input.startsWith("mark")) {
-            String number = input.replaceFirst("mark", "").trim();
-            checkRange(number, size);
-
-            int index = Integer.parseInt(number);
-            return new MarkDoneCommand(index);
+            return parseMarkCommand(input, size);
         } else if (input.startsWith("unmark")) {
-            String number = input.replaceFirst("unmark", "").trim();
-            checkRange(number, size);
-
-            int index = Integer.parseInt(number);
-            return new UnmarkDoneCommand(index);
+            return parseUnmarkCommand(input, size);
         } else if (input.startsWith("todo")) {
-            String description = input.replaceFirst("todo", "").trim();
-            checkToDo(description);
-
-            return new AddToDoCommand(description);
+            return parseAddToDoCommand(input, size);
         } else if (input.startsWith("deadline")) {
-            String[] deadlineString = input.replaceFirst("deadline", "")
-                    .split("/", 2);
-            checkDeadline(deadlineString);
-
-            String deadlineDate = deadlineString[1].replaceFirst("by", "").trim();
-            checkDate(deadlineDate);
-
-            String description = deadlineString[0].trim();
-            LocalDate d = LocalDate.parse(deadlineDate);
-
-            return new AddDeadlineCommand(description, d);
+            return parseAddDeadlineCommand(input, size);
         } else if (input.startsWith("event")) {
-            String[] eventString = input.replaceFirst("event", "").split("/", 3);
-            checkEvent(eventString);
-
-            String start = eventString[1].replaceFirst("from", "").trim();
-            String end = eventString[2].replaceFirst("to", "").trim();
-            checkDate(start);
-            checkDate(end);
-
-            String description = eventString[0].trim();
-            LocalDate d1 = LocalDate.parse(start);
-            LocalDate d2 = LocalDate.parse(end);
-
-            return new AddEventCommand(description, d1, d2);
+            return parseAddEventCommand(input, size);
         } else if (input.startsWith("delete")) {
-            String number = input.replaceFirst("delete", "").trim();
-            checkRange(number, size);
-
-            int index = Integer.parseInt(number);
-            return new DeleteCommand(index);
+            return parseDeleteCommand(input, size);
         } else if (input.startsWith("find")) {
-            String keyword = input.replaceFirst("find", "").trim();
-            checkFind(keyword);
-            return new FindCommand(keyword);
+            return parseFindCommand(input, size);
         } else if (input.equals("sort")) {
             return new SortCategoryCommand();
         } else {
             throw new DukeException("Boop Beep OOPS! I'm sorry, but I don't know what that means :(");
         }
+    }
+
+    /**
+     * Returns MarkCommand corresponding to input.
+     *
+     * @param input This is the user's input.
+     * @param size This is the size of the current task list.
+     * @return Returns corresponding MarkCommand.
+     * @throws DukeException On input error.
+     */
+    private static Command parseMarkCommand(String input, int size) throws DukeException {
+        String number = input.replaceFirst("mark", "").trim();
+        checkRange(number, size);
+        int index = Integer.parseInt(number);
+        return new MarkDoneCommand(index);
+    }
+
+    /**
+     * Returns UnmarkCommand corresponding to input.
+     *
+     * @param input This is the user's input.
+     * @param size This is the size of the current task list.
+     * @return Returns corresponding UnmarkCommand.
+     * @throws DukeException On input error.
+     */
+    private static Command parseUnmarkCommand(String input, int size) throws DukeException {
+        String number = input.replaceFirst("unmark", "").trim();
+        checkRange(number, size);
+        int index = Integer.parseInt(number);
+        return new UnmarkDoneCommand(index);
+    }
+
+    /**
+     * Returns AddToDoCommand corresponding to input.
+     *
+     * @param input This is the user's input.
+     * @param size This is the size of the current task list.
+     * @return Returns corresponding AddToDoCommand.
+     * @throws DukeException On input error.
+     */
+    private static Command parseAddToDoCommand(String input, int size) throws DukeException {
+        String description = input.replaceFirst("todo", "").trim();
+        checkToDo(description);
+        return new AddToDoCommand(description);
+    }
+
+    /**
+     * Returns AddDeadlineCommand corresponding to input.
+     *
+     * @param input This is the user's input.
+     * @param size This is the size of the current task list.
+     * @return Returns corresponding AddDeadlineCommand.
+     * @throws DukeException On input error.
+     */
+    private static Command parseAddDeadlineCommand(String input, int size) throws DukeException {
+        String[] deadlineString = input.replaceFirst("deadline", "")
+                .split("/", 2);
+        checkDeadline(deadlineString);
+
+        String deadlineDate = deadlineString[1].replaceFirst("by", "").trim();
+        checkDate(deadlineDate);
+
+        String description = deadlineString[0].trim();
+        LocalDate d = LocalDate.parse(deadlineDate);
+
+        return new AddDeadlineCommand(description, d);
+    }
+
+    /**
+     * Returns AddEventCommand corresponding to input.
+     *
+     * @param input This is the user's input.
+     * @param size This is the size of the current task list.
+     * @return Returns corresponding AddEventCommand.
+     * @throws DukeException On input error.
+     */
+    private static Command parseAddEventCommand(String input, int size) throws DukeException {
+        String[] eventString = input.replaceFirst("event", "").split("/", 3);
+        checkEvent(eventString);
+
+        String start = eventString[1].replaceFirst("from", "").trim();
+        String end = eventString[2].replaceFirst("to", "").trim();
+        checkDate(start);
+        checkDate(end);
+
+        String description = eventString[0].trim();
+        LocalDate d1 = LocalDate.parse(start);
+        LocalDate d2 = LocalDate.parse(end);
+
+        return new AddEventCommand(description, d1, d2);
+    }
+
+    /**
+     * Returns DeleteCommand corresponding to input.
+     *
+     * @param input This is the user's input.
+     * @param size This is the size of the current task list.
+     * @return Returns corresponding DeleteCommand.
+     * @throws DukeException On input error.
+     */
+    private static Command parseDeleteCommand(String input, int size) throws DukeException {
+        String number = input.replaceFirst("delete", "").trim();
+        checkRange(number, size);
+
+        int index = Integer.parseInt(number);
+        return new DeleteCommand(index);
+    }
+
+    /**
+     * Returns FindCommand corresponding to input.
+     *
+     * @param input This is the user's input.
+     * @param size This is the size of the current task list.
+     * @return Returns corresponding FindCommand.
+     * @throws DukeException On input error.
+     */
+    private static Command parseFindCommand(String input, int size) throws DukeException {
+        String keyword = input.replaceFirst("find", "").trim();
+        checkFind(keyword);
+        return new FindCommand(keyword);
     }
 
     /**
@@ -123,7 +204,7 @@ public class Parser {
     }
 
     /**
-     * Check whethers the user input for creating a todo is valid.
+     * Checks whether the user input for creating a ToDo is valid.
      *
      * @param description The string representation of the todo description.
      * @throws DukeException On input error.

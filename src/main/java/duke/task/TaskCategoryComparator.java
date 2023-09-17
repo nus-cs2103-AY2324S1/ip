@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -16,41 +17,14 @@ public class TaskCategoryComparator implements Comparator<Task> {
      */
     @Override
     public int compare(Task t1, Task t2) {
-        String taskString = t1.toString();
-        String otherTaskString = t2.toString();
+        String taskType1 = t1.toString().substring(1, 2);
+        String taskType2 = t2.toString().substring(1, 2);
 
-        boolean isTaskToDo = taskString.startsWith("[T]");
-        boolean isTaskDeadline = taskString.startsWith("[D]");
-        boolean isTaskEvent = taskString.startsWith("[E]");
+        String[] taskTypeOrder = {"T", "D", "E"};
 
-        boolean isOtherTaskToDo = otherTaskString.startsWith("[T]");
-        boolean isOtherTaskDeadline = otherTaskString.startsWith("[D]");
-        boolean isOtherTaskEvent = otherTaskString.startsWith("[E]");
+        int index1 = Arrays.asList(taskTypeOrder).indexOf(taskType1);
+        int index2 = Arrays.asList(taskTypeOrder).indexOf(taskType2);
 
-        if (isTaskToDo) {
-            if (isOtherTaskToDo) {
-                return 0;
-            } else {
-                return -1;
-            }
-        } else if (isTaskDeadline) {
-            if (isOtherTaskToDo) {
-                return 1;
-            } else if (isOtherTaskDeadline) {
-                return 0;
-            } else {
-                return -1;
-            }
-        } else if (isTaskEvent) {
-            if (isOtherTaskToDo || isOtherTaskDeadline) {
-                return 1;
-            } else if (isOtherTaskEvent) {
-                return 0;
-            } else {
-                return -1;
-            }
-        } else {
-            return 0;
-        }
+        return Integer.compare(index1, index2);
     }
 }
