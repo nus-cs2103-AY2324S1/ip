@@ -24,7 +24,7 @@ Lists all the tasks in the list currently.
 
 Format: `list`
 
-![alt text](list.png)
+![alt text](List.png)
 
 ### Adding a task to do. `todo` `T`
 Adds a task to do in the list.  
