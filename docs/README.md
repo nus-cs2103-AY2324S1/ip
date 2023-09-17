@@ -1,10 +1,16 @@
-# User Guide
+# CR7 Chatbot User Guide
 
 ## Features 
 
-### Feature-ABC
+### Adding and Deleting of new tasks
 
-Description of the feature.
+The chatbot allows you to create various types of new tasks that you can store in the chatbot. The chatbot supports these task types:
+
+1. ToDo tasks
+   - Tasks with a description but no time constraints. To create a ToDo task, type _todo (description)_
+3. Deadline tasks
+4. Event tasks
+5. Fixed Duration tasks
 
 ### Feature-XYZ
 
