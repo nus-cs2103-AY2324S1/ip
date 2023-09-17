@@ -7,8 +7,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 public class Event extends Task {
-    // protected String from;
-    // protected String to;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
@@ -27,14 +25,14 @@ public class Event extends Task {
 
     private LocalDateTime parseDateTime (String dateTimeString) {
         try {
-            if (!dateTimeString.isEmpty()) {
-                return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            if (dateTimeString.isEmpty()) {
+                return null;
             }
+            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException e) {
             System.out.println("Error parsing date and time: " + dateTimeString);
             return null;
         }
-        return null;
     }
 
     private String formatDateTime (LocalDateTime dateTime) {

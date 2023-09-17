@@ -36,42 +36,41 @@ public class Ui {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
 
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] taskData = line.split(" \\| ");
-                    if (taskData.length >= 2) {
-                        Storage.TaskType taskType = Storage.TaskType.valueOf(taskData[0]);
-                        String taskDescription = taskData[1];
-                        String taskTime1 = (taskData.length > 2) ? taskData[2] : "";
-                        String taskTime2 = (taskData.length > 3) ? taskData[3] : "";
-
-                        switch (taskType) {
-                        case TODO:
-                            tasks.addTask(new Todo(taskDescription));
-                            break;
-                        case DEADLINE:
-                            tasks.addTask(new Deadline(taskDescription, taskTime1));
-                            break;
-                        case EVENT:
-                            tasks.addTask(new Event(taskDescription, taskTime1, taskTime2));
-                            break;
-                        default:
-                            System.out.println("Invalid task type: " + taskType);
-                            break;
-                        }
-                    } else {
-                        System.out.println("Skipping corrupted task data: " + line);
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("Error loading tasks.");
-            }
-        } else {
+        if (!file.exists()) {
             System.out.println("Data file does not exist.");
+            return tasks;
         }
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] taskData = line.split(" \\| ");
+                if (taskData.length < 2) {
+                    System.out.println("Skipping corrupted task data: " + line);
+                    return tasks;
+                }
 
+                Storage.TaskType taskType = Storage.TaskType.valueOf(taskData[0]);
+                String taskDescription = taskData[1];
+                String taskTime1 = (taskData.length > 2) ? taskData[2] : "";
+                String taskTime2 = (taskData.length > 3) ? taskData[3] : "";
+                switch (taskType) {
+                case TODO:
+                    tasks.addTask(new Todo(taskDescription));
+                    break;
+                case DEADLINE:
+                    tasks.addTask(new Deadline(taskDescription, taskTime1));
+                    break;
+                case EVENT:
+                    tasks.addTask(new Event(taskDescription, taskTime1, taskTime2));
+                    break;
+                default:
+                    System.out.println("Invalid task type: " + taskType);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks.");
+        }
         return tasks;
     }
 
@@ -83,81 +82,173 @@ public class Ui {
      * @param storage      The storage object to save tasks.
      * @return      True if the program should exit.
      */
-    public boolean handleCommand(String userCommand, TaskList tasks, Storage storage) {
+    public String handleCommand(String userCommand, TaskList tasks, Storage storage) {
+        String output = "";
         try {
             String[] parts = userCommand.split(" ", 2);
             String commandType = parts[0].toLowerCase();
 
             switch (commandType) {
             case "bye":
-                showExit();
-                storage.saveTasks(tasks);
-                return true;
+                output = handleByeCommand(tasks, storage);
+                break;
             case "list":
-                showTaskList(tasks);
+                output = showTaskList(tasks);
                 break;
             case "mark":
-                int doneTaskIndex = Integer.parseInt(parts[1]) - 1;
-                tasks.markTaskAsDone(doneTaskIndex);
-                showTaskMarkedAsDone(tasks.getTask(doneTaskIndex));
-                storage.saveTasks(tasks);
+                output = handleMarkCommand(parts, tasks, storage);
                 break;
             case "unmark":
-                int notDoneTaskIndex = Integer.parseInt(parts[1]) - 1;
-                tasks.markTaskAsNotDone(notDoneTaskIndex);
-                showTaskMarkedAsNotDone(tasks.getTask(notDoneTaskIndex));
-                storage.saveTasks(tasks);
+                output = handleUnmarkCommand(parts, tasks, storage);
                 break;
             case "todo":
-                if (parts.length == 1) {
-                    System.out.println("What you want to do?");
-                    break;
-                }
+                output = handleTodoCommand(userCommand, tasks, storage);
+                break;
             case "deadline":
-                if (parts.length == 1) {
-                    System.out.println("What deadline do you have?");
-                    break;
-                }
+                output = handleDeadlineCommand(userCommand, tasks, storage);
+                break;
             case "event":
-                if (parts.length == 1) {
-                    System.out.println("What event do you have?");
-                    break;
-                }
-                Task newTask = Parser.parse(userCommand);
-                if (newTask == null) {
-                    break;
-                }
-                tasks.addTask(newTask);
-                showTaskAdded(newTask, tasks.size());
-                storage.saveTasks(tasks);
+                output = handleEventCommand(userCommand, tasks, storage);
                 break;
             case "delete":
-                int deletedTaskIndex = Integer.parseInt(parts[1]) - 1;
-                tasks.deleteTask(deletedTaskIndex);
-                showTaskDeleted(tasks.size());
-                storage.saveTasks(tasks);
+                output = handleDeleteCommand(parts, tasks, storage);
                 break;
             case "find":
-                if (parts.length == 1) {
-                    System.out.println("Please specify a keywork to search for.");
-                } else {
-                    showFindCommand(parts[1], tasks);
-                }
+                output = handleFindCommand(parts, tasks);
                 break;
             default:
-                showError("Invalid command format.");
+                output = showError(userCommand);
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            showError("Invalid command format.");
+            return showError("Invalid command format.");
         }
-        return false;
+        return output;
+    }
+
+    /**
+     * Handles the 'bye' command.
+     *
+     * @param tasks   The TaskList containing tasks.
+     * @param storage The Storage object for saving tasks.
+     */
+    public String handleByeCommand(TaskList tasks, Storage storage) {
+        storage.saveTasks(tasks);
+        return showExit();
+
+    }
+
+    /**
+     * Handles the 'mark' command.
+     *
+     * @param parts   An array containing command parts.
+     * @param tasks   The TaskList containing tasks.
+     * @param storage The Storage object for saving tasks.
+     */
+    public String handleMarkCommand(String[] parts, TaskList tasks, Storage storage) {
+        int doneTaskIndex = Integer.parseInt(parts[1]) - 1;
+        tasks.markTaskAsDone(doneTaskIndex);
+        storage.saveTasks(tasks);
+        return showTaskMarkedAsDone(tasks.getTask(doneTaskIndex));
+    }
+
+    /**
+     * Handles the 'unmark' command.
+     *
+     * @param parts   An array containing command parts.
+     * @param tasks   The TaskList containing tasks.
+     * @param storage The Storage object for saving tasks.
+     */
+    public String handleUnmarkCommand(String[] parts, TaskList tasks, Storage storage) {
+        int notDoneTaskIndex = Integer.parseInt(parts[1]) - 1;
+        tasks.markTaskAsNotDone(notDoneTaskIndex);
+        storage.saveTasks(tasks);
+        return showTaskMarkedAsNotDone(tasks.getTask(notDoneTaskIndex));
+    }
+
+    /**
+     * Handles the 'todo' command.
+     *
+     * @param userCommand A string representing user command.
+     * @param tasks   The TaskList containing tasks.
+     * @param storage The Storage object for saving tasks.
+     */
+    public String handleTodoCommand(String userCommand, TaskList tasks, Storage storage) {
+        Task newTask = Parser.parse(userCommand);
+        if (newTask == null) {
+            return "Please describe what you want to do!";
+        }
+        tasks.addTask(newTask);
+        storage.saveTasks(tasks);
+        return showTaskAdded(newTask, tasks.size());
+    }
+
+    /**
+     * Handles the 'deadline' command.
+     *
+     * @param userCommand A string representing user command.
+     * @param tasks   The TaskList containing tasks.
+     * @param storage The Storage object for saving tasks.
+     */
+    public String handleDeadlineCommand(String userCommand, TaskList tasks, Storage storage) {
+        Task newTask = Parser.parse(userCommand);
+        if (newTask == null) {
+            return "Please describe your deadline!";
+        }
+        tasks.addTask(newTask);
+        storage.saveTasks(tasks);
+        return showTaskAdded(newTask, tasks.size());
+    }
+
+    /**
+     * Handles the 'event' command.
+     *
+     * @param userCommand A string representing user command.
+     * @param tasks   The TaskList containing tasks.
+     * @param storage The Storage object for saving tasks.
+     */
+    public String handleEventCommand(String userCommand, TaskList tasks, Storage storage) {
+        Task newTask = Parser.parse(userCommand);
+        if (newTask == null) {
+            return "Please describe your event!";
+        }
+        tasks.addTask(newTask);
+        storage.saveTasks(tasks);
+        return showTaskAdded(newTask, tasks.size());
+    }
+
+    /**
+     * Handles the 'delete' command.
+     *
+     * @param parts   An array containing command parts.
+     * @param tasks   The TaskList containing tasks.
+     * @param storage The Storage object for saving tasks.
+     */
+    public String handleDeleteCommand(String[] parts, TaskList tasks, Storage storage) {
+        int deletedTaskIndex = Integer.parseInt(parts[1]) - 1;
+        tasks.deleteTask(deletedTaskIndex);
+        storage.saveTasks(tasks);
+        return showTaskDeleted(tasks.size());
+    }
+
+    /**
+     * Handles the 'find' command.
+     *
+     * @param parts   An array containing command parts.
+     * @param tasks   The TaskList containing tasks.
+     */
+    public String handleFindCommand(String[] parts, TaskList tasks) {
+        if (parts.length == 1) {
+            return "Please specify a keyword to search for.";
+        } else {
+            return showFindCommand(parts[1], tasks);
+        }
     }
 
     /**
      * Displays a welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hi, I'm BiuBiu.\nWhat can I do for you?");
+    public String showWelcome() {
+        return "Hi, I'm BiuBiu.\nWhat can I do for you?";
     }
 
     /**
@@ -165,8 +256,8 @@ public class Ui {
      *
      * @param errorCommand  The error message.
      */
-    public void showError(String errorCommand) {
-        System.out.println(errorCommand);
+    public String showError(String errorCommand) {
+        return errorCommand;
     }
 
     /**
@@ -175,10 +266,11 @@ public class Ui {
      * @param task  The task that we added.
      * @param taskCount  The current number of tasks in the list.
      */
-    public void showTaskAdded (Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(" " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showTaskAdded (Task task, int taskCount) {
+        String output = "Got it. I've added this task:";
+        output += "\n " + task;
+        output += "\nNow you have " + taskCount + " tasks in the list.";
+        return output;
     }
 
     /**
@@ -186,9 +278,10 @@ public class Ui {
      *
      * @param taskCount  The current number of tasks in the list.
      */
-    public void showTaskDeleted (int taskCount) {
-        System.out.println("OK, I've removed this task.");
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showTaskDeleted (int taskCount) {
+        String output = "OK, I've removed this task.";
+        output += "\nNow you have " + taskCount + " tasks in the list.";
+        return output;
     }
 
     /**
@@ -196,11 +289,12 @@ public class Ui {
      *
      * @param taskList  The task list.
      */
-    public void showTaskList (TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
+    public String showTaskList (TaskList taskList) {
+        String output = "Here are the tasks in your list:";
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.getTask(i));
+            output += "\n" + (i + 1) + ". " + taskList.getTask(i);
         }
+        return output;
     }
 
     /**
@@ -208,9 +302,10 @@ public class Ui {
      *
      * @param task  The task that was marked as done.
      */
-    public void showTaskMarkedAsDone (Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
+    public String showTaskMarkedAsDone (Task task) {
+        String output = "Nice! I've marked this task as done:";
+        output += "\n  " + task;
+        return output;
     }
 
     /**
@@ -218,16 +313,17 @@ public class Ui {
      *
      * @param task  The task that was marked as not done.
      */
-    public void showTaskMarkedAsNotDone (Task task) {
-        System.out.println("Noted, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+    public String showTaskMarkedAsNotDone (Task task) {
+        String output =  "Noted, I've marked this task as not done yet:";
+        output += "\n  " + task;
+        return output;
     }
 
     /**
      * Displays an loading error message.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading tasks from file.");
+    public String showLoadingError() {
+        return "Error loading tasks from file.";
     }
 
     /**
@@ -236,20 +332,20 @@ public class Ui {
      * @param keyword  The keyword to search for the matching task.
      * @param tasks  The list of tasks to search within.
      */
-    public void showFindCommand (String keyword, TaskList tasks) {
+    public String showFindCommand (String keyword, TaskList tasks) {
         TaskList matchingTasks = tasks.findTasksByKeyword(keyword);
 
-        System.out.println("Here are the matching tasks: ");
+        String output = "Here are the matching tasks: ";
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.getTask(i));
+            output += "\n" + (i + 1) + "." + matchingTasks.getTask(i);
         }
-
+        return output;
     }
 
     /**
      * Displays an exit message.
      */
-    public void showExit() {
-        System.out.println("Bye. Have a great day!");
+    public String showExit() {
+        return "Bye. Have a great day!";
     }
 }

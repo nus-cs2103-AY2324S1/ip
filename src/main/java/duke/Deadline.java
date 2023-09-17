@@ -31,15 +31,15 @@ public class Deadline extends Task {
      * @return The parsed deadline date as a LocalDate object, or null if parsing fails.
      */
     private LocalDate parseDeadline(String deadlineString) {
-
         try {
-            if (!deadlineString.isEmpty()) {
-                return LocalDate.parse(deadlineString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            if (deadlineString.isEmpty()) {
+                return null;
             }
+            return LocalDate.parse(deadlineString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeParseException e) {
             System.out.println("Error parsing date: " + deadlineString);
+            return null;
         }
-        return null;
     }
 
     private String formatDeadline (LocalDate deadlineDate) {

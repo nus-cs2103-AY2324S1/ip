@@ -47,7 +47,9 @@ public class Duke extends Application {
 
         while (!isExit) {
             String userCommand = ui.readCommand();
-            isExit = ui.handleCommand(userCommand, tasks, storage);
+            isExit = ui.handleCommand(userCommand, tasks, storage) == ui.showExit()
+                    ? true
+                    : false;
         }
     }
 
@@ -130,92 +132,15 @@ public class Duke extends Application {
         );
         userInput.clear();
     }
-    int taskCount = 0;
+
+    /**
+     * Gets s response based on the user input.
+     *
+     * @param input The user input.
+     * @return     A response generated based on the user input.
+     */
     public String getResponse (String input) {
-        try {
-            String output = "";
-
-            assert !input.isEmpty();
-
-            if (input.equalsIgnoreCase("bye")) {
-                storage.saveTasks(tasks);
-                return "Bye. Have a great day!";
-            } else if (input.equalsIgnoreCase("list")) {
-                output = "Here are the tasks in your list:";
-                for (int i = 0; i < tasks.size(); i++) {
-                    output += "\n " + (i + 1) + ". " + tasks.getTask(i);
-                }
-                return output;
-            }
-
-            String[] parts = input.split(" ", 2);
-            String commandType = parts[0].toLowerCase();
-            String command = parts[1];
-
-            switch (commandType) {
-            case "mark":
-                int doneTaskIndex = Integer.parseInt(command) - 1;
-                tasks.markTaskAsDone(doneTaskIndex);
-                output = "Nice! I've marked this task as done:";
-                output += "\n " + tasks.getTask(doneTaskIndex);
-                storage.saveTasks(tasks);
-                return output;
-            case "unmark":
-                int notDoneTaskIndex = Integer.parseInt(command) - 1;
-                tasks.markTaskAsNotDone(notDoneTaskIndex);
-                output = "Nice! I've marked this task as not done yet:";
-                output += "\n " + tasks.getTask(notDoneTaskIndex);
-                storage.saveTasks(tasks);
-                return output;
-            case "todo":
-                if (parts.length == 1) {
-                    return "What you want to do?";
-                }
-            case "deadline":
-                if (parts.length == 1) {
-                    return "What deadline do you have?";
-                }
-            case "event":
-                if (parts.length == 1) {
-                    return "What event do you have?";
-                }
-                Task newTask = Parser.parse(input);
-                if (newTask == null) {
-                    break;
-                }
-
-                tasks.addTask(newTask);
-                taskCount++;
-                output = "Got it. I've added this task:";
-                output += "\n " + tasks.getTask(taskCount - 1);
-                System.out.println("\nNow you have " + taskCount + " tasks in the list.");
-                storage.saveTasks(tasks);
-                return output;
-            case "delete":
-                int deletedTaskIndex = Integer.parseInt(parts[1]) - 1;
-                tasks.deleteTask(deletedTaskIndex);
-                taskCount--;
-                output = "OK, I've removed this task.";
-                output += "\nNow you have " + taskCount + " tasks in the list.";
-                storage.saveTasks(tasks);
-                return output;
-            case "find":
-                if (parts.length == 1) {
-                    return "Please specify a keywork to search for.";
-                }
-                TaskList matchingTasks = tasks.findTasksByKeyword(command);
-                output = "Here are the matching tasks: ";
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    output += "\n " + (i + 1) + "." + matchingTasks.getTask(i);
-                }
-                return output;
-            default:
-                return input;
-            }
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            return input;
-        }
-        return "";
+        return ui.handleCommand(input, tasks, storage);
     }
 }
 
