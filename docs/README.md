@@ -7,6 +7,7 @@ Spot is a chatbot puppy who manages your tasks. If you live a busy life, you can
 ### Adding a ToDo: `todo`
 
 Adds a ToDo to your list of tasks. A ToDo is a task that must be done with no fixed deadline or start/end date.
+- The task description must not contain the character `|`.
 
 Format:
 `todo [task description]`
@@ -17,6 +18,7 @@ Example:
 ### Adding a Deadline: `deadline`
 
 Adds a Deadline to your list of tasks. A Deadline is a task that must be done before a certain date.
+- The task description must not contain the character `|`.
 - The date given for the deadline must follow the format: dd-mm-yyyy
 
 Format:
@@ -28,6 +30,7 @@ Example:
 ### Adding an Event: `event`
 
 Adds an Event to your list of tasks. An Event is a task with a set start and end date.
+- The task description must not contain the character `|`.
 - The dates given for the start and end dates must follow the format: dd-mm-yyyy
 
 Format:
@@ -77,6 +80,7 @@ Example:
 
 Updates a task in the list.
 - The task number refers to the task number shown in the list displayed when the `list` command is used.
+- Any updated description must not contain the character `|` or the string `/description`.
 - Any date used in the command must follow the format: dd-mm-yyyy
 
 Format:
