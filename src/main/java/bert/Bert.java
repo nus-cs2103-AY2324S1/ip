@@ -21,7 +21,7 @@ public class Bert {
      * Constructs an instance of the chatbot and loads the file at the specified filePath
      * into the chatbot's task list.
      *
-     * @param filePath the file path of the file to read the list of tasks from
+     * @param filePath The file path of the file to read the list of tasks from.
      */
     public Bert(String filePath) {
         ui = new Ui();
@@ -59,7 +59,7 @@ public class Bert {
     /**
      * Creates a chatbot instance with a task list loaded from "./data/tasks.txt", and runs it.
      *
-     * @param args command line arguments which are not used
+     * @param args Command line arguments which are not used.
      */
     public static void main(String[] args) {
         new Bert("data/tasks.txt").run();

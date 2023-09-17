@@ -54,7 +54,7 @@ public class Ui {
     /**
      * Generates and prints the error message when an error occurs in the program.
      *
-     * @param errorMessage the description of the error
+     * @param errorMessage The description of the error.
      */
     public void showError(String errorMessage) {
         showToUser(
@@ -67,7 +67,7 @@ public class Ui {
     /**
      * Generates and prints the result of a successful command execution.
      *
-     * @param message the message provided by the command
+     * @param message The message provided by the command.
      */
     public void showResult(String message) {
         showToUser(
@@ -80,7 +80,7 @@ public class Ui {
     /**
      * Generates and prints messages to the user.
      *
-     * @param message input strings which will be printed out to the user
+     * @param message Input strings which will be printed out to the user.
      */
     public void showToUser(String... message) {
         for (String m : message) {
@@ -91,7 +91,7 @@ public class Ui {
     /**
      * Reads the entire line of user input.
      *
-     * @return a string representation of the user input
+     * @return A string representation of the user input.
      */
     public String readCommand() {
         return sc.nextLine().trim();

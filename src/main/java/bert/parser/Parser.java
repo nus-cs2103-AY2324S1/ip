@@ -21,10 +21,10 @@ public class Parser {
     /**
      * Parses user input into command for execution.
      *
-     * @param fullCommand full user input string including the command and its associated arguments
-     * @return the Command based on user input
-     * @throws BertInvalidCommandException if the user inputs an invalid command
-     * @throws BertEmptyTaskException if the argument that follows a todo, deadline or event command is empty
+     * @param fullCommand Full user input string including the command and its associated arguments.
+     * @return The Command based on user input.
+     * @throws BertInvalidCommandException If the user inputs an invalid command.
+     * @throws BertEmptyTaskException If the argument that follows a todo, deadline or event command is empty.
      */
     public Command parse(String fullCommand) throws BertInvalidCommandException, BertEmptyTaskException {
         String command;

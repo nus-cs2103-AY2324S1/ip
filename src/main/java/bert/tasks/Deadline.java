@@ -12,8 +12,8 @@ public class Deadline extends Task {
     /**
      * Creates a deadline task that is initially undone.
      *
-     * @param description the description of the task that the user inputs
-     * @param deadline the deadline that the user inputs
+     * @param description The description of the task that the user inputs.
+     * @param deadline The deadline that the user inputs.
      */
     public Deadline(String description, LocalDate deadline) {
         super(description);
@@ -23,9 +23,9 @@ public class Deadline extends Task {
     /**
      * Creates a deadline task that could be done or undone.
      *
-     * @param isDone whether the task is done or undone
-     * @param description the description of the task that the user inputs
-     * @param deadline the deadline that the user inputs
+     * @param isDone Whether the task is done or undone.
+     * @param description The description of the task that the user inputs.
+     * @param deadline The deadline that the user inputs.
      */
     public Deadline(boolean isDone, String description, LocalDate deadline) {
         super(isDone, description);
@@ -35,8 +35,8 @@ public class Deadline extends Task {
     /**
      * Creates a deadline task from the save format.
      *
-     * @param formattedTask the save format representation of the deadline task
-     * @return a Deadline instance
+     * @param formattedTask The save format representation of the deadline task.
+     * @return A Deadline instance.
      */
     public static Deadline createFromSaveFormat(String formattedTask) {
         String[] args = formattedTask.split(" \\| ");

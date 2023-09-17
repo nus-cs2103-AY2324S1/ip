@@ -11,7 +11,7 @@ public class AddToDoCommand extends AddCommand {
     /**
      * Constructs an AddToDoCommand instance containing the todo task to be added.
      *
-     * @param description the description of the todo task
+     * @param description The description of the todo task.
      */
     public AddToDoCommand(String description) {
         super(new ToDo(description));

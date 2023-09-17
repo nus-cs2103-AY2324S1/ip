@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand instance containing the index of a task to be deleted.
      *
-     * @param index the index of a specific task in a task list
+     * @param index The index of a specific task in a task list.
      */
     public DeleteCommand(int index) {
         super();

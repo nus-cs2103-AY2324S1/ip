@@ -13,9 +13,9 @@ public class Event extends Task {
     /**
      * Creates an event task that is initially undone.
      *
-     * @param description the description of the task that the user inputs
-     * @param start the start time that the user inputs
-     * @param end the ending time that the user inputs
+     * @param description The description of the task that the user inputs.
+     * @param start The start time that the user inputs.
+     * @param end The ending time that the user inputs.
      */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
@@ -26,10 +26,10 @@ public class Event extends Task {
     /**
      * Creates an event task that could be done or undone.
      *
-     * @param isDone whether the task is done or undone
-     * @param description the description of the task that the user inputs
-     * @param start the start time that the user inputs
-     * @param end the ending time that the user inputs
+     * @param isDone Whether the task is done or undone.
+     * @param description The description of the task that the user inputs.
+     * @param start The start time that the user inputs.
+     * @param end The ending time that the user inputs.
      */
     public Event(boolean isDone, String description, LocalDate start, LocalDate end) {
         super(isDone, description);
@@ -40,8 +40,8 @@ public class Event extends Task {
     /**
      * Creates an event task from the save format.
      *
-     * @param formattedTask the save format representation of the event task
-     * @return an Event instance
+     * @param formattedTask The save format representation of the event task.
+     * @return An Event instance.
      */
     public static Event createFromSaveFormat(String formattedTask) {
         String[] args = formattedTask.split(" \\| ");

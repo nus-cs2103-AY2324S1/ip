@@ -13,7 +13,7 @@ public class TaskList {
     /**
      * Constructs a TaskList instance containing the list of tasks inputted.
      *
-     * @param tasks a list of tasks input
+     * @param tasks A list of tasks input.
      */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
@@ -29,8 +29,8 @@ public class TaskList {
     /**
      * Marks a task at a specific index of the list as done.
      *
-     * @param index the index of a task on the list
-     * @return the task that is marked as done
+     * @param index The index of a task on the list.
+     * @return The task that is marked as done.
      */
     public Task mark(int index) {
         Task taskToMark = tasks.get(index);
@@ -42,8 +42,8 @@ public class TaskList {
     /**
      * Marks a task at a specific index of the list as undone.
      *
-     * @param index the index of a task on the list
-     * @return the task that is marked as undone
+     * @param index The index of a task on the list.
+     * @return The task that is marked as undone.
      */
     public Task unmark(int index) {
         Task taskToUnmark = tasks.get(index);
@@ -55,7 +55,7 @@ public class TaskList {
     /**
      * Adds a task into the list of tasks.
      *
-     * @param toAdd the task to be added
+     * @param toAdd The task to be added.
      */
     public void add(Task toAdd) {
         this.tasks.add(toAdd);
@@ -64,8 +64,8 @@ public class TaskList {
     /**
      * Deletes the task at a specific index of the list.
      *
-     * @param index the index of a task on the list
-     * @return the task that is deleted
+     * @param index The index of a task on the list.
+     * @return The task that is deleted.
      */
     public Task delete(int index) {
         Task removedTask = tasks.remove(index);
@@ -75,7 +75,7 @@ public class TaskList {
     /**
      * Returns the size of the list of tasks contained in this TaskList instance.
      *
-     * @return the size of the list of tasks
+     * @return The size of the list of tasks.
      */
     public int size() {
         return this.tasks.size();
@@ -84,7 +84,7 @@ public class TaskList {
     /**
      * Converts the task list into its save format.
      *
-     * @return the string representation of the save format of the task list
+     * @return The string representation of the save format of the task list.
      */
     public String toSaveFormat() {
         StringBuilder sb = new StringBuilder();

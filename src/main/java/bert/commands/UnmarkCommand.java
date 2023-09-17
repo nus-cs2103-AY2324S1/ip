@@ -16,7 +16,7 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs a UnmarkCommand instance containing the index of a task to be marked as not done.
      *
-     * @param index the index of a specific task in a task list
+     * @param index The index of a specific task in a task list.
      */
     public UnmarkCommand(int index) {
         super();

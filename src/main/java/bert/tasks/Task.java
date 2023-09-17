@@ -10,7 +10,7 @@ public abstract class Task {
     /**
      * Creates a task that is initially undone.
      *
-     * @param description the description of the task that the user inputs
+     * @param description The description of the task that the user inputs.
      */
     public Task(String description) {
         this.description = description;
@@ -20,8 +20,8 @@ public abstract class Task {
     /**
      * Creates a task that could be done or undone.
      *
-     * @param isDone whether a task is done or undone
-     * @param description the description of the task that the user inputs
+     * @param isDone Whether a task is done or undone.
+     * @param description The description of the task that the user inputs.
      */
     public Task(boolean isDone, String description) {
         this.isDone = isDone;
@@ -31,7 +31,7 @@ public abstract class Task {
     /**
      * Returns X if a task is done, returns a blank space if it is not.
      *
-     * @return a string which is either "X" or " "
+     * @return A string which is either "X" or " ".
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -54,7 +54,7 @@ public abstract class Task {
     /**
      * Returns the task in its save format.
      *
-     * @return the save format representation of the task
+     * @return The save format representation of the task.
      */
     public String toSaveFormat() {
         return (isDone ? "1" : "0") + " | " + this.description;

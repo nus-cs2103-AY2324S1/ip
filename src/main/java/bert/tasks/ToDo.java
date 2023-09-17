@@ -7,7 +7,7 @@ public class ToDo extends Task {
     /**
      * Creates a todo task that is initially undone.
      *
-     * @param description the description of the task that the user inputs
+     * @param description The description of the task that the user inputs.
      */
     public ToDo(String description) {
         super(description);
@@ -16,8 +16,8 @@ public class ToDo extends Task {
     /**
      * Creates a todo task that could be done or undone.
      *
-     * @param isDone whether the task is done or undone
-     * @param description the description of the task that the user inputs
+     * @param isDone Whether the task is done or undone.
+     * @param description The description of the task that the user inputs.
      */
     public ToDo(boolean isDone, String description) {
         super(isDone, description);
@@ -26,8 +26,8 @@ public class ToDo extends Task {
     /**
      * Creates a todo task from the save format.
      *
-     * @param formattedTask the save format representation of the todo task
-     * @return a ToDo instance
+     * @param formattedTask The save format representation of the todo task.
+     * @return A ToDo instance.
      */
     public static ToDo createFromSaveFormat(String formattedTask) {
         String[] args = formattedTask.split(" \\| ");

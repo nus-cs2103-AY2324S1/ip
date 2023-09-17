@@ -13,8 +13,8 @@ public class AddDeadlineCommand extends AddCommand {
     /**
      * Constructs an AddDeadlineCommand instance containing the deadline task to be added.
      *
-     * @param description the description of the deadline task
-     * @param deadline the deadline of the deadline task
+     * @param description The description of the deadline task.
+     * @param deadline The deadline of the deadline task.
      */
     public AddDeadlineCommand(String description, LocalDate deadline) {
         super(new Deadline(description, deadline));

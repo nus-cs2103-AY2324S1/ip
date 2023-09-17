@@ -23,7 +23,7 @@ public class Storage {
     /**
      * Constructs a Storage instance with a specified file path.
      *
-     * @param filePath the file path to the file used for loading and saving tasks
+     * @param filePath The file path to the file used for loading and saving tasks.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -32,7 +32,7 @@ public class Storage {
     /**
      * Saves a task list into the file.
      *
-     * @param tasks the task list to be saved
+     * @param tasks The task list to be saved.
      */
     public void save(TaskList tasks) {
         try {
@@ -61,7 +61,7 @@ public class Storage {
      * Checks if the file at the specified file path exists.
      * If the directory or the file does not exist, creates the directory and the file.
      *
-     * @throws IOException if an error occurs while creating the file
+     * @throws IOException If an error occurs while creating the file.
      */
     private void ensureTaskFileExists() throws IOException {
         File file = new File(this.filePath);
@@ -78,9 +78,9 @@ public class Storage {
     /**
      * Writes the textToAdd string into a file specified by filePath.
      *
-     * @param filePath the path to the file to be written into
-     * @param textToAdd the string of text to be written into the file
-     * @throws IOException if an error occurs while opening the file
+     * @param filePath The path to the file to be written into.
+     * @param textToAdd The string of text to be written into the file.
+     * @throws IOException If an error occurs while opening the file.
      */
     private void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -91,8 +91,8 @@ public class Storage {
     /**
      * Loads tasks from the file into a List instance.
      *
-     * @return a List instance containing the list of tasks read from the file
-     * @throws FileNotFoundException if the file is not found
+     * @return A List instance containing the list of tasks read from the file.
+     * @throws FileNotFoundException If the file is not found.
      */
     public List<Task> load() throws FileNotFoundException {
         File file = new File(filePath);
