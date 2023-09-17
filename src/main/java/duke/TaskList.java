@@ -145,4 +145,12 @@ public class TaskList {
         }
         return finalOutput;
     }
+
+    /**
+     * Deletes all tasks by replacing the encapsulated ArrayList with
+     * an empty ArrayList.
+     */
+    public void purgeList() {
+        this.taskList.clear();
+    }
 }

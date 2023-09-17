@@ -258,8 +258,16 @@ public class ChatterBox extends Application {
 
             break;
 
-        case "edit":
-            //insert editing command here
+        case "delete_all":
+            tl.purgeList();
+            try {
+                this.store.taskListToFile(tl);
+            } catch (IOException e) {
+                finalOutput = ui.unknownError();
+                break;
+            }
+
+            finalOutput = ui.removedAllTaskScreen();
             break;
 
         default:

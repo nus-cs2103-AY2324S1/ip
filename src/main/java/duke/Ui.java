@@ -250,5 +250,8 @@ public class Ui {
         return "A file-related error occurred.";
     }
 
+    public String removedAllTaskScreen() {
+        return "Successfully removed all tasks.";
+    }
 
 }
