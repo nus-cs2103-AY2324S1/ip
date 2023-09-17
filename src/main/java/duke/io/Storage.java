@@ -22,6 +22,9 @@ import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
+/**
+ * Represents the storage class responsible for reading from and writing to a specific file.
+ */
 public class Storage {
     private static final String TODO_FLAG = "[T]";
     private static final String DEADLINE_FLAG = "[D]";
@@ -35,6 +38,11 @@ public class Storage {
     private final String completeFilePath;
     private final Path parentDirectory;
     private final File dataFile;
+    /**
+     * Creates a new storage instance.
+     *
+     * @param filePath The relative path of the data file.
+     */
     public Storage(String filePath) {
         String baseDirectoryPath = Paths.get("").toAbsolutePath().toString();
         this.completeFilePath = Paths.get(baseDirectoryPath, filePath).toString();
@@ -42,6 +50,13 @@ public class Storage {
         this.dataFile = new File(this.completeFilePath);
     }
 
+    /**
+     * Loads tasks from the specified file into a TaskList.
+     *
+     * @return The TaskList with tasks loaded from the file.
+     * @throws UnknownCommandException If there's an unrecognized task type.
+     * @throws FileIoException If an IO error occurs.
+     */
     public TaskList load() throws UnknownCommandException, FileIoException {
         TaskList tasks = new TaskList();
 
@@ -60,6 +75,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Extracts content from the given file.
+     *
+     * @param file The file to extract content from.
+     * @return A list of file content lines.
+     * @throws FileNotFoundException If the file is not found.
+     */
     private List<String> extractFileContents(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         List<String> fileLines = new ArrayList<>();
@@ -72,6 +94,13 @@ public class Storage {
         return fileLines;
     }
 
+    /**
+     * Interprets a given content line and adds the interpreted task to the TaskList.
+     *
+     * @param tasks TaskList to add the interpreted task to.
+     * @param lineContent The content line to interpret.
+     * @throws UnknownCommandException If the task type in the content line is unrecognized.
+     */
     private void interpretAndAddTask(TaskList tasks, String lineContent) throws UnknownCommandException {
         String[] taskData = lineContent.split("\\s\\|\\s");
         boolean isTaskCompleted = taskData[1].equals(IS_DONE_FLAG);
@@ -94,6 +123,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the given tag and status are valid for storage format.
+     *
+     * @param tag The task type tag.
+     * @param isDone The task completion status.
+     */
     private static void checkStorageFormat(String tag, String isDone) {
         assert Objects.equals(tag, TODO_FLAG) || Objects.equals(tag, DEADLINE_FLAG)
                 || Objects.equals(tag, EVENT_FLAG) : INVALID_TYPE_ERROR;
@@ -108,6 +143,12 @@ public class Storage {
         list.addTask(task);
     }
 
+    /**
+     * Saves the tasks from a given TaskList to the data file.
+     *
+     * @param taskList The TaskList to save.
+     * @throws FileIoException If an IO error occurs.
+     */
     public void save(TaskList taskList) throws FileIoException {
         createParentFolderIfNotExists();
         StringBuilder record = new StringBuilder();
@@ -133,7 +174,7 @@ public class Storage {
             try {
                 Files.createDirectories(parentDirectory);
             } catch (IOException e) {
-                System.out.println("Error occurred in creating directory");
+                System.out.println("Error occurred while creating directory");
             }
         }
     }

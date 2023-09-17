@@ -24,10 +24,10 @@ public class FindCommand extends Command {
 
         for (String description : this.patterns) {
             TaskList matchedTaskList = findMatchedTasks(tasks, description);
-            message.append(messagetoReturn(matchedTaskList, description));
+            message.append(messageToReturn(matchedTaskList, description));
         }
 
-        ui.appendResponse(message.toString());
+        ui.addToResponse(message.toString());
     }
 
     private TaskList findMatchedTasks(TaskList tasks, String pattern) {
@@ -41,7 +41,7 @@ public class FindCommand extends Command {
     }
 
 
-    private String messagetoReturn(TaskList matchedTaskList, String pattern) {
+    private String messageToReturn(TaskList matchedTaskList, String pattern) {
 
         if (!matchedTaskList.getTasks().isEmpty()) {
             String foundFormat = "Here are the tasks matching \"%s\" :\n";

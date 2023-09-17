@@ -5,18 +5,31 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * An ExitCommand class that encapsulates the event of terminating the Duke program.
+ * Represents a command to exit the application.
  */
-
 public class ExitCommand extends Command {
+    private static final String EXIT_MESSAGE = "Bye. Have a productive day and see you soon!";
+
+    /**
+     * Executes the exit operation by adding an exit message to the UI.
+     *
+     * @param tasks   The list of tasks. (Not used in this context but present due to inheritance)
+     * @param ui      The user interface used to display the exit message.
+     * @param storage The storage used to save tasks. (Not used in this context but present due to inheritance)
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String message = "Bye. Hope to see you again soon!";
-        ui.appendResponse(message);
+        ui.addToResponse(EXIT_MESSAGE);
     }
 
+    /**
+     * Indicates that this command results in an application exit.
+     *
+     * @return true to signify that the application should exit, false otherwise.
+     */
     @Override
     public boolean isExit() {
         return true;
     }
 }
+
