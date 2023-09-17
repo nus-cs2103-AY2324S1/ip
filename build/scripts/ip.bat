@@ -72,7 +72,7 @@ set CLASSPATH=%APP_HOME%\lib\ip.jar;%APP_HOME%\lib\javafx-fxml-17.0.7-win.jar;%A
 
 
 @rem Execute ip
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %IP_OPTS%  -classpath "%CLASSPATH%" chatbot.alain.ChatbotAlain %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %IP_OPTS%  -classpath "%CLASSPATH%" chatbot.alain.Launcher %*
 
 :end
 @rem End local scope for the variables with windows NT shell
