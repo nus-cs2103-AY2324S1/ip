@@ -5,33 +5,31 @@ package duke.exceptions;
  * This centralized approach ensures consistency and easy modifications of error messages.
  */
 public class ErrorMessages {
-    public static final String EMPTY_DEADLINE_ERROR = "OOPS!!! The description of a deadline task cannot be empty.";
-    public static final String EMPTY_EVENT_ERROR = "OOPS!!! The description of an event task cannot be empty.";
-    public static final String EMPTY_TODO_ERROR = "OOPS!!! The description of a todo task cannot be empty.";
 
-    public static final String EMPTY_DESCRIPTION_ERROR = "OOPS!!! The description cannot be empty.";
+    public static final String EMPTY_DEADLINE_ERROR = "Oops! A deadline task description is required.";
+    public static final String EMPTY_EVENT_ERROR = "Oops! An event task description is required.";
+    public static final String EMPTY_TODO_ERROR = "Oops! A todo task description is required.";
 
-    public static final String INVALID_INDEX_ERROR = "OOPS!!! The input index is not within the range of [1, %d]. "
-            + "Please input a index that is within the given range";
-    public static final String INVALID_TASK_INDEX_ERROR = "OOPS!!! The input task index is not a number. "
-            + "Please input a valid task index.";
+    public static final String EMPTY_DESCRIPTION_ERROR = "Oops! Description is mandatory.";
 
-    public static final String INVALID_DATE_ERROR = "OOPS!!! The input date format is invalid. ";
-    public static final String INVALID_DATETIME_ERROR = "OOPS!!! The input date time format is invalid. ";
-    public static final String INVALID_DEADLINE_FORMAT_ERROR = "OOPS!!! Please input the deadline task in the "
-            + "correct format. Example: deadline Quiz 1 /by 01/09/2023 2030";
-    public static final String INVALID_EVENT_FORMAT_ERROR = "OOPS!!! Please input the event task in the "
-            + "correct format. Example: event Tp /from 01/09/2023 2030 /to 01/09/2023 2230";
-    public static final String INVALID_FROM_AND_TO_ERROR = "OOPS!!! Start date can not be after than the End date";
+    public static final String INVALID_INDEX_ERROR = "Oops! Please enter an index between [1, %d].";
+    public static final String INVALID_TASK_INDEX_ERROR = "Oops! That's not a valid task number. Please enter the right task index.";
 
+    public static final String INVALID_DATE_ERROR = "Oops! That date format isn't correct.";
+    public static final String INVALID_DATETIME_ERROR = "Oops! That date-time format isn't right.";
+    public static final String INVALID_DEADLINE_FORMAT_ERROR = "Oops! Use the correct deadline format. For example: deadline Quiz 1 /by 01/09/2023 2030";
+    public static final String INVALID_EVENT_FORMAT_ERROR = "Oops! Use the right event format. For example: event Tp /from 01/09/2023 2030 /to 01/09/2023 2230";
+    public static final String INVALID_FROM_AND_TO_ERROR = "Oops! The starting date cannot be later than the ending date.";
 
-    public static final String INVALID_TYPE_ERROR = "Type tag of event should be [T], [D], or [E]";
-    public static final String INVALID_STATUS_ERROR = "IsDone tag of event should be [ ], or [X]";
+    public static final String INVALID_TYPE_ERROR = "The event type tag should be one of [T], [D], or [E].";
+    public static final String INVALID_STATUS_ERROR = "The 'IsDone' tag should be either [ ] or [X].";
 
-    public static final String EMPTY_ERROR = "OOPS!!! The instruction cannot be empty";
-    public static final String STORAGE_ERROR = "OOPS!!! There's something wrong when reading the storage list";
-    public static final String TASK_LIST_EMPTY_ERROR = "OOPS!!! Your task list is currently empty";
-    public static final String UNRECOGNIZED_ERROR = "OOPS!!! I'm sorry, but I don't know what that means :-(\n "
-            + "Please type in \"help\" to check all available commands.";
-    public static final String ADD_TASKS = "\nPlease add more tasks";
+    public static final String EMPTY_ERROR = "Oops! You didn't provide any instruction.";
+    public static final String STORAGE_ERROR = "Oops! There was an issue accessing the storage list.";
+    public static final String TASK_LIST_EMPTY_ERROR = "Oops! You don't have any tasks in your list right now.";
+    public static final String UNRECOGNIZED_ERROR = "Sorry, I'm not sure about that command. Type \"help\" for available commands.";
+    public static final String ADD_TASKS = "Consider adding more tasks.";
+    public static final String INVALID_HELP_COMMAND_ERROR = "Oops! That's not a recognized help command. You can try:\n"
+            + "- help\n- help date\n- help time\n- help duration";
 }
+
