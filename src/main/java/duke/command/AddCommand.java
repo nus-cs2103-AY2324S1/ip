@@ -79,7 +79,7 @@ public class AddCommand extends Command {
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
 
-    private Event getEventTask() {
+    private Event getEventTask() throws DukeException {
         String eventDescription = fullCommand.substring(6);
         int indexFrom = eventDescription.indexOf("/from");
         int indexTo = eventDescription.indexOf("/to");
@@ -88,9 +88,14 @@ public class AddCommand extends Command {
         String startTime = eventDescription.substring(indexFrom + "/from".length(), indexTo).trim();
         String endTime = eventDescription.substring(indexTo + "/to".length()).trim();
 
-        Event eventTask = new Event(eventString,
-                LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        Event eventTask;
+        try {
+            eventTask = new Event(eventString,
+                    LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                    LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid Date Time: Date has to be in \"yyyy-MM-dd HH:mm\" format\n" + e.getMessage());
+        }
         return eventTask;
     }
 
@@ -115,7 +120,7 @@ public class AddCommand extends Command {
             LocalDateTime byDateTime = LocalDateTime.parse(dateTime, altInputFormatter);
             deadline = new Deadline(descriptionText, byDateTime);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid Date Time: " + e.getMessage());
+            throw new DukeException("Invalid Date Time: Date has to be in \"yyyy-MM-dd HH:mm\" format\n" + e.getMessage());
         }
         return deadline;
     }

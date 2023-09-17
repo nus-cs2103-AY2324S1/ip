@@ -38,7 +38,7 @@ public class FindCommand extends Command {
     private void findTask(TaskList taskList, Ui ui) {
         String str = "Here are the tasks in your list:\n ";
         str = getFindTaskString(taskList, str);
-        ui.sendMessage(str.substring(0, str.length() - 3));
+        ui.sendMessage(str.substring(0, str.length() - 2));
     }
 
     private String getFindTaskString(TaskList taskList, String str) {
