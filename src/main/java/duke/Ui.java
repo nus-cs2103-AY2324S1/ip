@@ -143,57 +143,101 @@ public class Ui {
 
     public String detailedHelp(int helpNumber) {
         String output = "";
-        String correctExample = "";
         switch (helpNumber) {
-            case 1:
-                output += "todo <task name> : add a todo task to the list\n";
-                correctExample += "Example: todo read book\n";
-                output += correctExample;
-                break;
-            case 2:
-                output += "deadline <task name> /by <end time> : add a deadline task to the list\n";
-                correctExample += "Example: deadline return book /by 2pm\n";
-                output += correctExample;
-                break;
-            case 3:
-                output += "event <task name> /from <start time> /to <end time> : add an event task to the list\n";
-                correctExample += "Example: event project meeting /from 2pm /to 4pm\n";
-                output += correctExample;
-                break;
-            case 4:
-                output += "list : list out all the tasks in the list\n";
-                correctExample += "Example: list\n";
-                output += correctExample;
-                break;
-            case 5:
-                output += "mark <task number> : mark the task as done\n";
-                correctExample += "Example: mark 1\n";
-                output += correctExample;
-                break;
-            case 6:
-                output += "unmark <task number> : unmark the task as done\n";
-                correctExample += "Example: unmark 1\n";
-                output += correctExample;
-                break;
-            case 7:
-                output += "delete <task number> : delete the task from the list\n";
-                correctExample += "Example: delete 1\n";
-                output += correctExample;
-                break;
-            case 8:
-                output += "find <keyword> : find the task with the keyword\n";
-                correctExample += "Example: find book\n";
-                output += correctExample;
-                break;
-            case 9:
-                output += "bye : end the program\n";
-                correctExample += "Correct: bye\n";
-                output += correctExample;
-                break;
-            default:
-                output += "Please enter a valid number from 1 to 9";
-                break;
+        case 1:
+            output += Ui.todoExample();
+            break;
+        case 2:
+            output += Ui.deadlineExample();
+            break;
+        case 3:
+            output += Ui.eventExample();
+            break;
+        case 4:
+            output += Ui.listExample();
+            break;
+        case 5:
+            output += Ui.markExample();
+            break;
+        case 6:
+            output += Ui.unMarkExample();
+            break;
+        case 7:
+            output += Ui.deleteExample();
+            break;
+        case 8:
+            output += Ui.findExample();
+            break;
+        case 9:
+            output += Ui.byeExample();
+            break;
+        default:
+            output += "Please enter a valid help number from 1 to 9";
+            break;
         }
+        return output;
+    }
+
+    public static String todoExample() {
+        String output = "todo <task name> : add a todo task to the list\n";
+        String correctExample = "Example: todo read book\n";
+        output += correctExample;
+        return output;
+    }
+
+    public static String deadlineExample() {
+        String output = "deadline <task name> /by <end time> : add a deadline task to the list\n";
+        String correctExample = "Example: deadline return book /by 2pm\n";
+        output += correctExample;
+        return output;
+    }
+
+    public static String eventExample() {
+        String output = "event <task name> /from <start time> /to <end time> : add an event task to the list\n";
+        String correctExample = "Example: event project meeting /from 2pm /to 4pm\n";
+        output += correctExample;
+        return output;
+    }
+
+    public static String listExample() {
+        String output = "list : list out all the tasks in the list\n";
+        String correctExample = "Example: list\n";
+        output += correctExample;
+        return output;
+    }
+
+    public static String markExample() {
+        String output = "mark <task number> : mark the task as done\n";
+        String correctExample = "Example: mark 1\n";
+        output += correctExample;
+        return output;
+    }
+
+    public static String unMarkExample() {
+        String output = "unmark <task number> : unmark the task as done\n";
+        String correctExample = "Example: unmark 1\n";
+        output += correctExample;
+        return output;
+    }
+
+    public static String deleteExample() {
+        String output = "delete <task number> : delete the task from the list\n";
+        String correctExample = "Example: delete 1\n";
+        output += correctExample;
+        return output;
+    }
+
+    public static String findExample() {
+        String output = "find <keyword> : find the task with the keyword\n";
+        String correctExample = "Example: find book\n";
+        output += correctExample;
+        return output;
+    }
+
+    public static String byeExample() {
+        String output = "bye : end the program\n";
+        String correctExample = "Correct: bye\n";
+        output += correctExample;
         return output;
     }
 }
