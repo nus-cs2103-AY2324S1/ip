@@ -125,9 +125,7 @@ public class Gui extends Application {
         DukeException ex = null;
         try {
             String ret = parser.parse(input);
-            if (ret.equals("bye")) {
-                storage.save(taskList.getItems());
-            }
+            storage.save(taskList.getItems());
             return ret;
         } catch (DukeException e) {
             ex = e;

@@ -14,6 +14,9 @@ import java.util.Scanner;
 
 import javafx.application.Application;
 
+/**
+ * Represents priority of a task.
+ */
 enum Priority {
     HIGH(1), NORMAL(0);
     private int val;
@@ -358,7 +361,7 @@ class Ui {
         String formattedDatetime = task.getFormattedDatetime(fmt);
         Priority priority = task.getPriority();
         String priorityBox = buildPriorityBox(priority);
-        return taskTypeBox + completedBox + " " + task.getTaskDesc() + formattedDatetime + " " + priorityBox;
+        return taskTypeBox + completedBox + " " + task.getTaskDesc() + " " + formattedDatetime + " " + priorityBox;
     }
 
     private String buildPriorityBox(Priority p) {
@@ -799,26 +802,28 @@ class CommandHandler {
      */
     public String handleDeadlineCommand(String[] splitStr) throws DukeException {
         String out = "";
-        boolean x = false;
+        String desc = "";
+        String dateString = "";
+        boolean wasByKeywordFound = false;
         for (int i = 1; i < splitStr.length; i++) {
             if (splitStr[i].equals("/by")) {
-                String dateString = Utils.splitStringBySpaces(splitStr, i, splitStr.length);
-                String desc = Utils.splitStringBySpaces(splitStr, 1, i);
-
-                if (desc.isEmpty()) {
-                    throw new DukeException("Description of task cannot be empty.");
-                }
-                if (dateString.isEmpty()) {
-                    throw new DukeException("Deadline cannot be empty.");
-                }
-                taskList.addItem(new Deadline(desc, false, dateString, dtf.getFormatters()));
-                x = true;
+                dateString = Utils.splitStringBySpaces(splitStr, i, splitStr.length);
+                desc = Utils.splitStringBySpaces(splitStr, 1, i);
+                wasByKeywordFound = true;
                 break;
             }
         }
-        if (!x) {
+        if (!wasByKeywordFound) {
             throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
         }
+        if (desc.isEmpty()) {
+            throw new DukeException("Description of task cannot be empty.");
+        }
+        if (dateString.isEmpty()) {
+            throw new DukeException("Deadline cannot be empty.");
+        }
+        taskList.addItem(new Deadline(desc, false, dateString, dtf.getFormatters()));
+
         out += ui.print("Got it, I've added this task:");
         out += ui.print(ui.formatTaskToPrint(taskList.getItem(taskList.getSize() - 1), dtf.getOutFormatter()));
         out += ui.print("Now you have " + taskList.getSize() + " tasks in the list.");
@@ -832,25 +837,27 @@ class CommandHandler {
      */
     public String handleEventCommand(String[] splitStr) throws DukeException {
         String out = "";
-        boolean x = false;
+        String desc = "";
+        String dateString = "";
+        boolean wasByKeywordFound = false;
         for (int i = 1; i < splitStr.length; i++) {
             if (splitStr[i].equals("/from")) {
-                String dateString = Utils.splitStringBySpaces(splitStr, i, splitStr.length);
-                String desc = Utils.splitStringBySpaces(splitStr, 1, i);
-                if (desc.isEmpty()) {
-                    throw new DukeException("Description of task cannot be empty.");
-                }
-                if (dateString.isEmpty()) {
-                    throw new DukeException("Event dates cannot be empty.");
-                }
-                taskList.addItem(new Event(desc, false, dateString, dtf.getFormatters()));
-                x = true;
+                dateString = Utils.splitStringBySpaces(splitStr, i, splitStr.length);
+                desc = Utils.splitStringBySpaces(splitStr, 1, i);
+                wasByKeywordFound = true;
                 break;
             }
         }
-        if (!x) {
+        if (!wasByKeywordFound) {
             throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
         }
+        if (desc.isEmpty()) {
+            throw new DukeException("Description of task cannot be empty.");
+        }
+        if (dateString.isEmpty()) {
+            throw new DukeException("Event dates cannot be empty.");
+        }
+        taskList.addItem(new Event(desc, false, dateString, dtf.getFormatters()));
         out += ui.print("Got it, I've added this task:");
         out += ui.print(ui.formatTaskToPrint(taskList.getItem(taskList.getSize() - 1), dtf.getOutFormatter()));
         out += ui.print("Now you have " + taskList.getSize() + " tasks in the list.");
@@ -959,7 +966,6 @@ public class Duke {
      */
 
     public static void main(String[] args) {
-        // new Duke("./data/").run();
         Application.launch(Main.class, args);
     }
 }
