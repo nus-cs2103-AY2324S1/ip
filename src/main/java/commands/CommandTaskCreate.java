@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import client.Rock;
 import io.Parser;
+import tasks.Task;
 import tasks.TaskDeadline;
 import tasks.TaskEvent;
 import tasks.TaskTodo;
@@ -44,17 +45,28 @@ public class CommandTaskCreate extends Command {
         if (taskName == "") {
             throw new IllegalArgumentException("Name of task cannot be empty!");
         }
+        Task task;
         switch (this.taskType) {
         case TODO:
-            this.client.addTask(new TaskTodo(taskName));
-            this.client.saveFile();
-            return ("Todo Task added!");
+            task = new TaskTodo(taskName);
+            if (client.taskList.isPresent(task)) {
+                return ("Task already exists!");
+            } else {
+                this.client.addTask(task);
+                this.client.saveFile();
+                return ("Todo Task added!");
+            }
         case DEADLINE:
             try {
                 String deadlineTime = input.getTaggedInput("by");
-                this.client.addTask(new TaskDeadline(taskName, deadlineTime));
-                this.client.saveFile();
-                return ("Deadline Task added!");
+                task = new TaskDeadline(taskName, deadlineTime);
+                if (client.taskList.isPresent(task)) {
+                    return ("Task already exists!");
+                } else {
+                    this.client.addTask(task);
+                    this.client.saveFile();
+                    return ("Deadline Task added!");
+                }
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("No deadline given. Indicate deadline with tag: /by");
             }
@@ -62,9 +74,14 @@ public class CommandTaskCreate extends Command {
             try {
                 String startTime = input.getTaggedInput("from");
                 String endTime = input.getTaggedInput("to");
-                this.client.addTask(new TaskEvent(taskName, startTime, endTime));
-                this.client.saveFile();
-                return ("Event Task added!");
+                task = new TaskEvent(taskName, startTime, endTime);
+                if (client.taskList.isPresent(task)) {
+                    return ("Task already exists!");
+                } else {
+                    this.client.addTask(task);
+                    this.client.saveFile();
+                    return ("Event Task added!");
+                }
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
             }

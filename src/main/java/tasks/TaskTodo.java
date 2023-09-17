@@ -19,4 +19,13 @@ public class TaskTodo extends Task {
     public LocalDate getDate() {
         return null;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof TaskTodo) {
+            TaskTodo t = (TaskTodo) o;
+            return this.getName().equals(t.getName());
+        } else {
+            return false;
+        }
+    }
 }

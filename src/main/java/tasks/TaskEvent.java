@@ -47,4 +47,15 @@ public class TaskEvent extends Task {
         return super.toString()
             + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof TaskEvent) {
+            TaskEvent t = (TaskEvent) o;
+            return this.getName().equals(t.getName()) &&
+                    this.startTime.equals(t.startTime) &&
+                    this.endTime.equals(t.endTime);
+        } else {
+            return false;
+        }
+    }
 }
