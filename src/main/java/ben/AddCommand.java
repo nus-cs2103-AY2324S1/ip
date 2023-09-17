@@ -36,7 +36,8 @@ public class AddCommand extends Command {
     public void interpretTask() throws InvalidCommandException, EmptyDescriptionException, DateTimeParseException {
         String[] words = command.split("\\s+");
 
-        if (words[0].equalsIgnoreCase("todo")) {
+        if (words[0].equalsIgnoreCase("todo") ||
+                words[0].equalsIgnoreCase("td")) {
             String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
 
             if (description.isEmpty()) {
@@ -45,7 +46,8 @@ public class AddCommand extends Command {
 
             task = new ToDos(description, false);
             return;
-        } else if (words[0].equalsIgnoreCase("deadline")) {
+        } else if (words[0].equalsIgnoreCase("deadline") ||
+                words[0].equalsIgnoreCase("dl")) {
             int positionBy = 0;
 
             for (int i = 1; i < words.length; i++) {
@@ -73,7 +75,8 @@ public class AddCommand extends Command {
 
             task = new Deadlines(description, false, dateTimeParser(by));
             return;
-        } else if (words[0].toLowerCase().contains("event")) {
+        } else if (words[0].toLowerCase().contains("event") ||
+                words[0].equalsIgnoreCase("e")) {
             int positionFrom = 0;
             int positionTo = 0;
 

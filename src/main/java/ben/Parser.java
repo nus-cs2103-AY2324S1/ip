@@ -34,14 +34,17 @@ public class Parser {
         String[] words = command.split("\\s+");
         assert words.length > 0;
         if (words[0].equalsIgnoreCase("delete") ||
+                words[0].equalsIgnoreCase("d") ||
                 words[0].equalsIgnoreCase("unmark") ||
-                words[0].equalsIgnoreCase("mark")) {
+                words[0].equalsIgnoreCase("um") ||
+                words[0].equalsIgnoreCase("mark") ||
+                words[0].equalsIgnoreCase("m")) {
             return referenceListCommandParse(command);
-        } else if (words[0].equalsIgnoreCase("find")) {
+        } else if (words[0].equalsIgnoreCase("find") || words[0].equalsIgnoreCase("f")) {
             return new FindCommand(command);
-        } else if (words[0].equalsIgnoreCase("bye")) {
+        } else if (words[0].equalsIgnoreCase("bye") || words[0].equalsIgnoreCase("b")) {
             return new ByeCommand();
-        } else if (words[0].equalsIgnoreCase("list")) {
+        } else if (words[0].equalsIgnoreCase("list") || words[0].equalsIgnoreCase("l")) {
             return new ListCommand();
         }
         return new AddCommand(command);
@@ -55,8 +58,8 @@ public class Parser {
      * @return The task.
      * @throws InvalidCommandException Thrown when the command is invalid.
      */
-    public Command referenceListCommandParse(String message) throws InvalidCommandException{
-        Pattern pattern = Pattern.compile("(unmark|mark|delete)\\s*(-?\\d+)");
+    public Command referenceListCommandParse(String message) throws InvalidCommandException {
+        Pattern pattern = Pattern.compile("(unmark|mark|delete|um|m|d)\\s*(-?\\d+)");
         Matcher matcher = pattern.matcher(message.toLowerCase());
 
         if (matcher.find()) {
@@ -65,7 +68,14 @@ public class Parser {
 
             // extract task number
             String TaskNumber = matcher.group(2);
-            int num = Integer.parseInt(TaskNumber) - 1;
+            int num;
+
+            // attempt to parse task number from String to Integer
+            try {
+                num = Integer.parseInt(TaskNumber) - 1;
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException("Please input a number");
+            }
 
             // check whether number is valid
             if (num < 0 || num >= tasks.size()) {
@@ -75,14 +85,17 @@ public class Parser {
             // if valid, mark or unmark the task
             Task task = tasks.get(num);
 
-            if (Objects.equals(command, "mark")) {
+            if (Objects.equals(command, "mark") ||
+                    Objects.equals(command, "m")) {
                 return new MarkCommand(task);
-            } else if ((Objects.equals(command, "delete"))) {
+            } else if ((Objects.equals(command, "delete")) ||
+                    Objects.equals(command, "d")) {
                 return new DeleteCommand(task);
-            } else {
+            } else if (((Objects.equals(command, "unmark")) ||
+                    Objects.equals(command, "um"))) {
                 return new UnmarkCommand(task);
             }
         }
-        return null;
+        throw new InvalidCommandException("Command not found");
     }
 }
