@@ -36,8 +36,8 @@ public class TodoCommand extends Command {
     @Override
     public void validateCommand() throws DukeException {
         String[] commandArr = this.command.split(" ", 2);
-        if (commandArr.length < 2) {
-            throw new DukeException(String.format(DukeException.NON_EMPTY, "todo"));
+        if (commandArr.length < 2 || commandArr[1].isEmpty()) {
+            throw new DukeException(String.format(DukeException.EMPTY_DESCRIPTION, "todo"));
         }
     }
 }
