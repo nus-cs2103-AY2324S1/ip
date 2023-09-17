@@ -13,22 +13,31 @@ import sae.task.Task;
 import sae.task.TaskList;
 import sae.task.Todo;
 
-
+/**
+ * The Storage class handles reading and writing tasks to/from a file.
+ */
 public class Storage {
     private static String filePath;
 
+    /**
+     * Creates a new Storage instance with the specified file path.
+     *
+     * @param filePath The path to the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    private void createFile(File f) throws IOException {
-        f.getParentFile().mkdirs();
-        f.createNewFile();
-    }
-
+    /**
+     * Creates a file if it doesn't exist and then loads tasks from it.
+     *
+     * @param filePath The path to the storage file.
+     * @return A TaskList containing loaded tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     public TaskList loadTasks(String filePath) throws IOException {
         File f = new File(filePath);
-        // if the files doesn't exist, we make the file
+        // if the file doesn't exist, we make the file
         if (!f.exists()) {
             createFile(f);
             throw new FileNotFoundException("The file has not been created. Try again.");
@@ -37,6 +46,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from a file and populates a TaskList.
+     *
+     * @param filePath The path to the storage file.
+     * @return A TaskList containing loaded tasks.
+     * @throws FileNotFoundException If the file is not found.
+     */
     public TaskList readTasks(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
@@ -56,6 +72,16 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Creates a new task based on its type and details.
+     *
+     * @param taskType    The type of task (e.g., "T" for Todo, "D" for Deadline).
+     * @param description The description of the task.
+     * @param taskDetails An array containing task details.
+     * @param isCompleted Indicates if the task is completed.
+     * @return A new Task instance based on the provided details.
+     * @throws IllegalArgumentException If an invalid task type is encountered.
+     */
     private Task createTask(String taskType, String description, String[] taskDetails, boolean isCompleted) {
         switch (taskType) {
             case "T":
@@ -86,9 +112,12 @@ public class Storage {
         }
     }
 
-
-
-
+    /**
+     * Saves tasks from a TaskList to a file.
+     *
+     * @param taskList The TaskList containing tasks to be saved.
+     * @throws IOException If an I/O error occurs.
+     */
     public void saveTasks(TaskList taskList) throws IOException {
         File f = new File(filePath);
         FileWriter fw = new FileWriter(f);
@@ -101,6 +130,5 @@ public class Storage {
 
         fw.close();
     }
-
 
 }
