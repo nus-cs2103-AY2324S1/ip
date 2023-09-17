@@ -25,11 +25,12 @@ public class Parser {
      * @param storage The storage of tasks.
      * @throws DukeException If the command is invalid.
      */
-    public void processCommand(String command, Ui ui, TaskList taskList, Storage storage) throws DukeException {
+    public String processCommand(String command, Ui ui, TaskList taskList, Storage storage) {
+        String ans = "";
         if (command.equals("bye")) {
-            ui.bye();
+            ans = ui.bye();
         } else if (command.equals("list")) {
-            ui.printList(taskList);
+            ans = ui.printList(taskList);
         } else if (command.startsWith("mark")) {
             int index = 0;
             for (int i = 5; i < command.length(); ++i) {
@@ -37,7 +38,7 @@ public class Parser {
                 index += command.charAt(i) - 48;
             }
             taskList.getTask(index - 1).markAsDone();
-            ui.markTaskDone(taskList.getTask(index - 1));
+            ans = ui.markTaskDone(taskList.getTask(index - 1));
         } else if (command.startsWith("unmark")) {
             int index = 0;
             for (int i = 7; i < command.length(); ++i) {
@@ -45,7 +46,7 @@ public class Parser {
                 index += command.charAt(i) - 48;
             }
             taskList.getTask(index - 1).markAsNotDone();
-            ui.markTaskNotDone(taskList.getTask(index - 1));
+            ans = ui.markTaskNotDone(taskList.getTask(index - 1));
         } else if (command.startsWith("delete")) {
             int index = 0;
             for (int i = 7; i < command.length(); ++i) {
@@ -53,21 +54,26 @@ public class Parser {
                 index += command.charAt(i) - 48;
             }
             Task task = taskList.deleteTask(index - 1);
-            ui.deleteTask(task, taskList.size());
+            ans = ui.deleteTask(task, taskList.size());
         } else if (command.startsWith("find")) {
             String str = command.substring(5);
             ArrayList<Task> tasks = taskList.contains(str);
-            ui.printMatchingTasks(tasks);
+            ans = ui.printMatchingTasks(tasks);
         } else {
-            addTask(command, ui, taskList);
+            try {
+                ans = addTask(command, ui, taskList);
+            } catch (DukeException e) {
+                ans = ui.printError(e);
+            }
         }
         try {
             if (!command.equals("list")) {
                 storage.writeFile(taskList);
             }
         } catch (IOException ioe) {
-            ui.printError(ioe);
+            ans += "\n" + ui.printError(ioe);
         }
+        return ans;
     }
 
     /**
@@ -77,14 +83,15 @@ public class Parser {
      * @param taskList The list of tasks.
      * @throws DukeException If the task is invalid.
      */
-    public void addTask(String task, Ui ui, TaskList taskList) throws DukeException {
+    public String addTask(String task, Ui ui, TaskList taskList) throws DukeException {
+        String ans = "";
         if (task.startsWith("todo")) {
             if (task.length() < 6) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
             Todo todo = new Todo(task.substring(5));
             taskList.addTask(todo);
-            ui.addTask(todo, taskList.size());
+            ans = ui.addTask(todo, taskList.size());
         } else if (task.startsWith("deadline")) {
             if (task.length() < 10) {
                 throw new DukeException("cannot be empty." + "☹ OOPS!!! The description of a deadline ");
@@ -100,7 +107,7 @@ public class Parser {
             }
             Deadline deadline = new Deadline(description, by);
             taskList.addTask(deadline);
-            ui.addTask(deadline, taskList.size());
+            ans = ui.addTask(deadline, taskList.size());
         } else if (task.startsWith("event")) {
             if (task.length() < 7) {
                 throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
@@ -121,9 +128,10 @@ public class Parser {
             String to = task.substring(slash2 + 4);
             Event event = new Event(description, from, to);
             taskList.addTask(event);
-            ui.addTask(event, taskList.size());
+            ans = ui.addTask(event, taskList.size());
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        return ans;
     }
 }
