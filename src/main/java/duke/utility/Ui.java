@@ -112,6 +112,9 @@ public class Ui {
         return SEPARATOR + SEARCH_TASK + filteredList.toString() + "\n" + SEPARATOR;
     }
 
+    /**
+     * Returns all overdue tasks and tasks due the coming week in a String format.
+     */
     public String printReminder() {
         overdueTasks = "You have " + taskList.getOverdueTasks().getLength() + " tasks overdue:\n";
         weeklyTasks = "You have " + taskList.getWeeklyTasks().getLength() + " tasks due this week:\n";

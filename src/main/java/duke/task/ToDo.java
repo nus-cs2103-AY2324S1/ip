@@ -19,6 +19,9 @@ public class ToDo extends Task {
         super(isDone, taskName);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public LocalDateTime getTaskDue() {
         return null;

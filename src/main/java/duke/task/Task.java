@@ -71,5 +71,11 @@ public abstract class Task {
      */
     public abstract String toUpdateString(int newStatus);
 
+    /**
+     * Returns the due date of a task, if applicable.
+     * To-Do tasks returns null.
+     * Deadline tasks return the deadline.
+     * Event tasks return the start date.
+     */
     public abstract LocalDateTime getTaskDue();
 }

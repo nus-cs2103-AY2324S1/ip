@@ -127,6 +127,11 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Looks through current TaskList to obtain all overdue tasks.
+     *
+     * @return A TaskList with all overdue tasks.
+     */
     public TaskList getOverdueTasks() {
         TaskList overdueTasks = new TaskList();
 
@@ -134,6 +139,7 @@ public class TaskList {
             Task task = this.tasks.get(i);
             LocalDateTime due = task.getTaskDue();
 
+            // Task is a To-Do task
             if (due == null) {
                 continue;
             }
@@ -147,6 +153,11 @@ public class TaskList {
         return overdueTasks;
     }
 
+    /**
+     * Looks through the current TaskList to obtain tasks that are due the coming week.
+     *
+     * @return A TaskList with tasks that are due the coming week.
+     */
     public TaskList getWeeklyTasks() {
         TaskList weeklyTasks = new TaskList();
         LocalDateTime today = LocalDateTime.now();

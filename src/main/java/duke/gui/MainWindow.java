@@ -1,33 +1,19 @@
 package duke.gui;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import duke.Bobi;
-import duke.task.Task;
-import duke.utility.Parser;
-import duke.utility.TaskList;
 import duke.utility.Ui;
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import net.fortuna.ical4j.model.Dur;
-import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.Notifications;
 
 /**
@@ -92,6 +78,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Automatically exits GUI after 1 second.
+     */
     private void handleUserExit() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -103,6 +92,11 @@ public class MainWindow extends AnchorPane {
         }, 1000);
     }
 
+    /**
+     * Shows reminder notification when users first launch the GUI.
+     * This notification reminds users of their overdue tasks,
+     * and tasks that are due the coming week.
+     */
     public void showReminder() {
         ImageView bobiView = new ImageView();
         bobiView.setImage(bobiImage);
