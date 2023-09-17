@@ -14,7 +14,8 @@ public class HelpExecutable implements Executable {
      */
     @Override
     public boolean execute(TaskList list, UserInterface ui) {
-        ui.output("Here's the guidelines for all functions.\n"
+        ui.output("For the release v0.2.0-limited-release only \n"
+                + "Here's the guidelines for all functions.\n"
                 + "help: lists this help guide\n"
                 + "list: lists all tasks\n"
                 + "bye: ends bot\n"
@@ -26,7 +27,8 @@ public class HelpExecutable implements Executable {
                 + "delete: delete (int x); deletes the indicated task\n"
                 + "find: find (String keyword); finds any tasks that contain the keyword\n"
                 + "rebind: rebind (String sourceBinding) /to (String customBinding); adds an alias for a command\n"
-                + "unbind: unbind (String customBinding) /from (String sourceBinding); removes the alias\n"
+                + "unbind: unbind (String customBinding); removes the alias\n"
+                + "For more info, visit the user guide at https://ruiyangzh.github.io/ip."
         );
         return false;
     }
