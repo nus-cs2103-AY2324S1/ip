@@ -1,3 +1,3 @@
-D | 1 | feature essay (by: 2023-10-09)
-E | 0 | RVSS1002 (at: 2022-12-23)
-T | 0 | read book (from: 2019-10-15 to: 2019-10-15)
+E | 1 | RVSS1002 (at: 2022-12-23)
+T | 1 | read book (from: 2019-10-15 to: 2019-10-15)
+D | 0 | read book (by: 2019-10-15)

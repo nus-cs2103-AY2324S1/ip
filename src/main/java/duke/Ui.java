@@ -29,28 +29,7 @@ public class Ui {
     public String showHiMessage() {
         StringBuilder message = new StringBuilder();
         message.append(" Hi! How can i help you this fine day?\n");
-        return message.toString();
-    }
-
-    /**
-     * Displays a message to the user if they try to mark a done task.
-     *
-     * @return The goodbye message as a string.
-     */
-    public String showMarkMarkedTaskMessage() {
-        StringBuilder message = new StringBuilder();
-        message.append(" This task is already marked as done! Good job, but it's done!\n");
-        return message.toString();
-    }
-
-    /**
-     * Displays a goodbye message to the user.
-     *
-     * @return The goodbye message as a string.
-     */
-    public String showUnmarkUnmarkedTaskMessage() {
-        StringBuilder message = new StringBuilder();
-        message.append(" This task is already marked as not done! It's not going anywhere!\n");
+        message.append(" If unsure of what to do just type in 'help' to see all the command possible\n");
         return message.toString();
     }
 

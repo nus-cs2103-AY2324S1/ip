@@ -37,6 +37,14 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    public boolean isTaskDone(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task task = tasks.get(taskIndex);
+            return task.isDone();
+        }
+        return false;
+    }
+
     /**
      * Returns a string representation of all tasks in the TaskList.
      *

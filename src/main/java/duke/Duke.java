@@ -1,11 +1,12 @@
 package duke;
 
+import duke.command.Command;
 import duke.command.DukeException;
 import duke.command.Parser;
-import duke.task.Task;
 import duke.task.TaskList;
 
-import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  * The Duke class represents a chatbot application.
  * It allows users to add, mark as done, mark as not done, delete, and list 3 different type of tasks.
@@ -41,55 +42,30 @@ public class Duke {
      * @return A formatted response message based on the input command.
      */
     public String getResponse(String input) {
-        int taskIndex;
-        String command = input;
-        StringBuilder response = new StringBuilder();
-
         try {
-            if (Parser.isBye(command)) {
-                response.append(ui.showGoodbyeMessage());
-            } else if (Parser.isList(command)) {
-                response.append(ui.showTaskList(this.tasks.getAllTasks()));
-            } else if (Parser.isHi(command)) {
-                response.append(ui.showHiMessage());
-            } else if (Parser.isMarkDone(command)) {
-                taskIndex = Parser.extractTaskIndex(command);
-                Task task = this.tasks.getTask(taskIndex);
-
-                if (task.isDone()) {
-                    response.append(ui.showMarkMarkedTaskMessage());
-                } else {
-                    this.tasks.markAsDone(taskIndex);
-                    response.append(ui.showTaskMarkedAsDone(task));
-                }
-            } else if (Parser.isMarkNotDone(command)) {
-                taskIndex = Parser.extractTaskIndex(command);
-                Task task = this.tasks.getTask(taskIndex);
-
-                if (!task.isDone()) {
-                    response.append(ui.showUnmarkUnmarkedTaskMessage());
-                } else {
-                    this.tasks.markAsNotDone(taskIndex);
-                    response.append(ui.showTaskMarkedAsNotDone(task));
-                }
-            } else if (Parser.isDelete(command)) {
-                taskIndex = Parser.extractTaskIndex(command);
-                Task deletedTask = this.tasks.deleteTask(taskIndex);
-                response.append(ui.showTaskDeleted(deletedTask, this.tasks.getTotalTasks()));
-            } else if (Parser.isFind(command)) {
-                String keyword = Parser.extractKeyword(command);
-                ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
-                response.append(ui.showMatchingTasks(matchingTasks));
-            } else {
-                Task newTask = Parser.parseTask(command);
-                this.tasks.addTask(newTask);
-                response.append(ui.showTaskAdded(newTask, this.tasks.getTotalTasks()));
-            }
-            this.storage.saveTasksToFile(this.tasks.getAllTasks());
+            Command command = Parser.parseCommand(input);
+            return command.execute(tasks, ui, storage);
         } catch (DukeException e) {
-            response.append(ui.showError(e.getMessage()));
+            return ui.showError(e.getMessage());
         }
+    }
 
-        return response.toString();
+    public static void main(String[] args) {
+        new Duke("./src/main/java/duke/duke.txt").run();
+    }
+
+    public void run() {
+        ui.showHiMessage();
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        do {
+            userInput = scanner.nextLine();
+            String response = getResponse(userInput);
+            System.out.println(response);
+        } while (!userInput.equalsIgnoreCase("bye"));
+
+        ui.showGoodbyeMessage();
     }
 }
