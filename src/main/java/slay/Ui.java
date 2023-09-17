@@ -34,13 +34,9 @@ public class Ui {
      */
     public void showWelcomeMessage() {
         out.println(DIVIDER);
-        out.println("WORK. PLAY. SLAY.");
-        out.println("Let's slay your tasks and slay your day!");
+        out.println(Message.MESSAGE_WELCOME);
+        out.println(Message.MESSAGE_PROMPT);
         out.println(DIVIDER);
-    }
-
-    public void showGoodbyeMessage() {
-        out.println("Bye.");
     }
 
     /**
@@ -48,7 +44,6 @@ public class Ui {
      * command execution segments.
      */
     public String showResultToUser(CommandResult result) {
-//        out.println(result.feedbackToUser);
         return result.feedbackToUser;
     }
 }
