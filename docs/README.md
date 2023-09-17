@@ -1,4 +1,4 @@
-# Jarvis, Your Personal Task Manager 🤖!
+# User Guide
 
 > "Simplicity is the ultimate sophistication." - Leonardo da Vinci [(source)](https://www.theorderexpert.com/11-inspirational-quotes-about-organization/)
 
@@ -16,14 +16,10 @@ What are some of the features?
 4. Grants users the ability to search for their respective task
 
 Why choose Jarvis?
-- [x] **Easy** to learn
-- [x] **Available** _24/7_ at your service
-- [x] Created by ~~Shishir~~ **Tony Stark** himself
-- [x] **Free** of charge
-
-![Jarvis](./Ui.png)
-
-# User Guide
+- [x]  **Easy** to learn
+- [x]  **Available** _24/7_ at your service
+- [x]  Created by ~~Shishir~~ **Tony Stark** himself
+- [x]  **Free** of charge
 
 ## Features and Usage
 
@@ -44,7 +40,11 @@ Format: ```list```
 
 Example of usage: `list`
 
-![list](https://github.com/shishirbychapur/ip/assets/95522842/a11c6b95-4008-4775-beea-7ce87e23452b)
+Expected output:
+```
+   Tasks displayed. Your guidance is requested.
+   1. 📝 ☐ Play Basketball
+```                 
 
 ### Adding a task with no time constraints: ```todo```
 Adds a ```todo``` task into the list.
@@ -53,7 +53,12 @@ Format: ```todo TASKNAME```
 
 Example of usage: `todo Play Basketball`
 
-![todo](https://github.com/shishirbychapur/ip/assets/95522842/c63b201e-e1c7-4fd7-ae65-a220862066f0)
+Expected output:
+```
+   Added the following task to the list.
+   1. 📝 ☐ Play Basketball
+   You currently have 1 tasks in your list.
+```   
 
 ### Adding a task with a deadline: ```deadline```
 Adds a ```deadline``` task into the list.
@@ -62,7 +67,12 @@ Format: ```deadline TASKNAME /by DEADLINE```
 
 Example of usage: ```deadline Complete CS2100 Assignment /by 18/09/23 1315```
 
-![deadline](https://github.com/shishirbychapur/ip/assets/95522842/054d6b7a-3563-4b51-b96f-aead44570f59)
+Expected output:
+```
+   Added the following task to the list.
+   2. ⏰ ☐ Complete CS2100 Assignment (by: Sep 18 2023 01:15 pm)
+   You currently have 2 tasks in your list.
+```   
 
 ### Adding a task with a starting and ending time: ```event```
 Adds a ```event``` task into the list.
@@ -71,16 +81,26 @@ Format: ```event TASKNAME /from FROM /to TO```
 
 Example of usage: ```event CS2103T Final Exam /from 01/12/23 0900 /to 01/12/23 1030```
 
-![event](https://github.com/shishirbychapur/ip/assets/95522842/544bee3a-0169-475b-bfc3-e00c6f41391a)
+Expected output:
+```
+   Added the following task to the list.
+   3. 🗓️ ☐ CS2103T Final Exam (from: Dec 1 2023 09:00 am to: Dec 1 2023 10:30 am)
+   You currently have 3 tasks in your list.
+```   
 
 ### Removing a task: ```delete```
 Removes the task matching the given index.
 
 Format: ```delete INDEX```
 
-Example of usage: ```delete 2```
+Example of usage: ```delete 3```
 
-![delete](https://github.com/shishirbychapur/ip/assets/95522842/f7507b9e-87ea-4347-a506-b5e01bdbfd7b)
+Expected output:
+```
+   The following task has been removed.
+   3. 🗓️ ☐ CS2103T Final Exam (from: Dec 1 2023 09:00 am to: Dec 1 2023 10:30 am)
+   Is there anything else I can assist you with?
+```   
 
 ### Completing a task: ```mark```
 Marks the task matching the given index as complete.
@@ -89,7 +109,12 @@ Format: ```mark INDEX```
 
 Example of usage: ```mark 1```
 
-![mark](https://github.com/shishirbychapur/ip/assets/95522842/6a28eae4-ab66-405a-a834-9f34d0a059cb)
+Expected output:
+```
+   The following task is marked as complete:
+   1. 🗓️ ☑ Play Basketball 
+   Is there anything else I can assist you with?
+```  
 
 ### Removing completion of a task: ```unmark```
 Marks the task matching the given index as incomplete.
@@ -98,7 +123,12 @@ Format: ```unmark INDEX```
 
 Example of usage: ```unmark 1```
 
-![unmark](https://github.com/shishirbychapur/ip/assets/95522842/ab678d38-38ea-4dff-9254-072b4ac8e785)
+Expected output:
+```
+   The following task has been umarked:
+   1. 🗓️ ☐ Play Basketball 
+   Is there anything else I can assist you with?
+``` 
 
 ### Search for a task: ```find```
 Finds a list of tasks containing the given keyword.
@@ -107,7 +137,11 @@ Format: ```find KEYWORD```
 
 Example of usage: ```find Basketball```
 
-![find](https://github.com/shishirbychapur/ip/assets/95522842/92f933be-d9f0-4071-98dd-55a93162deaf)
+Expected output:
+```
+   The following tasks match the entered keyword:
+   1. 🗓️ ☐ Play Basketball 
+```
 
 ### Generating a reminder: ```remind```
 Creates a reminder containing pending and passed ```event``` and ```deadline``` tasks.
@@ -117,7 +151,11 @@ Format: ```remind```
 
 Example of usage: ```remind```
 
-![remind](https://github.com/shishirbychapur/ip/assets/95522842/df51bf50-e0ed-42df-8965-813fac366f4b)
+Expected output:
+```
+   Just a friendly reminder, the following tasks are pending completion!
+   1. ⏰ ☐ Complete CS2100 Assignment (by: Sept 18 2023 01:15 pm)
+```
 
 ### Exit the application: ```bye```
 Exits from the application. An alternate way of exit is by pressing the close button (located at the top right corner of your screen).
@@ -125,3 +163,8 @@ Exits from the application. An alternate way of exit is by pressing the close bu
 Format: ```bye```
 
 Example of usage: `bye`
+
+Expected output:
+```
+    I shall now take my leave. Farewell!
+```
