@@ -9,6 +9,8 @@ public class ErrorMessages {
     public static final String EMPTY_EVENT_ERROR = "OOPS!!! The description of an event task cannot be empty.";
     public static final String EMPTY_TODO_ERROR = "OOPS!!! The description of a todo task cannot be empty.";
 
+    public static final String EMPTY_DESCRIPTION_ERROR = "OOPS!!! The description cannot be empty.";
+
     public static final String INVALID_INDEX_ERROR = "OOPS!!! The input index is not within the range of [1, %d]. "
             + "Please input a index that is within the given range";
     public static final String INVALID_TASK_INDEX_ERROR = "OOPS!!! The input task index is not a number. "

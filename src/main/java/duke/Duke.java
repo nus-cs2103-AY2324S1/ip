@@ -3,7 +3,7 @@ package duke;
 import duke.commands.Command;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.StorageFileException;
-import duke.parsers.Parser;
+import duke.parsers.CommandParser;
 import duke.io.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
@@ -44,7 +44,7 @@ public class Duke {
         try {
             this.ui.resetResponse();
 
-            Command command = Parser.parse(input);
+            Command command = CommandParser.parse(input);
 
             command.execute(this.list, this.ui, this.storage);
 i
