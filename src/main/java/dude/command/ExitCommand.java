@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = ui.showFarewell();
+        String output = ui.showFarewell() + "\n";
         return output;
     }
 }

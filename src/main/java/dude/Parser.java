@@ -74,7 +74,7 @@ public class Parser {
             String searchKeywords = commandDetails[1].trim();
             c = new FindCommand(searchKeywords);
         } else {
-            c = new UnknownCommand();
+            c = new UnknownCommand(fullCommand);
         }
         return c;
     }

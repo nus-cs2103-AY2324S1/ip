@@ -10,6 +10,12 @@ import dude.ui.Ui;
  */
 public class UnknownCommand extends Command {
 
+    private final String input;
+
+    public UnknownCommand(String input) {
+        this.input = input;
+    }
+
     /**
      * Executes the command to tell users the command is unknown.
      *
@@ -19,7 +25,7 @@ public class UnknownCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = ui.showUnknownCommand();
+        String output = ui.showUnknownCommand(this.input) + "\n";
         return output;
     }
 }
