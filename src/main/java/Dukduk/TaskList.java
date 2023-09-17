@@ -9,6 +9,8 @@ public class TaskList {
 
     private ArrayList<Task> tasks;
 
+    private Ui ui;
+
     /**
      * Constructs a new TaskList with an empty list of tasks.
      */
@@ -103,10 +105,11 @@ public class TaskList {
      * @param taskIndex The index of the task to delete.
      * @throws DukdukException If the task index is invalid.
      */
-    public void deleteTask(int taskIndex) throws DukdukException {
+    public String deleteTask(int taskIndex) throws DukdukException {
         if (isValidTaskIndex(taskIndex)) {
             Task removedTask = tasks.remove(taskIndex);
-            Ui.deleteTask(tasks, taskIndex, removedTask);
+            return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
+                    removedTask, tasks.size());
         } else {
             throw new DukdukException("OOPS!!! Task not found. Please provide a valid task number.");
         }
@@ -127,4 +130,3 @@ public class TaskList {
         return matchingTasks;
     }
 }
-

@@ -9,6 +9,27 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
+    private String[] words;
+
+    /**
+     * A constructor for a parser
+     *
+     * @param input the user input
+     */
+    public Parser(String input) {
+        // Split string into first word and remaining words
+        this.words = input.split(" ", 2);
+    }
+
+    /**
+     * Return the command word of the user input
+     *
+     * @return the command word
+     */
+    public String getCommand() {
+        return this.words[0];
+    }
+
     /**
      * Parses user input and creates a task object based on the input.
      *
@@ -64,3 +85,4 @@ public class Parser {
         }
     }
 }
+

@@ -9,21 +9,34 @@ import java.util.ArrayList;
 public class Ui {
 
     /**
-     * Prints a greeting message when the application starts.
+     * Prints a help message for incorrect inputs
      */
-    public static void printGreetings() {
-        printLine();
-        System.out.println(" Hello! I'm Dukduk");
-        System.out.println(" What can I do for you?");
-        printLine();
+    public String printHelpMessage() {
+        StringBuilder commands = new StringBuilder("OOPS!!! Invalid command. Try the following commands instead:\n");
+
+        String[] validCommands = {
+                "~ todo <task>",
+                "~ deadline <task> /by yyyy-mm-dd hhmm",
+                "~ event <task> /from yyyy-mm-dd hhmm /to yyyy-mm-dd hhmm",
+                "~ list",
+                "~ mark <task number>",
+                "~ unmark <task number>",
+                "~ delete <task number>",
+                "~ find <keyword>",
+                "~ bye"
+        };
+
+        for (String command : validCommands) {
+            commands.append(command).append("\n");
+        }
+        return commands.toString();
     }
 
     /**
      * Prints a message when the user exits the application.
      */
-    public static void printExit() {
-        System.out.println(" Bye. Hope to see you again soon!");
-        printLine();
+    public String printExit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -31,11 +44,12 @@ public class Ui {
      *
      * @param tasks The list of tasks to be printed.
      */
-    public static void printTasks(ArrayList<Task> tasks) {
-        System.out.println(" Here are the tasks in your list:");
+    public String printTasks(ArrayList<Task> tasks) {
+        StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+            message.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
+        return message.toString();
     }
 
     /**
@@ -43,22 +57,10 @@ public class Ui {
      *
      * @param tasks The list of tasks after adding a new task.
      */
-    public static void addTask(ArrayList<Task> tasks) {
-        System.out.println(" Got it. I've added this task:\n   "
-                + tasks.get(tasks.size() - 1).toString());
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-    /**
-     * Prints a message when a task is deleted from the list.
-     *
-     * @param tasks       The list of tasks after deleting a task.
-     * @param taskIndex   The index of the deleted task.
-     * @param removedTask The removed task.
-     */
-    public static void deleteTask(ArrayList<Task> tasks, int taskIndex, Task removedTask) {
-        System.out.println(" Noted. I've removed this task:\n   " + removedTask);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+    public String addTask(ArrayList<Task> tasks) {
+        Task addedTask = tasks.get(tasks.size() - 1);
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
+                addedTask, tasks.size());
     }
 
     /**
@@ -67,10 +69,10 @@ public class Ui {
      * @param tasks     The list of tasks after marking a task as done.
      * @param taskIndex The index of the marked task.
      */
-    public static void markAsDone(ArrayList<Task> tasks, int taskIndex) {
-        System.out.println(" Nice! I've marked this task as done:\n ["
-                + tasks.get(taskIndex).getStatusIcon() + "] "
-                + tasks.get(taskIndex).getDescription());
+    public String markAsDone(ArrayList<Task> tasks, int taskIndex) {
+        Task markedTask = tasks.get(taskIndex);
+        return String.format("Nice! I've marked this task as done:\n[%s] %s",
+                markedTask.getStatusIcon(), markedTask.getDescription());
     }
 
     /**
@@ -79,10 +81,10 @@ public class Ui {
      * @param tasks     The list of tasks after marking a task as not done.
      * @param taskIndex The index of the marked task.
      */
-    public static void markAsNotDone(ArrayList<Task> tasks, int taskIndex) {
-        System.out.println(" OK, I've marked this task as not done yet:\n ["
-                + tasks.get(taskIndex).getStatusIcon() + "] "
-                + tasks.get(taskIndex).getDescription());
+    public String markAsNotDone(ArrayList<Task> tasks, int taskIndex) {
+        Task markedTask = tasks.get(taskIndex);
+        return String.format("OK, I've marked this task as not done yet:\n[%s] %s",
+                markedTask.getStatusIcon(), markedTask.getDescription());
     }
 
     /**
@@ -90,22 +92,16 @@ public class Ui {
      *
      * @param matchingTasks The list of matching tasks to be printed.
      */
-    public static void printTasksIfFound(ArrayList<Task> matchingTasks) {
+    public String printTasksIfFound(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+                message.append(" ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
             }
+            return message.toString();
         }
-    }
-
-    /**
-     * Prints a line separator to enhance readability.
-     */
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
     }
 
     /**
@@ -113,7 +109,8 @@ public class Ui {
      *
      * @param e The DukdukException that occurred.
      */
-    public static void printErrorMsg(DukdukException e) {
-        System.out.println(" ☹ " + e.getMessage());
+    public String printErrorMsg(DukdukException e) {
+        return e.getMessage();
     }
 }
+
