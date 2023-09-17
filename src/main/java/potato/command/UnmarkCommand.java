@@ -11,7 +11,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.unmark(input, storage);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return tasks.unmark(input, storage);
     }
 }

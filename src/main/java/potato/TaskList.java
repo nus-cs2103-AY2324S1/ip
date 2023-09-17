@@ -16,35 +16,38 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public void mark(String input, Storage storage) throws IOException {
+    public String mark(String input, Storage storage) throws IOException {
         int index = Integer.parseInt(input.substring(5)) - 1;
         tasks.get(index).setStatus(true);
-        System.out.println("Slayyy such efficiency we love it!\n"
+        String s = "Slayyy such efficiency we love it!\n"
                 + "Let's take this off the list!\n"
-                + tasks.get(index).toString());
+                + tasks.get(index).toString();
         storage.saveTask(tasks);
+        return s;
     }
 
-    public void unmark(String input, Storage storage) throws IOException {
+    public String unmark(String input, Storage storage) throws IOException {
         int index = Integer.parseInt(input.substring(7)) - 1;
         tasks.get(index).setStatus(false);
-        System.out.println("Ohmah... not you lying to me??\n"
+        String s = "Ohmah... not you lying to me??\n"
                 + "This is the last time I'm adding it back for you!\n"
-                + tasks.get(index).toString());
+                + tasks.get(index).toString();
         storage.saveTask(tasks);
+        return s;
     }
 
-    public void delete(String input, Storage storage) throws IOException {
+    public String delete(String input, Storage storage) throws IOException {
         int index = Integer.parseInt(input.substring(7)) - 1;
-        System.out.println("NAUR NOT THE DITCHING?!\n" + "It's a no do for\n"
+        String s = "NAUR NOT THE DITCHING?!\n" + "It's a no do for\n"
                 + tasks.get(index).toString() + "\n" + "Now there's only " + (tasks.size() - 1)
-                + " tasks left sistar pls do them.");
+                + " tasks left sistar pls do them.";
         tasks.remove(index);
         storage.saveTask(tasks);
+        return s;
     }
 
-    public void list() {
-        System.out.println("Ok look all you want but they literally won't do themselves?");
+    public String list() {
+        String s = "Ok look all you want but they literally won't do themselves?";
 
         int count = 0;
         for (Task t : tasks) {
@@ -52,28 +55,32 @@ public class TaskList {
                 break;
             }
             count++;
-            System.out.println(String.valueOf(count) + "." + t.toString());
+            s += String.valueOf(count) + "." + t.toString();
         }
+        return s;
     }
 
-    public void find(String input) throws IOException {
-        String s = input.substring(5);
+    public String find(String input) throws IOException {
+        String keyword = input.substring(5);
+        String s = "";
         if (tasks.size() == 0) {
-            System.out.println("Nope nothing here...Input tasks first!");
+            s += "Nope nothing here...Input tasks first!";
         } else {
             int count = 0;
             for (Task t : tasks) {
-                if (t.getDescription().contains(s)) {
+                if (t.getDescription().contains(keyword)) {
                     count++;
-                    System.out.println(String.valueOf(count) + "." + t.toString());
+                    s += String.valueOf(count) + "." + t.toString();
                 }
             }
-            System.out.println("Ok that's all I found...");
+            s += "Ok that's all I found...";
         }
+        return s;
     }
 
-    public void add(String input, Storage storage) throws IOException {
+    public String add(String input, Storage storage) throws IOException {
         Task task = Task.parse(input);
+        String s = "";
 
         if (task == null) {
             new PotatoException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -82,10 +89,10 @@ public class TaskList {
             tasks.add(task);
             storage.saveTask(tasks);
             int size = tasks.size();
-            System.out.println("Let's add this to the never ending pile...\n"
+            s += "Let's add this to the never ending pile...\n"
                     + tasks.get(size - 1).toString() + "\n"
-                    + "Now you have " + size + " tasks in the list.");
+                    + "Now you have " + size + " tasks in the list.";
         }
+        return s;
     }
-
 }

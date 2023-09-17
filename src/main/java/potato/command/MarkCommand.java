@@ -11,7 +11,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.mark(input, storage);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return tasks.mark(input, storage);
     }
 }

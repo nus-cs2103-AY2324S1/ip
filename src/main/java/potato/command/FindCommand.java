@@ -11,7 +11,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        tasks.find(input);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return tasks.find(input);
     }
 }

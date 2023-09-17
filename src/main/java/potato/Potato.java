@@ -9,8 +9,8 @@ public class Potato {
     private TaskList tasks;
     private Ui ui;
 
-    public Potato(String txt) {
-        storage = new Storage(txt);
+    public Potato() {
+        storage = new Storage("./Potato.txt");
         ui = new Ui();
         try {
             tasks = new TaskList(storage.loadTask());
@@ -22,26 +22,41 @@ public class Potato {
         }
     }
 
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        ui.showLine();
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } finally {
-                ui.showLine();
-            }
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        String response = "HOHO ";
+        try {
+            Command c = Parser.parse(input);
+            response += c.execute(tasks, ui, storage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        return response;
     }
 
-    public static void main(String[] args) {
-        new Potato("./Potato.txt").run();
-    }
+//    public void run() {
+//        ui.showWelcome();
+//        boolean isExit = false;
+//        ui.showLine();
+//        while (!isExit) {
+//            try {
+//                String fullCommand = ui.readCommand();
+//                ui.showLine();
+//                Command c = Parser.parse(fullCommand);
+//                c.execute(tasks, ui, storage);
+//                isExit = c.isExit();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            } finally {
+//                ui.showLine();
+//            }
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        new Potato().run();
+//    }
 }
