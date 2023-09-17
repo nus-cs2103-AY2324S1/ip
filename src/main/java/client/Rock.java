@@ -18,7 +18,7 @@ import tasks.TaskList;
  */
 public class Rock {
     private static Path filePath = Paths.get("tasks.ser");
-    private TaskList taskList;
+    public TaskList taskList;
     private Storage storage;
     private Ui ui;
     private Invoker invoker;

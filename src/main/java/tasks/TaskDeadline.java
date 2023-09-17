@@ -37,6 +37,16 @@ public class TaskDeadline extends Task {
      * @return String representation of deadline
      */
     @Override
+    public boolean equals(Object o) {
+        if (o instanceof TaskDeadline) {
+            TaskDeadline t = (TaskDeadline) o;
+            return this.getName().equals(t.getName()) &&
+                    this.getDate().equals(t.getDate());
+        } else {
+            return false;
+        }
+    }
+    @Override
     public String toString() {
         return super.toString()
             + " (by: " + this.deadlineTime + ")";

@@ -111,4 +111,13 @@ public class TaskList implements Serializable {
         }
         return response;
     }
+
+    public boolean isPresent(Task t) {
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).equals(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
