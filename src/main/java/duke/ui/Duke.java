@@ -14,29 +14,25 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.Region;
+
 import java.util.ArrayList;
+
 import javafx.scene.control.Label;
-
-
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 
-public class Duke extends Application{
+public class Duke extends Application {
+    private static ArrayList<Task> tasks;
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-
-    private static ArrayList<Task> tasks;
     private Ui ui;
     private Storage storage;
-
     private Image user = new Image(this.getClass().getResourceAsStream("/images/samantha.jpeg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/Trisha_Krishnan_at_PS1_pre_release_event_(3).jpg"));
-
     private InputParser parser;
-
 
     public Duke(String filePath) {
         ui = new Ui();
@@ -50,6 +46,7 @@ public class Duke extends Application{
         }
         this.parser = new InputParser(tasks);
     }
+
     public Duke() {
         this("tasks.txt");
     }
@@ -101,7 +98,7 @@ public class Duke extends Application{
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
@@ -130,6 +127,7 @@ public class Duke extends Application{
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -154,6 +152,7 @@ public class Duke extends Application{
         );
         userInput.clear();
     }
+
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
@@ -164,7 +163,5 @@ public class Duke extends Application{
             Platform.exit();
         }
         return "Trisha: " + resp;
-
     }
-
 }

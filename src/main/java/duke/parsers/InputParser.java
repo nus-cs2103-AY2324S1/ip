@@ -1,6 +1,5 @@
 package duke.parsers;
 
-
 import duke.exceptions.DukeException;
 import duke.filehandler.Storage;
 import duke.tasks.Deadline;
@@ -15,16 +14,16 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class InputParser {
-
     private ArrayList<Task> tasks;
 
-    public InputParser(ArrayList<Task> existingTasks){
+    public InputParser(ArrayList<Task> existingTasks) {
         tasks = existingTasks;
     }
 
-    /***
+    /**
      * Checks user inputs, if invalid throws DukeException
-     * @param str User input split by each word
+     *
+     * @param str  User input split by each word
      * @param task type of task - todo,event,deadline,mark/unmark
      * @throws DukeException
      */
@@ -35,8 +34,9 @@ public class InputParser {
         }
     }
 
-    /***
+    /**
      * receives string of date and time, returns Date object
+     *
      * @param str
      * @return Date
      * @throws DukeException
@@ -57,13 +57,13 @@ public class InputParser {
         }
     }
 
-    /***
+    /**
      * parses user input
+     *
      * @param input
      * @param toStore
      * @return truw if user has not exited, false if user has exited chatbot
      */
-
     public String parse(String input, boolean toStore) {
         String[] splitStr = input.trim().split("\\s+");
         String reply = "";
@@ -86,9 +86,10 @@ public class InputParser {
                 Todo t = new Todo(input.substring(5));
                 tasks.add(t);
                 reply += t.addedMessage();
-                if (toStore){
+                if (toStore) {
                     Storage.saveTasks(tasks);
-                };
+                }
+                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
@@ -103,9 +104,10 @@ public class InputParser {
                 Deadline d = new Deadline(deadlineArr[0].substring(9), deadline);
                 tasks.add(d);
                 reply += d.addedMessage();
-                if (toStore){
+                if (toStore) {
                     Storage.saveTasks(tasks);
-                };
+                }
+                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
@@ -123,36 +125,37 @@ public class InputParser {
                 Event e = new Event(input.substring(6, startIndex), from, to);
                 tasks.add(e);
                 reply += e.addedMessage();
-                if (toStore){
+                if (toStore) {
                     Storage.saveTasks(tasks);
-                };
+                }
+                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
         }
 
         //find a certain task
-        else if (splitStr[0].equals("find")){
-            try{
+        else if (splitStr[0].equals("find")) {
+            try {
                 inputChecker(splitStr, "find");
                 String toFind = input.substring(5);
                 ArrayList<Task> foundTasks = new ArrayList<>();
 
-                for (Task task:tasks){
-                    if (task.getDescription().contains(toFind)){
+                for (Task task : tasks) {
+                    if (task.getDescription().contains(toFind)) {
                         foundTasks.add(task);
                     }
                 }
-                if (foundTasks.size() >0){
+                if (foundTasks.size() > 0) {
                     reply += "Here are the matching tasks in your list:\n";
                     for (int i = 0; i < foundTasks.size(); i++) {
                         int index = i + 1;
                         reply += "  " + index + "." + foundTasks.get(i).toString() + "\n";
                     }
-                } else{
-                    reply += "No tasks called " + toFind + " found\n" ;
+                } else {
+                    reply += "No tasks called " + toFind + " found\n";
                 }
-            } catch (DukeException e){
+            } catch (DukeException e) {
                 reply += e.getMessage();
             }
         }
@@ -164,11 +167,13 @@ public class InputParser {
                 int index = Integer.parseInt(splitStr[1]);
                 Task item = tasks.get(index - 1);
                 reply += item.setAction(splitStr[0]);
-                if (toStore){  Storage.saveTasks(tasks); };
+                if (toStore) {
+                    Storage.saveTasks(tasks);
+                }
+                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
-
         }
 
         //delete task from duke.ui.Duke.tasks ArrayList
@@ -178,9 +183,10 @@ public class InputParser {
                 int index = Integer.parseInt(splitStr[1]);
                 Task item = tasks.remove(index - 1);
                 item.delete();
-                if (toStore){
+                if (toStore) {
                     Storage.saveTasks(tasks);
-                };
+                }
+                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
