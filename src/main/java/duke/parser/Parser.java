@@ -26,7 +26,6 @@ public class Parser {
      * @throws DukeException If there's an error while parsing the user input or generating a Command.
      */
     public static Command parse(String userInput) throws DukeException {
-      
       assert userInput != null && !userInput.isEmpty() : "User input cannot be null or empty";
       assert userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")
                 || userInput.startsWith("list") || userInput.startsWith("bye") || userInput.startsWith("help")
@@ -84,7 +83,9 @@ public class Parser {
             boolean isEvent = userInput.contains("event") && userInput.substring(0, 5).equals("event");
             if (isEvent) {
                 // Add an event
-                boolean isEmptyEvent = userInput.equals("event") || !userInput.contains("/from") || !userInput.contains("/to");
+                boolean isEmptyEvent = userInput.equals("event")
+                        || !userInput.contains("/from")
+                        || !userInput.contains("/to");
                 String message = "OOPS!!! The description of event cannot be empty.";
                 char e = 'E';
                 return getAddCommand(isEmptyEvent, message, userInput, e);
@@ -99,11 +100,11 @@ public class Parser {
         throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
-    private static AddCommand getAddCommand(boolean userInput, String message, String userInput1, char T) throws DukeException {
-        if (userInput) { // checks if description is empty
+    private static AddCommand getAddCommand(boolean isEmpty, String message, String userInput, char t) throws DukeException {
+        if (isEmpty) {
             throw new DukeException(message);
         } else {
-            return new AddCommand(userInput1, T);
+            return new AddCommand(userInput, t);
         }
     }
 

@@ -90,6 +90,12 @@ public class TaskList {
         return this.arrTask.get(index);
     }
 
+    /**
+     * Returns true or false if the task exists in the task list.
+     *
+     * @param taskString The string of the task to be searched
+     * @return True if the task is in the list, else false.
+     */
     public boolean contains(String taskString) {
         boolean isContain = false;
         for (int i = 0; i < arrTask.size(); i++) {

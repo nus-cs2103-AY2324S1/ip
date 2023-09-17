@@ -47,9 +47,9 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         Label label = (Label) getChildren().get(1);
-        label.setStyle("-fx-background-color: #FFFFFF;\n" +
-                "    -fx-background-radius: 20px;\n" +
-                "    -fx-text-fill: black;");
+        label.setStyle("-fx-background-color: #FFFFFF;\n"
+                + "    -fx-background-radius: 20px;\n"
+                + "    -fx-text-fill: black;");
         setAlignment(Pos.TOP_LEFT);
 
     }

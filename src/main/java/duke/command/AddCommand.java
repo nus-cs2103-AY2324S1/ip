@@ -8,8 +8,8 @@ import duke.DukeException;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.TaskList;
 import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
 
@@ -49,20 +49,20 @@ public class AddCommand extends Command {
     private void executeAddTask(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         switch (type) {
         case 'T':
-            AddToDo(taskList, ui, storage);
+            addToDo(taskList, ui, storage);
             break;
         case 'D':
-            AddDeadLine(taskList, ui, storage);
+            addDeadLine(taskList, ui, storage);
             break;
         case 'E':
-            AddEvent(taskList, ui, storage);
+            addEvent(taskList, ui, storage);
             break;
         default:
             throw new DukeException("Invalid type!");
         }
     }
 
-    private void AddEvent(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    private void addEvent(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Event eventTask = getEventTask();
         boolean isDuplicate = taskList.contains(eventTask.toString());
         if (isDuplicate) {
@@ -94,7 +94,7 @@ public class AddCommand extends Command {
         return eventTask;
     }
 
-    private void AddDeadLine(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    private void addDeadLine(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Deadline deadline = getDeadlineTask();
         boolean isDuplicate = taskList.contains(deadline.toString());
         if (isDuplicate) {
@@ -120,7 +120,7 @@ public class AddCommand extends Command {
         return deadline;
     }
 
-    private void AddToDo(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    private void addToDo(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Todo todo = getTodoTask();
         boolean isDuplicate = taskList.contains(todo.toString());
         if (isDuplicate) {

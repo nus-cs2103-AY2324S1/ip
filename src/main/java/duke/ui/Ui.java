@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final String CHAT_BOT_NAME = "CARL BOT";
+    private String botName = "CARL BOT";
     private Scanner scanner;
     private String message = "";
 
@@ -28,9 +28,9 @@ public class Ui {
      * @return The welcome message to be displayed.
      */
     public String showWelcome() {
-        return CHAT_BOT_NAME + ":\nHello! I'm " + CHAT_BOT_NAME
-                + "\nWhat can I do for you?\n" +
-                "Type \"help\" to begin";
+        return botName + ":\nHello! I'm " + botName
+                + "\nWhat can I do for you?\n"
+                + "Type \"help\" to begin";
     }
 
     /**
@@ -39,7 +39,7 @@ public class Ui {
      * @return The welcome message to be displayed.
      */
     public String displayMessage() {
-        return CHAT_BOT_NAME + ":\n" + this.message;
+        return botName + ":\n" + this.message;
     }
 
 }
