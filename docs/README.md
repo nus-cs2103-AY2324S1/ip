@@ -1,9 +1,9 @@
-# <span style="color: Orange">Duke User Guide
+# Duke User Guide
 Duke is a task management application which helps to keep track of your tasks,  
 optimised for use via a Command Line Interface while still having the benefits   
 of a Graphical User Interface.
 
-## <span style="color: orange"> Quick Start
+## Quick Start
 
 1) Ensure you have Java `11` or above installed in your computer.
 2) Download the latest `duke.jar` from here.
@@ -13,7 +13,9 @@ of a Graphical User Interface.
    command to run the application.
    A GUI similar to below should appear in a few seconds.
 
-## <span style="color: orange"> Features
+![alt text](Welcome.png)
+
+## Features
 
 > [!NOTE]  
 > Words in `UPPER_CASE` are the parameters to be supplied by user  
