@@ -55,7 +55,7 @@ Find items containing a keyword by using the following command:
 find [keyword]
 ```
 
-### ✅ Mark a task as done
+### ✔ Mark a task as done
 
 Mark a task (Deadline/Event/Todo) as done by using the following command:
 ```
