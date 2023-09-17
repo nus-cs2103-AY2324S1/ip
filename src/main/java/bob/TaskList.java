@@ -79,8 +79,8 @@ public class TaskList {
             assert taskObj != null;
 
             lst.add(taskObj);
-            return new String[]{"New task added: ", "\t" + taskObj.toString(),
-                "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
+            return new String[]{"You have added a new task: ", "\t" + taskObj.toString(),
+                "Now, you have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
     }
 
     /**
@@ -95,19 +95,19 @@ public class TaskList {
 
         if (priority.equals("")) {
             tasksFound = lst.stream().map(Object::toString).collect(Collectors.toList());
-            message = "Here are all your tasks! You can also filter by priority (e.g. list p/high)";
+            message = "Certainly. Here are all your tasks. Consider filtering by priority (e.g. list p/high)";
         } else {
             try {
                 Priority p = Enum.valueOf(Priority.class, priority);
                 tasksFound = getTasksWithPriority(p);
-                message = "Here are your tasks of " + priority + " priority!";
+                message = "Certainly. Here are your tasks of " + priority + " priority!";
             } catch (Exception e) {
-                return new String[] { "Please input valid priority! E.g. list p/high" };
+                return new String[] { "Apologies, please input valid priority! E.g. list p/high" };
             }
         }
 
         if (tasksFound.isEmpty()) {
-            return new String[] { "No tasks found." };
+            return new String[] { "Alas, no tasks are found." };
         }
 
         List<String> tasks = IntStream.range(1, tasksFound.size() + 1)
@@ -135,7 +135,9 @@ public class TaskList {
      */
     public String[] markDoneOrNot(int index, boolean doneOrNot) {
         lst.get(index - 1).setDoneOrNot(doneOrNot);
-        String statement = doneOrNot ? "Nice! You completed a task!" : "... This is now undone.";
+        String statement = doneOrNot
+                ? "Splendid! You completed a task!"
+                : "This is now undone. Let that not happen again.";
         return new String[]{statement, "\t" + lst.get(index - 1).toString()};
     }
 
@@ -148,7 +150,7 @@ public class TaskList {
     public String[] deleteTask(int index) {
         String taskStr = lst.get(index - 1).toString();
         lst.remove(index - 1);
-        return new String[]{"I've removed this task from list: ", "\t" + taskStr,
+        return new String[]{"The selected task is removed from list: ", "\t" + taskStr,
             "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
     }
 
@@ -166,10 +168,10 @@ public class TaskList {
                 .map(i -> (++i) + ". " + tasksStream.get(--i))
                 .collect(Collectors.toList());
 
-        tasksFound.add(0, "Here are the matching tasks: ");
+        tasksFound.add(0, "Certainly. Here are the matching tasks: ");
 
         return tasksFound.size() > 1
                 ? tasksFound.toArray(new String[0])
-                : new String[]{"There are no matching tasks..."};
+                : new String[]{"No matching tasks were found. Try another keyword, or display the entire list."};
     }
 }

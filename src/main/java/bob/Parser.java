@@ -25,7 +25,7 @@ public class Parser {
             return new FindCommand(nextLine);
         } else if (nextLine.equals("bye")) {
             return new ExitCommand();
-        } else { // if command is to add tasks
+        } else { // invalid input is handled here too
             return new AddCommand(nextLine);
         }
     }

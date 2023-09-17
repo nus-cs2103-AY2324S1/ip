@@ -27,12 +27,12 @@ public class Ui {
 
     public String greet() {
         return stringFormat(new String[]{
-            "Hi there! I'm Bob", "How can I help?"
+            "Good day to you! How may I be of assistance?"
         });
     }
 
     public String exit() {
-        return stringFormat(new String[]{"See you soon!"});
+        return stringFormat(new String[]{"Helping you is my pleasure."});
     }
 
     public void echo(String input) {
@@ -41,7 +41,7 @@ public class Ui {
 
     public String showLoadingError() {
         return errorFormat(new String[]{
-            "Unable to load tasks. New list created!"
+            "Met with difficulty when retrieving old tasks.", "New list created!"
         });
     }
 }

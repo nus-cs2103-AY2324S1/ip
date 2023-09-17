@@ -5,5 +5,5 @@ package bob.exception;
  * e.g. delete, mark, unmark
  */
 public class MissingIndexException extends BobException {
-    public String message = "Task index must be provided!";
+    public String message = "Do provide the task index.";
 }

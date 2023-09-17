@@ -25,9 +25,15 @@ public class AddCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            String display = ui.stringFormat(tasks.addToList(input));
-            storage.write(tasks.lst);
-            return display;
+            try {
+                String display = ui.stringFormat(tasks.addToList(input));
+                storage.write(tasks.lst);
+                return display;
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidPriorityException();
+            } catch (DateTimeParseException e) {
+                throw new MissingDatesException();
+            }
         } catch (IOException e) {
             return ui.showLoadingError();
         } catch (WrongInputException e) {
@@ -36,14 +42,8 @@ public class AddCommand extends Command {
             return ui.errorFormat(new String[]{e.message});
         } catch (MissingDatesException e) {
             return ui.errorFormat(new String[]{e.message});
-        } catch (DateTimeParseException e) {
-            return ui.errorFormat(new String[]{"Please input valid date!"});
         } catch (InvalidPriorityException e) {
             return ui.errorFormat(new String[]{e.message});
-        } catch (IndexOutOfBoundsException e) {
-            return ui.errorFormat(new String[]{
-                    "Please input valid priority! E.g. todo p/high read"
-            });
         }
     }
 }

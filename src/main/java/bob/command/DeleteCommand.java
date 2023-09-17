@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
         } catch (MissingIndexException e) {
             return ui.errorFormat(new String[]{e.message});
         } catch (IndexOutOfBoundsException e) {
-            return ui.errorFormat(new String[]{"Index provided is wrong!"});
+            return ui.errorFormat(new String[]{"Index provided is wrong."});
         }
     }
 }

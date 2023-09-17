@@ -46,10 +46,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = "User:\n" + userInput.getText();
         String response = bob.getResponse(userInput.getText());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBobDialog(response, bobImage)
-        );
+        if (!response.equals("")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getBobDialog(response, bobImage)
+            );
+        }
         userInput.clear();
     }
 }
