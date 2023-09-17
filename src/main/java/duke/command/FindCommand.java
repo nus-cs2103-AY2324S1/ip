@@ -43,7 +43,7 @@ public class FindCommand implements Command {
             ui.sendMessage("Sorry, there is no matching tasks in your list.");
         } else {
             for (int i = 0; i < filteredTasks.size(); i++) {
-                output.append("\n").append(i + 1).append(".").append(tasks.get(i).toString());
+                output.append("\n").append(i + 1).append(".").append(filteredTasks.get(i).toString());
             }
             ui.sendMessage(output.toString());
         }

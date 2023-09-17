@@ -33,8 +33,8 @@ public class UnmarkCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int unmarkIndex = Integer.parseInt(this.taskDetail) - 1;
-        if (unmarkIndex > tasks.size() || unmarkIndex < 0) {
-            throw new DukeException("OOPS!! Task does not exist");
+        if (unmarkIndex >= tasks.size() || unmarkIndex < 0) {
+            throw new DukeException("Error 404!! Task does not exist");
         }
         Task curr = tasks.get(unmarkIndex);
         curr.taskUndone();

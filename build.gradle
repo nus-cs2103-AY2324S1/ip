@@ -5,6 +5,11 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
+javafx {
+    version = '17.0.7'
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
+}
+
 repositories {
     mavenCentral()
 }
@@ -41,11 +46,6 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
-}
-
-javafx {
-    version = '17.0.7'
-    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
 application {

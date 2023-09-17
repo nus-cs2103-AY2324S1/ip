@@ -33,8 +33,8 @@ public class MarkCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int markIndex = Integer.parseInt(this.taskDetail) - 1;
-        if (markIndex > tasks.size() || markIndex < 0) {
-            throw new DukeException("OOPS!! Task does not exist");
+        if (markIndex >= tasks.size() || markIndex < 0) {
+            throw new DukeException("Error 404!! Task does not exist");
         } else {
             Task curr = tasks.get(markIndex);
             curr.taskDone();

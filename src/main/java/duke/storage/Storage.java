@@ -38,7 +38,16 @@ public class Storage {
     public void editData(TaskList taskList) throws DukeException {
         assert taskList != null;
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
+            File file = new File(filePath);
+            if (!file.exists()) {
+                try {
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
+                } catch (IOException ex) {
+                    throw new DukeException("Error 404!!! Unable to create file safely.");
+                }
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
             for (Task t : taskList) {
                 writer.write(t.toSave() + "\n");
             }
