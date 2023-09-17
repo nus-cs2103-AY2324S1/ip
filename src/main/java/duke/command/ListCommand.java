@@ -10,6 +10,7 @@ public class ListCommand extends Command {
 	 * Executes the list command which lists all tasks from taskList.
 	 * Ui displays listing to user.
 	 * Storage does not store anything in this case.
+	 *
 	 * @param taskList list of tasks to execute.
 	 * @param ui displays listing of task in taskList.
 	 * @param storage can write tasks to store on the text file.

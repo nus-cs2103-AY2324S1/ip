@@ -35,8 +35,8 @@ public class MainWindow extends AnchorPane {
 	private final TaskList tasks = getTasks();
 
 	/**
-	 * Loads takss from storage into a taskList
-	 * @return TaskList loaded from storage
+	 * Loads tasks from storage into a taskList.
+	 * @return TaskList loaded from storage.
 	 */
 	private TaskList getTasks() {
 		try {
@@ -47,13 +47,9 @@ public class MainWindow extends AnchorPane {
 		}
 	}
 
-
 	/**
-	 * Constructs a new ChatBot to chat with.
-	 * Default name of the ChatBot is Duke
-	 */
-
-	/**
+	 * Runs ChatBot.
+	 *
 	 * @param args Main method to run ChatBot.
 	 */
 	public static void main(String[] args) {
@@ -72,8 +68,9 @@ public class MainWindow extends AnchorPane {
 	}
 
 	/**
-	 * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-	 * the dialog container. Clears the user input after processing.
+	 * Creates two dialog boxes, one echoing user input and the other containing Duke's reply
+	 * and then appends them to the dialog container.
+	 * Clears the user input after processing.
 	 */
 	@FXML
 	private void handleUserInput() {

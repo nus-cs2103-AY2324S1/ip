@@ -6,12 +6,14 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 
 /**
- * Represents a List of Task.
+ * Represents a List of Tasks.
  */
 public class TaskList {
 	private ArrayList<Task> taskList;
 
 	/**
+	 * Initialise the TaskList.
+	 *
 	 * @param taskList Represents the list of Task.
 	 */
 	public TaskList(ArrayList<Task> taskList) {
@@ -27,6 +29,7 @@ public class TaskList {
 
 	/**
 	 * Add task to list.
+	 *
 	 * @param t Task to be added.
 	 */
 	public void add(Task t) {
@@ -34,7 +37,8 @@ public class TaskList {
 	}
 
 	/**
-	 *  Remove task from taskList to be added into archive file
+	 * Remove task from taskList to be added into archive file
+	 *
 	 * @param position of task to be removed
 	 * @return Task to be added to archvie file
 	 */
@@ -47,8 +51,9 @@ public class TaskList {
 
 
 	/**
-	 * shows all tasks in the list
-	 * @param ui outputs task list to user
+	 * Shows all tasks in the list.
+	 *
+	 * @param ui outputs task list to user.
 	 */
 	public String listAsString(Ui ui) {
 		StringBuilder br = new StringBuilder();
@@ -61,6 +66,7 @@ public class TaskList {
 
 	/**
 	 * Marks task.
+	 *
 	 * @param toMark Whether to mark Task as done or not.
 	 * @param pos Position of task to be marked, starting from 1.
 	 * @throws DukeException If unable to mark task at specified idx.
@@ -78,16 +84,6 @@ public class TaskList {
 			task.unMark();
 		}
 	}
-	/**
-	 * Returns number of tasks remaining after deletion
-	 * @return number task remaining after deletion
-	 */
-
-//	public String getMainRemaining(boolean isMain) {
-//		return isMain ?
-//				Integer.toString(taskList.size() - 1) :
-//				Integer.toString(taskList.size() - 1);
-//	}
 
 	public String getSize() {
 		return Integer.toString(taskList.size());
@@ -95,6 +91,7 @@ public class TaskList {
 
 	/**
 	 * Returns String representation of task at a given index, starting from 0.
+	 *
  	 * @param i Index of Task in taskList that we are interested in.
 	 * @return String representation of Task.
 	 */
@@ -102,31 +99,39 @@ public class TaskList {
 		return taskList.get(i);
 	}
 
-	/**
-	 * Finds task by keyword in task list
-	 * @param keyWord word we are searching task by
-	 * @return String representation of task which we output to user later on
-	 */
 
+	private boolean containsKeyword(String text, String keyWord) {
+		String[] words = text.split(" ");
+		for (String word: words) {
+			if (word.equals(keyWord)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Finds task by keyword in task list.
+	 *
+	 * @param keyWord The word we are searching task by.
+	 * @return String representation of task which we output to user later on.
+	 */
 	public StringBuilder findTaskToString(String keyWord) {
 		int count = 1;
 		StringBuilder br = new StringBuilder();
-		for (Task t: taskList) {
-			String[] words = t.toString().split(" ");
-			for (String w: words) {
-				if (w.equals(keyWord)) {
-					br.append(count).append(". ").append(t.toString()).append("\n");
-				}
+		for (Task task: taskList) {
+			if (containsKeyword(task.toString(), keyWord)) {
+				br.append(count).append(". ").append(task.toString()).append("\n");
+				count++;
 			}
-			count++;
 		}
 		return br;
 	}
 
 	/**
-	 * clears taskList
+	 * Clears taskList
 	 */
-	public void clearTask() {
+	public void clearTaskList() {
 		taskList = new ArrayList<>(100);
 	}
 }

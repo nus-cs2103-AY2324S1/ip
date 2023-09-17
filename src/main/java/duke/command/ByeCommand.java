@@ -10,6 +10,7 @@ public class ByeCommand extends Command {
 	/**
 	 * Executes the bye command which exits system.
 	 * Ui displays exiting to user.
+	 *
 	 * @param taskList list of tasks to execute.
 	 * @param ui displays execution of adding.
 	 * @param storage can write tasks to store on the text file.

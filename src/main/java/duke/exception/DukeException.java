@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * Represents exception specific to ChatBot duke
+ * Represents exception specific to ChatBot duke.
  */
 public class DukeException extends Exception {
 	public DukeException(String e) {

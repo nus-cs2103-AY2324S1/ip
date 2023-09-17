@@ -11,6 +11,7 @@ public class Event extends Task {
 
 	/**
 	 * Represents an Event Task.
+	 *
 	 * @param description Describes the Event.
 	 * @param startTime Time Event starts.
 	 * @param endTime Time Event ends.
@@ -24,6 +25,7 @@ public class Event extends Task {
 
 	/**
 	 * Returns a String to be written into Storage.
+	 *
 	 * @return Reformatted String suitable for Storage.
 	 */
 	@Override
@@ -40,9 +42,6 @@ public class Event extends Task {
 		return b.toString();
 	}
 
-	/**
-	 * @return String representation of Event.
-	 */
 	@Override
 	public String toString() {
 		String[] start = this.startTime.toString().split("T");
@@ -52,11 +51,4 @@ public class Event extends Task {
 		return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
 	}
 
-	/**
-	 * @return Icon of Task
-	 */
-
-	public String getIcon() {
-		return "[E]" + super.getTask();
-	}
 }

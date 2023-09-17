@@ -21,6 +21,12 @@ public class Storage {
 
 	private ArrayList<Task> taskList;
 	private ArrayList<Task> archiveList;
+
+	/**
+	 * Represent file storage for users tasks
+	 * @param filePathMain Main file path, where task are stored
+	 * @param filePathArchive Archive file path, where task are archived into
+	 */
 	public Storage(String filePathMain, String filePathArchive) {
 		this.filePathMain = filePathMain;
 		this.filePathArchive = filePathArchive;
@@ -28,6 +34,12 @@ public class Storage {
 		this.archiveList = new ArrayList<>(100);
 	}
 
+	/**
+	 * Get Remaining tasks
+	 *
+	 * @param isMain Whether accessing Main or Archive file
+	 * @return String representing remaining task
+	 */
 	public String getMainRemaining(boolean isMain) {
 		return isMain ? Integer.toString(taskList.size() - 1) : Integer.toString(archiveList.size() - 1);
 	}
@@ -35,7 +47,7 @@ public class Storage {
 		return this.archiveList;
 	}
 	/**
-	 * Initialise new filewriter without append to delete its contents
+	 * Initialise new fileWriter without append to delete its contents
 	 */
 	public void clearFile() {
 		this.taskList = new ArrayList<>(100);
@@ -51,9 +63,8 @@ public class Storage {
 	 * Writes Task into text file.
 	 * Creates text file if it does not exist.
 	 *
-	 * @param task   Thing to be done.
-	 * @param isMain
-	 * @throws IOException If unable to write file.
+	 * @param task Thing to be done.
+	 * @param isMain Whether file access is Main or Archive file.
 	 */
 	public void addToFileMain(Task task, boolean isMain) {
 		String filePathReference = isMain ? filePathMain : filePathArchive;
@@ -63,7 +74,6 @@ public class Storage {
 			archiveList.add(task);
 		}
 		try {
-			// appends just that one task thats why true for append
 			FileWriter fw = new FileWriter(filePathReference, true);
 				fw.write(task.writeToFile());
 				fw.write("\n");
@@ -76,21 +86,19 @@ public class Storage {
 
 	/**
 	 * Reads stored text file line by line.
-	 * Initialises both text files within storage!!!
+	 * Initialises both text files within storage.
+	 *
 	 * @return ArrayList of Task.
 	 * @throws IOException If unable to read lines in text file.
 	 */
 	public ArrayList<Task> loadFiles() throws IOException {
-//		String filePathReference = isMain ? filePathMain : filePathArchive;
 		try (BufferedReader in = new BufferedReader(new FileReader(filePathMain))) {
 			StringBuilder br = new StringBuilder();
 			String fileLine;
 			while ((fileLine = in.readLine()) != null) {
-				// append raw unformatted version
 				br.append(fileLine);
 				br.append("\n");
 				readTaskMain(fileLine, true);
-				// edit this as well
 			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
@@ -109,17 +117,15 @@ public class Storage {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
-		// for the sake of returning it for Duke main function reference
 		return taskList;
 	}
 
-	// the file stored needs to be reformatted
 
 	/**
 	 * Converts each line into the format shown to reader.
 	 *
 	 * @param fileLine Each line in the file.
-	 * @param isMain
+	 * @param isMain Whether file access is Main or Archive file.
 	 * @throws IOException If unable to read task in file as Deadline[D], Event[E] or ToDos[T].
 	 */
 	public void readTaskMain(String fileLine, boolean isMain) throws IOException {
@@ -140,7 +146,6 @@ public class Storage {
 						toDo.markAsDone();
 					}
 					temporarytTask = toDo;
-//					taskList.add(toDo);
 					break;
 				case "D":
 					LocalDateTime startTime = LocalDateTime.parse(str[3]);
@@ -149,7 +154,6 @@ public class Storage {
 						deadLine.markAsDone();
 					}
 					temporarytTask = deadLine;
-//					taskList.add(deadLine);
 					break;
 				case "E":
 					LocalDateTime start = LocalDateTime.parse(str[3]);
@@ -159,7 +163,6 @@ public class Storage {
 						event.markAsDone();
 					}
 					temporarytTask = event;
-//					taskList.add(event);
 					break;
 				default:
 					throw new IOException("read fail");
@@ -176,14 +179,14 @@ public class Storage {
 	/**
 	 * Deletes tasks from taskList.
 	 *
-	 * @param i      Position of tasks to be deleted.
-	 * @param isMain
+	 * @param i Position of tasks to be deleted.
+	 * @param isMain Whether file access is Main or Archive file.
 	 */
 	public Task deleteFromMainFile(int i, boolean isMain) {
 		String filePathReference = isMain ? filePathMain : filePathArchive;
 		ArrayList<Task> taskListReference = isMain ? taskList : archiveList;
-		//check
 		Task taskDeleted = taskListReference.remove(i);
+
 		try {
 			FileWriter fw = new FileWriter(filePathReference, true);
 			for (Task task: taskList) {
@@ -213,8 +216,5 @@ public class Storage {
 			System.out.println("Updating fail " + e.getMessage());
 		}
 	}
-
-
-
 
 }

@@ -5,7 +5,7 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 
 /**
- * Command to delete a task from the taskList
+ * Command to delete a task from the taskList.
  */
 public class DeleteCommand extends Command {
 	private final int positionToDelete;
@@ -17,6 +17,7 @@ public class DeleteCommand extends Command {
 	 * Ui displays deleting to user.
 	 * Deletion changes the contents in storage.
 	 * Updates both storage and local taskList for reference during execution
+	 *
 	 * @param taskList list of tasks to execute.
 	 * @param ui displays execution of deleting.
 	 * @param storage can write tasks to store on the text file.
@@ -24,14 +25,12 @@ public class DeleteCommand extends Command {
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		String remaining = storage.getMainRemaining(true);
-//		Task task = taskList.getTask(positionToDelete);
 		try {
 			Task task = storage.deleteFromMainFile(positionToDelete, true);
 			System.out.println(ui.showDelete(task, remaining));
 			return ui.showDelete(task, remaining);
 		} catch (IndexOutOfBoundsException e) {
 			return e.getMessage();
-//			System.out.println(e.getMessage());
 		}
 	}
 }

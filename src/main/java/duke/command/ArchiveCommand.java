@@ -15,9 +15,10 @@ public class ArchiveCommand extends Command{
 	}
 
 	/**
-	 * Remove task from main file, update main file storage
-	 * add file to archive, update archive file storage
-	 * vice versa
+	 * Remove task from main file, update main file storage.
+	 * add file to archive, update archive file storage.
+	 * vice versa.
+	 *
 	 * @param taskList list of tasks to execute Command on.
 	 * @param ui displays execution of Command.
 	 * @param storage can write tasks to store to text file depending on Command type.

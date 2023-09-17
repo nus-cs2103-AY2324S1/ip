@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 public class Parser {
 	/**
 	 * Group the single words commands together
+	 *
 	 * @param actionPhrase action phrase representing what is to be done
 	 * @return Command to be executed
 	 * @throws InvalidActionException if the action phrase is not recognised
@@ -42,26 +43,31 @@ public class Parser {
 	}
 
 	/**
-	 * Check that we are getting from a valdi position
+	 * Check that we are getting from a valid position
+	 *
 	 * @param accessKey represents position that we are getting from
 	 * @return Position if it is valid
 	 * @throws NumberFormatException accessKey not valid
 	 */
 
 	public static int getValidIndex(String accessKey) throws PositionException {
+		int pos;
+
 		try {
-			int pos = Integer.parseInt(accessKey);
-			if (pos < 0) {
-				throw new PositionException("Cannot access negative position");
-			}
-			return pos;
+			pos = Integer.parseInt(accessKey);
 		} catch (NumberFormatException e) {
 			throw new PositionException("Not a valid position indicated, please use a number\n" + e.getMessage());
 		}
+
+		if (pos < 0) {
+			throw new PositionException("Cannot access negative position");
+		}
+		return pos;
 	}
 
 	/**
-	 * groups the actions that references task number
+	 * Groups the actions that references task number
+	 *
 	 * @param accessPhrase input phrase from user
 	 * @return Command to be executed
 	 * @throws PositionException if task number provided is not valid
@@ -75,7 +81,7 @@ public class Parser {
 		String accessKey = words[1];
 		boolean isFind = commandWord.equals("find");
 
-		int pos = Parser.getValidIndex(accessKey);
+		int pos = isFind ? 0 : Parser.getValidIndex(accessKey);
 		boolean isMark = commandWord.equals("mark") || commandWord.equals("unmark");
 		boolean isDelete = commandWord.equals("delete");
 		boolean isArchive = commandWord.equals("archive");
@@ -100,7 +106,8 @@ public class Parser {
 	}
 
 	/**
-	 * parses a todo command
+	 * Parses a todo user input into a todo command
+	 *
 	 * @param fullCommand user input
 	 * @return Command to be executed
 	 */
@@ -115,7 +122,8 @@ public class Parser {
 	}
 
 	/**
-	 * groups task together
+	 * Groups task together
+	 *
 	 * @param taskPhrase the user input
 	 * @return Command to be executed
 	 * @throws DukeException if unknown task command
@@ -155,6 +163,7 @@ public class Parser {
 
 	/**
 	 * Parse DeadLine
+	 *
 	 * @param fullCommand the user input
 	 * @return Command to be executed
 	 * @throws DukeException if user input does not correctly follow specified order
@@ -183,7 +192,8 @@ public class Parser {
 	}
 
 	/**
-	 * checck if event format is valid
+	 * Checks if event format is valid
+	 *
 	 * @param items represent user input
 	 * @throws DukeException if invalid event
 	 */
@@ -202,7 +212,8 @@ public class Parser {
 	}
 
 	/**
-	 * gets event from user input
+	 * Gets event from user input
+	 *
 	 * @param fullCommand represent user input
 	 * @return Command to add new event
 	 * @throws DukeException if start is before end
@@ -210,7 +221,6 @@ public class Parser {
 	 */
 	public static Command getEvent(String fullCommand) throws DukeException, TimeFormatException {
 		String[] items = fullCommand.split("/");
-//		String[] descriptionWords = items[0].split(" ");
 		String description = Parser.getDescription(items[0]);
 		if (items.length != 3) {
 			throw new DukeException("Unknown Event format");
@@ -221,28 +231,29 @@ public class Parser {
 		String[] byTimeEnd = items[2].split(" ");
 		boolean isAmPmFormat = timePhraseStart.contains("am") || timePhraseStart.contains("pm");
 		Parser.isValidEvent(items);
+
+		LocalDateTime begin;
+		LocalDateTime end;
 		if (isAmPmFormat) {
-			LocalDateTime begin = TimeFormat.amPmFormat(fromTimeStart);
-			LocalDateTime end = TimeFormat.amPmFormat(byTimeEnd);
-			if (begin.isAfter(end)) {
-				throw new DukeException("Start is after end!");
-			}
-			return new AddCommand(new Event(description, begin, end));
+			begin = TimeFormat.amPmFormat(fromTimeStart);
+			end = TimeFormat.amPmFormat(byTimeEnd);
 		} else {
-			LocalDateTime begin = TimeFormat.fullDayFormat(description, items[1]);
-			LocalDateTime end = TimeFormat.fullDayFormat(description, items[2]);
-			if (begin.isAfter(end)) {
-				throw new DukeException("Start is after end!");
-			}
-			return new AddCommand(new Event(description, begin, end));
+			begin = TimeFormat.fullDayFormat(description, items[1]);
+			end = TimeFormat.fullDayFormat(description, items[2]);
 		}
+
+		if (begin.isAfter(end)) {
+			throw new DukeException("Start is after end!");
+		}
+		return new AddCommand(new Event(description, begin, end));
 	}
 
 	/**
-	 * parse user input into a Command
-	 * @param fullCommand user input
-	 * @return Command to be executed
-	 * @throws DukeException for unknown commands aggregating all exceptions thrown
+	 * Parse user input into a Command.
+	 *
+	 * @param fullCommand user input.
+	 * @return Command to be executed.
+	 * @throws DukeException for unknown commands aggregating all exceptions thrown.
 	 */
 	public static Command parse(String fullCommand) throws DukeException {
 		String[] item = fullCommand.split(" ");
