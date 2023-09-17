@@ -1,13 +1,13 @@
 package command;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import helper.Storage;
 import helper.Ui;
 import task.Task;
 import task.TaskList;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a Command that specifically reminds upcoming deadlines in the Tasklist.
@@ -35,7 +35,7 @@ public class RemindCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
-        assert !list.equals(null): "list has been initialised";
+        assert !list.equals(null) : "list has been initialised";
         StringBuilder message = new StringBuilder("");
         List<Task> totalList = new ArrayList<>();
 

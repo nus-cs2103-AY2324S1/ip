@@ -32,7 +32,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
-        assert !list.equals(null): "list has been initialised";
+        assert !list.equals(null) : "list has been initialised";
         String message = list.find(substring);
         return message;
     }
