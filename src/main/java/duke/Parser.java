@@ -256,6 +256,7 @@ public class Parser {
         case TODO:
             return new Instruction.Add(Parser.parseTodo(matcher));
         case DEADLINE:
+            return new Instruction.Add(Parser.parseDeadline(matcher, Parser.INPUT_FORMAT));
         case EVENT:
             return new Instruction.Add(Parser.parseEvent(matcher, Parser.INPUT_FORMAT));
         default:
