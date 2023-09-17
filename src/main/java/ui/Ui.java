@@ -22,7 +22,6 @@ public class Ui {
         return LINE + "Yo! This is CHADbot\n Need sum help?\n" + LINE ;
     }
 
-
     /**
      * Prints out goodbye message for CHADbot.
      */
