@@ -15,8 +15,7 @@ public class Ui {
      * @param task Newly added task.
      */
     public String showAdd(int size, Task task) {
-        return UiMessages.ADDED_TASK
-                + size + ") " + task.toString() + "\n\n"
+        return UiMessages.ADDED_TASK + size + ") " + task.toString() + "\n"
                 + String.format(UiMessages.TASK_COUNT, size);
     }
 
@@ -33,7 +32,7 @@ public class Ui {
         } else {
             message = UiMessages.STATUS_UNMARKED;
         }
-        return message + index + ") " + task.toString() + "\n\n" + UiMessages.ASSIST;
+        return message + index + ") " + task.toString() + "\n" + UiMessages.ASSIST;
     }
 
     /**

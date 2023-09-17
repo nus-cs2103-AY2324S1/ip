@@ -9,7 +9,7 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="79.0" prefWidth="360.0" stylesheets="@../css/Application.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Pane fx:id="messageOutline" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="306.0" styleClass="gray-background" stylesheets="@../css/Application.css">
+        <Pane fx:id="messageOutline" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="306.0" stylesheets="@../css/Application.css">
             <children>
                 <Label fx:id="dialog" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="0.0" styleClass="message-font" stylesheets="@../css/Application.css" text="Label" textFill="WHITE" wrapText="true">
                     <opaqueInsets>

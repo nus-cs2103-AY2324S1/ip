@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import jarvis.exceptions.DukeException;
+import jarvis.exceptions.ExceptionMessages;
 import jarvis.tasks.Deadline;
 import jarvis.tasks.Event;
 import jarvis.tasks.Task;
@@ -85,13 +86,9 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException exc) {
-            System.out.println("The file doesn't exist yet, but will be created"
-                    + " under the path (" + this.file.getPath() + ")");
+            System.out.printf(ExceptionMessages.FILE_DOESNT_EXIST + "%s )%n", file.getPath());
         } catch (DukeException exc) {
-            System.out.println("Incorrect input has been detected from the file "
-                    + "stored at the path (" + this.file.getPath() + ") at line number " + lineNumber + ".");
-            System.out.println("Error Message: " + exc);
-            System.out.println("The invalid task will be overwritten and removed.");
+            System.out.printf(ExceptionMessages.INVALID_INPUT + "%s ) at line number %d.", file.getPath(), lineNumber);
         } finally {
             // To remove the invalid input.
             this.writeData(data);

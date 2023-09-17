@@ -10,6 +10,7 @@ import jarvis.tasks.Deadline;
 import jarvis.tasks.Event;
 import jarvis.tasks.Task;
 import jarvis.tasks.TaskList;
+import jarvis.tasks.TaskType;
 import jarvis.tasks.Todo;
 import jarvis.ui.Ui;
 
@@ -30,7 +31,7 @@ public class AddCommand extends Command {
     private LocalDateTime from;
 
     /** Type of the task. */
-    private String type;
+    private TaskType type;
 
     /**
      * Constructs the AddCommand Object.
@@ -39,7 +40,7 @@ public class AddCommand extends Command {
     public AddCommand(String description) {
         assert !description.isBlank() : "Task description is blank!";
         this.description = description;
-        this.type = "todo";
+        this.type = TaskType.TODO;
     }
 
     /**
@@ -51,7 +52,7 @@ public class AddCommand extends Command {
         assert !description.isBlank() : "Task description is blank!";
         this.description = description;
         this.till = till;
-        this.type = "deadline";
+        this.type = TaskType.DEADLINE;
     }
 
     /**
@@ -65,7 +66,7 @@ public class AddCommand extends Command {
         this.description = description;
         this.till = till;
         this.from = from;
-        this.type = "event";
+        this.type = TaskType.EVENT;
     }
 
     /**
@@ -79,13 +80,13 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task;
         switch (this.type) {
-        case "todo":
+        case TODO:
             task = new Todo(this.description, false);
             break;
-        case "deadline":
+        case DEADLINE:
             task = new Deadline(this.description, this.till, false);
             break;
-        case "event":
+        case EVENT:
             task = new Event(this.description, this.from, this.till, false);
             break;
         default:

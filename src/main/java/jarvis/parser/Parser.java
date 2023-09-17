@@ -21,6 +21,7 @@ import jarvis.commands.IncorrectCommand;
 import jarvis.commands.ListCommand;
 import jarvis.commands.MarkCommand;
 import jarvis.commands.RemindCommand;
+import jarvis.tasks.TaskType;
 
 /**
  * Represents the Parser Class.
@@ -86,14 +87,19 @@ public class Parser {
             return new IncorrectCommand(INVALID_COMMAND);
         }
 
-        switch(split[0]) {
-        case "deadline":
-            return parseDeadline(split);
-        case "event":
-            return parseEvent(split);
-        case "todo":
-            return new AddCommand(split[1]);
-        default:
+        try {
+            TaskType taskType = TaskType.valueOf(split[0].toUpperCase());
+            switch(taskType) {
+            case DEADLINE:
+                return parseDeadline(split);
+            case EVENT:
+                return parseEvent(split);
+            case TODO:
+                return new AddCommand(split[1]);
+            default:
+                return new IncorrectCommand(INVALID_COMMAND);
+            }
+        } catch (IllegalArgumentException e) {
             return new IncorrectCommand(INVALID_COMMAND);
         }
     }
