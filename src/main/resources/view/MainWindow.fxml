@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="fx-background-colour: blue" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="502.0" style="fx-background-colour: blue" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainWindow">
     <children>
         <HBox layoutY="650.0" style="-fx-background-color: #FFFFF0;-fx-border-color: #FFFFF0;">
         <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="50.0" prefWidth="400.0" style="-fx-background-radius: 30 30 30 30; -fx-background-color: #FAEBDB; -fx-border-radius: 30 30 30 30; -fx-border-color: #835B5B;" AnchorPane.bottomAnchor="1.0" />

@@ -1,5 +1,6 @@
 package commands;
 
+import javafx.application.Platform;
 import storage.DataFile;
 import tasks.TaskList;
 
@@ -33,6 +34,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public String toString() {
+        Platform.exit();
         return "Bye. Hope to see you again soon!";
     }
 

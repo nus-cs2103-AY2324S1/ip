@@ -2,7 +2,7 @@
 # User Guide
 
 ## Features 
-####Notes about the command format
+###Notes about the command format
 1. All the command word at the start of the 
 input are all lower cased.
 2. Words starting with "/" are key command attribute and is needed for the command to be valid. eg ```/by```
@@ -129,16 +129,3 @@ Format: `bye`
 
 Example of usage: 
 `bye`
-
-
-
-
-
-
-
-
-
-
-
-`
-
