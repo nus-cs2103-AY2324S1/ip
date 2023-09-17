@@ -3,8 +3,6 @@ import bob.Storage;
 import bob.TaskList;
 import bob.Ui;
 
-import java.util.regex.PatternSyntaxException;
-
 public class DisplayCommand extends Command {
 
     public DisplayCommand(String input) {
