@@ -32,30 +32,92 @@
 
 - `bye`: Exits Jarvis.  
   **Usage**: `bye`
+    Expected outcome:
+
+```
+Bye. Hope to see you again soon!
+```
 - `list`: Displays all your tasks.  
   **Usage**: `list`
+  Expected outcome:
+
+```
+Here are the matching tasks in your list:
+1. [T][ ] borrow book [null]
+```
 
 ### Task Management
 
 - `todo TASK_DESCRIPTION`: Adds a todo task.  
   **Usage**: `todo Read book`
+  Expected outcome:
+
+```
+Got it. I've added this task:
+[T][ ] read book [null]
+Now you have 1 tasks in the list.
+```
 - `event TASK_DESCRIPTION /from START_TIME /to END_TIME`: Adds an event.  
-  **Usage**: `event Team meeting /from 2pm /to 4pm`
+  **Usage**: `event Team meeting /from 2023-09-09 /to 2023-10-10`
+  Expected outcome:
+
+```
+Got it. I've added this task:
+[E][ ] Team meeting [null] (from: Sep 09 2023 to: Oct 10 2023)
+Now you have 2 tasks in the list.
+```
 - `deadline TASK_DESCRIPTION /by DEADLINE_TIME`: Adds a deadline.  
-  **Usage**: `deadline Submit report /by 5pm`
+  **Usage**: `deadline Submit report /by 2023-08-08`
+  Expected outcome:
+
+```
+Got it. I've added this task:
+[D][ ] submit report [null] (by: Aug 08 2023)
+Now you have 3 tasks in the list.
+```
 - `delete INDEX`: Deletes the task at the specified index.  
   **Usage**: `delete 2`
+    Expected outcome:
+
+```
+Noted. I've removed this task:
+[E][ ] Team meeting [null] (from: Sep 09 2023 to: Oct 10 2023)
+```
 - `mark INDEX`: Marks the task at the specified index as done.  
   **Usage**: `mark 2`
+      Expected outcome:
+
+```
+Nice! I've marked this task as done:
+[D][X] submit report [null] (by: Aug 08 2023)
+```
 - `unmark INDEX`: Unmarks the task at the specified index.  
   **Usage**: `unmark 2`
+        Expected outcome:
+
+```
+OK, I've marked this task as not done yet:
+[D][ ] submit report [null] (by: Aug 08 2023)
+```
 
 ### Search and Tagging
 
 - `find KEYWORD`: Finds tasks with the specified keyword.  
   **Usage**: `find book`
+    Expected outcome:
+
+```
+Here are the matching tasks in your list:
+1. [T][ ] borrow book[null]
+```
 - `tag INDEX TAG_NAME`: Tags a task with a tag name.  
-  **Usage**: `tag 3 urgent`
+  **Usage**: `tag 1 urgent`
+    Expected outcome:
+
+```
+Tagged the following task:
+[T][ ] borrow book[urgent]
+```
 
 ## Contributing and Feedback
 
