@@ -16,10 +16,12 @@ The chatbot allows you to create various types of new tasks that you can store i
    - Tasks with a description and a fixed duration. To create a Fixed Duration task, type _fixed (description) /for (duration)_.
 
 ***Note that for Deadline and Event tasks, the chatbot only supports entering the date and time in the following formats:***
+
    For Dates, 
    1. yyyy-MM-dd (e.g 2010-10-15)
    2. dd.MM.yyyy (e.g 27.04.2001)
    3. MM/dd/yyyy (e.g 11/23/2005)
+
    For Times,
    1. HH:mm (e.g 1632)
    2. HHmm (e.g 1632)
