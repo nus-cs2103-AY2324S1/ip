@@ -11,7 +11,7 @@ public class Ui {
             + "What can I do for you?\n";
     private static final String OUTRO_MESSAGE =
             "Bye. Hope to see you again soon!\n"
-            + "You may close the window to end the chat.\n";
+            + "This window will close shortly.\n";
 
     public static String getIntroMessage() {
         return INTRO_MESSAGE;
