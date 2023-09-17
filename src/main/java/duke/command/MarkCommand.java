@@ -27,7 +27,7 @@ public class MarkCommand extends Command {
             int index = Integer.parseInt(commandArr[1]) - 1;
             Task t = tasks.getTask(index);
             t.markAsDone();
-            return "Nice! Ren marked this task as done:\n" + t.toString();
+            return "Nice! Ren marked this task as done: \n" + t.toString();
         } catch (NumberFormatException e) {
             throw new DukeException(DukeException.INVALID_INDEX);
         }

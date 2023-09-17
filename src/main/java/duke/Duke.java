@@ -24,16 +24,18 @@ public class Duke {
         try {
             this.tasks = new TaskList(storage.loadTasks());
             this.notes = new NotesList(storage.loadNotes());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
             this.tasks = new TaskList();
+            this.notes = new NotesList();
         }
     }
 
     /**
      * Saves tasks and notes into their respective data files.
+     *
+     * @throws DukeException Cannot write tasks into file.
      */
-    public void saveToFile() {
+    public void saveToFile() throws DukeException {
         try {
             this.storage.writeTasksToFile(this.tasks.getTasks());
             this.storage.writeNotesToFile(this.notes.getNotes());

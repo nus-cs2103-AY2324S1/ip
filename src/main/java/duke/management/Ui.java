@@ -10,7 +10,7 @@ public class Ui {
      * @return Greetings String.
      */
     public static String greet() {
-        return ("Hello! I'm Ren, your personal chatbot.\n" + "How can I help you?");
+        return ("Hello human! I'm Ren. I see you require my help.\n" + "What can I do for you today?");
     }
 
     /**
@@ -19,6 +19,6 @@ public class Ui {
      * @return Bye String.
      */
     public static String bye() {
-        return "Byeee. Hope to see you again!";
+        return "I understand, I will excuse myself...";
     }
 }

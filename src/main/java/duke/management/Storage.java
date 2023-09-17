@@ -21,8 +21,6 @@ public class Storage {
     private final File tasksFile;
     private final File notesFile;
     private final String directoryPath;
-    private final String tasksFileName;
-    private final String notesFileName;
 
     /**
      * Storage Constructor.
@@ -31,8 +29,6 @@ public class Storage {
      */
     public Storage(String directoryPath, String tasksFileName, String notesFileName) {
         this.directoryPath = directoryPath;
-        this.tasksFileName = tasksFileName;
-        this.notesFileName = notesFileName;
         findDirectory(this.directoryPath);
         this.tasksFile = new File(this.directoryPath, tasksFileName);
         this.notesFile = new File(this.directoryPath, notesFileName);
@@ -110,7 +106,7 @@ public class Storage {
             }
             return storedList;
         } catch (FileNotFoundException e) {
-            throw new DukeException("Data File Not Found.");
+            throw new DukeException("Tasks File Not Found.");
         }
     }
 

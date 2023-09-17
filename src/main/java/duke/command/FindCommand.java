@@ -36,7 +36,7 @@ public class FindCommand extends Command {
         for (int i = 0; i < targetList.size(); i++) {
             int index = i + 1;
             Task t = targetList.get(i);
-            result += index + "." + t.toString() + "\n";
+            result += index + ". " + t.toString() + "\n";
         }
 
         return result;

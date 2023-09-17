@@ -55,10 +55,15 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (response.equals(Ui.bye())) {
-            duke.saveToFile();
-            PauseTransition delay = new PauseTransition(Duration.seconds(1));
-            delay.setOnFinished(event -> Platform.exit());
-            delay.play();
+            try {
+                duke.saveToFile();
+            } catch (DukeException e) {
+                dialogContainer.getChildren().add(DialogBox.getDukeDialog(e.getMessage(), dukeImage));
+            } finally {
+                PauseTransition delay = new PauseTransition(Duration.seconds(2));
+                delay.setOnFinished(event -> Platform.exit());
+                delay.play();
+            }
         }
     }
 }

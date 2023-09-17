@@ -26,8 +26,8 @@ public class TodoCommand extends Command {
         String[] commandArr = this.command.split(" ", 2);
         Task todo = new Todo(commandArr[1]);
         tasks.addTask(todo);
-        String result = "Ren helped you add " + todo.toString() + "\n";
-        return result + "Now you have " + tasks.getSize() + " tasks in the list.";
+        String result = "Ren helped you add: \n" + todo.toString() + "\n";
+        return result + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**

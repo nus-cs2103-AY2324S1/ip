@@ -27,8 +27,8 @@ public class DeadlineCommand extends Command {
         String[] deadlineArr = commandArr[1].split("/by ", 2);
         Task deadline = new Deadline(deadlineArr[0], deadlineArr[1]);
         tasks.addTask(deadline);
-        String result = "Ren helped you add " + deadline.toString() + "\n";
-        return result + "Now you have " + tasks.getSize() + " tasks in the list.";
+        String result = "Ren helped you add: \n" + deadline.toString() + "\n";
+        return result + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
