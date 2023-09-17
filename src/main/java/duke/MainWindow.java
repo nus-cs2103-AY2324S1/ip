@@ -33,8 +33,8 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
         duke = d;
         // greeting message on startup
-        String response = duke.name + " says:\n" + "Hi, my name is " +
-                duke.name + ". How may I help you?\n";
+        String response = duke.name + " says:\n" + "Hi, I'm " + duke.name +
+                ", your personal chatbot assistant. How may I help you today?\n";
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(response, dukeImage)
         );
