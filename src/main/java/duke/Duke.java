@@ -1,11 +1,15 @@
 package duke;
 
+import duke.task.Task;
 import duke.util.Parser;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Duke class represents the TaskMate bot that allows users to
@@ -41,6 +45,21 @@ public class Duke {
 
     public static String getResponse(String userInput) {
         return parser.parseUserInput(userInput);
+    }
+
+    public List<Task> getTasksDueInADay() {
+        LocalDateTime now = LocalDateTime.now();
+
+        List<Task> dueTasks = new ArrayList<>();
+        for (Task task: taskList.getAllTasks()) {
+            if (task.getDueDate() != null) {
+                LocalDateTime dueDate = task.getDueDate();
+                if (dueDate.isEqual(now) || dueDate.isBefore(now.plusDays(3))) {
+                    dueTasks.add(task);
+                }
+            }
+        }
+        return dueTasks;
     }
 
     /**

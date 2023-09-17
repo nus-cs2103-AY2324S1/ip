@@ -13,8 +13,7 @@ import java.time.format.DateTimeParseException;
  * @since 3 September 2023
  */
 public class Deadline extends Task {
-
-    public LocalDateTime dateTime;
+    public LocalDateTime byDateTime;
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.
@@ -34,12 +33,12 @@ public class Deadline extends Task {
                 .toFormatter();
 
         try {
-            this.dateTime = LocalDateTime.parse(by, formatter);
+            this.byDateTime = LocalDateTime.parse(by, formatter);
         } catch (DateTimeParseException e) {
             try {
-                this.dateTime = LocalDate.parse(by, formatter).atStartOfDay();
+                this.byDateTime = LocalDate.parse(by, formatter).atStartOfDay();
             } catch (DateTimeParseException ex) {
-                this.dateTime = null;
+                this.byDateTime = null;
             }
         }
     }
@@ -61,7 +60,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return type() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return type() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -71,6 +70,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return type() + super.toString() + " (by: " + dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + ")";
+        return type() + super.toString() + " (by: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + ")";
+    }
+
+    @Override
+    public LocalDateTime getDueDate() {
+        return byDateTime;
     }
 }

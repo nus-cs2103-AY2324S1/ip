@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * The abstract base class representing a task.
  *
@@ -85,4 +87,6 @@ public abstract class Task {
     public boolean containsKeyword(String keyword) {
         return description.toLowerCase().contains(keyword.toLowerCase());
     }
+
+    public abstract LocalDateTime getDueDate();
 }

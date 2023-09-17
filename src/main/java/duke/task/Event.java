@@ -79,4 +79,9 @@ public class Event extends Task {
     public String toString() {
         return type() + super.toString() + " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + " to " + toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + ")";
     }
+
+    @Override
+    public LocalDateTime getDueDate() {
+        return toDateTime;
+    }
 }
