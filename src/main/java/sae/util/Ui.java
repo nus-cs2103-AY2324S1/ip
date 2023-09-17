@@ -2,6 +2,8 @@ package sae.util;
 
 import sae.task.Task;
 
+import java.util.ArrayList;
+
 public class Ui {
 
     public String greetUser() {
@@ -35,5 +37,15 @@ public class Ui {
 
     public String unMarkAsDoneMessage(Task task) {
         return "I have unmarked this task as done:\n" + task.toString();
+    }
+
+    public String groupDeleteMessage(int start, int end, ArrayList<Task> tasks) {
+        String frontString = "Task " + (start + 1) + " to Task "
+                + (end + 1) +" has been deleted.\n The deleted tasks are :\n";
+        StringBuilder backString = new StringBuilder();
+        for (Task task : tasks) {
+            backString.append(task.toString() + "\n");
+        }
+        return frontString + backString.toString();
     }
 }

@@ -82,22 +82,46 @@ public class Parser {
             throw new IllegalArgumentException("Command requires an index.");
         }
 
-        int number = Integer.parseInt(commandTask[1]);
-        if (number < 1 || number > store.size()) {
-            throw new IllegalArgumentException("Invalid task index.");
-        }
-
-        assert number >= 1 && number <= store.size() : "Invalid task index.";
-
-        number--; // Adjust for 0-based indexing
         if (command.equals("delete")) {
-            return store.deleteTask(number);
+            String[] indices = commandTask[1].split(" to ");
+            if (indices.length == 2) {
+                try {
+                    int startIndex = Integer.parseInt(indices[0]);
+                    int endIndex = Integer.parseInt(indices[1]);
+
+                    if (startIndex >= 1 && endIndex >= startIndex && endIndex <= store.size()) {
+                        return store.deleteTask(startIndex - 1, endIndex - 1); // Adjust for 0-based indexing
+                    } else {
+                        throw new IllegalArgumentException("Invalid task index range.");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Invalid task index format.");
+                }
+            } else {
+                int number = Integer.parseInt(commandTask[1]);
+                if (number >= 1 && number <= store.size()) {
+                    return store.deleteTask(number - 1); // Adjust for 0-based indexing
+                } else {
+                    throw new IllegalArgumentException("Invalid task index.");
+                }
+            }
         } else if (command.equals("mark")) {
-            return store.markTaskAsDone(number);
+            int number = Integer.parseInt(commandTask[1]);
+            if (number >= 1 && number <= store.size()) {
+                return store.markTaskAsDone(number - 1); // Adjust for 0-based indexing
+            } else {
+                throw new IllegalArgumentException("Invalid task index.");
+            }
         } else {
-            return store.unMarkTaskAsDone(number);
+            int number = Integer.parseInt(commandTask[1]);
+            if (number >= 1 && number <= store.size()) {
+                return store.unMarkTaskAsDone(number - 1); // Adjust for 0-based indexing
+            } else {
+                throw new IllegalArgumentException("Invalid task index.");
+            }
         }
     }
+
 
     /**
      * Handles adding a todo task.

@@ -2,6 +2,8 @@ package sae.task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import sae.util.Ui;
 
 
@@ -45,6 +47,28 @@ public class TaskList {
             return "Invalid task index.";
         }
     }
+
+    public String deleteTask(int start, int end) {
+        ArrayList<Task> deletedTasks = new ArrayList<>();
+        if (start >= 0 && end < tasks.size()) {
+            Iterator<Task> iterator = tasks.iterator();
+            int currentIndex = 0;
+
+            while (iterator.hasNext()) {
+                Task task = iterator.next();
+                if (currentIndex >= start && currentIndex <= end) {
+                    deletedTasks.add(task);
+                    iterator.remove(); // Safely remove the task
+                }
+                currentIndex++;
+            }
+
+            return msg.groupDeleteMessage(start, end, deletedTasks);
+        } else {
+            return "Invalid task index range.";
+        }
+    }
+
 
     /**
      * Marks a task as done in the task list at the specified index.
@@ -159,4 +183,5 @@ public class TaskList {
             return "No tasks match the keyword given.";
         }
     }
+
 }
