@@ -1,5 +1,9 @@
 package duke.exceptions;
 
+/**
+ * Contains constants that represent various error messages which can be shown to the user.
+ * This centralized approach ensures consistency and easy modifications of error messages.
+ */
 public class ErrorMessages {
     public static final String EMPTY_DEADLINE_ERROR = "OOPS!!! The description of a deadline task cannot be empty.";
     public static final String EMPTY_EVENT_ERROR = "OOPS!!! The description of an event task cannot be empty.";
