@@ -1,5 +1,6 @@
 package duke;
 
+import duke.task.Task;
 import duke.util.Ui;
 
 import javafx.application.Application;
@@ -15,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class Main extends Application {
     private ScrollPane scrollPane;
@@ -91,6 +94,16 @@ public class Main extends Application {
 
         //To print welcome message on startup of GUI
         Label dukeText = new Label(ui.welcomeMessage());
+        List<Task> dueTasks = duke.getTasksDueInADay();
+
+        if (!dueTasks.isEmpty()) {
+            dukeText.setText(dukeText.getText() + "\n\nYou have tasks due soon:\n");
+            for (int i = 0; i < dueTasks.size(); i++) {
+                Task task = dueTasks.get(i);
+                dukeText.setText(dukeText.getText() + (i + 1) + ". " + task + "\n");
+            }
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
         );

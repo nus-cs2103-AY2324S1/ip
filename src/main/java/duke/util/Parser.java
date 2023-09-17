@@ -215,7 +215,7 @@ public class Parser {
             String by = parts[1].trim();
             Deadline task = new Deadline(description, by);
 
-            if (task.dateTime != null) {
+            if (task.byDateTime != null) {
                 taskList.addTask(task);
                 assert taskList.contains(task) : "taskList should contain the newly added task.";
                 return "I've added this task:\n  " +
