@@ -35,6 +35,9 @@ public class Bobi {
         this.command = new Command(storage, ui, list);
     }
 
+    /**
+     * Returns the contents of the reminder users see once they have launched Bobi.
+     */
     public String getReminder() {
         return ui.printReminder();
     }

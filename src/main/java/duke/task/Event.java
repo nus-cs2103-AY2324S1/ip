@@ -31,6 +31,9 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public LocalDateTime getTaskDue() {
         return this.start;

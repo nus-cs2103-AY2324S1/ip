@@ -26,6 +26,9 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public LocalDateTime getTaskDue() {
         return this.deadline;

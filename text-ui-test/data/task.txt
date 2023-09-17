@@ -1,6 +1,7 @@
 T/@/0/@/nimama
-D/@/0/@/go japan /@/2023-06-10T18:00
+D/@/1/@/go japan /@/2023-06-10T18:00
 E/@/0/@/singing competition /@/2023-09-18T08:00/@/2023-09-19T18:00
 E/@/0/@/uss visit /@/2020-12-23T19:00/@/2020-01-23T19:00
 D/@/0/@/this asssignment /@/2023-09-18T13:00
 T/@/0/@/workkk
+D/@/0/@/should not see /@/2023-09-24T18:00
