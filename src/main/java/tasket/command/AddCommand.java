@@ -1,24 +1,24 @@
 package tasket.command;
 
-import tasket.storage.Storage;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
+import tasket.storage.Storage;
 import tasket.task.Deadline;
 import tasket.task.Event;
 import tasket.task.Task;
 import tasket.task.ToDo;
 import tasket.ui.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 /**
  * The class for add command.
  */
 public class AddCommand extends Command {
 
-    String header;
+    private String header;
 
     /**
      * The constructor for add command.
@@ -54,6 +54,9 @@ public class AddCommand extends Command {
         case "event":
             task = createEventTask(commandDescription.replaceFirst("event", "").trim());
             break;
+
+        default:
+            throw new TasketException("I'm sorry, but I don't know what it means :(");
         }
 
         if (task != null) {

@@ -1,16 +1,23 @@
 package tasket.storage;
 
-import tasket.exception.TasketException;
-import tasket.data.TaskList;
-import tasket.parser.Parser;
-import tasket.task.Task;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import tasket.data.TaskList;
+import tasket.exception.TasketException;
+import tasket.parser.Parser;
+import tasket.task.Task;
+
+/**
+ * The class for storage.
+ */
 public class Storage {
 
     private final String filePath;
@@ -19,7 +26,7 @@ public class Storage {
     /**
      * The constructor for storage.
      *
-     * @param filePath
+     * @param filePath The file path for saving the tasks.
      */
     public Storage(String filePath) {
         this.filePath = filePath;

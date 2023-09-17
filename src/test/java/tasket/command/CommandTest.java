@@ -5,21 +5,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 
-import tasket.command.Command;
-import tasket.command.MarkCommand;
 import tasket.data.TaskList;
 import tasket.storage.Storage;
 import tasket.ui.Ui;
 
 public class CommandTest {
 
-    static Ui ui;
-    static Storage storage;
-    static TaskList taskList;
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList taskList;
 
     @BeforeAll
     public static void setup() {

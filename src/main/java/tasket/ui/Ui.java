@@ -7,17 +7,17 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final String TEXT_SEPARATION = "\t____________________________________________________________";
-    private final String TEXT_GREETING = "\tHello, I'm Tasket\n\tWhat can I do for you?";
-    private final String TEXT_GOODBYE = "\tBye. Hope to see you again soon!";
-    private final String TEXT_ADDED = "\tGot it. We have added this task:";
-    private final String TEXT_LIST = "\tHere are the tasks in your list:";
-    private final String TEXT_TASK_LENGTH = "\tNow you have %d tasks in the list";
-    private final String TEXT_MARKED_TASK = "\tNice! I've marked this task as done:";
-    private final String TEXT_UNMARKED_TASK = "\tOk, I've marked this task as undone:";
-    private final String TEXT_DELETED_TASK = "\tNoted, I've deleted this task:";
-    private final String TEXT_MATCHING_TASKS = "\tHere are the matching tasks in your list:";
-    private final String TEXT_ERROR = "\tOOPS!!! ";
+    private static final String TEXT_SEPARATION = "\t____________________________________________________________";
+    private static final String TEXT_GREETING = "\tHello, I'm Tasket\n\tWhat can I do for you?";
+    private static final String TEXT_GOODBYE = "\tBye. Hope to see you again soon!";
+    private static final String TEXT_ADDED = "\tGot it. We have added this task:";
+    private static final String TEXT_LIST = "\tHere are the tasks in your list:";
+    private static final String TEXT_TASK_LENGTH = "\tNow you have %d tasks in the list";
+    private static final String TEXT_MARKED_TASK = "\tNice! I've marked this task as done:";
+    private static final String TEXT_UNMARKED_TASK = "\tOk, I've marked this task as undone:";
+    private static final String TEXT_DELETED_TASK = "\tNoted, I've deleted this task:";
+    private static final String TEXT_MATCHING_TASKS = "\tHere are the matching tasks in your list:";
+    private static final String TEXT_ERROR = "\tOOPS!!! ";
 
     private final Scanner sc;
 
