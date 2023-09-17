@@ -20,7 +20,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Initialize a new Deadline from user input.
+     * Initializes a new Deadline from user input.
      *
      * @param input User input.
      * @return A new Deadline object.
@@ -40,7 +40,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Initialize a new Deadline from file storage.
+     * Initializes a new Deadline from file storage.
      *
      * @param input Line from file storage.
      * @return A new Deadline object.

@@ -92,7 +92,9 @@ public class TaskList {
     }
 
     /**
-     * Write list of tasks to file.
+     * Finds and prints all task matching the query string.
+     *
+     * @param query Query string.
      */
     public void findTask(String query) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
@@ -110,7 +112,7 @@ public class TaskList {
     }
 
     /**
-     * Write list of tasks to file.
+     * Writes list of tasks to file.
      */
     public void write() {
         Storage.writeToFile(taskList);
