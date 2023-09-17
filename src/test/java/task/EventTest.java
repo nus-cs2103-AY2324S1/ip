@@ -16,7 +16,7 @@ public class EventTest {
     @Test
     public void fileFormat_undone_test() {
         Event testObj = new Event("buy book", "July", "August");
-        assertEquals("E|buy book|0|July|August", testObj.fileFormat());
+        assertEquals("E|buy book|0|July|August", testObj.isDoneFormatter());
     }
 
     @Test

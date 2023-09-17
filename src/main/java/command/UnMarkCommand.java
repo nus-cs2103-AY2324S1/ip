@@ -10,9 +10,9 @@ public class UnMarkCommand implements Command{
 
         String result;
         try {
-            int i = Integer.parseInt(input.substring(7));
-            tasks.markTaskUndone(i - 1);
-            result = ui.unMarkSuccess(tasks.getTasks(i - 1));
+            int index = Integer.parseInt(input.substring(7));
+            tasks.markTaskUndone(index - 1);
+            result = ui.unMarkSuccess(tasks.getTasks(index - 1));
         } catch (NumberFormatException err) {
             result = "☹ OOPS!!! The number input does not exist.";
         } catch (DukeException e) {

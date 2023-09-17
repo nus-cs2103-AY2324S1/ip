@@ -24,7 +24,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String fileFormat() {
-        return ("E|" + super.fileFormat() + "|" + this.from + "|" + this.to);
+    public String isDoneFormatter() {
+        return ("E|" + super.isDoneFormatter() + "|" + this.from + "|" + this.to);
     }
 }

@@ -15,7 +15,7 @@ public class ToDoTest {
     @Test
     public void fileFormat_undone_test() {
         ToDo testObj = new ToDo("buy book");
-        assertEquals("T|buy book|0", testObj.fileFormat());
+        assertEquals("T|buy book|0", testObj.isDoneFormatter());
     }
 
     @Test

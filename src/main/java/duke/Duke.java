@@ -28,7 +28,7 @@ public class Duke {
         ui = new Ui();
         storage = new Storage();
         try {
-            this.tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.loadTasksFromFile());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             this.tasks = new TaskList();
@@ -44,7 +44,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             String result = Parser.replyUser(input, tasks, this.ui);
-            storage.save(tasks.getTasks());
+            storage.saveTasksToFile(tasks.getTasks());
             return result;
         } catch (DukeException e) {
             return ui.showErrorMsg(e);

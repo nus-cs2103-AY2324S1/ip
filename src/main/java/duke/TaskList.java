@@ -117,11 +117,11 @@ public class TaskList {
         }
     }
 
-    public TaskList findTasks(String desc) {
-        assert !desc.isBlank();
+    public TaskList findTasks(String description) {
+        assert !description.isBlank();
         TaskList returnList = new TaskList();
         for (Task i : this.tasks) {
-            if (i.getDescription().contains(desc)) {
+            if (i.getDescription().contains(description)) {
                 returnList.addTask(i);
             }
         }

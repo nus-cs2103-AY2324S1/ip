@@ -22,8 +22,11 @@ public class Storage {
 
     /**
      * Read task from duke.txt file and copy to ArrayList list.
+     *
+     * @return Arraylist of Task objects.
+     * @throws DukeException if file is not found.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> loadTasksFromFile() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File f = new File("data/duke.txt");
@@ -67,11 +70,11 @@ public class Storage {
     /**
      * Write the task list to file.
      */
-    public void save(ArrayList<Task> tasks) throws DukeException {
+    public void saveTasksToFile(ArrayList<Task> tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter("data/duke.txt");
             for (Task i : tasks) {
-                fw.write(i.fileFormat());
+                fw.write(i.isDoneFormatter());
                 fw.write(System.lineSeparator());
             }
             fw.close();

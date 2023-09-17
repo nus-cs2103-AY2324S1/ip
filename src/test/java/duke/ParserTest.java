@@ -11,7 +11,7 @@ import task.Task;
 public class ParserTest {
 
     @Test
-    public void isValidDate_correctInput_test() {
+    public void isValidDate_correctInput_returnTrue_test() {
         assertTrue(DateParser.isValidDate("20/11/2000 1800"));
     }
 
@@ -34,7 +34,7 @@ public class ParserTest {
     }
 
     @Test
-    public void replyUser_invalidInput2_test() {
+    public void replyUser_invalidInput2_errMsg_test() {
         TaskList taskListObj = new TaskList();
         taskListObj.addTask(new Task("buy book"));
         Ui uiObj = new Ui();

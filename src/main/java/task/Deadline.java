@@ -21,7 +21,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String fileFormat() {
-        return ("D|" + super.fileFormat() + "|" + this.by);
+    public String isDoneFormatter() {
+        return ("D|" + super.isDoneFormatter() + "|" + this.by);
     }
 }

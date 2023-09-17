@@ -11,8 +11,8 @@ public class DeleteCommand {
 
         String result;
         try {
-            int i = Integer.parseInt(input.substring(7));
-            Task removedTask = tasks.removeTask(i - 1);
+            int index = Integer.parseInt(input.substring(7));
+            Task removedTask = tasks.removeTask(index - 1);
             result = ui.deleteSuccess(removedTask, tasks.getSize());
         } catch (NumberFormatException err) {
             result = "☹ OOPS!!! The number input does not exist.";

@@ -21,7 +21,7 @@ public class Task {
     }
 
     /**
-     * @return status icon of the task whether it is done or not.
+     * Return status icon of the task whether it is done or not.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -52,7 +52,7 @@ public class Task {
      *
      * @return formatted String
      */
-    public String fileFormat() {
+    public String isDoneFormatter() {
         String kk;
         if (this.isDone) {
             kk = "1";

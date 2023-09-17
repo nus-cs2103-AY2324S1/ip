@@ -10,9 +10,9 @@ public class MarkCommand implements Command{
 
         String result;
         try {
-            int i = Integer.parseInt(input.substring(5));
-            tasks.markTaskDone(i - 1);
-            result = ui.markSuccess(tasks.getTasks(i - 1));
+            int index = Integer.parseInt(input.substring(5));
+            tasks.markTaskDone(index - 1);
+            result = ui.markSuccess(tasks.getTasks(index - 1));
         } catch (NumberFormatException err) {
             result = "☹ OOPS!!! The number input does not exist.";
         } catch (DukeException err) {

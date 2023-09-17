@@ -15,7 +15,7 @@ public class DeadlineTest {
     @Test
     public void fileFormat_undone_test() {
         Deadline testObj = new Deadline("buy book", "July");
-        assertEquals("D|buy book|0|July", testObj.fileFormat());
+        assertEquals("D|buy book|0|July", testObj.isDoneFormatter());
     }
 
     @Test
