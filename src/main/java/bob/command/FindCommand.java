@@ -14,7 +14,7 @@ public class FindCommand extends Command {
             String keyword = input.split(" ")[1];
             return ui.stringFormat(tasks.findTasks(keyword));
         } catch (Exception e) {
-            return ui.stringFormat(new String[] {"Missing keyword!"});
+            return ui.errorFormat(new String[] {"Missing keyword!"});
         }
     }
 }

@@ -43,9 +43,9 @@ public class MarkCommand extends Command {
         } catch (IOException e) {
             return ui.showLoadingError();
         } catch (MissingIndexException e) {
-            return ui.stringFormat(new String[]{e.message});
+            return ui.errorFormat(new String[]{e.message});
         } catch (IndexOutOfBoundsException e) {
-            return ui.stringFormat(new String[]{"Index provided is wrong!"});
+            return ui.errorFormat(new String[]{"Index provided is wrong!"});
         }
     }
 }

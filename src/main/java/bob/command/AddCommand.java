@@ -1,9 +1,14 @@
 package bob.command;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import bob.Storage;
 import bob.TaskList;
 import bob.Ui;
+import bob.exception.InvalidPriorityException;
+import bob.exception.MissingDatesException;
+import bob.exception.MissingTaskException;
+import bob.exception.WrongInputException;
 
 public class AddCommand extends Command {
 
@@ -25,6 +30,20 @@ public class AddCommand extends Command {
             return display;
         } catch (IOException e) {
             return ui.showLoadingError();
+        } catch (WrongInputException e) {
+            return ui.errorFormat(new String[]{e.message});
+        } catch (MissingTaskException e) {
+            return ui.errorFormat(new String[]{e.message});
+        } catch (MissingDatesException e) {
+            return ui.errorFormat(new String[]{e.message});
+        } catch (DateTimeParseException e) {
+            return ui.errorFormat(new String[]{"Please input valid date!"});
+        } catch (InvalidPriorityException e) {
+            return ui.errorFormat(new String[]{e.message});
+        } catch (IndexOutOfBoundsException e) {
+            return ui.errorFormat(new String[]{
+                    "Please input valid priority! E.g. todo p/high read"
+            });
         }
     }
 }

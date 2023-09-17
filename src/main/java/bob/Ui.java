@@ -14,7 +14,15 @@ public class Ui {
         for (String s : strArray) {
             content += s + "\n";
         }
-        return "Bob: " + content;
+        return "Bob:\n" + content;
+    }
+
+    public String errorFormat(String[] strArray) {
+        String content = "";
+        for (String s : strArray) {
+            content += s + "\n";
+        }
+        return "E Bob:\n" + content;
     }
 
     public String greet() {
@@ -32,7 +40,7 @@ public class Ui {
     }
 
     public String showLoadingError() {
-        return stringFormat(new String[]{
+        return errorFormat(new String[]{
             "Unable to load tasks. New list created!"
         });
     }

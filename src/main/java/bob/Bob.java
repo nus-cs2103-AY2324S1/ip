@@ -34,7 +34,7 @@ public class Bob {
 
     public String getResponse(String input) {
         if (input.equals("")) {
-            return ui.stringFormat(new String[]{"Write something!"});
+            return ui.errorFormat(new String[]{"Write something!"});
         }
 
         Command c = Parser.parse(input);

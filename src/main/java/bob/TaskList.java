@@ -71,28 +71,16 @@ public class TaskList {
      * @param description is of the form e.g. "event p/low read /from 2pm /to 4pm"
      * @return message for adding a Task
      */
-    public String[] addToList(String description) {
-        try {
+    public String[] addToList(String description)
+        throws WrongInputException, MissingTaskException, MissingDatesException,
+            DateTimeParseException, InvalidPriorityException, IndexOutOfBoundsException {
+
             Task taskObj = generateTask(description);
             assert taskObj != null;
 
             lst.add(taskObj);
             return new String[]{"New task added: ", "\t" + taskObj.toString(),
                 "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};
-
-        } catch (WrongInputException e) {
-            return new String[]{e.message};
-        } catch (MissingTaskException e) {
-            return new String[]{e.message};
-        } catch (MissingDatesException e) {
-            return new String[]{e.message};
-        } catch (DateTimeParseException e) {
-            return new String[]{"Please input valid date!"};
-        } catch (InvalidPriorityException e) {
-            return new String[]{e.message};
-        } catch (IndexOutOfBoundsException e) {
-            return new String[]{"Please input valid priority! E.g. todo p/high read"};
-        }
     }
 
     /**

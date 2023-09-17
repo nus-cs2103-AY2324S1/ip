@@ -3,6 +3,8 @@ import bob.Storage;
 import bob.TaskList;
 import bob.Ui;
 
+import java.util.regex.PatternSyntaxException;
+
 public class DisplayCommand extends Command {
 
     public DisplayCommand(String input) {
@@ -23,8 +25,9 @@ public class DisplayCommand extends Command {
                 priority = strSplit[1].split("/")[1];
             }
             return ui.stringFormat(tasks.displayList(priority));
-        } catch (Exception e) {
-            return ui.stringFormat(tasks.displayList(priority));
+
+        } catch (IndexOutOfBoundsException e) { // no explicit priority
+            return ui.stringFormat(tasks.displayList(""));
         }
     }
 }

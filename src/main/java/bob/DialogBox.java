@@ -59,9 +59,18 @@ public class DialogBox extends HBox {
 
     public static DialogBox getBobDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setBackground(new Background(new BackgroundFill(Color.WHITE,
-                new CornerRadii(20),
-                new Insets(5, 5, 15, 5))));
+
+        if (text.startsWith("E")) {
+            db.dialog.setText(text.split(" ", 2)[1]);
+            db.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK,
+                    new CornerRadii(20),
+                    new Insets(5, 5, 15, 5))));
+        } else {
+            db.setBackground(new Background(new BackgroundFill(Color.WHITE,
+                    new CornerRadii(20),
+                    new Insets(5, 5, 15, 5))));
+        }
+
         db.flip();
         return db;
     }
