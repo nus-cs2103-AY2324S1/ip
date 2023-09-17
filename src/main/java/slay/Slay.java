@@ -11,22 +11,23 @@ import slay.command.ExitCommand;
  */
 public class Slay {
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
     private Parser parser;
 
     public Slay() {
         ui = new Ui();
         storage = new Storage();
-        tasks = storage.load();
+        taskList = storage.load();
         parser = new Parser();
     }
 
     public String getResponse(String userInput) {
         Command c = parser.parse(userInput);
-        c.setData(this.tasks);
+        c.setData(this.taskList);
+        assert this.tasks != null;
         CommandResult result = c.execute();
-        storage.save(this.tasks);
+        storage.save(this.taskList);
         return ui.showResultToUser(result);
     }
 }

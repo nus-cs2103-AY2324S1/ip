@@ -1,6 +1,7 @@
 package slay;
 
 import slay.command.*;
+import slay.exception.IncorrectDescriptionFormatException;
 import slay.task.Deadline;
 import slay.task.Event;
 import slay.task.ToDo;
@@ -80,70 +81,104 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        final Matcher matcher = TASK_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand("Sorry, I don't know this type of tasks:(\n"
-                    + "You may choose from what I have:D\n"
-                    + AddCommand.MESSAGE_USAGE);
-        }
-
-        String type = matcher.group("type");
-        String description = matcher.group("description");
-
-        switch (type) {
-        case ToDo.TYPE:
-            ToDo todo = new ToDo(description);
-            return new AddCommand(todo);
-
-        case Deadline.TYPE:
-            final Matcher matcherDeadline = DEADLINE_DES_FORMAT.matcher(description.trim());
-            if (!matcherDeadline.matches()) {
-                return new IncorrectCommand("Invalid Format:(\n"
-                        + "Could you talk in the ways that I can understand:D\n"
+        try {
+            final Matcher matcher = TASK_ARGS_FORMAT.matcher(args.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand(Message.MESSAGE_INCORRECT_ADD_FORMAT
                         + AddCommand.MESSAGE_USAGE);
             }
 
-            String deadlineDes = matcherDeadline.group("description");
-            String ddl = matcherDeadline.group("deadline");
-            String[] ddlSplit = ddl.split(" ");
-            String date = ddlSplit[0];
-            String time = ddlSplit[1];
+            String type = matcher.group("type");
+            String description = matcher.group("description");
 
-            Deadline deadline = new Deadline(deadlineDes, date, time);
-            return new AddCommand(deadline);
+            switch (type) {
+                case ToDo.TYPE:
+                    ToDo todo = new ToDo(description);
+                    return new AddCommand(todo);
 
-        case Event.TYPE:
-            final Matcher matcherEvent = EVENT_DES_FORMAT.matcher(description.trim());
-            if (!matcherEvent.matches()) {
-                return new IncorrectCommand("Invalid Format:(\n"
-                        + "Could you talk in the ways that I can understand:D\n"
-                        + AddCommand.MESSAGE_USAGE);
+                case Deadline.TYPE:
+                    String[] parsedDeadlineArgs = parseDeadlineArgs(description);
+                    Deadline deadline = new Deadline(
+                            parsedDeadlineArgs[0],
+                            parsedDeadlineArgs[1],
+                            parsedDeadlineArgs[2]);
+                    return new AddCommand(deadline);
+
+                case Event.TYPE:
+                    String[] parsedEventArgs = parseEventArgs(description);
+                    Event event = new Event(
+                            parsedEventArgs[0],
+                            parsedEventArgs[1],
+                            parsedEventArgs[2],
+                            parsedEventArgs[3],
+                            parsedEventArgs[4]);
+                    return new AddCommand(event);
+
+                default:
+                    return new IncorrectCommand(Message.MESSAGE_INCORRECT_ADD_TASK_KEYWORD
+                            + AddCommand.MESSAGE_USAGE);
             }
-
-            String eventDes = matcherEvent.group("description");
-            String start = matcherEvent.group("start");
-            String end = matcherEvent.group("end");
-            String[] startSplit = start.split(" ");
-            String[] endSplit = end.split(" ");
-            String fromDate = startSplit[0];
-            String fromTime = startSplit[1];
-            String toDate = endSplit[0];
-            String toTime = endSplit[1];
-
-            Event event = new Event(eventDes, fromDate, fromTime, toDate, toTime);
-            return new AddCommand(event);
-
-        default:
-            return new IncorrectCommand("Sorry, I don't know this type of tasks:(\n"
-                    + "You may choose from what I have:D\n"
+        } catch (IncorrectDescriptionFormatException e) {
+            return new IncorrectCommand(Message.MESSAGE_INCORRECT_ADD_FORMAT
                     + AddCommand.MESSAGE_USAGE);
         }
     }
 
     /**
+     * Parses arguments in the context of the add deadline command.
+     *
+     * @param description full command args string containing deadline description,
+     *                    deadline date and time.
+     * @return a String array of the parsed command
+     */
+    private String[] parseDeadlineArgs(String description) throws IncorrectDescriptionFormatException {
+        final Matcher matcherDeadline = DEADLINE_DES_FORMAT.matcher(description.trim());
+        if (!matcherDeadline.matches()) {
+            throw new IncorrectDescriptionFormatException();
+        }
+
+        String deadlineDes = matcherDeadline.group("description");
+        String ddl = matcherDeadline.group("deadline");
+        String[] ddlSplit = ddl.split(" ");
+        String date = ddlSplit[0];
+        String time = ddlSplit[1];
+
+        String[] parsedArgs = {deadlineDes, date, time};
+        return parsedArgs;
+    }
+
+    /**
+     * Parses arguments in the context of the add event command.
+     *
+     * @param description full command args string containing event description,
+     *                    event start date and time, event end date and time.
+     * @return a String array of the parsed command
+     */
+    private String[] parseEventArgs(String description) throws IncorrectDescriptionFormatException {
+        final Matcher matcherEvent = EVENT_DES_FORMAT.matcher(description.trim());
+        if (!matcherEvent.matches()) {
+            throw new IncorrectDescriptionFormatException();
+        }
+
+        String eventDes = matcherEvent.group("description");
+        String start = matcherEvent.group("start");
+        String end = matcherEvent.group("end");
+        String[] startSplit = start.split(" ");
+        String[] endSplit = end.split(" ");
+        String fromDate = startSplit[0];
+        String fromTime = startSplit[1];
+        String toDate = endSplit[0];
+        String toTime = endSplit[1];
+
+        String[] parsedArgs = {eventDes, fromDate, fromTime, toDate, toTime};
+
+        return parsedArgs;
+    }
+
+    /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args full command args string
+     * @param args command args string which is supposed to be an integer
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
@@ -157,11 +192,23 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the mark task command.
+     *
+     * @param args command args string which is supposed to be an integer
+     * @return the prepared command
+     */
     private Command prepareMark(String args) {
         int targetVisibleIndex = Integer.parseInt(args);
         return new MarkCommand(targetVisibleIndex);
     }
 
+    /**
+     * Parses arguments in the context of the unmark task command.
+     *
+     * @param args command args string which is supposed to be an integer
+     * @return the prepared command
+     */
     private Command prepareUnmark(String args) {
         int targetVisibleIndex = Integer.parseInt(args);
         return new UnmarkCommand(targetVisibleIndex);
