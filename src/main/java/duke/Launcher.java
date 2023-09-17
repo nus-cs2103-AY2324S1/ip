@@ -45,8 +45,6 @@ public class Launcher {
             if (tasks.isEmpty()) {
                 msg.add("List is empty");
             }
-
-            System.out.println("List:");
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 msg.add((i + 1) + ". " + task.toString());
