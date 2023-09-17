@@ -1,18 +1,18 @@
 package sae.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+import sae.task.Deadline;
 import sae.task.Event;
 import sae.task.Task;
 import sae.task.TaskList;
 import sae.task.Todo;
-import sae.task.Deadline;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private static String filePath;
@@ -38,52 +38,55 @@ public class Storage {
     }
 
     public TaskList readTasks(String filePath) throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner tasks = new Scanner(f);
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
         TaskList taskList = new TaskList();
-        while (tasks.hasNext()) {
-            String str = tasks.nextLine();
-            String[] taskDetails = str.split("\\|"); // Escape the pipe character
+
+        while (scanner.hasNext()) {
+            String[] taskDetails = scanner.nextLine().split("\\|");
             String taskType = taskDetails[0].trim();
-            String completion = taskDetails[1].trim();
+            boolean isCompleted = taskDetails[1].trim().equals("1");
             String description = taskDetails[2].trim();
 
-            switch (taskType) {
-                case "T":
-                    Todo newTodo = new Todo(description);
-                    if (completion.equals("1")) {
-                        newTodo.markTask();
-                    }
-                    taskList.addTask(newTodo);
-                    break;
-                case "D":
-                    String by = taskDetails[3].trim();
-
-                    // Parse the 'by' string into LocalDateTime using a formatter
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy ha");
-
-                    LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-
-                    Deadline newDeadline = new Deadline(description, dateTime);
-                    if (completion.equals("1")) {
-                        newDeadline.markTask();
-                    }
-                    taskList.addTask(newDeadline);
-                    break;
-                case "E":
-                    String from = taskDetails[3].trim();
-                    String to = taskDetails[4].trim();
-                    Event newEvent = new Event(description, from, to);
-                    if (completion.equals("1")) {
-                        newEvent.markTask();
-                    }
-                    taskList.addTask(newEvent);
-                    break;
-            }
+            Task task = createTask(taskType, description, taskDetails, isCompleted);
+            taskList.addTask(task);
         }
-        tasks.close();
+
+        scanner.close();
         return taskList;
     }
+
+    private Task createTask(String taskType, String description, String[] taskDetails, boolean isCompleted) {
+        switch (taskType) {
+            case "T":
+                Todo todo = new Todo(description);
+                if (isCompleted) {
+                    todo.markTask();
+                }
+                return todo;
+            case "D":
+                String by = taskDetails[3].trim();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy ha");
+                LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                Deadline deadline = new Deadline(description, dateTime);
+                if (isCompleted) {
+                    deadline.markTask();
+                }
+                return deadline;
+            case "E":
+                String from = taskDetails[3].trim();
+                String to = taskDetails[4].trim();
+                Event event = new Event(description, from, to);
+                if (isCompleted) {
+                    event.markTask();
+                }
+                return event;
+            default:
+                throw new IllegalArgumentException("Invalid task type: " + taskType);
+        }
+    }
+
+
 
 
     public void saveTasks(TaskList taskList) throws IOException {

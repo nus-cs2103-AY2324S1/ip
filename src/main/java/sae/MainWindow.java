@@ -1,9 +1,5 @@
 package sae;
-import java.util.Objects;
-
-import sae.Sae;
-import sae.util.Ui;
-import sae.util.Parser;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,7 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.application.Platform;
+import sae.util.Ui;
+import java.util.Objects;
+
 
 
 /**
@@ -73,8 +71,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSaeDialog(response, saeImage)
         );
         userInput.clear();
-        //Scroll down to the end every time dialogContainer's height changes
-        //dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         if (input.equalsIgnoreCase("bye")) {
             Platform.exit(); // Close the JavaFX application
         }

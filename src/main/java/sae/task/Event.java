@@ -39,6 +39,7 @@ public class Event extends Task {
      */
     public String toFileString() {
         String completionStatus = isDone ? "1" : "0";
-        return String.format("%s | %s | %s | %s | %s", "E", completionStatus, description.trim(), from.trim(), to.trim());
+        return String.format("%s | %s | %s | %s | %s", "E", completionStatus,
+                description.trim(), from.trim(), to.trim());
     }
 }

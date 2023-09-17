@@ -1,9 +1,9 @@
 package sae.task;
 
-import sae.util.Ui;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import sae.util.Ui;
+
 
 /**
  * The TaskList class represents a list of tasks.
@@ -137,6 +137,12 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Searches for tasks containing a specified keyword and returns a list of matching tasks.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @return A string containing a list of matching tasks or a message indicating no matches.
+     */
     public String findKeyword(String keyword) {
         StringBuilder str = new StringBuilder();
 
