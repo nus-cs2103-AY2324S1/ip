@@ -27,9 +27,9 @@ public class Storage {
         module.addSerializer(Task.class, new TaskSerializer());
         mapper.registerModule(module);
         try {
-            mapper.writeValue(new File("tasks.json"), taskList);
+            mapper.writeValue(new File("./cache/tasks.json"), taskList);
         } catch (IOException e) {
-            System.out.print(e);
+            new File("./cache/tasks.json");
         }
     }
 
@@ -46,10 +46,10 @@ public class Storage {
         TaskList resultList = new TaskList();
 
         try {
-            resultList.addAll(mapper.readValue(new File("tasks.json"), new TypeReference<ArrayList<Task>>(){}));
+            resultList.addAll(mapper.readValue(new File("./cache/tasks.json"), new TypeReference<ArrayList<Task>>(){}));
         } catch (IOException e) {
             // If no such file exists
-            new File("tasks.json");
+            new File("./cache/tasks.json");
         }
 
         return resultList;
