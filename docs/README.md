@@ -3,7 +3,7 @@
 > “Simplicity boils down to two steps: Identify the essential. Eliminate the rest.” – Leo Babauta, productivity blogger
 > [source](https://friday.app/p/productivity-quotes)
 
-![Screenshot of a student that able to multitask and work efficiently to achieve success](/src/main/resources/images/productivityImage.png)
+![Screenshot of a student that able to multitask and work efficiently to achieve success](https://img.freepik.com/free-vector/business-man-dealing-multi-task-new-idea-working-laptop-concept-business-goals-success-satisfying-achievement_1150-39765.jpg?size=626&ext=jpg)
 
 ## Features
 
