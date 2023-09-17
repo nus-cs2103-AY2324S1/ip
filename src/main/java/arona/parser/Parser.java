@@ -76,15 +76,15 @@ public class Parser {
             throw new IllegalArgumentAronaException("Oh no! You forgot to specify the task!");
         }
 
-        boolean byFound = false;
+        boolean isByFound = false;
         for (String token : tokens) {
             if (token.equals("/by")) {
-                byFound = true;
+                isByFound = true;
                 break;
             }
         }
 
-        if (!byFound) {
+        if (!isByFound) {
             throw new IllegalArgumentAronaException(
                     "Whoopsie! The deadline seems a bit confused. Please use '/by' to set it.");
         }
@@ -116,19 +116,19 @@ public class Parser {
             throw new IllegalArgumentAronaException("Oh no! You forgot to specify the event!");
         }
 
-        boolean foundFrom = false;
-        boolean foundTo = false;
+        boolean isFromFound = false;
+        boolean isToFound = false;
 
         for (String token : tokens) {
             if (token.equals("/from")) {
-                foundFrom = true;
-            } else if (foundFrom && token.equals("/to")) {
-                foundTo = true;
+                isFromFound = true;
+            } else if (isFromFound && token.equals("/to")) {
+                isToFound = true;
                 break;
             }
         }
 
-        if (!(foundFrom && foundTo)) {
+        if (!(isFromFound && isToFound)) {
             throw new IllegalArgumentAronaException(
                     "Whoopsie! The deadline seems a bit confused. Please use '/from' and '/to' to set it.");
         }
