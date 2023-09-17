@@ -1,5 +1,5 @@
 # GeraldBot User Guide
-GeraldBot is your ultimate task manager, designed to simplify your task management process and boost your productivity. This user guide will walk you through its key features and how to use them effectively.
+GeraldBot is your ultimate task and contact manager, designed to simplify your task and contact management process and boost your productivity. This user guide will walk you through its key features and how to use them effectively.
 
 ## Features
 
