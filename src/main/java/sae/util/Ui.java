@@ -30,10 +30,10 @@ public class Ui {
     }
 
     public String markAsDoneMessage(Task task) {
-        return "Nice! I've marked this task as done:" + task.toString();
+        return "Nice! I've marked this task as done:\n" + task.toString();
     }
 
     public String unMarkAsDoneMessage(Task task) {
-        return "I have unmarked this task as done: " + task.toString();
+        return "I have unmarked this task as done:\n" + task.toString();
     }
 }

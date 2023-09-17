@@ -74,7 +74,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         //Scroll down to the end every time dialogContainer's height changes
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        //dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         if (input.equalsIgnoreCase("bye")) {
             Platform.exit(); // Close the JavaFX application
         }
