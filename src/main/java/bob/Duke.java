@@ -33,7 +33,7 @@ public class Duke {
         this.init();
         String response;
         try {
-            Command command = parser.parse(input);
+            Command command = parser.parse(input, false);
             response = command.execute(list);
         } catch (DukeException e) {
             return e.toString();

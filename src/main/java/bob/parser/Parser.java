@@ -10,6 +10,7 @@ import bob.data.command.ListCommand;
 import bob.data.command.MarkCommand;
 import bob.data.command.TodoCommand;
 import bob.data.command.UnmarkCommand;
+import bob.data.command.UpdateCommand;
 import bob.data.exception.DukeException;
 
 /**
@@ -30,7 +31,8 @@ public class Parser {
         FIND,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        UPDATE
     }
 
     /**
@@ -40,8 +42,13 @@ public class Parser {
      * @return A command to be executed which is based on the user input.
      * @throws DukeException If the first word of the input is not a valid command.
      */
-    public Command parse(String input) throws DukeException {
-        CommandType commandType = getCommandType(input);
+    public Command parse(String input, boolean isUpdate) throws DukeException {
+        CommandType commandType;
+        if (isUpdate) {
+            commandType = getTaskCommandType(input);
+        } else {
+            commandType = getCommandType(input);
+        }
         return validateCommand(commandType, input);
     }
 
@@ -73,7 +80,23 @@ public class Parser {
         if (input.startsWith("event")) {
             return CommandType.EVENT;
         }
+        if (input.startsWith("update")) {
+            return CommandType.UPDATE;
+        }
         throw new DukeException("No such command.");
+    }
+
+    private CommandType getTaskCommandType(String input) throws DukeException {
+        if (input.startsWith("todo")) {
+            return CommandType.TODO;
+        }
+        if (input.startsWith("deadline")) {
+            return CommandType.DEADLINE;
+        }
+        if (input.startsWith("event")) {
+            return CommandType.EVENT;
+        }
+        throw new DukeException("Not a valid task type.");
     }
 
     /**
@@ -136,6 +159,16 @@ public class Parser {
                 throw new DukeException("Description of an event cannot be empty");
             }
             return new EventCommand(input);
+        case UPDATE:
+            if (input.length() == 6 || commandWordCount == 1) {
+                throw new DukeException("Input the task you would like to update.");
+            }
+            // length = char length of "update " and task number
+            int taskNumber = Integer.parseInt(input.split(" ")[1]);
+            int updateCommandLength = 7 + input.split(" ")[1].length();
+            String newTaskDescription = input.substring(updateCommandLength + 1);
+            Command newTask = parse(newTaskDescription, true);
+            return new UpdateCommand(taskNumber, newTask);
         default:
             throw new DukeException("No such command.");
         }
