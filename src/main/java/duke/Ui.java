@@ -29,7 +29,7 @@ public class Ui {
     public String showHiMessage() {
         StringBuilder message = new StringBuilder();
         message.append(" Hi! How can i help you this fine day?\n");
-        message.append(" If unsure of what to do just type in 'help' to see all the command possible\n");
+        message.append("\n If unsure of what to do just type in 'help' to see all the command possible\n");
         return message.toString();
     }
 
