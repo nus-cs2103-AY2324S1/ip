@@ -31,7 +31,6 @@ public class DeleteCommand extends Command {
             ui.bufferMessage("Noted. I've removed this task:");
             ui.bufferMessage(task.toString());
             ui.bufferMessage("Now you have " + tasks.size() + " tasks in the list.");
-            assert tasks.get(taskIdx) != task;
         } catch (IndexOutOfBoundsException ie) {
             throw new CarbonInvalidIndexException();
         }
