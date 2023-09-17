@@ -19,7 +19,8 @@ public class FileHandler {
     private final String FILE_PATH = "./data/duke.txt";
 
     /**
-     * check if there is an existing file, if not create a file.
+     * Checks if there is an existing file.
+     * If not create a file.
      */
     public void fileCreate() {
         try {
@@ -35,8 +36,9 @@ public class FileHandler {
     }
 
     /**
-     * Write the given message to the txt file
-     * @param msg the info to be written
+     * Write the given message to the txt file.
+     *
+     * @param msg the info to be written.
      */
     public void writeFile(String msg) {
         try {
@@ -50,9 +52,10 @@ public class FileHandler {
     }
 
     /**
-     * Update the line in txt file
-     * @param oldLine the line to be updated
-     * @param newLine the line used to replace the oldline
+     * Update the line in txt file.
+     *
+     * @param oldLine the line to be updated.
+     * @param newLine the line used to replace the oldline.
      */
     public void updateFile(String oldLine, String newLine) {
         try {
@@ -78,8 +81,9 @@ public class FileHandler {
     }
 
     /**
-     * Delete the task in txt file
-     * @param toDelete the task to be deleted
+     * Delete the task in txt file.
+     *
+     * @param toDelete the task to be deleted.
      */
     public void deleteLine(String toDelete) {
         updateFile(toDelete, "");
@@ -87,8 +91,9 @@ public class FileHandler {
 
     /**
      * read the tasks from the txt file and
-     * store it in to the tasklist
-     * @param arrayList the list to store tasks
+     * store it in to the tasklist.
+     *
+     * @param arrayList the list to store tasks.
      */
     public void readFile(ArrayList<Task> arrayList) {
         try {

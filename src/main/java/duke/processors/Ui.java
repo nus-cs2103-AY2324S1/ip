@@ -41,8 +41,9 @@ public class Ui {
 
     /**
      * Read the command from the user.
-     * @return command
-     * @throws DukeEmptyCommandException if the command is empty
+     *
+     * @return String containing the command to the Parser.
+     * @throws DukeEmptyCommandException if the command is empty.
      */
     public String readCommand() throws DukeEmptyCommandException {
         String command = SC.nextLine();
@@ -54,7 +55,8 @@ public class Ui {
 
     /**
      * print the number of tasks in the current ArrayList.
-     * @param tasks the container of the tasks
+     *
+     * @param tasks the container of the tasks.
      */
     public String NumOfTasks (TaskList tasks) {
         return "Now you have "
@@ -64,15 +66,16 @@ public class Ui {
     }
 
     /**
-     * Prints the separation line
+     * Prints the separation line.
      */
     public void showLine() {
         System.out.println(SEPARATION);
     }
 
     /**
-     * Prints the error message
-     * @param err the error occurred
+     * Prints the error message.
+     *
+     * @param err the error message.
      */
     public void showError(String err) {
         System.out.println(err);

@@ -15,7 +15,8 @@ public class TaskList {
 
     /**
      * A constructor for TaskList class.
-     * @param duke FileHandler to read data from txt file
+     *
+     * @param duke FileHandler to read data from txt file.
      */
     public TaskList(FileHandler duke) {
         duke.fileCreate();
@@ -25,8 +26,9 @@ public class TaskList {
 
     /**
      * Return the Task at the index given.
-     * @param ind index
-     * @return Task
+     *
+     * @param ind index.
+     * @return Task.
      */
     public Task get(int ind) throws DukeException {
         return this.TASKS.get(ind);
@@ -34,7 +36,8 @@ public class TaskList {
 
     /**
      * Add a task to the ArrayList.
-     * @param task the task to be added
+     *
+     * @param task the task to be added.
      */
     public void addTask(Task task) {
         this.TASKS.add(task);
@@ -53,9 +56,10 @@ public class TaskList {
     }
 
     /**
-     * Delete the task at the given index
-     * @param index the index of which task to be deleted
-     * @param duke to update the txt file
+     * Delete the task at the given index.
+     *
+     * @param index the index of which task to be deleted.
+     * @param duke to update the txt file.
      */
     public String deleteTask(int index, FileHandler duke) {
         Task delete = this.TASKS.remove(index);
@@ -68,7 +72,8 @@ public class TaskList {
 
     /**
      * Output a list of tasks matching the keyword.
-     * @param keyword the word to be searched
+     *
+     * @param keyword the word to be searched.
      */
     public String findTasks(String keyword) {
         int count = 1;
@@ -84,8 +89,9 @@ public class TaskList {
     }
 
     /**
-     * Return the number of tasks in the list
-     * @return integer
+     * Return the number of tasks in the list.
+     *
+     * @return integer.
      */
     public int getCount() {
         return this.count;

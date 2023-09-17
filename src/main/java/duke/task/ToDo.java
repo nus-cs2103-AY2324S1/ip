@@ -9,8 +9,9 @@ import duke.exception.DukeNoDescriptionException;
 public class ToDo extends Task {
     /**
      * A construct, mainly used when reading inputs from user.
-     * @param Description contains description of todo
-     * @throws DukeNoDescriptionException if the description is empty
+     *
+     * @param Description contains description of todo.
+     * @throws DukeNoDescriptionException if the description is empty.
      */
     public ToDo(String Description) throws DukeNoDescriptionException {
         super(Description);
@@ -25,8 +26,9 @@ public class ToDo extends Task {
 
     /**
      * A constructor, mainly used when reading from txt file.
-     * @param Description description of the todo
-     * @param isDone status of the todo
+     *
+     * @param Description description of the todo.
+     * @param isDone status of the todo.
      */
     public ToDo(String Description, boolean isDone) {
         super(Description);
@@ -35,7 +37,8 @@ public class ToDo extends Task {
 
     /**
      * Return a string containing the status and description.
-     * @return a string containing info of todo
+     *
+     * @return a string containing info of todo.
      */
     @Override
     public String toString() {

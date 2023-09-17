@@ -11,10 +11,11 @@ import duke.processors.TimeProcessor;
  */
 public class Event extends Task {
     /**
-     * A constructor for event class
-     * @param Description The description of event
-     * @throws DukeException if the description doesn't fit the standard
-
+     * A constructor for event class.
+     *
+     * @param Description The description of event.
+     * @throws DukeException if the description doesn't fit the standard.
+     *
      */
     public Event(String Description) throws DukeException {
         super(Description);
@@ -28,9 +29,10 @@ public class Event extends Task {
     }
 
     /**
-     * A constructor for reading from txt file
-     * @param content the content of the event
-     * @param isDone the status of the event
+     * A constructor for reading from txt file.
+     *
+     * @param content the content of the event.
+     * @param isDone the status of the event.
      */
     public Event(String content, boolean isDone) {
         super(content);
@@ -69,7 +71,8 @@ public class Event extends Task {
 
     /**
      * A string containing the information about the event.
-     * @return a string containing info of the event
+     *
+     * @return a string containing info of the event.
      */
     public String toString() {
         return "[E]" + super.toString();

@@ -14,11 +14,11 @@ public class Deadline extends Task {
     /**
      * Constructor for deadline.
      *
-     * @param Description The information needed to create a deadline
+     * @param Description The information needed to create a deadline.
      * @throws DukeNoDescriptionException if the description is empty
-     *                                    despite "deadline"
-     * @throws DukeNoDateException if the date is missing
-     * @throws DukeDateOutOfRange if the date is not a proper date
+     *                                    despite "deadline".
+     * @throws DukeNoDateException if the date is missing.
+     * @throws DukeDateOutOfRange if the date is not a proper date.
      */
     public Deadline(String Description) throws DukeException {
         super(Description);
@@ -49,7 +49,8 @@ public class Deadline extends Task {
 
     /**
      * Another constructor for deadline.
-     * @param content The description for deadline
+     *
+     * @param content The description for deadline.
      * @param isDone The status of the deadline.
      */
     public Deadline(String content, boolean isDone) {
@@ -60,7 +61,8 @@ public class Deadline extends Task {
     /**
      * A string contains the status, the label
      * and description of deadline.
-     * @return A string containing info of the deadline
+     *
+     * @return A string containing info of the deadline.
      */
     public String toString() {
         return "[D]" + super.toString();

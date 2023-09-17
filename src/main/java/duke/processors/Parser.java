@@ -9,22 +9,22 @@ import duke.task.ToDo;
 
 
 /**
- * Handle the command from the user
+ * Handle the command from the user.
  */
 public class Parser {
     private final TaskList TASKS;
     private final FileHandler DUKE = new FileHandler();
     private final Ui UI = new Ui();
-    private boolean terminate;
+    private boolean isTerminated;
 
     /**
-     * Constructor for the Parser class
+     * Constructor for the Parser class.
      *
-     * @param TASKS to modify or display the tasks
+     * @param TASKS to modify or display the tasks.
      */
     public Parser(TaskList TASKS) {
         this.TASKS = TASKS;
-        terminate = false;
+        this.isTerminated = false;
     }
 
     private String displayInfo(String msg) throws DukeException {
@@ -47,17 +47,17 @@ public class Parser {
     }
 
     /**
-     * display the description of the task if it is a valid task
+     * display the description of the task if it is a valid task.
      *
-     * @param msg the msg to be interpreted
-     * @throws DukeException if the msg is not given correctly
+     * @param msg the msg to be interpreted.
+     * @throws DukeException if the msg is not given correctly.
      */
     public String readInputs(String msg) throws DukeException {
         String output = "";
         if (msg.equals("list")) {
             output = TASKS.listTasks();
         } else if (msg.equals("bye")) {
-            this.terminate = true;
+            this.isTerminated = true;
             output = UI.onExit();
         } else {
             boolean isKeyword = msg.matches(".*\\040[0-9]");
@@ -91,11 +91,11 @@ public class Parser {
     }
 
     /**
-     * Get the state of Parser
+     * Get the state of Parser.
      *
-     * @return boolean value
+     * @return boolean value.
      */
     public boolean getTerminate() {
-        return this.terminate;
+        return this.isTerminated;
     }
 }

@@ -8,7 +8,8 @@ public class DukeNoDescriptionException extends DukeException {
 
     /**
      * Constructor for the exception.
-     * @param msg the task that has no description
+     *
+     * @param msg the task that has no description.
      */
     public DukeNoDescriptionException(String msg) {
         super("OOPS!!! The description of a "

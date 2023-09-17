@@ -17,9 +17,10 @@ public class TimeProcessor {
 
     /**
      * To convert string that is a date to another format of date.
-     * @param info the string date
-     * @return a date or time given by the user
-     * @throws DukeDateOutOfRange will be thrown if the date is wrong
+     *
+     * @param info the string date.
+     * @return a date or time given by the user.
+     * @throws DukeDateOutOfRange will be thrown if the date is wrong.
      */
     public static String StringToDate(String info)
             throws DukeException {
