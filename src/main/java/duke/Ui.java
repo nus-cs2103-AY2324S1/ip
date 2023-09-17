@@ -23,9 +23,9 @@ public class Ui {
      * Describes what the bot say when you start it
      */
     public static String welcome() {
-        String name = "DukeKing";
+        String name = "PikaKing";
         String welcome = "Hello! I'm " + name + "\nWhat can I do for you?\n";
-        welcome += "For new users, type help to see the list of commands you can use.";
+        welcome += "For new users, type help to see the list of commands you can use. Pika Pika!!";
         System.out.println(welcome);
         return welcome;
     }
@@ -35,7 +35,7 @@ public class Ui {
      */
     public String bye() {
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon! Pika Pika!!");
         printLine();
         return "Bye. Hope to see you again soon!";
     }
@@ -53,7 +53,7 @@ public class Ui {
      * @param task Take in the task to be marked
      */
     public String markTask(Task task) {
-        String markingTask = "Nice! I've marked this task as done:";
+        String markingTask = "Pika Pika!! I've marked this task as done:";
         String output = String.format("%s\n%s", markingTask, task);
         printLine();
         System.out.println(output);
@@ -66,7 +66,7 @@ public class Ui {
      * @param task Take in the task to be unmarked
      */
     public String unMarkTask(Task task) {
-        String markingTask = "Nice! I have unmarked the task :";
+        String markingTask = "Pika Pika!! I have unmarked the task :";
         String output = String.format("%s\n%s", markingTask, task);
         printLine();
         System.out.println(output);
@@ -81,11 +81,11 @@ public class Ui {
      */
     public String deleteTask(TaskList tasks, int taskNumber) {
         assert taskNumber > 0 : "taskNumber should be more than 0";
-        String deletingTask = "Noted. I've removed this task:";
+        String deletingTask = "Pika Pika!! I've removed this task:";
         int taskInArray = tasks.size() - 1;
-        assert taskNumber <= taskInArray : "task should be in the list";
+        assert taskNumber <= taskInArray : "task should be in the list, PIKA PIKA!!!!";
         Task removedTask = tasks.deleteTask(taskNumber);
-        String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
+        String numberOfTask = "Now you have " + taskInArray + " tasks in the list. Pika Pika!!";
         String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
         printLine();
         System.out.println(output);
@@ -101,8 +101,8 @@ public class Ui {
     public String addTask(Task task, TaskList tasks) {
         assert task != null : "task should not be null";
         assert tasks != null : "taskList should not be null";
-        String addingTask = "Got it. I've added this task:";
-        String numberOfTask = "Now you have " + tasks.size() + " tasks in the list.";
+        String addingTask = "Pika Pika!! I've added this task:";
+        String numberOfTask = "Now you have " + tasks.size() + " tasks in the list. Pika Pika!!";
         String output = String.format("%s\n  %s\n%s", addingTask, task, numberOfTask);
         printLine();
         System.out.println(output);
@@ -114,15 +114,15 @@ public class Ui {
      */
     public String noFile() {
         printLine();
-        System.out.println("OOPS!!! There is no file to load.");
-        return "OOPS!!! There is no file to load.";
+        System.out.println("OOPS!!! There is no file to load. Pika Pika!!");
+        return "OOPS!!! There is no file to load. Pika Pika!!";
     }
 
     public String findTask(String keyword, TaskList tasks) {
         assert keyword != null : "keyword should not be null";
         assert tasks != null : "taskList should not be null";
         printLine();
-        String output = "Here are the matching tasks in your list: \n";
+        String output = "Pika Pika!! Here are the matching tasks in your list: \n";
         output += tasks.findTaskFromTaskList(keyword);
         System.out.println(output);
         return output;
