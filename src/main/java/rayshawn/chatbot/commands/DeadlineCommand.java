@@ -8,6 +8,9 @@ import rayshawn.chatbot.tasks.Task;
  * Adds a deadine task to the tasklist.
  */
 public class DeadlineCommand extends Command {
+    // Adapted from
+    // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/commands/AddCommand.java
+
     public static final String COMMAND_WORD = "deadline";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a Deadline task to the task list.\n"

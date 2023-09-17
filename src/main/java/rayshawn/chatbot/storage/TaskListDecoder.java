@@ -17,6 +17,8 @@ import rayshawn.chatbot.tasks.ToDo;
  * Decodes the storage data file into an task list object
  */
 public class TaskListDecoder {
+    // Adapted from
+    // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/AddressBookDecoder.java
 
     private static final Pattern TODO_FORMAT =
             Pattern.compile("(?<type>[^/]+)" + " \\| (?<description>[^/]+)");

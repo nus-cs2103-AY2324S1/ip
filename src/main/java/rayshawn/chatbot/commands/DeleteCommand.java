@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute() {
         try {
             final Task target = super.getTask(super.getIndex() - 1);
-            taskList.removeTask(super.getIndex());
+            taskList.removeTask(super.getIndex() - 1);
             return new CommandResult(String.format(MESSAGE_SUCCESS, target));
         } catch (IndexOutOfBoundsException e) {
             return new CommandResult(Messages.INVALID_TASK_NUMBER_MESSAGE);

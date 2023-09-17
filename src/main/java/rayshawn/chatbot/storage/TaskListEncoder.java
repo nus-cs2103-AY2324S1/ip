@@ -12,6 +12,8 @@ import rayshawn.chatbot.tasks.TaskList;
  * Encodes the task list into a data file for storage.
  */
 public class TaskListEncoder {
+    // Adapted from
+    // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/AddressBookEncoder.java
 
     /**
      * Encodes all the tasks into a list of decodable and readable string presentation for storage.

@@ -11,6 +11,7 @@ import rayshawn.chatbot.tasks.TaskList;
  * Represents an executable command.
  */
 public class Command {
+    // Adapted from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/commands/Command.java
     protected TaskList taskList;
     private int targetIndex = -1;
 

@@ -4,6 +4,9 @@ package rayshawn.chatbot.commands;
  * Shows help instructions.
  */
 public class HelpCommand extends Command {
+    // Adapted from
+    // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/commands/HelpCommand.java
+
     public static final String COMMAND_WORD = "help";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows program usage instructions.\n"
@@ -19,6 +22,7 @@ public class HelpCommand extends Command {
                 + "\n" + UnmarkCommand.MESSAGE_USAGE
                 + "\n" + ListCommand.MESSAGE_USAGE
                 + "\n" + FindCommand.MESSAGE_USAGE
+                + "\n" + UpdateCommand.MESSAGE_USAGE
                 + "\n" + HelpCommand.MESSAGE_USAGE
                 + "\n" + ByeCommand.MESSAGE_USAGE
         );

@@ -14,6 +14,8 @@ import rayshawn.chatbot.tasks.TaskList;
  * Represents the file used to store task list data.
  */
 public class Storage {
+    // Adapted from
+    // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/StorageFile.java
 
     public static final String DEFAULT_STORAGE_FILEPATH = "./data/tasklist.txt";
 
