@@ -90,7 +90,6 @@ public class Storage {
 
             while ((line = reader.readLine()) != null) {
                 String taskType = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
-
                 // Convert String back to Task object
                 if (taskType.equals("T")) {
                     tasks.add(ToDo.parseFromString(line));
