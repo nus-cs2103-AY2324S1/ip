@@ -55,7 +55,7 @@ public class Task {
     }
 
     /**
-     * Checks whether a task is completed and return an X if done
+     * Gives a string denoting whether a task is completed
      * @return String X if done, a blank space string if not
      */
     public String getStatusIcon() {
@@ -63,7 +63,7 @@ public class Task {
     }
 
     /**
-     * Checks whether a task is done through a string
+     * Checks whether a task is done
      * @return  a string containing whether the task is done
      */
     public String isDone() {

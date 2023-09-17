@@ -1,18 +1,8 @@
 package duke.uiux;
 
-import duke.Duke;
 import duke.ModelViewController;
 import duke.Response;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -21,8 +11,6 @@ import javafx.stage.Stage;
  */
 public class Gui extends Application {
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
     @Override
     public void start(Stage stage) {
         // All UI information stored in MainWindow.fxml and DialogBox.fxml, no need for start method
