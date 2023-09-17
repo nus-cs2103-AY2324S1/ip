@@ -1,4 +1,4 @@
-# User Guide
+# Carl Bot User Guide
 
 CarlBot is a Personal Assistant Chatbot that helps a person to keep track of various things. Carl Bot is created using Java that aids user to keep tracks of todo, deadline and events.  
 
