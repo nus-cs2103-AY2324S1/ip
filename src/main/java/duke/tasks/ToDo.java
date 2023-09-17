@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * A class to represent todo tasks.
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);

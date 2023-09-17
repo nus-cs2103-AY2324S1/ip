@@ -1,5 +1,9 @@
 package duke.utils;
 
+/**
+ * A utility class that provides functionality for
+ * printing messages to the standard output.
+ */
 public class Ui {
 
     /**
