@@ -53,8 +53,9 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets Bareum's response to the command received.
+     * @param input Command user wants to perform.
+     * @return Bareum's response to the command the user has input.
      */
     private String getResponse(String input) {
         return bareum.run(input);
