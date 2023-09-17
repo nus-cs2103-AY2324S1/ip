@@ -1,5 +1,6 @@
 package chatbot.alain.commands;
 
+import chatbot.alain.AlainException;
 import chatbot.alain.uis.GuiUi;
 import chatbot.alain.Storage;
 import chatbot.alain.TaskList;
@@ -18,13 +19,19 @@ public class FindCommand extends Command {
         super(list, text, storage);
     }
     @Override
-    public String processCommand() {
-        String keyWord = text.substring(4);
+    public String processCommand() throws AlainException {
+        if (text.length() == 4) {
+            throw new AlainException("The keyword cannot be empty.");
+        }
+        String keyWord = text.substring(5);
         TaskList tmpList = new TaskList();
         for (int i = 0; i < list.size(); i++) {
             if (list.getTask(i).descriptionContain(keyWord)) {
                 tmpList.addTask(list.getTask(i));
             }
+        }
+        if (tmpList.size() == 0) {
+            throw new AlainException("No matching tasks are found");
         }
         Ui.showListContainingKeyword(tmpList);
         return GuiUi.showListContainingKeyword(tmpList);

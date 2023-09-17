@@ -134,8 +134,8 @@ public class ChatbotAlain extends Application {
             boolean isDeadlineCommand = Pattern.matches("deadline.+", text) || text.contains("deadline");
             boolean isToDoCommand = Pattern.matches("todo.+", text) || text.contains("todo");
             boolean isEventCommand = Pattern.matches("event.+", text) || text.contains("event");
-            boolean isDeleteCommand = Pattern.matches("delete.+", text);
-            boolean isFindCommand = Pattern.matches("find.+", text);
+            boolean isDeleteCommand = Pattern.matches("delete.+", text) || text.contains("delete");;
+            boolean isFindCommand = Pattern.matches("find.+", text) || text.contains("find");;
             boolean isByeCommand = text.equals("bye");
             boolean isListCommand = text.equals("list");
             if (isFindCommand) {

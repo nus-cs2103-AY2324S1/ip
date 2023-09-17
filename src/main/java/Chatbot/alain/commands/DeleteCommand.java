@@ -24,7 +24,13 @@ public class DeleteCommand extends Command {
 
     @Override
     public String processCommand() throws AlainException {
+        if (text.length() <= 7) {
+            throw new AlainException("Task index cannot be empty");
+        }
         String numericPart = text.substring(7);
+        if (Integer.parseInt(numericPart) - 1 < 0 || Integer.parseInt(numericPart) > list.size()) {
+            throw new AlainException("Task with such index does not exist.");
+        }
         int pos = Integer.parseInt(numericPart) - 1;
         if (pos >= 0 && pos < list.size()) {
             Task removedTask = list.removeTask(pos);

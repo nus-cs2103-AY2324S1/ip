@@ -64,7 +64,7 @@ public class GuiUi {
     public static String showList(TaskList list) {
         String output = "";
         output += showlines();
-        output += "Here are the tasks in your list:\n";
+        output += "Here are all the " + list.size() + " tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
             output += " " + (i + 1) + ". " + list.getTask(i) + "\n";
         }
