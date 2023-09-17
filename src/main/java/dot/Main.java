@@ -43,6 +43,7 @@ public class Main extends Application {
         stage.setScene(loadingScene);
         stage.show();
 
+        // This approach was inspired by ChatGPT.
         KeyFrame[] progressBarAnimationFrames = new KeyFrame[6];
         for (int i = 0; i < 6; i++) {
             double progress = 0.2 * i;
@@ -113,6 +114,7 @@ public class Main extends Application {
         Scene scene = new Scene(mainWindow);
         this.mainWindowScene = scene;
 
+        // How to link stylesheet was inspired by ChatGPT.
         try {
             scene.getStylesheets().add(
                     this.getClass().getResource("/stylesheets/MainWindowStyle.css").toExternalForm());

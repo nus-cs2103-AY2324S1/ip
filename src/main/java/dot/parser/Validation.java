@@ -132,7 +132,6 @@ public class Validation {
         if (input.length() <= 9) {
             throw new DotException("No task description given", TaskError.ERR_USING_DEADLINE);
         }
-        assert input.matches("deadline .* /by.*");
         int indexOfSlash = input.indexOf(" /by"); // Case: "deadline /by"
         if (indexOfSlash == -1 || indexOfSlash == 8) {
             throw new DotException("No deadline given or is given without task description.",
