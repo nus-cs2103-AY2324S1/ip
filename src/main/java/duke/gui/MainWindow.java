@@ -56,7 +56,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage));
         userInput.clear();
-        if (response.equals("Bye. Hope to see you again soon!")) {
+        if (response.equals("Bye. Hope to see you again soon! Pika Pika!!")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();

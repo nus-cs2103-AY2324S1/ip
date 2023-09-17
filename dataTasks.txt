@@ -1,1 +1,2 @@
 | T |   | read Lord of the Rings
+| T |   | cs2100 lecture

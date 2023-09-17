@@ -37,7 +37,7 @@ public class Ui {
         printLine();
         System.out.println("Bye. Hope to see you again soon! Pika Pika!!");
         printLine();
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon! Pika Pika!!";
     }
 
     /**
