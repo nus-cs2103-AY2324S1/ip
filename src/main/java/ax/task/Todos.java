@@ -1,9 +1,11 @@
 package ax.task;
 
+import java.time.LocalDate;
+
 /**
  * Todos Class contains Todos information
  */
-public class Todos extends ListItem {
+public class Todos extends ListItem implements Reminders {
 
     /**
      * Constructor for ax.task.Todos.
@@ -18,5 +20,13 @@ public class Todos extends ListItem {
     @Override
     public String toString() {
         return "[T] " + super.toString();
+    }
+
+    /**
+     * todos only return false, as there is no due date associated with it
+     * @return false
+     */
+    public boolean isDue() {
+        return false;
     }
 }

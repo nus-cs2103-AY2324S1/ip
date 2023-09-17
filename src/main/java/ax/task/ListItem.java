@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Represents a single item in a to-do list.
  */
-public class ListItem {
+public class ListItem implements Reminders{
 
     @SuppressWarnings("FieldMayBeFinal")
     private String text;
@@ -83,5 +83,21 @@ public class ListItem {
         } else {
             return "[ ] " + this.text;
         }
+    }
+
+    /**
+     * placeholder method to work woth inheritance
+     * @return false
+     */
+    public boolean isDue() {
+        return false;
+    }
+
+    /**
+     * placeholder method to work woth inheritance
+     * @return false
+     */
+    public LocalDate getDueDate() {
+        return null;
     }
 }

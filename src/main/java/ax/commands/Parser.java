@@ -154,6 +154,8 @@ public class Parser {
                 return deleteItem(inputs);
             } else if (input.startsWith("find")) {
                 return Ui.listTheListString(inputs[1]);
+            } else if (input.startsWith("reminders")) {
+                return Ui.listDueItems();
             } else {
                 throw new NoSuchMethodException("no method");
             }
@@ -235,19 +237,26 @@ public class Parser {
 
     private static String writeSaveFile() throws IOException {
         Path saveFile = Paths.get("data/save.txt");
-        System.out.println(saveFile.toAbsolutePath());
-        if (saveFile.toFile().exists()) {
-            Files.delete(saveFile);
-        }
-        // write new file
-        FileWriter fileWriter = new FileWriter(saveFile.toFile());
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-        for (ListItem listItem : TaskList.getListItems()) {
-            System.out.println(listItem);
-            printWriter.println(listItem);
-        }
-        printWriter.close();
+        Path dataDir = Paths.get("data");
+        try {
+            Files.createDirectory(dataDir);
+            Files.createFile(saveFile);
+        } finally {
+            System.out.println(saveFile.toAbsolutePath());
+            if (saveFile.toFile().exists()) {
+                Files.delete(saveFile);
+            }
+            // write new file
+            FileWriter fileWriter = new FileWriter(saveFile.toFile());
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            for (ListItem listItem : TaskList.getListItems()) {
+                System.out.println(listItem);
+                printWriter.println(listItem);
+            }
+            printWriter.close();
 
-        return "save file written";
+            return "save file written";
+        }
+
     }
 }
