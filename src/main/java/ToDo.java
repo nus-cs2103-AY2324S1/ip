@@ -1,6 +1,6 @@
 
 
-class ToDo extends Task {
+public class ToDo extends Task {
 
     ToDo(String name) {
         this.task_name = name;
