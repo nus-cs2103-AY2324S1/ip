@@ -16,13 +16,12 @@ What are some of the features?
 4. Grants users the ability to search for their respective task
 
 Why choose Jarvis?
-
 - [x] **Easy** to learn
 - [x] **Available** _24/7_ at your service
 - [x] Created by ~~Shishir~~ **Tony Stark** himself
 - [x] **Free** of charge
 
-![Jarvis](Ui.png)
+![Jarvis](./Ui.png)
 
 # User Guide
 
@@ -38,7 +37,7 @@ Why choose Jarvis?
 > - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding
 >   line-breaks may be omitted when copied over to the application.
 
-### Listing all the tasks ```list```
+### Listing all tasks: ```list```
 Shows a list of all the tasks (```event```, ```deadline```, and ```todo```) in the task list.
 
 Format: ```list```
@@ -99,7 +98,7 @@ Format: ```unmark INDEX```
 
 Example of usage: ```unmark 1```
 
-[![unmark](https://github.com/shishirbychapur/ip/assets/95522842/ab678d38-38ea-4dff-9254-072b4ac8e785)
+![unmark](https://github.com/shishirbychapur/ip/assets/95522842/ab678d38-38ea-4dff-9254-072b4ac8e785)
 
 ### Search for a task: ```find```
 Finds a list of tasks containing the given keyword.
