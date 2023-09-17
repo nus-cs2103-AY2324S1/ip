@@ -37,6 +37,8 @@ public class Bareum {
 
     /**
      * Run the instance of Bareum and get user input until the user uses the 'bye' command.
+     * @param input The command the user wants to perform.
+     * @return Bareum's response to the command.
      */
     public String run(String input) {
         try {
