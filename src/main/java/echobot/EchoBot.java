@@ -55,8 +55,10 @@ public class EchoBot {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes and shows response based on the user input
+     *
+     * @param input Input typed in by user
+     * @return Output made by the chatbot following the user input
      */
     public String getResponse(String input) {
         Input parsedInput = parser.parse(input);
