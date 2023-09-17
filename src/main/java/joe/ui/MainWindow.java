@@ -55,8 +55,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Joe's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles the user input.
      */
     @FXML
     private void handleUserInput() {
@@ -67,11 +66,31 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
+        if (input.equals("bye")) {
+            disableChat();
+        }
+
+        processUserInput(input);
+    }
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Joe's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void processUserInput(String input) {
         String response = joe.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJoeDialog(response, joeImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Disables the text box and send button.
+     */
+    private void disableChat() {
+        sendButton.setDisable(true);
+        userInput.setDisable(true);
     }
 }

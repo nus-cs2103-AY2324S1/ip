@@ -26,9 +26,9 @@ public class TaskListTest {
         tasks.add(new DeadlineTask("Deadline", dt));
         tasks.add(new EventTask("Event", dt, dt));
         assertEquals(
-                "1.[T][ ] Todo\n"
-                        + "2.[D][ ] Deadline (by: 01 Jan 2000 00:00)\n"
-                        + "3.[E][ ] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)",
+                "1. [T][ ] Todo\n"
+                        + "2. [D][ ] Deadline (by: 01 Jan 2000 00:00)\n"
+                        + "3. [E][ ] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)",
                 tasks.toString());
     }
 
@@ -46,9 +46,9 @@ public class TaskListTest {
         newTodo.markAsDone();
         newDeadline.markAsDone();
         newEvent.markAsDone();
-        assertEquals("1.[T][X] Todo\n"
-                        + "2.[D][X] Deadline (by: 01 Jan 2000 00:00)\n"
-                        + "3.[E][X] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)",
+        assertEquals("1. [T][X] Todo\n"
+                        + "2. [D][X] Deadline (by: 01 Jan 2000 00:00)\n"
+                        + "3. [E][X] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)",
                 tasks.toString());
     }
 
@@ -64,7 +64,7 @@ public class TaskListTest {
         tasks.add(newDeadline);
         tasks.add(newEvent);
         TaskList res = tasks.findByDesc("Deadline", false);
-        assertEquals("1.[D][ ] Deadline (by: 01 Jan 2000 00:00)", res.toString());
+        assertEquals("1. [D][ ] Deadline (by: 01 Jan 2000 00:00)", res.toString());
     }
 
     @Test
@@ -95,8 +95,8 @@ public class TaskListTest {
         tasks.add(newEvent);
         TaskList res = tasks.findByDesc("", false);
         assertEquals("1.[T][ ] Todo\n"
-                + "2.[D][ ] Deadline (by: 01 Jan 2000 00:00)\n"
-                + "3.[E][ ] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+                + "2. [D][ ] Deadline (by: 01 Jan 2000 00:00)\n"
+                + "3. [E][ ] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
     }
 
     @Test
@@ -111,9 +111,9 @@ public class TaskListTest {
         tasks.add(newDeadline);
         tasks.add(newEvent);
         TaskList res = tasks.findByDesc("cAsE", false);
-        assertEquals("1.[T][ ] all lower case\n"
-                + "2.[D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)\n"
-                + "3.[E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+        assertEquals("1. [T][ ] all lower case\n"
+                + "2. [D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)\n"
+                + "3. [E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class TaskListTest {
         tasks.add(newDeadline);
         tasks.add(newEvent);
         TaskList res = tasks.findByDesc("CaSe", true);
-        assertEquals("1.[E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+        assertEquals("1. [E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
     }
 
     @Test
@@ -158,7 +158,7 @@ public class TaskListTest {
         tasks.add(newDeadline);
         tasks.add(newEvent);
         TaskList res = tasks.findAll("[D]");
-        assertEquals("1.[D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)", res.toString());
+        assertEquals("1. [D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)", res.toString());
     }
 
     @Test
@@ -174,6 +174,6 @@ public class TaskListTest {
         tasks.add(newEvent);
         TaskList res = tasks.findAll("Jan 2000");
         assertEquals("1.[D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)\n"
-                + "2.[E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+                + "2. [E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
     }
 }

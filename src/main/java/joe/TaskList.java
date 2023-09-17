@@ -119,7 +119,7 @@ public class TaskList {
         }
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1);
-            sb.append(".");
+            sb.append(". ");
             sb.append(tasks.get(i).toString());
             sb.append("\n");
         }
