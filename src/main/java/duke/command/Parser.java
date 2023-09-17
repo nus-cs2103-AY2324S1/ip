@@ -8,88 +8,37 @@ import duke.task.TodoTask;
 
 import java.time.LocalDate;
 
-/**
- * The Parser class is responsible for parsing user commands and generating corresponding Task objects.
- * It also provides utility methods for checking specific command types.
- */
 public class Parser {
 
-    /**
-     * Checks if the given command represents the "bye" command.
-     *
-     * @param command The user command to check.
-     * @return True if the command is "bye," false otherwise.
-     */
-    public static boolean isBye(String command) {
-        assert command != null : "Command cannot be null";
-        return command.equalsIgnoreCase("bye");
+    public static Command parseCommand(String input) throws DukeException {
+        String[] parts = input.split(" ", 2);
+        String commandType = parts[0].toLowerCase();
+
+        switch (commandType) {
+            case "bye":
+                return new ByeCommand();
+            case "list":
+                return new ListCommand();
+            case "hi":
+                return new HiCommand();
+            case "mark":
+                return new MarkDoneCommand(input.toLowerCase());
+            case "unmark":
+                return new MarkNotDoneCommand(input.toLowerCase());
+            case "delete":
+                return new DeleteCommand(input.toLowerCase());
+            case "find":
+                return new FindCommand(input.toLowerCase());
+            case "help":
+                return new HelpCommand();
+            default:
+                return new AddCommand(input.toLowerCase());
+        }
     }
 
-    /**
-     * Checks if the given command represents the "hi" command.
-     *
-     * @param command The user command to check.
-     * @return True if the command is "hi," false otherwise.
-     */
-    public static boolean isHi(String command) {
-        assert command != null : "Command cannot be null";
-        return command.equalsIgnoreCase("hi");
-    }
-
-    /**
-     * Checks if the given command represents the "list" command.
-     *
-     * @param command The user command to check.
-     * @return True if the command is "list," false otherwise.
-     */
-    public static boolean isList(String command) {
-        assert command != null : "Command cannot be null";
-        return command.equalsIgnoreCase("list");
-    }
-
-    /**
-     * Checks if the given command represents the "mark" command.
-     *
-     * @param command The user command to check.
-     * @return True if the command starts with "mark," false otherwise.
-     */
-    public static boolean isMarkDone(String command) {
-        assert command != null : "Command cannot be null";
-        return command.startsWith("mark");
-    }
-
-    /**
-     * Checks if the given command represents the "unmark" command.
-     *
-     * @param command The user command to check.
-     * @return True if the command starts with "unmark," false otherwise.
-     */
-    public static boolean isMarkNotDone(String command) {
-        assert command != null : "Command cannot be null";
-        return command.startsWith("unmark");
-    }
-
-    /**
-     * Checks if the given command represents the "delete" command.
-     *
-     * @param command The user command to check.
-     * @return True if the command starts with "delete," false otherwise.
-     */
-    public static boolean isDelete(String command) {
-        assert command != null : "Command cannot be null";
-        return command.startsWith("delete");
-    }
-
-    /**
-     * Extracts the task index from the given command.
-     *
-     * @param command The user command containing the task index.
-     * @return The extracted task index.
-     * @throws DukeException If the task index cannot be extracted or is invalid.
-     */
-    public static int extractTaskIndex(String command) throws DukeException {
-        assert command != null : "Command cannot be null";
-        String[] parts = command.split(" ");
+    public static int extractTaskIndex(String input) throws DukeException {
+        String[] parts = input.split(" ");
+        assert parts.length > 0 : "Command parts cannot be empty";
 
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! Please provide the task index.");
@@ -98,14 +47,8 @@ public class Parser {
         return Integer.parseInt(parts[1].trim()) - 1;
     }
 
-    public static boolean isFind(String command) {
-        assert command != null : "Command cannot be null";
-        return command.startsWith("find");
-    }
-
-    public static String extractKeyword(String command) {
-        assert command != null : "Command cannot be null";
-        return command.substring("find".length()).trim();
+    public static String extractKeyword(String input) {
+        return input.substring("find".length()).trim();
     }
 
     /**
@@ -124,6 +67,9 @@ public class Parser {
 
             switch (taskType) {
                 case TODO:
+                    if (parts.length == 1 || parts[1].trim().isEmpty()) {
+                        throw new DukeException("OOPS!!! Todo tasks must have a description.");
+                    }
                     // Parse the description, fromDate, and toDate
                     String[] todoParts = parts[1].split(" /from ");
 
@@ -143,7 +89,10 @@ public class Parser {
                     return new TodoTask(todoParts[0], fromDate, toDate, false);
 
                 case DEADLINE:
-                    // Parse the description and byDate
+                    if (parts.length == 1 || parts[1].trim().isEmpty()) {
+                        throw new DukeException("OOPS!!! Deadline tasks must have a description.");
+                    }
+
                     String[] deadlineParts = parts[1].split(" /by ");
 
                     if (deadlineParts.length != 2) {
@@ -155,7 +104,10 @@ public class Parser {
                     return new DeadlineTask(deadlineParts[0], byDate, false);
 
                 case EVENT:
-                    // Parse the description and atDate
+                    if (parts.length == 1 || parts[1].trim().isEmpty()) {
+                        throw new DukeException("OOPS!!! Event tasks must have a description.");
+                    }
+
                     String[] eventParts = parts[1].split(" /at ");
 
                     if (eventParts.length != 2) {
