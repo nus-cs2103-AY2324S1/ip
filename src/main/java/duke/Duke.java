@@ -60,7 +60,7 @@ public class Duke {
                 try {
                     return this.taskList.mark(task);
                 } catch (IndexOutOfBoundsException e) {
-                    return " There aren't that many tasks. Please enter a valid index.";
+                    return "There aren't that many tasks. Please enter a valid index.";
                 } catch (DukeException dukeException) {
                     return dukeException.getMessage();
                 }

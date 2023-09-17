@@ -29,7 +29,7 @@ public class TaskList {
     }
 
     /**
-     * Method to handle TODOs.
+     * Handles TODOs.
      *
      * @param descr the task description
      * @return the String that is printed when a ToDo is created.
@@ -50,7 +50,7 @@ public class TaskList {
     }
 
     /**
-     * Method to handle Events.
+     * Handles Events.
      *
      * @param descr the task description
      * @return the String that is printed when a new Event is added.
@@ -72,7 +72,7 @@ public class TaskList {
     }
 
     /**
-     * Method to handle Deadlines.
+     * Handles Deadlines.
      *
      * @param descr the task description
      * @return the String that is printed when a new Deadline is added.
@@ -93,6 +93,12 @@ public class TaskList {
         return res;
     }
 
+    /**
+     * Handles Contact tasks.
+     *
+     * @param descr the task description
+     * @return the String that is printed when a new Contact task is added.
+     */
     public String handleContact(String descr) {
         String output;
         try {
@@ -110,7 +116,7 @@ public class TaskList {
     }
 
     /**
-     * Method to mark task.
+     * Marks or unnmarks task.
      *
      * @param task the task being marked
      * @return the String that is printed when a task is marked.
@@ -220,7 +226,7 @@ public class TaskList {
     }
 
     /**
-     * Method to print taskList.
+     * Prints taskList.
      *
      * @return The list in String form
      * @throws DukeException if the list is empty

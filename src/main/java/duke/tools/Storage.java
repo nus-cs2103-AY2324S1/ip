@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-//    private File folder;
     private File savedFile;
     private final String filePath = "data/tasks.txt";
     private ArrayList<Task> taskList = new ArrayList<>();

@@ -23,7 +23,7 @@ public class ToDo extends Task{
     }
 
     /**
-     * Method that reformats todos to be ready to be written into tasks.txt.
+     * Reformats todos to be ready to be written into tasks.txt.
      *
      * @return the reformatted todo.
      */
@@ -32,7 +32,7 @@ public class ToDo extends Task{
     }
 
     /**
-     * Method that converts task to string.
+     * Converts task to string.
      *
      * @return formatted String version of the task
      */

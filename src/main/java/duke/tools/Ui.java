@@ -14,13 +14,6 @@ public class Ui {
     }
 
     /**
-     * Method to print loading error.
-     */
-    public void showLoadingError(Exception e) {
-        System.out.println(e.getMessage());
-    }
-
-    /**
      * Method to print outro.
      */
     public static String printOutro() {

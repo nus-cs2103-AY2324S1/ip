@@ -1,6 +1,5 @@
 package duke.tasks;
 
-import duke.Duke;
 import duke.exceptions.DukeException;
 
 import java.time.DayOfWeek;
@@ -9,14 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
-    //private final String descr;
     private final String[] descriptionArray;
-
-
-//    public Deadline(String descr) {
-//        super(descr.split("/by")[0]);
-//        this.descr = descr;
-//    }
 
     public Deadline(String[] descriptionArray) {
         super(descriptionArray[0]);

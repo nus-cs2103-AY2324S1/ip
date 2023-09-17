@@ -3,13 +3,7 @@ package duke.tasks;
 import duke.exceptions.DukeException;
 
 public class Event extends Task{
-    //private final String descr;
     private final String[] descriptionArray;
-
-//    public Event(String descr) {
-//        super(descr.split("/")[0]);
-//        this.descr = descr;
-//    }
 
     public Event(String[] descriptionArray) {
         super(descriptionArray[0]);
@@ -21,12 +15,6 @@ public class Event extends Task{
      *
      * @throws DukeException if input is invalid.
      */
-//    public void checkValidity() throws DukeException {
-//        String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
-//        if (descrArr.length < 3) {
-//            throw new DukeException("You are missing event start and/or end details");
-//        }
-//    }
     public void checkValidity() throws DukeException {
         if (descriptionArray.length < 3) {
             throw new DukeException("You are missing event details!");
