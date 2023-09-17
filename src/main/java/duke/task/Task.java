@@ -83,10 +83,10 @@ public class Task {
         boolean notEmptyEvent = isEvent && splittedDescription.length != 1;
 
         if (isValidTodo) {
-            String taskDescription = splittedDescription[1];
+            String taskDescription = description.replace("todo ", "");
             return new Todo(taskDescription);
         } else if (notEmptyDeadline) {
-            String[] splittedTask = splittedDescription[1].split(" /by ");
+            String[] splittedTask = description.replace("deadline ", "").split(" /by ");
             if (splittedTask.length == 1) {
                 throw new EmptyDetailsOfTaskError("The end of a deadline cannot be empty.");
             }
@@ -94,7 +94,7 @@ public class Task {
             String end = splittedTask[1];
             return new Deadlines(taskName, end);
         } else if (notEmptyEvent) {
-            String[] splitStart = splittedDescription[1].split(" /from ");
+            String[] splitStart = description.replace("event ", "").split(" /from ");
             if (splitStart.length == 1) {
                 throw new EmptyDetailsOfTaskError("The start of a event cannot be empty.");
             }
