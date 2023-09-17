@@ -109,14 +109,14 @@ public class HelpCommand extends ShibaCommand {
             commandType = CommandType.valueOf(commandName.toUpperCase());
         } catch (IllegalArgumentException e) {
             Replier.printWithNoIndents(COMMAND_DOES_NOT_EXIST_MSG);
-            Replier.reply();
+            Replier.replyError();
             return;
         }
 
         HelpInfo helpInfo = HELP_INFO_MAP.get(commandType);
         if (helpInfo == null) {
             Replier.printWithNoIndents(COMMAND_DOES_NOT_EXIST_MSG);
-            Replier.reply();
+            Replier.replyError();
             return;
         }
 

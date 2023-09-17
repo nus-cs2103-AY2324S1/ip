@@ -55,7 +55,7 @@ public class MainWindow extends Application {
         primaryStage.setTitle(Shiba.getInstance().getName());
         primaryStage.setResizable(true);
         primaryStage.setMinHeight(800 + WINDOW_HEIGHT_CORRECTION);
-        primaryStage.setMinWidth(600);
+        primaryStage.setMinWidth(500);
 
         primaryStage.show();
 
@@ -69,9 +69,10 @@ public class MainWindow extends Application {
      * Adds a dialog node to the dialog box with the bot's reply.
      *
      * @param boxTexts Bot text nodes to be displayed in the dialog box
+     * @param isError Whether the bot's reply is an error message
      */
-    public void addBotDialogNode(ArrayList<DialogNode.SubNode> boxTexts) {
-        dialogBox.addDialogNode(new DialogNode(false, boxTexts));
+    public void addBotDialogNode(ArrayList<DialogNode.SubNode> boxTexts, boolean isError) {
+        dialogBox.addDialogNode(new DialogNode(false, isError, boxTexts));
     }
 
     /**
@@ -109,7 +110,7 @@ public class MainWindow extends Application {
 
         ArrayList<DialogNode.SubNode> textNodes = new ArrayList<>();
         textNodes.add(new DialogNode.SubNode(1, input));
-        dialogBox.addDialogNode(new DialogNode(true, textNodes));
+        dialogBox.addDialogNode(new DialogNode(true, false, textNodes));
 
         // Simulate a delay
         timer.schedule(new TimerTask() {

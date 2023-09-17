@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
 /**
@@ -49,24 +50,46 @@ public class DialogNode extends HBox {
     /**
      * Constructor for DialogNode
      *
-     * @param isUser Whether the dialog node is from the user - determines the image that will be displayed
+     * @param isUser Whether the dialog node is from the user
+     * @param isError Whether the dialog node is an error message
      * @param textNodes List of sub-nodes to be displayed
      */
-    public DialogNode(boolean isUser, ArrayList<SubNode> textNodes) {
+    public DialogNode(boolean isUser, boolean isError, ArrayList<SubNode> textNodes) {
         super(HORIZONTAL_SPACING);
 
-        ImageView imageView = new ImageView(isUser ? USER_IMAGE : SHIBA_IMAGE);
-        imageView.setFitHeight(IMAGE_SIZE);
-        imageView.setFitWidth(IMAGE_SIZE);
+        setPadding(new Insets(5, 0, 5, 0));
+        setFillHeight(false);
 
-        VBox vbox = new VBox(VERTICAL_SPACING);
-        HBox.setHgrow(vbox, Priority.ALWAYS);
+        VBox vbox = createTextVBox(isUser, isError, textNodes);
+        ImageView imageView = createProfileImage(isUser);
 
         if (isUser) {
             getChildren().addAll(vbox, imageView);
         } else {
             getChildren().addAll(imageView, vbox);
         }
+    }
+
+    /**
+     * Creates the VBox to contain all the text label nodes.
+     *
+     * @param isUser Whether the dialog node is from the user
+     * @param isError Whether the dialog node is an error message
+     * @param textNodes List of sub-nodes to be displayed
+     * @return The VBox containing all the text label nodes
+     */
+    private VBox createTextVBox(boolean isUser, boolean isError, ArrayList<SubNode> textNodes) {
+        VBox vbox = new VBox(VERTICAL_SPACING);
+        vbox.setMinHeight(0);
+        if (isError) {
+            vbox.setStyle("-fx-background-color:#ff8585; -fx-background-radius: 10px;");
+        } else if (isUser) {
+            vbox.setStyle("-fx-background-color:lightgreen; -fx-background-radius: 10px;");
+        } else {
+            vbox.setStyle("-fx-background-color:lightblue; -fx-background-radius: 10px;");
+        }
+        vbox.setPadding(new Insets(5, 10, 10, 10));
+        HBox.setHgrow(vbox, Priority.ALWAYS);
 
         for (SubNode textNode : textNodes) {
             Label textLabel = new Label(textNode.text);
@@ -79,5 +102,22 @@ public class DialogNode extends HBox {
             }
             vbox.getChildren().add(textLabel);
         }
+
+        return vbox;
+    }
+
+    /**
+     * Creates the profile imageview.
+     *
+     * @param isUser Whether the dialog node is from the user
+     * @return The profile imageview
+     */
+    private ImageView createProfileImage(boolean isUser) {
+        ImageView imageView = new ImageView(isUser ? USER_IMAGE : SHIBA_IMAGE);
+        imageView.setClip(new Circle(IMAGE_SIZE / 2.0, IMAGE_SIZE / 2.0, IMAGE_SIZE / 2.0));
+        imageView.setFitHeight(IMAGE_SIZE);
+        imageView.setFitWidth(IMAGE_SIZE);
+
+        return imageView;
     }
 }

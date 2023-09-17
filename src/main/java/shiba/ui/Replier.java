@@ -34,7 +34,7 @@ public class Replier {
      */
     public static void printUnknownCommand() {
         printWithNoIndents("Woof! I don't know what that command is!");
-        reply();
+        replyError();
     }
 
     /**
@@ -44,7 +44,7 @@ public class Replier {
      */
     public static void printException(ShibaException e) {
         printWithNoIndents("Woof! " + e.getMessage());
-        reply();
+        replyError();
     }
 
     /**
@@ -76,7 +76,7 @@ public class Replier {
     }
 
     /**
-     * Sends the reply message stored in stringBuilder to the UI window to be displayed.
+     * Sends a normal reply message stored in stringBuilder to the UI window to be displayed.
      */
     public static void reply() {
         MainWindow mainWindow = MainWindow.getInstance();
@@ -86,7 +86,22 @@ public class Replier {
 
         ArrayList<DialogNode.SubNode> nodesCopy = new ArrayList<>(cumulativeSubNodes);
 
-        Platform.runLater(() -> mainWindow.addBotDialogNode(nodesCopy));
+        Platform.runLater(() -> mainWindow.addBotDialogNode(nodesCopy, false));
+        cumulativeSubNodes.clear();
+    }
+
+    /**
+     * Sends an error reply message stored in stringBuilder to the UI window to be displayed.
+     */
+    public static void replyError() {
+        MainWindow mainWindow = MainWindow.getInstance();
+        if (mainWindow == null) {
+            return;
+        }
+
+        ArrayList<DialogNode.SubNode> nodesCopy = new ArrayList<>(cumulativeSubNodes);
+
+        Platform.runLater(() -> mainWindow.addBotDialogNode(nodesCopy, true));
         cumulativeSubNodes.clear();
     }
 }

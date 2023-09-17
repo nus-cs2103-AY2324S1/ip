@@ -13,7 +13,8 @@ import shiba.ui.MainWindow;
  * Dialog box for displaying the conversation between the user and SHIBA-BOT.
  */
 public class DialogBox extends ScrollPane {
-    private final VBox dialogPane = new VBox();
+    private static final double DIALOG_NODE_SPACING = 10.0;
+    private final VBox dialogPane = new VBox(DIALOG_NODE_SPACING);
 
     /**
      * Constructor for DialogBox
@@ -24,10 +25,11 @@ public class DialogBox extends ScrollPane {
         setFitToWidth(true);
         setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        AnchorPane.setLeftAnchor(this, 1.0);
-        AnchorPane.setRightAnchor(this, 1.0);
-        AnchorPane.setTopAnchor(this, 1.0);
+        AnchorPane.setLeftAnchor(this, 10.0);
+        AnchorPane.setRightAnchor(this, 10.0);
+        AnchorPane.setTopAnchor(this, 10.0);
         AnchorPane.setBottomAnchor(this, CommandInput.TEXT_FIELD_HEIGHT + 1.0);
+        setStyle("-fx-background-color:transparent;");
 
         dialogPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogPane.setFillWidth(true);
