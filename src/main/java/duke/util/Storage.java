@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import duke.exception.DukeException;
@@ -54,24 +54,13 @@ public class Storage {
      * @return Returns the string representation of a date YYYY-MM-DD.
      */
     private String formatDate(String date) {
-        HashMap<String, String> monthMap = new HashMap<>();
-        monthMap.put("Jan", "01");
-        monthMap.put("Feb", "02");
-        monthMap.put("Mar", "03");
-        monthMap.put("Apr", "04");
-        monthMap.put("May", "05");
-        monthMap.put("Jun", "06");
-        monthMap.put("Jul", "07");
-        monthMap.put("Aug", "08");
-        monthMap.put("Sep", "09");
-        monthMap.put("Oct", "10");
-        monthMap.put("Nov", "11");
-        monthMap.put("Dec", "12");
+        String dateString = date;
+        String month = dateString.substring(0, 3);
+        String day = dateString.substring(4, 6);
+        String year = dateString.substring(7, 11);
 
-        String[] parts = date.split("-");
-        String day = parts[0];
-        String month = monthMap.get(parts[1]);
-        String year = parts[2];
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        month = String.format("%02d", Arrays.asList(months).indexOf(month) + 1);
 
         return String.format("%s-%s-%s", year, month, day);
     }

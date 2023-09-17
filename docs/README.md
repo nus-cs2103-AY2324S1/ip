@@ -44,14 +44,14 @@ Got it. I've added this task:
 Now you have 1 task(s) in the list.
 ```
 
-### Adding an Event: `event <description> from/ <from_date> to/ <to_date>`
+### Adding an Event: `event <description> /from <from_date> /to <to_date>`
 
 Adds an event to the task list.
 > Note: The only format supported for `<from_date>` and `<to_date> is YYYY-MM-DD (e.g. 2023-12-12)
 
 Example of usage:
 
-`event reading week from/ 2023-09-25 to/ 2023-09-29`
+`event reading week /from 2023-09-25 /to 2023-09-29`
 
 Expected outcome:
 
@@ -61,14 +61,14 @@ Got it. I've added this task:
 Now you have 2 task(s) in the list.
 ```
 
-### Adding a Deadline: `deadline <description> by/ <due_date>`
+### Adding a Deadline: `deadline <description> /by <due_date>`
 
 Adds a deadline to the task list.
 > Note: The only format supported for `<due_date>` is YYYY-MM-DD (e.g. 2023-12-12)
 
 Example of usage:
 
-`deadline return book by/2023-12-12`
+`deadline return book /by 2023-12-12`
 
 Expected outcome:
 
