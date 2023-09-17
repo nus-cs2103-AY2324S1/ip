@@ -52,4 +52,9 @@ public class TodoCommand extends Command {
         return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
     }
+
+    public static String help() {
+        return "Todo command is used to add todo task.\n"
+                + "Eg. of Usage:\n" + "todo study\n";
+    }
 }

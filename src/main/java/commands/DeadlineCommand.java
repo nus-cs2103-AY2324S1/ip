@@ -15,7 +15,10 @@ import tasks.TaskList;
  */
 public class DeadlineCommand extends Command {
 
-    private final ArrayList<String> texts;
+    private ArrayList<String> texts;
+
+    public DeadlineCommand() {
+    }
 
     /**
      * DeadlineCommand constructor that takes in an ArrayList.
@@ -53,5 +56,10 @@ public class DeadlineCommand extends Command {
     public String cmdToString(String task, int size) {
         return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
+    }
+
+    public static String help() {
+        return "Deadline command is used to add deadline task.\n"
+                + "Eg. of Usage:\n" + "deadline study /by 2/3/2023 1000\n";
     }
 }

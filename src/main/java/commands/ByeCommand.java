@@ -35,4 +35,9 @@ public class ByeCommand extends Command {
     public String toString() {
         return "Bye. Hope to see you again soon!";
     }
+
+    public static String help() {
+        return "Bye command is used to end the program.\n"
+                + "Eg. of Usage:\n" + "bye\n";
+    }
 }

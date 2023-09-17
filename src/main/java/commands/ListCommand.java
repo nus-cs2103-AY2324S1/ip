@@ -24,4 +24,9 @@ public class ListCommand extends Command {
         }
         return sB.toString();
     }
+
+    public static String help() {
+        return "List command is used to list all the tasks.\n"
+                + "Eg. of Usage:\n" + "list\n";
+    }
 }

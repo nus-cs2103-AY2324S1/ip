@@ -53,4 +53,9 @@ public class MarkCommand extends Command {
     public String cmdToString(String task) {
         return "Nice! I've marked this task as done:\n" + task;
     }
+
+    public static String help() {
+        return "Mark command is used to mark a task as done.\n"
+                + "Eg. of Usage:\n" + "mark 2\n";
+    }
 }

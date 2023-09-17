@@ -26,7 +26,8 @@ public class Parser {
         todo,
         delete,
         find,
-        todotime;
+        todotime,
+        help;
     }
 
     /**
@@ -87,6 +88,9 @@ public class Parser {
         }
         case todotime: {
             return parseTodoTime(input);
+        }
+        case help: {
+            return parseHelp(input);
         }
         default: {
             assert false;
@@ -337,6 +341,14 @@ public class Parser {
         ArrayList<String> texts = parser.convertTaskInput(input);
         return new TodoTimeCommand(texts);
 
+    }
+
+    private Command parseHelp(String input) throws DukeException {
+        if (!input.equals(Commands.help.toString())) {
+            throw new DukeException("Invalid help format, Just type \"help\" to get "
+                    + "all available commands");
+        }
+        return new HelpCommand();
     }
 
 

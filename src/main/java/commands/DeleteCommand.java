@@ -55,4 +55,9 @@ public class DeleteCommand extends Command {
         return "Noted. I've removed this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
     }
+
+    public static String help() {
+        return "Delete command is used to delete a task by its position.\n"
+                + "Eg. of Usage:\n" + "delete 2\n";
+    }
 }

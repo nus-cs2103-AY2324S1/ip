@@ -33,7 +33,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(new DialogBox("Hello! I'm Red\nWhat can I do for you?",
+        dialogContainer.getChildren().add(new DialogBox("Hello! I'm Mr Red\nWhat can I do for you?\n"
+                + "Type help to get all available commands",
                 dukeImage, 1));
     }
 
