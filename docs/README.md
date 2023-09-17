@@ -1,29 +1,69 @@
 # User Guide
+Ken is a chatbot for managing tasks.
 
+- Features
+  - List all task: [`list`](#list)
+  - Add todo task: [`todo`](#todo)
+  - Add deadline task: [`deadline`](#deadline)
+  - Add event task: [`event`](#event)
+  - Mark task as completed: [`mark`](#mark)
+  - Mark task as incomplete: [`unmark`](#unmark)
+  - Find task with similar description: [`find`](#find)
+  - Delete task: [`delete`](#delete)
+  - Exit the program: [`bye`](#bye)
+  - Viewing help: [`help`](#help)
 ## Features 
 
-### Feature-ABC
+Notes about the command format:
+- Words in UPPER_CASE are the parameters to be supplied by the user.\
+  e.g. in todo DESCRIPTION, DESCRIPTION is a parameter which can be used as todo borrow book.
+- DATE is preferably in `dd/MM/yyyy HHmm` format
+- INDEX **must be a positive integer** 1, 2, 3, …​
 
-Description of the feature.
 
-### Feature-XYZ
 
-Description of the feature.
+### `list`
+Show a list of all tasks.\
+Format: `list`
 
-## Usage
+### `todo`
+Add todo task.\
+todo task only have description.\
+Format: `todo DESCRIPTION`
 
-### `Keyword` - Describe action
+### `deadline`
+Add deadline task.\
+deadline task contain description and date the task have to be finished.\
+Format: `deadline DESCRIPTION /by DATE`
 
-Describe the action and its outcome.
+### `event`
+Add event task.\
+event task contain description, start date and end date of event.\
+Format: `event DESCRIPTION /from DATE /to DATE`
 
-Example of usage: 
+### `mark`
+Mark task at specified index as done.\
+Completed task will indicate [X] as done.\
+Format: `mark INDEX`
 
-`keyword (optional arguments)`
+### `unmark`
+Unmark task at specified index as incomplete.\
+Incomplete task will indicate [] as not done.\
+Format: `unmark INDEX`
 
-Expected outcome:
+### `find`
+Find task and list all tasks with similar description provided. \
+Format: `find DESCRIPTION`
 
-Description of the outcome.
+### `delete`
+Delete task at specified index.\
+Format: `delete INDEX`
 
-```
-expected output
-```
+### `bye`
+Exit the program.\
+Format: `bye`
+
+### `help`
+List all the commands that is available.\
+Format: `help`
+
