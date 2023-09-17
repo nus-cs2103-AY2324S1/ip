@@ -52,7 +52,7 @@ public class GrumpyGordon {
     }
 
     /**
-     * Main method for GrumpyGordon.
+     * Runs the main launcher method for GrumpyGordon.
      * @param args Command line arguments
      */
     public static void main(String[] args) {
