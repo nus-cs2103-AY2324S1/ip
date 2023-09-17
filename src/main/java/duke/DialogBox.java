@@ -15,8 +15,8 @@ import javafx.scene.layout.HBox;
 
 /**
  * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label.
+ * Containing text from the speaker.
  */
 public class DialogBox extends HBox {
 	@FXML
@@ -25,9 +25,10 @@ public class DialogBox extends HBox {
 	private ImageView displayPicture;
 
 	/**
-	 * Represents a DialogBox object which users interact with
-	 * @param text text in the dialog box
-	 * @param img image to be loaded
+	 * Represents a DialogBox object which users interact with.
+	 *
+	 * @param text Text in the dialog box.
+	 * @param img Image to be loaded.
 	 */
 	private DialogBox(String text, Image img) {
 		try {
@@ -54,20 +55,22 @@ public class DialogBox extends HBox {
 	}
 
 	/**
-	 * Returns a Dialog Box
-	 * @param text the text entered
-	 * @param img the image
-	 * @return a Dialog Box
+	 * Returns a Dialog Box.
+	 *
+	 * @param text the text entered.
+	 * @param img the image.
+	 * @return a Dialog Box.
 	 */
 	public static DialogBox getUserDialog(String text, Image img) {
 		return new DialogBox(text, img);
 	}
 
 	/**
-	 * returns DialogBox
-	 * @param text the text
-	 * @param img the image
-	 * @return DialogBox
+	 * Returns DialogBox.
+	 *
+	 * @param text the text.
+	 * @param img the image.
+	 * @return DialogBox.
 	 */
 
 	public static DialogBox getDukeDialog(String text, Image img) {

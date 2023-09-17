@@ -11,6 +11,7 @@ public class ToDo extends Task {
 
 	/**
 	 * Returns a String to be written into Storage.
+	 *
 	 * @return Reformatted String suitable for Storage.
 	 */
 	@Override
@@ -25,19 +26,10 @@ public class ToDo extends Task {
 		b.append(this.description);
 		return b.toString();
 	}
-	/**
-	 * @return String representation of Task.
-	 */
+
 	@Override
 	public String toString() {
 		return "[T]" + super.toString();
 	}
 
-	/**
-	 * @return Icon of ToDo
-	 */
-
-	public String getIcon() {
-		return "[D]" + super.getTask();
-	}
 }

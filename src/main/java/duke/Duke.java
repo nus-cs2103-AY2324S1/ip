@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * Represent the ChatBot.
- * Run the ChatBot to intereact with it.
+ * Run the ChatBot to interact with it.
  * Contains a list of tasks, TaskList, a user interface Ui, and storage, Storage.
  */
 public class Duke {
@@ -26,13 +26,12 @@ public class Duke {
 
     /**
      * Constructs a new ChatBot to chat with.
-     * Default name of the ChatBot is Duke
+     * Default name of the ChatBot is Duke.
      */
     public Duke() {
         this.ui = new Ui("Duke");
         storage = new Storage(filePathMain, filePathArchive);
         try {
-            // initialise the mainfile and archivefile
             tasks = new TaskList(storage.loadFiles());
         } catch (IOException e) {
             ui.showLoadingError(e);
@@ -69,11 +68,10 @@ public class Duke {
     }
 
     /**
-     * Get a response from interacting with GUI
-     * @param input the input user gives
-     * @return String representing response of ChatBot
+     * Get a response from interacting with GUI.
+     * @param input the input user gives.
+     * @return String representing response of ChatBot.
      */
-
 	public String getResponse(String input) {
         StringBuilder br = new StringBuilder();
         try {

@@ -11,8 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Represent the Time of tasks for Deadline and Event
- * Time has 2 formats, the amPmFormat and the fullDayFormat
+ * Represent the Time of tasks for Deadline and Event.
+ * Time has 2 formats, the amPmFormat and the fullDayFormat.
  */
 public class TimeFormat {
 
@@ -40,8 +40,10 @@ public class TimeFormat {
 
 	/**
 	 * Returns the Date formatted in the form: 2015-02-20T06:30:00.
-	 * @param timeDate Array containing time and date at index 0 and 1.
+	 *
+	 * @param timeDateNoFormat Array containing time and date at index 0 and 1.
 	 * @return Formatted String.
+	 * @throws TimeFormatException For invalid time formats.
 	 */
 	// this is actually the amPmFormat
 	public static LocalDateTime amPmFormat(String[] timeDateNoFormat) throws TimeFormatException {
@@ -66,8 +68,9 @@ public class TimeFormat {
 	}
 	/**
 	 * Returns the integer value of a month.
+	 *
 	 * @param month String representation of month.
-	 * @return Integer representation of month
+	 * @return Integer representation of month.
 	 * @throws IllegalArgumentException Throws exception should the month not be recognised.
 	 */
 	public static String monthValue(String month) throws IllegalArgumentException {

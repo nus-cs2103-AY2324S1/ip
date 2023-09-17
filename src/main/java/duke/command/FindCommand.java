@@ -14,7 +14,8 @@ public class FindCommand extends Command {
 		this.keyWord = keyWord;
 	}
 	/**
-	 * Finds the Tasks that contains keywords and prints thenm in a list
+	 * Finds the Tasks that contains keywords and prints them in a list.
+	 *
 	 * @param taskList list of Task.
 	 * @param ui Ui to interact with User.
 	 * @param storage Storage to store Task.

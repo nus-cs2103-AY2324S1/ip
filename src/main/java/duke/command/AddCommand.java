@@ -15,15 +15,16 @@ public class AddCommand extends Command {
 	}
 
 	/**
-	 * Execute the add command which add the task into taskList.
-	 * Ui displays adding to user.
-	 * Output of task is stored in Storage which writes to a text file.
-	 * @param taskList list of tasks to execute.
-	 * @param ui displays execution of adding.
-	 * @param storage can write tasks to store on the text file.
+	 * Executes the task execution command, which adds a task to the task list
+	 * and displays a message to the user.
+	 *
+	 * @param taskList The task list to which the task should be added.
+	 * @param ui       The user interface for displaying messages to the user.
+	 * @param storage  The storage for saving tasks to a file.
+	 * @return A message to be displayed to the user.
 	 */
 	@Override
-	public String execute(TaskList taskList, Ui ui, Storage storage) {
+public String execute(TaskList taskList, Ui ui, Storage storage) {
 			storage.addToFileMain(task, true);
 			System.out.println(ui.showAddTask(task, taskList.getSize()));
 			return ui.showAddTask(task, taskList.getSize());

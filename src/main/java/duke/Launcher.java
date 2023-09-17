@@ -2,7 +2,7 @@ package duke;
 import javafx.application.Application;
 
 /**
- * Represents the launching of GUI
+ * Represents the launching of GUI.
  */
 
 public class Launcher {

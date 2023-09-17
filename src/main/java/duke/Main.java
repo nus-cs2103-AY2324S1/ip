@@ -13,14 +13,14 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-	private Duke duke = new Duke();
+	private final Duke duke = new Duke();
 
 	/**
 	 * Initialise GUI elements
-	 * @param stage the primary stage for this application, onto which
-	 * the application scene can be set.
-	 * Applications may create other stages, if needed, but they will not be
-	 * primary stages.
+	 * Application scene can be set.
+	 * Applications may create other stages, if needed, but they will not be.
+	 *
+	 * @param stage Primary stage for this application, onto which.
 	 */
 	@Override
 	public void start(Stage stage) {

@@ -47,9 +47,6 @@ public class Task {
 		return "";
 	}
 
-	/**
- 	 * @return String representation of Task.
-	 */
 	@Override
 	public String toString() {
 		return isDone ? "[X]" + " " + this.description : "[ ]" + " " + this.description;
