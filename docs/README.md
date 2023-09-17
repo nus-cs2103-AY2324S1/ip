@@ -1,5 +1,5 @@
 # User Guide
-Ren is **desktop chatbot assistant that can help you manage and store your tasks or notes**. It is **optimised for use
+***Ren*** is **desktop chatbot assistant that can help you manage and store your tasks or notes**. It is **optimised for use
 via a Command Line Interface (CLI), _benefitting fast typists_** while still having the benefits of a Graphical User Interface (GUI).
 
 Manage your tasks effectively with Ren! :star_struck:
