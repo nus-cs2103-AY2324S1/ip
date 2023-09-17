@@ -34,13 +34,18 @@ public class TodoTask extends Task {
      */
     static public TodoTask makeTodo(String[] taskInputs) {
         boolean isDone = taskInputs[0].equals("1");
+        String description = taskInputs[2];
+        String tag = taskInputs[1];
 
-        return new TodoTask(isDone, taskInputs[2]);
+        TodoTask newTask = new TodoTask(isDone, description);
+        newTask.tag(tag);
+
+        return newTask;
     }
 
     @Override
     public String toString() {
-        return "[T][" + this.getStatusIcon() + "] " + this.description;
+        return "[T]" + super.toString() + " [Tag: " + this.getTag() + "]";
     }
 
     /**
@@ -50,6 +55,6 @@ public class TodoTask extends Task {
     @Override
     public String toSavedString() {
         String done = isDone ? "1" : "0";
-        return "T|" + done + "|" + this.description + "\n";
+        return "T|" + done + "|" + this.description + "|" + this.getTag() + "\n";
     }
 }

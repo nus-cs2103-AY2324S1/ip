@@ -12,6 +12,10 @@ public class Task {
      * Completion status of the task.
      */
     boolean isDone;
+    /**
+     * Tag associated with the task.
+     */
+    String tag = "None";
 
     /**
      * Create a new task with the corresponding completion status and description.
@@ -38,6 +42,13 @@ public class Task {
     }
 
     /**
+     * Tag a task with the corresponding tag.
+     */
+    public void tag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
      * Gets an icon representation of the completion status of a task.
      * @return An icon representation of the completion status of a task.
      */
@@ -47,6 +58,10 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getTag() {
+        return this.tag;
     }
 
     @Override

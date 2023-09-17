@@ -29,6 +29,10 @@ public class TaskList {
         this.taskList.get(index).unmarkAsDone();
     }
 
+    public void tag(int index, String tag) {
+        this.taskList.get(index).tag(tag);
+    }
+
     public void delete(int index) {
         this.taskList.remove(index);
     }

@@ -52,8 +52,12 @@ public class EventTask extends Task {
         String description = taskInputs[2];
         String startDateTime = taskInputs[3];
         String endDateTime = taskInputs[4];
+        String tag = taskInputs[5];
 
-        return new EventTask(isDone, description, startDateTime, endDateTime);
+        EventTask newTask = new EventTask(isDone, description, startDateTime, endDateTime);
+        newTask.tag(tag);
+
+        return newTask;
     }
 
     public String getStartDateTime() {
@@ -66,8 +70,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] " + this.description
-                + "(from:" + startDateTime + "to:" + endDateTime + ")";
+        return "[E]" + super.toString() + "(from:" + startDateTime + "to:" + endDateTime + ")"
+                + " [Tag: " + this.getTag() + "]";
     }
 
     /**
@@ -77,6 +81,7 @@ public class EventTask extends Task {
     @Override
     public String toSavedString() {
         String done = isDone ? "1" : "0";
-        return "E|" + done + "|" + this.description + "|" + this.startDateTime + "|" + this.endDateTime +"\n";
+        return "E|" + done + "|" + this.description + "|" + this.startDateTime + "|"
+                + this.endDateTime + "|" + this.getTag() + "\n";
     }
 }

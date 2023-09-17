@@ -11,8 +11,10 @@ unmark 1
 list
 delete 2
 list
+tag 2 /tag CS2130T
 todo
 deadline
 event
+tag
 blah
 bye

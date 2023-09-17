@@ -16,6 +16,7 @@ public class MarkCommand extends Command {
 
     /**
      * Create a new instance of a command that marks the task at the corresponding index as completed when executed.
+     *
      * @param index Index of task to mark as completed.
      */
     public MarkCommand(int index) {
@@ -28,7 +29,7 @@ public class MarkCommand extends Command {
      * @param ui Lets the user know if the marking as completed was successful.
      * @param storage Saves the updated task to the hard disk.
      * @param taskList Task list to retrieve the task from.
-     * @return
+     * @return Bareum's response to the successful execution of the command.
      */
     @Override
     public String execute(Ui ui, Storage storage, TaskList taskList) {

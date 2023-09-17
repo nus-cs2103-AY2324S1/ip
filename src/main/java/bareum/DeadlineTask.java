@@ -54,16 +54,19 @@ public class DeadlineTask extends Task {
         String description = taskInputs[2];
         String dueDateStr = taskInputs[3];
         LocalDate dueDate = LocalDate.parse(dueDateStr);
+        String tag = taskInputs[4];
 
-        return new DeadlineTask(isDone, description, dueDate);
+        DeadlineTask newTask = new DeadlineTask(isDone, description, dueDate);
+        newTask.tag(tag);
+
+        return newTask;
     }
 
     @Override
     public String toString() {
         String dueDate = this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-        return "[D][" + this.getStatusIcon() + "] " + this.description
-                + "(by: " + dueDate + ")";
+        return "[D]" + super.toString() + "(by: " + dueDate + ")" + " [Tag: " + this.getTag() + "]";
     }
 
     /**
@@ -73,6 +76,6 @@ public class DeadlineTask extends Task {
     @Override
     public String toSavedString() {
         String done = isDone ? "1" : "0";
-        return "D|" + done + "|" + this.description + "|" + dueDate +"\n";
+        return "D|" + done + "|" + this.description + "|" + dueDate + "|" + this.getTag() + "\n";
     }
 }
