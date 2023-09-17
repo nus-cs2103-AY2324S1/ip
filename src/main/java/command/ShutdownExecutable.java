@@ -3,11 +3,11 @@ import duke.TaskList;
 import duke.UserInterface;
 
 /**
- * Represents a call for the bot to be shut down, which will be interpreted by Duke.
+ * Represents a call to shut down.
  */
 public class ShutdownExecutable implements Executable {
     /**
-     * Indicates that the bot is to be shut down.
+     * Outputs a boolean that indicates a shutdown command.
      * @param list the list that contains the task. (not necessary)
      * @param ui the interface that prints out any necessary outputs.
      * @return true, since the execution ends the bot.

@@ -58,15 +58,16 @@ public class Duke extends Application {
             ui.output("Could not read from file");
             closeDuke();
         } catch (CorruptedFileException f) {
-            boolean isShuttingDown = corruptedFileHandle();
+            boolean isShuttingDown = handleCorruptFile();
             if (isShuttingDown) {
+                ui.output("Could not clear file");
                 closeDuke();
             }
         }
     }
 
     /**
-     * Initializes the storage, list and outputs a greeting.
+     * Initializes the arguments.
      */
     @Override
     public void init() {
@@ -90,24 +91,31 @@ public class Duke extends Application {
     }
 
     /**
-     * Shuts down duke, performing cleanup tasks along the way.
+     * Shuts down Duke, performing any cleanup tasks along the way.
      */
     public void closeDuke() {
         ui.output("Goodbye!");
         Platform.exit();
     }
     /**
-     * Handler is called when a corrupted file is detected, allowing user to decide how to proceed, such as
-     * clearing the file or shutting down.
-     * @return whether the handler decides to call for a shutdown of the Duke instance.
+     * Clears the file if it is corrupted, and returns a boolean indicating whether the clearing was successful.
      */
-    public boolean corruptedFileHandle() {
-        return true;
+    public boolean handleCorruptFile() {
+        ui.output("Corrupted file detected! deleting file...");
+        try {
+            list.clear();
+        } catch (IOException e) {
+            ui.output("Can't delete file.");
+            return true;
+        }
+        ui.output("Cleared corrupted file successfully.");
+        return false;
+
         // TODO: make this compatible with the new parsing format
     }
 
     /**
-     * Given a string input, the bot handles it and gives an appropriate reply.
+     * Handles a string input and gives an appropriate reply.
      * @param input the string to be parsed.
      */
     public void handle(String input) {

@@ -7,7 +7,7 @@ import duke.UserInterface;
  */
 public class ListExecutable implements Executable {
     /**
-     * Prints out the list.
+     * outputs the list to the ui.
      * @param list the list to be printed
      * @param ui the interface that prints out the list.
      * @return false, since the execution does not end the bot.

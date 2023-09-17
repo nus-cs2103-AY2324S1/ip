@@ -11,7 +11,7 @@ public class Event extends Task {
     private final LocalDate timeEnd;
 
     /**
-     * This is the constructor for an Event.
+     * Constructs an event.
      * @param name name of the Event.
      * @param timeStart starting time of the Event.
      * @param timeEnd ending time of the Event.
@@ -23,14 +23,14 @@ public class Event extends Task {
     }
 
     /**
-     * This is an overloading of the constructor for an Event.
+     * Constructs an Event, with a boolean representing if it is marked.
      * @param name name of the Event.
-     * @param isComplete whether the event is complete.
+     * @param isMarked whether the event is marked.
      * @param timeStart starting time of the Event.
      * @param timeEnd ending time of the Event.
      */
-    public Event(String name, boolean isComplete, LocalDate timeStart, LocalDate timeEnd) {
-        super(name, isComplete);
+    public Event(String name, boolean isMarked, LocalDate timeStart, LocalDate timeEnd) {
+        super(name, isMarked);
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
     }

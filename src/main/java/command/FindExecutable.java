@@ -18,11 +18,18 @@ public class FindExecutable implements Executable {
         this.keyword = keyword;
     }
 
+    /**
+     * Finds tasks that match the keyword if they exist.
+     * @param list the list to search.
+     * @param ui the interface to output to.
+     * @return false, since the execution does not shut the bot down.
+     * @throws FailureInExecuteException if we cannot find any tasks.
+     */
     @Override
     public boolean execute(TaskList list, UserInterface ui) throws FailureInExecuteException {
         ArrayList<Task> res = list.findTasksMatching(keyword);
         if (res.isEmpty()) {
-            ui.output("Could not find task");
+            throw new FailureInExecuteException("Could not find task");
         } else {
             StringBuilder ans = new StringBuilder("Here are the matching items.");
             for (int i = 0; i < res.size(); i++) {

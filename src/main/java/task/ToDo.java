@@ -5,7 +5,7 @@ package task;
  */
 public class ToDo extends Task {
     /**
-     * This is the constructor for a deadline.
+     * Constructs a to-do.
      * @param name name of the task.
      */
     public ToDo(String name) {
@@ -13,12 +13,12 @@ public class ToDo extends Task {
     }
 
     /**
-     * An overloading of the above method, for when the isComplete is needed as well.
+     * Constructs a to-do with its marking status.
      * @param name name of the task.
-     * @param isComplete whether the task is complete.
+     * @param isMarked whether the task is marked.
      */
-    public ToDo(String name, boolean isComplete) {
-        super(name, isComplete);
+    public ToDo(String name, boolean isMarked) {
+        super(name, isMarked);
     }
 
     /**

@@ -94,7 +94,7 @@ public class Parser {
     }
 
     /**
-     * Produces a matcher that is guaranteed successful.
+     * Produces a matcher that is guaranteed to be successfully matched.
      * @param input the string to match to a pattern.
      * @param regex the pattern that the input should follow.
      * @return A successful Matcher of the input to the regex.
@@ -227,11 +227,11 @@ public class Parser {
         String customBinding = matcher.group(1);
         boolean isCurrentlyBound = (this.customCommand.get(customBinding) != null);
         boolean isCorrectSource = (stringToCommand.get(sourceBinding) == this.customCommand.get(customBinding));
-        boolean successState = isCurrentlyBound && isCorrectSource;
-        if (successState) {
+        boolean isSuccess = isCurrentlyBound && isCorrectSource;
+        if (isSuccess) {
             this.customCommand.remove(customBinding);
         }
-        return new BindingExecutable(successState, false, sourceBinding, customBinding);
+        return new BindingExecutable(isSuccess, false, sourceBinding, customBinding);
     }
     private static boolean isInvalid(ParserFunction func) {
         return func == null;

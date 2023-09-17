@@ -10,7 +10,7 @@ public class Deadline extends Task {
     private final LocalDate deadline;
 
     /**
-     * This is the constructor for a deadline.
+     * Constructs a deadline.
      * @param name name of the task.
      * @param deadline date at which the task is due.
      */
@@ -20,13 +20,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * An overloading of the above method, for when the isComplete is needed as well.
+     * Constructs a deadline with its mark status.
      * @param name name of the task.
-     * @param isComplete whether the task is complete.
+     * @param isMarked whether the task is marked.
      * @param deadline date at which the task is due.
      */
-    public Deadline(String name, boolean isComplete, LocalDate deadline) {
-        super(name, isComplete);
+    public Deadline(String name, boolean isMarked, LocalDate deadline) {
+        super(name, isMarked);
         this.deadline = deadline;
     }
 

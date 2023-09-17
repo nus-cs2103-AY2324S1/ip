@@ -37,16 +37,16 @@ public class UserInterface {
      */
     public void init(String userImagePath, String dukeImagePath) throws CorruptedFileException {
         try {
-            assert(userImagePath != null && dukeImagePath != null); //Means the arguments are passed wrongly.
+            assert(userImagePath != null && dukeImagePath != null); // Means the arguments are passed wrongly.
             this.userImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(userImagePath)));
             this.dukeImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(dukeImagePath)));
         } catch (NullPointerException e) {
-            throw new CorruptedFileException();
+
         }
     }
     /**
-     * Creates the scene that we want to use to represent the chatbot.
-     * @return the chatbot's scene.
+     * Creates the scene that we want to use to represent the ui.
+     * @return the ui scene.
      */
     public Scene makeScene() {
         spawnUiElements();
@@ -59,7 +59,7 @@ public class UserInterface {
     }
 
     /**
-     * Sends the input to duke, for it to handle and reply (or not.)
+     * Sends the input to the associated chatbot, for it to handle and reply (or not.)
      */
     public void input() {
         String input = userInput.getText();
@@ -72,7 +72,7 @@ public class UserInterface {
     }
 
     /**
-     * Takes a string and prints it out to the system, while formatting it with line dividers.
+     * Outputs a string to the user interface.
      * @param output the string to be printed.
      */
     public void output(String output) {
@@ -109,7 +109,7 @@ public class UserInterface {
     }
 
     /**
-     * Sets the anchorpane settings.
+     * Sets the AnchorPane settings.
      */
     private void setAnchorPaneSettings() {
         AnchorPane.setTopAnchor(scrollPane, 1.0);

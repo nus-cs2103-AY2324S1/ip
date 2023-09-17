@@ -77,7 +77,7 @@ public class TaskList {
     }
 
     /**
-     * sets the done status of the indicated task.
+     * Sets the done status of the indicated task.
      * @param targetIndex the index to have its mark set.
      * @param isToBeMarkedAs the status that the mark is to be changed to.
      * @return a boolean representing if the marking was successful.

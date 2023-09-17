@@ -28,14 +28,14 @@ public abstract class Task {
     }
 
     /**
-     * A setter to mark a task as done.
+     * Marks a task as done.
      */
     public void markDone() {
         this.isComplete = true;
     }
 
     /**
-     * A setter to mark a task as not done.
+     * Marks a task as not done.
      */
     public void markUndone() {
         this.isComplete = false;

@@ -36,7 +36,7 @@ public class AddTaskExecutable implements Executable {
             throw new FailureInExecuteException(e.getMessage());
         }
         ui.output("Added successfully!");
-        ui.output(task.toString());
+        ui.output("Added the task " + task + " to the list.");
         return false;
     }
 }

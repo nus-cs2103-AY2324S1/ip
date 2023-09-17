@@ -4,24 +4,24 @@ import duke.TaskList;
 import duke.UserInterface;
 
 /**
- * Represents an executable that either binds or unbinds a
+ * Represents an executable that either binds or unbinds a command to an alias.
  */
 public class BindingExecutable implements Executable {
-    private final boolean successState;
-    private final boolean boundState;
+    private final boolean isSuccess;
+    private final boolean isBound;
     private final String sourceBinding;
     private final String customBinding;
 
     /**
      * Creates a new binding executable instance.
-     * @param wasSuccessful whether the binding was successful.
-     * @param wasBound whether an unbinding or rebinding was called.
+     * @param isSuccessful whether the binding was successful.
+     * @param isBound whether an unbinding or rebinding was called.
      * @param sourceBinding The original binding command string.
      * @param customBinding THe custom binding command string.
      */
-    public BindingExecutable(boolean wasSuccessful, boolean wasBound, String sourceBinding, String customBinding) {
-        this.successState = wasSuccessful;
-        this.boundState = wasBound;
+    public BindingExecutable(boolean isSuccessful, boolean isBound, String sourceBinding, String customBinding) {
+        this.isSuccess = isSuccessful;
+        this.isBound = isBound;
         this.sourceBinding = sourceBinding;
         this.customBinding = customBinding;
     }
@@ -35,7 +35,7 @@ public class BindingExecutable implements Executable {
     @Override
     public boolean execute(TaskList list, UserInterface ui) {
         StringBuilder outputBuilder = new StringBuilder();
-        if (boundState) {
+        if (isBound) {
             outputBuilder.append("Adding of custom binding ");
         } else {
             outputBuilder.append("Removal of custom binding ");
@@ -43,7 +43,7 @@ public class BindingExecutable implements Executable {
         outputBuilder.append("\"").append(customBinding).append("\"");
         outputBuilder.append(" to the source binding ");
         outputBuilder.append("\"").append(sourceBinding).append("\" was ");
-        if (successState) {
+        if (isSuccess) {
             outputBuilder.append("successful.");
         } else {
             outputBuilder.append("unsuccessful.");
