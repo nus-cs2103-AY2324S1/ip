@@ -1,6 +1,7 @@
 package shiba.parsers;
 
 import shiba.commands.BellyRubCommand;
+import shiba.commands.BoopCommand;
 import shiba.commands.DeadlineCommand;
 import shiba.commands.DeleteCommand;
 import shiba.commands.EventCommand;
@@ -74,6 +75,9 @@ public class CommandParser {
                 break;
             case HELP:
                 shibaCommand = new HelpCommand(tasks, input);
+                break;
+            case BOOP:
+                shibaCommand = new BoopCommand(tasks);
                 break;
             case BYE:
                 return true;

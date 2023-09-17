@@ -26,7 +26,8 @@ public abstract class ShibaCommand {
         FIND,
         PAT,
         BELLYRUB,
-        HELP
+        HELP,
+        BOOP
     }
 
     protected final PersistentTaskList tasks;

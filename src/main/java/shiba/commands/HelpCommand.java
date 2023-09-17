@@ -61,6 +61,9 @@ public class HelpCommand extends ShibaCommand {
                 new HelpInfo("help <optional command name>",
                         "Displays the help message for the command, "
                                 + "or lists all commands if no command is specified."));
+        HELP_INFO_MAP.put(CommandType.BOOP,
+                new HelpInfo("boop", "Boops SHIBA-BOT's nose."));
+
     }
 
     private final String fullCmd;
