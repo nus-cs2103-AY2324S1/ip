@@ -5,6 +5,7 @@ import sillybot.commands.ByeCommand;
 import sillybot.commands.Command;
 import sillybot.commands.DeleteCommand;
 import sillybot.commands.FindCommand;
+import sillybot.commands.HelpCommand;
 import sillybot.commands.ListCommand;
 import sillybot.commands.MarkCommand;
 import sillybot.commands.UnmarkCommand;
@@ -55,6 +56,9 @@ public class Parser {
         case "delete":
             taskNumber = Integer.parseInt(splittedCommands[1]);
             command = new DeleteCommand(taskNumber);
+            break;
+        case "help":
+            command = new HelpCommand();
             break;
         default:
             command = new AddTaskCommand(commandGiven);
