@@ -11,6 +11,7 @@ import yong.command.StartCommand;
 import yong.command.ToDoCommand;
 import yong.command.FindCommand;
 import yong.command.UnmarkCommand;
+import yong.command.SortCommand;
 
 import yong.exception.DukeException;
 import yong.tasklist.TaskList;
@@ -51,10 +52,20 @@ public class ParserTest {
 
             command = parser.parse("bye");
             assertTrue(command instanceof ExitCommand);
+
+            command = parser.parse("find boo");
+            assertTrue(command instanceof FindCommand);
+
+            command = parser.parse("sort");
+            assertTrue(command instanceof SortCommand);
+
+            // Add more test cases for other valid inputs
+
         } catch (Exception e) {
             fail("Unexpected DukeException: " + e.getMessage());
         }
     }
+
 
     @Test
     public void testParse_invalidInputs_exceptionThrown() {

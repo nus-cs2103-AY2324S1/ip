@@ -7,6 +7,8 @@ import yong.exception.DukeException;
 
 import yong.tasklist.TaskList;
 
+import java.util.Scanner;
+
 
 /**
  * Chatbot named YONG that responds to user input using CLI
@@ -54,5 +56,25 @@ public class Yong {
 
     public boolean getExit() {
         return isExit;
+    }
+
+    public static void run() {
+        Scanner scanner = new Scanner(System.in);
+        TaskList taskList = new TaskList();
+        Storage storage = new Storage(taskList);
+        storage.readFile();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                Parser parser = new Parser(taskList);
+                Command c = parser.parse(scanner.nextLine());
+                c.execute();
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                throw e;
+            } finally {
+            }
+        }
+        storage.saveFile();
     }
 }
