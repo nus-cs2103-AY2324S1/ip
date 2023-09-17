@@ -81,6 +81,7 @@ public class Duke {
             return "That didn't work as expected.";
         }
         this.end();
+        assert response != null : "response should not be null";
         return response;
     }
 }
