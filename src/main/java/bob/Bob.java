@@ -33,11 +33,7 @@ public class Bob {
     }
 
     public String getResponse(String input) {
-        if (input.equals("")) {
-            return "";
-        }
-
-        Command c = Parser.parse(input);
+        Command c = Parser.parse(input.trim());
         return c.execute(tasks, ui, storage);
     }
 }

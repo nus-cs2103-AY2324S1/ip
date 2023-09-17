@@ -44,13 +44,16 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = "User:\n" + userInput.getText();
-        String response = bob.getResponse(userInput.getText());
-        if (!response.equals("")) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getBobDialog(response, bobImage)
-            );
+        if (!userInput.getText().isBlank()) {
+            String userText = userInput.getText().trim();
+            String input = "User:\n" + userText;
+            String response = bob.getResponse(userInput.getText());
+            if (!response.equals("")) {
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getBobDialog(response, bobImage)
+                );
+            }
         }
         userInput.clear();
     }
