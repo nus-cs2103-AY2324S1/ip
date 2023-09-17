@@ -1,4 +1,26 @@
-# Jarvis, Your Personal Task Manager!
+# Jarvis, Your Personal Task Manager 🤖!
+
+> "Simplicity is the ultimate sophistication." - Leonardo da Vinci [(source)](https://www.theorderexpert.com/11-inspirational-quotes-about-organization/)
+
+How do you get started?
+
+- Download the latest  ` .jar ` file from [here.](https://github.com/shishirbychapur/ip/releases)
+- Navigate to the directory of installation, and open Terminal.
+- Run ` java -jar Duke.jar ` and enjoy the luxury of having your own manager!
+
+What are some of the features?
+
+1. Allows various types of tasks (Events, Deadlines, Todo)
+2. Stores and retrieves data directly to/from a designated .txt file
+3. Enables marking/unmarking of tasks on completion
+4. Grants users the ability to search for their respective task
+
+Why choose Jarvis?
+
+- [x] **Easy** to learn
+- [x] **Available** _24/7_ at your service
+- [x] Created by ~~Shishir~~ **Tony Stark** himself
+- [x] **Free** of charge
 
 ![Jarvis](Ui.png)
 
