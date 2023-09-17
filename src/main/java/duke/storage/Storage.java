@@ -57,24 +57,24 @@ public class Storage {
                 String[] splits = curLine.split("#");
                 Task newTask = null;
                 switch (splits[0].trim()) {
-                    case "T":
-                        newTask = new Todo(splits[2].trim(), (splits[1].trim().equals("1")));
-                        break;
-                    case "D":
-                        newTask = new Deadline(splits[2].trim(), splits[3].trim(), (splits[1].trim().equals("1")));
-                        break;
-                    case "E":
-                        String[] eventTimes = splits[3].trim().split(" - ");
-                        if(eventTimes.length != 2) {
-                            throw new DukeException("Invalid date format for event. Expected start-end format.");
-                        }
-                        newTask = new Event(eventTimes[0], eventTimes[1], splits[2].trim());
-                        if (splits[1].trim().equals("1")) {
-                            newTask.mark();
-                        }
-                        break;
-                    default:
-                        throw new DukeException("Invalid task type in the data file.");
+                case "T":
+                    newTask = new Todo(splits[2].trim(), (splits[1].trim().equals("1")));
+                    break;
+                case "D":
+                    newTask = new Deadline(splits[2].trim(), splits[3].trim(), (splits[1].trim().equals("1")));
+                    break;
+                case "E":
+                    String[] eventTimes = splits[3].trim().split(" - ");
+                    if(eventTimes.length != 2) {
+                        throw new DukeException("Invalid date format for event. Expected start-end format.");
+                    }
+                    newTask = new Event(eventTimes[0], eventTimes[1], splits[2].trim());
+                    if (splits[1].trim().equals("1")) {
+                        newTask.mark();
+                    }
+                    break;
+                default:
+                    throw new DukeException("Invalid task type in the data file.");
                 }
 
                 if (newTask != null) {
@@ -119,43 +119,43 @@ public class Storage {
 
         for (Task task : tasks) {
             switch (task.getType()) {
-                case TODO:
-                    result.append("T # ")
-                            .append(task.getIsDone() ? "1" : "0")
-                            .append(" # ")
-                            .append(task.getTaskDescription())
-                            .append(" # ")
-                            .append(task.getTag())
-                            .append("\n");
-                    break;
-                case DEADLINE:
-                    Deadline deadline = (Deadline) task;
-                    result.append("D # ")
-                            .append(task.getIsDone() ? "1" : "0")
-                            .append(" # ")
-                            .append(task.getTaskDescription())
-                            .append(" # ")
-                            .append(deadline.getTime())
-                            .append(" # ")
-                            .append(task.getTag())
-                            .append("\n");
-                    break;
-                case EVENT:
-                    Event event = (Event) task;
-                    result.append("E # ")
-                            .append(task.getIsDone() ? "1" : "0")
-                            .append(" # ")
-                            .append(task.getTaskDescription())
-                            .append(" # ")
-                            .append(event.getE_start())
-                            .append(" - ")
-                            .append(event.getE_end())
-                            .append(" # ")
-                            .append(task.getTag())
-                            .append("\n");
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected task type: " + task.getType());
+            case TODO:
+                result.append("T # ")
+                        .append(task.getIsDone() ? "1" : "0")
+                        .append(" # ")
+                        .append(task.getTaskDescription())
+                        .append(" # ")
+                        .append(task.getTag())
+                        .append("\n");
+                break;
+            case DEADLINE:
+                Deadline deadline = (Deadline) task;
+                result.append("D # ")
+                        .append(task.getIsDone() ? "1" : "0")
+                        .append(" # ")
+                        .append(task.getTaskDescription())
+                        .append(" # ")
+                        .append(deadline.getTime())
+                        .append(" # ")
+                        .append(task.getTag())
+                        .append("\n");
+                break;
+            case EVENT:
+                Event event = (Event) task;
+                result.append("E # ")
+                        .append(task.getIsDone() ? "1" : "0")
+                        .append(" # ")
+                        .append(task.getTaskDescription())
+                        .append(" # ")
+                        .append(event.getE_start())
+                        .append(" - ")
+                        .append(event.getE_end())
+                        .append(" # ")
+                        .append(task.getTag())
+                        .append("\n");
+                break;
+            default:
+                throw new IllegalStateException("Unexpected task type: " + task.getType());
             }
         }
 

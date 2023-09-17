@@ -5,9 +5,10 @@ import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
+import duke.command.AddTagCommand;
 import duke.command.MarkCommand;
 import duke.command.UnMarkCommand;
-import duke.command.AddTagCommand;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;

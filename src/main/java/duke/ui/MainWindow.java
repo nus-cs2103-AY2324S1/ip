@@ -27,9 +27,13 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/Tony.png"));
     private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/jarvis.png"));
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * This method sets up a listener to ensure the scrollPane always scrolls to the bottom
+     * when new content is added to the dialogContainer.
+     */
     @FXML
     public void initialize() {
-
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 

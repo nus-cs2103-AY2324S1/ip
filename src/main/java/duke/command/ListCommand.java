@@ -22,8 +22,8 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
-           result.append((i + 1)).append(".").append(tasks.getTask(i).toString()).append("\n");
-       }
+            result.append((i + 1)).append(".").append(tasks.getTask(i).toString()).append("\n");
+        }
         return result.toString();
     }
 

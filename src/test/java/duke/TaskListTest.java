@@ -3,9 +3,12 @@ package duke;
 import duke.task.Task;
 import duke.task.TaskType;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+
+import org.junit.jupiter.api.Test;
+
 
 /**
  * Represents the unit tests for the TaskList class.
@@ -45,7 +48,7 @@ public class TaskListTest {
      * Ensures that the deleted task is returned and the size of the list is updated.
      */
     @Test
-    public void deleteTask_taskAdded_() {
+    public void deleteTask_taskAdded() {
         Task task = new Task("Test Task", TaskType.TODO);
         taskList.addTask(task);
         assertEquals(1, taskList.getSize());

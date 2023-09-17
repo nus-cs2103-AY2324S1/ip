@@ -10,9 +10,10 @@ import duke.task.Task;
  * Return messages to user from Duke.
  */
 public class Ui {
+    private static final String LINE = "______________________________";
     private Scanner scanner;
 
-    private static final String LINE = "______________________________";
+
 
     /**
      * Constructor for Ui class. Initializes the Scanner object.
