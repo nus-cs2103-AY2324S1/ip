@@ -45,13 +45,13 @@ public class Storage {
         }
 
         try (FileWriter fw = new FileWriter(dataPath)) {
-            boolean firstLineWritten = false;
+            boolean isFirstLineWritten = false;
             for (ShibaTask task : tasks) {
-                if (firstLineWritten) {
+                if (isFirstLineWritten) {
                     fw.write("\n");
                 }
                 fw.write(task.toSaveString());
-                firstLineWritten = true;
+                isFirstLineWritten = true;
             }
         } catch (IOException e) {
             throw new ShibaException("Error saving tasks to file!");

@@ -32,7 +32,7 @@ public class CommandParser {
     }
 
     /**
-     * Continually processes user input until bye command is issued
+     * Processes user input continuously until bye command is issued
      *
      * @return True if the bye command is issued, false otherwise.
      */
