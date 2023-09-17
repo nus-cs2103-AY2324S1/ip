@@ -61,24 +61,32 @@ PikaKing knows that it is not easy for new users, hence allowing users to
 
 ### Adding a ToDo task
 
+```
 Format: todo <description>
 Example: todo read book
+```
 
 ### Adding a Deadline task
 
+```
 Format deadline <description> /by <deadline>
 Example: do math homework /by 31/12/2023
+```
 
 ### Adding an event task
 
+```
 Format: event <description> /from <start> /to <end>
 Example: event book exhibition /from 12/01/2024 /to 15/01/2024
+```
 
 ### Delete Task
 
+```
 Format: delete <task index>
 Explanation: This will delete a task at that particular position in the list.
 Example: delete 3
+```
 
 ### Help
 
@@ -86,14 +94,18 @@ Format: help
 
 ### Help specific command
 
+```
 Format: help <command number specified by chatbot>
 Example: help 1
+```
 
 ### Find task with keyword
 
+```
 Format: find <keyword>
 Explanation: This gives a list of tasks in the original list that has the keyword
 Example: find book
+```
 
 ### List the whole tasklist
 
@@ -101,17 +113,23 @@ Format: list
 
 ### Mark a specific task as done
 
+```
 Format: mark <task index>
 Explanation: This marks the task at that particular position in the tasklist if it is unmarked, showing that the task is done
 Example: mark 2
+```
 
 ### Unmark a specific task as undone
 
+```
 Format: unmark <task index>
 Explanation: This unmarks the task at that particular position in the tasklist if it is marked, showing that the task is undone
 Example: unmark 2
+```
 
 ### Close the app
 
+```
 Explanation: This closes the app and saves the tasklist
 Format: bye
+```
