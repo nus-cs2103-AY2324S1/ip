@@ -13,6 +13,9 @@ public class Ui {
         System.out.println("You have the following duke.tasks:");
     }
 
+    /**
+     * Prints out the help message.
+     */
     public static void printHelp() {
         String help = "Here are the available commands:\n" +
                 "list: List out your current tasks\n" +

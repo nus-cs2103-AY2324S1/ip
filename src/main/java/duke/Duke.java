@@ -20,7 +20,7 @@ import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 public class Duke {
-    private String name;
+    public String name;
     private ArrayList<Task> tasks;
     private String filepath;
     private Storage storage;
