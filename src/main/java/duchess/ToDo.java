@@ -1,5 +1,7 @@
 package duchess;
 
+import java.util.ArrayList;
+
 class ToDo extends Task {
 
     /**
@@ -38,8 +40,15 @@ class ToDo extends Task {
      */
     @Override
     public String toSaveString() {
-        return String.format("T|%s", super.toSaveString());
+        String saveString = String.format("T|%s|", super.toSaveString());
+        
+        for (String tag : this.tags) {
+            saveString += String.format("#%s|", tag);
+        }
 
+        saveString = saveString.substring(0, saveString.length() - 1);
+
+        return saveString;
     }
 
     /**
@@ -49,10 +58,7 @@ class ToDo extends Task {
      */
     public static ToDo fromSaveString(String s) {
         String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
-        // Not enough arguments; minmally, it needs the Type, the Marked status, and the Name.
-        if (splitString.length < 3) {
-            return null;
-        }
+        ArrayList<String> tags = new ArrayList<>();
 
         TaskStatus taskStatus = TaskStatus.UNMARKED;
         String name = "";
@@ -63,6 +69,20 @@ class ToDo extends Task {
 
         name = splitString[2];
 
-        return new ToDo(name, taskStatus);
+        for (int i = 3; i < splitString.length; i++) {
+            String dataString = splitString[i];
+            
+            if (dataString.startsWith("#")) {
+                tags.add(dataString.substring(1));
+            }
+        }
+
+        ToDo todo = new ToDo(name, taskStatus);
+
+        for (String tag : tags) {
+            todo.addTag(tag);
+        }
+
+        return todo;
     }
 }

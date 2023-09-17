@@ -58,8 +58,10 @@ class Deadline extends Task {
         String saveString = String.format("D|%s|by:%s|", super.toSaveString(), this.deadline);
         
         for (String tag : this.tags) {
-            saveString += String.format("#%s", tag);
+            saveString += String.format("#%s|", tag);
         }
+
+        saveString = saveString.substring(0, saveString.length() - 1);
 
         return saveString;
     }
