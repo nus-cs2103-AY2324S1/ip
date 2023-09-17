@@ -21,26 +21,10 @@ public class Slay {
         parser = new Parser();
     }
 
-//    /**
-//     * Runs the program until termination.
-//     */
-//    public void run() {
-//        ui.showWelcomeMessage();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            String fullCommand = ui.readCommand();
-//            Command c = parser.parse(fullCommand);
-//            c.setData(this.tasks);
-//            CommandResult result = c.execute();
-//            ui.showResultToUser(result);
-//            isExit = ExitCommand.isExit(c);
-//        }
-//        storage.save(this.tasks);
-//    }
-
     public String getResponse(String userInput) {
         Command c = parser.parse(userInput);
         c.setData(this.tasks);
+        assert this.tasks != null;
         CommandResult result = c.execute();
         return ui.showResultToUser(result);
     }
