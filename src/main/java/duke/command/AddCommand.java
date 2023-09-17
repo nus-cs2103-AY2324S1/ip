@@ -27,10 +27,6 @@ public class AddCommand extends Command {
 			storage.addToFileMain(task, true);
 			System.out.println(ui.showAddTask(task, taskList.getSize()));
 			return ui.showAddTask(task, taskList.getSize());
-//		} catch (IOException e) {
-//			return "Fail to write to file\n";
-////			System.out.println("Fail to write to file\n" + e.getMessage());
-//		}
 	}
 
 }

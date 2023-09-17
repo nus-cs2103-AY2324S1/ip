@@ -140,8 +140,11 @@ public class Parser {
 	 * @param commandDescription the command word together with description, i.e. todo aaa
 	 * @return Description only
 	 */
-	public static String getDescription(String commandDescription) {
+	public static String getDescription(String commandDescription) throws DukeException {
 		String[] descriptionWords = commandDescription.split(" ");
+		if (descriptionWords.length == 1) {
+			throw new DukeException("Please enter a description");
+		}
 		StringBuilder description = new StringBuilder();
 		for (String s : Arrays.copyOfRange(descriptionWords, 1, descriptionWords.length)) {
 			description.append(s).append(" ");
@@ -163,23 +166,20 @@ public class Parser {
 		String[] descriptionWords = items[0].split(" ");
 		String description = Parser.getDescription(items[0]);
 		String timePhrase = items[1];
-		boolean isValidFormat = items.length == 2 && timePhrase.split(" ")[0].equals("by") && descriptionWords.length >= 1;
+		String[] timeDate = timePhrase.split(" ");
+		boolean isValidFormat = items.length == 2 && timePhrase.split(" ")[0].equals("by") && descriptionWords.length >= 1 && timeDate.length == 3;
 
 		if (!isValidFormat) {
 			throw new DukeException("enter deadline like this, deadline description /by:");
 		}
 		boolean isAmPmFormat = timePhrase.contains("am") || timePhrase.contains("pm");
+		LocalDateTime begin;
 		if (isAmPmFormat) {
-			String[] timeDate = timePhrase.split(" ");
-			if (timeDate.length != 3) {
-				throw new DukeException("Enter time and date properly");
-			}
-			LocalDateTime begin = TimeFormat.amPmFormat(timeDate);
-			return new AddCommand(new DeadLine(description, begin));
+			begin = TimeFormat.amPmFormat(timeDate);
 		} else {
-			LocalDateTime begin = TimeFormat.fullDayFormat(description, timePhrase);
-			return new AddCommand(new DeadLine(description, begin));
+			begin = TimeFormat.fullDayFormat(description, timePhrase);
 		}
+		return new AddCommand(new DeadLine(description, begin));
 	}
 
 	/**
@@ -212,6 +212,9 @@ public class Parser {
 		String[] items = fullCommand.split("/");
 //		String[] descriptionWords = items[0].split(" ");
 		String description = Parser.getDescription(items[0]);
+		if (items.length != 3) {
+			throw new DukeException("Unknown Event format");
+		}
 
 		String timePhraseStart = items[1];
 		String[] fromTimeStart = items[1].split(" ");
