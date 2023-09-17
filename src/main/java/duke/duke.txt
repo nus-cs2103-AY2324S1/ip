@@ -1,3 +1,2 @@
-D | 0 | feature essay (by: 2023-10-09)
-E | 1 | RVSS1002 (at: 2022-12-23)
-T | 0 | workshop (from: 2023-09-08 to: 2023-09-13)
+D | 1 | feature essay (by: 2023-10-09)
+E | 0 | RVSS1002 (at: 2022-12-23)
