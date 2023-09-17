@@ -15,11 +15,17 @@ import java.util.ArrayList;
  */
 public class EventCommand implements Command {
 
-    private String command;
+    private String input;
     private ArrayList<Task> tasks;
 
-    public EventCommand(String command, ArrayList<Task> tasks) {
-        this.command = command;
+    /**
+     * Creates an Event Command.
+     *
+     * @param input The user command input.
+     * @param tasks The list of tasks.
+     */
+    public EventCommand(String input, ArrayList<Task> tasks) {
+        this.input = input;
         this.tasks = tasks;
     }
 
@@ -32,14 +38,23 @@ public class EventCommand implements Command {
      */
     @Override
     public String execute() throws MartinException {
-        if (command.length() <= 5) {
+        if (input.length() <= 5) {
             throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of an event cannot be empty.");
         }
 
-        String[] parts = command.substring(6).split(" /from ");
+        String[] parts = input.substring(6).split(" /from ");
+
+        if (parts.length < 2) {
+            throw new MartinException("☹ OOPS!!! The command is missing the time details. Please specify the event starting time using /from.");
+        }
+
         String[] timeParts = parts[1].split(" /to ");
 
-        if (parts.length < 2 || parts[0].trim().isEmpty() || timeParts.length < 2 || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
+        if (timeParts.length < 2) {
+            throw new MartinException("☹ OOPS!!! The command is missing the ending time. Please specify the event ending time using /to.");
+        }
+
+        if (parts[0].trim().isEmpty() || timeParts[0].trim().isEmpty() || timeParts[1].trim().isEmpty()) {
             throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of an event or its time cannot be empty.");
         }
 

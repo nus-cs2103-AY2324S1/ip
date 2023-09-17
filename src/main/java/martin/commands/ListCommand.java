@@ -11,6 +11,11 @@ public class ListCommand implements Command {
 
     private ArrayList<Task> tasks;
 
+    /**
+     * Creates a List Command.
+     *
+     * @param input The user command input.
+     */
     public ListCommand(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }

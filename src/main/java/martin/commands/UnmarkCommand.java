@@ -12,11 +12,17 @@ import java.util.ArrayList;
  */
 public class UnmarkCommand implements Command {
 
-    private String command;
+    private String input;
     private ArrayList<Task> tasks;
 
-    public UnmarkCommand(String command, ArrayList<Task> tasks) {
-        this.command = command;
+    /**
+     * Creates an Unmark Command.
+     *
+     * @param input The user command input.
+     * @param tasks The list of tasks.
+     */
+    public UnmarkCommand(String input, ArrayList<Task> tasks) {
+        this.input = input;
         this.tasks = tasks;
     }
 
@@ -31,7 +37,7 @@ public class UnmarkCommand implements Command {
     @Override
     public String execute() throws MartinException {
         try {
-            int taskNo = Integer.parseInt(command.split(" ")[1]);
+            int taskNo = Integer.parseInt(input.split(" ")[1]);
             if (taskNo <= 0 || taskNo > tasks.size()) {
                 throw new InvalidTaskNumberException("Invalid task number.");
             }

@@ -12,11 +12,17 @@ import java.util.ArrayList;
  */
 public class TodoCommand implements Command {
 
-    private String command;
+    private String input;
     private ArrayList<Task> tasks;
 
-    public TodoCommand(String command, ArrayList<Task> tasks) {
-        this.command = command;
+    /**
+     * Creates a Todo Command.
+     *
+     * @param input The user command input.
+     * @param tasks The list of tasks.
+     */
+    public TodoCommand(String input, ArrayList<Task> tasks) {
+        this.input = input;
         this.tasks = tasks;
     }
 
@@ -29,11 +35,11 @@ public class TodoCommand implements Command {
      */
     @Override
     public String execute() throws MartinException {
-        if (command.length() <= 4) {
+        if (input.length() <= 4) {
             throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         
-        String description = command.substring(5);
+        String description = input.substring(5);
         if (description.isEmpty()) {
             throw new EmptyTaskDescriptionException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
