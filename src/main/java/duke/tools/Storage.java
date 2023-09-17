@@ -84,32 +84,54 @@ public class Storage {
             }
         } catch (FileNotFoundException e) { // File does not exist
             try {
-                if (new File(filePath.split("/")[0]).mkdir()) {
-                    System.out.println("Sorry, directory does not exist. Creating now...");
-                }
-                if (file.createNewFile()) {
-                    System.out.println("Sorry, file does not exist. Creating now...");
-                }
+                handleFileCreation(file);
             } catch (Exception error) {
-                System.out.println(error.getMessage());
-                System.out.println("Error... Unable to create files");
+                handleError(error);
             }
 
         } catch (UnrecognisedFormatException e) { // File is corrupted
             try {
-                if (file.delete()) {
-                    System.out.println("Deleting corrupted file...");
-
-                    if (file.createNewFile()) {
-                        System.out.println("Replacing file now...");
-                    }
-
-                }
+                handleCorruptedFile(file);
             } catch (Exception error) {
-                System.out.println("Error... Unable to create new file...");
+                handleError(error);
             }
         }
         return tasks;
+    }
+
+    private void handleFileCreation(File file) throws IOException {
+        if (new File(filePath.split("/")[0]).mkdir()) {
+            System.out.println("Sorry, directory does not exist. Creating now...");
+        }
+        if (file.createNewFile()) {
+            System.out.println("Sorry, file does not exist. Creating now...");
+        }
+    }
+
+    private void handleError(Exception error) {
+        System.out.println(error.getMessage());
+        System.out.println("Error... Unable to create files");
+    }
+
+    private void handleCorruptedFile(File file) throws IOException {
+        boolean isDeleted = file.delete();
+
+        if (!isDeleted) {
+            System.out.println("Unable to delete file");
+            return;
+        }
+
+        System.out.println("Deleting corrupted file...");
+
+        boolean isCreated = file.createNewFile();
+
+        if (!isCreated) {
+            System.out.println("Unable to create new file");
+        }
+        
+        System.out.println("Replacing file now...");
+
+
     }
 
     /**
