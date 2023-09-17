@@ -3,7 +3,7 @@ package ben;
 /**
  * Represents a ToDo task.
  */
-public class ToDos extends Task {
+public class ToDo extends Task {
 
     /**
      * Constructor that takes in a description and whether the Todo is completed.
@@ -11,7 +11,7 @@ public class ToDos extends Task {
      * @param description Description of ToDo.
      * @param isCompleted Whether the task is completed.
      */
-    public ToDos(String description, boolean isCompleted) {
+    public ToDo(String description, boolean isCompleted) {
         super(description, isCompleted);
     }
 

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Represents a deadline task.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
     /**
      * The deadline.
      */
@@ -17,7 +17,7 @@ public class Deadlines extends Task {
      * @param isCompleted Whether the task is completed.
      * @param by The date of the deadline.
      */
-    public Deadlines(String description, boolean isCompleted, LocalDateTime by) {
+    public Deadline(String description, boolean isCompleted, LocalDateTime by) {
         super(description, isCompleted);
         this.by = by;
     }
