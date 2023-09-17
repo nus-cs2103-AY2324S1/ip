@@ -47,6 +47,8 @@ public class Duke {
                 return this.taskList.handleDeadline(task);
             case EVENT:
                 return this.taskList.handleEvent(task);
+            case CONTACT:
+                return this.taskList.handleContact(task);
             case DELETE:
                 try {
                     return this.taskList.delete(task);

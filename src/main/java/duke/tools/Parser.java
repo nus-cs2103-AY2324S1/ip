@@ -15,4 +15,22 @@ public class Parser {
         return parts;
     }
 
+    public String[] parseContact(String task) {
+        assert task != null : "The task to contact someone to be parsed cannot be null";
+        String[] parts = task. split(" /@ | /for ");
+        return parts;
+    }
+
+    public String[] parseDeadline(String task) {
+        assert task != null : "The Deadline to be parsed cannot be null";
+        String[] parts = task. split(" /by ");
+        return parts;
+    }
+
+    public String[] parseEvent(String task) {
+        assert task != null : "The Event to be parsed cannot be null";
+        String[] parts = task. split(" /from | /to ");
+        return parts;
+    }
+
 }

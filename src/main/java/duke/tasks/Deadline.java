@@ -9,11 +9,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
-    private final String descr;
+    //private final String descr;
+    private final String[] descriptionArray;
 
-    public Deadline(String descr) {
-        super(descr.split("/by")[0]);
-        this.descr = descr;
+
+//    public Deadline(String descr) {
+//        super(descr.split("/by")[0]);
+//        this.descr = descr;
+//    }
+
+    public Deadline(String[] descriptionArray) {
+        super(descriptionArray[0]);
+        this.descriptionArray = descriptionArray;
     }
 
     /**
@@ -23,17 +30,38 @@ public class Deadline extends Task{
      * @return reformatted deadline
      * @throws DukeException if input is invalid.
      */
-    public String checkValidity() throws DukeException {
-        String[] descrArr = descr.split("/by ");
-        String res;
-
-        assert descrArr.length > 2 : "Missing details of deadline";
-        if (descrArr.length < 2) {
+    public void checkValidity() throws DukeException {
+        assert descriptionArray != null : "Missing deadline task!";
+        boolean isDay;
+        if (descriptionArray.length < 2) {
             throw new DukeException("You are missing details of the the deadline!");
         }
+        String date = descriptionArray[1];
+        try {
+            DayOfWeek.valueOf(date.toUpperCase());
+            isDay = true;
+        } catch (IllegalArgumentException e) {
+            throw new DukeException("This is not a valid day!");
+        }
+        if (!isDay) {
+            try {
+                LocalDate.parse(date);
+                DateTimeFormatter.ofPattern("MMM d yyyy");
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Make sure you've either inputted a valid day or in yyyy-mm-dd format (e.g. 2019-10-15)");
+            }
+        }
+    }
 
-        String date = descrArr[1];
-        boolean isDay = false;
+    /**
+     * Reformats date into specified format
+     *
+     * @return the date in format yyyy-mm-dd
+     */
+    public String reformattedDate() throws DukeException {
+        String res;
+        String date = descriptionArray[1];
+        boolean isDay;
         try {
             DayOfWeek.valueOf(date.toUpperCase());
             isDay = true;
@@ -63,10 +91,9 @@ public class Deadline extends Task{
     public String writtenFormat() {
         String res;
         try {
-            String[] parts = this.descr.split("/by");
             String eventType = "deadline";
-            String eventDescription = parts[0].substring(eventType.length()).trim();
-            res = "D | " + super.status() + " | " + eventDescription + " | " + checkValidity();
+            String eventDescription = descriptionArray[0].substring(eventType.length()).trim();
+            res = "D | " + super.status() + " | " + eventDescription + " | " + reformattedDate();
         } catch (DukeException e) {
             res = e.getMessage();
         }
@@ -82,7 +109,7 @@ public class Deadline extends Task{
     public String toString() {
         String res;
         try {
-            res = "[D]" + super.toString() + " (by: " + checkValidity() + ")";
+            res = "[D]" + super.toString() + " (by: " + reformattedDate() + ")";
         } catch (DukeException e) {
             res = e.getMessage();
         }

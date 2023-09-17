@@ -1,9 +1,6 @@
 package duke.tools;
 
-import duke.tasks.Task;
-import duke.tasks.ToDo;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
+import duke.tasks.*;
 import duke.exceptions.DukeException;
 
 import java.io.File;
@@ -70,15 +67,16 @@ public class Storage {
                     newTask = new ToDo(description);
                     break;
                 case "D":
-                    String deadline = taskArr[3];
-                    String deadlineDetails = description + "/by " + deadline;
-                    newTask = new Deadline(deadlineDetails);
+                    String[] deadlineArray = new String[] {description, taskArr[3]};
+                    newTask = new Deadline(deadlineArray);
                     break;
                 case "E":
-                    String date = taskArr[3];
-                    String[] parts = date.split("to");
-                    String eventDetails = description + "/from " + parts[0].trim() + "/to " + parts[1].trim();
-                    newTask = new Event(eventDetails);
+                    String[] eventArray = new String[] {description, taskArr[3], taskArr[4]};
+                    newTask = new Event(eventArray);
+                    break;
+                case "C":
+                    String[] contactArray = new String[] {description, taskArr[3], taskArr[4]};
+                    newTask = new Contact(contactArray);
                     break;
                 default:
                     throw new DukeException("You have no tasks yet today!");

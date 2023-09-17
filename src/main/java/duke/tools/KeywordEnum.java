@@ -1,7 +1,7 @@
 package duke.tools;
 
 public enum KeywordEnum {
-    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
+    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, CONTACT;
 
     public static KeywordEnum assign(String task) {
         if (task.startsWith("list")) return KeywordEnum.LIST;
@@ -13,6 +13,7 @@ public enum KeywordEnum {
         else if (task.startsWith("event")) return KeywordEnum.EVENT;
         else if (task.startsWith("delete")) return KeywordEnum.DELETE;
         else if (task.startsWith("find")) return KeywordEnum.FIND;
+        else if (task.startsWith("contact")) return KeywordEnum.CONTACT;
         else return KeywordEnum.INVALID;
     }
 }

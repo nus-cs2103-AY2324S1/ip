@@ -1,10 +1,11 @@
 package duke.tools;
 
-import duke.Duke;
+
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.Contact;
 import duke.exceptions.DukeException;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class TaskList {
     private static ArrayList<Task> taskList;
     private Ui ui = new Ui();
+    private Parser parser = new Parser();
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -56,7 +58,8 @@ public class TaskList {
     public String handleEvent(String descr) {
         String res = null;
         try {
-            Event newEvent = new Event(descr);
+            String[] descriptionArray = this.parser.parseEvent(descr);
+            Event newEvent = new Event(descriptionArray);
             newEvent.checkValidity();
             taskList.add(newEvent);
             res = "Okie! I've added this Event to your task list!\n";
@@ -77,7 +80,8 @@ public class TaskList {
     public String handleDeadline(String descr) {
         String res;
         try {
-            Deadline newDeadline = new Deadline(descr);
+            String[] descriptionArray = this.parser.parseDeadline(descr);
+            Deadline newDeadline = new Deadline(descriptionArray);
             newDeadline.checkValidity();
             taskList.add(newDeadline);
             res = "Okie! I've added this Deadline to your task list!\n";
@@ -87,6 +91,22 @@ public class TaskList {
             res = e.getMessage();
         }
         return res;
+    }
+
+    public String handleContact(String descr) {
+        String output;
+        try {
+            String[] task = this.parser.parseContact(descr);
+            Contact newContactTask = new Contact(task);
+            newContactTask.checkValidity();
+            taskList.add(newContactTask);
+            output = "Okie! I've added this Contact task to your task list!\n";
+            output += newContactTask.writtenFormat() + "\n";
+            output += "Now you've got " + taskList.size() + "  tasks in your list.\n";
+        } catch (DukeException e) {
+            output = e.getMessage();
+        }
+        return output;
     }
 
     /**
