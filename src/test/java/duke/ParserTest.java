@@ -39,13 +39,13 @@ public class ParserTest {
         assertThrows(InvalidCommandException.class, () -> testParser.parse("fljdkfesjflks"));
         assertThrows(InvalidCommandException.class, () ->  testParser.parse("listlistlistlist"));
         assertThrows(InvalidCommandException.class, () ->  testParser.parse("     bye"));
-        assertThrows(InvalidCommandException.class, () ->  testParser.parse("deadline"));
         assertThrows(InvalidCommandException.class, () ->  testParser.parse("deadlinne name /by 2001-01-01"));
         assertThrows(InvalidCommandException.class, () ->  testParser.parse("deadLInE name /by 2001-01-01"));
     }
 
     @Test
     public void invalidVarsTest() {
+        assertThrows(InvalidVarException.class, () ->  testParser.parse("deadline"));
         assertThrows(InvalidVarException.class, () ->  testParser.parse("deadline name /by 2001-1-1"));
         assertThrows(InvalidVarException.class, () -> testParser.parse("bye bye"));
         assertThrows(InvalidVarException.class, () ->  testParser.parse("mark x"));

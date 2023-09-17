@@ -34,13 +34,13 @@ public class TaskListTest {
         assertDoesNotThrow(() -> testerList.loadFromDisk());
         assertDoesNotThrow(() -> testerList.addTask(new ToDo("name")));
         assertDoesNotThrow(() -> {
-            assertEquals(true, testerList.setMark(0, true));
+            assertEquals(true, testerList.setMark(1, true));
         });
         assertDoesNotThrow(() -> {
-            assertEquals(true, testerList.setMark(0, true));
+            assertEquals(true, testerList.setMark(1, true));
         });
         assertDoesNotThrow(() -> {
-            assertEquals(true, testerList.setMark(0, false));
+            assertEquals(true, testerList.setMark(1, false));
         });
         assertDoesNotThrow(() -> {
             assertEquals(false, testerList.setMark(-1, true));
