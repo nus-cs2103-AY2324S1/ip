@@ -1,5 +1,7 @@
 package chatbot.alain;
 
+import chatbot.alain.tasks.Task;
+
 /**
  * A utility class that provides assertion methods for various tasks
  * to ensure their correct addition or removal from the TaskList.

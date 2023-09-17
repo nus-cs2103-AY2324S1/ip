@@ -9,6 +9,18 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import chatbot.alain.commands.ByeCommand;
+import chatbot.alain.commands.DeadlineCommand;
+import chatbot.alain.commands.DeleteCommand;
+import chatbot.alain.commands.EventCommand;
+import chatbot.alain.commands.FindCommand;
+import chatbot.alain.commands.ListCommand;
+import chatbot.alain.commands.MarkCommand;
+import chatbot.alain.commands.TodoCommand;
+import chatbot.alain.commands.UnmarkCommand;
+import chatbot.alain.tasks.Task;
+import chatbot.alain.uis.GuiUi;
+import chatbot.alain.uis.Ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -124,90 +136,34 @@ public class ChatbotAlain extends Application {
             boolean isEventCommand = Pattern.matches("event .+", text);
             boolean isDeleteCommand = Pattern.matches("delete .+", text);
             boolean isFindCommand = Pattern.matches("find .+", text);
+            boolean isByeCommand = text.equals("bye");
+            boolean isListCommand = text.equals("list");
             if (isFindCommand) {
-                String keyWord = text.substring(4);
-                TaskList tmpList = new TaskList();
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.getTask(i).descriptionContain(keyWord)) {
-                        tmpList.addTask(list.getTask(i));
-                    }
-                }
-                Ui.showListContainingKeyword(tmpList);
-                return GuiUi.showListContainingKeyword(tmpList);
+                return new FindCommand(list, text, storage).processCommand();
             }
             if (isDeleteCommand) {
-                String numericPart = text.substring(7);
-                int pos = Integer.parseInt(numericPart) - 1;
-                if (pos >= 0 && pos < list.size()) {
-                    Task removedTask = list.removeTask(pos);
-                    Assertions.assertDelete(list, removedTask);
-                    Ui.showRemoveTask(removedTask, list);
-                    return GuiUi.showRemoveTask(removedTask, list);
-                } else {
-                    throw new AlainException("Invalid task index.");
-                }
+                return new DeleteCommand(list, text, storage).processCommand();
             }
             if (isToDoCommand) {
-                String mission = text.substring(4);
-                if (mission.length() == 0) {
-                    throw new AlainException("The description of a Todo cannot be empty.");
-                }
-                ToDos newTodo = new ToDos(mission);
-                list.addTask(newTodo);
-                Assertions.assertNewTodo(list, newTodo);
-                Ui.showAddTask(list.getTask(list.size() - 1), list);
-                return GuiUi.showAddTask(list.getTask(list.size() - 1), list);
+                return new TodoCommand(list, text, storage).processCommand();
             }
             if (isDeadlineCommand) {
-                String mission = text.substring(8);
-                if (mission.length() == 0) {
-                    throw new AlainException("The description of a Deadline cannot be empty.");
-                }
-                String[] parts = mission.split("/by ");
-                if (parts.length != 2) {
-                    throw new AlainException("The description of a Deadline is invalid");
-                }
-                Deadlines newDeadline = new Deadlines(parts[0], parts[1]);
-                list.addTask(newDeadline);
-                Assertions.assertNewDeadline(list, newDeadline);
-                Ui.showAddTask(list.getTask(list.size() - 1), list);
-                return GuiUi.showAddTask(list.getTask(list.size() - 1), list);
+                return new DeadlineCommand(list, text, storage).processCommand();
             }
             if (isEventCommand) {
-                String mission = text.substring(5);
-                if (mission.length() == 0) {
-                    throw new AlainException("The description of a Event cannot be empty.");
-                }
-                String[] parts = mission.split("/");
-                if (parts.length != 3) {
-                    throw new AlainException("The description of a Event is invalid");
-                }
-                Events newEvent = new Events(parts[0],
-                        parts[1].substring(5), parts[2].substring(3));
-                list.addTask(newEvent);
-                Assertions.assertNewEvent(list, newEvent);
-                Ui.showAddTask(list.getTask(list.size() - 1), list);
-                return GuiUi.showAddTask(list.getTask(list.size() - 1), list);
+                return new EventCommand(list, text, storage).processCommand();
             }
-            if (text.equals("bye")) {
-                if (storage != null) {
-                    storage.sayBye();
-                }
-                return null;
-            } else if (isMatchMarkCommand) {
-                String numericPart = text.substring(5);
-                list.getTask(Integer.parseInt(numericPart) - 1).markAsDone();
-                Ui.showMarkTask(numericPart, list);
-                return GuiUi.showMarkTask(numericPart, list);
-            } else if (isMatchUnmarkCommand) {
-                String numericPart = text.substring(7);
-                list.getTask(Integer.parseInt(numericPart) - 1).markAsUndone();
-                Ui.showUnmarkTask(numericPart, list);
-                return GuiUi.showUnmarkTask(numericPart, list);
-            } else if (text.equals("list")) {
-                list.sort();
-                Ui.showList(list);
-                return GuiUi.showList(list);
+            if (isByeCommand) {
+                return new ByeCommand(list, text, storage).processCommand();
+            }
+            if (isMatchMarkCommand) {
+                return new MarkCommand(list, text, storage).processCommand();
+            }
+            if (isMatchUnmarkCommand) {
+                return new UnmarkCommand(list, text, storage).processCommand();
+            }
+            if (isListCommand) {
+                return new ListCommand(list, text, storage).processCommand();
             }
             throw new AlainException("I'm sorry, but I don't know what that means :-(");
         } catch (AlainException e) {
@@ -260,22 +216,21 @@ public class ChatbotAlain extends Application {
      * @throws IOException If an I/O error occurs during chatbot execution.
      */
     public static void main(String[] args) throws AlainException, IOException {
-        //System.out.println("hi");
         new ChatbotAlain("tasks.txt").run();
     }
 
     /**
      * Initializes the primary stage for the application.
      *
-     * <p>This method sets up the main layout comprising a scroll pane for dialogs,
+     * This method sets up the main layout comprising a scroll pane for dialogs,
      * a text field for user input, and a send button to trigger actions.
-     * The layout is then added to the primary stage and displayed.</p>
+     * The layout is then added to the primary stage and displayed.
      *
      * @param stage The primary stage of the application where all UI components are placed.
      */
 
     public void start(Stage stage) {
-        // Step 1 code here
+        // Step 1: Set up the main layout
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -290,7 +245,8 @@ public class ChatbotAlain extends Application {
 
         stage.setScene(scene);
         stage.show();
-        //Step 2 code here
+
+        // Step 2: Configure Stage and Layout settings
         stage.setTitle("Alain");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -305,7 +261,6 @@ public class ChatbotAlain extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -320,32 +275,32 @@ public class ChatbotAlain extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        dialogContainer.getChildren()
-                .addAll(DialogBox.getDukeDialog(new Label(GuiUi.showWelcome()), new ImageView(duke)));
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
+        // Customize the Send button and Input Field
+        sendButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;");
+        userInput.setStyle("-fx-background-color: #EDEDED; -fx-border-radius: 15; -fx-padding: 5;");
 
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
+        // Assuming you have an Image for the user as well.
+        ImageView dukeImageView = new ImageView(duke);
+        ImageView userImageView = new ImageView(user);
+
+        final double imageSize = 50.0;
+        dukeImageView.setFitWidth(imageSize);
+        dukeImageView.setFitHeight(imageSize);
+        userImageView.setFitWidth(imageSize);
+        userImageView.setFitHeight(imageSize);
+
+
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(GuiUi.showWelcome()), dukeImageView));
+
+        // Step 3: Add functionality to handle user input
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        userInput.setOnAction((event) -> handleUserInput());
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -358,12 +313,11 @@ public class ChatbotAlain extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Alain's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
+        Label userText = new Label("Conan: \n\n" + userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
@@ -381,9 +335,9 @@ public class ChatbotAlain extends Application {
         String text = input;
         String chatOutput = proccessCommands(listGui, text, null);
         if (chatOutput != null) {
-            return chatOutput;
+            return ai + chatOutput;
         } else {
-            return GuiUi.showList(listGui) + GuiUi.showGoodbye();
+            return ai + GuiUi.showList(listGui) + GuiUi.showGoodbye();
         }
     }
 }

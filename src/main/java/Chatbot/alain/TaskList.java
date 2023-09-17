@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import chatbot.alain.tasks.Task;
+
+
 /**
  * Represents a list of tasks.
  */
