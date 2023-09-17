@@ -8,6 +8,7 @@ public class Task {
     protected static int size = 0;
     protected String description;
     protected boolean isDone;
+    protected String tag = "(no tag)";
 
     public Task(String description) {
         this.description = description;
@@ -45,6 +46,11 @@ public class Task {
         return result;
     }
 
+    public String setTag(String newTag) {
+        this.tag = newTag;
+        return ("#" + newTag + " has been set!");
+    }
+
     /**
      * reduce size of tasks and print remaining number
      */
@@ -57,6 +63,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] "
+                + this.description + " #" + this.tag;
     }
 }

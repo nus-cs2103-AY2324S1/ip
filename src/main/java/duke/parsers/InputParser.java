@@ -89,7 +89,6 @@ public class InputParser {
                 if (toStore) {
                     Storage.saveTasks(tasks);
                 }
-                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
@@ -107,7 +106,6 @@ public class InputParser {
                 if (toStore) {
                     Storage.saveTasks(tasks);
                 }
-                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
@@ -128,7 +126,6 @@ public class InputParser {
                 if (toStore) {
                     Storage.saveTasks(tasks);
                 }
-                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
@@ -170,7 +167,6 @@ public class InputParser {
                 if (toStore) {
                     Storage.saveTasks(tasks);
                 }
-                ;
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
@@ -186,7 +182,18 @@ public class InputParser {
                 if (toStore) {
                     Storage.saveTasks(tasks);
                 }
-                ;
+            } catch (DukeException e) {
+                reply += e.getMessage();
+            }
+        }
+
+        //tag a task by its number in the list
+        else if (splitStr[0].equals("tag")) {
+            try {
+                inputChecker(splitStr, "tag");
+                Task item = tasks.get(Integer.parseInt(splitStr[1]) - 1);
+                String[] getTag = input.split("#");
+                reply += item.setTag(getTag[1]);
             } catch (DukeException e) {
                 reply += e.getMessage();
             }
