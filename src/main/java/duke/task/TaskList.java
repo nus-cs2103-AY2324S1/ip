@@ -34,11 +34,13 @@ public class TaskList {
     /**
      * Prints the task list in sequential order, starts from 1.
      */
-    public void printTaskList() {
+    public String printTaskList() {
         int index = 0;
+        StringBuilder taskList = new StringBuilder();
         for (Task task: this.taskList) {
-            System.out.println("    " + (++index) + "." + task.toString());
+            taskList.append((++index)).append(".").append(task.toString()).append("\n");
         }
+        return taskList.toString();
     }
 
     /**

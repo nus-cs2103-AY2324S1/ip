@@ -8,31 +8,31 @@ import java.util.ArrayList;
  * Represents the messages printed to the user.
  */
 public class Ui {
-    private final String HORIZONTAL_LINE = "    _______________________________________________________________";
-
     /**
      * Prints the task list to the user.
+     *
      * @param taskList The list of tasks.
      */
-    public void printList(TaskList taskList) {
-        System.out.println("    Here are the tasks in your list:");
-        taskList.printTaskList();
+    public String printList(TaskList taskList) {
+        String taskListMessage = "Here are the tasks in your list:\n";
+        taskListMessage += taskList.printTaskList();
+        return taskListMessage;
     }
 
     /**
      * Prints the hello message to the user.
      */
-    public void hello() {
-        printHorizontalLine();
-        System.out.println("    Hello! I'm Thinh's chatbot\n    What can I do for you?");
-        printHorizontalLine();
+    public String hello() {
+        String helloMessage = "Hello! I'm Thinh's chatbot\n    What can I do for you?";
+        return helloMessage;
     }
 
     /**
      * Prints the goodbye message to the user.
      */
-    public void bye() {
-        System.out.println("    Bye. Hope to see you again soon!");
+    public String bye() {
+        String byeMessage = "Bye. Hope to see you again soon!";
+        return byeMessage;
     }
 
     /**
@@ -41,10 +41,10 @@ public class Ui {
      * @param task The task added to the task list.
      * @param newSize The new size of the task list.
      */
-    public void addTask(Task task, int newSize) {
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("      " + task.toString());
-        System.out.println("    Now you have " + newSize + " tasks in the list.");
+    public String addTask(Task task, int newSize) {
+        String addTaskMessage = "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + newSize
+                + " tasks in the list.";
+        return addTaskMessage;
     }
 
     /**
@@ -53,10 +53,10 @@ public class Ui {
      * @param task The task deleted from the task list.
      * @param newSize The new size fo the task list.
      */
-    public void deleteTask(Task task, int newSize) {
-        System.out.println("    Noted. I've removed this task:");
-        System.out.println("      " + task.toString());
-        System.out.println("    Now you have " + newSize + " tasks in the list.");
+    public String deleteTask(Task task, int newSize) {
+        String deleteTaskMessage = "Noted. I've removed this task:\n" + task.toString() + "\nNow you have " + newSize
+                + " tasks in the list.";
+        return deleteTaskMessage;
     }
 
     /**
@@ -64,9 +64,9 @@ public class Ui {
      *
      * @param task The task to be marked done.
      */
-    public void markTaskDone(Task task) {
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("      " + task.toString());
+    public String markTaskDone(Task task) {
+        String markTaskDoneMessage = "Nice! I've marked this task as done:\n" + task.toString();
+        return markTaskDoneMessage;
     }
 
     /**
@@ -74,16 +74,9 @@ public class Ui {
      *
      * @param task The task to be marked not done.
      */
-    public void markTaskNotDone(Task task) {
-        System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.println("      " + task.toString());
-    }
-
-    /**
-     * Prints the horizontal line.
-     */
-    public void printHorizontalLine() {
-        System.out.println(HORIZONTAL_LINE);
+    public String markTaskNotDone(Task task) {
+        String markTaskNotDoneMessage = "OK, I've marked this task as not done yet:\n" + task.toString();
+        return markTaskNotDoneMessage;
     }
 
     /**
@@ -91,8 +84,8 @@ public class Ui {
      *
      * @param e The exception thrown in the program.
      */
-    public void printError(Exception e) {
-        System.out.println("    " + e.getMessage());
+    public String printError(Exception e) {
+        return e.getMessage();
     }
 
     /**
@@ -100,11 +93,12 @@ public class Ui {
      *
      * @param tasks Array contains matching tasks.
      */
-    public void printMatchingTasks(ArrayList<Task> tasks) {
-        System.out.println("    Here are the matching tasks in your list:");
+    public String printMatchingTasks(ArrayList<Task> tasks) {
+        StringBuilder matchingTaskMessage = new StringBuilder("Here are the matching tasks in your list:\n");
         int index = 0;
         for (Task task: tasks) {
-            System.out.println("    " + (++index) + "." + task.toString());
+            matchingTaskMessage.append((++index)).append(".").append(task.toString());
         }
+        return matchingTaskMessage.toString();
     }
 }
