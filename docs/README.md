@@ -1,17 +1,17 @@
 # banterbot.banterbot User Guide
 >"Banter is often a proof of want of intelligence." - Jean de la Bruyere [(source)](https://www.azquotes.com/quotes/topics/banter.html)
 
-banterbot.banterbot is a banterbot.command line based banterbot.task manager for users to free their mind of having to remember things they need to do. 
+Banterbot is a command line based task manager for users to free their mind of having to remember things they need to do. 
 It combines the advantage of fast typing speeds of users via the Command Line Interface (CLI) and the benefits of a Graphical
 Unit Interface (GUI).
 
 ## Features 
 
-- Create and Delete Tasks (Todos, Deadlines, and Events)
-- Mark and Unmark Tasks (Todos, Deadlines, and Events)
-- Search for specific Tasks
-- Find what Deadlines are due
-- Get reminders on upcoming Deadlines
+- [Create and Delete Tasks (Todos, Deadlines, and Events)](https://weeweh.github.io/ip/#create-and-delete-tasks)
+- [Mark and Unmark Tasks (Todos, Deadlines, and Events)](https://weeweh.github.io/ip/#mark-and-unmark-tasks)
+- [Search for specific Tasks](https://weeweh.github.io/ip/#search-for-specific-tasks)
+- [Find what Deadlines are due](https://weeweh.github.io/ip/#find-what-deadlines-are-due)
+- [Get reminders on upcoming Deadlines](https://weeweh.github.io/ip/#get-reminders-on-upcoming-deadlines)
 
 ### Create and Delete Tasks
 
