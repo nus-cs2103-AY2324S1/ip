@@ -35,13 +35,15 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to user input based on the provided input command.
+     *
+     * @param input The user input command to process.
+     * @return A formatted response message based on the input command.
      */
     public String getResponse(String input) {
         int taskIndex;
         String command = input;
-        StringBuilder response = new StringBuilder(); // Create a StringBuilder to accumulate responses
+        StringBuilder response = new StringBuilder();
 
         try {
             if (Parser.isBye(command)) {

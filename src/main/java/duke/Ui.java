@@ -11,23 +11,6 @@ import java.util.ArrayList;
 public class Ui {
 
     /**
-     * A constant line separator.
-     */
-    private static final String LINE = "____________________________________________________________";
-
-    /**
-     * Displays a welcome message to the user.
-     *
-     * @return The welcome message as a string.
-     */
-    public String showWelcomeMessage() {
-        StringBuilder message = new StringBuilder();
-        message.append(" Hello! I'm Axela\n");
-        message.append(" What can I do for you?\n");
-        return message.toString();
-    }
-
-    /**
      * Displays a goodbye message to the user.
      *
      * @return The goodbye message as a string.
@@ -105,6 +88,7 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskAdded(Task task, int totalTasks) {
+        assert task != null : "Task cannot be null";
         StringBuilder message = new StringBuilder();
         message.append(" Got it. I've added this task:\n");
         message.append("   ").append(task).append("\n");
@@ -119,6 +103,7 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskMarkedAsDone(Task task) {
+        assert task != null : "Task cannot be null";
         StringBuilder message = new StringBuilder();
         message.append(" Nice! I've marked this task as done:\n");
         message.append("   ").append(task).append("\n");
@@ -132,6 +117,7 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskMarkedAsNotDone(Task task) {
+        assert task != null : "Task cannot be null";
         StringBuilder message = new StringBuilder();
         message.append(" OK, I've marked this task as not done yet:\n");
         message.append("   ").append(task).append("\n");
@@ -146,6 +132,7 @@ public class Ui {
      * @return The message as a string.
      */
     public String showTaskDeleted(Task task, int totalTasks) {
+        assert task != null : "Task cannot be null";
         StringBuilder message = new StringBuilder();
         message.append(" Noted. I've removed this task:\n");
         message.append("   ").append(task).append("\n");

@@ -33,6 +33,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
+        assert task != null : "task cannot be null";
         this.tasks.add(task);
     }
 
@@ -130,6 +131,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> findTasksByKeyword(String keyword) {
+        assert keyword != null : "keyword cannot be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         for (Task task : tasks) {

@@ -4,7 +4,7 @@ package duke.task;
  * The Task class represents a task template in the Duke application.
  * It includes a description and a boolean flag indicating whether the task is done or not.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -75,9 +75,7 @@ public class Task {
      *
      * @return The task type as a string.
      */
-    public String getTaskType() {
-        return "";
-    }
+    public abstract String getTaskType();
 
     public String getDescription() {
         return description;

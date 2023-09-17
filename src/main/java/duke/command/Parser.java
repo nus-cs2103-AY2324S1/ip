@@ -21,6 +21,7 @@ public class Parser {
      * @return True if the command is "bye," false otherwise.
      */
     public static boolean isBye(String command) {
+        assert command != null : "Command cannot be null";
         return command.equalsIgnoreCase("bye");
     }
 
@@ -31,6 +32,7 @@ public class Parser {
      * @return True if the command is "hi," false otherwise.
      */
     public static boolean isHi(String command) {
+        assert command != null : "Command cannot be null";
         return command.equalsIgnoreCase("hi");
     }
 
@@ -41,6 +43,7 @@ public class Parser {
      * @return True if the command is "list," false otherwise.
      */
     public static boolean isList(String command) {
+        assert command != null : "Command cannot be null";
         return command.equalsIgnoreCase("list");
     }
 
@@ -51,6 +54,7 @@ public class Parser {
      * @return True if the command starts with "mark," false otherwise.
      */
     public static boolean isMarkDone(String command) {
+        assert command != null : "Command cannot be null";
         return command.startsWith("mark");
     }
 
@@ -61,6 +65,7 @@ public class Parser {
      * @return True if the command starts with "unmark," false otherwise.
      */
     public static boolean isMarkNotDone(String command) {
+        assert command != null : "Command cannot be null";
         return command.startsWith("unmark");
     }
 
@@ -71,6 +76,7 @@ public class Parser {
      * @return True if the command starts with "delete," false otherwise.
      */
     public static boolean isDelete(String command) {
+        assert command != null : "Command cannot be null";
         return command.startsWith("delete");
     }
 
@@ -82,6 +88,7 @@ public class Parser {
      * @throws DukeException If the task index cannot be extracted or is invalid.
      */
     public static int extractTaskIndex(String command) throws DukeException {
+        assert command != null : "Command cannot be null";
         String[] parts = command.split(" ");
 
         if (parts.length < 2) {
@@ -92,10 +99,12 @@ public class Parser {
     }
 
     public static boolean isFind(String command) {
+        assert command != null : "Command cannot be null";
         return command.startsWith("find");
     }
 
     public static String extractKeyword(String command) {
+        assert command != null : "Command cannot be null";
         return command.substring("find".length()).trim();
     }
 
@@ -107,6 +116,7 @@ public class Parser {
      * @throws DukeException If the command cannot be parsed or is invalid.
      */
     public static Task parseTask(String command) throws DukeException {
+        assert command != null : "Command cannot be null";
         String[] parts = command.split(" ", 2);
 
         try {
@@ -172,6 +182,7 @@ public class Parser {
      * @throws DukeException If the line cannot be parsed or is invalid.
      */
     public static Task parseFileLine(String line) throws DukeException {
+        assert line != null : "Line cannot be null";
         // Parse the line and create tasks based on the format in the file
         String[] parts = line.split(" \\| ");
 
