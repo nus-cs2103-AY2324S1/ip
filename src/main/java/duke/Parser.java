@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -88,35 +89,44 @@ public class Parser {
         }
     }
 
-    private static Deadline getDeadline(String input, int byIndex) {
-        LocalDate d1;
-        LocalTime t1 = null;
-        Deadline deadline;
-        String task = input.substring(9, byIndex).trim(); // Task description
-        String date = input.substring(byIndex + 3).trim(); // Deadline day
-        if (date.contains(" ")) {
-            String[] parts = date.split(" ");
-            String dateString = parts[0];
-            String timeString = parts[1];
-            d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
-            deadline = new Deadline(task, d1, t1);
-        } else {
-            d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            deadline = new Deadline(task, d1, t1);
+    private static Deadline getDeadline(String input, int byIndex) throws DukeException {
+        try{
+            LocalDate d1;
+            LocalTime t1 = null;
+            Deadline deadline;
+            String task = input.substring(9, byIndex).trim(); // Task description
+            String date = input.substring(byIndex + 3).trim(); // Deadline day
+            if (date.contains(" ")) {
+                String[] parts = date.split(" ");
+                String dateString = parts[0];
+                String timeString = parts[1];
+                d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
+                deadline = new Deadline(task, d1, t1);
+            } else {
+                d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                deadline = new Deadline(task, d1, t1);
+            }
+            return deadline;
+        } catch (DateTimeException e) {
+            throw new DukeException("Wrong date format: Date format should be yyyy-mm-dd");
         }
-        return deadline;
+
     }
 
-    private static Events getEvent(String input, int fromIndex, int toIndex) {
-        String task = input.substring(6, fromIndex).trim(); // Task description
-        String startDate = input.substring(fromIndex + 6, toIndex).trim(); // Start date
-        String endDate = input.substring(toIndex + 4).trim(); // End date
-        LocalDate d1 = LocalDate.parse(startDate);
-        LocalDate d2 = LocalDate.parse(endDate);
+    private static Events getEvent(String input, int fromIndex, int toIndex) throws DukeException {
+        try {
+            String task = input.substring(6, fromIndex).trim(); // Task description
+            String startDate = input.substring(fromIndex + 6, toIndex).trim(); // Start date
+            String endDate = input.substring(toIndex + 4).trim(); // End date
+            LocalDate d1 = LocalDate.parse(startDate);
+            LocalDate d2 = LocalDate.parse(endDate);
 
-        Events event = new Events(task, d1, d2);
-        return event;
+            Events event = new Events(task, d1, d2);
+            return event;
+        } catch (DateTimeException e) {
+            throw new DukeException("Wrong date format: Date format should be yyyy-mm-dd");
+        }
     }
 }
 
