@@ -1,14 +1,12 @@
 package sae;
 
-import javafx.scene.layout.Region;
+import java.io.IOException;
+import java.util.Scanner;
 import sae.task.TaskList;
 import sae.util.Parser;
 import sae.util.Storage;
 import sae.util.Ui;
 
-
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * The Sae class represents an interactive task manager.
@@ -17,7 +15,7 @@ import java.util.Scanner;
 public class Sae {
 
     private final Storage storage;
-    private final TaskList store;
+    private final TaskList tasks;
     private final Ui ui;
     private final Parser parser;
 
@@ -35,16 +33,8 @@ public class Sae {
         } catch (IOException e) {
             temp = new TaskList();
         }
-        this.store = temp;
+        this.tasks = temp;
     }
-
-/*    public Sae() {
-        // Initialize any default values or leave it empty
-        this.storage = null; // Initialize storage as needed
-        this.ui = null; // Initialize ui as needed
-        this.parser = null; // Initialize parser as needed
-        this.store = null; // Initialize store as needed
-    }*/
 
     /**
      * Runs the sae application.
@@ -52,7 +42,7 @@ public class Sae {
     public void run() {
         ui.greetUser();
 
-        TaskList store = this.store;
+        TaskList store = this.tasks;
 
         Scanner input = new Scanner(System.in);
 
@@ -69,8 +59,8 @@ public class Sae {
             }
 
             try {
-                parser.executeCommand(store, str);
-                this.storage.saveTasks(store);
+                parser.executeCommand(tasks, str);
+                this.storage.saveTasks(tasks);
             } catch (IOException e) {
                 System.out.println("An error occurred while saving tasks: " + e.getMessage());
             }
@@ -99,8 +89,8 @@ public class Sae {
      */
     public String getResponse(String userInput) {
             try {
-                String ans = parser.executeCommand(store, userInput);
-                this.storage.saveTasks(store);
+                String ans = parser.executeCommand(tasks, userInput);
+                this.storage.saveTasks(tasks);
                 return ans;
             } catch (IOException e) {
                 return e.getMessage();

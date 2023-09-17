@@ -1,16 +1,26 @@
 package sae.util;
 
-import sae.task.TaskList;
-import sae.exceptions.InvalidTodoException;
-import sae.exceptions.SaeException;
-import sae.exceptions.InvalidDeadlineException;
-import sae.exceptions.InvalidEventException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import sae.exceptions.InvalidDeadlineException;
+import sae.exceptions.InvalidEventException;
+import sae.exceptions.InvalidTodoException;
+import sae.exceptions.SaeException;
+import sae.task.TaskList;
 
+
+/**
+ * The Parser class handles user commands and interacts with TaskList and Ui classes.
+ */
 public class Parser {
 
+    /**
+     * Executes a command based on user input.
+     *
+     * @param store The TaskList containing tasks.
+     * @param str   The user input string.
+     * @return A response message to the user's command.
+     */
     public static String executeCommand(TaskList store, String str) {
 
         assert str != null : "Input string 'str' is null.";
@@ -21,7 +31,6 @@ public class Parser {
 
         String command = commandTask[0];
         if (commandTask.length == 0) {
-            System.out.println("Invalid command.");
             return "Invalid command.";
         }
 
@@ -31,7 +40,6 @@ public class Parser {
                 case "mark":
                 case "unmark":
                     return handleDeleteMarkUnmark(store, command, commandTask);
-                    //break;
 
                 case "list":
                     return store.listTasks();
@@ -49,12 +57,9 @@ public class Parser {
                     return store.findKeyword(commandTask[1]);
 
                 case "bye" :
-                    Ui ui = new Ui();
-                    return ui.bidGoodbye();
+                    return handleBye();
 
                 default:
-                    assert false : "Unhandled command type: " + command;
-
                     throw new IllegalArgumentException("Invalid command.");
             }
         } catch (SaeException | IllegalArgumentException errorMessage) {
@@ -62,6 +67,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles deleting, marking, or unmarking a task.
+     *
+     * @param store       The TaskList containing tasks.
+     * @param command     The command (delete, mark, unmark).
+     * @param commandTask The command and task details.
+     * @return A response message to the user's command.
+     */
     private static String handleDeleteMarkUnmark(TaskList store, String command, String[] commandTask) {
         assert store != null : "TaskList 'store' should not be null.";
 
@@ -86,6 +99,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles adding a todo task.
+     *
+     * @param store       The TaskList containing tasks.
+     * @param commandTask The command and task details.
+     * @return A response message to the user's command.
+     * @throws SaeException If the todo task is invalid.
+     */
     private static String handleTodo(TaskList store, String[] commandTask) throws SaeException {
         assert store != null : "TaskList 'store' should not be null.";
 
@@ -95,6 +116,14 @@ public class Parser {
         return store.addToDoTask(commandTask[1]);
     }
 
+    /**
+     * Handles adding a deadline task.
+     *
+     * @param store       The TaskList containing tasks.
+     * @param commandTask The command and task details.
+     * @return A response message to the user's command.
+     * @throws SaeException If the deadline task is invalid.
+     */
     private static String handleDeadline(TaskList store, String[] commandTask) throws SaeException {
         assert store != null : "TaskList 'store' should not be null.";
 
@@ -109,6 +138,14 @@ public class Parser {
         return store.addDeadlineTask(description, dateTime);
     }
 
+    /**
+     * Handles adding an event task.
+     *
+     * @param store       The TaskList containing tasks.
+     * @param commandTask The command and task details.
+     * @return A response message to the user's command.
+     * @throws SaeException If the event task is invalid.
+     */
     private static String handleEvent(TaskList store, String[] commandTask) throws SaeException {
         if (commandTask.length < 2 || !commandTask[1].contains("/from") || !commandTask[1].contains("/to")) {
             throw new InvalidEventException();
@@ -117,5 +154,14 @@ public class Parser {
         return store.addEventTask(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
     }
 
+    /**
+     * Handles the "bye" command.
+     *
+     * @return A farewell message.
+     */
+    private static String handleBye() {
+        Ui ui = new Ui();
+        return ui.bidGoodbye();
+    }
 }
 

@@ -1,7 +1,6 @@
 package sae;
 
 import java.io.IOException;
-import sae.Sae;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

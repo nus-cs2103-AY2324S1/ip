@@ -1,8 +1,6 @@
 package sae;
 
 import java.io.IOException;
-import java.util.Collections;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import java.util.Collections;
+
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face and a label
@@ -27,8 +27,9 @@ public class DialogBox extends HBox {
 
     /**
      * Calls constructor for DialogBox.
+     *
      * @param text Text to display.
-     * @param img Image to display.
+     * @param img  Image to display.
      */
     private DialogBox(String text, Image img) {
         try {
@@ -55,24 +56,23 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Sets the dialog box to display the given text.
-     * @param text Text to display.
-     */
-    public void setDialog(String text) {
-        dialog = new Label(text);
-    }
-
-    /**
-     * Gets the dialog box to display the given image for user.
-     * @param img Image to display.
+     * Creates a user dialog box with the given text and image.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     * @return A DialogBox containing the user's message and image.
      */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
     /**
-     * Gets the dialog box to display the given image for Sae.
-     * @param img Image to display.
+     * Creates a Sae dialog box with the given text and image.
+     * This dialog box is typically used for Sae's responses.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     * @return A DialogBox containing Sae's message and image.
      */
     public static DialogBox getSaeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
