@@ -81,9 +81,6 @@ public class Storage {
                     if (splits.length > 4) {
                         newTask.setTag(splits[4].trim());
                     }
-                    else {
-                        System.out.println("adfafsa");
-                    }
                     tasks.add(newTask);
                 }
             }
