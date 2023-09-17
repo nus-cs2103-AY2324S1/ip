@@ -207,17 +207,17 @@ public class TaskList {
             // Update the original tasks list with the sorted tasks
             for (Task task : todoTasks) {
                 tasks.set(counter, task);
-                response += counter++ + ". " + task + "\n";
+                response += ++counter + ". " + task + "\n";
             }
 
             for (Task task : deadlineTasks) {
                 tasks.set(counter, task);
-                response += counter++ + ". " + task + "\n";
+                response += ++counter + ". " + task + "\n";
             }
 
             for (Task task : eventTasks) {
                 tasks.set(counter, task);
-                response += counter++ + ". " + task + "\n";
+                response += ++counter + ". " + task + "\n";
             }
 
             return response;
