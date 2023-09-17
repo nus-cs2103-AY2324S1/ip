@@ -468,11 +468,13 @@ public class Duke extends Application {
         userInput.setPrefWidth(325.0);
         sendButton.setPrefWidth(55.0);
 
-        // This ensures the ScrollPane is stretched to fit its parent, but leaves space for the input and send button below.
+        // This ensures the ScrollPane is stretched to fit its parent, but leaves space for the input and send button
+        // below.
         AnchorPane.setTopAnchor(scrollPane, 0.0);
         AnchorPane.setRightAnchor(scrollPane, 0.0);
         AnchorPane.setLeftAnchor(scrollPane, 0.0);
-        AnchorPane.setBottomAnchor(scrollPane, 40.0); // Assuming the height for userInput and sendButton combined is around 40 pixels
+        AnchorPane.setBottomAnchor(scrollPane, 40.0); // Assuming the height for userInput and sendButton combined
+        // is around 40 pixels
 
         // This keeps the userInput and sendButton anchored to the bottom of the window.
         AnchorPane.setBottomAnchor(sendButton, 10.0);
