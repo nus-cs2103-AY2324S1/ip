@@ -89,6 +89,7 @@ public class MattBot {
         tasks.markTask(taskId);
         mattmory.writeBack(tasks);
         Task t = tasks.getTask(taskId);
+        assert t.showStatus() == "X" : "Task not marked.";
         return resp.getMarked(t);
     }
 
@@ -97,6 +98,7 @@ public class MattBot {
         tasks.unmarkTask(taskId);
         mattmory.writeBack(tasks);
         Task t = tasks.getTask(taskId);
+        assert t.showStatus() == " " : "Task not unmarked.";
         return resp.getUnmarked(t);
     }
 
@@ -113,6 +115,7 @@ public class MattBot {
         try {
             LocalDateTime dtDueDate = LocalDateTime.parse(dueDate, PRINT_DTF);
             Task t = new Deadline(name, dtDueDate);
+            // assert t.getDate() == dtDueDate;
             tasks.addTask(t);
             mattmory.writeBack(tasks);
             return resp.getNewDeadline(t);
