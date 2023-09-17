@@ -209,29 +209,38 @@ public class Parser {
         return new FindExecutable(paramString);
     }
     private Executable parseRebindParams(String paramString) throws InvalidVarException {
-        String rebindRegex = "(\\S*)\\s/to\\s(\\S*)";
+        String rebindRegex = "(\\w*)\\s/to\\s(\\w*)";
         Matcher matcher = matchString(paramString, rebindRegex);
         String sourceBinding = matcher.group(1);
         String customBinding = matcher.group(2);
         ParserFunction parserFunc = stringToCommand.get(sourceBinding);
-        boolean isValidCommand = (stringToCommand.get(sourceBinding) != null);
-        if (isValidCommand) {
+        boolean isValidCommand = (parserFunc != null);
+        boolean isBound = ((stringToCommand.get(customBinding) != null) || (customCommand.get(customBinding) != null));
+        String errorMessage = "";
+        if (!isValidCommand) {
+            errorMessage = "Invalid source binding.";
+        } else if (isBound) {
+            errorMessage = "The custom binding \"" + customBinding + "\" is already bound.";
+        } else {
             this.customCommand.put(customBinding, parserFunc);
         }
-        return new BindingExecutable(isValidCommand, true, sourceBinding, customBinding);
+        return new BindingExecutable(sourceBinding, customBinding, errorMessage);
     }
     private Executable parseUnbindParams(String paramString) throws InvalidVarException {
-        String rebindRegex = "(\\S*)\\s/from\\s(\\S*)";
+        String rebindRegex = "(\\w*)";
         Matcher matcher = matchString(paramString, rebindRegex);
-        String sourceBinding = matcher.group(2);
         String customBinding = matcher.group(1);
         boolean isCurrentlyBound = (this.customCommand.get(customBinding) != null);
-        boolean isCorrectSource = (stringToCommand.get(sourceBinding) == this.customCommand.get(customBinding));
-        boolean isSuccess = isCurrentlyBound && isCorrectSource;
-        if (isSuccess) {
+        boolean isNonCustom = (stringToCommand.get(customBinding) != null);
+        String errorMessage = "";
+        if (isNonCustom) {
+            errorMessage = "This binding is not removable!";
+        } else if (!isCurrentlyBound) {
+            errorMessage = "This custom binding does not exist.";
+        } else {
             this.customCommand.remove(customBinding);
         }
-        return new BindingExecutable(isSuccess, false, sourceBinding, customBinding);
+        return new BindingExecutable(customBinding, errorMessage);
     }
     private static boolean isInvalid(ParserFunction func) {
         return func == null;
