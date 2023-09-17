@@ -27,6 +27,7 @@ public class ChatBotList {
     public String addToList(String[] queries, DukeEnvironmentConstants.TaskType type) {
         switch (type) {
         case EVENT:
+            
             this.list.add(new Event(queries[0],
                     LocalDateTime.parse(queries[1], DukeEnvironmentConstants.FORMATTER1),
                     LocalDateTime.parse(queries[2], DukeEnvironmentConstants.FORMATTER1)));
