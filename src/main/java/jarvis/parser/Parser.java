@@ -13,6 +13,7 @@ import java.time.format.DateTimeParseException;
 
 import jarvis.commands.AddCommand;
 import jarvis.commands.Command;
+import jarvis.commands.CommandType;
 import jarvis.commands.DeleteCommand;
 import jarvis.commands.ExitCommand;
 import jarvis.commands.FindCommand;
@@ -35,28 +36,31 @@ public class Parser {
      * @return Command based on user input.
      */
     public static Command parse(String fullCommand) {
-
-        String[] split = fullCommand.split(" ", 2);
-
-        switch(split[0]) {
-        case "bye":
-            return parseExit(split);
-        case "list":
-            return parseList(split);
-        case "mark":
-        case "unmark":
-            return parseMark(split);
-        case "todo":
-        case "deadline":
-        case "event":
-            return parseTask(split);
-        case "delete":
-            return parseDelete(split);
-        case "find":
-            return parseFind(split);
-        case "remind":
-            return parseRemind(split);
-        default:
+        try {
+            String[] split = fullCommand.split(" ", 2);
+            CommandType commandType = CommandType.valueOf(split[0].toUpperCase());
+            switch(commandType) {
+            case BYE:
+                return parseExit(split);
+            case LIST:
+                return parseList(split);
+            case MARK:
+            case UNMARK:
+                return parseMark(split);
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                return parseTask(split);
+            case DELETE:
+                return parseDelete(split);
+            case FIND:
+                return parseFind(split);
+            case REMIND:
+                return parseRemind(split);
+            default:
+                return new IncorrectCommand(INVALID_COMMAND);
+            }
+        } catch (IllegalArgumentException e) {
             return new IncorrectCommand(INVALID_COMMAND);
         }
     }

@@ -37,7 +37,7 @@ public class Event extends Task {
     public String toString() {
         return "\uD83D\uDCC5 " + super.toString()
                 + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))
-                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")\n";
     }
 
     /**
@@ -49,5 +49,13 @@ public class Event extends Task {
         return "E" + super.toFile() + " | "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))
                 + " - " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+    }
+
+    /**
+     * Checks whether the event has started.
+     * @return True if the event has started, false otherwise.
+     */
+    public boolean hasPassed() {
+        return this.from.isBefore(LocalDateTime.now()) && !this.isCompleted();
     }
 }

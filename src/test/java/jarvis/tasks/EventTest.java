@@ -16,7 +16,7 @@ public class EventTest {
         Task task = new Event("Group Meeting", from, to, false);
         task.completeTask(true);
         assertEquals("\uD83D\uDCC5 \u2611 Group Meeting"
-                + " (from: Aug 21 2002 07:00 PM to: Aug 21 2002 08:00 PM)", task.toString());
+                + " (from: Aug 21 2002 07:00 PM to: Aug 21 2002 08:00 PM)\n", task.toString());
     }
 
     @Test

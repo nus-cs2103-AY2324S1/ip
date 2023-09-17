@@ -21,7 +21,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "\uD83D\uDCDD " + super.toString();
+        return "\uD83D\uDCDD " + super.toString() + "\n";
     }
 
     /**
@@ -31,6 +31,14 @@ public class Todo extends Task {
     @Override
     public String toFile() {
         return "T" + super.toFile();
+    }
+
+    /**
+     * Returns false since todo tasks have no dates/deadlines.
+     * @return False.
+     */
+    public boolean hasPassed() {
+        return false;
     }
 
 }

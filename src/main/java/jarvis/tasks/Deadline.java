@@ -31,7 +31,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "\u23F0 " + super.toString()
-                + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
+                + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")\n";
     }
 
     /**
@@ -43,7 +43,11 @@ public class Deadline extends Task {
         return "D" + super.toFile() + " | " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
     }
 
-    public boolean isDue() {
-        return this.deadline.isAfter(LocalDateTime.now());
+    /**
+     * Checks whether the deadline has passed.
+     * @return True if the deadline has passed, false otherwise.
+     */
+    public boolean hasPassed() {
+        return this.deadline.isBefore(LocalDateTime.now()) && !this.isCompleted();
     }
 }

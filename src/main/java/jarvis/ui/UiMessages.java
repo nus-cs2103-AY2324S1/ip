@@ -18,4 +18,10 @@ public class UiMessages {
     public static final String ASSIST = "Is there anything else I can assist you with?";
     public static final String GREET = "Greetings, I am Jarvis! How may I assist you today?";
     public static final String TITLE = "Jarvis, Your Personal Task Manager!";
+    public static final String EMPTY_SEARCH = "No tasks were found containing the entered keyword!";
+    public static final String SEARCH = "The following tasks match the entered keyword:\n\n";
+    public static final String REMINDER = "Just a friendly reminder, the following tasks are pending completion!\n\n";
+    public static final String PASSED_DUE_DATE = "The following tasks have passed the stipulated date!\n\n";
+    public static final String NO_DUE_DATES = "You have no passed/current deadlines! Good Job!";
+
 }

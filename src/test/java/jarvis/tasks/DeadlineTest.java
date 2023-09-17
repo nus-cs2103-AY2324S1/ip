@@ -15,7 +15,7 @@ public class DeadlineTest {
         Task task = new Deadline("Finish HW", by, false);
         task.completeTask(true);
         assertEquals("\u23F0 \u2611 Finish HW"
-                + " (by: Aug 21 2002 07:00 PM)", task.toString());
+                + " (by: Aug 21 2002 07:00 PM)\n", task.toString());
     }
 
     @Test

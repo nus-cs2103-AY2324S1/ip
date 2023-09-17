@@ -71,4 +71,11 @@ public abstract class Task {
     public boolean contains(String name) {
         return this.description.contains(name);
     }
+
+    /**
+     * Returns whether task has passed the stipulated date.
+     * @return True if task has passed the stipulated date, false otherwise.
+     */
+    public abstract boolean hasPassed();
+
 }
