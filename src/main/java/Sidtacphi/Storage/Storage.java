@@ -29,7 +29,7 @@ public class Storage {
         try {
             mapper.writeValue(new File("./cache/tasks.json"), taskList);
         } catch (IOException e) {
-            System.out.print(e);
+            new File("./cache/tasks.json");
         }
     }
 
