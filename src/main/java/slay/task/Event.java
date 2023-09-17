@@ -54,7 +54,8 @@ public class Event extends Task {
             encoded += "0";
         }
 
-        encoded += " | " + super.getDescription()
+        encoded += " | " + super.getTag()
+                + " | " + super.getDescription()
                 + " | " + this.from
                 + " | " + this.to;
 

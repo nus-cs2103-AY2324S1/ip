@@ -61,6 +61,9 @@ public class Parser {
             case UnmarkCommand.COMMAND_WORD:
                 return prepareUnmark(arguments);
 
+            case TagCommand.COMMAND_WORD:
+                return prepareTag(arguments);
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
@@ -162,5 +165,12 @@ public class Parser {
     private Command prepareUnmark(String args) {
         int targetVisibleIndex = Integer.parseInt(args);
         return new UnmarkCommand(targetVisibleIndex);
+    }
+
+    private Command prepareTag(String args) {
+        String[] split = args.split(" ");
+        int targetVisibleIndex = Integer.parseInt(split[0]);
+        String label = split[1];
+        return new TagCommand(targetVisibleIndex, label);
     }
 }
