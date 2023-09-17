@@ -26,13 +26,18 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    @Override
+    public LocalDateTime getTaskDue() {
+        return this.deadline;
+    }
+
     /**
      * Formats deadline of task into the desired format.
      *
      * @param deadline Deadline of task as a LocalDateTime object.
      * @return Formatted deadline of task as a String.
      */
-    public String getDeadlineString(LocalDateTime deadline) {
+    public static String getDeadlineString(LocalDateTime deadline) {
         assert deadline != null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy 'at' HH:mm");
         return deadline.format(formatter);

@@ -31,6 +31,11 @@ public class Event extends Task {
         this.end = end;
     }
 
+    @Override
+    public LocalDateTime getTaskDue() {
+        return this.start;
+    }
+
     /**
      * Formats date and time of task into the desired format.
      *

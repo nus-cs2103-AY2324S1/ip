@@ -1,5 +1,6 @@
 package duke.utility;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import duke.exception.FailedSearchException;
@@ -124,5 +125,47 @@ public class TaskList {
         }
 
         return list;
+    }
+
+    public TaskList getOverdueTasks() {
+        TaskList overdueTasks = new TaskList();
+
+        for (int i = 0; i < this.getLength(); i++) {
+            Task task = this.tasks.get(i);
+            LocalDateTime due = task.getTaskDue();
+
+            if (due == null) {
+                continue;
+            }
+
+            boolean isOverdue = due.isBefore(LocalDateTime.now());
+            if (isOverdue) {
+                overdueTasks.tasks.add(task);
+            }
+        }
+
+        return overdueTasks;
+    }
+
+    public TaskList getWeeklyTasks() {
+        TaskList weeklyTasks = new TaskList();
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime EndOfWeek = today.plusWeeks(1);
+
+        for (int i = 0; i < this.getLength(); i++) {
+            Task task = this.tasks.get(i);
+            LocalDateTime due = task.getTaskDue();
+
+            if (due == null) {
+                continue;
+            }
+
+            boolean isWeeklyTask = due.isAfter(today) && due.isBefore(EndOfWeek);
+            if (isWeeklyTask) {
+                weeklyTasks.tasks.add(task);
+            }
+        }
+
+        return weeklyTasks;
     }
 }

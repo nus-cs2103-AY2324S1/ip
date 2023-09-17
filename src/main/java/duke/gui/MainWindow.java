@@ -1,18 +1,34 @@
 package duke.gui;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import duke.Bobi;
+import duke.task.Task;
+import duke.utility.Parser;
+import duke.utility.TaskList;
 import duke.utility.Ui;
 import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import net.fortuna.ical4j.model.Dur;
+import org.controlsfx.control.NotificationPane;
+import org.controlsfx.control.Notifications;
 
 /**
  * MainWindow class is a controller for MainWindow.
@@ -32,8 +48,8 @@ public class MainWindow extends AnchorPane {
 
     private Bobi bobi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image bobiImage = new Image(this.getClass().getResourceAsStream("/images/Bobi.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private final Image bobiImage = new Image(this.getClass().getResourceAsStream("/images/Bobi.png"));
 
     /**
      * Initialize the dialog container.
@@ -69,17 +85,39 @@ public class MainWindow extends AnchorPane {
         );
 
         // if user input is "bye", GUI closes automatically after 1 second.
-        if (response.equals(Ui.exit())) {
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.exit();
-                    timer.cancel();
-                }
-            }, 1000);
+        if (input.equalsIgnoreCase("bye")) {
+            handleUserExit();
         }
 
         userInput.clear();
+    }
+
+    private void handleUserExit() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.exit();
+                timer.cancel();
+            }
+        }, 1000);
+    }
+
+    public void showReminder() {
+        ImageView bobiView = new ImageView();
+        bobiView.setImage(bobiImage);
+        bobiView.setFitWidth(100);
+        bobiView.setPreserveRatio(true);
+        bobiView.setSmooth(true);
+        bobiView.setCache(true);
+
+        Notifications reminder = Notifications.create();
+        reminder.graphic(bobiView);
+        reminder.title("Bobi Reminder!");
+        reminder.text(bobi.getReminder());
+        reminder.hideAfter(new Duration(30000));
+        reminder.position(Pos.CENTER);
+
+        reminder.show();
     }
 }

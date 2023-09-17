@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * @author ruo-x
  */
 public class Main extends Application {
-    private Bobi bobi = new Bobi();
+    private final Bobi bobi = new Bobi();
 
     /**
      * Starts Bobi's GUI, load all components of the GUI.
@@ -37,6 +37,8 @@ public class Main extends Application {
             stage.setTitle("Bobi");
             stage.setResizable(false);
             stage.show();
+
+            fxmlLoader.<MainWindow>getController().showReminder();
         } catch (IOException e) {
             e.printStackTrace();
         }

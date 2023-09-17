@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Task is an abstract base class for all types of tasks
  * that users wish to add into their Bobi task list.
@@ -68,4 +70,6 @@ public abstract class Task {
      * @return Updated task string to be stored in backend.
      */
     public abstract String toUpdateString(int newStatus);
+
+    public abstract LocalDateTime getTaskDue();
 }
