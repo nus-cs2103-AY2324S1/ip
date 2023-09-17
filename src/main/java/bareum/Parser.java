@@ -10,6 +10,7 @@ import bareum.commands.FindCommand;
 import bareum.commands.IncorrectCommand;
 import bareum.commands.ListCommand;
 import bareum.commands.MarkCommand;
+import bareum.commands.TagCommand;
 import bareum.commands.UnmarkCommand;
 
 /**
@@ -41,6 +42,8 @@ public class Parser {
             cmd = parseDeleteCommand(commandInputs);
         } else if (commandInputs[0].equals("find")) {
             cmd = parseFindCommand(commandInputs);
+        } else if (commandInputs[0].equals("tag")) {
+            cmd = parseTagCommand(commandInputs);
         } else if (commandInputs[0].equals("todo")) {
             cmd = parseTodoCommand(commandInputs);
         } else if (commandInputs[0].equals("deadline")){
@@ -158,6 +161,48 @@ public class Parser {
     }
 
     /**
+     * Parses the contents of the tag command input by the user and validates the inputs.
+     * @param commandInputs Tag the user wants to tag the specified task with.
+     * @return A TagCommand for execution to tag the specified task with the input tag.
+     * @throws BareumException If tag name is not added.
+     */
+    public static Command parseTagCommand(String[] commandInputs) throws BareumException {
+        if (commandInputs.length == 1) {
+            throw new BareumException("Oops! Please give the index of the task you would like to tag.\n"
+                    + "\nCorrect format: tag <index> /tag <keyword>");
+        }
+
+        String allDetails = commandInputs[1];
+        int indexOfKeywordTag = allDetails.indexOf("/tag");
+        if (indexOfKeywordTag == -1) {
+            throw new BareumException("Oops! Please include the tag you would like to add :(\n"
+                    + "\nCorrect format: tag <index> /tag <keyword>");
+        } else if (indexOfKeywordTag == 0) {
+            throw new BareumException("Oops! Please include the index of the task you would like to tag :(\n"
+                    + "\nCorrect format: tag <index> /tag <keyword>");
+        }
+
+        String[] indexTag = allDetails.split(" /tag ");
+        int inputIndex;
+        try {
+            inputIndex = Integer.parseInt(indexTag[0]);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+            throw new BareumException("Oops! Please give an integer as the index of the task"
+                    + "you would like to tag.\n\nCorrect format: tag <index> /tag <keyword>");
+        }
+        int index = inputIndex - 1;
+
+        if (indexTag.length == 1) {
+            throw new BareumException("Oops! Please include the tag you would like to add :(\n"
+                    + "\nCorrect format: tag <index> /tag <keyword>");
+        }
+
+        String tag = indexTag[1];
+        return new TagCommand(index, tag);
+    }
+
+    /**
      * Parses the contents of the todo command input by the user and validates the inputs.
      * @param commandInputs Details of the todo command.
      * @return An AddTodoCommand for execution to add the new todo with the specified details.
@@ -190,14 +235,14 @@ public class Parser {
                     + "\nCorrect format: deadline <description> /by <due date in YYYY-MM-DD>");
         } else if (indexOfKeywordBy == 0) {
             throw new BareumException("Oops! Please include the description of your deadline :(\n"
-                    + "Correct format: deadline <description> /by <due date in YYYY-MM-DD>");
+                    + "\nCorrect format: deadline <description> /by <due date in YYYY-MM-DD>");
         }
 
         String[] descriptionDueTime = allDetails.split("/by ");
         String description = descriptionDueTime[0];
         if (descriptionDueTime.length == 1) {
             throw new BareumException("Oops! Please include the due date of your deadline :(\n"
-                    + "Correct format: deadline <description> /by <due date in YYYY-MM-DD>");
+                    + "\nCorrect format: deadline <description> /by <due date in YYYY-MM-DD>");
         }
 
         String dueDate = descriptionDueTime[1];
@@ -212,7 +257,7 @@ public class Parser {
      */
     public static Command parseEventCommand(String[] commandInputs) throws BareumException {
         if (commandInputs.length == 1) {
-            throw new BareumException("The details of your event are missing :(\n"
+            throw new BareumException("Oops! The details of your event are missing :(\n"
                     + "\nCorrect format: event <description> /from <start time> /to <end time>");
         }
 
@@ -220,10 +265,10 @@ public class Parser {
         int indexOfKeywordFrom = allDetails.indexOf("/from");
         if (indexOfKeywordFrom == -1) {
             throw new BareumException("Oops! Please include the start time of your event :(\n"
-                    + "Correct format: event <description> /from <start time> /to <end time>");
+                    + "\nCorrect format: event <description> /from <start time> /to <end time>");
         } else if (indexOfKeywordFrom == 0) {
             throw new BareumException("Oops! Please include the description of your event :(\n"
-                    + "Correct format: event <description> /from <start time> /to <end time>");
+                    + "\nCorrect format: event <description> /from <start time> /to <end time>");
         }
 
         String[] descriptionStartEndTime = allDetails.split("/from");
@@ -231,17 +276,17 @@ public class Parser {
         int indexOfKeywordTo = descriptionStartEndTime[1].indexOf("/to");
         if (indexOfKeywordTo == -1) {
             throw new BareumException("Oops! Please include the end time of your event :(\n"
-                    + "Correct format: event <description> /from <start time> /to <end time>");
+                    + "\nCorrect format: event <description> /from <start time> /to <end time>");
         } else if (indexOfKeywordTo == 0) {
             throw new BareumException("Oops! Please include the start time of your event :(\n"
-                    + "Correct format: event <description> /from <start time> /to <end time>");
+                    + "\nCorrect format: event <description> /from <start time> /to <end time>");
         }
 
         String[] startEndTime = descriptionStartEndTime[1].split("/to");
         String startDateTime = startEndTime[0];
         if (startEndTime.length == 1) {
             throw new BareumException("Oops! Please include the end time of your event :(\n"
-                    + "Correct format: event <description> /from <start time> /to <end time>");
+                    + "\nCorrect format: event <description> /from <start time> /to <end time>");
         }
         String endDateTime = startEndTime[1];
 

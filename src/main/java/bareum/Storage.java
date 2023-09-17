@@ -58,7 +58,6 @@ public class Storage {
                     taskList.addTask(TodoTask.makeTodo(taskInputs));
                 } else if (taskInputs[0].equals("D")) {
                     taskList.addTask(DeadlineTask.makeDeadline(taskInputs));
-                    // enum: done not done to prevent invalid input
                 } else if (taskInputs[0].equals("E")) {
                     taskList.addTask(EventTask.makeEvent(taskInputs));
                 }
