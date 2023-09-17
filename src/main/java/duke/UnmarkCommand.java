@@ -18,6 +18,7 @@ public class UnmarkCommand extends Command {
         if (!(o instanceof UnmarkCommand)) {
             return false;
         }
+        assert !(o instanceof UnmarkCommand) : this.getClass() + ".equals: short circuit failed";
         //checked above
         @SuppressWarnings("unchecked")
         UnmarkCommand c = (UnmarkCommand) o;

@@ -21,6 +21,7 @@ public class MarkCommand extends Command {
         if (!(o instanceof MarkCommand)) {
             return false;
         }
+        assert !(o instanceof MarkCommand) : this.getClass() + ".equals: short circuit failed";
         //checked above
         @SuppressWarnings("unchecked")
         MarkCommand c = (MarkCommand) o;

@@ -21,6 +21,7 @@ public class DeleteCommand extends Command {
         if (!(o instanceof DeleteCommand)) {
             return false;
         }
+        assert !(o instanceof DeleteCommand) : this.getClass() + ".equals: short circuit failed";
         //checked above
         @SuppressWarnings("unchecked")
         DeleteCommand c = (DeleteCommand) o;

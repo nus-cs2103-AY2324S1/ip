@@ -29,8 +29,8 @@ public class AddToListCommand extends Command {
         if (!(o instanceof AddToListCommand)) {
             return false;
         }
-        //checked above
         assert !(o instanceof AddToListCommand) : this.getClass() + ".equals: short circuit failed";
+        //checked above
         @SuppressWarnings("unchecked")
         AddToListCommand c = (AddToListCommand) o;
         return c.queries.equals(this.queries) && c.type.equals(this.type);
