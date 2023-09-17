@@ -67,7 +67,7 @@ public class Ui {
      * @return A message indicating matching tasks found.
      */
     public String showFindTaskMessage() {
-        return "Here are the matching tasks in your list :D";
+        return "Here are the matching tasks in your list: ";
     }
 
     /**
