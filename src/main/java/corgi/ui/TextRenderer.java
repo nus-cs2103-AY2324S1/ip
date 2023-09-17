@@ -108,7 +108,7 @@ public final class TextRenderer {
      * @param date The target date.
      */
     public String showNoTaskOnDate(String date) {
-        return returnMessage("Ugh, seriously? No tasks or events on " + date 
+        return returnMessage("Ugh, seriously? No tasks or events on " + date
                 + "? What a waste of time.");
     }
 
@@ -132,7 +132,7 @@ public final class TextRenderer {
      * @param keyword The target keyword.
      */
     public String showKeywordNotFound(String keyword) {
-        return returnMessage("No task with that annoying keyword \"" + keyword 
+        return returnMessage("No task with that annoying keyword \"" + keyword
                 + "\" found. It's like searching for a bone in an empty bowl.");
     }
 
@@ -203,6 +203,12 @@ public final class TextRenderer {
         return taskList;
     }
 
+    /**
+     * Generates a message indicating a successful undo of the last command.
+     *
+     * @param commandDesc The description of the undone command.
+     * @return A string message indicating the successful undo.
+     */
     public String showUndoSucceed(String commandDesc) {
         return returnMessage("Argh, fine!",
                 "I undid it: " + commandDesc,
