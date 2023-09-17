@@ -31,7 +31,7 @@ public class TaskList {
     public String chadRemoveList(int index){
         try {
             Task removed = taskArrayList.remove(index - 1);
-            return removed.name;
+            return removed.getName();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid task index! Try again!");
         }
@@ -45,7 +45,7 @@ public class TaskList {
      * @param index of task to be marked
      */
     public void chadMarkTask(int index) {
-        taskArrayList.get(index - 1).isComplete = true;
+        taskArrayList.get(index - 1).markTask();
     }
 
     /**
@@ -54,14 +54,18 @@ public class TaskList {
      * @param index of task to be unmarked
      */
     public void chadUnmarkTask(int index) {
-        taskArrayList.get(index - 1).isComplete = false;
-
+        taskArrayList.get(index - 1).unmarkTask();
     }
 
+    /**
+     * Finds tasks that matches the keyword
+     *
+     * @param keyword string to match the name of tasks
+     */
     public void chadFindTask(String keyword) {
         ArrayList<Task> matched = new ArrayList<>();
         for (Task task : taskArrayList) {
-            if (task.name.contains(keyword)) {
+            if (task.getName().contains(keyword)) {
                 matched.add(task);
             }
         }
@@ -72,10 +76,17 @@ public class TaskList {
         }
         assert false: "Should always return an output";
     }
+
+    /**
+     * Returns string of tasks that matches the keyword
+     *
+     * @param keyword string to match the name of tasks
+     * @return output with string of matched tasks
+     */
     public String displayChadFindTask(String keyword) {
         ArrayList<Task> matched = new ArrayList<>();
         for (Task task : taskArrayList) {
-            if (task.name.contains(keyword)) {
+            if (task.getName().contains(keyword)) {
                 matched.add(task);
             }
         }

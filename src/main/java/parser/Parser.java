@@ -45,7 +45,7 @@ public class Parser {
             try {
                 Integer index = Integer.valueOf(inputArray[1]);
                 tasklist.chadMarkTask(index);
-                ui.chadMarkTaskOutput(chad.taskArrayList.get(index - 1).name,
+                ui.chadMarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
                         chad.taskArrayList.get(index - 1).getMark());
                 storage.writeFile(chad.taskArrayList);
 
@@ -58,7 +58,7 @@ public class Parser {
 
                 Integer index = Integer.valueOf(inputArray[1]);
                 tasklist.chadUnmarkTask(index);
-                ui.chadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).name,
+                ui.chadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
                         chad.taskArrayList.get(index - 1).getMark());
 
                 storage.writeFile(chad.taskArrayList);
@@ -146,6 +146,14 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Takes in a String array of the instructions from user
+     * Runs the applicable methods based on the instruction from user
+     * For Main Class (GUI)
+     *
+     * @param inputArray array of string from the input of user
+     * @return false if user gives command to stop bot, else returns true
+     */
     public String displayInputParse(String[] inputArray) {
 
         String output = "";
@@ -161,7 +169,7 @@ public class Parser {
                 Integer index = Integer.valueOf(inputArray[1]);
                 tasklist.chadMarkTask(index);
                 storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadMarkTaskOutput(chad.taskArrayList.get(index - 1).name,
+                output = ui.displayChadMarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
                         chad.taskArrayList.get(index - 1).getMark());
 
 
@@ -176,7 +184,7 @@ public class Parser {
                 Integer index = Integer.valueOf(inputArray[1]);
                 tasklist.chadUnmarkTask(index);
                 storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).name,
+                output = ui.displayChadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
                         chad.taskArrayList.get(index - 1).getMark());
 
             } catch (NumberFormatException | IndexOutOfBoundsException e) {

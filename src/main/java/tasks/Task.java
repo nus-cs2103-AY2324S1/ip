@@ -1,7 +1,7 @@
 package tasks;
 
 public class Task {
-    public String name;
+    private String name;
     public boolean isComplete;
 
     public Task(String name) {
@@ -27,6 +27,29 @@ public class Task {
      */
     public String toString() {
         return "[" + getMark() + "] " + name;
+    }
+
+    /**
+     * Marks a task as complete
+     */
+    public void markTask() {
+        this.isComplete = true;
+    }
+
+    /**
+     * Marks a task as incomplete
+     */
+    public void unmarkTask() {
+        this.isComplete = false;
+    }
+
+    /**
+     * Returns name of task
+     *
+     * @return string of the name of task
+     */
+    public String getName() {
+        return this.name;
     }
 
     /**
