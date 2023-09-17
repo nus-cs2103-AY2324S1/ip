@@ -1,13 +1,8 @@
 package duke;
 
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import exceptions.DukeException;
-import exceptions.EmptyDescriptionException;
-import exceptions.OutOfRangeException;
 import exceptions.UnknownCommandException;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -19,9 +14,6 @@ public class Duke {
 
     /** To access file which stores the saved tasks*/
     private final Storage storage;
-
-    /** Stores new instance of UI */
-    private final Ui ui;
 
     /** List to be updated as tasks are added or removed. */
     private final TaskList list;
@@ -38,7 +30,6 @@ public class Duke {
      * @throws FileNotFoundException
      */
     public Duke() throws FileNotFoundException {
-        ui = new Ui();
         storage = new Storage("duke.txt");
 //        try {
         list = new TaskList(storage.load());

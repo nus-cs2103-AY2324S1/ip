@@ -13,8 +13,6 @@ import java.time.format.DateTimeParseException;
  * Converts user command into a Task
  */
 public class Parser {
-    public Parser() {
-    }
 
     public static String parseDeadline(String input, TaskList list) {
         try {
@@ -45,7 +43,7 @@ public class Parser {
         }
     }
 
-    public static String parseEvent(String input, TaskList list) {
+    public static String parseEvent(String input, TaskList list) { //add date time formatter
         try {
             if (input.substring(6).isBlank()) {
                 throw new EmptyDescriptionException();
