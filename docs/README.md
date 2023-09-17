@@ -16,7 +16,7 @@ you can choose to use the auto datetime formatter. Instead of `deadline_desc`, `
 
 It will be translated to `Sep 17 2023 11PM`.
 
-> [!NOTE]
+> !
 > This is not the same format as the `whatsgoingon dd/MM/yyyy` command.
 
 ### Undo commands that changes tasks
@@ -30,14 +30,14 @@ You are able to undo the latest command if they are one of the following:
 An undo cannot be undone, and an undo cannot be performed twice.
 
 ---
-> [!NOTE] Notes about the usage formats
+> ! Notes about the usage formats
 > - Words surrounded by angle brackets `<` and `>` represent placeholders, which you can input a value into. Some
-    > placeholders are specified like `<deadline_desc:dd/MM/yyyy hhmm>` which means you can use [this datetime format]
-    > (#auto-datetime).
+    placeholders are specified like `<deadline_desc:dd/MM/yyyy hhmm>` which means you can use [this datetime format]
+    (#auto-datetime).
 > - It is not compulsory to specify in the required datetime format, you can input any other text
-    > if you like.
+    if you like.
 > - Some placeholders are specified like `<index_number>` which indicates that a task's index number
-    > is expected.
+    is expected.
 
 A task is defined as either a `todo`, `event`, or `deadline`.
 
@@ -55,12 +55,16 @@ A task is defined as either a `todo`, `event`, or `deadline`.
 ### Creating a deadline: `deadline`
 
 > Format: `deadline <description> /by <deadline_desc:dd/MM/yyyy hhmm>` \
-> Example: `deadline assignment 2 /by 20/09/2023 1800`
+> Examples:  \
+> `deadline assignment 2 /by 20/09/2023 1800` \
+> `deadline assignment 2 /by this sunday`
 
 ### Creating an event: `event`
 
 > Format: `event <description> /from <start:dd/MM/YYYY hhmm> /to <end:dd/MM/yyyy hhmm>` \
-> Example: `event recess week /from 25/09/2023 0000 /to 01/10/2023 2359`
+> Examples: \
+> `event recess week /from 25/09/2023 0000 /to 01/10/2023 2359` \
+> `event leap year /from start 2020 /to end 2020`
 
 ### Listing all tasks: `list` or `ls`
 
