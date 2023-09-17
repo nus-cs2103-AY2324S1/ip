@@ -75,5 +75,8 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
-}
 
+    public Type getTaskType() {
+        return this.taskType;
+    }
+}
