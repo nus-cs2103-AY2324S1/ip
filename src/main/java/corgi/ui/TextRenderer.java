@@ -96,13 +96,6 @@ public final class TextRenderer {
     }
 
     /**
-     * Display a message indicating tasks have been loaded from data file.
-     */
-    public String showTasksLoaded(int size) {
-        return returnMessage("Successfully loaded " + size + " tasks!");
-    }
-
-    /**
      * Display a exit message.
      */
     public String showExitMsg() {
@@ -115,7 +108,8 @@ public final class TextRenderer {
      * @param date The target date.
      */
     public String showNoTaskOnDate(String date) {
-        return returnMessage("No tasks or events are scheduled for " + date + ".");
+        return returnMessage("Ugh, seriously? No tasks or events on " + date 
+                + "? What a waste of time.");
     }
 
     /**
@@ -125,7 +119,11 @@ public final class TextRenderer {
      * @param tasksOnDate The tasks occurred on the target date.
      */
     public String showTasksOnDate(String date, String tasksOnDate) {
-        return returnMessage("Here are the tasks and events happening on " + date + ":", tasksOnDate);
+        return returnMessage("Fine, here's what's going on on " + date + ":",
+                "",
+                tasksOnDate,
+                "",
+                "Don't expect me to be excited about it.");
     }
 
     /**
@@ -134,7 +132,8 @@ public final class TextRenderer {
      * @param keyword The target keyword.
      */
     public String showKeywordNotFound(String keyword) {
-        return returnMessage("No task containing keyword \"" + keyword + "\".");
+        return returnMessage("No task with that annoying keyword \"" + keyword 
+                + "\" found. It's like searching for a bone in an empty bowl.");
     }
 
     /**
@@ -145,7 +144,8 @@ public final class TextRenderer {
      */
     public String showTasksWithKeyword(String keyword, String tasksContainKeyword) {
         return returnMessage(
-                "Here are the tasks containing keyword \"" + keyword + "\":",
+                "Ugh, fine, I found tasks with that ridiculous keyword \"" + keyword + "\":",
+                "",
                 tasksContainKeyword);
     }
 
@@ -204,6 +204,8 @@ public final class TextRenderer {
     }
 
     public String showUndoSucceed(String commandDesc) {
-        return returnMessage("Undo successful: " + commandDesc);
+        return returnMessage("Argh, fine!",
+                "I undid it: " + commandDesc,
+                "You better think twice next time!");
     }
 }
