@@ -179,13 +179,13 @@ public class Parser {
         }
         texts.add(desc);
         String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
-        if (cD.isWrongFormat(input)) {
-            throw new DukeException("Invalid format for date time, its dd/mm/yyyy tttt");
+        if (cD.isWrongFormat(from)) {
+            throw new DukeException("Invalid format for /from date time, its dd/mm/yyyy tttt");
         }
         texts.add((from));
         String to = input.substring(input.indexOf("/to") + 4);
-        if (cD.isWrongFormat(input)) {
-            throw new DukeException("Invalid format for date time, its dd/mm/yyyy tttt");
+        if (cD.isWrongFormat(to)) {
+            throw new DukeException("Invalid format for /to date time, its dd/mm/yyyy tttt");
         }
         texts.add(to);
         return texts;
@@ -203,7 +203,7 @@ public class Parser {
         }
         texts.add(desc);
         String by = input.substring(input.indexOf("/by") + 4);
-        if (cD.isWrongFormat(input)) {
+        if (cD.isWrongFormat(by)) {
             throw new DukeException("Invalid format for date time, its dd/mm/yyyy tttt");
         }
         texts.add(by);
