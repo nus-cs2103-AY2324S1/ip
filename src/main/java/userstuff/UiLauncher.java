@@ -37,4 +37,13 @@ public class UiLauncher extends Application {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void stop() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+
+        }
+    }
 }

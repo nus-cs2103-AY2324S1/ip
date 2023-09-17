@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
 
-    private static String bye = "Bye. Hope to see you again soon.";
+
     private static String greet = "Hi! I am Vishnu.\n How can I help you?\n";
 
     private static String response;
@@ -64,12 +64,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        if (response.equals(bye)) {
-            try {
-                TimeUnit.SECONDS.sleep(3);
-            } catch (InterruptedException e) {
-                Platform.exit();
-            }
+        if (response.equals("Bye.")) {
             Platform.exit();
         }
     }

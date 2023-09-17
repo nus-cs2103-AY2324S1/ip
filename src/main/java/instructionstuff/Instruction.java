@@ -258,7 +258,7 @@ public abstract class Instruction {
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             storage.store(reduceStreamToString(taskList.getTasks()));
-            mainWindow.setMessage("Bye. Hope to see you again soon.");
+            mainWindow.setMessage("Bye.");
         }
     }
 
