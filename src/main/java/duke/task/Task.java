@@ -10,8 +10,9 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * A constructor for Task class
-     * @param Description The description of the given task
+     * A constructor for Task class.
+     *
+     * @param Description The description of the given task.
      */
     public Task(String Description) {
         this.Description = Description;
@@ -19,8 +20,9 @@ public class Task {
     }
 
     /**
-     * Check if the task is done. If it is return [X] else [ ]
-     * @return the status of the task
+     * Check if the task is done. If it is return [X] else [ ].
+     *
+     * @return the status of the task.
      */
     private String GetStatusIcon() {
         return "[" + (isDone ? "X" : " ") + "]";
@@ -29,6 +31,7 @@ public class Task {
     /**
      * Change the status of the task to Done
      * and output an acknowledged string.
+     *
      * @param fileHandler To update the status of the task in txt file.
      */
     public String MarkAsDone(FileHandler fileHandler) {
@@ -43,6 +46,7 @@ public class Task {
     /**
      * change the status of the task to UnDone
      * and output an acknowledged string.
+     *
      * @param fileHandler To update the status of the task in txt file.
      */
     public String MarkAsUnDone(FileHandler fileHandler) {
@@ -56,7 +60,8 @@ public class Task {
 
     /**
      * Return task's description.
-     * @return String
+     *
+     * @return String.
      */
     public String getDescription() {
         return this.Description;
@@ -64,7 +69,8 @@ public class Task {
 
     /**
      * Return a string containing the status and description.
-     * @return return the icon and the description of the task
+     *
+     * @return return the icon and the description of the task.
      */
     public String toString() {
         return GetStatusIcon() + " " + Description;
