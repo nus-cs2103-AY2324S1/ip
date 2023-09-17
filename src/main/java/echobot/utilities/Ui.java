@@ -53,27 +53,30 @@ public class Ui {
      * @throws EmptyListException If the list of tasks is empty
      * @throws InvalidTaskNumberException If the task number to be manipulated does not exist
      */
-    public String showManipulateTasks(TaskList tasks, String command, String fullInput, int numberOfWords)
+    public String showManipulateTasks(TaskList tasks, String command, String fullInput, int numberOfWords,
+            Storage currentStorage, Storage previousStorage)
             throws MissingTaskNumberException, EmptyListException, InvalidTaskNumberException {
         if (numberOfWords == 1) {
             throw new MissingTaskNumberException("Task number cannot be empty");
         } else if (tasks.getSize() < 1) {
             throw new EmptyListException("List is currently empty");
         }
+        tasks.overwriteTasksData(previousStorage);
         String output = "";
         switch (command) {
-            case "mark":
-                output = tasks.manipulateTasks(fullInput, "mark", 5);
-                break;
-            case "unmark":
-                output = tasks.manipulateTasks(fullInput, "unmark", 7);
-                break;
-            case "delete":
-                output = tasks.manipulateTasks(fullInput, "delete", 7);
-                break;
-            default:
-                break;
+        case "mark":
+            output = tasks.manipulateTasks(fullInput, "mark", 5);
+            break;
+        case "unmark":
+            output = tasks.manipulateTasks(fullInput, "unmark", 7);
+            break;
+        case "delete":
+            output = tasks.manipulateTasks(fullInput, "delete", 7);
+            break;
+        default:
+            break;
         }
+        tasks.overwriteTasksData(currentStorage);
         return output;
     }
 
@@ -86,13 +89,17 @@ public class Ui {
      * @return String output showing added todo task
      * @throws MissingTaskDescriptionException If the command is not followed by any description
      */
-    public String showAddToDo(TaskList tasks, String fullInput, int numberOfWords)
+    public String showAddToDo(TaskList tasks, String fullInput, int numberOfWords,
+                              Storage currentStorage, Storage previousStorage)
             throws MissingTaskDescriptionException {
         if (numberOfWords <= 1) {
             throw new MissingTaskDescriptionException("Todo task description cannot be empty");
         }
+        tasks.overwriteTasksData(previousStorage);
         String taskName = fullInput.substring(5);
-        return tasks.addToDo(taskName);
+        String output = tasks.addToDo(taskName);
+        tasks.overwriteTasksData(currentStorage);
+        return output;
     }
 
     /**
@@ -107,11 +114,13 @@ public class Ui {
      * @throws MissingTaskNameException If the task name is not specified
      * @throws InvalidTaskTimeException If there are missing or more than one deadlines
      */
-    public String showAddDeadline(TaskList tasks, String fullInput, int numberOfWords, Parser parser)
+    public String showAddDeadline(TaskList tasks, String fullInput, int numberOfWords, Parser parser,
+            Storage currentStorage, Storage previousStorage)
             throws MissingTaskDescriptionException, MissingTaskNameException, InvalidTaskTimeException {
         if (numberOfWords <= 1) {
             throw new MissingTaskDescriptionException("Deadline task description cannot be empty");
         }
+        tasks.overwriteTasksData(previousStorage);
         String[] taskDesc = fullInput.substring(9).split("/by");
         if (taskDesc.length != 2) {
             throw new InvalidTaskTimeException("Deadline task must have exactly one deadline using /by tag");
@@ -123,7 +132,9 @@ public class Ui {
         String strDeadline = taskDesc[1].trim();
         String deadline = parser.formatDate(strDeadline);
         if (!deadline.equals("Invalid date")) {
-            return tasks.addDeadline(taskName, deadline);
+            String output = tasks.addDeadline(taskName, deadline);
+            tasks.overwriteTasksData(currentStorage);
+            return output;
         } else {
             return "\nDate needs to be in the form of yyyy-mm-dd";
         }
@@ -141,11 +152,13 @@ public class Ui {
      * @throws MissingTaskNameException If the task name is not specified
      * @throws InvalidTaskTimeException If there are missing or more than one start or end dates
      */
-    public String showAddEvent(TaskList tasks, String fullInput, int numberOfWords, Parser parser)
+    public String showAddEvent(TaskList tasks, String fullInput, int numberOfWords, Parser parser,
+            Storage currentStorage, Storage previousStorage)
             throws MissingTaskDescriptionException, MissingTaskNameException, InvalidTaskTimeException {
         if (numberOfWords <= 1) {
             throw new MissingTaskDescriptionException("Event task description cannot be empty");
         }
+        tasks.overwriteTasksData(previousStorage);
         String[] taskDesc = fullInput.substring(6).split("/from");
         if (taskDesc.length != 2) {
             throw new InvalidTaskTimeException(
@@ -168,7 +181,9 @@ public class Ui {
         if (!start.equals("Invalid date")) {
             String end = parser.formatDate(strEnd);
             if (!end.equals("Invalid date")) {
-                return tasks.addEvent(taskName, start, end);
+                String output = tasks.addEvent(taskName, start, end);
+                tasks.overwriteTasksData(currentStorage);
+                return output;
             } else {
                 return "\nDate needs to be in the form of yyyy-mm-dd";
             }
@@ -204,6 +219,31 @@ public class Ui {
         } else {
             return "There are no matching tasks in your list";
         }
+    }
+
+    /**
+     * Shows text output when a change is undone
+     *
+     * @param tasks The list of tasks
+     * @param numberOfWords The number of words in the user input
+     * @param currentStorage The storage used to store the current task list
+     * @param previousStorage the storage used to store the task list before the current change
+     * @return String output showing the list after it is undone
+     * @throws InvalidCommandSyntaxException
+     */
+    public String showUndo(TaskList tasks, int numberOfWords, Storage currentStorage, Storage previousStorage)
+            throws InvalidCommandSyntaxException {
+        if (numberOfWords > 1) {
+            throw new InvalidCommandSyntaxException("'undo' command must not be followed by anything");
+        }
+        boolean hasBeenUndone = tasks.undoTasksData(currentStorage, previousStorage);
+        if (!hasBeenUndone) {
+            String output = "You have undone the latest change to the task list\n"
+                    + "This is your list now:\n"
+                    + showList(tasks, 1);
+            return output;
+        }
+        return "You can only undo the latest change to the task list in this session";
     }
 
     /**

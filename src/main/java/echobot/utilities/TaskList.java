@@ -12,6 +12,9 @@ public class TaskList {
     /** Variable to store the tasks */
     private ArrayList<Task> tasks;
 
+    /** Variable to check if an undo command has been run */
+    private boolean hasBeenUndone = true;
+
     /**
      * Creates a TaskList with a predefined list
      *
@@ -144,7 +147,26 @@ public class TaskList {
      * @param storage Storage object that points to the stored file
      */
     public void overwriteTasksData(Storage storage) {
+        this.hasBeenUndone = false;
         storage.overwriteTasksData(this.tasks);
+    }
+
+    /**
+     * Undoes the latest change starting from the current sessiont, only works with
+     * commands that change the contents of the list.
+     *
+     * @param currentStorage The storage class used to store the current task list
+     * @param previousStorage The storage class used to store task list before current change
+     * @return Whether the current change has been undone or cannot be undone
+     */
+    public boolean undoTasksData(Storage currentStorage, Storage previousStorage) {
+        boolean isUndone = this.hasBeenUndone;
+        if (!hasBeenUndone) {
+            this.tasks = previousStorage.loadTasksData();
+            overwriteTasksData(currentStorage);
+        }
+        this.hasBeenUndone = true;
+        return isUndone;
     }
 
     public Task getTask(int index) {

@@ -51,7 +51,7 @@ public class Parser {
      * @param ui Ui where the helper functions are located
      * @return True or false signifying breaking or continuing the loop
      */
-    public String handleInput(TaskList tasks, Input input, Ui ui) {
+    public String handleInput(TaskList tasks, Input input, Ui ui, Storage currentStorage, Storage previousStorage) {
         String output;
         try {
             String command = input.getCommand();
@@ -64,19 +64,23 @@ public class Parser {
             case "mark":
             case "unmark":
             case "delete":
-                output = ui.showManipulateTasks(tasks, command, fullInput, numberOfWords);
+                output = ui.showManipulateTasks(tasks, command, fullInput,
+                        numberOfWords, currentStorage, previousStorage);
                 break;
             case "todo":
-                output = ui.showAddToDo(tasks, fullInput, numberOfWords);
+                output = ui.showAddToDo(tasks, fullInput, numberOfWords, currentStorage, previousStorage);
                 break;
             case "deadline":
-                output = ui.showAddDeadline(tasks, fullInput, numberOfWords, this);
+                output = ui.showAddDeadline(tasks, fullInput, numberOfWords, this, currentStorage, previousStorage);
                 break;
             case "event":
-                output = ui.showAddEvent(tasks, fullInput, numberOfWords, this);
+                output = ui.showAddEvent(tasks, fullInput, numberOfWords, this, currentStorage, previousStorage);
                 break;
             case "find":
                 output = ui.showFind(tasks, fullInput, numberOfWords);
+                break;
+            case "undo":
+                output = ui.showUndo(tasks, numberOfWords, currentStorage, previousStorage);
                 break;
             case "bye":
                 output = ui.showBye(numberOfWords);

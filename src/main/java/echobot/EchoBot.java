@@ -19,8 +19,14 @@ public class EchoBot {
     /** File path to the tasks.txt */
     private static final String FILE_PATH = "./tasks.txt";
 
+    /** File path to the previous.txt */
+    private static final String PREVIOUS_PATH = "./previous.txt";
+
     /** Variable to store task list */
-    private Storage storage;
+    private Storage currentStorage;
+
+    /** Variable to store previous task list */
+    private Storage previousStorage;
 
     /** Variable to handle list of tasks operations */
     private TaskList tasks;
@@ -37,9 +43,10 @@ public class EchoBot {
     public EchoBot() {
         ui = new Ui();
         parser = new Parser();
-        storage = new Storage(FILE_PATH);
-        if (storage.fileExists()) {
-            tasks = new TaskList(storage.loadTasksData());
+        currentStorage = new Storage(FILE_PATH);
+        previousStorage = new Storage(PREVIOUS_PATH);
+        if (currentStorage.fileExists()) {
+            tasks = new TaskList(currentStorage.loadTasksData());
         } else {
             tasks = new TaskList();
         }
@@ -53,10 +60,9 @@ public class EchoBot {
      */
     public String getResponse(String input) {
         Input parsedInput = parser.parse(input);
-        String output = parser.handleInput(tasks, parsedInput, ui);
+        String output = parser.handleInput(tasks, parsedInput, ui, currentStorage, previousStorage);
         File txtFile = new File(FILE_PATH);
         assert txtFile.exists();
-        tasks.overwriteTasksData(storage);
         return output;
     }
 
