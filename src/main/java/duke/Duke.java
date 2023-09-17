@@ -83,7 +83,7 @@ public class Duke {
     }
 
     /**
-     * Main method to start the chat bot in the terminal.
+     * Starts the chat bot in the terminal.
      */
     public static void main(String[] args) {
         new Duke(DIR_NAME + File.separator + FILE_NAME).run();

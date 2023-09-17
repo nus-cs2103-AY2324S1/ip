@@ -1,6 +1,11 @@
 package duke.tasks;
 
+import duke.exceptions.BackwardsTimeException;
+import duke.exceptions.NoDescriptionException;
+import duke.exceptions.UnknownTimeException;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task in the chat bot.
@@ -93,6 +98,65 @@ public class Task {
     public boolean isRelatedContent(String keyword) {
         assert keyword != null;
         return description.contains(keyword);
+    }
+
+    public static Task createToDo(String fullCommand) throws NoDescriptionException {
+        //Removes the command type from the entire command
+        String desc = fullCommand.replaceAll("^\\s*todo\\s*", "");
+        if (desc.equals("")) {
+            throw new NoDescriptionException("todo");
+        }
+
+        return new ToDo(desc);
+    }
+
+    public static Task createDeadline(String fullCommand, DateTimeFormatter formatter)
+            throws NoDescriptionException, UnknownTimeException {
+        //Removes the command type from the entire command
+        String deadlineTime = fullCommand.replaceAll("^\\s*deadline\\s*", "");
+
+        // Separates into the description and the deadline
+        String[] strings = deadlineTime.split(" /by ");
+
+        if (deadlineTime.equals("")) {
+            throw new NoDescriptionException("deadline");
+        }
+        if (strings.length == 1) {
+            throw new UnknownTimeException(strings[0]);
+        }
+
+        return new Deadline(strings[0],
+                LocalDateTime.parse(strings[1], formatter));
+    }
+
+    public static Task createEvent(String fullCommand, DateTimeFormatter formatter)
+            throws NoDescriptionException, UnknownTimeException, BackwardsTimeException {
+        //Removes the command type from the entire command
+        String content = fullCommand.replaceAll("^\\s*event\\s*", "");
+        if (content.equals("")) {
+            throw new NoDescriptionException("event");
+        }
+
+        // Separates the command into the description and the times
+        String[] descTime = content.split(" /from ");
+
+        // Separates into the start time and end time
+        String[] times = descTime[1].split(" /to ");
+
+        if (times.length == 1) {
+            throw new UnknownTimeException(descTime[0]);
+        }
+
+        assert times.length == 2 : "Incorrect timing format";
+
+        LocalDateTime start = LocalDateTime.parse(times[0], formatter);
+        LocalDateTime end = LocalDateTime.parse(times[1], formatter);
+
+        if (start.isAfter(end)) {
+            throw new BackwardsTimeException();
+        }
+
+        return new Event(descTime[0], start, end);
     }
 
 }
