@@ -194,7 +194,7 @@ public class Duchess {
      * @param index - the index of the task to be tagged.
      * @param tags  - an array of Strings that represent all the tags to be added to the task.
      */
-    private String tagTask(int index, String[] tags) {
+    private String addTagsToTask(int index, String[] tags) {
         String response = "";
 
         // Within bounds
@@ -211,6 +211,35 @@ public class Duchess {
         }
 
         response += Ui.duchessFormat("Tags have been added!! (＾▽＾)");
+        response += Ui.duchessFormat(String.format("%d: %s", this.storedTasks.indexOf(task) + 1, task.toString()));
+
+        this.executeCallbackHandler(response);
+        return response;
+    }
+
+    /**
+     * Removes a tag from a task.
+     *
+     * @param index - the index of the task to be tagged.
+     * @param tags  - an array of Strings that represent all the tags to be removed from the task.
+     */
+    private String removeTagsFromTask(int index, String[] tags) {
+        String response = "";
+
+        // Within bounds
+        if (index < 0 || index >= this.storedTasks.size()) {
+            response += Ui.duchessFormat("(´；ω；`) Sorry, no such task exists... ;-;");
+            this.executeCallbackHandler(response);
+            return response;
+        }
+
+        Task task = this.storedTasks.getTask(index);
+
+        for (String tag : tags) {
+            task.removeTag(tag);
+        }
+
+        response += Ui.duchessFormat("Tags have been removed!! (＾▽＾)");
         response += Ui.duchessFormat(String.format("%d: %s", this.storedTasks.indexOf(task) + 1, task.toString()));
 
         this.executeCallbackHandler(response);
@@ -352,17 +381,35 @@ public class Duchess {
         }
 
         // Check if this command is an Tag command.
-        if (Parser.isTagCommand(userInput)) {
+        if (Parser.isAddTagCommand(userInput)) {
             try {
-                int tagIndex = Parser.parseTagCommandIndex(userInput);
-                String[] tags = Parser.parseTagCommandTags(userInput);
-                this.tagTask(tagIndex, tags);
+                int tagIndex = Parser.parseAddTagCommandIndex(userInput);
+                String[] tags = Parser.parseAddTagCommandTags(userInput);
+                this.addTagsToTask(tagIndex, tags);
             } catch (DuchessException e) {
                 String response = "";
 
                 response += Ui.duchessFormat(e.getMessage());
                 response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("event [name] /from [time] /to [time]");
+                response += Ui.duchessFormat("tag add [task number] [tag name]");
+
+                this.executeCallbackHandler(response);
+            }
+            return;
+        }
+
+        // Check if this command is an Tag command.
+        if (Parser.isRemoveTagCommand(userInput)) {
+            try {
+                int tagIndex = Parser.parseRemoveTagCommandIndex(userInput);
+                String[] tags = Parser.parseRemoveTagCommandTags(userInput);
+                this.removeTagsFromTask(tagIndex, tags);
+            } catch (DuchessException e) {
+                String response = "";
+
+                response += Ui.duchessFormat(e.getMessage());
+                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
+                response += Ui.duchessFormat("tag delete[task number] [tag name]");
 
                 this.executeCallbackHandler(response);
             }

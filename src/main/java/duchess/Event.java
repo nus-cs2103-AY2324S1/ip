@@ -1,5 +1,7 @@
 package duchess;
 
+import java.util.ArrayList;
+
 class Event extends Task {
     private String startTime;
     private String endTime;
@@ -51,7 +53,15 @@ class Event extends Task {
      */
     @Override
     public String toSaveString() {
-        return String.format("E|%s|%s|%s|", super.toSaveString(), this.startTime, this.endTime);
+        String saveString = String.format("E|%s|from:%s|to:%s|", super.toSaveString(), this.startTime, this.endTime);
+
+        for (String tag : this.tags) {
+            saveString += String.format("#%s|", tag);
+        }
+
+        saveString = saveString.substring(0, saveString.length() - 1);
+
+        return saveString;
     }
 
     /**
@@ -61,11 +71,7 @@ class Event extends Task {
      */
     public static Event fromSaveString(String s) {
         String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
-        // Not enough arguments; minmally, it needs the Type, the Marked status, the Name, the Start Time,
-        // and the End Time.
-        if (splitString.length < 5) {
-            return null;
-        }
+        ArrayList<String> tags = new ArrayList<>();
 
         TaskStatus taskStatus = TaskStatus.UNMARKED;
         String name = "";
@@ -76,10 +82,31 @@ class Event extends Task {
             taskStatus = TaskStatus.MARKED;
         }
 
-        name = splitString[2];
-        startTime = splitString[3];
-        endTime = splitString[4];
 
-        return new Event(name, startTime, endTime, taskStatus);
+        name = splitString[2];
+
+        if (splitString[3].startsWith("from:")) {
+            startTime = splitString[3].substring(5);
+        }
+
+        if (splitString[4].startsWith("to:")) {
+            startTime = splitString[4].substring(3);
+        }
+
+        for (int i = 5; i < splitString.length; i++) {
+            String dataString = splitString[i];
+            
+            if (dataString.startsWith("#")) {
+                tags.add(dataString.substring(1));
+            }
+        }
+
+        Event event = new Event(name, startTime, endTime, taskStatus);
+        
+        for (String tag : tags) {
+            event.addTag(tag);
+        }
+
+        return event;
     }
 }
