@@ -36,6 +36,7 @@ public class TaskEvent extends Task {
      */
     @Override
     public LocalDate getDate() {
+        assert this.startTime != null : "Start Time cannot be null";
         return this.startTime;
     }
     /**
@@ -44,6 +45,7 @@ public class TaskEvent extends Task {
      */
     @Override
     public String toString() {
+        assert this.startTime != null && this.endTime != null : "Start and End Time cannot be null";
         return super.toString()
             + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
