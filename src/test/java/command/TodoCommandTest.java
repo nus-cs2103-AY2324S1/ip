@@ -41,6 +41,8 @@ public class TodoCommandTest {
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> TodoCommand.validate("todo")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> TodoCommand.validate("")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> TodoCommand.validate("event some task")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> TodoCommand.validate("deadline some task"))

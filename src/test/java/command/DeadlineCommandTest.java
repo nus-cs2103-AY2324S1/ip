@@ -42,6 +42,8 @@ public class DeadlineCommandTest {
             ) -> assertDoesNotThrow((
             ) -> DeadlineCommand.validate("deadline       study /by 2023-01-01")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> DeadlineCommand.validate("")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> DeadlineCommand.validate("deadline")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> DeadlineCommand.validate("deadline study /by 2023/01/01")), (

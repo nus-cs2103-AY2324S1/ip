@@ -34,16 +34,50 @@ public class EventTask extends Task {
     }
 
     /**
+     * Constructs an `EventTask` with the given description, start date, and end date.
+     *
+     * @param description The description of the event task.
+     * @param startDate   The start date of the event task.
+     * @param endDate     The end date of the event task.
+     * @param isDone      The optional is done to mark a task as per is done.
+     */
+    public EventTask(String description, LocalDate startDate, LocalDate endDate, Boolean isDone) {
+        super(description, isDone);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
      * Gets the event date range formatted as a string.
      *
      * @return A string representation of the event date range.
      */
     public String getEventRange() {
-        return String.format("\n%s~From: %s\n%s~To  : %s",
-            getTabSpace(),
+        return String.format("%s~From: %s\n%s~To  : %s",
+            getTabStopTwo(),
             startDate.format(super.getDateTimeformatter()),
-            getTabSpace(),
+            getTabStopTwo(),
             endDate.format(super.getDateTimeformatter()));
+    }
+
+    /**
+     * Retrieves the type of task associated with this object, which is "DEADLINE."
+     *
+     * @return The task type, which is "EVENT" for objects of this class.
+     */
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.EVENT;
+    }
+
+    /**
+     * Retrieves the datetime associated with events, the start date and time, represented as a long value.
+     *
+     * @return The start date and time as a long value.
+     */
+    @Override
+    public long getDateTimeLong() {
+        return this.startDate.toEpochDay();
     }
 
     /**
@@ -53,7 +87,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return TaskType.EVENT.toSymbol() + super.toString() + getEventRange();
+        return String.format("%s%s%s\n", TaskType.EVENT.toSymbol() , super.toString() , getEventRange());
     }
 
     /**

@@ -5,18 +5,19 @@ package enums;
  */
 public enum CommandWord {
     BYE("bye"),
+    DEADLINE("deadline"),
+    DELETE("delete"),
+    EVENT("event"),
+    EXIT("exit"),
     FIND("find"),
+    FROM("/from"),
     LIST("list"),
     MARK("mark"),
-    UNMARK("unmark"),
-    DELETE("delete"),
-    EXIT("exit"),
-    TODO("todo"),
-    DEADLINE("deadline"),
-    EVENT("event"),
     NULL_COMMAND(""),
+    SORT("sort"),
+    TODO("todo"),
+    UNMARK("unmark"),
     BY("/by"),
-    FROM("/from"),
     TO("/to");
 
     private final String value;
@@ -39,7 +40,7 @@ public enum CommandWord {
      */
     public static CommandWord commandWordToValueMap(String value) {
         for (CommandWord e : values()) {
-            if (e.getValue().equals(value)) {
+            if (e.toValue().equals(value)) {
                 return e;
             }
         }
@@ -51,7 +52,7 @@ public enum CommandWord {
      *
      * @return The string representation of the command word.
      */
-    public String getValue() {
+    public String toValue() {
         return this.value;
     }
 }

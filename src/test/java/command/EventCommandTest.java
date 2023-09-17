@@ -43,6 +43,8 @@ public class EventCommandTest {
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> EventCommand.validate("event")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> EventCommand.validate("")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> EventCommand.validate("event some task /from 2023-01-01")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> EventCommand.validate("event some task /to 2023-12-31")), (

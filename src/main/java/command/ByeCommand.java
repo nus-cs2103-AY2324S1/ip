@@ -23,9 +23,11 @@ public class ByeCommand extends Command {
 
     /**
      * Validates the "bye" command.
-     * It checks if the command is correctly formatted.
+     * It checks if the command is correctly formatted and if the specified task index is valid.
      *
      * @param rawCommand The raw command string.
+     * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
+     *                                     error message.
      */
     public static void validate(String rawCommand) {
         assert rawCommand != null : "raw command cannot be null";
@@ -36,7 +38,6 @@ public class ByeCommand extends Command {
         validateNotEmptyArgs(CommandWord.BYE, args);
         validateCommandWord(CommandWord.BYE, args[0]);
     }
-
 
     /**
      * Executes the "bye" command. It shows the bye message to the user.

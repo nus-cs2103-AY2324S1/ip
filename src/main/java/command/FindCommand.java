@@ -23,7 +23,7 @@ public class FindCommand extends Command {
      *
      * @param rawCommand The raw command input by the user.
      * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
-     *     error message.
+     *                                     error message.
      */
     public static void validate(String rawCommand) throws WoofInvalidCommandException {
         assert rawCommand != null : "raw command cannot be null";

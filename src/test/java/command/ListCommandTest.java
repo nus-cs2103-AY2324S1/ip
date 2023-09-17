@@ -44,6 +44,8 @@ public class ListCommandTest {
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> ListCommand.validate("/list")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> ListCommand.validate("")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> ListCommand.validate("list some argument")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> ListCommand.validate("todo")), (
@@ -56,24 +58,28 @@ public class ListCommandTest {
 
 
     @Test
-    public void testExecuteListsTasks() {
+    public void testExecuteListTasks() {
         // Arrange
         TaskList taskList = new TaskList(null);
-        LocalDate startDate = LocalDate.parse("2023-01-01", Woof.getDateTimeFormatter());
-        LocalDate endDate = LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter());
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new DeadlineTask("Task 2", endDate));
-        taskList.addTask(new EventTask("Task 3", startDate, endDate));
+        taskList.addTask(new TodoTask(
+            "Task 1"));
+        taskList.addTask(new DeadlineTask(
+            "Task 2",
+            LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter())));
+        taskList.addTask(new EventTask(
+            "Task 3",
+            LocalDate.parse("2023-01-01", Woof.getDateTimeFormatter()),
+            LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter())));
 
         ListCommand listCommand = new ListCommand("list");
-        String expectedOutput = "Here are the tasks in your list:" + System.lineSeparator()
+        String expectedOutput = "Here are all the tasks in your list:" + System.lineSeparator()
                 + "  1. [T][ ] Task 1" + System.lineSeparator()
                 + "  2. [D][ ] Task 2" + System.lineSeparator()
                 + "            ~By: 2023-12-31" + System.lineSeparator()
                 + "  3. [E][ ] Task 3" + System.lineSeparator()
                 + "            ~From: 2023-01-01" + System.lineSeparator()
                 + "            ~To  : 2023-12-31" + System.lineSeparator()
-                + "You have 3 tasks in the task list." + System.lineSeparator();
+                + "You have 3 tasks in the task list.";
 
         // Act
         String actualOutput = listCommand.execute(taskList);
@@ -83,12 +89,12 @@ public class ListCommandTest {
     }
 
     @Test
-    public void testExecuteListsNoTasks() {
+    public void testExecuteListNoTasks() {
         // Arrange
         TaskList taskList = new TaskList(null);
         ListCommand listCommand = new ListCommand("list");
-        String expectedOutput = "Here are the tasks in your list:" + System.lineSeparator()
-                + "You have 0 tasks in the task list." + System.lineSeparator();
+        String expectedOutput = "Here are all the tasks in your list:" + System.lineSeparator()
+                + "You have 0 tasks in the task list.";
 
         // Act
         String actualOutput = listCommand.execute(taskList);

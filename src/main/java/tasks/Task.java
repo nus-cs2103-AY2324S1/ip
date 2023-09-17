@@ -1,15 +1,17 @@
 package tasks;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
+import enums.TaskType;
 import woof.Woof;
-import woofwoof.WoofWoof;
 
 /**
  * The `Task` class represents a task in the Woof application.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     /**
      * The description of the task.
      */
@@ -28,8 +30,22 @@ public abstract class Task {
     public Task(String description) {
         assert description != null : "description cannot be null";
 
-        this.description = WoofWoof.wrapText(description, '\n' + getTabSpace(), 39);
+        this.description = Woof.wrapText(description, '\n' + getTabStopTwo(), 39);
         this.isDone = false;
+    }
+
+    /**
+     * Constructs a `Task` with the given description and initializes it as not done.
+     *
+     * @param description The description of the task.
+     * @param isDone      The optional is done to mark a task as per is done.
+     */
+    public Task(String description, Boolean isDone) {
+        assert description != null : "description cannot be null";
+        assert isDone != null : "is done cannot be null";
+
+        this.description = Woof.wrapText(description, '\n' + getTabStopTwo(), 39);
+        this.isDone = isDone;
     }
 
     public DateTimeFormatter getDateTimeformatter() {
@@ -46,11 +62,20 @@ public abstract class Task {
     }
 
     /**
-     * Gets a tab space for doing to the next line of a task
+     * Gets a tab stop to the first level for indenting a task to the same level as in a list.
+     *
+     * @return The tab space "    ".
+     */
+    protected String getTabStopOne() {
+        return " ".repeat(5);
+    }
+
+    /**
+     * Gets a tab stop to the second level for indenting to the description of a task.
      *
      * @return The tab space "            ".
      */
-    protected String getTabSpace() {
+    protected String getTabStopTwo() {
         return " ".repeat(12);
     }
 
@@ -60,7 +85,7 @@ public abstract class Task {
      * @return A string representation of the task, including its status icon and description.
      */
     public String toString() {
-        return this.getStatusIcon() + " " + this.description;
+        return String.format("%s %s\n", this.getStatusIcon(), this.description);
     }
 
     /**
@@ -94,6 +119,55 @@ public abstract class Task {
      */
     public boolean hasKeyWord(String keyword) {
         return this.description.contains(keyword);
+    }
+
+    public abstract TaskType getTaskType();
+
+    public abstract long getDateTimeLong();
+
+    /**
+     * Compares this task to another task for ordering based on specific criteria.
+     * The comparison is primarily based on the following criteria, in order of priority:
+     * 1. Task completion status (done or not done).
+     * 2. Task type (Deadline, Event, Todo).
+     * 3. Date and time associated with the task (if applicable).
+     * 4. Task description (in case of equal status, type, and date/time).
+     *
+     * @param otherTask The task to compare to.
+     * @return A negative integer, zero, or a positive integer as this task is less than,
+     *         equal to, or greater than the specified task.
+     */
+    @Override
+    public int compareTo(Task otherTask) {
+        final ArrayList<TaskType> taskPriority = new ArrayList<>(Arrays.asList(
+            TaskType.DEADLINE,
+            TaskType.EVENT,
+            TaskType.TODO)
+        );
+
+        int doneCompare = Boolean.compare(
+            this.isDone(),
+            otherTask.isDone());
+        if (doneCompare != 0) {
+            return doneCompare;
+        }
+
+        int priorityCompare = Integer.compare(
+            taskPriority.indexOf(this.getTaskType()),
+            taskPriority.indexOf(otherTask.getTaskType())
+        );
+        if (priorityCompare != 0) {
+            return priorityCompare;
+        }
+
+        int dateTimeCompare = Long.compare(
+            this.getDateTimeLong(),
+            otherTask.getDateTimeLong());
+        if (dateTimeCompare != 0) {
+            return dateTimeCompare;
+        }
+
+        return this.description.compareTo(otherTask.description);
     }
 
     /**

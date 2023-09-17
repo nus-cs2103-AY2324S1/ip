@@ -41,6 +41,8 @@ public class NullCommandTest {
             ) -> assertDoesNotThrow((
             ) -> NullCommand.validate("hehe")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> NullCommand.validate("")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> NullCommand.validate("    ")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> NullCommand.validate("unmark task 1")), (

@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
      * @param rawCommand The raw command string.
      * @param taskList   The task list against which to validate the task index.
      * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
-     *     error message.
+     *                                     error message.
      */
     public static void validate(String rawCommand, TaskList taskList) throws WoofInvalidCommandException {
         assert rawCommand != null : "raw command cannot be null";

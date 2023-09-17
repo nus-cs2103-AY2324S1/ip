@@ -84,8 +84,8 @@ public abstract class Command {
 
         if (args.length != correctLength) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    commandWord.getValue()
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedString(
+                    commandWord.toValue()
                 )
             );
         }
@@ -109,8 +109,8 @@ public abstract class Command {
 
         if (args.length == unexpectedLength) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    commandWord.getValue()
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedString(
+                    commandWord.toValue()
                 )
             );
         }
@@ -133,8 +133,8 @@ public abstract class Command {
 
         if (args.length < minLength) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.getValueFormat(
-                    commandWord.getValue()
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedString(
+                    commandWord.toValue()
                 )
             );
         }
@@ -157,8 +157,8 @@ public abstract class Command {
         for (String arg : args) {
             if (arg == null) {
                 throw new WoofInvalidCommandException(
-                    ExceptionMessage.NULL_ARGUMENT.getValueFormat(
-                        commandWord.getValue()
+                    ExceptionMessage.NULL_ARGUMENT.toFormattedString(
+                        commandWord.toValue()
                     )
                 );
             }
@@ -181,8 +181,8 @@ public abstract class Command {
         for (String arg : args) {
             if (arg.isEmpty()) {
                 throw new WoofInvalidCommandException(
-                    ExceptionMessage.EMPTY_ARGUMENT.getValueFormat(
-                        commandWord.getValue()
+                    ExceptionMessage.EMPTY_ARGUMENT.toFormattedString(
+                        commandWord.toValue()
                     )
                 );
             }
@@ -205,8 +205,8 @@ public abstract class Command {
 
         if (!CommandWord.commandWordToValueMap(arg).equals(commandWord)) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.getValueFormat(
-                    commandWord.getValue()
+                ExceptionMessage.INVALID_COMMAND_WORD.toFormattedString(
+                    commandWord.toValue()
                 )
             );
         }
@@ -226,7 +226,7 @@ public abstract class Command {
         try {
             Woof.validateDateTime(string);
         } catch (WoofException e) {
-            throw new WoofInvalidCommandException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.getValueFormat(string));
+            throw new WoofInvalidCommandException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.toFormattedString(string));
         }
     }
 
@@ -245,7 +245,7 @@ public abstract class Command {
         try {
             TaskList.validateTaskIndex(string, taskList);
         } catch (WoofException e) {
-            throw new WoofInvalidCommandException(ExceptionMessage.INVALID_TASK_INDEX.getValueFormat(string));
+            throw new WoofInvalidCommandException(ExceptionMessage.INVALID_TASK_INDEX.toFormattedString(string));
         }
     }
 }

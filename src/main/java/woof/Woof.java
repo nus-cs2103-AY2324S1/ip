@@ -60,8 +60,52 @@ public class Woof {
         try {
             LocalDate.parse(string, getDateTimeFormatter());
         } catch (DateTimeParseException e) {
-            throw new WoofException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.getValueFormat(string));
+            throw new WoofException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.toFormattedString(string));
         }
+    }
+
+    /**
+     * Updates the task list by executing a command, saving the file, and returning the result.
+     *
+     * @param command The command to be executed.
+     * @return The result message of executing the command.
+     */
+    public static String updateFileAndExecute(Command command) {
+        assert command != null : "command cannot be null";
+
+        TaskList taskList = TaskFileHandler.readFromFile();
+        String result = command.execute(taskList);
+        TaskFileHandler.saveToFile(taskList);
+        return result;
+    }
+
+    /**
+     * Adds line breaks with a separator to the text.
+     */
+    public static String wrapText(String message, String separator, int length) {
+        assert message != null : "text cannot be null";
+        assert separator != null : "seperator cannot be null";
+        assert length > 0 : "length has to be more than 0";
+
+        int currentLineLength = 0;
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < message.length(); i++) {
+            char currentChar = message.charAt(i);
+            if (currentChar == '\n') {
+                currentLineLength = 0;
+            }
+            if (currentLineLength >= length) {
+                result.append(separator);
+                currentLineLength = 0;
+            }
+            if (currentLineLength != 0 || currentChar != ' ') {
+                result.append(currentChar);
+                currentLineLength++;
+            }
+
+        }
+        return result.toString();
     }
 
     /**
