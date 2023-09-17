@@ -55,6 +55,22 @@ public class TaskList {
         return t;
     }
 
+    /**
+     * Finds matching tasks based on a given keyword.
+     *
+     * @param keyword A word used to search for tasks containing this word.
+     * @return A list of tasks containing the keyword.
+     */
+    public List<Task> find(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
     public int size() {
         return this.tasks.size();
     }
@@ -66,8 +82,8 @@ public class TaskList {
      */
     public String toSaveFormat() {
         StringBuilder sb = new StringBuilder();
-        for (Task t : tasks) {
-            sb.append(t.toSaveFormat());
+        for (Task task : tasks) {
+            sb.append(task.toSaveFormat());
             sb.append(System.lineSeparator());
         }
         return sb.toString();
@@ -76,8 +92,10 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Task t : tasks) {
-            sb.append(t.toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            sb.append(i + 1).append(".");
+            sb.append(task);
             sb.append(System.lineSeparator());
         }
         return sb.toString();

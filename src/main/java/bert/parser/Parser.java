@@ -6,6 +6,7 @@ import bert.commands.AddToDoCommand;
 import bert.commands.Command;
 import bert.commands.DeleteCommand;
 import bert.commands.ExitCommand;
+import bert.commands.FindCommand;
 import bert.commands.ListCommand;
 import bert.commands.MarkCommand;
 import bert.commands.UnmarkCommand;
@@ -48,6 +49,8 @@ public class Parser {
             // Typing 'delete x' deletes a task
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(arguments);
             // Typing 'bye' ends the program
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
