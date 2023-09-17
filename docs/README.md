@@ -28,7 +28,7 @@ The chatbot allows you to create various types of new tasks that you can store i
    2. HHmm (e.g 1632)
    3. hh:mm AM/PM (e.g 4:32 pm)
       
-   All task timings **MUST** include both date and time, starting with date followed by time.
+All task timings **MUST** include both date and time, starting with date followed by time.
 
 #### Deleting tasks
 To delete a task that you have created, type delete followed by the the number of the task in the task list (e.g _delete 2_). To check which number the task is in the task list, you may use the following feature below:
@@ -47,7 +47,7 @@ What if accidentally marked the wrong task, or realised it is not complete? No n
 
 ### Searching for tasks
 
-The chatbot also allows you to search for 'tasks' matching a specific description. Suppose I want to search for a task with the keyword _run_ in the description:
+The chatbot also allows you to search for tasks matching a specific description. Suppose I want to search for a task with the keyword _run_ in the description:
    1. Type _search run_
    2. The chatbot will automatically list out all tasks with descriptions containing the keyword _run_
    3. If no tasks containing the _run_ keyword exists, the chatbot will return the following message: ***There are no tasks matching your description. Please try another search keyword***
