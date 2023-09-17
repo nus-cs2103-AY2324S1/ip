@@ -24,10 +24,10 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
-        TaskList temp = taskList;
+        String result = this.printCommand(taskList);
         taskList.removeTask(this.index - 1);
         storage.writeData(taskList.convertToFileContent());
-        return this.printCommand(temp);
+        return result;
     }
 
     @Override
