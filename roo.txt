@@ -1,4 +1,3 @@
-[T][ ] ab
-[T][x] qwerty tags: [#QWERTY #ABCD]
-[D][ ] eaddddddd by: 20 Dec 2023 11:22 PM tags: [#qwerty]
-[T][ ] rtyhjkl
+[T][x] read book tags: [#STUDY]
+[E][ ] Rhockers performance from: 20 Sep 2023 07:30 PM to: 20 Sep 2023 11:00 PM tags: [#ENJOY]
+[D][ ] CS2103T quiz by: 18 Sep 2023 11:59 PM

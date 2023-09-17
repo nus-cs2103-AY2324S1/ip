@@ -1,5 +1,6 @@
 package roo;
 
+// The following code adapted by https://se-education.org/guides/tutorials/javaFx.html
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -22,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("TaskMasterRoo");
             fxmlLoader.<MainWindow>getController().setDuke(roo);
             stage.show();
         } catch (IOException e) {

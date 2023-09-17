@@ -2,15 +2,17 @@ package roo.commands;
 
 import java.util.ArrayList;
 
-import roo.task.Deadline;
+import roo.RooException;
 import roo.TaskList;
 import roo.Ui;
-import roo.RooException;
+import roo.task.Deadline;
 
+/**
+ * Command to create Deadline object.
+ */
 public class DeadlineCommand extends Command {
     private String input;
     private ArrayList<String> tags;
-
 
     public DeadlineCommand(String input, ArrayList<String> tags) {
         this.input = input;

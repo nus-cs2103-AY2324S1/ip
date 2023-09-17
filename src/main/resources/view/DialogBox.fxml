@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--The following code adapted by https://se-education.org/guides/tutorials/javaFx.html-->
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -9,7 +10,7 @@
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox style="-fx-background-color: #fffeb4; -fx-background-radius: 30; -fx-border-color: blue; -fx-border-radius: 30; -fx-padding: 10;" HBox.hgrow="ALWAYS" >
-            <Text fx:id="dialog" text="Label" VBox.vgrow="ALWAYS" wrappingWidth="280"/>
+            <Text fx:id="dialog" text="Label" VBox.vgrow="ALWAYS" wrappingWidth="270"/>
         </VBox>
         <VBox HBox.hgrow="NEVER">
             <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />

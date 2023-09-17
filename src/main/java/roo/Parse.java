@@ -76,9 +76,9 @@ public class Parse {
         try {
             int sub = str.indexOf("by: ");
             if (str.contains("[x]")) {
-                return new Deadline(str.substring(8, sub - 1), str.substring(sub + 4), true, tags);
+                return new Deadline(str.substring(7, sub - 1), str.substring(sub + 4), true, tags);
             } else if (str.contains("[ ]")) {
-                return new Deadline(str.substring(8, sub - 1), str.substring(sub + 4), false, tags);
+                return new Deadline(str.substring(7, sub - 1), str.substring(sub + 4), false, tags);
             }
         } catch (RooException e) {
             System.err.println(e.getMessage());
@@ -91,10 +91,10 @@ public class Parse {
             int sub1 = str.indexOf("from: ");
             int sub2 = str.indexOf("to: ");
             if (str.contains("[x]")) {
-                return new Event(str.substring(8, sub1 - 1), str.substring(sub1 + 6, sub2 - 1),
+                return new Event(str.substring(7, sub1 - 1), str.substring(sub1 + 6, sub2 - 1),
                         str.substring(sub2 + 4), true, tags);
             } else if (str.contains("[ ]")) {
-                return new Event(str.substring(8, sub1 - 1), str.substring(sub1 + 6, sub2 - 1),
+                return new Event(str.substring(7, sub1 - 1), str.substring(sub1 + 6, sub2 - 1),
                         str.substring(sub2 + 4), false, tags);
             }
         } catch (RooException e) {
