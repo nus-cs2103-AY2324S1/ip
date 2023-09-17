@@ -15,13 +15,14 @@ public class Martin {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadFromFile());
-            parser = new Parser(tasks);
         } catch (Exception e) {
+            e.printStackTrace();
             tasks = new TaskList();
+        } finally {
+            parser = new Parser(tasks);
+            assert tasks != null : "Tasks should be initialized.";
+            assert parser != null : "Parser should be initialized.";
         }
-
-        assert tasks != null : "Tasks should be initialized.";
-        assert parser != null : "Parser should be initialized.";
     }
 
     /**

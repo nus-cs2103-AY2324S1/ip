@@ -63,6 +63,10 @@ public class EventCommand implements Command {
             LocalDateTime from = LocalDateTime.parse(timeParts[0].trim(), formatter);
             LocalDateTime to = LocalDateTime.parse(timeParts[1].trim(), formatter);
 
+            if (from.isAfter(to) || from.isEqual(to)) {
+                throw new MartinException("☹ OOPS!!! The start time of the event must be earlier than the end time.");
+            }
+
             tasks.add(new Event(parts[0].trim(), from, to));
 
             return "Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.";
