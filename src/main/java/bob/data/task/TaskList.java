@@ -72,6 +72,7 @@ public class TaskList {
      *
      * @param command The command that determines which subclass of Task will be instantiated.
      * @param input The input needed for the instantiation of the Task.
+     * @return A string describing the task that was added.
      * @throws DukeException If the EventTask is instantiated with invalid dates.
      */
     public String addTask(Parser.CommandType command, String input) throws DukeException {
@@ -149,6 +150,10 @@ public class TaskList {
                 + "Now you have " + this.tasks.size() + " task(s) in the list.";
     }
 
+    public void deleteTaskAtIndex(int index) {
+        tasks.remove(index);
+    }
+
     /**
      * Prints all the tasks contained in the ArrayList in an indexed manner.
      */
@@ -211,5 +216,11 @@ public class TaskList {
             return "No tasks found matching that description.";
         }
         return tasksFound.toString();
+    }
+
+    public void swap(int firstTaskIndex, int secondTaskIndex) {
+        Task temp = tasks.get(firstTaskIndex);
+        tasks.set(firstTaskIndex, tasks.get(secondTaskIndex));
+        tasks.set(secondTaskIndex, temp);
     }
 }
