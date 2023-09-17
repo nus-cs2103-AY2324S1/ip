@@ -39,6 +39,7 @@ public class Parser {
      * @return A Command object representing the action to be taken.
      */
     public static Command parse(String input) {
+        assert input != null && !input.trim().isEmpty() : "Input cannot be empty."; // Check input is not empty.
         // Extracts the first word (the command word) from the input
         String commandWord = input.split(" ")[0].toLowerCase();
 
@@ -53,6 +54,7 @@ public class Parser {
             try {
                 String taskName = input.split(" ", 2)[1];
                 ToDo task = new ToDo(taskName);
+                assert task != null : "Task cannot be null."; // Check task is not null.
                 return new AddCommand(task);
             } catch (ArrayIndexOutOfBoundsException e) {
                 return new ErrorCommand(
@@ -84,6 +86,7 @@ public class Parser {
                 }
 
                 Deadline task = new Deadline(taskName, dueDate);
+                assert task != null : "Task cannot be null."; // Check task is not null.
                 return new AddCommand(task);
             } catch (ArrayIndexOutOfBoundsException e) {
                 if (input.split(" ").length == 1) {
@@ -153,6 +156,7 @@ public class Parser {
                 }
 
                 Event task = new Event(taskName, startDateString, dueDateString);
+                assert task != null : "Task cannot be null."; // Check task is not null.
                 return new AddCommand(task);
             } catch (ArrayIndexOutOfBoundsException e) {
                 if (input.split(" ").length == 1) {
