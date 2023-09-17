@@ -3,6 +3,9 @@ package martin.task;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import martin.exceptions.MartinException;
 
 public class Deadline extends Task {
     private LocalDateTime by;
@@ -12,9 +15,13 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws MartinException {
         super(description);
-        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        try {
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new MartinException("☹ OOPS!!! The deadline time component is missing. Expected format: d/M/yyyy HHmm");
+        }
     }
 
     public LocalDateTime getBy() {

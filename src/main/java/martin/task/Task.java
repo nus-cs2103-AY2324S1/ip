@@ -87,6 +87,23 @@ public class Task {
 
                 return deadline;
 
+            case "E":
+                if (parts.length != 5) {
+                    throw new IllegalArgumentException("Invalid Event format in file.");
+                }
+
+                boolean isDoneEvent = "1".equals(parts[1]);
+                String descriptionEvent = parts[2];
+                LocalDateTime from = LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                LocalDateTime to = LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+
+                Event event = new Event(descriptionEvent, from, to);
+                if (isDoneEvent) {
+                    event.markAsDone();
+                }
+
+                return event;
+
             default:
                 if (parts.length != 2) {
                     throw new IllegalArgumentException("Invalid task format in file.");
