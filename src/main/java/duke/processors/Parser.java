@@ -80,13 +80,13 @@ public class Parser {
                 default:
                     break;
                 }
-
             } else if (msg.startsWith("find")) {
                 output = TASKS.findTasks(part[1]);
             } else {
                 return displayInfo(msg);
             }
         }
+        assert !output.isEmpty();
         return output;
     }
 

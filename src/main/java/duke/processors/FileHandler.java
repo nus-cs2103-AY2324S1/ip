@@ -112,7 +112,7 @@ public class FileHandler {
                 default:
                     System.out.println(
                             "The content of this task is in the wrong format: "
-                                    + content);
+                            + content);
                     continue;
                 }
                 arrayList.add(task);

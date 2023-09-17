@@ -3,6 +3,7 @@ plugins {
     id 'application'
     //id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id("io.ktor.plugin") version "2.3.4"
 }
 
 repositories {
@@ -45,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.Launcher")
 }
 
 //checkstyle {
@@ -57,6 +58,12 @@ shadowJar {
     archiveClassifier = null
     archiveFileName = 'duke.jar'
     dependsOn("distZip", "distTar")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("duke.jar")
+    }
 }
 
 run{

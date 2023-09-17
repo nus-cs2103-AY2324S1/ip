@@ -24,7 +24,7 @@ public class TimeProcessor {
     public static String StringToDate(String info)
             throws DukeException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        String reg = "\\d{1,2}\\/\\d{1,2}\\/\\d{2,4}";
+        String reg = "\\d{1,2}/\\d{1,2}/\\d{2,4}";
         LocalDate current = LocalDate.now();
         LocalDate date;
 
@@ -50,7 +50,7 @@ public class TimeProcessor {
                    throw new DukeException("Can only supports day of weeks "
                            + "or date in format dd/MM/yyyy "
                            + "Cannot support abbreviations "
-                           +"and months + day !!!" );
+                           + "and MM/dd !!!" );
                }
            }
         }

@@ -63,6 +63,7 @@ public class Event extends Task {
         }
 
         time = startTime + " to: " + TimeProcessor.StringToDate(endTime);
+        assert !time.isEmpty(): "time should not be empty";
         return content + "(" + time + ")";
     }
 

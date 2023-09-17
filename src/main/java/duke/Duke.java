@@ -31,13 +31,10 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
+            assert !input.isEmpty() : "input is empty";
             return PARSER.readInputs(input);
         } catch (DukeException e) {
             return e.getMessage();
         }
     }
-
-//    public static void main(String[] args) {
-//        new Duke().run();
-//    }
 }
