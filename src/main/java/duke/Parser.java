@@ -90,7 +90,7 @@ public class Parser {
     }
 
     private static Deadline getDeadline(String input, int byIndex) throws DukeException {
-        try{
+        try {
             LocalDate d1;
             LocalTime t1 = null;
             Deadline deadline;

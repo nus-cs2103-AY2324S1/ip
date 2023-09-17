@@ -1,14 +1,14 @@
 # Muddy User Guide
 
 ## Features
-- [Listing all tasks: `list`](###list-command)
-- [Adds a new ToDo Task: `todo`](###ToDo Command) 
-- Adds a new Deadline Task: `deadline`
-- Adds a new Event Task: `event'
-- Delete a task: `delete`
-- Find a task: `find`
-- Set priority for a task: `setPriority`
-- Exiting the program: `bye` 
+- [Listing all tasks: `list`](https://tayruxin.github.io/ip/###list-command)
+- [Adds a new ToDo Task: `todo`](https://tayruxin.github.io/ip/#adds-a-todo-task-todo) 
+- [Adds a new Deadline Task: `deadline`](https://tayruxin.github.io/ip/#adds-a-deadline-task-deadline)
+- [Adds a new Event Task: `event'](https://tayruxin.github.io/ip/#adds-a-new-event-task-event)
+- [Delete a task: `delete`](https://tayruxin.github.io/ip/#delete-a-task-delete)
+- [Find a task: `find`](https://tayruxin.github.io/ip/#find-a-task-find)
+- [Set priority for a task: `setPriority`](https://tayruxin.github.io/ip/#set-priority-for-a-task-setpriority)
+- [Exiting the program: `bye`](https://tayruxin.github.io/ip/#exit-the-program-bye) 
 
 ##  list all tasks: `list` 
 Shows a list of all task in the list
