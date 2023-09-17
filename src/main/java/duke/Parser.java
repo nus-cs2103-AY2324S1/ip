@@ -151,7 +151,7 @@ public class Parser {
     }
 
     /**
-     * Used to parse the keyword used in the find command.
+     * Parses the keyword used in the find command.
      * @param response Command the user put in.
      * @return The keyword user is searching for.
      */
