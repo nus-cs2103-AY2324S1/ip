@@ -4,6 +4,8 @@ package bob.data.task;
  * Represents the base logic for task classes.
  */
 public abstract class Task {
+    private static final String INCOMPLETE = "0";
+    private static final String COMPLETED = "1";
     /** The description of the task. */
     private String description;
     /** The completion of the task. */
@@ -69,11 +71,9 @@ public abstract class Task {
     public String toFileString() {
         StringBuilder output = new StringBuilder();
         String type = this.getType();
-        String completed;
+        String completed = INCOMPLETE;
         if (this.isDone) {
-            completed = "1";
-        } else {
-            completed = "0";
+            completed = COMPLETED;
         }
         String title = this.description;
         String dateTime = this.getDateTime();
