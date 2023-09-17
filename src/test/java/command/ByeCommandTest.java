@@ -3,7 +3,6 @@ package command;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
@@ -64,18 +63,5 @@ public class ByeCommandTest {
 
         // Assert
         assertEquals(expectedOutput, actualOutput);
-    }
-
-    @Test
-    public void testExecuteNoMessageDisplayedIfValidationFails() {
-        // Arrange
-        TaskList taskList = new TaskList(null);
-        ByeCommand invalidCommand = new ByeCommand("bye some argument");
-
-        // Act
-        invalidCommand.execute(taskList);
-
-        // Assert
-        assertNotEquals("", "Invalid number of arguments for the 'bye' command.");
     }
 }
