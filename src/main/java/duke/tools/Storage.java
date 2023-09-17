@@ -64,7 +64,6 @@ public class Storage {
         } catch (Exception e) {
             handleError(e);
         }
-
     }
 
     private void readTasks(List<Task> tasks, File file)
@@ -76,21 +75,21 @@ public class Storage {
             boolean isDone = segments[1].equals("1");
 
             switch (segments[0]) {
-                case "T":  // To Do
-                    tasks.add(new ToDo(segments[2], isDone));
-                    break;
-                case "D":  // Deadline
-                    tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
-                    break;
-                case "E":  // Event
-                    String[] times = segments[3].split("--");
-                    assert times.length == 2 : "Format is not correct";
+            case "T": // To Do
+                tasks.add(new ToDo(segments[2], isDone));
+                break;
+            case "D": // Deadline
+                tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
+                break;
+            case "E": // Event
+                String[] times = segments[3].split("--");
+                assert times.length == 2 : "Format is not correct";
 
-                    tasks.add(new Event(segments[2], LocalDateTime.parse(times[0]),
-                            LocalDateTime.parse(times[1]), isDone));
-                    break;
-                default:
-                    throw new UnrecognisedFormatException();
+                tasks.add(new Event(segments[2], LocalDateTime.parse(times[0]),
+                        LocalDateTime.parse(times[1]), isDone));
+                break;
+            default:
+                throw new UnrecognisedFormatException();
             }
         }
     }

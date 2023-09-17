@@ -1,11 +1,11 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import duke.exceptions.BackwardsTimeException;
 import duke.exceptions.NoDescriptionException;
 import duke.exceptions.UnknownTimeException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task in the chat bot.
@@ -100,6 +100,13 @@ public class Task {
         return description.contains(keyword);
     }
 
+    /**
+     * Creates a ToDo task from the given command.
+     *
+     * @param fullCommand The full command for creating the ToDo task.
+     * @return A new ToDo task.
+     * @throws NoDescriptionException If no description is provided.
+     */
     public static Task createToDo(String fullCommand) throws NoDescriptionException {
         //Removes the command type from the entire command
         String desc = fullCommand.replaceAll("^\\s*todo\\s*", "");
@@ -110,6 +117,15 @@ public class Task {
         return new ToDo(desc);
     }
 
+    /**
+     * Creates a Deadline task from the given command.
+     *
+     * @param fullCommand The full command for creating the Deadline task.
+     * @param formatter   The DateTimeFormatter for parsing the deadline time.
+     * @return A new Deadline task.
+     * @throws NoDescriptionException If no description is provided.
+     * @throws UnknownTimeException   If the time format is unknown.
+     */
     public static Task createDeadline(String fullCommand, DateTimeFormatter formatter)
             throws NoDescriptionException, UnknownTimeException {
         //Removes the command type from the entire command
@@ -125,10 +141,19 @@ public class Task {
             throw new UnknownTimeException(strings[0]);
         }
 
-        return new Deadline(strings[0],
-                LocalDateTime.parse(strings[1], formatter));
+        return new Deadline(strings[0], LocalDateTime.parse(strings[1], formatter));
     }
 
+    /**
+     * Creates an Event task from the given command.
+     *
+     * @param fullCommand The full command for creating the Event task.
+     * @param formatter   The DateTimeFormatter for parsing the event times.
+     * @return A new Event task.
+     * @throws NoDescriptionException   If no description is provided.
+     * @throws UnknownTimeException     If the time format is unknown.
+     * @throws BackwardsTimeException   If the event times are in the wrong order.
+     */
     public static Task createEvent(String fullCommand, DateTimeFormatter formatter)
             throws NoDescriptionException, UnknownTimeException, BackwardsTimeException {
         //Removes the command type from the entire command
@@ -158,5 +183,4 @@ public class Task {
 
         return new Event(descTime[0], start, end);
     }
-
 }
