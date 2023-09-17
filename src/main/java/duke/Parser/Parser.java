@@ -10,12 +10,12 @@ import duke.TaskList.TaskList;
 import duke.Ui.Ui;
 
 /**
- * Split input into command that the chatbot can understand.
+ * Splits input into command that the chatbot can understand.
  */
 public class Parser {
 
     /**
-     * Check whether the string give is an integer.
+     * Checks whether the string give is an integer.
      * @param str String that will be checked.
      * @return Boolean that represent whether the string is a integer.
      */
@@ -29,7 +29,7 @@ public class Parser {
     }
 
     /**
-     * Get the command and translate it to the work that will be done by the chatbot.
+     * Gets the command and translate it to the work that will be done by the chatbot.
      * @param input String entered by the user.
      * @param ui The Ui that allow the chatbot to print the message.
      * @param storage Storage where the tasks will be stored.
@@ -60,7 +60,7 @@ public class Parser {
                     );
                     tasks.addTask(targetTask);
                     return ui.addTask(targetTask, tasks.getNumberOfTask());
-                } else  {
+                } else {
                     throw  new DukeException("This deadline is invalid");
                 }
             } else if (command.equals("EVENT")) {
@@ -75,7 +75,7 @@ public class Parser {
                 } else {
                     throw new DukeException("This event is invalid");
                 }
-            } else if (command.equals("MARK")){
+            } else if (command.equals("MARK")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (index < 0) {

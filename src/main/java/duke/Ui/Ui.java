@@ -9,26 +9,26 @@ import duke.TaskList.TaskList;
  * Collection of the Ui
  */
 public class Ui {
-    private final String Border = "______________________________________";
+    private final String BORDER = "______________________________________";
 
     /**
-     * Print a chat with specified message.
+     * Prints a chat with specified message.
      * @param chat Message to be printed.
      */
     public String printChat(String chat) {
 
-        return Border + "\n" + chat + "\n" + Border;
+        return BORDER + "\n" + chat + "\n" + BORDER;
     }
 
     /**
-     * Print introduction.
+     * Prints introduction.
      */
     public String hello() {
         return printChat("Hello! I'm Chrainx\n" + "What can I do for you?" );
     }
 
     /**
-     * Print new task added to TaskList.
+     * Prints new task added to TaskList.
      * @param task Task to be added.
      * @param numberOfTask Number of task in the TaskList.
      */
@@ -42,7 +42,7 @@ public class Ui {
     }
 
     /**
-     * Print delete task from TaskList.
+     * Prints delete task from TaskList.
      * @param task Task to be deleted.
      * @param numberOfTask Number of task in the TaskList.
      */
@@ -56,7 +56,7 @@ public class Ui {
     }
 
     /**
-     * Print task that the status is changed.
+     * Prints task that the status is changed.
      * @param task Target task.
      */
     public String markAsDone(Task task) {
@@ -64,7 +64,7 @@ public class Ui {
     }
 
     /**
-     * Print task that the status is changed.
+     * Prints task that the status is changed.
      * @param task Target task.
      */
     public String markAsNotDone(Task task) {
@@ -72,7 +72,7 @@ public class Ui {
     }
 
     /**
-     * Print bye message.
+     * Prints bye message.
      */
     public String bye(Storage storage, TaskList tasks) throws DukeException {
         storage.editStorage(tasks);
@@ -80,7 +80,7 @@ public class Ui {
     }
 
     /**
-     * Print message when there is unknown input.
+     * Prints message when there is unknown input.
      * @param e Exception where there is unknown input.
      */
     public String error(DukeException e) {
@@ -88,7 +88,7 @@ public class Ui {
     }
 
     /**
-     * Print all tasks as a list.
+     * Prints all tasks as a list.
      * @param tasks TaskList of the saved tasks.
      */
     public String listing(TaskList tasks) {
@@ -101,7 +101,7 @@ public class Ui {
     }
 
     /**
-     * Find the task with certain name.
+     * Find the tasks with certain name.
      * @param tasks List of the tasks.
      * @param input Name of the task.
      */

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Store the tasks into a file.
+ * Stores the tasks into a file.
  */
 public class Storage {
     private final String DIRECTORY = "./data";
@@ -21,7 +21,7 @@ public class Storage {
     private File FILE;
 
     /**
-     * Create a new file to store the tasks if it does not exist.
+     * Creates a new file to store the tasks if it does not exist.
      * @throws DukeException Exception to handle failed file creation.
      */
     public void createStorage() throws DukeException {
@@ -40,7 +40,7 @@ public class Storage {
     }
 
     /**
-     * Get the list of task stored in the storage.
+     * Gets the list of task stored in the storage.
      * @return Tasklist that contain all tasks stored in the storage.
      * @throws DukeException Exception when the chatbot cannot find the storage.
      */
@@ -74,11 +74,11 @@ public class Storage {
     }
 
     /**
-     * Edit the storage according the new TaskList edited by the user.
+     * Edits the storage according the new TaskList edited by the user.
      * @param tasks TaskList of Tasks created by the user.
      * @throws DukeException Exception where the chatbot failed to edit the file.
      */
-    public void editStorage (TaskList tasks) throws DukeException {
+    public void editStorage(TaskList tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(FILE);
             for (int i = 0; i < tasks.getNumberOfTask(); i++) {

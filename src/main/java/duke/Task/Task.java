@@ -3,14 +3,14 @@ package duke.Task;
 import duke.DukeException.DukeException;
 
 /**
- * Represnt a task.
+ * Represents a task.
  */
 public abstract class Task {
     private boolean isDone;
     private String name;
 
     /**
-     * Create a task.
+     * Creates a task.
      * @param name Description of the task.
      */
     public Task(String name) {
@@ -19,7 +19,7 @@ public abstract class Task {
     }
 
     /**
-     * Change the status to a new status
+     * Changes the status to a new status
      * @param newStatus New Status that the task will have.
      */
     public void changeMarkStatus(boolean newStatus) {
@@ -27,7 +27,7 @@ public abstract class Task {
     }
 
     /**
-     * Print task as a string.
+     * Prints task as a string.
      * @return String representing the task.
      */
     @Override
@@ -48,7 +48,7 @@ public abstract class Task {
     }
     public abstract String writeString();
     /**
-     * Check whether the input is a task.
+     * Checks whether the input is a task.
      * @param input Task to be checked.
      * @return Boolean that represent whether the input is a task.
      * @throws DukeException Exception where the input is not a task.
