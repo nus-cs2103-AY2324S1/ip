@@ -20,11 +20,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (" +
-                "from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString() + " ("
+                + "from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
-    public String toData() { return "E" + super.toData() + "|" + start + "|" + end; }
+    public String toData() {
+        return "E" + super.toData() + "|" + start + "|" + end;
+    }
 }

@@ -25,10 +25,10 @@ public class MainWindow extends AnchorPane {
 
     private Juke juke;
 
-    private Image userImage = new Image(Objects.requireNonNull
-            (this.getClass().getResourceAsStream("/images/Music.jfif")));
-    private Image jukeImage = new Image(Objects.requireNonNull
-            (this.getClass().getResourceAsStream("/images/Jukebox.jpg")));
+    private Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/Music.jfif")));
+    private Image jukeImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/Jukebox.jpg")));
 
     @FXML
     public void initialize() {

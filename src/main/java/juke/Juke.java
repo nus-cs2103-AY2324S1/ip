@@ -1,14 +1,14 @@
 package juke;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-
 import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import javafx.application.Application;
+import javafx.application.Platform;
 
 /**
  * The Juke class coordinates all operations of the bot
@@ -85,7 +85,7 @@ public class Juke {
     public String mark(int index) throws JukeError {
         Task currTask = tasks.markAsDone(index);
         storage.updateAll(tasks.getTasks());
-        assert currTask.isDone  : "Task should be marked as done";
+        assert currTask.isDone : "Task should be marked as done";
         return ui.mark(currTask);
     }
 

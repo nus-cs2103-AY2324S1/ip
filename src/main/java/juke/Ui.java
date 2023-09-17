@@ -14,7 +14,7 @@ public class Ui {
      */
     public static String printStart() {
         return "Hello! I'm Juke!\n"
-        + "What can I do for you?\n";
+            + "What can I do for you?\n";
     }
 
     /**
@@ -69,8 +69,8 @@ public class Ui {
      */
     public String delete(Task task, int size) {
         return "Noted. I've removed this task:\n"
-        + "\t" + task.toString() + "\n"
-        + "Now you have " + size + " tasks in the list.";
+            + "\t" + task.toString() + "\n"
+            + "Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -80,8 +80,8 @@ public class Ui {
      */
     public String createTask(Task task, int size) {
         return "Got it. I've added this task:\n"
-        + "\t" + task.toString() + "\n"
-        + "Now you have " + size + " tasks in the list.";
+            + "\t" + task.toString() + "\n"
+            + "Now you have " + size + " tasks in the list.";
     }
 
     /**

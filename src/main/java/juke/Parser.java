@@ -27,36 +27,29 @@ public class Parser {
     String parse(String input) throws Exception {
         if (input.equalsIgnoreCase("bye")) {
             return juke.closeBot();
-        }
-        else if (input.equalsIgnoreCase("list")) {
+        } else if (input.equalsIgnoreCase("list")) {
             return juke.printList();
-        }
-        else if (input.contains("unmark ")) {
+        } else if (input.contains("unmark ")) {
             int index = Integer.parseInt(input.substring(7));
             return juke.unmark(index);
-        }
-        else if (input.contains("mark ")) {
+        } else if (input.contains("mark ")) {
             int index = Integer.parseInt(input.substring(5));
             return juke.mark(index);
-        }
-        else if (input.startsWith("delete ")) {
+        } else if (input.startsWith("delete ")) {
             int index = Integer.parseInt(input.substring(7));
             return juke.delete(index);
-        }
-        else if (input.startsWith("find ")) {
+        } else if (input.startsWith("find ")) {
             if (input.length() < 6) {
                 throw new JukeError("Please specify a search term.");
             }
             String searchTerm = input.substring(5);
             return juke.find(searchTerm);
-        }
-        else if (input.startsWith("todo")) {
+        } else if (input.startsWith("todo")) {
             if (input.length() < 5 || input.substring(5).length() == 0) {
                 throw new JukeError("The description of a todo cannot be empty.");
             }
             return juke.createTodo(input.substring(5));
-        }
-        else if (input.startsWith("deadline")) {
+        } else if (input.startsWith("deadline")) {
             // Match string with pattern deadline (taskname) /by (date)
             final Pattern deadlinePattern = Pattern.compile(
                     "^deadline\\s+(.*)\\s+/by\\s+(.*)$");
@@ -68,8 +61,7 @@ public class Parser {
                     throw new JukeError("Failed to parse date.");
                 }
             }
-        }
-        else if (input.startsWith("event")) {
+        } else if (input.startsWith("event")) {
             // Match string with pattern event (taskName) /from (date) /to (date)
             final Pattern eventPattern = Pattern.compile(
                     "^event\\s+(.*)\\s+/from\\s+(.*)\\s+/to\\s+(.*)$");
@@ -83,8 +75,7 @@ public class Parser {
                     throw new JukeError("Failed to parse date.");
                 }
             }
-        }
-        else {
+        } else {
             throw new JukeError("I'm sorry, but I don't know what that means :-(");
         }
         return "Juke may have encountered a problem - please try that again!";

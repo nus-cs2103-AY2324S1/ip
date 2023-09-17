@@ -1,6 +1,10 @@
 package juke;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -13,9 +17,9 @@ import java.util.Objects;
  * @author lshaoqin
  */
 public class Storage {
-    File savefile;
+    private File savefile;
     public Storage(String filepath) {
-       this.savefile = new File(filepath);
+        this.savefile = new File(filepath);
         if (!savefile.exists()) {
             try {
                 savefile.createNewFile();
