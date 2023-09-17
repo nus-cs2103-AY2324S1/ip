@@ -92,6 +92,11 @@ Ends the user interaction with Didier and closes the program.
 
 Command Format: `bye`
 
+### Detecting duplicate tasks
+Didier will automatically detect if the user attempts to add a duplicate task, i.e.
+a task with the same description and same date parameters as an existing task.
+Such additions are automatically rejected by Didier.
+
 ### Saving the data
 All the task data passed to Didier is stored automatically in the
 hard drive after all relevant commands. This data is automatically loaded
