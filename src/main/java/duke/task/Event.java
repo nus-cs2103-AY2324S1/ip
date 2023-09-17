@@ -37,7 +37,7 @@ public class Event extends Task {
      */
     @Override
     public String fileFormat() {
-        return String.format("E%s%s%s%s%s%s",
+        return String.format("E%s%s%s%s%s%s\n",
                 Storage.SEPARATOR,
                 super.fileFormat(),
                 Storage.SEPARATOR,

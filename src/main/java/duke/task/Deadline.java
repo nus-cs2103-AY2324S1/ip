@@ -34,7 +34,7 @@ public class Deadline extends Task {
      */
     @Override
     public String fileFormat() {
-        return String.format("D%s%s%s%s",
+        return String.format("D%s%s%s%s\n",
                 Storage.SEPARATOR,
                 super.fileFormat(),
                 Storage.SEPARATOR,

@@ -158,130 +158,24 @@ public class Storage {
     }
 
     /**
-     * Changes the file according to the keyword and index.
-     * <p>If the index is <b>NEGATIVE</b>, it will change <b>ALL</b> the tasks.<br>
-     * If the index is <b>POSITIVE</b>, it will change the task with the index.<br>
-     * If the keyword is <b>DELETE</b>, it will delete the task.<br>
-     * If the keyword is <b>MARK</b>, it will mark the task.<br>
-     * If the keyword is <b>UNMARK</b>, it will unmark the task.</p>
+     * Saves the task list to the data file. It will clear the file and
+     * write the task list to the file.
      *
-     * @param key   The keyword to change the file.
-     * @param index The index of the task to be changed.
+     * @param fileFormattedTaskList The task list in file format.
      * @throws DukeException If the file is not found.
      */
-    public void changeFile(Keyword key, int index) throws DukeException {
+    public void save(String[] fileFormattedTaskList) throws DukeException {
         assert file.exists() : "File should exist";
 
         try {
-            String tempPath = this.folderPath + "/temp.txt";
-            Files.copy(Paths.get(this.filePath), Paths.get(tempPath));
             FileWriter fw = new FileWriter(this.filePath);
             fw.write(""); // Clear the file
-            Scanner sc = new Scanner(new File(tempPath));
-
-            processChange(key, index, sc, fw);
-            sc.close();
+            for (String fileFormatTask : fileFormattedTaskList) {
+                fw.write(fileFormatTask);
+            }
             fw.close();
-            Files.delete(Paths.get(tempPath));
         } catch (IOException e) {
             throw new DukeException();
-        }
-    }
-
-    /**
-     * Process the change of the file.
-     * <p>If the index is <b>NEGATIVE</b>, it will change <b>ALL</b> the tasks.<br>
-     * If the index is <b>POSITIVE</b>, it will change the task with the index.<br>
-     * If the keyword is <b>DELETE</b>, it will delete the task.<br>
-     * If the keyword is <b>MARK</b>, it will mark the task.<br>
-     * If the keyword is <b>UNMARK</b>, it will unmark the task.</p>
-     *
-     * @param key   The keyword to change the file.
-     * @param index The index of the task to be changed.
-     * @param sc    The scanner of the file.
-     * @param fw    The file writer of the file.
-     * @throws IOException If the file is not found.
-     */
-    private void processChange(Keyword key, int index, Scanner sc, FileWriter fw) throws IOException {
-        if (key.equals(Keyword.DELETE)) {
-            if (index >= 0) {
-                removeLine(index, sc, fw);
-            }
-        } else if (index >= 0) {
-            markLine(index, key.equals(Keyword.MARK), sc, fw);
-        } else {
-            markAll(key.equals(Keyword.MARK), sc, fw);
-        }
-    }
-
-    /**
-     * Removes the line with the index in the file.
-     *
-     * @param index The index of the line to be removed.
-     * @param sc    The scanner of the file.
-     * @param fw    The file writer of the file.
-     * @throws IOException If the file is not found.
-     */
-    private void removeLine(int index, Scanner sc, FileWriter fw) throws IOException {
-        int curr = 0;
-
-        while (sc.hasNext()) {
-            if (curr != index) {
-                fw.write(sc.nextLine());
-                fw.write("\n");
-            } else {
-                sc.nextLine();
-            }
-            curr++;
-        }
-    }
-
-    /**
-     * Marks or unmark the line with the index in the file.
-     *
-     * @param index  The index of the line to be marked.
-     * @param isMark Whether to mark or unmark the line.
-     * @param sc     The scanner of the file.
-     * @param fw     The file writer of the file.
-     * @throws IOException If the file is not found.
-     */
-    private void markLine(int index, boolean isMark, Scanner sc, FileWriter fw) throws IOException {
-        assert index >= 0 : "Index should be positive";
-        assert file.exists() : "File should exist";
-
-        int curr = 0;
-
-        while (sc.hasNext()) {
-            if (curr != index) {
-                fw.write(sc.nextLine());
-            } else {
-                String task = sc.nextLine();
-                String result = task.substring(0, SEPARATOR.length() + 1)
-                        + (isMark ? "1" : "0")
-                        + task.substring(SEPARATOR.length() + 2);
-                fw.write(result);
-            }
-            fw.write("\n");
-            curr++;
-        }
-    }
-
-    /**
-     * Marks or unmark all the lines in the file.
-     *
-     * @param isMark Whether to mark or unmark the line.
-     * @param sc     The scanner of the file.
-     * @param fw     The file writer of the file.
-     * @throws IOException If the file is not found.
-     */
-    private void markAll(boolean isMark, Scanner sc, FileWriter fw) throws IOException {
-        while (sc.hasNext()) {
-            String task = sc.nextLine();
-            String result = task.substring(0, SEPARATOR.length() + 1)
-                    + (isMark ? "1" : "0")
-                    + task.substring(SEPARATOR.length() + 2)
-                    + "\n";
-            fw.write(result);
         }
     }
 }

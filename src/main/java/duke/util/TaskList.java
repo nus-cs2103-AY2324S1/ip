@@ -230,4 +230,16 @@ public class TaskList {
             throw new DukeException("OOPS!!! This is not a valid command.");
         }
     }
+
+    /**
+     * Returns the file format of the {@code TaskList}.
+     *
+     * @return the file format of the {@code TaskList}
+     * @see Task#fileFormat()
+     */
+    public String[] saveTaskList() {
+        return taskList.stream()
+                       .map(Task::fileFormat)
+                       .toArray(String[]::new);
+    }
 }
