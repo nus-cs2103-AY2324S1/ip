@@ -1,7 +1,9 @@
 package duke;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
+
 import duke.exceptions.CommandDetailException;
 import duke.exceptions.CommandNotRecognizedException;
 import duke.exceptions.TimeParsingException;
