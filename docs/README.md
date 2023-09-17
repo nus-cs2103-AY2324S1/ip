@@ -1,6 +1,11 @@
-# User Guide
+# User Guide for PikaKing
 
-## Features 
+> “Simplicity boils down to two steps: Identify the essential. Eliminate the rest.” – Leo Babauta, productivity blogger
+> [source](https://friday.app/p/productivity-quotes)
+
+![Screenshot of a student that able to multitask and work efficiently to achieve success](/src/main/resources/images/productivityImage.png)
+
+## Features
 
 ### Feature-ABC
 
@@ -16,7 +21,7 @@ Description of the feature.
 
 Describe the action and its outcome.
 
-Example of usage: 
+Example of usage:
 
 `keyword (optional arguments)`
 

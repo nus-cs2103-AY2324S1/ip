@@ -57,7 +57,7 @@ public class TaskList extends ArrayList<Task> {
      * Prints out the current taskList
      */
     public String printList() {
-        String output = "Here are the tasks in your list:\n";
+        String output = "Pika Pika!! Here are the tasks in your list:\n";
         System.out.println("Here are the tasks in your list:");
         for (int length = 1; length < this.size() + 1; length += 1) {
             output += length + "." + this.get(length - 1) + "\n";
