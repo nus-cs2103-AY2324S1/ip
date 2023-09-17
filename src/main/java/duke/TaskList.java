@@ -444,7 +444,6 @@ public class TaskList {
 
         startDate = fromInfo[0];
         startTime = fromInfo[1];
-
         endDate = toInfo[0];
         endTime = toInfo[1];
 
@@ -491,6 +490,13 @@ public class TaskList {
         startTime = fromInfo[3];
         endTime = toInfo[3];
         endTime = endTime.substring(0, endTime.length() - 1);
+
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDateStart = LocalDate.parse(startDate, inputFormatter);
+        LocalDate localDateEnd = LocalDate.parse(endDate, inputFormatter);
+        startDate = localDateStart.format(outputFormatter);
+        endDate = localDateEnd.format(outputFormatter);
 
         return new String[]{task, startDate, endDate, startTime, endTime};
     }
