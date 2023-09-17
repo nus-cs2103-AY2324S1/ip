@@ -2,24 +2,25 @@ package yong.command;
 
 import yong.tasklist.TaskList;
 
-import yong.tasks.Task;
 import yong.tasks.Event;
+import yong.tasks.Task;
+
 
 import yong.exception.DukeException;
 
 
 /**
- * Represents the actions needed if the user inputs an event task
+ * Represents a command for handling event tasks.
  */
 public class EventCommand extends Command {
 
     private String inputString;
 
     /**
-     * Constructor for the event command.
+     * Constructs an EventCommand.
      *
-     * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
-     * @param inp Line of input from the CLI
+     * @param taskList The TaskList object used to maintain the list of tasks in the chatbot.
+     * @param inp The input line from the command-line interface.
      */
     public EventCommand(TaskList taskList, String inp) {
         super(taskList);
@@ -27,8 +28,10 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Method to be executed when this command is called.
      * Initializes an Event object and adds it to the taskList.
+     *
+     * @return A message indicating the task has been added.
+     * @throws DukeException If the input is invalid.
      */
     @Override
     public String execute() {

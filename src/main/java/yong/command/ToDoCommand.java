@@ -8,17 +8,17 @@ import yong.tasks.ToDo;
 import yong.exception.DukeException;
 
 /**
- * Represents the actions needed if the user inputs a todo task.
+ * Represents a command for creating a ToDo task.
  */
 public class ToDoCommand extends Command {
 
     private String inputString;
 
     /**
-     * Constructor for the todo command.
+     * Constructs a ToDoCommand.
      *
-     * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
-     * @param inp Line of input from the CLI
+     * @param taskList The TaskList object used to maintain the list of tasks in the chatbot.
+     * @param inp      The input line from the command-line interface.
      */
     public ToDoCommand(TaskList taskList, String inp) {
         super(taskList);
@@ -26,8 +26,10 @@ public class ToDoCommand extends Command {
     }
 
     /**
-     * Method to be executed when this command is called.
-     * Initializes a new ToDo object and adds it to the taskList.
+     * Initializes a new ToDo task and adds it to the taskList.
+     *
+     * @return A message indicating that the task has been added.
+     * @throws DukeException If the input is invalid.
      */
     @Override
     public String execute() {

@@ -89,6 +89,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks the number input to ensure that it is valid.
+     *
+     * @param s Number input portion of the user input.
+     * @throws DukeException
+     */
     private void checkNumberInput(String s) throws DukeException {
         if (s.equals("")) {
             throw new DukeException("This is an invalid input");

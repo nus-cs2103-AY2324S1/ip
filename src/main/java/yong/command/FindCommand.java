@@ -4,17 +4,17 @@ import yong.exception.DukeException;
 import yong.tasklist.TaskList;
 
 /**
- * Represents the actions needed if the user inputs a find Command
+ * Represents a command for finding tasks containing a specified keyword.
  */
 public class FindCommand extends Command {
 
     private String inputString;
 
     /**
-     * Constructor for the Find command.
+     * Constructs a FindCommand.
      *
-     * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
-     * @param inp Line of input from the CLI
+     * @param taskList The TaskList object used to maintain the list of tasks in the chatbot.
+     * @param inp The input line from the command-line interface.
      */
     public FindCommand(TaskList taskList, String inp) {
         super(taskList);
@@ -22,8 +22,10 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Method to be executed when this command is called.
-     * Prints out the tasks that contain the keyword.
+     * Prints out the tasks that contain the specified keyword.
+     *
+     * @return A list of tasks containing the keyword.
+     * @throws DukeException If the input is invalid.
      */
     @Override
     public String execute() {
@@ -37,6 +39,6 @@ public class FindCommand extends Command {
         } catch (Exception e) {
             throw new DukeException("Please give a valid description for the find command");
         }
-
     }
 }
+

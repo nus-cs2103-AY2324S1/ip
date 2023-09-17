@@ -4,17 +4,17 @@ import yong.exception.DukeException;
 import yong.tasklist.TaskList;
 
 /**
- * Represents the actions needed if the user inputs Sort command
+ * Represents a command for sorting tasks.
  */
 public class SortCommand extends Command {
 
     private String inputString;
 
     /**
-     * Constructor for the Sort command.
+     * Constructs a SortCommand.
      *
-     * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
-     * @param inp      Line of input from the CLI
+     * @param taskList The TaskList object used to maintain the list of tasks in the chatbot.
+     * @param inp      The input line from the command-line interface.
      */
     public SortCommand(TaskList taskList, String inp) {
         super(taskList);
@@ -22,10 +22,10 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Method to be executed when this command is called.
-     * Sort functionalities supports: Chronologically, Alphabetically
-     * E.g. sort deadlines chronologically, sort all alphabetically
-     * Sorts the list according to the input field
+     * Sorts the list of tasks based on the specified criteria.
+     *
+     * @return A message indicating that the list has been sorted.
+     * @throws DukeException If the input is invalid.
      */
     @Override
     public String execute() {
@@ -36,12 +36,11 @@ public class SortCommand extends Command {
 
             taskList.sort(sortTaskType, sortBy);
 
-            outputString = "The array has been sorted " + sortBy;
+            outputString = "The list has been sorted " + sortBy;
 
             return outputString;
         } catch (Exception e) {
-            throw new DukeException("Please give a valid description for the find command");
+            throw new DukeException("Please give a valid description for the sort command");
         }
-
     }
 }

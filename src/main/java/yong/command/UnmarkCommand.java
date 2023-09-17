@@ -5,17 +5,17 @@ import yong.tasklist.TaskList;
 import yong.tasks.Task;
 
 /**
- * Represents the actions needed if the user inputs an unmark command.
+ * Represents a command for unmarking a completed task.
  */
 public class UnmarkCommand extends Command {
 
     private String numberString;
 
     /**
-     * Constructor for the unmark command.
+     * Constructs an UnmarkCommand.
      *
-     * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
-     * @param numberString Parsed number input from the CLI.
+     * @param taskList The TaskList object used to maintain the list of tasks in the chatbot.
+     * @param numberString The parsed number input from the command-line interface.
      */
     public UnmarkCommand(TaskList taskList, String numberString) {
         super(taskList);
@@ -24,8 +24,9 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Method to be executed when this command is called.
-     * Initializes a new Deadline object and adds it to the tasklist.
+     * Unmarks the specified task as not completed.
+     *
+     * @return A message indicating that the task has been unmarked successfully.
      */
     @Override
     public String execute() {
@@ -33,8 +34,9 @@ public class UnmarkCommand extends Command {
 
         Task task = taskList.unmark(number);
 
-        outputString = "YONG has unmarked this task successfully! \n" + task.toString() + "\n";
+        outputString = "Task unmarked successfully! \n" + task.toString() + "\n";
 
         return outputString;
     }
 }
+

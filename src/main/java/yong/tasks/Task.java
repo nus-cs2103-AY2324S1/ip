@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Superclass that supports task methods
+ * Superclass that supports task methods.
  */
 public class Task implements Serializable {
     protected String description;
@@ -17,7 +17,8 @@ public class Task implements Serializable {
     protected boolean isDone;
 
     /**
-     * Constructor for task invoked by superclass
+     * Constructor for task invoked by superclass.
+     *
      * @param description Description of task
      */
     public Task(String description) {
@@ -27,7 +28,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * If tasks is done indicates "X" else shows a blank
+     * If tasks is done indicates "X" else shows a blank.
+     *
      * @return returns a string of either X or blank
      */
     public String getStatusIcon() {
@@ -35,21 +37,22 @@ public class Task implements Serializable {
     }
 
     /**
-     * Marks the task as done
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Marks the task as undone
+     * Marks the task as undone.
      */
     public void unmarkAsDone() {
         this.isDone = false;
     }
 
     /**
-     * String representation of the task
+     * String representation of the task.
+     *
      * @return details of the task
      */
     @Override
@@ -60,7 +63,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Parses date string into LocalDate objects, with dateString in the format yyyy-mm-dd HHmm
+     * Parses date string into LocalDate objects, with dateString in the format yyyy-mm-dd HHmm.
      *
      * @param datetimeString String format of the date and or time parsed in yyyy-mm-dd HHmm
      */
@@ -77,9 +80,10 @@ public class Task implements Serializable {
     }
 
     /**
-     * Returns the string format of datetime objects
-     * @param date Date to be converted to a string
-     * @return String format of the date in MMM dd yyyy HHmm format
+     * Returns the string format of datetime objects.
+     *
+     * @param date Date to be converted to a string.
+     * @return String format of the date in MMM dd yyyy HHmm format.
      */
     protected String printDateTime(LocalDateTime date) {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
@@ -90,17 +94,18 @@ public class Task implements Serializable {
     }
 
     /**
-     * Returns the description of the task
+     * Returns the description of the task.
      *
-     * @return description of the task
+     * @return description of the task.
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Method to return the date of the object
-     * @return Comparison LocalDateTime object
+     * Return the date of the object.
+     *
+     * @return Comparison LocalDateTime object.
      */
     public LocalDateTime getCompareDate() {
         return createdDate;

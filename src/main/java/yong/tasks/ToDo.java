@@ -6,7 +6,8 @@ package yong.tasks;
 public class ToDo extends Task {
 
     /**
-     * Constructor for the duke.tasks.ToDo class
+     * Constructor for the ToDo class.
+     *
      * @param description Description of the task
      */
     public ToDo(String description) {
@@ -14,7 +15,8 @@ public class ToDo extends Task {
     }
 
     /**
-     * String representation of the duke.tasks.ToDo task
+     * String representation of the ToDo task.
+     *
      * @return Information of event
      */
     @Override

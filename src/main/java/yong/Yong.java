@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 
 /**
- * Chatbot named YONG that responds to user input using CLI
+ * Chatbot named YONG that responds to user input using CLI.
  */
 public class Yong {
 
@@ -32,10 +32,10 @@ public class Yong {
 
 
     /**
-     * Returns String response of chatbot
+     * Returns String response of chatbot.
      *
-     * @param userInput user String input
-     * @return Yong chatbot string response
+     * @param userInput user String input.
+     * @return Yong chatbot string response.
      */
     public String getResponse(String userInput) {
         try {
@@ -59,7 +59,7 @@ public class Yong {
     }
 
     /**
-     * Run function to run Yong chatbot according to CLI inputs
+     * Run function to run Yong chatbot according to CLI inputs.
      */
     public static void run() {
         Scanner scanner = new Scanner(System.in);

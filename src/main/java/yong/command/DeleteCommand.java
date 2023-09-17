@@ -12,7 +12,7 @@ public class DeleteCommand extends Command {
     private String numberString;
 
     /**
-     * Constructor for DeleteCommand
+     * Constructs a DeleteCommand.
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      * @param numberString Parsed string input from the CLI, represents task to be deleted.
@@ -25,7 +25,6 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Method to be executed when this command is called.
      * Deletes the specified task by the user.
      */
     @Override

@@ -1,17 +1,19 @@
 package yong.tasks;
 
 import java.time.LocalDateTime;
+
 /**
- * duke.tasks.Deadline class representing a task and description
+ * Represents a Deadline task with a description and due date/time.
  */
 public class Deadline extends Task {
 
     protected LocalDateTime dueBy;
 
     /**
-     * Constructor for the deadline class
-     * @param description Description of the task
-     * @param dueBy deadline of the task
+     * Constructor for the Deadline class.
+     *
+     * @param description Description of the task.
+     * @param dueBy Deadline of the task in the format "yyyy-MM-dd HH:mm".
      */
     public Deadline(String description, String dueBy) {
         super(description);
@@ -19,21 +21,23 @@ public class Deadline extends Task {
     }
 
     /**
-     * String representation of the deadline task
-     * @return Information of deadline
+     * String representation of the Deadline task.
+     *
+     * @return Information about the deadline.
      */
     @Override
     public String toString() {
         String ret = "[D] " + super.toString() + " (by: " + printDateTime(this.dueBy) + ")";
-
         return ret;
     }
 
     /**
-     * Getter method for the dueby date
-     * @return LocalDatetime object dueby time
+     * Getter method for the dueBy date.
+     *
+     * @return LocalDateTime object representing the dueBy date and time.
      */
     public LocalDateTime getCompareDate() {
         return dueBy;
     }
 }
+

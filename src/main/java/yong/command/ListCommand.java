@@ -3,22 +3,23 @@ package yong.command;
 import yong.tasklist.TaskList;
 
 /**
- * Represents the actions needed if the user inputs a list command.
+ * Represents a command for listing all tasks.
  */
 public class ListCommand extends Command {
 
     /**
-     * Constructor for the list command.
+     * Constructs a ListCommand.
      *
-     * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
+     * @param taskList The TaskList object used to maintain the list of tasks in the chatbot.
      */
     public ListCommand(TaskList taskList) {
         super(taskList);
     }
 
     /**
-     * Method to be executed when this command is called.
-     * Prints out all tasks in the tasklist in the specified format.
+     * Prints out all tasks in the task list in the specified format.
+     *
+     * @return A formatted list of tasks or a message if there are no tasks.
      */
     public String execute() {
         outputString = taskList.list();
@@ -29,3 +30,4 @@ public class ListCommand extends Command {
         }
     }
 }
+

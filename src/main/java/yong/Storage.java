@@ -25,7 +25,7 @@ public class Storage {
     private TaskList taskList;
 
     /**
-     * Constructor of the duke.Storage class.
+     * Constructor of the Storage class.
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
      */

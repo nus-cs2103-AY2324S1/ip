@@ -5,17 +5,17 @@ import yong.tasklist.TaskList;
 import yong.tasks.Task;
 
 /**
- * Represents the actions needed if the user inputs a mark command.
+ * Represents a command for marking a task as completed.
  */
 public class MarkCommand extends Command {
 
     private String numberString;
 
     /**
-     * Constructor for the mark command.
+     * Constructs a MarkCommand.
      *
-     * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
-     * @param numberString Line of input from the CLI.
+     * @param taskList The TaskList object used to maintain the list of tasks in the chatbot.
+     * @param numberString The input line from the command-line interface containing the task number to mark.
      */
     public MarkCommand(TaskList taskList, String numberString) {
         super(taskList);
@@ -24,8 +24,9 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Method to be executed when this command is called.
-     * Marks the specified task as being completed.
+     * Marks the specified task as completed.
+     *
+     * @return A message indicating that the task has been marked as completed.
      */
     @Override
     public String execute() {
@@ -33,7 +34,7 @@ public class MarkCommand extends Command {
 
         Task task = taskList.mark(number);
 
-        outputString = "YONG has marked this task as completed! \n" + task.toString();
+        outputString = "Task marked as completed! \n" + task.toString();
 
         return outputString;
     }

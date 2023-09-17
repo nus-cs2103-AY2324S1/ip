@@ -2,24 +2,23 @@ package yong.command;
 
 import yong.tasklist.TaskList;
 
+import yong.exception.DukeException;
+
 import yong.tasks.Task;
 import yong.tasks.Deadline;
 
-import yong.exception.DukeException;
-
-
 /**
- * Represents the actions needed if the user inputs a deadline task
+ * Represents the actions needed if the user inputs a deadline task.
  */
 public class DeadlineCommand extends Command {
 
     private String inp;
 
     /**
-     * Constructor for the deadline command.
+     * Constructs a deadline command.
      *
      * @param taskList TaskList object being used to maintain the list of tasks in the chatbot.
-     * @param inp Line of input from the CLI
+     * @param inp      Line of input from the CLI
      */
     public DeadlineCommand(TaskList taskList, String inp) {
         super(taskList);
@@ -27,8 +26,10 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Method to be executed when this command is called.
      * Initializes a new Deadline object and adds it to the taskList.
+     *
+     * @return A string representing the result of executing the command.
+     * @throws DukeException If the input format is invalid.
      */
     @Override
     public String execute() {

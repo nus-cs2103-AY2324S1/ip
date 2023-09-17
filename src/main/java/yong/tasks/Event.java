@@ -3,7 +3,7 @@ package yong.tasks;
 import java.time.LocalDateTime;
 
 /**
- * duke.tasks.Event class representing a task and description.
+ * Represents an Event task with a description, start time, and end time.
  */
 public class Event extends Task {
 
@@ -11,11 +11,11 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     /**
-     * Constructor for the duke.tasks.Event class.
+     * Constructor for the Event class.
      *
      * @param description Description of the task.
-     * @param from start time of task.
-     * @param to end time of task.
+     * @param from Start time of the task in the format "yyyy-MM-dd HH:mm".
+     * @param to End time of the task in the format "yyyy-MM-dd HH:mm".
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -24,9 +24,9 @@ public class Event extends Task {
     }
 
     /**
-     * String representation of the duke.tasks.Event task.
+     * String representation of the Event task.
      *
-     * @return Information of event.
+     * @return Information about the event.
      */
     @Override
     public String toString() {
@@ -35,6 +35,11 @@ public class Event extends Task {
         return ret;
     }
 
+    /**
+     * Getter method for the start time of the event.
+     *
+     * @return LocalDateTime object representing the start time.
+     */
     public LocalDateTime getCompareDate() {
         return from;
     }
