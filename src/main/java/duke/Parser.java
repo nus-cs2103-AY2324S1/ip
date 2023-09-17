@@ -8,6 +8,8 @@ import duke.command.MarkCommand;
 import duke.command.SearchCommand;
 import duke.command.UnmarkCommand;
 
+import java.util.ArrayList;
+
 // Solution below adapted and inspired by https://chat.openai.com/share/7f037351-3be6-4105-b138-77f68d428c84
 
 /**
@@ -33,10 +35,14 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "search":
+            String[] searchArgs = arguments.split(" ", 2);
+            String keyword = searchArgs[0];
+            String filters = (searchArgs.length > 1) ? searchArgs[1] : "";
+
             if (arguments.isEmpty()) {
                 throw new DukeException.SearchException();
             }
-            return new SearchCommand(arguments);
+            return new SearchCommand(keyword, filters.toLowerCase());
         case "delete":
             int indexToDelete = Integer.parseInt(arguments) - 1;
             return new DeleteCommand(indexToDelete);
