@@ -58,6 +58,9 @@ public class Yong {
         return isExit;
     }
 
+    /**
+     * Run function to run Yong chatbot according to CLI inputs
+     */
     public static void run() {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
