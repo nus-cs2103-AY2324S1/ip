@@ -23,13 +23,16 @@ public class DeadlineCommand extends Command {
 
     @Override
     public String processCommand() throws AlainException {
-        String mission = text.substring(8);
+        if (text.length() <= 8) {
+            throw new AlainException("The description of a Deadline cannot be empty.");
+        }
+        String mission = text.substring(9);
         if (mission.length() == 0) {
             throw new AlainException("The description of a Deadline cannot be empty.");
         }
         String[] parts = mission.split("/by ");
         if (parts.length != 2) {
-            throw new AlainException("The description of a Deadline is invalid");
+            throw new AlainException("The description of a Deadline is invalid.");
         }
         Deadline newDeadline = new Deadline(parts[0], parts[1]);
         list.addTask(newDeadline);

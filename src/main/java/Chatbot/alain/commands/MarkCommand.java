@@ -22,6 +22,9 @@ public class MarkCommand extends Command {
     @Override
     public String processCommand() throws AlainException {
         String numericPart = text.substring(5);
+        if (Integer.parseInt(numericPart) - 1 < 0 || Integer.parseInt(numericPart) > list.size()) {
+            throw new AlainException("Task with such index does not exist.");
+        }
         list.getTask(Integer.parseInt(numericPart) - 1).markAsDone();
         Ui.showMarkTask(numericPart, list);
         return GuiUi.showMarkTask(numericPart, list);

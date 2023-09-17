@@ -131,11 +131,11 @@ public class ChatbotAlain extends Application {
         try {
             boolean isMatchMarkCommand = Pattern.matches("mark \\d+", text);
             boolean isMatchUnmarkCommand = Pattern.matches("unmark \\d+", text);
-            boolean isDeadlineCommand = Pattern.matches("deadline .+", text);
-            boolean isToDoCommand = Pattern.matches("todo .+", text);
-            boolean isEventCommand = Pattern.matches("event .+", text);
-            boolean isDeleteCommand = Pattern.matches("delete .+", text);
-            boolean isFindCommand = Pattern.matches("find .+", text);
+            boolean isDeadlineCommand = Pattern.matches("deadline.+", text) || text.contains("deadline");
+            boolean isToDoCommand = Pattern.matches("todo.+", text) || text.contains("todo");
+            boolean isEventCommand = Pattern.matches("event.+", text) || text.contains("event");
+            boolean isDeleteCommand = Pattern.matches("delete.+", text);
+            boolean isFindCommand = Pattern.matches("find.+", text);
             boolean isByeCommand = text.equals("bye");
             boolean isListCommand = text.equals("list");
             if (isFindCommand) {
@@ -145,12 +145,15 @@ public class ChatbotAlain extends Application {
                 return new DeleteCommand(list, text, storage).processCommand();
             }
             if (isToDoCommand) {
+                System.out.println(text);
                 return new TodoCommand(list, text, storage).processCommand();
             }
             if (isDeadlineCommand) {
+                System.out.println(text);
                 return new DeadlineCommand(list, text, storage).processCommand();
             }
             if (isEventCommand) {
+                System.out.println(text);
                 return new EventCommand(list, text, storage).processCommand();
             }
             if (isByeCommand) {

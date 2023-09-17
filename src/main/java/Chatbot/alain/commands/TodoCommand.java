@@ -23,7 +23,10 @@ public class TodoCommand extends Command {
 
     @Override
     public String processCommand() throws AlainException {
-        String mission = text.substring(4);
+        if (text.length() <= 4) {
+            throw new AlainException("The description of a Todo cannot be empty.");
+        }
+        String mission = text.substring(5);
         if (mission.length() == 0) {
             throw new AlainException("The description of a Todo cannot be empty.");
         }

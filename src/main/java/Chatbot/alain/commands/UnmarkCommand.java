@@ -22,6 +22,9 @@ public class UnmarkCommand extends Command {
     @Override
     public String processCommand() throws AlainException {
         String numericPart = text.substring(7);
+        if (Integer.parseInt(numericPart) - 1 < 0 || Integer.parseInt(numericPart) > list.size()) {
+            throw new AlainException("Task with such index does not exist.");
+        }
         list.getTask(Integer.parseInt(numericPart) - 1).markAsUndone();
         Ui.showUnmarkTask(numericPart, list);
         return GuiUi.showUnmarkTask(numericPart, list);

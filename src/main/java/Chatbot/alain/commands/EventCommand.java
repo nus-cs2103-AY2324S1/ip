@@ -23,13 +23,16 @@ public class EventCommand extends Command {
 
     @Override
     public String processCommand() throws AlainException {
-        String mission = text.substring(5);
+        if (text.length() <= 5) {
+            throw new AlainException("The description of a Event cannot be empty.");
+        }
+        String mission = text.substring(6);
         if (mission.length() == 0) {
             throw new AlainException("The description of a Event cannot be empty.");
         }
         String[] parts = mission.split("/");
         if (parts.length != 3) {
-            throw new AlainException("The description of a Event is invalid");
+            throw new AlainException("The description of a Event is invalid.");
         }
         Event newEvent = new Event(parts[0],
                 parts[1].substring(5), parts[2].substring(3));
