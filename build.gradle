@@ -50,7 +50,7 @@ application {
 shadowJar {
     archiveBaseName = "Oscar"
     archiveClassifier = null
-    archiveVersion = "11-Sept-0900"
+    archiveVersion = "v0.2"
     dependsOn("distZip", "distTar")
 }
 

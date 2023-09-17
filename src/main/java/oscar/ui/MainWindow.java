@@ -3,21 +3,16 @@ package oscar.ui;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 import javax.swing.Timer;
-import java.util.concurrent.TimeUnit;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import javafx.util.Duration;
-import oscar.command.ExitCommand;
 import oscar.Oscar;
+import oscar.command.ExitCommand;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.

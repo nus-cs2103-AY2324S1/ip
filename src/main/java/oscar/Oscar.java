@@ -1,7 +1,6 @@
 package oscar;
 
 import oscar.command.Command;
-import oscar.command.ExitCommand;
 import oscar.essential.InfoList;
 import oscar.essential.Parser;
 import oscar.essential.Storage;
