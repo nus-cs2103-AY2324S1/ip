@@ -1,7 +1,5 @@
 # Aj-Bot
 
----
-
 ## Features 
 1.  Add / delete task
 2. Mark / UnMark task
@@ -27,7 +25,6 @@ Allows users to undo the latest command.
 
 ## Usage
 
----
 
 ### `help` - View a list of possible commands
 
