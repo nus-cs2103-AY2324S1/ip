@@ -43,7 +43,7 @@ public class Parser {
         case "find":
             return new FindCommand(commandWords.get(1));
         case "todo":
-            if(commandWords.size() == 1) {
+            if (commandWords.size() == 1) {
                 throw new EmptyDescriptionException("The description of a todo cannot be empty! '^'");
             }
             ToDo todo = new ToDo(commandWords.get(1));
@@ -54,6 +54,8 @@ public class Parser {
         case "event":
             Event event = createEvent(commandWords);
             return new AddCommand("E", event);
+        case "load":
+            return new LoadCommand(commandWords.get(1));
         default:
             throw new WrongCommandException("Sorry, I don't understand what that means.. '^'");
         }
@@ -67,8 +69,9 @@ public class Parser {
      * @throws EmptyDescriptionException if user tries to add a new task with no description.
      * @throws WrongDateTimeFormatException if the inputted date time fails to follow the expected date time format.
      */
-    private static Event createEvent(ArrayList<String> commandWords) throws EmptyDescriptionException, WrongDateTimeFormatException {
-        if(commandWords.size() == 1) {
+    private static Event createEvent(ArrayList<String> commandWords) throws EmptyDescriptionException,
+            WrongDateTimeFormatException {
+        if (commandWords.size() == 1) {
             throw new EmptyDescriptionException("The description of an event cannot be empty! '^'");
         }
         String eventData = commandWords.get(1);
@@ -89,8 +92,9 @@ public class Parser {
      * @throws EmptyDescriptionException if user tries to add a new task with no description.
      * @throws WrongDateTimeFormatException if the inputted date time fails to follow the expected date time format.
      */
-    private static Deadline createDeadline(ArrayList<String> commandWords) throws EmptyDescriptionException, WrongDateTimeFormatException {
-        if(commandWords.size() == 1) {
+    private static Deadline createDeadline(ArrayList<String> commandWords) throws EmptyDescriptionException,
+            WrongDateTimeFormatException {
+        if (commandWords.size() == 1) {
             throw new EmptyDescriptionException("The description of a deadline cannot be empty! '^'");
         }
         String deadlineData = commandWords.get(1);

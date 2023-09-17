@@ -26,5 +26,13 @@ public class Thea {
             tasks = new TaskList();
         }
     }
+
+    public void setTaskList(TaskList tasks) {
+        this.tasks = tasks;
+    }
+
+    public void changeFileName(String fileName) {
+        this.storage.setFileName(fileName);
+    }
 }
 

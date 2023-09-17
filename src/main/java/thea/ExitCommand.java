@@ -19,13 +19,11 @@ public class ExitCommand extends Command {
      * to exit the program.
      * Saves the taskList before exiting.
      *
-     * @param tasks list of current tasks.
-     * @param ui Ui class that deals with user interaction.
-     * @param storage Storage class that deals with saving data.
+     * @param thea reference to the chatbot containing relevant data.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        storage.saveTaskList(tasks);
-        return ui.exit();
+    public String execute(Thea thea) {
+        thea.storage.saveTaskList(thea.tasks);
+        return thea.ui.exit();
     }
 }
