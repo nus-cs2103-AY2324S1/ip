@@ -12,15 +12,16 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private final String path = "toothless.txt";
+    private final String taskPath = "toothlessTasks.txt";
+    private final String notePath = "toothlessNotes.txt";
 
     /**
      * Reads the previously saved list of tasks and returns it in a list of task descriptions.
      * @return A list of task descriptions.
      */
-    public List<String> readFile() {
+    public List<String> readTaskFile() {
         List<String> output = new ArrayList<>();
-        File f = new File(path);
+        File f = new File(taskPath);
         try {
             f.createNewFile();
             Scanner s = new Scanner(f);
@@ -28,6 +29,28 @@ public class Storage {
             while (s.hasNext()) {
                 String task = s.nextLine().trim();
                 output.add(task);
+            }
+
+            return output;
+        } catch (IOException e) {
+            return output;
+        }
+    }
+
+    /**
+     * Reads the previously saved list of notes and returns it in a list of note descriptions.
+     * @return A list of note descriptions.
+     */
+    public List<String> readNoteFile() {
+        List<String> output = new ArrayList<>();
+        File f = new File(notePath);
+        try {
+            f.createNewFile();
+            Scanner s = new Scanner(f);
+
+            while (s.hasNext()) {
+                String note = s.nextLine().trim();
+                output.add(note);
             }
 
             return output;
@@ -52,16 +75,23 @@ public class Storage {
      * @param tasks List of task descriptions.
      * @return The status of whether the save was successful or not.
      */
-    public String saveToDisk(List<String> tasks) {
+    public String saveToDisk(List<String> tasks, List<String> notes) {
         try {
-            FileWriter fw = new FileWriter(path);
+            FileWriter fwTasks = new FileWriter(taskPath);
+            FileWriter fwNotes = new FileWriter(notePath);
 
-            String input = "";
+            String inputTasks = "";
             for (int i = 0; i < tasks.size(); i++) {
-                input = input + tasks.get(i) + "\n";
+                inputTasks = inputTasks + tasks.get(i) + "\n";
             }
 
-            writeToFile(fw, input);
+            String inputNotes = "";
+            for (int i = 0; i < notes.size(); i++) {
+                inputNotes = inputNotes + notes.get(i) + "\n";
+            }
+
+            writeToFile(fwTasks, inputTasks);
+            writeToFile(fwNotes, inputNotes);
             return "Tasks saved successfully";
         } catch (IOException e) {
             return "Tasks could not be saved";
