@@ -3,8 +3,11 @@ package corgi.commands;
 import java.util.Stack;
 
 import corgi.State;
+import corgi.tasks.Deadline;
+import corgi.tasks.Event;
 import corgi.tasks.Task;
 import corgi.tasks.TaskList;
+import corgi.tasks.ToDo;
 import corgi.ui.TextRenderer;
 import javafx.util.Pair;
 
@@ -33,6 +36,13 @@ public class AddTaskCommand extends Command {
     public AddTaskCommand(Task target) {
         super(false);
         this.target = target;
+        if (target instanceof ToDo) {
+            this.taskType = "todo";
+        } else if (target instanceof Deadline) {
+            this.taskType = "deadline";
+        } else if (target instanceof Event) {
+            this.taskType = "event";
+        }
     }
 
     /**
