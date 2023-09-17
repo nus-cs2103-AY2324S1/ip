@@ -38,9 +38,9 @@ public class DeadlineTest {
         try {
             Deadline d = new Deadline("return book", Time.parseDateTime("2/12/2023 18:00"));
             String expectedUnmark = "D" + Storage.SEPARATOR + "0" + Storage.SEPARATOR + "return book"
-                    + Storage.SEPARATOR + "2/12/2023 18:00";
+                    + Storage.SEPARATOR + "2/12/2023 18:00\n";
             String expectedMark = "D" + Storage.SEPARATOR + "1" + Storage.SEPARATOR + "return book"
-                    + Storage.SEPARATOR + "2/12/2023 18:00";
+                    + Storage.SEPARATOR + "2/12/2023 18:00\n";
             assertEquals(expectedUnmark, d.fileFormat());
             d.mark(true);
             assertEquals(expectedMark, d.fileFormat());

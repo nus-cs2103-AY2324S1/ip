@@ -25,7 +25,7 @@ public class Todo extends Task {
      */
     @Override
     public String fileFormat() {
-        return String.format("T%s%s", Storage.SEPARATOR, super.fileFormat());
+        return String.format("T%s%s\n", Storage.SEPARATOR, super.fileFormat());
     }
 
     /**

@@ -6,6 +6,7 @@ import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
+import duke.command.LoadCommand;
 import duke.command.MarkCommand;
 import duke.command.PrintDateCommand;
 import duke.exception.DeadlineException;
@@ -49,7 +50,7 @@ public class Parser {
         if (split.length == 1) {
             return parseOneWordCommand(key);
         }
-        String commandBody = fullCommand.substring(split[0].length() + 1);
+        String commandBody = fullCommand.substring(split[0].length() + 1).trim();
         return parseMultiWordCommand(key, commandBody);
     }
 
@@ -91,6 +92,9 @@ public class Parser {
 
         case FIND:
             throw new FindException(err);
+
+        case LOAD:
+            return new LoadCommand();
 
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
@@ -138,6 +142,9 @@ public class Parser {
 
         case FIND:
             return new FindCommand(commandBody);
+
+        case LOAD:
+            return new LoadCommand(commandBody);
 
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");

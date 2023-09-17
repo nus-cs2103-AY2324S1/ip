@@ -16,19 +16,15 @@ public class StorageStub extends Storage {
     }
 
     @Override
-    public void changeFile(Keyword keyword, int taskNum) {
-    }
-
-    @Override
-    public List<Task> load() {
+    public List<Task> loadTasks(boolean isLoadDefault, String alterFileName) {
         return null;
     }
 
     @Override
-    public void createFile() {
+    public void createTaskFile() {
     }
 
     @Override
-    public void appendFile(String text) {
+    public void save(String[] tasks) {
     }
 }

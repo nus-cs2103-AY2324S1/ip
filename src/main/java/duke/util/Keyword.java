@@ -13,7 +13,8 @@ public enum Keyword {
     EVENT("event"),
     DEADLINE("deadline"),
     PRINT_DATE("print_date"),
-    FIND("find");
+    FIND("find"),
+    LOAD("load");
 
     private final String keyword;
 

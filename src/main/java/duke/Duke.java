@@ -12,7 +12,7 @@ import duke.util.Ui;
  */
 public class Duke {
 
-    private static final String FILE_NAME = "duke.txt";
+    private static final String DEFAULT_FILE_NAME = "duke.txt";
     private static final String FOLD_PATH = "./data";
     private Ui ui;
     private Storage storage;
@@ -30,13 +30,13 @@ public class Duke {
      * @return Welcome message.
      */
     public String initialize() {
-        this.storage = new Storage(FOLD_PATH, FILE_NAME);
+        this.storage = new Storage(FOLD_PATH, DEFAULT_FILE_NAME);
         this.ui = new Ui();
         try {
-            this.taskList = new TaskList(storage.load());
+            this.taskList = new TaskList(storage.loadTasks(true, DEFAULT_FILE_NAME));
             return ui.showWelcome();
         } catch (DukeException e) {
-            storage.createFile();
+            storage.createTaskFile();
             taskList = new TaskList();
             return ui.showLoadingError();
         }
