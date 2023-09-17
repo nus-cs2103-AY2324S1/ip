@@ -12,35 +12,44 @@ This is **so simple**, it is a waste to not use the app.
 
 ### Important things to do ❗ ❗ ❗
 
+```
 1. ~~Remembering task by memory~~
 2. **Doing actual work**
+```
 
 In addition, it is,
 
+```
 - text-based
 - easy to learn
 - ~~FAST~~ SUPER FAST to use!!
+```
 
 All you need to do to use this **amazing** service is to,
 
+```
 1. download it from [here](https://github.com/zhanyang01/ip)
 2. double-click on the .jar file
 3. For new users, type help to get list of possible commands and record it for **easy reference**
 4. add/mark/unmark tasks
 5. let it manage tasks for you while u focus on things that **MATTERS**
+```
 
 and it is **FREE**!!! 👍 💯
 
+```
 Currently it has,
 
 - [x] Managing tasks
 - [x] A help command to guide new users to use the app
 - [x] Simple GUI
+```
 
 ## Features
 
 ## Manages Tasks
 
+```
 PikaKing manages tasks of 3 types, namely Todos, Deadlines and Events.
 You can do alot with them, such as
 
@@ -49,13 +58,16 @@ You can do alot with them, such as
 3. delete
 
 You can also view the whole list and also find tasks with keywords.
+```
 
 ## Guiding users
 
+```
 PikaKing knows that it is not easy for new users, hence allowing users to
 
 1. type "help" to view list of commands within the app
 2. type "help <command number> to see examples of how to use specific commands
+```
 
 ## Usage
 
@@ -90,7 +102,9 @@ Example: delete 3
 
 ### Help
 
+```
 Format: help
+```
 
 ### Help specific command
 
@@ -109,7 +123,9 @@ Example: find book
 
 ### List the whole tasklist
 
+```
 Format: list
+```
 
 ### Mark a specific task as done
 
