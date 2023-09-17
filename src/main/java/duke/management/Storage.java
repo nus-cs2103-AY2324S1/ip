@@ -18,22 +18,26 @@ import duke.task.Todo;
  * Contains Data File and methods for writing and reading the file.
  */
 public class Storage {
-    private File dataFile;
-    private File notesFile;
-    private String directoryPath;
+    private final File tasksFile;
+    private final File notesFile;
+    private final String directoryPath;
+    private final String tasksFileName;
+    private final String notesFileName;
 
     /**
      * Storage Constructor.
      *
      * @param directoryPath Relative directory path.
      */
-    public Storage(String directoryPath) {
+    public Storage(String directoryPath, String tasksFileName, String notesFileName) {
         this.directoryPath = directoryPath;
+        this.tasksFileName = tasksFileName;
+        this.notesFileName = notesFileName;
         findDirectory(this.directoryPath);
-        this.dataFile = new File(this.directoryPath, "/data.txt");
-        this.notesFile = new File(this.directoryPath, "/notes.txt");
+        this.tasksFile = new File(this.directoryPath, tasksFileName);
+        this.notesFile = new File(this.directoryPath, notesFileName);
         try {
-            findFile(dataFile);
+            findFile(tasksFile);
             findFile(notesFile);
         } catch (IOException e) {
             throw new DukeException("Cannot find file.");
@@ -77,10 +81,10 @@ public class Storage {
      *
      * @return ArrayList containing all the Tasks from the data file.
      */
-    public ArrayList<Task> loadData() {
+    public ArrayList<Task> loadTasks() {
         try {
             ArrayList<Task> storedList = new ArrayList<>();
-            Scanner scanner = new Scanner(this.dataFile);
+            Scanner scanner = new Scanner(this.tasksFile);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] existingData = line.split("\\s*\\|\\s*");

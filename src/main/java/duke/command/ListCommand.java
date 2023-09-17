@@ -31,6 +31,7 @@ public class ListCommand extends Command {
     @Override
     public void validateCommand() throws DukeException {
         String[] commandArr = this.command.split(" ", 2);
+        System.out.println(commandArr);
         if (commandArr.length > 1) {
             throw new DukeException(DukeException.EMPTY);
         }

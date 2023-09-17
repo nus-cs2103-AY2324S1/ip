@@ -20,9 +20,9 @@ public class Duke {
      * Duke Constructor.
      */
     public Duke() {
-        this.storage = new Storage("./data");
+        this.storage = new Storage("./data", "/data.txt", "/notes.txt");
         try {
-            this.tasks = new TaskList(storage.loadData());
+            this.tasks = new TaskList(storage.loadTasks());
             this.notes = new NotesList(storage.loadNotes());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -50,8 +50,9 @@ public class Duke {
      */
     public String getResponse(String input) {
         assert !input.isEmpty() : "Input cannot be empty!";
-        Command command = Parser.parse(input);
         try {
+            Command command = Parser.parse(input);
+            command.validateCommand();
             return command.execute(tasks, notes);
         } catch (DukeException e) {
             return e.getMessage();

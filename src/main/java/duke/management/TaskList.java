@@ -35,9 +35,13 @@ public class TaskList {
      * @return The deleted Task.
      */
     public Task deleteTask(int index) {
-        Task deletedTask = tasklist.get(index);
-        tasklist.remove(index);
-        return deletedTask;
+        try {
+            Task deletedTask = tasklist.get(index);
+            tasklist.remove(index);
+            return deletedTask;
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(String.format(DukeException.NO_SUCH_TASK));
+        }
     }
 
     /**

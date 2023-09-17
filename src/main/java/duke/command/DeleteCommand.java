@@ -28,8 +28,8 @@ public class DeleteCommand extends Command {
             Task deleted = tasks.deleteTask(index);
             String result = "Ren removed the task: \n" + deleted.toString() + "\n";
             return result + "Now you have " + tasks.getSize() + " tasks in the list.";
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new DukeException(DukeException.WRONG_INDEX);
+        } catch (NumberFormatException e) {
+            throw new DukeException(DukeException.INVALID_INDEX);
         }
 
     }

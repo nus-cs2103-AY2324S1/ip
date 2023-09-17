@@ -28,8 +28,8 @@ public class MarkCommand extends Command {
             Task t = tasks.getTask(index);
             t.markAsDone();
             return "Nice! Ren marked this task as done:\n" + t.toString();
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new DukeException(DukeException.WRONG_INDEX);
+        } catch (NumberFormatException e) {
+            throw new DukeException(DukeException.INVALID_INDEX);
         }
 
     }
