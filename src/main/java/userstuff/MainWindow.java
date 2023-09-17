@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 public class MainWindow extends AnchorPane {
 
 
-    private static String greet = "Hi! I am Vishnu.\n How can I help you?\n";
+    private static String greet = "Hi! I am Duke.\n How can I help you?\n";
 
     private static String response;
 

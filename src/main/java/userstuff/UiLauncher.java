@@ -32,6 +32,7 @@ public class UiLauncher extends Application {
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             fxmlLoader.<MainWindow>getController().setGreet(greet);
             duke.setUi(fxmlLoader.<MainWindow>getController());
+            stage.setTitle("Duke");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
