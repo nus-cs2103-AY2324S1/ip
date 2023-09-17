@@ -172,4 +172,22 @@ public abstract class Task {
     public void addTag(String tag) {
         this.tags.add(tag);
     }
+
+    /**
+     * Removes a tag from this Task's list of tags. If no such 
+     * tag is attached to this Task, does nothing.
+     *
+     * @param tag - tag to be removed.
+     */
+    public void removeTag(String tag) {
+        // Iterate through the tag array in reverse since we are removing the tags.
+        for (int i = tags.size() - 1; i >= 0; i--) {
+            String currentTag = this.tags.get(i);
+
+            if (currentTag.equals(tag)) {
+                this.tags.remove(i);
+                continue;
+            }
+        }
+    }
 }

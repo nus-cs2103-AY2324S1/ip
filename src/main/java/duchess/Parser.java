@@ -232,28 +232,28 @@ public class Parser {
     }
 
     /**
-     * Returns true if the command is recognized as an "tag" command.
+     * Returns true if the command is recognized as an "add tag" command.
      *
-     * @param s - the command to check for "tag" command.
-     * @return    whether the command is recognized as an "tag" command.
+     * @param s - the command to check for "add tag" command.
+     * @return    whether the command is recognized as an "add tag" command.
      */
-    public static boolean isTagCommand(String s) {
-        return Utility.matchesRegex(s, "^tag");
+    public static boolean isAddTagCommand(String s) {
+        return Utility.matchesRegex(s, "^tag a(?:dd)?");
     }
 
     /**
-     * Parses a tag command, returning the index of the task to be tagged from the command.
+     * Parses an add tag command, returning the index of the task to be tagged from the command.
      *
      * @param s                 - the command to parse for "tag" command.
      * @return                    the index of the task to be tagged.
      * @throws DuchessException   if any essential arguments to this command are missing.
      */
-    public static int parseTagCommandIndex(String s) throws DuchessException {
-        // Matches a tag, followed by an index (any number of digits) and then 
-        // any number of (hashtags (optional) and then letters without spaces.)
-        // Each tag hence needs to have no spaces inside. 
+    public static int parseAddTagCommandIndex(String s) throws DuchessException {
+        // Matches a tag, followed by either "a" or "add", then an index 
+        // (any number of digits) and then any number of (hashtags (optional) 
+        // and then letters without spaces.) Each tag hence needs to have no spaces inside. 
         Matcher m = Utility.parseRegex(
-                s, "^tag( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
+                s, "^tag a(?:dd)?( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
             );
 
         if (m.group(1) == null || m.group(2) == null) {
@@ -270,12 +270,62 @@ public class Parser {
      * @return                    the Event task.
      * @throws DuchessException   if any essential arguments to this command are missing.
      */
-    public static String[] parseTagCommandTags(String s) throws DuchessException {
-        // Matches a tag, followed by an index (any number of digits) and then 
-        // any number of (hashtags (optional) and then letters (with spaces, but they will be split by spaces.)
-        // Each tag hence needs to have no spaces inside. 
+    public static String[] parseAddTagCommandTags(String s) throws DuchessException {
+        // See parseAddTagCommandIndex.
         Matcher m = Utility.parseRegex(
-                s, "^tag( ([0-9]+)( (?:#)?([A-Za-z0-9_\\- ]+))*)?"
+                s, "^tag a(?:dd)?( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
+            );
+
+        if (m.group(1) == null || m.group(3) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, tags cannot be empty... ;-;");
+        }
+
+        return m.group(3).trim().split(" ");
+    }
+
+    /**
+     * Returns true if the command is recognized as a "remove tag" command.
+     *
+     * @param s - the command to check for "remove tag" command.
+     * @return    whether the command is recognized as an "remove tag" command.
+     */
+    public static boolean isRemoveTagCommand(String s) {
+        return Utility.matchesRegex(s, "^tag (?:rm |remove |del |delete )");
+    }
+
+    /**
+     * Parses a remove tag command, returning the index of the task for the tag to be removed.
+     *
+     * @param s                 - the command to parse for "remove tag" command.
+     * @return                    the index of the task where the tag should be removed.
+     * @throws DuchessException   if any essential arguments to this command are missing.
+     */
+    public static int parseRemoveTagCommandIndex(String s) throws DuchessException {
+        // Matches a tag, followed by some variant of "rm" or "del", then
+        // (any number of digits) and then any number of (hashtags (optional) 
+        // and then letters without spaces.)
+        Matcher m = Utility.parseRegex(
+                s, "^tag (?:rm|remove|del|delete)( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
+            );
+
+        if (m.group(1) == null || m.group(2) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to tag... ;-;");
+        }
+
+        return Integer.parseInt(m.group(2).trim()) - 1;
+    }
+
+    /**
+     * Parses a tag command, returning the tag strings parsed from the command.
+     *
+     * @param s                 - the command to parse for "tag" command.
+     * @return                    the Event task.
+     * @throws DuchessException   if any essential arguments to this command are missing.
+     */
+    public static String[] parseRemoveTagCommandTags(String s) throws DuchessException {
+        // See parseRemoveTagCommandIndex.
+        Matcher m = Utility.parseRegex(
+                s, "^tag (?:rm|remove|del|delete)( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
             );
 
         if (m.group(1) == null || m.group(3) == null) {
