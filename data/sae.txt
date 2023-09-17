@@ -2,4 +2,6 @@ D | 1 | sleep | 12 February 2003 6pm
 T | 1 | sleep
 D | 0 | cs2103 | 23 February 1998 3pm
 E | 1 | die | 3pm | 5pm
-T | 0 | passaway
+T | 0 | sleep
+T | 0 | 6
+T | 0 | 7
