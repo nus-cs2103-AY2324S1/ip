@@ -177,4 +177,4 @@ I understand, I will excuse myself...
 ```
 
 ### ⚡ Save data
-Ren saves the data automatically in local storage as `data.txt` and `notes.txt` for tasks and notes respectively.
+Ren saves the data automatically in local storage as `tasks.txt` and `notes.txt` for tasks and notes respectively.
