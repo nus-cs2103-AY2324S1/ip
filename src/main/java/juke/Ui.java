@@ -63,6 +63,14 @@ public class Ui {
     }
 
     /**
+     * Prints message after a task is tagged.
+     * @param task The task which was tagged.
+     */
+    public String addTag(Task task) {
+        return "Great! You have added a tag to this task: \n" + task.toString();
+    }
+
+    /**
      * Prints message after a task is deleted.
      * @param task The task which was deleted.
      * @param size The number of tasks in the TaskList.

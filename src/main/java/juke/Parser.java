@@ -75,7 +75,23 @@ public class Parser {
                     throw new JukeError("Failed to parse date.");
                 }
             }
-        } else {
+        }
+        else if (input.startsWith("tag ")) {
+            String[] fields = input.split(" ");
+            if (fields.length < 3) {
+                throw new JukeError("Please specify an index and a tag in this format:" +
+                        "tag {index} {tagname}");
+            }
+
+            if (fields.length > 3) {
+                throw new JukeError("A tag should not contain spaces.");
+            }
+
+            int index = Integer.parseInt(fields[1]);
+            String tagName = fields[2];
+            return juke.addTag(index, tagName);
+        }
+        else {
             throw new JukeError("I'm sorry, but I don't know what that means :-(");
         }
         return "Juke may have encountered a problem - please try that again!";

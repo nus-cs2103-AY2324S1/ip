@@ -124,4 +124,10 @@ public class Juke {
         assert tasks.getTasks().contains(newTask) : "Task should be successfully entered into tasklist";
         return ui.createTask(newTask, tasks.getSize());
     }
+
+    public String addTag(int index, String tagName) throws JukeError {
+        Task currTask = tasks.addTag(index, tagName);
+        storage.updateAll(tasks.getTasks());
+        return ui.addTag(currTask);
+    }
 }

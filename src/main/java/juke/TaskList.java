@@ -69,6 +69,14 @@ public class TaskList {
         tasks.remove(index - 1);
         return currTask;
     }
+    public Task addTag(int index, String tagName) throws JukeError {
+        if (index > tasks.size()) {
+            throw new JukeError("That task does not exist!");
+        }
+        Task currTask = tasks.get(index - 1);
+        currTask.addTag(tagName);
+        return currTask;
+    }
 
     /**
      * Finds all tasks which corresponds to a search term.
