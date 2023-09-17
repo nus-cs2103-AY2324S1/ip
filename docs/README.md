@@ -1,7 +1,7 @@
-# BanterBot User Guide
+# banterbot.banterbot User Guide
 >"Banter is often a proof of want of intelligence." - Jean de la Bruyere [(source)](https://www.azquotes.com/quotes/topics/banter.html)
 
-BanterBot is a command line based task manager for users to free their mind of having to remember things they need to do. 
+banterbot.banterbot is a banterbot.command line based banterbot.task manager for users to free their mind of having to remember things they need to do. 
 It combines the advantage of fast typing speeds of users via the Command Line Interface (CLI) and the benefits of a Graphical
 Unit Interface (GUI).
 
