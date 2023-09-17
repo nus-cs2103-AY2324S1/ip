@@ -73,27 +73,21 @@ public class Storage {
         String type = line.substring(1, 2);
         String doneString = line.substring(4, 5);
         String text = line.substring(7);
-
         String description;
         Task newTask = new Task("");
-
         switch (type) {
             case "T":
-                description = text;
                 newTask = new ToDo(text);
                 break;
-
             case "D":
                 int OpenBracketIndex = text.indexOf("(by: ");
                 description = text.substring(0, OpenBracketIndex -1);
                 String by = text.substring(OpenBracketIndex + 5, text.length()-1);
                 newTask = new Deadline(description, by, true);
                 break;
-
             case "E":
                 int fromIndex = text.indexOf("(from: ");
                 int toIndex = text.indexOf("to: ");
-
                 assert toIndex > fromIndex : "from date should be written first before to date";
                 description = text.substring(0, fromIndex-1);
                 String from = text.substring(fromIndex+7, toIndex-1);
@@ -101,7 +95,6 @@ public class Storage {
                 newTask = new Event(description, from, to, true);
                 break;
         }
-
         boolean done = doneString.equals("X");
         newTask.setDone(done);
         return newTask;

@@ -21,65 +21,19 @@ public class AddCommand extends Command {
      * @param tasks
      */
     public void execute(Storage storage, ArrayList<Task> tasks) {
-        String[] words = fullCommand.split(" ");
-
         try {
-            int startIndex;
-            String description;
             Task newTask = new Task("");
             switch (type) {
                 case "todo":
-                    try {
-                        if (words.length == 1) {
-                            throw (new DukeException("☹ OOPS!!! The description of a todo cannot be empty."));
-                        }
-                        startIndex = 5;
-                        description = fullCommand.substring(startIndex);
-                        newTask = new ToDo(description);
-                        tasks.add(newTask);
-                        break;
-                    } catch (DukeException emptyDescription) {
-                        System.out.println(emptyDescription.getMessage());
-                        Ui.printLine();
-                        return;
-                    }
-
+                    newTask = this.handleToDo(tasks);
+                    break;
 
                 case "deadline":
-                    startIndex = 9;
-                    int slashIndex = fullCommand.indexOf("/by");
-                    description = fullCommand.substring(startIndex, slashIndex-1);
-                    String by = fullCommand.substring(slashIndex + 4);
-
-                    try {
-                        newTask = new Deadline(description, by);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid date format");
-                        Ui.printLine();
-                        return;
-                    }
-
-                    tasks.add(newTask);
+                    newTask = this.handleDeadline(tasks);
                     break;
 
                 case "event":
-                    startIndex = 6;
-                    int fromIndex = fullCommand.indexOf("/from");
-                    int toIndex = fullCommand.indexOf("/to");
-
-                    assert toIndex > fromIndex : "from date should be written first before to date";
-                    description = fullCommand.substring(startIndex, fromIndex-1);
-                    String start = fullCommand.substring(fromIndex+6, toIndex-1);
-                    String end = fullCommand.substring(toIndex+4);
-
-                    try {
-                        newTask = new Event(description, start, end);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid date format");
-                        Ui.printLine();
-                        return;
-                    }
-                    tasks.add(newTask);
+                    newTask = this.handleEvent(tasks);
                     break;
             }
 
@@ -91,6 +45,75 @@ public class AddCommand extends Command {
                             "list of available commands.");
             Ui.printLine();
         }
+    }
+
+    private Task handleToDo(ArrayList<Task> tasks) {
+        String[] words = fullCommand.split(" ");
+        int startIndex;
+        String description;
+        Task newTask = new Task("");
+
+        try {
+            if (words.length == 1) {
+                throw (new DukeException("☹ OOPS!!! The description of a todo cannot be empty."));
+            }
+            startIndex = 5;
+            description = fullCommand.substring(startIndex);
+            newTask = new ToDo(description);
+            tasks.add(newTask);
+            return newTask;
+        } catch (DukeException emptyDescription) {
+            System.out.println(emptyDescription.getMessage());
+            Ui.printLine();
+            return null;
+        }
+    }
+
+    private Task handleDeadline(ArrayList<Task> tasks) {
+        int startIndex;
+        String description;
+        Task newTask = new Task("");
+
+        startIndex = 9;
+        int slashIndex = fullCommand.indexOf("/by");
+        description = fullCommand.substring(startIndex, slashIndex-1);
+        String by = fullCommand.substring(slashIndex + 4);
+
+        try {
+            newTask = new Deadline(description, by);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format");
+            Ui.printLine();
+            return null;
+        }
+
+        tasks.add(newTask);
+        return newTask;
+    }
+
+    private Task handleEvent(ArrayList<Task> tasks) {
+        int startIndex;
+        String description;
+        Task newTask = new Task("");
+
+        startIndex = 6;
+        int fromIndex = fullCommand.indexOf("/from");
+        int toIndex = fullCommand.indexOf("/to");
+
+        assert toIndex > fromIndex : "from date should be written first before to date";
+        description = fullCommand.substring(startIndex, fromIndex-1);
+        String start = fullCommand.substring(fromIndex+6, toIndex-1);
+        String end = fullCommand.substring(toIndex+4);
+
+        try {
+            newTask = new Event(description, start, end);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format");
+            Ui.printLine();
+            return null;
+        }
+        tasks.add(newTask);
+        return newTask;
     }
 }
 
