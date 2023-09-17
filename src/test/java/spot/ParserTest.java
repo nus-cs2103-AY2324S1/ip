@@ -18,7 +18,8 @@ public class ParserTest {
             assertEquals(new ExitCommand(), Parser.parseCommand("delete"));
             fail();
         } catch (SpotException e) {
-            assertEquals("Spot doesn't know which task to delete!", e.getMessage());
+            assertEquals("Spot thinks your command is "
+                    + "in the wrong format!", e.getMessage());
         }
     }
     @Test
@@ -29,7 +30,7 @@ public class ParserTest {
             fail();
         } catch (SpotException e) {
             assertEquals("This doesn't seem like a valid date to Spot!"
-                    + "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
+                    + " Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
         }
     }
 
@@ -61,7 +62,7 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("This doesn't seem like a valid date to Spot!"
-                    + "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
+                    + " Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
         }
     }
 
@@ -73,7 +74,7 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("This doesn't seem like a valid date to Spot!"
-                    + "Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
+                    + " Please make sure your date is given in this format: dd-mm-yyyy", e.getMessage());
         }
     }
 }
