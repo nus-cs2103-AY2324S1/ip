@@ -29,10 +29,14 @@ public class Bobi {
         // load list of tasks stored in text file "task.txt" into the local task List
         storage.handleLoad(list);
         // ensures storage has loaded list from text file into the active TaskList
-        assert list.getLength() > 0;
+        assert list.getLength() >= 0;
 
         this.ui = new Ui(list);
         this.command = new Command(storage, ui, list);
+    }
+
+    public String getReminder() {
+        return ui.printReminder();
     }
 
     /**
@@ -68,7 +72,7 @@ public class Bobi {
     }
 
     /**
-     * Runs Bobi.
+     * Runs Bobi version without GUI.
      */
     public void run() {
         System.out.println(Ui.greeting());

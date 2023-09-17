@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * To-Do class inherits from Task class.
  * A To-Do object encapsulates the task name and status.
@@ -15,6 +17,11 @@ public class ToDo extends Task {
      */
     public ToDo(boolean isDone, String taskName) {
         super(isDone, taskName);
+    }
+
+    @Override
+    public LocalDateTime getTaskDue() {
+        return null;
     }
 
     /**

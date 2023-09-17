@@ -20,6 +20,8 @@ public class Ui {
     private static final String DELETE_TASK = "Alright! I have deleted this task from the list:\n";
     private static final String SEARCH_TASK = "Found it! Here are the matching tasks in your list:\n";
 
+    private static String overdueTasks;
+    private static String weeklyTasks;
     private static String taskCount;
     private final Scanner sc;
     private final TaskList taskList;
@@ -108,6 +110,16 @@ public class Ui {
      */
     public String printSearchTask(TaskList filteredList) {
         return SEPARATOR + SEARCH_TASK + filteredList.toString() + "\n" + SEPARATOR;
+    }
+
+    public String printReminder() {
+        overdueTasks = "You have " + taskList.getOverdueTasks().getLength() + " tasks overdue:\n";
+        weeklyTasks = "You have " + taskList.getWeeklyTasks().getLength() + " tasks due this week:\n";
+        return overdueTasks
+                + taskList.getOverdueTasks().toString()
+                + "\n\n"
+                + weeklyTasks
+                + taskList.getWeeklyTasks().toString();
     }
 
     /**
