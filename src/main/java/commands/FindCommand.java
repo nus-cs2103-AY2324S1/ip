@@ -36,4 +36,9 @@ public class FindCommand extends Command {
         }
         return sB.toString();
     }
+
+    public static String help() {
+        return "Find command is used to find a task by its subtext/keyword.\n"
+                + "Eg. of Usage:\n" + "find book\nfind bo\n";
+    }
 }

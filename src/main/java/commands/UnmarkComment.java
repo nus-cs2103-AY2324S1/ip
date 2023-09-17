@@ -54,4 +54,10 @@ public class UnmarkComment extends Command {
     public String cmdToString(String task) {
         return "OK, I've marked this task as not done yet:\n" + task;
     }
+
+    public static String help() {
+        return "Unmark command is used to unmark a task as undone.\n"
+                + "Eg. of Usage:\n" + "unmark 2\n";
+    }
+
 }

@@ -55,4 +55,9 @@ public class EventCommand extends Command {
         return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
     }
+
+    public static String help() {
+        return "Event command is used to add event task.\n"
+                + "Eg. of Usage:\n" + "event meeting /from 2/3/2023 1000 /to 2/3/2023 1200\n";
+    }
 }

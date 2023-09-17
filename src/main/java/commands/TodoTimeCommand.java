@@ -42,4 +42,9 @@ public class TodoTimeCommand extends Command {
         return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + size + " tasks in the list.";
     }
+
+    public static String help() {
+        return "TodoTime command is used to add todotime task.\n"
+                + "Eg. of Usage:\n" + "todotime study /for 2 hours\ntodotime study /for 45 minutes\n";
+    }
 }
