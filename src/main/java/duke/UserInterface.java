@@ -41,7 +41,7 @@ public class UserInterface {
             this.userImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(userImagePath)));
             this.dukeImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(dukeImagePath)));
         } catch (NullPointerException e) {
-
+            throw new CorruptedFileException();
         }
     }
     /**
