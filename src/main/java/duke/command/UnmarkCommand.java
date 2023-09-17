@@ -42,7 +42,7 @@ public class UnmarkCommand extends Command {
 
     private void unmark(TaskList taskList, Ui ui, Storage storage) {
         taskList.unmark(index);
-        ui.sendMessage("OK, I've marked this task as not done yet:\n\t\t"
+        ui.sendMessage("OK, I've marked this task as not done yet:\n\t"
                 + taskList.getPrint(index));
         storage.updateFileContents(taskList);
     }

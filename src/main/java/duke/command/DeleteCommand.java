@@ -53,9 +53,9 @@ public class DeleteCommand extends Command {
     }
 
     private static void displayDeletedTaskMessage(TaskList taskList, Ui ui, String deletedTask) {
-        ui.sendMessage("Noted. I've removed this task:\n\t\t"
+        ui.sendMessage("Noted. I've removed this task:\n\t"
                 + deletedTask
-                + "\n\tNow you have " + taskList.size() + " tasks in the list.");
+                + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
 
     /**

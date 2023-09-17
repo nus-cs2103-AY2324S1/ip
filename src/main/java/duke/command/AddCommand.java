@@ -74,9 +74,9 @@ public class AddCommand extends Command {
     }
 
     private static void displayAddedTaskMessage(TaskList taskList, Ui ui, Task task) {
-        ui.sendMessage("Got it. I've added this task:\n\t\t"
+        ui.sendMessage("Got it. I've added this task:\n\t"
                 + task
-                + "\n\tNow you have " + taskList.size() + " tasks in the list.");
+                + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
 
     private Event getEventTask() {

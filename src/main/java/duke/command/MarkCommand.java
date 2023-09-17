@@ -46,7 +46,7 @@ public class MarkCommand extends Command {
 
     private void mark(TaskList taskList, Ui ui, Storage storage) {
         taskList.mark(index);
-        ui.sendMessage("OK, I've marked this task as done yet:\n\t\t"
+        ui.sendMessage("OK, I've marked this task as done yet:\n\t"
                 + taskList.getPrint(index));
         storage.updateFileContents(taskList);
     }
