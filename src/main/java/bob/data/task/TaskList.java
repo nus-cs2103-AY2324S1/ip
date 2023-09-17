@@ -31,6 +31,7 @@ public class TaskList {
      * @param storage The storage class which handles the storage operations.
      */
     public TaskList(Storage storage) {
+        assert storage != null : "storage should not be null";
         this.tasks = new ArrayList<>();
         this.storage = storage;
     }
@@ -40,6 +41,7 @@ public class TaskList {
      */
     public void open() {
         this.tasks = new ArrayList<>();
+        assert tasks != null : "tasks should not be null";
         try {
             this.storage.readFromFile(this.tasks);
         } catch (FileNotFoundException e) {
@@ -49,12 +51,14 @@ public class TaskList {
             System.out.println(e);
         }
     }
+
     /**
      * Adds a specified task to the ArrayList.
      *
      * @param task The task to be added to the ArrayList.
      */
     public void addTask(Task task, boolean isMuted) {
+        assert task != null : "task should not be null";
         this.tasks.add(task);
         if (!isMuted) {
             System.out.println("Got it. I've added this task:");
@@ -71,6 +75,8 @@ public class TaskList {
      * @throws DukeException If the EventTask is instantiated with invalid dates.
      */
     public String addTask(Parser.CommandType command, String input) throws DukeException {
+        assert command != null : "command should not be null";
+        assert input != null : "input should not be null";
         Task taskToAdd;
         String taskDescription;
         String[] taskDescriptionArray;
@@ -106,6 +112,7 @@ public class TaskList {
      * @param input The input string containing the index of the task.
      */
     public String setTaskComplete(String input) {
+        assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
         Task task = this.tasks.get(taskNo);
@@ -118,6 +125,7 @@ public class TaskList {
      * @param input The input string containing the index of the task.
      */
     public String setTaskIncomplete(String input) {
+        assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
         Task task = this.tasks.get(taskNo);
@@ -130,10 +138,12 @@ public class TaskList {
      * @param input The input string containing the index of the task to be removed.
      */
     public String deleteTask(String input) {
+        assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
         Task task = this.tasks.get(taskNo);
         this.tasks.remove(taskNo);
+        assert !tasks.contains(task) : "task should not exist in the list anymore";
         return "Noted. I've removed this task:\n"
                 + task + "\n"
                 + "Now you have " + this.tasks.size() + " task(s) in the list.";
@@ -162,6 +172,7 @@ public class TaskList {
      */
     public String close() {
         try {
+            assert this.storage.getFile().exists() : "file should exist so that it can be written to";
             FileWriter writer = new FileWriter(this.storage.getFile());
             for (Task task : tasks) {
                 writer.write(task.toFileString());
@@ -188,6 +199,7 @@ public class TaskList {
      * @return The String representation of matching tasks.
      */
     public String find(String input) {
+        assert input != null : "input should not be null";
         String toFind = input.substring(5);
         TaskList tasksFound = new TaskList();
         for (Task task : this.tasks) {

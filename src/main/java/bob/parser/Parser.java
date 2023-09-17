@@ -84,6 +84,8 @@ public class Parser {
      * @throws DukeException
      */
     public Command validateCommand(CommandType commandType, String input) throws DukeException {
+        assert input != null : "input should not be null";
+        assert commandType != null : "command should not be null";
         int commandWordCount = input.split(" ").length;
         switch(commandType) {
         case BYE:

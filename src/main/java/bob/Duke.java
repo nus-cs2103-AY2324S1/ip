@@ -39,6 +39,7 @@ public class Duke {
             return e.toString();
         }
         this.end();
+        assert response != null : "response should not be null";
         return response;
     }
 }
