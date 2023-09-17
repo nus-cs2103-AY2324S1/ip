@@ -120,7 +120,7 @@ public class DateTimeDetector {
     }
 
     /**
-     * Format the input date.
+     * Formats the input date.
      * @param date Date to be formatted.
      * @return Formatted date.
      */

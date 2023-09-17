@@ -135,7 +135,7 @@ public class Storage {
     }
 
     /**
-     * Load content of task file into TaskList. This will populate the TaskList with the necessary Task objects.
+     * Loads content of task file into TaskList. This will populate the TaskList with the necessary Task objects.
      * @param taskList TaskList to store the tasks in the task file.
      */
     public void loadFileToTaskManager(TaskList taskList) {

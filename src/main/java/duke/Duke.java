@@ -25,14 +25,13 @@ public class Duke extends Application {
     private final Ui ui;
     private final Storage storage;
     private final Parser parser;
-    private boolean botInUse = true;
+    private boolean isBotInUse = true;
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
 
-    
     public Duke() {
         this("./src/main/data", "duke.txt");
     }
@@ -45,7 +44,7 @@ public class Duke extends Application {
         this.taskList = new TaskList();
         this.ui = new Ui();
         this.storage = new Storage(filepath, filename);
-        this.parser = new Parser(ui, taskList, botInUse, storage);
+        this.parser = new Parser(ui, taskList, isBotInUse, storage);
 
         storage.loadFileToTaskManager(taskList);
     }
@@ -134,7 +133,7 @@ public class Duke extends Application {
     String getResponse(String input) {
         try {
             String response = parser.listen(input);
-            botInUse = parser.updateBotUsage();
+            isBotInUse = parser.updateBotUsage();
             return response;
         } catch (InvalidUserInputException e) {
             return ui.invalidInputRes();
@@ -146,7 +145,7 @@ public class Duke extends Application {
      * @return Boolean to represent if bot is in use.
      */
     public boolean isBotInUse() {
-        return botInUse;
+        return isBotInUse;
     }
 
 }
