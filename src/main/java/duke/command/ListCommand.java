@@ -9,8 +9,14 @@ import duke.utility.Ui;
  */
 public class ListCommand extends Command {
 
+    private String queryParam;
+
+    public ListCommand(String queryParam) {
+        this.queryParam = queryParam;
+    }
+
     @Override
     public void execute(TaskList taskList, Storage storage, Ui ui) {
-        taskList.showAllTasks(ui);
+        taskList.showAllTasks(ui, queryParam);
     }
 }

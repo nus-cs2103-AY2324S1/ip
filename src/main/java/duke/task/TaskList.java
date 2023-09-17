@@ -80,15 +80,27 @@ public class TaskList {
     /**
      * Displays all tasks in the list.
      *
-     * @param ui The user interface for displaying messages.
+     * @param ui         The user interface for displaying messages.
+     * @param queryParam The query parameter to sort the tasks.
      */
-    public void showAllTasks(Ui ui) {
+    public void showAllTasks(Ui ui, String queryParam) {
         if (this.tasks.size() == 0) {
             ui.printMessage("You have no tasks in your list.");
             return;
         }
 
-        ui.printMessage("\nHere are the tasks in your list:\n");
+        if (queryParam != null) {
+            String[] queryParamArr = queryParam.split(" ");
+            String sortOrder = queryParamArr[1];
+
+            if (sortOrder.equals("asc")) {
+                this.tasks.sort((task1, task2) -> task1.getName().compareTo(task2.getName()));
+            } else if (sortOrder.equals("desc")) {
+                this.tasks.sort((task1, task2) -> task2.getName().compareTo(task1.getName()));
+            }
+        }
+
+        ui.printMessage("Here are the tasks in your list:\n");
 
         for (int i = 0; i < this.tasks.size(); i++) {
             ui.printMessage(i + 1 + "." + this.tasks.get(i) + "\n");

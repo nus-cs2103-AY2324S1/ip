@@ -29,7 +29,8 @@ public class Parser {
         try {
             switch (command) {
             case "list":
-                return new ListCommand();
+                String queryParam = Parser.validateListCommand(input);
+                return new ListCommand(queryParam);
             case "mark":
                 int markTaskNumber = Parser.parseInt(inputArr[1]);
                 return new MarkCommand(markTaskNumber);
@@ -164,5 +165,36 @@ public class Parser {
             System.out.println("☹ OOPS!!! Please enter a valid number");
             return -1;
         }
+    }
+
+    /**
+     * Validates and extracts the query parameter from a list command.
+     *
+     * @param input The user input containing the list command.
+     * @return The query parameter of the list command.
+     * @throws DukeException If the format is invalid.
+     */
+    public static String validateListCommand(String input) throws DukeException {
+        assert input != null : "Input should not be null";
+        String[] inputArr = input.split(" ");
+        if (inputArr.length == 1) {
+            return null;
+        }
+
+        String[] description = input.replace("list", "").trim().split(" ");
+        boolean isQueryInvalid = description.length != 3 || !description[0].equals("sortBy")
+                || (!description[2].equals("asc") && !description[2].equals("desc"));
+
+        if (isQueryInvalid) {
+            throw new DukeException("☹ OOPS!!! The format of a list is invalid. "
+                    + "Format: list sortBy <queryParam> <asc/desc>" + description[0] );
+        }
+
+        if (!description[1].equals("description")) {
+            throw new DukeException("☹ Sorry!!! Tasks can only be sorted by description currently. "
+                    + "Format: list sortBy <queryParam> <asc/desc>");
+        }
+
+        return description[1] + " " + description[2];
     }
 }

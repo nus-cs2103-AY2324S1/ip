@@ -36,12 +36,12 @@ public class Storage {
     }
 
     private static boolean isInvalidDoneFlag(String doneFlag) {
-        return doneFlag.equals("0") || doneFlag.equals("1");
+        return !doneFlag.equals("0") && !doneFlag.equals("1");
     }
 
     private static boolean isInvalidTaskFormat(String taskType, int taskFormatLength) {
-        return (taskType.equals("T") && taskFormatLength == 3) || (taskType.equals("D") && taskFormatLength == 4)
-                || (taskType.equals("E") && taskFormatLength == 5);
+        return !(taskType.equals("T") && taskFormatLength == 3) && !(taskType.equals("D") && taskFormatLength == 4)
+                && !(taskType.equals("E") && taskFormatLength == 5);
     }
 
     /**
@@ -53,7 +53,7 @@ public class Storage {
         try {
             File file = new File(filePath);
             System.out.println("Loading tasks...");
-            if (file.exists()) {
+            if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 System.out.println("No existing duke.txt found. File created!");
             }
