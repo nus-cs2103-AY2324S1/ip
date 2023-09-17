@@ -25,6 +25,7 @@ public class Slay {
     public String getResponse(String userInput) {
         Command c = parser.parse(userInput);
         c.setData(this.taskList);
+        assert this.tasks != null;
         CommandResult result = c.execute();
         storage.save(this.taskList);
         return ui.showResultToUser(result);
