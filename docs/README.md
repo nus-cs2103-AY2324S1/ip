@@ -2,13 +2,15 @@
 
 > "Simplicity is the ultimate sophistication." - Leonardo da Vinci [(source)](https://www.theorderexpert.com/11-inspirational-quotes-about-organization/)
 
-How do you get started?
+Experience organization and productivity like never before with **Jarvis** – your ultimate task manager. Simplify your life, one task at a time.
+
+## Installation
 
 - Download the latest  ```.jar``` file from [here.](https://github.com/shishirbychapur/ip/releases)
 - Navigate to the directory of installation, and open Terminal.
-- Run ```java -jar Jarvis.jar``` and enjoy the luxury of having your own manager!
+- Run ```java -jar jarvis.jar``` and enjoy the luxury of having your own manager!
 
-What are some of the features?
+## Features
 
 1. Allows various types of tasks (Events, Deadlines, Todo)
 2. Stores and retrieves data directly to/from a designated .txt file
@@ -16,15 +18,15 @@ What are some of the features?
 4. Grants users the ability to search for their respective task
 5. Reminders users on overdue and upcoming events and deadlines.
 
-Why choose Jarvis?
+## Special Attributes
 - [x]  **Easy** to learn
 - [x]  **Available** _24/7_ at your service
 - [x]  Created by ~~Shishir~~ **Tony Stark** himself
 - [x]  **Free** of charge
 
-## Features and Usage
+## Usage
 
-> **Important:**
+> **❗Important:**
 > - Words in UPPER_CASE are the parameters to be supplied by the user. e.g. in ```todo TASKNAME```, ```TASKNAME``` is a parameter which can be used as ```todo Buy iPad```.
 > - The parameters can contain whitespaces (e.g. ```Buy iPad```), and must be seperated from the command and the type specifiers (```/by```, ```/from```, ```/to```) by atleast 1 whitespace character from both sides. e.g. ```todoTASKNAME``` and ```deadline TASKNAME/byDATE``` are invalid, but ```deadline TASKNAME /by DATE``` is valid. 
 > - Input date for tasks like ```event``` and ```deadline``` must follow the format ```DD/MM/YY HHMM``` with ```HHMM``` following the 24 hours format. e.g. ```23/09/23 1800```.
@@ -169,3 +171,21 @@ Expected output:
 ```
     I shall now take my leave. Farewell!
 ```
+## Command Summary
+
+| Action              | Format                                      | Examples                                              |
+| ------------------- | ------------------------------------------- | ----------------------------------------------------- |
+| Add Todo Task       | `todo TASKNAME`                             | `todo Play Basketball`                                |
+| Add Deadline Task   | `deadline TASKNAME /by DEADLINE`            | `deadline Complete CS2100 Assignment /by 18/09/23 1315` |
+| Add Event Task      | `event TASKNAME /from FROM /to TO`          | `event CS2103T Final Exam /from 01/12/23 0900 /to 01/12/23 1030` |
+| List                | `list`                                      | `list`                                                |
+| Delete              | `delete INDEX`                              | `delete 3`                                            |
+| Mark                | `mark INDEX`                                | `mark 1`                                              |
+| Unmark              | `unmark INDEX`                              | `unmark 1`                                            |
+| Find                | `find KEYWORD`                              | `find Basketball`                                     |
+| Remind              | `remind`                                    | `remind`                                              |
+| Exit                | `bye`                                       | `bye`                                                 |
+
+
+
+
