@@ -22,12 +22,10 @@ public class FindCommand extends Command {
     /**
      * Finds the tasks containing the keyword from the taskList.
      *
-     * @param tasks list of current tasks.
-     * @param ui Ui class that deals with user interaction.
-     * @param storage Storage class that deals with saving data.
+     * @param thea reference to the chatbot containing relevant data.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.relevantTasksFound(tasks.find(keyword));
+    public String execute(Thea thea) {
+        return thea.ui.relevantTasksFound(thea.tasks.find(keyword));
     }
 }

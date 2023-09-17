@@ -16,12 +16,10 @@ public class PrintListCommand extends Command {
     /**
      * Prints the current task list.
      *
-     * @param tasks list of current tasks.
-     * @param ui Ui class that deals with user interaction.
-     * @param storage Storage class that deals with saving data.
+     * @param thea reference to the chatbot containing relevant data.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.printList(tasks);
+    public String execute(Thea thea) {
+        return thea.ui.printList(thea.tasks);
     }
 }

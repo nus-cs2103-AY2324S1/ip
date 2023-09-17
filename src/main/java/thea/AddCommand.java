@@ -24,14 +24,12 @@ public class AddCommand extends Command {
     /**
      * Add the new task to the task list.
      *
-     * @param tasks list of current tasks.
-     * @param ui Ui class that deals with user interaction.
-     * @param storage Storage class that deals with saving data.
+     * @param thea reference to the chatbot containing relevant data.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.add(task);
-        storage.saveTaskList(tasks);
-        return ui.taskAdded(task, tasks);
+    public String execute(Thea thea) {
+        thea.tasks.add(task);
+        thea.storage.saveTaskList(thea.tasks);
+        return thea.ui.taskAdded(task, thea.tasks);
     }
 }

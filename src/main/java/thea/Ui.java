@@ -124,4 +124,8 @@ public class Ui {
             return output;
         }
     }
+
+    public static String fileLoadedMessage(String fileName) {
+        return (fileName + " loaded");
+    }
 }

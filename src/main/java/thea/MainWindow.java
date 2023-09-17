@@ -35,11 +35,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        greet();
     }
 
     public void setThea(Thea t) {
         thea = t;
+        loadMessage();
+        greet();
     }
 
     /**
@@ -76,7 +77,7 @@ public class MainWindow extends AnchorPane {
         String response;
         try {
             Command c = Parser.parse(input);
-            response = c.execute(thea.tasks, thea.ui, thea.storage);
+            response = c.execute(thea);
         } catch (EmptyDescriptionException | WrongCommandException
                  | WrongDateTimeFormatException e) {
             response = e.getMessage();
@@ -87,6 +88,13 @@ public class MainWindow extends AnchorPane {
     private void greet() {
         dialogContainer.getChildren().add(
                 DialogBox.getTheaDialog(Ui.greet(), theaImage)
+        );
+    }
+
+    private void loadMessage() {
+        dialogContainer.getChildren().add(
+                DialogBox.getTheaDialog(thea.ui.fileLoadedMessage(
+                        thea.storage.getFileName()), theaImage)
         );
     }
 

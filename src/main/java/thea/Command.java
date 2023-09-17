@@ -26,9 +26,7 @@ public abstract class Command {
      * Execute the user command to the data.
      * To be implemented by subclasses.
      *
-     * @param tasks list of current tasks.
-     * @param ui Ui class that deals with user interaction.
-     * @param storage Storage class that deals with saving data.
+     * @param thea reference to the chatbot containing relevant data.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(Thea thea);
 }

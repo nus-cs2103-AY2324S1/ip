@@ -21,20 +21,18 @@ public class UnmarkCommand extends Command {
     /**
      * Unmarks the task specified by index as done.
      *
-     * @param tasks list of current tasks.
-     * @param ui Ui class that deals with user interaction.
-     * @param storage Storage class that deals with saving data.
+     * @param thea reference to the chatbot containing relevant data.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(Thea thea) {
         String output;
         try {
-            tasks.unmark(this.index);
-            output = ui.taskUnmarked(tasks.get(this.index));
+            thea.tasks.unmark(this.index);
+            output = thea.ui.taskUnmarked(thea.tasks.get(this.index));
         } catch (IndexOutOfBoundsException e) {
-            output = ui.showError(e.getMessage());
+            output = thea.ui.showError(e.getMessage());
         }
-        storage.saveTaskList(tasks);
+        thea.storage.saveTaskList(thea.tasks);
         return output;
     }
 }

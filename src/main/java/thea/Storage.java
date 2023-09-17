@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Represents a class that deals with saving and loading data.
  */
 public class Storage {
-    private final String fileName;
+    private String fileName;
 
     /**
      * Constructs a new Storage object.
@@ -21,6 +21,14 @@ public class Storage {
      */
     public Storage(String fileName) {
         this.fileName = fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        return this.fileName;
     }
 
     /**
@@ -107,15 +115,18 @@ public class Storage {
      * @param path path to file.
      */
     private static void createFileIfNotExist(Path dataDirPath, Path path) {
-        if (!Files.exists(dataDirPath)) try {
-            Files.createDirectories(dataDirPath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        else if (!Files.exists(path)) try {
-            Files.createFile(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (!Files.exists(dataDirPath)) {
+            try {
+                Files.createDirectories(dataDirPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (!Files.exists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

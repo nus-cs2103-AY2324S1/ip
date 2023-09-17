@@ -21,24 +21,22 @@ public class DeleteCommand extends Command {
     /**
      * Delete the task specified by index from the taskList.
      *
-     * @param tasks list of current tasks.
-     * @param ui Ui class that deals with user interaction.
-     * @param storage Storage class that deals with saving data.
+     * @param thea reference to the chatbot containing relevant data.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(Thea thea) {
         String output;
         try {
             try {
-                output = ui.taskDeleted(tasks.get(this.index), tasks);
+                output = thea.ui.taskDeleted(thea.tasks.get(this.index), thea.tasks);
             } catch (java.lang.IndexOutOfBoundsException e) {
                 throw new IndexOutOfBoundsException("There is currently no task " + (index + 1));
             }
-            tasks.delete(this.index);
+            thea.tasks.delete(this.index);
         } catch (IndexOutOfBoundsException e) {
-            return ui.showError(e.getMessage());
+            return thea.ui.showError(e.getMessage());
         }
-        storage.saveTaskList(tasks);
+        thea.storage.saveTaskList(thea.tasks);
         return output;
     }
 }
