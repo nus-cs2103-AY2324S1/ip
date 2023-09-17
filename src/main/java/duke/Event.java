@@ -41,8 +41,7 @@ public class Event extends Task {
     }
 
     /**
-     * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException
-     * if inputs are invalid
+     * Validates the user's input for an event task
      * @param input the user's string input
      * @throws WrongInputException which informs the user of the error and actions to take
      */

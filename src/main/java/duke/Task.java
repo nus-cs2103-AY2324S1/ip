@@ -45,7 +45,7 @@ public class Task {
         this.isDone = true;
     }
     /**
-     * Mark a task as undone by setting done as false
+     * Mark a task as undone
      */
     public void undoTask() {
         this.isDone = false;
