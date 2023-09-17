@@ -14,7 +14,7 @@
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </HBox.margin>
       </ImageView>
-      <Pane prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 4px; -fx-border-radius: 32px;">
+      <Pane prefWidth="800.0" style="-fx-border-color: black; -fx-border-width: 4px; -fx-border-radius: 32px;">
          <children>
             <Label fx:id="dialog" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="128.0" minWidth="-Infinity" text="Label">
                <font>
