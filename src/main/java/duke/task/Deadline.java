@@ -40,6 +40,7 @@ public class Deadline extends Task {
         } else {
             time = TimeProcessor.StringToDate(Description.substring(index + 4));
         }
+        assert !time.isEmpty(): "time should not be empty";
         time = Description.substring(index + 1, index + 3) + ": " + time;
         this.Description = content + "(" + time + ")";
         System.out.println("Got it. I've added this task:");
