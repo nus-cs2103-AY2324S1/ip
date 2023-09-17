@@ -30,6 +30,7 @@ public class TaskDeadline extends Task {
      */
     @Override
     public LocalDate getDate() {
+        assert this.deadlineTime != null : "Deadline time cannot be null";
         return this.deadlineTime;
     }
     /**
@@ -48,6 +49,7 @@ public class TaskDeadline extends Task {
     }
     @Override
     public String toString() {
+        assert deadlineTime != null : "Deadline Time cannot be null";
         return super.toString()
             + " (by: " + this.deadlineTime + ")";
     }

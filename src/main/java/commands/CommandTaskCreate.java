@@ -86,6 +86,7 @@ public class CommandTaskCreate extends Command {
                 throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
             }
         default:
+            // SHOULD NEVER REACH HERE
             throw new IllegalArgumentException("Invalid Task Type given");
         }
     }

@@ -45,6 +45,7 @@ public abstract class Task implements Serializable {
         this.isCompleted = completed;
     }
     public String getName() {
+        assert this.taskName != "" : "Task Name cannot be empty";
         return this.taskName;
     }
     public abstract LocalDate getDate();
