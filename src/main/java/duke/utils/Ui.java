@@ -25,7 +25,8 @@ public class Ui {
                 "event <task name> /from <date> /to <date>: Add a new event with a time period\n" +
                 "mark <task number>: Mark the specified task as completed\n" +
                 "unmark <task number>: Mark the specified task as not completed\n" +
-                "delete <task number>: Delete the specified task\n";
+                "delete <task number>: Delete the specified task\n" +
+                "find <keyword>: Finds all tasks containing the keyword\n";
 
         System.out.println(help);
     }
