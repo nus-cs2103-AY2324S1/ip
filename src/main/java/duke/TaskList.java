@@ -7,8 +7,10 @@ import java.util.ArrayList;
  * add or delete to alter the list
  */
 public class TaskList {
-
+    /** List of tasks */
     ArrayList<Task> list;
+
+    /** Number of tasks in the list */
     int count;
 
     public TaskList(ArrayList<Task> list) {
@@ -69,6 +71,13 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Finds tasks
+     *
+     * @param input task to be found
+     * @param list List in which the task is to be found
+     * @return Found tasks
+     */
     public String findTask(String input, TaskList list) {
         int[] indexList = new int[100];
         int counter = 0;
