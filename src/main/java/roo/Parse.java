@@ -43,9 +43,17 @@ public class Parse {
         if (str.startsWith("[T]")) {
             return Parse.createTodo(inputs[0].split(" tags:")[0], tags);
         } else if (str.startsWith("[D]")) {
-            return Parse.createDeadline(inputs[0].split(" tags:")[0], tags);
+            if (str.contains("tags:")) {
+                return Parse.createDeadline(inputs[0].split(" tags:")[0], tags);
+            } else {
+                return Parse.createDeadline(str, tags);
+            }
         } else if (str.startsWith("[E]")) {
-            return Parse.createEvent(inputs[0].split(" tags:")[0], tags);
+            if (str.contains("tags:")) {
+                return Parse.createEvent(inputs[0].split(" tags:")[0], tags);
+            } else {
+                return Parse.createEvent(str, tags);
+            }
         } else {
             return null;
         }
