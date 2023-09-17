@@ -17,7 +17,7 @@ public class ToDo extends Task {
     @Override
     public String setMarked() throws DukeException {
         super.setMarked();
-        return "Nice! I've marked this task as done:\n" + this;
+        return "SUI, Nice! I've marked this task as done:\n" + this;
     }
 
     /**
@@ -29,7 +29,7 @@ public class ToDo extends Task {
     @Override
     public String setUnmarked() throws DukeException {
         super.setUnmarked();
-        return "OK, I've marked this task as not done yet:\n" + this;
+        return "SUI, OK, I've marked this task as not done yet:\n" + this;
     }
 
     @Override

@@ -39,7 +39,7 @@ public class Event extends Task {
     @Override
     public String setMarked() throws DukeException {
         super.setMarked();
-        return "Nice! I've marked this task as done:\n" + toString();
+        return "SUI, Nice! I've marked this task as done:\n" + toString();
     }
 
     /**
@@ -51,7 +51,7 @@ public class Event extends Task {
     @Override
     public String setUnmarked() throws DukeException {
         super.setUnmarked();
-        return "OK, I've marked this task as not done yet:\n" + toString();
+        return "SUI, OK, I've marked this task as not done yet:\n" + toString();
     }
 
     @Override

@@ -64,7 +64,7 @@ public class TaskList {
      */
     public String getTaskLeft() {
         String taskOrTasks = (tasks.size() == 1 ? " task" : " tasks");
-        return "Now you have " + tasks.size() + taskOrTasks + " in the tasks.";
+        return "SUI, Now you have " + tasks.size() + taskOrTasks + " in the tasks.";
     }
 
     /**
@@ -77,10 +77,10 @@ public class TaskList {
         StringBuilder res = new StringBuilder();
 
         if (tasks.size() == 0) {
-            throw new DukeException("Oh no! No tasks for now! Add more tasks :)\n");
+            throw new DukeException("SUI, Oh no! No tasks for now! Add more tasks :)\n");
         }
 
-        res.append("Here are the tasks in your tasks:\n");
+        res.append("SUI, Here are the tasks in your tasks:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             res.append(i + 1).append(".")
@@ -99,7 +99,7 @@ public class TaskList {
      */
     public void checkIfIndexIsValid(int index) throws DukeException {
         if (index > tasks.size() || index <= 0) {
-            throw new DukeException("Enter command with positive index lesser than "
+            throw new DukeException("SUI, Enter command with positive index lesser than "
                     + (tasks.size() + 1) + "\n");
         }
     }
@@ -118,16 +118,16 @@ public class TaskList {
 
         //No index to mark
         if (parts.length == 1) {
-            throw new DukeException("Specify index to mark task!\n");
+            throw new DukeException("SUI, Specify index to mark task!\n");
         }
 
         if (parts.length > 2) {
-            throw new DukeException("Enter mark command properly!\n");
+            throw new DukeException("SUI, Enter mark command properly!\n");
         }
 
         //No task to mark
         if (tasks.size() == 0) {
-            throw new DukeException("No tasks! Add more tasks to mark!\n");
+            throw new DukeException("SUI, No tasks! Add more tasks to mark!\n");
         }
 
         if (parts.length == 2) {
@@ -144,7 +144,7 @@ public class TaskList {
                 assert !res.isEmpty() : "Failed to mark task.";
 
             } catch (NumberFormatException e) {
-                throw new DukeException("Enter a valid positive integer after your markcommand!\n");
+                throw new DukeException("SUI, Enter a valid positive integer after your markcommand!\n");
             }
         }
         return res;
@@ -165,16 +165,16 @@ public class TaskList {
 
         //No index to mark
         if (parts.length == 1) {
-            throw new DukeException("Specify index to unmark task!\n");
+            throw new DukeException("SUI, Specify index to unmark task!\n");
         }
 
         if (parts.length > 2) {
-            throw new DukeException("Enter unmark command properly!\n");
+            throw new DukeException("SUI, Enter unmark command properly!\n");
         }
 
         //No task to mark
         if (tasks.size() == 0) {
-            throw new DukeException("No tasks! Add more tasks to unmark!\n");
+            throw new DukeException("SUI, No tasks! Add more tasks to unmark!\n");
         }
 
         if (parts.length == 2) {
@@ -192,7 +192,7 @@ public class TaskList {
 
                 res = tasks.get(index - 1).setUnmarked();
             } catch (NumberFormatException e) {
-                throw new DukeException("Enter a valid positive integer after your unmark command!\n");
+                throw new DukeException("SUI, Enter a valid positive integer after your unmark command!\n");
             }
         }
         return res;
@@ -212,12 +212,12 @@ public class TaskList {
 
         //No index to delete
         if (input.equals("delete") && parts.length == 1) {
-            throw new DukeException("Specify index to delete task!\n");
+            throw new DukeException("SUI, Specify index to delete task!\n");
         }
 
         //No task to delete
         if (tasks.size() == 0) {
-            throw new DukeException("No tasks to delete! Add more tasks to delete!\n");
+            throw new DukeException("SUI, No tasks to delete! Add more tasks to delete!\n");
         }
 
         if ((parts[0].equals("delete")) && parts.length == 2) {
@@ -228,10 +228,10 @@ public class TaskList {
                 int index = Integer.parseInt(sec);
                 String removedTask = tasks.get(index - 1).toString();
                 tasks.remove(index - 1);
-                res = "Noted. I've removed this task: \n " + "  " + removedTask + "\n" + getTaskLeft();
+                res = "SUI, Noted. I've removed this task: \n " + "  " + removedTask + "\n" + getTaskLeft();
                 assert !res.isEmpty() : "Failed to delete task.";
             } catch (NumberFormatException e) {
-                throw new DukeException("Enter a valid positive integer after your mark/unmark command!\n");
+                throw new DukeException("SUI, Enter a valid positive integer after your mark/unmark command!\n");
             }
         }
 
@@ -255,7 +255,7 @@ public class TaskList {
         }
 
         if (task.equals("")) {
-            throw new DukeException("No description specified la dei!! How to do work when no work is said?! "
+            throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said?! "
                     + "Enter again!\n");
         }
 
@@ -263,7 +263,7 @@ public class TaskList {
 
         String str = tasks.get(tasks.size() - 1).toString();
         assert !str.isEmpty() : "Failed to add todo task.";
-        String res = "Got it. I've added this task :\n" + str + "\n";
+        String res = "SUI, Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
 
@@ -288,18 +288,18 @@ public class TaskList {
         String byDate = result[1];
         String endTime = result[2];
         if (task.equals("")) {
-            throw new DukeException("No description specified la dei!! How to do work when no work is said!! "
+            throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said!! "
                     + "Enter again!\n");
         }
 
         if (byDate.isEmpty()) {
-            throw new DukeException("deadline task must have /by date and time\n");
+            throw new DukeException("SUI, deadline task must have /by date and time\n");
         }
 
         tasks.add(new Deadline(task, byDate, endTime + ":00", TaskType.DEADLINE));
 
         String str = tasks.get(tasks.size() - 1).toString();
-        String res = "Got it. I've added this task :\n" + str + "\n";
+        String res = "SUI, Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
         return res;
@@ -318,12 +318,12 @@ public class TaskList {
         String[] parts = input.split("/by ");
         String[] taskArray = parts[0].split(" ");
         if (parts.length != 2) {
-            throw new DukeException("Specify by date and time!");
+            throw new DukeException("SUI, Specify by date and time!");
         }
         String[] deadlineInfo = parts[1].split(" ");
 
         if (deadlineInfo.length != 2) {
-            throw new DukeException("Specify both date and time in the following manner : yyyy-mm-dd hh:mm");
+            throw new DukeException("SUI, Specify both date and time in the following manner : yyyy-mm-dd hh:mm");
         }
         byDate = deadlineInfo[0];
         endTime = deadlineInfo[1];
@@ -387,19 +387,19 @@ public class TaskList {
         String endTime = result[4];
 
         if (task.equals("")) {
-            throw new DukeException("No description specified la dei!! How to do work when no work is said!! "
+            throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said!! "
                     + "Enter again!\n");
         }
 
         if (startDate.isEmpty() || endDate.isEmpty()) {
-            throw new DukeException("event task must have both /from and /to times\n");
+            throw new DukeException("SUI, event task must have both /from and /to times\n");
         }
 
         tasks.add(new Event(task, startDate, endDate, startTime + ":00", endTime + ":00", TaskType.EVENT));
 
         String str = tasks.get(tasks.size() - 1).toString();
         assert !str.isEmpty() : "Failed to add deadline task.";
-        String res = "Got it. I've added this task :\n" + str + "\n";
+        String res = "SUI, Got it. I've added this task :\n" + str + "\n";
         res += getTaskLeft();
 
         return res;
@@ -419,13 +419,13 @@ public class TaskList {
         String endTime = "";
         String[] parts = input.split("/from ");
         if (parts.length != 2) {
-            throw new DukeException("Specify from and to date and time!");
+            throw new DukeException("SUI, Specify from and to date and time!");
         }
         String[] taskArray = parts[0].split(" ");
         String[] taskInfo = parts[1].split("/to ");
 
         if (taskInfo.length != 2) {
-            throw new DukeException("Specify both date and time for /from and /to in the following manner "
+            throw new DukeException("SUI, Specify both date and time for /from and /to in the following manner "
                     + ": yyyy-mm-dd hh:mm");
         }
 
@@ -433,12 +433,12 @@ public class TaskList {
         String[] toInfo = taskInfo[1].split(" ");
 
         if (fromInfo.length != 2) {
-            throw new DukeException("Specify both date and time for /from in the following manner "
+            throw new DukeException("SUI, Specify both date and time for /from in the following manner "
                     + ": yyyy-mm-dd hh:mm");
         }
 
         if (toInfo.length != 2) {
-            throw new DukeException("Specify both date and time for /to in the following manner "
+            throw new DukeException("SUI, Specify both date and time for /to in the following manner "
                     + ": yyyy-mm-dd hh:mm");
         }
 
@@ -513,11 +513,11 @@ public class TaskList {
         String[] parts = input.split(" ");
 
         if (parts.length == 1) {
-            throw new DukeException("Specify keyword to search for!\n");
+            throw new DukeException("SUI, Specify keyword to search for!\n");
         }
 
         if (parts.length > 2) {
-            throw new DukeException("Enter only one keyword to search!\n");
+            throw new DukeException("SUI, Enter only one keyword to search!\n");
         }
 
         int resultCounter = 1;
@@ -532,9 +532,9 @@ public class TaskList {
         }
 
         if (results.equals("")) {
-            return "No results found!";
+            return "SUI, No results found!";
         }
-        assert !results.isEmpty() : "No results found.";
+        assert !results.isEmpty() : "SUI, No results found.";
         return results;
     }
 

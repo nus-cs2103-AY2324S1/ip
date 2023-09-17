@@ -55,7 +55,7 @@ public class Duke {
 
     public String handleCommand(String command, String input) throws DukeException, IOException {
         if (input.equals("")) {
-            throw new DukeException("Invalid Command!");
+            throw new DukeException("SUI, Invalid Command!");
         }
 
         switch (command) {
@@ -76,7 +76,7 @@ public class Duke {
         case "find":
             return tasks.handleFindTask(input);
         default:
-            throw new DukeException("Invalid Command!");
+            throw new DukeException("SUI, Invalid Command!");
         }
     }
 }

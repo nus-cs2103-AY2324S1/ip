@@ -26,7 +26,7 @@ public class Task {
      */
     public String setMarked() throws DukeException {
         if (this.isCompleted) {
-            throw new DukeException("This task has already been marked as done!\n");
+            throw new DukeException("SUI, This task has already been marked as done!\n");
         }
         this.isCompleted = true;
         return "";
@@ -40,7 +40,7 @@ public class Task {
      */
     public String setUnmarked() throws DukeException {
         if (!this.isCompleted) {
-            throw new DukeException("This task has already been marked as not done!\n");
+            throw new DukeException("SUI, This task has already been marked as not done!\n");
         }
         this.isCompleted = false;
         return "";

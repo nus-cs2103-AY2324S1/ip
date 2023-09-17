@@ -28,7 +28,7 @@ public class Storage {
         try {
             new File(filePath);
         } catch (Exception e) {
-            System.out.println("Please create a folder at the specified folder : src/data/duke.txt");
+            System.out.println("SUI, Please create a folder at the specified folder : src/data/duke.txt");
         }
         String tasks = "";
         try {
@@ -40,7 +40,7 @@ public class Storage {
 
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Please create a folder at the specified folder : src/data/duke.txt");
+            System.out.println("SUI, Please create a folder at the specified folder : src/data/duke.txt");
         }
         return tasks;
     }

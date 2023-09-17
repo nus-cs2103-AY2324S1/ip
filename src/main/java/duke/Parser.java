@@ -34,12 +34,12 @@ public class Parser {
                 return new String[]{"find", userInput};
             } else {
                 throw new InvalidInputExpression("Invalid input!! "
-                        + "Specify commands as list, mark, unmark, or deadline, event "
+                        + "SUI, Specify commands as list, mark, unmark, or deadline, event "
                         + "and todo followed by the task please la dei!\n");
             }
         } catch (InvalidInputExpression e) {
             throw new InvalidInputExpression("Invalid input!! "
-                    + "Specify commands as list, mark, unmark, or deadline, event "
+                    + "SUI, Specify commands as list, mark, unmark, or deadline, event "
                     + "and todo followed by the task please la dei!\n");
         }
     }
