@@ -45,7 +45,7 @@ public class Parser {
             try {
                 Integer index = Integer.valueOf(inputArray[1]);
                 tasklist.chadMarkTask(index);
-                ui.chadMarkTaskOutput(chad.taskArrayList.get(index - 1).name,
+                ui.chadMarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
                         chad.taskArrayList.get(index - 1).getMark());
                 storage.writeFile(chad.taskArrayList);
 
@@ -58,7 +58,7 @@ public class Parser {
 
                 Integer index = Integer.valueOf(inputArray[1]);
                 tasklist.chadUnmarkTask(index);
-                ui.chadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).name,
+                ui.chadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
                         chad.taskArrayList.get(index - 1).getMark());
 
                 storage.writeFile(chad.taskArrayList);
@@ -161,7 +161,7 @@ public class Parser {
                 Integer index = Integer.valueOf(inputArray[1]);
                 tasklist.chadMarkTask(index);
                 storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadMarkTaskOutput(chad.taskArrayList.get(index - 1).name,
+                output = ui.displayChadMarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
                         chad.taskArrayList.get(index - 1).getMark());
 
 
@@ -176,7 +176,7 @@ public class Parser {
                 Integer index = Integer.valueOf(inputArray[1]);
                 tasklist.chadUnmarkTask(index);
                 storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).name,
+                output = ui.displayChadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
                         chad.taskArrayList.get(index - 1).getMark());
 
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
