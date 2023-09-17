@@ -60,6 +60,10 @@ public abstract class Task {
         this.tags.addAll(tag);
     }
 
+    public void unTag() {
+        this.tags = new ArrayList<String>();
+    }
+
     /**
      * Returns a string representation of the task.
      * @return A string representation of the task.

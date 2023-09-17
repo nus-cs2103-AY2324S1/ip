@@ -120,6 +120,11 @@ public class TaskList {
         storage.modifyFile(this.data);
     }
 
+    public void unTag(int index) {
+        data.get(index).unTag();
+        storage.modifyFile(this.data);
+    }
+
     /**
      * Deletes a task at a specific index, updates the storage, and displays updated task count.
      * @param index The index of the task to delete.

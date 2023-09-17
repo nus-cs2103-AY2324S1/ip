@@ -107,6 +107,11 @@ public class Ui {
         return "Okay, tag added to " + tasks.taskDetails(index);
     }
 
+    public String unTag(int index) {
+        tasks.unTag(index);
+        return tasks.taskDetails(index) + " untagged\n";
+    }
+
     /**
      * Adds a task, displays an addition message with the added task details, and shows the updated task count.
      * @param task The task to be added.

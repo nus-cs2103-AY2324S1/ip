@@ -16,6 +16,7 @@ import roo.commands.Tag;
 import roo.commands.TodoCommand;
 import roo.commands.Unknown;
 import roo.commands.Unmark;
+import roo.commands.UnTag;
 import roo.task.Deadline;
 import roo.task.Event;
 import roo.task.Task;
@@ -53,9 +54,9 @@ public class Parse {
     private static Todo createTodo(String str, ArrayList<String> tags) {
         try {
             if (str.contains("[x]")) {
-                return new Todo(str.substring(8), true, tags);
+                return new Todo(str.substring(7), true, tags);
             } else if (str.contains("[ ]")) {
-                return new Todo(str.substring(8), false, tags);
+                return new Todo(str.substring(7), false, tags);
             }
         } catch (RooException e) {
             System.err.println(e.getMessage());
@@ -129,6 +130,8 @@ public class Parse {
             return new Find(input);
         } else if (inputs[0].startsWith("tag")) {
             return new Tag(inputs[0], tags);
+        } else if (inputs[0].startsWith("untag")) {
+            return new UnTag(inputs[0]);
         } else if (inputs[0].startsWith("end") || inputs[0].startsWith("bye")) {
             return new End();
         } else {
