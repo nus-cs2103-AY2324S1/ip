@@ -21,14 +21,20 @@ public class Storage {
     private final File tasksFile;
     private final File notesFile;
     private final String directoryPath;
+    private final String tasksFileName;
+    private final String notesFileName;
 
     /**
      * Storage Constructor.
      *
      * @param directoryPath Relative directory path.
+     * @param tasksFileName Task File name.
+     * @param notesFileName Notes FIle name.
      */
     public Storage(String directoryPath, String tasksFileName, String notesFileName) {
         this.directoryPath = directoryPath;
+        this.tasksFileName = tasksFileName;
+        this.notesFileName = notesFileName;
         findDirectory(this.directoryPath);
         this.tasksFile = new File(this.directoryPath, tasksFileName);
         this.notesFile = new File(this.directoryPath, notesFileName);
@@ -137,7 +143,7 @@ public class Storage {
      * @throws IOException Throws if FileWriter cannot be created.
      */
     public void writeTasksToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(this.directoryPath + "/data.txt");
+        FileWriter fw = new FileWriter(this.directoryPath + tasksFileName);
         for (Task task : tasks) {
             fw.write(task.writeToFile());
         }
@@ -151,7 +157,7 @@ public class Storage {
      * @throws IOException Throws if FileWriter cannot be created.
      */
     public void writeNotesToFile(ArrayList<Note> notes) throws IOException {
-        FileWriter fw = new FileWriter(this.directoryPath + "/notes.txt");
+        FileWriter fw = new FileWriter(this.directoryPath + this.notesFileName);
         for (Note note : notes) {
             fw.write(note.toString() + "\n");
         }

@@ -20,7 +20,7 @@ public class Duke {
      * Duke Constructor.
      */
     public Duke() {
-        this.storage = new Storage("./data", "/data.txt", "/notes.txt");
+        this.storage = new Storage("./data", "/tasks.txt", "/notes.txt");
         try {
             this.tasks = new TaskList(storage.loadTasks());
             this.notes = new NotesList(storage.loadNotes());
