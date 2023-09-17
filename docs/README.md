@@ -47,7 +47,7 @@ Currently it has,
 
 ## Features
 
-## Manages Tasks
+### Manages Tasks
 
 ```
 PikaKing manages tasks of 3 types, namely Todos, Deadlines and Events.
@@ -60,7 +60,7 @@ You can do alot with them, such as
 You can also view the whole list and also find tasks with keywords.
 ```
 
-## Guiding users
+### Guiding users
 
 ```
 PikaKing knows that it is not easy for new users, hence allowing users to
