@@ -24,9 +24,10 @@ public class EventTask extends Task {
     private EventTask(boolean isDone, String description, String startDateTime,
                      String endDateTime) {
         super(isDone, description);
+        assert startDateTime != null : "Start date and time cannot be null";
         this.startDateTime = startDateTime;
+        assert endDateTime != null : "End date and time cannot be null";
         this.endDateTime = endDateTime;
-        // add exceptions for time
     }
 
     /**
