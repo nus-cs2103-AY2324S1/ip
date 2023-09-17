@@ -13,6 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 /**
  * An example of a custom control using FXML.
@@ -35,7 +39,13 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        this.setStyle("-fx-background-color: lightblue;");
+
+        Font arialFont =  Font.font("Arial", FontWeight.BOLD,14);
+        dialog.setFont(arialFont);
         dialog.setText(text);
+        Circle clip = new Circle(50, 50, 50);
+        displayPicture.setClip(clip);
         displayPicture.setImage(img);
         assert displayPicture != null : "displayPicture should not be null";
     }
@@ -44,10 +54,17 @@ public class DialogBox extends HBox {
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
+        Font font = this.dialog.getFont();
+        Font robotoFont = Font.loadFont(getClass().getResourceAsStream("/font/Roboto-Regular.ttf"), 12);
+        if (this.dialog.getFont().getFamily().equals("Arial")) {
+            dialog.setFont(robotoFont);
+        }
+
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        this.setStyle("-fx-background-color: white;");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
