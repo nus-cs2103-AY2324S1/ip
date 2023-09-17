@@ -32,7 +32,7 @@ public class ByeCommand extends Command {
     public void validateCommand() throws DukeException {
         String[] commandArr = this.command.split(" ", 2);
         if (commandArr.length > 1) {
-            throw new DukeException("To exit the program, please only input 'bye'!");
+            throw new DukeException("To exit the program, please input only 'bye'!");
         }
     }
 }

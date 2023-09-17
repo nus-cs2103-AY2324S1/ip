@@ -28,7 +28,7 @@ public class EventCommand extends Command {
         String[] eventArr2 = eventArr1[1].split(" /to ", 2);
         Task event = new Event(eventArr1[0], eventArr2[0], eventArr2[1]);
         tasks.addTask(event);
-        String result = "Ren helped you add: " + event.toString() + "\n";
+        String result = "Ren helped you add: \n" + event.toString() + "\n";
         return result + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
 

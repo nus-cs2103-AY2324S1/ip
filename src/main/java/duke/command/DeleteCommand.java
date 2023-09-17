@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
             int index = Integer.parseInt(commandArr[1]) - 1;
             Task deleted = tasks.deleteTask(index);
             String result = "Ren removed the task: \n" + deleted.toString() + "\n";
-            return result + "Now you have " + tasks.getSize() + " tasks in the list.";
+            return result + "\nNow you have " + tasks.getSize() + " tasks in the list.";
         } catch (NumberFormatException e) {
             throw new DukeException(DukeException.INVALID_INDEX);
         }

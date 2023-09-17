@@ -24,7 +24,7 @@ public class NoteCommand extends Command {
         Note note = new Note(commandArr[1]);
         notes.addNote(note);
 
-        return "Ren helped you add a new note: " + note.toString();
+        return "Ren helped you add a new note: \n" + note.toString();
     }
 
     /**
