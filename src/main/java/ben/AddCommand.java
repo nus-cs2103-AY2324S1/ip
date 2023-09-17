@@ -21,6 +21,7 @@ public class AddCommand extends Command {
      * @param command The input command by the user
      */
     public AddCommand(String command) {
+        assert command != null;
         this.command = command;
     }
 

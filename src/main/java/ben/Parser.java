@@ -32,6 +32,7 @@ public class Parser {
      */
     public Command parse(String command) throws InvalidCommandException {
         String[] words = command.split("\\s+");
+        assert words.length > 0;
         if (words[0].equalsIgnoreCase("delete") ||
                 words[0].equalsIgnoreCase("unmark") ||
                 words[0].equalsIgnoreCase("mark")) {
