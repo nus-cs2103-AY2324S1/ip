@@ -224,7 +224,7 @@ public class TaskList {
         } else {
             throw new DukeException("Invalid Edit Command!\nMake sure that the Task is of the correct type!");
         }
-
+        this.saveList();
         return formatMessage("updated", selectedTask, taskList.size());
     }
 
