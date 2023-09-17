@@ -40,7 +40,8 @@ public class Deadline extends Task {
             encoded += "0";
         }
 
-        encoded += " | " + super.getDescription()
+        encoded += " | " + super.getTag()
+                + " | " + super.getDescription()
                 + " | " + this.by;
 
         return encoded;

@@ -100,4 +100,14 @@ public class TaskList {
     public void deleteTask(Task task) {
         this.tasks.remove(task);
     }
+
+    /**
+     * Tags a Task with the specified label.
+     *
+     * @param task Task to be tagged.
+     * @param label String representing the label to tag the Task with.
+     */
+    public void tagTask(Task task, String label) {
+        task.tag(label);
+    }
 }
