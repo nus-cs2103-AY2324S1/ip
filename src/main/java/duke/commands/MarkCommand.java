@@ -4,6 +4,9 @@ import duke.utils.*;
 import duke.tasks.*;
 import java.util.ArrayList;
 
+/**
+ * A class for handling mark commands.
+ */
 public class MarkCommand extends Command {
     private int taskNumber;
 

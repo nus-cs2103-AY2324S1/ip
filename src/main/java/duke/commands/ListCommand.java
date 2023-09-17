@@ -4,6 +4,9 @@ import duke.utils.*;
 import duke.tasks.*;
 import java.util.ArrayList;
 
+/**
+ * A class for handling list commands.
+ */
 public class ListCommand extends Command {
 
     /**

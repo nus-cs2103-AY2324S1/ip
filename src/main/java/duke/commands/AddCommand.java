@@ -5,6 +5,9 @@ import duke.tasks.*;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * A class for handling add commands.
+ */
 public class AddCommand extends Command {
     private String type;
     private String fullCommand;

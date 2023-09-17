@@ -4,6 +4,9 @@ import duke.utils.*;
 import duke.tasks.*;
 import java.util.ArrayList;
 
+/**
+ * A class for handling delete commands.
+ */
 public class DeleteCommand extends Command {
     private int taskNumber;
 

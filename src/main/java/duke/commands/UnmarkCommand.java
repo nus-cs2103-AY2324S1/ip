@@ -4,6 +4,9 @@ import duke.utils.*;
 import duke.tasks.*;
 import java.util.ArrayList;
 
+/**
+ * A class for handling unmark commands.
+ */
 public class UnmarkCommand extends Command {
     private int taskNumber;
 

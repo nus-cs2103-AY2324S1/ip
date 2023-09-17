@@ -5,6 +5,9 @@ import duke.tasks.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * A class for handling exit commands.
+ */
 public class ExitCommand extends Command {
 
     /**

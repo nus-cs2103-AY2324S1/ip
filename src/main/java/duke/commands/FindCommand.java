@@ -6,6 +6,9 @@ import duke.utils.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * A class for handling find commands.
+ */
 public class FindCommand extends Command {
     private String fullCommand;
 
