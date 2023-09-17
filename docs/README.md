@@ -4,7 +4,7 @@ CarlBot is a Personal Assistant Chatbot that helps a person to keep track of var
 
 ## Quick start
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest `CarlBot.jar` from here.
+2. Download the latest `CarlBot.jar` from [here](https://github.com/Carlintyj/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the _home_ folder for your chatbot.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar CarlBot.jar` command to run the application. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. <br> ![Ui](Ui.png)
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will show all the commands.
