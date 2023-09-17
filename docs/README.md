@@ -96,11 +96,11 @@ Format: ```remind```
 
 Example of usage: ```remind```
 
+![remind](https://github.com/shishirbychapur/ip/assets/95522842/df51bf50-e0ed-42df-8965-813fac366f4b)
+
 ### Exit the application: ```bye```
 Exits from the application. An alternate way of exit is by pressing the close button (located at the top right corner of your screen).
 
 Format: ```bye```
 
 Example of usage: `bye`
-
-![remind](https://github.com/shishirbychapur/ip/assets/95522842/df51bf50-e0ed-42df-8965-813fac366f4b)
