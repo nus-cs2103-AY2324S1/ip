@@ -28,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 /**
@@ -97,13 +98,23 @@ public class MainWindow extends AnchorPane {
         // Set the scroll to the bottom of the ScrollPane
         scrollPane.vvalueProperty().bind(messageContainer.heightProperty());
         // Grow and shrink ScrollPane as per visibility of ErrorRectangle
-        scrollPane.prefHeightProperty().bind(
-                // Use Bindings, BooleanProperty <; ObservableBooleanValue
-                Bindings.when(errorRectangle.visibleProperty())
-                        .then(475)
-                        .otherwise(555)
-        );
+        // This behavior has been moved to handleErrorMessage
+
+        // Temporary approach for extending errorRectangle to match width of this
+        errorRectangle.widthProperty().bind(this.widthProperty());
         handleDotWelcome();
+
+        // Set binding for errorMessage font size to be multiplied by the extent
+        // which MainWindow is enlarged by, capped at 2
+        this.errorMessage.fontProperty().bind(Bindings.createObjectBinding(() -> {
+            double defaultMainWindowWidth = 400;
+            double maxMultiplier = 2.0;
+            double defaultFontSize = 12.0;
+            double multiplier = this.getWidth() / defaultMainWindowWidth < 1
+                    ? 1
+                    : Math.min(this.getWidth() / defaultMainWindowWidth, maxMultiplier);
+            return new Font("Monospaced Bold Italic", defaultFontSize * multiplier);
+        }, this.widthProperty()));
     }
 
     private Background getMessageBackground(Paint color,
@@ -120,7 +131,7 @@ public class MainWindow extends AnchorPane {
                                 Color.rgb(135, 206, 250, 0.9),
                                 10.0,
                                 new Insets(0)),
-                        dotImage, Ui.getWelcomeMessage()));
+                        this, dotImage, Ui.getWelcomeMessage()));
     }
 
     private void handleDotOutput(String output) {
@@ -130,18 +141,27 @@ public class MainWindow extends AnchorPane {
                                 Color.rgb(135, 206, 250, 0.9),
                                 10.0,
                                 new Insets(0)),
-                        dotImage, output));
+                        this, dotImage, output));
     }
 
     private void handleErrorMessage(String output) {
+        double defaultScrollPaneBottomAnchor = 45.0;
+        double heightOfErrorMessageRectangle = 80.0;
+
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, event -> {
+                    // Modify scrollPane sizing
+                    AnchorPane.setBottomAnchor(scrollPane,
+                            defaultScrollPaneBottomAnchor + heightOfErrorMessageRectangle);
+                    // Modify StackPane content
                     errorMessage.setText(output);
                     errorMessage.setStyle("-fx-text-fill: white");
                     errorRectangle.setVisible(true);
                     errorMessage.setVisible(true);
                 }),
                 new KeyFrame(Duration.seconds(5.0), event -> {
+                    AnchorPane.setBottomAnchor(scrollPane, defaultScrollPaneBottomAnchor);
+
                     errorRectangle.setVisible(false);
                     errorMessage.setVisible(false);
                 })
@@ -170,7 +190,7 @@ public class MainWindow extends AnchorPane {
                                 Color.rgb(152, 251, 152, 0.9),
                                 10.0,
                                 new Insets(0)),
-                        userMessage, userImage)
+                        this, userMessage, userImage)
         );
 
         try {
