@@ -11,51 +11,51 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
-    public static void executeCommand(TaskList store, String[] commandTask) {
-        if (commandTask.length == 0) {
-            System.out.println("Invalid command.");
-            return;
-        }
+    public static String executeCommand(TaskList store, String str) {
+        String[] commandTask = str.split(" ", 2);
 
         String command = commandTask[0];
+        if (commandTask.length == 0) {
+            System.out.println("Invalid command.");
+            return "Invalid command.";
+        }
 
         try {
             switch (command) {
                 case "delete":
                 case "mark":
                 case "unmark":
-                    handleDeleteMarkUnmark(store, command, commandTask);
-                    break;
+                    return handleDeleteMarkUnmark(store, command, commandTask);
+                    //break;
 
                 case "list":
-                    store.listTasks();
-                    break;
+                    return store.listTasks();
 
                 case "todo":
-                    handleTodo(store, commandTask);
-                    break;
+                    return handleTodo(store, commandTask);
 
                 case "deadline":
-                    handleDeadline(store, commandTask);
-                    break;
+                    return handleDeadline(store, commandTask);
 
                 case "event":
-                    handleEvent(store, commandTask);
-                    break;
+                    return handleEvent(store, commandTask);
 
                 case "find":
-                    store.findKeyword(commandTask[1]);
-                    break;
+                    return store.findKeyword(commandTask[1]);
+
+                case "bye" :
+                    Ui ui = new Ui();
+                    return ui.bidGoodbye();
 
                 default:
                     throw new IllegalArgumentException("Invalid command.");
             }
         } catch (SaeException | IllegalArgumentException errorMessage) {
-            System.out.println("☹ OOPS!!! " + errorMessage.getMessage());
+            return "☹ OOPS!!! " + errorMessage.getMessage();
         }
     }
 
-    private static void handleDeleteMarkUnmark(TaskList store, String command, String[] commandTask) {
+    private static String handleDeleteMarkUnmark(TaskList store, String command, String[] commandTask) {
         if (commandTask.length < 2) {
             throw new IllegalArgumentException("Command requires an index.");
         }
@@ -65,22 +65,22 @@ public class Parser {
         }
         number--; // Adjust for 0-based indexing
         if (command.equals("delete")) {
-            store.deleteTask(number);
+            return store.deleteTask(number);
         } else if (command.equals("mark")) {
-            store.markTaskAsDone(number);
+            return store.markTaskAsDone(number);
         } else {
-            store.unMarkTaskAsDone(number);
+            return store.unMarkTaskAsDone(number);
         }
     }
 
-    private static void handleTodo(TaskList store, String[] commandTask) throws SaeException {
+    private static String handleTodo(TaskList store, String[] commandTask) throws SaeException {
         if (commandTask.length < 2 || commandTask[1].isEmpty()) {
             throw new InvalidTodoException();
         }
-        store.addToDoTask(commandTask[1]);
+        return store.addToDoTask(commandTask[1]);
     }
 
-    private static void handleDeadline(TaskList store, String[] commandTask) throws SaeException {
+    private static String handleDeadline(TaskList store, String[] commandTask) throws SaeException {
         if (commandTask.length < 2 || !commandTask[1].contains("/by")) {
             throw new InvalidDeadlineException();
         }
@@ -89,15 +89,15 @@ public class Parser {
         String dateTimeString = parts[1].trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
-        store.addDeadlineTask(description, dateTime);
+        return store.addDeadlineTask(description, dateTime);
     }
 
-    private static void handleEvent(TaskList store, String[] commandTask) throws SaeException {
+    private static String handleEvent(TaskList store, String[] commandTask) throws SaeException {
         if (commandTask.length < 2 || !commandTask[1].contains("/from") || !commandTask[1].contains("/to")) {
             throw new InvalidEventException();
         }
         String[] eventParts = commandTask[1].split("/from|/to");
-        store.addEventTask(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+        return store.addEventTask(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
     }
 
 }

@@ -30,17 +30,17 @@ public class ParserTest {
     @Test
     public void invalidInputTest() throws SaeException {
         String expected =  "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
-        String[] inputArray = new String[]{"UnknownInput"};
+        //String[] inputArray = new String[]{"UnknownInput"};
 
-        parser.executeCommand(taskList, inputArray);
+        parser.executeCommand(taskList, "unknown input");
         assertEquals(expected.trim(), outContent.toString().trim());
     }
 
     @Test
     public void byeTest() throws SaeException{
         String expected = "Bye. Hope to see you again soon!";
-        String[] inputArray = new String[]{"bye"};
-        parser.executeCommand(taskList, inputArray);
+        //String[] inputArray = new String[]{"bye"};
+        parser.executeCommand(taskList, "bye");
         assertEquals(expected.trim(), outContent.toString().trim());
     }
 

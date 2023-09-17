@@ -1,10 +1,11 @@
 package sae;
 
+import javafx.scene.layout.Region;
 import sae.task.TaskList;
 import sae.util.Parser;
 import sae.util.Storage;
 import sae.util.Ui;
-import sae.exceptions.SaeException;
+
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -20,23 +21,30 @@ public class Sae {
     private final Ui ui;
     private final Parser parser;
 
+
     /**
      * Constructs a new Sae instance.
-     *
-     * @param filePath The file path for task data storage.
      */
-    public Sae(String filePath) {
+    public Sae() {
         TaskList temp;
-        this.storage = new Storage(filePath);
+        this.storage = new Storage("data/sae.txt");
         this.ui = new Ui();
         this.parser = new Parser();
         try {
-            temp = storage.loadTasks(filePath);
+            temp = storage.loadTasks("data/sae.txt");
         } catch (IOException e) {
             temp = new TaskList();
         }
         this.store = temp;
     }
+
+/*    public Sae() {
+        // Initialize any default values or leave it empty
+        this.storage = null; // Initialize storage as needed
+        this.ui = null; // Initialize ui as needed
+        this.parser = null; // Initialize parser as needed
+        this.store = null; // Initialize store as needed
+    }*/
 
     /**
      * Runs the sae application.
@@ -61,7 +69,7 @@ public class Sae {
             }
 
             try {
-                parser.executeCommand(store, commandTask);
+                parser.executeCommand(store, str);
                 this.storage.saveTasks(store);
             } catch (IOException e) {
                 System.out.println("An error occurred while saving tasks: " + e.getMessage());
@@ -76,7 +84,26 @@ public class Sae {
      * @param args The command-line arguments (not used in this program).
      */
     public static void main(String[] args) {
-        Sae sae = new Sae("./data/sae.txt");
+        Sae sae = new Sae();
         sae.run();
+    }
+
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String userInput) {
+            try {
+                String ans = parser.executeCommand(store, userInput);
+                this.storage.saveTasks(store);
+                return ans;
+            } catch (IOException e) {
+                return e.getMessage();
+            }
     }
 }

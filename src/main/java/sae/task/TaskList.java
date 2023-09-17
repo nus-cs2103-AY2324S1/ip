@@ -36,13 +36,13 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             tasks.remove(index);
-            msg.deleteTaskMessage(task, tasks.size());
+            return msg.deleteTaskMessage(task, tasks.size());
         } else {
-            System.out.println("Invalid task index.");
+            return "Invalid task index.";
         }
     }
 
@@ -51,10 +51,10 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void markTaskAsDone(int index) {
+    public String markTaskAsDone(int index) {
         Task task = tasks.get(index);
         task.markTask();
-        msg.markAsDoneMessage(task);
+        return msg.markAsDoneMessage(task);
     }
 
     /**
@@ -62,16 +62,16 @@ public class TaskList {
      *
      * @param index The index of the task to be unmarked as done.
      */
-    public void unMarkTaskAsDone(int index) {
+    public String unMarkTaskAsDone(int index) {
         Task task = tasks.get(index);
         task.unMarkTask();
-        msg.unMarkAsDoneMessage(task);
+        return msg.unMarkAsDoneMessage(task);
     }
 
     /**
      * Lists all tasks in the task list.
      */
-    public void listTasks() {
+    public String listTasks() {
         int len = tasks.size();
         StringBuilder str = new StringBuilder();
         str.append("1." + tasks.get(0).toString());
@@ -79,7 +79,7 @@ public class TaskList {
             Task curr = tasks.get(i);
             str = str.append("\n" + (i + 1) + "." + curr.toString());
         }
-        System.out.println(str.toString());
+        return str.toString();
     }
 
     /**
@@ -87,10 +87,10 @@ public class TaskList {
      *
      * @param description The description of the ToDo task.
      */
-    public void addToDoTask(String description) {
+    public String addToDoTask(String description) {
         Todo task = new Todo(description);
         tasks.add(task);
-        msg.addTaskMessage(task, tasks.size());
+        return msg.addTaskMessage(task, tasks.size());
     }
 
     /**
@@ -99,10 +99,10 @@ public class TaskList {
      * @param description The description of the Deadline task.
      * @param by          The deadline of the Deadline task.
      */
-    public void addDeadlineTask(String description, LocalDateTime by) {
+    public String addDeadlineTask(String description, LocalDateTime by) {
         Deadline task = new Deadline(description, by);
         tasks.add(task);
-        msg.addTaskMessage(task, tasks.size());
+        return msg.addTaskMessage(task, tasks.size());
     }
 
     /**
@@ -112,10 +112,10 @@ public class TaskList {
      * @param from        The start time of the Event task.
      * @param to          The end time of the Event task.
      */
-    public void addEventTask(String description, String from, String to) {
+    public String addEventTask(String description, String from, String to) {
         Event task = new Event(description, from, to);
         tasks.add(task);
-        msg.addTaskMessage(task, tasks.size());
+        return msg.addTaskMessage(task, tasks.size());
     }
 
     /**
@@ -137,7 +137,7 @@ public class TaskList {
         return tasks.size();
     }
 
-    public void findKeyword(String keyword) {
+    public String findKeyword(String keyword) {
         StringBuilder str = new StringBuilder();
 
         for (int i = 0; i < tasks.size(); i++) {
@@ -148,10 +148,9 @@ public class TaskList {
             }
         }
         if (str.length() > 1) {
-            System.out.println("Here are the matching tasks in your list: ");
-            System.out.println(str);
+            return "Here are the matching tasks in your list:\n" + str;
         } else {
-            System.out.println("No tasks match the keyword given.");
+            return "No tasks match the keyword given.";
         }
     }
 }
