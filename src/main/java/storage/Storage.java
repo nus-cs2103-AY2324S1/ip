@@ -64,13 +64,15 @@ public class Storage {
                     tasks.add(task);
                 }
             }
+            assert !tasks.contains(null) : "null task detected";
 
             // Close the reader after parsing the file
             br.close();
             return tasks;
         } catch (FileNotFoundException f) {
             // Create a new data directory if it cannot be found
-            new File(fileDir).mkdir();
+            boolean isDirCreated = new File(fileDir).mkdir();
+            assert isDirCreated : "failed to create data directory";
             return null;
         } catch (IOException e) {
             return null;

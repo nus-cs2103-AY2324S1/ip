@@ -12,8 +12,8 @@ import ui.UiMessage;
  * Handles marking/unmarking a {@link Task}.
  */
 public class MarkCommand extends Command {
-    private int taskCount;
-    private boolean isDone;
+    private final int taskCount;
+    private final boolean isDone;
 
     /**
      * The constructor method of the MarkCommand class.
