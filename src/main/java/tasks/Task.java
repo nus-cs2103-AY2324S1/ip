@@ -29,15 +29,25 @@ public class Task {
         return "[" + getMark() + "] " + name;
     }
 
-
+    /**
+     * Marks a task as complete
+     */
     public void markTask() {
         this.isComplete = true;
     }
 
+    /**
+     * Marks a task as incomplete
+     */
     public void unmarkTask() {
         this.isComplete = false;
     }
 
+    /**
+     * Returns name of task
+     *
+     * @return string of the name of task
+     */
     public String getName() {
         return this.name;
     }

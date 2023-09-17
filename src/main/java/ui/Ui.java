@@ -62,6 +62,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Returns the output string after adding a task
+     *
+     * @param input name of task
+     * @return the output string
+     */
     public String displayChadAddListOutput(String input){
         return LINE + input + "  has been added to yo list!\n" + LINE;
     }
@@ -84,6 +90,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns the output string of a list of tasks
+     *
+     * @param task array of tasks
+     * @return the output string for the list of tasks
+     */
     public String displaychadListTask(ArrayList<Task> task) {
         if (task.size() == 0) {
             return "Your task list is EMPTY!";
@@ -125,6 +137,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns the output string after removing a task
+     *
+     * @param input name of task that was removed
+     * @param size remaining number of tasks
+     * @return the output string for removal of a task
+     */
     public String displayChadRemoveOutput(String input, int size){
 
         String s;
@@ -152,6 +171,13 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Returns a string after marking a task
+     *
+     * @param task name of task that was marked
+     * @param mark mark of completion status of task
+     * @return the output string for marking a task
+     */
     public String displayChadMarkTaskOutput(String task, String mark){
         return LINE + "Good job! " + task + " fulfilled!" + "\n" + task + " [" + mark + "]\n" + LINE;
     }
@@ -159,7 +185,7 @@ public class Ui {
     /**
      * Prints out when a task is unmarked
      *
-     * @param task name of task that has been removed
+     * @param task name of task that has been unmarked
      * @param mark mark of completion status of task
      */
     public void chadUnmarkTaskOutput(String task, String mark){
@@ -169,21 +195,40 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Returns the output string after unmarking a task
+     *
+     * @param task name of task that has been unmarked
+     * @param mark mark of completion status of task
+     * @return
+     */
     public String displayChadUnmarkTaskOutput(String task, String mark){
         return  LINE + "\n" + "Boooo! " + task + " is not done!" + task + " [" + mark + "]\n" + LINE;
     }
 
-
+    /**
+     * Prints output if no tasks matches the input
+     */
     public void chadMatchNotFoundOutput(){
         System.out.println(LINE);
         System.out.println("There are no matching tasks!");
         System.out.println(LINE);
     }
 
+    /**
+     * Returns the output string if there are no matching tasks
+     *
+     * @return output string for no matching tasks
+     */
     public String displayChadMatchNotFoundOutput(){
         return LINE + "There are no matching tasks!" + LINE;
     }
 
+    /**
+     * Prints the output string if there are matching tasks
+     *
+     * @param task array of matched tasks
+     */
     public void chadMatchFoundOutput(ArrayList<Task> task){
         System.out.println(LINE);
         System.out.println("Here are the matching tasks:");
@@ -197,6 +242,12 @@ public class Ui {
 
     }
 
+    /**
+     * Returns the output string if there are matching tasks
+     *
+     * @param task array of matched tasks
+     * @return output string with the matching tasks
+     */
     public String displayChadMatchFoundOutput(ArrayList<Task> task){
 
         String s = "";

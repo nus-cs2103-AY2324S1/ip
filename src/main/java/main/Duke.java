@@ -67,12 +67,14 @@ public class Duke {
         return "Chad:\n" + output;
     }
 
+    /**
+     * Intialises the file by loading the txt file
+     */
     public void initialiseFile(){
         storage.makeNewDirectory();
         storage.makeNewFile();
         storage.loadFile(taskArrayList);
     }
-
 
 
     public static void main (String[]args) {

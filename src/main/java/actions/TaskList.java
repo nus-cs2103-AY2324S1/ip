@@ -55,9 +55,13 @@ public class TaskList {
      */
     public void chadUnmarkTask(int index) {
         taskArrayList.get(index - 1).unmarkTask();
-
     }
 
+    /**
+     * Finds tasks that matches the keyword
+     *
+     * @param keyword string to match the name of tasks
+     */
     public void chadFindTask(String keyword) {
         ArrayList<Task> matched = new ArrayList<>();
         for (Task task : taskArrayList) {
@@ -72,6 +76,13 @@ public class TaskList {
         }
         assert false: "Should always return an output";
     }
+
+    /**
+     * Returns string of tasks that matches the keyword
+     *
+     * @param keyword string to match the name of tasks
+     * @return output with string of matched tasks
+     */
     public String displayChadFindTask(String keyword) {
         ArrayList<Task> matched = new ArrayList<>();
         for (Task task : taskArrayList) {

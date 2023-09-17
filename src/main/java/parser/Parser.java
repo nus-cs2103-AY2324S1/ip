@@ -146,6 +146,14 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Takes in a String array of the instructions from user
+     * Runs the applicable methods based on the instruction from user
+     * For Main Class (GUI)
+     *
+     * @param inputArray array of string from the input of user
+     * @return false if user gives command to stop bot, else returns true
+     */
     public String displayInputParse(String[] inputArray) {
 
         String output = "";
