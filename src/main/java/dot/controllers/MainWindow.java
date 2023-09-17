@@ -108,7 +108,7 @@ public class MainWindow extends AnchorPane {
         // which MainWindow is enlarged by, capped at 2
         this.errorMessage.fontProperty().bind(Bindings.createObjectBinding(() -> {
             double defaultMainWindowWidth = 400;
-            double maxMultiplier = 2.0;
+            double maxMultiplier = 1.25;
             double defaultFontSize = 12.0;
             double multiplier = this.getWidth() / defaultMainWindowWidth < 1
                     ? 1
