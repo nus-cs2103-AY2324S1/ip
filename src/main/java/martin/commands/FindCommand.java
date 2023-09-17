@@ -9,11 +9,17 @@ import java.util.ArrayList;
  */
 public class FindCommand implements Command {
 
-    private String command;
+    private String input;
     private ArrayList<Task> tasks;
 
-    public FindCommand(String command, ArrayList<Task> tasks) {
-        this.command = command;
+    /**
+     * Creates a Find Command.
+     *
+     * @param input The user command input.
+     * @param tasks The list of tasks.
+     */
+    public FindCommand(String input, ArrayList<Task> tasks) {
+        this.input = input;
         this.tasks = tasks;
     }
 
@@ -25,7 +31,7 @@ public class FindCommand implements Command {
     @Override
     public String execute() {
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        String keyword = command.substring(5);
+        String keyword = input.substring(5);
 
         for (Task task : tasks) {
             if (task.contains(keyword)) {

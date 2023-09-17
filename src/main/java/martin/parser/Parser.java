@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import martin.commands.ListCommand;
 import martin.commands.MarkCommand;
+import martin.commands.SnoozeCommand;
 import martin.commands.TodoCommand;
 import martin.commands.UnmarkCommand;
 import martin.commands.Command;
@@ -17,7 +18,6 @@ import martin.commands.DeadlineCommand;
 import martin.commands.DeleteCommand;
 import martin.commands.EventCommand;
 import martin.commands.FindCommand;
-
 
 public class Parser {
 
@@ -62,6 +62,8 @@ public class Parser {
                 return new DateCommand(input, tasks);
             case "find":
                 return new FindCommand(input, tasks);
+            case "snooze":
+                return new SnoozeCommand(input, tasks);
             default:
                 throw new InvalidCommandException("Unknown command: " + input);
         }

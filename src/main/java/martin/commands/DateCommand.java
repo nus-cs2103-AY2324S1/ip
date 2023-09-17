@@ -3,6 +3,7 @@ package martin.commands;
 import martin.exceptions.InvalidDateFormatException;
 import martin.exceptions.MartinException;
 import martin.task.Deadline;
+import martin.task.Event;
 import martin.task.Task;
 
 import java.time.LocalDate;
@@ -16,11 +17,17 @@ import java.util.stream.Collectors;
  */
 public class DateCommand implements Command {
 
-    private String command;
+    private String input;
     private ArrayList<Task> tasks;
 
-    public DateCommand(String command, ArrayList<Task> tasks) {
-        this.command = command;
+    /**
+     * Creates a Date Command.
+     *
+     * @param input The user command input.
+     * @param tasks The list of tasks.
+     */
+    public DateCommand(String input, ArrayList<Task> tasks) {
+        this.input = input;
         this.tasks = tasks;
     }
 
@@ -32,20 +39,20 @@ public class DateCommand implements Command {
      */
     @Override
     public String execute() throws MartinException {
-        LocalDate date = parseDate(command);
+        LocalDate date = parseDate(input);
         return formatTasksForDate(date);
     }
 
     /**
      * Parses the date from the given command.
      *
-     * @param command The input command string.
+     * @param input The user command input.
      * @return LocalDate The parsed date.
      * @throws InvalidDateFormatException When the date format is incorrect.
      */
-    private LocalDate parseDate(String command) throws InvalidDateFormatException {
+    private LocalDate parseDate(String input) throws InvalidDateFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        String[] parts = command.split(" ", 2);  // Splits into two parts
+        String[] parts = input.split(" ", 2);  // Splits into two parts
 
         if (parts.length < 2) {
             throw new InvalidDateFormatException("Invalid date format. The command is missing a date.");
@@ -72,7 +79,12 @@ public class DateCommand implements Command {
 
         // Get tasks for the date
         String tasksOnDate = tasks.stream()
-            .filter(task -> task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date))
+            .filter(task -> 
+                (task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date)) ||
+                (task instanceof Event && 
+                !date.isBefore(((Event) task).getFrom().toLocalDate()) && 
+                !date.isAfter(((Event) task).getTo().toLocalDate()))
+            )
             .map(task -> task.toString())
             .collect(Collectors.joining("\n"));
 
