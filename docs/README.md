@@ -212,9 +212,9 @@ You can also delete a Task from `Juke` to remove any unwanted task from your tas
 delete [TASK INDEX]
 ```
 
-**ℹ️ Note**  
-The task index is relative to the current order of the task list! If you are not sure
-what the order of the list is, use the `list` command!
+> **ℹ️ Note**  
+> The task index is relative to the current order of the task list! If you are not sure
+> what the order of the list is, use the `list` command!
 
 #### Examples
 
