@@ -200,4 +200,16 @@ public class Ui {
         return String.format("Loading task list from %s...\n\ndone!\n",
                               isLoadDefault ? "default file" : fileName);
     }
+
+    /**
+     * Shows the sorting message to the user.
+     *
+     * @param isDefaultSort whether to sort by default.
+     * @param sortType     the sort type.
+     * @return the response message to the user.
+     */
+    public String showSort(boolean isDefaultSort, String sortType) {
+        return String.format("Sorting task list by %s...\n\ndone!\nType \"list\" to check it out!\n",
+                isDefaultSort ? "name" : sortType);
+    }
 }

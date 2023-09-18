@@ -52,4 +52,20 @@ public class Todo extends Task {
         }
         return super.equals(obj);
     }
+
+    @Override
+    public int compareDeadline(Task task) {
+        if (task instanceof Todo) {
+            return super.compareTo(task);
+        }
+        return 1;
+    }
+
+    @Override
+    public int compareCategory(Task task) {
+        if (task instanceof Todo) {
+            return super.compareTo(task);
+        }
+        return -1;
+    }
 }

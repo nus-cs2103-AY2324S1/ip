@@ -2,6 +2,7 @@ package duke.util;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -250,5 +251,14 @@ public class TaskList {
      */
     public void changeTaskList(List<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    /**
+     * Sorts the task list according to the given comparator.
+     *
+     * @param taskComparator the comparator to sort the task list
+     */
+    public void sortTaskList(Comparator<Task> taskComparator) {
+        taskList.sort(taskComparator);
     }
 }

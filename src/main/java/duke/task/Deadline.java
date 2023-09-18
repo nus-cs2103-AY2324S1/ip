@@ -87,4 +87,34 @@ public class Deadline extends Task {
         }
         return super.equals(obj);
     }
+
+    @Override
+    public int compareDeadline(Task task) {
+        if (task instanceof Todo) {
+            return -1;
+        }
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return this.by.compareTo(deadline.by);
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            return this.by.compareTo(event.to);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int compareCategory(Task task) {
+        if (task instanceof Deadline) {
+            return super.compareTo(task);
+        }
+        if (task instanceof Todo) {
+            return 1;
+        } else if (task instanceof Event) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }

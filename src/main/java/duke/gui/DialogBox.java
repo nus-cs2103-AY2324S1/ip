@@ -42,7 +42,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        displayPicture.setClip(new javafx.scene.shape.Circle(50, 50, 50));
+        displayPicture.setClip(new javafx.scene.shape.Circle(35, 35, 35));
     }
 
     /**

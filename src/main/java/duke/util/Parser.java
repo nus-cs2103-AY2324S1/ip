@@ -9,6 +9,7 @@ import duke.command.ListCommand;
 import duke.command.LoadCommand;
 import duke.command.MarkCommand;
 import duke.command.PrintDateCommand;
+import duke.command.SortCommand;
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;
@@ -96,6 +97,9 @@ public class Parser {
         case LOAD:
             return new LoadCommand();
 
+        case SORT:
+            return new SortCommand();
+
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
@@ -145,6 +149,9 @@ public class Parser {
 
         case LOAD:
             return new LoadCommand(commandBody);
+
+        case SORT:
+            return new SortCommand(commandBody);
 
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
