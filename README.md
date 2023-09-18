@@ -1,5 +1,12 @@
 # Kimochi Usagi きもちうさぎ bot 
 
+## Description
+The kimochi Usagi bot is a cute little rabbit, who wants to help you to remember tasks
+
+## Types of tasks
+- **todo** tasks are tasks with no time limit. They just have to be done.
+- **deadline** tasks are tasks with a deadline (date). Ensure that the date is formatted as dd/mm/YYYY
+- **event** tasks are tasks with a start and end datetime. Ensure that the date time is in the format of YYYY-MM-DDTHH:MM 
 
 ## Features
 
