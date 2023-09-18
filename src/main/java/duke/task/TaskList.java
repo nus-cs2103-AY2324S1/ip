@@ -63,11 +63,11 @@ public class TaskList {
     public Task getTask(Integer taskNumber) throws DukeException {
         assert (list != null) : "List of tasks must be instantiated.";
 
-        boolean taskExceedListSize = taskNumber > list.size();
-        boolean taskSmallerThanOne = taskNumber < 1;
-        boolean invalidTaskNumber = taskExceedListSize || taskSmallerThanOne;
+        boolean isOutsideListSize = taskNumber > list.size();
+        boolean isTaskSmallerThanOne = taskNumber < 1;
+        boolean isInvalidTaskNumber = isOutsideListSize || isTaskSmallerThanOne;
 
-        if (invalidTaskNumber) {
+        if (isInvalidTaskNumber) {
             throw new DukeException("Invalid task number");
         } else {
             return list.get(taskNumber - 1);
@@ -82,11 +82,11 @@ public class TaskList {
     public String removeTask(Integer taskNumber) throws DukeException {
         assert (list != null) : "List of tasks must be instantiated.";
 
-        boolean taskExceedListSize = taskNumber > list.size();
-        boolean taskSmallerThanOne = taskNumber < 1;
-        boolean invalidTaskNumber = taskExceedListSize || taskSmallerThanOne;
+        boolean isOutsideListSize = taskNumber > list.size();
+        boolean isTaskSmallerThanOne = taskNumber < 1;
+        boolean isInvalidTaskNumber = isOutsideListSize || isTaskSmallerThanOne;
 
-        if (invalidTaskNumber) {
+        if (isInvalidTaskNumber) {
             throw new DukeException("Invalid task number");
         } else {
             Task task = list.remove(taskNumber - 1);
