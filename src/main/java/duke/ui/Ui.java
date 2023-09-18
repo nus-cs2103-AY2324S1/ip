@@ -1,10 +1,16 @@
 package duke.ui;
 
-import duke.task.Task;
-
 import java.util.List;
 
+import duke.task.Task;
+
+/**
+ * Ui interface that the various types of Ui should implement.
+ */
 public interface Ui {
+    /**
+     * Initialises Ui.
+     */
     void init();
 
     /**

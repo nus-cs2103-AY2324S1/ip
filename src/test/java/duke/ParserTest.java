@@ -1,15 +1,16 @@
 package duke;
 
-import duke.ui.Parser;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.time.Month;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
+import java.time.Month;
+
+import org.junit.jupiter.api.Test;
+
+import duke.ui.Parser;
 
 public class ParserTest {
     @Test
@@ -63,13 +64,13 @@ public class ParserTest {
     @Test
     public void getOptArgAsDateTime_invalidDateTime_throws() {
         assertThrows(
-                DukeException.class,
-                () -> Parser.from("command arg /opt 2023-02-01").getOptArgAsDateTime("opt")
+                DukeException.class, ()
+                        -> Parser.from("command arg /opt 2023-02-01").getOptArgAsDateTime("opt")
         );
 
         assertThrows(
-                DukeException.class,
-                () -> Parser.from("command arg /opt aaaa /b bbbb").getOptArgAsDateTime("opt")
+                DukeException.class, ()
+                        -> Parser.from("command arg /opt aaaa /b bbbb").getOptArgAsDateTime("opt")
         );
     }
 }

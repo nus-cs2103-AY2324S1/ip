@@ -1,5 +1,8 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -9,17 +12,18 @@ import duke.task.Todo;
 import duke.ui.Parser;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 /**
- * Main driver class for Duke project.
- * Chatbot that manages a task list.
+ * Duke class handles main logic for the chatbot.
  */
 public class Duke {
     private final TaskList taskList;
     private final Ui ui;
 
+    /**
+     * Initialise Duke chatbot instance.
+     * @param ui Ui type that Duke will use.
+     * @throws DukeException
+     */
     public Duke(Ui ui) throws DukeException {
         this.taskList = new TaskList(new TaskStorage());
         this.ui = ui;
@@ -74,7 +78,7 @@ public class Duke {
         ui.listTasks(taskList.getTasks());
     }
 
-    private void markCommand(Parser parser) throws DukeException  {
+    private void markCommand(Parser parser) throws DukeException {
         Task task = taskList.markTask(parser.getArgAsInt());
         ui.markTask(task);
     }

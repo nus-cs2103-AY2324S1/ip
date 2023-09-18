@@ -15,8 +15,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private final Duke duke;
+
     private final TextUi textUi;
 
+    /**
+     * Main constructor, sets up dependencies.
+     * @throws DukeException
+     */
     public Main() throws DukeException {
         this.textUi = new TextUi("Pong");
         this.duke = new Duke(this.textUi);
