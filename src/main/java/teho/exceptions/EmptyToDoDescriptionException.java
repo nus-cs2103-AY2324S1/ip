@@ -11,6 +11,6 @@ public class EmptyToDoDescriptionException extends TehOException {
      */
     @Override
     public String toString() {
-        return "OOPS!!! The description of a todo cannot be empty.";
+        return "Ohno! The description of a todo cannot be empty.";
     }
 }

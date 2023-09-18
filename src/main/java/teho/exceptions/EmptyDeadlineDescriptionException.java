@@ -11,7 +11,7 @@ public class EmptyDeadlineDescriptionException extends TehOException {
      */
     @Override
     public String toString() {
-        return "OOPS!!! The description of a deadline cannot be empty.";
+        return "Ohno! The description of a deadline cannot be empty.";
     }
 }
 

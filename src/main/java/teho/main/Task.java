@@ -45,7 +45,7 @@ public abstract class Task {
     }
 
     /**
-     * Marks task as done
+     * Marks task as done.
      *
      * @param task Index of task to be marked as done.
      */
@@ -54,7 +54,7 @@ public abstract class Task {
     }
 
     /**
-     * Marks task as undone
+     * Marks task as undone.
      *
      * @param task Index of task to be marked as undone.
      */

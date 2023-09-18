@@ -1,5 +1,5 @@
 package teho.main;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Collections;
 /**
@@ -22,7 +22,7 @@ public class Ui {
      * @return String representation of bye message.
      */
     public static String generateGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye!\nHave a great day & see you again soon:)";
     }
 
     /**
@@ -32,19 +32,24 @@ public class Ui {
      * @return String representation of list of tasks generated.
      */
     public static String generateList(TaskList taskList) {
-        String str = "Here are the tasks in your list:\n";
+        String str = "Here are the task(s) in your list:\n";
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
-            str += (i + 1) + ". " + task.toString() + "\n";;
+            str += (i + 1) + ". " + task.toString() + "\n";
         }
         return str;
     }
 
+    /**
+     * Generates message containing list of tasks in alphabetical order.
+     *
+     * @param taskList List of tasks to be generated in alphabetical order.
+     * @return String representation of list of tasks generated in alphabetical order.
+     */
     public static String sortListAlphabetically(TaskList taskList) {
         List<Task> duplicatedList = taskList.duplicateList(taskList);
-        Collections.sort(duplicatedList, (s, t) -> {
-            return s.getDescription().compareTo(t.getDescription());
-        });
+        //Solution inspired by https://www.baeldung.com/java-8-comparator-comparing
+        Collections.sort(duplicatedList, Comparator.comparing(Task::getDescription));
         String str = "Here are the tasks in your list in alphabetical order:\n";
         for (int i = 0; i < duplicatedList.size(); i++) {
             Task task = duplicatedList.get(i);
@@ -60,7 +65,7 @@ public class Ui {
      * @return String representation of marked task message.
      */
     public static String generateMarkTaskMessage(Task task) {
-        return "Nice! I've marked this task as done:\n" + task.toString();
+        return "Good job! I've marked this task as done:\n" + task.toString();
     }
 
     /**
@@ -70,7 +75,7 @@ public class Ui {
      * @return String representation of unmarked task message.
      */
     public String generateUnmarkTaskMessage(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + task.toString();
+        return "Okay, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
@@ -131,7 +136,7 @@ public class Ui {
      * @return String representation of loading error message.
      */
     public String showLoadingError() {
-        return "OHNO! Loading error!";
+        return "Ohno! Loading error!";
     }
 
     /**
@@ -142,7 +147,7 @@ public class Ui {
      * @return String representation of list of tasks that matches user's command.
      */
     public String generateFindMessage(String toMatch, TaskList taskList) {
-        String str = "Here are the matching tasks in your list:\n";
+        String str = "Here are the matching task(s) in your list:\n";
         int count = 0;
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);

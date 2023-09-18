@@ -32,7 +32,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the task with the corresponding index number.
+     * Returns the task with the corresponding taskNumber.
      *
      * @param taskNumber Index number of the task to be returned.
      * @return Task with the corresponding index number.
@@ -60,8 +60,8 @@ public class TaskList {
         this.taskList.remove(taskNumber);
     }
 
-public static List<Task> duplicateList(TaskList taskList) {
-    List<Task> duplicatedList = new ArrayList<>(taskList.taskList);
-    return duplicatedList;
-}
+    public static List<Task> duplicateList(TaskList taskList) {
+        List<Task> duplicatedList = new ArrayList<>(taskList.taskList);
+        return duplicatedList;
+    }
 }

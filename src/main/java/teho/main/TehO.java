@@ -110,7 +110,7 @@ public class TehO  {
      * @param userCommand User's command containing the task to be unmarked.
      */
     public String unmarkTask(String userCommand) {
-        int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
+        int taskNumber = parseInt(userCommand.split(" ")[1]) - 1;
         assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
         task.markAsNotDone(taskNumber);
@@ -118,7 +118,7 @@ public class TehO  {
     }
 
     /**
-     * Represents the adding of new ToDo task into taskList according to user's command.
+     * Represents the addition of new ToDo task into taskList according to user's command.
      *
      * @param userCommand User's command containing the new ToDo task to be added into taskList.
      */
@@ -137,7 +137,7 @@ public class TehO  {
     }
 
     /**
-     * Represents the adding of new Deadline task into taskList according to user's command.
+     * Represents the addition of new Deadline task into taskList according to user's command.
      *
      * @param userCommand User's command containing the new Deadline task to be added into taskList.
      */
@@ -169,7 +169,7 @@ public class TehO  {
             }
             String commandWithDate = userCommand.substring(EVENT_SIZE + 1); //"event "
             String description = commandWithDate.split(" /from ")[0];
-            String dates = commandWithDate.split(" /from ")[1]; //fromDate and toDate
+            String dates = commandWithDate.split(" /from ")[1];
             LocalDate fromDate = LocalDate.parse(dates.split(" /to ")[0]);
             LocalDate toDate = LocalDate.parse(dates.split(" /to ")[1]);
             Task task = new Event(description, fromDate, toDate);
@@ -188,7 +188,7 @@ public class TehO  {
      * @param userCommand User's command containing the task to be deleted from taskList.
      */
     public String delete(String userCommand) {
-        int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
+        int taskNumber = parseInt(userCommand.split(" ")[1]) - 1;
         assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
         this.taskList.remove(taskNumber);

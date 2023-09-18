@@ -41,7 +41,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("☹ OOPS!!! Error when saving task(s).");
+            System.out.println("Ohno! Error when saving task(s).");
         }
     }
 
@@ -61,7 +61,7 @@ public class Storage {
             }
             sc.close();
         } catch (FileNotFoundException e) {
-            System.out.println("☹ OOPS!!! Error when loading task(s).");
+            System.out.println("Ohno! Error when loading task(s).");
         }
         return taskList;
     }
