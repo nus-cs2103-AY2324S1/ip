@@ -51,7 +51,7 @@ public class DialogBox extends HBox {
      * @param iv Imageview control with the image
      * @return DialogBox control to be displayed in scene
      */
-    public static DialogBox getAjDialog(Label l, ImageView iv) {
+    public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
 
@@ -62,7 +62,7 @@ public class DialogBox extends HBox {
      * @param iv Imageview control with the image
      * @return DialogBox control to be displayed in scene
      */
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
+    public static DialogBox getAjDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

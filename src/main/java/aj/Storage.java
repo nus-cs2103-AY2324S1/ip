@@ -61,12 +61,18 @@ public class Storage {
      *
      * @return Arraylist of Tasks.
      */
-    public List<Task> initialiseData() {
+    public List<Task> initialiseData() throws IOException {
+        String folderPath = "./data";
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
         File file = new File(this.FILEPATH);
         List<Task> taskList = new ArrayList<>();
-        if (!file.exists()) {
-            System.out.println("File does not exist.");
-            return null;
+        if (file.createNewFile()) {
+            System.out.println("File created: " + file.getName());
+        } else {
+            System.out.println("File already exists.");
         }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;

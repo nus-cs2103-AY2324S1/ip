@@ -286,8 +286,9 @@ public class Aj extends Application {
      * Initialises the necessary components of the AJ chat-bot
      *
      * @param filePath Filepath of database
+     * @throws IOException Arose if there is issue updating database.
      */
-    public void setUpBot(String filePath) {
+    public void setUpBot(String filePath) throws IOException {
         this.parser = new Parser();
         this.storage = new Storage(this.parser, filePath);
         this.taskList = new TaskList(this.storage.initialiseData());
@@ -329,11 +330,15 @@ public class Aj extends Application {
      *
      * @param stage the primary stage for this application, onto which
      *              the application scene can be set.
+     * @throws IOException Arose if there is issue updating database.
      */
     @Override
-    public void start(Stage stage) {
-        String fullFilePath = System.getProperty("user.dir") + "/src/main/data/actualData.txt";
-        setUpBot(fullFilePath);
+    public void start(Stage stage) throws IOException {
+//        String fullFilePath = System.getProperty("user.dir") + "/src/main/data/actualData.txt";
+//        String filePath = "./src/main/data/actualData.txt";
+        String filePath = "./data/database.txt";
+
+        setUpBot(filePath);
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -365,7 +370,6 @@ public class Aj extends Application {
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
@@ -376,7 +380,7 @@ public class Aj extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput() { // need change here***
+    private void handleUserInput() {
         Label userLabel = getDialogLabel(userInput.getText()); // get userinput from textField
         Label ajLabel = getDialogLabel(getResponse(userInput.getText())); // get string, create label for dialogBox
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userLabel, new ImageView(userImage)),
