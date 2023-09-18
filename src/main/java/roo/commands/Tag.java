@@ -10,7 +10,7 @@ public class Tag extends Command{
     private ArrayList<String> tags;
 
     public Tag(String input, ArrayList<String> tags) {
-        this.input = input;
+        this.input = input.split("#")[0].strip();
         this.tags = tags;
     }
 
@@ -19,7 +19,7 @@ public class Tag extends Command{
         if (input.length() < 4) {
             return "What do you want to tag ahh??\n";
         }
-        int u = Integer.parseInt(input.substring(4).replace(" ", ""));
+        int u = Integer.parseInt(input.substring(4).strip());
         if (u > tasks.size()) {
             return "We dunhave so many task lah =_=\n";
         }

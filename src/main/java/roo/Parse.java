@@ -36,7 +36,7 @@ public class Parse {
         ArrayList<String> tags = new ArrayList<>();
         if (inputs.length > 0) {
             for(int i = 1; i < inputs.length; i++) {
-                tags.add("#" + inputs[i].replace(" ", ""));
+                tags.add("#" + inputs[i].replace(" ", "").strip());
             }
         }
 
@@ -104,43 +104,54 @@ public class Parse {
     }
 
     /**
-     * Parses a user inputs[0 string and determines the corresponding command.
-     * @param input The user inputs[0 string.
+     * Parses a user inputs string and determines the corresponding command.
+     * @param input The user inputs string.
      * @return The Command enum representing the detected command.
      */
     public static Command parse(String input) {
-        String[] inputs = input.split("#");
         ArrayList<String> tags = new ArrayList<>();
-        if (inputs.length > 0) {
-            for(int i = 1; i < inputs.length; i++) {
-               tags.add("#" + inputs[i]);
+        if (input.contains("#")) {
+            String[] inputs = input.split("#");
+            if (inputs.length > 0) {
+                for(int i = 1; i < inputs.length; i++) {
+                    tags.add("#" + inputs[i].strip());
+                }
+            }
+
+            if (inputs[0].startsWith("todo")) {
+                return new TodoCommand(inputs[0], tags);
+            } else if (inputs[0].startsWith("deadline")) {
+                return new DeadlineCommand(inputs[0], tags);
+            } else if (inputs[0].startsWith("event")) {
+                return new EventCommand(inputs[0], tags);
             }
         }
-        if (inputs[0].equals("list")) {
+
+        if (input.equals("list")) {
             return new ListCommand();
-        } else if (inputs[0].startsWith("unmark")) {
-            return new Unmark(inputs[0]);
-        } else if (inputs[0].startsWith("mark")) {
-            return new Mark(inputs[0]);
-        } else if (inputs[0].startsWith("delete") || inputs[0].startsWith("remove")) {
-            return new Delete(inputs[0]);
-        } else if (inputs[0].startsWith("todo")) {
-            return new TodoCommand(inputs[0], tags);
-        } else if (inputs[0].startsWith("deadline")) {
-            return new DeadlineCommand(inputs[0], tags);
-        } else if (inputs[0].startsWith("event")) {
-            return new EventCommand(inputs[0], tags);
-        } else if (inputs[0].startsWith("check")) {
-            return new ListDate(inputs[0]);
-        } else if (inputs[0].startsWith("clear")) {
+        } else if (input.startsWith("unmark")) {
+            return new Unmark(input);
+        } else if (input.startsWith("mark")) {
+            return new Mark(input);
+        } else if (input.startsWith("delete") || input.startsWith("remove")) {
+            return new Delete(input);
+        } else if (input.startsWith("todo")) {
+            return new TodoCommand(input, tags);
+        } else if (input.startsWith("deadline")) {
+            return new DeadlineCommand(input, tags);
+        } else if (input.startsWith("event")) {
+            return new EventCommand(input, tags);
+        } else if (input.startsWith("check")) {
+            return new ListDate(input);
+        } else if (input.startsWith("clear")) {
             return new Clear();
-        } else if (inputs[0].startsWith("find")) {
+        } else if (input.startsWith("find")) {
             return new Find(input);
-        } else if (inputs[0].startsWith("tag")) {
-            return new Tag(inputs[0], tags);
-        } else if (inputs[0].startsWith("untag")) {
-            return new UnTag(inputs[0]);
-        } else if (inputs[0].startsWith("end") || inputs[0].startsWith("bye")) {
+        } else if (input.startsWith("tag")) {
+            return new Tag(input, tags);
+        } else if (input.startsWith("untag")) {
+            return new UnTag(input);
+        } else if (input.startsWith("end") || input.startsWith("bye")) {
             return new End();
         } else {
             return new Unknown();

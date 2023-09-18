@@ -1,3 +1,7 @@
-[T][x] read book tags: [#STUDY]
-[E][ ] Rhockers performance from: 20 Sep 2023 07:30 PM to: 20 Sep 2023 11:00 PM tags: [#ENJOY]
+[E][x] Rhockers performance from: 20 Sep 2023 07:30 PM to: 20 Sep 2023 11:00 PM
 [D][ ] CS2103T quiz by: 18 Sep 2023 11:59 PM
+[E][ ] SLF from: 17 Aug 2023 10:00 AM to: 18 Aug 2023 05:00 PM tags: [#FREESTUFF #TEST]
+[D][ ] SEP application by: 24 Sep 2023 08:00 PM
+[D][ ] SEP application by: 24 Sep 2023 11:59 PM
+[T][ ] solve leetcod tags: [#TESTING #TRY #PLAY]
+[E][ ] Recess week from: 25 Sep 2023 12:00 AM to: 01 Oct 2023 11:59 PM

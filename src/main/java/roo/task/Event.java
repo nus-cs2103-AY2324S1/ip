@@ -22,8 +22,8 @@ public class Event extends Task {
      * @throws RooException If the dates are empty or consist only of spaces.
      */
     public Event(String task, String start, String end, ArrayList<String> tags) throws RooException {
-        super(task, false, tags);
-        this.check(task, start, end);
+        super(task.strip(), false, tags);
+        this.check(task.strip(), start.strip(), end.strip());
     }
 
 
@@ -36,8 +36,8 @@ public class Event extends Task {
      * @throws RooException If the dates are empty or consist only of spaces.
      */
     public Event(String task, String start, String end, boolean isFinish, ArrayList<String> tags) throws RooException {
-        super(task, isFinish, tags);
-        this.check(task, start, end);
+        super(task.strip(), isFinish, tags);
+        this.check(task.strip(), start.strip(), end.strip());
     }
 
     /**
@@ -48,9 +48,9 @@ public class Event extends Task {
      * @throws RooException If the dates are empty or consist only of spaces.
      */
     private void check(String task, String start, String end) throws RooException {
-        if (start.isEmpty() || start.equals(" ")) {
+        if (start.isEmpty() || start.equals(" ") || start.length() < 16) {
             throw new RooException("Missing time !!!\n");
-        } else if (end.isEmpty() || end.equals(" ")) {
+        } else if (end.isEmpty() || end.equals(" ") || end.length() < 16) {
             throw new RooException("Missing time!!!\n");
         }
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");

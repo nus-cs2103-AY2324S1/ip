@@ -85,7 +85,7 @@ public class Ui {
      */
     public String markUndone(int index) {
         tasks.markUndone(index);
-        return "Hmm... Why just now don't mark \"" + tasks.taskDetails(index) + "\" as done properly...\n";
+        return "Hmm... Why just now simply mark \"" + tasks.taskDetails(index) + "\" as done??\n";
     }
 
     /**

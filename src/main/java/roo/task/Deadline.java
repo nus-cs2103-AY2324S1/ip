@@ -20,8 +20,8 @@ public class Deadline extends Task {
      * @throws RooException If the date is empty or consists only of spaces.
      */
     public Deadline(String task, String date, ArrayList<String> tags) throws RooException {
-        super(task, false, tags);
-        this.check(task, date);
+        super(task.strip(), false, tags);
+        this.check(task.strip(), date.strip());
     }
 
     /**
@@ -32,8 +32,8 @@ public class Deadline extends Task {
      * @throws RooException If the date is empty or consists only of spaces.
      */
     public Deadline(String task, String date, boolean isFinish, ArrayList<String> tags) throws RooException {
-        super(task, isFinish, tags);
-        this.check(task, date);
+        super(task.strip(), isFinish, tags);
+        this.check(task.strip(), date.strip());
     }
 
     /**
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      * @throws RooException If the date is empty or consists only of spaces.
      */
     private void check(String task, String date) throws RooException {
-        if (date.isEmpty() || date.equals(" ")) {
+        if (date.isEmpty() || date.equals(" ") || date.length() < 16) {
             throw new RooException("What is your DEADLINE???\n");
         }
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
