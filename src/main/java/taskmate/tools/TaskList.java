@@ -38,12 +38,14 @@ public class TaskList {
             String taskType = line.substring(1, 2);
             taskIsDone = line.charAt(4) == 'X';
 
-            if (taskType.equals("T")) {
+            switch (taskType) {
+            case "T" -> {
                 // To-do task
                 String name = line.substring(7);
                 newTask = new Todo(name, taskIsDone);
                 this.addTask(newTask, taskIsDone);
-            } else if (taskType.equals("D")) {
+            }
+            case "D" -> {
                 // Deadline
                 String delimiter = "(by: ";
                 int indexOfByParam = line.lastIndexOf(delimiter);
@@ -51,7 +53,8 @@ public class TaskList {
                 String by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
                 newTask = new Deadline(name, by, taskIsDone);
                 this.addTask(newTask, taskIsDone);
-            } else if (taskType.equals("E")) {
+            }
+            case "E" -> {
                 // Event
                 String delimiter = "(from: ";
                 String delimiter2 = " to: ";
@@ -62,7 +65,8 @@ public class TaskList {
                 String to = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
                 newTask = new Event(name, from, to, taskIsDone);
                 this.addTask(newTask, taskIsDone);
-            } else {
+            }
+            default ->
                 // Invalid event
                 System.out.println("Invalid task: " + line);
             }
