@@ -3,18 +3,17 @@ package aj;
 import java.io.IOException;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 
 /**
@@ -22,12 +21,12 @@ import javafx.scene.image.ImageView;
  */
 public class Aj extends Application {
 
-    Parser parser;
-    Storage storage;
+    private Parser parser;
+    private Storage storage;
 
-    TaskList taskList;
+    private TaskList taskList;
 
-    Ui ui;
+    private Ui ui;
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -37,8 +36,6 @@ public class Aj extends Application {
     private Image ajImage = new Image(this.getClass().getResourceAsStream("/images/aj_bot.png"));
 
     private String latestCommand;
-
-    private Task lastTaskAdded;
     private Task lastTaskRemoved;
     private String lastTaskRemovedEntry;
 
@@ -102,10 +99,9 @@ public class Aj extends Application {
             throws IndexOutOfRangeException, IOException {
         this.storage.addData(cmdString + descString + ",false");
         this.taskList.addTask(task);
-        this.lastTaskAdded = task;
         outMsg.append("Got it. I've added this task:\n");
         outMsg.append(task).append("\n");
-        outMsg.append(this.ui.printNumTask());
+        outMsg.append(this.ui.getNumTasks());
     }
 
     /**
@@ -126,7 +122,7 @@ public class Aj extends Application {
         this.lastTaskRemovedEntry = this.storage.deleteData(idx);
         this.lastTaskRemoved = removedTask;
         outMsg.append(removedTask).append("\n");
-        outMsg.append(this.ui.printNumTask());
+        outMsg.append(this.ui.getNumTasks());
     }
 
     /**
@@ -136,11 +132,18 @@ public class Aj extends Application {
      * @param descString Description portion of user input.
      */
     public void findTask(StringBuilder outMsg, String descString) {
-        outMsg.append(this.ui.printKeywordTask(descString.substring(1)));
-        outMsg.append(this.ui.printNumTask());
+        outMsg.append(this.ui.getTasksWithKeyword(descString.substring(1)));
+        outMsg.append(this.ui.getNumTasks());
     }
 
 
+    /**
+     * Undo the last command given by user
+     *
+     * @param outMsg StringBuilder object to craft bot response.
+     * @throws IndexOutOfRangeException If user gives an index bigger than taskList size.
+     * @throws IOException              Arose if there is issue updating database.
+     */
     public void undoCommand(StringBuilder outMsg) throws IndexOutOfRangeException, IOException {
         String[] cmdAndDesc = this.parser.parseCommand(this.latestCommand);
         String cmdString;
@@ -154,7 +157,7 @@ public class Aj extends Application {
             case "unmark":
                 markTask(outMsg, descString);
                 break;
-            case "delete":  // adds the last task removed into taskList again
+            case "delete": // adds the last task removed into taskList again
                 this.storage.addData(this.lastTaskRemovedEntry); // add entry to database
                 this.taskList.addTask(this.lastTaskRemoved); // add to tasklist
                 outMsg.append("Readded task ").append(this.lastTaskRemoved).append("!!!");
@@ -180,13 +183,14 @@ public class Aj extends Application {
      * @param cmdString Command portion of user input.
      * @throws NoSuchCommandException    If command does not exist.
      * @throws EmptyDescriptionException If second part of user input does not exist.
+     * @throws IndexOutOfRangeException  If user gives an index bigger than taskList size.
      * @throws IOException               Arose if there is issue updating database.
      */
     public void getSingleCommandResponse(StringBuilder outMsg, String cmdString)
             throws NoSuchCommandException, EmptyDescriptionException, IndexOutOfRangeException, IOException {
         switch (cmdString) {
         case "list":
-            outMsg.append(this.ui.printList());
+            outMsg.append(this.ui.getListOfTasks());
             break;
         case "bye":
             outMsg.append(this.ui.exit());
@@ -291,6 +295,14 @@ public class Aj extends Application {
     }
 
 
+    /**
+     * Configures the stage with the necessary Graphical User Interface (GUI) controls
+     *
+     * @param stage      the primary stage for this application, onto which
+     *                   the application scene can be set.
+     * @param mainLayout control used to structure layout of GUI
+     * @param sendButton control used to create event to send messages
+     */
     public void configureStage(Stage stage, AnchorPane mainLayout, Button sendButton) {
         stage.setTitle("Aj-Bot");
         stage.setResizable(false);
@@ -317,8 +329,6 @@ public class Aj extends Application {
      *
      * @param stage the primary stage for this application, onto which
      *              the application scene can be set.
-     *              Applications may create other stages, if needed, but they will not be
-     *              primary stages.
      */
     @Override
     public void start(Stage stage) { // first 2 steps in html/css, 3rd step is js

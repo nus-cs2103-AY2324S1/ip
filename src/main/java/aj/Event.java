@@ -6,7 +6,15 @@ package aj;
  */
 public class Event extends Task {
 
-    private final String fromDt, toDt;
+    private final String fromDt;
+    private final String toDt;
+
+    Event(String taskName, boolean isMarked, String fromDt, String toDt) {
+        super(taskName, isMarked);
+        this.fromDt = fromDt;
+        this.toDt = toDt;
+    }
+
 
     public String getFromDt() {
         return this.fromDt;
@@ -19,12 +27,5 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.fromDt + " to: " + this.toDt + ")";
-    }
-
-    Event(String taskName, boolean isMarked, String fromDt, String toDt) {
-        super(taskName,
-                isMarked);
-        this.fromDt = fromDt;
-        this.toDt = toDt;
     }
 }

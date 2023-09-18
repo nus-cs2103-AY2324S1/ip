@@ -17,8 +17,13 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    Parser parser;
-    final String FILEPATH;
+    private final Parser parser;
+    private final String FILEPATH;
+
+    Storage(Parser parser, String filePath) {
+        this.parser = parser;
+        this.FILEPATH = filePath;
+    }
 
     /**
      * Gets raw data from database and return task related to it.
@@ -131,10 +136,5 @@ public class Storage {
         List<String> fileContent = new ArrayList<>(Files.readAllLines(myPath, StandardCharsets.UTF_8));
         fileContent.add(str);
         Files.write(myPath, fileContent, StandardCharsets.UTF_8);
-    }
-
-    Storage(Parser parser, String filePath) {
-        this.parser = parser;
-        this.FILEPATH = filePath;
     }
 }

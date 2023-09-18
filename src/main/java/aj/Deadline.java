@@ -10,6 +10,11 @@ public class Deadline extends Task {
 
     private final LocalDate by;
 
+    Deadline(String taskName, boolean isMarked, LocalDate by) {
+        super(taskName, isMarked);
+        this.by = by;
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -17,9 +22,5 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 
-    Deadline(String taskName, boolean isMarked, LocalDate by) {
-        super(taskName,
-                isMarked);
-        this.by = by;
-    }
+
 }
