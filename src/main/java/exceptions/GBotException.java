@@ -10,7 +10,7 @@ public class GBotException extends RuntimeException {
      * Initialises an invalid command exception.
      */
     public GBotException() {
-        super("Sorry. I don't understand the command");
+        super("Sorry. My command range is simply limited, I don't understand the command.");
     }
 
     /**

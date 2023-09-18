@@ -23,21 +23,21 @@ public class Ui {
      * Prints the initial greeting to user.
      */
     public static void greetUser() {
-        print("Hello I'm GBot!\nWhat can I do for you?");
+        print("Hello I'm GBot.\nHow may I assist you today?");
     }
 
     /**
      * Prints the closing message to user.
      */
     public static void displayExitMessage() {
-        print("Bye. Hope to see you again soon!");
+        print("Thank you for your time G. I'll be of your service at any time.");
     }
 
     /**
      * Prints a help guide with commands to user.
      */
     public static void displayHelpMessage() {
-        print("Here are some commands you can use!\n" +
+        print("Here are some commands for me to better assist you with:\n" +
               "1) list (eg. list): display the current tasks you have\n" +
               "2) todo (eg. todo read book): adds a Todo task\n" +
               "3) deadline (eg. deadline return book /by 2023-09-21): adds a Deadline task\n" +

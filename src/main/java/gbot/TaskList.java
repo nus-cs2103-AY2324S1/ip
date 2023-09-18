@@ -20,7 +20,8 @@ public class TaskList {
     private Storage storage;
     private final ArrayList<Task> list;
     private int taskCount;
-    private static final String INVALIDTASK = "Please enter a task number.";
+    private static final String INVALIDTASK = "Although you might not be wrong, I simply do not understand..." +
+                                              "Kindly enter a task number.";
 
     /**
      * Initialises a TaskList objects that loads tasks from a given Storage object.
@@ -46,9 +47,9 @@ public class TaskList {
      */
     public String listTasks() {
         if (taskCount == 0) {
-            return "No tasks available.";
+            return "No tasks available at the moment as you are amazingly prompt.";
         } else {
-            StringBuilder message = new StringBuilder("Here are the tasks in your list:\n");
+            StringBuilder message = new StringBuilder("Here are the tasks in your magnificent list:\n");
             for (int i = 0; i < taskCount; i++) {
                 message.append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
             }
@@ -80,7 +81,7 @@ public class TaskList {
         Task curr = list.get(taskNum - 1);
         curr.markAsDone();
         storage.rewriteFile(list);
-        return "Nice. I've marked this task as done:\n" + curr;
+        return "Awesome. I've marked this task as done:\n" + curr;
     }
 
     /**
@@ -90,7 +91,7 @@ public class TaskList {
         for (int i = 0; i < taskCount; i++) {
             list.get(i).markAsDone();
         }
-        return "All tasks marked as done!";
+        return "Simply wonderful. All tasks have been marked as done. You're just too good.";
     }
 
     /**
@@ -117,7 +118,7 @@ public class TaskList {
         Task curr = list.get(taskNum - 1);
         curr.markAsUndone();
         storage.rewriteFile(list);
-        return "Okay, I've unmarked this task:\n" + curr;
+        return "No worries, this probably isn't important. I've unmarked this task:\n" + curr;
     }
 
     /**
@@ -128,7 +129,7 @@ public class TaskList {
             list.get(i).markAsUndone();
         }
         storage.rewriteFile(list);
-        return "All tasks unmarked!";
+        return "Of course, a busy person needs their time. All tasks have been unmarked.";
     }
 
     /**
@@ -146,8 +147,8 @@ public class TaskList {
         storage.writeToFile(newTodo.toStringForFile());
         taskCount++;
 
-        String count = "\nNow you have " + taskCount + " tasks to do.";
-        return "Got it. I've added this task:\n" + newTodo + count;
+        String count = "\nYou now have " + taskCount + " task(s) to do.";
+        return "Yet another task to do, you're amazing. Have added this:\n" + newTodo + count;
     }
 
     /**
@@ -168,7 +169,7 @@ public class TaskList {
         taskCount++;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
-        return "Got it. I've added this task:\n" + newDeadline.toString() + count;
+        return "No rush on this but do take note of the deadline. Have added this:\n" + newDeadline.toString() + count;
     }
 
     /**
@@ -190,7 +191,7 @@ public class TaskList {
         taskCount++;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
-        return "Got it. I've added this task:\n" + newEvent + count;
+        return "Events are the norm of the upper echelon. Have added this event:\n" + newEvent + count;
     }
 
     /**
@@ -219,8 +220,8 @@ public class TaskList {
         storage.rewriteFile(list);
         taskCount--;
 
-        String count = "\nNow you have " + taskCount + " tasks to do.";
-        return "Noted. I've removed this task:\n" + toDelete + count;
+        String count = "\nYou now have " + taskCount + " task(s) to do.";
+        return "Just clearing up I see. I got you, I've removed this task:\n" + toDelete + count;
     }
 
     /**
@@ -230,7 +231,7 @@ public class TaskList {
         list.clear();
         storage.rewriteFile(list);
         taskCount = 0;
-        return "Noted. I've removed all present tasks:\n";
+        return "Already done? Amazing. I've removed all present tasks:\n";
     }
 
     /**
@@ -240,7 +241,7 @@ public class TaskList {
      */
     public String find(String str) {
         if (str.isBlank()) {
-            return "Please enter a keyword.";
+            return "I wish I could read minds like you. Do kindly enter a keyword though.";
         }
 
         ArrayList<Task> matchList = new ArrayList<>();
@@ -252,9 +253,9 @@ public class TaskList {
         }
 
         if (matchList.isEmpty()) {
-            return "Sorry. There are no matching tasks.";
+            return "I must apologise. There are no matching tasks.";
         } else {
-            StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
+            StringBuilder message = new StringBuilder("Here are the matching tasks in your beautiful list:\n");
             for (int i = 0; i < matchList.size(); i++) {
                 message.append(i + 1).append(". ").append(matchList.get(i).toString()).append("\n");
             }

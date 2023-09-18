@@ -10,7 +10,7 @@ public class TodoException extends RuntimeException {
      * Initialises an invalid format exception for Todo tasks.
      */
     public TodoException() {
-        super("Invalid format for Todo task. Please adhere to the following:\n" +
-                "todo (task)\n" + "eg. todo read book");
+        super("Invalid format for Todo task. Kindly adhere to the following:\n" +
+              "todo (task)\n" + "eg. todo read book");
     }
 }
