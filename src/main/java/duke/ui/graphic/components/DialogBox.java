@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
@@ -64,5 +65,17 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getDukeDialog(String l, Image iv) {
         return new DialogBox(l, iv, false);
+    }
+
+    /**
+     * Instantiate a new dialog box for bot to notify an error.
+     * @param l The message from the bot.
+     * @param iv Bot's representative image.
+     * @return A new instance of DialogBox for notifying error.
+     */
+    public static DialogBox getDukeErrorDialog(String l, Image iv) {
+        DialogBox dialogBox = new DialogBox(l, iv, false);
+        dialogBox.dialog.setTextFill(Color.rgb(235, 7, 7));
+        return dialogBox;
     }
 }

@@ -185,7 +185,12 @@ public class MainWindow extends VBox implements Ui {
      */
     @Override
     public void notifyError(String message) {
-        this.displayData(this.errorPrepend + message + this.errorAppend);
+        this.dialogContainer.getChildren().add(
+                DialogBox.getDukeErrorDialog(
+                        this.errorPrepend + message + this.errorAppend,
+                        this.dukeImage
+                )
+        );
     }
 
     /**
