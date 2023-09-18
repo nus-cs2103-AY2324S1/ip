@@ -49,7 +49,7 @@ public class Event extends Task {
      */
     private void check(String task, String start, String end) throws RooException {
         if (start.isEmpty() || start.equals(" ") || start.length() < 16) {
-            throw new RooException("Missing time !!!\n");
+            throw new RooException("Missing time!!!\n");
         } else if (end.isEmpty() || end.equals(" ") || end.length() < 16) {
             throw new RooException("Missing time!!!\n");
         }
