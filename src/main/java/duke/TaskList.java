@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -328,9 +329,14 @@ public class TaskList {
         byDate = deadlineInfo[0];
         endTime = deadlineInfo[1];
 
+        checkIfDateIsValid(byDate);
+        checkIfDeadlineTimelineIsValid(byDate, endTime);
+
+
         for (int i = 1; i < taskArray.length; i++) {
             task += taskArray[i] + " ";
         }
+
         return new String[]{task, byDate, endTime};
     }
     /**
@@ -447,6 +453,8 @@ public class TaskList {
         endDate = toInfo[0];
         endTime = toInfo[1];
 
+        checkIfDateIsValid(startDate);
+        checkIfDateIsValid(endDate);
 
         for (int i = 1; i < taskArray.length; i++) {
             task += taskArray[i] + " ";
@@ -555,6 +563,33 @@ public class TaskList {
             }
         }
         return res;
+    }
+
+    /**
+     * Method to check if the date is in valid format
+     * @param date date as a string
+     * @throws DukeException
+     */
+    public void checkIfDateIsValid(String date) throws DukeException {
+        try {
+            LocalDate.parse(date);
+        } catch (Exception e) {
+            throw new DukeException("SUI, Invalid date type! Specify date in yyyy-mm-dd format");
+        }
+    }
+
+    /**
+     * Method to check if the end date and end time is valid
+     * @param byDate the end date for the deadline event
+     * @param endTime the end time for the deadline event
+     * @throws DukeException
+     */
+    public void checkIfDeadlineTimelineIsValid(String byDate, String endTime) throws DukeException {
+        LocalDate todayDate = LocalDate.now();
+        LocalTime nowTime = LocalTime.now();
+        if (todayDate.toString().compareTo(byDate) > 0 || nowTime.toString().compareTo(endTime) > 0) {
+            throw new DukeException("SUI, Enter a date and time from now");
+        }
     }
 
     public ArrayList<Task> getTasks() {

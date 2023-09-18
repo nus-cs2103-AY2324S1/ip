@@ -14,8 +14,9 @@ public class Parser {
      * @return An array containing the command type and associated input.
      * @throws InvalidInputExpression If the user input does not match any supported command.
      */
-    public String[] handleUserInput(String userInput) throws InvalidInputExpression {
+    public String[] handleUserInput(String userInput) throws DukeException, InvalidInputExpression {
         try {
+            parseInputForFormatErrors(userInput);
             if (userInput.startsWith("mark")) {
                 return new String[]{"mark", userInput};
             } else if (userInput.startsWith("unmark")) {
@@ -33,14 +34,43 @@ public class Parser {
             } else if (userInput.startsWith("find")) {
                 return new String[]{"find", userInput};
             } else {
-                throw new InvalidInputExpression("Invalid input!! "
-                        + "SUI, Specify commands as list, mark, unmark, or deadline, event "
+                throw new InvalidInputExpression("Invalid input!!SUI, "
+                        + "Specify commands as list, mark, unmark, or deadline, event "
                         + "and todo followed by the task please la dei!\n");
             }
         } catch (InvalidInputExpression e) {
-            throw new InvalidInputExpression("Invalid input!! "
-                    + "SUI, Specify commands as list, mark, unmark, or deadline, event "
+            throw new InvalidInputExpression("Invalid input!!SUI, "
+                    + "Specify commands as list, mark, unmark, or deadline, event "
                     + "and todo followed by the task please la dei!\n");
+        }
+    }
+
+    public void parseInputForFormatErrors(String input) throws DukeException{
+        checkInputHasMoreThanOneSpace(input);
+        checkInputHasTrailingSpace(input);
+        checkInputHasLeadingSpace(input);
+    }
+
+    /**
+     * Method to check if the input has more than one space.
+     * @param input user input
+     * @throws DukeException
+     */
+    public void checkInputHasMoreThanOneSpace(String input) throws DukeException {
+        if (input.contains("  ")) {
+            throw new DukeException("SUI, input has more than a single space");
+        }
+    }
+
+    public void checkInputHasLeadingSpace(String input) throws DukeException {
+        if (!(Character.isAlphabetic(input.charAt(0)) || Character.isDigit(input.length() - 1))) {
+            throw new DukeException("SUI, input has leading spaces");
+        }
+    }
+
+    public void checkInputHasTrailingSpace(String input) throws DukeException {
+        if (input.charAt(input.length() - 1) == ' ') {
+            throw new DukeException("SUI, input has trailing spaces");
         }
     }
 }
