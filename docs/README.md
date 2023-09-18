@@ -1,6 +1,6 @@
 # Nano Chatbot User Guide
 
-Nano is a **Chatbot for tracking tasks, optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you possess fast typing skills, Nano has the potential to expedite your contact management tasks more efficiently than conventional GUI applications.
+Nano is a **Chatbot for tracking tasks, optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you possess fast typing skills, Nano has the potential to expedite your task management more efficiently than conventional GUI applications.
 
 
 ## Quick start
