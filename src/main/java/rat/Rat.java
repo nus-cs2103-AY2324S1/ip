@@ -11,10 +11,10 @@ import rat.tasks.RatTaskManager;
 
 /**
  * This class encapsulates my version of Duke, called Rat.
- * Rat is a chatbot that helps the user keep track of their tasks.
+ * Rat is a chatbot that helps the user keep track of their tasks and notes.
  *
  * @author Keagan
- * @version Week-5
+ * @version Week-6
  */
 public class Rat {
 

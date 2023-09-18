@@ -89,12 +89,17 @@ public class AddCommand extends RatCommand {
             String eventName = params.split(" /from ")[0];
             if (eventName.isEmpty()) {
                 printWithLines("Event name cannot be empty");
+                return "Event name cannot be empty";
             }
             String[] time = params.split(" /from ")[1].split(" /to ");
             String startTime = time[0];
             String endTime = time[1];
             validateTime(startTime);
             validateTime(endTime);
+            if (startTime.compareTo(endTime) > 0) {
+                printWithLines("Start time cannot be after end time");
+                return "Start time cannot be after end time";
+            }
             return this.ratTaskManager.addEvent(startTime, endTime, eventName);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Event name cannot be empty");

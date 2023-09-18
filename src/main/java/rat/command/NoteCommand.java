@@ -74,7 +74,11 @@ public class NoteCommand extends RatCommand {
     public String deleteNote() {
         try {
             int noteIndexToDelete = 2;
-            return this.ratNoteManager.deleteNote(Integer.parseInt(this.input.split(" ")[noteIndexToDelete]));
+            String param = this.input.split(" ")[noteIndexToDelete];
+            if (param.equals("all")) {
+                return this.ratNoteManager.deleteAll();
+            }
+            return this.ratNoteManager.deleteNote(Integer.parseInt(param));
         } catch (NumberFormatException e) {
             return "Note index must be an integer";
         } catch (IndexOutOfBoundsException e) {
