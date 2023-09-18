@@ -3,7 +3,6 @@ package bellcurvegod.tasklist;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import bellcurvegod.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
@@ -13,10 +12,8 @@ public class TaskListTest {
             TaskList.addTask("hello");
             fail();
         } catch (Exception e) {
-            assertEquals(Ui.getLine() + "\n" +
-                "You have entered an invalid bellcurvegod.command word!\n" +
-                "To add a new Task, use \"todo\", \" deadline\", or \"event\".\n" +
-                Ui.getLine(), e.getMessage());
+            assertEquals("You have entered an invalid command word!\n"
+                + "To add a new Task, use \"todo\", \" deadline\", or \"event\".\n", e.getMessage());
         }
     }
 }

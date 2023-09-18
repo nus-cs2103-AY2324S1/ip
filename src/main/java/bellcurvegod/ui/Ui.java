@@ -32,16 +32,25 @@ public class Ui {
         return HORIZONTAL_LINE;
     }
 
+    /**
+     * Prints a horizontal line.
+     */
     public static void showLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the ExitMessage.
+     */
     public static void showExitMessage() {
         showLine();
         System.out.println("Bye. Hope to see you again soon!");
         showLine();
     }
 
+    /**
+     * Prints the FindMessage.
+     */
     public static void showFindMessage(ArrayList<Task> matchingTasks) {
         showLine();
         if (!matchingTasks.isEmpty()) {
@@ -55,6 +64,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints the ListMessage.
+     */
     public static void showListMessage(ArrayList<Task> tasks) {
         showLine();
         if (!tasks.isEmpty()) {
@@ -68,6 +80,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints the MarkMessage.
+     */
     public static void showMarkMessage(Task task) {
         showLine();
         System.out.println("Nice! I've marked this task as done:");
@@ -75,6 +90,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints the UnmarkMessage.
+     */
     public static void showUnmarkMessage(Task task) {
         showLine();
         System.out.println("OK, I've marked this task as not done yet:");
@@ -82,6 +100,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints the AddTaskMessage.
+     */
     public static void showAddTaskMessage(Task newTask, int numOfTasks) {
         showLine();
         System.out.println("Got it. I've added this task:");
@@ -90,6 +111,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints the DeleteTaskMessage.
+     */
     public static void showDeleteTaskMessage(Task task, int numOfTasks) {
         showLine();
         System.out.println("Noted. I've removed this task:");
@@ -98,6 +122,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints the WrongDateFormatMessage.
+     */
     public static void showWrongDateFormatMessage() {
         showLine();
         System.out.println("Please enter your time in the following format:");

@@ -3,7 +3,6 @@ package bellcurvegod.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import bellcurvegod.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 public class TodoTest {
@@ -13,10 +12,8 @@ public class TodoTest {
             assertEquals(new Todo("null"), Todo.generateTodoFromInput("todo"));
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals(Ui.getLine() + "\n" +
-                "You did not provide any description to this Todo.\n" +
-                "To add a Todo, enter \"todo <description>\".\n" +
-                Ui.getLine(), e.getMessage());
+            assertEquals("You did not provide any description to this Todo.\n"
+                + "To add a Todo, enter \"todo <description>\".\n", e.getMessage());
         }
     }
 }

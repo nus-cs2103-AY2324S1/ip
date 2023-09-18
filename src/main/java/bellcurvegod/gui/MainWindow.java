@@ -58,7 +58,9 @@ public class MainWindow extends AnchorPane {
             DialogBox.getBellCurveGodDialog(response, bellCurveGodImage)
         );
         if (response.equals(Gui.getExitMessage())) {
-            // Solution below adapted by https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
+            // Solution below adapted by
+            // https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
+
             // If user enters "bye", display the ExitMessage, wait for 3 seconds, and close the app
             PauseTransition pause = new PauseTransition(Duration.seconds(3));
             pause.setOnFinished(event -> Platform.exit());
