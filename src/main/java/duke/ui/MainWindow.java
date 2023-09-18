@@ -16,8 +16,6 @@ public class MainWindow {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
     private Duke duke;
 
     private static final Image userImage = new Image(DialogBox.class.getResourceAsStream("/images/DaUser.png"));

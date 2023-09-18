@@ -9,16 +9,14 @@ import java.util.ArrayList;
  * It provides methods to display messages and task-related information to the user.
  */
 public class Ui {
-
-    private static final String LINE = "\n    _____________________________________________________________________________\n";
     private static final String INDENT = "      ";
     private static final String INDENT_BIG = "        ";
 
     /**
      * Displays a greeting message to the user to introduce ChatterChicken.
      */
-    public void displayGreeting() {
-        printToScreen(INDENT + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?");
+    public String displayGreeting() {
+        return INDENT + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?";
     }
 
     /**
@@ -93,14 +91,5 @@ public class Ui {
             result += "\n" + INDENT_BIG + (i + 1) + "." + taskList.get(i).getTaskForPrinting();
         }
         return result;
-    }
-
-    /**
-     * Prints a message to the screen, surrounded by the predefined line separator.
-     *
-     * @param message The message to be printed.
-     */
-    private void printToScreen(String message) {
-        System.out.println(LINE + message + LINE);
     }
 }
