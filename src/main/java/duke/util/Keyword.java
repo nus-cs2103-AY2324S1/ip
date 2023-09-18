@@ -15,7 +15,8 @@ public enum Keyword {
     PRINT_DATE("print_date"),
     FIND("find"),
     LOAD("load"),
-    SORT("sort");
+    SORT("sort"),
+    ALIAS("alias");
 
     private final String keyword;
 

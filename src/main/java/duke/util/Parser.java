@@ -1,6 +1,7 @@
 package duke.util;
 
 import duke.command.AddCommand;
+import duke.command.AliasCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
@@ -10,6 +11,7 @@ import duke.command.LoadCommand;
 import duke.command.MarkCommand;
 import duke.command.PrintDateCommand;
 import duke.command.SortCommand;
+import duke.exception.AliasException;
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;
@@ -43,7 +45,11 @@ public class Parser {
 
         Keyword key;
         try {
-            key = Keyword.valueOf(split[0].toUpperCase());
+            String keyword = split[0];
+            if (Alias.isAliasPresent(keyword)) {
+                keyword = Alias.getAlias(keyword);
+            }
+            key = Keyword.valueOf(keyword.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
@@ -52,6 +58,9 @@ public class Parser {
             return parseOneWordCommand(key);
         }
         String commandBody = fullCommand.substring(split[0].length() + 1).trim();
+        if (!key.equals(Keyword.ALIAS)) {
+            commandBody = Alias.replaceAlias(commandBody);
+        }
         return parseMultiWordCommand(key, commandBody);
     }
 
@@ -99,6 +108,9 @@ public class Parser {
 
         case SORT:
             return new SortCommand();
+
+        case ALIAS:
+            return new AliasCommand();
 
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
@@ -152,6 +164,9 @@ public class Parser {
 
         case SORT:
             return new SortCommand(commandBody);
+
+        case ALIAS:
+            return new AliasCommand(commandBody);
 
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");

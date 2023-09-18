@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.util.Alias;
 import duke.util.Parser;
 import duke.util.Storage;
 import duke.util.TaskList;
@@ -34,12 +35,17 @@ public class Duke {
         this.ui = new Ui();
         try {
             this.taskList = new TaskList(storage.loadTasks(true, DEFAULT_FILE_NAME));
-            return ui.showWelcome();
         } catch (DukeException e) {
             storage.createTaskFile();
             taskList = new TaskList();
-            return ui.showLoadingError();
+            return ui.showLoadingError() + ui.showWelcome();
         }
+        try {
+            storage.loadAlias();
+        } catch (DukeException e) {
+            return ui.showError(e.getMessage()) + ui.showWelcome();
+        }
+        return ui.showWelcome();
     }
 
     /**

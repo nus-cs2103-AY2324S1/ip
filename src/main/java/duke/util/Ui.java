@@ -1,6 +1,7 @@
 package duke.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import duke.task.Task;
@@ -30,8 +31,7 @@ public class Ui {
      */
     public String showLoadingError() {
         return "OOPS!!!Something terrible happened to the data file.\n"
-                + "Don't worry I will clean up the mess!\n\n"
-                + showWelcome();
+                + "Don't worry I will clean up the mess!\n\n";
     }
 
     /**
@@ -211,5 +211,28 @@ public class Ui {
     public String showSort(boolean isDefaultSort, String sortType) {
         return String.format("Sorting task list by %s...\n\ndone!\nType \"list\" to check it out!\n",
                 isDefaultSort ? "name" : sortType);
+    }
+
+
+    public String showAlias(boolean isAddAlias, String aliasFrom, String aliasTo) {
+        String message = isAddAlias
+                ? "Nice! I've added this alias: "
+                : "OK, I've removed this alias: ";
+        message += aliasFrom + "->" + aliasTo + "\n";
+        return message;
+    }
+
+    public String showAliasList() {
+        List<String> aliasList = Alias.saveAliasFormat();
+        if (aliasList.isEmpty()) {
+            return "There is no alias yet.\n";
+        }
+
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append("Here are the current aliases:\n");
+        for (String alias : aliasList) {
+            strBuilder.append(String.format("  %s", alias));
+        }
+        return strBuilder.toString();
     }
 }

@@ -133,7 +133,7 @@ public class Storage {
             if (!file.exists()) {
                 Files.createFile(Paths.get(filePath));
             } else {
-                clearFile();
+                clearFile(filePath);
             }
             assert file.exists() : "File should be created";
         } catch (IOException e) {
@@ -155,10 +155,10 @@ public class Storage {
      *
      * @throws IOException If the file is not found.
      */
-    private void clearFile() throws IOException {
+    private void clearFile(String filePath) throws IOException {
         assert file.exists() : "File should exist";
 
-        FileWriter fw = new FileWriter(this.filePath);
+        FileWriter fw = new FileWriter(filePath);
         fw.write("");
         fw.close();
     }
@@ -178,6 +178,50 @@ public class Storage {
             fw.write(""); // Clear the file
             for (String fileFormatTask : fileFormattedTaskList) {
                 fw.write(fileFormatTask);
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException();
+        }
+    }
+
+    public void loadAlias() throws DukeException {
+        File aliasFile = new File("./config/alias.txt");
+        if (!aliasFile.exists()) {
+            createFile(folder, aliasFile, aliasFile.getPath());
+            Alias.initAlias();
+            throw new DukeException("OOPS!!! The alias file is not found.\n"
+                    + "Default alias is loaded!\n");
+        }
+
+        try {
+            Scanner sc = new Scanner(aliasFile);
+            loadToAlias(sc, aliasFile);
+            sc.close();
+        } catch (IOException e) {
+            throw new DukeException();
+        }
+    }
+
+    private void loadToAlias(Scanner sc, File aliasFile) throws IOException, DukeException {
+        while (sc.hasNext()) {
+            String[] split = sc.nextLine().split(" -> ");
+            if (split.length != 2) {
+                Alias.initAlias();
+                clearFile(aliasFile.getPath());
+                throw new DukeException("OOPS!!! The alias file is corrupted.\n"
+                        + "Default alias is loaded!\n");
+            }
+            Alias.addAlias(split[0], split[1]);
+        }
+    }
+
+    public void saveAlias(List<String> aliasList) throws DukeException {
+        try {
+            FileWriter fw = new FileWriter("./config/alias.txt");
+            fw.write(""); // Clear the file
+            for (String alias : aliasList) {
+                fw.write(alias);
             }
             fw.close();
         } catch (IOException e) {
