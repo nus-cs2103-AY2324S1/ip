@@ -6,6 +6,8 @@ import tasks.Task;
 
 public class Ui {
 
+    public Ui(){}
+
     String LINE = "~~*~~*~~*~~*~~*~~*~~*~~*~~*~~\n";
 
     /**
@@ -102,7 +104,7 @@ public class Ui {
             String s = "";
 
             for (int i = 0; i < task.size(); i++) {
-                s = "Task " + (i + 1) + ") " + task.get(i).toString() + "\n";
+                s = s + "Task " + (i + 1) + ") " + task.get(i).toString() + "\n";
             }
 
             return LINE + "Your outstanding tasks are...\n" + s + "Get to work NOW!\n" + LINE;
@@ -255,6 +257,18 @@ public class Ui {
             s = s + task.get(i).toString() + "\n";
         }
         return LINE + "Here are the matching tasks:" + s + "Total of " + task.size() + " matched tasks" + LINE;
+    }
+
+    public String displayWrongInstanceTask(String task) {
+        return "Wrong type of Task! The index you chose is not a " + task;
+    }
+
+    public String displayUpdatedTask(Task task) {
+        return "The following task has been updated:\n" + task.toString();
+    }
+
+    public String displayWrongCommand() {
+        return "The command you have input is wrong!";
     }
 
 }

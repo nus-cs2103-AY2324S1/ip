@@ -33,4 +33,8 @@ public class Deadline extends Task {
         String dateString = this.date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         return "D-" + super.taskToStringStore(task) + dateString;
     }
+
+    public void updateDeadlineDate(String date) {
+        this.date = LocalDate.parse(date, DateTimeFormatter.ofPattern("d MMM yyyy"));
+    }
 }

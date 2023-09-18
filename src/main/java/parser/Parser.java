@@ -267,9 +267,19 @@ public class Parser {
                 output = ui.displayChadRemoveOutput(name, chad.taskArrayList.size());
 
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                output =  "The task index is invalid! Try again!";
+                output = "The task index is invalid! Try again!";
             }
-            assert false: "Code should not reach here";
+            assert false : "Code should not reach here";
+
+        } else if (inputArray[0].equals("edit")) {
+            try {
+                String[] details = inputArray[1].split(" ", 4);
+                output = tasklist.updateTask(details);
+                storage.writeFile(chad.taskArrayList);
+
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                output =  "Check your command! The command is 'edit (index of task) (type of task: T D E) (command: /name /by /from /to) (update)'";
+            }
 
         } else {
             output = ui.displayChadOutput("Hmm? You are not making sense!");

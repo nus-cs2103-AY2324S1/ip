@@ -1,16 +1,23 @@
 package actions;
 
-import ui.Ui;
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
+import tasks.Todo;
+import ui.Ui;
+
 
 import java.util.ArrayList;
 
 public class TaskList {
     private Ui ui;
+    private TaskList tasklist;
+    private Deadline deadline;
     private ArrayList<Task> taskArrayList;
     String line = "~~*~~*~~*~~*~~*~~*~~*~~*~~*~~\n";
     public TaskList(ArrayList<Task> taskArrayList){
         this.taskArrayList = taskArrayList;
+        this.ui = new Ui();
     }
 
     /**
@@ -97,4 +104,63 @@ public class TaskList {
         }
     }
 
+    public String updateTask(String[] details) {
+        int index = Integer.valueOf(details[0]) - 1;
+        String type = details[1];
+        String command = details[2];
+        String update = details[3];
+
+        switch(type) {
+        case "T":
+            if (!(taskArrayList.get(index) instanceof Todo)) {
+                return ui.displayWrongInstanceTask("Todo");
+        }
+
+            if (command.equals("/name")) {
+                System.out.println("1");
+                System.out.println(taskArrayList.get(index));
+                taskArrayList.get(index).updateName(update);
+                System.out.println(taskArrayList.get(index));
+                return ui.displayUpdatedTask(taskArrayList.get(index));
+            } else {
+                System.out.println("2");
+                return ui.displayWrongCommand();
+            }
+        case "D":
+            if (!(taskArrayList.get(index) instanceof Deadline)) {
+                return ui.displayWrongInstanceTask("Deadline");
+            }
+
+            if (command.equals("/name")) {
+                taskArrayList.get(index).updateName(update);
+                return ui.displayUpdatedTask(taskArrayList.get(index));
+            } else if (command.equals("/by")) {
+                Deadline d = (Deadline) taskArrayList.get(index);
+                d.updateDeadlineDate(update);
+                return ui.displayUpdatedTask(taskArrayList.get(index));
+            } else {
+                return ui.displayWrongCommand();
+            }
+        case "E":
+            if (!(taskArrayList.get(index) instanceof Event)) {
+                return ui.displayWrongInstanceTask("Event");
+            }
+            if (command.equals("/name")) {
+                taskArrayList.get(index).updateName(update);
+                return ui.displayUpdatedTask(taskArrayList.get(index));
+            } else if (command.equals("/from")) {
+                Event e = (Event) taskArrayList.get(index);
+                e.updateEventFrom(update);
+                return ui.displayUpdatedTask(taskArrayList.get(index));
+            } else if (command.equals("/to")) {
+                Event e = (Event) taskArrayList.get(index);
+                e.updateEventTo(update);
+                return ui.displayUpdatedTask(taskArrayList.get(index));
+            } else {
+                return ui.displayWrongCommand();
+            }
+        default:
+            return "Check your command! The command is 'edit (index of task) (type of task: T D E) (command: /name /by /from /to) (update)'";
+        }
+    }
 }

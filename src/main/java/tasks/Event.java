@@ -38,4 +38,12 @@ public class Event extends Task {
         String dateToString = this.dateTo.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         return "E-" + super.taskToStringStore(task) + dateFromString + "-" + dateToString ;
     }
+
+    public void updateEventFrom(String from) {
+        this.dateFrom = LocalDate.parse(from, DateTimeFormatter.ofPattern("d MMM yyyy"));
+    }
+
+    public void updateEventTo(String to) {
+        this.dateTo = LocalDate.parse(to, DateTimeFormatter.ofPattern("d MMM yyyy"));
+    }
 }

@@ -62,4 +62,13 @@ public class Task {
         return isCompleteString + "-" + task.name + "-";
     }
 
+    /**
+     * Updates the name of the task
+     *
+     * @param update new name of task
+     */
+    public void updateName(String update){
+        this.name = update;
+    }
+
 }
