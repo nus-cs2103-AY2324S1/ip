@@ -69,46 +69,40 @@ public class TaskMate {
         ui.promptUser();
 
         // Reading user input
-        String userInput;
-        Command command;
         while (true) {
-            userInput = ui.nextLine();
+            String userInput = ui.nextLine();
 
             // Parse user input
             try {
-                command = Parser.parse(userInput);
+                Command command = Parser.parse(userInput);
                 command.execute(tasks, ui, storage);
                 if (command.getIsExit()) {
                     break;
                 }
-            } catch (InvalidCommandTypeException e) {
-                ui.printInvalidCommandTypeExceptionResponse();
-                System.out.println(e); // todo: Remove for production code
-            } catch (InvalidDescriptionException e) {
-                ui.printInvalidCommandTypeExceptionResponse(); // todo: Add new message for chatbot
-                System.out.println(e); // todo: Remove for production code
-            } catch (EmptyByException e) {
-                ui.printEmptyByExceptionResponse();
-                System.out.println(e); // todo: Remove for production code
-            } catch (InvalidByException e) {
-                ui.printInvalidByExceptionResponse();
-                System.out.println(e);
-            } catch (InvalidToException e) {
-                ui.printInvalidToExceptionResponse();
-                System.out.println(e);
-            } catch (EmptyToException e) {
-                ui.printEmptyToExceptionResponse();
-                System.out.println(e);
-            } catch (InvalidFromException e) {
-                ui.printInvalidFromExceptionResponse();
-                System.out.println(e);
-            } catch (EmptyFromException e) {
-                ui.printEmptyFromExceptionResponse();
-                System.out.println(e);
-            } catch (NotAnIntegerException e) {
-                ui.printNotAnIntegerExceptionResponse();
-                System.out.println(e);
+            } catch (Exception e) {
+                handleException(e);
             }
+        }
+    }
+
+    private void handleException(Exception e) {
+        if (e instanceof InvalidCommandTypeException
+                | e instanceof InvalidDescriptionException) {
+            ui.printInvalidCommandTypeExceptionResponse();
+        } else if (e instanceof EmptyByException) {
+            ui.printEmptyByExceptionResponse();
+        } else if (e instanceof InvalidByException) {
+            ui.printInvalidByExceptionResponse();
+        } else if (e instanceof InvalidToException) {
+            ui.printInvalidToExceptionResponse();
+        } else if (e instanceof EmptyToException) {
+            ui.printEmptyToExceptionResponse();
+        } else if (e instanceof InvalidFromException) {
+            ui.printInvalidFromExceptionResponse();
+        } else if (e instanceof EmptyFromException) {
+            ui.printEmptyFromExceptionResponse();
+        } else if (e instanceof NotAnIntegerException) {
+            ui.printNotAnIntegerExceptionResponse();
         }
     }
 
