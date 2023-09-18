@@ -39,6 +39,7 @@ public class Parser {
                         tasks.markUndone(taskNum - 1);
                         message = Ui.line() + "Okk... this is not done yet ﾍ(;´Д｀ﾍ)" + tasks.printTask(taskNum - 1)
                                 + "\n" + Ui.line();
+                        assert tasks.printTask(taskNum - 1) != null;
                         return message;
                     } else if (parts[0].equals("deadline")) {
                         String removeDdl = echo.replace("deadline", "");
@@ -56,6 +57,7 @@ public class Parser {
                             tasks.addToList(x);
                             message = Ui.line() + "Okk... I've... I've added this task:\n" + x.toString() + "\n"
                                     + tasks.numOfTask() + Ui.line();
+                            assert tasks.numOfTask() != null;
                             return message;
                         } catch (DateTimeException e) {
                             throw new DukeException("Th...th...the ddate you have inputed is invalid!!");
@@ -73,6 +75,7 @@ public class Parser {
                         tasks.addToList(x);
                         message = Ui.line() + "Okk... I've... I've added this task:\n" + x.toString() + "\n"
                                 + tasks.numOfTask() + Ui.line();
+                        assert Ui.line() != null;
                         return message;
                     } else if (parts[0].equals("todo")) {
                         String removeTodo = echo.replace("todo", "");
@@ -102,6 +105,7 @@ public class Parser {
                         tasks.deleteTask(taskNum - 1);
                         message = Ui.line() + "O...Okk... I've re...removed this task:\n" + tasks.numOfTask()
                                 + Ui.line();
+                        assert tasks.numOfTask() != null;
                         return message;
                     } else if (parts[0].equals("find")) {
                         if (parts.length == 1) {
@@ -124,14 +128,17 @@ public class Parser {
                     }
                 } else { //equals list
                     message = Ui.line() + "H...here are the tasks in your list:\n" + tasks.printList() + Ui.line();
+                    assert tasks.printList() != null;
                     return message;
                 }
             } catch (DukeException e) {
                 message = Ui.line() + e.getMessage() + "\n" + Ui.line();
+                assert e.getMessage() != null;
                 return message;
             }
         }
         message = Ui.line() + Ui.sayBye() + Ui.line();
+        assert Ui.sayBye() != null;
         return message;
     }
 }
