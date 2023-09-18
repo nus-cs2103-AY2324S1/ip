@@ -4,7 +4,7 @@ import duke.exception.KoraException;
 import duke.storage.Storage;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskList;
+import duke.list.TaskList;
 
 public class EventCommand extends Command {
     private String taskDetails;

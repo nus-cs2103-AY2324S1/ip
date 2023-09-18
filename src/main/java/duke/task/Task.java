@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.exception.KoraException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * Task class stores details of the tasks.
  */
 public class Task {
-    protected LocalDateTime byTime;
+    protected String byTime;
     private String details;
 
     private boolean isMarked;
@@ -29,7 +31,7 @@ public class Task {
      * @return Time in String using correct format.
      */
     public String getTime() {
-        return byTime.format(DateTimeFormatter.ofPattern("E, MMM dd yyyy"));
+        return "";
     }
 
     /**

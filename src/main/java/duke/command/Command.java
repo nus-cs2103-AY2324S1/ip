@@ -1,8 +1,9 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.list.CommandList;
 import duke.storage.Storage;
-import duke.task.TaskList;
+import duke.list.TaskList;
 
 /**
  * Command class executes and sets messages for different types of commands.
@@ -45,4 +46,11 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+    public boolean isSetCommand() {
+        return false;
+    }
+
+    public void executeSet(CommandList commandList, Storage storage) throws KoraException {
+        return;
+    };
 }

@@ -6,10 +6,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import duke.exception.KoraException;
+import duke.list.CommandList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.TaskList;
+import duke.list.TaskList;
 import duke.task.ToDo;
 
 
@@ -63,7 +64,7 @@ public class Storage {
             String[] array;
             while (s.hasNextLine()) {
                 array = s.nextLine().split("/ ");
-                taskList.addNoSaveTask(checkTask(array));
+                taskList.addTask(checkTask(array));
             }
         } catch (IOException e) {
             throw new KoraException("Unable to scan!");
@@ -92,7 +93,7 @@ public class Storage {
      * @throws KoraException When the type of task is not valid.
      */
     public Task checkTask(String[] array) throws KoraException {
-        assert array.length >= 2 : "The command is too short.";
+        //assert array.length >= 2 : "The command is too short.";
         Task currentTask;
         if (array[0].contains("E")) {
             currentTask = new Event(array[2], array[3], array[4]);
@@ -111,5 +112,27 @@ public class Storage {
         }
 
         return currentTask;
+    }
+
+    public void loadCommand(CommandList commandList) throws KoraException {
+        createFile();
+        File f = new File(path);
+        try {
+            Scanner s = new Scanner(f);
+            String[] array;
+            while (s.hasNextLine()) {
+                array = s.nextLine().split("/ ");
+                commandList.saveCommand(array);
+            }
+        } catch (IOException e) {
+            throw new KoraException("Unable to scan!");
+        }
+    }
+    public void saveCommand(CommandList commandList) throws KoraException {
+        try (FileWriter fw = new FileWriter(path, false)) {
+            fw.write(commandList.saveFormat());
+        } catch (IOException e) {
+            throw new KoraException("Couldn't add!");
+        }
     }
 }

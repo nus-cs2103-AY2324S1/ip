@@ -1,0 +1,11 @@
+todo/ todo/ t
+set/ set
+find/ find
+event/ event
+deadline/ deadline
+list/ list
+delete/ delete
+unset/ unset
+mark/ mark
+unmark/ unmark
+bye/ bye
