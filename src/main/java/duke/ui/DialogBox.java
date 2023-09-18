@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -47,6 +48,7 @@ public class DialogBox extends HBox {
         dialog.setMinHeight(Region.USE_PREF_SIZE);
         displayPicture.setImage(img);
         displayPicture.setClip(new Circle(50, 50, 50));
+        HBox.setMargin(displayPicture, new Insets(0, 10, 0, 10));
     }
 
     /**
@@ -57,6 +59,8 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-padding: 10px; "
+                + "-fx-border-insets: 5px; -fx-font: 15px Tahoma;");
     }
 
     /**
