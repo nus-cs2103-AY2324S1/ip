@@ -1,0 +1,43 @@
+--- ACTUAL.TXT	2023-08-24 12:24:54
++++ EXPECTED.TXT	2023-08-24 12:08:47
+@@ -24,3 +24,40 @@
+ Now you have 3 tasks in the list.
+ ____________________________________________________________
+
++____________________________________________________________
++ ☹ OOPS!!! A valid jeoe.Tasks.jeoe.Tasks is required. Your current input "random grribish" is not a valid task.
++
++Please enter your input starting with :
++todo
++deadline
++event
++
++ After the command word, leave a space before typing your task.
++____________________________________________________________
++
++____________________________________________________________
++Nice! I've marked this task as done:
++[T][X] borrow book
++____________________________________________________________
++
++____________________________________________________________
++OK, I've marked this task as not done yet:
++[T][ ] borrow book
++____________________________________________________________
++
++____________________________________________________________
++Nice! I've marked this task as done:
++[D][X] return book (by: Sunday)
++____________________________________________________________
++
++____________________________________________________________
++Here are the tasks in your list:
++1. [T][ ] borrow book
++2. [D][X] return book (by: Sunday)
++3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
++____________________________________________________________
++
++____________________________________________________________
++ Bye. Hope to see you again soon!
++____________________________________________________________
++
