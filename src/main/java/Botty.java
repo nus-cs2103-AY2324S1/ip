@@ -42,7 +42,6 @@ public class Botty {
      * Runs the main application loop, interacting with the user, processing commands, and managing tasks.
      * The loop continues until the user enters the "bye" command.
      */
-
     public String getResponse(String input) {
         try {
             Command command = this.parser.parseInstruction(input);

@@ -9,5 +9,12 @@ import main.java.ui.Ui;
  */
 public abstract class Command {
 
+    /**
+     * Executes the command.
+     *
+     * @param taskList The current taskList stored in Botty.
+     * @param ui The current ui details.
+     * @return Result to be displayed to user.
+     */
     public abstract String execute(TaskList taskList, Ui ui);
 }

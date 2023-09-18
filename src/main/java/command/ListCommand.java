@@ -4,7 +4,18 @@ import main.java.Task;
 import main.java.tasklist.TaskList;
 import main.java.ui.Ui;
 
+/**
+ * Represents a list command, which will list out all the tasks in the taskList.
+ */
 public class ListCommand extends Command {
+
+    /**
+     * Executes the list command, which will display all the tasks in the current tasklist.
+     *
+     * @param taskList The current taskList stored in Botty.
+     * @param ui The current ui details.
+     * @return Result to be displayed to user.
+     */
     @Override
     public String execute(TaskList taskList, Ui ui) {
         StringBuilder str = new StringBuilder();

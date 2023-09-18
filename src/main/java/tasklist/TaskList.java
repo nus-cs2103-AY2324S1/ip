@@ -28,6 +28,9 @@ public class TaskList implements Cloneable {
         this.taskList.add(task);
     }
 
+    /**
+     * Revert to the previous iteration of tasklist.
+     */
     public void revertPreviousTaskList() {
         if (this.previousTaskList != null) {
             this.taskList = this.previousTaskList;
@@ -43,7 +46,7 @@ public class TaskList implements Cloneable {
     }
 
     /**
-     * Retrieves a task from the task list at the specified index.
+     * Retrieves a task from the task list at the specified index, this will change previousTaskList.
      *
      * @param i The index of the task to retrieve.
      * @return The task at the specified index.
@@ -53,6 +56,12 @@ public class TaskList implements Cloneable {
         return this.taskList.get(i);
     }
 
+    /**
+     * Retrieves a task from the task list at the specified index, this will not change previousTaskList.
+     *
+     * @param i The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
     public Task getTask(int i) {
         return this.taskList.get(i);
     }
