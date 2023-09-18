@@ -45,10 +45,15 @@ public class Parser {
         }
     }
 
-    public void parseInputForFormatErrors(String input) throws DukeException{
-        checkInputHasMoreThanOneSpace(input);
+    /**
+     * Method to parse the input for format errors
+     * @param input user input
+     * @throws DukeException
+     */
+    public void parseInputForFormatErrors(String input) throws DukeException {
         checkInputHasTrailingSpace(input);
         checkInputHasLeadingSpace(input);
+        checkInputHasMoreThanOneSpace(input);
     }
 
     /**
@@ -62,12 +67,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to check if the input has leading space
+     * @param input use input
+     * @throws DukeException
+     */
     public void checkInputHasLeadingSpace(String input) throws DukeException {
         if (!(Character.isAlphabetic(input.charAt(0)) || Character.isDigit(input.length() - 1))) {
             throw new DukeException("SUI, input has leading spaces");
         }
     }
 
+    /**
+     * Method to check if the input has trailing space
+     * @param input use input
+     * @throws DukeException
+     */
     public void checkInputHasTrailingSpace(String input) throws DukeException {
         if (input.charAt(input.length() - 1) == ' ') {
             throw new DukeException("SUI, input has trailing spaces");
