@@ -155,10 +155,14 @@ public class Duke {
      * @param task The task to be added to the list.
      */
     public void addTaskToList(Task task) {
-        this.taskList.add(task);
-        assert this.taskList.contains(task);
-        this.userInterface.notifyAdded(task);
-        this.userInterface.showTaskCount(this.taskList.size());
+        try {
+            this.taskList.add(task);
+            assert this.taskList.contains(task);
+            this.userInterface.notifyAdded(task);
+            this.userInterface.showTaskCount(this.taskList.size());
+        } catch (TaskList.DuplicateException e) {
+            this.userInterface.notifyError("task is already in the list");
+        }
     }
 
     /**
@@ -228,6 +232,13 @@ public class Duke {
         } else {
             this.userInterface.displayData("Quack, what do you mean when you say " + input);
         }
+    }
+
+    /**
+     * Notifies the user that there are space characters in front.
+     */
+    public void notifyEmpty() {
+        this.userInterface.displayData("Quack, did you provide space characters in front?");
     }
 
     /**
