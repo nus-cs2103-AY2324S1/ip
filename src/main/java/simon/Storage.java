@@ -87,14 +87,14 @@ public class Storage {
     private Task parseTask(String line, DateTimeFormatter formatter) throws SimonException {
         String[] parts = line.split(" \\| ");
         switch (parts[0]) {
-            case "T":
-                return createTodo(parts);
-            case "D":
-                return createDeadline(parts, formatter);
-            case "E":
-                return createEvent(parts, formatter);
-            default:
-                return null;
+        case "T":
+            return createTodo(parts);
+        case "D":
+            return createDeadline(parts, formatter);
+        case "E":
+            return createEvent(parts, formatter);
+        default:
+            return null;
         }
     }
 

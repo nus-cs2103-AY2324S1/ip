@@ -122,7 +122,7 @@ public class Simon extends Application {
      */
     @Override
     public void start(Stage stage) {
-        setupUIComponents();
+        setupUicomponents();
         formatWindow(stage);
         configureUserInput();
         configureAutoScroll();
@@ -131,7 +131,7 @@ public class Simon extends Application {
         stage.show();
     }
 
-    private void setupUIComponents() {
+    private void setupUicomponents() {
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
