@@ -7,13 +7,13 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 /**
- * Represent a command to unmark a task
+ * Represents a command to unmark a task
  */
 public class UnmarkCommand extends Command {
     private int taskNumber;
 
     /**
-     * Constructor of the UnMarkCommand object
+     * Represents a constructor of the UnMarkCommand object
      */
     public UnmarkCommand(int taskNumber) {
         super();
@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Execute the UnMarkCommand and returns a string
+     * Executes the UnMarkCommand and returns a string
      * {@inheritDoc}
      */
     @Override

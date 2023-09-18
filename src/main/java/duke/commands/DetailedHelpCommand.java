@@ -5,13 +5,13 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * Represent a command to print out the sample data for the user to learn
+ * Represents a command to print out the sample data for the user to learn
  */
 public class DetailedHelpCommand extends HelpCommand {
     private int helpNumber;
 
     /**
-     * Constructor for DetailedHelpCommand object
+     * Represents a constructor for DetailedHelpCommand object
      */
     public DetailedHelpCommand(int helpNumber) {
         super();

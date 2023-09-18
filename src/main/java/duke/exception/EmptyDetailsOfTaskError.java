@@ -6,7 +6,7 @@ package duke.exception;
  */
 public class EmptyDetailsOfTaskError extends DukeException {
     /**
-     * Constructor of the EmptyDetailsOfTaskError
+     * Represents a constructor of the EmptyDetailsOfTaskError
      * 
      * @param message is the message given by the bot when encountering
      *                the error in which the task do not have

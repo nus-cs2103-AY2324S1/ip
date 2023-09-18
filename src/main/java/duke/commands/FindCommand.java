@@ -5,13 +5,13 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * Represent a command to find a list of tasks with a particular keyword
+ * Represents a command to find a list of tasks with a particular keyword
  */
 public class FindCommand extends Command {
     private String keyword;
 
     /**
-     * Constructor of the FindCommand object
+     * Represents a constructor of the FindCommand object
      */
     public FindCommand(String keyword) {
         super();
@@ -19,7 +19,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Execute the FindCommand and returns a string
+     * Executes the FindCommand and returns a string
      * {@inheritDoc}
      */
     @Override

@@ -6,7 +6,7 @@ package duke.exception;
  */
 public class WrongMarkException extends DukeException {
     /**
-     * Constructor of the WrongMarkException class, used to deal with
+     * Represents a constructor of the WrongMarkException class, used to deal with
      * errors when command is given to mark a marked task and unmark a task
      * that is not marked yet
      * 

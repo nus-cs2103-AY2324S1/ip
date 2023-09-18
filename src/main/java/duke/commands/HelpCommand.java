@@ -7,12 +7,12 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * Represent a command to print out the help message
+ * Represents a command to print out the help message
  */
 public class HelpCommand extends Command {
 
     /**
-     * Constructor for HelpCommand object
+     * Represents a constructor for HelpCommand object
      */
     public HelpCommand() {
         super();

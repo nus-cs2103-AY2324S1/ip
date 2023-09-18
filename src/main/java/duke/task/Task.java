@@ -8,14 +8,15 @@ import duke.exception.EmptyDetailsOfTaskError;
 import duke.exception.UnknownCommandException;
 
 /**
- * SuperClass of task to be implemented such as todo, deadLine and event
+ * Represent the superClass of task to be implemented such as todo, deadLine and
+ * event
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructor of the task object
+     * Represent the constructor of the task object
      * 
      * @param description is the details of the task given
      */
@@ -58,7 +59,7 @@ public class Task {
     }
 
     /**
-     * To create a task without letting classes at higher level know the type of
+     * Creates a task without letting classes at higher level know the type of
      * task to be created, basically making use of polymorphism.
      * 
      * @param description takes in a string which is the details of the task
@@ -96,7 +97,7 @@ public class Task {
     }
 
     /**
-     * To create a task of type Todo
+     * Creates a task of type Todo
      * 
      * @param data
      * @return a Task of type Todo
@@ -108,7 +109,7 @@ public class Task {
     }
 
     /**
-     * To create a task of type Deadline
+     * Creates a task of type Deadline
      * 
      * @param data
      * @return a Task of type Deadline
@@ -125,7 +126,7 @@ public class Task {
     }
 
     /**
-     * To create a task of type Event
+     * Creates a task of type Event
      * 
      * @param data
      * @return
@@ -202,7 +203,7 @@ public class Task {
     }
 
     /**
-     * toString of a task, basically the string of the task object
+     * Represents toString of a task, basically the string of the task object
      * 
      * @return a string of the task object
      */

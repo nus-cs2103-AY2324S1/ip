@@ -1,13 +1,12 @@
 package duke;
 
-// fixing DukeException based on my understanding of exceptions 27/8/23
 import java.util.Scanner;
 
 import duke.commands.Command;
 import duke.task.TaskList;
 
 /**
- * The main file that the application runs
+ * Represents the main file that the application runs
  */
 public class Duke {
     protected Ui helper;
@@ -15,7 +14,7 @@ public class Duke {
     protected Storage storage;
 
     /**
-     * Constructor of the main file, takes in the filePath that
+     * Represents the constructor of the main file, takes in the filePath that
      * allow the bot to store the file with the saved taskList
      * at a known place to be retrieved later
      * Contains the UI, Storage and taskList
@@ -34,7 +33,7 @@ public class Duke {
     }
 
     /**
-     * Main method, create a duke object with the filepath and run it
+     * Creates a duke object with the filepath and run it
      * 
      * @param args takes in the arguments for the respective commands
      *             from the user
@@ -77,6 +76,12 @@ public class Duke {
         sc.close();
     }
 
+    /**
+     * Gets the response based on the input given by the user
+     * 
+     * @param input
+     * @return
+     */
     public String getResponse(String input) {
         String output = "";
         assert input != null : "input should not be null";

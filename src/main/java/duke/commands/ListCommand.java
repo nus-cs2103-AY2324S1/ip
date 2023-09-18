@@ -5,19 +5,19 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * Represent a command to list out all the tasks
+ * Represents a command to list out all the tasks
  */
 public class ListCommand extends Command {
 
     /**
-     * Constructor of the ListCommand object
+     * Represents a constructor of the ListCommand object
      */
     public ListCommand() {
         super();
     }
 
     /**
-     * Execute the ListCommand and returns a string
+     * Executes the ListCommand and returns a string
      * {@inheritDoc}
      */
     @Override

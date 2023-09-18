@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import duke.FormatterDate;
 
 /**
- * a subclass of a task object
+ * Represents a subclass of a task object
  */
 public class Events extends Task {
     protected String start;
@@ -15,7 +15,7 @@ public class Events extends Task {
     protected LocalDate endDate;
 
     /**
-     * Constructor of the event class
+     * Represents a constructor of the event class
      * 
      * @param description   is the description of the event
      * @param originalStart is the start date of the event
@@ -38,7 +38,7 @@ public class Events extends Task {
     }
 
     /**
-     * string of the event object
+     * Represent a toString of the event object
      * 
      * @return a string
      */

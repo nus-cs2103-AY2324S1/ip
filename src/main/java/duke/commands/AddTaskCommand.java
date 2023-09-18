@@ -8,13 +8,13 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 /**
- * Represent a command to add a task
+ * Represents a command to add a task
  */
 public class AddTaskCommand extends Command {
     private String command;
 
     /**
-     * Constructor of the AddTaskCommand object
+     * Represent a constructor of the AddTaskCommand object
      */
     public AddTaskCommand(String command) {
         super();
@@ -22,7 +22,7 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * Execute the AddTaskCommand and returns a string
+     * Executes the AddTaskCommand and returns a string
      * {@inheritDoc}
      */
     @Override

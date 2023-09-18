@@ -42,38 +42,38 @@ public class Parser {
         String[] splittedCommand = command.split(" ");
         String commandType = splittedCommand[0];
         switch (commandType) {
-            case "help":
-                if (splittedCommand.length > 1) {
-                    int helpNumber = Integer.parseInt(splittedCommand[1]);
-                    commandGiven = new DetailedHelpCommand(helpNumber);
-                } else {
-                    commandGiven = new HelpCommand();
-                }
-                break;
-            case "bye":
-                commandGiven = new ByeCommand();
-                break;
-            case "find":
-                String keyword = splittedCommand[1];
-                commandGiven = new FindCommand(keyword);
-                break;
-            case "list":
-                commandGiven = new ListCommand();
-                break;
-            case "mark":
-                taskNumber = Integer.parseInt(splittedCommand[1]);
-                commandGiven = new MarkCommand(taskNumber);
-                break;
-            case "unmark":
-                taskNumber = Integer.parseInt(splittedCommand[1]);
-                commandGiven = new UnmarkCommand(taskNumber);
-                break;
-            case "delete":
-                taskNumber = Integer.parseInt(splittedCommand[1]);
-                commandGiven = new DeleteCommand(taskNumber);
-                break;
-            default:
-                commandGiven = new AddTaskCommand(command);
+        case "help":
+            if (splittedCommand.length > 1) {
+                int helpNumber = Integer.parseInt(splittedCommand[1]);
+                commandGiven = new DetailedHelpCommand(helpNumber);
+            } else {
+                commandGiven = new HelpCommand();
+            }
+            break;
+        case "bye":
+            commandGiven = new ByeCommand();
+            break;
+        case "find":
+            String keyword = splittedCommand[1];
+            commandGiven = new FindCommand(keyword);
+            break;
+        case "list":
+            commandGiven = new ListCommand();
+            break;
+        case "mark":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new MarkCommand(taskNumber);
+            break;
+        case "unmark":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new UnmarkCommand(taskNumber);
+            break;
+        case "delete":
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+            commandGiven = new DeleteCommand(taskNumber);
+            break;
+        default:
+            commandGiven = new AddTaskCommand(command);
         }
         return commandGiven;
     }

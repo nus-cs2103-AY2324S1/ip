@@ -5,13 +5,13 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * Superclass of all the commands to be implemented
+ * Represents the superclass of all the commands to be implemented
  */
 public abstract class Command {
     boolean isExit;
 
     /**
-     * Constructor of the Commands abstract class
+     * Represents a constructor of the Commands abstract class
      */
     public Command() {
         this.isExit = false;
@@ -27,7 +27,7 @@ public abstract class Command {
     }
 
     /**
-     * Execute command based on the command given
+     * Executes command based on the command given
      * 
      * @param tasks
      * @param ui

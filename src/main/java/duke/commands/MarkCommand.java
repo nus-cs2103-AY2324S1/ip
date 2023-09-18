@@ -7,13 +7,13 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 /**
- * Represent a command to mark a task as done
+ * Represents a command to mark a task as done
  */
 public class MarkCommand extends Command {
     private int taskNumber;
 
     /**
-     * Constructor of the MarkCommand object
+     * Represents a constructor of the MarkCommand object
      */
     public MarkCommand(int taskNumber) {
         super();
@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Execute the MarkCommand and returns a string
+     * Executes the MarkCommand and returns a string
      * {@inheritDoc}
      */
     @Override

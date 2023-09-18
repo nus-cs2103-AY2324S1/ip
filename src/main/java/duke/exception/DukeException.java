@@ -7,7 +7,7 @@ package duke.exception;
  */
 public class DukeException extends Throwable {
     /**
-     * Constructor of the duke class
+     * Represents a constructor of the duke class
      * 
      * @param message is the message that the bot returns when encountering the
      *                error
@@ -18,7 +18,7 @@ public class DukeException extends Throwable {
     }
 
     /**
-     * Message given by the bot when encountering them
+     * Represents a message given by the bot when encountering them
      * 
      * @return a string containing the messgae
      */

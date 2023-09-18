@@ -7,19 +7,19 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * Represent a command to exit the program
+ * Represents a command to exit the program
  */
 public class ByeCommand extends Command {
 
     /**
-     * Constructor of the ByeCommand object
+     * Represents a constructor of the ByeCommand object
      */
     public ByeCommand() {
         super();
     }
 
     /**
-     * Execute the ByeCommand and returns a string
+     * Executes the ByeCommand and returns a string
      * {@inheritDoc}
      */
     @Override

@@ -5,13 +5,13 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * Represent a command to delete a task
+ * Represents a command to delete a task
  */
 public class DeleteCommand extends Command {
     private int taskNumber;
 
     /**
-     * Constructor of the DeleteCommand object
+     * Represents a constructor of the DeleteCommand object
      */
     public DeleteCommand(int taskNumber) {
         super();
@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Execute the DeleteCommand and returns a string
+     * Executes the DeleteCommand and returns a string
      * {@inheritDoc}
      */
     @Override

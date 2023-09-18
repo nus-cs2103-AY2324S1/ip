@@ -3,7 +3,7 @@ package duke;
 import java.time.format.DateTimeFormatter;
 
 /**
- * To format the date that the bot understand to what the user wants
+ * Formats the date that the bot understand to what the user wants
  * will add more possible ways in the future
  */
 public enum FormatterDate {
@@ -14,8 +14,9 @@ public enum FormatterDate {
     public DateTimeFormatter formatter;
 
     /**
-     * This takes in a string pattern and will convert the string pattern
+     * Takes in a string pattern and will convert the string pattern
      * to the formatter required
+     * 
      * @param pattern string to be taken in
      */
     FormatterDate(String pattern) {
@@ -23,7 +24,8 @@ public enum FormatterDate {
     }
 
     /**
-     * This takes in a formatter
+     * Takes in a formatter
+     * 
      * @param formatter formatter that is taken in
      */
     FormatterDate(DateTimeFormatter formatter) {

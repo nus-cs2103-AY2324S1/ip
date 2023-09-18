@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * TaskList to store all the tasks required for the particular user
+ * Represents a TaskList to store all the tasks required for the particular user
  */
 public class TaskList extends ArrayList<Task> {
     /**
-     * Constructor when taskList is first initially created
+     * Represents a constructor when taskList is first initially created
      */
     public TaskList() {
         super();
     }
 
     /**
-     * TaskList when the user is not using the bot for the first time
+     * Represents a TaskList when the user is not using the bot for the first time
      * Used to start the bot back with the saved data
      * 
      * @param sc is used to read the contents in the saved file
@@ -66,6 +66,12 @@ public class TaskList extends ArrayList<Task> {
         return output;
     }
 
+    /**
+     * Finds tasks that contains the keyword from the taskList
+     * 
+     * @param keyword
+     * @return
+     */
     public String findTaskFromTaskList(String keyword) {
         assert keyword != null : "keyword should not be null";
         int count = 1;

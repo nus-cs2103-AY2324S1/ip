@@ -113,6 +113,13 @@ public class Ui {
         return "OOPS!!! There is no file to load. Pika Pika!!";
     }
 
+    /**
+     * Describes the case when the file is not found
+     * 
+     * @param keyword
+     * @param tasks
+     * @return
+     */
     public String findTask(String keyword, TaskList tasks) {
         assert keyword != null : "keyword should not be null";
         assert tasks != null : "taskList should not be null";
@@ -123,6 +130,11 @@ public class Ui {
         return output;
     }
 
+    /**
+     * Prints out the help method which is the list of commands you can use
+     * 
+     * @return the helplist
+     */
     public String helpList() {
         printLine();
         String output = "";
@@ -145,36 +157,36 @@ public class Ui {
     public String detailedHelp(int helpNumber) {
         String output = "";
         switch (helpNumber) {
-            case 1:
-                output += Ui.todoExample();
-                break;
-            case 2:
-                output += Ui.deadlineExample();
-                break;
-            case 3:
-                output += Ui.eventExample();
-                break;
-            case 4:
-                output += Ui.listExample();
-                break;
-            case 5:
-                output += Ui.markExample();
-                break;
-            case 6:
-                output += Ui.unMarkExample();
-                break;
-            case 7:
-                output += Ui.deleteExample();
-                break;
-            case 8:
-                output += Ui.findExample();
-                break;
-            case 9:
-                output += Ui.byeExample();
-                break;
-            default:
-                output += "Please enter a valid help number from 1 to 9";
-                break;
+        case 1:
+            output += Ui.todoExample();
+            break;
+        case 2:
+            output += Ui.deadlineExample();
+            break;
+        case 3:
+            output += Ui.eventExample();
+            break;
+        case 4:
+            output += Ui.listExample();
+            break;
+        case 5:
+            output += Ui.markExample();
+            break;
+        case 6:
+            output += Ui.unMarkExample();
+            break;
+        case 7:
+            output += Ui.deleteExample();
+            break;
+        case 8:
+            output += Ui.findExample();
+            break;
+        case 9:
+            output += Ui.byeExample();
+            break;
+        default:
+            output += "Please enter a valid help number from 1 to 9";
+            break;
         }
         return output;
     }

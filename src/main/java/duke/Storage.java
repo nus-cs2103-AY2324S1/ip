@@ -20,7 +20,7 @@ public class Storage {
     private Scanner sc;
 
     /**
-     * Constructor of the storage class
+     * Represents the storage class
      * 
      * @param filePath
      * @throws IOException if file is not found or created
