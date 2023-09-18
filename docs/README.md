@@ -8,13 +8,14 @@ Keeps track of user's tasks and the progress of each task.
 
 ### Lists tasks
 
-Lists task according to order the tasks was added or alphabetical order. 
+Lists tasks according to order the tasks was added or alphabetical order. 
 
 ## Usage
 
 ### About the command format:
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.
 - All date inputs should be in the format: `yyyy-MM-dd`
+- All date outputs will be in the format: `MMM dd yyyy`
 
 ### `todo` - Adds a todo task into the list
 
