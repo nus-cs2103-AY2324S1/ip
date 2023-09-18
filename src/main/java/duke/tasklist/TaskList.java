@@ -37,6 +37,7 @@ public class TaskList implements Iterable<Task> {
      * @throws CCException If there is an error in adding the task.
      */
     public String addTask(Task task) {
+        assert task != null : "Task should not be null"; // Check that the task is not null
         taskList.add(task);
         return ui.displayAddTask(task, taskList.size());
     }
@@ -49,8 +50,12 @@ public class TaskList implements Iterable<Task> {
      * @throws CCException If there is an error in marking the task or if the input is invalid.
      */
     public String markTask(String input) throws CCException {
+        assert input != null : "Input should not be null"; // Check that the input is not null
+        assert !input.isEmpty() : "Input should not be empty"; // Check that the input is not empty
+
         try {
             Task task = taskList.get(getIndex(input));
+            assert task != null : "Task should not be null"; // Check that the task is not null
             task.setDone(true);
             return ui.displayMarkTask(task);
         } catch (IndexOutOfBoundsException e) {
@@ -66,8 +71,12 @@ public class TaskList implements Iterable<Task> {
      * @throws CCException If there is an error in unmarking the task or if the input is invalid.
      */
     public String unmarkTask(String input) throws CCException {
+        assert input != null : "Input should not be null"; // Check that the input is not null
+        assert !input.isEmpty() : "Input should not be empty"; // Check that the input is not empty
+
         try {
             Task task = taskList.get(getIndex(input));
+            assert task != null : "Task should not be null"; // Check that the task is not null
             task.setDone(false);
             return ui.displayUnmarkTask(task);
         } catch (IndexOutOfBoundsException e) {
@@ -83,9 +92,11 @@ public class TaskList implements Iterable<Task> {
      * @throws CCException If there is an error in deleting the task or if the input is invalid.
      */
     public String deleteTask(String input) throws CCException {
+        assert input != null : "Input should not be null"; // Check that the input is not null
         try {
             int index = getIndex(input);
             Task task = taskList.get(index);
+            assert task != null : "Task should not be null"; // Check that the task is not null
             taskList.remove(index);
             return ui.displayDeleteTask(task, taskList.size());
         } catch (IndexOutOfBoundsException e) {
@@ -94,6 +105,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     public String find(String input) {
+        assert input != null : "Input should not be null"; // Check that the input is not null
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
             if(task.getTaskDescription().contains(input)) {

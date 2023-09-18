@@ -39,6 +39,10 @@ public class Parser {
             action = input.substring(0, space);
             description = input.substring(space + 1, input.length());
         }
+
+        assert action != null : "Action should not be null";
+        assert description != null : "Description should not be null";
+
         return new Command(action, description);
     }
 
@@ -99,6 +103,9 @@ public class Parser {
         if (taskDescription.isEmpty()) {
             throw new CCException("OOPS!!! The description of a todo cannot be empty.");
         }
+
+        assert taskDescription != null : "TaskDescription should not be null";
+
         return new ToDo(taskDescription);
     }
 
@@ -119,6 +126,11 @@ public class Parser {
         if (name.isEmpty() || dueDate.isEmpty()) {
             throw new CCException("OOPS!!! Empty field for deadline detected.");
         }
+
+        assert taskDescription != null : "TaskDescription should not be null";
+        assert name != null : "Task name should not be null";
+        assert dueDate != null : "Due date should not be null";
+
         return new Deadline(taskDescription, name, parseDate(dueDate));
     }
 
@@ -140,6 +152,12 @@ public class Parser {
         if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
             throw new CCException("OOPS!!! Empty field for event detected.");
         }
+
+        assert taskDescription != null : "TaskDescription should not be null";
+        assert name != null : "Task name should not be null";
+        assert start != null : "Start date should not be null";
+        assert end != null : "End date should not be null";
+
         return new Event(taskDescription, name, parseDate(start), parseDate(end));
     }
 

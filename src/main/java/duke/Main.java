@@ -20,6 +20,12 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
+            // Add assertions to check conditions
+            assert fxmlLoader != null : "FXMLLoader should not be null";
+            assert ap != null : "AnchorPane should not be null";
+            assert scene != null : "Scene should not be null";
+
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();

@@ -36,6 +36,12 @@ public class Duke {
         this.parser = new Parser();
         this.storage = new Storage(parser);
         this.tasks = new TaskList(storage.loadTasksFromFile(), ui);
+
+        // Add assertions to check the initial state of Duke's components
+        assert ui != null : "UI should not be null";
+        assert parser != null : "Parser should not be null";
+        assert storage != null : "Storage should not be null";
+        assert tasks != null : "TaskList should not be null";
     }
 
     /**
@@ -76,7 +82,9 @@ public class Duke {
             ui.displayGreeting();
             String input = sc.nextLine();
             while (!input.equals("bye")) {
+                assert input != null : "Input should not be null"; // Check that input is not null
                 Command command = parser.parseInput(input);
+                assert command != null : "Command should not be null"; // Check that the parsed command is not null
                 executeCommand(command);
                 storage.saveTasksToFile(tasks);
                 input = sc.nextLine();
@@ -94,6 +102,7 @@ public class Duke {
      * @throws CCException If an error occurs during command execution.
      */
     private String executeCommand(Command command) throws CCException {
+        assert command != null : "Command should not be null"; // Check that the command is not null
         String action = command.getAction();
         String taskDescription = command.getTaskDescription();
         String response;
