@@ -17,6 +17,7 @@ public class Parser {
      * @param input the user input
      */
     public Parser(String input) {
+        assert input != null : "Input cannot be null";
         // Split string into first word and remaining words
         this.words = input.split(" ", 2);
     }
@@ -27,6 +28,7 @@ public class Parser {
      * @return the command word
      */
     public String getCommand() {
+        assert this.words.length > 0 : "Words array is empty";
         return this.words[0];
     }
 
@@ -38,6 +40,7 @@ public class Parser {
      * @throws DukdukException If there is an error in the input or task creation.
      */
     public static Task parseTask(String input) throws DukdukException {
+        assert input != null : "Input cannot be null";
         if (input.startsWith("todo")) {
             if (input.length() <= 5) {
                 throw new DukdukException("OOPS!!! The description cannot be empty.");
@@ -85,4 +88,3 @@ public class Parser {
         }
     }
 }
-
