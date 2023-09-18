@@ -84,5 +84,16 @@ public class Deadline extends Task {
                 + super.name + separation
                 + due;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline e = (Deadline) other;
+        return this.name.equals(e.name)
+                && this.due.equals(e.due);
+    }
 }
 

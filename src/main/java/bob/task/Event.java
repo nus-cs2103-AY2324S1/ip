@@ -25,6 +25,9 @@ public class Event extends Task {
         try {
             this.start = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[0]);
             this.end = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[1]);
+            if (this.start.isAfter(this.end)) {
+                throw new MissingDatesException();
+            }
         } catch (Exception e) {
             throw new MissingDatesException();
         }
@@ -52,9 +55,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         String done = this.done ? "[X]" : "[ ]";
-        return "[E]" + done + " "
+        return "[E]" + done
                 + super.priorityToString()
-                + this.name
+                + " " + this.name
                 + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                 + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
@@ -89,5 +92,17 @@ public class Event extends Task {
                 + super.priority + separation
                 + super.name + separation
                 + start + separation + end;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event e = (Event) other;
+        return this.name.equals(e.name)
+                && this.start.equals(e.start)
+                && this.end.equals(e.end);
     }
 }

@@ -3,3 +3,6 @@ deadline | 0 | low | die | 2022-12-12
 todo | 0 | high | read
 todo | 0 | low | play
 todo | 0 | low | Play
+deadline | 0 | high | sleep | 2022-01-01
+event | 0 | low | sleep | 2021-01-01 | 2022-01-01
+todo | 0 | low | 00

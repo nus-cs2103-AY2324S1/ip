@@ -78,6 +78,23 @@ public class TaskList {
             Task taskObj = generateTask(description);
             assert taskObj != null;
 
+            Task repeat = null;
+            int index = 0;
+
+            for (int i = 0; i < lst.size(); i++) {
+                if (taskObj.equals(lst.get(i))) {
+                    repeat = lst.get(i);
+                    index = i + 1;
+                    break;
+                }
+            }
+
+            if (repeat != null) {
+                return new String[]{"There is a similar task that was previously added: ",
+                        (index + ". " + repeat.toString()),
+                        "Delete this to add your new task."};
+            }
+
             lst.add(taskObj);
             return new String[]{"You have added a new task: ", "\t" + taskObj.toString(),
                 "Now, you have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")};

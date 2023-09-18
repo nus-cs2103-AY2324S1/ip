@@ -66,4 +66,12 @@ public class Todo extends Task {
                 + (done ? 1 : 0) + separation
                 + super.priority + separation + super.name;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Todo)) {
+            return false;
+        }
+        return this.name.equals(((Todo) other).name);
+    }
 }
