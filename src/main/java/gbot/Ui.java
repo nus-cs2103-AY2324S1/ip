@@ -33,6 +33,23 @@ public class Ui {
         print("Bye. Hope to see you again soon!");
     }
 
+    public static void displayConfirmMessage() {
+        print("Are you sure? (Y/N)");
+    }
+
+    public static void displayHelpMessage() {
+        print("Here are some commands you can use!\n" +
+              "1) list (eg. list): display the current tasks you have\n" +
+              "2) todo (eg. todo read book): adds a Todo task\n" +
+              "3) deadline (eg. deadline return book /by 2023-09-21): adds a Deadline task\n" +
+              "4) event (eg. event meeting /from 2023-09-21 /to 2023-09-22): adds an Event task\n" +
+              "5) mark (eg. mark 1): marks a task based on index as done\n" +
+              "6) unmark (eg. unmark 1): marks a task based on index as NOT done\n" +
+              "7) delete (eg. delete 1): deletes a task based on index\n" +
+              "8) find (eg. find book): displays a list of tasks containing the provided keyword\n" +
+              "9) bye (eg. bye): exits the program");
+    }
+
     /**
      * Prints out an error message.
      *

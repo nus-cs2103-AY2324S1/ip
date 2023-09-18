@@ -3,6 +3,8 @@ package gbot;
 import exceptions.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -19,13 +21,32 @@ public class Parser {
      *
      * @param message The user input.
      * @param tasks The TaskList object that stores tasks.
-     * @throws GBotException If user input is invalid.
      */
     public static String parse(String message, TaskList tasks) throws GBotException {
         assert !message.isBlank() : "Please enter a valid command.";
-        if (message.strip().equals("list")) {
+        switch (message.strip()) {
+        case "list":
             return tasks.listTasks();
+        case "deleteAll":
+            return tasks.deleteAllTasks();
+        case "markAll":
+            return tasks.markAllTasks();
+        case "unmarkAll":
+            return tasks.unmarkAllTasks();
+        default:
+            return checkPrefix(message, tasks);
         }
+    }
+
+    /**
+     * Returns corresponding methods after parsing user inputs, given it is
+     * not a single command.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     * @throws GBotException If user command is invalid.
+     */
+    private static String checkPrefix(String message, TaskList tasks) {
         String prefix = message.split(" ")[0];
         String remainingInput = message.substring(prefix.length() + 1);
         switch (prefix) {

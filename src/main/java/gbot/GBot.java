@@ -33,6 +33,9 @@ public class GBot {
                 inputScanner.close();
                 Ui.displayExitMessage();
                 return;
+            } else if (message.strip().equals("help")) {
+                Ui.displayHelpMessage();
+                continue;
             }
             try {
                 Ui.print(Parser.parse(message, tasks));
@@ -43,8 +46,7 @@ public class GBot {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response from the chatbot.
      *
      * @param input The user input.
      */
@@ -53,7 +55,7 @@ public class GBot {
             return "Bye! Have a nice day!";
         }
         try {
-            return Parser.parse(input, this.tasks);
+            return Parser.parse(input, tasks);
         } catch (GBotException e) {
             return e.getMessage();
         }
