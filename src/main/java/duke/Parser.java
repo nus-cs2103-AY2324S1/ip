@@ -89,6 +89,7 @@ public class Parser {
      * @throws InvalidCommandException If user input is invalid, Duke exception will be thrown.
      */
     public static Command parse(String input) throws InvalidCommandException {
+        //Solution inspired by https://github.com/se-edu/addressbook-level2
         final Matcher matcher = BASIC_COMMAND.matcher(input.trim());
 
         if (!matcher.matches()) {
