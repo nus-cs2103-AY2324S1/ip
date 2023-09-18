@@ -1,6 +1,11 @@
 package harvard;
-
-public class ClearAllCommand extends Command{
+/**
+ * Represents a clear all command.
+ */
+public class ClearAllCommand extends Command {
+    /**
+     * The type of task to be cleared.
+     */
     private String type;
     public ClearAllCommand(String type) {
         this.type = type;

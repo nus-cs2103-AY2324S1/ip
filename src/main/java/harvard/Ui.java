@@ -77,7 +77,7 @@ public class Ui {
      */
 
     public String showUndone(Task task) {
-        return "Ok! I've marked this task as not done yet:";
+        return "Ok! I've marked this task as not done yet:\n" + task;
     }
 
     /**
