@@ -220,6 +220,7 @@ This developer would like to thank and acknowledge the NUS CS2103T team for givi
 
 <details>
 <summary> Detailed Acknowledgements </summary>
+  
 In no particular order:
 ---
 - NUS CS2103T teaching team
