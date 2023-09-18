@@ -56,8 +56,10 @@ public class TaskListTest {
         taskList.markTaskAsDone(2);
 
         List<Task> tasks = taskList.getTasks();
-        assertEquals(3, tasks.size());
-        assertEquals("1", tasks.get(2).getDataStatus());
+        assert tasks.size() == 3 : "Mismatch between expected vs actual list size";
+        assert tasks.get(2).getDataStatus() == "1" : "Mismatch between expected vs actual task status";
+//        assertEquals(3, tasks.size());
+//        assertEquals("1", tasks.get(2).getDataStatus());
     }
 
     @Test
