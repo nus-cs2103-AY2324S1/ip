@@ -60,7 +60,7 @@ public class Duke {
             command.printOutput(command.getCommandMessage());
             return command;
         } catch (KoraException e) {
-            System.out.println(e.getMessage());
+            System.out.println("la");
             return null;
         }
     }

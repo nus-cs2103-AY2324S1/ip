@@ -66,10 +66,10 @@ public class Parser {
                     break;
                 default:
                     command = new InvalidCommand();
-                    break;
             }
         } catch (Exception e) {
-            throw new KoraException(e.getMessage());
+            //throw new KoraException("Please give a valid command!");
+            command = new InvalidCommand();
         }
         return command;
     }

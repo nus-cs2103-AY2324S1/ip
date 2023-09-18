@@ -15,7 +15,6 @@ public class InvalidCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Storage storage) {
-
         commandMessage = "I do not understand";
     }
 }
