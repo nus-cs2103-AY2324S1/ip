@@ -52,11 +52,9 @@ public class Parser {
      * @throws NotAnIntegerException Thrown when the user attempts to create mark/unmark/delete commands but does not
      *                              specify an integer as the second argument
      */
-    public static Command parse(String userInput) throws
-            InvalidCommandTypeException, EmptyDescriptionException,
-            EmptyByException, InvalidByException, InvalidToException,
-            EmptyToException, InvalidFromException, EmptyFromException,
-            NotAnIntegerException {
+    public static Command parse(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException,
+            EmptyByException, InvalidByException, InvalidToException, EmptyToException, InvalidFromException,
+            EmptyFromException, NotAnIntegerException {
 
         userInput = userInput.trim(); // remove trailing whitespaces
 
@@ -73,43 +71,43 @@ public class Parser {
         // unmark i
         } else if (commandType.equals(TaskMate.CommandTypes.unmark.toString())) {
             checkValidUnmarkCommand(userInput);
-            int indexToUnmark = Integer.parseInt(userInput.substring(TaskMate.CommandTypes.unmark.toString().length())
-                    .trim());
-            indexToUnmark -= 1;
+            int indexToUnmark = getIndexToUnmark(userInput);
             return new UnmarkCommand(indexToUnmark);
         // mark i
         } else if (commandType.equals(TaskMate.CommandTypes.mark.toString())) {
             checkValidMarkCommand(userInput);
-            int indexToMark = Integer.parseInt(userInput.substring(TaskMate.CommandTypes.mark.toString().length())
-                    .trim());
-            indexToMark -= 1;
+            int indexToMark = getIndexToMark(userInput);
             return new MarkCommand(indexToMark);
         // to-do description
         } else if (commandType.equals(TaskMate.CommandTypes.todo.toString())) {
             checkValidTodoCommand(userInput);
-            return new TodoCommand(userInput.substring(TaskMate.CommandTypes.todo.toString()
-                    .length() + 1)); // +1 because we do not want the task name to start from the space character
+            String todoTaskName = getTodoTaskName(userInput);
+            return new TodoCommand(todoTaskName);
         // deadline description /by date
         } else if (commandType.equals(TaskMate.CommandTypes.deadline.toString())) {
             checkValidDeadlineCommand(userInput);
-            userInput = userInput.substring(TaskMate.CommandTypes.deadline.toString()
-                    .length() + 1); // +1 because we do not want the task name to start from the space character
-            String[] splitUserInput = userInput.split(" /");
-            return new DeadlineCommand(
-                    splitUserInput[0],
-                    splitUserInput[1].replace("by ", "")
-            );
+            String deadlineTaskName = getDeadlineTaskName(userInput);
+            String deadlineTaskBy = getDeadlineTaskBy(userInput);
+            return new DeadlineCommand(deadlineTaskName, deadlineTaskBy);
         // event description /from date /to date
         } else if (commandType.equals(TaskMate.CommandTypes.event.toString())) {
-            checkValidEventCommand(userInput);
+
             userInput = userInput.substring(TaskMate.CommandTypes.event.toString()
-                    .length() + 1); // +1 because we do not want the task name to start from the space character
+            .length() + 1); // +1 because we do not want the task name to start from the space character
             String[] splitUserInput = userInput.split(" /");
             return new EventCommand(
-                    splitUserInput[0],
-                    splitUserInput[1].replace("from ", ""),
-                    splitUserInput[2].replace("to ", "")
+            splitUserInput[0],
+            splitUserInput[1].replace("from ", ""),
+            splitUserInput[2].replace("to ", "")
             );
+            /*
+            checkValidEventCommand(userInput);
+            String eventTaskName = getEventTaskName(userInput);
+            String eventTaskFrom = getEventTaskFrom(userInput);
+            String eventTaskTo = getEventTaskTo(userInput);
+            return new EventCommand(eventTaskName, eventTaskFrom, eventTaskTo);
+            */
+
         // delete i
         } else if (commandType.equals(TaskMate.CommandTypes.delete.toString())) {
             checkValidDeleteCommand(userInput);
@@ -127,8 +125,6 @@ public class Parser {
         }
     }
 
-
-
     static String getCommandType(String userInput) throws InvalidCommandTypeException {
         // Returns the type of command input by the user
         // Possible values: "to\-do", "deadline", "event", "bye", "list", "mark", "unmark", "find"
@@ -143,6 +139,65 @@ public class Parser {
         }
         throw new InvalidCommandTypeException();
     }
+
+    static int getIndexToUnmark(String userInput) {
+        int indexToUnmark = Integer.parseInt(
+                userInput
+                        .substring(TaskMate.CommandTypes.unmark.toString().length())
+                        .trim());
+        indexToUnmark -= 1;
+        return indexToUnmark;
+    }
+
+    static int getIndexToMark(String userInput) {
+        int indexToMark = Integer.parseInt(
+                userInput
+                        .substring(TaskMate.CommandTypes.mark.toString().length())
+                        .trim());
+        indexToMark -= 1;
+        return indexToMark;
+    }
+
+    static String getTodoTaskName(String userInput) {
+        String delimiter = TaskMate.CommandTypes.todo.toString();
+        return userInput.substring(delimiter.length() + 1); // +1 to remove the whitespace after "todo"
+    }
+
+    static String getDeadlineTaskName(String userInput) {
+        String delimiter = TaskMate.CommandTypes.deadline.toString();
+        String removedDeadlineWord = userInput.substring(delimiter.length() + 1);
+        String deadlineTaskName = removedDeadlineWord.split(" /")[0];
+        return deadlineTaskName;
+    }
+
+    static String getDeadlineTaskBy(String userInput) {
+        String delimiter = TaskMate.CommandTypes.deadline.toString();
+        String removedDeadlineWord = userInput.substring(delimiter.length() + 1);
+        String deadlineTaskBy = removedDeadlineWord.split(" /")[1];
+        return deadlineTaskBy.replace("by ", "");
+    }
+
+    static String getEventTaskName(String userInput) {
+        String delimiter = TaskMate.CommandTypes.event.toString();
+        String removedEventWord = userInput.substring(delimiter.length() + 1);
+        String eventTaskName = removedEventWord.split("/")[0];
+        return eventTaskName;
+    }
+
+    static String getEventTaskFrom(String userInput) {
+        String delimiter = TaskMate.CommandTypes.event.toString();
+        String removedEventWord = userInput.substring(delimiter.length() + 1);
+        String eventTaskFrom = removedEventWord.split("/")[1];
+        return eventTaskFrom.replace("from ", "");
+    }
+
+    static String getEventTaskTo(String userInput) {
+        String delimiter = TaskMate.CommandTypes.event.toString();
+        String removedEventWord = userInput.substring(delimiter.length() + 1);
+        String eventTaskFrom = removedEventWord.split("/")[2];
+        return eventTaskFrom.replace("to ", "");
+    }
+
 
     static void checkValidTodoCommand(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException {
         // Checks if "to-do" command is valid by checking if there is text coming after the word "to-do"
