@@ -41,4 +41,17 @@ public class TaskListTest {
         assertEquals("T | 1 | return book\n" + "D | 0 | buy supplies | Jan 5 2023 7.30PM\n"
                 + "E | 0 | host party | Jan 5 2023 7.30PM-Jan 6 2023 1.00AM", tasks.toFileString());
     }
+
+    @Test
+    public void testFindTask() {
+        ArrayList<Task> taskLists = new ArrayList<>();
+        taskLists.add(new ToDo("return book"));
+        taskLists.add(new ToDo("buy Books"));
+        TaskList tasks = new TaskList(taskLists);
+
+        assertEquals("Here are the matching tasks in your list:\n1.[T][ ] return book\n2.[T][ ] buy Books\n",
+                tasks.findMatchingTasks("book"));
+
+        assertEquals("No task matching keyword found!", tasks.findMatchingTasks("hoo"));
+    }
 }
