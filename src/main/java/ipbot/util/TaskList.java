@@ -15,6 +15,10 @@ import java.util.Map;
  * A class to store the list of tasks and act as an interface for interacting with the list.
  */
 public class TaskList {
+    private static final String MISSING_ARGUMENT_FORMAT = "%s missing a /%s argument!";
+    private static final String ARGUMENT_EMPTY_FORMAT = "/%s argument cannot be empty!";
+    private static final String EMPTY_TASK_DESCRIPTION = "Task description cannot be empty!";
+
     private List<Task> tasks;
 
     /**
@@ -53,6 +57,23 @@ public class TaskList {
         return taskListString;
     }
 
+    private boolean printTaskForQueryDate(Task task, LocalDateTime queryDate) {
+        if (task instanceof Event) {
+            Event event = (Event) task;
+            if (!event.isOngoing(queryDate)) {
+                return false;
+            }
+        } else if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            if (!deadline.isDue(queryDate)) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Returns a list of the deadlines that fall on the date of the given time,
      * and the events that are ongoing at that time, as a String.
@@ -62,21 +83,8 @@ public class TaskList {
     public String listTasks(LocalDateTime queryDate) {
         String taskListString = "";
         for (int index = 0; index < tasks.size(); index++) {
-            if (queryDate != null) {
-                Task currTask = tasks.get(index);
-                if (currTask instanceof Event) {
-                    Event event = (Event) currTask;
-                    if (!event.isOngoing(queryDate)) {
-                        continue;
-                    }
-                } else if (currTask instanceof Deadline) {
-                    Deadline deadline = (Deadline) currTask;
-                    if (!deadline.isDue(queryDate)) {
-                        continue;
-                    }
-                } else {
-                    continue;
-                }
+            if (queryDate != null && !printTaskForQueryDate(tasks.get(index), queryDate)) {
+                continue;
             }
             taskListString += Ui.taskListFormatString(tasks.get(index), index + 1);
         }
@@ -119,13 +127,26 @@ public class TaskList {
         return new Pair<>(tasks.get(index), wasNotUnmarked);
     }
 
+    private String getArgument(Map<String, String> commandArgs, String taskType, String arg) throws CommandArgumentException {
+        if (commandArgs.get(arg) == null) {
+            throw new CommandArgumentException(String.format(MISSING_ARGUMENT_FORMAT, taskType, arg));
+        }
+        if (commandArgs.get(arg).isEmpty()) {
+            throw new CommandArgumentException(String.format(ARGUMENT_EMPTY_FORMAT, arg));
+        }
+        return commandArgs.get(arg);
+    }
+
     /**
      * Adds a ToDo object to the list of tasks with the given arguments.
      *
      * @param commandArgs A Map consisting of the arguments for the ToDo object being added.
      * @return The ToDo object added.
      */
-    public ToDo addToDoWithArgs(Map<String, String> commandArgs) {
+    public ToDo addToDoWithArgs(Map<String, String> commandArgs) throws CommandArgumentException {
+        if (commandArgs.get("").isEmpty()) {
+            throw new CommandArgumentException(EMPTY_TASK_DESCRIPTION);
+        }
         ToDo toDo = new ToDo(commandArgs.get(""));
         tasks.add(toDo);
         return toDo;
@@ -141,15 +162,10 @@ public class TaskList {
      */
     public Deadline addDeadlineWithArgs(Map<String, String> commandArgs) throws CommandArgumentException {
         if (commandArgs.get("").isEmpty()) {
-            throw new CommandArgumentException("Task description cannot be empty!");
+            throw new CommandArgumentException(EMPTY_TASK_DESCRIPTION);
         }
-        if (commandArgs.get("by") == null) {
-            throw new CommandArgumentException("Deadline missing a /by argument!");
-        }
-        if (commandArgs.get("by").isEmpty()) {
-            throw new CommandArgumentException("/by argument cannot be empty!");
-        }
-        Deadline deadline = new Deadline(commandArgs.get(""), commandArgs.get("by"));
+        String byArg = getArgument(commandArgs, "Deadline", "by");
+        Deadline deadline = new Deadline(commandArgs.get(""), byArg);
         tasks.add(deadline);
         return deadline;
     }
@@ -164,21 +180,11 @@ public class TaskList {
      */
     public Event addEventWithArgs(Map<String, String> commandArgs) throws CommandArgumentException {
         if (commandArgs.get("").isEmpty()) {
-            throw new CommandArgumentException("Task description cannot be empty!");
+            throw new CommandArgumentException(EMPTY_TASK_DESCRIPTION);
         }
-        if (commandArgs.get("from") == null) {
-            throw new CommandArgumentException("Event missing a /from argument!");
-        }
-        if (commandArgs.get("from").isEmpty()) {
-            throw new CommandArgumentException("/from argument cannot be empty!");
-        }
-        if (commandArgs.get("to") == null) {
-            throw new CommandArgumentException("Event missing a /to argument!");
-        }
-        if (commandArgs.get("to").isEmpty()) {
-            throw new CommandArgumentException("/to argument cannot be empty!");
-        }
-        Event event = new Event(commandArgs.get(""), commandArgs.get("from"), commandArgs.get("to"));
+        String fromArg = getArgument(commandArgs, "Event", "from");
+        String toArg = getArgument(commandArgs, "Event", "to");
+        Event event = new Event(commandArgs.get(""), fromArg, toArg);
         tasks.add(event);
         return event;
     }
@@ -194,8 +200,7 @@ public class TaskList {
         return task;
     }
 
-    @Override
-    public String toString() {
+    public String toCommaString() {
         String string = "";
         for (int i = 0; i < this.tasks.size(); i++) {
             string += tasks.get(i).toCommaString() + "\n";

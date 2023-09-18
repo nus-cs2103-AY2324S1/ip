@@ -38,7 +38,7 @@ public class Duke extends Application {
         this.storage = new Storage(SAVE_FILE);
 
         try {
-            this.taskList = this.storage.readTasksFromFile();
+            this.taskList = this.storage.readTasksFromCSVFile();
         } catch (TaskFormatException e) {
             System.out.println(e.getMessage());
         } catch (DateTimeParseException e) {
@@ -65,65 +65,70 @@ public class Duke extends Application {
         }
     }
 
+    private Command stringToCommand(String commandString) throws InvalidCommandException {
+        if (commandString.length() == 0) {
+            throw new InvalidCommandException("Nothing happened!");
+        }
+        Command command = Command.commandEnum(commandString);
+        if(command == null){
+            throw new InvalidCommandException(
+                    "Error: " + commandString + " is not a valid command!");
+        }
+        return command;
+    }
+
+    public String handleMark(boolean isMark, Map<String, String> commandArgs) throws CommandArgumentException {
+        int markIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
+        if (markIndex == -1) {
+            String markString = (isMark ? "mark" : "unmark");
+            throw new CommandArgumentException("Invalid task to " + markString + ": " + commandArgs.get(""));
+        }
+        Pair<Task, Boolean> taskMark = (isMark ? taskList.markTask(markIndex) : taskList.unmarkTask(markIndex));
+        if (taskMark.getSecond()) {
+            return Ui.markTaskString(taskMark.getFirst(), isMark);
+        } else {
+            return Ui.alreadyMarkedTaskString(taskMark.getFirst(), isMark);
+        }
+    }
+
+    public String handleDelete(Map<String, String> commandArgs) throws CommandArgumentException {
+        int deleteIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
+        if (deleteIndex == -1) {
+            throw new CommandArgumentException("Invalid task to delete: " + commandArgs);
+        }
+        Task task = taskList.deleteTask(deleteIndex);
+        return Ui.deletedItemString(task);
+    }
+
     /**
      * Get the bot response for a user input.
+     *
+     * @param input The input to the bot given.
+     * @return The response of the bot to the input given.
      */
     public String getResponse(String input) {
         Pair<String, Map<String, String>> commandResult = Parser.parseCommand(input);
         String response;
         try {
-            if (commandResult.getFirst().length() == 0) {
-                return "Nothing happened!";
-            }
-            String command = commandResult.getFirst();
-            Command commandName = Command.commandEnum(command);
-            if(commandName == null){
-                return "Error: " + command + " is not a valid command!";
-            }
-            if (command.equalsIgnoreCase("bye")) {
-                primaryStage.close();
-                return "";
-            }
+            Command command = stringToCommand(commandResult.getFirst());
             Map<String, String> commandArgs = commandResult.getSecond();
-            switch (commandName) {
+            switch (command) {
             case LIST:
                 if (!commandArgs.get("").isEmpty()) {
                     LocalDateTime queryDate = LocalDateTime.parse(
                             commandArgs.get("") + " 0000", QUERY_DATE_TIME_FORMATTER);
                     response = taskList.listTasks(queryDate);
-                }
-                else{
+                } else {
                     response = taskList.listTasks();
                 }
                 break;
             case MARK:
-                int markIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
-                if (markIndex == -1) {
-                    throw new CommandArgumentException("Invalid task to mark: " + commandArgs);
-                }
-                Pair<Task, Boolean> taskMark = taskList.markTask(markIndex);
-                if (taskMark.getSecond()) {
-                    response = Ui.markTaskString(taskMark.getFirst(), true);
-                } else {
-                    response = Ui.alreadyMarkedTaskString(taskMark.getFirst(), true);
-                }
+                response = handleMark(true, commandArgs);
                 break;
             case UNMARK:
-                int unmarkIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
-                if (unmarkIndex == -1) {
-                    throw new CommandArgumentException("Invalid task to unmark: " + commandArgs);
-                }
-                Pair<Task, Boolean> taskUnmark = taskList.unmarkTask(unmarkIndex);
-                if (taskUnmark.getSecond()) {
-                    response = Ui.markTaskString(taskUnmark.getFirst(), false);
-                } else {
-                    response = Ui.alreadyMarkedTaskString(taskUnmark.getFirst(), false);
-                }
+                response = handleMark(false, commandArgs);
                 break;
             case TODO:
-                if (commandArgs.isEmpty()) {
-                    throw new CommandArgumentException("Task description cannot be empty!");
-                }
                 ToDo toDo = taskList.addToDoWithArgs(commandArgs);
                 response = Ui.addedItemString(toDo, "todo");
                 break;
@@ -136,12 +141,7 @@ public class Duke extends Application {
                 response = Ui.addedItemString(event, "event");
                 break;
             case DELETE:
-                int deleteIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
-                if (deleteIndex == -1) {
-                    throw new CommandArgumentException("Invalid task to delete: " + commandArgs);
-                }
-                Task task = taskList.deleteTask(deleteIndex);
-                response = Ui.deletedItemString(task);
+                response = handleDelete(commandArgs);
                 break;
             case FIND:
                 if (commandArgs.get("").isEmpty()) {
@@ -149,20 +149,22 @@ public class Duke extends Application {
                 }
                 response = taskList.listTasks(commandArgs.get(""));
                 break;
+            case BYE:
+                primaryStage.close();
+                return "";
             default:
                 response = "If you see this, there was an error!";
             }
-        }
-        catch (CommandArgumentException e) {
+        } catch (CommandArgumentException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return e.getMessage();
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        } catch (InvalidCommandException e) {
             return e.getMessage();
         }
-        catch (DateTimeParseException e) {
-            return e.getMessage();
-        }
-        catch (IllegalArgumentException e) {
-            return e.getMessage();
-        }
-        this.storage.writeTasksToFile(taskList);
+        this.storage.writeTasksToCSVFile(taskList);
         return response;
     }
 
