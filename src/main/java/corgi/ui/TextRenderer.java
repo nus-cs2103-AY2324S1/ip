@@ -200,7 +200,10 @@ public final class TextRenderer {
      * @param taskList
      */
     public String showTaskList(String taskList) {
-        return taskList;
+        return returnMessage(
+                "Here's the list of tasks that better be done:",
+                "",
+                taskList);
     }
 
     /**
