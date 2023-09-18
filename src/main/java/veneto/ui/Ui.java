@@ -34,6 +34,10 @@ public class Ui {
                 case "Add":
                     System.out.println(GREETS + " 输入格式不对！");
                     System.out.println(" 你可以跟我说：\n" + Arrays.toString(COMMANDS) + "\n");
+                    return;
+                case "Not Found":
+                    System.out.println(GREETS + " 好像没有这样的任务要做哦\n");
+                    return;
             }
         } else if (e instanceof VenetoStorageException) {
             System.out.println(GREETS + " 没找到内存哦 现在重新创建一个！\n");
@@ -77,6 +81,11 @@ public class Ui {
                         GREETS +
                                 " 好啦，帮你擦掉了一条任务哦：\n " + c +
                                 "\n 现在还剩下" + tasks.size() + "项任务\n"
+                );
+                break;
+            case "find":
+                System.out.println(
+                        GREETS + " 相关的任务都在这里了哦：\n" + c + "\n"
                 );
                 break;
         }
