@@ -35,6 +35,8 @@ public class Storage {
      * @param desc the description of the Task
      */
     public static void addToList(String desc) {
+        assert Objects.equals(desc.split(" ", 2)[0], "T") : "Item added should be a T class";
+
         String line = "T" + "," + 0 + "," + desc + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -120,9 +122,9 @@ public class Storage {
                     } else if (Objects.equals(taskType, "P")) {
                         task = new Party(desc, LocalDate.parse(taskParts[3]), LocalDate.parse(taskParts[4]));
                     } else {
-
                         task = new Task(desc);
                     }
+
                     if (Integer.parseInt(taskStatus) == 1) {
                         task.mark();
                     }
