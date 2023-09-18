@@ -20,7 +20,6 @@ Expected outcome:
 Now got 2 tasks liao T_T
 ```
 
----------------------------------------------    
 #### `deadline` - Add a task with deadline
 Format: `deadline TASK_DETAILS /by DD-MM-YYYY hh:mm [#TAG]`
 
@@ -35,8 +34,7 @@ Expected outcome:
 "[D][ ] SEP applcation by: 24 Sep 2023 11:59 PM" added :)
 Now got 3 tasks liao T_T
 ```
-
----------------------------------------------   
+ 
 #### `event` - Add an event
 Format: `event TASK_DETAILS /from DD-MM-YYYY hh:mm /to DD-MM-YYYY hh:mm [#TAG]`
 
@@ -65,7 +63,7 @@ Expected outcome:
 Okay!! Task "TASK_DETAILS_FOR_TASK_AT_INDEX" removed :)
 You still have AMOUNT_OF_TASKS tasks in the list
 ```
-----------------------------------------------
+
 #### `clear` - delete all tasks
 Format: `clear`
 
@@ -73,7 +71,6 @@ Expected outcome:
 ```
 All tasks cleared
 ```
-----------------------------------------------
 
 ### Find task
 
@@ -95,7 +92,6 @@ Expected outcome:
 Nah, your matching tasks:
 1. [D][ ] SEP applcation by: 24 Sep 2023 11:59 PM
 ```
-----------------------------------------------
 
 ### List task
 
@@ -110,7 +106,6 @@ Although I dunwan to list... But here is your list:
 1. [T][ ] solve leetcode tags:[#COMPUTING]
 2. [D][ ] SEP applcation by: 24 Sep 2023 11:59 PM
 ```
-----------------------------------------------
 
 ### Mark or Unmark a task
 
@@ -137,7 +132,6 @@ Expected outcome:
 ```
 Hmm... Why just now simply mark "[T][ ] solve leetcode tags:[#COMPUTING]" as done??
 ```
-----------------------------------------------
 
 ### Tag or Untag a task
 
