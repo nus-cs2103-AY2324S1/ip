@@ -44,7 +44,7 @@ public abstract class Command {
     }
 
     /**
-     * Command will save after calling action(). Note that save always occur after action() and not
+     * Saves after calling action(). Note that save always occur after action() and not
      * when save is called
      */
     public final void save() {

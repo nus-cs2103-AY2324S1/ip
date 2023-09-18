@@ -27,15 +27,15 @@ public class Duke {
     private final FileIO savefile = new FileIO(FILEPATH, SAVEFILE_NAME);
 
 
-    // /**
-    //  * Creates a Duke object and runs the chatbot.
-    //  *
-    //  * @param args Does not consume any arguments from cmd.
-    //  */
-    // public static void main(String[] args) {
-    //     Duke bot = new Duke();
-    //     bot.run();
-    // }
+    /**
+     * Creates a Duke object and runs the chatbot.
+     *
+     * @param args Does not consume any arguments from cmd.
+     */
+    public static void main(String[] args) {
+        Duke bot = new Duke();
+        bot.run();
+    }
 
     /** Starts the chatbot. */
     public void run() {
