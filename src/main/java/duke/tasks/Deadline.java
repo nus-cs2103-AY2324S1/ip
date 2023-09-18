@@ -24,24 +24,15 @@ public class Deadline extends Task{
      */
     public void checkValidity() throws DukeException {
         assert descriptionArray != null : "Missing deadline task!";
-        boolean isDay;
         if (descriptionArray.length < 2) {
             throw new DukeException("You are missing details of the the deadline!");
         }
         String date = descriptionArray[1];
         try {
-            DayOfWeek.valueOf(date.toUpperCase());
-            isDay = true;
-        } catch (IllegalArgumentException e) {
-            throw new DukeException("This is not a valid day!");
-        }
-        if (!isDay) {
-            try {
-                LocalDate.parse(date);
-                DateTimeFormatter.ofPattern("MMM d yyyy");
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Make sure you've either inputted a valid day or in yyyy-mm-dd format (e.g. 2019-10-15)");
-            }
+            LocalDate.parse(date);
+            DateTimeFormatter.ofPattern("MMM d yyyy");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Make sure you've either inputted a valid day or in yyyy-mm-dd format (e.g. 2019-10-15)");
         }
     }
 
@@ -53,26 +44,14 @@ public class Deadline extends Task{
     public String reformattedDate() throws DukeException {
         String res;
         String date = descriptionArray[1];
-        boolean isDay;
         try {
-            DayOfWeek.valueOf(date.toUpperCase());
-            isDay = true;
-        } catch (IllegalArgumentException e) {
-            throw new DukeException("This is not a valid day!");
+            LocalDate deadline = LocalDate.parse(date);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+            res = deadline.format(formatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Make sure you've either inputted a valid day or in yyyy-mm-dd format (e.g. 2019-10-15)");
         }
-
-        if (isDay) {
-            res = date;
-        } else {
-            try {
-                LocalDate deadline = LocalDate.parse(date);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-                res = deadline.format(formatter);
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Make sure you've either inputted a valid day or in yyyy-mm-dd format (e.g. 2019-10-15)");
-            }
-        }
-        return res;
+    return res;
     }
 
     /**

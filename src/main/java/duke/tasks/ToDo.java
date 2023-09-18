@@ -15,7 +15,7 @@ public class ToDo extends Task{
      * @throws DukeException if input is invalid.
      */
     public void checkValidity() throws DukeException {
-        String[] descrArr = descr.split(" "); //you get 0: taskName, 1: description
+        String[] descrArr = descr.split(" ");
         assert descrArr.length > 2 : "Missing todo details";
         if (descrArr.length < 2) {
             throw new DukeException("You are missing todo details");
@@ -28,7 +28,8 @@ public class ToDo extends Task{
      * @return the reformatted todo.
      */
     public String writtenFormat() {
-        return "T | " + super.status() + " | " + this.descr;
+        String[] descrArr = descr.split("todo ");
+        return "T | " + super.status() + " | " + descrArr[1];
     }
 
     /**

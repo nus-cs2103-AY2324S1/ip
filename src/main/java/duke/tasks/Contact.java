@@ -29,10 +29,11 @@ public class Contact extends Task {
      * @return the reformatted event.
      */
     public String writtenFormat() {
-        String task = descriptionArray[0];
+        String[] task = descriptionArray[0].split("contact ");
+        String contactName = task[1];
         String contactNumber = descriptionArray[1];
         String contactReason = descriptionArray[2];
-        return "C | " + super.status() + " | " + task + " | " + contactNumber + " | " + contactReason;
+        return "C | " + super.status() + " | " + contactName + " | " + contactNumber + " | " + contactReason;
     }
     @Override
     public String toString() {

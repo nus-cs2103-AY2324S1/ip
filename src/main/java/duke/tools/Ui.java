@@ -8,7 +8,7 @@ public class Ui {
      */
     public static String printIntro() {
         String output = line + "\n";
-        output += "Hey, I'm joyayaya! What's the move today?\n";
+        output += "Hey, I'm ToDoIst! What's the move today?\n";
         output += line;
         return output;
     }
