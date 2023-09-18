@@ -20,6 +20,7 @@ public class PrintList extends Command {
 
     @Override
     public String execute() {
+        System.out.println("line reached 2");
         return this.list.printList();
     }
 }

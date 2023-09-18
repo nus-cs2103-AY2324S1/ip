@@ -1,29 +1,69 @@
+# Aikent Bot
+Aikent Bot is a Java bot that helps you store your tasks. You can manage and update your tasks.
+
 # User Guide
+Use can view the user guide [here](https://yeobohshin.github.io/ip/).
 
-## Features 
+## Commands 
+Aikent bot will response to certain commands
+### Add ToDo Task
+ToDo Task are task with no specifications.
+    
+    todo [DESCRIPTION]
 
-### Feature-ABC
+### Add Deadline Task
+Deadline Task are task with deadlines.
 
-Description of the feature.
+    deadline [DESCRIPTION] /by [DATE]
 
-### Feature-XYZ
+### Add Event Task
+Event Task are task that has a start and end date.
 
-Description of the feature.
+    event [DESCRIPTION] /from [STARTDATE] /to [ENDDATE]
 
-## Usage
+### Mark task
+Marks the task as completed.
 
-### `Keyword` - Describe action
+    mark [INDEX]
 
-Describe the action and its outcome.
+### Unmark task
+Marks the task as incompleted.
 
-Example of usage: 
+    unmark [INDEX]
 
-`keyword (optional arguments)`
+### Delete task
+Deletes a task from the task list.
 
-Expected outcome:
+    delete [INDEX]
 
-Description of the outcome.
+### Find Tasks
+Search up task that matches the user input.
 
-```
-expected output
-```
+    find [DESCRIPTION]
+
+### Update Task
+Update description of a task.
+
+    update [INDEX] /description [DESCRIPTION]
+
+Update deadline of a deadline task.
+
+    update [INDEX] /by [DEADLINE]
+
+Update start date of event task.
+
+    update [INDEX] /from [STARTDATE]
+
+Update end date of event task.
+    
+    update [INDEX] /to [ENDDATE]
+
+### Prints list
+Prints all the tasks in the list currently.
+    
+    list
+
+### Save list
+Saves all the task in the list currently to the hard disk.
+
+    bye

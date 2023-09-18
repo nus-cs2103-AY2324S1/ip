@@ -16,7 +16,10 @@ public class Duke {
      *
      * @param filePath Path to file to read stored task list.
      */
-    public Duke(String filePath) {
+    public Duke() {
+        final String dataFileName = "data";
+        String root = System.getProperty("user.dir");
+        String filePath = root + "/" + dataFileName;
         this.ui = new Ui();
         this.filePath = filePath;
         this.storage = new Storage(filePath);
