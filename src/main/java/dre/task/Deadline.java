@@ -1,13 +1,16 @@
 package dre.task;
 
+import dre.exception.DreException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    private final LocalDate by;
+    private LocalDate byDate;
 
     /**
      * Creates a new deadline task.
@@ -17,7 +20,7 @@ public class Deadline extends Task {
      */
     public Deadline(String task, LocalDate by) {
         super(task);
-        this.by = by;
+        this.byDate = by;
     }
 
     /**
@@ -28,7 +31,7 @@ public class Deadline extends Task {
     @Override
     public String fileSaveFormat() {
         return "D|" + super.fileSaveFormat() + "|" +
-                by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     /**
@@ -38,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formatDate(by) + ")";
+        return "[D]" + super.toString() + " (by: " + formatDate(byDate) + ")";
     }
 
     /**
@@ -50,5 +53,14 @@ public class Deadline extends Task {
     private String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return date.format(formatter);
+    }
+
+    public void editByDate(String newByDate) throws DreException {
+        try {
+            LocalDate parsedDate = LocalDate.parse(newByDate);
+            this.byDate = parsedDate;
+        } catch (DateTimeParseException e) {
+            throw new DreException("Please provide a valid date in the format yyyy-MM-dd.");
+        }
     }
 }

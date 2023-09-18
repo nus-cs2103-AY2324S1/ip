@@ -64,7 +64,7 @@ public class Dre extends Application {
      * parsing them, and executing the corresponding actions until the user exits.
      */
     public void run() {
-        ui.showWelcome();
+        Ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
