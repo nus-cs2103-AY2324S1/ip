@@ -7,6 +7,7 @@ import duke.task.CommandEnum;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.util.Storage;
+import javafx.fxml.FXML;
 
 /**
  * Encapsulates an instance of a chatbot program.
@@ -21,6 +22,7 @@ public class Duke {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
+    @FXML
     public String getResponse(String input) {
         String output = this.run(input);
         return output;

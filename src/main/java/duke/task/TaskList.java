@@ -53,6 +53,8 @@ public class TaskList {
     /**
      * Handles the adding of a task.
      * @return Acknowledgement.
+     * @param task Description of the task.
+     * @throws DukeException DukeException is thrown if the task description is empty.
      */
     public String handleTask(String task) throws DukeException {
         String nextTaskString = null;
@@ -76,6 +78,7 @@ public class TaskList {
 
     /**
      * Handles the adding of a Todo task.
+     * @throws DukeException DukeException is thrown if the task description is empty.
      */
     protected String handleTodo(String task) throws DukeException {
         assert (task != null) : "A valid todo command must be passed in.";
@@ -94,6 +97,8 @@ public class TaskList {
 
     /**
      * Handles the adding of a Deadline task.
+     * @param task Description of the Deadline task.
+     * @throws DukeException DukeException is thrown if the task description or relevant information is empty.
      */
     protected String handleDeadline(String task) throws DukeException {
         assert (task != null) : "A valid deadline command must be passed in.";
@@ -126,6 +131,8 @@ public class TaskList {
 
     /**
      * Handles the adding of an Event task.
+     * @param task Description of the Event task.
+     * @throws DukeException DukeException is thrown if the task description or relevant information is empty.
      */
     protected String handleEvent(String task) throws DukeException {
         assert (task != null) : "A valid event command must be passed in.";
@@ -153,6 +160,8 @@ public class TaskList {
 
     /**
      * Handles the adding of a Recurring task.
+     * @param task Description of the Recurring task.
+     * @throws DukeException DukeException is thrown if the task description or relevant information is empty.
      */
     protected String handleRecur(String task) throws DukeException {
         assert (task != null) : "A valid recur command must be passed in.";
@@ -182,6 +191,8 @@ public class TaskList {
 
     /**
      * Handles the deletion of a task.
+     * @param nextTask Description of the task.
+     * @throws DukeException DukeException is thrown if the index is empty or invalid.
      */
     public String handleDelete(String nextTask) throws DukeException {
         assert (nextTask != null) : "A valid delete command must be passed in.";
@@ -218,6 +229,8 @@ public class TaskList {
 
     /**
      * Handles the marking of a task.
+     * @param nextTask Description of the task.
+     * @throws DukeException DukeException is thrown if the index is empty or invalid.
      */
     public String handleMark(String nextTask) throws DukeException {
         assert (nextTask != null) : "A valid mark command must be passed in.";
@@ -272,6 +285,8 @@ public class TaskList {
 
     /**
      * Finds the specified task.
+     * @param task Description of the task to find.
+     * @throws DukeException DukeException is thrown if the task to find is empty.
      */
     public String find(String task) throws DukeException {
         assert (task != null) : "A valid find command must be passed in.";

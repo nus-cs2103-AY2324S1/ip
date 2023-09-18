@@ -20,7 +20,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Retrieve the deadline of the Deadline task.
+     * Returns the deadline of the Deadline task.
      * @return A String representation of the deadline of the Deadline.
      */
     public String getDeadline() {

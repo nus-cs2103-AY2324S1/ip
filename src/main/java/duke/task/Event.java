@@ -20,7 +20,7 @@ public class Event extends Task {
     }
 
     /**
-     * Retrieve the start of the Event.
+     * Returns the start of the Event.
      * @return A String representation of the starting date and time of the Event.
      */
     public String getStart() {
@@ -28,7 +28,7 @@ public class Event extends Task {
     }
 
     /**
-     * Retrieve the end of the Event.
+     * Returns the end of the Event.
      * @return A String representation of the ending date and time of the Event.
      */
     public String getEnd() {
