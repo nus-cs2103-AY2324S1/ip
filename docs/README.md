@@ -1,29 +1,67 @@
-# User Guide
+# RoeBot
+
+RoeBot is a CLI-based application that allows you to manage and track simple
+tasks such as to-dos and deadlines.
 
 ## Features 
 
-### Feature-ABC
+### To-dos, deadlines and events
 
-Description of the feature.
+RoeBot features 3 different types of tasks.
 
-### Feature-XYZ
+### List tasks
 
-Description of the feature.
+List out tasks in chronological order.
+
+### Mark tasks
+
+Mark a task as done or undone.
+
+## Quick Start
+
+Run the jar file with:
+
+```
+java -jar RoeBot.jar
+```
+
+## Caution
+
+All date time must be in typed in the format `dd-MM-yyyy HH:mm`.
+
+Example:
+```
+05-09-2023 13:15
+```
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo {taskDescription}`
 
-Describe the action and its outcome.
+### `deadline {taskDescription} /by {dateTime}`
 
-Example of usage: 
+### `event {taskDescription} /from {fromDateTime} /to {toDateTime}`
 
-`keyword (optional arguments)`
+### `list`
 
-Expected outcome:
+List out all the tasks in the list.
 
-Description of the outcome.
+### `sort`
 
-```
-expected output
-```
+Sort the tasks in chronological order. The ordering is preserved thereafter.
+
+### `mark {index}`
+
+Mark the `index`th task as done.
+
+### `unmark {index}`
+
+Mark the `index`th task as undone.
+
+### `delete {index}`
+
+Delete the `index`th task.
+
+### `find {keyWord}`
+
+List out all tasks containing `keyWord`.

@@ -1,0 +1,22 @@
+.root {
+    -fx-background-color: #272621;
+}
+
+.label {
+    -fx-text-fill: #efefe7;
+}
+
+.dialog {
+    -fx-background-color: #424036;
+    -fx-text-fill: #ffd568;
+}
+
+.dialogBox {
+    -fx-background: #272621;
+    -fx-text-fill: #ffd568;
+}
+
+.text-area {
+    -fx-background-color: #424036;
+    -fx-text-fill: #ffd568;
+}

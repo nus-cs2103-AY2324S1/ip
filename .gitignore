@@ -13,5 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Database files
+data/
+testData/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
