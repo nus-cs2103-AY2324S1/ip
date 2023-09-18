@@ -21,6 +21,15 @@ public class TaskList {
     }
 
     /**
+     * Thrown if one is trying to add a duplicate task.
+     */
+    public static class DuplicateException extends Exception {
+        private DuplicateException() {
+            super();
+        }
+    }
+
+    /**
      * Thrown if a method is trying to update the wrong type of task.
      */
     public static class WrongTaskTypeException extends Exception {
@@ -76,7 +85,10 @@ public class TaskList {
      * Adds a task to the end of the list.
      * @param task The task to add.
      */
-    public void add(Task task) {
+    public void add(Task task) throws DuplicateException {
+        if (this.taskList.contains(task)) {
+            throw new DuplicateException();
+        }
         this.taskList.add(task);
     }
 

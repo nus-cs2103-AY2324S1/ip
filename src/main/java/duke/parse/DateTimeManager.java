@@ -1,6 +1,5 @@
 package duke.parse;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -63,15 +62,11 @@ public class DateTimeManager {
                     throw new DateParseException();
                 }
             }
-            try {
-                return LocalDate.of(
-                        Integer.parseInt(dateData[2]),
-                        Integer.parseInt(dateData[1]),
-                        Integer.parseInt(dateData[0])
-                );
-            } catch (DateTimeException e) {
-                throw new DateParseException();
-            }
+            return LocalDate.of(
+                    Integer.parseInt(dateData[2]),
+                    Integer.parseInt(dateData[1]),
+                    Integer.parseInt(dateData[0])
+            );
         } else {
             throw new DateParseException();
         }
@@ -96,11 +91,7 @@ public class DateTimeManager {
                 throw new DateParseException();
             }
             int hour = Integer.parseInt(timeData[0]);
-            try {
-                return LocalTime.of((hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0), 0);
-            } catch (DateTimeException e) {
-                throw new DateParseException();
-            }
+            return LocalTime.of((hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0), 0);
         } else if (timeData.length == 2) {
             for (String data : timeData) {
                 if (!data.matches("\\d+")) {
@@ -108,13 +99,9 @@ public class DateTimeManager {
                 }
             }
             int hour = Integer.parseInt(timeData[0]);
-            try {
-                return LocalTime.of((hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0),
-                        Integer.parseInt(timeData[1])
-                );
-            } catch (DateTimeException e) {
-                throw new DateParseException();
-            }
+            return LocalTime.of((hour == 12 ? (isAm ? 0 : isPm ? 0 : 12) : hour) + (isPm ? 12 : 0),
+                    Integer.parseInt(timeData[1])
+            );
         } else {
             throw new DateParseException();
         }

@@ -116,11 +116,17 @@ public class Parser {
 
         // find task containing given description
         case "find":
+            if (commandArgs.length != 2) {
+                throw new ParseError("no search parameter provided");
+            }
             String query = commandArgs[1];
             return new FindCommand(query);
 
         // update a task
         case "update":
+            if (commandArgs.length != 2) {
+                throw new ParseError("no update parameter found");
+            }
             return Parser.parseUpdate(commandArgs[1]);
 
         // anything else
@@ -138,7 +144,7 @@ public class Parser {
         // check if second argument is positive integer
         String indexString = commandArgs[1];
         if (indexString.matches("0+") || !indexString.matches("\\d+")) {
-            throw new ParseError("you need to provide a positive integer!");
+            throw new ParseError("you need to provide a positive integer");
         }
 
         return Integer.parseInt(indexString) - 1;
@@ -160,8 +166,10 @@ public class Parser {
             default:
                 try {
                     date = DateTimeManager.parseDate(arg);
-                } catch (DateTimeManager.DateParseException | DateTimeException e) {
+                } catch (DateTimeManager.DateParseException e) {
                     throw new ParseError("unrecognised \"" + arg + "\"");
+                } catch (DateTimeException e) {
+                    throw new ParseError("cannot parse date " + arg);
                 }
             }
         }
@@ -204,13 +212,24 @@ public class Parser {
             throw new ParseError("empty end time");
         }
 
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         try {
-            LocalDateTime startTime = DateTimeManager.inputToDate(separateByTo[0]);
-            LocalDateTime endTime = DateTimeManager.inputToDate(separateByTo[1]);
-            return new AddCommand(new Event(separateByFrom[0], startTime, endTime));
+            startTime = DateTimeManager.inputToDate(separateByTo[0]);
         } catch (DateTimeManager.DateParseException | DateTimeException e) {
-            throw new ParseError("invalid datetime");
+            throw new ParseError("invalid datetime " + separateByTo[0]);
         }
+        try {
+            endTime = DateTimeManager.inputToDate(separateByTo[1]);
+        } catch (DateTimeManager.DateParseException | DateTimeException e) {
+            throw new ParseError("invalid datetime " + separateByTo[1]);
+        }
+
+        if (startTime.compareTo(endTime) >= 0) {
+            throw new ParseError("end time must be after start time");
+        }
+
+        return new AddCommand(new Event(separateByFrom[0], startTime, endTime));
     }
 
     private static Command parseTodo(String todoInput) throws ParseError {
@@ -239,18 +258,18 @@ public class Parser {
             LocalDateTime dateTime = DateTimeManager.inputToDate(separateByBy[1]);
             return new AddCommand(new Deadline(separateByBy[0], dateTime));
         } catch (DateTimeManager.DateParseException | DateTimeException e) {
-            throw new ParseError("invalid datetime");
+            throw new ParseError("invalid datetime " + separateByBy[1]);
         }
     }
 
     private static Command parseUpdate(String updateInput) throws ParseError {
         String[] splitBySpace = updateInput.split(" ", 3);
         if (splitBySpace.length != 3) {
-            throw new ParseError("not enough arguments for an update command");
+            throw new ParseError("not enough arguments for an update command, need 3");
         }
 
         if (splitBySpace[1].matches("0+") || !splitBySpace[1].matches("\\d+")) {
-            throw new ParseError("you need to provide a positive integer!");
+            throw new ParseError("positive integer expected, but got " + splitBySpace[1]);
         }
         int index = Integer.parseInt(splitBySpace[1]) - 1;
 
@@ -261,21 +280,21 @@ public class Parser {
             try {
                 LocalDateTime newDeadlineTime = DateTimeManager.inputToDate(splitBySpace[2]);
                 return new UpdateDeadlineCommand(index, newDeadlineTime);
-            } catch (DateTimeManager.DateParseException e) {
-                throw new ParseError("datetime of new deadline cannot be parsed properly");
+            } catch (DateTimeManager.DateParseException | DateTimeException e) {
+                throw new ParseError("datetime of new deadline cannot be parsed properly, got " + splitBySpace[2]);
             }
         case "starttime":
             try {
                 LocalDateTime newStartTime = DateTimeManager.inputToDate(splitBySpace[2]);
                 return new UpdateStartTimeCommand(index, newStartTime);
-            } catch (DateTimeManager.DateParseException e) {
+            } catch (DateTimeManager.DateParseException | DateTimeException e) {
                 throw new ParseError("datetime of new start time cannot be parsed properly");
             }
         case "endtime":
             try {
                 LocalDateTime newEndTime = DateTimeManager.inputToDate(splitBySpace[2]);
                 return new UpdateEndTimeCommand(index, newEndTime);
-            } catch (DateTimeManager.DateParseException e) {
+            } catch (DateTimeManager.DateParseException | DateTimeException e) {
                 throw new ParseError("datetime of new end time cannot be parsed properly");
             }
         default:

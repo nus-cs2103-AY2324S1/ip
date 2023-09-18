@@ -18,6 +18,7 @@ public class EmptyCommand implements Command {
      */
     @Override
     public boolean execute(Duke bot) {
+        bot.notifyEmpty();
         return true;
     }
 
