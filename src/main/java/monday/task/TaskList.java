@@ -134,7 +134,7 @@ public class TaskList {
         int matchingTaskCount = 1;
         StringBuilder ans = new StringBuilder("Here are the matching tasks in your list:\n");
         for (Task curr : tasks) {
-            if (curr.toString().contains(keyword)) {
+            if (curr.toString().toLowerCase().contains(keyword.toLowerCase())) {
                 ans.append(matchingTaskCount).append(".").append(curr).append("\n");
                 matchingTaskCount++;
             }
