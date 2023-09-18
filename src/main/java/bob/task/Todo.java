@@ -12,7 +12,8 @@ public class Todo extends Task {
     public Todo(String description)
             throws InvalidPriorityException, IndexOutOfBoundsException {
 
-        super(description.split(" ")[1]);
+        super(description.split(" ", 2)[1]);
+        System.out.println(description.split(" ")[1]);
 
         try {
             String priority = description.split(" ")[0].split("/")[1];

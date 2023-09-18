@@ -17,7 +17,7 @@ public class Deadline extends Task {
     public Deadline(String description)
             throws MissingDatesException, InvalidPriorityException, IndexOutOfBoundsException {
 
-        super(description.split(" /by ")[0].split(" ")[1]);
+        super(description.split(" /by ")[0].split(" ", 2)[1]);
 
         try {
             this.due = LocalDate.parse(description.split(" /by ")[1]);

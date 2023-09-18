@@ -20,7 +20,7 @@ public class Event extends Task {
     public Event(String description)
             throws MissingDatesException, InvalidPriorityException, IndexOutOfBoundsException {
 
-        super(description.split(" /from ")[0].split(" ")[1]);
+        super(description.split(" /from ")[0].split(" ", 2)[1]);
 
         try {
             this.start = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[0]);
