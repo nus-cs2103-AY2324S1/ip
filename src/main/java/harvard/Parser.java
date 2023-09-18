@@ -4,11 +4,11 @@ package harvard;
  * Represents a parser that parses user input.
  */
 public class Parser {
-    public static final String EVENT_TIME = "☹ OOPS!!! The event time must be specified.";
-    public static final String EVENT_DESCRIPTION = "☹ OOPS!!! The description of an event cannot be empty.";
-    public static final String DEADLINE_TIME = "☹ OOPS!!! The deadline must be specified.";
-    public static final String DEADLINE_DESCRIPTION = "☹ OOPS!!! The description of a deadline cannot be empty.";
-    public static final String TODO_DESCRIPTION = "☹ OOPS!!! The description of a todo cannot be empty.";
+    public static final String EVENT_TIME = " OOPS!!! The event time must be specified.";
+    public static final String EVENT_DESCRIPTION = " OOPS!!! The description of an event cannot be empty.";
+    public static final String DEADLINE_TIME = " OOPS!!! The deadline must be specified.";
+    public static final String DEADLINE_DESCRIPTION = " OOPS!!! The description of a deadline cannot be empty.";
+    public static final String TODO_DESCRIPTION = " OOPS!!! The description of a todo cannot be empty.";
     /**
      * Parses the user input.
      *
@@ -84,10 +84,10 @@ public class Parser {
                 throw new DukeException(EVENT_TIME);
             }
             if (from.equals(to)) {
-                throw new DukeException("☹ OOPS!!! The event start time and end time cannot be the same.");
+                throw new DukeException(" OOPS!!! The event start time and end time cannot be the same.");
             }
             if (from.compareTo(to) > 0) {
-                throw new DukeException("☹ OOPS!!! The event start time cannot be later than the end time.");
+                throw new DukeException(" OOPS!!! The event start time cannot be later than the end time.");
             }
             Event event = new Event(description, from, to);
             return new AddCommand(event);
@@ -97,25 +97,31 @@ public class Parser {
             // Parse and return a DeleteCommand
             String[] split = command.split(" ");
             if (split.length != 2) {
-                throw new DukeException("☹ OOPS!!! The index must be specified.");
+                throw new DukeException(" OOPS!!! The index must be specified.");
             }
             int index = Integer.parseInt(split[1]) - 1;
             return new DeleteCommand(index);
         } else if (command.startsWith("mark")) {
             // Parse and return a MarkCommand
             String[] split = command.split(" ");
+            if (split.length != 2) {
+                throw new DukeException(" OOPS!!! The index must be specified.");
+            }
             int index = Integer.parseInt(split[1]) - 1;
             return new MarkCommand(index);
         } else if (command.startsWith("unmark")) {
             // Parse and return an UnmarkCommand
             String[] split = command.split(" ");
+            if (split.length != 2) {
+                throw new DukeException(" OOPS!!! The index must be specified.");
+            }
             int index = Integer.parseInt(split[1]) - 1;
             return new UnmarkCommand(index);
         } else if (command.startsWith("find")) {
             // Parse and return a FindCommand
             String[] split = command.split(" ");
             if (split.length != 2) {
-                throw new DukeException("☹ OOPS!!! The keyword must be specified.");
+                throw new DukeException(" OOPS!!! The keyword must be specified.");
             }
             String keyword = split[1];
             return new FindCommand(keyword);
@@ -123,12 +129,12 @@ public class Parser {
             // Parse and return a ClearAllCommand
             String[] split = command.split(" ");
             if (split.length != 2) {
-                throw new DukeException("☹ OOPS!!! The type must be specified.");
+                throw new DukeException(" OOPS!!! The type must be specified.");
             }
             String type = split[1];
             return new ClearAllCommand(type);
         } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
