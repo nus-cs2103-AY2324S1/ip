@@ -25,9 +25,7 @@ in the text UI, type a command and press Enter.
 
 Refer to the list of available commands [below](#features).
 
-## Features 
-
-<div markdown="block" class="alert alert-info">
+## Features
 
 Generally, if you need to indicate date/time, 
 please adhere to the following format:
@@ -44,8 +42,6 @@ please adhere to the following format:
 
 Please also take note that your data is not automatically saved.
 You need to run the save command to save data to hard disk.
-
-</div>
 
 ### List out tasks: `list [options]`
 
