@@ -5,7 +5,7 @@ package tasks;
  */
 public class Task {
     protected String taskName;
-    protected boolean status;
+    protected boolean isDone;
 
     /**
      * Initializes a new Task object with the specified task name and default status (not done).
@@ -14,21 +14,21 @@ public class Task {
      */
     public Task(String taskName) {
         this.taskName = taskName;
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the task as done by setting its status to true.
      */
     public void markDone() {
-        this.status = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done by setting its status to false.
      */
     public void unmarkDone() {
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Task {
      * @return true if the task is marked as done, false otherwise.
      */
     public boolean isDone() {
-        return this.status;
+        return this.isDone;
     }
 
     /**
@@ -66,7 +66,7 @@ public class Task {
      */
     public String statusString() {
         String statusString;
-        if (this.status) {
+        if (this.isDone) {
             statusString = "X";
         } else {
             statusString = " ";
