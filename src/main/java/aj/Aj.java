@@ -325,14 +325,14 @@ public class Aj extends Application {
     }
 
     /**
-     * Controls are like HTML elements like textField, image, button. Nodes can be controls
+     * Initialise the stage with the necessary Graphical User Interface (GUI) controls
      *
      * @param stage the primary stage for this application, onto which
      *              the application scene can be set.
      */
     @Override
-    public void start(Stage stage) { // first 2 steps in html/css, 3rd step is js
-        String fullFilePath = "/Users/aaronjt/Documents/CS2103T_IP/ip/src/main/data/actualData.txt";
+    public void start(Stage stage) {
+        String fullFilePath = System.getProperty("user.dir") + "/src/main/data/actualData.txt";
         setUpBot(fullFilePath);
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
