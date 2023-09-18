@@ -237,7 +237,7 @@ public class Ui {
 
     public void printSuccessfulUpdateResponse(int updateIndex, HashMap<String, String> changes) {
         String message = "Changes successfully made to task " + Integer.toString(updateIndex);
-        message += "Changes made:";
+        message += "\nChanges made:\n";
         message += changes.toString();
         printMessage(message);
     }
