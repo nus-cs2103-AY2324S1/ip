@@ -14,6 +14,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import javafx.scene.input.DataFormat;
 
 /**
  * A class to handle storing and loading.
@@ -54,8 +55,13 @@ public class Storage {
      */
     public void load() {
         try {
-            String dataPath = Paths.get("data", "duke.txt").toString();
+            String dataPath = Paths.get("./data", "duke.txt").toString();
             File dataFile = new File(dataPath);
+
+            dataFile.getParentFile().mkdirs();
+
+            dataFile.createNewFile();
+
             BufferedReader reader = new BufferedReader(new FileReader(dataFile));
             for (String line; (line = reader.readLine()) != null;) {
                 tasks.add(fileToTask(line));
