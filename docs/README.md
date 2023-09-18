@@ -52,12 +52,12 @@ The following image highlights some important aspect of the GUI:
 Before delving into the different commands that `Juke` can understand, here are some notations used in this User 
 Guide which you should take note of:
 
-| Notation/Symbols                                          | Description                                                                                    |
-|-----------------------------------------------------------|------------------------------------------------------------------------------------------------|
-| [...]                                                     | Square brackets describe mandatory inputs that, <br>if omitted, will cause errors to appear    |
-| <...>                                                     | Angular brackets represents parameters which you need to <br> substitute with your own inputs  |
-| ( ... OR ... ) **or** [ ... OR ... ] **or** ... OR ...    | The "OR" word is used to denote one mandatory <br>input from the two inputs (represented by _) |
-| ( ... AND ... ) **or** [ ... AND ... ] **or** ... AND ... | The "OR" word is used to denote two mandatory <br>input from the two inputs (represented by _) |
+| Notation/Symbols                                          | Description                                                                                      |
+|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| [...]                                                     | Square brackets describe mandatory inputs that, <br>if omitted, will cause errors to appear      |
+| <...>                                                     | Angular brackets represents parameters which you need to <br> substitute with your own inputs    |
+| ( ... OR ... ) **or** [ ... OR ... ] **or** ... OR ...    | The "OR" word is used to denote one mandatory <br>input from the two inputs (represented by ...) |
+| ( ... AND ... ) **or** [ ... AND ... ] **or** ... AND ... | The "OR" word is used to denote two mandatory <br>input from the two inputs (represented by ...) |
 
 ## Features 
 
