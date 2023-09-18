@@ -10,7 +10,7 @@ import duke.util.Storage;
  * described by a description and a boolean indicating whether the task
  * is done.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected String description;
     protected boolean isDone;
 
@@ -95,4 +95,31 @@ public abstract class Task {
         Task task = (Task) obj;
         return this.description.equals(task.description);
     }
+
+    /**
+     * Compares the current task with the given task chronologically by descriptions.
+     *
+     * @param task the object to be compared.
+     * @return the result of comparison.
+     */
+    @Override
+    public int compareTo(Task task) {
+        return this.description.compareTo(task.description);
+    }
+
+    /**
+     * Compares the current task with the given task chronologically by deadline.
+     * @param task the object to be compared.
+     * @return the result of comparison.
+     */
+    public abstract int compareDeadline(Task task);
+
+    /**
+     * Compares the current task with the given task chronologically by category.
+     * The order of category is from Todo -> Deadline -> Event.
+     *
+     * @param task the object to be compared.
+     * @return the result of comparison.
+     */
+    public abstract int compareCategory(Task task);
 }

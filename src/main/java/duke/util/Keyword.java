@@ -14,7 +14,8 @@ public enum Keyword {
     DEADLINE("deadline"),
     PRINT_DATE("print_date"),
     FIND("find"),
-    LOAD("load");
+    LOAD("load"),
+    SORT("sort");
 
     private final String keyword;
 

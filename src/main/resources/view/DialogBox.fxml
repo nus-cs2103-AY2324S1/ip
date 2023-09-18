@@ -14,10 +14,12 @@
            minHeight="-Infinity"
            style="-fx-background-color: #ffffff; -fx-background-radius: 25; -fx-padding: 20"
            text="Label"
-           wrapText="true"/>
+           wrapText="true">
+    </Label>
     <ImageView fx:id="displayPicture"
-               fitHeight="100.0"
-               fitWidth="100.0"
+               fitHeight="70.0"
+               fitWidth="70.0"
                pickOnBounds="true"
-               preserveRatio="true"/>
+               preserveRatio="true">
+    </ImageView>
 </fx:root>

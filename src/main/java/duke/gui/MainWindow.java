@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Duke duke;
     private Image userImage = new Image(this.getClass()
-                                            .getResourceAsStream("/images/DaUser.png"));
+                                            .getResourceAsStream("/images/User.png"));
     private Image botImage = new Image(this.getClass()
                                             .getResourceAsStream("/images/ChatBot404.png"));
 
@@ -41,7 +41,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and another
+     * containing chatBots reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
