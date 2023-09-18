@@ -65,37 +65,6 @@ public class Duchess {
     }
 
     /**
-     * Searches for all tasks by a specified string and returns the results.
-     *
-     * @param searchString - the term to search for.
-     * @return    Duchess' response to the command.
-     */
-    private String searchTasks(String searchString) {
-        // An array of the segments of the response. This is used to prevent the issue where lambdas can only modify final variables.
-        final ArrayList<String> responsesArray = new ArrayList<>();
-
-        assert searchString != null : "Search string is null";
-
-        TaskList newTaskList = this.storedTasks.filterReplaceNull((Task t) -> t.getName().contains(searchString));
-
-        responsesArray.add(Ui.duchessFormat("Here are the things I found!! ヽ(^o^)丿"));
-
-        newTaskList.forEach((Task t, Integer index) -> {
-            if (t != null) {
-                responsesArray.add(Ui.duchessFormat(String.format("%d: %s", index + 1, t.toString())));
-            }
-        });
-
-        String response = "";
-        for (String responsePart : responsesArray) {
-            response += responsePart;
-        }
-        
-        this.executeCallbackHandler(response);
-        return response;
-    }
-
-    /**
      * Tags a task.
      *
      * @param index - the index of the task to be tagged.
@@ -195,18 +164,9 @@ public class Duchess {
 
         // Check if this command is a search task command.
         if (Parser.isSearchTaskCommand(userInput)) {
-            try {
-                String searchQuery = Parser.parseSearchTaskCommand(userInput);
-                this.searchTasks(searchQuery);
-            } catch (DuchessException e) {
-                String response = "";
-                
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("search [query]");
-
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.SEARCH);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 

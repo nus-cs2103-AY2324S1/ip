@@ -18,6 +18,8 @@ public abstract class Command implements Executable {
                 return new UnmarkTaskCommand();
             case DELETE:
                 return new DeleteTaskCommand();
+            case SEARCH:
+                return new SearchTaskCommand();
         }
         return null;
     }
