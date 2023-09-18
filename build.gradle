@@ -48,7 +48,6 @@ test {
 }
 
 application {
-//    mainClass.set("seedu.duke.Launcher")
     mainClass.set("duke.Launcher")
 
 
