@@ -1,5 +1,8 @@
 package duchess;
 
+import duchess.command.Command;
+import duchess.command.CommandType;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -37,30 +40,6 @@ public class Duchess {
         if (this.callbackHandler != null) {
             this.callbackHandler.accept(s);
         }
-    }
-
-    /**
-     * Prints all stored text.
-     *
-     * @param s - the string to be stored.
-     * @return    Duchess' response to the command.
-     */
-    private String listTasks() {
-        // An array of the segments of the response. This is used to prevent the issue where lambdas can only modify final variables.
-        final ArrayList<String> responsesArray = new ArrayList<>();
-
-        responsesArray.add(Ui.duchessFormat("Here are the things you said!! ヽ(^o^)丿"));
-        this.storedTasks.forEach((Task t, Integer index) -> {
-            responsesArray.add(Ui.duchessFormat(String.format("%d: %s", index + 1, this.storedTasks.getTask(index).toString())));
-        });
-
-        String response = "";
-        for (String responsePart : responsesArray) {
-            response += responsePart;
-        }
-
-        this.executeCallbackHandler(response);
-        return response;
     }
 
     /**
@@ -252,9 +231,13 @@ public class Duchess {
      * @param userInput - the user's input.
      */
     public void parseUserInput(String userInput) {
+        Command command = null;
+
         // Check if this command is a list.
         if (Parser.isListTasksCommand(userInput)) {
-            this.listTasks();
+            command = Command.getCommand(CommandType.LIST);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 
