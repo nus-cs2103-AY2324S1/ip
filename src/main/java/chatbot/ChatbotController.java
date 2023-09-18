@@ -40,7 +40,7 @@ public class ChatbotController {
         assert userImage != null : "User image cannot be empty.";
         assert dialogContainer != null : "dialogContainer should be initialised.";
 
-        Label greetLabel = new Label("Hi, I am Duke. What can I do for you?");
+        Label greetLabel = new Label("Hi, I am Luke. What can I do for you?");
         DialogBox greetingDialog = DialogBox.setDukeDialog(greetLabel, new ImageView(botImage));
         dialogContainer.getChildren().add(greetingDialog);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

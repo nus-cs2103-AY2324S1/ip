@@ -32,7 +32,7 @@ public class Chatbot {
                     public void run() {
                         System.exit(0);  // Terminates the currently running Java Virtual Machine
                     }
-                }, 1000);  // Delay in milliseconds (3000ms = 3s)
+                }, 500);  // Delay in milliseconds (3000ms = 3s)
 
                 return botResponse;
             }
