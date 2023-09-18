@@ -22,19 +22,19 @@ public class MarkTaskCommand extends Command {
     /**
      * The new status of the task (true for done, false for undone).
      */
-    private boolean status;
+    private boolean isDone;
 
     /**
      * Initializes a new MarkTaskCommand instance with the specified index, status, and command type.
      *
      * @param index The index of the task to be marked.
-     * @param status The new status of the task (true for done, false for undone).
+     * @param isDone The new status of the task (true for done, false for undone).
      * @param type The type of command (CommandType.MARK_DONE or CommandType.MARK_UNDONE).
      */
-    public MarkTaskCommand(int index, boolean status) {
+    public MarkTaskCommand(int index, boolean isDone) {
         super(false);
         this.index = index;
-        this.status = status;
+        this.isDone = isDone;
     }
 
     /**
@@ -52,12 +52,12 @@ public class MarkTaskCommand extends Command {
         try {
             history.push(new Pair<>(currState, this));
 
-            State newState = currState.markTask(this.index, this.status);
+            State newState = currState.markTask(this.index, this.isDone);
 
             TextRenderer renderer = newState.getTextRenderer();
             TaskList list = newState.getTaskList();
 
-            String returnMsg = (status)
+            String returnMsg = (isDone)
                     ? renderer.showTaskDone(list.getTaskInfo(this.index))
                     : renderer.showTaskUndone(list.getTaskInfo(this.index));
 
@@ -71,7 +71,7 @@ public class MarkTaskCommand extends Command {
 
     @Override
     public String toString() {
-        String action = this.status ? "Mark" : "Unmark";
+        String action = this.isDone ? "Mark" : "Unmark";
         return action + " task " + (this.index + 1);
     }
 }

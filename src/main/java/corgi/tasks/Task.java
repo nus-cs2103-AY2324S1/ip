@@ -10,16 +10,16 @@ public abstract class Task implements Storable<Task> {
     public static final DateTimeFormatter DATE_INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final DateTimeFormatter DATE_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
     protected final String desc;
-    protected final boolean status;
+    protected final boolean isDone;
 
     /**
      * Initializes a new task with its description. The task's initial status is set to not done.
      *
-     * @param status The status of the task.
+     * @param isDone The status of the task.
      * @param desc The description of the task.
      */
-    public Task(boolean status, String desc) {
-        this.status = status;
+    public Task(boolean isDone, String desc) {
+        this.isDone = isDone;
         this.desc = desc;
     }
 
@@ -45,7 +45,7 @@ public abstract class Task implements Storable<Task> {
      * @return An icon ("X" for done, " " for not done).
      */
     public String getStatusIcon() {
-        return (this.status ? "X" : " ");
+        return (this.isDone ? "X" : " ");
     }
 
     /**

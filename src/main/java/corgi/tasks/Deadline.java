@@ -28,14 +28,14 @@ public final class Deadline extends Task {
      * @param desc The description of the task.
      * @param by The deadline of the task.
      */
-    public Deadline(boolean status, String desc, LocalDate by) {
-        super(status, desc);
+    public Deadline(boolean isDone, String desc, LocalDate by) {
+        super(isDone, desc);
         this.by = by;
     }
 
     @Override
     public Deadline markAsDone() throws TaskStatusException {
-        if (status) {
+        if (this.isDone) {
             throw new TaskStatusException("The task is already marked as done.");
         }
         return new Deadline(true, desc, by);
@@ -43,7 +43,7 @@ public final class Deadline extends Task {
 
     @Override
     public Deadline markAsNotDone() throws TaskStatusException {
-        if (!status) {
+        if (!this.isDone) {
             throw new TaskStatusException("The task is already marked as not done.");
         }
         return new Deadline(false, desc, by);
@@ -66,7 +66,7 @@ public final class Deadline extends Task {
      */
     @Override
     public String toStorableString() {
-        String statusStr = this.status ? "1" : "0";
+        String statusStr = this.isDone ? "1" : "0";
         String formattedBy = this.by.format(Task.DATE_INPUT_FORMATTER);
 
         String[] infos = {"D", statusStr, this.desc, formattedBy};

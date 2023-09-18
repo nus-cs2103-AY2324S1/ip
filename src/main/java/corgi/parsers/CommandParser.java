@@ -167,7 +167,7 @@ public class CommandParser extends Parser<Command> {
 
         try {
             int index = Integer.parseInt(targetTaskNumber) - 1;
-            return new MarkTaskCommand(index, true);
+            return new MarkTaskCommand(index, false);
         } catch (NumberFormatException e) {
             throw new InvalidCommandFormatException("Please provide a valid task number!" + "\n\n"
                     + commandFormat);

@@ -28,20 +28,20 @@ public final class Event extends Task {
     /**
      * Initializes a new event task with the given status, description, start date, and end date.
      *
-     * @param status The status of the task.
+     * @param isDone The status of the task.
      * @param desc The description of the task.
      * @param from The start date of the event.
      * @param to The end date of the event.
      */
-    public Event(boolean status, String desc, LocalDate from, LocalDate to) {
-        super(status, desc);
+    public Event(boolean isDone, String desc, LocalDate from, LocalDate to) {
+        super(isDone, desc);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public Event markAsDone() throws TaskStatusException {
-        if (status) {
+        if (this.isDone) {
             throw new TaskStatusException("The task is already marked as done.");
         }
         return new Event(true, desc, from, to);
@@ -49,7 +49,7 @@ public final class Event extends Task {
 
     @Override
     public Event markAsNotDone() throws TaskStatusException {
-        if (!status) {
+        if (!this.isDone) {
             throw new TaskStatusException("The task is already marked as not done.");
         }
         return new Event(false, desc, from, to);
@@ -76,7 +76,7 @@ public final class Event extends Task {
      */
     @Override
     public String toStorableString() {
-        String statusStr = this.status ? "1" : "0";
+        String statusStr = this.isDone ? "1" : "0";
         String formattedFrom = this.from.format(Task.DATE_INPUT_FORMATTER);
         String formattedTo = this.to.format(Task.DATE_INPUT_FORMATTER);
 

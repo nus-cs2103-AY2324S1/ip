@@ -37,12 +37,12 @@ public class TaskParser extends Parser<Task> {
         String taskType = infos[0];
         String statusStr = infos[1];
         String desc = infos[2];
-        boolean status = false;
+        boolean isDone = false;
 
         if (statusStr.equals("1")) {
-            status = true;
+            isDone = true;
         } else if (statusStr.equals("0")) {
-            status = false;
+            isDone = false;
         } else {
             throw new InvalidParsingFormatException("Task status should be 0 or 1!");
         }
@@ -54,7 +54,7 @@ public class TaskParser extends Parser<Task> {
             if (infos.length != 3) {
                 throw new InvalidParsingFormatException("Wrong format for ToDo task!");
             }
-            task = new ToDo(status, desc);
+            task = new ToDo(isDone, desc);
             break;
         case "D":
             if (infos.length != 4) {
@@ -71,7 +71,7 @@ public class TaskParser extends Parser<Task> {
 
             assert by != null : "LocalDate object cannot be null";
 
-            task = new Deadline(status, desc, by);
+            task = new Deadline(isDone, desc, by);
 
             break;
         case "E":
@@ -92,7 +92,7 @@ public class TaskParser extends Parser<Task> {
             assert from != null : "LocalDate object cannot be null";
             assert to != null : "LocalDate object cannot be null";
 
-            task = new Event(status, desc, from, to);
+            task = new Event(isDone, desc, from, to);
             break;
         default:
             throw new InvalidParsingTypeException("Invalid task type!");
