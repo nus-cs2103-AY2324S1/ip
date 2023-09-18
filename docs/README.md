@@ -1,4 +1,4 @@
-# User Guide
+# Hachi User Guide
 
 ### A task list you'll want to go back to!
 
@@ -6,7 +6,8 @@
 
 ### Three different types of tasks
 
-You can add **Todos**, **Deadlines** and **Events** to keep track of those pesky tasks that you know you'll forget in an hour!
+You can add **Todos**, **Deadlines** and **Events** to keep track of 
+those pesky tasks that you know you'll forget in an hour!
 
 You can mark all three done, or undone.
 
@@ -20,7 +21,8 @@ You can easily list out all of the tasks, or filter them by certain keywords, or
 
 I know all of you out there love how typing makes all of the tasks really quick and easy to accomplish.
 
-But we're adding that along with a beautiful GUI where a dog named "Hachi" will be handling all of your tasks. Sooo cute.
+But we're adding that along with a beautiful GUI 
+where a dog named "Hachi" will be handling all of your tasks. Sooo cute.
 
 ## Usage
 
@@ -31,6 +33,13 @@ Exits the app.
 ### `list` - Lists tasks
 
 Lists out the tasks, their names, dates, and completion status.
+Add the keyword `sort name` to sort the results alphabetically by their names.
+
+Example of usage:
+
+`list`
+or
+`list sort name`
 
 ### `mark` - Marks completion
 
@@ -48,18 +57,51 @@ Example of usage:
 
 `unmark (task number)`
 
-### `delete` - Marks non-completion
+### `delete` - Deletes a task
 
-Marks a task as not completed.
+Removes a task from existence.
 
 Example of usage:
 
-`unmark (task number)`
+`delete (task number)`
 
-Expected outcome:
+### `todo` - Creates a Todo task
 
-Description of the outcome.
+Adds a new Todo task, which stores its name.
 
-```
-expected output
-```
+Example of usage:
+
+`todo (task name)`
+
+### `deadline` - Creates a Deadline task
+
+Adds a new Deadline task, which stores its name and deadline date.
+
+Example of usage:
+
+`deadline (task name) /by (deadline, in yyyy-mm-dd format)`
+
+### `event` - Creates an Event task
+
+Adds a new Event task, which stores its name, start date, and end date.
+
+Example of usage:
+
+`event (task name) /from (start date, in yyyy-mm-dd format) (end date, in yyyy-mm-dd format)`
+
+### `search-date` - Filters tasks by date
+
+Lists out the tasks which have a deadline before the specified date, or for
+which the specified date falls between the start date and the end date. 
+
+Example of usage:
+
+`search-date (date, in yyyy-mm-dd format)`
+
+### `find` - Filters tasks by name
+
+Lists out the tasks which contains the exact given string of text.
+
+Example of usage:
+
+`find (name)`
