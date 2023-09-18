@@ -67,7 +67,7 @@ public class Storage {
         } catch (FileNotFoundException error) {
             createFile(filePath);
         }
-        return null;
+        return list;
     }
 
     /**
@@ -78,9 +78,8 @@ public class Storage {
     public void createFile(String filePath) {
         try {
             File file = new File(filePath);
-            if (!file.createNewFile()) {
-                load();
-            }
+            file.createNewFile();
+            load();
         } catch (IOException error) {
             throw new IllegalArgumentException("Oops! Something went wrong!");
         }
@@ -89,7 +88,7 @@ public class Storage {
     /**
      * Goes through all task stored in list and updates the hard drive.
      *
-     * @param filePath Path to the file data.txt.
+     * @param list List to update the data.
      */
     public static void updateStorage(String filePath, TaskList list) {
         try {

@@ -88,12 +88,13 @@ public class TaskList {
     /** Prints out the list of tasks stored. */
     public String printList() {
         StringBuilder printedList = new StringBuilder("Here are the tasks in your list:\n");
+        System.out.println(this.list);
         for (int index = 0; index < this.list.size(); index++) {
             Task item = this.list.get(index);
             String description = (index + 1) + ". " + item.toString() + "\n";
             printedList.append(description);
         }
-
+        System.out.println("line reached 3");
         return printedList.toString();
     }
 
