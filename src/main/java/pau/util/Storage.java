@@ -3,8 +3,6 @@ package pau.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 import pau.task.Task;
@@ -36,9 +34,19 @@ public class Storage {
      */
     public TaskList loadTasks() {
         try {
-            Path path = Paths.get(filepath);
-
             File toLoad = new File(filepath);
+
+            if (!toLoad.exists()) {
+                // Create the necessary directory if it doesn't exist
+                File directory = toLoad.getParentFile();
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                // Create the file
+                toLoad.createNewFile();
+            }
+
             Scanner scan = new Scanner(toLoad);
             TaskList list = new TaskList();
             while (scan.hasNext()) {

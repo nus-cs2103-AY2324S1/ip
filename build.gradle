@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("pau.Pau")
+    mainClass.set("pau.Launcher")
 }
 
 shadowJar {

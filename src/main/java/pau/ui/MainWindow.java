@@ -1,5 +1,6 @@
 package pau.ui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import pau.Pau;
 
 /**
@@ -47,11 +49,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (input == "bye") {
-            pau.sayGoodbye();
-            Platform.exit();
+        String response;
+        if (input.equals("bye")) {
+            response = pau.sayGoodbye();
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished(e -> {
+                Platform.exit();
+            });
+            delay.play();
+        } else {
+            response = pau.getResponse(input);
         }
-        String response = pau.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getPauDialog(response, pauImage)
