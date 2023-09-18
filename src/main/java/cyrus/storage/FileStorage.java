@@ -77,32 +77,18 @@ public class FileStorage implements IStorage {
                 Task task;
                 switch (type) {
                 case "todo":
-                    task = new ToDo(entry.get("name"));
+                    task = parseToDo(entry);
                     break;
                 case "deadline":
-                    LocalDate deadlineDate = DateUtility.parse(entry.get("due"));
-                    if (deadlineDate == null) {
-                        throw new IllegalStateException("Invalid deadline format");
-                    }
-                    task = new Deadline(entry.get("name"), deadlineDate);
+                    task = parseDeadline(entry);
                     break;
                 case "event":
-                    LocalDate fromDate = DateUtility.parse(entry.get("from"));
-                    LocalDate toDate = DateUtility.parse(entry.get("to"));
-                    if (fromDate == null || toDate == null) {
-                        throw new IllegalStateException("Invalid from/to format");
-                    }
-                    task = new Event(entry.get("name"), fromDate, toDate);
+                    task = parseEvent(entry);
                     break;
                 default:
                     throw new IllegalStateException("Invalid task type found in data.json");
                 }
-                task.setDone(parseBoolean(entry.get("status")));
-                if (entry.containsKey("completed_date")) {
-                    LocalDate completedDate = DateUtility.parse(entry.get("completed_date"));
-                    assert completedDate != null : "Invalid completed date format";
-                    task.setCompletedDate(completedDate);
-                }
+                fillFields(task, entry);
                 fileTasks.add(task);
             }
             return fileTasks;
@@ -140,6 +126,38 @@ public class FileStorage implements IStorage {
         } catch (IOException ne) {
             System.out.println("Unable to create file, Cyrus cannot run");
             System.exit(0);
+        }
+    }
+
+    private ToDo parseToDo(HashMap<String, String> entry) {
+        return new ToDo(entry.get("name"));
+    }
+
+    private Deadline parseDeadline(HashMap<String, String> entry) {
+        LocalDate deadlineDate = DateUtility.parse(entry.get("due"));
+        if (deadlineDate == null) {
+            throw new IllegalStateException("Invalid deadline format");
+        }
+        return new Deadline(entry.get("name"), deadlineDate);
+    }
+
+    private Event parseEvent(HashMap<String, String> entry) {
+        LocalDate fromDate = DateUtility.parse(entry.get("from"));
+        LocalDate toDate = DateUtility.parse(entry.get("to"));
+        if (fromDate == null || toDate == null) {
+            throw new IllegalStateException("Invalid from/to format");
+        }
+        return new Event(entry.get("name"), fromDate, toDate);
+    }
+
+    private void fillFields(Task task, HashMap<String, String> entry) {
+        task.setDone(parseBoolean(entry.get("status")));
+        if (entry.containsKey("completed_date")) {
+            LocalDate completedDate = DateUtility.parse(entry.get("completed_date"));
+            if (completedDate == null) {
+                throw new IllegalStateException("Invalid completed date format");
+            }
+            task.setCompletedDate(completedDate);
         }
     }
 
