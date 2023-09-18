@@ -1,12 +1,16 @@
 package taskmate.tools.tasks;
 
+import java.util.HashMap;
+
+import taskmate.exceptions.InvalidAttributeException;
+
 /**
  * The Task class is an abstract class that represents a task specified by the user. It can be of type `Todo`,
  * `Deadline`, or `Event`.
  */
 public abstract class Task {
 
-    protected final String name;
+    protected String name;
     protected boolean isDone;
 
     /**
@@ -86,5 +90,6 @@ public abstract class Task {
      *         information is explained above.
      */
     public abstract String formatTaskForSaving();
+    public abstract void update(HashMap<String, String> changes) throws InvalidAttributeException;
 
 }

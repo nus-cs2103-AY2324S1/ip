@@ -2,18 +2,9 @@ package taskmate.tools;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 
-import taskmate.commands.Command;
-import taskmate.commands.DeadlineCommand;
-import taskmate.commands.DeleteCommand;
-import taskmate.commands.EventCommand;
-import taskmate.commands.ExitCommand;
-import taskmate.commands.FindCommand;
-import taskmate.commands.HelpCommand;
-import taskmate.commands.ListCommand;
-import taskmate.commands.MarkCommand;
-import taskmate.commands.TodoCommand;
-import taskmate.commands.UnmarkCommand;
+import taskmate.commands.*;
 import taskmate.exceptions.EmptyByException;
 import taskmate.exceptions.EmptyDescriptionException;
 import taskmate.exceptions.EmptyFromException;
@@ -101,10 +92,17 @@ public class Parser {
             checkValidDeleteCommand(userInput);
             int indexToDelete = getIndexToDelete(userInput);
             return new DeleteCommand(indexToDelete);
+        // find query
         } else if (commandType.equals(TaskMate.CommandTypes.find.toString())) {
             checkValidFindCommand(userInput);
             String query = getFindQuery(userInput);
             return new FindCommand(query);
+        // update i <attribute> <change> <attribute> <change> ...
+        } else if (commandType.equals(TaskMate.CommandTypes.update.toString())) {
+            checkValidUpdateCommand(userInput);
+            int indexToUpdate = getIndexToUpdate(userInput);
+            HashMap<String, String> changes = getChangesToUpdate(userInput);
+            return new UpdateCommand(indexToUpdate, changes);
         // Invalid input
         } else {
             throw new InvalidCommandTypeException();
@@ -155,6 +153,33 @@ public class Parser {
                         .trim());
         indexToDelete -= 1;
         return indexToDelete;
+    }
+
+    private static int getIndexToUpdate(String userInput) {
+        int indexToUpdate = Integer.parseInt(
+                userInput
+                        .substring(TaskMate.CommandTypes.update.toString().length())
+                        .trim()
+                        .split("\\s+")[0]);
+        indexToUpdate -= 1;
+        return indexToUpdate;
+    }
+
+    private static HashMap<String, String> getChangesToUpdate(String userInput) {
+        HashMap<String, String> changesMap = new HashMap<>();
+        String[] tokens = userInput.split("/");
+
+        int startIndex = 1; // Skip "update XX "
+        for (int i = startIndex; i < tokens.length; i += 2) {
+            String attributeChangeString = tokens[i];
+            String attribute = "/" + attributeChangeString.split("\\s+")[0];
+            String change = attributeChangeString.split("\\s+")[1];
+            System.out.println(attribute);
+            System.out.println(change);
+            changesMap.put(attribute, change);
+        }
+
+        return changesMap;
     }
 
     private static String getFindQuery(String userInput) {
@@ -359,6 +384,23 @@ public class Parser {
         boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.find.toString().length()).trim().isEmpty();
 
         if (!isStartingWithFind) {
+            throw new InvalidCommandTypeException();
+        } else if (hasEmptyQuery) {
+            throw new EmptyDescriptionException();
+        }
+    }
+
+    private static void checkValidUpdateCommand(String userInput) throws EmptyDescriptionException,
+            InvalidCommandTypeException, NotAnIntegerException {
+        boolean isStartingWithUpdate = userInput.startsWith(TaskMate.CommandTypes.update + " ");
+        boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.update.toString().length()).trim().isEmpty();
+
+        String[] tokens = userInput.split("\\s+");
+        if (!checkStringIsInteger(tokens[1])) {
+            throw new NotAnIntegerException();
+        }
+
+        if (!isStartingWithUpdate) {
             throw new InvalidCommandTypeException();
         } else if (hasEmptyQuery) {
             throw new EmptyDescriptionException();

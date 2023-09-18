@@ -1,6 +1,7 @@
 package taskmate.tools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import taskmate.exceptions.FileCorruptedException;
@@ -232,5 +233,17 @@ public class Ui {
 
     public void printFileCorruptedResponse(FileCorruptedException e) {
         printMessage(e.getMessage());
+    }
+
+    public void printSuccessfulUpdateResponse(int updateIndex, HashMap<String, String> changes) {
+        String message = "Changes successfully made to task " + Integer.toString(updateIndex);
+        message += "Changes made:";
+        message += changes.toString();
+        printMessage(message);
+    }
+
+    public void printInvalidUpdateResponse() {
+        String message = "Invalid update command!";
+        printMessage(message);
     }
 }

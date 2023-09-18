@@ -32,7 +32,7 @@ public class TaskMate {
      * An enum that represents the different command types which TaskMate supports
      */
     public enum CommandTypes {
-        list, bye, todo, deadline, event, mark, unmark, delete, help, find
+        list, bye, todo, deadline, event, mark, unmark, delete, help, find, update
     }
 
     private final Ui ui;

@@ -2,14 +2,17 @@ package taskmate.tools.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+
+import taskmate.exceptions.InvalidAttributeException;
 
 /**
  * The Event class is a child class of the Task class that represents a 'Event' type task specified by the user.
  */
 public class Event extends Task {
 
-    private final LocalDate startDatetime;
-    private final LocalDate endDatetime;
+    private LocalDate startDatetime;
+    private LocalDate endDatetime;
 
     /**
      * Event constructor that allows the developer to specify the name of the task, a date that represents
@@ -83,6 +86,35 @@ public class Event extends Task {
 
     String getEndDatetime() {
         return this.endDatetime.toString();
+    }
+
+    @Override
+    public void update(HashMap<String, String> changes) throws InvalidAttributeException {
+        for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
+            String attribute = attributeValuePair.getKey();
+            String newValue = attributeValuePair.getValue();
+            if (attribute.equals("/name")) {
+                setName(newValue);
+            } else if (attribute.equals("/from")) {
+                setStartDatetime(newValue);
+            } else if (attribute.equals("/to")) {
+                setEndDatetime(newValue);
+            } else {
+                throw new InvalidAttributeException();
+            }
+        }
+    }
+
+    private void setName(String newName) {
+        this.name = newName;
+    }
+
+    private void setStartDatetime(String newStartDatetime) {
+        this.startDatetime = LocalDate.parse(newStartDatetime);
+    }
+
+    private void setEndDatetime(String newEndDatetime) {
+        this.endDatetime = LocalDate.parse(newEndDatetime);
     }
 
     @Override
