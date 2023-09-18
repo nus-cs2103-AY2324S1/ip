@@ -34,7 +34,7 @@ Okie! I've added this Todo to your task list!
 T | 0 | call Nellie 
 Now you've got 1 task in your list.
 ```
-
+---
 **Adding an Event** : ``event <description> /from <start> /to <end>``
 
 Adds an event to the task list.
@@ -50,12 +50,12 @@ Okie! I've added this Event to your task list!
 E | 0 | training | Mon 6pm to Mon 9pm 
 Now you've got 1 task in your list.
  ```
-
+---
 **Adding a Deadline** : ``deadline <description> /by <date>``
 
 Adds a deadline to the task list.
 
-> Note: It only supports <date> inputs with the format YYYY-MM-DD or a specific day of the week (e.g. 2023-10-10, Sunday).
+> Note: It only supports <date> inputs with the format YYYY-MM-DD (e.g. 2023-10-10).
 
 Example of usage:
 
@@ -65,10 +65,10 @@ Expected output:
 
 ``` 
 Okie! I've added this Deadline to your task list! 
-D | 0 | return book | Sunday
+D | 0 | return book | Oct 10 2023
 Now you've got 1 task in your list.
 ```
-
+---
 **Adding a Contact task** : ``contact <name> /@ <mode of contact> /for <reason>``
 
 Adds a task to contact an individual to the task list.
@@ -84,7 +84,7 @@ Okie! I've added this Deadline to your task list!
 C | 0 | Joy | foojnjoy@gmail.com | follow-up checkup
 Now you've got 1 task in your list.
  ```
-
+---
 **Listing all tasks** : ``list``
 
 Shows a list of all tasks in the task list.
@@ -101,7 +101,7 @@ Expected output:
 3. [D][] return book (by: Sunday)
 4. [C][] Joy @ foojnjoy@gmail.com for follow-up checkup
 ```
-
+---
 **Marking a task as done** : ``mark <index>``
 
 Marks the tasks at the specific index as ‘done’.
@@ -118,7 +118,7 @@ Expected outcome:
 Nice! I've marked this task as done:
 [D][X] return book (by: Sunday)
 ```
-
+---
 **Marking a task as undone** : ``unmark <index>``
 
 Marks the tasks at the specific index as ‘undone’.
@@ -135,7 +135,7 @@ Expected outcome:
 Nice! I've marked this task as undone:
 [D][] return book (by: Sunday)
 ```
-
+---
 **Deleting a task** : ``delete <index>``
 
 Deletes the tasks at the specified index.
@@ -152,7 +152,7 @@ Expected outcome:
 Deleted the following task:
 [T][] call Nellie
 ```
-
+---
 **Finding tasks by keyword** : ``find <keyword>``
 
 Finds tasks in the task list that match or contain the keyword.
@@ -167,7 +167,7 @@ Expected outcome:
 Here are the relevant tasks:
 1.[E][] training (from: Mon 6pm to: Mon 9pm)
  ```
-
+---
 **Exiting the program**: ``bye``
 
 Exits the program.
