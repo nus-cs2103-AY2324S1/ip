@@ -25,7 +25,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, double fitWidth, double fitHeight) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -37,6 +37,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setFitHeight(fitHeight);
+        displayPicture.setFitWidth(fitWidth);
 
         dialog.setMinHeight(Label.USE_PREF_SIZE);
         dialog.setPrefHeight(Label.USE_COMPUTED_SIZE);
@@ -52,12 +54,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gets Dialog Box of User.
+     * @param text User's Text.
+     * @param img User's Image.
+     * @return User's dialog box.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, 50, 50);
     }
 
+    /**
+     * Gets Dialog Box of Duke.
+     * @param text Duke's Text.
+     * @param img Duke's Image.
+     * @return Duke's dialog box.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, 100, 100);
         db.flip();
         return db;
     }

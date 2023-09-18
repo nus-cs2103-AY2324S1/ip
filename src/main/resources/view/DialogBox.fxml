@@ -16,14 +16,14 @@
                 <Insets top="8.0" right="8.0" bottom="8.0" left="8.0" />
             </padding>
         </Label>
-        <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="displayPicture" pickOnBounds="true" preserveRatio="true">
             <clip>
                 <Circle radius="50.0" centerX="50.0" centerY="50.0" />
             </clip>
         </ImageView>
     </children>
     <padding>
-        <Insets bottom="15.0" left="8.0" right="8.0" top="15.0" />
+        <Insets bottom="5.0" left="8.0" right="8.0" top="5.0" />
     </padding>
 </fx:root>
 

@@ -29,6 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Victor Task Manager Bot");
 
             fxmlLoader.<duke.controller.MainWindow>getController().setDuke(duke);
             fxmlLoader.<duke.controller.MainWindow>getController().showWelcomeMessage();
