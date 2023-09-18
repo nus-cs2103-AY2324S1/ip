@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 /**
  * A GUI for Duke using FXML.
  */
+//Reused from https://se-education.org/guides/tutorials/javaFx.html
+// with minor modifications
 public class Main extends Application {
 
     private TehO tehO = new TehO("/Users/loomeilinzann/ip/text-ui-test/data/teho.txt");

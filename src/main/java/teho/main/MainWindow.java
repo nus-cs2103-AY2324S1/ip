@@ -12,6 +12,8 @@ import teho.exceptions.InvalidCommandException;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
+//Reused from https://se-education.org/guides/tutorials/javaFx.html
+// with minor modifications
 public class MainWindow extends AnchorPane {
     //@FXML annotation marks a private or protected member and
     // makes it accessible to FXMLdespite its modifier.
