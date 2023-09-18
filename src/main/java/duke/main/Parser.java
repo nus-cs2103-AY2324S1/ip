@@ -56,13 +56,12 @@ public class Parser {
                         currentCommand = ValidCommand.INCORRECTFORMAT;
                     }
                 }
-            } else if (commandSorter(currentCommand).equals("short_comm")) {
+            } else if (commandSorter(currentCommand).equals("short_comm")
+                    || commandSorter(currentCommand).equals("event")) {
+                if (commandSorter(currentCommand).equals("event")) {
+                    startDate = startDateGetter(inp);
+                }
                 title = titleGetter(inp);
-                endDate = endDateGetter(inp);
-                isValid = commandValidator(inp);
-            } else if (commandSorter(currentCommand).equals("event")) {
-                title = titleGetter(inp);
-                startDate = startDateGetter(inp);
                 endDate = endDateGetter(inp);
                 isValid = commandValidator(inp);
             }
