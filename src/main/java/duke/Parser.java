@@ -29,11 +29,8 @@ public class Parser {
      * @return the command based on the user input
      */
     public static Command parse(String input) throws DukeException {
-        if (input.equals("list")) {
+        if (input.equals(ListCommand.COMMAND_WORD)) {
             return new ListCommand();
-        }
-        if (input.equals("help")) {
-            return new HelpCommand();
         }
         String[] details = input.split(" ", 2);
         String commandName = details[0];
@@ -52,6 +49,8 @@ public class Parser {
             return prepareEvent(details);
         case FindCommand.COMMAND_WORD:
             return prepareFind(details);
+        case HelpCommand.COMMAND_WORD:
+            return prepareHelp(details);
         default:
             throw new DukeException("Sorry! I do not recognise this command");
         }
@@ -173,5 +172,13 @@ public class Parser {
             throw new DukeException("Invalid command! Please include a search keyword");
         }
         return new FindCommand(details[1].trim());
+    }
+
+    private static HelpCommand prepareHelp(String[] details) {
+        if (details.length == 1) {
+            return new HelpCommand();
+        } else {
+            return new HelpCommand(details[1].trim());
+        }
     }
 }

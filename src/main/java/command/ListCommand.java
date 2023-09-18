@@ -7,7 +7,7 @@ import task.TaskList;
  * Prints out the current todo list
  */
 public class ListCommand extends Command {
-
+    public static final String COMMAND_WORD = "list";
     /**
      * Prints the current TaskList
      *
