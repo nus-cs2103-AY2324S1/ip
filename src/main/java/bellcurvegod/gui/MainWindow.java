@@ -1,6 +1,7 @@
 package bellcurvegod.gui;
 
 import bellcurvegod.BellCurveGod;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -54,6 +55,9 @@ public class MainWindow extends AnchorPane {
             DialogBox.getUserDialog(input, userImage),
             DialogBox.getBellCurveGodDialog(response, bellCurveGodImage)
         );
+        if (response.equals(Gui.getExitMessage())) {
+            Platform.exit();
+        }
         userInput.clear();
     }
 }

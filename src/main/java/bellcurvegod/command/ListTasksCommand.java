@@ -9,7 +9,7 @@ import bellcurvegod.tasklist.TaskList;
 /**
  * Encapsulates the listTaskCommand.
  */
-public class ListTasksCommand implements Runnable {
+public class ListTasksCommand {
     /**
      * Lists all tasks stored.
      *

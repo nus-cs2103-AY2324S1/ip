@@ -9,7 +9,7 @@ import bellcurvegod.tasklist.TaskList;
 /**
  * Encapsulates the findCommand.
  */
-public class FindCommand implements Runnable {
+public class FindCommand {
     /**
      * Lists all tasks in the taskList that
      * contains the keyword that the user is searching for.

@@ -6,7 +6,7 @@ import bellcurvegod.task.Task;
 /**
  * Encapsulates the markCommand.
  */
-public class MarkCommand implements Runnable {
+public class MarkCommand {
     /**
      * Marks the given task(s) as done.
      *

@@ -9,7 +9,7 @@ import bellcurvegod.gui.Gui;
 /**
  * Encapsulates the exitCommand.
  */
-public class ExitCommand implements Runnable {
+public class ExitCommand {
     /**
      * Says goodbye to the user and exits.
      *

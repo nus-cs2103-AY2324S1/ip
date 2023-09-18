@@ -6,7 +6,7 @@ import bellcurvegod.task.Task;
 /**
  * Encapsulates the unmarkCommand.
  */
-public class UnmarkCommand implements Runnable {
+public class UnmarkCommand {
     /**
      * Marks the given task(s) as not done.
      *
