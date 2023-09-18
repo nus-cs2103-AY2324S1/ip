@@ -37,7 +37,8 @@ public class Parser {
         case "mark" :
             return new MarkUnmarkCommand(command, tokeniser);
         case "delete" :
-            return new DeleteCommand(tokeniser);
+        case "clear":
+            return new DeleteCommand(command, tokeniser);
         case "find" :
             return new FindCommand(tokeniser);
         case "todo":

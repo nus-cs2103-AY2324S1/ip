@@ -29,7 +29,7 @@ public class Deadline extends Task {
         String timeString;
         timeString = (this.time == null) ? "" : (" " + this.time);
         return  "DEADLINE:" + " " + this.description
-                + " (by: " + this.date + timeString + ")"
+                + " (by: " + this.date + timeString + ") "
                 + marker + "\n";
     }
 
