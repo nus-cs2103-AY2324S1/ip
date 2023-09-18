@@ -75,7 +75,7 @@ public abstract class Task {
      */
     public String fileString() {
         String done = isDone ? "1" : "0";
-        String fileLine = String.format(" | %b | %s", done, name);
+        String fileLine = String.format(" | %s | %s", done, name);
 
         return fileLine;
     }
@@ -93,7 +93,7 @@ public abstract class Task {
      * @return The LocalDateTime corresponding to the string input.
      */
     protected static LocalDateTime parseTaskDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h.mma", Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy h.mma", Locale.ENGLISH);
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 
         return dateTime;

@@ -13,7 +13,6 @@ import command.EditCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.RemindCommand;
-import exception.DukeException;
 import exception.InvalidCommandException;
 
 /**
@@ -86,16 +85,16 @@ public class Parser {
      *
      * @param input The user input.
      * @return A command.Command to be executed.
-     * @throws DukeException If user input is invalid, Duke exception will be thrown.
+     * @throws InvalidCommandException If user input is invalid, Duke exception will be thrown.
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String input) throws InvalidCommandException {
         final Matcher matcher = BASIC_COMMAND.matcher(input.trim());
 
         if (!matcher.matches()) {
             throw new InvalidCommandException("Invalid command");
         }
 
-        assert input.equals("") : "Command should not be empty after checks";
+        assert !input.equals("") : "Command should not be empty after checks";
 
         final String command = matcher.group("command");
         final String argument = matcher.group("arguments").trim();

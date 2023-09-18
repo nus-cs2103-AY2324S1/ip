@@ -34,11 +34,11 @@ public class TaskListTest {
         task1.markTask();
 
         taskLists.add(task1);
-        taskLists.add(new Deadline("buy supplies", "Jan 5 23 7.30PM"));
-        taskLists.add(new Event("host party", "Jan 5 23 7.30PM", "Jan 6 23 1.00AM"));
+        taskLists.add(new Deadline("buy supplies", "Jan 5 2023 7.30PM"));
+        taskLists.add(new Event("host party", "Jan 5 2023 7.30PM", "Jan 6 2023 1.00AM"));
         TaskList tasks = new TaskList(taskLists);
 
-        assertEquals("T | 1 | return book\n" + "D | 0 | buy supplies | Jan 5 23 7.30PM\n"
-                + "E | 0 | host party | Jan 5 23 7.30PM-Jan 6 23 1.00AM", tasks.toFileString());
+        assertEquals("T | 1 | return book\n" + "D | 0 | buy supplies | Jan 5 2023 7.30PM\n"
+                + "E | 0 | host party | Jan 5 2023 7.30PM-Jan 6 2023 1.00AM", tasks.toFileString());
     }
 }
