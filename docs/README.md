@@ -84,6 +84,6 @@ Marks a task from the list as incomplete.
 * `unmark 2`
 
 ### Showing statistics of tasks : `stats`
-Displays statistics of the tasks in the task list
+Shows statistics of the tasks in the task list
 
 **Format:** `stats`
