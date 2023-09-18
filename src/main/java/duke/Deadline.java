@@ -52,8 +52,8 @@ public class Deadline extends Task {
     /**
      * Prints a message to confirm that the task has been added and displays the updated task count.
      */
-    public void print() {
-        System.out.println(Ui.horizontalLine + "Got it. I've added this task:\n "
+    public String print() {
+        return (Ui.horizontalLine + "Got it. I've added this task:\n "
                 + this.toString()+ "\n" + "Now you have "
                 + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
     }

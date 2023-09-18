@@ -146,6 +146,20 @@ public class Task {
         System.out.println(Ui.horizontalLine);
     }
 
+    public String formatList() {
+        StringBuilder formattedList = new StringBuilder();
+        formattedList.append(Ui.horizontalLine).append("Here are the tasks in your list:\n");
+
+        for (int i = 0; i < Duke.taskList.size(); i++) {
+            Task task = Duke.taskList.getTasks().get(i);
+            formattedList.append((i + 1)).append(". ").append(task.toString()).append("\n");
+        }
+
+        formattedList.append(Ui.horizontalLine);
+        return formattedList.toString();
+    }
+
+
 
     /**
      * Gets the type of the task.
@@ -182,8 +196,9 @@ public class Task {
         // Update the task description in the file
         Storage.updateLineInFile(i, markTask.generateStr());
 
-        System.out.println(Ui.horizontalLine + "Nice! I've marked this task as done:\n"
-                + markTask.toString() + "\n" + Ui.horizontalLine);
+//        System.out.println(Ui.horizontalLine + "Nice! I've marked this task as done:\n"
+//                + markTask.toString() + "\n" + Ui.horizontalLine);
+
     }
 
     /**

@@ -50,12 +50,11 @@ public class Ui {
         return sc.nextLine();
     }
     
-    public static void displaySearchResults(TaskList taskList, String keyword) {
+    public static String displaySearchResults(TaskList taskList, String keyword) {
         List<Task> allTasks = taskList.getTasks();
         if (allTasks.isEmpty()) {
-            System.out.println(horizontalLine + "You have no tasks in your list.\n"
+            return (horizontalLine + "You have no tasks in your list.\n"
                     + horizontalLine);
-            return;
         }
 
         TaskList filteredList = new TaskList();
@@ -66,18 +65,27 @@ public class Ui {
         }
 
         if (filteredList.getTasks().isEmpty()) {
-            System.out.println(horizontalLine
+            return (horizontalLine
                     + "You have no matching tasks in your list.\n"
                     + horizontalLine);
-            return;
         }
 
-        System.out.println(horizontalLine + "Here are the matching items in your list: \n");
+//        System.out.println(horizontalLine + "Here are the matching items in your list: \n");
+//        int count = 0;
+//        for (Task t : filteredList.getTasks()) {
+//            System.out.println(++count + ". " + t.toString());
+//        }
+//        System.out.println("\n" + horizontalLine);
+        StringBuilder formattedItems = new StringBuilder();
+        formattedItems.append(horizontalLine).append("Here are the matching items in your list: \n");
+
         int count = 0;
         for (Task t : filteredList.getTasks()) {
-            System.out.println(++count + ". " + t.toString());
+            formattedItems.append(++count).append(". ").append(t.toString()).append("\n");
         }
-        System.out.println("\n" + horizontalLine);
+
+        formattedItems.append("\n").append(horizontalLine);
+        return formattedItems.toString();
     }
 
 }
