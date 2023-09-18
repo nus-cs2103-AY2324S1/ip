@@ -22,12 +22,15 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String marker = "[ ]";
+        String marker = "☐";
+        if (this.isComplete) {
+            marker = "☑";
+        }
         String timeString;
         timeString = (this.time == null) ? "" : (" " + this.time);
-        if (this.isComplete) marker = "[X]";
-        return  "[D]" + marker + " " + this.description
-                + " (by: " + this.date + timeString + ")\n";
+        return  "DEADLINE:" + " " + this.description
+                + " (by: " + this.date + timeString + ")"
+                + marker + "\n";
     }
 
     @Override

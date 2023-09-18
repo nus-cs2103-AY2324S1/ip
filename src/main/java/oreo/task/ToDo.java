@@ -12,11 +12,11 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        String marker = "[ ]";
+        String marker = "☐";
         if (this.isComplete) {
-            marker = "[X]";
+            marker = "☑";
         }
-        return  "[T]" + marker + " " + this.description + "\n";
+        return  "TODO:" + " " + this.description + " " + marker + "\n";
     }
 
     @Override

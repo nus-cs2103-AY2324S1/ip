@@ -12,8 +12,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import oreo.MainWindow;
+
+import static com.sun.javafx.fxml.expression.Expression.set;
 
 /**
  * An example of a custom control using FXML.
@@ -25,6 +30,9 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+
+    @FXML
+    private HBox speechBubble;
 
     private DialogBox(String text, Image img) {
         try {
@@ -38,6 +46,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        speechBubble.heightProperty();
     }
 
     /**
@@ -48,6 +57,9 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.setTextFill(Color.valueOf("#000000"));
+        speechBubble.setStyle("-fx-background-color: lightgrey;" +
+                "-fx-background-radius: 1em;");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
