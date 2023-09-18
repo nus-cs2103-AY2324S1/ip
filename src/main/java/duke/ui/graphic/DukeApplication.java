@@ -20,9 +20,8 @@ public class DukeApplication extends Application {
             VBox ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             MainWindow graphicInterface = fxmlLoader.getController();
-            Duke duke = new Duke(false, graphicInterface);
+            new Duke(false, graphicInterface);
             stage.setScene(scene);
-            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
