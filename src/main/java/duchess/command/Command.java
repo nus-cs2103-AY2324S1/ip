@@ -20,6 +20,12 @@ public abstract class Command implements Executable {
                 return new DeleteTaskCommand();
             case SEARCH:
                 return new SearchTaskCommand();
+            case TODO:
+                return new AddToDoCommand();
+            case DEADLINE:
+                return new AddDeadlineCommand();
+            case EVENT:
+                return new AddEventCommand();
         }
         return null;
     }

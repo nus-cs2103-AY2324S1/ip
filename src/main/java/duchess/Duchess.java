@@ -43,28 +43,6 @@ public class Duchess {
     }
 
     /**
-     * Adds a new Event task with the specified title.
-     *
-     * @param event - the Event object to be added
-     * @return    Duchess' response to the command.
-     */
-    private String addTask(Task task) {
-        String response = "";
-
-        assert task != null : "Task is null";
-
-        this.storedTasks.addTask(task);
-
-        response += Ui.duchessFormat("Added successfully!! d(*⌒▽⌒*)b");
-        response += Ui.duchessFormat(String.format("%d: %s", this.storedTasks.indexOf(task) + 1, task.toString()));
-        response += Ui.duchessFormat("");
-        response += Ui.duchessFormat(String.format("Now you have %d task(s)!! ヽ(´▽`)/", this.storedTasks.size()));
-
-        this.executeCallbackHandler(response);
-        return response;
-    }
-
-    /**
      * Tags a task.
      *
      * @param index - the index of the task to be tagged.
@@ -172,52 +150,25 @@ public class Duchess {
 
         // Check if this command is a ToDo command.
         if (Parser.isToDoCommand(userInput)) {
-            try {
-                ToDo todo = Parser.parseToDoCommand(userInput);
-                this.addTask(todo);
-            } catch (DuchessException e) {
-                String response = "";
-
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("todo [name]");
-
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.TODO);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 
         // Check if this command is a Deadline command.
         if (Parser.isDeadlineCommand(userInput)) {
-            try {
-                Deadline deadline = Parser.parseDeadlineCommand(userInput);
-                this.addTask(deadline);
-            } catch (DuchessException e) {
-                String response = "";
-
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("deadline [name] /by [year-month-date]");
-
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.DEADLINE);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 
         // Check if this command is an Event command.
         if (Parser.isEventCommand(userInput)) {
-            try {
-                Event event = Parser.parseEventCommand(userInput);
-                this.addTask(event);
-            } catch (DuchessException e) {
-                String response = "";
-
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("event [name] /from [time] /to [time]");
-
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.EVENT);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 

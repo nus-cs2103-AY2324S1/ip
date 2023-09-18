@@ -2,7 +2,7 @@ package duchess;
 
 import java.util.ArrayList;
 
-class ToDo extends Task {
+public class ToDo extends Task {
 
     /**
      * Creates a new ToDo instance with the provided name and status.

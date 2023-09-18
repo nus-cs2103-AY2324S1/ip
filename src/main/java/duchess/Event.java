@@ -2,7 +2,7 @@ package duchess;
 
 import java.util.ArrayList;
 
-class Event extends Task {
+public class Event extends Task {
     private String startTime;
     private String endTime;
 

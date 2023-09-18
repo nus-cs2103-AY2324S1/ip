@@ -8,5 +8,8 @@ public enum CommandType {
     MARK,
     UNMARK,
     DELETE,
-    SEARCH
+    SEARCH,
+    TODO,
+    DEADLINE,
+    EVENT
 }

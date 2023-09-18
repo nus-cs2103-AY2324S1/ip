@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * A deadline is a Task but with a deadline.
  */
-class Deadline extends Task {
+public class Deadline extends Task {
     private LocalDate deadline;
 
     /**
