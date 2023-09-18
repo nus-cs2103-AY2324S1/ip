@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -18,7 +18,7 @@ import java.io.IOException;
  * This control represents a text window consisting of a scroll pane, user input text field,
  * a button to input text, and a dialog box.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends GridPane {
     private final Image userImage = new Image(this.getClass()
             .getResourceAsStream("/images/DefaultUserProfilePic.jpg"));
     private final Image bobImage = new Image(this.getClass()
