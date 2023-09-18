@@ -82,6 +82,7 @@ public class Parser {
             output = "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
         storage.updateFile(tasks, shouldUpdateUndoTxtFile);
+        ToDo deadline = ToDo.newToDo("asd");
         return output;
     }
 }
