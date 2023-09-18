@@ -22,7 +22,7 @@ public class MemeCommand extends Command {
                 "\r\n" + //
                 "There are several reasons I may deem a comment to be unworthy of positive or neutral karma. These include, but are not limited to:\r\n" + //
                 "\r\n" + //
-                "Rudeness towards other Redditors, • Spreading incorrect information, • Sarcasm not correctly flagged with a /s.\r\n" + //
+                "Rudeness towards other Redditors, Spreading incorrect information, Sarcasm not correctly flagged with a /s.\r\n" + //
                 "\r\n" + //
                 "## Am I banned from the Reddit?\r\n" + //
                 "\r\n" + //
