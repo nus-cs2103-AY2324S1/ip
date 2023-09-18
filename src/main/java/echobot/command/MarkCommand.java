@@ -34,6 +34,7 @@ public class MarkCommand extends Command<Task> {
             responseText = "Nice! I've marked this task as done:\n";
             responseText += "[" + task.getStatusIcon() + "] " + task.getDescription();
 
+            // Use type casting for specific task types to access additional information
             if (task instanceof Event) {
                 responseText += " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")";
             } else if (task instanceof Deadline) {
@@ -46,6 +47,7 @@ public class MarkCommand extends Command<Task> {
 
         return responseText;
     }
+
     public String getResponse() {
         return responseText;
     }

@@ -184,8 +184,8 @@ public class EchoBot extends Application {
 
         Duration delay = Duration.seconds(1);
         KeyFrame keyFrame = new KeyFrame(delay, event -> {
-            Platform.exit();  // Close the application after a 1-second delay
-            System.exit(0);  // This is necessary to properly terminate the JavaFX application
+            Platform.exit();
+            System.exit(0);
         });
 
         Timeline timeline = new Timeline(keyFrame);
