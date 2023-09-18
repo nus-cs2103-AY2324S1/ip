@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import puke.command.ErrorCommand;
 import puke.Puke;
 
 /**
@@ -35,7 +36,7 @@ public class MainWindow extends AnchorPane {
         assert (userImage != null);
         assert (pukeImage != null);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.startup(pukeImage));
+        dialogContainer.getChildren().add(PukeDialogBox.startup(pukeImage));
     }
 
     public void setPuke(Puke p) {
@@ -50,10 +51,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = puke.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPukeDialog(response, pukeImage)
-        );
+        dialogContainer.getChildren().add(UserDialogBox.getUserDialog(input, userImage));
+        if (response.equals(ErrorCommand.getErrorMessage())) {
+            dialogContainer.getChildren().add(ErrorDialogBox.getErrorDialog(pukeImage));
+        } else {
+            dialogContainer.getChildren().add(PukeDialogBox.getPukeDialog(response, pukeImage));
+        }
         userInput.clear();
     }
 }

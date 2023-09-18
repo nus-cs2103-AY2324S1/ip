@@ -22,6 +22,13 @@ public class ErrorCommand extends Command {
     }
 
     /**
+     * Returns the Error Message
+     * @return the Error Message
+     */
+    public static String getErrorMessage() {
+        return ERROR_MESSAGE;
+    }
+    /**
      * Returns the boolean representing whether another Object is an instance of an ErrorCommand.
      * Used in testing.
      *
