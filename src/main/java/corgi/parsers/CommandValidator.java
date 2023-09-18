@@ -32,8 +32,9 @@ public class CommandValidator {
                 continue;
             }
 
+            isValid = false;
+
             if (numOfArg == 0) {
-                isValid = false;
                 errorMsg.add("Missing argument " + "\"" + argument + "\" !");
             } else {
                 errorMsg.add("Invalid number of argument " + "\"" + argument + "\" !");
