@@ -1,0 +1,3 @@
+Citation: Images Portrait_User.png and Portrait_Bot.png are taken from the following links:
+https://se-education.org/guides/tutorials/images/javafx/DaUser.png    (Portrait_User.png)
+https://se-education.org/guides/tutorials/images/javafx/DaDuke.png    (Portrait_Bot.png)
