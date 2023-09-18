@@ -1,4 +1,7 @@
-package duke;
+package duke.parser;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidInputExpression;
 
 /**
  * Class to parse the input

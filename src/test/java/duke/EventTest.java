@@ -2,6 +2,11 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidInputExpression;
+import duke.parser.Parser;
+import duke.tasks.Event;
+import duke.util.TaskList;
 import org.junit.jupiter.api.Test;
 
 public class EventTest {

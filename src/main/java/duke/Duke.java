@@ -1,5 +1,12 @@
 package duke;
 
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.ui.Ui;
+import duke.util.TaskList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -30,7 +37,7 @@ public class Duke {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    String[] getResponse(String input) {
+    public String[] getResponse(String input) {
         if (input.equals("bye")) {
             return new String[]{ui.exit(), "nonError"};
         }

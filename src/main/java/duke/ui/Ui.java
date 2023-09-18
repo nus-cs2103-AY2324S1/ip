@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 /**
  * Class to take care of UI

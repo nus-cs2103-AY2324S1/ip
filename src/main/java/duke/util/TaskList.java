@@ -1,4 +1,11 @@
-package duke;
+package duke.util;
+
+import duke.tasks.Event;
+import duke.TaskType;
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -81,7 +88,7 @@ public class TaskList {
             throw new DukeException("SUI, Oh no! No tasks for now! Add more tasks :)\n");
         }
 
-        res.append("SUI, Here are the tasks in your tasks:\n");
+        res.append("SUI, Here are the "+ tasks.size() + " tasks in your tasklist:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             res.append(i + 1).append(".")
@@ -240,10 +247,10 @@ public class TaskList {
     }
 
     /**
-     * Adds a duke.ToDo task to the task tasks based on the provided input.
+     * Adds a duke.tasks.ToDo task to the task tasks based on the provided input.
      *
      * @param input The user input containing the task description.
-     * @return A message indicating the success of adding the duke.ToDo task.
+     * @return A message indicating the success of adding the duke.tasks.ToDo task.
      * @throws DukeException If there's an issue with the input or task description.
      */
     public String handleTodoTask(String input) throws DukeException, IOException {
@@ -272,10 +279,10 @@ public class TaskList {
     }
 
     /**
-     * Adds a duke.Deadline task to the task tasks based on the provided input.
+     * Adds a duke.tasks.Deadline task to the task tasks based on the provided input.
      *
      * @param input The user input containing the task description and deadline.
-     * @return A message indicating the success of adding the duke.Deadline task.
+     * @return A message indicating the success of adding the duke.tasks.Deadline task.
      * @throws DukeException If there's an issue with the input, task description, or deadline.
      */
     public String handleDeadlineTask(String input, String from) throws DukeException, IOException {
@@ -373,9 +380,9 @@ public class TaskList {
         return new String[]{task, byDate, endTime};
     }
     /**
-     * Adds an duke.Event task to the task tasks based on the provided input.
+     * Adds an duke.tasks.Event task to the task tasks based on the provided input.
      * @param input The user input containing the task description and event timings.
-     * @return A message indicating the success of adding the duke.Event task.
+     * @return A message indicating the success of adding the duke.tasks.Event task.
      * @throws DukeException If there's an issue with the input, task description, or event timings.
      */
     public String handleEventTask(String input, String from) throws DukeException, IOException {

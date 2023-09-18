@@ -1,28 +1,36 @@
-package duke;
+package duke.tasks;
+
+import duke.TaskType;
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Class to maintain the deadline tasks entered by user.
+ * Class to handle event task
  */
-public class Deadline extends Task {
-    protected LocalDate deadline;
-
+public class Event extends Task {
+    protected LocalDate start;
+    protected LocalDate end;
+    protected LocalTime startTime;
     protected LocalTime endTime;
 
     /**
-     * Constructor for Deadline class.
-     * @param list List to add
-     * @param deadline deadline
-     * @param endTime end time of deadline task
-     * @param type enum type
+     * Constructor
+     * @param list list of input
+     * @param startDate start date
+     * @param endDate end date
+     * @param startTime start time
+     * @param endTime end time
+     * @param type
      */
-
-    public Deadline(String list, String deadline, String endTime, TaskType type) {
+    public Event(String list, String startDate, String endDate, String startTime, String endTime, TaskType type) {
         super(list, type);
-        this.deadline = LocalDate.parse(deadline);
+        this.start = LocalDate.parse(startDate);
+        this.end = LocalDate.parse(endDate);
+        this.startTime = LocalTime.parse(startTime);
         this.endTime = LocalTime.parse(endTime);
     }
 
@@ -53,7 +61,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return super.toString()
-                + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + "(from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + " " + this.startTime + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                 + " " + this.endTime + ")";
     }
 

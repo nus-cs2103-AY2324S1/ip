@@ -1,4 +1,4 @@
-package duke;
+package duke.exceptions;
 
 /**
  * Custom class to handle invalid inout exception

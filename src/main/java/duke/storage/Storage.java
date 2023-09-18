@@ -1,4 +1,6 @@
-package duke;
+package duke.storage;
+
+import duke.tasks.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +22,7 @@ public class Storage {
     /**
      * Reads tasks from a file and processes them based on their types.
      * The tasks are parsed and passed to respective handler methods.
-     * Handles Todo, duke.Deadline, and duke.Event tasks stored in the file.
+     * Handles Todo, duke.tasks.Deadline, and duke.tasks.Event tasks stored in the file.
      */
     public String handleReadAllTasksFromFile() throws FileNotFoundException {
 

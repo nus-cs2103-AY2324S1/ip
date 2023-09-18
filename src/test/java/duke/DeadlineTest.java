@@ -2,6 +2,9 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.util.TaskList;
 import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
