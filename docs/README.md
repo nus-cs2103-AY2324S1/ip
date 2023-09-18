@@ -1,5 +1,7 @@
 # Pong User Guide
 
+![Screenshot of Pong chatbot.](Ui.png)
+
 ## Features 
 
 ### List tasks (`list`)
