@@ -56,7 +56,11 @@ public abstract class Command {
     /**
      * Executes the Command object based on the type of Command object.
      *
+     * @param tasks   The TaskList object that contains the list of tasks.
+     * @param ui      The Ui object that deals with user input and output.
+     * @param storage The Storage object that deals with saving tasks to the file and loading tasks from the file.
      * @return The response to be displayed to the user.
+     * @throws Exception If the command is invalid.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 }

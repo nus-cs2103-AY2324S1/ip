@@ -38,6 +38,7 @@ public class Ui {
     /**
      * Prints message if task is already done.
      *
+     * @return The error message for already done task.
      * @throws WrongMarkException If the task is already done.
      */
     public String showAlreadyDone() throws WrongMarkException {
@@ -56,6 +57,7 @@ public class Ui {
     /**
      * Prints message if task is already undone.
      *
+     * @return The error message for already undone task.
      * @throws WrongMarkException If the task is already undone.
      */
     public String showAlreadyUndone() throws WrongMarkException {

@@ -20,6 +20,7 @@ public class TaskList extends ArrayList<Task> {
      * Creates a TaskList object from a file.
      *
      * @param tasks The file containing the tasks.
+     * @throws IncompleteInputException If the input is incomplete.
      */
     public TaskList(Scanner tasks) throws IncompleteInputException {
         super();

@@ -242,6 +242,7 @@ public class Task {
      * Checks the date format and returns the date in LocalDate format.
      *
      * @param date The date to be parsed.
+     * @return The date in LocalDate format.
      */
     public static LocalDate parseDate(String date) {
         for (DatesAndTimesFormatter formatter : DatesAndTimesFormatter.values()) {

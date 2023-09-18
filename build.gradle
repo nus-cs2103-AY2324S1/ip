@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.gui.Launcher")
+    mainClass.set("sillybot.gui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "sillybot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
