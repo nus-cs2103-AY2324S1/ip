@@ -19,7 +19,7 @@ public final class Parser {
      * @throws IllegalArugmentException If the line is empty.
      */
     public static Command parseCommand(String line) {
-        assert line.isEmpty() : "Empty line passed";
+        assert !line.isEmpty() : "Empty line passed";
 
         String[] componentStrings = line.split("\\/");
         Component[] components = new Component[componentStrings.length];
@@ -35,65 +35,65 @@ public final class Parser {
         }
 
         switch (name) {
-        case "list": {
-            return new ListCommand();
-        }
-        case "clean": {
-            return new CleanCommand();
-        }
-        case "todo": {
-            if (argument.isEmpty()) {
-                throw new ParseException(line, "The description of a todo cannot be empty.");
+            case "list": {
+                return new ListCommand();
             }
-            return new CreateTodoCommand(argument);
-        }
-        case "deadline": {
-            if (argument.isEmpty()) {
-                throw new ParseException(line, "The description of a deadline cannot be empty.");
+            case "clean": {
+                return new CleanCommand();
             }
-            DateTime by = parseDateTimeArgument(getFlagValue(line, flags, "by"));
-            return new CreateDeadlineCommand(argument, by);
-        }
-        case "event": {
-            if (argument.isEmpty()) {
-                throw new ParseException(line, "The description of an event cannot be empty.");
+            case "todo": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "The description of a todo cannot be empty.");
+                }
+                return new CreateTodoCommand(argument);
             }
-            DateTime from = parseDateTimeArgument(getFlagValue(line, flags, "from"));
-            DateTime to = parseDateTimeArgument(getFlagValue(line, flags, "to"));
-            return new CreateEventCommand(argument, from, to);
-        }
-        case "mark": {
-            if (argument.isEmpty()) {
-                throw new ParseException(line, "A task identifier must be provided.");
+            case "deadline": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "The description of a deadline cannot be empty.");
+                }
+                DateTime by = parseDateTimeArgument(getFlagValue(line, flags, "by"));
+                return new CreateDeadlineCommand(argument, by);
             }
-            int taskId = parseIntArgument(argument);
-            return new MarkCommand(taskId);
-        }
-        case "unmark": {
-            if (argument.isEmpty()) {
-                throw new ParseException(line, "A task identifier must be provided.");
+            case "event": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "The description of an event cannot be empty.");
+                }
+                DateTime from = parseDateTimeArgument(getFlagValue(line, flags, "from"));
+                DateTime to = parseDateTimeArgument(getFlagValue(line, flags, "to"));
+                return new CreateEventCommand(argument, from, to);
             }
-            int taskId = parseIntArgument(argument);
-            return new UnmarkCommand(taskId);
-        }
-        case "delete": {
-            if (argument.isEmpty()) {
-                throw new ParseException(line, "A task identifier must be provided.");
+            case "mark": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A task identifier must be provided.");
+                }
+                int taskId = parseIntArgument(argument);
+                return new MarkCommand(taskId);
             }
-            int taskId = parseIntArgument(argument);
-            return new DeleteCommand(taskId);
-        }
-        case "find": {
-            if (argument.isEmpty()) {
-                throw new ParseException(line, "A search query must be provided.");
+            case "unmark": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A task identifier must be provided.");
+                }
+                int taskId = parseIntArgument(argument);
+                return new UnmarkCommand(taskId);
             }
-            return new FindCommand(argument);
-        }
-        case "bye": {
-            return new ByeCommand();
-        }
-        default:
-            throw new ParseException(line, "I'm sorry, but I don't know what that means :-(");
+            case "delete": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A task identifier must be provided.");
+                }
+                int taskId = parseIntArgument(argument);
+                return new DeleteCommand(taskId);
+            }
+            case "find": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A search query must be provided.");
+                }
+                return new FindCommand(argument);
+            }
+            case "bye": {
+                return new ByeCommand();
+            }
+            default:
+                throw new ParseException(line, "I'm sorry, but I don't know what that means :-(");
         }
 
     }
@@ -118,7 +118,7 @@ public final class Parser {
     }
 
     private static Component parseComponent(String component) {
-        assert component.isEmpty() : "Empty string passed";
+        assert !component.isEmpty() : "Empty string passed";
 
         String trimmedComponent = component.trim();
         String[] components = trimmedComponent.split("\\s+");

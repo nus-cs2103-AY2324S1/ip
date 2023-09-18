@@ -47,17 +47,7 @@ public class Gui extends Ui {
     }
 
     public void run() {
-        historyContainer = new VBox();
-        historyContainer.setFillWidth(true);
-
-        historyScrollContainer = new ScrollPane();
-        historyScrollContainer.setContent(historyContainer);
-        historyScrollContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        historyScrollContainer.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-        historyScrollContainer.setHbarPolicy(ScrollBarPolicy.NEVER);
-        historyScrollContainer.setFitToWidth(true);
-        historyScrollContainer.vvalueProperty().bind(historyContainer.heightProperty());
-        VBox.setVgrow(historyScrollContainer, Priority.ALWAYS);
+        buildHistoryContainer();
 
         inputTextField = new TextField();
         inputTextField.setOnKeyPressed((event) -> {
@@ -85,6 +75,20 @@ public class Gui extends Ui {
         stage.setMinWidth(400);
         stage.setMinHeight(600);
         stage.show();
+    }
+
+    private void buildHistoryContainer() {
+        historyContainer = new VBox();
+        historyContainer.setFillWidth(true);
+
+        historyScrollContainer = new ScrollPane();
+        historyScrollContainer.setContent(historyContainer);
+        historyScrollContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        historyScrollContainer.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        historyScrollContainer.setHbarPolicy(ScrollBarPolicy.NEVER);
+        historyScrollContainer.setFitToWidth(true);
+        historyScrollContainer.vvalueProperty().bind(historyContainer.heightProperty());
+        VBox.setVgrow(historyScrollContainer, Priority.ALWAYS);
     }
 
     private void onSendMessage() {

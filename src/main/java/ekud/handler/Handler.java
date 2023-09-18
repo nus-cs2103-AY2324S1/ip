@@ -43,76 +43,101 @@ public final class Handler {
             return false;
         } else if (command instanceof ListCommand) {
             ui.showTaskList(state.getTaskList());
-            return true;
         } else if (command instanceof CleanCommand) {
-            state.getTaskList().deduplicate();
-            TaskList taskList = state.getTaskList();
-            ui.showTasksCleaned();
-            ui.showTaskCount(taskList);
-            return true;
+            handleClean(state, command, ui);
         } else if (command instanceof CreateTodoCommand) {
-            CreateTodoCommand createTodoCommand = (CreateTodoCommand) command;
-            TaskList taskList = state.getTaskList();
-            Task task = new TodoTask(createTodoCommand.getTitle(), false);
-            taskList.addTask(task);
-            ui.showTaskAdded(task);
-            ui.showTaskCount(taskList);
-            return true;
+            handleCreateTodo(state, command, ui);
         } else if (command instanceof CreateDeadlineCommand) {
-            CreateDeadlineCommand createDeadlineCommand = (CreateDeadlineCommand) command;
-            TaskList taskList = state.getTaskList();
-            Task task = new DeadlineTask(createDeadlineCommand.getTitle(), false, createDeadlineCommand.getBy());
-            taskList.addTask(task);
-            ui.showTaskAdded(task);
-            ui.showTaskCount(taskList);
-            return true;
+            handleCreateDeadline(state, command, ui);
         } else if (command instanceof CreateEventCommand) {
-            CreateEventCommand createEventCommand = (CreateEventCommand) command;
-            TaskList taskList = state.getTaskList();
-            Task task = new EventTask(createEventCommand.getTitle(), false, createEventCommand.getFrom(),
-                    createEventCommand.getTo());
-            taskList.addTask(task);
-            ui.showTaskAdded(task);
-            ui.showTaskCount(taskList);
-            return true;
+            handleCreateEvent(state, command, ui);
         } else if (command instanceof MarkCommand) {
-            MarkCommand markCommand = (MarkCommand) command;
-            TaskList taskList = state.getTaskList();
-            Task task = taskList.getTask(markCommand.getTaskId());
-            if (task == null) {
-                throw new ArgumentException("Invalid task identifier.");
-            }
-            task.markAsDone();
-            ui.showTaskMarked(task);
-            return true;
+            handleMark(state, command, ui);
         } else if (command instanceof UnmarkCommand) {
-            UnmarkCommand unmarkCommand = (UnmarkCommand) command;
-            TaskList taskList = state.getTaskList();
-            Task task = taskList.getTask(unmarkCommand.getTaskId());
-            if (task == null) {
-                throw new ArgumentException("Invalid task identifier.");
-            }
-            task.markAsNotDone();
-            ui.showTaskUnmarked(task);
-            return true;
+            handleUnmark(state, command, ui);
         } else if (command instanceof DeleteCommand) {
-            DeleteCommand deleteCommand = (DeleteCommand) command;
-            TaskList taskList = state.getTaskList();
-            Task task = taskList.deleteTask(deleteCommand.getTaskId());
-            if (task == null) {
-                throw new ArgumentException("Invalid task identifier.");
-            }
-            ui.showTaskRemoved(task);
-            ui.showTaskCount(taskList);
-            return true;
+            handleDelete(state, command, ui);
         } else if (command instanceof FindCommand) {
-            FindCommand findCommand = (FindCommand) command;
-            TaskList taskList = state.getTaskList();
-            List<Task> foundTasks = taskList.findTasks(findCommand.getQuery().trim());
-            ui.showFoundTasks(foundTasks);
-            return true;
+            handleFind(state, command, ui);
         } else {
             throw new UnsupportedOperationException("Invalid command!");
         }
+
+        return true;
+    }
+
+    private void handleClean(State state, Command command, Ui ui) {
+        state.getTaskList().deduplicate();
+        TaskList taskList = state.getTaskList();
+        ui.showTasksCleaned();
+        ui.showTaskCount(taskList);
+    }
+
+    private void handleCreateTodo(State state, Command command, Ui ui) {
+        CreateTodoCommand createTodoCommand = (CreateTodoCommand) command;
+        TaskList taskList = state.getTaskList();
+        Task task = new TodoTask(createTodoCommand.getTitle(), false);
+        taskList.addTask(task);
+        ui.showTaskAdded(task);
+        ui.showTaskCount(taskList);
+    }
+
+    private void handleCreateDeadline(State state, Command command, Ui ui) {
+        CreateDeadlineCommand createDeadlineCommand = (CreateDeadlineCommand) command;
+        TaskList taskList = state.getTaskList();
+        Task task = new DeadlineTask(createDeadlineCommand.getTitle(), false, createDeadlineCommand.getBy());
+        taskList.addTask(task);
+        ui.showTaskAdded(task);
+        ui.showTaskCount(taskList);
+    }
+
+    private void handleCreateEvent(State state, Command command, Ui ui) {
+        CreateEventCommand createEventCommand = (CreateEventCommand) command;
+        TaskList taskList = state.getTaskList();
+        Task task = new EventTask(createEventCommand.getTitle(), false, createEventCommand.getFrom(),
+                createEventCommand.getTo());
+        taskList.addTask(task);
+        ui.showTaskAdded(task);
+        ui.showTaskCount(taskList);
+    }
+
+    private void handleMark(State state, Command command, Ui ui) {
+        MarkCommand markCommand = (MarkCommand) command;
+        TaskList taskList = state.getTaskList();
+        Task task = taskList.getTask(markCommand.getTaskId());
+        if (task == null) {
+            throw new ArgumentException("Invalid task identifier.");
+        }
+        task.markAsDone();
+        ui.showTaskMarked(task);
+    }
+
+    private void handleUnmark(State state, Command command, Ui ui) {
+        UnmarkCommand unmarkCommand = (UnmarkCommand) command;
+        TaskList taskList = state.getTaskList();
+        Task task = taskList.getTask(unmarkCommand.getTaskId());
+        if (task == null) {
+            throw new ArgumentException("Invalid task identifier.");
+        }
+        task.markAsNotDone();
+        ui.showTaskUnmarked(task);
+    }
+
+    private void handleDelete(State state, Command command, Ui ui) {
+        DeleteCommand deleteCommand = (DeleteCommand) command;
+        TaskList taskList = state.getTaskList();
+        Task task = taskList.deleteTask(deleteCommand.getTaskId());
+        if (task == null) {
+            throw new ArgumentException("Invalid task identifier.");
+        }
+        ui.showTaskRemoved(task);
+        ui.showTaskCount(taskList);
+    }
+
+    private void handleFind(State state, Command command, Ui ui) {
+        FindCommand findCommand = (FindCommand) command;
+        TaskList taskList = state.getTaskList();
+        List<Task> foundTasks = taskList.findTasks(findCommand.getQuery().trim());
+        ui.showFoundTasks(foundTasks);
     }
 }
