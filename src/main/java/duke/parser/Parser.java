@@ -4,6 +4,7 @@ import duke.command.Command;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidDeadlineException;
 import duke.exception.InvalidEventException;
+import duke.exception.InvalidTimedTaskException;
 import duke.exception.InvalidToDoException;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -36,6 +37,8 @@ public class Parser {
                 return Command.addToDo(message, ui, tasks, storage);
             case "deadline":
                 return Command.addDeadline(message, ui, tasks, storage);
+            case "timed":
+                return Command.addTimedTask(message, ui, tasks, storage);
             case "event":
                 return Command.addEvent(message, ui, tasks, storage);
             case "delete":
@@ -54,6 +57,8 @@ public class Parser {
         } catch (InvalidDeadlineException e) {
             return ui.printException(e);
         } catch (InvalidCommandException e) {
+            return ui.printException(e);
+        } catch (InvalidTimedTaskException e) {
             return ui.printException(e);
         }
     }

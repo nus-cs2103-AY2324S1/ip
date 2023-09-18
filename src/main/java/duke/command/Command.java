@@ -3,12 +3,14 @@ package duke.command;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidDeadlineException;
 import duke.exception.InvalidEventException;
+import duke.exception.InvalidTimedTaskException;
 import duke.exception.InvalidToDoException;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.TimedTask;
 import duke.task.ToDo;
 import duke.ui.Ui;
 
@@ -152,6 +154,24 @@ public class Command {
         return ui.printAddTask(newTask, tasks.getSize());
     }
 
+    /**
+     * Adds timed task
+     *
+     * @param message the command message
+     * @param ui the ui of the program
+     * @param tasks the list of tasks
+     * @param storage the storage of the program
+     * @return the message of the add timed task command
+     * @throws InvalidTimedTaskException when the timed task command is invalid
+     */
+    public static String addTimedTask(String message, Ui ui, TaskList tasks, Storage storage)
+            throws InvalidTimedTaskException {
+        assert message.split(" ")[0].equalsIgnoreCase("timed") : "First word of message must be timed";
+        Task newTask = TimedTask.create(message);
+        tasks.addTask(newTask);
+        storage.addTask(newTask);
+        return ui.printAddTask(newTask, tasks.getSize());
+    }
     /**
      * Deletes task
      *
