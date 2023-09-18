@@ -83,4 +83,9 @@ public class Deadline extends Task {
 
         return task;
     }
+
+    public void updateDueDate(String newDueDate) {
+        this.dueDate = newDueDate;
+    }
+
 }

@@ -100,4 +100,12 @@ public class Event extends Task {
 
         return task;
     }
+
+    public void updateStartDate(String newStartDate) {
+        this.startDate = newStartDate;
+    }
+
+    public void updateDueDate(String newDueDate) {
+        this.dueDate = newDueDate;
+    }
 }

@@ -62,4 +62,8 @@ public abstract class Task {
     public boolean findKeyWord(String keyWord) {
         return this.taskName.contains(keyWord);
     }
+
+    public void updateTaskName(String newName) {
+        this.taskName = newName;
+    }
 }
