@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
 	 */
 	private TaskList getTasks() {
 		try {
-			return new TaskList(storage.loadFiles());
+			return storage.loadFiles();
 		} catch (IOException e) {
 			ui.showLoadingError(e);
 			return new TaskList();

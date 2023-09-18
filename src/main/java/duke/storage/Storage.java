@@ -1,8 +1,10 @@
 package duke.storage;
+import duke.task.TaskList;
 import duke.task.Task;
 import duke.task.ToDo;
 import duke.task.DeadLine;
 import duke.task.Event;
+
 
 import java.io.BufferedReader;
 import java.io.FileWriter;
@@ -19,8 +21,8 @@ public class Storage {
 	private String filePathMain;
 	private String filePathArchive;
 
-	private ArrayList<Task> taskList;
-	private ArrayList<Task> archiveList;
+	private TaskList taskList;
+	private TaskList archiveList;
 
 	/**
 	 * Represent file storage for users tasks
@@ -30,8 +32,10 @@ public class Storage {
 	public Storage(String filePathMain, String filePathArchive) {
 		this.filePathMain = filePathMain;
 		this.filePathArchive = filePathArchive;
-		this.taskList = new ArrayList<Task>(100);
-		this.archiveList = new ArrayList<>(100);
+		this.taskList = new TaskList();
+		this.archiveList = new TaskList();
+//		this.taskList = new ArrayList<Task>(100);
+//		this.archiveList = new ArrayList<>(100);
 	}
 
 	/**
@@ -41,16 +45,16 @@ public class Storage {
 	 * @return String representing remaining task
 	 */
 	public String getMainRemaining(boolean isMain) {
-		return isMain ? Integer.toString(taskList.size() - 1) : Integer.toString(archiveList.size() - 1);
+		return isMain ? Integer.toString(taskList.getRemaining()) : Integer.toString(archiveList.getRemaining());
 	}
-	public ArrayList<Task> getArchiveList() {
+	public TaskList getArchiveList() {
 		return this.archiveList;
 	}
 	/**
 	 * Initialise new fileWriter without append to delete its contents
 	 */
 	public void clearFile() {
-		this.taskList = new ArrayList<>(100);
+		taskList.clearTasks();
 		try {
 			FileWriter fw = new FileWriter(filePathMain);
 			fw.close();
@@ -66,7 +70,7 @@ public class Storage {
 	 * @param task Thing to be done.
 	 * @param isMain Whether file access is Main or Archive file.
 	 */
-	public void addToFileMain(Task task, boolean isMain) {
+	public void addToFileMain(Task task, TaskList taskList, boolean isMain) {
 		String filePathReference = isMain ? filePathMain : filePathArchive;
 		if (isMain) {
 			taskList.add(task);
@@ -91,7 +95,7 @@ public class Storage {
 	 * @return ArrayList of Task.
 	 * @throws IOException If unable to read lines in text file.
 	 */
-	public ArrayList<Task> loadFiles() throws IOException {
+	public TaskList loadFiles() throws IOException {
 		try (BufferedReader in = new BufferedReader(new FileReader(filePathMain))) {
 			StringBuilder br = new StringBuilder();
 			String fileLine;
@@ -184,12 +188,12 @@ public class Storage {
 	 */
 	public Task deleteFromMainFile(int i, boolean isMain) {
 		String filePathReference = isMain ? filePathMain : filePathArchive;
-		ArrayList<Task> taskListReference = isMain ? taskList : archiveList;
+		TaskList taskListReference = isMain ? taskList : archiveList;
 		Task taskDeleted = taskListReference.remove(i);
 
 		try {
 			FileWriter fw = new FileWriter(filePathReference, true);
-			for (Task task: taskList) {
+			for (Task task: taskList.getTaskList()) {
 				fw.write(task.writeToFile());
 				fw.write("\n");
 			}
@@ -202,11 +206,11 @@ public class Storage {
 
 	public void updateMainStorage(boolean isMain) {
 		String filePathReference = isMain ? filePathMain : filePathArchive;
-		ArrayList<Task> taskListReference = isMain ? taskList : archiveList;
+		TaskList taskListReference = isMain ? taskList : archiveList;
 		try {
 			FileWriter fw = new FileWriter(filePathReference);
 			StringBuilder br = new StringBuilder();
-			for (Task task: taskListReference) {
+			for (Task task: taskListReference.getTaskList()) {
 				System.out.println(task.writeToFile());
 				br.append(task.writeToFile()).append("\n");
 			}

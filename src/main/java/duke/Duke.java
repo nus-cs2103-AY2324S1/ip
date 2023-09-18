@@ -32,7 +32,7 @@ public class Duke {
         this.ui = new Ui("Duke");
         storage = new Storage(filePathMain, filePathArchive);
         try {
-            tasks = new TaskList(storage.loadFiles());
+            tasks = storage.loadFiles();
         } catch (IOException e) {
             ui.showLoadingError(e);
             this.tasks = new TaskList();
@@ -48,13 +48,10 @@ public class Duke {
         while (ui.hasNextLine()) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
-            } finally {
-                ui.showLine();
             }
         }
     }
@@ -63,7 +60,6 @@ public class Duke {
      * @param args Main method to run ChatBot.
      */
     public static void main(String[] args) {
-		// filepath was here
         new Duke().run();
     }
 
@@ -77,15 +73,13 @@ public class Duke {
         try {
                 br.append(input);
                 br.append("\n");
-                br.append(ui.getLine());
                 Command c = Parser.parse(input);
                 br.append(c.execute(tasks, ui, storage));
                 return br.toString();
         } catch (DukeException e) {
             return e.getMessage();
-        } finally {
-            br.append(ui.getLine());
         }
+
 	}
 
 

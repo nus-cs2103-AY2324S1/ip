@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Ui {
 	private String name;
 	private final Scanner in;
-	private PrintStream out;
+	private final PrintStream out;
 	private static final String COMMENT_LINE_REGEX = "#.";
 
 	private static final String LOGO = " ____        _        \n"
@@ -21,13 +21,9 @@ public class Ui {
 			+ "| | | | | | | |/ / _ \\\n"
 			+ "| |_| | |_| |   <  __/\n"
 			+ "|____/ \\__,_|_|\\_\\___|\n";
-
-	private static final String DIVIDER = "_______________________________________________________\n";
-
-	// scannner takes in inputstream
-
 	/**
 	 * Handles user input and gives an output
+	 *
 	 * @param in input of user
 	 * @param out output to user
 	 */
@@ -36,11 +32,6 @@ public class Ui {
 		this.out = out;
 	}
 
-	/**
-	 * name of interface
-	 * @param name represents the Ui
-	 */
-
 	public Ui(String name) {
 		this(System.in, System.out);
 		this.name = name;
@@ -48,6 +39,7 @@ public class Ui {
 
 	/**
 	 * Check if there are more inputs
+	 *
 	 * @return a boolean check
 	 */
 	public boolean hasNextLine() {
@@ -56,9 +48,9 @@ public class Ui {
 
 
 	/**
-	 * checks if input is a comment
-	 * @param inputLine the input
-	 * @return boolean, whether input is comment or not
+	 * Checks if input is a comment.
+	 * @param inputLine the input.
+	 * @return boolean, whether input is comment or not.
 	 */
 	private boolean isCommentLine(String inputLine) {
 		return inputLine.trim().matches(COMMENT_LINE_REGEX);
@@ -74,12 +66,12 @@ public class Ui {
 	}
 
 	/**
-	 * Output to user prompting them for command
-	 * @return a String to be piped into GUI
+	 * Output to user prompting them for command.
+	 *
+	 * @return a String to be piped into GUI.
 	 */
 
 	public String readCommand() {
-		// has nextline then save it skip the comments
 		out.print("Enter your Command:");
 		String inputLine = in.nextLine();
 
@@ -92,20 +84,8 @@ public class Ui {
 	}
 
 	/**
-	 * Check if command is valid
-	 * @param inputLine the input
-	 * @return a message to the user whether command is valid or not
-	 */
-	public String parseCommand(String inputLine) {
-		if (shouldIgnore(inputLine)) {
-			return "Not a valid command";
-		}
-		String message = String.format("Command entered: %s", inputLine);
-		return message;
-	}
-
-	/**
-	 * outputs to user if unable to process file
+	 * Outputs to user if unable to process file
+	 *
 	 * @param e error message exception
 	 */
 	public void showLoadingError(Exception e) {
@@ -113,9 +93,6 @@ public class Ui {
 		System.out.println(e.getMessage());
 	}
 
-	/**
-	 * Ouputs to user a welcome message
-	 */
 	public void showWelcome() {
 		String greeting = String.format("____________________________________________________________\n" +
 				"Hello! I'm %s\n" +
@@ -126,8 +103,8 @@ public class Ui {
 	}
 
 	/**
-	 * Ouputs to user a good bye message
-	 * @return String representation of goodbye
+	 * Outputs to user a goodBye message.
+	 * @return String representation of goodbye.
 	 */
 	public String showGoodBye() {
 		String bye = "____________________________________________________________\n" +
@@ -137,10 +114,11 @@ public class Ui {
 	}
 
 	/**
-	 * Outputs to user a delete message
-	 * @param task the task to be done
-	 * @param remainingCount the remaining task after deletion
-	 * @return an Output to the user
+	 * Outputs to user a delete message.
+	 *
+	 * @param task the task to be done.
+	 * @param remainingCount the remaining task after deletion.
+	 * @return an Output to the user.
 	 */
 
 	public String showDelete(Task task, String remainingCount) {
@@ -153,10 +131,11 @@ public class Ui {
 	}
 
 	/**
-	 * Outputs to user when we add a task
-	 * @param task the task
-	 * @param taskCount Number of tasks
-	 * @return Output to user when we add the respective tasks
+	 * Outputs to user when we add a task.
+	 *
+	 * @param task the task.
+	 * @param taskCount Number of tasks.
+	 * @return Output to user when we add the respective tasks.
 	 */
 
 	public String showAddTask(Task task, String taskCount) {
@@ -168,24 +147,10 @@ public class Ui {
 		return echo;
 	}
 
-	/**
-	 * Prints a divider
-	 */
-
-	public void showLine() {
-		System.out.println(DIVIDER);
-	}
 
 	/**
-	 * @return String representation of divider
-	 */
-
-	public String getLine() {
-		return DIVIDER;
-	}
-
-	/**
-	 * returns String representation of finding a task
+	 * Returns String representation of finding a task
+	 *
 	 * @param br the StringBuilder containing String
 	 * @return String representation of finding a task
 	 */
@@ -193,11 +158,6 @@ public class Ui {
 		return br.toString();
 	}
 
-	/**
-	 * returns String representation of list
-	 * @param br StringBuilder
-	 * @return String representation of list
-	 */
 	public String showList(StringBuilder br) {
 		String echo = String.format("____________________________________________________________\n"
 				+ "Here are the task in your list:\n"
@@ -207,9 +167,10 @@ public class Ui {
 	}
 
 	/**
-	 * return String representation of marking a task
-	 * @param task the marked task
-	 * @return String representation of marking a task
+	 * Return String representation of marking a task.
+	 *
+	 * @param task the marked task.
+	 * @return String representation of marking a task.
 	 */
 
 	public String showMark(Task task) {
@@ -221,20 +182,22 @@ public class Ui {
 	}
 
 	/**
-	 * return String representation of unmarking a task
-	 * @param task the task which is unmarked
+	 * Return String representation of unMarking a task.
+	 *
+	 * @param task the task which is unmarked.
 	 */
-	public void showUnMark(Task task) {
+	public String showUnMark(Task task) {
 		String echo = String.format("____________________________________________________________\n" +
 				"Nice! I've marked this task as not done yet:\n" +
 				task.toString() + "\n" +
 				"____________________________________________________________");
-		System.out.println(echo);
+		return echo;
 	}
 
 	/**
-	 * show help guide for user
-	 * @return a string representing help guide
+	 * Shows help guide for user.
+	 *
+	 * @return a string representing help guide.
 	 */
 	public String showHelp() {
 		return "These are the commands that are permissible\n" +
@@ -252,19 +215,15 @@ public class Ui {
 				"archivedelete idx\n";
 	}
 
-	/**
-	 * show clear to user
-	 * @return string representing clear statement to user
-	 */
-
 	public String showClear() {
 		return "Now all tasks in your list have been cleared!";
 	}
 
 	/**
-	 * Display unArchive
-	 * @param task to be unArchived
-	 * @return String representation of unarchiving a task
+	 * Display unArchive.
+	 *
+	 * @param task to be unArchived.
+	 * @return String representation of unArchiving a task.
 	 */
 
 	public String showUnArchive(Task task) {
@@ -273,13 +232,11 @@ public class Ui {
 
 	/**
 	 * Display Archive
+	 *
 	 * @param task to be archived
 	 * @return String representation of unArchiving a task
 	 */
 	public String showArchive(Task task) {
 		return "Stored task into archive folder (archive) " + task.toString();
 	}
-
-
-
 }

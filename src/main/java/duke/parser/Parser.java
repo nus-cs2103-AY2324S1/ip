@@ -111,14 +111,15 @@ public class Parser {
 	 * @param fullCommand user input
 	 * @return Command to be executed
 	 */
-	public static Command getToDo(String fullCommand) {
+	public static ToDo getToDo(String fullCommand) {
 		StringBuilder description = new StringBuilder();
 		String[] descriptionWords = fullCommand.split(" ");
 		for (String s : Arrays.copyOfRange(descriptionWords, 1, descriptionWords.length)) {
 			description.append(s).append(" ");
 		}
 		description.deleteCharAt(description.length() - 1);
-		return new AddCommand(new ToDo(description.toString()));
+//		return new AddCommand(new ToDo(description.toString()));
+		return new ToDo(description.toString());
 	}
 
 	/**
@@ -134,11 +135,11 @@ public class Parser {
 		assert(command.length() <= 8) : "not a valid task command";
 		switch (command) {
 			case "todo":
-				return getToDo(taskPhrase);
+				return new AddCommand(getToDo(taskPhrase));
 			case "deadline":
-				return getDeadLine(taskPhrase);
+				return new AddCommand(getDeadLine(taskPhrase));
 			case "event":
-				return getEvent(taskPhrase);
+				return new AddCommand(getEvent(taskPhrase));
 			default: throw new DukeException("Not sure what task you are assigning!");
 		}
 	}
@@ -170,7 +171,7 @@ public class Parser {
 	 * @throws TimeFormatException if time format provided is not correct
 	 */
 
-	public static Command getDeadLine(String fullCommand) throws DukeException, TimeFormatException {
+	public static DeadLine getDeadLine(String fullCommand) throws DukeException, TimeFormatException {
 		String[] items = fullCommand.split("/");
 		String[] descriptionWords = items[0].split(" ");
 		String description = Parser.getDescription(items[0]);
@@ -188,7 +189,8 @@ public class Parser {
 		} else {
 			begin = TimeFormat.fullDayFormat(description, timePhrase);
 		}
-		return new AddCommand(new DeadLine(description, begin));
+		return new DeadLine(description, begin);
+//		return new AddCommand(new DeadLine(description, begin));
 	}
 
 	/**
@@ -219,7 +221,7 @@ public class Parser {
 	 * @throws DukeException if start is before end
 	 * @throws TimeFormatException if time format is invalid
 	 */
-	public static Command getEvent(String fullCommand) throws DukeException, TimeFormatException {
+	public static Event getEvent(String fullCommand) throws DukeException, TimeFormatException {
 		String[] items = fullCommand.split("/");
 		String description = Parser.getDescription(items[0]);
 		if (items.length != 3) {
@@ -245,7 +247,8 @@ public class Parser {
 		if (begin.isAfter(end)) {
 			throw new DukeException("Start is after end!");
 		}
-		return new AddCommand(new Event(description, begin, end));
+//		return new AddCommand(new Event(description, begin, end));
+		return new Event(description, begin, end);
 	}
 
 	/**

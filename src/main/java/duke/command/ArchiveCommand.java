@@ -30,7 +30,7 @@ public class ArchiveCommand extends Command{
 			try {
 				Task task = taskList.toArchiveFile(position);
 				storage.updateMainStorage(true);
-				storage.addToFileMain(task, false);
+				storage.addToFileMain(task, taskList, false);
 				System.out.println(ui.showArchive(task));
 				return ui.showArchive(task);
 			} catch (PositionException e) {

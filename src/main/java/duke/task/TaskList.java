@@ -128,10 +128,20 @@ public class TaskList {
 		return br;
 	}
 
-	/**
-	 * Clears taskList
-	 */
-	public void clearTaskList() {
-		taskList = new ArrayList<>(100);
+
+	public int getRemaining() {
+		return taskList.size() - 1;
+	}
+
+	public void clearTasks() {
+		this.taskList.clear();
+	}
+
+	public Task remove(int i) {
+		return this.taskList.remove(i);
+	}
+
+	public ArrayList<Task> getTaskList() {
+		return this.taskList;
 	}
 }

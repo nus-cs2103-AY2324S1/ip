@@ -24,10 +24,10 @@ public class AddCommand extends Command {
 	 * @return A message to be displayed to the user.
 	 */
 	@Override
-public String execute(TaskList taskList, Ui ui, Storage storage) {
-			storage.addToFileMain(task, true);
-			System.out.println(ui.showAddTask(task, taskList.getSize()));
-			return ui.showAddTask(task, taskList.getSize());
+	public String execute(TaskList taskList, Ui ui, Storage storage) {
+		storage.addToFileMain(task, taskList, true);
+		System.out.println(ui.showAddTask(task, taskList.getSize()));
+		return ui.showAddTask(task, taskList.getSize());
 	}
 
 }

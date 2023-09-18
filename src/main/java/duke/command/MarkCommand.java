@@ -29,7 +29,9 @@ public class MarkCommand extends Command {
 		try {
 			taskList.toMark(isMark, positionToMark, ui);
 			storage.updateMainStorage(true);
-			return ui.showMark(taskList.getTask(positionToMark));
+			String markComment = isMark ? ui.showMark(taskList.getTask(positionToMark)) :
+					ui.showUnMark(taskList.getTask(positionToMark));
+			return markComment;
 		} catch (DukeException e) {
 			return e.getMessage();
 		}

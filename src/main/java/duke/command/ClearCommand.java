@@ -19,7 +19,6 @@ public class ClearCommand extends Command {
 	 */
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
-		taskList.clearTaskList();
 		storage.clearFile();
 		System.out.println(ui.showClear());
 		return ui.showClear();

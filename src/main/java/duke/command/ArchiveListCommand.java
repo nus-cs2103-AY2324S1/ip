@@ -21,7 +21,7 @@ public class ArchiveListCommand extends Command {
 	 */
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
-			TaskList archiveList = new TaskList(storage.getArchiveList());
+			TaskList archiveList = storage.getArchiveList();
 			System.out.println(archiveList.listAsString(ui));
 			return archiveList.listAsString(ui);
 	}
