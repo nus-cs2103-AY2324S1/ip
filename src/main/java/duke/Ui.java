@@ -11,7 +11,7 @@ public class Ui {
      * Returns welcome message.
      */
     public static String welcomeMessage() {
-        return " Hello! I'm Jarvis\n"
+        return " Hello! I'm Jarvis.\n"
                 + " What can I do for you?";
     }
 
