@@ -28,7 +28,7 @@ public abstract class Command {
     }
 
     /**
-     * Behavior of command that operates on the given {@code TaskList} and {@code ParseInfo}.
+     * Executes behavior of command that operates on the given {@code TaskList} and {@code ParseInfo}.
      *
      * @throws CommandError if there is a validation error with the {@code ParseInfo}
      */

@@ -65,10 +65,10 @@ public class Parser {
     }
 
     /**
-     * Perform simple parsing on the user input where we read tokens in while no /[word] is
+     * Performs simple parsing on the user input where we read tokens in while no /[word] is
      * encountered.
      *
-     * @param line Line to parse
+     * @param line Line to parse.
      */
     public ParseInfo parse(String line) {
         String input = line.trim();

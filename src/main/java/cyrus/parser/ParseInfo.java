@@ -12,7 +12,7 @@ import cyrus.commands.CommandType;
  */
 public class ParseInfo {
     /**
-     * Default {@code ParseInfo} for an empty command.
+     * Defaults {@code ParseInfo} for an empty command.
      */
     public static final ParseInfo EMPTY = new ParseInfo(
             CommandType.UNKNOWN,
@@ -56,7 +56,7 @@ public class ParseInfo {
     }
 
     /**
-     * Create a copy of the options to avoid accidentally modifying the current options map.
+     * Creates a copy of the options to avoid accidentally modifying the current options map.
      *
      * @return Copy of options hashmap.
      */
