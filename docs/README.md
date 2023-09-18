@@ -1,4 +1,9 @@
-# Milbot User Guide
+# Milbot
+
+## About the application
+Looking to optimize task management? Meet Mil, your trusted desktop application chatbot, ready to assist you every step of the way. :100:
+
+Get the latest version of the app [here](https://github.com/songgthu/ip).
 
 ## Features 
 
@@ -116,7 +121,9 @@ Now you have TOTAL_TAGS tags in the list.
 
 Deletes a tag from a tag list.
 
-Format: `delete tag #TAG_INDEX`
+Format: `delete tag TAG_INDEX`
+
+Example: delete tag 1
 
 Expected outcome:
 
@@ -157,6 +164,7 @@ Nice! I've untagged this task: TASK
 Shows all the tags in the tag list.
 
 Format: `tags`
+
 Expected outcome:
 
 ```

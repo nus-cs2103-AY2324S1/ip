@@ -9,6 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -23,6 +26,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Mil mil;
+
+    private Timer exitTimer;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image chatbot = new Image(this.getClass().getResourceAsStream("/images/chatbot.png"));
@@ -52,6 +57,22 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, chatbot)
         );
         userInput.clear();
+
+        if (response.equals("Have a nice day and see you again soon!")) {
+            Thread thread = new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    Platform.runLater(() -> {
+                        Platform.exit();
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            Platform.runLater(() -> { thread.start();
+            });
+        }
+
     }
 }
 

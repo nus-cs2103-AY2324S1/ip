@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Mil - Your Personal Chatbot");
             fxmlLoader.<MainWindow>getController().setMil(mil);
             stage.show();
         } catch (IOException e) {

@@ -1,4 +1,5 @@
 package milbot;
+import exception.MilException;
 import extensions.Tag;
 import extensions.TagList;
 import taskclasses.Task;
@@ -27,13 +28,20 @@ public class Storage {
      * Constructs a Storage instance with a default file path.
      */
     public Storage() {
-        tasksFilePath = "src\\main\\data\\mil.txt";
-        taskFile = new File(tasksFilePath);
+        createDirectory("./data");
+
+        taskFile = new File("./data", "/mil.txt");
         taskList = new TaskList();
 
-        tagsFilePath = "src\\main\\data\\mil-tags.txt";
-        tagsFile = new File(tagsFilePath);
+        tagsFile = new File("./data", "/mil-tags.txt");
         tagList = new TagList();
+
+        try {
+            findFile(taskFile);
+            findFile(tagsFile);
+        } catch (IOException e) {
+            System.err.println("Error finding file: " + e.getMessage());
+        }
     }
 
     /**
@@ -80,7 +88,7 @@ public class Storage {
     public void saveTasksToFile(TaskList tasks) {
         try {
             taskList = tasks;
-            tasksOutput = new FileWriter(tasksFilePath);
+            tasksOutput = new FileWriter("./data/mil.txt");
             BufferedWriter outputFile = new BufferedWriter(tasksOutput);
             for (Task task : tasks.getTaskList()) {
                 outputFile.write(task.formatToFile());
@@ -95,7 +103,7 @@ public class Storage {
     public void saveTagsToFile(TagList tags) {
         try {
             tagList = tags;
-            tasksOutput = new FileWriter(tagsFilePath);
+            tasksOutput = new FileWriter("./data/mil-tags.txt");
             BufferedWriter outputFile = new BufferedWriter(tasksOutput);
             for (Tag tag : tags.getTagList()) {
                 outputFile.write(tag.toString());
@@ -104,6 +112,19 @@ public class Storage {
             outputFile.close();
         } catch (IOException e) {
             System.err.println("Error saving tags: " + e.getMessage());
+        }
+    }
+
+    public static void createDirectory(String directory) {
+        File data = new File(directory);
+        if (!data.exists()) {
+            data.mkdir();
+        }
+    }
+
+    public static void findFile(File dataFile) throws IOException {
+        if (!dataFile.exists()) {
+            dataFile.createNewFile();
         }
     }
 }
