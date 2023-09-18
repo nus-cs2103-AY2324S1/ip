@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public class Task {
 
     private String description;
-    private Boolean done;
+    private Boolean isDone;
 
 
     /**
@@ -29,20 +29,20 @@ public class Task {
      */
     public Task(String desc) {
         this.description = desc;
-        this.done = false;
+        this.isDone = false;
 
     }
 
     public void setDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void setUnDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getDoneIcon() {
-        return this.done ? "X" : " ";
+        return this.isDone ? "X" : " ";
     }
 
     public String getDescription() {
