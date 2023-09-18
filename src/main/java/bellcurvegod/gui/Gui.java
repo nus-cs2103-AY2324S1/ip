@@ -43,12 +43,26 @@ public class Gui {
         return message;
     }
 
-    public static String getMarkMessage(Task task) {
-        return "Nice! I've marked this task as done:\n" + task + "\n";
+    public static String getMarkMessage(Task ... tasks) {
+        if (tasks.length == 1) {
+            return "Nice! I've marked this task as done:\n" + tasks[0] + "\n";
+        }
+        String message = "Nice! I've marked the following tasks as done:\n";
+        for (Task t : tasks) {
+            message += "- " + t + "\n";
+        }
+        return message;
     }
 
-    public static String getUnmarkMessage(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + task + "\n";
+    public static String getUnmarkMessage(Task ... tasks) {
+        if (tasks.length == 1) {
+            return "OK, I've marked this task as not done yet:\n" + tasks[0] + "\n";
+        }
+        String message = "OK, I've marked  the following tasks as not done yet:\n";
+        for (Task t : tasks) {
+            message += "- " + t + "\n";
+        }
+        return message;
     }
 
     public static String getAddTaskMessage(Task newTask, int numOfTasks) {
@@ -59,11 +73,17 @@ public class Gui {
         return message;
     }
 
-    public static String getDeleteTaskMessage(Task task, int numOfTasks) {
-        String message = "";
-        message += "Noted. I've removed this task:\n"
-            + task + "\n"
-            + "Now you have " + numOfTasks + " tasks in the list.\n";
+    public static String getDeleteTaskMessage(int numOfTasks, Task ... tasks) {
+        String message = "Noted. I've removed this task:\n";
+        for (Task t : tasks) {
+            message += "- " + t + "\n";
+        }
+
+        if (numOfTasks <= 1) {
+            message += "Now you have " + numOfTasks + " task in the list.\n";
+        } else {
+            message += "Now you have " + numOfTasks + " tasks in the list.\n";
+        }
         return message;
     }
 

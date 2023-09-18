@@ -29,6 +29,7 @@ public class TaskList {
      * Adds a task to the storage.
      *
      * @param input Description of the task to be added.
+     * @return AddTaskMessage if the task is added successfully.
      * @throws InvalidCommandException   If the input does not start with any of the Task type.
      * @throws EmptyDescriptionException If description is missing.
      */
@@ -60,16 +61,16 @@ public class TaskList {
     }
 
     /**
-     * Deletes the task from the list.
+     * Deletes the task(s) from the list.
      *
-     * @param task Task to be deleted.
+     * @param taskParams Task(s) to be deleted.
      */
-    public static String delete(Task task) {
-        tasks.remove(task);
-        numOfTasks--;
-
-        assert !tasks.contains(task) : "The removed task should no longer be in the taskList";
-
-        return Gui.getDeleteTaskMessage(task, numOfTasks);
+    public static String delete(Task ... taskParams) {
+        for (Task t : taskParams) {
+            tasks.remove(t);
+            numOfTasks--;
+            assert !tasks.contains(t) : "The removed task should no longer be in the taskList";
+        }
+        return Gui.getDeleteTaskMessage(numOfTasks, taskParams);
     }
 }

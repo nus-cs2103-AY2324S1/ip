@@ -8,12 +8,14 @@ import bellcurvegod.task.Task;
  */
 public class MarkCommand implements Runnable {
     /**
-     * Marks the given task as done.
+     * Marks the given task(s) as done.
      *
-     * @param task task to be marked as done.
+     * @param tasks task(s) to be marked as done.
      */
-    public static String run(Task task) {
-        task.markAsDone();
-        return Gui.getMarkMessage(task);
+    public static String run(Task ... tasks) {
+        for (Task t : tasks) {
+            t.markAsDone();
+        }
+        return Gui.getMarkMessage(tasks);
     }
 }

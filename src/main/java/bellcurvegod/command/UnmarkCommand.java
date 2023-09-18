@@ -8,12 +8,14 @@ import bellcurvegod.task.Task;
  */
 public class UnmarkCommand implements Runnable {
     /**
-     * Marks the given task as not done.
+     * Marks the given task(s) as not done.
      *
-     * @param task task to be marked as not done.
+     * @param tasks task(s) to be marked as not done.
      */
-    public static String run(Task task) {
-        task.markAsNotDone();
-        return Gui.getUnmarkMessage(task);
+    public static String run(Task ... tasks) {
+        for (Task t : tasks) {
+            t.markAsNotDone();
+        }
+        return Gui.getUnmarkMessage(tasks);
     }
 }

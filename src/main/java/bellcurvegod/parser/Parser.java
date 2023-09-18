@@ -36,11 +36,11 @@ public class Parser {
         } else if (words[0].equals("find")) {
             return FindCommand.run(words[1]);
         } else if (words[0].equals("mark")) {
-            return MarkCommand.run(tasks.get(Integer.parseInt(words[1]) - 1));
+            return MarkCommand.run(getTaskParams(words[1].split(","), tasks));
         } else if (words[0].equals("unmark")) {
-            return UnmarkCommand.run(tasks.get(Integer.parseInt(words[1]) - 1));
+            return UnmarkCommand.run(getTaskParams(words[1].split(","), tasks));
         } else if (words[0].equals("delete")) {
-            return TaskList.delete(tasks.get(Integer.parseInt(words[1]) - 1));
+            return TaskList.delete(getTaskParams(words[1].split(","), tasks));
         } else {
             try {
                 return TaskList.addTask(input);
@@ -50,6 +50,13 @@ public class Parser {
                 return e.getMessage();
             }
         }
+    }
 
+    private static Task[] getTaskParams(String[] taskIndicesAsString, ArrayList<Task> tasks) {
+        Task[] taskParams = new Task[taskIndicesAsString.length];
+        for (int i = 0; i < taskIndicesAsString.length; i++) {
+            taskParams[i] = tasks.get(Integer.parseInt(taskIndicesAsString[i]) - 1);
+        }
+        return taskParams;
     }
 }
