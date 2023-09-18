@@ -48,7 +48,6 @@ public class Parser {
             Storage.updateStorage(this.filepath, this.list);
             return new Farewell();
         case "list":
-            System.out.println("line reached 1");
             return new PrintList(this.list);
         case "mark":
             return new Mark(this.list, specifications);
