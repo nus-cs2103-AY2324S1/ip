@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
+import rock.tasks.Task;
+import rock.tasks.TaskList;
 import org.junit.jupiter.api.Test;
 
 
