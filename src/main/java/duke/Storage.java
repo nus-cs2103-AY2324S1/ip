@@ -15,16 +15,21 @@ import java.util.ArrayList;
  */
 public class Storage {
     private String dukeFilePath = "data/duke.txt";
-    // txt file that contains the contents of the TaskList in a human-readable format
-    // this file is read in the printFileContents method in Ui.java
+    /*
+         txt file that contains the contents of the TaskList in a human-readable format
+         this file is read in the printFileContents method in Ui.java
+     */
     private String tempFilePath;
-    // "data/temp.txt"
-    // txt file that contains the contents of the TaskList in binary format
-    // this file is used to store TaskList contents that will persist with consecutive runs of the application
+    /*
+         "data/temp.txt"
+         txt file that contains the contents of the TaskList in binary format
+         this file is used to store TaskList contents that will persist with consecutive runs of the application
+     */
     private String undoFilePath = "data/undo.txt";
-    // txt file that contains the contents of the OLD TaskList in binary format
-    // contents of this file is read when 'undo' command is called, so the old TaskList will be obtained
-
+    /*
+         txt file that contains the contents of the OLD TaskList in binary format
+         contents of this file is read when 'undo' command is called, so the old TaskList will be obtained
+    */
     public Storage(String filePath) {
         this.tempFilePath = filePath;
     }
@@ -70,7 +75,7 @@ public class Storage {
                 // Clears the existing content by opening in write mode and immediately closing
                 fw = new FileWriter(dukeFilePath, true);
                 for (int i = 0; i < tasks.getSize(); i++) {
-                    fw.write(tasks.getTask(i).toFileString() + "\n");
+                    fw.write(tasks.getTaskByIndex(i).toFileString() + "\n");
                 }
                 fw.close();
             }

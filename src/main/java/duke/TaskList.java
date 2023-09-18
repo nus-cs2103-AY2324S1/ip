@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * The collection that contains the list of Tasks
  */
 public class TaskList implements Serializable {
-    private static final String MEGA_INDENT = "    ";
     private ArrayList<Task> tasks;
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -33,7 +32,7 @@ public class TaskList implements Serializable {
      * @param i The position of the duke.Task
      * @return The duke.Task
      */
-    public Task getTask(int i) {
+    public Task getTaskByIndex(int i) {
         return tasks.get(i);
     }
     /**
@@ -48,38 +47,21 @@ public class TaskList implements Serializable {
      * displays the list of Tasks
      */
     public String displayList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            int num = i + 1;
-            Task curr = tasks.get(i);
-            stringBuilder.append(num + ". " + curr.toString() + "\n");
-        }
-        return stringBuilder.toString();
+        return Ui.displayList(tasks);
     }
     /**
      * Handles the 'find' command, displays the list of Tasks whose description matches the user input
      * @param userInput the String that the user inputs to find similar Tasks
      */
-    public String displayMatchingList(String userInput) {
-        ArrayList<Task> temp = new ArrayList<>();
+    public String findMatchingTasks(String userInput) {
+        ArrayList<Task> matchingTaskList = new ArrayList<>();
         for (Task task : tasks) {
             String taskDescription = task.getDescription();
             if (taskDescription.contains(userInput)) {
-                temp.add(task);
+                matchingTaskList.add(task);
             }
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        if (temp.isEmpty()) {
-            stringBuilder.append("There are no matching tasks\n");
-        } else {
-            stringBuilder.append("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < temp.size(); i++) {
-                int num = i + 1;
-                Task curr = temp.get(i);
-                stringBuilder.append(num + "." + curr.toString() + "\n");
-            }
-        }
-        return stringBuilder.toString();
+        return Ui.displayMatchingList(matchingTaskList);
     }
     /**
      * Adds a Task to TaskList
@@ -89,21 +71,31 @@ public class TaskList implements Serializable {
      */
     public String addTask(String letter, String userInput) throws DukeException {
         if (letter.equals("T")) {
-            tasks.add(ToDo.newToDo(userInput));
-        } else if (letter.equals("D")) {
-            tasks.add(Deadline.newDeadline(getDescription(userInput), getBy(userInput)));
-        } else if (letter.equals("E")) {
-            tasks.add(Event.newEvent(getDescription(userInput), getFrom(userInput), getTo(userInput)));
-        } else {
-            assert false : "Invalid letter in addTask method";
+            if (userInput.length() <= 5) {
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            String userInputWithoutPrefix = userInput.substring(5);
+            tasks.add(ToDo.newToDo(userInputWithoutPrefix));
         }
-
+        if (letter.equals("D")) {
+            if (userInput.length() <= 9) {
+                throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+            }
+            String userInputWithoutPrefix = userInput.substring(9);
+            tasks.add(Deadline.newDeadline(getDescription(userInputWithoutPrefix),
+                    getBy(userInputWithoutPrefix)));
+        }
+        if (letter.equals("E")) {
+            if (userInput.length() <= 6) {
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            String userInputWithoutPrefix = userInput.substring(6);
+            tasks.add(Event.newEvent(getDescription(userInputWithoutPrefix),
+                    getFrom(userInputWithoutPrefix), getTo(userInputWithoutPrefix)));
+        }
         int tasksSize = tasks.size();
-        StringBuilder string = new StringBuilder();
-        string.append("Got it. I've added this task:\n");
-        string.append(MEGA_INDENT + tasks.get(tasksSize - 1).toString() + "\n");
-        string.append("Now you have " + tasksSize + " tasks in the list.\n");
-        return string.toString();
+        Task newlyAddedTask = tasks.get(tasksSize - 1);
+        return Ui.handleAddTaskUi(tasksSize, newlyAddedTask);
     }
     /**
      * Marks a task as either completed or uncompleted
@@ -111,7 +103,7 @@ public class TaskList implements Serializable {
      * @param userInput User input
      * @throws DukeException If input is invalid
      */
-    public String markDescription(String userInput) throws DukeException {
+    public String markTask(String userInput) throws DukeException {
         String digits = userInput.replaceAll("\\D+", ""); //remove non-digits
         int pos = Integer.parseInt(digits) - 1;
         if (pos >= tasks.size()) {
@@ -119,16 +111,12 @@ public class TaskList implements Serializable {
         }
         assert pos < tasks.size() : "pos should be less than length of TaskList";
         Task curr = tasks.get(pos);
-        StringBuilder stringBuilder = new StringBuilder();
         if (userInput.contains("unmark")) {
             curr.markAsUnDone();
-            stringBuilder.append("OK, I've marked this task as not done yet:\n");
         } else if (userInput.contains("mark")) {
             curr.markAsDone();
-            stringBuilder.append("Nice! I've marked this task as done:\n");
         }
-        stringBuilder.append(MEGA_INDENT + curr.getStatusIconWithBracket() + " " + curr.getDescription() + "\n");
-        return stringBuilder.toString();
+        return Ui.handleMarkTaskUi(userInput, curr);
     }
     /**
      * For Deadline and Event Tasks, obtains the Task description (before the first slash)
@@ -215,12 +203,10 @@ public class TaskList implements Serializable {
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to delete a Task that does not exist");
         } else {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("Noted. I've removed this task:\n");
-            stringBuilder.append(MEGA_INDENT + tasks.get(pos).toString() + "\n");
+            Task deletedTask = tasks.get(pos);
+            int tasksSize = tasks.size();
             tasks.remove(pos);
-            stringBuilder.append("Now you have " + tasks.size() + " tasks in the list.\n");
-            return stringBuilder.toString();
+            return Ui.handleDeleteTaskUi(deletedTask, tasksSize);
         }
     }
     /**
@@ -244,7 +230,7 @@ public class TaskList implements Serializable {
             storage.copyUndoToTemp();
         } catch (IOException e) {
             tasks.clear();
-            System.err.println("something happened to undo " + e.getMessage());
+            System.err.println("Something happened to undo " + e.getMessage());
         }
     }
 }
