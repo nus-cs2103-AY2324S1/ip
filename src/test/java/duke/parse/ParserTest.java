@@ -136,9 +136,9 @@ public class ParserTest {
                     new AddCommand(new Event(
                             "attend sth",
                             LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)),
-                            LocalDateTime.of(2023, 9, 5, 21, 2)
+                            LocalDateTime.of(2024, 9, 5, 21, 2)
                     )),
-                    Parser.parse("event attend sth /from today 10am /to 5/9/2023 9:02pm")
+                    Parser.parse("event attend sth /from today 10am /to 5/9/2024 9:02pm")
             );
             assertThrows(
                     Parser.ParseError.class, () ->
