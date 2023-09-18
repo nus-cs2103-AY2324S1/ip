@@ -21,7 +21,7 @@ public class TaskListTest {
         TaskList testList = new TaskList(new ArrayList<>(), storage);
         String actual = testList.handleToDo("test desc");
         String expected = "Noted. I've added this task:\n" + "[T][ ] test desc" + "\nNow you have "
-                + 1 + " tasks in the list.";
+                + 1 + " task in the list.";
         assertEquals(expected, actual);
     }
 
@@ -37,7 +37,7 @@ public class TaskListTest {
         }
         String expected = "Noted. I've added this task:\n"
                 + "[D][ ] boo (by: 22 October 2001 11:12)" + "\nNow you have "
-                + 1 + " tasks in the list.";
+                + 1 + " task in the list.";
         assertEquals(expected, actual);
     }
 
@@ -64,7 +64,7 @@ public class TaskListTest {
         }
         String expected = "Noted. I've added this task:\n"
                 + "[E][ ] boo (from: 22 October 2001 11:12 to: 22 November 2001 11:12)"
-                + "\nNow you have " + 1 + " tasks in the list.";
+                + "\nNow you have " + 1 + " task in the list.";
         assertEquals(expected, actual);
     }
 

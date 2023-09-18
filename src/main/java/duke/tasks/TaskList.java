@@ -46,7 +46,7 @@ public class TaskList {
      * @return The formatted task list as a String.
      */
     public String formatList() {
-        String str = "";
+        String str = "Here are the tasks in your list:\n";
         int len = taskList.size();
         for (int i = 0; i < len; i++) {
             str = str + (i + 1) + ". " + taskList.get(i);
@@ -98,8 +98,12 @@ public class TaskList {
      * @return The formatted String Message.
      */
     private String formatMessage(String status, Task task, Integer size) {
+        String adjTaskWord = "tasks";
+        if (size == 1) {
+            adjTaskWord = "task";
+        }
         return "Noted. I've " + status + " this task:\n" + task + "\nNow you have "
-                + size + " tasks in the list.";
+                + size + " " + adjTaskWord + " in the list.";
     }
 
     /**

@@ -1,6 +1,6 @@
 # Nano Chatbot User Guide
 
-Nano is a **Chatbot for tracking tasks, optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you possess fast typing skills, Nano has the potential to expedite your contact management tasks more efficiently than conventional GUI applications.
+Nano is a **Chatbot for tracking tasks, optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you possess fast typing skills, Nano has the potential to expedite your task management more efficiently than conventional GUI applications.
 
 
 ## Quick start
@@ -46,7 +46,7 @@ Tasks can be edited if needed.
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `add New Task`.
+  e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo New Task`.
 
 * Parameters must be in the specified order.<br>
   e.g. if the command specifies `DESC /by DEADLINE`, the parameter order must be followed.
@@ -65,9 +65,14 @@ Adds a **Todo** Task to the Task List.
 Format: `todo DESCRIPTION`
 
 Examples:
-* `todo Do CS2103T project`
 * `todo Watch CS2103T Lecture`
 
+Expected Output:
+```
+Noted. I've added this task: 
+[T][ ] Watch CS2103T Lecture
+Now you have 1 task in the list.
+```
 
 ### Adding a Deadline Task: `deadline`
 
@@ -78,9 +83,15 @@ Format: `deadline DESCRIPTION /by DUE_DATE`
 * `DUE_DATE` must follow the format of `yyyy-mm-dd HH:mm` (year-month-day hours:minutes)
 
 Examples:
-* `deadline Do CS2103T project /by 2023-09-22 23:59` Creates a new Deadline Task with the description `Do CS2103T project` and due by `22 September 2023 23:59`
-* `deadline Watch CS2103T Lecture /by 2023-09-19 23:59` Creates a new Deadline Task with the description `Watch CS2103T Lecture` and due by `19 September 2023 23:59`
+* `deadline Do CS2103T project /by 2023-09-22 23:59` : Creates a new Deadline Task with the description `Do CS2103T project` and due by `22 September 2023 23:59`
 
+Expected Output:
+
+```
+Noted. I've added this task:
+[D][ ] Do CS2103T project (by: 22 September 2023 23:59)
+Now you have 2 tasks in the list.
+```
 
 ### Adding an Event Task: `event`
 
@@ -91,15 +102,29 @@ Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 * `START_DATE` and `END_DATE` must follow the format of `yyyy-mm-dd HH:mm` (year-month-day hours:minutes)
 
 Examples:
-* `Event Do CS2103T project /from 2023-08-01 00:00 /to 2023-12-01 23:59` Creates a new Event Task with the description `Do CS2103T project` starting from `01 August 2023 00:00` and ending on `01 December 2023 23:59`
-* `Event Watch CS2103T Lecture /from 2023-09-15 16:00 /to 2023-09-15 18:00` Creates a new Event Task with the description `Watch CS2103T Lecture` starting from `15 September 2023 16:00` and ending on `15 September 2023 18:00`
+* `event Watch CS2103T Lecture /from 2023-09-15 16:00 /to 2023-09-15 18:00` : Creates a new Event Task with the description `Watch CS2103T Lecture` starting from `15 September 2023 16:00` and ending on `15 September 2023 18:00`
 
+Expected Output:
+
+```
+Noted. I've added this task:
+[E][ ] Watch CS2103T Lecture (from: 15 September 2023 16:00 to: 15 September 2023 18:00)
+Now you have 3 tasks in the list.
+```
 
 ### Listing all tasks: `list`
 
 Shows a list of all tasks in the Task List.
 
 Format: `list`
+
+Expected Output:
+```
+Here are the tasks in your list:
+1. [T][ ] Watch CS2103T Lecture
+2. [D][ ] Do CS2103T project (by: 22 September 2023 23:59)
+3. [E][ ] Watch CS2103T Lecture (from: 15 September 2023 16:00 to: 15 September 2023 18:00)
+```
 
 ### Marking a task: `mark`
 Marks the specified task as complete.
@@ -111,9 +136,16 @@ Format: `mark INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
   
 Examples:
-* mark 1 : Marks the 1st task in the Task List.
+* `mark 1` : Marks the 1st task in the Task List.
 
-### Marking a task: `mark`
+Expected Output:
+
+```
+Nice! I've marked this task as done:
+[T][X] Watch CS2103T Lecture
+```
+
+### Unmarking a task: `unmark`
 Unmarks the specified task as incomplete.
 
 Format: `unmark INDEX`
@@ -123,7 +155,14 @@ Format: `unmark INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
   
 Examples:
-* unmark 1 : Unmarks the 1st task in the Task List.
+* `unmark 1` : Unmarks the 1st task in the Task List.
+
+Expected Output:
+
+```
+OK, I've marked this task as not done yet:
+[T][ ] Watch CS2103T Lecture
+```
 
 ### Editing a task: `edit`
 
@@ -136,11 +175,19 @@ Format: `edit INDEX FIELD_TO_EDIT NEW_VALUE`
 
 #### 1. Editing a Todo Task
 For **Todo** tasks, only the description can be edited.
-* `FIELD_TO_EDIT`: Possible fields are `/desc`
-* `NEW_VALUE`: The new value must follow the restrictions of the specified field.
+* `FIELD_TO_EDIT` : Possible fields are `/desc`
+* `NEW_VALUE` : The new value must follow the restrictions of the specified field.
   
 Examples:
-*  `edit 1 /desc newDesc` Edits the description of the 1st task to be `newDesc`.
+*  `edit 1 /desc Do CS2103T Tutorial` : Edits the description of the 1st task to be `Do CS2103T Tutorial`.
+
+Expected Output:
+
+```
+Noted. I've updated this task:
+[T][ ] Do CS2103T Tutorial
+Now you have 3 tasks in the list.
+```
 
 #### 2. Editing a Deadline Task
 For **Deadline** tasks, the description and due date can be edited.
@@ -148,8 +195,17 @@ For **Deadline** tasks, the description and due date can be edited.
 * `NEW_VALUE`: The new value must follow the restrictions of the specified field. (For `/by`, the `NEW_VALUE` must follow the format of `yyyy-mm-dd HH:mm`)
 
 Examples:
-*  `edit 1 /desc newDesc` Edits the description of the 1st task to be `newDesc`.
-*  `edit 2 /by 2023-10-12 22:12` Edits the due date of the 2nd task to be `12 October 2023 22:12`.
+*  `edit 2 /desc Submit Project` : Edits the description of the 2nd task to be `Submit Project`.
+*  `edit 2 /by 2023-10-12 22:12` : Edits the due date of the 2nd task to be `12 October 2023 22:12`.
+
+Expected Output:
+
+```
+Noted. I've updated this task:
+[D][ ] Submit Project (by: 12 October 2023 22:12)
+Now you have 3 tasks in the list.
+```
+
 
 #### 3. Editing an Event Task
 For **Event** tasks, the description, start time and end time can be edited.
@@ -157,9 +213,17 @@ For **Event** tasks, the description, start time and end time can be edited.
 * `NEW_VALUE`: The new value must follow the restrictions of the specified field. (For `/from` and `/to`, the `NEW_VALUE` must follow the format of `yyyy-mm-dd HH:mm`)
 
 Examples:
-*  `edit 1 /desc newDesc` Edits the description of the 1st task to be `newDesc`.
-*  `edit 2 /from 2023-10-12 22:12` Edits the start time of the 2nd task to be `12 October 2023 22:12`.
-*  `edit 2 /to 2023-10-13 20:10` Edits the end time of the 2nd task to be `13 October 2023 20:10`.
+*  `edit 3 /desc Watch CS2100 Lecture` : Edits the description of the 3rd task to be `Watch CS2100 Lecture`.
+*  `edit 3 /from 2023-10-12 20:00` : Edits the start time of the 3rd task to be `12 October 2023 20:00`.
+*  `edit 3 /to 2023-10-13 22:00` : Edits the end time of the 3rd task to be `13 October 2023 22:00`.
+
+Expected Output:
+
+```
+Noted. I've updated this task:
+[E][ ] Watch CS2100 Lecture (from: 12 October 2023 20:00 to: 13 October 2023 22:00)
+Now you have 3 tasks in the list.
+```
 
 
 ### Locating tasks by description: `find`
@@ -168,11 +232,26 @@ Finds tasks whose description contain the given keyword.
 
 Format: `find KEYWORD`
 
-* The search is case-sensitive. e.g `task` will **NOT** match `Task`
+* The search is case-sensitive. e.g. `task` will **NOT** match `Task`
   
 Examples:
-* `find Do` returns `Do work` and `Do tutorial`
-  
+- Current List : 
+```
+Here are the tasks in your list:
+1. [T][ ] Watch CS2103T Lecture
+2. [D][ ] Do CS2103T project (by: 22 September 2023 23:59)
+3. [E][ ] Watch CS2100 Lecture (from: 15 September 2023 16:00 to: 15 September 2023 18:00)
+```
+
+* `find Watch` : returns `Watch CS2103T Lecture` and `Watch CS2100 Lecture`
+
+Expected Output:
+
+```
+Here are the tasks in your list:
+1. [T][ ] Watch CS2103T Lecture
+2. [E][ ] Watch CS2100 Lecture (from: 15 September 2023 16:00 to: 15 September 2023 18:00)
+```
 
 ### Deleting a person : `delete`
 
@@ -185,7 +264,23 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd task in the Task List.
+- Current List :
+```
+Here are the tasks in your list:
+1. [T][ ] Watch CS2103T Lecture
+2. [D][ ] Do CS2103T project (by: 22 September 2023 23:59)
+3. [E][ ] Watch CS2100 Lecture (from: 15 September 2023 16:00 to: 15 September 2023 18:00)
+```
+
+* `delete 2` : deletes the 2nd task in the Task List.
+
+Expected Output:
+```
+Noted. I've removed this task:
+[D][ ] Do CS2103T project (by: 22 September 2023 23:59)
+Now you have 2 tasks in the list.
+```
+
 
 
 ### Exiting the program : `bye`
@@ -193,6 +288,11 @@ Examples:
 Exits the program.
 
 Format: `bye`
+
+Expected Output:
+```
+Chat has ended! Please Exit.
+```
 
 ### Saving the data
 
@@ -212,12 +312,13 @@ If your changes to the data file makes its format invalid, Nano may process the 
 
 Action | Format, Examples
 --------|------------------
-**Add Todo** | `todo DESCRIPTION` <br> e.g., `todo newTask`
+**Add Todo** | `todo DESCRIPTION` <br> e.g., `todo Watch CS2103T Lecture`
 **Add Deadline** | `deadline DESCRIPTION /by DUE_DATE` <br> e.g., `deadline Do CS2103T project /by 2023-09-22 23:59`
-**Add Event** | `event DESCRIPTION /from START_DATE /to END_DATE` <br> e.g., `Event Do CS2103T project /from 2023-08-01 00:00 /to 2023-12-01 23:59`
+**Add Event** | `event DESCRIPTION /from START_DATE /to END_DATE` <br> e.g., `Event Watch CS2100 Lecture /from 2023-09-15 16:00 /to 2023-09-15 18:00`
 **Mark Task** | `mark INDEX`<br> e.g., `mark 2`
 **Unmark Task** | `unmark INDEX`<br> e.g., `unmark 2`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX FIELD_TO_EDIT NEW_VALUE` <br> e.g.,`edit 2 /desc newDesc`
 **Find** | `find KEYWORD`<br> e.g., `find tutorial`
 **List** | `list`
+**Exit** | `bye`
