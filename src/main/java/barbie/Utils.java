@@ -20,29 +20,21 @@ public class Utils {
      * @param lastList latest list of Tasks
      * @return the list of Tasks that should be done today
      */
-    protected static ArrayList<Task> getDateList(LocalDate date, ArrayList<Task> lastList) {
+    public static ArrayList<Task> getDateList(LocalDate date, ArrayList<Task> lastList) {
         ArrayList<Task> thisDatesList = new ArrayList<>();
-
-        try {
-            lastList.forEach(x -> {
-                if (x instanceof Deadlines) {
-
-                    Deadlines y = (Deadlines) x;
-                    if (y.isToday(date)) {
-                        thisDatesList.add(y);
-                    }
-                } else if (x instanceof Party) {
-
-                    Party y = (Party) x;
-                    if (y.isToday(date)) {
-                        thisDatesList.add(y);
-                    }
+        lastList.forEach(x -> {
+            if (x instanceof Deadlines) {
+                Deadlines y = (Deadlines) x;
+                if (y.isToday(date)) {
+                    thisDatesList.add(y);
                 }
-            });
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+            } else if (x instanceof Party) {
+                Party y = (Party) x;
+                if (y.isToday(date)) {
+                    thisDatesList.add(y);
+                }
+            }
+        });
         return thisDatesList;
     }
 }

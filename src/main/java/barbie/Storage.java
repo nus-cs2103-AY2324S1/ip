@@ -22,7 +22,7 @@ import barbie.types.Todo;
  * This class deals with all file reading and writing.
  */
 public class Storage {
-    static Path path = Paths.get("barbie.txt");
+    private static final Path path = Paths.get("barbie.txt");
 
 
     /**
@@ -108,38 +108,44 @@ public class Storage {
                 System.out.println("-------------------------------------------------");
                 System.out.println("[A current list is being used for current user]");
                 Files.readAllLines(path).forEach(x -> {
-
-                    String[] taskParts = x.split(",");
-                    String taskType = taskParts[0];
-                    String taskStatus = taskParts[1];
-                    String desc = taskParts[2];
-                    Task task;
-
-                    if (Objects.equals(taskType, "T")) {
-                        task = new Todo(desc);
-                    } else if (Objects.equals(taskType, "D")) {
-                        task = new Deadlines(desc, LocalDate.parse(taskParts[3]));
-                    } else if (Objects.equals(taskType, "P")) {
-                        task = new Party(desc, LocalDate.parse(taskParts[3]), LocalDate.parse(taskParts[4]));
-                    } else {
-                        task = new Task(desc);
-                    }
-
-                    if (Integer.parseInt(taskStatus) == 1) {
-                        task.mark();
-                    }
+                    Task task = stringToTask(x);
                     finalList.add(task);
                 });
                 System.out.println(finalList);
 
             }
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         return finalList;
 
+    }
+
+    private static Task stringToTask(String taskInString) {
+
+        String[] taskParts = taskInString.split(",");
+        String taskType = taskParts[0];
+        String taskStatus = taskParts[1];
+        String desc = taskParts[2];
+
+        Task task;
+
+        if (Objects.equals(taskType, "T")) {
+            task = new Todo(desc);
+        } else if (Objects.equals(taskType, "D")) {
+            task = new Deadlines(desc, LocalDate.parse(taskParts[3]));
+        } else if (Objects.equals(taskType, "P")) {
+            task = new Party(desc, LocalDate.parse(taskParts[3]), LocalDate.parse(taskParts[4]));
+        } else {
+            task = new Task(desc);
+        }
+
+        if (Integer.parseInt(taskStatus) == 1) {
+            task.mark();
+        }
+
+        return task;
     }
 
     /**
