@@ -9,6 +9,7 @@ import duke.Storage;
 import duke.task.Task;
 import duke.task.ToDo;
 import duke.task.Deadline;
+import duke.task.Event;
 
 /**
  * Represents the command of updating a task in the task list.
@@ -113,7 +114,8 @@ public class UpdateCommand extends Command {
         if (currTask instanceof ToDo) {
             Command newCommand = new UpdateToDoCommand(index, description);
             newCommand.execute(taskList, ui, storage);
-        } else if (currTask instanceof Deadline) {
+        }
+        if (currTask instanceof Deadline) {
             if (this.description != null) {
                 if (this.firstDate != null) {
                     Command newCommand = new UpdateDeadlineCommand(index, description, firstDate);
@@ -126,7 +128,7 @@ public class UpdateCommand extends Command {
                 Command newCommand = new UpdateDeadlineCommand(index, firstDate);
                 newCommand.execute(taskList, ui, storage);
             }
-        } else {
+        } if (currTask instanceof Event) {
             if (this.description != null) {
                 if (this.firstDate != null) {
                     if (this.secondDate != null) {

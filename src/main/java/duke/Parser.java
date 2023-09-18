@@ -77,28 +77,19 @@ public class Parser {
         }
     }
 
-    /**
-     * Returns an update command after filtering the details of the task to be updated.
-     * 
-     * @param command string input of the command
-     * @return UpdateCommand to be executed.
-     * @throws DukeException If details of the task are not valid.
-     */
-    public static Command createUpdateCommand(String command) throws DukeException {
-        String input = command.replace("update", "").trim();
-        String[] updateDetails = input.split(" ");
-        int index = validateUpdateIndex(updateDetails[0]);
+    public static ArrayList<String> filterDetails(String[] updateDetails) throws DukeException {
         String description = "";
         int counter = 0;
         ArrayList<String> filteredDetails = new ArrayList<>();
         filteredDetails.add(updateDetails[0]);
+
         for (int i = 1; i < updateDetails.length; i++) {
             if (!updateDetails[i].startsWith("/by") 
-            || !updateDetails[i].startsWith("/from") 
-            || !updateDetails[i].startsWith("/to")) {
-                description += updateDetails[i] + " ";
-                counter++;
-            }
+                || !updateDetails[i].startsWith("/from") 
+                || !updateDetails[i].startsWith("/to")) {
+                    description += updateDetails[i] + " ";
+                    counter++;
+                }
         }
         if (description != "") {
             filteredDetails.add(description.trim());
@@ -112,10 +103,11 @@ public class Parser {
                 filteredDetails.add(updateDetails[k]);
             }
         }
-        if (filteredDetails.size() < 2) {
-            throw new DukeException("OOPS! Please include more details");
-        } else if (filteredDetails.size() == 2) {
-            if (filteredDetails.get(1).startsWith("/by")) {
+        return filteredDetails;
+    }
+
+    public static Command createUpdateCommandTwo(int index, ArrayList<String> filteredDetails) throws DukeException {
+        if (filteredDetails.get(1).startsWith("/by")) {
                 String date = filteredDetails.get(1).replace("/by", "");
                 if (isDate(date)) {
                     LocalDateTime dueDate = parseDate(date);
@@ -132,25 +124,32 @@ public class Parser {
             } else {
                 return new UpdateCommand(index, filteredDetails.get(1));
             }
-        } else if (filteredDetails.size() == 3) {
-            if (filteredDetails.get(1).startsWith("/by")) {
+    }
+
+    public static Command createUpdateCommandThree(int index, ArrayList<String> filteredDetails) throws DukeException {
+        if (filteredDetails.get(1).startsWith("/by")) {
                 throw new DukeException("OOPS! Please ensure you are updating the correct task!");
-            } else if (filteredDetails.get(1).startsWith("/from") && filteredDetails.get(2).startsWith("/to")) {
+            } else if (filteredDetails.get(1).startsWith("/from") 
+            && filteredDetails.get(2).startsWith("/to")) {
                 LocalDateTime firstDate = parseDate(filteredDetails.get(1).replace("/from", ""));
                 LocalDateTime secondDate = parseDate(filteredDetails.get(2).replace("/to", ""));
                 return new UpdateCommand(index, firstDate, secondDate);
             } else {
                 String details = filteredDetails.get(1);
                 if (filteredDetails.get(2).startsWith("/from")) {
-                    LocalDateTime firstDate = parseDate(filteredDetails.get(2).replace("/from", ""));
+                    LocalDateTime firstDate = parseDate(filteredDetails.get(2)
+                    .replace("/from", ""));
                     return new UpdateCommand(index, details, firstDate, true);
                 } else {
-                    LocalDateTime secondDate = parseDate(filteredDetails.get(2).replace("/to", ""));
+                    LocalDateTime secondDate = parseDate(filteredDetails.get(2)
+                    .replace("/to", ""));
                     return new UpdateCommand(index, details, secondDate, false);
                 }
             }
-        } else {
-            if (filteredDetails.get(1).startsWith("/by") 
+    }
+
+    public static Command createUpdateCommandFour(int index, ArrayList<String> filteredDetails) throws DukeException {
+        if (filteredDetails.get(1).startsWith("/by") 
             || filteredDetails.get(1).startsWith("/from") 
             || filteredDetails.get(1).startsWith("/to")) {
                 throw new DukeException("OOPS! Please ensure you are updating the correct task!");
@@ -160,6 +159,27 @@ public class Parser {
                 LocalDateTime secondDate = parseDate(filteredDetails.get(3).replace("/to", ""));
                 return new UpdateCommand(index, details, firstDate, secondDate);
             }
+    }
+    /**
+     * Returns an update command after filtering the details of the task to be updated.
+     * 
+     * @param command string input of the command
+     * @return UpdateCommand to be executed.
+     * @throws DukeException If details of the task are not valid.
+     */
+    public static Command createUpdateCommand(String command) throws DukeException {
+        String input = command.replace("update", "").trim();
+        String[] updateDetails = input.split(" ");
+        int index = validateUpdateIndex(updateDetails[0]);
+        ArrayList<String> filteredDetails = filterDetails(updateDetails);
+        if (filteredDetails.size() < 2) {
+            throw new DukeException("OOPS! Please include more details");
+        } else if (filteredDetails.size() == 2) {
+            return createUpdateCommandTwo(index, filteredDetails);
+        } else if (filteredDetails.size() == 3) {
+            return createUpdateCommandThree(index, filteredDetails);
+        } else {
+            return createUpdateCommandFour(index, filteredDetails);
         }
     }
 
