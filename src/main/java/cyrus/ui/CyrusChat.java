@@ -12,15 +12,16 @@ import javafx.stage.Stage;
 /**
  * Entry point for initializing and loading the MainWindow.
  */
-public class Main extends Application {
+public class CyrusChat extends Application {
     private static final Cyrus CYRUS = new Cyrus();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(CyrusChat.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(this.getClass().getResource("/style/styles.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setCyrus(CYRUS);

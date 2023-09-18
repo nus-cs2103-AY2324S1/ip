@@ -123,7 +123,7 @@ public class FileStorageTest {
 
         FileStorage fs = new FileStorage("test_data/test.json");
 
-        assertThrows(AssertionError.class, fs::load);
+        assertThrows(IllegalStateException.class, fs::load);
 
         testFile.delete();
     }
