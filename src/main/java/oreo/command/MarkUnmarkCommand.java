@@ -1,6 +1,7 @@
 package oreo.command;
 
 import oreo.exception.IllegalCommandException;
+import oreo.task.Task;
 import oreo.task.TaskList;
 import oreo.ui.Ui;
 
@@ -13,6 +14,11 @@ public class MarkUnmarkCommand extends Command {
     public MarkUnmarkCommand(String command, Scanner tokeniser) {
         this.command = command;
         this.tokeniser = tokeniser;
+    }
+
+    @Override
+    public String executeEditMode(TaskList tasks, int index, Task oldTask) {
+        return execute(tasks);
     }
 
     @Override

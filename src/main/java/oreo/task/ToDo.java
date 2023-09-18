@@ -25,4 +25,9 @@ public class ToDo extends Task {
         String data = 1 + " " + mark + description + System.lineSeparator();
         return data;
     }
+
+    @Override
+    public String getTaskInEditFormat() {
+        return "todo" + description;
+    }
 }

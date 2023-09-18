@@ -37,4 +37,10 @@ public class Deadline extends Task {
                 + TimeParser.parseTimeForFile(this.time) + System.lineSeparator();
         return data;
     }
+
+    @Override
+    public String getTaskInEditFormat() {
+        return "deadline" + description + " /by " + TimeParser.parseDateForFile(this.date)
+                + TimeParser.parseTimeForFile(this.time);
+    }
 }
