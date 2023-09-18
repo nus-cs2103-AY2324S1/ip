@@ -47,4 +47,12 @@ public class Task {
         this.description = description;
         this.isDone = isDone;
     }
+
+    /**
+     * @param keyword the target keyword
+     * @return if the description of the task contains the keyword
+     */
+    public boolean contains(String keyword) {
+        return description.contains(keyword);
+    }
 }
