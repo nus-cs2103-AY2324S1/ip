@@ -33,6 +33,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
+            //set title of the window
+            stage.setTitle("DUKEYBOY");
+
             // Set Duke instance for the MainWindow controller
             fxmlLoader.<MainWindow>getController().setDuke(duke);
 
