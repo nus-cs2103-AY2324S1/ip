@@ -44,6 +44,7 @@ public class Parser {
         int taskIndex = 0;
         boolean isValid = false;
         currentCommand = commandConverter(inp[0]);
+        assert isValid == false : "isValid should be false";
         if (currentCommand != ValidCommand.UNKNOWN) {
             if (commandSorter(currentCommand).equals("update")) {
                 if (inp.length != 2) {
@@ -56,14 +57,14 @@ public class Parser {
                     }
                 }
             } else if (commandSorter(currentCommand).equals("short_comm")) {
-                title = titleGetter(currentCommand, inp);
-                endDate = endDateGetter(currentCommand, inp);
-                isValid = commandValidator(currentCommand, inp);
+                title = titleGetter(inp);
+                endDate = endDateGetter(inp);
+                isValid = commandValidator(inp);
             } else if (commandSorter(currentCommand).equals("event")) {
-                title = titleGetter(currentCommand, inp);
-                startDate = startDateGetter(currentCommand, inp);
-                endDate = endDateGetter(currentCommand, inp);
-                isValid = commandValidator(currentCommand, inp);
+                title = titleGetter(inp);
+                startDate = startDateGetter(inp);
+                endDate = endDateGetter(inp);
+                isValid = commandValidator(inp);
             }
         }
         return commandHandler(inp, isValid, title, startDate, endDate, taskIndex, currentCommand, taskList);
@@ -135,6 +136,7 @@ public class Parser {
         if (taskIndex > taskList.size() || taskIndex < 1) {
             throw new InvalidSyntaxException("The task does not exist.");
         }
+        assert taskIndex >= 0 && taskIndex <= taskList.size() : "Task index should be valid";
         if (command == ValidCommand.MARK) {
             return new MarkCommand(taskIndex);
         } else if (command == ValidCommand.UNMARK) {
@@ -208,10 +210,10 @@ public class Parser {
     /**
      * Returns whether the description of the task is valid
      *
-     * @param currentCommand The current command entered by user
      * @return whether the description of the task is valid
      */
-    public static boolean commandValidator(ValidCommand currentCommand, String[] inp) {
+    public static boolean commandValidator(String[] inp) {
+        assert inp.length >= 1 : "inp should not be empty";
         int i = 1;
         for (; i < inp.length; i++) {
             if (inp[i].equals("/by") || inp[i].equals("/from")) {
@@ -227,11 +229,11 @@ public class Parser {
     /**
      * Returns the description for the task
      *
-     * @param currentCommand The current command entered by user
      * @param inp The String array for the user input
      * @return the description for the task
      */
-    public static String titleGetter(ValidCommand currentCommand, String[] inp) {
+    public static String titleGetter(String[] inp) {
+        assert inp.length >= 1 : "inp should not be empty";
         int i = 1;
         String title = "";
         for (; i < inp.length; i++) {
@@ -250,11 +252,11 @@ public class Parser {
     /**
      * Returns the endDate for the task
      *
-     * @param currentCommand The current command entered by user
      * @param inp The String array for the user input
      * @return the endDate for the task
      */
-    public static String endDateGetter(ValidCommand currentCommand, String[] inp) {
+    public static String endDateGetter(String[] inp) {
+        assert inp.length >= 1 : "inp should not be empty";
         int i = 1;
         String endDate = "";
         for (; i < inp.length; i++) {
@@ -275,11 +277,11 @@ public class Parser {
     /**
      * Returns the startDate for the task
      *
-     * @param currentCommand The current command entered by user
      * @param inp The String array for the user input
      * @return the startDate for the task
      */
-    public static String startDateGetter(ValidCommand currentCommand, String[] inp) {
+    public static String startDateGetter(String[] inp) {
+        assert inp.length >= 1 : "inp should not be empty";
         int start = 1;
         String startDate = "";
         for (; start < inp.length; start++) {
