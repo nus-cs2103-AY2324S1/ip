@@ -15,7 +15,8 @@ public enum Enum {
     DELETE("delete"),
     BYE("bye"),
     FIND("find"),
-    SORT("sort");
+    SORT("sort"),
+    MEME("meme");
 
     private String text;
 

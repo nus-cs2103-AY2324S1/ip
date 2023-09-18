@@ -11,6 +11,7 @@ import chat.commands.EventCommand;
 import chat.commands.FindCommand;
 import chat.commands.ListCommand;
 import chat.commands.MarkDoneCommand;
+import chat.commands.MemeCommand;
 import chat.commands.SortCommand;
 import chat.commands.TodoCommand;
 import chat.commands.SortCommand.sortType;
@@ -315,6 +316,8 @@ public class Parser {
             return new FindCommand(args);
         case SORT:
             return parseSort(args);
+        case MEME:
+            return new MemeCommand();
         default:
             throw new InvalidCommandException();
         } 

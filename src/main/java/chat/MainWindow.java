@@ -8,6 +8,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -38,7 +40,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-            DialogBox.getChatDialog(new ChatWrapper("Chat: ", chatImage, Color.GREEN), "Welcome to chat. Please enter a command.")
+            DialogBox.getChatDialog(new ChatWrapper("Chat: ", chatImage, Color.LIMEGREEN), "What's up gamers! Enter a command to get a response from your favourite streamers. Also, type 'meme' for something funny.")
         );
     }
 

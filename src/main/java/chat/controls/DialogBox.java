@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
 /**
@@ -34,8 +35,11 @@ public class DialogBox extends HBox {
 
     /**
      * Constructor for DialogBox.
+     * @param chatName display name for chat.
+     * @param chatColor display name color for chat.
      * @param text display text for DialogBox.
      * @param img display image for DialogBox.
+     * @param isChat whether the dialog box is printed by chat.
      */
     public DialogBox(String chatName, Color chatColor, String text, Image img, boolean isChat) {
         try {
@@ -52,11 +56,23 @@ public class DialogBox extends HBox {
         } else {
             super.setBackground(new Background(new BackgroundFill(Color.web("#444444"), null, null)));
         }
-        chat.setText(chatName);
-        chat.setTextFill(chatColor);
-        dialog.setText(text);
+        setLabelStyle(chat, chatName, chatColor);
+        setLabelStyle(dialog, text, Color.WHITE);
+        
+        chat.setMinWidth(Region.USE_PREF_SIZE);
+        dialog.setMinHeight(Region.USE_PREF_SIZE);
         displayPicture.setImage(img);
-        dialog.setTextFill(Color.WHITE);
+    }
+
+    /**
+     * Helper function that sets label text and color.
+     * @param label Label being modified.
+     * @param text Label text.
+     * @param color Label color.
+     */
+    public static void setLabelStyle(Label label, String text, Color color) {
+        label.setText(text);
+        label.setTextFill(color);
     }
 
     /**
