@@ -38,9 +38,10 @@ public class CommandParser {
      * @return True if the bye command is issued, false otherwise.
      */
     public boolean processUserInput(String input) {
+        String commandStr = input.split(" ")[0];
         try {
             ShibaCommand.CommandType command = ShibaCommand.CommandType.valueOf(
-                    input.split(" ")[0].toUpperCase());
+                    commandStr.toUpperCase());
             ShibaCommand shibaCommand;
             switch (command) {
             case LIST:
@@ -88,7 +89,7 @@ public class CommandParser {
         } catch (ShibaException e) {
             Replier.printException(e);
         } catch (IllegalArgumentException e) {
-            Replier.printUnknownCommand();
+            Replier.printUnknownCommand(commandStr);
         }
 
         return false;

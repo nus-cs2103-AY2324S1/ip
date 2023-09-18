@@ -1,11 +1,13 @@
 package shiba.filehandler;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import shiba.exceptions.ShibaException;
 import shiba.parsers.SpaceSeparatedValuesParser;
@@ -45,7 +47,7 @@ public class Storage {
             throw new ShibaException("Error creating save file!");
         }
 
-        try (FileWriter fw = new FileWriter(dataPath)) {
+        try (FileWriter fw = new FileWriter(dataPath, StandardCharsets.UTF_8)) {
             boolean isFirstLineWritten = false;
             for (ShibaTask task : tasks) {
                 if (isFirstLineWritten) {
@@ -74,16 +76,18 @@ public class Storage {
                 return tasks;
             }
 
-            Scanner scanner = new Scanner(file);
             boolean isErrorEncountered = false;
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                ShibaTask taskParsed = ShibaTask.fromSaveParams(SpaceSeparatedValuesParser.parse(line));
+
+            BufferedReader br = new BufferedReader(new FileReader(dataPath, StandardCharsets.UTF_8));
+            String nextLine = br.readLine();
+            while (nextLine != null) {
+                ShibaTask taskParsed = ShibaTask.fromSaveParams(SpaceSeparatedValuesParser.parse(nextLine));
                 if (taskParsed != null) {
                     tasks.add(taskParsed);
                 } else {
                     isErrorEncountered = true;
                 }
+                nextLine = br.readLine();
             }
 
             if (isErrorEncountered) {
