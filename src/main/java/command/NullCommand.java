@@ -1,10 +1,10 @@
 package command;
 
 import enums.CommandWord;
+import enums.WoofMessage;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
-import ui.Ui;
 
 /**
  * The `NullCommand` class represents a command that is not recognized or is not valid.
@@ -22,7 +22,7 @@ public class NullCommand extends Command {
     }
 
     /**
-     * Validates the "null" command.
+     * Validates the `NullCommand`.
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
@@ -40,7 +40,7 @@ public class NullCommand extends Command {
     }
 
     /**
-     * Executes the "null" command. It validates the command and displays
+     * Executes the `NullCommand`. It validates the command and displays
      * a "confused" message to the user if the command is not recognized or valid.
      *
      * @param taskList The task list (not used in this command).
@@ -54,7 +54,7 @@ public class NullCommand extends Command {
         } catch (WoofInvalidCommandException e) {
             return e.getMessage();
         }
-        return Ui.getConfusedMessage();
+        return WoofMessage.CONFUSED.toFormattedValue(rawCommand);
     }
 
 }

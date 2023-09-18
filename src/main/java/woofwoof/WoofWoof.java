@@ -1,6 +1,7 @@
 package woofwoof;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.Executors;
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import command.Command;
 import enums.FilePath;
+import enums.WoofMessage;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,8 +21,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import parser.Parser;
@@ -31,6 +36,7 @@ import woof.Woof;
  * It handles user interactions and the core functionality of the application.
  */
 public class WoofWoof extends Application {
+    private static final Font FONT = loadCustomFont();
 
     @FXML
     private ScrollPane scrollPane;
@@ -45,12 +51,38 @@ public class WoofWoof extends Application {
     private Scene scene;
 
     private Woof woof;
-    private final Image user = new Image(
-        Objects.requireNonNull(this.getClass().getResourceAsStream(FilePath.USER_DISPLAY_PICTURE.toValue()))
-    );
-    private final Image doggo = new Image(
-        Objects.requireNonNull(this.getClass().getResourceAsStream(FilePath.BOT_DISPLAY_PICTURE.toValue()))
-    );
+    private final Image user = getImageFromFilePath(FilePath.USER_DISPLAY_PICTURE);
+    private final Image doggo = getImageFromFilePath(FilePath.BOT_DISPLAY_PICTURE);
+
+
+    /**
+     * Retrieves an image from a file path. If the file path is invalid or the resource is not found,
+     * it returns an empty image.
+     *
+     * @param filePath The path to the image file.
+     * @return An Image object loaded from the specified file path or an empty image if not found.
+     */
+    public Image getImageFromFilePath(FilePath filePath) {
+        InputStream inputStream;
+        try {
+            inputStream = Objects.requireNonNull(this.getClass().getResourceAsStream(filePath.toValue()));
+        } catch (NullPointerException e) {
+            return getEmptyImage();
+        }
+        return new Image(inputStream);
+    }
+
+    /**
+     * Generates an empty image with a single pixel of gray color (0.5, 0.5, 0.5, 1).
+     *
+     * @return An empty Image object with a single gray pixel.
+     */
+    public Image getEmptyImage() {
+        WritableImage img = new WritableImage(1, 1);
+        PixelWriter pw = img.getPixelWriter();
+        pw.setColor(0, 0, new Color(0.5, 0.5, 0.5, 1));
+        return img;
+    }
 
     /**
      * Initializes the WoofWoof application by reading the task list from a file
@@ -68,6 +100,10 @@ public class WoofWoof extends Application {
         this.clearButton.setOnMouseEntered(e -> this.clearButton.setStyle("-fx-base: #FAA0A0"));
         this.clearButton.setOnMouseExited(e -> this.clearButton.setStyle("-fx-base: #C5CBEC"));
         this.sendButton.setOnMouseClicked(event -> handleUserSubmit());
+
+        this.userInput.setFont(getFont());
+        this.sendButton.setFont(getFont());
+        this.clearButton.setFont(getFont());
     }
 
     /**
@@ -86,42 +122,44 @@ public class WoofWoof extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        loadAndSetCustomFont();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(WoofWoof.class.getResource("/views/WoofWoof.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(WoofWoof.class.getResource(FilePath.FXML_VIEW_PATH.toValue()));
             this.scene = new Scene(fxmlLoader.load());
-            loadAndSetCustomCursor();
+            setCustomCursorOnApplication();
             loadCssStyles();
             primaryStage.setScene(this.scene);
-            primaryStage.setTitle("Woof Woof");
+            primaryStage.setTitle(WoofMessage.WOOF_TITLE.toFormattedValue());
             primaryStage.setResizable(false);
             fxmlLoader.<WoofWoof>getController().setWoof(this.woof);
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.printf("oh no\n%s\n", e.getMessage());
         }
     }
 
     /**
-     * Loads, gets, and sets a custom font.
+     * Loads the font and sets the custom font for the class.
      */
-    private void loadAndSetCustomFont() {
-        URL fontResource = getClass().getResource(FilePath.CUSTOM_FONT.toValue());
-        Font.loadFont(Objects.requireNonNull(fontResource).toExternalForm(), 13);
+    private static Font loadCustomFont() {
+        URL fontResourceUrl = WoofWoof.class.getResource(FilePath.CUSTOM_FONT.toValue());
+        return Font.loadFont(Objects.requireNonNull(fontResourceUrl).toExternalForm(), 14);
     }
 
     /**
-     * Loads, gets, and sets a custom cursor with fixed properties.
+     * Gets the custom font.
      */
-    private void loadAndSetCustomCursor() {
+    public static Font getFont() {
+        return WoofWoof.FONT;
+    }
+
+    /**
+     * Sets up and applies a custom cursor when entering a JavaFX scene and handles cursor reset on click.
+     */
+    private void setCustomCursorOnApplication() {
         String imagePath = FilePath.CUSTOM_CURSOR.toValue();
-        double imageWidth = 40.0;
-        double imageHeight = 40.0;
-        double hotspotX = 20.0;
-        double hotspotY = 20.0;
-        Image cursorImage = new Image(imagePath, imageWidth, imageHeight, false, true);
-        ImageCursor imageCursor = new ImageCursor(cursorImage, hotspotX, hotspotY);
-        this.scene.setOnMouseEntered(e -> scene.setCursor(imageCursor));
+        Image defaultCursorImage = new Image(imagePath, 40, 40, false, true);
+        ImageCursor defaultCursor = new ImageCursor(defaultCursorImage, 20, 20);
+        this.scene.setCursor(defaultCursor);
     }
 
     /**
@@ -151,8 +189,8 @@ public class WoofWoof extends Application {
         if (!message.trim().isEmpty()) {
             String response = processMessage(message);
             this.dialogArea.getChildren().addAll(
-                DialogBox.getUserDialog(Woof.wrapText(message, "\n", 52), this.user),
-                DialogBox.getBotDialog(Woof.wrapText(response, "\n", 52), this.doggo)
+                DialogBox.getUserDialog(Woof.wrapText(message, "\n", Woof.getChatWidth()), this.user),
+                DialogBox.getBotDialog(Woof.wrapText(response, "\n", Woof.getChatWidth()), this.doggo)
             );
             this.userInput.clear();
         }
@@ -167,7 +205,6 @@ public class WoofWoof extends Application {
         this.dialogArea.getChildren().clear();
         this.userInput.clear();
     }
-
 
     /**
      * Schedule the closing of the JavaFX stage after a 1-second delay.

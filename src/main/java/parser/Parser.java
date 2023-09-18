@@ -8,6 +8,7 @@ import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
 import command.FindCommand;
+import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.NullCommand;
@@ -38,6 +39,8 @@ public class Parser {
             return new EventCommand(rawCommand);
         case FIND:
             return new FindCommand(rawCommand);
+        case HELP:
+            return new HelpCommand(rawCommand);
         case LIST:
             return new ListCommand(rawCommand);
         case MARK:

@@ -55,9 +55,10 @@ public class EventTask extends Task {
     public String getEventRange() {
         return String.format("%s~From: %s\n%s~To  : %s",
             getTabStopTwo(),
-            startDate.format(super.getDateTimeformatter()),
+            parseDateTimeOut(startDate),
             getTabStopTwo(),
-            endDate.format(super.getDateTimeformatter()));
+            parseDateTimeOut(endDate)
+        );
     }
 
     /**

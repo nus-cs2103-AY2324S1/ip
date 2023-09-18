@@ -3,6 +3,8 @@ package tasks;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import enums.ExceptionMessage;
 import enums.WoofMessage;
@@ -72,7 +74,7 @@ public class TaskList {
      */
     public String addTask(Task task) {
         this.tasks.add(task);
-        return WoofMessage.TASK_ADDED.toFormattedString(task.getTabStopOne(), task.toString(), getTaskCountMessage());
+        return WoofMessage.TASK_ADDED.toFormattedValue(task.getTabStopOne(), task.toString(), getTaskCountMessage());
     }
 
     /**
@@ -85,7 +87,7 @@ public class TaskList {
         int taskIndex = Integer.parseInt(text) - 1;
         Task task = this.tasks.get(taskIndex);
         task.markDone();
-        return WoofMessage.TASK_DONE.toFormattedString(task.getTabStopOne(), task.toString(), getTaskCountMessage());
+        return WoofMessage.TASK_DONE.toFormattedValue(task.getTabStopOne(), task.toString(), getTaskCountMessage());
     }
 
     /**
@@ -98,7 +100,7 @@ public class TaskList {
         int taskIndex = Integer.parseInt(text) - 1;
         Task task = this.tasks.get(taskIndex);
         task.markUndone();
-        return WoofMessage.TASK_UNDONE.toFormattedString(task.getTabStopOne(), task.toString(), getTaskCountMessage());
+        return WoofMessage.TASK_UNDONE.toFormattedValue(task.getTabStopOne(), task.toString(), getTaskCountMessage());
     }
 
     /**
@@ -111,7 +113,7 @@ public class TaskList {
         int taskIndex = Integer.parseInt(text) - 1;
         Task task = this.tasks.get(taskIndex);
         this.tasks.remove(taskIndex);
-        return WoofMessage.TASK_DELETED.toFormattedString(task.getTabStopOne(), task.toString(), getTaskCountMessage());
+        return WoofMessage.TASK_DELETED.toFormattedValue(task.getTabStopOne(), task.toString(), getTaskCountMessage());
     }
 
     /**
@@ -120,12 +122,10 @@ public class TaskList {
      * @return A formatted string containing the list of tasks with task numbers.
      */
     public String listAllTasks() {
-        StringBuilder taskListBuilder = new StringBuilder();
-        for (int i = 1; i <= this.tasks.size(); ++i) {
-            String taskNumber = String.format("%3d.", i);
-            taskListBuilder.append(String.format("%s %s", taskNumber, this.tasks.get(i - 1).toString()));
-        }
-        return WoofMessage.TASKS_LISTED.toFormattedString(taskListBuilder.toString(), getTaskCountMessage());
+        String taskList = IntStream.range(0, tasks.size())
+            .mapToObj(i -> String.format("%3d. %s", i + 1, tasks.get(i).toString()))
+            .collect(Collectors.joining(""));
+        return WoofMessage.TASKS_LISTED.toFormattedValue(taskList, getTaskCountMessage());
     }
 
     /**
@@ -134,20 +134,19 @@ public class TaskList {
      * @return A message indicating the sorting result or an error message if the task list is empty.
      */
     public String sortTasks() {
-        StringBuilder sortedTasks = new StringBuilder();
         Collections.sort(this.tasks);
-        for (int i = 1; i <= this.tasks.size(); ++i) {
-            String taskNumber = String.format("%3d.", i);
-            sortedTasks.append(String.format("%s %s", taskNumber, this.tasks.get(i - 1).toString()));
-        }
-
+        String sortedTaskList = IntStream.range(0, tasks.size())
+            .mapToObj(i -> {
+                String taskNumber = String.format("%3d.", i + 1);
+                return String.format("%s %s", taskNumber, tasks.get(i).toString());
+            })
+            .collect(Collectors.joining(""));
         if (this.size() == 0) {
-            return WoofMessage.TASKS_SORTED.toFormattedString(
-                WoofMessage.EMPTY_TASK_LIST.toFormattedString(),
+            return WoofMessage.TASKS_SORTED.toFormattedValue(
+                WoofMessage.EMPTY_TASK_LIST.toFormattedValue(),
                 getTaskCountMessage());
         }
-
-        return WoofMessage.TASKS_SORTED.toFormattedString(sortedTasks.toString(), getTaskCountMessage());
+        return WoofMessage.TASKS_SORTED.toFormattedValue(sortedTaskList, getTaskCountMessage());
     }
 
     /**
@@ -157,25 +156,19 @@ public class TaskList {
      * @return A string containing the matching tasks or a message if no matches are found.
      */
     public String findTask(String ...keywords) {
-        StringBuilder matchedTasks = new StringBuilder();
-        boolean hasMatch = false;
 
-        for (int i = 1; i <= this.tasks.size(); ++i) {
-            Task currTask = this.tasks.get(i - 1);
-            if (containsKeywords(currTask, keywords)) {
-                hasMatch = true;
-                String taskNumber = String.format("%3d.", i);
-                matchedTasks.append(String.format("%s %s", taskNumber, currTask));
-            }
-        }
+        String matchedTasks = IntStream.range(0, tasks.size())
+            .filter(i -> containsKeywords(tasks.get(i), keywords))
+            .mapToObj(i -> String.format("%3d. %s", i + 1, tasks.get(i).toString()))
+            .collect(Collectors.joining(""));
 
-        if (!hasMatch) {
-            return WoofMessage.TASKS_FOUND.toFormattedString(
-                WoofMessage.NO_MATCHING_TASKS.toFormattedString(),
+        if (matchedTasks.isEmpty()) {
+            return WoofMessage.TASKS_FOUND.toFormattedValue(
+                WoofMessage.NO_MATCHING_TASKS.toFormattedValue(),
                 getTaskCountMessage());
         }
 
-        return WoofMessage.TASKS_FOUND.toFormattedString(matchedTasks.toString(), getTaskCountMessage());
+        return WoofMessage.TASKS_FOUND.toFormattedValue(matchedTasks, getTaskCountMessage());
     }
 
     /**
@@ -201,7 +194,7 @@ public class TaskList {
      * @return A string mentioning the number of tasks in the task list.
      */
     public String getTaskCountMessage() {
-        return WoofMessage.TASK_LIST_COUNT.toFormattedString(String.valueOf(this.size()));
+        return WoofMessage.TASK_LIST_COUNT.toFormattedValue(String.valueOf(this.size()));
     }
 
     /**
@@ -215,16 +208,16 @@ public class TaskList {
             index = Integer.parseInt(text);
         } catch (NumberFormatException e) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_TASK_INDEX.toFormattedString(text)
+                ExceptionMessage.NON_INTEGER_TASK_INDEX.toFormattedValue(text)
             );
         } catch (Exception e) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.UNABLE_TO_PARSE_INDEX.toFormattedString(text, e.getMessage())
+                ExceptionMessage.UNABLE_TO_PARSE_INDEX.toFormattedValue(text, e.getMessage())
             );
         }
         if (index < 1 || index > taskList.size()) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.TASK_INDEX_NOT_IN_LIST.toFormattedString(text)
+                ExceptionMessage.TASK_INDEX_NOT_IN_LIST.toFormattedValue(text)
             );
         }
     }

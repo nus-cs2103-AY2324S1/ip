@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Validates the "mark" command.
+     * Validates the `MarkCommand`.
      * It checks if the command is correctly formatted and if the specified task index is valid.
      *
      * @param rawCommand The raw command string.
@@ -30,7 +30,6 @@ public class MarkCommand extends Command {
      * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
      *                                     error message.
      */
-
     public static void validate(String rawCommand, TaskList taskList) throws WoofInvalidCommandException {
         assert rawCommand != null : "raw command cannot be null";
         assert taskList != null : "task list cannot be null";
@@ -45,7 +44,7 @@ public class MarkCommand extends Command {
 
 
     /**
-     * Executes the "mark" command. It parses the command, validates it, and marks
+     * Executes the `MarkCommand`. It parses the command, validates it, and marks
      * the specified task as done in the task list if the command is valid.
      *
      * @param taskList The task list in which the task is marked as done.

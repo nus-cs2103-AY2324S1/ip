@@ -4,6 +4,7 @@ package enums;
  * The `CommandWord` enum represents the possible command words used in the Woof application.
  */
 public enum CommandWord {
+    BY("/by"),
     BYE("bye"),
     DEADLINE("deadline"),
     DELETE("delete"),
@@ -11,14 +12,14 @@ public enum CommandWord {
     EXIT("exit"),
     FIND("find"),
     FROM("/from"),
+    HELP("help"),
     LIST("list"),
     MARK("mark"),
     NULL_COMMAND(""),
     SORT("sort"),
+    TO("/to"),
     TODO("todo"),
-    UNMARK("unmark"),
-    BY("/by"),
-    TO("/to");
+    UNMARK("unmark");
 
     private final String value;
 

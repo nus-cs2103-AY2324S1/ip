@@ -39,8 +39,8 @@ public class DeleteCommandTest {
     @Test
     public void testValidate() {
         //Arrange
-        LocalDate startDate = LocalDate.parse("2023-01-01", Woof.getDateTimeFormatter());
-        LocalDate endDate = LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter());
+        LocalDate startDate = Woof.parseDateTimeIn("2023-01-01");
+        LocalDate endDate = Woof.parseDateTimeIn("2023-12-31");
         Task task1 = new TodoTask("some task 1");
         Task task2 = new DeadlineTask("some task 2", endDate);
         Task task3 = new EventTask("some task 2", startDate, endDate);
@@ -69,10 +69,8 @@ public class DeleteCommandTest {
     public void testExecuteDeleteTask() {
         // Arrange
         DeleteCommand deleteCommand = new DeleteCommand("delete 1");
-        Task task1 = new TodoTask("some task 1");
-        TaskList taskList = new TaskList(new Task[]{task1});
+        TaskList taskList = new TaskList(new Task[]{new TodoTask("some task 1")});
 
-        // Act
         deleteCommand.execute(taskList);
 
         // Assert
@@ -82,8 +80,7 @@ public class DeleteCommandTest {
     @Test
     public void testExecuteNoTaskDeletedIfValidationFails() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
+        TaskList taskList = new TaskList(new Task[] {new TodoTask("Task 1")});
         DeleteCommand invalidCommand = new DeleteCommand("delete 1?");
 
         // Act

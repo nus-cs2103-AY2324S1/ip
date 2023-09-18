@@ -54,9 +54,12 @@ public class NullCommandTest {
     @Test
     public void testExecuteMarksTaskAsDone() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new TodoTask("Task 2"));
+        Task[] tasks = {
+            new TodoTask("Task 1"),
+            new TodoTask("Task 2"),
+            new TodoTask("Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
 
         MarkCommand markCommand = new MarkCommand("mark 1");
         UnmarkCommand unmarkCommand = new UnmarkCommand("unmark 1");
@@ -73,9 +76,12 @@ public class NullCommandTest {
     @Test
     public void testExecuteNoTaskMarkedIfValidationFails() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new TodoTask("Task 2"));
+        Task[] tasks = {
+            new TodoTask("Task 1"),
+            new TodoTask("Task 2"),
+            new TodoTask("Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
 
         MarkCommand markCommand = new MarkCommand("mark 1");
         MarkCommand invalidCommand = new MarkCommand("unmark    1");

@@ -24,7 +24,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Validates the "deadline" command.
+     * Validates the `DeadlineCommand`.
      * It checks if the command is correctly formatted and if the specified task index is valid.
      *
      * @param rawCommand The raw command string.
@@ -44,7 +44,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Executes the "deadline" command. It parses the command, validates it, and adds a new
+     * Executes the `DeadlineCommand`. It parses the command, validates it, and adds a new
      * deadline task to the task list if the command is valid.
      *
      * @param taskList The task list to which the deadline task is added.
@@ -61,7 +61,7 @@ public class DeadlineCommand extends Command {
 
         String[] args = Parser.getArgs(rawCommand);
         String description = args[1];
-        LocalDate endDate = LocalDate.parse(args[3], super.getDateTimeFormatter());
+        LocalDate endDate = parseDateTimeIn(args[3]);
         return taskList.addTask(new DeadlineTask(description, endDate));
     }
 

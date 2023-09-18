@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Validates the "delete" command.
+     * Validates the `DeleteCommand`.
      * It checks if the command is correctly formatted and if the specified task index is valid.
      *
      * @param rawCommand The raw command string.

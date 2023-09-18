@@ -49,7 +49,6 @@ public class TodoCommandTest {
         );
     }
 
-
     @Test
     public void testExecuteCreateTask() {
         // Arrange

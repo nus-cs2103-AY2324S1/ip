@@ -1,10 +1,10 @@
 package command;
 
 import enums.CommandWord;
+import enums.WoofMessage;
 import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
-import ui.Ui;
 
 /**
  * The `ByeCommand` class represents a command to exit the application.
@@ -22,7 +22,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Validates the "bye" command.
+     * Validates the `ByeCommand`.
      * It checks if the command is correctly formatted and if the specified task index is valid.
      *
      * @param rawCommand The raw command string.
@@ -40,7 +40,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Executes the "bye" command. It shows the bye message to the user.
+     * Executes the `ByeCommand`. It shows the bye message to the user.
      *
      * @param taskList The task list (not used in this command).
      */
@@ -53,6 +53,6 @@ public class ByeCommand extends Command {
             return e.getMessage();
         }
 
-        return Ui.getByeUserMessage();
+        return WoofMessage.BYE.toFormattedValue();
     }
 }

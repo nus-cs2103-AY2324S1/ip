@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import exceptions.WoofInvalidCommandException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
+import tasks.Task;
 import tasks.TaskList;
 import tasks.TodoTask;
 
@@ -58,17 +59,16 @@ public class FindCommandTest {
     @Test
     public void testExecuteFindsMatchingTasks() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        LocalDate startDate = LocalDate.parse("2023-01-01");
-        LocalDate endDate = LocalDate.parse("2023-12-31");
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new DeadlineTask("Task 2", endDate));
-        taskList.addTask(new EventTask("Task 3", startDate, endDate));
+        Task[] tasks = {
+            new TodoTask("Task 1"),
+            new TodoTask("Task 2"),
+            new TodoTask("Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
 
         FindCommand findCommand = new FindCommand("find 2");
         String expectedOutput = "Here are your matching tasks in your list:" + System.lineSeparator()
-                + "  2. [D][ ] Task 2" + System.lineSeparator()
-                + "            ~By: 2023-12-31" + System.lineSeparator()
+                + "  2. [T][ ] Task 2" + System.lineSeparator()
                 + "You have 3 tasks in the task list.";
 
         // Act
@@ -81,15 +81,16 @@ public class FindCommandTest {
     @Test
     public void testExecuteFindsMatchingTasksForMultiKeywords() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Eating"));
-        taskList.addTask(new TodoTask("Sleeping"));
-        taskList.addTask(new TodoTask("Drinking"));
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new TodoTask("Task 2"));
-        taskList.addTask(new TodoTask("Task 3"));
-        taskList.addTask(new TodoTask("22"));
-
+        Task[] tasks = {
+            new TodoTask("Eating"),
+            new TodoTask("Sleeping"),
+            new TodoTask("Drinking"),
+            new TodoTask("Task 1"),
+            new TodoTask("Task 2"),
+            new TodoTask("Task 3"),
+            new TodoTask("22")
+        };
+        TaskList taskList = new TaskList(tasks);
 
         FindCommand findCommand = new FindCommand("find 2 ing");
         String expectedOutput = "Here are your matching tasks in your list:" + System.lineSeparator()
@@ -110,14 +111,22 @@ public class FindCommandTest {
     @Test
     public void testExecuteNoMatchingTasks() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new DeadlineTask("Task 2", LocalDate.parse("2023-12-31")));
-        taskList.addTask(new EventTask("Task 3", LocalDate.parse("2023-01-01"), LocalDate.parse("2023-12-31")));
+        Task[] tasks = {
+            new TodoTask(
+                "Task 1"),
+            new DeadlineTask(
+                "Task 2",
+                LocalDate.parse("2023-12-31")),
+            new EventTask(
+                "Task 3",
+                LocalDate.parse("2023-01-01"),
+                LocalDate.parse("2023-12-31"))
+        };
+        TaskList taskList = new TaskList(tasks);
 
         FindCommand findCommand = new FindCommand("find NonExistentTask");
         String expectedOutput = "Here are your matching tasks in your list:" + System.lineSeparator()
-               + "No tasks matched your keyword!" + System.lineSeparator()
+               + "No tasks matched your keyword(s)!" + System.lineSeparator()
                + "You have 3 tasks in the task list.";
 
         // Act

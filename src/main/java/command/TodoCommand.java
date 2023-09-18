@@ -22,7 +22,7 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Validates the "todo" command.
+     * Validates the `TodoCommand`.
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
@@ -39,9 +39,8 @@ public class TodoCommand extends Command {
         validateCommandWord(CommandWord.TODO, args[0]);
     }
 
-
     /**
-     * Executes the "todo" command. It parses the command, validates it, and adds a new
+     * Executes the `TodoCommand`. It parses the command, validates it, and adds a new
      * todo task to the task list if the command is valid.
      *
      * @param taskList The task list to which the todo task is added.

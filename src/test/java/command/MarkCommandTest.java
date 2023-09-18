@@ -37,9 +37,12 @@ public class MarkCommandTest {
     @Test
     public void testValidate() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new TodoTask("Task 2"));
+        Task[] tasks = {
+            new TodoTask("Task 1"),
+            new TodoTask("Task 2"),
+            new TodoTask("Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
 
         // Act, Assert
         assertAll((
@@ -54,7 +57,7 @@ public class MarkCommandTest {
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> MarkCommand.validate("mark 0", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
-            ) -> MarkCommand.validate("mark 3", taskList)), (
+            ) -> MarkCommand.validate("mark 4", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> MarkCommand.validate("mark a", taskList))
         );
@@ -64,9 +67,12 @@ public class MarkCommandTest {
     @Test
     public void testExecuteMarksTaskAsDone() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new TodoTask("Task 2"));
+        Task[] tasks = {
+            new TodoTask("Task 1"),
+            new TodoTask("Task 2"),
+            new TodoTask("Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
         MarkCommand markCommand = new MarkCommand("mark 1");
 
         // Act
@@ -80,9 +86,12 @@ public class MarkCommandTest {
     @Test
     public void testExecuteNoTaskMarkedIfValidationFails() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new TodoTask("Task 2"));
+        Task[] tasks = {
+            new TodoTask("Task 1"),
+            new TodoTask("Task 2"),
+            new TodoTask("Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
 
         MarkCommand invalidCommand = new MarkCommand("mark 0");
 

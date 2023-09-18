@@ -44,7 +44,7 @@ public class DeadlineTask extends Task {
      * @return A string representation of the deadline date.
      */
     public String getDeadline() {
-        return String.format("%s~By: %s\n", getTabStopTwo(), endDate.format(super.getDateTimeformatter()));
+        return String.format("%s~By: %s\n", getTabStopTwo(), parseDateTimeOut(endDate));
     }
 
     /**

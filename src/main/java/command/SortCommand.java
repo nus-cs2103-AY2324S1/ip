@@ -21,14 +21,13 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Validates the "Sort" command.
+     * Validates the `SortCommand`.
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
      * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an
      *                                     error message.
      */
-
     public static void validate(String rawCommand) throws WoofInvalidCommandException {
         assert rawCommand != null : "raw command cannot be null";
 
@@ -40,7 +39,7 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Executes the "Sort" command. It validates the command and displays
+     * Executes the `SortCommand`. It validates the command and displays
      * a list of all tasks in the task list.
      *
      * @param taskList The task list from which tasks are listed.

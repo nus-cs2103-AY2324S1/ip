@@ -7,6 +7,7 @@ import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.EventTask;
 import tasks.TaskList;
+import woof.Woof;
 
 /**
  * The `EventCommand` class represents a command to create a new event task.
@@ -25,7 +26,7 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Validates the "event" command.
+     * Validates the `EventCommand`.
      * It checks if the command is correctly formatted.
      *
      * @param rawCommand The raw command string.
@@ -44,10 +45,11 @@ public class EventCommand extends Command {
         validateDateTime(args[3]);
         validateCommandWord(CommandWord.TO, args[4]);
         validateDateTime(args[5]);
+        validateStartDateBeforeEndDate(args[3], args[5]);
     }
 
     /**
-     * Executes the "event" command. It parses the command, validates it, and adds a new
+     * Executes the `EventCommand`. It parses the command, validates it, and adds a new
      * event task to the task list if the command is valid.
      *
      * @param taskList The task list to which the event task is added.
@@ -63,8 +65,8 @@ public class EventCommand extends Command {
         }
         String[] args = Parser.getArgs(rawCommand);
         String description = args[1];
-        LocalDate startDate = LocalDate.parse(args[3], super.getDateTimeFormatter());
-        LocalDate endDate = LocalDate.parse(args[5], super.getDateTimeFormatter());
+        LocalDate startDate = Woof.parseDateTimeIn(args[3]);
+        LocalDate endDate = Woof.parseDateTimeIn(args[5]);
         return taskList.addTask(new EventTask(description, startDate, endDate));
     }
 
