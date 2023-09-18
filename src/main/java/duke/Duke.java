@@ -49,16 +49,16 @@ public class Duke {
         return response;
     }
 
-    public String stopProgram(String out) {
+    public String stopProgram(String response) {
         new Thread(() -> {
             try {
-                Thread.sleep(2500);
+                Thread.sleep(2000);
                 Platform.exit();
             } catch (IllegalArgumentException | InterruptedException e) {
                 throw new DukeException(e.getMessage());
             }
         }).start();
-        return out;
+        return response;
     }
 
     public Ui getUi() {
