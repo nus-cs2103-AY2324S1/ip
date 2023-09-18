@@ -16,73 +16,40 @@ public class Parser {
     public static String parse(String userInput, TaskList tasks, Storage storage) {
         String output;
         boolean shouldUpdateUndoTxtFile = false;
-        if (userInput.equals("list")) {
-            output = "Here are the tasks in your list:\n" + tasks.displayList();
-        } else if (userInput.equals("bye")) {
-            output = "Thanks for coming!";
-        } else if (userInput.contains("mark")) {
-            try {
-                output = tasks.markDescription(userInput);
+        try {
+            if (userInput.equals("list")) {
+                output = tasks.displayList();
+            } else if (userInput.equals("bye")) {
+                output = Ui.handleExitUi();
+            } else if (userInput.contains("mark")) {
+                output = tasks.markTask(userInput);
                 shouldUpdateUndoTxtFile = true;
-            } catch (DukeException e) {
-                return e.getMessage();
-            }
-        } else if (userInput.contains("todo")) {
-            if (userInput.length() <= 5) {
-                output = "OOPS!!! The description of a todo cannot be empty.";
-            } else {
-                try {
-                    output = tasks.addTask("T", userInput.substring(5));
-                    shouldUpdateUndoTxtFile = true;
-                } catch (DukeException e) {
-                    return e.getMessage();
-                }
-            }
-        } else if (userInput.contains("deadline")) {
-            if (userInput.length() <= 9) {
-                output = "OOPS!!! The description of a deadline cannot be empty.";
-            } else {
-                try {
-                    output = tasks.addTask("D", userInput.substring(9));
-                    shouldUpdateUndoTxtFile = true;
-                } catch (DukeException e) {
-                    return e.getMessage();
-                }
-            }
-        } else if (userInput.contains("event")) {
-            if (userInput.length() <= 6) {
-                output = "OOPS!!! The description of an event cannot be empty.";
-            } else {
-                try {
-                    output = tasks.addTask("E", userInput.substring(6));
-                    shouldUpdateUndoTxtFile = true;
-                } catch (DukeException e) {
-                    return e.getMessage();
-                }
-            }
-        } else if (userInput.contains("delete")) {
-            try {
+            } else if (userInput.contains("todo")) {
+                output = tasks.addTask("T", userInput);
+                shouldUpdateUndoTxtFile = true;
+            } else if (userInput.contains("deadline")) {
+                output = tasks.addTask("D", userInput);
+                shouldUpdateUndoTxtFile = true;
+            } else if (userInput.contains("event")) {
+                output = tasks.addTask("E", userInput);
+                shouldUpdateUndoTxtFile = true;
+            } else if (userInput.contains("delete")) {
                 output = tasks.deleteTask(userInput);
                 shouldUpdateUndoTxtFile = true;
-            } catch (DukeException e) {
-                return e.getMessage();
-            }
-        } else if (userInput.contains("find")) {
-            output = tasks.displayMatchingList(userInput.substring(5));
-        } else if (userInput.contains("undo")) {
-            try {
+            } else if (userInput.contains("find")) {
+                output = tasks.findMatchingTasks(userInput.substring(5));
+            } else if (userInput.contains("undo")) {
                 tasks.undo(storage);
-            } catch (IOException | ClassNotFoundException e) {
-                return e.getMessage();
+                output = Ui.handleUndoUi() + tasks.displayList();
+            } else if (userInput.equals("help")) {
+                output = tasks.displayUserGuide();
+            } else {
+                output = Ui.handleInvalidCommandUi();
             }
-            output = "Most recent move undone, here is the updated list :)\n" + tasks.displayList();
-        } else if (userInput.equals("help")) {
-            output = tasks.displayUserGuide();
-        } else {
-            output = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+        } catch (DukeException | IOException | ClassNotFoundException e) {
+            return e.getMessage();
         }
         storage.updateFile(tasks, shouldUpdateUndoTxtFile);
-        ToDo deadline = ToDo.newToDo("asd");
         return output;
     }
 }

@@ -47,14 +47,14 @@ public class TaskListTest {
     @Test
     public void markDescription_mark1_success() throws DukeException {
         tasks.addTask("T", "borrow book");
-        tasks.markDescription("mark 1");
-        assertEquals("X", tasks.getTask(0).getStatusIcon());
+        tasks.markTask("mark 1");
+        assertEquals("X", tasks.getTaskByIndex(0).getStatusIcon());
     }
     @Test
     public void markDescription_mark2_exceptionThrown() {
         try {
             tasks.addTask("T", "borrow book");
-            tasks.markDescription("mark 2");
+            tasks.markTask("mark 2");
         } catch (DukeException e) {
             assertEquals("You are trying to access a Task that does not exist!", e.getMessage());
         }

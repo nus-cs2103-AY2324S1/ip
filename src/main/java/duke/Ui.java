@@ -2,6 +2,7 @@ package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -9,6 +10,8 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String NAME = "Zac";
+    private static final String MEGA_INDENT = "    ";
+
     /**
      * Prints out all the tasks in TaskList, which are stored in duke.txt
      * @param filePath The file where the lists of Tasks are stored
@@ -51,5 +54,94 @@ public class Ui {
         string.append("   eg. find book (finds all task with description 'book')\n");
         string.append("9. undo (undo the latest command)\n");
         return string.toString();
+    }
+
+    /**
+     * Prints out all the tasks in the TaskList
+     * @param tasks TaskList
+     * @return Output
+     */
+    public static String displayList(ArrayList<Task> tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            int num = i + 1;
+            Task curr = tasks.get(i);
+            stringBuilder.append(num + ". " + curr.toString() + "\n");
+        }
+        return stringBuilder.toString();
+    }
+    /**
+     * Prints out the tasks that matches the user input in the find command
+     * @param tasks TaskList that contains only tasks that match the user input
+     * @return Output
+     */
+    public static String displayMatchingList(ArrayList<Task> tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (tasks.isEmpty()) {
+            stringBuilder.append("There are no matching tasks\n");
+        } else {
+            stringBuilder.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                int num = i + 1;
+                Task curr = tasks.get(i);
+                stringBuilder.append(num + "." + curr.toString() + "\n");
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Handles Ui for addTask method
+     * @param tasksSize Size of TaskList
+     * @param newlyAddedTask Most recently added Task
+     * @return Output
+     */
+    public static String handleAddTaskUi(int tasksSize, Task newlyAddedTask) {
+        StringBuilder string = new StringBuilder();
+        string.append("Got it. I've added this task:\n");
+        string.append(MEGA_INDENT + newlyAddedTask.toString() + "\n");
+        string.append("Now you have " + tasksSize + " tasks in the list.\n");
+        return string.toString();
+    }
+
+    /**
+     * Handles Ui for markTask method
+     * @param userInput mark or unmark
+     * @param curr The Task that is marked/unmarked
+     * @return Output
+     */
+    public static String handleMarkTaskUi(String userInput, Task curr) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (userInput.contains("unmark")) {
+            stringBuilder.append("OK, I've marked this task as not done yet:\n");
+        } else if (userInput.contains("mark")) {
+            stringBuilder.append("Nice! I've marked this task as done:\n");
+        }
+        stringBuilder.append(MEGA_INDENT + curr.getStatusIconWithBracket() + " " + curr.getDescription() + "\n");
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Handles Ui for deleteTask method
+     * @param deletedTask Deleted Task
+     * @param tasksSize Size of TaskList
+     * @return Output
+     */
+    public static String handleDeleteTaskUi(Task deletedTask, int tasksSize) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Noted. I've removed this task:\n");
+        stringBuilder.append(MEGA_INDENT + deletedTask.toString() + "\n");
+        stringBuilder.append("Now you have " + tasksSize + " tasks in the list.\n");
+        return stringBuilder.toString();
+    }
+    public static String handleUndoUi() {
+        return "Most recent move undone, here is the updated list :)\n";
+    }
+    public static String handleExitUi() {
+        return "Thanks for coming!";
+    }
+    public static String handleInvalidCommandUi() {
+        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 }
