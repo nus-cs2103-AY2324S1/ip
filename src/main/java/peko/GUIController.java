@@ -46,9 +46,6 @@ public class GUIController extends Application {
     private Scene scene;
     private Image pekoIcon = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_67c47d22da73ac2ba89e1e97bce6e525_76dfa232_400.png"));
     private Image userIcon = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_cd531dc8ea0423c248426f9f8cf65f72_1a341469_1280.png"));
-    public static void main(String[] args) {
-
-    }
 
     @Override
     public void start(Stage stage) {
@@ -120,11 +117,5 @@ public class GUIController extends Application {
     @FXML
     private void handleUserInput() {
     }
-    private String getResponse(String input) {
-        return "Peko heard: " + input;
-    }
-
-
-
 
 }
