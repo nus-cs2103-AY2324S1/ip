@@ -259,14 +259,31 @@ public class Ui {
         return LINE + "Here are the matching tasks:" + s + "Total of " + task.size() + " matched tasks" + LINE;
     }
 
+    /**
+     * Returns output string when the task if of a wrong instance
+     *
+     * @param task type of task
+     * @return String for when task is of wrong instance
+     */
     public String displayWrongInstanceTask(String task) {
         return "Wrong type of Task! The index you chose is not a " + task;
     }
 
+    /**
+     * Returns a string after updating task
+     *
+     * @param task task that was updated
+     * @return string output after updating task
+     */
     public String displayUpdatedTask(Task task) {
-        return "The following task has been updated:\n" + task.toString();
+        return "The following task has been updated, just for you:\n" + task.toString();
     }
 
+    /**
+     * Return a string when a wrong command was input
+     *
+     * @return string after wrong command was input
+     */
     public String displayWrongCommand() {
         return "The command you have input is wrong!";
     }
