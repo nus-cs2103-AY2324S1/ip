@@ -64,12 +64,12 @@ public class TaskList implements StorableList<Task> {
      * Marks a task's status as done or not done and returns a new immutable TaskList with the updated task.
      *
      * @param index  The index of the task to be marked.
-     * @param status The new status of the task.
+     * @param isDone The new status of the task.
      * @return A new TaskList with the specified task's status updated.
      * @throws TaskListIndexOutOfBoundsException If the index is invalid.
      * @throws TaskStatusException If the task was already marked with the given status.
      */
-    public TaskList mark(int index, boolean status) throws TaskListIndexOutOfBoundsException, TaskStatusException {
+    public TaskList mark(int index, boolean isDone) throws TaskListIndexOutOfBoundsException, TaskStatusException {
         if (!isValidIndex(index)) {
             throw new TaskListIndexOutOfBoundsException(index);
         }
@@ -78,7 +78,7 @@ public class TaskList implements StorableList<Task> {
 
         Task targetTask = updatedTasks.get(index);
 
-        Task modifiedTask = (status) ? targetTask.markAsDone() : targetTask.markAsNotDone();
+        Task modifiedTask = (isDone) ? targetTask.markAsDone() : targetTask.markAsNotDone();
 
         updatedTasks.set(index, modifiedTask);
 

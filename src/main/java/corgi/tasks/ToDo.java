@@ -17,16 +17,16 @@ public final class ToDo extends Task {
     /**
      * Initializes a new todo task with the given status and description.
      *
-     * @param status The status of the task.
+     * @param isDone The status of the task.
      * @param desc The description of the task.
      */
-    public ToDo(boolean status, String desc) {
-        super(status, desc);
+    public ToDo(boolean isDone, String desc) {
+        super(isDone, desc);
     }
 
     @Override
     public ToDo markAsDone() throws TaskStatusException {
-        if (status) {
+        if (this.isDone) {
             throw new TaskStatusException("The task is already marked as done.");
         }
         return new ToDo(true, desc);
@@ -34,7 +34,7 @@ public final class ToDo extends Task {
 
     @Override
     public ToDo markAsNotDone() throws TaskStatusException {
-        if (!status) {
+        if (!this.isDone) {
             throw new TaskStatusException("The task is already marked as not done.");
         }
         return new ToDo(false, desc);
@@ -47,7 +47,7 @@ public final class ToDo extends Task {
      */
     @Override
     public String toStorableString() {
-        String statusStr = this.status ? "1" : "0";
+        String statusStr = this.isDone ? "1" : "0";
 
         String[] infos = {"T", statusStr, this.desc};
         String combinedInfos = String.join(TaskParser.SEPARATOR, infos);
