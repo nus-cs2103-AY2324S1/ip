@@ -44,35 +44,6 @@ public class Skye {
         }
     }
 
-    public static void main(String[] args) {
-        new Skye("data/tasks.txt").run();
-    }
-
-    /**
-     * A method to start running the chatbot.
-     */
-    private void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        do {
-            try {
-                String fullCommand = ui.readCommand();
-                System.out.println();
-                Command command = parser.parse(fullCommand);
-                command.execute(taskList, venueList, ui, storage);
-                isExit = command.isExit();
-            } catch (DukeException exception) {
-                ui.printMessage(exception.getMessage());
-            } catch (IOException exception) {
-                ui.printMessage("IO Exception: " + exception.getMessage());
-            } catch (NumberFormatException exception) {
-                ui.printMessage("Error: Task number must be an integer.\n(example: mark 1)");
-            } catch (DateTimeParseException exception) {
-                ui.printMessage("Invalid Datetime Format: it should be dd-mm-yyyy hh:mm!");
-            }
-        } while (!isExit);
-    }
-
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.

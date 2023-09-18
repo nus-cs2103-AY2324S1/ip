@@ -52,11 +52,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = skye.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, skyeImage)
-        );
-        userInput.clear();
+        if (!input.isEmpty()) {
+            String response = skye.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, skyeImage)
+            );
+            userInput.clear();
+        }
     }
 }

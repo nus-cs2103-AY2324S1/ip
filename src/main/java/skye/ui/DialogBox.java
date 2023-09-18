@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import skye.MainWindow;
 
 /**
@@ -52,6 +53,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.setStyle("-fx-background-color: #d6ffb0");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
@@ -60,7 +62,6 @@ public class DialogBox extends HBox {
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setStyle("-fx-background-color: #d6ffb0");
         db.flip();
         return db;
     }
