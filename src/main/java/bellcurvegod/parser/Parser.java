@@ -20,6 +20,9 @@ public class Parser {
     /**
      * Parses commands entered by the user,
      * and exits when the user types the command bye.
+     *
+     * @param input input string to be parsed.
+     * @throws BellCurveGodException If any exception is thrown.
      */
     public static String parse(String input) throws BellCurveGodException {
         ArrayList<Task> tasks = TaskList.getTaskList();

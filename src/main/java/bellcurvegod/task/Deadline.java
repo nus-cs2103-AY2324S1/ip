@@ -65,7 +65,6 @@ public class Deadline extends Task {
         try {
             deadline = LocalDate.parse(ddl);
         } catch (DateTimeParseException e) {
-            Ui.showWrongDateFormatMessage();
             return new Deadline("__Faulty", deadline);
         }
 
