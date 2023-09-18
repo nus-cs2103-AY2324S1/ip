@@ -83,6 +83,9 @@ public class TaskList {
         return "Nice. I've marked this task as done:\n" + curr;
     }
 
+    /**
+     * Marks all tasks as done and updates the file.
+     */
     public String markAllTasks() {
         for (int i = 0; i < taskCount; i++) {
             list.get(i).markAsDone();
@@ -117,10 +120,14 @@ public class TaskList {
         return "Okay, I've unmarked this task:\n" + curr;
     }
 
+    /**
+     * Unmarks all tasks and updates the file.
+     */
     public String unmarkAllTasks() {
         for (int i = 0; i < taskCount; i++) {
             list.get(i).markAsUndone();
         }
+        storage.rewriteFile(list);
         return "All tasks unmarked!";
     }
 
@@ -216,6 +223,9 @@ public class TaskList {
         return "Noted. I've removed this task:\n" + toDelete + count;
     }
 
+    /**
+     * Deletes all tasks and updates the file.
+     */
     public String deleteAllTasks() {
         list.clear();
         storage.rewriteFile(list);
