@@ -42,10 +42,7 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        BackgroundFill backgroundFill = new BackgroundFill(Color.BEIGE, new CornerRadii(10), Insets.EMPTY);
-
         dialog.setText(text);
-        dialog.setBackground(new Background(backgroundFill));
         displayPicture.setImage(img);
         displayPicture.setClip(new Circle(25.0, 25.0, 25.0));
     }
@@ -60,13 +57,56 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    /**
+     * Sets the color of the DialogBox.
+     *
+     * @param bgFill The BackgroundFill object containing the color information.
+     */
+    private void setColor(BackgroundFill bgFill) {
+        this.dialog.setBackground(new Background(bgFill));
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Returns a DialogBox containing the user image and the user input text.
+     *
+     * @param text The user input text
+     * @param img The Image object representing the user image.
+     * @return A DialogBox containing the user image and the user input text.
+     */
+    public static DialogBox getUserDialog(String text, Image img) {
+        BackgroundFill userBg = new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), Insets.EMPTY);
+        DialogBox userDialogBox = new DialogBox(text, img);
+        userDialogBox.setColor(userBg);
+        return userDialogBox;
+    }
+
+    /**
+     * Returns a DialogBox containing the image of zean and the response.
+     *
+     * @param text The response from zean
+     * @param img The Image object representing zean.
+     * @return A DialogBox containing the image of zean and the response.
+     */
+    public static DialogBox getZeanDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        BackgroundFill botBg = new BackgroundFill(Color.BEIGE, new CornerRadii(10), Insets.EMPTY);
+        db.setColor(botBg);
+        return db;
+    }
+
+    /**
+     * Returns an orange DialogBox containing the image of zean and the error message.
+     *
+     * @param text The response from zean
+     * @param img The Image object representing zean.
+     * @return A DialogBox containing the image of zean and the error message.
+     */
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        BackgroundFill botBg = new BackgroundFill(Color.ORANGE, new CornerRadii(10), Insets.EMPTY);
+        db.setColor(botBg);
         return db;
     }
 }

@@ -24,8 +24,7 @@ public class Todo extends Task {
     }
 
     /**
-     * For todo task, error is thrown if the arguments passed are not empty strings
-     * as the task does not support the updating of date.
+     * Throws ZeanException as Todo tasks does not support the updating of dates.
      *
      * @param by An empty string, else an error is thrown.
      * @param from An empty string, else an error is thrown.

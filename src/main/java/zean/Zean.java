@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.scene.image.Image;
 import zean.exception.ZeanException;
+import zean.gui.DialogBox;
 
 /**
  * The main class for the chatbot.
@@ -18,6 +20,8 @@ public class Zean {
     private Storage storage;
 
     private String initMsg = "";
+
+    private String initErrorMsg = "";
 
     /**
      * Empty constructor.
@@ -40,15 +44,15 @@ public class Zean {
                 this.initMsg = this.storage.getCreateFileMsg();
             }
         } catch (FileNotFoundException e) {
-            this.initMsg = "OOPS! Something went wrong with the file."
+            this.initErrorMsg = "OOPS! Something went wrong with the file."
                     + "\nShutting down now...";
         } catch (IOException e) {
-            this.initMsg = "OOPS! The file cannot be created.\nShutting down now...";
+            this.initErrorMsg = "OOPS! The file cannot be created.\nShutting down now...";
         } catch (SecurityException e) {
-            this.initMsg = "OOPS! The file cannot be written due to invalid access."
+            this.initErrorMsg = "OOPS! The file cannot be written due to invalid access."
                     + "\nShutting down now...";
         } catch (ZeanException e) {
-            this.initMsg = e.getMessage();
+            this.initErrorMsg = e.getMessage();
         }
     }
 
@@ -56,8 +60,12 @@ public class Zean {
         return this.initMsg;
     }
 
+    public String getInitErrorMsg() {
+        return this.initErrorMsg;
+    }
+
     /**
-     * Runs the chatbot.
+     * Runs the CLI-based chatbot.
      */
     public void run() {
         this.ui.greet("Zean");
@@ -76,27 +84,26 @@ public class Zean {
         }
         sc.close();
         this.ui.exit();
-
     }
 
     /**
-     * Returns a response to user input.
+     * Returns a DialogBox containing response to user input.
      *
      * @param input The user input.
-     * @return The response to the input.
+     * @return The DialogBox containing response to the input.
      */
-    public String getResponse(String input) {
+    public DialogBox getResponseDialog(String input, Image img) {
         String output = "";
         if (input.strip().equals("bye")) {
-            return "Bye! Have a nice day!";
+            return DialogBox.getZeanDialog("Bye! Have a nice day!", img);
         }
         try {
             output = Parser.parse(input, this.tasks);
         } catch (ZeanException e) {
-            output = e.getMessage();
+            return DialogBox.getErrorDialog(e.getMessage(), img);
         }
         assert !output.isBlank();
-        return output;
+        return DialogBox.getZeanDialog(output, img);
     }
 
     public static void main(String[] args) {

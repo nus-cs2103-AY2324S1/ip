@@ -28,6 +28,9 @@ public class Main extends Application {
             if (!this.zean.getInitMsg().isEmpty()) {
                 fxmlLoader.<MainWindow>getController().showMessage(this.zean.getInitMsg());
             }
+            if (!this.zean.getInitErrorMsg().isEmpty()) {
+                fxmlLoader.<MainWindow>getController().showErrorMessage(this.zean.getInitMsg());
+            }
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
