@@ -26,6 +26,7 @@ public class Dates {
     /**
      * Convert a date string from line into a LocalDateTime class
      *
+     * @param date the string of a data in the format specified by input requirements
      * @return LocalDateTime class based on the date String
      */
     public static LocalDateTime convertToDateTime(String date) {

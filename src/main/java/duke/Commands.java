@@ -22,7 +22,6 @@ public class Commands {
     }
 
 
-
     /**
      * This method Run the Scanner to begin taking inputs from user, and check to see which commands to run.
      */
@@ -31,61 +30,62 @@ public class Commands {
         ItemList items = storage.getItems();
 
         boolean isRunning = true;
-        do {
+        while (isRunning) {
             if (!sc.hasNextLine()) {
                 break;
             }
+
+            String line = sc.nextLine();
+            Parser parser = new Parser(line);
+
             try {
-                String line = sc.nextLine();
-                Parser parser = new Parser(line);
-                String command = parser.getCommand();
-                CommandType given = CommandType.valueOf(command);
-
-                switch (given) {
-                case BYE:
+                CommandType commandType = CommandType.valueOf(parser.getCommand());
+                if (commandType == CommandType.BYE) {
                     isRunning = false;
-                    break;
-                case LIST:
-                    items.showitems();
-                    break;
-                case MARK:
-                    parser.parseMark(items);
-                    break;
-                case UNMARK:
-                    parser.parseUnmark(items);
-                    break;
-                case DELETE:
-                    parser.parseDelete(items);
-                    break;
-                case DEADLINE:
-                    parser.parseDeadline(items);
-                    break;
-                case TODO:
-                    parser.parseTodo(items);
-                    break;
-                case EVENT:
-                    parser.parseEvent(items);
-                    break;
-                case FIND:
-                    parser.parseFind(items);
-                    break;
-                case RESCHEDULE:
-                    parser.parseReschedule(items);
-                    break;
-                default:
-                    throw new DukeException();
-
+                } else {
+                    executeCommand(commandType, parser, items);
                 }
-            } catch (DukeException e) {
-                UI.printMessage(e.toString());
             } catch (IllegalArgumentException e) {
                 UI.printMessage("Invalid input");
+            } catch (DukeException e) {
+                UI.printMessage(e.toString());
             }
-
-
-        } while (isRunning);
+        }
         Greeting.bye();
     }
 
+    private static void executeCommand(CommandType commandType, Parser parser, ItemList items) throws DukeException {
+        switch (commandType) {
+        case LIST:
+            items.showitems();
+            break;
+        case MARK:
+            parser.parseMark(items);
+            break;
+        case UNMARK:
+            parser.parseUnmark(items);
+            break;
+        case DELETE:
+            parser.parseDelete(items);
+            break;
+        case DEADLINE:
+            parser.parseDeadline(items);
+            break;
+        case TODO:
+            parser.parseTodo(items);
+            break;
+        case EVENT:
+            parser.parseEvent(items);
+            break;
+        case FIND:
+            parser.parseFind(items);
+            break;
+        case RESCHEDULE:
+            parser.parseReschedule(items);
+            break;
+        default:
+            throw new DukeException();
+        }
+    }
 
 }

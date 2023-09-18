@@ -29,6 +29,55 @@ public class Storage {
         }
     };
 
+    private static ToDo parseTodo(String line) {
+        String[] para = line.split(" | ");
+        String description = para[4];
+        ToDo newTask = new ToDo(description);
+        if (!para[2].equals("0")) {
+            newTask.setDone();
+        }
+        return newTask;
+    }
+
+    private static Deadline parseDeadline(String line) {
+        String[] para = line.split(" \\| ", 4);
+        String description = para[2];
+        String by = para[3];
+        Deadline newTask;
+        if (Dates.checkDateString(by)) {
+            newTask = new Deadline(description, Dates.createDateTime(by));
+        } else {
+            newTask = new Deadline(description, by);
+        }
+
+        if (!para[1].equals("0")) {
+            newTask.setDone();
+        }
+
+        return newTask;
+    }
+
+    private static Event parseEvent(String line) {
+        String[] para = line.split(" \\| ", 4);
+        String description = para[2];
+        String block = para[3];
+        String[] fromTo = block.split(" to ", 2);
+        Event newTask;
+        if (Dates.checkDateString(fromTo[0]) && Dates.checkDateString(fromTo[1])) {
+            newTask = new Event(description, Dates.createDateTime(fromTo[0]),
+                    Dates.createDateTime(fromTo[1]));
+        } else {
+            newTask = new Event(description, fromTo[0], fromTo[1]);
+        }
+
+        if (!para[1].equals("0")) {
+            newTask.setDone();
+        }
+
+        return newTask;
+    }
+
+
 
     /**
      * returns the Items being stored in Storage
@@ -40,64 +89,29 @@ public class Storage {
     private static ItemList loadAll() throws FileNotFoundException {
         File file = new File(Duke.LISTPATH);
         assert file.isFile() : "The provided path does not point to a valid file: " + Duke.LISTPATH;
-        ArrayList<Task> items = new ArrayList<Task>();
-        int len = 0;
+        ArrayList<Task> items = new ArrayList<>();
+        int noOfItems = 0;
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String line = s.nextLine();
             if (line.charAt(0) == 'T') {
-                String[] para = line.split(" | ");
-                String description = para[4];
-                ToDo newTask = new ToDo(description);
-                if (!para[2].equals("0")) {
-                    newTask.setDone();
-                }
-                items.add(newTask);
-                len++;
+                items.add(parseTodo(line));
+                noOfItems++;
                 continue;
             }
             if (line.charAt(0) == 'D') {
-                String[] para = line.split(" \\| ", 4);
-                String description = para[2];
-                String by = para[3];
-                Deadline newTask;
-                if (Dates.checkDateString(by)) {
-                    newTask = new Deadline(description, Dates.createDateTime(by));
-                } else {
-                    newTask = new Deadline(description, by);
-                }
-
-                if (!para[1].equals("0")) {
-                    newTask.setDone();
-                }
-                items.add(newTask);
-                len++;
+                items.add(parseDeadline(line));
+                noOfItems++;
                 continue;
             }
 
-
             if (line.charAt(0) == 'E') {
-                String[] para = line.split(" \\| ", 4);
-                String description = para[2];
-                String block = para[3];
-                String[] fromTo = block.split(" to ", 2);
-                Event newTask;
-                if (Dates.checkDateString(fromTo[0]) && Dates.checkDateString(fromTo[1])) {
-                    newTask = new Event(description, Dates.createDateTime(fromTo[0]),
-                            Dates.createDateTime(fromTo[1]));
-                } else {
-                    newTask = new Event(description, fromTo[0], fromTo[1]);
-                }
-
-                if (!para[1].equals("0")) {
-                    newTask.setDone();
-                }
-                items.add(newTask);
-                len++;
+                items.add(parseEvent(line));
+                noOfItems++;
 
             }
         }
         s.close();
-        return new ItemList(file, len, items);
+        return new ItemList(file, noOfItems, items);
     }
 }

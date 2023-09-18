@@ -31,9 +31,7 @@ public class Duke {
     }
 
 
-    /**
-     * Start duke program
-     */
+    /** Starts duke program. */
     public void run() {
         Greeting.greet();
         Commands.run(this.storage);
@@ -47,8 +45,10 @@ public class Duke {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response based on the input String given.
+     *
+     * @param input string input by users
+     * @return the response based on the user input in String format
      */
     public String getResponse(String input) {
         return this.uiResponse.getResponseString(input);
