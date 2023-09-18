@@ -1,8 +1,7 @@
 package exceptions;
 
 /**
- * The EmptyTaskException class is a custom exception that is thrown when the description of a task (e.g., todo, deadline, or event)
- * is found to be empty or missing.
+ * The EmptyTaskException is an exception that is thrown when the description of a task is empty or missing.
  */
 public class EmptyTaskException extends DukeException {
 

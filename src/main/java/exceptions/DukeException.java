@@ -1,8 +1,7 @@
 package exceptions;
 
 /**
- * The DukeException class is a custom exception class that serves as the base class for all exceptions
- * specific to the Duke application.
+ * The DukeException class serves as the base class for all exceptions specific to the Duke application.
  */
 public class DukeException extends Exception {
 

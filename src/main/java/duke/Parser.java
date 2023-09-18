@@ -15,10 +15,35 @@ public class Parser {
     private static String response;
 
     /**
-     * Parses the user input and performs corresponding actions on the task list.
+     * Processes user input, invoking the parsing and execution of commands on the task list.
      *
      * @param userInput The input provided by the user.
      * @param taskList  The TaskList instance used to manage tasks.
+     * @return A string containing the response or outcome of the user input processing.
+     */
+    public static String processUserInput(String userInput, TaskList taskList) {
+        try {
+            parseInput(userInput, taskList);
+        } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException | IOException e) {
+            System.out.println(e);
+            response = e.toString();
+        } catch (DateTimeParseException e) {
+            response = "Invalid date or time! :(";
+        }
+        return response;
+    }
+
+    /**
+     * Parses the user input and performs the corresponding actions on the task list.
+     *
+     * @param userInput The input provided by the user.
+     * @param taskList  The TaskList instance used to manage tasks.
+     * @return A string containing the response or outcome of the parsed input.
+     * @throws InvalidInputException If the input is invalid or not recognized.
+     * @throws EmptyTaskException    If the input for a task is empty.
+     * @throws OutOfRangeException   If the input specifies an index that is out of range.
+     * @throws EmptyDateException    If the date is missing for a deadline task.
+     * @throws IOException           If there is an issue with reading or writing tasks to a file.
      */
     public static String parseInput(String userInput, TaskList taskList) throws InvalidInputException, EmptyTaskException, OutOfRangeException, EmptyDateException, IOException {
         userInput = userInput.trim();
@@ -49,18 +74,6 @@ public class Parser {
             throw new InvalidInputException("Invalid Input");
         }
         taskList.updateTaskFile();
-        return response;
-    }
-
-    public static String processUserInput(String userInput, TaskList taskList) {
-        try {
-            parseInput(userInput, taskList);
-        } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException | IOException e) {
-            System.out.println(e);
-            response = e.toString();
-        } catch (DateTimeParseException e) {
-            response = "Invalid date or time! :(";
-        }
         return response;
     }
 }

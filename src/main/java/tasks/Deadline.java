@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task with a deadline.
+ * The Deadline class represents a task with a deadline.
  */
 public class Deadline extends Task {
 
@@ -14,7 +14,7 @@ public class Deadline extends Task {
      * Initializes a new Deadline object with the specified description and deadline.
      *
      * @param name The description of the deadline task.
-     * @param by          The deadline of the task.
+     * @param by   The deadline of the task.
      */
     public Deadline(String name, LocalDateTime by) {
         super(name);

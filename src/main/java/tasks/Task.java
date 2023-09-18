@@ -1,7 +1,7 @@
 package tasks;
 
 /**
- * Represents a general task with a name and completion status.
+ * The Task class represents a general task with a name and completion status.
  */
 public class Task {
     protected String taskName;

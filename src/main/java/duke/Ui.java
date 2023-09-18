@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * The Ui class is responsible for handling user interface interactions, such as displaying messages and prompts.
+ * The Ui class handles user interface interactions, such as displaying messages and prompts.
  */
 public class Ui {
 
@@ -11,7 +11,9 @@ public class Ui {
     public Ui() {}
 
     /**
-     * Prints a welcome message to the user.
+     * Prints and returns a welcome message to the user.
+     *
+     * @return A welcome message ot the user.
      */
     public static String printWelcomeMessage() {
         System.out.println("Hi! I'm Philip");
@@ -20,7 +22,9 @@ public class Ui {
     }
 
     /**
-     * Prints a farewell message to the user.
+     * Prints and returns a farewell message to the user.
+     *
+     * @return A farewell message to the user.
      */
     public static String sendExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");

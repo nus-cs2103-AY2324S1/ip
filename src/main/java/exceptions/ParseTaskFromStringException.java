@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * The ParseTaskFromStringException class is a custom exception that is thrown when there is an issue parsing task data from a string.
+ * The ParseTaskFromStringException class is an exception that is thrown when there is an issue parsing task data from a string.
  */
 public class ParseTaskFromStringException extends DukeException {
     String msg;

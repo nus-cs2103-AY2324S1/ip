@@ -1,8 +1,7 @@
 package exceptions;
 
 /**
- * The EmptyDateException class is a custom exception that is thrown when the date for a task (e.g., deadline or event)
- * is found to be empty or missing.
+ * The EmptyDateException is an exception that is thrown when the date for a task (e.g., deadline or event) is empty or missing.
  */
 public class EmptyDateException extends DukeException {
 

@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * The FileUnloadableException class is a custom exception that is thrown when there is an issue with loading or unloading a file.
+ * The FileUnloadableException class is an exception that is thrown when there is an issue with loading or unloading a file.
  */
 public class FileUnloadableException extends DukeException {
 

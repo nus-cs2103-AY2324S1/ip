@@ -16,6 +16,7 @@ public class TaskListTest {
         taskList.makeToDo("Task 2");
         taskList.makeToDo("Task 3");
         taskList.makeToDo("Task 4");
+
         // Mark the first task as done
         taskList.markTask("mark 1");
 
@@ -33,7 +34,8 @@ public class TaskListTest {
         taskList.makeToDo("Task 2");
         taskList.makeToDo("Task 3");
         taskList.makeToDo("Task 4");
-        // Mark the first task as done
+
+        // Mark the last task as done
         taskList.markTask("mark 4");
 
         assertFalse(taskList.getTask(0).isDone());
@@ -50,7 +52,8 @@ public class TaskListTest {
         taskList.makeToDo("Task 2");
         taskList.makeToDo("Task 3");
         taskList.makeToDo("Task 4");
-        // Mark the first task as done
+
+        // Mark the second task as done
         taskList.markTask("mark 2");
 
         assertFalse(taskList.getTask(0).isDone());
@@ -66,7 +69,8 @@ public class TaskListTest {
         taskList.makeToDo("Task 1");
         taskList.makeToDo("Task 2");
         taskList.makeToDo("Task 3");
-        // Mark the second task as done
+
+        // Mark task with index that exceeds (too large) list as done
         assertThrows(OutOfRangeException.class, () -> taskList.markTask("mark 4"));
         assertThrows(OutOfRangeException.class, () -> taskList.markTask("mark 100"));
     }
@@ -78,7 +82,8 @@ public class TaskListTest {
         taskList.makeToDo("Task 1");
         taskList.makeToDo("Task 2");
         taskList.makeToDo("Task 3");
-        // Mark the second task as done
+
+        // Mark task with index that exceeds (too small) list as done
         assertThrows(OutOfRangeException.class, () -> taskList.markTask("mark 0"));
         assertThrows(OutOfRangeException.class, () -> taskList.markTask("mark -57"));
     }

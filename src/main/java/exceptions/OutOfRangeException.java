@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * The OutOfRangeException class is a custom exception that is thrown when an index or number is out of the valid range.
+ * The OutOfRangeException class is an exception that is thrown when an index or number is out of the valid range.
  */
 public class OutOfRangeException extends DukeException {
     String msg;

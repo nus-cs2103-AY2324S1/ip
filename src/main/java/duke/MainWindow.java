@@ -11,6 +11,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * The MainWindow class represents the main graphical user interface (GUI) window for the Duke chatbot application.
+ * It handles the initialization of GUI components, formatting, event handling, and user input processing.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -27,10 +31,20 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/girl.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
 
+    /**
+     * Sets the Duke instance for this MainWindow.
+     *
+     * @param d The Duke instance to set.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
+    /**
+     * Initializes the main window of the Duke application.
+     *
+     * @param stage The JavaFX Stage to which the GUI components will be added.
+     */
     @FXML
     public void initialize(Stage stage) {
         setupComponents(stage);
@@ -40,10 +54,8 @@ public class MainWindow extends AnchorPane {
         scrollToEndOnHeightChange();
     }
 
-    private void setupComponents(Stage stage) {
-        //Step 1. Setting up required components
 
-        //The container for the content of the chat to scroll.
+    private void setupComponents(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -62,7 +74,6 @@ public class MainWindow extends AnchorPane {
     }
 
     private void formatWindow(Stage stage) {
-        //Step 2. Formatting the window to look as expected
         stage.setTitle("Philip");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -78,7 +89,6 @@ public class MainWindow extends AnchorPane {
 
 
     private void formatLayout(Stage stage) {
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -98,7 +108,6 @@ public class MainWindow extends AnchorPane {
     }
 
     private void setEventHandlers() {
-        // Set event handlers for user input
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -109,15 +118,11 @@ public class MainWindow extends AnchorPane {
     }
 
     private void scrollToEndOnHeightChange() {
-        // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
-
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by processing it through the Duke chatbot and updating the GUI with user and Duke responses.
      */
     @FXML
     public void handleUserInput() {

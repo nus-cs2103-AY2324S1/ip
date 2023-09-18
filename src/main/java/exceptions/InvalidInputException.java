@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * The InvalidInputException class is a custom exception that is thrown when the user provides an invalid input to the program.
+ * The InvalidInputException class is an exception that is thrown when the user provides an invalid input to the program.
  */
 public class InvalidInputException extends DukeException {
 

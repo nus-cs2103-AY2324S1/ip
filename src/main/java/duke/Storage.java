@@ -35,7 +35,7 @@ public class Storage {
      *
      * @param by The date string to be converted.
      * @return The LocalDateTime object representing the date.
-     * @throws DateTimeParseException If the date string is in an invalid format.
+     * @throws DateTimeParseException If the date string is invalid.
      */
     public static LocalDateTime saveAsDate(String by) throws DateTimeParseException {
         try {

@@ -8,18 +8,17 @@ import tasks.Task;
 
 import exceptions.DukeException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 
+/**
+ * The Duke class handles the main processes for running the program.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     static ArrayList<Task> taskArray = new ArrayList<>();
     static TaskList taskList = new TaskList(taskArray);
-    @FXML
-    private VBox dialogContainer;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/girl.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
 
@@ -39,6 +38,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Loads saved tasks from hard disk.
+     *
+     * @return List of tasks as a String.
+     */
     public String loadTasks() {
         String dukeText;
         try {
@@ -59,9 +63,6 @@ public class Duke {
      * Runs the Duke application, handling user interactions and task management.
      */
     public void run() {
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(Ui.printWelcomeMessage(), dukeImage));
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(loadTasks(), dukeImage));
-
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
@@ -81,21 +82,9 @@ public class Duke {
     }
 
     /**
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates response to user input.
+     *
+     * @param input User input as a String.
      */
     @FXML
     String getResponse(String input) {

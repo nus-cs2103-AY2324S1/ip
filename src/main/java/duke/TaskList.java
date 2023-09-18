@@ -14,7 +14,6 @@ import java.util.Collections;
 
 /**
  * The TaskList class manages the list of tasks in the Duke application.
- * It provides methods to add, mark, unmark, delete, and list tasks.
  */
 public class TaskList {
     private static ArrayList<Task> taskArray;
@@ -35,6 +34,11 @@ public class TaskList {
         taskArray = tasks;
     }
 
+    /**
+     * Handles the list command.
+     *
+     * @return A string containing the list of tasks.
+     */
     public String handleListCommand() {
         String listTasks = listTasks(taskArray);
         if (listTasks != "") {
@@ -48,11 +52,11 @@ public class TaskList {
     }
 
     /**
-     * Lists the tasks stored in the task array.
+     * Lists the tasks stored in the given array.
      *
-     * @return A string containing the list of tasks.
+     * @return A string containing the list of tasks in the given array.
      */
-     public static String listTasks(ArrayList<Task> taskArray) {
+     private static String listTasks(ArrayList<Task> taskArray) {
         String inputArrayString = "";
         int num = 1;
         for (Task task : taskArray) {
@@ -68,7 +72,6 @@ public class TaskList {
      * @param userInput The user input specifying the task to be marked.
      * @throws EmptyTaskException If the user input is missing task details.
      * @throws OutOfRangeException If the task index is out of the array range.
-     * @throws IOException If an I/O error occurs while updating the task file.
      * @return A string containing a message and the details of the marked task.
      */
     public static String markTask(String userInput) throws EmptyTaskException, OutOfRangeException {
@@ -87,7 +90,7 @@ public class TaskList {
      * @throws OutOfRangeException If the task index is uot of the array range.
      * @return The Task to be marked or unmarked.
      */
-    public static Task markOrUnmark(String userInput, String command) throws EmptyTaskException, OutOfRangeException {
+    private static Task markOrUnmark(String userInput, String command) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals(command)) {
             throw new EmptyTaskException(command);
         }
@@ -98,21 +101,15 @@ public class TaskList {
         return taskArray.get(taskIndex);
     }
 
-    /**
-     * Extracts the task index from the mark or unmark userInput.
-     *
-     * @param userInput The user input specifying the task to be marked or unmarked.
-     * @return The index of the task to be marked or unmarked.
-     */
-    public static int getTaskIndexFromMark(String userInput) {
+    private static int getTaskIndexFromMark(String userInput) {
         String[] markAndTaskNum = userInput.split("\\s+");
         markAndTaskNum = trimStringElements(markAndTaskNum);
         int taskNum = Integer.parseInt(markAndTaskNum[1]);
         int taskIndex = taskNum - 1;
         return taskIndex;
     }
-    
-    public static void printMarkTask(Task currentTask) {
+
+    private static void printMarkTask(Task currentTask) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(currentTask.statusAndTask());
     }
@@ -131,7 +128,7 @@ public class TaskList {
         return "OK, I've marked this task as not done yet:\n" + currentTask.statusAndTask();
     }
 
-    public static void printUnmarkTask(Task currentTask) {
+    private static void printUnmarkTask(Task currentTask) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(currentTask.statusAndTask());
     }
@@ -140,6 +137,8 @@ public class TaskList {
      * Adds a ToDo task based on user input.
      *
      * @param userInput The user input specifying the ToDo task.
+     * @return A message containing the details of the new ToDo.
+     * @throws EmptyTaskException If the user input is missing task details.
      */
     public static String makeToDo(String userInput) throws EmptyTaskException {
         if (userInput.equals("todo")) {
@@ -157,7 +156,9 @@ public class TaskList {
      * Adds a Deadline task based on user input.
      *
      * @param userInput The user input specifying the Deadline task.
+     * @return A message containing the details of the new Deadline.
      * @throws EmptyDateException If the user input is missing the task deadline.
+     * @throws EmptyTaskException If the user input is missing task details.
      */
     public static String makeDeadline(String userInput) throws EmptyDateException, EmptyTaskException {
         if (userInput.equals("deadline")) {
@@ -187,7 +188,7 @@ public class TaskList {
         return makeTaskString(newDeadline);
     }
 
-    public static String[] trimStringElements(String[] elements) {
+    private static String[] trimStringElements(String[] elements) {
         int len = elements.length;
         String[] trimmedElements = new String[len];
         for (int i = 0; i < len; i++) {
@@ -196,13 +197,19 @@ public class TaskList {
         return trimmedElements;
     }
 
-    public static void printMakeTask(Task newTask) {
+    private static void printMakeTask(Task newTask) {
         System.out.println("Got it. I've added this task:");
         System.out.println(newTask.statusAndTask());
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
     }
 
-    public static String makeTaskString(Task newTask) {
+    /**
+     * Returns a message containing the details of the new Task made.
+     *
+     * @param newTask The new task made.
+     * @return A message containing the details of the new Task made.
+     */
+    private static String makeTaskString(Task newTask) {
         return "Got it. I've added this task:\n" +
                 newTask.statusAndTask() + "\n" +
                 "Now you have " + taskArray.size() + " task(s) in the list.";
@@ -212,7 +219,9 @@ public class TaskList {
      * Adds an Event task based on user input.
      *
      * @param userInput The user input specifying the Event task.
+     * @return A message containing the details of the new Event.
      * @throws EmptyDateException If the user input is missing the event start or end date.
+     * @throws EmptyTaskException If the user input is missing task details.
      */
     public static String makeEvent(String userInput) throws EmptyDateException, EmptyTaskException {
         if (userInput.equals("event")) {
@@ -249,6 +258,7 @@ public class TaskList {
      * Deletes a task based on user input.
      *
      * @param userInput The user input specifying the task to be deleted.
+     * @return A message containing the details of the deleted task.
      * @throws EmptyTaskException If the user input is missing task details.
      * @throws OutOfRangeException If the task index is out of the array range.
      */
@@ -271,7 +281,7 @@ public class TaskList {
                 "Now you have " + taskArray.size() + " task(s) in the list.";
     }
 
-    public static boolean isInvalidIndex(int taskIndex) {
+    private static boolean isInvalidIndex(int taskIndex) {
         boolean isMoreThanLengthLimit = taskIndex >= taskArray.size();
         boolean isLessThanLengthLimit = taskIndex < 0;
         boolean isInvalidIndex = isMoreThanLengthLimit || isLessThanLengthLimit;
@@ -279,7 +289,7 @@ public class TaskList {
         return isInvalidIndex;
     }
 
-    public static void printDeleteTask(Task currentTask) {
+    private static void printDeleteTask(Task currentTask) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(currentTask.statusAndTask());
         System.out.println("Now you have " + taskArray.size() + " task(s) in the list.");
@@ -287,10 +297,8 @@ public class TaskList {
 
     /**
      * Updates the task file with the current task array.
-     *
-     * @throws IOException If an I/O error occurs while updating the task file.
      */
-    public static void updateTaskFile() throws IOException {
+    public static void updateTaskFile() {
         try {
             Storage.generateTaskFileContent(taskArray);
         } catch (IOException e) {
@@ -298,6 +306,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the Find command.
+     *
+     * @param userInput User input containing the search keyword.
+     * @return A string of all tasks containing the keyword.
+     * @throws EmptyTaskException If the user input is missing task details.
+     */
     public String handleFindCommand(String userInput) throws EmptyTaskException {
         String foundTasks = find(userInput);
         if (foundTasks != "") {
@@ -315,6 +330,7 @@ public class TaskList {
      *
      * @param userInput The index of the task to retrieve.
      * @return The retrieved task.
+     * @throws EmptyTaskException If the user input is missing task details.
      */
     public String find(String userInput) throws EmptyTaskException {
         if (userInput.equals("find")) {
@@ -331,9 +347,13 @@ public class TaskList {
         return listTasks(foundTasks);
     }
 
+    /**
+     * Handles the sort command.
+     *
+     * @return A string of the sorted list of tasks.
+     */
     public String handleSortCommand() {
-        sortedTasksByDate();
-        String listSortedTasks = listSortedTasks();
+        String listSortedTasks = listTasks(sortedTasksByDate());
         if (listSortedTasks != "") {
             System.out.println("Here are the tasks in your list:");
             System.out.println(listSortedTasks);
@@ -344,24 +364,19 @@ public class TaskList {
         }
     }
 
-    public static ArrayList<Task> sortedTasksByDate() {
+    private static ArrayList<Task> sortedTasksByDate() {
         ArrayList<Task> sortedTaskArray = new ArrayList<>();
         sortedTaskArray.addAll(taskArray);
         Collections.sort(sortedTaskArray, new TaskDateComparator());
         return sortedTaskArray;
     }
 
-    public static String listSortedTasks() {
-        ArrayList<Task> sortedTaskArray = sortedTasksByDate();
-        String inputArrayString = "";
-        int num = 1;
-        for (Task task : sortedTaskArray) {
-            inputArrayString += num + ". " + task.statusAndTask() + "\n";
-            num++;
-        }
-        return inputArrayString;
-    }
-
+    /**
+     * Returns task at given index.
+     *
+     * @param i Index of the task in the list.
+     * @return The task with the corresponding index in the list.
+     */
     public Task getTask(int i) {
          return taskArray.get(i);
     }
