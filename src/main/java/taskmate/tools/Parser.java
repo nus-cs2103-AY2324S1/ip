@@ -111,7 +111,7 @@ public class Parser {
         }
     }
 
-    static String getCommandType(String userInput) throws InvalidCommandTypeException {
+    private static String getCommandType(String userInput) throws InvalidCommandTypeException {
         // Returns the type of command input by the user
         // Possible values: "to\-do", "deadline", "event", "bye", "list", "mark", "unmark", "find"
 
@@ -126,7 +126,7 @@ public class Parser {
         throw new InvalidCommandTypeException();
     }
 
-    static int getIndexToUnmark(String userInput) {
+    private static int getIndexToUnmark(String userInput) {
         int indexToUnmark = Integer.parseInt(
                 userInput
                         .substring(TaskMate.CommandTypes.unmark.toString().length())
@@ -135,7 +135,7 @@ public class Parser {
         return indexToUnmark;
     }
 
-    static int getIndexToMark(String userInput) {
+    private static int getIndexToMark(String userInput) {
         int indexToMark = Integer.parseInt(
                 userInput
                         .substring(TaskMate.CommandTypes.mark.toString().length())
@@ -144,7 +144,7 @@ public class Parser {
         return indexToMark;
     }
 
-    static int getIndexToDelete(String userInput) {
+    private static int getIndexToDelete(String userInput) {
         int indexToDelete = Integer.parseInt(
                 userInput
                         .substring(TaskMate.CommandTypes.delete.toString().length())
@@ -153,46 +153,46 @@ public class Parser {
         return indexToDelete;
     }
 
-    static String getFindQuery(String userInput) {
+    private static String getFindQuery(String userInput) {
         return userInput
                 .substring(TaskMate.CommandTypes.find.toString().length())
                 .trim();
     }
 
-    static String getTodoTaskName(String userInput) {
+    private static String getTodoTaskName(String userInput) {
         String delimiter = TaskMate.CommandTypes.todo.toString();
         return userInput.substring(delimiter.length()).trim();
     }
 
-    static String getDeadlineTaskName(String userInput) {
+    private static String getDeadlineTaskName(String userInput) {
         String delimiter = TaskMate.CommandTypes.deadline.toString();
         String removedDeadlineWord = userInput.substring(delimiter.length() + 1);
         String deadlineTaskName = removedDeadlineWord.split(" /")[0];
         return deadlineTaskName.trim();
     }
 
-    static String getDeadlineTaskBy(String userInput) {
+    private static String getDeadlineTaskBy(String userInput) {
         String delimiter = TaskMate.CommandTypes.deadline.toString();
         String removedDeadlineWord = userInput.substring(delimiter.length() + 1);
         String deadlineTaskBy = removedDeadlineWord.split(" /")[1];
         return deadlineTaskBy.replace("by", "").trim();
     }
 
-    static String getEventTaskName(String userInput) {
+    private static String getEventTaskName(String userInput) {
         String delimiter = TaskMate.CommandTypes.event.toString();
         String removedEventWord = userInput.substring(delimiter.length() + 1);
         String eventTaskName = removedEventWord.split("/")[0];
         return eventTaskName.trim();
     }
 
-    static String getEventTaskFrom(String userInput) {
+    private static String getEventTaskFrom(String userInput) {
         String delimiter = TaskMate.CommandTypes.event.toString();
         String removedEventWord = userInput.substring(delimiter.length() + 1);
         String eventTaskFrom = removedEventWord.split("/")[1];
         return eventTaskFrom.replace("from", "").trim();
     }
 
-    static String getEventTaskTo(String userInput) {
+    private static String getEventTaskTo(String userInput) {
         String delimiter = TaskMate.CommandTypes.event.toString();
         String removedEventWord = userInput.substring(delimiter.length() + 1);
         String eventTaskFrom = removedEventWord.split("/")[2];
@@ -200,7 +200,8 @@ public class Parser {
     }
 
 
-    static void checkValidTodoCommand(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException {
+    private static void checkValidTodoCommand(String userInput) throws InvalidCommandTypeException,
+            EmptyDescriptionException {
         // Checks if "to-do" command is valid by checking if there is text coming after the word "to-do"
         if (!userInput.startsWith(TaskMate.CommandTypes.todo.toString())) {
             throw new InvalidCommandTypeException();
@@ -209,7 +210,7 @@ public class Parser {
         }
     }
 
-    static void checkValidDeadlineCommand(String userInput) throws InvalidCommandTypeException,
+    private static void checkValidDeadlineCommand(String userInput) throws InvalidCommandTypeException,
             EmptyDescriptionException, EmptyByException, InvalidByException {
         // Checks if "deadline" command is valid by checking if there is text coming after the word "deadline"
         // Additionally, checks if there is a "/by " substring within userInput, and if the date after "/by " substring
@@ -231,7 +232,8 @@ public class Parser {
         }
     }
 
-    static void checkValidEventCommand(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException,
+    private static void checkValidEventCommand(String userInput) throws InvalidCommandTypeException,
+            EmptyDescriptionException,
             EmptyFromException, InvalidFromException, EmptyToException, InvalidToException {
         // Checks if "deadline" command is valid by checking if there is text coming after the word "deadline"
         // Additionally, checks if there are "/from " and "/to " substrings within userInput, and if the dates after
@@ -270,7 +272,8 @@ public class Parser {
         }
     }
 
-    static void checkValidMarkCommand(String userInput) throws InvalidCommandTypeException, NotAnIntegerException {
+    private static void checkValidMarkCommand(String userInput) throws InvalidCommandTypeException,
+            NotAnIntegerException {
         // Checks if the user input command is a valid "mark" or "unmark" command
         // by checking if the command starts with "mark"/"unmark", followed by a whitespace,
         // followed by an integer
@@ -285,7 +288,8 @@ public class Parser {
         }
     }
 
-    static void checkValidUnmarkCommand(String userInput) throws InvalidCommandTypeException, NotAnIntegerException {
+    private static void checkValidUnmarkCommand(String userInput) throws InvalidCommandTypeException,
+            NotAnIntegerException {
         // Checks if the user input command is a valid "mark" or "unmark" command
         // by checking if the command starts with "mark"/"unmark", followed by a whitespace,
         // followed by an integer
@@ -300,7 +304,8 @@ public class Parser {
         }
     }
 
-    static void checkValidDeleteCommand(String userInput) throws InvalidCommandTypeException, NotAnIntegerException {
+    private static void checkValidDeleteCommand(String userInput) throws InvalidCommandTypeException,
+            NotAnIntegerException {
         // Checks if the user input command is a valid "mark" or "unmark" command
         // by checking if the command starts with "mark"/"unmark", followed by a whitespace,
         // followed by an integer
@@ -318,7 +323,7 @@ public class Parser {
         }
     }
 
-    static boolean checkStringIsInteger(String s) {
+    private static boolean checkStringIsInteger(String s) {
         // Returns true if String s can be parsed into an Integer object, and false otherwise
         try {
             Integer.parseInt(s);
@@ -328,7 +333,8 @@ public class Parser {
         return true;
     }
 
-    static void checkValidFindCommand(String userInput) throws EmptyDescriptionException, InvalidCommandTypeException {
+    private static void checkValidFindCommand(String userInput) throws EmptyDescriptionException,
+            InvalidCommandTypeException {
         boolean isStartingWithFind = userInput.startsWith(TaskMate.CommandTypes.find + " ");
         boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.find.toString().length()).trim().isEmpty();
 
