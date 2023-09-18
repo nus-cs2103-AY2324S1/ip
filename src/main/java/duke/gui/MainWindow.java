@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         assert d != null : "Duke should not be null";
 
         duke = d;
-        DialogBox initializeDialog = DialogBox.getBotDialog(duke.initialize(), botImage);
+        BotDialogBox initializeDialog = BotDialogBox.getBotDialog(duke.initialize(), botImage);
         dialogContainer.getChildren().add(initializeDialog);
     }
 
@@ -50,8 +50,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, botImage)
+                UserDialogBox.getUserDialog(input, userImage),
+                BotDialogBox.getBotDialog(response, botImage)
         );
         userInput.clear();
     }
