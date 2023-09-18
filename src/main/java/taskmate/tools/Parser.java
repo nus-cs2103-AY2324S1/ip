@@ -96,18 +96,14 @@ public class Parser {
             String eventTaskFrom = getEventTaskFrom(userInput);
             String eventTaskTo = getEventTaskTo(userInput);
             return new EventCommand(eventTaskName, eventTaskFrom, eventTaskTo);
-
-
         // delete i
         } else if (commandType.equals(TaskMate.CommandTypes.delete.toString())) {
             checkValidDeleteCommand(userInput);
-            int indexToDelete = Integer.parseInt(userInput.substring(TaskMate.CommandTypes.delete.toString().length())
-                    .trim());
-            indexToDelete -= 1; // subtract 1 as the arraylist is zero-indexed
+            int indexToDelete = getIndexToDelete(userInput);
             return new DeleteCommand(indexToDelete);
         } else if (commandType.equals(TaskMate.CommandTypes.find.toString())) {
             checkValidFindCommand(userInput);
-            String query = userInput.substring(TaskMate.CommandTypes.find.toString().length()).trim();
+            String query = getFindQuery(userInput);
             return new FindCommand(query);
         // Invalid input
         } else {
@@ -146,6 +142,21 @@ public class Parser {
                         .trim());
         indexToMark -= 1;
         return indexToMark;
+    }
+
+    static int getIndexToDelete(String userInput) {
+        int indexToDelete = Integer.parseInt(
+                userInput
+                        .substring(TaskMate.CommandTypes.delete.toString().length())
+                        .trim());
+        indexToDelete -= 1;
+        return indexToDelete;
+    }
+
+    static String getFindQuery(String userInput) {
+        return userInput
+                .substring(TaskMate.CommandTypes.find.toString().length())
+                .trim();
     }
 
     static String getTodoTaskName(String userInput) {
