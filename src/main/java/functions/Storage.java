@@ -9,7 +9,7 @@ public class Storage {
     private String filePath;
 
     /**
-     * A public constructor to initialize a new storage instance
+     * A public constructor to initialize a new storage instance.
      *
      * @param filePath file path to load
      */
@@ -29,7 +29,7 @@ public class Storage {
     }
 
     /**
-     * A function to save the current taskList into a .txt file specified by user
+     * Saves the current taskList into a .txt file specified by user.
      *
      * @param taskList  a task list to store tasks
      */

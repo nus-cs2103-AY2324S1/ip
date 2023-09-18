@@ -28,7 +28,7 @@ public class Save {
     };
 
     /**
-     * A function to write task list into a .txt file specified by user
+     * Writes the task list into a .txt file specified by user
      */
     public void saveFile() {
 
@@ -61,7 +61,7 @@ public class Save {
     }
 
     /**
-     * A helper function to add contents into save file
+     * Adds contents into save file
      */
     public static void addFileContents(String filePath, String contents) {
         try {
