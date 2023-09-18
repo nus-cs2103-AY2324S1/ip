@@ -68,7 +68,7 @@ public class Duke {
     }
 
     /**
-     * Main programme to allow user to input and respond accordingly.
+     * Interacts with the user.
      * Available commands:
      * - bye/exit: to exit the programme.
      * - list: to list out the current task list.
@@ -166,7 +166,7 @@ public class Duke {
     }
 
     /**
-     * Mark a task with corresponding index as done.
+     * Marks a task with corresponding index as done.
      * Handles the case where task index is out of range.
      * @param index The index of task to remove.
      */
@@ -181,7 +181,7 @@ public class Duke {
     }
 
     /**
-     * Mark a task with corresponding index as not done.
+     * Marks a task with corresponding index as not done.
      * Handles the case where task index is out of range.
      * @param index The index of task to remove.
      */
