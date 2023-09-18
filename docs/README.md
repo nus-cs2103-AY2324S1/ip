@@ -1,6 +1,6 @@
 ### Chat User Guide
 
-Chat is a deranged and unconventional twist on personal assistant applications. Unlike its more sober counterparts, Chat boasts the riotous and unpredictable personality of [Tw*tch chat](https://www.twitch.tv/), making it a one-of-a-kind platform for managing your schedule and tasks. :skull:
+Chat is a deranged and unconventional twist on personal assistant applications. Unlike its more sober counterparts, Chat boasts the riotous and unpredictable personality of [Tw*tch chat](https://www.twitch.tv/), making it a one-of-a-kind platform for managing your schedule and tasks.
 
 ## Features 
 
