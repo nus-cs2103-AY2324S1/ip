@@ -74,6 +74,7 @@ public class TaskList implements Serializable {
             if (userInput.length() <= 5) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             }
+            assert userInput.length() > 5 : "todo description is too short";
             String userInputWithoutPrefix = userInput.substring(5);
             tasks.add(ToDo.newToDo(userInputWithoutPrefix));
         }
@@ -81,6 +82,7 @@ public class TaskList implements Serializable {
             if (userInput.length() <= 9) {
                 throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
             }
+            assert userInput.length() > 9 : "deadline description is too short";
             String userInputWithoutPrefix = userInput.substring(9);
             tasks.add(Deadline.newDeadline(getDescription(userInputWithoutPrefix),
                     getBy(userInputWithoutPrefix)));
@@ -89,6 +91,7 @@ public class TaskList implements Serializable {
             if (userInput.length() <= 6) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             }
+            assert userInput.length() > 6 : "event description is too short";
             String userInputWithoutPrefix = userInput.substring(6);
             tasks.add(Event.newEvent(getDescription(userInputWithoutPrefix),
                     getFrom(userInputWithoutPrefix), getTo(userInputWithoutPrefix)));
@@ -109,6 +112,7 @@ public class TaskList implements Serializable {
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to access a Task that does not exist!");
         }
+        assert pos < tasks.size() : "pos should be less than the length of TaskList";
         Task curr = tasks.get(pos);
         if (userInput.contains("unmark")) {
             curr.markAsUnDone();
@@ -202,6 +206,7 @@ public class TaskList implements Serializable {
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to delete a Task that does not exist");
         } else {
+            assert pos < tasks.size() : "pos should be less than the length of TaskList";
             Task deletedTask = tasks.get(pos);
             int tasksSize = tasks.size();
             tasks.remove(pos);
