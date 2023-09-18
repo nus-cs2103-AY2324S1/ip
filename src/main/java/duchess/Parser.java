@@ -101,7 +101,7 @@ public class Parser {
      * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static int parseDeleteTaskCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^(?:delete|rm)( [0-9]+)?$");
+        Matcher m = Utility.parseRegex(s, "^(?:delete|rm)( [0-9]+)?");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to delete... ;-;");
