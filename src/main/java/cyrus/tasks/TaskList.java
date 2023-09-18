@@ -128,15 +128,17 @@ public class TaskList {
      *
      * @return {@code HashMap} of date to count.
      */
-    public HashMap<LocalDate, Long> getLatestWeekTaskDistribution() {
+    public HashMap<LocalDate, Long> getWeeklyTaskCompletionRate() {
         HashMap<LocalDate, Long> distribution = new HashMap<>();
         LocalDate earliestDate = LocalDate.now().minusDays(7);
+
         List<Task> filteredTasks = tasks.stream()
                 .filter(task ->
                         task.getCompletedDate() != null
                                 && (task.getCompletedDate().isEqual(earliestDate)
                                 || task.getCompletedDate().isAfter(earliestDate)))
                 .collect(Collectors.toList());
+
         for (var task : filteredTasks) {
             long value = distribution.getOrDefault(task.getCompletedDate(), 0L);
             distribution.put(task.getCompletedDate(), value + 1);

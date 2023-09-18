@@ -16,12 +16,12 @@ import javafx.scene.layout.VBox;
  */
 public class StatisticsDashboard extends VBox implements Initializable {
     @FXML
-    private PieChart taskDistribution;
+    private PieChart taskDistributionChart;
     @FXML
-    private LineChart<String, Long> weeklyTaskCompletionProgress;
+    private LineChart<String, Long> weeklyTaskCompletionRateChart;
 
-    private final ObservableList<PieChart.Data> pieChartData;
-    private final XYChart.Series<String, Long> lineChartData;
+    private final ObservableList<PieChart.Data> taskDistributionData;
+    private final XYChart.Series<String, Long> weeklyTaskCompletionRateData;
 
     /**
      * Empty constructor.
@@ -34,16 +34,16 @@ public class StatisticsDashboard extends VBox implements Initializable {
      * Constructor for creating a StatisticsDashboard controller.
      */
     public StatisticsDashboard(
-            ObservableList<PieChart.Data> pieChartData,
-            XYChart.Series<String, Long> lineChartData
+            ObservableList<PieChart.Data> taskDistributionData,
+            XYChart.Series<String, Long> weeklyTaskCompletionRateData
     ) {
-        this.pieChartData = pieChartData;
-        this.lineChartData = lineChartData;
+        this.taskDistributionData = taskDistributionData;
+        this.weeklyTaskCompletionRateData = weeklyTaskCompletionRateData;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        taskDistribution.setData(pieChartData);
-        weeklyTaskCompletionProgress.getData().add(lineChartData);
+        taskDistributionChart.setData(taskDistributionData);
+        weeklyTaskCompletionRateChart.getData().add(weeklyTaskCompletionRateData);
     }
 }

@@ -15,6 +15,7 @@ import cyrus.commands.CommandType;
 import cyrus.parser.ParseInfo;
 import cyrus.utility.DateUtility;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -109,27 +110,8 @@ public class MainWindow extends AnchorPane {
     }
 
     private void openStatisticsDashboard() {
-        HashMap<String, Long> tasksDistribution = cyrus.getTaskList().getTaskDistribution();
-        var pieChartData = FXCollections.<PieChart.Data>observableArrayList();
-        for (var entry : tasksDistribution.entrySet()) {
-            pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
-        }
-
-        HashMap<LocalDate, Long> weeklyTasksCompletedDistribution = cyrus.getTaskList().getLatestWeekTaskDistribution();
-        var lineChartData = new XYChart.Series<String, Long>();
-        for (var entry : weeklyTasksCompletedDistribution.entrySet()) {
-            lineChartData.getData().add(
-                    new XYChart.Data<>(DateUtility.toInputFormat(entry.getKey()), entry.getValue())
-            );
-        }
-        if (weeklyTasksCompletedDistribution.size() > 0) {
-            var sortedEntries = lineChartData
-                    .getData()
-                    .stream()
-                    .sorted(Comparator.comparing(XYChart.Data::getXValue))
-                    .collect(Collectors.toList());
-            lineChartData.setData(FXCollections.observableArrayList(sortedEntries));
-        }
+        var pieChartData = loadTaskDistributionData();
+        var lineChartData = loadWeeklyTaskCompletionRate();
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/StatisticsDashboard.fxml"));
@@ -146,5 +128,36 @@ public class MainWindow extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private ObservableList<PieChart.Data> loadTaskDistributionData() {
+        HashMap<String, Long> tasksDistribution = cyrus.getTaskList().getTaskDistribution();
+        var pieChartData = FXCollections.<PieChart.Data>observableArrayList();
+        for (var entry : tasksDistribution.entrySet()) {
+            pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+        }
+
+        return pieChartData;
+    }
+
+    private XYChart.Series<String, Long> loadWeeklyTaskCompletionRate() {
+        HashMap<LocalDate, Long> weeklyTasksCompletedDistribution = cyrus.getTaskList().getWeeklyTaskCompletionRate();
+        var lineChartData = new XYChart.Series<String, Long>();
+        for (var entry : weeklyTasksCompletedDistribution.entrySet()) {
+            lineChartData.getData().add(
+                    new XYChart.Data<>(DateUtility.toInputFormat(entry.getKey()), entry.getValue())
+            );
+        }
+
+        if (weeklyTasksCompletedDistribution.size() > 0) {
+            var sortedEntries = lineChartData
+                    .getData()
+                    .stream()
+                    .sorted(Comparator.comparing(XYChart.Data::getXValue))
+                    .collect(Collectors.toList());
+            lineChartData.setData(FXCollections.observableArrayList(sortedEntries));
+        }
+
+        return lineChartData;
     }
 }

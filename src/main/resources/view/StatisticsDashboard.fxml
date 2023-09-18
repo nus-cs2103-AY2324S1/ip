@@ -22,8 +22,8 @@
         </Label>
     </HBox>
     <HBox prefHeight="545.0" prefWidth="800.0">
-        <PieChart fx:id="taskDistribution" title="Distribution of Tasks"/>
-        <LineChart title="Weekly Task Completion Progress" fx:id="weeklyTaskCompletionProgress">
+        <PieChart fx:id="taskDistributionChart" title="Distribution of Tasks"/>
+        <LineChart title="Weekly Task Completion Progress" fx:id="weeklyTaskCompletionRateChart">
             <xAxis>
                 <CategoryAxis side="BOTTOM"/>
             </xAxis>
