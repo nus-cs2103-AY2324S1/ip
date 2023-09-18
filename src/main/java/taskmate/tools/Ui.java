@@ -243,9 +243,11 @@ public class Ui {
     public void printSuccessfulUpdateResponse(int updateIndex, HashMap<String, String> successfulChanges) {
         StringBuilder message = new StringBuilder("Updates successfully made to task " + updateIndex + ":\n");
         for (HashMap.Entry<String, String> attributeValuePair : successfulChanges.entrySet()) {
-            message.append(attributeValuePair.getKey())
+            String attribute = attributeValuePair.getKey();
+            String newValue = attributeValuePair.getValue();
+            message.append(attribute)
                     .append(": ")
-                    .append(attributeValuePair.getValue())
+                    .append(newValue)
                     .append("\n");
         }
         printMessage(message.toString());
