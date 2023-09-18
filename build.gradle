@@ -11,7 +11,7 @@ checkstyle {
 }
 
 javafx {
-    version = "20"
+    version = ""
     modules = [ 'javafx.controls' ]
 }
 
@@ -70,4 +70,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

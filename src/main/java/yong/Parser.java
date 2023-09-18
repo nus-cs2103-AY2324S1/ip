@@ -41,7 +41,6 @@ public class Parser {
      * @return Command object that will be executed.
      */
     public Command parse(String inp) {
-
         inp = inp.toUpperCase();
         String [] parts = inp.split(" ", 2);
         String check = parts[0];
