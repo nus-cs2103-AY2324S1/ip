@@ -18,6 +18,7 @@ public class EventTask extends Task {
 
     /**
      * Constructor for EventTask.
+     * 
      * @param description
      * @param startDate
      * @param endDate
@@ -40,9 +41,6 @@ public class EventTask extends Task {
         super("");
     }
 
-    /**
-     * Returns the string representation of the event task.
-     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startDate.format(Task.getDateFormatOutput())
@@ -51,6 +49,7 @@ public class EventTask extends Task {
 
     /**
      * Returns the string representation of the event task to be saved in a file.
+     * 
      * @return LocalDateTime startDate
      */
     public LocalDateTime getStartDate() {
@@ -59,6 +58,7 @@ public class EventTask extends Task {
 
     /**
      * Returns the string representation of the event task to be saved in a file.
+     * 
      * @return LocalDateTime endDate
      */
     public LocalDateTime getEndDate() {
@@ -66,6 +66,7 @@ public class EventTask extends Task {
     }
     /**
      * Convert the event task to a string to be saved in a file.
+     * 
      * @return String representation of the event task
      */
     @Override
@@ -76,6 +77,7 @@ public class EventTask extends Task {
 
     /**
      * Convert from a string to a event task.
+     * 
      * @param fileString Stored list in String format within the file
      * @throws DukeException
      */

@@ -22,6 +22,7 @@ public class Storage {
     private String filepath = "data/tasks.txt";
     /**
      * Constructor for Storage.
+     * 
      * @param filePath
      */
     public Storage(String filePath) {
@@ -30,6 +31,7 @@ public class Storage {
 
     /**
      * Loads the tasks from the file.
+     * 
      * @return The list of tasks
      * @throws DukeException
      */
@@ -74,6 +76,7 @@ public class Storage {
 
     /**
      * Loads the tasks from the file and sets it to the taskList.
+     * 
      * @param taskList
      * @throws DukeException
      */
@@ -84,6 +87,7 @@ public class Storage {
 
     /**
      * Saves the tasks to the file.
+     * 
      * @param taskList
      * @throws DukeException
      */

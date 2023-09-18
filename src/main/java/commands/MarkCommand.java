@@ -11,6 +11,7 @@ import ui.Ui;
 public class MarkCommand extends Command {
     /**
      * Constructor for MarkCommand.
+     * 
      * @param fullCommand
      */
     public MarkCommand(String fullCommand) {
@@ -19,6 +20,7 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the MarkCommand, marking a task as done.
+     * 
      * @param taskList The TaskList object that stores the list of tasks
      * @param ui The Ui object that handles the user interface
      * @param storage The Storage object that handles the saving and loading of tasks

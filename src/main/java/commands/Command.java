@@ -16,6 +16,7 @@ public abstract class Command {
 
     /**
      * Constructor for Command.
+     * 
      * @param fullCommand
      */
     public Command(String fullCommand) {
@@ -34,6 +35,7 @@ public abstract class Command {
 
     /**
      * Returns true if command is terminal.
+     * 
      * @return isExit
      */
     public boolean canExit() {
@@ -49,6 +51,7 @@ public abstract class Command {
 
     /**
      * Returns the command.
+     * 
      * @return fullCommand
      */
     public String getFullCommand() {
@@ -65,6 +68,7 @@ public abstract class Command {
 
     /**
      * Executes the command.
+     * 
      * @param taskList
      * @param ui
      * @param storage

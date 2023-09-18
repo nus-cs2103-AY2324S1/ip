@@ -21,6 +21,7 @@ public abstract class Task {
 
     /**
      * Constructor for Task.
+     * 
      * @param description
      */
     public Task(String description) {
@@ -30,6 +31,7 @@ public abstract class Task {
 
     /**
      * Constructor for Task.
+     * 
      * @return String if task is done
      */
     public String getStatusIcon() {
@@ -38,6 +40,7 @@ public abstract class Task {
 
     /**
      * Sets the status of the task.
+     * 
      * @param statusIcon "X" if task is done, " " if task is not done
      */
     public void setStatusIcon(String statusIcon) {
@@ -45,6 +48,7 @@ public abstract class Task {
     }
     /**
      * Returns the description of the task.
+     * 
      * @return String description
      */
     public String getDescription() {
@@ -83,12 +87,14 @@ public abstract class Task {
 
     /**
      * Returns the string representation of the task to be saved in a file.
+     * 
      * @return String representation of the task
      */
     public abstract String toFileString();
 
     /**
      * Convert from a string to a task.
+     * 
      * @param fileString Stored list in String format within the file
      * @throws DukeException
      */

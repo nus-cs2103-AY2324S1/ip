@@ -19,6 +19,7 @@ public class TaskList {
     }
     /**
      * Constructor for TaskList.
+     * 
      * @param userTasks List of tasks.
      */
     public TaskList(ArrayList<Task> userTasks) {
@@ -27,6 +28,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
+     * 
      * @return userTasks List of tasks.
      */
     public ArrayList<Task> getTasks() {
@@ -34,6 +36,7 @@ public class TaskList {
     }
     /**
      * Set the list of tasks.
+     * 
      * @param userTasks List of tasks.
      */
     public void setTasks(ArrayList<Task> userTasks) {
@@ -42,6 +45,7 @@ public class TaskList {
 
     /**
      * Adds a task to list.
+     * 
      * @param task Task to be added.
      */
     public void add(Task task) {
@@ -51,6 +55,7 @@ public class TaskList {
 
     /**
      * Deletes a task from list.
+     * 
      * @param taskId TaskID to be deleted.
      */
     public void delete(int taskId) {
@@ -66,6 +71,7 @@ public class TaskList {
 
     /**
      * Marks a task as done.
+     * 
      * @param taskId TaskID to be marked.
      * @throws DukeException
      */
@@ -75,6 +81,7 @@ public class TaskList {
 
     /**
      * Marks a task as undone.
+     * 
      * @param taskId TaskID to be unmarked.
      * @throws DukeException
      */
@@ -84,6 +91,7 @@ public class TaskList {
 
     /**
      * Returns the specified task.
+     * 
      * @param taskID TaskID to be returned.
      * @return Specified task
      */
@@ -93,6 +101,7 @@ public class TaskList {
 
     /**
      * Returns the size of the list.
+     * 
      * @return int size
      */
     public int size() {

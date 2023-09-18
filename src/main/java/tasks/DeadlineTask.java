@@ -15,6 +15,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Constructor for DeadlineTask.
+     * 
      * @param description
      * @param byDateTime
      * @throws DukeException
@@ -42,6 +43,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns the string representation of the deadline task to be saved in a file.
+     * 
      * @return LocalDateTime byDateTime
      */
     public LocalDateTime getByDateTime() {
@@ -50,6 +52,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Sets the deadline of the task.
+     * 
      * @param by LocalDateTime of deadline
      */
     public void setByDateTime(LocalDateTime by) {
@@ -58,6 +61,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns the string representation of the deadline task to be saved in a file.
+     * 
      * @return String to be saved in a file
      */
     @Override
@@ -68,6 +72,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Sets the deadline task from a string representation of the deadline task in a file.
+     * 
      * @param fileString Stored list in String format within the file.
      * @throws DukeException
      */
