@@ -1,0 +1,22 @@
+.root {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Arial";
+}
+
+.username {
+    -fx-font-weight: bold;
+}
+
+.dialog-text {
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.dialog-text.User {
+    -fx-background-color: #b8ffda;
+}
+
+.dialog-text.Cyrus {
+    -fx-background-color: #b8ebff;
+}

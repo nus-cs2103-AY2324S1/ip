@@ -43,6 +43,7 @@ public class DialogBox extends VBox {
 
         dialog.setText(text);
         username.setText(user);
+        dialog.getStyleClass().add(user);
         displayPicture.setImage(img);
         dialog.setTextFill(color);
     }
