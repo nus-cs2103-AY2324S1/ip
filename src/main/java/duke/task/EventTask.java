@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Class to encapsulate the logic of an event in a task manager
+ * Encapsulates the logic of an event in a task manager
  */
 public class EventTask extends Task {
 
@@ -18,7 +18,7 @@ public class EventTask extends Task {
     private LocalDateTime to;
 
     /**
-     * constructor for duke.task.EventTask
+     * Constructs a new event task
      * Stored as EVENT{marked}{task description}{from}{to}
      *
      * @param from - the starting time of the event
@@ -32,7 +32,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * constructor for duke.task.EventTask from storage
+     * Constructs a new event task from storage
      * Stored as EVENT{marked}{task description}{from}{to}
      *
      * @param from       - the starting time of the event
@@ -56,7 +56,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * returns the stored form of this event
+     * Returns the stored form of this event
      * Stored as EVENT,{task description},{from},{to}
      *
      * @return EVENT,{task description},{from},{to}
@@ -69,7 +69,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * returns the stored form of the task
+     * Returns the stored form of the task
      *
      * @param days - the range of days of task to be reminded
      * @return true if this task need to be reminded

@@ -14,7 +14,7 @@ public class DeadlineTask extends Task {
     private LocalDateTime by;
 
     /**
-     * constructor for duke.task.DeadlineTask
+     * Constructs a new DeadlineTask
      *
      * @param by   - the deadline of the task
      * @param task - the description of the task created
@@ -25,7 +25,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * constructor for duke.task.DeadlineTask from storage
+     * Constructs a new DeadlineTask from storage
      *
      * @param by         - the deadline of the task
      * @param task       - the description of the task created
@@ -45,7 +45,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * returns the stored form of this deadline
+     * Returns the stored form of this deadline
      * Stored as DEADLINE{task description}{by}
      *
      * @return DEADLINE{task description}{by}
@@ -57,7 +57,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * returns the stored form of the task
+     * Returns the stored form of the task
      *
      * @param days - the range of days of task to be reminded
      * @return true if this task need to be reminded

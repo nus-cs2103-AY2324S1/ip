@@ -13,7 +13,7 @@ import javafx.application.Application;
 public class Duke {
 
     /**
-     * stores the error if there is during loading
+     * Stores the error if there is during loading
      */
     private String storageLoadErrorMessage = "";
     /**
@@ -30,7 +30,7 @@ public class Duke {
     private Storage storage;
 
     /**
-     * Construct a new Duke object which uses storageFilePath as the storage
+     * Constructs a new Duke object which uses storageFilePath as the storage
      *
      * @param storageFilePath - path to the storage file
      */
@@ -76,7 +76,7 @@ public class Duke {
     }
 
     /**
-     * Entry point of the program
+     * Starts the program
      *
      * @param args System arguments, should be empty
      */
@@ -101,7 +101,7 @@ public class Duke {
     }
 
     /**
-     * Getter for storage error string
+     * Returns the storage load error message
      */
     public String getStorageLoadErrorMessage() {
         return storageLoadErrorMessage;

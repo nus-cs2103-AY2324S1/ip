@@ -44,7 +44,7 @@ public class TaskList {
     }
 
     /**
-     * returns the current task list length
+     * Returns the current task list length
      *
      * @return task list length
      */
@@ -62,7 +62,7 @@ public class TaskList {
     }
 
     /**
-     * remove the given task from memory
+     * Removes the given task from memory
      *
      * @param index - the index of the task being removed
      * @return the task that was removed
@@ -72,7 +72,7 @@ public class TaskList {
     }
 
     /**
-     * returns the element at the index
+     * Returns the element at the index
      *
      * @param index - index of the element
      * @return the element at the index
@@ -82,7 +82,7 @@ public class TaskList {
     }
 
     /**
-     * returns all the tasks currently stored
+     * Returns all the tasks currently stored
      *
      * @return an array of Task
      */

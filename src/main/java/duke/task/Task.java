@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Implementation of the task logic
+ * Encapsulates the task logic
  */
 public abstract class Task {
 
@@ -26,7 +26,7 @@ public abstract class Task {
     private boolean isComplete = false;
 
     /**
-     * Constructor for the duke.task.Task class
+     * Constructs a task instance
      *
      * @param task - the description of the task created
      */
@@ -35,7 +35,7 @@ public abstract class Task {
     }
 
     /**
-     * Format data according to current format
+     * Formats data according to current format
      *
      * @param time - the local date time to format
      * @return formatted string according to the format
@@ -45,7 +45,7 @@ public abstract class Task {
     }
 
     /**
-     * Accessor for the completed field
+     * Returns the isComplete field
      *
      * @return true if completed is true
      */
@@ -61,7 +61,7 @@ public abstract class Task {
     }
 
     /**
-     * Getter for tasks
+     * Returns the task description
      *
      * @return task string
      */
@@ -70,14 +70,14 @@ public abstract class Task {
     }
 
     /**
-     * returns the stored form of the task
+     * Returns the storage form of the task
      *
      * @return a string which duke Parser could Parse
      */
     public abstract String getStored();
 
     /**
-     * returns the stored form of the task
+     * Returns the stored form of the task
      *
      * @param days - the range of days of task to be reminded
      * @return true if this task need to be reminded

@@ -37,6 +37,7 @@ public class Parser {
     private static final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
+     * Returns a command object
      * Factory method to parse the input and output the respective command instance
      *
      * @param input - the input string that needs to be parsed
@@ -93,7 +94,7 @@ public class Parser {
     }
 
     /**
-     * Load task from storage
+     * Loads task from storage
      *
      * @param storedStr - the string representing the task from storage
      * @return the instance of the class
@@ -129,7 +130,7 @@ public class Parser {
     }
 
     /**
-     * Find the index from the split input string
+     * Finds the index from the split input string
      *
      * @param splitInput - the split input string
      * @return the index
@@ -150,7 +151,7 @@ public class Parser {
     }
 
     /**
-     * function to find the flags and update both the flags and param field
+     * Finds the flags and update both the flags and param field
      *
      * @param flagMap     - the place to store the flag
      * @param splitInputs - input string that has been split into words

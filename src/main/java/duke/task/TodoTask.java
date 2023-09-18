@@ -1,12 +1,12 @@
 package duke.task;
 
 /**
- * Class to encapsulate the logic of an todo task
+ * Encapsulates the logic of an todo task
  */
 public class TodoTask extends Task {
 
     /**
-     * Constructor for the duke.task.TodoTask class
+     * Constructs a new TodoTask instance
      * Stored as TODO{task description}{1 if marked else 0}
      *
      * @param task - the description of the task created
@@ -16,7 +16,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * Constructor for the duke.task.TodoTask class from storage
+     * Constructs a new TodoTask instance from storage
      * Stored as TODO{task description}{1 if marked else 0}
      *
      * @param task       - the description of the task created
@@ -35,7 +35,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * returns the stored form of this tasks
+     * Returns the stored form of this tasks
      * Stored as TODO{task description}{1 if marked else 0}
      *
      * @return TODO{task description}{1 if marked else 0}
@@ -46,7 +46,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * returns the stored form of the task
+     * Returns the stored form of the task
      *
      * @param days - the range of days of task to be reminded
      * @return true if this task need to be reminded

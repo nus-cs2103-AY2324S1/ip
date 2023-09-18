@@ -22,7 +22,7 @@ public class ReminderCommand extends Command {
     private int days;
 
     /**
-     * Constructor of the reminder command
+     * Constructs a reminder command
      *
      * @param days - the desc of the command
      */
@@ -31,7 +31,7 @@ public class ReminderCommand extends Command {
     }
 
     /**
-     * Method to encapsulate the execution logic of the command
+     * Encapsulates the execution logic of the command
      *
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE

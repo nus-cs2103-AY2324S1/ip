@@ -141,7 +141,7 @@ public class Storage {
     }
 
     /**
-     * Close the connection to the storage and deallocate all resources
+     * Ends the connection to the storage and deallocate all resources
      */
     public void close() {
         try {

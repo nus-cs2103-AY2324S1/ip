@@ -14,16 +14,16 @@ import duke.task.Task;
 public class MarkCommand extends Command {
 
     /**
-     * true if mark command else unmark
+     * True if mark command else unmark
      */
     private boolean isMark;
     /**
-     * index of the task being marked/unmarked
+     * Index of the task being marked/unmarked
      */
     private int index;
 
     /**
-     * Constructor for the duke.command.MarkCommand class
+     * Constructs a new Mark command
      *
      * @param mark  - true if mark command else unmark
      * @param index - index of the task in question
@@ -34,7 +34,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Method to encapsulate the execution logic of the command
+     * Encapsulates the execution logic of the command
      *
      * @param taskList - the task list instance of the current duke
      * @param ui       - the ui instance of DUKE

@@ -24,7 +24,7 @@ public class DeadlineCommand extends Command {
     private LocalDateTime by;
 
     /**
-     * Constructor of the duke.task.DeadlineTask command
+     * Constructs a new deadline command
      *
      * @param by   - the due date of the task
      * @param desc - desc of the task
@@ -35,7 +35,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Method to encapsulate the execution logic of the command
+     * Encapsulates the execution logic of the command
      *
      * @param taskList - the task list instance of the current duke
      * @param ui       - the ui instance of DUKE

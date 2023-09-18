@@ -21,7 +21,7 @@ public class FindCommand extends Command {
     private String query;
 
     /**
-     * Constructor of the todo command
+     * Constructs a find command
      *
      * @param query - the desc of the command
      */
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Method to encapsulate the execution logic of the command
+     * Encapsulates the execution logic of the command
      *
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE

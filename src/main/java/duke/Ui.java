@@ -36,7 +36,7 @@ public class Ui {
     }
 
     /**
-     * gets the default help message
+     * Returns the default help message
      *
      * @return the default help message
      */
@@ -65,7 +65,7 @@ public class Ui {
     }
 
     /**
-     * Generate the usually used representation when adding tasks
+     * Generates the usually used representation when adding tasks
      *
      * @param newTask - the task being added
      * @param length  - the current number of tasks

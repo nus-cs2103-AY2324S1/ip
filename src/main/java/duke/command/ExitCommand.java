@@ -11,7 +11,7 @@ import duke.exception.DukeBadInputException;
 public class ExitCommand extends Command {
 
     /**
-     * Method to encapsulate the execution logic of the command
+     * Encapsulates the execution logic of the command
      *
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE

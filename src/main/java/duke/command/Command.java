@@ -6,12 +6,12 @@ import duke.Ui;
 import duke.exception.DukeBadInputException;
 
 /**
- * create a command class to handle the execution of the command
+ * Creates a command class to handle the execution of the command
  */
 public abstract class Command {
 
     /**
-     * validate the index to ensure it is within range
+     * Validates the index to ensure it is within range
      *
      * @param index - the index of the task in question
      * @param len   - the current length of the task list
@@ -30,7 +30,7 @@ public abstract class Command {
     }
 
     /**
-     * Method to encapsulate the execution logic of the command
+     * Encapsulates the execution logic of the command
      *
      * @param taskList - the task list instance  of the current duke
      * @param ui       - the ui instance of DUKE

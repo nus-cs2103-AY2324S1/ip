@@ -28,7 +28,7 @@ public class EventCommand extends Command {
     private LocalDateTime from;
 
     /**
-     * Constructor of the Event command
+     * Constructs a Event command
      *
      * @param from - the start date of the task
      * @param to   - the end date of the event
@@ -41,7 +41,7 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Method to encapsulate the execution logic of the command
+     * Encapsulates the execution logic of the command
      *
      * @param taskList - the task list instance of the current duke
      * @param ui       - the ui instance of DUKE
