@@ -15,6 +15,7 @@ import taskmate.commands.MarkCommand;
 import taskmate.commands.TodoCommand;
 import taskmate.commands.UnmarkCommand;
 import taskmate.commands.UpdateCommand;
+import taskmate.exceptions.ClauselessUpdateException;
 import taskmate.exceptions.EmptyByException;
 import taskmate.exceptions.EmptyDescriptionException;
 import taskmate.exceptions.EmptyFromException;
@@ -406,18 +407,22 @@ public class Parser {
 
     private static void checkValidUpdateCommand(String userInput) throws EmptyDescriptionException,
             InvalidCommandTypeException, NotAnIntegerException, InvalidDescriptionException {
+
+        String[] tokens = userInput.split("\\s+");
+
         boolean isStartingWithUpdate = userInput.startsWith(TaskMate.CommandTypes.update + " ");
         boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.update.toString().length()).trim().isEmpty();
         boolean containsSlash = userInput.contains("/");
-        String[] tokens = userInput.split("\\s+");
-        if (!checkStringIsInteger(tokens[1])) {
+        boolean updateIndexIsInteger = checkStringIsInteger(tokens[1]);
+
+        if (!updateIndexIsInteger) {
             throw new NotAnIntegerException();
         } else if (!isStartingWithUpdate) {
             throw new InvalidCommandTypeException();
         } else if (hasEmptyQuery) {
             throw new EmptyDescriptionException();
         } else if (!containsSlash) {
-            throw new InvalidDescriptionException(); // todo create new exception type for update
+            throw new ClauselessUpdateException(); // todo ui new print statement
         }
     }
 
