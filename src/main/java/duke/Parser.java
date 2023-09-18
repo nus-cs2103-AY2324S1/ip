@@ -151,7 +151,7 @@ public class Parser {
     }
 
     /**
-     * Return the string representing the dateTime input in MMM d yyyy h.mma format.
+     * Returns the string representing the dateTime input in MMM d yyyy h.mma format.
      *
      * @param input The dateTime string input from the user.
      * @return The string of the formatted DateTime input.

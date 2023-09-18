@@ -6,7 +6,7 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * The main point of entry for the Duke Chat Bot application.
+     * The main point of entry for the Chat Bot.
      *
      * @param args The command line arguments passed to the application.
      */
