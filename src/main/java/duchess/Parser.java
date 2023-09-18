@@ -253,14 +253,14 @@ public class Parser {
         // (any number of digits) and then any number of (hashtags (optional) 
         // and then letters without spaces.) Each tag hence needs to have no spaces inside. 
         Matcher m = Utility.parseRegex(
-                s, "^tag a(?:dd)?( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
+                s, "^tag a(?:dd)? ([0-9]+)?((?: (?:#)?(?:[A-Za-z0-9_\\-]+))*)?"
             );
 
-        if (m.group(1) == null || m.group(2) == null) {
+        if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to tag... ;-;");
         }
 
-        return Integer.parseInt(m.group(2).trim()) - 1;
+        return Integer.parseInt(m.group(1).trim()) - 1;
     }
 
     /**
@@ -273,14 +273,16 @@ public class Parser {
     public static String[] parseAddTagCommandTags(String s) throws DuchessException {
         // See parseAddTagCommandIndex.
         Matcher m = Utility.parseRegex(
-                s, "^tag a(?:dd)?( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
+                s, "^tag a(?:dd)? ([0-9]+)?((?: (?:#)?(?:[A-Za-z0-9_\\-]+))*)?"
             );
 
-        if (m.group(1) == null || m.group(3) == null) {
+        if (m.group(1) == null || m.group(2) == null || m.group(2).length() == 0) {
             throw new DuchessException("(´；ω；`) Sorry, tags cannot be empty... ;-;");
         }
 
-        return m.group(3).trim().split(" ");
+        String[] tagList = m.group(2).trim().replace("#", "").split(" ");
+
+        return tagList;
     }
 
     /**
@@ -305,14 +307,14 @@ public class Parser {
         // (any number of digits) and then any number of (hashtags (optional) 
         // and then letters without spaces.)
         Matcher m = Utility.parseRegex(
-                s, "^tag (?:rm|remove|del|delete)( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
+                s, "^tag (?:rm|remove|del|delete) ([0-9]+)?((?: (?:#)?(?:[A-Za-z0-9_\\-]+))*)?"
             );
 
-        if (m.group(1) == null || m.group(2) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to tag... ;-;");
+        if (m.group(1) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to remove the tag from... ;-;");
         }
 
-        return Integer.parseInt(m.group(2).trim()) - 1;
+        return Integer.parseInt(m.group(1).trim()) - 1;
     }
 
     /**
@@ -325,14 +327,16 @@ public class Parser {
     public static String[] parseRemoveTagCommandTags(String s) throws DuchessException {
         // See parseRemoveTagCommandIndex.
         Matcher m = Utility.parseRegex(
-                s, "^tag (?:rm|remove|del|delete)( ([0-9_]+)( (?:#)?[A-Za-z0-9_\\-]+)*)?"
+                s, "^tag (?:rm|remove|del|delete) ([0-9]+)?((?: (?:#)?(?:[A-Za-z0-9_\\-]+))*)?"
             );
 
-        if (m.group(1) == null || m.group(3) == null) {
+        if (m.group(1) == null || m.group(2) == null || m.group(2).length() == 0) {
             throw new DuchessException("(´；ω；`) Sorry, tags cannot be empty... ;-;");
         }
 
-        return m.group(3).trim().split(" ");
+        String[] tagList = m.group(2).trim().replace("#", "").split(" ");
+
+        return tagList;
     }
 
 }
