@@ -51,7 +51,7 @@ public class DeadlineTest {
                 new Deadline("Project Final Grading", "2023-10-01")
                         .reschedule(
                                 "/by 2023-10-10",
-                                new Storage("./data/tasks.txt")
+                                new Storage("./data/test.txt")
                         )
         );
 
@@ -60,7 +60,7 @@ public class DeadlineTest {
                 new Deadline("Wedding", "2023-10-22")
                         .reschedule(
                                 "/by 2028-10-22",
-                                new Storage("./data/tasks.txt")
+                                new Storage("./data/test.txt")
                         )
         );
     }
@@ -73,7 +73,7 @@ public class DeadlineTest {
                     new Deadline("Wedding", "2023-09-22")
                             .reschedule(
                                     "2028-09-22",
-                                    new Storage("./data/tasks.txt")
+                                    new Storage("./data/test.txt")
                             )
             );
         } catch (Exception e) {

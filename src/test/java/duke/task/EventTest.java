@@ -45,7 +45,7 @@ public class EventTest {
                 new Event("Stay-cation", "2023-10-14", "2023-10-15")
                         .reschedule(
                                 "/from 2023-10-15 /to 2023-10-16",
-                                new Storage("./data/tasks.txt")
+                                new Storage("./data/test.txt")
                         )
         );
 
@@ -54,7 +54,7 @@ public class EventTest {
                 new Event("Hackathon", "2023-08-22", "2023-08-24")
                         .reschedule(
                                 "/from 2023-12-22 /to 2023-12-24",
-                                new Storage("./data/tasks.txt")
+                                new Storage("./data/test.txt")
                         )
         );
     }
@@ -67,7 +67,7 @@ public class EventTest {
                     new Event("Sleepover", "2023-11-01", "2023-11-03")
                             .reschedule(
                                     "2023-11-11 2023-11-12",
-                                    new Storage("./data/tasks.txt")
+                                    new Storage("./data/test.txt")
                             )
             );
         } catch (Exception e) {
