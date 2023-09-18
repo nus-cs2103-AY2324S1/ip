@@ -2,8 +2,9 @@ package duke.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.exception.InvalidStartEndDatetimeException;
 import org.junit.jupiter.api.Test;
+
+import duke.exception.InvalidStartEndDatetimeException;
 
 public class EventTest {
 

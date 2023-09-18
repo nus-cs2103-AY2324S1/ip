@@ -195,8 +195,8 @@ public class TaskList {
             return Duke.getUi().printAddTask(deadline, getLength());
         } catch (DateTimeParseException e) {
             return Duke.getUi().printDateTimeParseException();
-        } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DuplicateTaskException |
-                 DukeException e) {
+        } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DuplicateTaskException
+                 | DukeException e) {
             return e.getMessage();
         }
     }
@@ -245,8 +245,8 @@ public class TaskList {
             return Duke.getUi().printAddTask(event, getLength());
         } catch (DateTimeParseException e) {
             return Duke.getUi().printDateTimeParseException();
-        } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException |
-                 InvalidStartEndDatetimeException | DuplicateTaskException | DukeException e) {
+        } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException
+                 | InvalidStartEndDatetimeException | DuplicateTaskException | DukeException e) {
             return e.getMessage();
         }
     }

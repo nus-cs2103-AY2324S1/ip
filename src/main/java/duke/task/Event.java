@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.exception.InvalidStartEndDatetimeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.exception.InvalidStartEndDatetimeException;
 
 /**
  * Represents an event.
