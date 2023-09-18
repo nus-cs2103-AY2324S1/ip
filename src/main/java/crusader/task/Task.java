@@ -3,7 +3,7 @@ package crusader.task;
 /**
  * A task to do in the bot.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     /** Name of the task */
     private final String name;
 
@@ -34,6 +34,17 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", isDone() ? "X" : " ", name);
+    }
+
+    /**
+     * Compares a task to another.
+     * @param o the task to be compared.
+     * @return
+     */
+    @Override
+    public int compareTo(Task o) {
+        return this.getName().toLowerCase()
+                .compareTo(o.getName().toLowerCase());
     }
 
     /**
