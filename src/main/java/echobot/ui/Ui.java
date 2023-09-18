@@ -9,7 +9,7 @@ public class Ui {
      * Displays the EchoBot logo.
      */
     public String showLogo() {
-        return "  ,d88b.d88b,\n"
+        return " ,d88b.d88b,\n"
                 + "88888888888\n"
                 + " `Y8888888Y'\n"
                 + "    `Y888Y'  \n"
@@ -36,6 +36,5 @@ public class Ui {
      */
     public String showByeMessage() {
         return "Bye. Hope to see you again soon!";
-
     }
 }

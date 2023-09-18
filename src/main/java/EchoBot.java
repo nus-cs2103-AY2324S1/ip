@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * The EchoBot class represents the main application class for EchoBot, a chat-bot program.
+ * The EchoBot class represents the main application class for EchoBot, a chatbot program.
  */
 public class EchoBot extends Application {
 
@@ -40,8 +40,8 @@ public class EchoBot extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/alles.jpg"));
-    private Image echobot = new Image(this.getClass().getResourceAsStream("/google.jpg"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/user.png"));
+    private Image echobot = new Image(this.getClass().getResourceAsStream("/echobot.png"));
 
     private Ui ui;
     private Storage storage;
@@ -92,7 +92,7 @@ public class EchoBot extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("EchoBot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -141,6 +141,7 @@ public class EchoBot extends Application {
 
         if (input.equalsIgnoreCase("bye")) {
             handleByeCommand();
+            return;
         } else if (input.equalsIgnoreCase("list tasks")) {
             responseText = handleListTasksCommand();
         } else if (input.toLowerCase().startsWith("todo")) {
@@ -175,9 +176,18 @@ public class EchoBot extends Application {
      * Handles the "bye" command, allowing the user to exit the application.
      */
     private void handleByeCommand() {
-        ui.showByeMessage();
+        String userMessage = userInput.getText();
+        displayUserMessage(userMessage);
+
+        String byeMessage = ui.showByeMessage();
+        displayEchoBotMessage(byeMessage);
+
         Duration delay = Duration.seconds(1);
-        KeyFrame keyFrame = new KeyFrame(delay, event -> Platform.exit());
+        KeyFrame keyFrame = new KeyFrame(delay, event -> {
+            Platform.exit();  // Close the application after a 1-second delay
+            System.exit(0);  // This is necessary to properly terminate the JavaFX application
+        });
+
         Timeline timeline = new Timeline(keyFrame);
         timeline.play();
     }
@@ -343,4 +353,12 @@ public class EchoBot extends Application {
 
         dialogContainer.getChildren().addAll(echoBotDialogBox);
     }
+
+    private void displayUserMessage(String userMessage) {
+        Label userTextLabel = new Label(userMessage);
+        ImageView userImageView = new ImageView(user);
+        DialogBox userDialogBox = DialogBox.getUserDialog(userTextLabel, userImageView);
+        dialogContainer.getChildren().addAll(userDialogBox);
+    }
+
 }
