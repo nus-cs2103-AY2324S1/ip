@@ -10,11 +10,11 @@ import duchess.Parser;
 import java.util.ArrayList;
 
 /**
- * Class representing a MarkTask command.
+ * Class representing a UnmarkTask command.
  */
-public class MarkTaskCommand extends Command {
+public class UnmarkTaskCommand extends Command {
     /**
-     * Marks a task.
+     * Unmarks a task.
      *
      * @param userInput - the user input.
      * @param tasks       the list of tasks.
@@ -23,27 +23,26 @@ public class MarkTaskCommand extends Command {
     @Override
     public String execute(String userInput, TaskList tasks) {
         String response = "";
+
         try {
-            int index = Parser.parseMarkTaskCommand(userInput);
+            int index = Parser.parseUnmarkTaskCommand(userInput);
             index -= 1; // 1-indexing for user-facing side
-                        //
-            // Within bounds
+
             if (index < 0 || index >= tasks.size()) {
-                // TODO: Make this a different exception type
                 response += Ui.duchessFormat("(´；ω；`) Sorry, no such task exists... ;-;");
                 return response;
             }
 
-            tasks.getTask(index).changeStatus(TaskStatus.MARKED);
-            response += Ui.duchessFormat("Task has been marked!! (＾▽＾)");
+            tasks.getTask(index).changeStatus(TaskStatus.UNMARKED);
+            response += Ui.duchessFormat("Task has been unmarked!! (＾▽＾)");
             response += Ui.duchessFormat(String.format("%d: %s", index + 1, tasks.getTask(index).toString()));
 
         } catch (DuchessException e) {
             response += Ui.duchessFormat(e.getMessage());
             response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-            response += Ui.duchessFormat("mark [task number]");
+            response += Ui.duchessFormat("unmark [task number]");
         }
-        return response;
 
+        return response;
     }
 }

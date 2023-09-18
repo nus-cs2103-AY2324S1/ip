@@ -42,30 +42,6 @@ public class Duchess {
         }
     }
 
-
-    /**
-     * Unmarks a task.
-     *
-     * @param i - the index of the task to be unmarked.
-     * @return    Duchess' response to the command.
-     */
-    private String unmarkTask(int index) {
-        String response = "";
-
-        if (index < 0 || index >= this.storedTasks.size()) {
-            response += Ui.duchessFormat("(´；ω；`) Sorry, no such task exists... ;-;");
-            this.executeCallbackHandler(response);
-            return response;
-        }
-
-        this.storedTasks.getTask(index).changeStatus(TaskStatus.UNMARKED);
-        response += Ui.duchessFormat("Task has been unmarked!! (＾▽＾)");
-        response += Ui.duchessFormat(String.format("%d: %s", index + 1, this.storedTasks.getTask(index).toString()));
-
-        this.executeCallbackHandler(response);
-        return response;
-    }
-
     /**
      * Deletes a task.
      *
@@ -228,19 +204,9 @@ public class Duchess {
 
         // Check if this command is an unmarked task command.
         if (Parser.isUnmarkTaskCommand(userInput)) {
-            try {
-                int index = Parser.parseUnmarkTaskCommand(userInput);
-                index -= 1; // 1-indexing for user-facing side
-                this.unmarkTask(index);
-            } catch (DuchessException e) {
-                String response = "";
-
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("unmark [task number]");
-                
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.UNMARK);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 

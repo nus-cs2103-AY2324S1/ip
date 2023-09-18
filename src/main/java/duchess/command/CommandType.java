@@ -5,5 +5,6 @@ package duchess.command;
  */
 public enum CommandType {
     LIST,
-    MARK
+    MARK,
+    UNMARK
 }
