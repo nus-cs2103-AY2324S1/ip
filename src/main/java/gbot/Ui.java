@@ -22,14 +22,14 @@ public class Ui {
     /**
      * Prints the initial greeting to user.
      */
-    public void ask() {
+    public static void greetUser() {
         print("Hello I'm GBot!\nWhat can I do for you?");
     }
 
     /**
      * Prints the closing message to user.
      */
-    public void end() {
+    public static void displayExitMessage() {
         print("Bye. Hope to see you again soon!");
     }
 

@@ -22,7 +22,7 @@ public class StorageStub extends Storage {
      * @return An empty ArrayList.
      */
     @Override
-    public ArrayList<Task> load() {
+    public ArrayList<Task> loadFile() {
         return new ArrayList<>();
     }
 
@@ -32,7 +32,7 @@ public class StorageStub extends Storage {
      * @param message The task to be added in string format.
      */
     @Override
-    public void appendFile(String message) {
+    public void writeToFile(String message) {
         // no effect
     }
 
@@ -42,7 +42,7 @@ public class StorageStub extends Storage {
      * @param list The list of tasks to update the file.
      */
     @Override
-    public void updateFile(ArrayList<Task> list) {
+    public void rewriteFile(ArrayList<Task> list) {
         // no effect
     }
 }

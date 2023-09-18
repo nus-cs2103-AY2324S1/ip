@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
  * @author Gallen Ong
  */
 public class Event extends Task {
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDate fromDate;
+    protected LocalDate toDate;
 
     /**
      * Initialises an Event task with a description, start and end time.
@@ -22,8 +22,8 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        this.fromDate = LocalDate.parse(from);
+        this.toDate = LocalDate.parse(to);
     }
 
     /**
@@ -36,8 +36,8 @@ public class Event extends Task {
      */
     public Event(String status, String description, String from, String to) {
         super(description);
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        this.fromDate = LocalDate.parse(from);
+        this.toDate = LocalDate.parse(to);
         if (status.equals("1")) {
             this.isDone = true;
         }
@@ -50,8 +50,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String strFrom = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        String strTo = this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String strFrom = this.fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String strTo = this.toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return "[E]" + super.toString() + " (from: " + strFrom + " to: " + strTo + ")";
     }
 
@@ -62,6 +62,6 @@ public class Event extends Task {
      */
     @Override
     public String toStringForFile() {
-        return "E | " + super.toStringForFile() + " | " + this.from + " | " + this.to;
+        return "E | " + super.toStringForFile() + " | " + this.fromDate + " | " + this.toDate;
     }
 }

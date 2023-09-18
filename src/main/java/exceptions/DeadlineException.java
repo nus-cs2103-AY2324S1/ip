@@ -11,6 +11,7 @@ public class DeadlineException extends RuntimeException{
      */
     public DeadlineException() {
         super("Invalid format for Deadline task. Please adhere to the following:\n" +
-                "deadline (task) /by (deadline)");
+                "deadline (task) /by (deadline in YYYY-MM-DD)\n" +
+                "eg. deadline return book /by 2023-09-21");
     }
 }

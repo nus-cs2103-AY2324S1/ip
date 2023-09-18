@@ -11,6 +11,7 @@ public class EventException extends RuntimeException {
      */
     public EventException() {
         super("Invalid format for Event task. Please adhere to the following:\n" +
-                "event (task) /from (start) /to (end)");
+                "event (task) /from (start in YYYY-MM-DD) /to (end in YYYY-MM-DD)\n" +
+                "eg. event attend meeting /from 2023-09-21 /to 2023-09-22");
     }
 }

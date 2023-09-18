@@ -57,7 +57,7 @@ public class Storage {
      *
      * @return An ArrayList object with existing tasks in file.
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> loadFile() {
         ArrayList<Task> list = new ArrayList<>();
         Scanner fScanner;
         try {
@@ -79,13 +79,13 @@ public class Storage {
      *
      * @param message The task to be added in string format.
      */
-    public void appendFile(String message) {
+    public void writeToFile(String message) {
         try {
             FileWriter fWriter = new FileWriter(this.fList, true);
             fWriter.write(message + System.lineSeparator());
             fWriter.close();
         } catch (IOException e) {
-            throw new GBotException("File Append Error!");
+            throw new GBotException("File Writing Error!");
         }
     }
 
@@ -94,7 +94,7 @@ public class Storage {
      *
      * @param list The list of tasks to update the file.
      */
-    public void updateFile(ArrayList<Task> list) {
+    public void rewriteFile(ArrayList<Task> list) {
         try {
             FileWriter fWriter = new FileWriter(this.fList);
             for (int i = 0; i < list.size(); i++) {
@@ -103,7 +103,7 @@ public class Storage {
             }
             fWriter.close();
         } catch (IOException e) {
-            throw new GBotException("File Update Error!");
+            throw new GBotException("File Rewrite Error!");
         }
     }
 }

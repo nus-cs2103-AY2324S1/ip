@@ -24,14 +24,14 @@ public class GBot {
     }
 
     private void run() {
-        ui.ask();
+        Ui.greetUser();
         Scanner inputScanner = new Scanner(System.in);
 
         while (true) {
             String message = inputScanner.nextLine();
             if (message.strip().equals("bye")) {
                 inputScanner.close();
-                ui.end();
+                Ui.displayExitMessage();
                 return;
             }
             try {

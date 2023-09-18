@@ -11,7 +11,7 @@ public class TaskListTest {
     @Test
     public void mark_invalidTaskIndex_taskExceptionThrown () {
         try {
-            Assertions.assertEquals("", new TaskList(new StorageStub()).markTask(1));
+            Assertions.assertEquals("", new TaskList(new StorageStub()).markTask("1"));
             fail();
         } catch (TaskException e) {
             assertEquals("Invalid task provided.", e.getMessage());
@@ -20,7 +20,7 @@ public class TaskListTest {
     @Test
     public void mark_negativeTaskIndex_taskExceptionThrown() {
         try {
-            assertEquals("", new TaskList(new StorageStub()).markTask(-1));
+            assertEquals("", new TaskList(new StorageStub()).markTask("-1"));
             fail();
         } catch (TaskException e) {
             assertEquals("Invalid task provided.", e.getMessage());
@@ -30,7 +30,7 @@ public class TaskListTest {
     @Test
     public void unmark_invalidTaskIndex_taskExceptionThrown() {
         try {
-            assertEquals("", new TaskList(new StorageStub()).unmarkTask(1));
+            assertEquals("", new TaskList(new StorageStub()).unmarkTask("1"));
             fail();
         } catch (TaskException e) {
             assertEquals("Invalid task provided.", e.getMessage());
@@ -39,7 +39,7 @@ public class TaskListTest {
     @Test
     public void unmark_negativeTaskIndex_taskExceptionThrown() {
         try {
-            assertEquals("", new TaskList(new StorageStub()).unmarkTask(-1));
+            assertEquals("", new TaskList(new StorageStub()).unmarkTask("-1"));
             fail();
         } catch (TaskException e) {
             assertEquals("Invalid task provided.", e.getMessage());
@@ -48,7 +48,7 @@ public class TaskListTest {
     @Test
     public void delete_invalidTaskIndex_taskExceptionThrown() {
         try {
-            assertEquals("", new TaskList(new StorageStub()).deleteTask(1));
+            assertEquals("", new TaskList(new StorageStub()).deleteTask("1"));
             fail();
         } catch (TaskException e) {
             assertEquals("Invalid task provided.", e.getMessage());
@@ -57,7 +57,7 @@ public class TaskListTest {
     @Test
     public void delete_negativeTaskIndex_taskExceptionThrown() {
         try {
-            assertEquals("", new TaskList(new StorageStub()).deleteTask(-1));
+            assertEquals("", new TaskList(new StorageStub()).deleteTask("-1"));
             fail();
         } catch (TaskException e) {
             assertEquals("Invalid task provided.", e.getMessage());

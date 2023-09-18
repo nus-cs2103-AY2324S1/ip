@@ -1,7 +1,11 @@
 package gbot;
 
+import exceptions.DeadlineException;
+import exceptions.EventException;
 import exceptions.TaskException;
 import java.util.ArrayList;
+
+import exceptions.TodoException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -16,6 +20,7 @@ public class TaskList {
     private Storage storage;
     private final ArrayList<Task> list;
     private int taskCount;
+    private static final String INVALIDTASK = "Please enter a task number.";
 
     /**
      * Initialises a TaskList objects that loads tasks from a given Storage object.
@@ -25,7 +30,7 @@ public class TaskList {
 
     public TaskList(Storage storage) {
         this.storage = storage;
-        this.list = storage.load();
+        this.list = storage.loadFile();
         this.taskCount = this.list.size();
     }
 
@@ -54,32 +59,54 @@ public class TaskList {
     /**
      * Marks the corresponding task as done and updates the file.
      *
-     * @param taskNum The task number provided by the user.
+     * @param str The task number provided by the user.
      */
-    public String markTask(int taskNum) {
+    public String markTask(String str) {
+        if (str.isBlank()) {
+            return INVALIDTASK;
+        }
+
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(str.split(" ")[0]);
+        } catch (NumberFormatException e) {
+            return INVALIDTASK;
+        }
+
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
 
         Task curr = list.get(taskNum - 1);
         curr.markAsDone();
-        storage.updateFile(list);
-        return "Nice, I've marked this task as done:\n" + curr;
+        storage.rewriteFile(list);
+        return "Nice. I've marked this task as done:\n" + curr;
     }
 
     /**
      * Unmarks the corresponding task as not done and updates the file.
      *
-     * @param taskNum The task number provided by the user.
+     * @param str The task number provided by the user.
      */
-    public String unmarkTask(int taskNum) {
+    public String unmarkTask(String str) {
+        if (str.isBlank()) {
+            return INVALIDTASK;
+        }
+
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(str.split(" ")[0]);
+        } catch (NumberFormatException e) {
+            return INVALIDTASK;
+        }
+
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
 
         Task curr = list.get(taskNum - 1);
         curr.markAsUndone();
-        storage.updateFile(list);
+        storage.rewriteFile(list);
         return "Okay, I've unmarked this task:\n" + curr;
     }
 
@@ -89,9 +116,13 @@ public class TaskList {
      * @param str The Todo task description to be added.
      */
     public String addTodo(String str) {
+        if (str.isBlank()) {
+            throw new TodoException();
+        }
+
         Todo newTodo = new Todo(str);
         list.add(newTodo);
-        storage.appendFile(newTodo.toStringForFile());
+        storage.writeToFile(newTodo.toStringForFile());
         taskCount++;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
@@ -104,11 +135,15 @@ public class TaskList {
      * @param str The Deadline task description to be added.
      */
     public String addDeadline(String str) {
+        if (str.isBlank()) {
+            throw new DeadlineException();
+        }
+
         String desc = str.split(" /by ")[0];
         String by = str.split(" /by ")[1];
         Deadline newDeadline = new Deadline(desc, by);
         list.add(newDeadline);
-        storage.appendFile(newDeadline.toStringForFile());
+        storage.writeToFile(newDeadline.toStringForFile());
         taskCount++;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
@@ -121,12 +156,16 @@ public class TaskList {
      * @param str The Event task description to be added.
      */
     public String addEvent(String str) {
+        if (str.isBlank()) {
+            throw new EventException();
+        }
+
         String desc = str.split(" /from ")[0];
         String from = str.split(" /from ")[1].split(" /to ")[0];
         String to = str.split(" /from ")[1].split(" /to ")[1];
         Event newEvent = new Event(desc, from, to);
         list.add(newEvent);
-        storage.appendFile(newEvent.toStringForFile());
+        storage.writeToFile(newEvent.toStringForFile());
         taskCount++;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
@@ -136,16 +175,27 @@ public class TaskList {
     /**
      * Deletes the corresponding task from the task list and updates the file.
      *
-     * @param taskNum The task number provided by the user.
+     * @param str The task number provided by the user.
      */
-    public String deleteTask(int taskNum) {
+    public String deleteTask(String str) {
+        if (str.isBlank()) {
+            return INVALIDTASK;
+        }
+
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(str.split(" ")[0]);
+        } catch (NumberFormatException e) {
+            return INVALIDTASK;
+        }
+
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
 
         Task toDelete = list.get(taskNum - 1);
         list.remove(taskNum - 1);
-        storage.updateFile(list);
+        storage.rewriteFile(list);
         taskCount--;
 
         String count = "\nNow you have " + taskCount + " tasks to do.";
@@ -158,6 +208,10 @@ public class TaskList {
      * @param str The keyword given by user.
      */
     public String find(String str) {
+        if (str.isBlank()) {
+            return "Please enter a keyword.";
+        }
+
         ArrayList<Task> matchList = new ArrayList<>();
         for (int i = 0; i < taskCount; i++) {
             Task curr = list.get(i);

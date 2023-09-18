@@ -26,70 +26,26 @@ public class Parser {
         if (message.strip().equals("list")) {
             return tasks.listTasks();
         }
-
         String prefix = message.split(" ")[0];
-        String str = message.substring(prefix.toString().length() + 1);
-        String result;
-
+        String remainingInput = message.substring(prefix.length() + 1);
         switch (prefix) {
         case "mark":
-            if (str.isBlank()) {
-                return "Please enter a task number.";
-            }
-            try {
-                result = tasks.markTask(Integer.parseInt(str.split(" ")[0]));
-            } catch (NumberFormatException e) {
-                return "Please enter a task number.";
-            }
-            break;
+            return tasks.markTask(remainingInput);
         case "unmark":
-            if (str.isBlank()) {
-                return "Please enter a task number.";
-            }
-            try {
-                result = tasks.unmarkTask(Integer.parseInt(str.split(" ")[0]));
-            } catch (NumberFormatException e) {
-                return "Please enter a task number.";
-            }
-            break;
+            return tasks.unmarkTask(remainingInput);
         case "todo":
-            if (str.isBlank()) {
-                throw new TodoException();
-            }
-            result = tasks.addTodo(str);
-            break;
+            return tasks.addTodo(remainingInput);
         case "deadline":
-            if (str.isBlank()) {
-                throw new DeadlineException();
-            }
-            result = tasks.addDeadline(str);
-            break;
+            return tasks.addDeadline(remainingInput);
         case "event":
-            if (str.isBlank()) {
-                throw new EventException();
-            }
-            result = tasks.addEvent(str);
-            break;
+            return tasks.addEvent(remainingInput);
         case "delete":
-            if (str.isBlank()) {
-                return "Please enter a task number.";
-            }
-            try {
-                result = tasks.deleteTask(Integer.parseInt(str.split(" ")[0]));
-            } catch (NumberFormatException e) {
-                return "Please enter a task number.";
-            }
-            break;
+            return tasks.deleteTask(remainingInput);
         case "find":
-            if (str.isBlank()) {
-                return "Please enter a keyword.";
-            }
-            result = tasks.find(str);
-            break;
+            return tasks.find(remainingInput);
         default:
             throw new GBotException();
         }
-        return result;
     }
 
     /**
