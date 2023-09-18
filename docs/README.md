@@ -59,7 +59,7 @@ list
 
 No list, silly!
 ```
-#### 'bye' - Shuts down the bot
+#### `bye` - Shuts down the bot
 This calls the bot to shut down and close the interface.
 
 Format: `bye`
