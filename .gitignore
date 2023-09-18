@@ -18,3 +18,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Ignore all Java class files
 *.class
+
