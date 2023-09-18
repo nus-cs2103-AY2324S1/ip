@@ -30,15 +30,6 @@ public class Task {
 
     /* Methods */
     /**
-     * return the status icon of the task
-     * @return the status icon of the task
-     */
-    public String getStatusIcon() {
-        return (isDone ? "[V] " : "[ ] "); // mark done task with V
-    }
-
-
-    /**
      * mark or unmark the task
      * @param funcId the function id
      * @throws VenetoException if the mark operation is done before
@@ -59,6 +50,14 @@ public class Task {
         }
     }
 
+    /**
+     * @param keyword the target keyword
+     * @return if the description of the task contains the keyword
+     */
+    public boolean contains(String keyword) {
+        return description.contains(keyword);
+    }
+
     // toString
     /**
      * explanation of the task
@@ -76,25 +75,12 @@ public class Task {
     public String saveToString() {
         return this.description + "," + (isDone ? 1 : 0);
     }
-<<<<<<< HEAD
-=======
-
-    // Constructor
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
-    }
 
     /**
-     * @param keyword the target keyword
-     * @return if the description of the task contains the keyword
+     * return the status icon of the task
+     * @return the status icon of the task
      */
-    public boolean contains(String keyword) {
-        return description.contains(keyword);
+    public String getStatusIcon() {
+        return (isDone ? "[V] " : "[ ] "); // mark done task with V
     }
->>>>>>> level-9
 }

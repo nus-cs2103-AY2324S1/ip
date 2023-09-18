@@ -105,7 +105,7 @@ public class Ui {
                 break;
             case "find":
                 System.out.println(
-                        GREETS + " 相关的任务都在这里了哦：\n" + c + "\n"
+                        GREETS + " 相关的任务都在这里了哦：\n" + command + "\n"
                 );
                 break;
         }
