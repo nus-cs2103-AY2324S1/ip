@@ -40,7 +40,6 @@ public class ToDos extends Task {
         String state = status ? "0" : "1";
         return "T" + " | " + state + " | " + this.name;
     }
-
     @Override
     public boolean equals(Object o) {
         if (o instanceof ToDos) {
@@ -48,4 +47,5 @@ public class ToDos extends Task {
         }
         return false;
     }
+
 }

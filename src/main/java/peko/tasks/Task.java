@@ -74,7 +74,6 @@ public class Task {
     public boolean getStatus() {
         return this.status;
     }
-
     @Override
     public boolean equals(Object o) {
         if (o instanceof Task) {

@@ -63,7 +63,6 @@ public class Event extends Task {
         String curr = this.status ? "0" : "1";
         return "E" + " | " + curr + " | " + this.name + " | " + startHandler.toString() + " | " + endHandler.toString();
     }
-
     private boolean equalDateTimeChecker(DateTimeHandler d1, DateTimeHandler d2) {
         return d1.equals(d2);
     }
