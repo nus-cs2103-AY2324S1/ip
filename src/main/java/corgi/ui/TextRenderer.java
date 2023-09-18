@@ -69,7 +69,7 @@ public final class TextRenderer {
     public String showError(String exception, String extraMsg) {
         return returnMessage(
             this.showError(exception),
-            "Error: " + extraMsg);
+            "Error: \n" + extraMsg);
     }
 
     /**

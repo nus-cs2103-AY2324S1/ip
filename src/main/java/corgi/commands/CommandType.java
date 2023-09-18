@@ -1,30 +1,47 @@
 package corgi.commands;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Types of commands that can be given to the Corgi chat bot.
  */
 public enum CommandType {
-    MARK("mark [task no.]"),
-    UNMARK("unmark [task no.]"),
-    TODO("todo [task]"),
-    DEADLINE("deadline [task] /by [yyyy-mm-dd]"),
-    EVENT("event [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]"),
-    BYE("bye"),
-    LIST("list"),
-    DELETE("delete [task no.]"),
-    DATE("date [yyyy-mm-dd]"),
-    FIND("find [keyword]"),
-    UNDO("undo");
+    TODO("todo /desc [task]",
+            new HashSet<>(Arrays.asList("/desc"))),
+    DEADLINE("deadline /desc [task] /by [yyyy-mm-dd]",
+            new HashSet<>(Arrays.asList("/desc", "/by"))),
+    EVENT("event /desc [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]",
+            new HashSet<>(Arrays.asList("/desc", "/from", "/to"))),
+    MARK("mark /target [task no.]",
+            new HashSet<>(Arrays.asList("/target"))),
+    UNMARK("unmark /target [task no.]",
+            new HashSet<>(Arrays.asList("/target"))),
+    DELETE("delete /target [task no.]",
+            new HashSet<>(Arrays.asList("/target"))),
+    DATE("date /target [yyyy-mm-dd]",
+            new HashSet<>(Arrays.asList("/target"))),
+    FIND("find /target [keyword]",
+            new HashSet<>(Arrays.asList("/target"))),
+    BYE("bye",
+            new HashSet<>()),
+    LIST("list",
+            new HashSet<>()),
+    UNDO("undo",
+            new HashSet<>());
 
     private final String commandFormat;
+    private final Set<String> arguments;
 
     /**
      * Constructs a new CommandType with the given command format.
      *
      * @param commandFormat The command format
      */
-    CommandType(String commandFormat) {
+    CommandType(String commandFormat, Set<String> arguments) {
         this.commandFormat = commandFormat;
+        this.arguments = arguments;
     }
 
     /**
@@ -66,10 +83,19 @@ public enum CommandType {
     /**
      * Retrieves the command format string for this CommandType.
      *
-     * @return The command format string
+     * @return The command format string.
      */
     public String getCommandFormat() {
-        return this.commandFormat;
+        return "Format: \n" + this.commandFormat;
+    }
+
+    /**
+     * Retrieves the arguments list for this CommandType.
+     *
+     * @return The set of arguments.
+     */
+    public Set<String> getArgumentsSet() {
+        return this.arguments;
     }
 
 }
