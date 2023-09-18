@@ -75,7 +75,7 @@ public enum CommandType {
      * @return The command format string.
      */
     public String getCommandFormat() {
-        return this.commandFormat;
+        return "Format: \n" + this.commandFormat;
     }
 
     /**
@@ -83,7 +83,7 @@ public enum CommandType {
      *
      * @return The set of arguments.
      */
-    public Set<String> getArgumentsList() {
+    public Set<String> getArgumentsSet() {
         return this.arguments;
     }
 
