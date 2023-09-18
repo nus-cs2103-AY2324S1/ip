@@ -1,9 +1,10 @@
+package barbie;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import barbie.Utils;
 import org.junit.jupiter.api.Test;
 
 import barbie.types.Task;
@@ -18,8 +19,7 @@ public class TestUtils {
      */
     @Test
     public void testEmptyList() {
-        ArrayList<Task> list = Utils
-                .getDateList(LocalDate.parse("2023-08-20"), new ArrayList<>());
+        ArrayList<Task> list = Utils.getDateList(LocalDate.parse("2023-08-20"), new ArrayList<>());
 
         assertEquals(list.size(), 0);
 
