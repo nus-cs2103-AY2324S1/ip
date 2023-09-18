@@ -1,8 +1,9 @@
 package tasks;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
 
@@ -10,7 +11,7 @@ public class ToDoTest {
     public void toDoTest1() {
         try {
             ToDo todoTask = new ToDo("water plants");
-            assertEquals(todoTask.getTaskAsString(),"[T][ ] water plants");
+            assertEquals(todoTask.getTaskAsString(), "[T][ ] water plants");
         } catch (Exception e) {
             fail();
         }
