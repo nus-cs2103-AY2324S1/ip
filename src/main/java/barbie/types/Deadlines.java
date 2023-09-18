@@ -31,6 +31,15 @@ public class Deadlines extends Task {
     }
 
     /**
+     * Retrieves the deadline of the task.
+     *
+     * @returns deadline of the Deadlines object
+     */
+    public LocalDate getDate() {
+        return this.by;
+    }
+
+    /**
      * Overrides the toString() method to return a customised String for each Deadline.
      *
      * @return String with "D" type and with a "[BY: xxx]" tag

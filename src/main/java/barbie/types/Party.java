@@ -34,6 +34,15 @@ public class Party extends Task {
     }
 
     /**
+     * Retrieves the deadline of the task.
+     *
+     * @returns deadline of the Deadlines object
+     */
+    public LocalDate getDate() {
+        return this.from;
+    }
+
+    /**
      * Overrides the toString() method to return a customised String for each Todo.
      *
      * @return String with "P" type and with the "(from:xx, to:xx)" tag.

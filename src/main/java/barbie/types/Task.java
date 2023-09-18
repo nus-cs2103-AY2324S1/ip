@@ -18,6 +18,13 @@ public class Task {
     }
 
     /**
+     * Retrieves the description of the Task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Retrieves the status of the Task: done or undone.
      *
      * @return a String of [X] or [ ], [X] for done and [ ] for undone.
