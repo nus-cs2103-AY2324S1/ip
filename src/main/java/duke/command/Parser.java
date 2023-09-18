@@ -30,6 +30,8 @@ public class Parser {
         String action = tokens[0].trim().toLowerCase();
 
         switch (action) {
+        case "help":
+            return generateHelpResponse();
         case "list":
             return generateListResponse(taskList);
         case "delete":
@@ -335,6 +337,24 @@ public class Parser {
             response.append((i + 1)).append(". ").append(matchingTasks.get(i).toString()).append("\n");
         }
         return response.toString();
+    }
+
+    private static String generateHelpResponse() {
+        String response = "I heard you needed some help! Here are your commands:\n"
+                + "'list' : Shows all existing tasks in your list.\n"
+                + "'todo [task]' : Adds a new todo Task to your list.\n\t(eg. todo homework)\n"
+                + "'deadline [task] /by [deadline in dd/MM/yyyy]' : Adds a new deadline to your list.\n\t"
+                + "(eg. submit homework /by 15/04/2023)\n"
+                + "'event [task] /from [start in dd/MM/yyyy] /to [end in dd/MM/yyyy]' : Adds a new event to your list.\n\t"
+                + "(eg. camp /from 22/03/2023 /to 25/03/2023)\n"
+                + "'mark [task number]' : Marks the specified task in the list.\n\t(eg. mark 2)\n"
+                + "'unmark [task number]' : Unmarks the specified task in the list.\n\t(eg. unmark 2)\n"
+                + "'delete [task number]' : Deletes the specified task from the list.\n\t(eg. delete 2)\n"
+                + "'find [keyword]' : Returns the tasks that contain the given keyword.\n\t(eg. find work)\n"
+                + "'bye' : Exit program.";
+
+
+        return response;
     }
 
 
