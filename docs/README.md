@@ -17,7 +17,6 @@ A Todo is a task with only task name.
 
 Format: `todo TASK_NAME`
 
-
 #### Adding a new Deadline
 
 A Deadline is a task with a completion date.
