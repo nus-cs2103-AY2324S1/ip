@@ -76,4 +76,13 @@ public class TaskList {
     public Task getTask(int idx) {
         return tasks.get(idx - 1);
     }
+
+    public void addTag(int idx, String tagToAdd) {
+        Task t = tasks.get(idx - 1);
+        t.addTag(tagToAdd);
+    }
+    public void removeTagFromTask(int idx, String tagToRemove) {
+        Task t = tasks.get(idx - 1);
+        t.removeTag(tagToRemove);
+    }
 }

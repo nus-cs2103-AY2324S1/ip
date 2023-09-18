@@ -24,6 +24,8 @@ public class ResponseEngine {
     private static final String FIND_FAIL = "Oh no. It looks like I cannot find any matching tasks.";
     private static final String FIND_SUCCESS = "Here's what I have found for you.";
     private static final String DO_NOT_UNDERSTAND = "Oh no. I do not understand your input.";
+    private static final String ADDED_TAG_1 = "I have added a tag with the name ";
+    private static final String ADDED_TAG_2 = " to this task ";
 
     /**
      * Create a new ResponseEngine
@@ -149,7 +151,7 @@ public class ResponseEngine {
         Task t;
         StringBuilder output = new StringBuilder();
         output.append("I have found " + found.size() + " tasks matching your search!\n");
-        output.append(FIND_SUCCESS);
+        output.append(FIND_SUCCESS + "\n");
         for (int i = 0; i < found.size(); i++) {
             t = found.getTask(i + 1);
             output.append(String.format("%d. %s", i + 1, t));
@@ -174,5 +176,13 @@ public class ResponseEngine {
      */
     public String errParseUnsure() {
         return DO_NOT_UNDERSTAND;
+    }
+
+    public String addTag(Task t, String tagName) {
+        return ADDED_TAG_1 + tagName + ADDED_TAG_2 + t.showName() + ".";
+    }
+
+    public String removeTag(Task t, String tagName) {
+        return "Successfully removed " + tagName + " from task: " + t.showName();
     }
 }

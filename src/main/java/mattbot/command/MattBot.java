@@ -84,6 +84,12 @@ public class MattBot {
                 return delete(arguments);
             case "find":
                 return find(arguments);
+            case "tag":
+                return addTag(arguments);
+            case "findtag":
+                return findTag(arguments);
+            case "removetag":
+                return removeTag(arguments);
             default:
                 return resp.errParseUnsure();
             }
@@ -203,5 +209,43 @@ public class MattBot {
             return resp.errFind();
         }
         return resp.getFind(found);
+    }
+
+    private String addTag(String arguments) {
+        int taskId = Integer.parseInt(arguments.split(" ")[0]);
+        String tagToAdd = arguments.split(" ")[1];
+        tasks.addTag(taskId, tagToAdd);
+        mattmory.writeBack(tasks);
+        Task t = tasks.getTask(taskId);
+        return resp.addTag(t, tagToAdd);
+    }
+
+    private String findTag(String arguments) {
+        TaskList found = new TaskList();
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task t = tasks.getTask(i);
+            if (t.hasTag(arguments)) {
+                found.addTask(t);
+            }
+        }
+        if (found.size() == 0) {
+            return resp.errFind();
+        }
+        return resp.getFind(found);
+    }
+
+    private String removeTag(String arguments) {
+        int idx = Integer.parseInt(arguments.split(" ")[0]);
+        String tag = arguments.split(" ")[1];
+        if (tasks.size() == 0 || tasks.size() < idx) {
+            return resp.errImpossibleTask();
+        }
+        for (int i = 1; i <= tasks.size(); i++) {
+
+        }
+        tasks.removeTagFromTask(idx, tag);
+        mattmory.writeBack(tasks);
+        Task t = tasks.getTask(idx);
+        return resp.removeTag(t, tag);
     }
 }
