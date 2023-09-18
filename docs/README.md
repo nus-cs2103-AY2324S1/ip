@@ -41,6 +41,9 @@ The event task consist of a description, a start date and an end date.
 
 Format: `event TASK_DESCRIPTION /from START /to END`
 
+START/END Format: `YYYY-MM-DDTHH:MM:SS` 
+(Y: Year, M: Month, D: Day, H: Hour, M: Minute, S: Second )
+
 * `event Japan Trip /from 2023-12-01T09:00:00 /to 2023-12-14T09:00:00`
 * `event CCA Camp /from 2023-11-01T06:00:00 /to 2023-11-04T18:00:00`
 
@@ -91,6 +94,7 @@ Calling `mark 1` gives:
 3. [D] [] Chemistry Quiz 4 (by: DECEMBER 12 2023, 23:59:59)
 ``` 
 Following that, calling `mark 3` gives: 
+```
 1. [T] [X] History Homework pg 10 - 15
 2. [T] [] Geography Homework pg 5 - 10
 3. [D] [X] Chemistry Quiz 4 (by: DECEMBER 12 2023, 23:59:59)
@@ -126,6 +130,7 @@ Calling `unmark 1` gives:
 3. [D] [] Chemistry Quiz 4 (by: DECEMBER 12 2023, 23:59:59)
 ``` 
 Following that, calling `unmark 2` gives: 
+```ss
 1. [T] [] History Homework pg 10 - 15
 2. [T] [] Geography Homework pg 5 - 10
 3. [D] [] Chemistry Quiz 4 (by: DECEMBER 12 2023, 23:59:59)
