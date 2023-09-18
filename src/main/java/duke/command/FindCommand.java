@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in task descriptions.
      */
     public FindCommand(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toLowerCase();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class FindCommand extends Command {
         assert taskList != null;
         assert ui != null;
         assert storage != null;
-        Predicate<Task> containsKeyword = task -> task.getDescription().contains(keyword);
+        Predicate<Task> containsKeyword = task -> task.getDescription().toLowerCase().contains(keyword);
         TaskList matchingTasks = taskList.filter(containsKeyword);
 
         return ui.showMatchingTasks(matchingTasks);
