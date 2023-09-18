@@ -1,7 +1,7 @@
 package sillybot.exceptions;
 
 /**
- * Represents an exception when the user inputs an incomplete input.
+ * Represents an exception when the user.png inputs an incomplete input.
  */
 public class IncompleteInputException extends DukeException {
     /**

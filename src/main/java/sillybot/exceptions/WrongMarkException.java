@@ -1,7 +1,7 @@
 package sillybot.exceptions;
 
 /**
- * Represents an exception when the user inputs a wrong mark.
+ * Represents an exception when the user.png inputs a wrong mark.
  */
 public class WrongMarkException extends DukeException {
     /**

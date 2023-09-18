@@ -17,7 +17,6 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for.
      */
     public FindCommand(String keyword) {
-        super();
         this.keyword = keyword;
     }
 

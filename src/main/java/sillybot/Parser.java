@@ -4,6 +4,7 @@ import sillybot.commands.AddTaskCommand;
 import sillybot.commands.ByeCommand;
 import sillybot.commands.Command;
 import sillybot.commands.DeleteCommand;
+import sillybot.commands.ExitCommand;
 import sillybot.commands.FindCommand;
 import sillybot.commands.HelpCommand;
 import sillybot.commands.ListCommand;
@@ -11,7 +12,7 @@ import sillybot.commands.MarkCommand;
 import sillybot.commands.UnmarkCommand;
 
 /**
- * Represents a Parser object that deals with making sense of the user command.
+ * Represents a Parser object that deals with making sense of the user.png command.
  */
 public class Parser {
     /**
@@ -21,10 +22,10 @@ public class Parser {
     }
 
     /**
-     * Checks the type of command given by the user.
-     * Executes the command given by the user.
+     * Checks the type of command given by the user.png.
+     * Executes the command given by the user.png.
      *
-     * @param commandGiven The command given by the user.
+     * @param commandGiven The command given by the user.png.
      * @return The String containing the output of the command.
      */
     public static Command parse(String commandGiven) {
@@ -55,10 +56,13 @@ public class Parser {
             break;
         case "delete":
             taskNumber = Integer.parseInt(splittedCommands[1]);
-            command = new DeleteCommand(taskNumber);
+            command = new DeleteCommand(taskNumber - 1);
             break;
         case "help":
             command = new HelpCommand();
+            break;
+        case "exit":
+            command = new ExitCommand();
             break;
         default:
             command = new AddTaskCommand(commandGiven);

@@ -21,7 +21,6 @@ public class AddTaskCommand extends Command {
      * @param taskType The type of task to be added.
      */
     public AddTaskCommand(String taskType) {
-        super();
         this.taskType = taskType;
     }
 

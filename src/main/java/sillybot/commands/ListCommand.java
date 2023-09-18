@@ -12,7 +12,6 @@ public class ListCommand extends Command {
      * Creates a ListCommand object.
      */
     public ListCommand() {
-        super();
     }
 
     /**

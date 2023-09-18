@@ -8,8 +8,6 @@ import sillybot.tasks.TaskList;
  * Represents an abstract Command class that deals with the commands.
  */
 public abstract class Command {
-    protected boolean isExit;
-
     /**
      * Enum representing available commands along with descriptions.
      */
@@ -22,7 +20,8 @@ public abstract class Command {
         UNMARK("unmark", "Unmark a task as done", "unmark 3"),
         DELETE("delete", "Delete a task", "delete 2"),
         BYE("bye", "Save and end the chat", "bye"),
-        HELP("help", "Show available commands", "help");
+        HELP("help", "Show available commands", "help"),
+        EXIT("exit", "Exit the console application", "exit");
 
         private final String command;
         private final String description;
@@ -51,16 +50,6 @@ public abstract class Command {
      * Creates a Command object.
      */
     public Command() {
-        this.isExit = false;
-    }
-
-    /**
-     * Gets the isExit attribute of the Command object.
-     *
-     * @return The isExit attribute of the Command object.
-     */
-    public boolean isExit() {
-        return this.isExit;
     }
 
     /**

@@ -20,7 +20,6 @@ public class MarkCommand extends Command {
      * @param taskNumber The index of the task to be marked as done.
      */
     public MarkCommand(int taskNumber) {
-        super();
         this.taskNumber = taskNumber;
     }
 

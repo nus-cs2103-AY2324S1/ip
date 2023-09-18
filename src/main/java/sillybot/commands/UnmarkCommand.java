@@ -20,7 +20,6 @@ public class UnmarkCommand extends Command {
      * @param taskNumber The task number of the task to be unmarked.
      */
     public UnmarkCommand(int taskNumber) {
-        super();
         this.taskNumber = taskNumber;
     }
 

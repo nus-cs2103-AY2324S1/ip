@@ -4,6 +4,9 @@ import sillybot.Storage;
 import sillybot.Ui;
 import sillybot.tasks.TaskList;
 
+/**
+ * Represents a HelpCommand object that handles the help command.
+ */
 public class HelpCommand extends Command {
     public HelpCommand() {
         super();

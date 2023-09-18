@@ -16,7 +16,6 @@ public class DeleteCommand extends Command {
      * @param taskNumber The index of the task to be deleted.
      */
     public DeleteCommand(int taskNumber) {
-        super();
         this.taskNumber = taskNumber;
     }
 
@@ -31,7 +30,7 @@ public class DeleteCommand extends Command {
 
         try {
             tasks.deleteTask(this.taskNumber);
-            response = ui.deleteTaskMessage(tasks.get(this.taskNumber));
+            response = ui.deleteTaskMessage(tasks.get(this.taskNumber - 1));
             storage.save(tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new Exception("delete what eh! ");
