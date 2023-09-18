@@ -2,7 +2,7 @@ package command;
 import main.Main;
 import main.Ui;
 
-public class CommandListHandler implements ICommandHandler{
+public class CommandListHandler implements ICommandHandler {
 
     @Override
     public void execute(String command, String[] parameters) {

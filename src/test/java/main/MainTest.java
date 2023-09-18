@@ -16,11 +16,11 @@ public class MainTest {
      */
     @Test
     public void dateTimeParseTest() {
-        try{
+        try {
             assertEquals(DateTimeUtil.parseDateTimeString("1970-01-01").toString(), "1970-01-01T00:00");
             assertEquals(DateTimeUtil.parseDateTimeString("1970-01-01 05:01:03").toString(), "1970-01-01T05:01:03");
         }
-        catch (Exception e){
+        catch (Exception e) {
             fail();
         }
         assertThrows(CommandException.class, () -> DateTimeUtil.parseDateTimeString("1970 01 01"));
@@ -31,7 +31,7 @@ public class MainTest {
      * Test cases for testing some exceptions in the program
      */
     @Test
-    public void exceptionTest(){
+    public void exceptionTest() {
         // Event tasks: start time must <= end time
         assertThrows(CommandException.class, ()->new EventTask("something", "2023-09-01 00:00:05", "2023-09-01 00:00:03"));
         assertDoesNotThrow(()->new EventTask("something", "2023-09-01 00:00:03", "2023-09-01 00:00:05"));
