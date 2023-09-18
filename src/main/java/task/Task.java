@@ -5,6 +5,8 @@ package task;
  */
 public abstract class Task {
     public static final String DIVIDER = "%!%";
+    // idea for the divider was
+    // inspired by Carbonbot from aexolate https://github.com/aexolate/ip
     private final String name;
     private boolean isComplete;
 

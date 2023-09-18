@@ -109,6 +109,13 @@ public class Parser {
         return matcher;
     }
 
+    private static void checkForInvalidDivider(String input) throws InvalidVarException {
+        Pattern pattern = Pattern.compile(".*(" + Task.DIVIDER + ").*");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.matches()) {
+            throw new InvalidVarException("Divider detected! Do not use the sequence " + Task.DIVIDER + ".");
+        }
+    }
     /**
      * Parses a string as a boolean if valid.
      * @param boolString the string to be parsed.
@@ -170,12 +177,14 @@ public class Parser {
     }
 
     private static Executable parseToDoParams(String paramString) throws InvalidVarException {
+        checkForInvalidDivider(paramString);
         checkNonEmpty(paramString);
         Task todo = new ToDo(paramString);
         return new AddTaskExecutable(todo);
     }
 
     private static Executable parseDeadlineParams(String paramString) throws InvalidVarException {
+        checkForInvalidDivider(paramString);
         String deadlineRegex = "(\\S.*)\\s/by\\s(\\S.*)";
         Matcher matcher = matchString(paramString, deadlineRegex);
         String name = matcher.group(1);
@@ -185,6 +194,7 @@ public class Parser {
         return new AddTaskExecutable(deadline);
     }
     private static Executable parseEventParams(String paramString) throws InvalidVarException {
+        checkForInvalidDivider(paramString);
         String eventRegex = "(\\S.*)\\s/from\\s(\\S.*)\\s/to\\s(\\S.*)";
         Matcher matcher = matchString(paramString, eventRegex);
         String name = matcher.group(1);
