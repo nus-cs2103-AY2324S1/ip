@@ -103,7 +103,7 @@ public abstract class Task {
             InvalidDeadlineUpdateException, InvalidEventUpdateException, InvalidByException, InvalidFromException,
             InvalidToException;
 
-    protected boolean isValidDateFormat(String dateString) {
+    protected boolean checkValidDateFormat(String dateString) {
         try {
             LocalDate.parse(dateString);
             return true;

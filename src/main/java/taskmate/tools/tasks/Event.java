@@ -101,9 +101,9 @@ public class Event extends Task {
             String newValue = attributeValuePair.getValue();
             if (!attribute.equals("/name") & !attribute.equals("/from") & !attribute.equals("/to")) {
                 throw new InvalidEventUpdateException();
-            } else if (attribute.equals("/from") & !super.isValidDateFormat(newValue)) {
+            } else if (attribute.equals("/from") & !super.checkValidDateFormat(newValue)) {
                 throw new InvalidFromException();
-            } else if (attribute.equals("/to") & !super.isValidDateFormat(newValue)) {
+            } else if (attribute.equals("/to") & !super.checkValidDateFormat(newValue)) {
                 throw new InvalidToException();
             }
         }

@@ -79,7 +79,7 @@ public class Deadline extends Task {
             String newValue = attributeValuePair.getValue();
             if (!attribute.equals("/name") & !attribute.equals("/by")) {
                 throw new InvalidDeadlineUpdateException();
-            } else if (attribute.equals("/by") & !super.isValidDateFormat(newValue)) {
+            } else if (attribute.equals("/by") & !super.checkValidDateFormat(newValue)) {
                 throw new InvalidByException();
             }
         }
