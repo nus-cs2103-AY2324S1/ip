@@ -10,7 +10,7 @@ import duke.task.Task;
 public class ParserTest {
     @Test
     public void parseTask_todo_success() throws DukeException {
-        Task task = new Parser().parseTask("T|0|test| |");
+        Task task = new Parser().parseTask("T|0|test||");
         assertEquals(task.toString(), "[T][ ] test");
     }
 

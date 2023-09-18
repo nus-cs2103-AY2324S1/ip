@@ -8,22 +8,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 /**
  * Controller for DialogBox. Provides the layout for the other controls.
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private Text dialog;
     @FXML
     private ImageView displayPicture;
     @FXML
-    private Circle clip = new Circle(50, 50, 50);
+    private Rectangle rectangle;
+    @FXML
+    private StackPane outline;
 
     private DialogBox(String text, Image img) {
         try {
@@ -37,6 +42,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        double dialogBoxHeight = dialog.getBoundsInLocal().getHeight();
+        rectangle.setHeight(dialogBoxHeight + 20);
     }
 
     /**
@@ -56,6 +63,7 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String l, Image iv) {
         var db = new DialogBox(l, iv);
         db.flip();
+        db.rectangle.setFill(Paint.valueOf("aliceblue"));
         return db;
     }
 

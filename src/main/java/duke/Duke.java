@@ -1,6 +1,7 @@
 package duke;
 
 import duke.common.Command;
+import duke.ui.Exit;
 import duke.utils.Parser;
 import duke.utils.Storage;
 import duke.utils.TaskList;
@@ -11,12 +12,14 @@ import duke.utils.TaskList;
 public class Duke {
     private final Storage storage;
     private TaskList tasks;
+    private final Exit exit;
 
     /**
      * Creates a Duke object.
      */
     public Duke() {
-        storage = new Storage("./duke.txt");
+        storage = new Storage();
+        exit = new Exit();
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
@@ -59,6 +62,7 @@ public class Duke {
         switch (keyword) {
         case "BYE": {
             message = command.handleFarewell();
+            exit.start();
             break;
         }
         case "LIST": {

@@ -149,7 +149,10 @@ public class Parser {
             String type = split[0];
             boolean isDone = split[1].equals("1");
             String description = split[2];
-            String tags = split[3];
+            String tags = "";
+            if (split.length >= 4) {
+                tags = split[3];
+            }
             Task task = null;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
