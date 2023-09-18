@@ -2,7 +2,15 @@ package duke;
 
 import java.util.ArrayList;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.UpdateCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -164,50 +172,16 @@ public class Parser {
     public static Task dataToTask(String data) throws DukeException {
         String taskType = data.substring(0, 1);
         String taskData = data.substring(4);
-        Task task = null;
-        int firstSplitIndex = -1;
-        int secondSplitIndex = -1;
-        int thirdSplitIndex = -1;
-        String desc = "";
-        boolean isDone = false;
 
         switch (taskType) {
         case "T":
-            firstSplitIndex = taskData.indexOf("|");
-            isDone = taskData.substring(0, firstSplitIndex - 1).equals("1");
-            desc = taskData.substring(firstSplitIndex + 2);
-            task = new Todo(desc);
-            if (isDone) {
-                task.markDone();
-            }
-            break;
+            return Todo.constructWithData(taskData);
         case "D":
-            firstSplitIndex = taskData.indexOf("|");
-            secondSplitIndex = taskData.indexOf("|", firstSplitIndex + 1);
-            isDone = taskData.substring(0, firstSplitIndex - 1).equals("1");
-            desc = taskData.substring(firstSplitIndex + 2, secondSplitIndex - 1);
-            String by = taskData.substring(secondSplitIndex + 2);
-            task = new Deadline(desc, by);
-            if (isDone) {
-                task.markDone();
-            }
-            break;
+            return Deadline.constructWithData(taskData);
         case "E":
-            firstSplitIndex = taskData.indexOf("|");
-            secondSplitIndex = taskData.indexOf("|", firstSplitIndex + 1);
-            thirdSplitIndex = taskData.indexOf("|", secondSplitIndex + 1);
-            isDone = taskData.substring(0, firstSplitIndex - 1).equals("1");
-            desc = taskData.substring(firstSplitIndex + 2, secondSplitIndex - 1);
-            String from = taskData.substring(secondSplitIndex + 2, thirdSplitIndex - 1);
-            String to = taskData.substring(thirdSplitIndex + 2);
-            task = new Event(desc, from, to);
-            if (isDone) {
-                task.markDone();
-            }
-            break;
+            return Event.constructWithData(taskData);
         default:
             throw new DukeException("Wrong task type.");
         }
-        return task;
     }
 }

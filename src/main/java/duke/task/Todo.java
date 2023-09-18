@@ -18,6 +18,23 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * Constructs a Todo instance with data from storage.
+     *
+     * @param data Data representation of the task to construct.
+     * @return The instance of task constructed.
+     */
+    public static Todo constructWithData(String data) {
+        int firstSplitIndex = data.indexOf("|");
+        boolean isDone = data.substring(0, firstSplitIndex - 1).equals("1");
+        String desc = data.substring(firstSplitIndex + 2);
+        Todo todo = new Todo(desc);
+        if (isDone) {
+            todo.markDone();
+        }
+        return todo;
+    }
+
     @Override
     public void updateDetails(String field, String details) throws DukeException {
         if (field.equals("desc")) {

@@ -30,9 +30,12 @@ public class Duke {
         assert tasks != null : "Tasks should not be null";
     }
 
+
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response from Your Chatbot based on input.
+     *
+     * @param input The user's input.
+     * @return Your Chatbot's response.
      */
     public String getResponse(String input) {
         try {

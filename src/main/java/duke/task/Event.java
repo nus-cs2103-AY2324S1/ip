@@ -28,6 +28,27 @@ public class Event extends Task {
         this.to = parseDate(to);
     }
 
+    /**
+     * Constructs an Event instance with data from storage.
+     *
+     * @param data Data representation of the task to construct.
+     * @return The instance of task constructed.
+     */
+    public static Event constructWithData(String data) throws DukeException {
+        int firstSplitIndex = data.indexOf("|");
+        int secondSplitIndex = data.indexOf("|", firstSplitIndex + 1);
+        int thirdSplitIndex = data.indexOf("|", secondSplitIndex + 1);
+        boolean isDone = data.substring(0, firstSplitIndex - 1).equals("1");
+        String desc = data.substring(firstSplitIndex + 2, secondSplitIndex - 1);
+        String from = data.substring(secondSplitIndex + 2, thirdSplitIndex - 1);
+        String to = data.substring(thirdSplitIndex + 2);
+        Event event = new Event(desc, from, to);
+        if (isDone) {
+            event.markDone();
+        }
+        return event;
+    }
+
     @Override
     public void updateDetails(String field, String details) throws DukeException {
         if (field.equals("desc")) {
