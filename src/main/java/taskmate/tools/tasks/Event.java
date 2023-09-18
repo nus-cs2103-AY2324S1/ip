@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
-import taskmate.exceptions.*;
+import taskmate.exceptions.InvalidEventUpdateException;
+import taskmate.exceptions.InvalidFromException;
+import taskmate.exceptions.InvalidToException;
 
 /**
  * The Event class is a child class of the Task class that represents a 'Event' type task specified by the user.

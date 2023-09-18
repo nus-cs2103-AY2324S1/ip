@@ -235,6 +235,11 @@ public class Ui {
         printMessage(e.getMessage());
     }
 
+    /**
+     * The chatbot's reply upon successful updating of a task is printed out to `System.out`.
+     * @param updateIndex An int index in the task list that is updated
+     * @param successfulChanges An ArrayList of successful updates
+     */
     public void printSuccessfulUpdateResponse(int updateIndex, HashMap<String, String> successfulChanges) {
         StringBuilder message = new StringBuilder("Updates successfully made to task " + updateIndex + ":\n");
         for (HashMap.Entry<String, String> attributeValuePair : successfulChanges.entrySet()) {
@@ -246,18 +251,27 @@ public class Ui {
         printMessage(message.toString());
     }
 
+    /**
+     * Prints message when unsuccessful update to Todo task is made
+     */
     public void printInvalidTodoUpdateException() {
         String message = "Invalid update to Todo task!\n";
         message += "Syntax (for Todo tasks): update <integer> /name <newName>";
         printMessage(message);
     }
 
+    /**
+     * Prints message when unsuccessful update to Deadline task is made
+     */
     public void printInvalidDeadlineUpdateException() {
         String message = "Invalid update to Deadline task!\n";
         message += "Syntax (for Deadline tasks): update <integer> /name <newName> /by <YYYY-mm-dd>";
         printMessage(message);
     }
 
+    /**
+     * Prints message when unsuccessful update to Event task is made
+     */
     public void printInvalidEventUpdateException() {
         String message = "Invalid update to Event task!\n";
         message += "Syntax (for Event tasks): update <integer> /name <newName> /from <YYYY-mm-dd> /to <YYYY-mm-dd>";
