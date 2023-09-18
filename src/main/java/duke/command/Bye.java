@@ -29,6 +29,6 @@ public class Bye extends Command {
      */
     @Override
     public String execute(TaskList lst, UI io, Storage s) {
-        return "Bye. Hope to see you again soon!";
+        return "Bye.";
     }
 }

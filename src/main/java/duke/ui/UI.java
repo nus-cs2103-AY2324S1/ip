@@ -18,9 +18,9 @@ public class UI {
      * @param lst The task list containing the tasks.
      */
     public String addTask(Task t, TaskList lst) {
-        return "Got it. I've added this task:\n"
+        return "Okay you have one more thing to do:\n"
                 + "  " + t + "\n"
-                + "Now you have " + lst.size() + " tasks in the list.\n";
+                + "Now you have " + lst.size() + " tasks haven't finished.\n";
     }
 
     /**
@@ -29,7 +29,7 @@ public class UI {
      * @param lst The task list containing the tasks to be displayed.
      */
     public String list(TaskList lst) {
-        StringBuilder res = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder res = new StringBuilder("These are the tasks you haven't finished:\n");
         for (Task t : lst) {
             res.append(lst.indexOf(t) + 1).append(". ").append(t).append("\n");
         }
@@ -42,7 +42,7 @@ public class UI {
      * @param t The task that was marked as done.
      */
     public String mark(Task t) {
-        return "Nice! I've marked this task as done:\n"
+        return "It seems like you finished one task:\n"
                 + "  " + t + "\n";
     }
 
@@ -52,7 +52,7 @@ public class UI {
      * @param t The task that was unmarked.
      */
     public String unmark(Task t) {
-        return "OK, I've marked this task as not done yet:" + "\n"
+        return "So you didn't finish it:" + "\n"
                 + "  " + t + "\n";
     }
 
@@ -62,7 +62,7 @@ public class UI {
      * @param t The task that was deleted.
      */
     public String delete(Task t) {
-        return "Noted. I've removed this task:\n" + t + "\n";
+        return "Okay, you don't need to worry about it now:\n" + t + "\n";
     }
 
     /**
@@ -71,7 +71,7 @@ public class UI {
      * @param t The task that was snoozed.
      */
     public String snooze(Task t) {
-        return "Noted. I've snoozed this task:\n" + t + "\n";
+        return "OKay you can put this matter aside for now:\n" + t + "\n";
     }
 
     /**
@@ -84,7 +84,7 @@ public class UI {
         if (lst.isEmpty()) {
             return "There is no task matching your request";
         } else {
-            StringBuilder res = new StringBuilder("Here are the matching tasks in your list:\n");
+            StringBuilder res = new StringBuilder("Here are the related tasks you need to do:\n");
             for (Task t : lst) {
                 res.append(lst.indexOf(t) + 1).append(". ").append(t).append("\n");
             }

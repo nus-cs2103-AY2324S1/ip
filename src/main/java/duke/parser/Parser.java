@@ -27,7 +27,7 @@ public class Parser {
         String keyWord = instr.split(" ")[0];
         switch (keyWord) {
         case"":
-            return new Unknown("OOPS!!! You said nothing!\n");
+            return new Unknown("You said nothing!\n");
         case "deadline":
             return new AddDeadline(instr.substring(8));
         case "event":
@@ -49,7 +49,7 @@ public class Parser {
         case "bye":
             return new Bye(instr);
         default:
-            return new Unknown("OOPS!!! I can't understand.\n");
+            return new Unknown("What are you talking about?\n");
         }
     }
 }

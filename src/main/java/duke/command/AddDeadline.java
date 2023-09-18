@@ -37,7 +37,7 @@ public class AddDeadline extends Command {
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (str.isEmpty() || str.equals(" ")) {
-            throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+            throw new DukeException("The description of a deadline cannot be empty.");
         } else if (str.matches(" \\S.*\\s/by\\s\\d.*")){
             String[] temp = str.split(" /by ");
             try {
@@ -49,12 +49,12 @@ public class AddDeadline extends Command {
                 return io.addTask(newTask, lst);
             } catch (DateTimeException e) {
                 throw new DukeException(
-                        "OOPS!!! Please follow the following pattern to input the time:\n  "
+                        "Can you follow the following pattern to input the time:\n  "
                                 + "deadline <task name> /by <yyyy-mm-dd>\n");
             }
         } else {
             throw new DukeException(
-                    "OOPS!!! Please follow the following pattern to add a task:\n  "
+                    "Can you follow the following pattern to add a task:\n  "
                             + "deadline <task name> /by <deadline>\n");
         }
     }

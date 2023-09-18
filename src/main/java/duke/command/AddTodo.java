@@ -45,7 +45,7 @@ public class AddTodo extends Command {
             return io.addTask(newTask, lst);
         } else {
             throw new DukeException(
-                    "OOPS!!! Please follow the following pattern to add a task:\n  "
+                    "Can you follow the following pattern to add a task:\n  "
                             + "todo <task name>\n");
         }
     }
