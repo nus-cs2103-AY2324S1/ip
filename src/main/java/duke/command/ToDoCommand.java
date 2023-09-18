@@ -1,28 +1,28 @@
 package duke.command;
 
 import duke.Ui;
-import duke.command.Command;
 import duke.Storage;
+import duke.exceptions.InvalidCommandException;
 import duke.task.*;
 
 /**
  * Adds a ToDo task to the taskList
  */
 public class ToDoCommand extends Command {
-    protected String description;
-    protected boolean done;
-    public ToDoCommand(String description, boolean done) {
-        super();
-        this.description = description;
-        this.done = done;
+    protected static final String regex = "^todo\\s([\\w\\s]*)$";
+    public ToDoCommand(String response) {
+        super(response, regex);
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
-        Task task = new ToDo(this.description);
-        task.setDone(this.done);
+    public String execute(Storage storage, Ui ui, TaskList taskList) throws InvalidCommandException {
+        if (!matcher.find() || matcher.groupCount() != 1) {
+            throw new InvalidCommandException("Invalid use of todo. Usage: todo <task description>");
+        }
+
+        String description = matcher.group(1);
+        Task task = new ToDo(description);
         taskList.addTask(task);
-        System.out.println(taskList);
-        ui.printLine();
+        return taskList.toString();
     }
 }

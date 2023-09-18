@@ -1,36 +1,38 @@
 package duke.command;
 
 import duke.Ui;
-import duke.command.Command;
 import duke.Storage;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidTaskException;
 import duke.task.*;
 
 /**
  * Adds an event task to the taskList
  */
 public class EventCommand extends Command {
-    protected String description;
-    protected String from;
-    protected String to;
+    protected final static String regex = "^event\\s([\\w\\s]*)\\s\\/from\\s([\\w\\s\\-\\:]*)\\s\\/to\\s([\\w\\s\\-\\:]*)$";
+
     protected boolean done;
-    public EventCommand(String description, String from, String to, boolean done) {
-        super();
-        this.description = description;
-        this.from = from;
-        this.to = to;
-        this.done = done;
+    public EventCommand(String response) {
+        super(response, regex);
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) throws InvalidCommandException {
         try {
+            if (!matcher.find() || matcher.groupCount() != 3) {
+                throw new InvalidTaskException(
+                        "Invalid use of event. Usage: event <task description> /from <date & time> /to <date & time>"
+                );
+            }
+            String description = matcher.group(1);
+            String from = matcher.group(2);
+            String to = matcher.group(3);
             Task task = new Event(description, from, to);
-            task.setDone(done);
             taskList.addTask(task);
-            System.out.println(taskList);
-            ui.printLine();
+            return taskList.toString();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

@@ -9,18 +9,16 @@ import duke.task.*;
  * Marks a task as either done or not done
  */
 public class MarkCommand extends Command {
-    protected boolean done;
-    protected int taskIndex;
-    public MarkCommand(boolean done, int taskIndex) {
+    protected String response;
+    public MarkCommand(String response) {
         super();
-        this.done = done;
-        this.taskIndex = taskIndex;
     }
 
     @Override
-    public void execute(Storage storage, Ui ui, TaskList taskList) {
-        taskList.setTaskDone(taskIndex, done);
-        System.out.println(taskList);
-        ui.printLine();
+    public String execute(Storage storage, Ui ui, TaskList taskList) {
+        boolean taskDone = response.split(" ")[0].equals("mark") ? true : false;
+        int taskIndex = Integer.parseInt(response.split(" ")[1]) - 1;
+        taskList.setTaskDone(taskIndex, taskDone);
+        return taskList.toString();
     }
 }

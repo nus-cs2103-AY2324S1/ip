@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.*;
+import duke.exceptions.InvalidDateTimeFormatException;
 import duke.exceptions.InvalidFileTypeException;
 import duke.exceptions.InvalidTaskException;
 import duke.task.Deadlines;
@@ -17,10 +18,9 @@ import java.util.regex.Pattern;
 public class Parser {
     public Parser() {}
 
-    public Matcher regexParse(String regex, String text) {
+    public Matcher regexParse(String regex, String response) {
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(text);
-        return matcher;
+        return pattern.matcher(response);
     }
 
     /**
@@ -29,60 +29,27 @@ public class Parser {
      * @return the command object to be executed
      * @throws InvalidTaskException
      */
-    public Command parse(String response) throws InvalidTaskException {
-        int taskIndex;
-        Matcher matcher;
-
+    public Command parse(String response) {
         switch(response.split(" ")[0]) {
             case "list":
                 return new PrintListCommand();
             case "mark":
             case "unmark":
-                boolean done = response.split(" ")[0].equals("mark") ? true : false;
-                taskIndex = Integer.parseInt(response.split(" ")[1]) - 1;
-                return new MarkCommand(done, taskIndex);
+                return new MarkCommand(response);
             case "todo":
-                matcher = this.regexParse("^todo\\s([\\w\\s]*)$", response);
-                if (!matcher.find() || matcher.groupCount() != 1) {
-                    throw new InvalidTaskException("Invalid use of todo. Usage: todo <task description>");
-                }
-                return new ToDoCommand(matcher.group(1), false);
+                return new ToDoCommand(response);
             case "deadline":
-                matcher = regexParse("^deadline\\s([\\w\\s]*)\\s\\/by\\s([\\w\\s\\:\\-]*)$", response);
-                if (!matcher.find() || matcher.groupCount() != 2) {
-                    throw new InvalidTaskException(
-                            "Invalid use of deadline. Usage: deadline <task description> /by <date & time>"
-                    );
-                }
-                return new DeadlineCommand(matcher.group(1), matcher.group(2), false);
+                return new DeadlineCommand(response);
             case "event":
-                matcher = regexParse("^event\\s([\\w\\s]*)\\s\\/from\\s([\\w\\s\\-\\:]*)\\s\\/to\\s([\\w\\s\\-\\:]*)$", response);
-                if (!matcher.find() || matcher.groupCount() != 3) {
-                    throw new InvalidTaskException(
-                            "Invalid use of event. Usage: event <task description> /from <date & time> /to <date & time>"
-                    );
-                }
-                return new EventCommand(matcher.group(1), matcher.group(2), matcher.group(3), false);
+                return new EventCommand(response);
             case "delete":
-                matcher = regexParse("^delete\\s([\\w\\s]*)$", response);
-                if (!matcher.find() || matcher.groupCount() != 1) {
-                    throw new InvalidTaskException(
-                            "Invalid input. Usage: delete <task_index>"
-                    );
-                }
-                return new DeleteCommand(Integer.parseInt(matcher.group(1)));
+                return new DeleteCommand(response);
             case "save":
                 return new SaveCommand(response);
             case "load":
                 return new LoadCommand(response);
             case "find":
-                matcher = this.regexParse("^find\\s([\\w\\s]*)$", response);
-                if (!matcher.find() || matcher.groupCount() != 1) {
-                    throw new InvalidTaskException(
-                            "Invalid input. Usage: find <description to match>"
-                    );
-                }
-                return new FindCommand(matcher.group(1));
+                return new FindCommand(response);
             default: {
                 return new DefaultCommand(response);
             }
@@ -95,7 +62,7 @@ public class Parser {
      * @return A task generated from the saved line
      * @throws InvalidFileTypeException
      */
-    public Task parseSave(String response) throws InvalidFileTypeException {
+    public Task parseSave(String response) throws InvalidFileTypeException, InvalidDateTimeFormatException {
         boolean done;
         String[] responseList = response.split("\\|");
         Task newtask;
@@ -136,7 +103,7 @@ public class Parser {
      * @param dateTimeString the datetime string to be processed
      * @return the Date object generated
      */
-    public Date parseDate(String dateTimeString) {
+    public Date parseDate(String dateTimeString) throws InvalidDateTimeFormatException {
         // YYYY-MM-DD / HH:mm / a combination of both
         String regex = "^(\\d{4}-\\d{2}-\\d{2})? ?(\\d{2}:\\d{2})?$";
         Matcher matcher1 = regexParse(regex, dateTimeString);
@@ -156,7 +123,7 @@ public class Parser {
             return new Date(datePart, timePart);
         }
 
-        return null;
+        throw new InvalidDateTimeFormatException("Invalid date time format: YYYY-MM-DD / HH:mm / a combination of both");
     }
 
     public boolean parseSearch(String description, String searchString) {

@@ -2,7 +2,6 @@ package duke.task;
 
 import duke.Parser;
 import duke.Ui;
-import duke.task.Task;
 
 import java.util.ArrayList;
 public class TaskList {

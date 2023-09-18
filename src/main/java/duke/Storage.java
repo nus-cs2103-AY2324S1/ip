@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exceptions.InvalidDateTimeFormatException;
 import duke.exceptions.InvalidFileTypeException;
 
 import java.io.*;
@@ -31,6 +32,8 @@ public class Storage {
                 taskArrayList.add(parser.parseSave(line));
             }
             return taskArrayList;
+        } catch (InvalidFileTypeException | InvalidDateTimeFormatException e) {
+            throw new InvalidFileTypeException(e.getMessage());
         } catch (IOException e) {
             throw new InvalidFileTypeException("Error: File not found");
         }
