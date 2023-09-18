@@ -13,7 +13,7 @@ public class Events extends Task {
     /**
      * constructor for class Events.
      *
-     * @param description string for deadline's description
+     * @param description   string for deadline's description
      * @param startDateTime LocalDateTime for start date of the event
      */
     public Events(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {

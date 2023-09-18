@@ -120,32 +120,32 @@ public class Parser {
         Command command;
 
         switch (taskType) {
-            case TODO:
-                String[] todoInput = parseTodo(userInput);
-                command = new AddTodoCommand(todoInput[0].trim());
-                break;
-            case DEADLINE:
-                String[] deadlineInput = parseDeadline(userInput);
-                command = new AddDeadlineCommand(deadlineInput[0].trim(), deadlineInput[1].trim());
-                break;
-            case EVENT:
-                String[] eventInput = parseEvent(userInput);
-                command = new AddEventCommand(eventInput[0].trim(), eventInput[1].trim(), eventInput[2].trim());
-                break;
-            case MARK:
-                int markInt = parseMark(userInput);
-                command = new MarkCommand(markInt);
-                break;
-            case UNMARK:
-                int unmarkInt = parseMark(userInput);
-                command = new UnmarkCommand(unmarkInt);
-                break;
-            case BYE:
-                command = new ExitCommand();
-                break;
-            default:
-                command = new UnknownCommand(userInput);
-                break;
+        case TODO:
+            String[] todoInput = parseTodo(userInput);
+            command = new AddTodoCommand(todoInput[0].trim());
+            break;
+        case DEADLINE:
+            String[] deadlineInput = parseDeadline(userInput);
+            command = new AddDeadlineCommand(deadlineInput[0].trim(), deadlineInput[1].trim());
+            break;
+        case EVENT:
+            String[] eventInput = parseEvent(userInput);
+            command = new AddEventCommand(eventInput[0].trim(), eventInput[1].trim(), eventInput[2].trim());
+            break;
+        case MARK:
+            int markInt = parseMark(userInput);
+            command = new MarkCommand(markInt);
+            break;
+        case UNMARK:
+            int unmarkInt = parseMark(userInput);
+            command = new UnmarkCommand(unmarkInt);
+            break;
+        case BYE:
+            command = new ExitCommand();
+            break;
+        default:
+            command = new UnknownCommand(userInput);
+            break;
         }
 
         return command;
