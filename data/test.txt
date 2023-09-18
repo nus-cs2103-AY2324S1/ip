@@ -7,3 +7,7 @@ D | 0 | Project Final Grading | 2023-10-10
 D | 0 | Wedding | 2028-10-22
 E | 0 | Stay-cation | 2023-10-15 | 2023-10-16
 E | 0 | Hackathon | 2023-12-22 | 2023-12-24
+D | 0 | Project Final Grading | 2023-10-10
+D | 0 | Wedding | 2028-10-22
+E | 0 | Stay-cation | 2023-10-15 | 2023-10-16
+E | 0 | Hackathon | 2023-12-22 | 2023-12-24
