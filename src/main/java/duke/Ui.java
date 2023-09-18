@@ -145,4 +145,12 @@ public class Ui {
         return "The following task has been updated: \n" + task.toString();
     }
 
+    /**
+     * Prints message to inform user all tasks have been cleared.
+     *
+     * @return String message.
+     */
+    public String showClearedMessage() {
+        return "Paw-fect! All tasks have been cleared.";
+    }
 }

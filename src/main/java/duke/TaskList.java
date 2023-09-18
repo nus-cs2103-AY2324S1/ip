@@ -136,4 +136,11 @@ public class TaskList {
         taskList.get(taskIndex).updateDate(fieldToUpdate, newDate);
     }
 
+    /**
+     * Clears all data in taskList.
+     */
+    public void clear() {
+        this.taskList.clear();
+    }
+
 }

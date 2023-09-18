@@ -32,6 +32,9 @@ public class Parser {
         if (fullCommand.equals("bye")) {
             return new ExitCommand();
 
+        } else if (fullCommand.equals("clear")) {
+            return new ClearCommand();
+
         } else if (fullCommand.equals("list")) {
             return new ListCommand();
 
