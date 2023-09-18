@@ -9,7 +9,13 @@ import veneto.task.ToDo;
 
 public class Parser {
     /* Fields */
-    public static final int FIND_COMMAND_START_INDEX = 5;
+    public static final int FIND_COMMAND_INDEX = 5;
+    public static final int TODO_DESCRIPTION_INDEX = 5;
+    public static final int DEADLINE_DESCRIPTION_INDEX = 9;
+    public static final int DEADLINE_START_INDEX = 3;
+    public static final int EVENT_DESCRIPTION_INDEX = 5;
+    public static final int EVENT_START_INDEX = 5;
+    public static final int EVENT_END_INDEX = 3;
 
     /* Methods */
     /**
@@ -43,9 +49,14 @@ public class Parser {
                 throw new VenetoException("Invalid Command");
         }
     }
-    
+
+    /**
+     * generate FindCommand according to the user input
+     * @param text the details about the task
+     * @return the command that the user want to operate
+     */
     private static Command prepareFind(String text) {
-        String keyword = text.substring(FIND_COMMAND_START_INDEX);
+        String keyword = text.substring(FIND_COMMAND_INDEX);
         return new FindCommand(keyword);
     }
 
@@ -64,18 +75,18 @@ public class Parser {
         String description;
         switch (funcId) {
             case 1:
-                description = texts[0].substring(5);
+                description = texts[0].substring(TODO_DESCRIPTION_INDEX);
                 newTask = new ToDo(description);
                 break;
             case 2:
-                description = texts[0].substring(9);
-                String deadline = texts[1].substring(3);
+                description = texts[0].substring(DEADLINE_DESCRIPTION_INDEX);
+                String deadline = texts[1].substring(DEADLINE_START_INDEX);
                 newTask = new Deadline(description, deadline);
                 break;
             case 3:
-                description = texts[0].substring(5);
-                String start = texts[1].substring(5);
-                String end = texts[2].substring(3);
+                description = texts[0].substring(EVENT_DESCRIPTION_INDEX);
+                String start = texts[1].substring(EVENT_START_INDEX);
+                String end = texts[2].substring(EVENT_END_INDEX);
                 newTask = new Event(description, start, end);
                 break;
         }
