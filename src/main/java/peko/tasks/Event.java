@@ -67,5 +67,12 @@ public class Event extends Task {
         return d1.equals(d2);
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            return name.equals(((Event) o).name) && equalDateTimeChecker(((Event) o).startHandler, startHandler)
+                    && equalDateTimeChecker(((Event) o).endHandler, endHandler);
+        }
+        return false;
+    }
 }

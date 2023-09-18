@@ -59,5 +59,11 @@ public class Deadline extends Task {
         String output = "D" + " | " + state + " | " + this.name + " | " + dateTimeHandler.toString();
         return output;
     }
-
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Deadline) {
+            return this.name.equals(((Deadline) o).name) && dateTimeHandler.equals(((Deadline) o).dateTimeHandler);
+        }
+        return false;
+    }
 }
