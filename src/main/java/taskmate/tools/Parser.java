@@ -1,7 +1,6 @@
 package taskmate.tools;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
 import taskmate.commands.Command;
@@ -264,11 +263,10 @@ public class Parser {
         } else if (!userInput.contains("/by ")) {
             throw new EmptyByException();
         } else {
-            try {
-                String delimiter = "/by ";
-                String byInput = userInput.substring(userInput.indexOf(delimiter) + delimiter.length());
-                LocalDate.parse(byInput);
-            } catch (DateTimeParseException e) {
+            String delimiter = "/by ";
+            String byInput = userInput.substring(userInput.indexOf(delimiter) + delimiter.length());
+            boolean isValidDateFormat = checkValidDateFormat(byInput);
+            if (!isValidDateFormat) {
                 throw new InvalidByException();
             }
         }
@@ -296,21 +294,18 @@ public class Parser {
             throw new EmptyToException();
         } else {
             // Testing from clause
-            try {
-                System.out.println(userInput);
-                String fromInput = userInput.substring(userInput.indexOf(fromDelimiter) + fromDelimiter.length(),
-                        userInput.indexOf(toDelimiter)).trim();
-                LocalDate.parse(fromInput);
-            } catch (DateTimeParseException e) {
+            String fromInput = userInput.substring(userInput.indexOf(fromDelimiter) + fromDelimiter.length(),
+                    userInput.indexOf(toDelimiter)).trim();
+            boolean isValidDateFormat = checkValidDateFormat(fromInput);
+            if (!isValidDateFormat) {
                 throw new InvalidFromException();
             }
 
             // Testing to clause
-            try {
-                String toInput = userInput.substring(userInput.indexOf(toDelimiter) + toDelimiter.length())
-                        .trim();
-                LocalDate.parse(toInput);
-            } catch (DateTimeParseException e) {
+            String toInput = userInput.substring(userInput.indexOf(toDelimiter) + toDelimiter.length())
+                    .trim();
+            isValidDateFormat = checkValidDateFormat(toInput);
+            if (!isValidDateFormat) {
                 throw new InvalidToException();
             }
         }
@@ -386,6 +381,15 @@ public class Parser {
             return false;
         }
         return true;
+    }
+
+    private static boolean checkValidDateFormat(String dateString) {
+        try {
+            LocalDate.parse(dateString);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private static void checkValidFindCommand(String userInput) throws EmptyDescriptionException,
