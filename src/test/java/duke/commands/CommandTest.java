@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-public class CommandTest {
+public class  CommandTest {
 
     @Test
     public void constructorWithTypeOnlyTest() {
