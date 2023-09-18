@@ -2,7 +2,7 @@ package veneto;
 
 import veneto.command.Command;
 import veneto.command.ExitCommand;
-import veneto.exceptions.DanException;
+import veneto.exceptions.VenetoException;
 import veneto.storage.Storage;
 import veneto.task.TaskList;
 import veneto.ui.Ui;
@@ -20,7 +20,7 @@ public class Veneto {
             ui = new Ui();
             storage = new Storage(filePath);
             tasks = storage.load();
-        } catch (DanException e) {
+        } catch (VenetoException e) {
             ui.showError(e);
             tasks = new TaskList();
             storage.init(tasks);
@@ -47,7 +47,7 @@ public class Veneto {
                 command.op(tasks);
                 storage.checkChange(tasks);
                 ui.afterCommand(command, tasks);
-            } catch (DanException e) {
+            } catch (VenetoException e) {
                 ui.showError(e);
             }
         }

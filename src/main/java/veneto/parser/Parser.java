@@ -1,7 +1,7 @@
 package veneto.parser;
 
 import veneto.command.*;
-import veneto.exceptions.DanException;
+import veneto.exceptions.VenetoException;
 import veneto.task.Deadline;
 import veneto.task.Event;
 import veneto.task.Task;
@@ -30,7 +30,7 @@ public class Parser {
             case "delete":
                 return new DeleteCommand(Integer.parseInt(texts[1]));
             default:
-                throw new DanException("Invalid Command");
+                throw new VenetoException("Invalid Command");
         }
     }
 

@@ -1,9 +1,9 @@
 package veneto.ui;
 
 import veneto.command.*;
-import veneto.exceptions.DanException;
-import veneto.exceptions.DanOperateException;
-import veneto.exceptions.DanStorageException;
+import veneto.exceptions.VenetoException;
+import veneto.exceptions.VenetoOperateException;
+import veneto.exceptions.VenetoStorageException;
 import veneto.parser.Parser;
 import veneto.task.TaskList;
 
@@ -22,8 +22,8 @@ public class Ui {
     };
 
     /** Methods */
-    public static void showError(DanException e) {
-        if (e instanceof DanOperateException) {
+    public static void showError(VenetoException e) {
+        if (e instanceof VenetoOperateException) {
             switch (e.getMessage()) {
                 case "Unmarked":
                     System.out.println(GREETS + " 这个没标记过哦！\n");
@@ -35,7 +35,7 @@ public class Ui {
                     System.out.println(GREETS + " 输入格式不对！");
                     System.out.println(" 你可以跟我说：\n" + Arrays.toString(COMMANDS) + "\n");
             }
-        } else if (e instanceof DanStorageException) {
+        } else if (e instanceof VenetoStorageException) {
             System.out.println(GREETS + " 没找到内存哦 现在重新创建一个！\n");
         } else if (e.getMessage().equals("Invalid Command")) {
             System.out.println(GREETS + " 输入格式不对！");

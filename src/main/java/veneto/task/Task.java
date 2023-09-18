@@ -1,7 +1,7 @@
 package veneto.task;
 
-import veneto.exceptions.DanException;
-import veneto.exceptions.DanOperateException;
+import veneto.exceptions.VenetoException;
+import veneto.exceptions.VenetoOperateException;
 
 public class Task {
     // fields
@@ -13,18 +13,18 @@ public class Task {
         return (isDone ? "[V] " : "[ ] "); // mark done task with V
     }
 
-    public void mark(int id) throws DanException {
+    public void mark(int id) throws VenetoException {
         if (id == 1) {                  /* to mark task */
             if (isDone == false) {
                 isDone = true;
             } else {                        /* if the task is already marked */
-                throw new DanOperateException("Marked");
+                throw new VenetoOperateException("Marked");
             }
         } else {                        /* to unmark task */
             if (isDone == true) {
                 isDone = false;
             } else {                        /* if the task is already unmarked */
-                throw new DanOperateException("Unmarked");
+                throw new VenetoOperateException("Unmarked");
             }
         }
     }

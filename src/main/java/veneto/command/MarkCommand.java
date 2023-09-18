@@ -1,6 +1,6 @@
 package veneto.command;
 
-import veneto.exceptions.DanException;
+import veneto.exceptions.VenetoException;
 import veneto.task.Task;
 import veneto.task.TaskList;
 
@@ -25,7 +25,7 @@ public class MarkCommand extends Command {
 
     /** Methods */
     @Override
-    public void op(TaskList tasks) throws DanException {
+    public void op(TaskList tasks) throws VenetoException {
         currTask = tasks.get(taskId - 1);
         currTask.mark(funcId);
         tasks.storageChanged = 1;

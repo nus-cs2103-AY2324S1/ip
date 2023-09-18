@@ -1,7 +1,7 @@
 package veneto.storage;
 
-import veneto.exceptions.DanException;
-import veneto.exceptions.DanStorageException;
+import veneto.exceptions.VenetoException;
+import veneto.exceptions.VenetoStorageException;
 import veneto.task.*;
 
 import java.io.*;
@@ -25,10 +25,10 @@ public class Storage {
         try {
             new File(savePath).createNewFile();
         } catch (IOException e) {
-            throw new DanException("一般来讲这个不可能发生的");
+            throw new VenetoException("一般来讲这个不可能发生的");
         }
     }
-    public TaskList load() throws DanException {
+    public TaskList load() throws VenetoException {
         tasks = new TaskList(100);
         File f = new File(savePath);
         Scanner sc = null;
@@ -41,13 +41,13 @@ public class Storage {
             }
             return tasks;
         } catch (IOException e) {
-            throw new DanStorageException("No Storage Found");
+            throw new VenetoStorageException("No Storage Found");
         } finally {
             sc.close();
         }
     }
 
-    public void addTask(String text) throws DanException {
+    public void addTask(String text) throws VenetoException {
         try {
             String[] task = text.split(",");
             Task t = null;
@@ -65,7 +65,7 @@ public class Storage {
             }
             tasks.add(t);
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new DanStorageException("Storage File Destroyed");
+            throw new VenetoStorageException("Storage File Destroyed");
         }
     }
 
@@ -85,12 +85,12 @@ public class Storage {
                 writer.write(tasks.get(i).saveToString() + "\n");
             }
         } catch (IOException e) {
-            throw new DanException("一般来讲不会发生的");
+            throw new VenetoException("一般来讲不会发生的");
         } finally {
             try {
                 writer.close();
             } catch (IOException e) {
-                throw new DanException("一般来讲也不会发生的，但是万一发生了也保不准");
+                throw new VenetoException("一般来讲也不会发生的，但是万一发生了也保不准");
             }
         }
     }

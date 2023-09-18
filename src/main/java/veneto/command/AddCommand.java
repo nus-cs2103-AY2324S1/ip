@@ -1,7 +1,7 @@
 package veneto.command;
 
-import veneto.exceptions.DanException;
-import veneto.exceptions.DanOperateException;
+import veneto.exceptions.VenetoException;
+import veneto.exceptions.VenetoOperateException;
 import veneto.task.*;
 
 public class AddCommand extends Command {
@@ -19,12 +19,12 @@ public class AddCommand extends Command {
 
     /** Methods */
     @Override
-    public void op(TaskList tasks) throws DanException {
+    public void op(TaskList tasks) throws VenetoException {
         try {
             tasks.add(newTask);
             tasks.storageChanged = 1;
         } catch (IndexOutOfBoundsException e) {
-            throw new DanOperateException("Add");
+            throw new VenetoOperateException("Add");
         }
     }
 
