@@ -43,7 +43,7 @@ public class Gui {
         return message;
     }
 
-    public static String getMarkMessage(Task ... tasks) {
+    public static String getMarkMessage(Task... tasks) {
         if (tasks.length == 1) {
             return "Nice! I've marked this task as done:\n" + tasks[0] + "\n";
         }
@@ -54,7 +54,7 @@ public class Gui {
         return message;
     }
 
-    public static String getUnmarkMessage(Task ... tasks) {
+    public static String getUnmarkMessage(Task... tasks) {
         if (tasks.length == 1) {
             return "OK, I've marked this task as not done yet:\n" + tasks[0] + "\n";
         }
@@ -73,7 +73,7 @@ public class Gui {
         return message;
     }
 
-    public static String getDeleteTaskMessage(int numOfTasks, Task ... tasks) {
+    public static String getDeleteTaskMessage(int numOfTasks, Task... tasks) {
         String message = "Noted. I've removed this task:\n";
         for (Task t : tasks) {
             message += "- " + t + "\n";

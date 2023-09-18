@@ -12,6 +12,8 @@ import bellcurvegod.gui.Gui;
 public class ExitCommand implements Runnable {
     /**
      * Says goodbye to the user and exits.
+     *
+     * @return ExitMessage.
      */
     public static String run() {
         try {

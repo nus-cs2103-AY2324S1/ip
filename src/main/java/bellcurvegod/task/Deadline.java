@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import bellcurvegod.exception.EmptyDeadlineDescriptionException;
-import bellcurvegod.ui.Ui;
 
 /**
  * Encapsulates a task with deadline.

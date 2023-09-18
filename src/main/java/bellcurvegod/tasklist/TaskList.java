@@ -64,8 +64,9 @@ public class TaskList {
      * Deletes the task(s) from the list.
      *
      * @param taskParams Task(s) to be deleted.
+     * @return DeleteTaskMessage.
      */
-    public static String delete(Task ... taskParams) {
+    public static String delete(Task... taskParams) {
         for (Task t : taskParams) {
             tasks.remove(t);
             numOfTasks--;

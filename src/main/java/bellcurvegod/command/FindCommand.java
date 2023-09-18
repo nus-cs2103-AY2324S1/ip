@@ -15,6 +15,7 @@ public class FindCommand implements Runnable {
      * contains the keyword that the user is searching for.
      *
      * @param keyword keyword to search for.
+     * @return FindMessage.
      */
     public static String run(String keyword) {
         ArrayList<Task> tasks = TaskList.getTaskList();

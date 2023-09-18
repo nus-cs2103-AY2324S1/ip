@@ -12,7 +12,7 @@ import bellcurvegod.storage.Storage;
 public class BellCurveGod {
     private static final String DATA_FILE_PATH = "./data/tasks.txt";
 
-    private String filePath;
+    private final String filePath;
 
     public BellCurveGod(String path) {
         filePath = path;

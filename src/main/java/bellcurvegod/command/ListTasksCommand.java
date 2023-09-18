@@ -12,6 +12,8 @@ import bellcurvegod.tasklist.TaskList;
 public class ListTasksCommand implements Runnable {
     /**
      * Lists all tasks stored.
+     *
+     * @return ListMessage.
      */
     public static String run() {
         ArrayList<Task> tasks = TaskList.getTaskList();
