@@ -3,6 +3,7 @@ package duke;
 import java.time.Duration;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import exceptions.ParserException;
 import io.Parser;
@@ -210,6 +211,26 @@ public class Duke {
     }
 
     /**
+     * When called, saves data to text file and closes java
+     */
+    public void quitDuke() {
+
+        ui.displayGoodbye();
+        storage.saveTasks();
+        Thread thread = new Thread(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+                Platform.exit();
+                System.exit(0);
+            } catch (InterruptedException ex) {
+                ui.addPrintStatement("shutdown interrupted!");
+            }
+        });
+        thread.start();
+    }
+
+
+    /**
      * Displays greetings text
      */
     public String start() {
@@ -228,10 +249,7 @@ public class Duke {
         // there is no input
         switch (parser.getCommandString()) {
         case "bye":
-            ui.displayGoodbye();
-            storage.saveTasks();
-            Platform.exit();
-            System.exit(0);
+            quitDuke();
             break;
         case "list":
             listTasks();
