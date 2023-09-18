@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 public class Ui {
 
     private static final String[] nameList = {"Chat", "ninja", "xqc", "jerma", "pokimane", "dream", "fortnite", "moist critical", "quackity"};
-    private static final Color[] colorList = {Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.PURPLE, Color.CORAL, Color.GOLDENROD};
+    private static final Color[] colorList = {Color.LIGHTSALMON, Color.LIMEGREEN, Color.LIGHTCYAN, Color.WHITE, Color.PINK, Color.CORAL, Color.GOLDENROD};
     private Image[] imageList;
     private Image pepeImage;
     private Image ninjaImage;

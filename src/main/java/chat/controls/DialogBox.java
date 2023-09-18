@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -35,7 +37,7 @@ public class DialogBox extends HBox {
      * @param text display text for DialogBox.
      * @param img display image for DialogBox.
      */
-    public DialogBox(String chatName, Color chatColor, String text, Image img) {
+    public DialogBox(String chatName, Color chatColor, String text, Image img, boolean isChat) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
                 MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -45,10 +47,16 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (isChat) {
+            super.setBackground(new Background(new BackgroundFill(Color.web("#333333"), null, null)));
+        } else {
+            super.setBackground(new Background(new BackgroundFill(Color.web("#444444"), null, null)));
+        }
         chat.setText(chatName);
         chat.setTextFill(chatColor);
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.setTextFill(Color.WHITE);
     }
 
     /**
@@ -62,12 +70,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox("", Color.BLACK, text, img);
+        var db = new DialogBox("", Color.WHITE, text, img, false);
+        return db;
     }
 
     public static DialogBox getChatDialog(ChatWrapper chatWrapper, String text) {
 
-        var db = new DialogBox(chatWrapper.chatName, chatWrapper.chatColor, text, chatWrapper.chatImage);
+        var db = new DialogBox(chatWrapper.chatName, chatWrapper.chatColor, text, chatWrapper.chatImage, true);
         db.flip();
         return db;
     }
