@@ -51,27 +51,32 @@ public class Dukduk {
                     Storage.saveTasksToFile(filePath, this.tasks.getTasks());
                     return this.ui.addTask(this.tasks.getTasks());
                 case "mark":
+                    if (input.length() <= firstInput.length()) {
+                        throw new DukdukException("OOPS!!! Please provide additional information for the '" + firstInput + "' command.");
+                    }
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     this.tasks.markTaskAsDone(taskIndex);
                     Storage.saveTasksToFile(filePath, this.tasks.getTasks());
                     return this.ui.markAsDone(this.tasks.getTasks(), taskIndex);
                 case "unmark":
+                    if (input.length() <= firstInput.length()) {
+                        throw new DukdukException("OOPS!!! Please provide additional information for the '" + firstInput + "' command.");
+                    }
                     int unmarkTaskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     this.tasks.unMarkTask(unmarkTaskIndex);
                     Storage.saveTasksToFile(filePath, this.tasks.getTasks());
                     return this.ui.markAsNotDone(this.tasks.getTasks(), unmarkTaskIndex);
                 case "delete":
-                    try {
-                        String[] parts = input.split(" ");
-                        if (parts.length != 2) {
+                    String[] parts = input.split(" ");
+                    if (parts.length != 2) {
                             throw new DukdukException("OOPS!!! Please specify the task number to delete.");
-                        }
-                        int deleteTaskIndex = Integer.parseInt(parts[1]) - 1;
-                        return this.tasks.deleteTask(deleteTaskIndex);
-                    } catch (DukdukException e) {
-                        this.ui.printErrorMsg(e);
                     }
+                    int deleteTaskIndex = Integer.parseInt(parts[1]) - 1;
+                    return this.tasks.deleteTask(deleteTaskIndex);
                 case "find":
+                    if (input.length() <= firstInput.length()) {
+                        throw new DukdukException("OOPS!!! Please provide additional information for the '" + firstInput + "' command.");
+                    }
                     String keyword = input.substring(5).trim();
                     ArrayList<Task> matchingTasks = this.tasks.findTasks(keyword);
                     return this.ui.printTasksIfFound(matchingTasks);

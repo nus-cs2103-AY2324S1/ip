@@ -74,6 +74,7 @@ public class TaskList {
      * @param task The task to add to the TaskList.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 
@@ -83,6 +84,7 @@ public class TaskList {
      * @param taskIndex The index of the task to mark as done.
      */
     public void markTaskAsDone(int taskIndex) {
+        assert isValidTaskIndex(taskIndex) : "Invalid task index";
         if (isValidTaskIndex(taskIndex)) {
             tasks.get(taskIndex).markAsDone();
         }
@@ -94,6 +96,7 @@ public class TaskList {
      * @param taskIndex The index of the task to unmark.
      */
     public void unMarkTask(int taskIndex) {
+        assert isValidTaskIndex(taskIndex) : "Invalid task index";
         if (isValidTaskIndex(taskIndex)) {
             tasks.get(taskIndex).unmark();
         }
@@ -106,6 +109,7 @@ public class TaskList {
      * @throws DukdukException If the task index is invalid.
      */
     public String deleteTask(int taskIndex) throws DukdukException {
+        assert isValidTaskIndex(taskIndex) : "Invalid task index";
         if (isValidTaskIndex(taskIndex)) {
             Task removedTask = tasks.remove(taskIndex);
             return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
@@ -121,6 +125,7 @@ public class TaskList {
      * @param keyword The index of the task to delete.
      */
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null : "Keyword cannot be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {

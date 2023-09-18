@@ -15,6 +15,7 @@ public class Storage {
      * @return An ArrayList of tasks loaded from the file.
      */
     public static ArrayList<Task> loadTasksFromFile(String filePath) {
+        assert filePath != null : "File path cannot be null";
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
@@ -53,6 +54,7 @@ public class Storage {
      * @param tasks    An ArrayList of tasks to be saved to the file.
      */
     public static void saveTasksToFile(String filePath, ArrayList<Task> tasks) {
+        assert filePath != null : "File path cannot be null";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 writer.write(task.toDataString());
