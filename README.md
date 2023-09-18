@@ -8,18 +8,19 @@
 - encapsulates the very human touch of having somebody exasperated with your improper user inputs.
 
 All you need to do is:
-1. Download it from [here](https://github.com/phiphi-tan/ip)
-2. Clone it (and stop complaining)
+1. Download the latest release from [here](https://github.com/phiphi-tan/ip/releases)
+2. Run the .jar file
 3. Do your stuff and watch it manage your tasks for you
 
-Best part of all, it is completely **FREE** (~~unlike its creator~~)!
+Best part of all, it is completely **FREE** (~~unlike its creator's schedule~~)!
 
 Look at all the things it can do:
 - [x] Managing to-do items
 - [x] Managing tasks with deadlines
 - [x] Managing events
 - [x] Search feature for keywords
-- [ ] Reminders (coming soon, or not)
+- [x] Verbally abuse you if you fail to give proper inputs
+- [ ] Reminders (that's a lie, I'm not doing that)
 ----
 Since you're still here, here's a chunk of code for you to test out your coding abilities:
    ```java

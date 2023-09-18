@@ -50,6 +50,9 @@ This is a project log for my individual project
 ### Level 9. Find
 - Users can now find tasks by searching for a keyword
 
+### Level 10. GUI
+- Added Graphical User Interface (GUI) to the chatbot using JavaFX technology
+
 ## Other Increments
 
 ### Automated Text UI Testing
