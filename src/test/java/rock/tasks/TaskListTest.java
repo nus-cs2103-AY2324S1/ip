@@ -1,4 +1,4 @@
-package tasks;
+package rock.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;

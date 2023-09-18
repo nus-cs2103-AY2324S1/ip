@@ -1,4 +1,4 @@
-package io;
+package rock.logic.io;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import rock.logic.io.Parser;
