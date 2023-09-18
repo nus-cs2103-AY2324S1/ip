@@ -70,7 +70,7 @@ public class CommandProcessor {
             return process(commandType, commandDescription);
 
         } catch(DukeException e) {
-            return (e.getMessage());
+            return (e.getMessage() + "\n");
         }
     }
 

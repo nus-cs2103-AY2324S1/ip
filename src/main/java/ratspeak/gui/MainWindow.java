@@ -1,7 +1,7 @@
 package ratspeak.gui;
 import ratspeak.Duke;
+import ratspeak.parser.CommandProcessor;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,7 +29,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! I am RatSpeak. What can I do for you?", ratSpeakImage)
+                DialogBox.getDukeDialog("Hello! What can I do for you? \n" + new CommandProcessor().initialReminder(), ratSpeakImage)
         );
     }
 
