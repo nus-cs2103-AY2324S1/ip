@@ -12,7 +12,7 @@ import duke.ui.Ui;
  * @author selwyn
  */
 public class MarkCommand extends Command {
-    private boolean toMark;
+    private boolean isMarked;
 
     private String taskToMarkDetails;
 
@@ -22,9 +22,9 @@ public class MarkCommand extends Command {
      * @param args   The details of the task to be marked.
      * @param toMark Whether to mark the task as done (true) or undone (false).
      */
-    public MarkCommand(String args, boolean toMark) {
+    public MarkCommand(String args, boolean isMarked) {
         this.taskToMarkDetails = args;
-        this.toMark = toMark;
+        this.isMarked = isMarked;
     }
 
     /**
@@ -39,7 +39,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList taskList, Storage storage) throws DukeException {
         Task taskToChange;
         try {
-            taskToChange = taskList.changeTaskDoneStatus(this.taskToMarkDetails, this.toMark);
+            taskToChange = taskList.changeTaskDoneStatus(this.taskToMarkDetails, this.isMarked);
             storage.saveTasks(taskList.getTaskList());
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
@@ -47,6 +47,6 @@ public class MarkCommand extends Command {
 
         assert taskToChange != null : "Task to change should not be null";
 
-        return Ui.printChangeTaskDoneStatus(taskToChange, this.toMark);
+        return Ui.printChangeTaskDoneStatus(taskToChange, this.isMarked);
     }
 }
