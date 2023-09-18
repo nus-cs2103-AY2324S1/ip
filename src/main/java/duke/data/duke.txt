@@ -23,3 +23,15 @@ delete 3
 todo History Homework pg 10 -15
 deadline Chemistry Quiz 4 /by 2023-12-12T23:59:59
 sort 
+event Japan Trip /from 2023-10-10T08:00:00 /to 2023-10-25T08:00:00
+todo dance
+todo cry
+delete 6
+delete 6
+delete 1
+delete 2
+delete 1
+todo Geography Homework pg 5 - 10
+deadline Chemistry Quiz /by 2023-12-12T08:00:00
+todo History Homework pg 17
+sort 

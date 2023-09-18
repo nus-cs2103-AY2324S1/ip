@@ -37,9 +37,11 @@ public class Duke {
                 try {
                     String command = ui.readCommand();
                     assert command != null;
-                    if (parser.parse(command, ui, tasks, storage).equals("Goodbye. Hope to be of service again soon!"))
+                    if (parser.parse(command, ui, tasks, storage).execute(command, ui, tasks, storage).equals
+                            ("Goodbye. Hope to be of service again soon!\n"))
                     {
-                        break;
+                        isExit = true;
+                        Platform.exit();
                     };
 
                 } catch (DukeException e) {
