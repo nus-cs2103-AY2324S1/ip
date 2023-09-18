@@ -37,6 +37,6 @@ public class Deadline extends Task {
 
     @Override
     public String printTaskDetailsString() {
-        return super.taskDescription + " |" + " " + dateOfDeadline;
+        return super.taskDescription + " | " + dateOfDeadline + " | " + " ";
     }
 }
