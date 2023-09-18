@@ -68,6 +68,8 @@ public class Storage {
         try {
             // Creates a file if it doesn t exist.
             if (Files.notExists(path)) {
+                System.err.println("hi");
+                Files.createDirectories(path.getParent());
                 Files.createFile(path);
             }
             BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,

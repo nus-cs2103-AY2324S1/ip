@@ -67,7 +67,7 @@ public class Parser {
         int index = input.indexOf('/');
         // Returns the input string as a list of strings.
         if (index > -1) {
-            return input.split("/", 2);
+            return input.split("/", 10);
         } else {
             String[] tempString = { input, "" };
             return tempString;
@@ -149,7 +149,7 @@ public class Parser {
      * @return a ToDoCommand that can be executed on behalf of the user.
      * @throws IncorrectFormatException if input string is empty.
      */
-    public static TodoCommand parseTodo(String input, boolean isDone) throws IncorrectFormatException {
+    private static TodoCommand parseTodo(String input, boolean isDone) throws IncorrectFormatException {
         // Returns a new ToDoCommand object.
         if (input.equals("")) {
             throw new IncorrectFormatException();
@@ -165,7 +165,7 @@ public class Parser {
      * @return a DeadlineCommand that can be executed on behalf of the user.
      * @throws IncorrectFormatException if input string has invalid components.
      */
-    public static DeadlineCommand parseDeadline(String input, boolean isDone) throws IncorrectFormatException {
+    private static DeadlineCommand parseDeadline(String input, boolean isDone) throws IncorrectFormatException {
         int index = input.indexOf(" /by ");
 
         if (index < 0) {
@@ -194,7 +194,7 @@ public class Parser {
      * @return an EventCommand that can be executed on behalf of the user.
      * @throws IncorrectFormatException if input string has invalid components.
      */
-    public static EventCommand parseEvent(String input, boolean isDone) throws IncorrectFormatException {
+    private static EventCommand parseEvent(String input, boolean isDone) throws IncorrectFormatException {
         int indexFrom = input.indexOf(" /from ");
         int indexTo = input.indexOf(" /to ");
 
@@ -235,7 +235,13 @@ public class Parser {
         } 
     }
 
-    public static SortCommand parseSort(String input) throws IncorrectFormatException {
+    /**
+     * Parses sort command and calls the sort command of the right type.
+     * @param input the input to be parsed.
+     * @return a Sort Command of the right type i.e. sorting by name, date or type.
+     * @throws IncorrectFormatException if the input is not of any programmed type.
+     */
+    private static SortCommand parseSort(String input) throws IncorrectFormatException {
         input.trim();
         if (input.contains("name")) {
             return new SortCommand(sortType.NAME);
@@ -257,10 +263,9 @@ public class Parser {
      * @throws ChatException if file line has invalid format.
      */
     public static Command parseFileContent(String input) throws IncorrectFileFormatException {
-        String[] parsedContent = input.split(" # ");
-        boolean isDone = Integer.parseInt(parsedContent[1]) == 1;
-
         try {
+            String[] parsedContent = input.split(" # ");
+            boolean isDone = Integer.parseInt(parsedContent[1]) == 1;
             if (parsedContent.length == 3 && parsedContent[0].charAt(0) == 'T') {
                 // Parse as Todo.
                 return parseTodo(parsedContent[2], isDone);
@@ -274,6 +279,8 @@ public class Parser {
                 throw new IncorrectFileFormatException();
             }
         } catch (IncorrectFormatException e) {
+            throw new IncorrectFileFormatException();
+        } catch (Exception e) {
             throw new IncorrectFileFormatException();
         }
     }
@@ -331,7 +338,7 @@ public class Parser {
      *         enum.
      * @throws ChatException if the command is not found in the enum.
      */
-    public static Enum map(String command) throws ChatException {
+    protected static Enum map(String command) throws ChatException {
         for (Enum e : Enum.values()) {
             // Returns the command that was entered by the user.
             if (command.equals(e.getText())) {

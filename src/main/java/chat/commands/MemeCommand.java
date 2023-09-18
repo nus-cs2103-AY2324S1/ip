@@ -6,7 +6,7 @@ import chat.utils.Storage;
 
 public class MemeCommand extends Command {
 
-    private String[] memeList = {"Why is the Average NUS Student so Average ? I don't understand why the normal NUS students has such average tastes and interests. They listen to music like Taylor Swift, play games like Genshin Impact and wear Uniqlo Clothes. Please help me understand why this is the case. I thought everyone in univerisety would be different and quirky, wear cosplay or eleborate get-ups to classes, read post-mordern albanian meta-critiques of communist narratives and listen to pyschelic jazz music. Why isn't this the case ?",
+    private String[] memeList = {"Why is the Average NUS Student so Average ?\nI don't understand why the normal NUS students has such average tastes and interests. They listen to music like Taylor Swift, play games like Genshin Impact and wear Uniqlo Clothes.\nPlease help me understand why this is the case. I thought everyone in univerisety would be different and quirky, wear cosplay or eleborate get-ups to classes, read post-mordern albanian meta-critiques of communist narratives and listen to pyschelic jazz music. Why isn't this the case ?",
             "memes dont stay funny for very long you know",
             "My name is Walter Hartwell White. I live at 308 Negra Arroyo Lane, Albuquerque, New Mexico, 87104. This is my confession. If you're watching this tape, I'm probably dead, murdered by my brother-in-law Hank Schrader. Hank has been building a meth empire for over a year now and using me as his chemist. ",
             "Please DO NOT buy the BTS meal if you don't stan them. You're preventing the actual BTS fans who have waited for months from having the BTS meal experience. Eating the sauces without understanding their significance is literally cultural appropriation and it's not okay",
@@ -22,7 +22,7 @@ public class MemeCommand extends Command {
                 "\r\n" + //
                 "There are several reasons I may deem a comment to be unworthy of positive or neutral karma. These include, but are not limited to:\r\n" + //
                 "\r\n" + //
-                "• ⁠Rudeness towards other Redditors, • ⁠Spreading incorrect information, • ⁠Sarcasm not correctly flagged with a /s.\r\n" + //
+                "Rudeness towards other Redditors, • Spreading incorrect information, • Sarcasm not correctly flagged with a /s.\r\n" + //
                 "\r\n" + //
                 "## Am I banned from the Reddit?\r\n" + //
                 "\r\n" + //
