@@ -116,9 +116,7 @@ public class Parser {
         if (taskInfo.isBlank()) {
             throw new DukeException("The description of a todo cannot be empty");
         } else {
-            String[] splitCommands = fullCommand.split(" ");
-            assert !splitCommands[1].isBlank() : "Description is empty";
-            Task task = new ToDo(splitCommands[1]);
+            Task task = new ToDo(taskInfo);
             return new AddCommand(task);
         }
     }
@@ -130,11 +128,11 @@ public class Parser {
                 || fullCommand.substring(fullCommand.indexOf("/by") + 3).isBlank()) {
             throw new DukeException("The description of deadline needs more information");
         } else {
-            String[] splitCommands = fullCommand.split(" /by ");
-            String[] taskName = splitCommands[0].split(" ");
-            assert !taskName[1].isBlank() : "Description is empty";
+            String[] splitCommands = taskInfo.split(" /by ");
+            String taskName = splitCommands[0].trim();
+            assert !taskName.isBlank() : "Description is empty";
             assert !splitCommands[1].isBlank() : "'by' is empty";
-            Task task = new Deadline(taskName[1], Parser.parseDateTime(splitCommands[1]));
+            Task task = new Deadline(taskName, Parser.parseDateTime(splitCommands[1]));
             return new AddCommand(task);
         }
     }
@@ -148,13 +146,13 @@ public class Parser {
                 || fullCommand.substring(fullCommand.indexOf("/to") + 3).isBlank()) {
             throw new DukeException("The description of event needs more information");
         } else {
-            String[] splitCommands = fullCommand.split(" /from ");
-            String[] taskName = splitCommands[0].split(" ");
+            String[] splitCommands = taskInfo.split(" /from ");
+            String taskName = splitCommands[0].trim();
             String[] fromTo = splitCommands[1].split(" /to ");
-            assert !taskName[1].isBlank() : "Description is empty";
+            assert !taskName.isBlank() : "Description is empty";
             assert !fromTo[0].isBlank() : "'from' is empty";
             assert !fromTo[1].isBlank() : "'to' is empty";
-            Task task = new Event(taskName[1], Parser.parseDateTime(fromTo[0]),
+            Task task = new Event(taskName, Parser.parseDateTime(fromTo[0]),
                     Parser.parseDateTime(fromTo[1]));
             return new AddCommand(task);
         }

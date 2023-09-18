@@ -34,8 +34,9 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Fetches the appropriate text response to user's command.
+     * @param input User's string command.
+     * @return Appropriate text response to user's command.
      */
     public String getResponse(String input) {
         Command c = null;

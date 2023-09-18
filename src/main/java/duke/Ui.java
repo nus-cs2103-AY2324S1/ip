@@ -66,7 +66,7 @@ public class Ui {
      * @return String message.
      */
     public String showAdd(Task task, int taskListLength) {
-        return "Woof luck with your new task: \n" + task.toString() + "You now have "
+        return "Woof luck with your new task: \n" + task.toString() + "\n" + "You now have "
                 + taskListLength + " tasks in the list";
     }
 
