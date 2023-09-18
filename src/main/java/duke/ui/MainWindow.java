@@ -26,10 +26,18 @@ public class MainWindow {
     @FXML
     private void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        // Add assertions
+        assert scrollPane != null : "ScrollPane should not be null";
+        assert dialogContainer != null : "VBox dialogContainer should not be null";
+        assert userInput != null : "TextField userInput should not be null";
+        assert sendButton != null : "Button sendButton should not be null";
+
     }
 
     public void setDuke(Duke duke) {
         this.duke = duke;
+        assert duke != null : "Duke instance should not be null";
     }
 
     /**

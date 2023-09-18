@@ -30,6 +30,7 @@ public class Storage {
      */
     public Storage(Parser parser) {
         this.parser = parser;
+        assert parser != null : "Parser should not be null";
     }
 
     /**
@@ -54,6 +55,7 @@ public class Storage {
                 }
                 reader.close();
             }
+            assert taskList != null : "TaskList should not be null";
             return taskList;
         } catch (IOException e) {
             System.err.println("An error occurred while loading tasks from file: " + e.getMessage());
