@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -77,10 +78,11 @@ public class StageController {
 
     @FXML
     private void loadItems() {
-        ArrayList<Task> taskList = Storage.getLastList();
+        ArrayList<Task> currTaskList = Storage.getLastList();
+        ArrayList<Task> todaysList = Utils.getDateList(LocalDate.now(), currTaskList);
         ArrayList<ScheduleBox> boxList = new ArrayList<>();
 
-        for (Task task : taskList) {
+        for (Task task : todaysList) {
             ScheduleBox box = new ScheduleBox(task);
             boxList.add(box);
         }
