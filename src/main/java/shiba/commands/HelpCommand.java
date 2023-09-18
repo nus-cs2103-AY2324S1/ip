@@ -45,10 +45,10 @@ public class HelpCommand extends ShibaCommand {
                 new HelpInfo("todo <description>", "Adds a todo task."));
         HELP_INFO_MAP.put(CommandType.DEADLINE,
                 new HelpInfo("deadline <description> /by <date>\n"
-                        + "Date should be in YYYY-MM-DD or YYYY-MM-DD HH:MM format", "Adds a deadline task."));
+                        + "Date should be in YYYY-MM-DD or YYYY-MM-DD HH:mm format", "Adds a deadline task."));
         HELP_INFO_MAP.put(CommandType.EVENT,
                 new HelpInfo("event <description> /from <date> /to <date>\n"
-                        + "Date should be in YYYY-MM-DD or YYYY-MM-DD HH:MM format", "Adds an event task."));
+                        + "Date should be in YYYY-MM-DD or YYYY-MM-DD HH:mm format", "Adds an event task."));
         HELP_INFO_MAP.put(CommandType.DELETE,
                 new HelpInfo("delete <task number>", "Deletes the task."));
         HELP_INFO_MAP.put(CommandType.FIND,
