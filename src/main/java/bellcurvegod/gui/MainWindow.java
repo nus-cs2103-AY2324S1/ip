@@ -1,6 +1,7 @@
 package bellcurvegod.gui;
 
 import bellcurvegod.BellCurveGod;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -56,7 +58,11 @@ public class MainWindow extends AnchorPane {
             DialogBox.getBellCurveGodDialog(response, bellCurveGodImage)
         );
         if (response.equals(Gui.getExitMessage())) {
-            Platform.exit();
+            // Solution below adapted by https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
+            // If user enters "bye", display the ExitMessage, wait for 3 seconds, and close the app
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event -> Platform.exit());
+            pause.play();
         }
         userInput.clear();
     }
