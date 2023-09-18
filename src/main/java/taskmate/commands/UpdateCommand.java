@@ -45,7 +45,8 @@ public class UpdateCommand extends Command {
             HashMap<String, String> successfulChanges = tasks.updateTask(taskToUpdate, changes);
 
             // print message after updating
-            ui.printSuccessfulUpdateResponse(updateIndex, successfulChanges);
+            int zerothUpdateIndex = updateIndex + 1; // convert from one-index to zero-index
+            ui.printSuccessfulUpdateResponse(zerothUpdateIndex, successfulChanges);
 
         } catch (Exception e) {
             handleException(e, ui);
