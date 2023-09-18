@@ -21,7 +21,6 @@ public class Ui {
         System.out.println("\t Hello! I'm Violet");
         System.out.println("\t What can I do for you?");
         System.out.println(LINE);
-        //return line + "\n\t Hello! I'm Violet" + "\n\t What can I do for you?\n" + line;
     }
 
     /**
