@@ -18,8 +18,9 @@ public class Ui {
         return ("Hi Barbie! Hi Ken!\n"
                 + "I'm Barbie!\n"
                 + "This is the list of things you have today!\n\n"
-                + list.stream().map(x -> x.toString() + "\n"
-                + "\nWhat can I do for you?"));
+                + Storage.getLastList().stream().map(x -> x + "\n")
+                + "\nWhat can I do for you?");
+
     }
 
     /**
@@ -63,7 +64,7 @@ public class Ui {
      * Prints that the Task has been successfully deleted.
      */
     public static String del() {
-        return (" Deletion success! I've deleted this task off your list." );
+        return (" Deletion success! I've deleted this task off your list.");
     }
 
 

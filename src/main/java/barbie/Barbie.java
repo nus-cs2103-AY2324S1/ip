@@ -11,10 +11,9 @@ import barbie.types.Task;
  * Implements the main Barbie chatbot logic.
  */
 public class Barbie {
-    Parser parser;
-    MainWindow mainWindow;
-    ArrayList<Task> taskList;
-    boolean doExit;
+    private Parser parser;
+    private ArrayList<Task> taskList;
+    private boolean doExit;
 
     /**
      * Constructs an instance of Barbie.
@@ -56,6 +55,11 @@ public class Barbie {
 
     }
 
+    /**
+     * Greets user in the beginning.
+     * This will be added later on
+     * @return String to be returned to user.
+     */
     protected String greet() {
         return Ui.intro(taskList);
     }
