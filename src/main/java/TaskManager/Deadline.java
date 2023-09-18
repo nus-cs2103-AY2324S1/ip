@@ -141,4 +141,23 @@ public class Deadline extends Task {
         return TaskMatcher.isMatch(keyword, taskDesc);
     }
 
+    /**
+     * Update the taskDesc
+     *
+     * @param newTaskDesc The new taskDesc.
+     */
+    public void editTaskDesc(String newTaskDesc) {
+        this.taskDesc = newTaskDesc;
+    }
+
+    /**
+     * Update the dueDateStr.
+     *
+     * @param newDueDateStr The new dueDateStr.
+     */
+    public void editDueDate(String newDueDateStr) {
+        this.dueDateStr = newDueDateStr;
+        this.dueDate = LocalDateTime.parse(dueDateStr, DATE_TIME_FORMATTER);
+    }
+
 }

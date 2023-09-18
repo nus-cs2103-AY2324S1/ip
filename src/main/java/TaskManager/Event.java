@@ -153,4 +153,33 @@ public class Event extends Task {
     public boolean isMatch(String keyword) {
         return TaskMatcher.isMatch(keyword, taskDesc);
     }
+
+    /**
+     * Update the taskDesc
+     *
+     * @param newTaskDesc The new taskDesc.
+     */
+    public void editTaskDesc(String newTaskDesc) {
+        this.taskDesc = newTaskDesc;
+    }
+
+    /**
+     * Update the new fromDateStr
+     *
+     * @param newFromDateStr The new fromDateStr.
+     */
+    public void editFromDate(String newFromDateStr) {
+        this.fromDateStr = newFromDateStr;
+        this.fromDate = LocalDateTime.parse(fromDateStr, DATE_TIME_FORMATTER);
+    }
+
+    /**
+     * Update the new toDateStr
+     *
+     * @param newToDateStr The new toDateStr.
+     */
+    public void editToDate(String newToDateStr) {
+        this.toDateStr = newToDateStr;
+        this.toDate = LocalDateTime.parse(toDateStr, DATE_TIME_FORMATTER);
+    }
 }

@@ -1,11 +1,14 @@
 package parser;
 
+import java.util.Arrays;
+
 import command.AddDeadlineCommand;
 import command.AddEventCommand;
 import command.AddTodoCommand;
 import command.ByeCommand;
 import command.Command;
 import command.DeleteCommand;
+import command.EditCommand;
 import command.EmptyCommand;
 import command.ErrorCommand;
 import command.FindCommand;
@@ -46,6 +49,8 @@ public class Parser {
             return new ByeCommand();
         } else if (str.startsWith("find")) {
             return parseFindCommand(str);
+        } else if (str.startsWith("edit")) {
+            return parseEditCommand(str);
         } else {
             return new MiscCommand();
         }
@@ -61,14 +66,13 @@ public class Parser {
         try {
             String[] split = str.split(" ");
             if (split.length < 2) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Hey! I think you forget to enter the todo description!");
             } else {
                 return new AddTodoCommand(str.substring(split[0].length()).trim());
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Hey! I think you forget to enter the todo description "
-                    + "or leave a space after the command!");
-            return new ErrorCommand("Hey! I think you forget to enter the todo description!");
+            System.out.println(e.getMessage());
+            return new ErrorCommand(e.getMessage());
         }
     }
 
@@ -181,6 +185,33 @@ public class Parser {
             return new ErrorCommand("Hey! Please provide a keyword");
         }
         return new FindCommand(split[1].trim());
+    }
+
+    /**
+     * Parses a user input string as a Edit command.
+     *
+     * @param str The user input string to be parsed.
+     * @return A command object representing the parsed edit command.
+     */
+    private static Command parseEditCommand(String str) {
+        String[] split = str.split(" ");
+        if (split.length < 4) {
+            return new ErrorCommand("Hey! Please enter a valid edit command!\n"
+                    + "eg. edit 1 taskdesc sleep");
+        }
+        int index = Integer.parseInt(split [1]);
+        String itemType = split[2].trim();
+
+        if (itemType.equals("duedate") || itemType.equals("fromdate") || itemType.equals("todate")) {
+            String[] newItemArray = Arrays.copyOfRange(split, 3, split.length);
+            String newItem = String.join(" ", newItemArray);
+            String formattedDate = parseAndFormatDateTime(newItem.trim());
+            return new EditCommand(index, itemType, formattedDate);
+        }
+
+        String[] newItemArray = Arrays.copyOfRange(split, 3, split.length);
+        String newItem = String.join(" ", newItemArray);
+        return new EditCommand(index, itemType, newItem);
     }
 
     /**
