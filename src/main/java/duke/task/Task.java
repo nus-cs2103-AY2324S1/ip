@@ -12,6 +12,7 @@ public abstract class Task {
      * @param description The description of the task based on the user input
      */
     public Task(String description) {
+        assert !description.equals("") : "Description should not be empty";
         this.description = description;
         this.isDone = false;
     }
