@@ -1,14 +1,19 @@
 package veneto.parser;
 
 import veneto.command.*;
-import veneto.exceptions.DanException;
+import veneto.exceptions.VenetoException;
 import veneto.task.Deadline;
 import veneto.task.Event;
 import veneto.task.Task;
 import veneto.task.ToDo;
 
 public class Parser {
-    /** Methods */
+    /* Methods */
+    /**
+     * translate user put to commands that need to operate
+     * @param text the input from user
+     * @return the Command that the user wants to operate
+     */
     public static Command translateCommand(String text) {
         String[] texts = text.split(" ");
         String command = texts[0].toLowerCase();
@@ -30,18 +35,24 @@ public class Parser {
             case "delete":
                 return new DeleteCommand(Integer.parseInt(texts[1]));
             default:
-                throw new DanException("Invalid Command");
+                throw new VenetoException("Invalid Command");
         }
     }
 
-    private static Command prepareAdd(String text, int id) {
+    /**
+     * generate AddCommand according to the user input
+     * @param text the details about the task
+     * @param funcId indicates the type of task
+     * @return the command that the user want to operate
+     */
+    private static Command prepareAdd(String text, int funcId) {
         String[] texts = text.split("/");
         for (int i = 0; i < texts.length; i++) {
             texts[i] = texts[i].trim();
         }
         Task newTask = null;
         String description;
-        switch (id) {
+        switch (funcId) {
             case 1:
                 description = texts[0].substring(5);
                 newTask = new ToDo(description);
