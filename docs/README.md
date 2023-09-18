@@ -1,4 +1,18 @@
-# User Guide
+# Zean Chatbot User Guide
+
+Zean is a **desktop chatbot app for managing all your tasks effectively**, 
+so you can stay organized and get things done. It features a 
+Graphical User Interface (GUI), making it easy for everyone to use.
+
+## Quick Start
+
+1. Ensure you have `Java 11` or above installed in your Computer.
+2. Download the latest zean.jar from [here](https://github.com/zhonghan721/ip/releases).
+3. Copy the file to the folder you want to use as the *home folder* for Zean chatbot.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the
+`java -jar zean.jar` command to run the application.
+5. Refer to the Feature and Usage sections below for details of what you can achieve
+with Zean.
 
 ## Features 
 
