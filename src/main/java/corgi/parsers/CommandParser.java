@@ -340,6 +340,11 @@ public class CommandParser extends Parser<Command> {
                     + commandFormat);
         }
 
+        // Validate that start date is before end date
+        if (!from.isBefore(to)) {
+            throw new InvalidCommandFormatException("The start date should be before the end date!");
+        }
+
         assert from != null : "Date cannot be null.";
         assert to != null : "Date cannot be null.";
 
