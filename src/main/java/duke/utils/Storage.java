@@ -14,16 +14,7 @@ import duke.task.Task;
  * Represents a storage that stores the tasks in a file.
  */
 public class Storage {
-    private String path;
-
-    /**
-     * Constructs a Storage object.
-     *
-     * @param path The path of the file to store the tasks.
-     */
-    public Storage(String path) {
-        this.path = path;
-    }
+    private static final String PATH = "./duke.txt";
 
     /**
      * Creates a file to store the tasks if the file does not exist.
@@ -32,7 +23,7 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> tasks) throws DukeException {
         try {
-            FileWriter filewriter = new FileWriter(this.path);
+            FileWriter filewriter = new FileWriter(PATH);
             for (Task task : tasks) {
                 filewriter.write(task.toSaveString() + "\n");
             }
@@ -51,7 +42,7 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(this.path);
+            File file = new File(PATH);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
