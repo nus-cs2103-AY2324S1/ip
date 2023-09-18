@@ -13,9 +13,6 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
-    // private Duke duke = new Duke("data", "tasks.json");
-
     @Override
     public void start(Stage stage) {
         assert stage != null : "stage should not be null when starting an application on javaFx";

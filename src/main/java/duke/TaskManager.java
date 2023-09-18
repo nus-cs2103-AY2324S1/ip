@@ -111,18 +111,18 @@ public class TaskManager {
     public String find(String pattern) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the matching tasks in your list:\n");
-        boolean found = false;
+        boolean isFound = false;
         for (int i = 0; i < tasks.size(); ++i) {
             Task t = tasks.get(i);
             if (t.descriptionContains(pattern)) {
-                found = true;
+                isFound = true;
                 sb.append(i + 1 + ". ");
                 sb.append(t);
                 sb.append('\n');
             }
         }
 
-        return found ? sb.toString() : "There is no task that matched.";
+        return isFound ? sb.toString() : "There is no task that matched.";
     }
 
     @Override
