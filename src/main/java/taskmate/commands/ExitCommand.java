@@ -39,14 +39,19 @@ public class ExitCommand extends Command {
         try {
             storage.writeToFile(saveTaskText);
         } catch (IOException e) {
-            String filePath = System.getProperty("user.dir");
-            filePath += storage.getSaveFilePath().substring(1);
-            filePath = filePath.replace("/", "\\");
+            String filePath = getFormattedFilePath(storage);
             ui.printSaveFailResponse(filePath);
         }
 
         // 2. Print exit message
         ui.farewellUser();
+    }
+
+    private String getFormattedFilePath(Storage storage) {
+        String filePath = System.getProperty("user.dir");
+        filePath += storage.getSaveFilePath().substring(1);
+        filePath = filePath.replace("/", "\\");
+        return filePath;
     }
 
 }
