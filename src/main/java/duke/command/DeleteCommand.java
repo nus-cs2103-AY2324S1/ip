@@ -13,9 +13,9 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
     private final String arguments;
 
     /**
-     * Constructor for the DeleteCommand
+     * Constructor for the DeleteCommand.
      *
-     * @param arguments arguments for DeleteCommand
+     * @param arguments arguments for DeleteCommand.
      */
     public DeleteCommand(String arguments) {
         this.arguments = arguments;
@@ -24,10 +24,10 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
     /**
      * Deletes a specified task.
      *
-     * @param taskList the current TaskList
-     * @param ui       the UI tied to the program
-     * @param storage  the Storage tied to the program
-     * @throws DukeException when unable to delete
+     * @param taskList the current TaskList.
+     * @param ui       the UI tied to the program.
+     * @param storage  the Storage tied to the program.
+     * @throws DukeException when unable to delete.
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
@@ -51,13 +51,13 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
     }
 
     /**
-     * Validate arguments to this command.
+     * Validates arguments to this command.
      * They must be
-     * 1. Numeric
-     * 2. A valid choice given current tasks
+     * 1. Numeric.
+     * 2. A valid choice given current tasks.
      *
-     * @param taskList the current TaskList
-     * @throws DukeException if arguments are invalid
+     * @param taskList the current TaskList.
+     * @throws DukeException if arguments are invalid.
      */
     private void validate(TaskList taskList) throws DukeException {
 

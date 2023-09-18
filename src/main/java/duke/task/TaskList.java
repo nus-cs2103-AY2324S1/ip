@@ -32,10 +32,10 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Add a new Task to the TaskList.
-     * First Checks if the task exists in the current list, if it does, throws a DukeException
+     * First Checks if the task exists in the current list, if it does, throws a DukeException.
      *
-     * @param element task to be added
-     * @throws DukeException if task already exists
+     * @param element task to be added.
+     * @throws DukeException if task already exists.
      */
     public void addTask(Task element) throws DukeException {
         if (taskExists(element)) {

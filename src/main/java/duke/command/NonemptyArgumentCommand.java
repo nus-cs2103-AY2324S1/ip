@@ -4,16 +4,15 @@ import duke.DukeException;
 
 /**
  * Represents an argument with one or more non-empty arguments.
- *
- * In the structure [command] [args]
+ * In the structure [command] [args].
  */
 public abstract class NonemptyArgumentCommand {
 
     /**
      * Validate arguments to this command.
      *
-     * @param arguments arguments to validate
-     * @throws DukeException if arguments are invalid
+     * @param arguments arguments to validate.
+     * @throws DukeException if arguments are invalid.
      */
     protected void validate(String arguments) throws DukeException {
         if (arguments == null) {

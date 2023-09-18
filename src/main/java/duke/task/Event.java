@@ -43,7 +43,7 @@ public class Event extends Task {
     }
 
     /**
-     * Get string representation of task.
+     * Gets string representation of task.
      *
      * @return string representation of task.
      */
@@ -56,7 +56,7 @@ public class Event extends Task {
     }
 
     /**
-     * Get a string representing this event to save to file.
+     * Gets a string representing this event to save to file.
      *
      * @return string representing this event to save to file.
      */
@@ -66,15 +66,15 @@ public class Event extends Task {
     }
 
     /**
-     * Check if given object is equal to this object.
+     * Checks if given object is equal to this object.
      * They are equal if,
      * <ul>
-     *     <li>They are the same object</li>
-     *     <li>They have the same description, from and to time</li>
+     *     <li>They are the same object.</li>
+     *     <li>They have the same description, from and to time.</li>
      * </ul>
      *
      * @param obj the object to be compared.
-     * @return true if equal, otherwise false
+     * @return true if equal, otherwise false.
      */
     @Override
     public boolean equals(Object obj) {

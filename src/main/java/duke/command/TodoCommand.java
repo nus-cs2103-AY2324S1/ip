@@ -15,9 +15,9 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
     private final String arguments;
 
     /**
-     * Constructor for TodoCommand
+     * Constructor for TodoCommand.
      *
-     * @param arguments arguments for TodoCommand
+     * @param arguments arguments for TodoCommand.
      */
     public TodoCommand(String arguments) {
         this.arguments = arguments;
@@ -25,11 +25,11 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
 
 
     /**
-     * Validate arguments to this command.
-     * They must not be empty
+     * Validates arguments to this command.
+     * They must not be empty.
      *
-     * @param arguments arguments to validate
-     * @throws DukeException if arguments are invalid
+     * @param arguments arguments to validate.
+     * @throws DukeException if arguments are invalid.
      */
     @Override
     protected void validate(String arguments) throws DukeException {
@@ -38,12 +38,12 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
     }
 
     /**
-     * Create a Todo Task
+     * Creates a Todo Task.
      *
-     * @param taskList the current TaskList
-     * @param ui       the UI tied to the program
-     * @param storage  the Storage tied to the program
-     * @throws DukeException if unable to create Todo task
+     * @param taskList the current TaskList.
+     * @param ui       the UI tied to the program.
+     * @param storage  the Storage tied to the program.
+     * @throws DukeException if unable to create Todo task.
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {

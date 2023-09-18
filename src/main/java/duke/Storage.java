@@ -3,6 +3,8 @@ package duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import duke.command.Command;
@@ -26,7 +28,7 @@ public class Storage {
     /**
      * Updates the savefile to the most current tasks.
      *
-     * @param taskList the current list of tasks
+     * @param taskList the current list of tasks.
      */
     public void updateFile(TaskList taskList, UI ui) {
 
@@ -48,8 +50,8 @@ public class Storage {
     /**
      * Loads a TaskList from the given savefile.
      *
-     * @return a TaskList constructed from the savefile
-     * @throws DukeException when file is corrupted
+     * @return a TaskList constructed from the savefile.
+     * @throws DukeException when file is corrupted.
      */
     public TaskList load() throws DukeException {
         try {
@@ -74,7 +76,9 @@ public class Storage {
         } catch (IOException e) {
             try {
                 System.out.println(e);
-                new File(this.savePath).mkdirs();
+                Path path = Paths.get(this.savePath);
+                new File(path.getParent().toString()).mkdirs();
+                new File(path.toString()).createNewFile();
                 File save = new File(this.savePath);
                 boolean isCreated = save.createNewFile();
                 return new TaskList();

@@ -19,21 +19,21 @@ public class EventCommand extends NonemptyArgumentCommand implements Command {
     private final String arguments;
 
     /**
-     * Constructor for an EventCommand
+     * Constructor for an EventCommand.
      *
-     * @param arguments arguments for EventCommand
+     * @param arguments arguments for EventCommand.
      */
     public EventCommand(String arguments) {
         this.arguments = arguments;
     }
 
     /**
-     * Validate arguments for this command.
+     * Validates arguments for this command.
      * They must,
-     * 1. Be in the format [description] /from YYYY-MM-DD /to YYYY-MM-DD
+     * 1. Be in the format [description] /from YYYY-MM-DD /to YYYY-MM-DD.
      *
-     * @param arguments arguments to validate
-     * @throws DukeException if arguments are invalid
+     * @param arguments arguments to validate.
+     * @throws DukeException if arguments are invalid.
      */
     @Override
     protected void validate(String arguments) throws DukeException {
@@ -77,12 +77,12 @@ public class EventCommand extends NonemptyArgumentCommand implements Command {
     }
 
     /**
-     * Create an Event Task.
+     * Creates an Event Task.
      *
-     * @param taskList the current TaskList
-     * @param ui       the UI tied to the program
-     * @param storage  the Storage tied to the program
-     * @throws DukeException if unable to create event
+     * @param taskList the current TaskList.
+     * @param ui       the UI tied to the program.
+     * @param storage  the Storage tied to the program.
+     * @throws DukeException if unable to create event.
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {

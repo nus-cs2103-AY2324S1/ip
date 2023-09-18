@@ -11,12 +11,12 @@ import duke.ui.UI;
 public interface Command {
 
     /**
-     * Execute the given command.
+     * Executes the given command.
      *
-     * @param taskList the current TaskList
-     * @param ui       the UI tied to the program
-     * @param storage  the Storage tied to the program
-     * @throws DukeException if there is error running the command
+     * @param taskList the current TaskList.
+     * @param ui       the UI tied to the program.
+     * @param storage  the Storage tied to the program.
+     * @throws DukeException if there is error running the command.
      */
     default void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         assert taskList != null;

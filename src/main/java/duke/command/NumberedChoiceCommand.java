@@ -12,8 +12,8 @@ public abstract class NumberedChoiceCommand extends NonemptyArgumentCommand {
     /**
      * Validate arguments to this command.
      *
-     * @param arguments arguments to validate
-     * @throws DukeException if arguments are invalid
+     * @param arguments arguments to validate.
+     * @throws DukeException if arguments are invalid.
      */
     protected void validate(String arguments) throws DukeException {
 

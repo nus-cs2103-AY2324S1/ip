@@ -14,21 +14,21 @@ public class MarkCommand extends NumberedChoiceCommand implements Command {
     private final String arguments;
 
     /**
-     * Constructor for MarkCommand
+     * Constructor for MarkCommand.
      *
-     * @param arguments arguments for MarkCommand
+     * @param arguments arguments for MarkCommand.
      */
     public MarkCommand(String arguments) {
         this.arguments = arguments;
     }
 
     /**
-     * Mark a Task as done.
+     * Markd a Task as done.
      *
-     * @param taskList the current TaskList
-     * @param ui       the UI tied to the program
-     * @param storage  the Storage tied to the program
-     * @throws DukeException if unable to mark task as done
+     * @param taskList the current TaskList.
+     * @param ui       the UI tied to the program.
+     * @param storage  the Storage tied to the program.
+     * @throws DukeException if unable to mark task as done.
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
@@ -50,13 +50,13 @@ public class MarkCommand extends NumberedChoiceCommand implements Command {
     }
 
     /**
-     * Validate arguments to this command.
+     * Validates arguments to this command.
      * They must be,
-     * 1. Numeric
-     * 2. Valid Choice for the current TaskList
+     * 1. Numeric.
+     * 2. Valid Choice for the current TaskList.
      *
-     * @param taskList The current TaskList
-     * @throws DukeException if arguments are invalid
+     * @param taskList The current TaskList.
+     * @throws DukeException if arguments are invalid.
      */
     private void validate(TaskList taskList) throws DukeException {
 

@@ -17,7 +17,7 @@ public class Duke {
     /**
      * Constructor for Duke class.
      *
-     * @param savePath string of path to the savefile
+     * @param savePath string of path to the savefile.
      */
     public Duke(String savePath) {
         try {

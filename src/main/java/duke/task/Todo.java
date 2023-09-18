@@ -22,15 +22,15 @@ public class Todo extends Task {
     }
 
     /**
-     * Check if given object is equal to this object.
+     * Checks if given object is equal to this object.
      * They are equal if,
      * <ul>
-     *     <li>They are the same object</li>
-     *     <li>They have the same description</li>
+     *     <li>They are the same object.</li>
+     *     <li>They have the same description.</li>
      * </ul>
      *
      * @param obj the object to be compared.
-     * @return true if equal, otherwise false
+     * @return true if equal, otherwise false.
      */
     @Override
     public boolean equals(Object obj) {
