@@ -55,6 +55,8 @@ public class TaskList {
             return Gui.getAddTaskMessage(newTask, numOfTasks);
         }
 
+        assert tasks.contains(newTask) : "The new task should be in the taskList.";
+
         return "Failed to add this task. Please check your input.";
     }
 
@@ -66,6 +68,9 @@ public class TaskList {
     public static String delete(Task task) {
         tasks.remove(task);
         numOfTasks--;
+
+        assert !tasks.contains(task) : "The removed task should no longer be in the taskList";
+
         return Gui.getDeleteTaskMessage(task, numOfTasks);
     }
 }
