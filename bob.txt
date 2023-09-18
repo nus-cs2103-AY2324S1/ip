@@ -1,6 +1,2 @@
-todo | 0 | high | do
-todo | 0 | high | do homework
-deadline | 0 | low | read | 2022-01-01
-todo | 0 | low | ha ha
-deadline | 0 | mid | ho ho | 2022-01-01
-event | 0 | low | hi hi | 2022-01-02 | 2023-12-12
+deadline | 0 | high | assignment | 2023-09-19
+todo | 0 | low | read book
