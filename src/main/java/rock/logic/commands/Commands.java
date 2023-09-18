@@ -29,6 +29,7 @@ public class Commands {
                 put("delete", new CommandTaskDelete(client));
                 put("listbydate", new CommandTaskListByDate(client));
                 put("find", new CommandTaskFind(client));
+                put("reset", new CommandReset(client));
                 }};
     }
     /**

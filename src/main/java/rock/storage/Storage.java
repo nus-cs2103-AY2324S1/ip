@@ -18,12 +18,12 @@ import rock.client.Rock;
 public class Storage {
     /** Object representation of file used to save/load data */
     private File saveFile;
-    /** Chatbot client*/
+    /** Bot client*/
     private Rock client;
     /**
      * Constructor for storage object
      * @param file File used to save and load data
-     * @param client Chatbot client
+     * @param client Bot client
      */
     public Storage(File file, Rock client) {
         this.client = client;

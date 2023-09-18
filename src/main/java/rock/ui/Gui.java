@@ -92,7 +92,7 @@ public class Gui extends Application {
         Label userText = new Label(userInput.getText());
         String response = getResponse(userInput.getText());
         if (rock.isTerminated()) {
-            userInput.setDisable(true);
+            onTerminate();
         }
         Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
@@ -101,7 +101,10 @@ public class Gui extends Application {
         );
         userInput.clear();
     }
-
+    private void onTerminate() {
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
+    }
     private String getResponse(String input) {
         return rock.getResponse(input);
     }

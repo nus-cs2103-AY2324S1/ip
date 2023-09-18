@@ -1,19 +1,17 @@
 package rock.client;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.function.Predicate;
 
 import rock.client.exceptions.RockException;
 import rock.logic.commands.Commands;
 import rock.logic.io.Invoker;
 import rock.storage.Storage;
 import rock.storage.exceptions.StorageException;
-import rock.tasks.Task;
 import rock.tasks.TaskList;
 
 /**
  * Rock is the name of and the main program used
- * to run the chatbot for ip.
+ * to run the bot for ip.
  * @author Alvis Ng (supermii2)
  */
 public class Rock {
@@ -71,7 +69,7 @@ public class Rock {
     }
     /* Commands that call the save/load feature */
     /**
-     * Saves the existing tasklist
+     * Saves the existing task list
     */
     public void saveFile() {
         try {

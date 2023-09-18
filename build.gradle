@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("client.Rock")
+    mainClass.set("rock.Main")
 }
 
 shadowJar {
