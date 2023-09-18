@@ -2,18 +2,11 @@ package taskmate.tools;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import taskmate.commands.*;
-import taskmate.exceptions.EmptyByException;
-import taskmate.exceptions.EmptyDescriptionException;
-import taskmate.exceptions.EmptyFromException;
-import taskmate.exceptions.EmptyToException;
-import taskmate.exceptions.InvalidByException;
-import taskmate.exceptions.InvalidCommandTypeException;
-import taskmate.exceptions.InvalidFromException;
-import taskmate.exceptions.InvalidToException;
-import taskmate.exceptions.NotAnIntegerException;
+import taskmate.exceptions.*;
 import taskmate.main.TaskMate;
 
 /**
@@ -45,7 +38,7 @@ public class Parser {
      */
     public static Command parse(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException,
             EmptyByException, InvalidByException, InvalidToException, EmptyToException, InvalidFromException,
-            EmptyFromException, NotAnIntegerException {
+            EmptyFromException, NotAnIntegerException, InvalidDescriptionException {
 
         userInput = userInput.trim(); // remove trailing whitespaces
 
@@ -167,15 +160,15 @@ public class Parser {
 
     private static HashMap<String, String> getChangesToUpdate(String userInput) {
         HashMap<String, String> changesMap = new HashMap<>();
-        String[] tokens = userInput.split("/");
+        String[] changes = userInput.split("/");
 
         int startIndex = 1; // Skip "update XX "
-        for (int i = startIndex; i < tokens.length; i += 2) {
-            String attributeChangeString = tokens[i];
+        for (int i = startIndex; i < changes.length; i += 1) {
+            String attributeChangeString = changes[i];
             String attribute = "/" + attributeChangeString.split("\\s+")[0];
-            String change = attributeChangeString.split("\\s+")[1];
-            System.out.println(attribute);
-            System.out.println(change);
+            String change = attributeChangeString.substring(attribute.length()).trim();
+            System.out.println("Attribute: " + attribute); // todo remove
+            System.out.println("Change: " + change); // todo remove
             changesMap.put(attribute, change);
         }
 
@@ -391,19 +384,19 @@ public class Parser {
     }
 
     private static void checkValidUpdateCommand(String userInput) throws EmptyDescriptionException,
-            InvalidCommandTypeException, NotAnIntegerException {
+            InvalidCommandTypeException, NotAnIntegerException, InvalidDescriptionException {
         boolean isStartingWithUpdate = userInput.startsWith(TaskMate.CommandTypes.update + " ");
         boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.update.toString().length()).trim().isEmpty();
-
+        boolean containsSlash = userInput.contains("/");
         String[] tokens = userInput.split("\\s+");
         if (!checkStringIsInteger(tokens[1])) {
             throw new NotAnIntegerException();
-        }
-
-        if (!isStartingWithUpdate) {
+        } else if (!isStartingWithUpdate) {
             throw new InvalidCommandTypeException();
         } else if (hasEmptyQuery) {
             throw new EmptyDescriptionException();
+        } else if (!containsSlash) {
+            throw new InvalidDescriptionException(); // todo create new exception type for update
         }
     }
 
