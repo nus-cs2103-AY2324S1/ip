@@ -1,16 +1,23 @@
 package taskmate.commands;
 
+import java.util.ArrayList;
+
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
 import taskmate.tools.tasks.Task;
 
-import java.util.ArrayList;
-
+/**
+ * The FindCommand class is a child class of the Command class. It represents the "find `query`" command which looks
+ * for any undeleted tasks whose descriptions (or dates) match `query`.
+ */
 public class FindCommand extends Command {
 
-    String query;
+    private final String query;
 
+    /**
+     * FindCommand constructor that allows the user to look for tasks that match `query`.
+     */
     public FindCommand(String query) {
         this.query = query.toLowerCase();
         this.commandType = "Find";

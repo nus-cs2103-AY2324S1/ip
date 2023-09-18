@@ -1,25 +1,24 @@
 package taskmate.commands;
 
 import taskmate.exceptions.TaskNotFoundException;
+import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
-import taskmate.tools.Storage;
 import taskmate.tools.tasks.Task;
 
 /**
- * The UnmarkCommand class is a child class of the Command class. It represents the `unmark <unmarkIndex>` command which
+ * The UnmarkCommand class is a child class of the Command class. It represents the "unmark `unmarkIndex`" command which
  * marks tasks in the task list as incomplete.
  */
 public class UnmarkCommand extends Command {
-    String commandType;
-    boolean isExit;
-    int unmarkIndex;
+
+    private final int unmarkIndex;
 
     /**
      * UnmarkCommand constructor that allows the developer to specify the index of the task to be marked as incomplete.
      *
      * @param unmarkIndex the index of the task to be unmarked from the task list. This index is 1-based, which means
-     * the unmarkIndex starts from 1 to the number of tasks available, rather than starting from 0.
+     *                    the unmarkIndex starts from 1 to the number of tasks available, rather than starting from 0.
      */
     public UnmarkCommand(int unmarkIndex) {
         this.commandType = "Unmark";

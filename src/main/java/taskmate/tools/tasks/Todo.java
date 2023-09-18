@@ -22,6 +22,7 @@ public class Todo extends Task {
         return "[T][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name;
     }
 
+    @Override
     public String formatTaskForSaving() {
         return this.toString();
     }

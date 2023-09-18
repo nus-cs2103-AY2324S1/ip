@@ -1,21 +1,21 @@
 package taskmate.commands;
 
+import java.time.LocalDate;
+
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
 import taskmate.tools.tasks.Event;
 import taskmate.tools.tasks.Task;
 
-import java.time.LocalDate;
-
 /**
  * The EventCommand class is the child class of the AddCommand class. It represents an "event" tasks given by the
- * user in the following form: "event <name> /from <date> /to <date>".
+ * user in the following form: "event `name` /from `date` /to `date`".
  */
 public class EventCommand extends AddCommand {
-    String commandType;
-    boolean isExit;
-    LocalDate from, to;
+
+    private final LocalDate from;
+    private final LocalDate to;
 
 
     /**

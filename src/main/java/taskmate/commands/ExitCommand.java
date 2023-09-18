@@ -1,18 +1,16 @@
 package taskmate.commands;
 
+import java.io.IOException;
+
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
-
-import java.io.IOException;
 
 /**
  * The ExitCommand class is a child class of the Command class. It represents the `bye` command which stops the
  * application and saves the undeleted tasks to the disk.
  */
 public class ExitCommand extends Command {
-
-    String commandType;
 
     /**
      * ExitCommand constructor that allows the user to stop the application and save the undeleted tasks to the
@@ -41,14 +39,19 @@ public class ExitCommand extends Command {
         try {
             storage.writeToFile(saveTaskText);
         } catch (IOException e) {
-            String filePath = System.getProperty("user.dir");
-            filePath += storage.getSaveFilePath().substring(1);
-            filePath = filePath.replace("/", "\\");
+            String filePath = getFormattedFilePath(storage);
             ui.printSaveFailResponse(filePath);
         }
 
         // 2. Print exit message
         ui.farewellUser();
+    }
+
+    private String getFormattedFilePath(Storage storage) {
+        String filePath = System.getProperty("user.dir");
+        filePath += storage.getSaveFilePath().substring(1);
+        filePath = filePath.replace("/", "\\");
+        return filePath;
     }
 
 }

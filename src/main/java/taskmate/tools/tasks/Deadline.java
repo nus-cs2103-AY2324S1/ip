@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    LocalDate by;
+    private final LocalDate by;
 
     /**
      * Deadline constructor that allows the developer to specify the name of the task, and a date that represents
@@ -69,6 +69,7 @@ public class Deadline extends Task {
         return "[D][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getByFormatted() + ")";
     }
 
+    @Override
     public String formatTaskForSaving() {
         return "[D][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (by: " + this.getBy() + ")";
     }

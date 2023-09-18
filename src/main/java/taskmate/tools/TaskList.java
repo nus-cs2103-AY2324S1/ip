@@ -1,5 +1,8 @@
 package taskmate.tools;
 
+import java.util.ArrayList;
+
+import taskmate.exceptions.FileCorruptedException;
 import taskmate.exceptions.NoDataException;
 import taskmate.exceptions.TaskNotFoundException;
 import taskmate.tools.tasks.Deadline;
@@ -7,69 +10,97 @@ import taskmate.tools.tasks.Event;
 import taskmate.tools.tasks.Task;
 import taskmate.tools.tasks.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * This TaskList class represents the list of undeleted tasks that the user has
+ */
 public class TaskList {
 
-    ArrayList<Task> tasks = new ArrayList<Task>();
-    int numTotalTasks = 0;
-    int numIncompleteTasks = 0;
+    private final ArrayList<Task> tasks = new ArrayList<Task>();
+    private int numTotalTasks = 0;
+    private int numIncompleteTasks = 0;
 
     public TaskList() {
     }
 
-    public TaskList(String contentsFromDisk) throws NoDataException {
+    /**
+     * Constructs a TaskList object with the contents of the saved task file read from a Storage object.
+     * @param contentsFromDisk A String object containing the saved task file contents
+     * @throws NoDataException Thrown when the task file is empty
+     */
+    public TaskList(String contentsFromDisk) throws NoDataException, FileCorruptedException {
         if (contentsFromDisk.isEmpty()) {
             throw new NoDataException();
         }
-
-        String[] lines = contentsFromDisk.split("\\n");
-        String taskType, name, by, from, to, delimiter, delimiter2;
-        boolean taskIsDone;
-        Task newTask;
-        for (String line: lines) {
-            taskType = line.substring(1,2);
-            taskIsDone = line.charAt(4) == 'X';
-
-            if (taskType.equals("T")) {
-                // To-do task
-                name = line.substring(7);
-                newTask = new Todo(name, taskIsDone);
-                this.addTask(newTask, taskIsDone);
-            } else if (taskType.equals("D")) {
-                // Deadline
-                delimiter = "(by: ";
-                int indexOfByParam = line.lastIndexOf(delimiter);
-                name = line.substring(7, indexOfByParam);
-                by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
-                newTask = new Deadline(name, by, taskIsDone);
-                this.addTask(newTask, taskIsDone);
-            } else if (taskType.equals("E")) {
-                // Event
-                delimiter = "(from: ";
-                delimiter2 = " to: ";
-                int indexOfFromParam = line.lastIndexOf(delimiter);
-                int indexOfToParam = line.lastIndexOf(delimiter2);
-                name = line.substring(7, indexOfFromParam);
-                from = line.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
-                to   = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
-                newTask = new Event(name, from, to, taskIsDone);
-                this.addTask(newTask, taskIsDone);
-            } else {
-                // Invalid event
-                System.out.println("Invalid task: " + line);
+        String[] allTasksAsString = contentsFromDisk.split("\\n");
+        for (String taskAsString: allTasksAsString) {
+            String taskType = getSavedTaskType(taskAsString);
+            boolean taskIsDone = getSavedTaskIsDone(taskAsString);
+            Task newTask;
+            switch (taskType) {
+            case "T": // To-do task
+                newTask = createTodoTaskFromSavedTask(taskAsString, taskIsDone);
+                break;
+            case "D": // Deadline task
+                newTask = createDeadlineTaskFromSavedTask(taskAsString, taskIsDone);
+                break;
+            case "E": // Event task
+                newTask = createEventTaskFromSavedTask(taskAsString, taskIsDone);
+                break;
+            default: // Invalid event. Happens when the saved file is corrupted/tampered with
+                throw new FileCorruptedException("Invalid task: " + taskAsString);
             }
-
-            System.out.println("Found and loaded saved task: " + line);
+            this.addTask(newTask, taskIsDone);
+            System.out.println("Found and loaded saved task: " + taskAsString);
         }
     }
 
+    private String getSavedTaskType(String taskAsString) {
+        return taskAsString.substring(1, 2);
+    }
+
+    private boolean getSavedTaskIsDone(String taskAsString) {
+        return taskAsString.charAt(4) == 'X';
+    }
+
+    private Todo createTodoTaskFromSavedTask(String taskAsString, boolean taskIsDone) {
+        String name = taskAsString.substring(7);
+        return new Todo(name, taskIsDone);
+    }
+
+    private Deadline createDeadlineTaskFromSavedTask(String taskAsString, boolean taskIsDone) {
+        String delimiter = "(by: ";
+        int indexOfByParam = taskAsString.lastIndexOf(delimiter);
+        String name = taskAsString.substring(7, indexOfByParam);
+        String by = taskAsString.substring(indexOfByParam + delimiter.length(), taskAsString.length() - 1);
+        return new Deadline(name, by, taskIsDone);
+    }
+
+    private Event createEventTaskFromSavedTask(String taskAsString, boolean taskIsDone) {
+        String delimiter = "(from: ";
+        String delimiter2 = " to: ";
+        int indexOfFromParam = taskAsString.lastIndexOf(delimiter);
+        int indexOfToParam = taskAsString.lastIndexOf(delimiter2);
+        String name = taskAsString.substring(7, indexOfFromParam);
+        String from = taskAsString.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
+        String to = taskAsString.substring(indexOfToParam + delimiter2.length(), taskAsString.length() - 1);
+        return new Event(name, from, to, taskIsDone);
+    }
+
+    /**
+     * Adds a Task object t
+     * @param t A Task object representing the task to be added
+     */
     public void addTask(Task t) {
         this.tasks.add(t);
         numTotalTasks++;
         numIncompleteTasks++;
     }
 
+    /**
+     * Adds a Task object t and marks it as done if isDone == true
+     * @param t A Task object representing the task to be added
+     * @param isDone A boolean variable representing if the task to be added is completed
+     */
     public void addTask(Task t, boolean isDone) {
         this.addTask(t);
         if (!isDone) {
@@ -84,6 +115,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes a Task object t
+     * @param i An int variable representing the 1-based index of the task to be removed
+     * @throws TaskNotFoundException Thrown when i is outside of the range [max(0, tasks.size()), tasks.size()]
+     */
     public void removeTask(int i) throws TaskNotFoundException {
         boolean indexOutOfBounds = i > tasks.size() | i < 0;
         if (indexOutOfBounds) {
@@ -97,6 +133,11 @@ public class TaskList {
         numTotalTasks--;
     }
 
+    /**
+     * Marks an existing task as done
+     * @param t A Task object representing the task to be marked as done
+     * @throws TaskNotFoundException Thrown when t cannot be found
+     */
     public void markAsDone(Task t) throws TaskNotFoundException {
         if (!this.tasks.contains(t)) {
             throw new TaskNotFoundException();
@@ -108,6 +149,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks an existing task from done to not done
+     * @param t A Task object representing the task to be unmarked as done
+     * @throws TaskNotFoundException Thrown when t cannot be found
+     */
     public void markAsNotDone(Task t) throws TaskNotFoundException {
         if (!this.tasks.contains(t)) {
             throw new TaskNotFoundException();
@@ -118,6 +164,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * @return an ArrayList of tasks representing the user's undeleted tasks
+     */
     public ArrayList<Task> getAllTasks() {
         return this.tasks;
     }
@@ -126,10 +175,12 @@ public class TaskList {
         return this.numTotalTasks;
     }
 
-    public int getNumIncompleteTasks() {
-        return this.numIncompleteTasks;
-    }
-
+    /**
+     * Returns the task specified by an index i (Note: one-indexed)
+     * @param i an int representing the one-indexed task in the user's task list
+     * @return a Task object at the one-indexed i in the user's task list
+     * @throws TaskNotFoundException thrown when the value of i is not between 1 (inclusive) and # of tasks (inclusive)
+     */
     public Task getTask(int i) throws TaskNotFoundException {
         boolean indexOutOfBounds = i > tasks.size() | i < 0;
         if (indexOutOfBounds) {
@@ -138,6 +189,10 @@ public class TaskList {
         return tasks.get(i);
     }
 
+    /**
+     * Returns a String which contains all task-related information to be saved to the disk.
+     * @return A String object representing all data about the user's tasks
+     */
     public String formatAllTasksForSaving() {
         StringBuilder returnString = new StringBuilder();
         for (Task t : getAllTasks()) {

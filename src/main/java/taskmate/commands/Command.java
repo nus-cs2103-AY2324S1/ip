@@ -9,8 +9,9 @@ import taskmate.tools.Ui;
  */
 public abstract class Command {
 
-    boolean isExit;
-    String commandType;
+    protected String commandType;
+    protected boolean isExit;
+
 
     String getType() {
         assert this.commandType != null;
