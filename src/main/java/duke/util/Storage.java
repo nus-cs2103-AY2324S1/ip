@@ -20,6 +20,38 @@ public class Storage {
     private static final String PATH = "./data/tasks.txt";
     private Parser parser = new Parser();
 
+    private void loadTodo(ArrayList<Task> tasks, Todo newTodo, String taskCompletionStatus) {
+        tasks.add(newTodo);
+
+        if (taskCompletionStatus.equals("X")) {
+            newTodo.doTask();
+        }
+    }
+
+    private void loadDeadline(ArrayList<Task> tasks, Deadline newDeadline, String taskCompletionStatus) {
+        tasks.add(newDeadline);
+
+        if (taskCompletionStatus.equals("X")) {
+            newDeadline.doTask();
+        }
+    }
+
+    private void loadEvent(ArrayList<Task> tasks, Event newEvent, String taskCompletionStatus) {
+        tasks.add(newEvent);
+
+        if (taskCompletionStatus.equals("X")) {
+            newEvent.doTask();
+        }
+    }
+
+    private void loadRecur(ArrayList<Task> tasks, Recurring newRecur, String taskCompletionStatus) {
+        tasks.add(newRecur);
+
+        if (taskCompletionStatus.equals("X")) {
+            newRecur.doTask();
+        }
+    }
+
     /**
      * Imports tasks from ./data/tasks.txt.
      */
@@ -41,10 +73,7 @@ public class Storage {
                 switch (typeOfTask) {
                 case "T":
                     Todo newTodo = new Todo(taskDescription);
-                    tasks.add(newTodo);
-                    if (taskCompletionStatus.equals("X")) {
-                        newTodo.doTask();
-                    }
+                    loadTodo(tasks, newTodo, taskCompletionStatus);
                     break;
                 case "D":
                     LocalDate deadline;
@@ -56,24 +85,15 @@ public class Storage {
                     }
 
                     Deadline newDeadline = new Deadline(taskDescription, deadline);
-                    tasks.add(newDeadline);
-                    if (taskCompletionStatus.equals("X")) {
-                        newDeadline.doTask();
-                    }
+                    loadDeadline(tasks, newDeadline, taskCompletionStatus);
                     break;
                 case "E":
                     Event newEvent = new Event(taskDescription, processedTask[3], processedTask[4]);
-                    tasks.add(newEvent);
-                    if (taskCompletionStatus.equals("X")) {
-                        newEvent.doTask();
-                    }
+                    loadEvent(tasks, newEvent, taskCompletionStatus);
                     break;
                 case "R":
                     Recurring newRecur = new Recurring(taskDescription, processedTask[3]);
-                    tasks.add(newRecur);
-                    if (taskCompletionStatus.equals("X")) {
-                        newRecur.doTask();
-                    }
+                    loadRecur(tasks, newRecur, taskCompletionStatus);
                     break;
                 default:
                     throw new DukeException("tasks.txt may have been corrupted.");
@@ -84,6 +104,50 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    private StringBuilder createEntryTodo(StringBuilder currEntry, Todo todo) {
+        currEntry.append("T | ");
+        currEntry.append(todo.getMarkedIcon());
+        currEntry.append(" | ");
+        currEntry.append(todo.getTaskDescription());
+
+        return currEntry;
+    }
+
+    private StringBuilder createEntryDeadline(StringBuilder currEntry, Deadline deadline) {
+        currEntry.append("D | ");
+        currEntry.append(deadline.getMarkedIcon());
+        currEntry.append(" | ");
+        currEntry.append(deadline.getTaskDescription());
+        currEntry.append(" | ");
+        currEntry.append(deadline.getDeadline());
+
+        return currEntry;
+    }
+
+    private StringBuilder createEntryEvent(StringBuilder currEntry, Event event) {
+        currEntry.append("E | ");
+        currEntry.append(event.getMarkedIcon());
+        currEntry.append(" | ");
+        currEntry.append(event.getTaskDescription());
+        currEntry.append(" | ");
+        currEntry.append(event.getStart());
+        currEntry.append(" | ");
+        currEntry.append(event.getEnd());
+
+        return currEntry;
+    }
+
+    private StringBuilder createEntryRecur(StringBuilder currEntry, Recurring recur) {
+        currEntry.append("R | ");
+        currEntry.append(recur.getMarkedIcon());
+        currEntry.append(" | ");
+        currEntry.append(recur.getTaskDescription());
+        currEntry.append(" | ");
+        currEntry.append(recur.getRecurrence());
+
+        return currEntry;
     }
 
     /**
@@ -97,36 +161,16 @@ public class Storage {
 
             if (currTask instanceof Todo) {
                 Todo todo = (Todo) currTask;
-                currEntry.append("T | ");
-                currEntry.append(todo.getMarkedIcon());
-                currEntry.append(" | ");
-                currEntry.append(todo.getTaskDescription());
+                createEntryTodo(currEntry, todo);
             } else if (currTask instanceof Deadline) {
                 Deadline deadline = (Deadline) currTask;
-                currEntry.append("D | ");
-                currEntry.append(deadline.getMarkedIcon());
-                currEntry.append(" | ");
-                currEntry.append(deadline.getTaskDescription());
-                currEntry.append(" | ");
-                currEntry.append(deadline.getDeadline());
+                createEntryDeadline(currEntry, deadline);
             } else if (currTask instanceof Event) {
                 Event event = (Event) currTask;
-                currEntry.append("E | ");
-                currEntry.append(event.getMarkedIcon());
-                currEntry.append(" | ");
-                currEntry.append(event.getTaskDescription());
-                currEntry.append(" | ");
-                currEntry.append(event.getStart());
-                currEntry.append(" | ");
-                currEntry.append(event.getEnd());
+                createEntryEvent(currEntry, event);
             } else if (currTask instanceof Recurring) {
                 Recurring recur = (Recurring) currTask;
-                currEntry.append("R | ");
-                currEntry.append(recur.getMarkedIcon());
-                currEntry.append(" | ");
-                currEntry.append(recur.getTaskDescription());
-                currEntry.append(" | ");
-                currEntry.append(recur.getRecurrence());
+                createEntryRecur(currEntry, recur);
             }
 
             currEntry.append(System.lineSeparator());
