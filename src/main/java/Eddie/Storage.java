@@ -29,10 +29,10 @@ public class Storage {
             if (t.getType() == "T") {
                 eddieTaskList.write("T , " + t.getStatus() + " , " + t.getName() + " ,  " + t.printTags() + " , \n");
             } else if (t.getType() == "D") {
-                eddieTaskList.write("D , " + t.getStatus() + " , " + t.getName() + " , " + t.getDeadline() + " , \n");
+                eddieTaskList.write("D , " + t.getStatus() + " , " + t.getName() + " ,  " + t.getDeadline() + " , " + t.printTags() + " , \n");
             } else if (t.getType() == "E") {
-                eddieTaskList.write("E , " + t.getStatus() + " , " + t.getName() + " , " + t.getStartDate() + " , "
-                        + t.getEndDate() + " , \n");
+                eddieTaskList.write("E , " + t.getStatus() + " , " + t.getName() + " ,  " + t.getStartDate() + " , "
+                        + t.getEndDate() + " , " + t.printTags() + " , \n");
             }
         }
         eddieTaskList.close();
@@ -66,21 +66,36 @@ public class Storage {
                         }
                     }
 
-
-
                     TaskList.add(todo);
                 } if (task[0].equals("D")) {
                     Deadline deadline = new Deadline(task[2], LocalDate.parse(task[3], formatter));
-//                    System.out.println(task[1]);
+//
                     if (task[1].equals("x")){
                         deadline.taskIsDone();
                     }
+
+                    if (task.length == 5) {
+                        String tagsToAdd = task[4];
+                        String[] tags = tagsToAdd.split(" #");
+                        for (int i = 1; i < tags.length; i++) {
+                            deadline.tag(tags[i]);
+                        }
+                    }
+
                     TaskList.add(deadline);
                 } if (task[0].equals("E")) {
                     Event event = new Event(task[2], LocalDate.parse(task[3], formatter), LocalDate.parse(task[4], formatter));
 
                     if (task[1].equals("x")) {
                         event.taskIsDone();
+                    }
+
+                    if (task.length == 6) {
+                        String tagsToAdd = task[5];
+                        String[] tags = tagsToAdd.split(" #");
+                        for (int i = 1; i < tags.length; i++) {
+                            event.tag(tags[i]);
+                        }
                     }
 
                     TaskList.add(event);

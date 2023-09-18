@@ -46,12 +46,16 @@ public class Event extends Task {
         return endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
+    public void tag(String s) {
+        super.tag(s);
+    }
+
     /**
      * Returns the full description of the task to be listed.
      * @return Type, status, description, start date, end date.
      */
     public String toString() {
         return "[" + this.getType() + "]" + "[" + this.getStatus() + "]" + this.getName()
-                + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ")";
+                + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ") " + super.printTags();
     }
 }

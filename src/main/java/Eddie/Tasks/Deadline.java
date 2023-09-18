@@ -35,11 +35,15 @@ public class Deadline extends Task {
         return deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
+    public void tag(String s) {
+        super.tag(s);
+    }
+
     /**
      * Prints out the whole task along with the type, status, description and deadline for listing.
      * @return The string to be printed.
      */
     public String toString() {
-        return "[" + this.getType() + "]" + "[" + this.getStatus() + "]" + this.getName() + " (by: " + this.getDeadline() + ")";
+        return "[" + this.getType() + "]" + "[" + this.getStatus() + "]" + this.getName() + " (by: " + this.getDeadline() + ") " + super.printTags();
     }
 }
