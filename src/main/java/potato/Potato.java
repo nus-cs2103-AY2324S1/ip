@@ -26,42 +26,23 @@ public class Potato {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-//    String getResponse(String input) {
-//        String response = "HOHO ";
-//        try {
-//            Command c = Parser.parse(input);
-//            response += c.execute(tasks, ui, storage);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return response;
-//    }
-
-    String getResponse(String input) throws IOException {
+    String getResponse(String input) {
         String response = "HOHO ";
-        Command c = Parser.parse(input);
-        response += c.execute(tasks, ui, storage);
-
+        try {
+            Command c = Parser.parse(input);
+            response += c.execute(tasks, ui, storage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return response;
     }
 
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        ui.showLine();
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
+//    String getResponse(String input) throws IOException {
+//        String response = "HOHO ";
+//        Command c = Parser.parse(input);
+//        response += c.execute(tasks, ui, storage);
+//
+//        return response;
+//    }
 
 }

@@ -39,7 +39,7 @@ test {
 }
 
 application {
-    mainClass.set("potato.Potato")
+    mainClass.set("potato.Launcher")
 }
 
 shadowJar {
