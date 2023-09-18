@@ -43,11 +43,10 @@ test {
 }
 
 application {
-    mainClass.set("deterministicparrot.DeterministicParrot")
+    mainClass.set("deterministicparrot.Launcher")
 }
 
-mainClassName = 'deterministicparrot.DeterministicParrot'
-
+mainClassName = 'deterministicparrot.Launcher'
 
 shadowJar {
     archiveBaseName = "deterministicparrot"
