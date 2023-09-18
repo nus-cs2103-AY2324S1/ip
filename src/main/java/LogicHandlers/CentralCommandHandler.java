@@ -5,7 +5,7 @@ import Models.TaskArray;
 
 import java.util.HashMap;
 
-import static Ui.BasicOutputPrinter.printBasicOutput;
+import static Ui.printers.Printer.printBasicOutput;
 
 /**
  * Handles and parses all user input, and assigns each command to a valid handler.
