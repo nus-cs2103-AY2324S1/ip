@@ -36,9 +36,9 @@ public class SillyBot {
     }
 
     /**
-     * Gets the response from SillyBot to display to the user.
+     * Gets the response from SillyBot to display to the user.png.
      *
-     * @param userInput The user input.
+     * @param userInput The user.png input.
      * @return botResponse The response from SillyBot.
      */
     public String getResponse(String userInput) {

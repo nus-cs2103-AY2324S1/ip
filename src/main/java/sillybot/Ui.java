@@ -4,7 +4,7 @@ import sillybot.exceptions.WrongMarkException;
 import sillybot.tasks.Task;
 
 /**
- * Represents an Ui object that deals with user input and output.
+ * Represents an Ui object that deals with user.png input and output.
  */
 public class Ui {
     /**
@@ -18,16 +18,12 @@ public class Ui {
      *
      * @return The welcome message.
      */
-    public String showWelcome() {
-        String logo = "  /\\______/\\ \n"
-                + " /  O    O  \\ \n"
-                + "|    -_-     | \n"
-                + "|   \\___/    | \n"
-                + " \\__________/ \n";
+    public static String showWelcome() {
         String welcomeMessage = "Call me sillyBOT\n"
-                + "Tell me what silly things you are gonna do, if you are haha?";
-        System.out.println(logo + welcomeMessage);
-        return logo + welcomeMessage;
+                + "Tell me what silly things you are gonna do, if you are haha?"
+                + "\n"
+                + "Type 'help' to see what I can do for you!";
+        return welcomeMessage;
     }
 
     /**

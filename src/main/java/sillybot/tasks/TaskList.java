@@ -48,7 +48,7 @@ public class TaskList extends ArrayList<Task> {
      */
     public void deleteTask(int index) {
         assert index > 0 && index <= this.size() : "Invalid index for task deletion";
-        this.remove(index - 1);
+        this.remove(index);
         Task.decreaseTaskCountByOne();
     }
 

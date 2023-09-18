@@ -53,10 +53,10 @@ public class Task {
 
     /**
      * Sets the Task as done.
-     * Prints a message to the user.
+     * Prints a message to the user.png.
      *
      * @param task The Task to be set as done.
-     * @return The message to the user.
+     * @return The message to the user.png.
      */
     public String markTaskAsDone(Task task) {
         this.isDone = true;
@@ -67,7 +67,7 @@ public class Task {
 
     /**
      * Sets the Task as done.
-     * Used only for Tasks read from the file to avoid printing the message to the user.
+     * Used only for Tasks read from the file to avoid printing the message to the user.png.
      */
     public void markTaskAsDoneFromFile() {
         this.isDone = true;
@@ -75,10 +75,10 @@ public class Task {
 
     /**
      * Sets the Task as undone.
-     * Prints a message to the user.
+     * Prints a message to the user.png.
      *
      * @param task The Task to be set as undone.
-     * @return The message to the user.
+     * @return The message to the user.png.
      */
     public String unmarkTaskAsUndone(Task task) {
         this.isDone = false;
@@ -99,7 +99,7 @@ public class Task {
     /**
      * Checks if the Task command contain valid TaskType.
      *
-     * @param splittedCommands The command input by the user.
+     * @param splittedCommands The command input by the user.png.
      * @return taskType The type of Task (Todo, Deadline, Event).
      * @throws IncompleteInputException If the command is incomplete.
      * @throws InvalidInputException   If the command is invalid.
@@ -174,9 +174,9 @@ public class Task {
 
     /**
      * Returns the type of Task (Todo, Deadline, Event).
-     * Checks the user command and creates the appropriate Task.
+     * Checks the user.png command and creates the appropriate Task.
      *
-     * @param command The command input by the user.
+     * @param command The command input by the user.png.
      * @return The number of Tasks created.
      * @throws IncompleteInputException If the command is incomplete.
      * @throws InvalidInputException    If the command is invalid.
