@@ -1,0 +1,6 @@
+0 deadline cs2103 ip submission /by 2023-09-22
+1 todo user guide
+0 event recess week /from 2023-09-25 /to 2023-09-29
+1 todo bake bread
+0 deadline a /by 2023-09-22
+0 event abc /from 2023-09-22 /to 2023-09-23
