@@ -131,8 +131,10 @@ public class Parser {
                 return new MarkCommand(Integer.parseInt(commandArgs) - 1);
             } else if (type.equals("delete")) {
                 return new DeleteCommand(Integer.parseInt(commandArgs) - 1);
-            } else {
+            } else if (type.equals("update")) {
                 return new UpdateCommand(commandArgs);
+            } else {
+                throw new DukeException("Unknown command!");
             }
         } catch (NumberFormatException e) {
             throw new DukeException("Please input a valid numeric value for " + type + " command!");
