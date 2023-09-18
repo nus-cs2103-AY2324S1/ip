@@ -28,8 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Thorndike thorndike;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/thorndike.png"));
 
     /**
      * Initializes the main window and binds the scroll pane to the height of the
@@ -38,6 +38,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.getStyleClass().add("scroll-pane");
+        userInput.getStyleClass().add("user-input");
+        sendButton.getStyleClass().add("send-button");
+        dialogContainer.getStyleClass().add("dialog-container");
     }
 
     /**
@@ -56,7 +61,7 @@ public class MainWindow extends AnchorPane {
      */
     public void greet() {
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(Message.GREET, dukeImage));
+                DialogBox.getThorndikeDialog(Message.GREET, dukeImage));
     }
 
     /**
@@ -70,13 +75,14 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         dialogContainer.getChildren().add(
                 DialogBox.getUserDialog(input, userImage));
+
         try {
             String response = thorndike.getResponse(input);
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(response, dukeImage));
+                    DialogBox.getThorndikeDialog(response, dukeImage));
         } catch (ThorndikeException e) {
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(e.getMessage(), dukeImage));
+                    DialogBox.getThorndikeDialog(e.getMessage(), dukeImage));
         }
 
         userInput.clear();

@@ -2,16 +2,20 @@
 import java.io.IOException;
 import java.util.Collections;
 
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 /**
  * An example of a custom control using FXML.
@@ -37,8 +41,10 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.setText(text);
+        setupDisplayPicture();
+        setupLabel();
     }
 
     /**
@@ -53,6 +59,23 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Sets the style attributes of the display picture.
+     */
+    private void setupDisplayPicture() {
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, 49.5);
+        displayPicture.setClip(clip);
+    }
+
+    /**
+     * Sets the style attributes of the label.
+     */
+    private void setupLabel() {
+        dialog.getStyleClass().add("dialog-label");
+        dialog.setPadding(new Insets(5.0, 15.0, 5.0, 15.0));
+        dialog.setMaxHeight(Double.MAX_VALUE);
+    }
+
+    /**
      * Constructs the dialog box for the user's message.
      *
      * @param text Text to display in the diaglog box.
@@ -60,7 +83,9 @@ public class DialogBox extends HBox {
      * @return the user diaglog box with the message and user's image.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-dialog");
+        return db;
     }
 
     /**
@@ -70,9 +95,19 @@ public class DialogBox extends HBox {
      * @param img  The image of the Thorndike.
      * @return the Thorndike diaglog box with the message and Thorndike's image.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getThorndikeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.getStyleClass().add("thorndike-dialog");
+
+        db.setOpacity(0);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), db);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.setDelay(Duration.seconds(0.2));
+
+        fadeTransition.play();
+
         return db;
     }
 }

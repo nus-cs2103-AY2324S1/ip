@@ -1,0 +1,44 @@
+* {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #cce6ff;
+}
+
+.user-input {
+    -fx-background-color: #333333;
+    -fx-focus-color: transparent;
+    -fx-font-size: 18px;
+}
+
+.user-input * {
+    -fx-background-color: #333333;
+}
+
+.scroll-pane {
+    -fx-focus-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #333333;
+}
+
+.send-button {
+    -fx-background-color: #6699ff;
+    -fx-font-size: 18px;
+}
+
+.send-button:hover {
+    -fx-background-color: #637688;
+    -fx-cursor: hand;
+}
+
+.thorndike-dialog * {
+    -fx-text-fill: #b18430;
+}
+
+.dialog-label {
+    -fx-font-size: 14px;
+}
+
+.user-diaglog {
+    -fx-opacity: 100;
+}
