@@ -40,7 +40,8 @@ public class StorageTest {
         storage.saveTasks(tasks);
 
         List<String> lines = Files.readAllLines(Paths.get("test_data/test.txt"));
-        assertEquals("[T | 0 | Task 1, T | 1 | Task 2]", lines.toString()); // Check if the file contains the expected content
+        assert lines.toString().equals("[T | 0 | Task 1, T | 1 | Task 2]") : "Mismatch in saved vs expected data.";
+//        assertEquals("[T | 0 | Task 1, T | 1 | Task 2]", lines.toString()); // Check if the file contains the expected content
     }
 
 
