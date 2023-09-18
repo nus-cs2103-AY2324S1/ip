@@ -20,7 +20,7 @@ import exception.InvalidCommandException;
  * The Action enum represents the various actions that can be performed by Duke.
  */
 enum Action {
-    BYE, LIST, FIND, REMIND, EDIT_TASK, ADD_TASK, INVALID;
+    BYE, LIST, FIND, REMIND, EDIT_TASK, ADD_TASK;
 
     private static final int COMMAND_OTHERS_COUNT = 4;
 
@@ -104,12 +104,22 @@ public class Parser {
 
         switch (action) {
         case BYE:
+            if (!argument.equals("")) {
+                throw new InvalidCommandException("Did you mean the bye command?");
+            }
             return new ByeCommand();
 
         case LIST:
+            if (!argument.equals("")) {
+                throw new InvalidCommandException("Did you mean the list command?");
+            }
             return new ListCommand();
 
         case REMIND:
+            if (!argument.equals("")) {
+                throw new InvalidCommandException("Did you mean the remind command?");
+            }
+
             return new RemindCommand();
 
         case FIND:
