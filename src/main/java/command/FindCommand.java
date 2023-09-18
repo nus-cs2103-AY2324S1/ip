@@ -19,11 +19,7 @@ public class FindCommand extends Command {
         String input = keyword.toLowerCase();
         String action = tasks.findMatchingTasks(input);
 
-        if (action.equals("")) {
-            return "No task matching keyword found!";
-        } else {
-            return "Here are the matching tasks in your list:\n" + action;
-        }
+        return action;
     }
 
 }

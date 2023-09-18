@@ -159,26 +159,26 @@ public class TaskList {
      * @return The string of tasks description matching keyword.
      */
     public String findMatchingTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
+        StringBuilder tasksMatched = new StringBuilder(100);
 
+        int count = 1;
         for (int i = 0; i < taskList.size(); i++) {
             String desc = taskList.get(i).getName().toLowerCase();
 
-            if (desc.contains(keyword)) {
-                matchingTasks.add(taskList.get(i));
+            if (!desc.contains(keyword)) {
+                continue;
             }
+
+            String taskDesc = String.format("%d.%s\n", count, taskList.get(i).toString());
+            tasksMatched.append(taskDesc);
+            count++;
         }
 
-        String action = "";
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            action += (i + 1) + "." + matchingTasks.get(i).toString();
-
-            if (i < matchingTasks.size() - 1) {
-                action += "\n";
-            }
+        if (tasksMatched.length() == 0) {
+            return "No task matching keyword found!";
         }
 
-        return action;
+        return String.format("Here are the matching tasks in your list:\n%s", tasksMatched);
     }
 
     /**
@@ -196,7 +196,7 @@ public class TaskList {
                 continue;
             }
 
-            String taskDesc = String.format("%d. %s\n", count, task);
+            String taskDesc = String.format("%d.%s\n", count, task);
 
             tasksReminder.append(taskDesc);
 
