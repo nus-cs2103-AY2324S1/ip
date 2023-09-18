@@ -144,6 +144,15 @@ $> tag delete [index] [tag name] [tag name 2] [tag name 3]
 ```
 As with adding tags, you can delete as many tags as you want in a single command, separated with spaces. Note that deleting tag names is case-sensitive and must match the corresponding tag exactly. If multiple of the same tag is already attached to one task, all instances of that tag are deleted. As with adding tags, placing a hash (`#`) character before the tag name is purely optional.
 
+### Exiting
+Just like VIM, Duchess can be a mystery to exit. Thankfully, it's very easy! All you need to do is wave goodbye to Duchess.
+
+```bash
+$> bye
+```
+
+Alternatively, you could also just tell her `exit`, which is an alias that does the same thing. But that's kind of rude. So `bye` is the preferred method.
+
 ## Setup
 First, clone this repo;
 
@@ -203,6 +212,14 @@ $> ls
 ```
 
 We should see that after clearing our list of tasks, there are indeed no more tasks left on the list.
+
+Let's leave Duchess.
+
+```bash
+$> bye
+```
+
+Duchess tearfully waves goodbye to us as she exits execution.
 
 ## Duchess Save Data
 
