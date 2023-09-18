@@ -75,8 +75,7 @@ public class Yong {
                 isExit = c.isExit();
             } catch (DukeException e) {
                 throw e;
-            } finally {
-            }
+            } 
         }
         storage.saveFile();
     }
