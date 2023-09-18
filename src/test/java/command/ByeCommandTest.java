@@ -59,7 +59,7 @@ public class ByeCommandTest {
         // Act
         String actualOutput = byeCommand.execute(taskList);
         String expectedOutput = "Bye. Hope to see you again soon!" + System.lineSeparator()
-                + "Closing Woof Woof..." + System.lineSeparator();
+                + "Offing myself... woof :(";
 
         // Assert
         assertEquals(expectedOutput, actualOutput);

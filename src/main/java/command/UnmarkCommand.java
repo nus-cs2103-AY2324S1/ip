@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Validates the "unmark" command.
+     * Validates the `UnmarkCommand`.
      * It checks if the command is correctly formatted and if the specified task index is valid.
      *
      * @param rawCommand The raw command string.
@@ -43,7 +43,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the "unmark" command. It parses the command, validates it, and marks the specified task as
+     * Executes the `UnmarkCommand`. It parses the command, validates it, and marks the specified task as
      * undone in the task list if the command is valid.
      *
      * @param taskList The task list in which the task is marked as undone.

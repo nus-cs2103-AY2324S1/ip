@@ -92,11 +92,12 @@ public class DialogBox extends HBox {
     private Rectangle createMessageBubble(Text text) {
         assert text != null : "text cannot be null";
 
-        double messageBubbleHeight = text.getBoundsInLocal().getHeight() * 1.255 + 40;
+        text.setFont(WoofWoof.getFont());
+        double messageBubbleHeight = text.getBoundsInLocal().getHeight() + 40;
         Rectangle messageBubble = new Rectangle(560, messageBubbleHeight);
         messageBubble.setFill(Color.WHITE);
-        messageBubble.setArcWidth(30);
-        messageBubble.setArcHeight(30);
+        messageBubble.setArcWidth(40);
+        messageBubble.setArcHeight(40);
         messageBubble.setEffect(createDropShadow());
         return messageBubble;
     }

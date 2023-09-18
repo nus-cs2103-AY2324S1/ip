@@ -1,6 +1,6 @@
 package command;
 
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 import enums.CommandWord;
 import enums.ExceptionMessage;
@@ -9,7 +9,6 @@ import exceptions.WoofInvalidCommandException;
 import parser.Parser;
 import tasks.TaskList;
 import woof.Woof;
-
 /**
  * The `Command` class is an abstract class representing a command in the application.
  * All specific command classes should inherit from this class and implement the `execute` method.
@@ -25,7 +24,6 @@ public abstract class Command {
      *
      * @param rawCommand The raw command string.
      */
-
     public Command(String rawCommand) {
         assert rawCommand != null : "raw command cannot be null";
 
@@ -40,12 +38,13 @@ public abstract class Command {
     public abstract String execute(TaskList taskList);
 
     /**
-     * Gets the DateTimeFormatter used for formatting dates and times in the application.
+     * Parses a date string received by the application using the input formatter.
      *
-     * @return The DateTimeFormatter instance for formatting dates and times.
+     * @param string The date string to be parsed.
+     * @return The parsed LocalDate.
      */
-    public DateTimeFormatter getDateTimeFormatter() {
-        return Woof.getDateTimeFormatter();
+    public static LocalDate parseDateTimeIn(String string) {
+        return Woof.parseDateTimeIn(string);
     }
 
     /**
@@ -67,13 +66,13 @@ public abstract class Command {
     }
 
     /**
-     * Validates the length of the input string array `args` against the specified `length`. If the length
-     * of the array does not match the expected length, a `WoofInvalidCommandException` is thrown with
-     * a message indicating the invalid number of arguments for the given `commandWord`.
+     * Validates the length of the input string array `args` against the specified `length`. If the length of the array
+     * does not match the expected length, a `WoofInvalidCommandException` is thrown with a message indicating the
+     * invalid number of arguments for the given `commandWord`.
      *
+     * @param commandWord   The command word associated with the operation for which the arguments are being validated.
      * @param args          The input string array to be validated.
      * @param correctLength The expected length of the `args` array.
-     * @param commandWord   The command word associated with the operation for which the arguments are being validated.
      *
      * @throws WoofInvalidCommandException If the length of `args` does not match the expected `length`.
      */
@@ -84,7 +83,7 @@ public abstract class Command {
 
         if (args.length != correctLength) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedString(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedValue(
                     commandWord.toValue()
                 )
             );
@@ -96,10 +95,10 @@ public abstract class Command {
      * of the array matches the unexpected length, a `WoofInvalidCommandException` is thrown with
      * a message indicating the invalid number of arguments for the given `commandWord`.
      *
-     * @param args             The input string array to be validated.
-     * @param unexpectedLength The expected length of the `args` array.
      * @param commandWord      The command word associated with the operation for which the arguments are being
      *                         validated.
+     * @param args             The input string array to be validated.
+     * @param unexpectedLength The expected length of the `args` array.
      *
      * @throws WoofInvalidCommandException If the length of `args` does not match the expected `length`.
      */
@@ -109,7 +108,7 @@ public abstract class Command {
 
         if (args.length == unexpectedLength) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedString(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedValue(
                     commandWord.toValue()
                 )
             );
@@ -118,12 +117,12 @@ public abstract class Command {
 
     /**
      * Validates the length of the input string array `args` against the specified `length`. If the length
-     * of the array does not match the expected length, a `WoofInvalidCommandException` is thrown with
-     * a message indicating the invalid number of arguments for the given `commandWord`.
+     * of the array less than (not more than equal) to the expected length, a `WoofInvalidCommandException` is thrown
+     * with a message indicating the invalid number of arguments for the given `commandWord`.
      *
+     * @param commandWord The command word associated with the operation for which the arguments are being validated.
      * @param args        The input string array to be validated.
      * @param minLength   The minimium length of the `args` array.
-     * @param commandWord The command word associated with the operation for which the arguments are being validated.
      *
      * @throws WoofInvalidCommandException If the length of `args` does not match the expected `length`.
      */
@@ -133,7 +132,7 @@ public abstract class Command {
 
         if (args.length < minLength) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedString(
+                ExceptionMessage.INVALID_NUMBER_OF_ARGUMENTS.toFormattedValue(
                     commandWord.toValue()
                 )
             );
@@ -157,7 +156,7 @@ public abstract class Command {
         for (String arg : args) {
             if (arg == null) {
                 throw new WoofInvalidCommandException(
-                    ExceptionMessage.NULL_ARGUMENT.toFormattedString(
+                    ExceptionMessage.NULL_ARGUMENT.toFormattedValue(
                         commandWord.toValue()
                     )
                 );
@@ -181,7 +180,7 @@ public abstract class Command {
         for (String arg : args) {
             if (arg.isEmpty()) {
                 throw new WoofInvalidCommandException(
-                    ExceptionMessage.EMPTY_ARGUMENT.toFormattedString(
+                    ExceptionMessage.EMPTY_ARGUMENT.toFormattedValue(
                         commandWord.toValue()
                     )
                 );
@@ -194,7 +193,7 @@ public abstract class Command {
      * a `WoofInvalidCommandException` is thrown with a message indicating an invalid command word for
      * the expected `commandWord`.
      *
-     * @param commandWord The expected `CommandWord` for validation.
+     * @param commandWord The command word associated with the operation for which the arguments are being validated.
      * @param arg         The argument to check for the command word.
      *
      * @throws WoofInvalidCommandException If the first argument doesn't match the expected `CommandWord`.
@@ -205,7 +204,7 @@ public abstract class Command {
 
         if (!CommandWord.commandWordToValueMap(arg).equals(commandWord)) {
             throw new WoofInvalidCommandException(
-                ExceptionMessage.INVALID_COMMAND_WORD.toFormattedString(
+                ExceptionMessage.INVALID_COMMAND_WORD.toFormattedValue(
                     commandWord.toValue()
                 )
             );
@@ -224,9 +223,9 @@ public abstract class Command {
         assert string != null : "datetime string cannot be null";
 
         try {
-            Woof.validateDateTime(string);
+            Woof.validateInDateTime(string);
         } catch (WoofException e) {
-            throw new WoofInvalidCommandException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.toFormattedString(string));
+            throw new WoofInvalidCommandException(ExceptionMessage.INVALID_DATE_TIME_FORMAT.toFormattedValue(string));
         }
     }
 
@@ -241,11 +240,30 @@ public abstract class Command {
      */
     public static void validateTaskIndex(TaskList taskList, String string) {
         assert string != null : "task index string cannot be null";
+        TaskList.validateTaskIndex(string, taskList);
+    }
 
-        try {
-            TaskList.validateTaskIndex(string, taskList);
-        } catch (WoofException e) {
-            throw new WoofInvalidCommandException(ExceptionMessage.INVALID_TASK_INDEX.toFormattedString(string));
+    /**
+     * Validates that a start date is before an end date.
+     *
+     * @param startDateStr The start date string to validate.
+     * @param endDateStr   The end date string to validate.
+     *
+     * @throws WoofInvalidCommandException If the start date is not before the end date.
+     */
+    public static void validateStartDateBeforeEndDate(String startDateStr, String endDateStr) {
+        assert startDateStr != null : "Start date cannot be null";
+        assert endDateStr != null : "End date cannot be null";
+
+        validateDateTime(startDateStr);
+        validateDateTime(endDateStr);
+        LocalDate startDate = parseDateTimeIn(startDateStr);
+        LocalDate endDate = parseDateTimeIn(endDateStr);
+
+        if (!startDate.isBefore(endDate)) {
+            throw new WoofInvalidCommandException(
+                ExceptionMessage.START_DATE_AFTER_END_DATE.toFormattedValue(startDateStr, endDateStr)
+            );
         }
     }
 }

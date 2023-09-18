@@ -41,6 +41,8 @@ public class EventCommandTest {
             ) -> assertDoesNotThrow((
             ) -> EventCommand.validate("event some task /from 2023-01-01 /to 2023-12-31")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
+            ) -> EventCommand.validate("event some task /from 2023-01-01 /to 2022-12-31")), (
+            ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> EventCommand.validate("event")), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> EventCommand.validate("")), (
@@ -61,8 +63,8 @@ public class EventCommandTest {
 
         // Act
         eventCommand.execute(taskList);
-        LocalDate startDate = LocalDate.parse("2023-01-01", Woof.getDateTimeFormatter());
-        LocalDate endDate = LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter());
+        LocalDate startDate = Woof.parseDateTimeIn("2023-01-01");
+        LocalDate endDate = Woof.parseDateTimeIn("2023-12-31");
         EventTask expectedTask = new EventTask("TaskName", startDate, endDate);
 
         // Assert

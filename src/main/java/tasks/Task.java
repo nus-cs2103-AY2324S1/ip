@@ -1,6 +1,6 @@
 package tasks;
 
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -12,6 +12,18 @@ import woof.Woof;
  * The `Task` class represents a task in the Woof application.
  */
 public abstract class Task implements Comparable<Task> {
+    /**
+     * The first tab stop position, typically at column 5.
+     * Adjust this constant to change the position of the first tab stop.
+     */
+    static final int TAB_STOP_ONE = 5;
+
+    /**
+     * The second tab stop position, typically at column 12.
+     * Adjust this constant to change the position of the second tab stop.
+     */
+    static final int TAB_STOP_TWO = 12;
+
     /**
      * The description of the task.
      */
@@ -30,7 +42,10 @@ public abstract class Task implements Comparable<Task> {
     public Task(String description) {
         assert description != null : "description cannot be null";
 
-        this.description = Woof.wrapText(description, '\n' + getTabStopTwo(), 39);
+        this.description = Woof.wrapText(
+            description,
+            getTabStopTwo(),
+            Woof.getChatWidth() - TAB_STOP_TWO);
         this.isDone = false;
     }
 
@@ -44,12 +59,21 @@ public abstract class Task implements Comparable<Task> {
         assert description != null : "description cannot be null";
         assert isDone != null : "is done cannot be null";
 
-        this.description = Woof.wrapText(description, '\n' + getTabStopTwo(), 39);
+        this.description = Woof.wrapText(
+            description,
+            getTabStopTwo(),
+            Woof.getChatWidth() - TAB_STOP_TWO);
         this.isDone = isDone;
     }
 
-    public DateTimeFormatter getDateTimeformatter() {
-        return Woof.getDateTimeFormatter();
+    /**
+     * Formats a LocalDate into a user-friendly date string for presentation.
+     *
+     * @param localDate The LocalDate to format.
+     * @return A formatted date string.
+     */
+    public static String parseDateTimeOut(LocalDate localDate) {
+        return Woof.parseDateTimeOut(localDate);
     }
 
     /**
@@ -67,7 +91,7 @@ public abstract class Task implements Comparable<Task> {
      * @return The tab space "    ".
      */
     protected String getTabStopOne() {
-        return " ".repeat(5);
+        return " ".repeat(TAB_STOP_ONE);
     }
 
     /**
@@ -76,7 +100,7 @@ public abstract class Task implements Comparable<Task> {
      * @return The tab space "            ".
      */
     protected String getTabStopTwo() {
-        return " ".repeat(12);
+        return " ".repeat(TAB_STOP_TWO);
     }
 
     /**

@@ -4,9 +4,9 @@ package enums;
  * The `FilePath` enum represents file paths used in the Woof application.
  */
 public enum FilePath {
+    CUSTOM_FONT("/fonts/sono/static/Sono-Light.ttf"),
     USER_DISPLAY_PICTURE("/images/userDisplayPicture.jpeg"),
     BOT_DISPLAY_PICTURE("/images/botDisplayPicture.jpeg"),
-    CUSTOM_FONT("/fonts/sono/static/sono-light.ttf"),
     CUSTOM_CURSOR("/images/paw.png"),
     DIALOG_AREA_CSS("/styles/dialogArea.css"),
     ROOT_CSS("/styles/root.css"),
@@ -14,7 +14,8 @@ public enum FilePath {
     SEND_BUTTON_CSS("/styles/sendButton.css"),
     USER_INPUT_CSS("/styles/userInput.css"),
     CLEAR_BUTTON_CSS("/styles/clearButton.css"),
-    DEFAULT_STORAGE_PATH("data/tasks.json");
+    DEFAULT_STORAGE_PATH(".data/task.json"),
+    FXML_VIEW_PATH("/views/WoofWoof.fxml");
 
     private final String value;
 

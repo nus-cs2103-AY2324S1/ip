@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import enums.ExceptionMessage;
 import enums.FilePath;
@@ -20,6 +22,7 @@ import tasks.TaskList;
  * The `TaskFileHandler` class is responsible for reading and writing tasks to a JSON file.
  */
 public class TaskFileHandler {
+    private static final String storageLocation = FilePath.DEFAULT_STORAGE_PATH.toValue();
     /**
      * Reads tasks from the JSON file and returns a `TaskList` object.
      *
@@ -34,13 +37,36 @@ public class TaskFileHandler {
                 .setPrettyPrinting()
                 .create();
         Task[] tasks;
-        try (FileReader r = new FileReader(FilePath.DEFAULT_STORAGE_PATH.toValue())) {
+        try (FileReader r = new FileReader(storageLocation)) {
             tasks = gson.fromJson(r, Task[].class);
         } catch (IOException e) {
-            throw new WoofStorageException(ExceptionMessage.UNABLE_TO_READ_FILE.toFormattedString(e.getMessage()));
+            throw new WoofStorageException(ExceptionMessage.UNABLE_TO_READ_FILE.toFormattedValue(e.getMessage()));
+        } catch (JsonSyntaxException | DateTimeException e) {
+            return destroyFileAndRetry();
         }
 
         return new TaskList(tasks);
+    }
+
+    /**
+     * Destroys the file content and retries reading tasks from the JSON file.
+     *
+     * @return A `TaskList` containing the tasks after destroying the file content and retrying.
+     * @throws WoofStorageException If there is an issue with destroying the file content or reading tasks.
+     */
+    private static TaskList destroyFileAndRetry() {
+        try (FileWriter w = new FileWriter(storageLocation)) {
+            w.write("");
+        } catch (IOException e) {
+            throw new WoofStorageException(ExceptionMessage.UNABLE_TO_UPDATE_FILE.toFormattedValue(e.getMessage()));
+        }
+
+        try (FileReader r = new FileReader(storageLocation)) {
+            Task[] tasks = new Gson().fromJson(r, Task[].class);
+            return new TaskList(tasks);
+        } catch (IOException e) {
+            throw new WoofStorageException(ExceptionMessage.UNABLE_TO_UPDATE_FILE.toFormattedValue(e.getMessage()));
+        }
     }
 
     /**
@@ -56,10 +82,10 @@ public class TaskFileHandler {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .setPrettyPrinting()
                 .create();
-        try (FileWriter w = new FileWriter(FilePath.DEFAULT_STORAGE_PATH.toValue())) {
+        try (FileWriter w = new FileWriter(storageLocation)) {
             gson.toJson(tasks, w);
         } catch (IOException e) {
-            throw new WoofStorageException(ExceptionMessage.UNABLE_TO_SAVE_FILE.toFormattedString(e.getMessage()));
+            throw new WoofStorageException(ExceptionMessage.UNABLE_TO_UPDATE_FILE.toFormattedValue(e.getMessage()));
         }
     }
 
@@ -69,14 +95,22 @@ public class TaskFileHandler {
      * @throws WoofStorageException If there is an issue with file creation.
      */
     private static void createFileIfNotExists() {
-        File file = new File(FilePath.DEFAULT_STORAGE_PATH.toValue());
+        File file = new File(storageLocation);
         if (!file.exists()) {
             try {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
+                if (!file.getParentFile().mkdirs()) {
+                    throw new WoofStorageException(
+                        ExceptionMessage.UNABLE_TO_CREATE_DIRECTORY.toFormattedValue()
+                    );
+                }
+                if (!file.createNewFile()) {
+                    throw new WoofStorageException(
+                        ExceptionMessage.UNABLE_TO_CREATE_FILE.toFormattedValue()
+                    );
+                }
             } catch (IOException e) {
                 throw new WoofStorageException(
-                    ExceptionMessage.UNABLE_TO_CREATE_FILE.toFormattedString(e.getMessage())
+                    ExceptionMessage.UNABLE_TO_CREATE_FILE.toFormattedValue(e.getMessage())
                 );
             }
         }

@@ -19,7 +19,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Validates the `FindCommand` based on the raw command input.
+     * Validates the `FindCommand`.
      *
      * @param rawCommand The raw command input by the user.
      * @throws WoofInvalidCommandException If the command is invalid, it throws a woof invalid command exception with an

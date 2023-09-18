@@ -37,9 +37,12 @@ public class UnmarkCommandTest {
     @Test
     public void testValidate() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1"));
-        taskList.addTask(new TodoTask("Task 2"));
+        Task[] tasks = {
+            new TodoTask("Task 1"),
+            new TodoTask("Task 2"),
+            new TodoTask("Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
 
         // Act, Assert
         assertAll((
@@ -54,7 +57,7 @@ public class UnmarkCommandTest {
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> UnmarkCommand.validate("unmark 0", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
-            ) -> UnmarkCommand.validate("unmark 3", taskList)), (
+            ) -> UnmarkCommand.validate("unmark 4", taskList)), (
             ) -> assertThrowsExactly(WoofInvalidCommandException.class, (
             ) -> UnmarkCommand.validate("unmark a", taskList))
         );
@@ -63,9 +66,16 @@ public class UnmarkCommandTest {
     @Test
     public void testExecuteMarksTaskAsDone() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1", true));
-        taskList.addTask(new TodoTask("Task 2"));
+        Task[] tasks = {
+            new TodoTask(
+                "Task 1"),
+            new TodoTask(
+                "Task 2",
+                true),
+            new TodoTask(
+                "Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
         UnmarkCommand unmarkCommand = new UnmarkCommand("unmark 1");
 
         // Act
@@ -79,9 +89,17 @@ public class UnmarkCommandTest {
     @Test
     public void testExecuteNoTaskMarkedIfValidationFails() {
         // Arrange
-        TaskList taskList = new TaskList(null);
-        taskList.addTask(new TodoTask("Task 1", true));
-        taskList.addTask(new TodoTask("Task 2"));
+        Task[] tasks = {
+            new TodoTask(
+                "Task 1",
+                true),
+            new TodoTask(
+                "Task 2",
+                true),
+            new TodoTask(
+                "Task 3")
+        };
+        TaskList taskList = new TaskList(tasks);
 
         MarkCommand invalidCommand = new MarkCommand("unmark    1");
 

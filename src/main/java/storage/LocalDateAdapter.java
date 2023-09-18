@@ -34,7 +34,7 @@ public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserial
                 JsonDeserializationContext context
     ) throws JsonParseException {
         String dateStr = json.getAsString();
-        return LocalDate.parse(dateStr, Woof.getDateTimeFormatter());
+        return LocalDate.parse(dateStr, Woof.getDateTimeOutFormatter());
     }
 
     /**
@@ -47,6 +47,6 @@ public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserial
      */
     @Override
     public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(Woof.getDateTimeFormatter().format(src));
+        return new JsonPrimitive(Woof.getDateTimeOutFormatter().format(src));
     }
 }

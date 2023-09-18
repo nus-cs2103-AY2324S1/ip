@@ -56,7 +56,7 @@ public class DeadlineCommandTest {
     public void testExecuteCreateTask() {
         // Arrange
         DeadlineCommand deadlineCommand = new DeadlineCommand("deadline some task /by 2023-12-31");
-        LocalDate endDate = LocalDate.parse("2023-12-31", Woof.getDateTimeFormatter());
+        LocalDate endDate = Woof.parseDateTimeIn("2023-12-31");
         Task expectedTask = new DeadlineTask("some task", endDate);
         TaskList taskList = new TaskList(null);
 
