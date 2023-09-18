@@ -11,7 +11,7 @@ public class Ui {
     }
 
     /**
-     * Print all the available commands.
+     * Prints all the available commands.
      */
     public String printAllCommands() {
         StringBuilder commands = new StringBuilder();

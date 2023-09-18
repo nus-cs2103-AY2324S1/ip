@@ -26,6 +26,43 @@ public class Duke {
         }
     }
 
+    public String list() {
+        if (this.tasks.getNumberOfTasks() == 0) {
+            return "You do not have any tasks in the list.";
+        }
+        StringBuilder list = new StringBuilder();
+        list.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < this.tasks.getNumberOfTasks(); i++) {
+            list.append(i + 1);
+            list.append(".");
+            list.append(this.tasks.getTasks().get(i).toString());
+            list.append("\n");
+        }
+        return list.toString();
+    }
+
+    public String update(Parser parser) throws DukeException {
+        int taskNumber = parser.getTaskNumber();
+        Task task = this.tasks.getTasks().get(taskNumber - 1);
+        String taskType = task.getTaskType();
+        String[] description;
+        switch (taskType) {
+        case "event":
+            description = parser.getEventTask();
+            break;
+        case "deadline":
+            description = parser.getDeadlineTask();
+            break;
+        case "todo":
+            description = parser.getTodoTask();
+            break;
+        default:
+            throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
+        }
+        description[0] = description[0].split(" ", 2)[1];
+        return this.tasks.updateTask(description, taskNumber);
+    }
+
     /**
      * Returns a reply to the user input.
      *
@@ -48,18 +85,7 @@ public class Duke {
             }
         // Display the stored commands
         case "list":
-            if (this.tasks.getNumberOfTasks() == 0) {
-                return "You do not have any tasks in the list.";
-            }
-            StringBuilder list = new StringBuilder();
-            list.append("Here are the tasks in your list:\n");
-            for (int i = 0; i < this.tasks.getNumberOfTasks(); i++) {
-                list.append(i + 1);
-                list.append(".");
-                list.append(this.tasks.getTasks().get(i).toString());
-                list.append("\n");
-            }
-            return list.toString();
+            return list();
         // Add task
         case "todo":
             try {
@@ -110,25 +136,7 @@ public class Duke {
         // Update a task
         case "update":
             try {
-                int taskNumber = parser.getTaskNumber();
-                Task task = this.tasks.getTasks().get(taskNumber - 1);
-                String taskType = task.getTaskType();
-                String[] description;
-                switch (taskType) {
-                case "event":
-                    description = parser.getEventTask();
-                    break;
-                case "deadline":
-                    description = parser.getDeadlineTask();
-                    break;
-                case "todo":
-                    description = parser.getTodoTask();
-                    break;
-                default:
-                    throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
-                }
-                description[0] = description[0].split(" ", 2)[1];
-                return this.tasks.updateTask(description, taskNumber);
+                return update(parser);
             } catch (DukeException exception) {
                 return exception.getMessage();
             }
@@ -139,7 +147,7 @@ public class Duke {
     }
 
     /**
-     * The main method of the chatbot.
+     * Represents the main method of the chatbot.
      *
      * @param args the command line arguments.
      */
