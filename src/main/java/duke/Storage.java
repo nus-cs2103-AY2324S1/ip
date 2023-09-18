@@ -67,8 +67,7 @@ public class Storage {
                 } else if (text.startsWith("sort")) {
                     list.sort(new TaskTagComparator());
                     list.sort(new TaskDateComparator());
-                }
-                else {
+                } else {
                     continue;
                 }
             }
