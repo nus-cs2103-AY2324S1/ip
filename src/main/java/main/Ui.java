@@ -3,20 +3,30 @@ package main;
 import command.CommandException;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Ui extends Application {
     private Stage window;
     private static Ui INSTANCE;
     private VBox dialogContainer;
+
+    private Image portraitUser;
+    private Image portraitBot;
+
+    private int portraitSize = 50;
 
 
     /**
@@ -71,17 +81,19 @@ public class Ui extends Application {
         sendMessageButton.setOnMouseClicked(event -> {
             String message = messageInputArea.getText();
             messageInputArea.setText("");
-            this.addMessageBubble(message, true);
+            this.addMessageBubble(message, true, false);
             Main.getInstance().getParser().executeCommand(message);
         });
 
         messageInputArea.setOnAction(event -> {
             String message = messageInputArea.getText();
             messageInputArea.setText("");
-            this.addMessageBubble(message, true);
+            this.addMessageBubble(message, true, false);
             Main.getInstance().getParser().executeCommand(message);
         });
 
+        this.portraitUser = new Image(this.getClass().getResourceAsStream("/images/Portrait_User.png"));
+        this.portraitBot = new Image(this.getClass().getResourceAsStream("/images/Portrait_Bot.png"));
         Main.getInstance().getParser().executeCommand("intro");
     }
 
@@ -106,7 +118,7 @@ public class Ui extends Application {
      * @param content the message content
      */
     public void say(String content) {
-        this.addMessageBubble(content, false);
+        this.addMessageBubble(content, false, false);
     }
 
     /**
@@ -115,18 +127,30 @@ public class Ui extends Application {
      * @param content the error message content
      */
     public void sayError(String content) {
-        this.addMessageBubble(content, false);
+        this.addMessageBubble(content, false, true);
     }
 
-    private void addMessageBubble(String content, boolean isUser) {
+    private void addMessageBubble(String content, boolean isUser, boolean isError) {
         Pane messageBubble = new Pane();
         messageBubble.setBackground(new Background(new BackgroundFill(isUser ? Color.LIGHTGREEN : Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        Label text = new Label(content);
-        text.setMaxWidth(400);
-        text.setWrapText(true);
-        messageBubble.getChildren().add(text);
-        messageBubble.prefHeightProperty().bind(text.heightProperty());
-        messageBubble.prefWidthProperty().bind(text.widthProperty());
+        ImageView portrait = new ImageView(isUser ? this.portraitUser : this.portraitBot);
+        portrait.setFitWidth(this.portraitSize);
+        portrait.setFitHeight(this.portraitSize);
+        portrait.setLayoutX(isUser ? 400 - this.portraitSize : 0);
+        Rectangle portraitRect = new Rectangle(this.portraitSize, this.portraitSize);
+        portraitRect.setArcWidth(this.portraitSize);
+        portraitRect.setArcHeight(this.portraitSize);
+        portrait.setClip(portraitRect);
+        Label label = new Label(content);
+        label.setPrefWidth(400 - this.portraitSize - 20);
+        label.setMinHeight(this.portraitSize);
+        label.setLayoutX(isUser ? 10 : this.portraitSize + 10);
+        label.setWrapText(true);
+        label.setTextFill(isError ? Color.RED : Color.BLACK);
+        label.setTextAlignment(isUser ? TextAlignment.RIGHT : TextAlignment.LEFT);
+        label.setAlignment(isUser ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+        messageBubble.getChildren().addAll(label, portrait);
+        messageBubble.prefHeightProperty().bind(label.heightProperty());
         this.dialogContainer.getChildren().add(messageBubble);
     }
 
