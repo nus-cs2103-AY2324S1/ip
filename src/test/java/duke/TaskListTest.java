@@ -2,6 +2,9 @@ package duke;
 
 import duke.mocks.TaskMock;
 import duke.mocks.TaskStorageMock;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.TaskStorage;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

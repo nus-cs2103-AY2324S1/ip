@@ -1,5 +1,14 @@
 package duke;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.TaskStorage;
+import duke.task.Todo;
+import duke.ui.Parser;
+import duke.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,36 +23,6 @@ public class Duke {
     public Duke(Ui ui) throws DukeException {
         this.taskList = new TaskList(new TaskStorage());
         this.ui = ui;
-    }
-
-    /**
-     * CLI Duke.
-     * @param args Arguments from CLI (ignored).
-     */
-    public static void main(String[] args) {
-        Duke duke;
-        Ui ui = new Ui("Pong");
-
-        try {
-            duke = new Duke(ui);
-        } catch (DukeException e) {
-            ui.printException(e);
-            return;
-        }
-
-        ui.init();
-
-        boolean isRunning = true;
-        while (isRunning) {
-            try {
-                String input = ui.getInput();
-                isRunning = duke.handleInput(input);
-            } catch (DukeException e) {
-                duke.handleException(e);
-            }
-        }
-
-        ui.exit();
     }
 
     /**
@@ -158,7 +137,7 @@ public class Duke {
         ui.addTask(task);
     }
 
-    private void findCommand(Parser parser) throws DukeException {
+    private void findCommand(Parser parser) {
         String search = parser.getArg();
         List<Task> tasks = taskList.findTasks(search);
         ui.listTasks(tasks);

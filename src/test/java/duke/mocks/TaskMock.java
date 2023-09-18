@@ -1,6 +1,6 @@
 package duke.mocks;
 
-import duke.Task;
+import duke.task.Task;
 public class TaskMock extends Task {
     private final String taskName;
 

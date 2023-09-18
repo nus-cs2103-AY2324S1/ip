@@ -1,4 +1,6 @@
-package duke;
+package duke.ui;
+
+import duke.DukeException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

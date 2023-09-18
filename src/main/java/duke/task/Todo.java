@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * Encapsulation of a Todo task.

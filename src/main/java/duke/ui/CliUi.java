@@ -1,4 +1,6 @@
-package duke;
+package duke.ui;
+
+import duke.task.Task;
 
 import java.util.List;
 import java.util.Scanner;
@@ -7,10 +9,10 @@ import java.util.Scanner;
  * Helper class for user interface, handles
  * user input and outputting to the user.
  */
-public class Ui {
+public class CliUi implements Ui {
     private static final String DOTTED_LINE = "____________________________________________________________";
 
-    protected final String name;
+    private final String name;
 
     private final Scanner scanner;
 
@@ -18,86 +20,60 @@ public class Ui {
      * Initialise Ui handler.
      * @param name Name of chatbot.
      */
-    public Ui(String name) {
+    public CliUi(String name) {
         this.name = name;
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Initialise UI. Prints banner.
-     */
+    @Override
     public void init() {
-        System.out.println(Ui.DOTTED_LINE);
+        System.out.println(CliUi.DOTTED_LINE);
         System.out.printf("Hello! I'm %s\n", this.name);
         System.out.println("What can I do for you?");
-        System.out.println(Ui.DOTTED_LINE);
+        System.out.println(CliUi.DOTTED_LINE);
     }
 
-    /**
-     * Prompts user and gets user input.
-     * @return String user input.
-     */
+    @Override
     public String getInput() {
         System.out.print("You:  ");
-        String userInput = scanner.nextLine();
-        return userInput;
+        return scanner.nextLine();
     }
 
-    /**
-     * Prints exception to user.
-     * @param e Exception to display.
-     */
+    @Override
     public void printException(Exception e) {
         System.out.printf("[!] %s\n", e.getMessage());
     }
 
-    /**
-     * Prints exit message to user.
-     */
+    @Override
     public void exit() {
-        System.out.println(Ui.DOTTED_LINE);
+        System.out.println(CliUi.DOTTED_LINE);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(Ui.DOTTED_LINE);
+        System.out.println(CliUi.DOTTED_LINE);
     }
 
-    /**
-     * Prints add task message to user.
-     * @param task duke.Task added.
-     */
+    @Override
     public void addTask(Task task) {
         System.out.printf("%s: [Added] %s\n", this.name, task);
     }
 
-    /**
-     * Prints delete task message to user.
-     * @param task duke.Task deleted.
-     */
+    @Override
     public void deleteTask(Task task) {
         System.out.printf("%s: [Deleted] %s\n", this.name, task);
     }
 
-    /**
-     * Prints mark task message to user.
-     * @param task duke.Task marked.
-     */
+    @Override
     public void markTask(Task task) {
         System.out.printf("%s: I've marked this task as done.\n", this.name);
         System.out.printf("    %s\n", task);
     }
 
-    /**
-     * Prints unmark task message to user.
-     * @param task duke.Task unmarked.
-     */
+    @Override
     public void unmarkTask(Task task) {
         System.out.printf("%s: I've marked this task as not done.\n", this.name);
         System.out.printf("    %s\n", task);
     }
 
-    /**
-     * Lists all current tasks to user.
-     * @param tasks Tasks to list.
-     */
+    @Override
     public void listTasks(List<Task> tasks) {
         System.out.printf("%s: \n", this.name);
         for (int i = 0; i < tasks.size(); i++) {
@@ -105,10 +81,7 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints invalid command message.
-     * @param command Command used.
-     */
+    @Override
     public void invalidCommand(String command) {
         System.out.printf("%s: Invalid command (%s)\n", this.name, command);
     }

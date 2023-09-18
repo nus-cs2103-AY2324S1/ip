@@ -1,5 +1,6 @@
 package duke;
 
+import duke.ui.Parser;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

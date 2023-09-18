@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * Abstract class encapsulating Tasks.

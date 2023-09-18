@@ -1,4 +1,6 @@
-package duke;
+package duke.ui;
+
+import duke.task.Task;
 
 import java.util.List;
 
@@ -6,15 +8,19 @@ import java.util.List;
  * Helper class for user interface, handles
  * user input and outputting to the user.
  */
-public class TextUi extends Ui {
+public class TextUi implements Ui {
+
+    private static final String DOTTED_LINE = "____________________________________________________________";
     private final StringBuilder buffer;
+
+    private String name;
 
     /**
      * Initialise Ui handler.
      * @param name Name of chatbot.
      */
     public TextUi(String name) {
-        super(name);
+        this.name = name;
         this.buffer = new StringBuilder();
     }
 
@@ -29,15 +35,26 @@ public class TextUi extends Ui {
     }
 
     @Override
+    public void init() {
+        // Does nothing for TextUi
+    }
+
+    @Override
+    public String getInput() {
+        // Does nothing for TextUi
+        return "";
+    }
+
+    @Override
     public void printException(Exception e) {
         this.buffer.append(String.format("[!] %s\n", e.getMessage()));
     }
 
     @Override
     public void exit() {
-        this.buffer.append("____________________________________________________________\n");
+        this.buffer.append(TextUi.DOTTED_LINE);
         this.buffer.append("Bye. Hope to see you again soon!\n");
-        this.buffer.append("____________________________________________________________\n");
+        this.buffer.append(TextUi.DOTTED_LINE);
     }
 
     @Override

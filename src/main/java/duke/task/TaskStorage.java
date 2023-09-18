@@ -1,4 +1,7 @@
-package duke;
+package duke.task;
+
+import duke.DukeException;
+import duke.ui.Parser;
 
 import java.io.BufferedReader;
 import java.io.File;

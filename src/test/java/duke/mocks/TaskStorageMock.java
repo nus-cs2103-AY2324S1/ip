@@ -1,7 +1,7 @@
 package duke.mocks;
 
-import duke.TaskStorage;
-import duke.Task;
+import duke.task.TaskStorage;
+import duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
