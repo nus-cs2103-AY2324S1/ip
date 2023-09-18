@@ -26,6 +26,10 @@ public abstract class Command implements Executable {
                 return new AddDeadlineCommand();
             case EVENT:
                 return new AddEventCommand();
+            case ADD_TAG:
+                return new AddTagCommand();
+            case DELETE_TAG:
+                return new DeleteTagCommand();
         }
         return null;
     }

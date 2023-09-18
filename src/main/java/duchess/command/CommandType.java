@@ -11,5 +11,7 @@ public enum CommandType {
     SEARCH,
     TODO,
     DEADLINE,
-    EVENT
+    EVENT,
+    ADD_TAG,
+    DELETE_TAG
 }

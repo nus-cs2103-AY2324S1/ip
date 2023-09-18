@@ -43,64 +43,6 @@ public class Duchess {
     }
 
     /**
-     * Tags a task.
-     *
-     * @param index - the index of the task to be tagged.
-     * @param tags  - an array of Strings that represent all the tags to be added to the task.
-     */
-    private String addTagsToTask(int index, String[] tags) {
-        String response = "";
-
-        // Within bounds
-        if (index < 0 || index >= this.storedTasks.size()) {
-            response += Ui.duchessFormat("(´；ω；`) Sorry, no such task exists... ;-;");
-            this.executeCallbackHandler(response);
-            return response;
-        }
-
-        Task task = this.storedTasks.getTask(index);
-
-        for (String tag : tags) {
-            task.addTag(tag);
-        }
-
-        response += Ui.duchessFormat("Tags have been added!! (＾▽＾)");
-        response += Ui.duchessFormat(String.format("%d: %s", this.storedTasks.indexOf(task) + 1, task.toString()));
-
-        this.executeCallbackHandler(response);
-        return response;
-    }
-
-    /**
-     * Removes a tag from a task.
-     *
-     * @param index - the index of the task to be tagged.
-     * @param tags  - an array of Strings that represent all the tags to be removed from the task.
-     */
-    private String removeTagsFromTask(int index, String[] tags) {
-        String response = "";
-
-        // Within bounds
-        if (index < 0 || index >= this.storedTasks.size()) {
-            response += Ui.duchessFormat("(´；ω；`) Sorry, no such task exists... ;-;");
-            this.executeCallbackHandler(response);
-            return response;
-        }
-
-        Task task = this.storedTasks.getTask(index);
-
-        for (String tag : tags) {
-            task.removeTag(tag);
-        }
-
-        response += Ui.duchessFormat("Tags have been removed!! (＾▽＾)");
-        response += Ui.duchessFormat(String.format("%d: %s", this.storedTasks.indexOf(task) + 1, task.toString()));
-
-        this.executeCallbackHandler(response);
-        return response;
-    }
-
-    /**
      * Attempts to parse and execute the user input as a Duchess command.
      *
      * @param userInput - the user's input.
@@ -174,37 +116,17 @@ public class Duchess {
 
         // Check if this command is an Tag command.
         if (Parser.isAddTagCommand(userInput)) {
-            try {
-                int tagIndex = Parser.parseAddTagCommandIndex(userInput);
-                String[] tags = Parser.parseAddTagCommandTags(userInput);
-                this.addTagsToTask(tagIndex, tags);
-            } catch (DuchessException e) {
-                String response = "";
-
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("tag add [task number] [tag name]");
-
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.ADD_TAG);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 
         // Check if this command is an Tag command.
         if (Parser.isRemoveTagCommand(userInput)) {
-            try {
-                int tagIndex = Parser.parseRemoveTagCommandIndex(userInput);
-                String[] tags = Parser.parseRemoveTagCommandTags(userInput);
-                this.removeTagsFromTask(tagIndex, tags);
-            } catch (DuchessException e) {
-                String response = "";
-
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("tag delete[task number] [tag name]");
-
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.DELETE_TAG);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 
