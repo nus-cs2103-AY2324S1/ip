@@ -52,12 +52,11 @@ public class TaskList {
         if (!newTask.getDescription().equals("__Faulty")) {
             tasks.add(newTask);
             numOfTasks++;
+            assert tasks.contains(newTask) : "The new task should be in the taskList.";
             return Gui.getAddTaskMessage(newTask, numOfTasks);
+        } else {
+            return Gui.getWrongDateFormatMessage();
         }
-
-        assert tasks.contains(newTask) : "The new task should be in the taskList.";
-
-        return "Failed to add this task. Please check your input.";
     }
 
     /**

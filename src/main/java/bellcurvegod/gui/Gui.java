@@ -9,9 +9,6 @@ import bellcurvegod.task.Task;
  */
 public class Gui {
 
-    /**
-     * Greets the user.
-     */
     public static String getWelcomeMessage() {
         return "Hello! I'm Bell Curve God.\n" + "What can I do for you?\n";
     }
