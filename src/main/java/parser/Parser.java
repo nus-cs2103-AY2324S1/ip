@@ -13,9 +13,12 @@ import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.TodoCommand;
+
 import common.DateParser;
+
 import data.exception.DukeException;
 import data.exception.InvalidDateParamException;
+import data.exception.InvalidParamException;
 
 /**
  * The Parser class. Handles the parsing of user commands
@@ -36,7 +39,7 @@ public class Parser {
      * @throws DukeException Thrown when the command given
      *                       is unrecognized.
      */
-    public Command parse(String input) throws DukeException, InvalidDateParamException {
+    public Command parse(String input) throws DukeException {
         String strippedInput = input.strip().trim();
         // Ignore empty user input
         if (strippedInput.equals("")) {
@@ -101,12 +104,12 @@ public class Parser {
      * @param type Indicates whether it is parsing
      *             a mark or unmark command.
      * @return A {@link MarkCommand} instance.
-     * @throws DukeException Thrown when no number is given.
+     * @throws InvalidParamException Thrown when no number is given.
      */
-    private Command parseMarkCommand(String input, String type) throws DukeException {
+    private Command parseMarkCommand(String input, String type) throws InvalidParamException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you're missing a number:",
                 "Try mark 1"
             });
@@ -121,13 +124,13 @@ public class Parser {
      *
      * @param input The todo command.
      * @return A {@link TodoCommand} instance.
-     * @throws DukeException Thrown when no description
-     *                       is given.
+     * @throws InvalidParamException Thrown when no description
+     *                               is given.
      */
-    private Command parseTodoCommand(String input) throws DukeException {
+    private Command parseTodoCommand(String input) throws InvalidParamException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you're missing a description:",
                 "Try todo read a book"
             });
@@ -143,10 +146,12 @@ public class Parser {
      *
      * @param input The deadline command.
      * @return A {@link DeadlineCommand} instance.
-     * @throws DukeException Thrown when no description
-     *                       or invalid date is given.
+     * @throws InvalidParamException     Thrown when no description
+     *                                   is given.
+     * @throws InvalidDateParamException Thrown when an invalid
+     *                                   date is given.
      */
-    private Command parseDeadlineCommand(String input) throws DukeException, InvalidDateParamException {
+    private Command parseDeadlineCommand(String input) throws InvalidParamException, InvalidDateParamException {
         // Split by the "/by" to separate the first and second part.
         String[] parseArr = input.split("/by ");
 
@@ -155,7 +160,7 @@ public class Parser {
 
         // Check if task description exists.
         if (header.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you're missing a description:",
                 "Try deadline "
                         + "submit essay /by Oct 10 2023 1600"
@@ -164,7 +169,7 @@ public class Parser {
 
         // Check if a date was provided and the "/by" delimiter was supplied.
         if (parseArr.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you're missing a date:",
                 "<- Remember to include /by ->",
                 "Try deadline "
@@ -190,10 +195,12 @@ public class Parser {
      *
      * @param input The event command.
      * @return An {@link EventCommand} instance.
-     * @throws DukeException Thrown when no description
-     *                       or invalid dates are given.
+     * @throws InvalidParamException     Thrown when no description
+     *                                   is given.
+     * @throws InvalidDateParamException Thrown when an invalid
+     *                                   date is given.
      */
-    private Command parseEventCommand(String input) throws DukeException, InvalidDateParamException {
+    private Command parseEventCommand(String input) throws InvalidParamException, InvalidDateParamException {
         // Split by "/from" to separate the first and (second + third) part.
         String[] parseArr = input.split("/from ");
 
@@ -202,7 +209,7 @@ public class Parser {
 
         // Check if task descripton exists.
         if (header.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you're missing a description:",
                 "Try event "
                         + "NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
@@ -211,7 +218,7 @@ public class Parser {
 
         // Check if /from exists.
         if (parseArr.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you're missing /from",
                 "Try event "
                         + "NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
@@ -223,7 +230,7 @@ public class Parser {
 
         // Check if /to exists.
         if (dateParse.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you're missing /to",
                 "Try event "
                         + "NUS carnival /from 21 Aug 2023 /to 22 Aug 2023"
@@ -249,12 +256,12 @@ public class Parser {
      *
      * @param input The delete command.
      * @return A {@link DeleteCommand} instance.
-     * @throws DukeException Thrown when a number is not given.
+     * @throws InvalidParamException Thrown when a number is not given.
      */
-    private Command parseDeleteCommand(String input) throws DukeException {
+    private Command parseDeleteCommand(String input) throws InvalidParamException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you're missing a number:",
                 "Try delete 1"
             });
@@ -269,12 +276,12 @@ public class Parser {
      *
      * @param input The find command.
      * @return A {@Link FindCommand} instance
-     * @throws DukeException Thrown when a keyword is not given.
+     * @throws InvalidParamException Thrown when a keyword is not given.
      */
-    private Command parseFindCommand(String input) throws DukeException {
+    private Command parseFindCommand(String input) throws InvalidParamException {
         String[] parseArr = input.split(" ");
         if (parseArr.length < 2) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "Looks like you didn't provide a keyword:",
                 "Try find read",
                 "Or try find read a book"

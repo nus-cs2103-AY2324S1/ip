@@ -2,6 +2,7 @@ package commands;
 
 import data.TaskList;
 import data.exception.DukeException;
+import data.exception.InvalidParamException;
 import data.tasks.Task;
 import storage.Storage;
 import ui.UiCli;
@@ -22,15 +23,15 @@ public class MarkCommand extends Command {
      * 
      * @param taskCount The index of the task.
      * @param isDone Indicates whether the task is to be marked/unmarked.
-     * @throws DukeException Thrown when the taskCount given
-     *                       cannot be converted to a number.
+     * @throws InvalidParamException Thrown when the taskCount given
+     *                               cannot be converted to a number.
      */
-    public MarkCommand(String taskCount, boolean isDone) throws DukeException {
+    public MarkCommand(String taskCount, boolean isDone) throws InvalidParamException {
         try {
             this.taskCount = Integer.parseInt(taskCount);
             this.isDone = isDone;
         } catch (NumberFormatException e) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 isDone ? "mark" : "unmark"
                         + " takes in a number. Try mark 1"
             });

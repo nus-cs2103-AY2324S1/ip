@@ -41,7 +41,7 @@ public class EventCommand extends Command {
         storage.update(tasks);
         return new UiMessage(new String[] {
             "Okie! I've added a new EVENT:",
-            "  " + event.toString(),
+            "  " + event,
             "Total no. of tasks stored: " + tasks.getSize()
         });
     }

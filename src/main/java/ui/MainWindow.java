@@ -1,7 +1,6 @@
 package ui;
 
 import data.exception.DukeException;
-import data.exception.InvalidDateParamException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -59,7 +58,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
             );
             userInput.clear();
-        } catch (DukeException | InvalidDateParamException e) {
+        } catch (DukeException e) {
             dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(e.toString(), dukeImage)

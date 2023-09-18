@@ -2,6 +2,7 @@ package commands;
 
 import data.TaskList;
 import data.exception.DukeException;
+import data.exception.InvalidParamException;
 import data.tasks.Task;
 import storage.Storage;
 import ui.UiCli;
@@ -19,14 +20,14 @@ public class DeleteCommand extends Command {
      * Takes in the index of the task to be deleted from {@link TaskList}.
      * 
      * @param taskIndex The index of the task to be deleted.
-     * @throws DukeException Thrown when the taskIndex given
-     *                       cannot be converted to a number.
+     * @throws InvalidParamException Thrown when the taskIndex given
+     *                               cannot be converted to a number.
      */
-    public DeleteCommand(String taskIndex) throws DukeException {
+    public DeleteCommand(String taskIndex) throws InvalidParamException {
         try {
             this.taskIndex = Integer.parseInt(taskIndex);
         } catch (NumberFormatException e) {
-            throw new DukeException(new String[] {
+            throw new InvalidParamException(new String[] {
                 "delete takes in a number. Try delete 1."
             });
         }

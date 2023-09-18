@@ -5,7 +5,6 @@ import java.io.IOException;
 import commands.Command;
 import data.TaskList;
 import data.exception.DukeException;
-import data.exception.InvalidDateParamException;
 import parser.Parser;
 import storage.Storage;
 import ui.UiCli;
@@ -84,7 +83,7 @@ public class Duke {
                 UiMessage result = c.execute(tasks, storage, uiCli);
                 uiCli.displayMsg(result.getRawStringArr());
                 isExit = c.isExit();
-            } catch (DukeException | InvalidDateParamException e) {
+            } catch (DukeException e) {
                 uiCli.displayError(e.toString());
             }
         }
@@ -95,7 +94,7 @@ public class Duke {
                 + "What can I do for you?";
     }
 
-    public String getResponse(String input) throws DukeException, InvalidDateParamException {
+    public String getResponse(String input) throws DukeException {
         Command c = parser.parse(input);
         UiMessage result = c.execute(tasks, storage, uiCli);
         return result.toString();

@@ -17,7 +17,7 @@ public class ParserTest {
             Command c = parser.parse("");
             assertTrue(c instanceof EmptyCommand);
 
-        } catch (DukeException | InvalidDateParamException e) {
+        } catch (DukeException e) {
             fail("Exception should not be thrown");
         }
     }
@@ -53,7 +53,7 @@ public class ParserTest {
             assertTrue(todo instanceof TodoCommand);
             assertTrue(deadline instanceof DeadlineCommand);
             assertTrue(event instanceof EventCommand);
-        } catch (DukeException | InvalidDateParamException e) {
+        } catch (DukeException e) {
             fail("Exception should not be thrown");
         }
     }
@@ -71,7 +71,7 @@ public class ParserTest {
             parser.parse("deadline read /by 2023-10-20 1800");
             parser.parse("deadline read /by 2023-10-20 630");
             parser.parse("deadline read /by 2023-10-20 0630");
-        } catch (DukeException | InvalidDateParamException e) {
+        } catch (DukeException e) {
             fail("Exception should not be thrown");
         }
     }
