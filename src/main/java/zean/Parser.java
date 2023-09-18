@@ -163,8 +163,8 @@ public class Parser {
         if (description.isBlank()) {
             throw new ZeanException("Hmm, the description of an event cannot be empty :(");
         }
-        String from = input.substring(indexOfFrom + 5, indexOfTo).strip();
 
+        String from = input.substring(indexOfFrom + 5, indexOfTo).strip();
         if (from.isBlank()) {
             throw new ZeanException("OOPS!!! You forgot to specify the starting date.");
         }

@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hi there, I'm Zean!\nHow can I help you today?", duke)
+                DialogBox.getZeanDialog("Hi there, I'm Zean!\nHow can I help you today?", duke)
         );
     }
 
@@ -47,7 +47,18 @@ public class MainWindow extends AnchorPane {
      */
     public void showMessage(String msg) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(msg, duke)
+                DialogBox.getZeanDialog(msg, duke)
+        );
+    }
+
+    /**
+     * Creates an error dialog box, containing the error message and appending it to the dialog container.
+     *
+     * @param msg The message to be displayed.
+     */
+    public void showErrorMessage(String msg) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getErrorDialog(msg, duke)
         );
     }
 
@@ -58,10 +69,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = zean.getResponse(input);
+        DialogBox zeanResponseDialog = zean.getResponseDialog(input, duke);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, user),
-                DialogBox.getDukeDialog(response, duke)
+                zeanResponseDialog
         );
         userInput.clear();
     }
