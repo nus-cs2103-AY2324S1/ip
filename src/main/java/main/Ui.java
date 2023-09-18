@@ -1,5 +1,6 @@
 package main;
 
+import command.CommandException;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,6 +19,11 @@ public class Ui extends Application {
     private VBox dialogContainer;
 
 
+    /**
+     * Start method for JavaFX
+     *
+     * @param primaryStage The primary stage provided by JavaFX
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         INSTANCE = this;

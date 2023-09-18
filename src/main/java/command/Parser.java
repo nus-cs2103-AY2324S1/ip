@@ -9,14 +9,28 @@ public class Parser {
 
     private HashMap<String, ICommandHandler> commands;
 
+    /**
+     * Constructor for the Parser class
+     */
     public Parser() {
         this.commands = new HashMap<String, ICommandHandler>();
     }
 
-    public void registerCommand(String command, ICommandHandler handler) {
-        this.commands.put(command, handler);
+    /**
+     * Register a new command
+     *
+     * @param header the command's header
+     * @param handler The command's handler
+     */
+    public void registerCommand(String header, ICommandHandler handler) {
+        this.commands.put(header, handler);
     }
 
+    /**
+     * Execute a command
+     *
+     * @param command the full command
+     */
     public void executeCommand(String command) {
         assert(Ui.getInstance() != null);
         if(command.length() == 0) {
