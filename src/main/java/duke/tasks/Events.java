@@ -1,10 +1,5 @@
 package duke.tasks;
 
-import duke.exception.DukeException;
-import duke.main.Duke;
-import duke.utilities.EventList;
-import duke.utilities.TaskList;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

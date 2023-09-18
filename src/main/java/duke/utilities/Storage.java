@@ -12,6 +12,10 @@ import java.io.ObjectOutputStream;
 public class Storage {
     private String filepath;
 
+    /**
+     * Constructor for my storage
+     * @param filepath The filepath to store the tasklist in
+     */
     public Storage(String filepath) {
         assert filepath != null;
         this.filepath = filepath;

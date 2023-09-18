@@ -1,15 +1,15 @@
 package duke.utilities;
 
+import java.util.ArrayList;
+
 import duke.tasks.Events;
 import duke.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * A list of Events the user inputs.
  */
 public class EventList {
-    ArrayList<Events> eventList;
+    private ArrayList<Events> eventList;
 
     /**
      * Event List Constructor.
@@ -51,7 +51,7 @@ public class EventList {
      * @return The sorted event list.
      */
     public EventList sort() {
-        eventList.sort((x,y) -> (x.getStartDate().compareTo(y.getStartDate())));
+        eventList.sort((x, y) -> (x.getStartDate().compareTo(y.getStartDate())));
         return new EventList(eventList);
     }
 }

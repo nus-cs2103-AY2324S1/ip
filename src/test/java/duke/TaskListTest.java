@@ -1,22 +1,15 @@
 package duke;
 
-<<<<<<< HEAD
-import duke.exception.DukeException;
-import duke.tasks.ToDos;
-=======
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-
-import duke.exception.DukeException;
->>>>>>> branch-B-DetectAnomalies
-import org.junit.jupiter.api.Test;
-
-import duke.tasks.Events;
-import duke.tasks.Task;
-import duke.utilities.TaskList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
+import duke.tasks.Events;
+import duke.tasks.Task;
+import duke.tasks.ToDos;
+import duke.utilities.TaskList;
 
 public class TaskListTest {
     @Test
