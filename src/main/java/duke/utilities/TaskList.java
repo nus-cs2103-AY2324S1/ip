@@ -3,12 +3,6 @@ package duke.utilities;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
-import duke.exception.DukeException;
-import duke.main.Duke;
-=======
-import duke.tasks.Events;
->>>>>>> branch-B-DetectAnomalies
 import duke.tasks.Task;
 
 /**

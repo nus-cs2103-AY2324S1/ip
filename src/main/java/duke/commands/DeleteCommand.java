@@ -42,9 +42,9 @@ public class DeleteCommand extends Command {
             taskList.deleteTask(index - 1);
             storage.save(taskList);
         } catch (IOException e) {
-            ui.printError(e.getMessage());
+            res = ui.printError(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            ui.printError("I do not understand. You do not have that task.");
+            res = ui.printError("I do not understand. You do not have that task.");
         }
         return res;
     }
