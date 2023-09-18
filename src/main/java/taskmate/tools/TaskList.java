@@ -164,6 +164,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * @return an ArrayList of tasks representing the user's undeleted tasks
+     */
     public ArrayList<Task> getAllTasks() {
         return this.tasks;
     }
@@ -172,10 +175,12 @@ public class TaskList {
         return this.numTotalTasks;
     }
 
-    public int getNumIncompleteTasks() {
-        return this.numIncompleteTasks;
-    }
-
+    /**
+     * Returns the task specified by an index i (Note: one-indexed)
+     * @param i an int representing the one-indexed task in the user's task list
+     * @return a Task object at the one-indexed i in the user's task list
+     * @throws TaskNotFoundException thrown when the value of i is not between 1 (inclusive) and # of tasks (inclusive)
+     */
     public Task getTask(int i) throws TaskNotFoundException {
         boolean indexOutOfBounds = i > tasks.size() | i < 0;
         if (indexOutOfBounds) {
