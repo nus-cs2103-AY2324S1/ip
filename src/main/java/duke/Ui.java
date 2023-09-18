@@ -77,10 +77,11 @@ public class Ui {
     public String deleteTask(TaskList tasks, int taskNumber) {
         assert taskNumber > 0 : "taskNumber should be more than 0";
         String deletingTask = "Pika Pika!! I've removed this task:";
-        int taskInArray = tasks.size() - 1;
-        assert taskNumber <= taskInArray : "task should be in the list, PIKA PIKA!!!!";
+        int tasksInArray = tasks.size();
+        assert taskNumber <= tasksInArray : "PIKA PIKA !!! task should be in the list";
         Task removedTask = tasks.deleteTask(taskNumber);
-        String numberOfTask = "Now you have " + taskInArray + " tasks in the list. Pika Pika!!";
+        tasksInArray -= 1;
+        String numberOfTask = "Now you have " + tasksInArray + " tasks in the list. Pika Pika!!";
         String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
         printLine();
         System.out.println(output);
@@ -109,8 +110,8 @@ public class Ui {
      */
     public String noFile() {
         printLine();
-        System.out.println("OOPS!!! There is no file to load. Pika Pika!!");
-        return "OOPS!!! There is no file to load. Pika Pika!!";
+        System.out.println("PIKA PIKA!!! There is no file to load.");
+        return "PIKA PIKA!!! There is no file to load.";
     }
 
     /**
@@ -148,7 +149,8 @@ public class Ui {
         output += "7. delete <task number>\n";
         output += "8. find <keyword>\n";
         output += "9. bye\n";
-        output += "For more details on each command, type help <number> (eg. help 1)\n";
+        output += "For more details on each command, type help <number> (eg. help 1) " +
+                "for example on todo command\n";
         output += "Pika Pika!! We aim to improve everyone productivity!!";
         System.out.println(output);
         return output;

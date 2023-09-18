@@ -36,14 +36,14 @@ public class MarkCommand extends Command {
                 ui.printLine();
                 throw new WrongMarkException("This task is already done.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             ui.printLine();
-            output += "OOPS!!! Must choose something to mark.";
-            System.out.println("OOPS!!! Must choose something to mark.");
+            output += "PIKA PIKA!!! Must choose something to mark.";
+            System.out.println("PIKA PIKA!!! Must choose something to mark.");
         } catch (NullPointerException e) {
             ui.printLine();
-            output += "OOPS!!! You chose air.";
-            System.out.println("OOPS!!! You chose air.");
+            output += "PIKA PIKA!!! You chose air.";
+            System.out.println("PIKA PIKA!!! You chose air.");
         }
         return output;
     }

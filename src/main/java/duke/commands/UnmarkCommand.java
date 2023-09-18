@@ -27,8 +27,8 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws WrongMarkException {
         String output = "";
-        Task task = tasks.get(taskNumber - 1);
         try {
+            Task task = tasks.get(taskNumber - 1);
             if (task.isItDone()) {
                 task.setAsUndone();
                 output += ui.unMarkTask(task);
@@ -36,14 +36,14 @@ public class UnmarkCommand extends Command {
                 ui.printLine();
                 throw new WrongMarkException("This task is not done yet.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             ui.printLine();
-            output += "OOPS!!! Must choose something to unmark.";
-            System.out.println("OOPS!!! Must choose something to unmark.");
+            output += "PIKA PIKA!!! Must choose something to unmark.";
+            System.out.println("PIKA PIKA!!! Must choose something to unmark.");
         } catch (NullPointerException e) {
             ui.printLine();
-            output += "OOPS!!! You chose air.";
-            System.out.println("OOPS!!! You chose air.");
+            output += "PIKA PIKA!!! You chose air.";
+            System.out.println("PIKA PIKA!!! You chose air.");
         }
         return output;
     }

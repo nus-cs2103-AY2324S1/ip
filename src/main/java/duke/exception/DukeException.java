@@ -25,6 +25,6 @@ public class DukeException extends Throwable {
     @Override
     public String getMessage() {
 
-        return String.format("OOPS!!! %s", super.getMessage());
+        return String.format("PIKA PIKA!!! %s", super.getMessage());
     }
 }

@@ -29,8 +29,8 @@ public class ByeCommand extends Command {
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            output = "OOPS!!! There is no file to save.";
-            System.out.println("OOPS!!! There is no file to save.");
+            output = "PIKA PIKA!!! There is no file to save.";
+            System.out.println("PIKA PIKA!!! There is no file to save.");
         }
         output += ui.bye();
         return output;

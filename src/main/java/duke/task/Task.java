@@ -129,7 +129,7 @@ public class Task {
      * Creates a task of type Event
      * 
      * @param data
-     * @return
+     * @return a Task of type Event
      * @throws EmptyDetailsOfTaskError
      */
     private static Task createEventTask(String data) throws EmptyDetailsOfTaskError {
