@@ -55,7 +55,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "PityJokey"
+    archiveBaseName = "Jokey"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
