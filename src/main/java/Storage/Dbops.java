@@ -8,8 +8,7 @@ import java.io.*;
 import java.util.Objects;
 
 import static LogicHandlers.Parsers.DateTimeParser.parseDateTimeFromString;
-import static Ui.BasicOutputPrinter.printBasicOutput;
-import static Ui.ErrorOutputPrinter.printErrorOutput;
+import static Ui.printers.Printer.printBasicOutput;
 import static java.lang.System.exit;
 
 /**
@@ -58,7 +57,7 @@ public class Dbops {
                 System.err.println("Memory file already exists.");
             }
         } catch (IOException e) {
-            printErrorOutput("An error occurred while creating memory file: " + e.getMessage());
+            printBasicOutput("An error occurred while creating memory file: " + e.getMessage());
             exit(1);
         }
     }
@@ -108,7 +107,7 @@ public class Dbops {
             Dbops.createMemoryFile();
 
         } catch (DukeCorruptedDataException | DukeInvalidDateTimeException e) {
-            printErrorOutput(e + "\n");
+            printBasicOutput(e + "\n");
             Dbops.deleteMemoryFile();
             Dbops.createMemoryFile();
             printBasicOutput("A new memory file, " + Dbops.FILENAME + " has been created.");
@@ -128,7 +127,7 @@ public class Dbops {
                 writer.newLine();
             }
         } catch (IOException e) {
-            printErrorOutput("Error saving tasks to memory file: " + e.getMessage());
+            printBasicOutput("Error saving tasks to memory file: " + e.getMessage());
         }
     }
 }
