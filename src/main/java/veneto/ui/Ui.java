@@ -83,7 +83,7 @@ public class Ui {
             case "list":
                 System.out.println(
                         GREETS + " 还有这些要做哦！\n" +
-                                tasks.toString() + "\n"
+                                tasks.toString()
                 );
                 break;
             case "mark":
@@ -105,7 +105,7 @@ public class Ui {
                 break;
             case "find":
                 System.out.println(
-                        GREETS + " 相关的任务都在这里了哦：\n" + command + "\n"
+                        GREETS + " 相关的任务都在这里了哦：\n" + command
                 );
                 break;
         }
