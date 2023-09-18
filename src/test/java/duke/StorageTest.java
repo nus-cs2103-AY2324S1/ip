@@ -15,7 +15,7 @@ public class StorageTest {
     public void load_nil_exceptionThrown() {
         try {
             storage.load();
-        } catch (DukeException | IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             assertNull(e.getMessage());
         }
     }

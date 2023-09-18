@@ -90,12 +90,12 @@ public class TaskList implements Serializable {
     public String addTask(String letter, String userInput) throws DukeException {
         if (letter.equals("T")) {
             tasks.add(ToDo.newToDo(userInput));
-        }
-        if (letter.equals("D")) {
+        } else if (letter.equals("D")) {
             tasks.add(Deadline.newDeadline(getDescription(userInput), getBy(userInput)));
-        }
-        if (letter.equals("E")) {
+        } else if (letter.equals("E")) {
             tasks.add(Event.newEvent(getDescription(userInput), getFrom(userInput), getTo(userInput)));
+        } else {
+            assert false : "Invalid letter in addTask method";
         }
 
         int tasksSize = tasks.size();
@@ -117,6 +117,7 @@ public class TaskList implements Serializable {
         if (pos >= tasks.size()) {
             throw new DukeException("You are trying to access a Task that does not exist!");
         }
+        assert pos < tasks.size() : "pos should be less than length of TaskList";
         Task curr = tasks.get(pos);
         StringBuilder stringBuilder = new StringBuilder();
         if (userInput.contains("unmark")) {
