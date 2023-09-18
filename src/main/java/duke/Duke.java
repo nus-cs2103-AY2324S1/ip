@@ -81,6 +81,8 @@ public class Duke {
      * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time).
      * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time).
      * - update {property} {taskindex} {newvalue}: update the property of the task of taskindex with newvalue.
+     * - delete {number}: delete a task with the corresponding index in the task list.
+     * - find {query}: views the tasks with name that has query as substring.
      * Note that for list, a combination of options can be used, by separating them by space characters.
      * If there is an error in the input from user, notify the user.
      * Datetime format: "{date} {time}".

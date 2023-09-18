@@ -38,19 +38,7 @@ public class Parser {
 
     /**
      * Parses a given input.
-     * Available commands:
-     * - bye/exit: to exit the programme.
-     * - list: to list out the current task list.
-     * - list {date}: to list out all events happening on that date or deadlines before/on that date.
-     * - list {todo/deadline/event}: list out all todo items / deadline items / event items.
-     * - list -d: list out all tasks not done.
-     * - mark {number}: to mark the task with the corresponding index in the list as done.
-     * - unmark {number}: to mark the task with the corresponding index in the list as not done.
-     * - todo {taskname}: to add a new task as a to-do item (no deadline or time).
-     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time).
-     * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time).
-     * - update {property} {taskindex} {newvalue}: update the property of the task of taskindex with the newvalue.
-     * Note that for list, a combination of options can be used, by separating them by space characters.
+     * Check out the interact method of Duke class to view available commands.
      * @param input The input from the user.
      * @return The command to be executed on the bot.
      * @throws ParseError When the input cannot be properly interpreted.
