@@ -1,5 +1,8 @@
 package duchess;
 
+import duchess.command.Command;
+import duchess.command.CommandType;
+
 import java.util.regex.Matcher;
 
 /**
@@ -337,6 +340,66 @@ public class Parser {
         String[] tagList = m.group(2).trim().replace("#", "").split(" ");
 
         return tagList;
+    }
+
+    /**
+     * Parses user input, and chooses the correct command to return.
+     *
+     * @param userInput - the command the user executed.
+     * @return    the Command object to be .executed(). Returns an UnrecognizedCommand if no commands match.
+     */
+    public static Command parseCommand(String userInput) {
+        // Check if this command is a list.
+        if (Parser.isListTasksCommand(userInput)) {
+            return Command.getCommand(CommandType.LIST);
+        }
+
+        // Check if this command is a mark task command.
+        if (Parser.isMarkTaskCommand(userInput)) {
+            return Command.getCommand(CommandType.MARK);
+        }
+
+        // Check if this command is an unmarked task command.
+        if (Parser.isUnmarkTaskCommand(userInput)) {
+            return Command.getCommand(CommandType.UNMARK);
+        }
+
+        // Check if this command is a delete task command.
+        if (Parser.isDeleteTaskCommand(userInput)) {
+            return Command.getCommand(CommandType.DELETE);
+        }
+
+        // Check if this command is a search task command.
+        if (Parser.isSearchTaskCommand(userInput)) {
+            return Command.getCommand(CommandType.SEARCH);
+        }
+
+        // Check if this command is a ToDo command.
+        if (Parser.isToDoCommand(userInput)) {
+            return Command.getCommand(CommandType.TODO);
+        }
+
+        // Check if this command is a Deadline command.
+        if (Parser.isDeadlineCommand(userInput)) {
+            return Command.getCommand(CommandType.DEADLINE);
+        }
+
+        // Check if this command is an Event command.
+        if (Parser.isEventCommand(userInput)) {
+            return Command.getCommand(CommandType.EVENT);
+        }
+
+        // Check if this command is an Tag command.
+        if (Parser.isAddTagCommand(userInput)) {
+            return Command.getCommand(CommandType.ADD_TAG);
+        }
+
+        // Check if this command is an Tag command.
+        if (Parser.isRemoveTagCommand(userInput)) {
+            return Command.getCommand(CommandType.DELETE_TAG);
+        }
+
+        return Command.getCommand(CommandType.UNRECOGNIZED);
     }
 
 }

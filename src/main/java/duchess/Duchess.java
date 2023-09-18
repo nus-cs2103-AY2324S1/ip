@@ -48,89 +48,9 @@ public class Duchess {
      * @param userInput - the user's input.
      */
     public void parseUserInput(String userInput) {
-        Command command = null;
-
-        // Check if this command is a list.
-        if (Parser.isListTasksCommand(userInput)) {
-            command = Command.getCommand(CommandType.LIST);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is a mark task command.
-        if (Parser.isMarkTaskCommand(userInput)) {
-            command = Command.getCommand(CommandType.MARK);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is an unmarked task command.
-        if (Parser.isUnmarkTaskCommand(userInput)) {
-            command = Command.getCommand(CommandType.UNMARK);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is a delete task command.
-        if (Parser.isDeleteTaskCommand(userInput)) {
-            command = Command.getCommand(CommandType.DELETE);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is a search task command.
-        if (Parser.isSearchTaskCommand(userInput)) {
-            command = Command.getCommand(CommandType.SEARCH);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is a ToDo command.
-        if (Parser.isToDoCommand(userInput)) {
-            command = Command.getCommand(CommandType.TODO);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is a Deadline command.
-        if (Parser.isDeadlineCommand(userInput)) {
-            command = Command.getCommand(CommandType.DEADLINE);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is an Event command.
-        if (Parser.isEventCommand(userInput)) {
-            command = Command.getCommand(CommandType.EVENT);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is an Tag command.
-        if (Parser.isAddTagCommand(userInput)) {
-            command = Command.getCommand(CommandType.ADD_TAG);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        // Check if this command is an Tag command.
-        if (Parser.isRemoveTagCommand(userInput)) {
-            command = Command.getCommand(CommandType.DELETE_TAG);
-            String output = command.execute(userInput, this.storedTasks);
-            this.executeCallbackHandler(output);
-            return;
-        }
-
-        this.executeCallbackHandler(Ui.duchessFormat("(´；ω；`) Oopsies... I don't know what that means ;-;"));
+        Command command = Parser.parseCommand(userInput);
+        String output = command.execute(userInput, this.storedTasks);
+        this.executeCallbackHandler(output);
     }
 
     public void run() {

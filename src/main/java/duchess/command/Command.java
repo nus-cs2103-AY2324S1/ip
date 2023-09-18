@@ -30,7 +30,8 @@ public abstract class Command implements Executable {
                 return new AddTagCommand();
             case DELETE_TAG:
                 return new DeleteTagCommand();
+            default:
+                return new UnrecognizedCommand();
         }
-        return null;
     }
 }

@@ -13,5 +13,6 @@ public enum CommandType {
     DEADLINE,
     EVENT,
     ADD_TAG,
-    DELETE_TAG
+    DELETE_TAG,
+    UNRECOGNIZED
 }
