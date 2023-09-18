@@ -26,11 +26,12 @@ public abstract class Task {
      * Whether the task is completed.
      *
      * <p>
-     * This is intentionally called "completed" instead of "isComplete" as Task and its subclasses utilise Gson to
-     * construct the JSON file, which uses these variable names as JSON keys.
+     * Note: Alpha releases used "completed" instead of "isCompleted", which changes the JSON storage format by Gson's
+     * serialization. This change was made to comply with coding standards, but this means data stored in past alpha
+     * releases are no longer compatible with stable releases.
      * </p>
      */
-    private boolean completed = false;
+    private boolean isCompleted = false;
 
 
     /**
@@ -58,7 +59,7 @@ public abstract class Task {
      * @return true if completed, false otherwise.
      */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**
@@ -67,7 +68,7 @@ public abstract class Task {
      * @param isCompleted Whether to mark it as complete (true) or incomplete (false).
      */
     public void setCompleted(boolean isCompleted) {
-        this.completed = isCompleted;
+        this.isCompleted = isCompleted;
     }
 
     /**
