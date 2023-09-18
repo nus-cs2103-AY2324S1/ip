@@ -1,7 +1,9 @@
 package duke;
 
+import duke.Ui;
 import duke.command.Parser;
 import duke.task.TaskList;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 /**
@@ -128,11 +131,24 @@ public class Duke extends Application {
     private void handleUserInput() {
         String userText = userInput.getText();
         String dukeText = getResponse(userInput.getText());
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
                 DialogBox.getDukeDialog(dukeText, duke)
         );
         userInput.clear();
+
+        if (userText.equals("bye")) {
+            Label byeMessage = new Label("Bye! Hope to see you again soon.");
+            dialogContainer.getChildren().add(byeMessage);
+            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            pause.setOnFinished(event -> {
+                javafx.application.Platform.exit();
+            });
+            pause.play();
+        }
+
+
     }
 
     /**
@@ -144,7 +160,7 @@ public class Duke extends Application {
             return "Bye! Hope to see you again soon.";
         }
         try {
-            return Parser.parseCommand(input,taskList);
+            return Parser.parseCommand(input, taskList);
         } catch (Exception e) {
             return "Sorry, I don't understand what that means.";
         }
