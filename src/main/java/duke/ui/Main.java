@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         stage.setResizable(false);
-        stage.setTitle("Duke ChatBot");
+        stage.setTitle("Emergency Meeting");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
