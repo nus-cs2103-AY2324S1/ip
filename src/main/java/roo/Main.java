@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Roo roo = new Roo("roo.txt");
+    private Roo roo = new Roo("/roo.txt");
 
     @Override
     public void start(Stage stage) {

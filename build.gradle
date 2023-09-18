@@ -57,7 +57,7 @@ test {
 }
 
 application {
-    mainClass.set("roo.Launcher")
+    mainClassName = 'roo.Launcher'
 }
 
 java {
@@ -66,9 +66,7 @@ java {
 }
 
 shadowJar {
-    archiveBaseName = "roo"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'roo.jar'
 }
 
 run{
