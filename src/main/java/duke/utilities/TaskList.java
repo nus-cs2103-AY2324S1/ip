@@ -3,6 +3,8 @@ package duke.utilities;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import duke.exception.DukeException;
+import duke.main.Duke;
 import duke.tasks.Task;
 
 /**
@@ -44,7 +46,7 @@ public class TaskList implements Serializable {
      *
      * @return size of taskList.
      */
-    public int size() {
+    public int getSize() {
         return this.taskList.size();
     }
 
@@ -62,7 +64,10 @@ public class TaskList implements Serializable {
      *
      * @param index The index of task to be deleted.
      */
-    public void deleteTask(int index) {
+    public void deleteTask(int index) throws IndexOutOfBoundsException {
+        if (index >= taskList.size()) {
+            throw new IndexOutOfBoundsException(String.format("I do not understand. You do not have a task %d", index));
+        }
         this.taskList.remove(index);
     }
 

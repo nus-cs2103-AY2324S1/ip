@@ -2,7 +2,6 @@ package duke.commands;
 
 import java.io.IOException;
 
-import duke.exception.DukeException;
 import duke.ui.Ui;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
@@ -36,13 +35,16 @@ public class DeleteCommand extends Command {
      *
      */
     @Override
-    public String execute() throws DukeException {
-        String res = ui.printDeleteTask(taskList, index - 1);
-        taskList.deleteTask(index - 1);
+    public String execute() {
+        String res = "";
         try {
+            res = ui.printDeleteTask(taskList, index - 1);
+            taskList.deleteTask(index - 1);
             storage.save(taskList);
         } catch (IOException e) {
             ui.printError(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            ui.printError("I do not understand. You do not have that task.");
         }
         return res;
     }

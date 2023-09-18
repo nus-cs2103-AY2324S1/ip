@@ -78,7 +78,7 @@ public class Ui {
      */
     public String printAddTask(TaskList taskList, Task task) {
         String output = "You must train hard and complete your task:\n" + task
-                + "\nYou now have " + taskList.size() + " tasks to complete.\n";
+                + "\nYou now have " + taskList.getSize() + " tasks to complete.\n";
         System.out.println(output);
         return output;
     }
@@ -122,7 +122,7 @@ public class Ui {
         }
 
         String output = "If you want to be the best in the world, work hard and follow me:\n";
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < taskList.getSize(); i++) {
             output += String.format("%d. %s \n", i + 1, taskList.getTask(i).toString());
         }
         System.out.println(output);
@@ -158,13 +158,13 @@ public class Ui {
     public String findFilteredTasks(TaskList tasks, String input) {
         String output = "";
         TaskList filteredList = tasks.filter(input);
-        if (filteredList.size() == 0) {
+        if (filteredList.getSize() == 0) {
             output += "There are no tasks with that word.\n";
             System.out.println(output);
             return output;
         }
         output += "These are your matching tasks:\n";
-        for (int i = 0; i < filteredList.size(); i++) {
+        for (int i = 0; i < filteredList.getSize(); i++) {
             output += String.format("%d. %s\n", i + 1, filteredList.getTask(i).toString());
         }
         System.out.println(output);

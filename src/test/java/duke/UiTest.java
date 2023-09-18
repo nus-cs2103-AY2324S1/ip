@@ -16,4 +16,13 @@ public class UiTest {
         assertEquals(expectedOutput, ui.printHello());
     }
 
+    @Test
+    public void invalidCommandTest() {
+        Ui ui = new Ui();
+        String expectedOutput = "I do not understand. Either I am wrong, or you are wrong,"
+                + " so you are wrong\n";
+        assertEquals(expectedOutput, ui.printError("I do not understand. Either I am wrong, or you are wrong,"
+                + " so you are wrong"));
+    }
+
 }

@@ -1,20 +1,22 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-
+import duke.exception.DukeException;
+import duke.tasks.ToDos;
 import org.junit.jupiter.api.Test;
 
 import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.utilities.TaskList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 public class TaskListTest {
     @Test
     public void emptyTaskListTest() {
         TaskList a = new TaskList();
         TaskList b = new TaskList();
-        assertEquals(a.size(), b.size());
+        assertEquals(a.getSize(), b.getSize());
     }
 
     @Test
@@ -29,7 +31,31 @@ public class TaskListTest {
         b.addTask(temp);
         assertEquals(a.getTask(0), b.getTask(1));
         assertEquals(a.getTask(1), b.getTask(0));
-        assertNotSame(a.getTask(0), b.getTask(0));
+        assertNotEquals(a.getTask(0), b.getTask(0));
     }
 
+    @Test
+    public void markTaskTest() {
+        TaskList a = new TaskList();
+        a.addTask(new ToDos("Complete my problem set."));
+        a.addTask(new ToDos("Do my laundry."));
+        a.addTask(new ToDos("Watch my lectures."));
+        a.addTask(new ToDos("Walk my dog."));
+        a.addTask(new ToDos("Buy groceries."));
+        a.markAsDone(3);
+        assertEquals(a.getTask(3).getStatusIcon(), "X");
+        assertNotEquals(a.getTask(1).getStatusIcon(), "X");
+    }
+
+    @Test
+    public void deleteTask() throws DukeException {
+        TaskList a = new TaskList();
+        a.addTask(new ToDos("Complete my problem set."));
+        a.addTask(new ToDos("Do my laundry."));
+        a.addTask(new ToDos("Watch my lectures."));
+        assertEquals(a.getSize(), 3);
+        a.deleteTask(1);
+        a.deleteTask(1);
+        assertEquals(a.getSize(), 1);
+    }
 }
