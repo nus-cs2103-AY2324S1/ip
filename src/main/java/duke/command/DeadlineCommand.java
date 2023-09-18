@@ -2,31 +2,34 @@ package duke.command;
 
 import duke.Ui;
 import duke.Storage;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidDateTimeFormatException;
 import duke.task.*;
 
 /**
  * Adds a deadline task to the taskList
  */
 public class DeadlineCommand extends Command {
-    protected String description;
-    protected String by;
-    protected boolean done;
-    public DeadlineCommand(String description, String by, boolean done) {
-        super();
-        this.description = description;
-        this.by = by;
-        this.done = done;
+    protected final static String regex = "^deadline\\s([\\w\\s]*)\\s\\/by\\s([\\w\\s\\:\\-]*)$";
+    public DeadlineCommand(String response) {
+        super(response, regex);
     }
 
     @Override
-    public String execute(Storage storage, Ui ui, TaskList taskList) {
+    public String execute(Storage storage, Ui ui, TaskList taskList) throws InvalidCommandException {
         try {
+            if (!matcher.find() || matcher.groupCount() != 2) {
+                throw new InvalidCommandException(
+                        "Invalid use of deadline. Usage: deadline <task description> /by <date & time>"
+                );
+            }
+            String description = matcher.group(1);
+            String by = matcher.group(2);
             Task task = new Deadlines(description, by);
-            task.setDone(this.done);
             taskList.addTask(task);
             return taskList.toString();
-        } catch (Exception e) {
-            return ui.format_response(e.getLocalizedMessage());
+        } catch (InvalidCommandException | InvalidDateTimeFormatException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
     }
 }

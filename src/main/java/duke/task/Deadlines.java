@@ -5,7 +5,7 @@ import duke.task.TaskWithDeadline;
 
 public class Deadlines extends TaskWithDeadline {
 
-    public Deadlines(String description, String by) {
+    public Deadlines(String description, String by) throws InvalidDateTimeFormatException{
         super(description, by);
     }
     @Override

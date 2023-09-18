@@ -47,4 +47,14 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    /**
+     * Creates a dialog box to greet the User
+     */
+    @FXML
+    private void greetUser() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog("Hi I am Duke!", dukeImage)
+        );
+    }
 }

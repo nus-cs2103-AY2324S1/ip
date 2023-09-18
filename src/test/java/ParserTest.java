@@ -1,5 +1,5 @@
 
-import duke.exceptions.InvalidTaskException;
+import duke.exceptions.InvalidCommandException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +21,7 @@ public class ParserTest {
             command.execute(new Storage(""), new Ui(), taskList);
             System.out.println(taskList);
             assertEquals("1. [D][ ] find wedding ring (by: Sep 9 2020)", taskList.toString());
-        } catch (InvalidTaskException e ) {
+        } catch (InvalidCommandException e ) {
             System.out.println(e.getMessage());
         }
     }
@@ -40,7 +40,7 @@ public class ParserTest {
                     "1. [D][ ] find wedding ring (by: Sep 9 2020)\n" +
                     "2. [T][ ] follow the leader",
                     taskList.toString());
-        } catch (InvalidTaskException e ) {
+        } catch (InvalidCommandException e ) {
             System.out.println(e.getMessage());
         }
     }

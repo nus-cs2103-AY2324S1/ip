@@ -22,7 +22,7 @@ public class LoadCommand extends Command {
             taskList.setTasks(storage.load());
             return taskList.toString();
         } catch (InvalidFileTypeException e) {
-            return ui.format_response(e.getMessage());
+            return e.getMessage();
         }
     }
 }

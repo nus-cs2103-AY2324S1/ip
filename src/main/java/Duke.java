@@ -1,7 +1,7 @@
 import duke.Parser;
 import duke.Ui;
 import duke.command.Command;
-import duke.exceptions.InvalidTaskException;
+import duke.exceptions.InvalidCommandException;
 import duke.Storage;
 import duke.task.TaskList;
 import duke.components.DialogBox;
@@ -19,11 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-
 public class Duke extends Application {
     
     protected static Ui ui = new Ui();
@@ -39,24 +34,6 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-
-    /**
-     * Reads the user's input and executes a task based on it
-     */
-    public static void reply() {
-        String response = ui.readCommand();
-        Command command;
-        while (!response.equals("bye")) {
-            try {
-                command = parser.parse(response);
-                command.execute(storage, ui, taskList);
-            } catch (InvalidTaskException e) {
-                System.out.println(ui.format_response(e.getMessage()));
-            } finally {
-                response = ui.readCommand();
-            }
-        };
-    }
 
     /**
      * Iteration 1:
@@ -96,8 +73,8 @@ public class Duke extends Application {
         try {
             command = parser.parse(input);
             return command.execute(storage, ui, taskList);
-        } catch (InvalidTaskException e) {
-            return ui.format_response(e.getMessage());
+        } catch (InvalidCommandException e) {
+            return e.getMessage();
         }
     }
 
@@ -164,11 +141,5 @@ public class Duke extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
-
-    public static void main(String[] args) {
-        ui.greet();
-        reply();
-        ui.bye();
     }
 }
