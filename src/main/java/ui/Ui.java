@@ -44,6 +44,7 @@ public class Ui {
 
     /**
      * Reads the command from the user.
+     * 
      * @return String fullCommand
      */
     public String readCommand() {
@@ -145,6 +146,7 @@ public class Ui {
 
     /**
      * Add the tasklist to responses.
+     * 
      * @param output The list of matching tasks.
      */
     public void showFind(String output) {
@@ -153,6 +155,7 @@ public class Ui {
     }
     /**
      * Add snooze response to responses.
+     * 
      * @param task The task to snooze.
      */
     public void showsnoozeTask(Task task) {
@@ -162,6 +165,7 @@ public class Ui {
     /**
      * Combines the stored responses and prestring into a string for output, then
      * clears the stored responses.
+     * 
      * @param preStrings The prestring to be added to the output.
      * @return output String to be printed as a response to user.
      */

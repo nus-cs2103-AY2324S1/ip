@@ -21,6 +21,7 @@ public class Duke {
 
     /**
      * Constructor for Duke.
+     * 
      * @param filePath
      */
     public Duke(String filePath) {
@@ -78,7 +79,4 @@ public class Duke {
             return e.getMessage();
         }
     }
-    // public static void main(String[] args) {
-    //     new Duke("data/tasks.txt").run();
-    // }
 }

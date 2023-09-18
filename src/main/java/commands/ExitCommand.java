@@ -18,6 +18,7 @@ public class ExitCommand extends Command {
 
     /**
      * Executes the ExitCommand, exiting the program.
+     * 
      * @param taskList The TaskList object that stores the list of tasks
      * @param ui The Ui object that handles the user interface
      * @param storage The Storage object that handles the saving and loading of tasks

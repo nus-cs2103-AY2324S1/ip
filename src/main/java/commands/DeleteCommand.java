@@ -12,6 +12,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructor for DeleteCommand.
+     * 
      * @param fullCommand
      */
     public DeleteCommand(String fullCommand) {
@@ -20,6 +21,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the DeleteCommand, deleting the task from the list of tasks.
+     * 
      * @param taskList The TaskList object that stores the list of tasks
      * @param ui The Ui object that handles the user interface
      * @param storage The Storage object that handles the saving and loading of tasks

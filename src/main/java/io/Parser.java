@@ -21,6 +21,7 @@ public class Parser {
 
     /**
      * Parses the user input and returns the corresponding command.
+     * 
      * @param fullCommand
      * @return Command
      */
