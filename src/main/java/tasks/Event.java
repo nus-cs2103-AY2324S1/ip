@@ -1,4 +1,5 @@
 package tasks;
+
 /**
  * The Event class represents an event, which is a type of task with a name, start date, and end date.
  * It extends the Task class and provides methods to access the event's start and end dates,

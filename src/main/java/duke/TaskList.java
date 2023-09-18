@@ -1,18 +1,18 @@
+package duke;
+
 import java.util.ArrayList;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.ToDo;
 import tasks.Task;
+
 /**
- * The TaskList class represents a list of tasks and provides various methods for managing and interacting with those tasks.
+ * The Duke.TaskList class represents a list of tasks and provides various methods for managing and interacting with those tasks.
  */
 public class TaskList {
     protected ArrayList<Task> tasks;
 
     /**
-     * Constructs a new TaskList with the provided list of tasks.
+     * Constructs a new Duke.TaskList with the provided list of tasks.
      *
-     * @param tasks The list of tasks to initialize the TaskList with.
+     * @param tasks The list of tasks to initialize the Duke.TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -68,8 +68,8 @@ public class TaskList {
     /**
      * Prints the number of tasks in the list.
      */
-    public void numOfTask() {
-        System.out.println("N... Now you have... " + this.tasks.size() + " tasks in the list. 0w0");
+    public String numOfTask() {
+        return "N... Now you have... " + this.tasks.size() + " tasks in the list. o(>ω<)o\n";
     }
 
     /**
@@ -88,10 +88,12 @@ public class TaskList {
     /**
      * Prints the entire list of tasks with numbering for reference.
      */
-    public void printList() {
-        for(int i = 0; i < tasks.size(); i++) {
+    public String printList() {
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
             int x = i + 1;
-            System.out.println(x + ". " + this.printTask(i));
+            result += x + ". " + this.printTask(i) + "\n";
         }
+        return result;
     }
 }
