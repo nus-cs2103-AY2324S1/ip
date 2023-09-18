@@ -12,7 +12,8 @@ public class Event extends Task {
                  String toDate, String toTime) throws IllegalDateTimeException {
         super(d);
         TimeParser.checkValidEventDate(fromDate, toDate);
-        if (fromDate.equals(toDate)) {
+        if (fromDate.equals(toDate) && fromTime != null
+        && toTime != null) {
             TimeParser.checkValidEventTime(fromTime, toTime);
         }
         this.fromDate = fromDate;
@@ -33,17 +34,18 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String marker = "[ ]";
+        String marker = "☐";
+        if (this.isComplete) {
+            marker = "☑";
+        }
         String fromTimeString;
         String toTimeString;
         fromTimeString = (this.fromTime == null) ? "" : (" " + this.fromTime);
         toTimeString = (this.toTime == null) ? "" : (" " + this.toTime);
-        if (this.isComplete) {
-            marker = "[X]";
-        }
-        return  "[E]" + marker + " " + this.description
+        return  "EVENT:" + " " + this.description
                 + " (from: " + this.fromDate + fromTimeString
-                + " to: " + this.toDate + toTimeString + ")\n";
+                + " to: " + this.toDate + toTimeString + ") "
+                + marker + "\n";
     }
 
     @Override

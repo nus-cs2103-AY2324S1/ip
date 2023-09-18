@@ -8,9 +8,9 @@
 
 <fx:root alignment="TOP_RIGHT" minHeight="-Infinity" prefWidth="423.0" spacing="5.0" type="HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <javafx.scene.layout.HBox alignment="CENTER_RIGHT" depthTest="ENABLE" maxHeight="340.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" opacity="0.8" style="-fx-background-radius: 1em; -fx-background-color: lightgray;">
+      <javafx.scene.layout.HBox fx:id="speechBubble" alignment="CENTER_RIGHT" depthTest="ENABLE" maxHeight="340.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" opacity="0.8" style="-fx-background-radius: 1em; -fx-background-color: #6495ED;">
           <children>
-              <Label fx:id="dialog" text="Label" wrapText="true">
+              <Label fx:id="dialog" text="Label" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="SF Pro Text Regular" size="11.0" />
                </font>
