@@ -1,11 +1,5 @@
 package duke.util;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -15,6 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * Represents the storage file management system of the task list.
@@ -181,6 +181,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Handles data file existence.
+     * @throws Exception If there are any errors creating directory or file
+     */
     public void checkDataFile() throws Exception {
         String fileName = filePath;
         Path filePath = Paths.get(fileName);
