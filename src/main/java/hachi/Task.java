@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * Includes their completion status, name, and various methods.
  */
 public class Task {
-    private boolean completed = false;
+    private boolean isCompleted = false;
     private String taskName = "";
 
     public Task(String taskName) {
@@ -18,14 +18,14 @@ public class Task {
      * Marks the task as completed.
      */
     public void mark() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Marks the task as not completed.
      */
     public void unmark() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -61,12 +61,12 @@ public class Task {
      * @return String representation when stored in text file on user's hard drive
      */
     public String toData() {
-        return (completed ? "1" : "0") + " | " + taskName;
+        return (isCompleted ? "1" : "0") + " | " + taskName;
     }
 
     @Override
     public String toString() {
-        String checkbox = "[" + (completed ? "X" : " ") + "]";
+        String checkbox = "[" + (isCompleted ? "X" : " ") + "]";
         return checkbox + " " + taskName;
     }
 }
