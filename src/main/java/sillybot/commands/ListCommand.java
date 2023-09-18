@@ -17,7 +17,7 @@ public class ListCommand extends Command {
     /**
      * Executes the ListCommand object.
      *
-     * @return The String representation of the ListCommand object.
+     * @return The response to be displayed to the user.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

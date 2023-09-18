@@ -55,6 +55,8 @@ public class Ui {
 
     /**
      * Prints message if task is already undone.
+     *
+     * @throws WrongMarkException If the task is already undone.
      */
     public String showAlreadyUndone() throws WrongMarkException {
         throw new WrongMarkException("Yea I know you didn't do it! Why tell me again? Start working now!");

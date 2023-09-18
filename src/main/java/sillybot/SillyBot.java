@@ -7,7 +7,7 @@ import sillybot.exceptions.IncompleteInputException;
 import sillybot.tasks.TaskList;
 
 /**
- * Represents a SillyBot object that runs the duke program.
+ * Represents a SillyBot object that runs the sillybot program.
  */
 public class SillyBot {
     private TaskList tasks;
@@ -36,9 +36,9 @@ public class SillyBot {
     }
 
     /**
-     * Gets the response from SillyBot to display to the user.png.
+     * Gets the response from SillyBot to display to the user.
      *
-     * @param userInput The user.png input.
+     * @param userInput The user input.
      * @return botResponse The response from SillyBot.
      */
     public String getResponse(String userInput) {

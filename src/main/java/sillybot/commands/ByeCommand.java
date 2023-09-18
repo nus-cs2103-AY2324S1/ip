@@ -12,13 +12,12 @@ public class ByeCommand extends Command {
      * Creates a ByeCommand object.
      */
     public ByeCommand() {
-        super();
     }
 
     /**
      * Executes the ByeCommand object.
      *
-     * @return The String representation of the ByeCommand object.
+     * @return The response to be displayed to the user.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

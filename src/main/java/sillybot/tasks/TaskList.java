@@ -44,7 +44,7 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Deletes task from the TaskList.
      *
-     * @param index the (index - 1) of the task to be deleted from the TaskList.
+     * @param index the index of the task to be deleted from the TaskList.
      */
     public void deleteTask(int index) {
         assert index > 0 && index <= this.size() : "Invalid index for task deletion";
@@ -74,7 +74,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Find tasks that contain the keyword.
+     * Finds tasks that contain the keyword.
      *
      * @param keyword keyword to be searched.
      * @return String containing the tasks that contain the keyword.

@@ -9,15 +9,16 @@ import sillybot.tasks.TaskList;
  */
 public abstract class Command {
     /**
-     * Enum representing available commands along with descriptions.
+     * Represents available commands along with descriptions and examples.
      */
     public enum CommandType {
         LIST("list", "List all tasks", "list"),
         TODO("todo", "Add a new todo task", "todo borrow book"),
-        EVENT("event", "Add a new event task", "event project meeting /at 2020-08-25 14:00"),
-        DEADLINE("deadline", "Add a new deadline task", "deadline return book /by 2020-08-25 14:00"),
+        EVENT("event", "Add a new event task", "event project meeting /from 2020-08-25 /to 2020-08-26"),
+        DEADLINE("deadline", "Add a new deadline task", "deadline return book /by 2020-08-25"),
         MARK("mark", "Mark a task as done", "mark 1"),
         UNMARK("unmark", "Unmark a task as done", "unmark 3"),
+        FIND("find", "Find tasks with a keyword", "find book"),
         DELETE("delete", "Delete a task", "delete 2"),
         BYE("bye", "Save and end the chat", "bye"),
         HELP("help", "Show available commands", "help"),
@@ -55,7 +56,7 @@ public abstract class Command {
     /**
      * Executes the Command object based on the type of Command object.
      *
-     * @return The String representation of the Command object.
+     * @return The response to be displayed to the user.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 }

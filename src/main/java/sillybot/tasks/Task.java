@@ -7,7 +7,7 @@ import sillybot.exceptions.IncompleteInputException;
 import sillybot.exceptions.InvalidInputException;
 
 /**
- * Represents a Task object that can be a Todo, Deadline or Event.
+ * Represents a Task object that can be a TodoTask, DeadlineTask or EventTask.
  */
 public class Task {
     private static int taskCount = 0;
@@ -100,7 +100,7 @@ public class Task {
      * Checks if the Task command contain valid TaskType.
      *
      * @param splittedCommands The command input by the user.png.
-     * @return taskType The type of Task (Todo, Deadline, Event).
+     * @return taskType The type of Task (TodoTask, DeadlineTask, EventTask).
      * @throws IncompleteInputException If the command is incomplete.
      * @throws InvalidInputException   If the command is invalid.
      */
@@ -122,58 +122,58 @@ public class Task {
     }
 
     /**
-     * Creates a Todo Task.
+     * Creates a TodoTask Task.
      *
-     * @param taskDescription The description of the Todo Task.
-     * @return The Todo Task.
+     * @param taskDescription The description of the TodoTask Task.
+     * @return The TodoTask Task.
      */
-    private static Todo createTodoTask(String taskDescription) {
-        return new Todo(taskDescription);
+    private static TodoTask createTodoTask(String taskDescription) {
+        return new TodoTask(taskDescription);
     }
 
     /**
-     * Creates a Deadline Task.
+     * Creates a DeadlineTask Task.
      *
-     * @param taskDescription The description of the Deadline Task.
-     * @return The Deadline Task.
+     * @param taskDescription The description of the DeadlineTask Task.
+     * @return The DeadlineTask Task.
      * @throws IncompleteInputException If the command is incomplete.
      */
-    private static Deadline createDeadlineTask(String taskDescription) throws IncompleteInputException {
+    private static DeadlineTask createDeadlineTask(String taskDescription) throws IncompleteInputException {
         String[] deadlineSplit = taskDescription.split(" /by ");
 
         if (deadlineSplit.length == 1) {
-            throw new IncompleteInputException("Deadline what ah? Why leave it empty?");
+            throw new IncompleteInputException("DeadlineTask what ah? Why leave it empty?");
         }
 
         String deadlineDescription = deadlineSplit[0];
         String deadlineBy = deadlineSplit[1];
 
-        return new Deadline(deadlineDescription, deadlineBy);
+        return new DeadlineTask(deadlineDescription, deadlineBy);
     }
 
     /**
-     * Creates an Event Task.
+     * Creates an EventTask Task.
      *
-     * @param taskDescription The description of the Event Task.
-     * @return The Event Task.
+     * @param taskDescription The description of the EventTask Task.
+     * @return The EventTask Task.
      * @throws IncompleteInputException If the command is incomplete.
      */
-    private static Event createEventTask(String taskDescription) throws IncompleteInputException {
+    private static EventTask createEventTask(String taskDescription) throws IncompleteInputException {
         String[] eventSplit = taskDescription.split(" /from ");
 
         if (eventSplit.length == 1) {
-            throw new IncompleteInputException("Event what ah? Why leave empty?");
+            throw new IncompleteInputException("EventTask what ah? Why leave empty?");
         }
 
         String eventDescription = eventSplit[0];
         String eventFrom = eventSplit[1].split(" /to ")[0];
         String eventTo = eventSplit[1].split(" /to ")[1];
 
-        return new Event(eventDescription, eventFrom, eventTo);
+        return new EventTask(eventDescription, eventFrom, eventTo);
     }
 
     /**
-     * Returns the type of Task (Todo, Deadline, Event).
+     * Returns the type of Task (TodoTask, DeadlineTask, EventTask).
      * Checks the user.png command and creates the appropriate Task.
      *
      * @param command The command input by the user.png.
@@ -212,18 +212,18 @@ public class Task {
 
         switch (taskType) {
         case 'T':
-            task = new Todo(taskDescription);
+            task = new TodoTask(taskDescription);
             break;
         case 'D':
             String deadlineDescription = taskDescription.split(" \\(by: ")[0];
             String deadlineBy = taskDescription.split(" \\(by: ")[1].split("\\)")[0];
-            task = new Deadline(deadlineDescription, deadlineBy);
+            task = new DeadlineTask(deadlineDescription, deadlineBy);
             break;
         case 'E':
             String eventDescription = taskDescription.split(" \\(from: ")[0];
             String eventFrom = taskDescription.split(" \\(from: ")[1].split(" to: ")[0];
             String eventTo = taskDescription.split(" \\(from: ")[1].split(" to: ")[1].split("\\)")[0];
-            task = new Event(eventDescription, eventFrom, eventTo);
+            task = new EventTask(eventDescription, eventFrom, eventTo);
             break;
         default:
             System.out.println("Unknown task type. Returning null...");
@@ -260,6 +260,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "|" + this.getStatusIcon() + "| " + this.getDescription();
+        return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }

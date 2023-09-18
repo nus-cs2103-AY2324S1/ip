@@ -26,7 +26,7 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the UnmarkCommand object.
      *
-     * @return The String representation of the UnmarkCommand object.
+     * @return The response to be displayed to the user.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {

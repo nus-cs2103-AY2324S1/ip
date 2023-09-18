@@ -12,7 +12,7 @@ import sillybot.commands.MarkCommand;
 import sillybot.commands.UnmarkCommand;
 
 /**
- * Represents a Parser object that deals with making sense of the user.png command.
+ * Represents a Parser object that deals with making sense of the user command.
  */
 public class Parser {
     /**
@@ -22,10 +22,10 @@ public class Parser {
     }
 
     /**
-     * Checks the type of command given by the user.png.
-     * Executes the command given by the user.png.
+     * Checks the type of command given by the user.
+     * Executes the command given by the user.
      *
-     * @param commandGiven The command given by the user.png.
+     * @param commandGiven The command given by the user.
      * @return The String containing the output of the command.
      */
     public static Command parse(String commandGiven) {

@@ -23,7 +23,7 @@ public class FindCommand extends Command {
     /**
      * Executes the FindCommand object.
      *
-     * @return The String representation of the FindCommand object.
+     * @return The response to be displayed to the user.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IncompleteInputException {

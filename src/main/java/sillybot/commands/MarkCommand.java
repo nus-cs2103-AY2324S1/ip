@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
     /**
      * Executes the MarkCommand object.
      *
-     * @return The String representation of the MarkCommand object.
+     * @return The response to be displayed to the user.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
