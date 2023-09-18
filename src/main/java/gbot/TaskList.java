@@ -231,7 +231,7 @@ public class TaskList {
         list.clear();
         storage.rewriteFile(list);
         taskCount = 0;
-        return "Already done? Amazing. I've removed all present tasks:\n";
+        return "Already done? Amazing. I've removed all existing tasks.\n";
     }
 
     /**

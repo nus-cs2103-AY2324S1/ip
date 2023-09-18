@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello I'm GBot!\nWhat can I do for you?", gbotImage)
+                DialogBox.getDukeDialog("Hello I'm GBot.\nHow may I assist you today?", gbotImage)
         );
     }
 

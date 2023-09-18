@@ -52,7 +52,7 @@ public class GBot {
      */
     String getResponse(String input) {
         if (input.equals("bye")) {
-            return "Bye! Have a nice day!";
+            return "Thank you for your time G. I'll be of your service at any time.";
         }
         try {
             return Parser.parse(input, tasks);
