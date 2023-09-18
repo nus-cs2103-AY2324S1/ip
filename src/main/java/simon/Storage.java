@@ -58,64 +58,73 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("An error occurred while creating the data file.");
-                e.printStackTrace();
+                throw new SimonException("An error occurred while creating the data file.");
             }
+            return loadedTasks; // Return empty list since the file is new
         }
 
         try (Scanner scanner = new Scanner(file)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
             List<Task> tasks = Stream.generate(() -> scanner.hasNext() ? scanner.nextLine() : null)
                     .takeWhile(Objects::nonNull)
                     .map(line -> {
-                        String[] parts = line.split(" \\| ");
-                        switch (parts[0]) {
-                        case "T":
-                            ToDo todo = new ToDo(parts[2]);
-                            if ("1".equals(parts[1])) {
-                                todo.markAsDone();
-                            }
-                            return todo;
-                        case "D":
-                            LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
-                            Deadline deadline = null;
-                            try {
-                                deadline = new Deadline(parts[2], endDateTime.format(formatter));
-                            } catch (SimonException e) {
-                                throw new RuntimeException(e);
-                            }
-                            if ("1".equals(parts[1])) {
-                                deadline.markAsDone();
-                            }
-                            return deadline;
-                        case "E":
-                            LocalDateTime startDateTime = LocalDateTime.parse(parts[3], formatter);
-                            LocalDateTime endDate = LocalDateTime.parse(parts[4], formatter);
-                            Event event = null;
-                            try {
-                                event = new Event(parts[2], startDateTime.format(formatter), endDate.format(formatter));
-                            } catch (SimonException e) {
-                                throw new RuntimeException(e);
-                            }
-                            if ("1".equals(parts[1])) {
-                                event.markAsDone();
-                            }
-                            return event;
-                        default:
-                            return null;
+                        try {
+                            return parseTask(line, formatter);
+                        } catch (SimonException e) {
+                            throw new RuntimeException(e);
                         }
                     })
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
             loadedTasks.addAll(tasks);
         } catch (FileNotFoundException e) {
-            System.out.println("Data file not found. Starting with an empty task list.");
+            throw new SimonException("Data file not found. Starting with an empty task list.");
         }
-
 
         return loadedTasks;
     }
+
+    private Task parseTask(String line, DateTimeFormatter formatter) throws SimonException {
+        String[] parts = line.split(" \\| ");
+        switch (parts[0]) {
+            case "T":
+                return createTodo(parts);
+            case "D":
+                return createDeadline(parts, formatter);
+            case "E":
+                return createEvent(parts, formatter);
+            default:
+                return null;
+        }
+    }
+
+    private ToDo createTodo(String[] parts) {
+        ToDo todo = new ToDo(parts[2]);
+        if ("1".equals(parts[1])) {
+            todo.markAsDone();
+        }
+        return todo;
+    }
+
+    private Deadline createDeadline(String[] parts, DateTimeFormatter formatter) throws SimonException {
+        LocalDateTime endDateTime = LocalDateTime.parse(parts[3], formatter);
+        Deadline deadline = new Deadline(parts[2], endDateTime.format(formatter));
+        if ("1".equals(parts[1])) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
+
+    private Event createEvent(String[] parts, DateTimeFormatter formatter) throws SimonException {
+        LocalDateTime startDateTime = LocalDateTime.parse(parts[3], formatter);
+        LocalDateTime endDate = LocalDateTime.parse(parts[4], formatter);
+        Event event = new Event(parts[2], startDateTime.format(formatter), endDate.format(formatter));
+        if ("1".equals(parts[1])) {
+            event.markAsDone();
+        }
+        return event;
+    }
+
 
 
     /**
