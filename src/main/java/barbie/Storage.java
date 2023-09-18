@@ -35,6 +35,8 @@ public class Storage {
      * @param desc the description of the Task
      */
     public static void addToList(String desc) {
+        assert Objects.equals(desc.split(" ", 2)[0], "T") : "Item added should be a T class";
+
         String line = "T" + "," + 0 + "," + desc + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -55,6 +57,8 @@ public class Storage {
      * @param deadline the deadline the task has to be completed by
      */
     public static void addToList(String desc, LocalDate deadline) {
+        assert Objects.equals(desc.split(" ", 2)[0], "D") : "Item added should be a D class";
+
         String line = "D" + "," + 0 + "," + desc + "," + deadline + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);
@@ -76,6 +80,7 @@ public class Storage {
      * @param to the end time of the event
      */
     public static void addToList(String desc, LocalDate from, LocalDate to) {
+        assert Objects.equals(desc.split(" ", 2)[0], "P") : "Item added should be a P class";
 
         String line = "P" + "," + 0 + "," + desc + "," + from + "," + to + "\n";
         try {
@@ -174,10 +179,14 @@ public class Storage {
     public static void deleteLine(int lineToDelete) {
         try {
             List<String> lines = Files.readAllLines(path);
+            assert lines.size() > 0 : "Current task list should not be empty";
 
             if (lineToDelete >= 0 && lineToDelete < lines.size()) {
                 lines.remove(lineToDelete);
-                Files.write(path, lines);
+                if (lines.size() > 0) {
+                    Files.write(path, lines);
+
+                }
             } else {
                 throw new IllegalArgumentException("Invalid line number to delete.");
             }

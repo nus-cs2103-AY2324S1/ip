@@ -22,7 +22,6 @@ import barbie.exceptions.BarbieNoSuchCommandException;
 import barbie.exceptions.BarbieNoTimingException;
 import barbie.exceptions.BarbieTaskNumberException;
 
-
 /**
  * Represents a class which parses input.
  */
