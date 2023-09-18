@@ -4,19 +4,23 @@ import veneto.task.Task;
 import veneto.task.TaskList;
 
 public class DeleteCommand extends Command {
-    /** Fields */
+    /* Fields */
     public static final String type = "delete";
 
     private int taskId;
     private Task removedTask;
 
-    /** Constructor */
+    /* Constructor */
     public DeleteCommand(int taskId) {
         super();
         this.taskId = taskId;
     }
 
-    /** Methods */
+    /* Methods */
+    /**
+     * the DeleteCommand operates
+     * @param tasks the TaskList that the DeleteCommand operates on
+     */
     @Override
     public void op(TaskList tasks) {
         removedTask = tasks.remove(taskId-1);
@@ -24,10 +28,16 @@ public class DeleteCommand extends Command {
     }
 
     @Override
+    /**
+     * @return the String representation of the task removed to the TaskList
+     */
     public String toString() {
         return removedTask.toString();
     }
 
+    /**
+     * @return the type of the Command
+     */
     public static String getType() {
         return type;
     }
