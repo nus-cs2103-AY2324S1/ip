@@ -60,7 +60,6 @@ public class ReminderCommand extends Command {
         StringBuilder ret;
         if (this.days == 1) {
             ret = new StringBuilder("Quack has found "
-
                     + matches.size() + " tasks due today");
         } else {
             ret = new StringBuilder("Quack has found "
@@ -79,6 +78,15 @@ public class ReminderCommand extends Command {
      */
     @Override
     public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof ReminderCommand) {
+            ReminderCommand command = (ReminderCommand) other;
+            return this.days == command.days;
+        }
         return false;
     }
 }

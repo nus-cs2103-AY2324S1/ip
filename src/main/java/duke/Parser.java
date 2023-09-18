@@ -57,13 +57,13 @@ public class Parser {
         case "LIST":
             return new ListCommand();
         case "MARK":
-            return new MarkCommand(true, findIndex(splitInput));
+            return new MarkCommand(true, validateIndex(splitInput));
         case "UNMARK":
-            return new MarkCommand(false, findIndex(splitInput));
+            return new MarkCommand(false, validateIndex(splitInput));
         case "DELETE":
-            return new DeleteCommand(findIndex(splitInput));
+            return new DeleteCommand(validateIndex(splitInput));
         case "REMINDER":
-            return new ReminderCommand(findIndex(splitInput));
+            return new ReminderCommand(validateIndex(splitInput));
         case "FIND":
             if (splitInput.length < 2) {
                 throw new DukeBadInputException(
@@ -83,6 +83,9 @@ public class Parser {
             return new DeadlineCommand(flagMap.get("/by"), desc);
         case "EVENT":
             desc = Parser.findFlags(flagMap, splitInput, "/from", "/to");
+            if (flagMap.get("/from").isAfter(flagMap.get("/to"))) {
+                throw new DukeBadInputException("Quack does not understand a event where /to is before /from");
+            }
             return new EventCommand(flagMap.get("/from"), flagMap.get("/to"), desc);
         default:
             return new UnrecognisedCommand();
@@ -133,7 +136,7 @@ public class Parser {
      * @throws DukeBadInputException throws an error if it is a negative number
      * @throws NumberFormatException throws an error if it is not a number
      */
-    private static int findIndex(String[] splitInput) throws DukeBadInputException, NumberFormatException {
+    private static int validateIndex(String[] splitInput) throws DukeBadInputException, NumberFormatException {
         if (splitInput.length != 2) {
             throw new DukeBadInputException(
                     String.format("Quack requires exactly one number after the %s command", splitInput[0]));
@@ -160,41 +163,33 @@ public class Parser {
     private static String findFlags(HashMap<String, LocalDateTime> flagMap,
             String[] splitInputs, String... flags)
             throws DukeBadInputException, DateTimeParseException {
-        int[] flagIndex = Parser.find(splitInputs, flags);
-        String description;
 
-        for (int i = 0; i < flagIndex.length - 1; i++) {
-            // Check for the presence of the flag
-            if (flagIndex[i] == -1) {
-                throw new DukeBadInputException(
-                        "Quack cant find the required " + flags[i] + " flags, please provide quack with one please");
-            }
-            if (flagIndex[i + 1] == -1) {
-                throw new DukeBadInputException(
-                        "Quack cant find the required " + flags[i + 1]
-                                + " flags, please provide quack with one please");
-            }
-
-            // Check for the description of flag
-            String value = String.join(" ", Arrays.copyOfRange(splitInputs, flagIndex[i] + 1, flagIndex[i + 1]));
-            if (value.isBlank()) {
-                throw new DukeBadInputException(
-                        "Please provide quack a description for the " + flags[i] + " flag");
-            }
-
-            // check the format of the flag
-            LocalDateTime val = LocalDateTime.parse(value, Parser.PARSE_FORMAT);
-            flagMap.put(splitInputs[flagIndex[i]], val);
-        }
-
-        // Check for a valid description
-        description = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
-        if (description.isBlank()) {
+        // Check for the description of flag
+        HashMap<String, String> flagValues = Parser.find(splitInputs, flags);
+        if (flagValues.get("/desc") == "") {
             throw new DukeBadInputException(
                     "Quack doesn't understand an empty description, please provide one!!");
         }
 
-        return description;
+        // Check for the presence of the flag
+        StringBuilder missingFlag = new StringBuilder();
+        boolean isMissing = false;
+        for (String flag : flags) {
+            String flagValue = flagValues.get(flag);
+            if (flagValue == null) {
+                missingFlag.append(flag).append(", ");
+                isMissing = true;
+                continue;
+            }
+            LocalDateTime val = LocalDateTime.parse(flagValue, Parser.PARSE_FORMAT);
+            flagMap.put(flag, val);
+        }
+        if (isMissing) {
+            throw new DukeBadInputException(
+                    "Quack cant find the following required flags: "
+                            + missingFlag.toString() + "please provide quack with them please");
+        }
+        return flagValues.get("/desc");
     }
 
     /**
@@ -202,36 +197,33 @@ public class Parser {
      *
      * @param arr   - the array of strings that you want to find the flags from
      * @param items - the array of flags you want to find from the array
-     * @return an array of the index of the flags
+     * @return A hashmap mapping the flags to its value
      * @throws DukeBadInputException - if the flags cannot be found or without a
      *                               description
      */
-    private static int[] find(String[] arr, String[] items) throws DukeBadInputException {
-        int[] ret = new int[items.length + 1];
-
-        // initialise values to -1, these values will contain the index later
-        for (int i = 0; i < items.length + 1; i++) {
-            // set last item as the length to demarcate the end
-            if (i == items.length) {
-                ret[i] = arr.length;
+    private static HashMap<String, String> find(String[] arr, String[] items) throws DukeBadInputException {
+        StringBuilder current = new StringBuilder();
+        String flag = "/desc";
+        HashMap<String, String> ret = new HashMap<>();
+        for (int i = 1; i < arr.length; i++) {
+            if (!arr[i].startsWith("/")) {
+                current.append(" " + arr[i]);
                 continue;
             }
-            ret[i] = -1;
-        }
 
-        // Algo to find the index of the flags
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < items.length; j++) {
-                if (arr[i].equals(items[j])) {
-                    if (ret[j] != -1) {
-                        throw new DukeBadInputException(
-                                "There are too many of the " + items[j] + " flag, please just provide one");
-                    }
-                    ret[j] = i;
-                    break;
-                }
+            // Means arr[i] is a flag
+            // store previous value
+            ret.put(flag, current.toString().strip());
+
+            // check if flag is already present
+            if (ret.get(arr[i]) != null) {
+                throw new DukeBadInputException(
+                        "There are too many of the " + flag + " flag, please just provide one to quack");
             }
+            flag = arr[i];
+            current = new StringBuilder();
         }
+        ret.put(flag, current.toString().strip());
         return ret;
     }
 }
