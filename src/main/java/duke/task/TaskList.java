@@ -49,7 +49,7 @@ public class TaskList {
         String result = "";
         Parser parser = new Parser();
         for (Task task : tasks) {
-            if (parser.parseSearch(task.getDescription(), searchString)) {
+            if (parser.parseSearch(task.toString(), searchString)) {
                 result += task + "\n";
             }
         }
