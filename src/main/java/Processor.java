@@ -45,7 +45,7 @@ public class Processor {
     }
 
     /**
-     * Save task list to local storage file..
+     * Saves task list to local storage file.
      */
     public void saveTaskList() {
         try {

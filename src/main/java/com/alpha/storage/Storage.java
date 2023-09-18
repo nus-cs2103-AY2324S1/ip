@@ -25,7 +25,7 @@ public class Storage {
      * Instantiates a new Storage object.
      *
      * @param filePath File path to the local storage file.
-     * @throws IOException The io exception.
+     * @throws IOException If an io exception occurs.
      */
     public Storage(String filePath) throws IOException {
         file = new File(filePath);
@@ -34,12 +34,12 @@ public class Storage {
     }
 
     /**
-     * Load task list from the local storage file.
+     * Loads task list from the local storage file.
      *
-     * @return The task list.
-     * @throws FileNotFoundException    The file not found exception.
-     * @throws InvalidTaskException     The invalid task exception.
-     * @throws InvalidDateTimeException The invalid date time exception.
+     * @return The task list from the storage file.
+     * @throws FileNotFoundException    If the storage file cannot be found.
+     * @throws InvalidTaskException     If the task in the storage file is invalid.
+     * @throws InvalidDateTimeException If the date in the storage file is invalid.
      */
     public TaskList load() throws FileNotFoundException, InvalidTaskException, InvalidDateTimeException {
         Scanner sc = new Scanner(file);
@@ -52,10 +52,10 @@ public class Storage {
     }
 
     /**
-     * Save the current task list into the local storage file.
+     * Saves current task list into the local storage file.
      *
-     * @param taskList The task list.
-     * @throws IOException The io exception.
+     * @param taskList The current task list.
+     * @throws IOException If an io exception occurs.
      */
     public void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(file);

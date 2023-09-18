@@ -6,9 +6,7 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * The entry point of application.
-     *
-     * @param args The input arguments.
+     * A launcher class to workaround classpath issues.
      */
     public static void main(String[] args) {
         Application.launch(Alpha.class, args);
