@@ -1,4 +1,4 @@
-package oscar.info;
+package oscar.item;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -57,7 +57,7 @@ public class Storage {
      * @param infos Current info list.
      * @throws OscarException Unable to serialise info list.
      */
-    public void save(InfoList infos) throws OscarException {
+    public void save(ItemList infos) throws OscarException {
         Path parentDir = Paths.get(filePath).getParent();
         try {
             Files.createDirectories(parentDir);

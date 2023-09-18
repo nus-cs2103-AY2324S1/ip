@@ -3,11 +3,11 @@ package oscar.command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import oscar.essential.InfoList;
+import oscar.essential.ItemList;
 import oscar.essential.Storage;
 import oscar.exception.OscarException;
-import oscar.info.DeadlineTask;
-import oscar.info.Task;
+import oscar.item.DeadlineTask;
+import oscar.item.Task;
 
 /**
  * Command to create a new deadline task.
@@ -33,7 +33,7 @@ public class DeadlineCommand extends Command {
      * @throws OscarException Incorrect format of deadline command.
      */
     @Override
-    public String execute(InfoList infos, Storage storage) throws OscarException {
+    public String execute(ItemList infos, Storage storage) throws OscarException {
         assert infos != null;
         assert storage != null;
         String[] validatedDetails = validate();

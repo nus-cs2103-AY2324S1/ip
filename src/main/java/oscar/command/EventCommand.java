@@ -3,11 +3,11 @@ package oscar.command;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import oscar.essential.InfoList;
+import oscar.essential.ItemList;
 import oscar.essential.Storage;
 import oscar.exception.OscarException;
-import oscar.info.EventTask;
-import oscar.info.Task;
+import oscar.item.EventTask;
+import oscar.item.Task;
 
 /**
  * Command to create a new event task.
@@ -33,7 +33,7 @@ public class EventCommand extends Command {
      * @throws OscarException Incorrect format of event command.
      */
     @Override
-    public String execute(InfoList infos, Storage storage) throws OscarException {
+    public String execute(ItemList infos, Storage storage) throws OscarException {
         assert infos != null;
         assert storage != null;
 

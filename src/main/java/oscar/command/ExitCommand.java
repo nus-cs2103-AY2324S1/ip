@@ -1,6 +1,6 @@
 package oscar.command;
 
-import oscar.essential.InfoList;
+import oscar.essential.ItemList;
 import oscar.essential.Storage;
 
 /**
@@ -16,7 +16,7 @@ public class ExitCommand extends Command {
      * @return
      */
     @Override
-    public String execute(InfoList infos, Storage storage) {
+    public String execute(ItemList infos, Storage storage) {
         return EXIT_MESSAGE;
     }
 }

@@ -6,20 +6,20 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import oscar.exception.OscarException;
-import oscar.info.Info;
-import oscar.info.Task;
+import oscar.item.Item;
+import oscar.item.Task;
 
 /**
  * Contains ArrayList of infos that Oscar can interact with.
  */
-public class InfoList {
-    private ArrayList<Info> infoList;
+public class ItemList {
+    private ArrayList<Item> itemList;
 
     /**
      * Uses an empty info list.
      */
-    public InfoList() {
-        this.infoList = new ArrayList<Info>();
+    public ItemList() {
+        this.itemList = new ArrayList<Item>();
     }
 
     /**
@@ -28,9 +28,9 @@ public class InfoList {
      * @param stream Object input stream to be read.
      * @throws OscarException Unable to load object input stream.
      */
-    public InfoList(ObjectInputStream stream) throws OscarException {
+    public ItemList(ObjectInputStream stream) throws OscarException {
         assert stream != null;
-        this.infoList = load(stream);
+        this.itemList = load(stream);
     }
 
     /**
@@ -42,12 +42,12 @@ public class InfoList {
      * @return Saved info list in an ArrayList.
      * @throws OscarException Unable to handle object input stream.
      */
-    ArrayList<Info> load(ObjectInputStream stream) throws OscarException {
+    ArrayList<Item> load(ObjectInputStream stream) throws OscarException {
         try {
             @SuppressWarnings("unchecked")
-            ArrayList<Info> tempList = (ArrayList<Info>) stream.readObject();
-            infoList = tempList;
-            return infoList;
+            ArrayList<Item> tempList = (ArrayList<Item>) stream.readObject();
+            itemList = tempList;
+            return itemList;
         } catch (IOException e) {
             throw new OscarException("Sorry! There is an error loading the saved info list.\n");
         } catch (ClassNotFoundException e) {
@@ -63,7 +63,7 @@ public class InfoList {
      */
     public void save(ObjectOutputStream stream) throws OscarException {
         try {
-            stream.writeObject(infoList);
+            stream.writeObject(itemList);
         } catch (IOException e) {
             throw new OscarException("Sorry! There is an issue with your input or output.\n");
         }
@@ -75,7 +75,7 @@ public class InfoList {
      * @return Count of items.
      */
     public int getSize() {
-        return infoList.size();
+        return itemList.size();
     }
 
     /**
@@ -86,8 +86,8 @@ public class InfoList {
     public String list() {
         StringBuilder result = new StringBuilder("Here are the items in your list:\n");
         for (int i = 1; i <= getSize(); i++) {
-            Info currentInfo = infoList.get(i - 1);
-            result.append(i).append(".").append(currentInfo).append("\n");
+            Item currentItem = itemList.get(i - 1);
+            result.append(i).append(". ").append(currentItem).append("\n");
         }
         return result.append("\n").toString();
     }
@@ -116,11 +116,11 @@ public class InfoList {
      * @throws OscarException Item selected is a note or task is already marked as done.
      */
     public String mark(int index) throws OscarException {
-        Info currentInfo = infoList.get(index);
-        if (!(currentInfo instanceof Task)) {
+        Item currentItem = itemList.get(index);
+        if (!(currentItem instanceof Task)) {
             throw new OscarException("Sorry! The item cannot be marked as done.\n");
         }
-        Task currentTask = ((Task) currentInfo);
+        Task currentTask = ((Task) currentItem);
         if (currentTask.isDone()) {
             throw new OscarException("Sorry! The task is already marked as done.\n");
         }
@@ -136,11 +136,11 @@ public class InfoList {
      * @throws OscarException Item selected is a note or task is not marked as done previously.
      */
     public String unmark(int index) throws OscarException {
-        Info currentInfo = infoList.get(index);
-        if (!(currentInfo instanceof Task)) {
+        Item currentItem = itemList.get(index);
+        if (!(currentItem instanceof Task)) {
             throw new OscarException("Sorry! The item cannot be marked as not done.\n");
         }
-        Task currentTask = ((Task) currentInfo);
+        Task currentTask = ((Task) currentItem);
         if (!currentTask.isDone()) {
             throw new OscarException("Sorry! The task cannot be marked as not done.\n");
         }
@@ -155,17 +155,17 @@ public class InfoList {
      * @return Description of item.
      */
     public String delete(int index) {
-        Info currentInfo = infoList.remove(index);
-        return currentInfo.toString();
+        Item currentItem = itemList.remove(index);
+        return currentItem.toString();
     }
 
     /**
      * Adds an item to the info list.
      *
-     * @param info Item to be added.
+     * @param item Item to be added.
      */
-    public void add(Info info) {
-        infoList.add(info);
+    public void add(Item item) {
+        itemList.add(item);
     }
 
     /**
@@ -175,11 +175,11 @@ public class InfoList {
      * @return List of items containing keyword.
      */
     public String find(String keyword) {
-        StringBuilder result = new StringBuilder("Here are the matching infos in your list:");
-        for (int i = 1; i <= infoList.size(); i++) {
-            Info currentItem = infoList.get(i - 1);
+        StringBuilder result = new StringBuilder("Here are the matching infos in your list:\n");
+        for (int i = 1; i <= itemList.size(); i++) {
+            Item currentItem = itemList.get(i - 1);
             if (currentItem.getDescription().contains(keyword)) {
-                result.append(i).append(".").append(currentItem);
+                result.append(i).append(". ").append(currentItem).append("\n");
             }
         }
         return result.append("\n").toString();

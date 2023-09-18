@@ -1,7 +1,7 @@
 package oscar;
 
 import oscar.command.Command;
-import oscar.essential.InfoList;
+import oscar.essential.ItemList;
 import oscar.essential.Parser;
 import oscar.essential.Storage;
 import oscar.exception.OscarException;
@@ -13,7 +13,7 @@ public class Oscar {
     static final String FILE_PATH = "./data/infolist";
 
     private final Storage storage;
-    private InfoList infos;
+    private ItemList infos;
 
     /**
      * Instantiates Oscar with saved data.
@@ -23,9 +23,9 @@ public class Oscar {
     public Oscar(String filePath) {
         storage = new Storage(filePath);
         try {
-            infos = new InfoList(storage.load());
+            infos = new ItemList(storage.load());
         } catch (OscarException e) {
-            infos = new InfoList();
+            infos = new ItemList();
         }
     }
 

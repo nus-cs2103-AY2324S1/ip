@@ -1,10 +1,10 @@
 package oscar.command;
 
-import oscar.essential.InfoList;
+import oscar.essential.ItemList;
 import oscar.essential.Storage;
 import oscar.exception.OscarException;
-import oscar.info.Task;
-import oscar.info.TodoTask;
+import oscar.item.Task;
+import oscar.item.TodoTask;
 
 /**
  * Command to create a new todo task.
@@ -30,7 +30,7 @@ public class TodoCommand extends Command {
      * @throws OscarException Incorrect format of todo command.
      */
     @Override
-    public String execute(InfoList infos, Storage storage) throws OscarException {
+    public String execute(ItemList infos, Storage storage) throws OscarException {
         assert infos != null;
         assert storage != null;
         validate();

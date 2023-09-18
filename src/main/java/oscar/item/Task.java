@@ -1,10 +1,10 @@
-package oscar.info;
+package oscar.item;
 
 /**
  * Task superclass that supports todo, deadline and event tasks.
  * Taken from hint.
  */
-public abstract class Task extends Info {
+public abstract class Task extends Item {
     private boolean isDone;
 
     /**

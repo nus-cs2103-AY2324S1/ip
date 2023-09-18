@@ -1,4 +1,4 @@
-package oscar.info;
+package oscar.item;
 
 /**
  * Todo task that contains description of task.

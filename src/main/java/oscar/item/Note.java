@@ -1,9 +1,9 @@
-package oscar.info;
+package oscar.item;
 
 /**
  * Note class that supports recording and managing textual information.
  */
-public class Note extends Info {
+public class Note extends Item {
     /**
      * Public constructor to create a note.
      *

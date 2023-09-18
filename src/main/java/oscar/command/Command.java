@@ -2,7 +2,7 @@ package oscar.command;
 
 import java.time.format.DateTimeFormatter;
 
-import oscar.essential.InfoList;
+import oscar.essential.ItemList;
 import oscar.essential.Storage;
 import oscar.exception.OscarException;
 
@@ -20,7 +20,7 @@ public abstract class Command {
      * @return Integer info number.
      * @throws OscarException Failure to validate info number.
      */
-    public int validateInt(InfoList infos, String details) throws OscarException {
+    public int validateInt(ItemList infos, String details) throws OscarException {
         if (details.isEmpty()) {
             throw new OscarException("Sorry! The info number cannot be empty.\n");
         }
@@ -46,5 +46,5 @@ public abstract class Command {
      * @return String output of command.
      * @throws OscarException Failure to execute command.
      */
-    public abstract String execute(InfoList infos, Storage storage) throws OscarException;
+    public abstract String execute(ItemList infos, Storage storage) throws OscarException;
 }

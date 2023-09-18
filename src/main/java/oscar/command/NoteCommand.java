@@ -1,9 +1,9 @@
 package oscar.command;
 
-import oscar.essential.InfoList;
+import oscar.essential.ItemList;
 import oscar.essential.Storage;
 import oscar.exception.OscarException;
-import oscar.info.Note;
+import oscar.item.Note;
 
 /**
  * Command to create a new note.
@@ -29,7 +29,7 @@ public class NoteCommand extends Command {
      * @throws OscarException Incorrect format of note.
      */
     @Override
-    public String execute(InfoList infos, Storage storage) throws OscarException {
+    public String execute(ItemList infos, Storage storage) throws OscarException {
         assert infos != null;
         assert storage != null;
         validate();

@@ -1,6 +1,6 @@
 package oscar.command;
 
-import oscar.essential.InfoList;
+import oscar.essential.ItemList;
 import oscar.essential.Storage;
 import oscar.exception.OscarException;
 
@@ -28,7 +28,7 @@ public class FindCommand extends Command {
      * @throws OscarException Failure to execute command.
      */
     @Override
-    public String execute(InfoList infos, Storage storage) throws OscarException {
+    public String execute(ItemList infos, Storage storage) throws OscarException {
         assert infos != null;
         validate();
         return infos.find(keyword);
