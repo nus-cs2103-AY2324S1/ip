@@ -6,6 +6,9 @@ import duke.exception.WrongMarkException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to unmark a task
+ */
 public class UnmarkCommand extends Command {
     private int taskNumber;
 
@@ -19,7 +22,6 @@ public class UnmarkCommand extends Command {
 
     /**
      * Execute the UnMarkCommand and returns a string
-     * 
      * {@inheritDoc}
      */
     @Override

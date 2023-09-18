@@ -6,6 +6,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to exit the program
+ */
 public class ByeCommand extends Command {
 
     /**
@@ -17,7 +20,6 @@ public class ByeCommand extends Command {
 
     /**
      * Execute the ByeCommand and returns a string
-     * 
      * {@inheritDoc}
      */
     @Override

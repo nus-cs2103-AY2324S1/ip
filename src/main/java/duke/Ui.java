@@ -128,52 +128,58 @@ public class Ui {
         return output;
     }
 
-    public String helpList() throws FileNotFoundException {
+    public String helpList() {
         printLine();
         String output = "";
-        File file = new File("./HelpList.txt");
-        Scanner sc = new Scanner(new FileReader(file));
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            System.out.println(line);
-            output += line + "\n";
-        }
+        output += "Pika Pika!! Here are the list of commands you can use: \n";
+        output += "1. todo <task name>\n";
+        output += "2. deadline <task name> /by <date>\n";
+        output += "3. event <task name> /from <start time> /to <end time>\n";
+        output += "4. list\n";
+        output += "5. mark <task number>\n";
+        output += "6. unmark <task number>\n";
+        output += "7. delete <task number>\n";
+        output += "8. find <keyword>\n";
+        output += "9. bye\n";
+        output += "For more details on each command, type help <number> (eg. help 1)\n";
+        output += "Pika Pika!! We aim to improve everyone productivity!!";
+        System.out.println(output);
         return output;
     }
 
     public String detailedHelp(int helpNumber) {
         String output = "";
         switch (helpNumber) {
-        case 1:
-            output += Ui.todoExample();
-            break;
-        case 2:
-            output += Ui.deadlineExample();
-            break;
-        case 3:
-            output += Ui.eventExample();
-            break;
-        case 4:
-            output += Ui.listExample();
-            break;
-        case 5:
-            output += Ui.markExample();
-            break;
-        case 6:
-            output += Ui.unMarkExample();
-            break;
-        case 7:
-            output += Ui.deleteExample();
-            break;
-        case 8:
-            output += Ui.findExample();
-            break;
-        case 9:
-            output += Ui.byeExample();
-            break;
-        default:
-            output += "Please enter a valid help number from 1 to 9";
-            break;
+            case 1:
+                output += Ui.todoExample();
+                break;
+            case 2:
+                output += Ui.deadlineExample();
+                break;
+            case 3:
+                output += Ui.eventExample();
+                break;
+            case 4:
+                output += Ui.listExample();
+                break;
+            case 5:
+                output += Ui.markExample();
+                break;
+            case 6:
+                output += Ui.unMarkExample();
+                break;
+            case 7:
+                output += Ui.deleteExample();
+                break;
+            case 8:
+                output += Ui.findExample();
+                break;
+            case 9:
+                output += Ui.byeExample();
+                break;
+            default:
+                output += "Please enter a valid help number from 1 to 9";
+                break;
         }
         return output;
     }

@@ -7,6 +7,9 @@ import duke.exception.UnknownCommandException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to add a task
+ */
 public class AddTaskCommand extends Command {
     private String command;
 
@@ -20,7 +23,6 @@ public class AddTaskCommand extends Command {
 
     /**
      * Execute the AddTaskCommand and returns a string
-     * 
      * {@inheritDoc}
      */
     @Override

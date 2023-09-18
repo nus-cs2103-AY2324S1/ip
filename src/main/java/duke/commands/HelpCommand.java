@@ -6,6 +6,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to print out the help message
+ */
 public class HelpCommand extends Command {
 
     /**
@@ -17,7 +20,6 @@ public class HelpCommand extends Command {
 
     /**
      * Executes the command to print out the help message
-     * 
      * {@inheritDoc}
      */
     @Override

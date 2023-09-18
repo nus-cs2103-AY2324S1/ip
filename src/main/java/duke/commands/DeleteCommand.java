@@ -4,6 +4,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to delete a task
+ */
 public class DeleteCommand extends Command {
     private int taskNumber;
 
@@ -17,7 +20,6 @@ public class DeleteCommand extends Command {
 
     /**
      * Execute the DeleteCommand and returns a string
-     * 
      * {@inheritDoc}
      */
     @Override

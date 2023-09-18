@@ -5,8 +5,7 @@ import duke.Ui;
 import duke.task.TaskList;
 
 /**
- * List of all possible commands, used the idea of enums to list
- * all the possible commands
+ * Superclass of all the commands to be implemented
  */
 public abstract class Command {
     boolean isExit;

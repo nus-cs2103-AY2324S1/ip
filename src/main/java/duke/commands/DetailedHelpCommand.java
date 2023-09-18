@@ -4,6 +4,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to print out the sample data for the user to learn
+ */
 public class DetailedHelpCommand extends HelpCommand {
     private int helpNumber;
 
@@ -17,7 +20,6 @@ public class DetailedHelpCommand extends HelpCommand {
 
     /**
      * Executes the command to print out the sample data for the user to learn
-     * 
      * {@inheritDoc}
      */
     @Override

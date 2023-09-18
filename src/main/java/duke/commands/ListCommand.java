@@ -4,6 +4,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to list out all the tasks
+ */
 public class ListCommand extends Command {
 
     /**
@@ -15,7 +18,6 @@ public class ListCommand extends Command {
 
     /**
      * Execute the ListCommand and returns a string
-     * 
      * {@inheritDoc}
      */
     @Override

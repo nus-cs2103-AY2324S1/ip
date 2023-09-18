@@ -6,6 +6,9 @@ import duke.exception.WrongMarkException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to mark a task as done
+ */
 public class MarkCommand extends Command {
     private int taskNumber;
 
@@ -19,7 +22,6 @@ public class MarkCommand extends Command {
 
     /**
      * Execute the MarkCommand and returns a string
-     * 
      * {@inheritDoc}
      */
     @Override

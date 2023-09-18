@@ -4,6 +4,9 @@ import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Represent a command to find a list of tasks with a particular keyword
+ */
 public class FindCommand extends Command {
     private String keyword;
 
@@ -17,7 +20,6 @@ public class FindCommand extends Command {
 
     /**
      * Execute the FindCommand and returns a string
-     * 
      * {@inheritDoc}
      */
     @Override
