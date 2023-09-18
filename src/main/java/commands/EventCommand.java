@@ -41,10 +41,10 @@ public class EventCommand extends Command {
             LocalDateTime fromDate = parseDateTime(fromDateString);
             LocalDateTime toDate = parseDateTime(toDateString);
 
-            boolean fromDateIsNull = fromDate == null;
-            boolean toDateIsNull = toDate == null;
+            boolean isFromDateNull = fromDate == null;
+            boolean isToDateNull = toDate == null;
 
-            if (fromDateIsNull || toDateIsNull) {
+            if (isFromDateNull || isToDateNull) {
                 return "Please input a date in the correct format.";
             }
 
