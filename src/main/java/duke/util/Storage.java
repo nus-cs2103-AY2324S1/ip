@@ -185,6 +185,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the previously saved alias file.
+     * <p>If the file is not found or corrupted, it will create a new file and
+     * load the default alias.</p>
+     *
+     * @throws DukeException If the file is not found or corrupted.
+     */
     public void loadAlias() throws DukeException {
         File aliasFile = new File("./config/alias.txt");
         if (!aliasFile.exists()) {
@@ -203,6 +210,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the file to the alias list.
+     *
+     * @param sc             The scanner of the file.
+     * @param aliasFile      The alias file that contains all the aliases
+     * @throws IOException   If the file is not found.
+     * @throws DukeException If the format is wrong.
+     */
     private void loadToAlias(Scanner sc, File aliasFile) throws IOException, DukeException {
         while (sc.hasNext()) {
             String[] split = sc.nextLine().split(" -> ");
@@ -216,6 +231,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the alias list to the alias file. It will clear the file and
+     * write the alias list to the file.
+     *
+     * @param aliasList      The alias list.
+     * @throws DukeException If the file is not found.
+     */
     public void saveAlias(List<String> aliasList) throws DukeException {
         try {
             FileWriter fw = new FileWriter("./config/alias.txt");

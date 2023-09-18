@@ -11,7 +11,6 @@ import duke.command.LoadCommand;
 import duke.command.MarkCommand;
 import duke.command.PrintDateCommand;
 import duke.command.SortCommand;
-import duke.exception.AliasException;
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;

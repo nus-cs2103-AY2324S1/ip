@@ -1,13 +1,16 @@
 package duke.command;
 
-import duke.Duke;
-import duke.exception.AliasException;
 import duke.exception.DukeException;
 import duke.util.Alias;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
+/**
+ * AliasCommand class is used to add or remove an alias.
+ * It can also list all the current aliases. A <code>AliasCommand</code> object
+ * corresponds to an executable command when the user wants to add or remove an alias.
+ */
 public class AliasCommand extends Command {
 
     private final String commandBody;
@@ -37,7 +40,7 @@ public class AliasCommand extends Command {
     }
 
     /**
-     * Executes the sort command to sort task-list in specific ways.
+     * Executes the alias command to either add an alias or remove an existing one.
      *
      * @param taskList The task list.
      * @param ui       The user interface.
@@ -59,14 +62,11 @@ public class AliasCommand extends Command {
         String aliasTo;
         if (isAddAlias) {
             String[] split = commandBody.split(" ");
-            if (split.length != 2) {
-                throw new AliasException();
-            }
             aliasFrom = split[0];
-            aliasTo = split[1];
+            aliasTo = commandBody.substring(aliasFrom.length() + 1);
             if (Alias.isAliasPresent(aliasTo)) {
-                throw new DukeException("OOPS!!! Looks like you are trying to make " +
-                        "an alias of an alias!\nThis is not allowed! Please try again!");
+                throw new DukeException("OOPS!!! Looks like you are trying to make "
+                        + "an alias of an alias!\nThis is not allowed! Please try again!");
             }
             Alias.addAlias(aliasFrom, aliasTo);
         } else {

@@ -213,7 +213,14 @@ public class Ui {
                 isDefaultSort ? "name" : sortType);
     }
 
-
+    /**
+     * Shows the added or removed alias message to the user.
+     *
+     * @param isAddAlias whether to add or remove alias.
+     * @param aliasFrom  the word to be used as alias.
+     * @param aliasTo    the word to be replaced by alias.
+     * @return the response message to the user.
+     */
     public String showAlias(boolean isAddAlias, String aliasFrom, String aliasTo) {
         String message = isAddAlias
                 ? "Nice! I've added this alias: "
@@ -222,6 +229,11 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Shows the list of aliases to the user.
+     *
+     * @return the response message to the user.
+     */
     public String showAliasList() {
         List<String> aliasList = Alias.saveAliasFormat();
         if (aliasList.isEmpty()) {
