@@ -12,5 +12,5 @@ public abstract class Command {
     /**
      * @return the type of the Command
      */
-    public static String getType() {return null;}
+    public String getType() {return null;}
 }

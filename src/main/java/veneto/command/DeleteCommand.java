@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
     /**
      * @return the type of the Command
      */
-    public static String getType() {
+    public String getType() {
         return type;
     }
 }
