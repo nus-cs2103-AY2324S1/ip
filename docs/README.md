@@ -1,29 +1,179 @@
-# User Guide
+# User Guide for ~~Duke~~ Cortana
+
+- [Command Summary](#command-summary)
+- [Features](#features)
+  - [Adding a todo task: todo](#adding-a-todo-task-todo)
+  - [Adding a deadline task: deadline](#adding-a-deadline-task-deadline)
+  - [Adding an event task: event](#adding-an-event-task-event)
+  - [Viewing all tasks: list](#viewing-all-tasks-list)
+  - [Marking a task as done: mark](#marking-a-task-as-done-mark)
+  - [Marking a task as not done: mark](#marking-a-task-as-not-done-unmark)
+  - [Deleting a task: delete](#deleting-a-task-delete)
+  - [Finding tasks with a description: find](#finding-tasks-with-a-description-find)
+  - [Viewing all tasks on a certain date: taskson](#viewing-all-tasks-on-a-certain-date-taskson)
+  - [Finding the next available dates: freedates](#finding-the-next-available-dates-freedates)
+
+
+## Command Summary
+<table>
+<tr>
+<th>Command</th><th>Format, Example</th>
+</tr>
+<tr>
+<td>todo</td>
+<td>
+
+`todo {description}`
+
+Example: `todo task`
+
+</td>
+</tr>
+<tr>
+<td>deadline</td>
+<td>
+
+`deadline {description} /by {due date}`
+
+Example: `deadline task /by 2023-01-01`
+
+</td>
+</tr>
+<tr>
+<td>event</td>
+<td>
+
+`event {description} /from {start date} /to {end date}`
+
+Example: `event task /from 2023-01-01 /to 2023-01-02`
+
+</td>
+</tr>
+<tr>
+<td>list</td>
+<td>
+
+`list`
+
+</td>
+</tr>
+<tr>
+<td>mark</td>
+<td>
+
+`mark {index of task}`
+
+Example: `mark 1`
+
+</td>
+</tr>
+<tr>
+<td>unmark</td>
+<td>
+
+`unmark {index of task}`
+
+Example: `unmark 1`
+
+</td>
+</tr>
+<tr>
+<td>mark</td>
+<td>
+
+`delete {index of task}`
+
+Example: `delete 1`
+
+</td>
+</tr>
+<tr>
+<td>mark</td>
+<td>
+
+`find {description}`
+
+Example: `find task`
+
+</td>
+</tr>
+<tr>
+<td>taskson</td>
+<td>
+
+`taskson {date}`
+
+Example: `taskson 2023-01-01`
+
+</td>
+</tr>
+<tr>
+<td>freedates</td>
+<td>
+
+`freedates`
+
+</td>
+</tr>
+</table>
 
 ## Features 
 
-### Feature-ABC
+### Adding a todo task: todo
 
-Description of the feature.
+Adds a todo task with just a description
 
-### Feature-XYZ
+Format: ```todo {description}```
 
-Description of the feature.
+### Adding a deadline task: deadline
 
-## Usage
+Adds a deadline task with a description and a due date
 
-### `Keyword` - Describe action
+Format: ```deadline {description} /by {due date}```
 
-Describe the action and its outcome.
+### Adding an event task: event
 
-Example of usage: 
+Adds an event task with a description, a start date and an end date
 
-`keyword (optional arguments)`
+Format: ```event {description} /from {start date} /to {end date}```
 
-Expected outcome:
+### Viewing all tasks: list
 
-Description of the outcome.
+Shows all the tasks currently saved
+Format: ```list```
 
-```
-expected output
-```
+### Marking a task as done: mark
+
+Marks a task as done
+
+Format: ```mark {index of task}```
+
+### Marking a task as not done: unmark
+
+Marks a task as not done
+
+Format: ```unmark {index of task}```
+
+### Deleting a task: delete
+
+Deletes a task from the list
+
+Format: ```delete {index of task}```
+
+### Finding tasks with a description: find
+
+Finds tasks with the matching description
+
+Format: ```find {description}```
+
+### Viewing all tasks on a certain date: taskson
+
+Shows all tasks occurring on a certain date
+
+Format: ```taskson {date}```
+
+### Finding the next available dates: freedates
+
+Finds up to next 5 dates without tasks
+
+Format: ```freedates```
