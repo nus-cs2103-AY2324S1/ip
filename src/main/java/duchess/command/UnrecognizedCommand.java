@@ -19,6 +19,6 @@ public class UnrecognizedCommand extends Command {
      */
     @Override
     public String execute(String userInput, TaskList tasks) {
-        return "(´；ω；`) Oopsies... I don't know what that means ;-;";
+        return Ui.duchessFormat("(´；ω；`) Oopsies... I don't know what that means ;-;");
     }
 }
