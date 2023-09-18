@@ -43,31 +43,6 @@ public class Duchess {
     }
 
     /**
-     * Deletes a task.
-     *
-     * @param i - the index of the task to be deleted.
-     * @return    Duchess' response to the command.
-     */
-    private String deleteTask(int index) {
-        String response = "";
-
-        if (index < 0 || index >= this.storedTasks.size()) {
-            response += Ui.duchessFormat("(´；ω；`) Sorry, no such task exists... ;-;");
-            this.executeCallbackHandler(response);
-            return response;
-        }
-
-        Task task = this.storedTasks.removeTask(index);
-        response += Ui.duchessFormat("Deleted successfully!! d(*⌒▽⌒*)b");
-        response += Ui.duchessFormat(String.format("%d: %s", index + 1, task.toString()));
-        response += Ui.duchessFormat("");
-        response += Ui.duchessFormat(String.format("Now you have %d task(s)!! ヽ(´▽`)/", this.storedTasks.size()));
-
-        this.executeCallbackHandler(response);
-        return response;
-    }
-
-    /**
      * Adds a new Event task with the specified title.
      *
      * @param event - the Event object to be added
@@ -212,19 +187,9 @@ public class Duchess {
 
         // Check if this command is a delete task command.
         if (Parser.isDeleteTaskCommand(userInput)) {
-            try {
-                int index = Parser.parseDeleteTaskCommand(userInput);
-                index -= 1; // 1-indexing for user-facing side
-                this.deleteTask(index);
-            } catch (DuchessException e) {
-                String response = "";
-
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("delete [task number]");
-
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.DELETE);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 

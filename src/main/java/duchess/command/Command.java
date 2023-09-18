@@ -16,6 +16,8 @@ public abstract class Command implements Executable {
                 return new MarkTaskCommand();
             case UNMARK:
                 return new UnmarkTaskCommand();
+            case DELETE:
+                return new DeleteTaskCommand();
         }
         return null;
     }
