@@ -127,9 +127,6 @@ public class Duke {
                 default:
                     throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
                 }
-                if (description.length == 1 || description[1].isBlank()) {
-                    throw new DukeException(ExceptionTypes.INCOMPLETEUPDATEDETAILS);
-                }
                 description[0] = description[0].split(" ", 2)[1];
                 return this.tasks.updateTask(description, taskNumber);
             } catch (DukeException exception) {
