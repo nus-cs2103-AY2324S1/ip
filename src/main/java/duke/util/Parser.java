@@ -41,8 +41,7 @@ public class Parser {
                 return taskList.find(command);
             } else if (command.equals("sort")) {
                 return taskList.sort();
-            }
-            else {
+            } else {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
