@@ -312,11 +312,15 @@ public class TaskList {
         double numOfTasksDone = this.listDoneTasks().size();
         double percentValue = numOfTasksDone / totalNumOfTasks * 100;
 
-        DecimalFormat df = new DecimalFormat("#.##");
-        String formattedNumber = df.format(percentValue);
-        double roundedPercentValue = Double.parseDouble(formattedNumber);
+        if (percentValue == 0) {
+            return percentValue;
+        } else {
+            DecimalFormat df = new DecimalFormat("#.##");
+            String formattedNumber = df.format(percentValue);
+            double roundedPercentValue = Double.parseDouble(formattedNumber);
 
-        return roundedPercentValue;
+            return roundedPercentValue;
+        }
     }
 
     /**
