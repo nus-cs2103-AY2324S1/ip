@@ -43,7 +43,6 @@ public class Storage {
         File saveFile = this.saveFile;
         try {
             if (saveFile.createNewFile()) {
-                client.say("New save file created!");
                 saveSaveFile(new TaskList());
             }
         } catch (IOException e) {

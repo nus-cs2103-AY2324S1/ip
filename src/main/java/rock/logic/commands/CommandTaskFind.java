@@ -23,6 +23,6 @@ public class CommandTaskFind extends Command {
     @Override
     public String apply(Parser input) {
         String keyword = input.getDefaultString();
-        return client.taskListFilteredSearch(task -> task.getName().contains(keyword));
+        return client.getTaskList().filteredSearch(task -> task.getName().contains(keyword));
     }
 }

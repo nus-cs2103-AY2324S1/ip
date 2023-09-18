@@ -33,6 +33,6 @@ public class CommandTaskListByDate extends Command {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Illegal Date");
         }
-        return client.taskListFilteredSearch(task -> task.getDate() == filterDate);
+        return client.getTaskList().filteredSearch(task -> task.getDate() == filterDate);
     }
 }

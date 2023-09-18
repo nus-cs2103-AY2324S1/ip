@@ -28,7 +28,7 @@ public class CommandTaskDelete extends Command {
         String inputString = input.getDefaultString();
         try {
             int taskIdx = Integer.parseInt(inputString);
-            Task removedTask = client.removeTask(taskIdx - 1);
+            Task removedTask = client.getTaskList().removeTask(taskIdx - 1);
             this.client.saveFile();
             return ("Task successfully removed!\n" + removedTask);
         } catch (NumberFormatException e) {

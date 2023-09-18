@@ -32,7 +32,7 @@ public class CommandTaskMark extends Command {
         String inputString = input.getDefaultString();
         try {
             int taskIdx = Integer.parseInt(inputString);
-            client.markTask(taskIdx, this.isMarking);
+            client.getTaskList().mark(taskIdx, this.isMarking);
             this.client.saveFile();
             String response = "";
             if (this.isMarking) {

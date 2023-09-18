@@ -90,7 +90,11 @@ public class Gui extends Application {
     }
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String response = getResponse(userInput.getText());
+        if (rock.isTerminated()) {
+            userInput.setDisable(true);
+        }
+        Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))

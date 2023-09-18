@@ -4,10 +4,8 @@ import java.util.NoSuchElementException;
 
 import rock.client.Rock;
 import rock.logic.io.Parser;
-import rock.tasks.Task;
-import rock.tasks.TaskDeadline;
-import rock.tasks.TaskEvent;
-import rock.tasks.TaskTodo;
+import rock.tasks.*;
+
 /**
  * Representation of possible types
  * of tasks that can be created.
@@ -46,13 +44,14 @@ public class CommandTaskCreate extends Command {
             throw new IllegalArgumentException("Name of task cannot be empty!");
         }
         Task task;
+        TaskList taskList = client.getTaskList();
         switch (this.taskType) {
         case TODO:
             task = new TaskTodo(taskName);
-            if (client.taskList.isPresent(task)) {
+            if (taskList.isPresent(task)) {
                 return ("Task already exists!");
             } else {
-                this.client.addTask(task);
+                taskList.addTask(task);
                 this.client.saveFile();
                 return ("Todo Task added!");
             }
@@ -60,10 +59,10 @@ public class CommandTaskCreate extends Command {
             try {
                 String deadlineTime = input.getTaggedInput("by");
                 task = new TaskDeadline(taskName, deadlineTime);
-                if (client.taskList.isPresent(task)) {
+                if (taskList.isPresent(task)) {
                     return ("Task already exists!");
                 } else {
-                    this.client.addTask(task);
+                    taskList.addTask(task);
                     this.client.saveFile();
                     return ("Deadline Task added!");
                 }
@@ -75,10 +74,10 @@ public class CommandTaskCreate extends Command {
                 String startTime = input.getTaggedInput("from");
                 String endTime = input.getTaggedInput("to");
                 task = new TaskEvent(taskName, startTime, endTime);
-                if (client.taskList.isPresent(task)) {
+                if (taskList.isPresent(task)) {
                     return ("Task already exists!");
                 } else {
-                    this.client.addTask(task);
+                    taskList.addTask(task);
                     this.client.saveFile();
                     return ("Event Task added!");
                 }

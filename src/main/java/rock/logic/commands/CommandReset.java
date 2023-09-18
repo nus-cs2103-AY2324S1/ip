@@ -23,7 +23,7 @@ public class CommandReset extends Command {
      */
     @Override
      public String apply(Parser input) {
-        this.client.resetTaskList();
+        this.client.getTaskList().reset();
         this.client.saveFile();
         return ("Task List reset.");
     }
