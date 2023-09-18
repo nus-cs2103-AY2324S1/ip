@@ -1,2 +1,2 @@
-[T][ ] eat
+[T][X] run away
 [T][ ] run
