@@ -3,7 +3,7 @@
 Bob is a Chatbot that can help free your mind of having to remember things you need to do! It helps you record down your todos, deadlines or events using a CLI within a custom GUI.
 
 ## Features
-_### Notes about the command format:
+### Notes about the command format:
 - Words within curly brackers `{}` are the parameters to be supplied by the user.
   e.g. in `todo {description}`, `{description}` is a parameter which can be used as add `todo do laundry`.
 
