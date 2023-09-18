@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private Image userImage = new Image(this.getClass()
                                             .getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass()
+    private Image botImage = new Image(this.getClass()
                                             .getResourceAsStream("/images/ChatBot404.png"));
 
     @FXML
@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         assert d != null : "Duke should not be null";
 
         duke = d;
-        DialogBox initializeDialog = DialogBox.getBotDialog(duke.initialize(), dukeImage);
+        DialogBox initializeDialog = DialogBox.getBotDialog(duke.initialize(), botImage);
         dialogContainer.getChildren().add(initializeDialog);
     }
 
@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, dukeImage)
+                DialogBox.getBotDialog(response, botImage)
         );
         userInput.clear();
     }
