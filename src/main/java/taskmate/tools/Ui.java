@@ -118,6 +118,17 @@ public class Ui {
         message += "Deleting Tasks:\n";
         message += "1. delete <integer>\n\n";
 
+        message += "Updating Tasks:\n";
+        message += "1. update <integer> <TAG> <newValue> ...\n\n";
+        message += "TAG\n";
+        message += "Todo Task: /name\n";
+        message += "Deadline Task: /name OR /by\n";
+        message += "Event Task: /name OR /from OR /to\n\n";
+        message += "newValue\n";
+        message += "/name: name of task\n";
+        message += "/by, /from, /to: must be of the form 'YYYY-mm-dd'\n";
+        message += "...: More '<TAG> <newValue>' pairs\n\n";
+
         message += "Others:\n";
         message += "1. Quit: bye\n";
         message += "2. Manual: help\n\n";
