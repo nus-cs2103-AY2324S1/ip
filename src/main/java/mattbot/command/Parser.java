@@ -16,22 +16,6 @@ public class Parser {
     private static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
     public Parser() {}
 
-    /*public static void parseInput(String input) {
-        String[] details = input.split(" ");
-        try {
-            String command = details[0];
-        } except (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Ahh! You need to give an input!");
-        }
-        switch (command) {
-            case "list":
-                for (int i = 0; i < tasks.size(); i++) {
-                    Task t = tasks.getTask(i + 1);
-                    System.out.println(String.format("%d. %s", i + 1, t));
-                }
-        }
-    }*/
-
     /**
      * Parses a line inside a MattBot task save file.
      *

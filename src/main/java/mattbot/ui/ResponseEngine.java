@@ -20,7 +20,7 @@ public class ResponseEngine {
     private static final String WRONG_DATE_FORMAT = "Your date is invalid. It should be in the form YYYYMMDDTHHMM."
             + " An example is 20231231T2359.";
     private static final String DELETE_IMPOSSIBLE = "Oops, you're deleting a task that doesn't exist.";
-    private static final String DELETE_SUCCESS = "I have remove this task for you. It was ";
+    private static final String DELETE_SUCCESS = "I have removed this task for you. It was ";
     private static final String FIND_FAIL = "Oh no. It looks like I cannot find any matching tasks.";
     private static final String FIND_SUCCESS = "Here's what I have found for you.";
     private static final String DO_NOT_UNDERSTAND = "Oh no. I do not understand your input.";
