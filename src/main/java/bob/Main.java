@@ -20,6 +20,7 @@ public class Main extends Application {
         mainWindow.initialise();
 
         stage.setTitle("It's Bob");
+        stage.setResizable(false);
         Scene scene = new Scene(mainWindow);
         stage.setScene(scene);
         stage.show();
