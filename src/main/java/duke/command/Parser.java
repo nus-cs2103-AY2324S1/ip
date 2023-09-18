@@ -77,7 +77,9 @@ public class Parser {
      * @throws DukeException Error message to indicate invalid delete command
      */
     private static String generateDeleteResponse(String[] tokens, TaskList taskList) throws DukeException {
-        if (tokens.length < 2) {
+        boolean isCommandEmpty = tokens.length < 2;
+
+        if (isCommandEmpty) {
             throw new DukeException("Please specify which task you wish to delete.");
         }
 
@@ -88,7 +90,8 @@ public class Parser {
             throw new DukeException("Please insert a valid integer.");
         }
 
-        if (taskIndex < 0 || taskIndex >= taskList.getTasks().size()) {
+        boolean isInvalidTask = taskIndex < 0 || taskIndex >= taskList.getTasks().size();
+        if (isInvalidTask) {
             throw new DukeException("The given task does not exist.");
         }
 
@@ -119,7 +122,9 @@ public class Parser {
      * @throws DukeException Error message to indicate invalid mark command
      */
     private static String generateMarkResponse(String[] tokens, TaskList taskList) throws DukeException {
-        if (tokens.length < 2) {
+        boolean isCommandEmpty = tokens.length < 2;
+
+        if (isCommandEmpty) {
             throw new DukeException("Please specify which task you wish to mark.");
         }
 
@@ -130,7 +135,8 @@ public class Parser {
             throw new DukeException("Please insert a valid integer.");
         }
 
-        if (taskIndex < 0 || taskIndex >= taskList.getTasks().size()) {
+        boolean isInvalidTask = taskIndex < 0 || taskIndex >= taskList.getTasks().size();
+        if (isInvalidTask) {
             throw new DukeException("The given task does not exist.");
         }
 
@@ -148,7 +154,9 @@ public class Parser {
      * @throws DukeException Error message to indicate invalid unmark command
      */
     private static String generateUnmarkResponse(String[] tokens, TaskList taskList) throws DukeException {
-        if (tokens.length < 2) {
+        boolean isCommandEmpty = tokens.length < 2;
+
+        if (isCommandEmpty) {
             throw new DukeException("Please specify which task you wish to unmark.");
         }
 
@@ -159,7 +167,8 @@ public class Parser {
             throw new DukeException("Please insert a valid integer.");
         }
 
-        if (taskIndex < 0 || taskIndex >= taskList.getTasks().size()) {
+        boolean isInvalidTask = taskIndex < 0 || taskIndex >= taskList.getTasks().size();
+        if (isInvalidTask) {
             throw new DukeException("The given task does not exist.");
         }
 
@@ -188,7 +197,9 @@ public class Parser {
      * @throws DukeException Error message to indicate invalid todo command
      */
     private static String generateTodoResponse(String[] tokens, TaskList taskList) throws DukeException {
-        if (tokens.length < 2) {
+        boolean isCommandEmpty = tokens.length < 2;
+
+        if (isCommandEmpty) {
             throw new DukeException("The description of todo cannot be empty.");
         }
 
@@ -207,12 +218,17 @@ public class Parser {
      * @throws DukeException Error message to indicate invalid deadline command
      */
     private static String generateDeadlineResponse(String[] tokens, TaskList taskList) throws DukeException {
-        if (tokens.length < 2) {
+        boolean isCommandEmpty = tokens.length < 2;
+
+        if (isCommandEmpty) {
             throw new DukeException("The description of deadline cannot be empty.");
         }
 
         String[] parts = tokens[1].split("/by", 2);
-        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+        boolean isDeadlineAbsent = parts.length < 2 || parts[1].trim().isEmpty();
+        boolean isDescriptionAbsent = parts[0].trim().isEmpty();
+
+        if (isDescriptionAbsent || isDeadlineAbsent) {
             throw new DukeException("Please provide a task description and deadline.");
         }
 
@@ -240,17 +256,25 @@ public class Parser {
      * @throws DukeException Error message to indicate invalid event command
      */
     private static String generateEventResponse(String[] tokens, TaskList taskList) throws DukeException {
-        if (tokens.length < 2) {
+        boolean isCommandEmpty = tokens.length < 2;
+
+        if (isCommandEmpty) {
             throw new DukeException("The description of event cannot be empty.");
         }
 
         String[] parts = tokens[1].split("/from", 2);
-        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+        boolean isStartAbsent = parts.length < 2 || parts[1].trim().isEmpty();
+        boolean isDescriptionAbsent = parts[0].trim().isEmpty();
+
+        if (isDescriptionAbsent || isStartAbsent) {
             throw new DukeException("Please provide a task description and event timing.");
         }
 
         String[] timingParts = parts[1].split("/to", 2);
-        if (timingParts.length < 2 || timingParts[0].trim().isEmpty() || timingParts[1].trim().isEmpty()) {
+        boolean isEndAbsent = timingParts.length < 2 || timingParts[1].trim().isEmpty();
+        boolean isStartEmpty = timingParts[0].trim().isEmpty();
+
+        if (isStartEmpty || isEndAbsent) {
             throw new DukeException("Please provide both the start and end timings for the event.");
         }
 
@@ -293,7 +317,9 @@ public class Parser {
      * @return String containing the find response
      */
     private static String generateFindResponse(String[] tokens, TaskList taskList) {
-        if (tokens.length < 2) {
+        boolean isCommandEmpty = tokens.length < 2;
+
+        if (isCommandEmpty) {
             return "Please specify a keyword to search for.";
         }
 
