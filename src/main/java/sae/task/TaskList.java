@@ -98,13 +98,17 @@ public class TaskList {
      */
     public String listTasks() {
         int len = tasks.size();
-        StringBuilder str = new StringBuilder();
-        str.append("1." + tasks.get(0).toString());
-        for (int i = 1; i < len; i++) {
-            Task curr = tasks.get(i);
-            str = str.append("\n" + (i + 1) + "." + curr.toString());
+        if (len > 0) {
+            StringBuilder str = new StringBuilder();
+            str.append("1." + tasks.get(0).toString());
+            for (int i = 1; i < len; i++) {
+                Task curr = tasks.get(i);
+                str = str.append("\n" + (i + 1) + "." + curr.toString());
+            }
+            return str.toString();
+        } else {
+            return msg.invalidListCommand();
         }
-        return str.toString();
     }
 
     /**

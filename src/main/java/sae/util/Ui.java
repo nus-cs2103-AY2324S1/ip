@@ -96,4 +96,8 @@ public class Ui {
         }
         return frontString + backString.toString();
     }
+
+    public String invalidListCommand() {
+            return "☹ OOPS!!! Your list of tasks is still empty! Add a task.";
+    }
 }

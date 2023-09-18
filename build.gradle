@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("sae.Sae")
+    mainClass.set("sae.Launcher")
 
 }
 
