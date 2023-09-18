@@ -2,8 +2,7 @@ package taskmate.commands;
 
 import java.util.HashMap;
 
-import taskmate.exceptions.InvalidAttributeException;
-import taskmate.exceptions.TaskNotFoundException;
+import taskmate.exceptions.*;
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
@@ -39,12 +38,17 @@ public class UpdateCommand extends Command {
             Task taskToUpdate = tasks.getTask(this.updateIndex);
             tasks.updateTask(taskToUpdate, changes);
 
-            // print message when marking
+            // print message after updating
             ui.printSuccessfulUpdateResponse(updateIndex, changes);
+
         } catch (TaskNotFoundException e) {
             ui.printTaskNotFoundExceptionResponse();
-        } catch (InvalidAttributeException e) {
-            ui.printInvalidUpdateResponse();
+        } catch (InvalidTodoUpdateException e) {
+            ui.printInvalidTodoUpdateException();
+        } catch (InvalidDeadlineUpdateException e) {
+            ui.printInvalidDeadlineUpdateException();
+        } catch (InvalidEventUpdateException e) {
+            ui.printInvalidEventUpdateException();
         }
     }
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
-import taskmate.exceptions.InvalidAttributeException;
+import taskmate.exceptions.InvalidEventUpdateException;
 
 /**
  * The Event class is a child class of the Task class that represents a 'Event' type task specified by the user.
@@ -89,7 +89,7 @@ public class Event extends Task {
     }
 
     @Override
-    public void update(HashMap<String, String> changes) throws InvalidAttributeException {
+    public void update(HashMap<String, String> changes) throws InvalidEventUpdateException {
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
             String newValue = attributeValuePair.getValue();
@@ -100,7 +100,7 @@ public class Event extends Task {
             } else if (attribute.equals("/to")) {
                 setEndDatetime(newValue);
             } else {
-                throw new InvalidAttributeException();
+                throw new InvalidEventUpdateException();
             }
         }
     }

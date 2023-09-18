@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
-import taskmate.exceptions.InvalidAttributeException;
+import taskmate.exceptions.InvalidDeadlineUpdateException;
 
 /**
  * The Deadline class is a child class of the Task class that represents a 'Deadline' type task specified by the user.
@@ -68,7 +68,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void update(HashMap<String, String> changes) throws InvalidAttributeException {
+    public void update(HashMap<String, String> changes) throws InvalidDeadlineUpdateException {
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
             String newValue = attributeValuePair.getValue();
@@ -77,7 +77,7 @@ public class Deadline extends Task {
             } else if (attribute.equals("/by")) {
                 setBy(newValue);
             } else {
-                throw new InvalidAttributeException();
+                throw new InvalidDeadlineUpdateException();
             }
         }
     }

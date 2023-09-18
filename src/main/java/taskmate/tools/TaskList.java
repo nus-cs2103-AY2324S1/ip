@@ -3,10 +3,7 @@ package taskmate.tools;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import taskmate.exceptions.FileCorruptedException;
-import taskmate.exceptions.InvalidAttributeException;
-import taskmate.exceptions.NoDataException;
-import taskmate.exceptions.TaskNotFoundException;
+import taskmate.exceptions.*;
 import taskmate.tools.tasks.Deadline;
 import taskmate.tools.tasks.Event;
 import taskmate.tools.tasks.Task;
@@ -173,7 +170,8 @@ public class TaskList {
      * @throws TaskNotFoundException thrown when taskToUpdate is not in the list of undeleted tasks
      * @throws InvalidAttributeException thrown when the attribute to update is an invalid one
      */
-    public void updateTask(Task taskToUpdate, HashMap<String, String> changes) throws TaskNotFoundException, InvalidAttributeException {
+    public void updateTask(Task taskToUpdate, HashMap<String, String> changes) throws TaskNotFoundException,
+            InvalidTodoUpdateException, InvalidDeadlineUpdateException, InvalidEventUpdateException {
         if (!this.tasks.contains(taskToUpdate)) {
             throw new TaskNotFoundException();
         }

@@ -242,8 +242,21 @@ public class Ui {
         printMessage(message);
     }
 
-    public void printInvalidUpdateResponse() {
-        String message = "Invalid update command!";
+    public void printInvalidTodoUpdateException() {
+        String message = "Invalid update to Todo task!\n";
+        message += "Syntax (for Todo tasks): update <integer> /name <newName>";
+        printMessage(message);
+    }
+
+    public void printInvalidDeadlineUpdateException() {
+        String message = "Invalid update to Deadline task!\n";
+        message += "Syntax (for Deadline tasks): update <integer> /name <newName> /by <YYYY-mm-dd>";
+        printMessage(message);
+    }
+
+    public void printInvalidEventUpdateException() {
+        String message = "Invalid update to Event task!\n";
+        message += "Syntax (for Event tasks): update <integer> /name <newName> /from <YYYY-mm-dd> /to <YYYY-mm-dd>";
         printMessage(message);
     }
 }
