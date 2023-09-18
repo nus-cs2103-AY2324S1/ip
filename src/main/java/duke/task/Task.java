@@ -83,34 +83,67 @@ public class Task {
         boolean notEmptyEvent = isEvent && splittedDescription.length != 1;
 
         if (isValidTodo) {
-            String taskDescription = description.replace("todo ", "");
-            return new Todo(taskDescription);
+            return createTodoTask(description);
         } else if (notEmptyDeadline) {
-            String[] splittedTask = description.replace("deadline ", "").split(" /by ");
-            if (splittedTask.length == 1) {
-                throw new EmptyDetailsOfTaskError("The end of a deadline cannot be empty.");
-            }
-            String taskName = splittedTask[0];
-            String end = splittedTask[1];
-            return new Deadlines(taskName, end);
+            return createDeadlineTask(description);
         } else if (notEmptyEvent) {
-            String[] splitStart = description.replace("event ", "").split(" /from ");
-            if (splitStart.length == 1) {
-                throw new EmptyDetailsOfTaskError("The start of a event cannot be empty.");
-            }
-            String[] splitEnd = splitStart[1].split(" /to ");
-            if (splitEnd.length == 1) {
-                throw new EmptyDetailsOfTaskError("The end of a event cannot be empty.");
-            }
-            String taskName = splitStart[0];
-            String start = splitEnd[0];
-            String end = splitEnd[1];
-            return new Events(taskName, start, end);
+            return createEventTask(description);
         } else if (isInvalidTask) {
             throw new EmptyDetailsOfTaskError("The description of a " + commandName + " cannot be empty.");
         } else {
             throw new UnknownCommandException("I'm sorry, but I don't know what that means :-C");
         }
+    }
+
+    /**
+     * To create a task of type Todo
+     * 
+     * @param data
+     * @return a Task of type Todo
+     */
+    private static Task createTodoTask(String data) {
+        assert data != null : "data should not be null";
+        String taskDescription = data.replace("todo ", "");
+        return new Todo(taskDescription);
+    }
+
+    /**
+     * To create a task of type Deadline
+     * 
+     * @param data
+     * @return a Task of type Deadline
+     * @throws EmptyDetailsOfTaskError
+     */
+    private static Task createDeadlineTask(String data) throws EmptyDetailsOfTaskError {
+        String[] splittedTask = data.replace("deadline ", "").split(" /by ");
+        if (splittedTask.length == 1) {
+            throw new EmptyDetailsOfTaskError("The end of a deadline cannot be empty.");
+        }
+        String taskName = splittedTask[0];
+        String end = splittedTask[1];
+        return new Deadlines(taskName, end);
+    }
+
+    /**
+     * To create a task of type Event
+     * 
+     * @param data
+     * @return
+     * @throws EmptyDetailsOfTaskError
+     */
+    private static Task createEventTask(String data) throws EmptyDetailsOfTaskError {
+        String[] splittedTask = data.replace("event ", "").split(" /from ");
+        if (splittedTask.length == 1) {
+            throw new EmptyDetailsOfTaskError("The start of a event cannot be empty.");
+        }
+        String[] splittedDetails = splittedTask[1].split(" /to ");
+        if (splittedDetails.length == 1) {
+            throw new EmptyDetailsOfTaskError("The end of a event cannot be empty.");
+        }
+        String taskName = splittedTask[0];
+        String start = splittedDetails[0];
+        String end = splittedDetails[1];
+        return new Events(taskName, start, end);
     }
 
     /**
