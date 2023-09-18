@@ -34,7 +34,9 @@ public class TaskList {
      * Adds Event to the Task List.
      * @param input user input specifying the details of the Event to be added.
      */
-    public void addEvent(String input) {
+    public String addEvent(String input) {
+
+        StringBuilder sb = new StringBuilder();
 
         String[] list = input.split("/");
         String title = list[0].substring(6);
@@ -49,7 +51,7 @@ public class TaskList {
 
         if (startTimeFormat != 1 || endTimeFormat != 1) {
             Event event = new Event(title, start, end);
-            UI.showAddTask(event);
+            sb.append(UI.showAddTask(event));
             taskList.add(event);
         } else {
             try {
@@ -57,21 +59,23 @@ public class TaskList {
                 LocalDateTime startDateTime = LocalDateTime.parse(start, inputFormatWithTime);
                 LocalDateTime endDateTime = LocalDateTime.parse(end, inputFormatWithTime);
                 Event event = new Event(title, startDateTime, endDateTime);
-                UI.showAddTask(event);
+                sb.append(UI.showAddTask(event));
                 taskList.add(event);
             } catch (DateTimeParseException e) {
+                sb.append("Invalid date-time format. Stick to the given format of dd-MM-yyyy HHmm");
                 System.out.println("Invalid date-time format. Stick to the given format of dd-MM-yyyy HHmm");
             }
         }
-
-
+        return String.valueOf(sb);
     }
 
     /**
      * Adds Deadline to the Task List.
      * @param input user input specifying the details of the Deadline to be added.
      */
-    public void addDeadline(String input) {
+    public String addDeadline(String input) {
+        StringBuilder sb = new StringBuilder();
+
         String[] list = input.split("/");
         String title = list[0].substring(9);
         String time = list[1].substring(3).trim();
@@ -83,29 +87,32 @@ public class TaskList {
 
         if (timeFormat == 0) {
             Deadline deadline = new Deadline(title, time);
-            UI.showAddTask(deadline);
+            sb.append(UI.showAddTask(deadline));
             taskList.add(deadline);
         } else {
             try {
                 DateTimeFormatter inputFormatWithTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
                 LocalDateTime dateTime = LocalDateTime.parse(time, inputFormatWithTime);
                 Deadline deadline = new Deadline(title, dateTime);
-                UI.showAddTask(deadline);
+                sb.append(UI.showAddTask(deadline));
                 taskList.add(deadline);
             } catch (DateTimeParseException e) {
+                sb.append("Invalid date-time format. Stick to the given format of dd-MM-yyyy HHmm");
                 System.out.println("Invalid date-time format. Stick to the given format of dd-MM-yyyy HHmm");
             }
         }
+        return String.valueOf(sb);
     }
 
     /**
      * Adds ToDoTask to the Task List.
      * @param input user input specifying the details of the ToDoTask to be added.
      */
-    public void addToDo(String input) throws DukeException {
+    public String addToDo(String input) throws DukeException {
         ToDo toDo = new ToDo(input);
-        UI.showAddTask(toDo);
+        String message = UI.showAddTask(toDo);
         taskList.add(toDo);
+        return message;
     }
 
     /**
@@ -120,20 +127,20 @@ public class TaskList {
      * marks the specific task as done.
      * @param taskIndex index of the task to be marked as done.
      */
-    public void mark(int taskIndex) {
+    public String mark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.setTaskDone(true);
-        UI.showMarked(currTask);
+        return UI.showMarked(currTask);
     }
 
     /**
      * unmarks the specific task.
      * @param taskIndex index of the task to be unmarked.
      */
-    public void unmark(int taskIndex) {
+    public String unmark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
         currTask.setTaskDone(false);
-        UI.showUnmarked(currTask);
+        return UI.showUnmarked(currTask);
     }
 
     /**

@@ -23,16 +23,19 @@ public class DeleteCommand extends Command {
 
     /**
      * method to execute the delete sequence
+     *
      * @param taskList object containing the ArrayList of tasks
-     * @param ui user interface responsible for terminal messages
-     * @param storage object to communicate with data.txt file
+     * @param ui       user interface responsible for terminal messages
+     * @param storage  object to communicate with data.txt file
+     * @return
      * @throws DukeException organic exception for Duke
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        ui.showDelete(fullCommand, taskList);
+    public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+        String message = ui.showDelete(fullCommand, taskList);
         taskList.deleteTask(fullCommand);
         storage.saveList(taskList);
+        return message;
     }
 
 }

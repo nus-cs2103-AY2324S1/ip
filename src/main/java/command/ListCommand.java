@@ -22,8 +22,8 @@ public class ListCommand extends Command {
      * @param storage object to communicate with data.txt file
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
-        ui.printList(taskList.getTaskArrayList());
+    public String execute(TaskList taskList, UI ui, Storage storage) {
+        return ui.printList(taskList.getTaskArrayList());
     }
 
 }

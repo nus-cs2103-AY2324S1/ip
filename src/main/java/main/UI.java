@@ -14,19 +14,20 @@ public class UI {
      * Constructor for UI class.
      */
     public UI() {}
-
     /**
      * Generates the divider displayed in the terminal.
      */
-    void printDivider() {
-        String line = "____________________________________________________________";
-        System.out.println(line);
+    String printDivider() {
+        String line = "\n________________________________________________________";
+        return line;
     }
 
     /**
      * Generates the welcome message displayed in the terminal.
      */
-    void printWelcomeMessage() {
+    String printWelcomeMessage() {
+
+        StringBuilder sb = new StringBuilder();
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -34,81 +35,100 @@ public class UI {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        System.out.println("Hello from\n" + logo);
+        sb.append("Hello from\n" + logo);
 
-        this.printDivider();
-        System.out.println(" Hello! I'm JARVIS");
-        System.out.println("What can I do for you?");
-        this.printDivider();
+        sb.append(this.printDivider());
+
+        sb.append("\nHello! I'm JARVIS");
+        sb.append("\nWhat can I do for you?");
+
+        sb.append(this.printDivider());
+//        System.out.println(sb);
+        return String.valueOf(sb);
     }
 
     /**
      * Lists out the tasks stored in the ArrayList<Task> Object.
      * @param taskArrayList - Contains the list of Tasks.
      */
-    public void printList(ArrayList<Task> taskArrayList) {
-        this.printDivider();
+    public String printList(ArrayList<Task> taskArrayList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.printDivider());
         if (taskArrayList.size() == 0) {
-            System.out.println("There are no tasks in your list.");
+            sb.append("\nThere are no tasks in your list.");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            sb.append("\nHere are the tasks in your list:");
             for (int i = 0; i < taskArrayList.size(); i++) {
                 int index = i + 1;
                 Task t = taskArrayList.get(i);
-                System.out.println(index + "." + t.toString());
+                sb.append("\n" + index + "." + t.toString());
             }
         }
-        this.printDivider();
+        sb.append(this.printDivider());
+        return String.valueOf(sb);
     }
 
-    public void list(ArrayList<Task> taskArrayList, Boolean isMatchingList) {
-        this.printDivider();
+    public String list(ArrayList<Task> taskArrayList, Boolean isMatchingList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.printDivider());
         if (taskArrayList.size() == 0) {
-            System.out.println("There are no matching tasks in your list.");
+            sb.append("\nThere are no matching tasks in your list.");
         } else if (isMatchingList) {
-            System.out.println("Here are the " + taskArrayList.size() + " matching tasks in your list:");
+            sb.append("\nHere are the " + taskArrayList.size() + " matching tasks in your list:");
             for (int i = 0; i < taskArrayList.size(); i++) {
                 int index = i + 1;
                 Task t = taskArrayList.get(i);
-                System.out.println(index + "." + t.toString());
+                sb.append("\n").append(index + "." + t.toString());
             }
         } else {
-            System.out.println("Here are the tasks in your list:");
+            sb.append("\nHere are the tasks in your list:");
             for (int i = 0; i < taskArrayList.size(); i++) {
                 int index = i + 1;
                 Task t = taskArrayList.get(i);
-                System.out.println(index + "." + t.toString());
+                sb.append("\n").append(index + "." + t.toString());
             }
         }
-        this.printDivider();
+        sb.append(this.printDivider());
+        return String.valueOf(sb);
     }
 
     /**
      * Generates the bye message displayed in the terminal.
      */
-    public void printByeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        this.printDivider();
+    public String printByeMessage() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nBye. Hope to see you again soon!");
+        sb.append(this.printDivider());
+        return String.valueOf(sb);
     }
 
-    public void showDelete(String input, TaskList taskList) {
+    public String showDelete(String input, TaskList taskList) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(taskList.getTaskArrayList().get(taskIndex));
+        StringBuilder sb = new StringBuilder();
+        sb.append("Noted. I've removed this task:");
+        sb.append("\n").append(taskList.getTaskArrayList().get(taskIndex));
+        return String.valueOf(sb);
     }
 
-    public static void showAddTask(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
+    public static String showAddTask(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nGot it. I've added this task:");
+        sb.append("\n").append(task);
+        return String.valueOf(sb);
     }
 
-    public static void showMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+    public static String showMarked(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nNice! I've marked this task as done:");
+        sb.append("\n").append(task);
+        return String.valueOf(sb);
     }
 
-    public static void showUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+    public static String showUnmarked(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nOK, I've marked this task as not done yet:");
+        sb.append("\n").append(task);
+        return String.valueOf(sb);
     }
 }

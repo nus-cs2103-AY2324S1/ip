@@ -23,12 +23,13 @@ public class ByeCommand extends Command {
      * @param taskList object containing the ArrayList of tasks
      * @param ui       user interface responsible for terminal messages
      * @param storage  object to communicate with data.txt file
+     * @return
      * @throws DukeException organic exception for Duke
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        ui.printByeMessage();
+    public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         storage.saveList(taskList);
+        return ui.printByeMessage();
     }
 
     /**

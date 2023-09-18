@@ -18,7 +18,9 @@ public abstract class Command {
      * @param storage object to communicate with data.txt file
      * @throws DukeException
      */
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {}
+    public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+        return null;
+    }
 
     /**
      * Method to decide whether program should continue
