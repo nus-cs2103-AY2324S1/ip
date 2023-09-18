@@ -1,5 +1,6 @@
 package bellcurvegod.tasklist;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import bellcurvegod.exception.EmptyDescriptionException;
@@ -35,29 +36,29 @@ public class TaskList {
      */
     public static String addTask(String input) throws InvalidCommandException, EmptyDescriptionException {
         String cmd = input.split(" ")[0];
-        Task newTask = null;
+        Task newTask;
 
         if (!(cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event"))) {
             throw new InvalidCommandException("You have entered an invalid command word!\n"
                 + "To add a new Task, use \"todo\", \" deadline\", or \"event\".\n");
         }
 
-        if (cmd.equals("deadline")) {
-            newTask = Deadline.generateDeadlineFromInput(input);
-        } else if (cmd.equals("event")) {
-            newTask = Event.generateEventFromInput(input);
-        } else {
-            newTask = Todo.generateTodoFromInput(input);
-        }
-
-        if (!newTask.getDescription().equals("__Faulty")) {
-            tasks.add(newTask);
-            numOfTasks++;
-            assert tasks.contains(newTask) : "The new task should be in the taskList.";
-            return Gui.getAddTaskMessage(newTask, numOfTasks);
-        } else {
+        try {
+            if (cmd.equals("deadline")) {
+                newTask = Deadline.generateDeadlineFromInput(input);
+            } else if (cmd.equals("event")) {
+                newTask = Event.generateEventFromInput(input);
+            } else {
+                newTask = Todo.generateTodoFromInput(input);
+            }
+        } catch (DateTimeParseException e) {
             return Gui.getWrongDateFormatMessage();
         }
+
+        tasks.add(newTask);
+        numOfTasks++;
+        assert tasks.contains(newTask) : "The new task should be in the taskList.";
+        return Gui.getAddTaskMessage(newTask, numOfTasks);
     }
 
     /**

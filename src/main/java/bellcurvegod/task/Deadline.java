@@ -1,7 +1,6 @@
 package bellcurvegod.task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -60,12 +59,7 @@ public class Deadline extends Task {
         ArrayList<String> ddlWords = new ArrayList<>(Arrays.asList(backWords).subList(1, backWords.length));
         String ddl = String.join(" ", ddlWords);
 
-        LocalDate deadline = null;
-        try {
-            deadline = LocalDate.parse(ddl);
-        } catch (DateTimeParseException e) {
-            return new Deadline("__Faulty", deadline);
-        }
+        LocalDate deadline = LocalDate.parse(ddl);
 
         return new Deadline(des, deadline);
     }

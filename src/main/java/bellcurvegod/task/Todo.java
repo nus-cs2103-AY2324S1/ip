@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import bellcurvegod.exception.EmptyTodoDescriptionException;
-import bellcurvegod.ui.Ui;
 
 /**
  * Encapsulates a task with description only.
@@ -35,11 +34,8 @@ public class Todo extends Task {
     public static Todo generateTodoFromInput(String input) throws EmptyTodoDescriptionException {
         String[] words = input.split(" ");
         if (words.length == 1) {
-            throw new EmptyTodoDescriptionException(
-                Ui.getLine() + "\n"
-                    + "You did not provide any description to this Todo.\n"
-                    + "To add a Todo, enter \"todo <description>\".\n"
-                    + Ui.getLine());
+            throw new EmptyTodoDescriptionException("You did not provide any description to this Todo.\n"
+                + "To add a Todo, enter \"todo <description>\".\n");
         }
         ArrayList<String> desWords = new ArrayList<>(Arrays.asList(words).subList(1, words.length));
         String des = String.join(" ", desWords);

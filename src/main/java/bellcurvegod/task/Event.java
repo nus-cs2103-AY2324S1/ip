@@ -1,12 +1,10 @@
 package bellcurvegod.task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import bellcurvegod.exception.EmptyEventDescriptionException;
-import bellcurvegod.ui.Ui;
 
 /**
  * Encapsulates a task with a duration.
@@ -72,15 +70,8 @@ public class Event extends Task {
         ArrayList<String> endWords = new ArrayList<>(Arrays.asList(backWords).subList(1, backWords.length));
         String end = String.join(" ", endWords);
 
-        LocalDate from = null;
-        LocalDate to = null;
-        try {
-            from = LocalDate.parse(start);
-            to = LocalDate.parse(end);
-        } catch (DateTimeParseException e) {
-            Ui.showWrongDateFormatMessage();
-            return new Event("__Faulty", from, to);
-        }
+        LocalDate from = LocalDate.parse(start);
+        LocalDate to = LocalDate.parse(end);
 
         return new Event(des, from, to);
     }
