@@ -272,6 +272,10 @@ public class EchoBot extends Application {
     private String handleDeleteCommand() {
         String input = userInput.getText();
         int taskNum = Command.extractTaskNum(input, "delete");
+
+        // Assert that taskNum is within valid bounds
+        assert taskNum >= 1 && taskNum <= tasks.size() : "Task number is out of bounds";
+
         DeleteCommand deleteCommand = new DeleteCommand(taskNum);
         deleteCommand.doCommand(tasks, storage, dialogContainer);
         return deleteCommand.getResponse();
