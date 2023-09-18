@@ -2,3 +2,5 @@ T # 0 # b
 D # 0 # s #  12:24
 D # 0 # sdd # 2012-06-07 
 D # 0 # run # 2012-02-02 
+T # 0 # watch youtube during lunch
+E # 0 # meme convention # 2023-09-18 12:00 # 2023-09-18 16:00
