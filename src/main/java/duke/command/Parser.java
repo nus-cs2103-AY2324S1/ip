@@ -353,7 +353,6 @@ public class Parser {
                 + "'find [keyword]' : Returns the tasks that contain the given keyword.\n\t(eg. find work)\n"
                 + "'bye' : Exit program.";
 
-
         return response;
     }
 
