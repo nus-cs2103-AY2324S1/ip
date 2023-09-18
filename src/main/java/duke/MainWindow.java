@@ -67,13 +67,14 @@ public class MainWindow extends AnchorPane {
                 }
             };
             Timer timer = new Timer("Delay");
-            timer.schedule(task, 1000L);
+            timer.schedule(task, 500L);
         }
     }
 
     /**
-     * Duke startup message for GUI.
+     * Shows user the welcome message when chatbot is started.
      */
+    @FXML
     private void startupMessage() {
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(ui.showWelcome(), dukeImage));
     }
