@@ -1,0 +1,30 @@
+mark 1
+list
+todo
+todo read book
+deadline
+deadline return book
+deadline return book /on
+deadline return book /by
+deadline return book /by Sun
+event
+event meeting
+event meeting /start 4pm /end 6pm
+event meeting /from /to 6pm
+event meeting /from 4pm /to
+event meeting /from 4pm /to 6pm
+mark
+mark -1
+mark 4
+mark 1
+list
+mark 1
+unmark
+unmark 1
+unmark 1
+delete
+delete -1
+delete 4
+delete 1
+list
+bye
