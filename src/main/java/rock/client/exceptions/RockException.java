@@ -6,7 +6,7 @@ package rock.client.exceptions;
  * @author Alvis Ng (supermii2)
  */
 public class RockException extends Exception {
-    public RockException(String message) {
-        super(message);
+    public RockException(Exception e) {
+        super(e);
     }
 }

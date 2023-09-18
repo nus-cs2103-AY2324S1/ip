@@ -11,12 +11,12 @@ import rock.tasks.TaskList;
 
 /**
  * Rock is the name of and the main program used
- * to run the bot for ip.
+ * to run the chatbot for ip.
  * @author Alvis Ng (supermii2)
  */
 public class Rock {
     /** Default Filepath to save data if no filepath is specified*/
-    private static final Path DEFAULT_FILEPATH = Paths.get("tasks.ser");
+    private static final Path DEFAULT_FILEPATH = Paths.get("data/tasks.ser");
 
     private TaskList taskList;
     private Storage storage;
@@ -74,7 +74,9 @@ public class Rock {
     public void saveFile() {
         try {
             storage.saveSaveFile(taskList);
-        } catch (StorageException e) {}
+        } catch (StorageException e) {
+
+        }
     }
 
     /**

@@ -91,15 +91,15 @@ public class Gui extends Application {
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         String response = getResponse(userInput.getText());
-        if (rock.isTerminated()) {
-            onTerminate();
-        }
         Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
+        if (rock.isTerminated()) {
+            onTerminate();
+        }
     }
     private void onTerminate() {
         userInput.setDisable(true);

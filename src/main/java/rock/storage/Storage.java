@@ -18,12 +18,12 @@ import rock.client.Rock;
 public class Storage {
     /** Object representation of file used to save/load data */
     private File saveFile;
-    /** Bot client*/
+    /** Chatbot client*/
     private Rock client;
     /**
      * Constructor for storage object
      * @param file File used to save and load data
-     * @param client Bot client
+     * @param client Chatbot client
      */
     public Storage(File file, Rock client) {
         this.client = client;
@@ -42,6 +42,7 @@ public class Storage {
     private void createSaveFile() throws StorageException {
         File saveFile = this.saveFile;
         try {
+            saveFile.getParentFile().mkdirs();
             if (saveFile.createNewFile()) {
                 saveSaveFile(new TaskList());
             }
