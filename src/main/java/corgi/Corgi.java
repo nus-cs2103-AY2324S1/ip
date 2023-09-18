@@ -35,9 +35,6 @@ public class Corgi {
         TaskList newList = new TaskList(newStorage.load());
         this.state = new State(newList, newStorage, newRenderer);
         this.history = new Stack<>();
-        // if (tasks.size() > 0) {
-        //     this.renderer.showTasksLoaded(tasks.size());
-        // }
     }
 
     public String getIntro() {
