@@ -67,7 +67,7 @@ public class Storage {
      */
     public void writeTasksToFile() {
         try {
-            FileWriter fileWriter = new FileWriter("data/duke.txt");
+            FileWriter fileWriter = new FileWriter("../data/duke.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (Task tasking : this.taskList) {
                 // format the string
@@ -219,7 +219,7 @@ public class Storage {
             int index = i + 1;
             Task t = this.taskList.get(i);
             if (t.getDescription().contains(toFindString)) {
-                result += String.format("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
+                result += String.format("%n     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
                 if (!Objects.isNull(t.startTime) && !Objects.isNull(t.endTime)) {
                     result += String.format(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
                 } else if (!Objects.isNull(t.startTime)) {

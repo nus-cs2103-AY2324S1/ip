@@ -10,7 +10,8 @@ repositories {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.example.MainClass'
+//        attributes 'Main-Class': 'com.example.MainClass'
+        attributes 'Main-Class': 'Launcher'
     }
 }
 
@@ -50,13 +51,15 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+//    mainClass.set("seedu.Launcher")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+//    archiveBaseName = "duke"
+//    archiveClassifier = null
+//    dependsOn("distZip", "distTar")
+    archiveFileName = 'iPBot-2.jar'
 }
 
 run{
