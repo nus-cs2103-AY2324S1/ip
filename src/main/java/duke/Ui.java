@@ -22,7 +22,7 @@ public class Ui {
     /**
      * Prints a farewell message to the user.
      */
-    public static String printExitMessage() {
+    public static String sendExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         return "Bye. Hope to see you again soon!";
     }

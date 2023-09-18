@@ -43,15 +43,7 @@ public class Duke {
         String dukeText;
         try {
             taskList = new TaskList(Storage.load());
-            String listMessage = taskList.listTasks();
-            if (listMessage.isEmpty()) {
-                System.out.println("There are no tasks in your list at the moment. Add some!");
-                dukeText = "There are no tasks in your list at the moment. Add some!";
-            } else {
-                System.out.println("Here are the tasks in your list:");
-                System.out.println(listMessage);
-                dukeText = "Here are the tasks in your list:\n" + listMessage;
-            }
+            dukeText = taskList.handleListCommand();
         } catch (FileNotFoundException e) {
             System.out.println("There are no tasks in your list at the moment. Add some!");
             dukeText = "There are no tasks in your list at the moment. Add some!";
@@ -75,17 +67,12 @@ public class Duke {
 
         while (true) {
             userInput = scanner.nextLine().trim();
-            Parser.parseInput(userInput, tasks);
-            if (userInput.equals("bye")) {
-                break;
-            }
+            Parser.processUserInput(userInput, tasks);
         }
-
-        scanner.close();
     }
 
     /**
-     * The main method to start the Duke application.
+     * Starts the Duke application.
      *
      * @param args Command-line arguments (not used).
      */
@@ -94,7 +81,6 @@ public class Duke {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
@@ -113,6 +99,6 @@ public class Duke {
      */
     @FXML
     String getResponse(String input) {
-        return Parser.parseInput(input, tasks);
+        return Parser.processUserInput(input, tasks);
     }
 }

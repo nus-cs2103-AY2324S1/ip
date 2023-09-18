@@ -33,6 +33,14 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize(Stage stage) {
+        setupComponents(stage);
+        formatWindow(stage);
+        formatLayout(stage);
+        setEventHandlers();
+        scrollToEndOnHeightChange();
+    }
+
+    private void setupComponents(Stage stage) {
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -45,19 +53,20 @@ public class MainWindow extends AnchorPane {
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        mainLayout.setPrefSize(400.0, 600.0);
 
         scene = new Scene(mainLayout);
 
         stage.setScene(scene);
         stage.show();
+    }
 
+    private void formatWindow(Stage stage) {
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Philip");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
 
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -65,7 +74,10 @@ public class MainWindow extends AnchorPane {
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
+    }
 
+
+    private void formatLayout(Stage stage) {
         // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
@@ -83,7 +95,10 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(Ui.printWelcomeMessage(), dukeImage));
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(duke.loadTasks(), dukeImage));
+    }
 
+    private void setEventHandlers() {
+        // Set event handlers for user input
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -91,10 +106,13 @@ public class MainWindow extends AnchorPane {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
+    }
 
+    private void scrollToEndOnHeightChange() {
         // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
+
 
     /**
      * Iteration 2:

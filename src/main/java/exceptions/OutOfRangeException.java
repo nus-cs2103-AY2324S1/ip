@@ -23,6 +23,6 @@ public class OutOfRangeException extends DukeException {
      */
     @Override
     public String toString() {
-        return "☹ OOPS!!! " + this.msg + " number out of range.";
+        return "OOPS!!! " + this.msg + " number out of range. :(";
     }
 }

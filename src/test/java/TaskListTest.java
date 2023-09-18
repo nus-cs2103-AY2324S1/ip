@@ -60,7 +60,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void tooLargeTaskIndex_markTask() {
+    public void tooLargeTaskIndex_markTask() throws EmptyTaskException {
         // Create a TaskList instance and add some tasks to it
         TaskList taskList = new TaskList();
         taskList.makeToDo("Task 1");
@@ -72,7 +72,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void tooSmallTaskIndex_markTask() {
+    public void tooSmallTaskIndex_markTask() throws EmptyTaskException {
         // Create a TaskList instance and add some tasks to it
         TaskList taskList = new TaskList();
         taskList.makeToDo("Task 1");

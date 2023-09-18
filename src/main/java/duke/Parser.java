@@ -20,90 +20,46 @@ public class Parser {
      * @param userInput The input provided by the user.
      * @param taskList  The TaskList instance used to manage tasks.
      */
-    public static String parseInput(String userInput, TaskList taskList) {
+    public static String parseInput(String userInput, TaskList taskList) throws InvalidInputException, EmptyTaskException, OutOfRangeException, EmptyDateException, IOException {
+        userInput = userInput.trim();
+        if (Objects.equals(userInput, "bye")) {
+            response = Ui.sendExitMessage();
+            System.exit(0);
+        } else if (Objects.equals(userInput, "list")) {
+            response = taskList.handleListCommand();
+        } else if (userInput.startsWith("find")) {
+            response = taskList.handleFindCommand(userInput);
+        } else if (userInput.startsWith("mark")) {
+            response = taskList.markTask(userInput);
+        } else if (userInput.startsWith("unmark")) {
+            response = taskList.unmarkTask(userInput);
+        } else if (userInput.startsWith("todo")) {
+            response = taskList.makeToDo(userInput);
+        } else if (userInput.startsWith("deadline")) {
+            response = taskList.makeDeadline(userInput);
+        } else if (userInput.startsWith("event")) {
+            response = taskList.makeEvent(userInput);
+        } else if (userInput.startsWith("delete")) {
+            response = taskList.deleteTask(userInput);
+        } else if (userInput.equals("sort")){
+            response = taskList.handleSortCommand();
+        } else if (userInput.equals("i love u")) {
+            response = "i love u too <3";
+        } else {
+            throw new InvalidInputException("Invalid Input");
+        }
+        taskList.updateTaskFile();
+        return response;
+    }
+
+    public static String processUserInput(String userInput, TaskList taskList) {
         try {
-            if (Objects.equals(userInput, "bye")) {
-                taskList.updateTaskFile();
-                Ui.printExitMessage();
-                System.exit(0);
-
-            } else if (Objects.equals(userInput, "list")) {
-                String listTasks = taskList.listTasks();
-                if (listTasks != "") {
-                    System.out.println("Here are the tasks in your list:");
-                    System.out.println(listTasks);
-                    return "Here are the tasks in your list:\n" + listTasks;
-                } else {
-                    System.out.println("There are no tasks in your list at the moment. Add some!");
-                    return "There are no tasks in your list at the moment. Add some!";
-                }
-
-            } else if (userInput.startsWith("find")) {
-                String foundTasks = taskList.find(userInput);
-                if (foundTasks != "") {
-                    System.out.println("Here are the matching tasks in your list:");
-                    System.out.println(foundTasks);
-                    return "Here are the matching tasks in your list:\n" + foundTasks;
-                } else {
-                    System.out.println("There are no matching tasks in your list.");
-                    return "There are no matching tasks in your list.";
-                }
-
-            } else if (userInput.startsWith("mark")) {
-                response = taskList.markTask(userInput);
-                taskList.updateTaskFile();
-
-            } else if (userInput.startsWith("unmark")) {
-                response = taskList.unmarkTask(userInput);
-                taskList.updateTaskFile();
-
-            } else if (userInput.startsWith("todo")) {
-                if (userInput.equals("todo")) {
-                    throw new EmptyTaskException("todo");
-                }
-                response = taskList.makeToDo(userInput);
-                taskList.updateTaskFile();
-
-            } else if (userInput.startsWith("deadline")) {
-                if (userInput.equals("deadline")) {
-                    throw new EmptyTaskException("deadline");
-                } else if (userInput.endsWith("/by")) {
-                    throw new EmptyDateException("deadline");
-                }
-                response = taskList.makeDeadline(userInput);
-                taskList.updateTaskFile();
-
-            } else if (userInput.startsWith("event")) {
-                if (userInput.equals("event")) {
-                    throw new EmptyTaskException("event");
-                }
-                response = taskList.makeEvent(userInput);
-                taskList.updateTaskFile();
-
-            } else if (userInput.startsWith("delete")) {
-                response = taskList.deleteTask(userInput);
-                taskList.updateTaskFile();
-            } else if (userInput.equals("sort")){
-                taskList.sortedTasksByDate();
-                String listSortedTasks = taskList.listSortedTasks();
-                if (listSortedTasks != "") {
-                    System.out.println("Here are the tasks in your list:");
-                    System.out.println(listSortedTasks);
-                    return "Here are the tasks in your list:\n" + listSortedTasks;
-                } else {
-                    System.out.println("There are no tasks in your list at the moment. Add some!");
-                    return "There are no tasks in your list at the moment. Add some!";
-                }
-
-            } else if (userInput.equals("i love u")) {
-                response = "i love u too <3";
-            } else {
-                throw new InvalidInputException("Invalid Input");
-            }
-        } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException |
-                 IOException | DateTimeParseException e) {
+            parseInput(userInput, taskList);
+        } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException | IOException e) {
             System.out.println(e);
             response = e.toString();
+        } catch (DateTimeParseException e) {
+            response = "Invalid date or time! :(";
         }
         return response;
     }
