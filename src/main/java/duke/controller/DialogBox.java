@@ -37,6 +37,9 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        dialog.setMinHeight(Label.USE_PREF_SIZE);
+        dialog.setPrefHeight(Label.USE_COMPUTED_SIZE);
     }
 
     /**
