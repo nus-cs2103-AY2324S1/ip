@@ -28,7 +28,7 @@ public class DeleteTask extends Command {
         //Ensures a change in size of list
         assert listSizeBef == listSizeAft + 1 : this.notDeletedProperly;
         try {
-            storage.saveTasks(tasks);
+            storage.writeFile(tasks);
         } catch (InvalidInputException e) {
             ui.printException(e.getMessage());
         }

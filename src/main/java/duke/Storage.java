@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,44 +26,19 @@ public class Storage {
     /**
      * Writes tasks from TaskList into the file
      * @param lst the TaskList we want to copy from
-     * @throws InvalidInputException the exception thrown if we receive an InvalidInputException while copying
      */
-    public void saveTasks(TaskList lst) throws InvalidInputException {
+    public void writeFile(TaskList lst) throws InvalidInputException{
         try {
-            Path folderPath = Paths.get(relativePath);
+            File file = new File(filePath);
+            FileWriter fileWriter = new FileWriter(file);
 
-            if (!Files.exists(folderPath)) {
-                //file does not exist
-                System.out.println("Data folder does not exist, Creating one now");
-                try {
-                    Files.createDirectories(folderPath);
-                } catch (IOException e) {
-                    ui.printException(e.getMessage());
-                }
+            for (Task task : lst.lst) {
+                fileWriter.write(task + "\n");
             }
-
-            //folder does exist
-            Path filePath = Paths.get(relativePath , "TaskList.txt");
-            if (!Files.exists(filePath)) {
-                //file does not exist
-                System.out.println("File does not exist, Creating one now");
-                try {
-                    Files.createFile(filePath);
-                } catch (IOException e) {
-                    ui.printException(e.getMessage());
-                }
-            }
-            //file exists
-            File file = filePath.toFile();
-            FileWriter writer = new FileWriter(file, false);
-
-            for (int i = 0; i < lst.size(); i++) {
-                writer.write(lst.get(i).newFormat() + "\n");
-            }
-
-            writer.close();
+            fileWriter.flush();
+            fileWriter.close();
         } catch (IOException e) {
-            ui.printException(e.getMessage());
+            throw new InvalidInputException("Error while saving tasks to file: " + e.getMessage());
         }
     }
     /**
@@ -70,7 +46,7 @@ public class Storage {
      * @return new TaskList object loaded
      * @throws InvalidInputException an exception thrown whenever input is invalid
      */
-    public List<Task> load() throws InvalidInputException {
+    public List<Task> readFile() throws IOException {
         List<Task> list = new ArrayList<>();
 
         try {
@@ -98,8 +74,12 @@ public class Storage {
                 }
             }
             sc.close();
-        } catch (IOException e) {
-            ui.printException(e.getMessage());
+        } catch (FileNotFoundException e) {
+            if (new File("data").mkdir()) {
+                System.out.println("Data folder does not exist, creating now!");
+            } else if (new File("data/TaskList.txt").createNewFile()) {
+                System.out.println("TaskList.txt file not found, creating now!");
+            }
         }
         return list;
     }

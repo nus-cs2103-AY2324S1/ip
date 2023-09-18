@@ -1,1 +1,4 @@
-[T] | 0 | read book
+[T][ ] read book
+[T][X] return book
+[D][X] do assignment (by: sunday)
+[E][X] kpop (from: 12pm to: 2pm)

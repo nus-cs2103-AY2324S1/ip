@@ -25,7 +25,7 @@ public class DoneTask extends Command {
         tasks.get(this.taskDone).setCompleted();
         assert tasks.get(this.taskDone).getCheckbox().equals("[X] ") : this.notMarkedProperly;
         try {
-            storage.saveTasks(tasks);
+            storage.writeFile(tasks);
         } catch (InvalidInputException e) {
             ui.printException(e.getMessage());
         }

@@ -19,7 +19,7 @@ public class UndoTask extends Command {
         lst.get(taskToUndo).setUncompleted();
         assert lst.get(taskToUndo).getCheckbox().equals("[ ] ") : this.notUnmarkedProperly;
         try {
-            storage.saveTasks(lst);
+            storage.writeFile(lst);
         } catch (InvalidInputException e) {
             System.out.println(e.getMessage());
         }

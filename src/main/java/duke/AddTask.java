@@ -27,7 +27,7 @@ public class AddTask extends Command {
             tasks.add(this.task);
             int taskNumberAft = tasks.size();
             assert taskNumberAft == taskNumberBef + 1 : this.notAddedProperly;
-            storage.saveTasks(tasks);
+            storage.writeFile(tasks);
             return ui.addedMessage(this.task, tasks);
         } catch (InvalidInputException e) {
             return e.getMessage();

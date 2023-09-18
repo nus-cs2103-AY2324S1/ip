@@ -8,7 +8,7 @@ import java.util.stream.Stream;
  * TaskList class that contains the list of Tasks
  */
 public class TaskList {
-    private List<Task> lst;
+    List<Task> lst;
 
     /**
      * Constructor for TaskList object

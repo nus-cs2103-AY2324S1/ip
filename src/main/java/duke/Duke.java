@@ -12,6 +12,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * Duke bot class with a storage, TaskList and Ui
  *
@@ -37,8 +39,8 @@ public class Duke extends Application {
         this.ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
-        } catch (InvalidInputException e) {
+            tasks = new TaskList(storage.readFile());
+        } catch (IOException e) {
             tasks = new TaskList();
         }
     }
@@ -62,7 +64,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2 (Configuring the chatbot)
-        stage.setTitle("CHATBOT");
+        stage.setTitle("Dick Bot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
