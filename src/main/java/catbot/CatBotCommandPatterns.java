@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import catbot.internal.CommandPattern;
 import catbot.internal.CommandPatternGenerator;
 import catbot.internal.NamedParameterMap;
+import catbot.internal.Parser;
 
 /**
  * Class containing {@link CommandPattern CommandPatterns} and {@link CommandPatternGenerator CommandPatternGenerators}

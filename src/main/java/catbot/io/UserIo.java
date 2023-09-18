@@ -1,5 +1,7 @@
 package catbot.io;
 
+import catbot.bot.Bot;
+
 public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
 
     /**
@@ -15,30 +17,17 @@ public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
     void cleanup();
 
     /**
-     * Simple container for a command and argument pair, both stored as Strings.
+     * Returns a boolean describing whether the io channel is still open.
+     * Expected to be true after {@link #initialize() initialize}, and false after {@link #cleanup()}.
+     *
+     * @return true if the io can still be used to communicate to the user, and false otherwise.
      */
-    class CommandArgumentStruct {
-        private final String command;
-        private final String argument;
-
-        public CommandArgumentStruct(String command, String argument) {
-            this.command = command;
-            this.argument = argument;
-        }
-
-        public String getArgument() {
-            return argument;
-        }
-
-        public String getCommand() {
-            return command;
-        }
-    }
+    boolean isStillOpen();
 
     /**
-     * Get the next command (valid or invalid).
-     *
-     * @return {@link CommandArgumentStruct CommandArgumentStruct} containing the command and its argument.
+     * Allows the IO object to take over logic to respond to user input.
+     * A simple example is a while loop that uses a Scanner to wait for user interaction.
+     * Intended to also work for event handler designs.
      */
-    CommandArgumentStruct getNextCommand();
+    void takeoverExecutionLogic(Bot bot);
 }
