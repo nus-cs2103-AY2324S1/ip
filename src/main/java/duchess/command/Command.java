@@ -12,6 +12,8 @@ public abstract class Command implements Executable {
         switch(commandType) {
             case LIST:
                 return new ListTaskCommand();
+            case MARK:
+                return new MarkTaskCommand();
         }
         return null;
     }

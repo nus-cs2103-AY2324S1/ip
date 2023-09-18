@@ -42,29 +42,6 @@ public class Duchess {
         }
     }
 
-    /**
-     * Marks a task.
-     *
-     * @param i - the index of the task to be marked.
-     * @return    Duchess' response to the command.
-     */
-    private String markTask(int index) {
-        String response = "";
-
-        // Within bounds
-        if (index < 0 || index >= this.storedTasks.size()) {
-            response += Ui.duchessFormat("(´；ω；`) Sorry, no such task exists... ;-;");
-            this.executeCallbackHandler(response);
-            return response;
-        }
-
-        this.storedTasks.getTask(index).changeStatus(TaskStatus.MARKED);
-        response += Ui.duchessFormat("Task has been marked!! (＾▽＾)");
-        response += Ui.duchessFormat(String.format("%d: %s", index + 1, this.storedTasks.getTask(index).toString()));
-
-        this.executeCallbackHandler(response);
-        return response;
-    }
 
     /**
      * Unmarks a task.
@@ -243,19 +220,9 @@ public class Duchess {
 
         // Check if this command is a mark task command.
         if (Parser.isMarkTaskCommand(userInput)) {
-            try {
-                int index = Parser.parseMarkTaskCommand(userInput);
-                index -= 1; // 1-indexing for user-facing side
-                this.markTask(index);
-            } catch (DuchessException e) {
-                String response = "";
-
-                response += Ui.duchessFormat(e.getMessage());
-                response += Ui.duchessFormat("(／°▽°)／Try something like this!!");
-                response += Ui.duchessFormat("mark [task number]");
-
-                this.executeCallbackHandler(response);
-            }
+            command = Command.getCommand(CommandType.MARK);
+            String output = command.execute(userInput, this.storedTasks);
+            this.executeCallbackHandler(output);
             return;
         }
 

@@ -1,6 +1,6 @@
 package duchess;
 
-class DuchessException extends Throwable {
+public class DuchessException extends Throwable {
     private String message;
 
     /**
