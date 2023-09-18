@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
             Task taskToMark = tasks.getTask(this.deleteIndex);
             tasks.removeTask(this.deleteIndex);
 
-            // print message when deleting
+            // print message after deleting
             ui.printSuccessfulDeleteResponse(taskToMark, tasks.getNumTotalTasks());
         } catch (TaskNotFoundException e) {
             ui.printTaskNotFoundExceptionResponse();

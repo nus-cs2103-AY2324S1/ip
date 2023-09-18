@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
 
     private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
+    private final Image taskmateImage = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/DaDuke.png")));
 
     @FXML
@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = t.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTaskMateDialog(response, dukeImage)
+                DialogBox.getTaskMateDialog(response, taskmateImage)
         );
         userInput.clear();
         if (input.equals("bye")) {

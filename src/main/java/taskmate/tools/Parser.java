@@ -118,7 +118,7 @@ public class Parser {
      * @return a String object that represents the user input's command type
      * @throws InvalidCommandTypeException thrown when the command entered by the user is not recognized
      */
-    private static String getCommandType(String userInput) throws InvalidCommandTypeException {
+    public static String getCommandType(String userInput) throws InvalidCommandTypeException {
         userInput = userInput.trim();
 
         for (TaskMate.CommandTypes type : TaskMate.CommandTypes.values()) {

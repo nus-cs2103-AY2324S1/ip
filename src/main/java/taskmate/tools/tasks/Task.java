@@ -86,6 +86,5 @@ public abstract class Task {
      *         information is explained above.
      */
     public abstract String formatTaskForSaving();
-    // String format to save the task to disk
 
 }

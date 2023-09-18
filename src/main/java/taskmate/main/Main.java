@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import taskmate.ui.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for TaskMate using FXML.
  */
 public class Main extends Application {
 
