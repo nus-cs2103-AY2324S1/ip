@@ -66,7 +66,7 @@ public class Storage {
         fw.close();
     }
 
-    static String getDirectoryPath(String filePath) {
+    private static String getDirectoryPath(String filePath) {
         Path path = Paths.get(filePath);
         Path directoryPath = path.getParent();
 
