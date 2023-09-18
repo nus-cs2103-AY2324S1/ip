@@ -160,7 +160,7 @@ public class CommandParser extends Parser<Command> {
 
         // Validate whether all arguments are given
         this.validator.validateArguments(fullCommand, arguments);
-     
+
         // Parse arguments
         Map<String, String> labelToValue = parseCommandArgs(fullCommand, arguments);
         String targetTaskNumber = labelToValue.get("/target");
@@ -355,7 +355,8 @@ public class CommandParser extends Parser<Command> {
         return new AddTaskCommand(target);
     }
 
-    private Map<String, String> parseCommandArgs(String command, Set<String> arguments) throws InvalidCommandFormatException {
+    private Map<String, String> parseCommandArgs(String command, Set<String> arguments)
+            throws InvalidCommandFormatException {
         String[] splitWithSpace = command.split(" ");
         Map<String, String> argToValue = new HashMap<>();
 
@@ -379,7 +380,7 @@ public class CommandParser extends Parser<Command> {
             }
 
             currArg = currWord;
-            indexOfCurrArg = i;            
+            indexOfCurrArg = i;
         }
 
         if (currArg != null) {

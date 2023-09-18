@@ -18,7 +18,7 @@ public class CommandValidator {
      * @throws InvalidCommandFormatException If the command does not contain all the expected arguments
      *                                        or contains duplicate arguments.
      */
-    public void validateArguments(String command, Set<String> arguments) 
+    public void validateArguments(String command, Set<String> arguments)
             throws InvalidCommandFormatException {
         List<String> errorMsg = new ArrayList<>();
         boolean isValid = true;
@@ -31,7 +31,7 @@ public class CommandValidator {
             if (numOfArg == 1) {
                 continue;
             }
-            
+
             if (numOfArg == 0) {
                 isValid = false;
                 errorMsg.add("Missing argument " + "\"" + argument + "\" !");
@@ -39,7 +39,7 @@ public class CommandValidator {
                 errorMsg.add("Invalid number of argument " + "\"" + argument + "\" !");
             }
         }
-        
+
         String fullErrorMsg = String.join("\n", errorMsg);
 
         if (!isValid) {

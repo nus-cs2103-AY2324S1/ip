@@ -8,17 +8,28 @@ import java.util.Set;
  * Types of commands that can be given to the Corgi chat bot.
  */
 public enum CommandType {
-    TODO("todo /desc [task]", new HashSet<>(Arrays.asList("/desc"))),
-    DEADLINE("deadline /desc [task] /by [yyyy-mm-dd]", new HashSet<>(Arrays.asList("/desc", "/by"))),
-    EVENT("event /desc [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]", new HashSet<>(Arrays.asList("/desc", "/from", "/to"))),
-    MARK("mark /target [task no.]", new HashSet<>(Arrays.asList("/target"))),
-    UNMARK("unmark /target [task no.]", new HashSet<>(Arrays.asList("/target"))),
-    DELETE("delete /target [task no.]", new HashSet<>(Arrays.asList("/target"))),
-    DATE("date /target [yyyy-mm-dd]", new HashSet<>(Arrays.asList("/target"))),
-    FIND("find /target [keyword]", new HashSet<>(Arrays.asList("/target"))),
-    BYE("bye", new HashSet<>()),
-    LIST("list", new HashSet<>()),
-    UNDO("undo", new HashSet<>());
+    TODO("todo /desc [task]",
+            new HashSet<>(Arrays.asList("/desc"))),
+    DEADLINE("deadline /desc [task] /by [yyyy-mm-dd]",
+            new HashSet<>(Arrays.asList("/desc", "/by"))),
+    EVENT("event /desc [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]",
+            new HashSet<>(Arrays.asList("/desc", "/from", "/to"))),
+    MARK("mark /target [task no.]",
+            new HashSet<>(Arrays.asList("/target"))),
+    UNMARK("unmark /target [task no.]",
+            new HashSet<>(Arrays.asList("/target"))),
+    DELETE("delete /target [task no.]",
+            new HashSet<>(Arrays.asList("/target"))),
+    DATE("date /target [yyyy-mm-dd]",
+            new HashSet<>(Arrays.asList("/target"))),
+    FIND("find /target [keyword]",
+            new HashSet<>(Arrays.asList("/target"))),
+    BYE("bye",
+            new HashSet<>()),
+    LIST("list",
+            new HashSet<>()),
+    UNDO("undo",
+            new HashSet<>());
 
     private final String commandFormat;
     private final Set<String> arguments;
