@@ -2,7 +2,13 @@ package taskmate.commands;
 
 import java.util.HashMap;
 
-import taskmate.exceptions.*;
+import taskmate.exceptions.InvalidByException;
+import taskmate.exceptions.InvalidDeadlineUpdateException;
+import taskmate.exceptions.InvalidEventUpdateException;
+import taskmate.exceptions.InvalidFromException;
+import taskmate.exceptions.InvalidToException;
+import taskmate.exceptions.InvalidTodoUpdateException;
+import taskmate.exceptions.TaskNotFoundException;
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
 import taskmate.tools.Ui;
@@ -36,19 +42,31 @@ public class UpdateCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task taskToUpdate = tasks.getTask(this.updateIndex);
-            tasks.updateTask(taskToUpdate, changes);
+            HashMap<String, String> successfulChanges = tasks.updateTask(taskToUpdate, changes);
 
             // print message after updating
-            ui.printSuccessfulUpdateResponse(updateIndex, changes);
+            ui.printSuccessfulUpdateResponse(updateIndex, successfulChanges);
 
-        } catch (TaskNotFoundException e) {
+        } catch (Exception e) {
+            handleException(e, ui);
+        }
+    }
+
+    private void handleException(Exception e, Ui ui) {
+        if (e instanceof TaskNotFoundException) {
             ui.printTaskNotFoundExceptionResponse();
-        } catch (InvalidTodoUpdateException e) {
+        } else if (e instanceof InvalidTodoUpdateException) {
             ui.printInvalidTodoUpdateException();
-        } catch (InvalidDeadlineUpdateException e) {
+        } else if (e instanceof InvalidDeadlineUpdateException) {
             ui.printInvalidDeadlineUpdateException();
-        } catch (InvalidEventUpdateException e) {
+        } else if (e instanceof InvalidEventUpdateException) {
             ui.printInvalidEventUpdateException();
+        } else if (e instanceof InvalidToException) {
+            ui.printInvalidToExceptionResponse();
+        } else if (e instanceof InvalidByException) {
+            ui.printInvalidByExceptionResponse();
+        } else if (e instanceof InvalidFromException) {
+            ui.printInvalidFromExceptionResponse();
         }
     }
 }

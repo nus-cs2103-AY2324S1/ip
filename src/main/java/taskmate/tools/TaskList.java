@@ -167,15 +167,19 @@ public class TaskList {
      * Updates attributes of a task to a new value
      * @param taskToUpdate a Task object representing the task to be updated
      * @param changes a Hashmap that contains the attribute changes to be made to taskToUpdate
+     * @return a HashMap containing the successful updates to taskToUpdate
      * @throws TaskNotFoundException thrown when taskToUpdate is not in the list of undeleted tasks
-     * @throws InvalidAttributeException thrown when the attribute to update is an invalid one
+     * @throws InvalidTodoUpdateException thrown when taskToUpdate is a Todo task but the update is invalid
+     * @throws InvalidDeadlineUpdateException thrown when taskToUpdate is a Deadline task but the update is invalid
+     * @throws InvalidEventUpdateException thrown when taskToUpdate is a Event task but the update is invalid
      */
-    public void updateTask(Task taskToUpdate, HashMap<String, String> changes) throws TaskNotFoundException,
-            InvalidTodoUpdateException, InvalidDeadlineUpdateException, InvalidEventUpdateException {
+    public HashMap<String, String> updateTask(Task taskToUpdate, HashMap<String, String> changes) throws
+            TaskNotFoundException, InvalidTodoUpdateException, InvalidDeadlineUpdateException, InvalidByException,
+            InvalidToException, InvalidEventUpdateException, InvalidFromException {
         if (!this.tasks.contains(taskToUpdate)) {
             throw new TaskNotFoundException();
         }
-        taskToUpdate.update(changes);
+        return taskToUpdate.update(changes);
     }
 
     /**

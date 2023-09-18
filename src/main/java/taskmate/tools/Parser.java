@@ -166,8 +166,6 @@ public class Parser {
             String attributeChangeString = changes[i];
             String attribute = "/" + attributeChangeString.split("\\s+")[0];
             String change = attributeChangeString.substring(attribute.length()).trim();
-            System.out.println("Attribute: " + attribute); // todo remove
-            System.out.println("Change: " + change); // todo remove
             changesMap.put(attribute, change);
         }
 

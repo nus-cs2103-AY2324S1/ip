@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
+import taskmate.exceptions.InvalidByException;
 import taskmate.exceptions.InvalidDeadlineUpdateException;
 
 /**
@@ -68,18 +69,33 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void update(HashMap<String, String> changes) throws InvalidDeadlineUpdateException {
+    public HashMap<String, String> update(HashMap<String, String> changes) throws InvalidDeadlineUpdateException,
+            InvalidByException {
+        HashMap<String, String> successfulUpdates = new HashMap<>();
+
+        // Check if update command is valid
+        for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
+            String attribute = attributeValuePair.getKey();
+            String newValue = attributeValuePair.getValue();
+            if (!attribute.equals("/name") & !attribute.equals("/by")) {
+                throw new InvalidDeadlineUpdateException();
+            } else if (attribute.equals("/by") & !super.isValidDateFormat(newValue)) {
+                throw new InvalidByException();
+            }
+        }
+
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
             String newValue = attributeValuePair.getValue();
             if (attribute.equals("/name")) {
                 setName(newValue);
+                successfulUpdates.put("name", newValue);
             } else if (attribute.equals("/by")) {
                 setBy(newValue);
-            } else {
-                throw new InvalidDeadlineUpdateException();
+                successfulUpdates.put("by", newValue);
             }
         }
+        return successfulUpdates;
     }
 
     private void setName(String newName) {

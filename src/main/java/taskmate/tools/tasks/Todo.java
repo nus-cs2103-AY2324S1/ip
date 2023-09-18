@@ -17,16 +17,23 @@ public class Todo extends Task {
     }
 
     @Override
-    public void update(HashMap<String, String> changes) throws InvalidTodoUpdateException {
+    public HashMap<String, String> update(HashMap<String, String> changes) throws InvalidTodoUpdateException {
+        HashMap<String, String> successfulUpdates = new HashMap<>();
+
+        // Check if update command is valid
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
-            String newValue = attributeValuePair.getValue();
-            if (attribute.equals("/name")) {
-                setName(newValue);
-            } else {
+            if (!attribute.equals("/name")) {
                 throw new InvalidTodoUpdateException();
             }
         }
+
+        for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
+            String newValue = attributeValuePair.getValue();
+            setName(newValue);
+            successfulUpdates.put("name", newValue);
+        }
+        return successfulUpdates;
     }
 
     private void setName(String newName) {

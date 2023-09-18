@@ -235,11 +235,15 @@ public class Ui {
         printMessage(e.getMessage());
     }
 
-    public void printSuccessfulUpdateResponse(int updateIndex, HashMap<String, String> changes) {
-        String message = "Changes successfully made to task " + Integer.toString(updateIndex);
-        message += "\nChanges made:\n";
-        message += changes.toString();
-        printMessage(message);
+    public void printSuccessfulUpdateResponse(int updateIndex, HashMap<String, String> successfulChanges) {
+        StringBuilder message = new StringBuilder("Updates successfully made to task " + updateIndex + ":\n");
+        for (HashMap.Entry<String, String> attributeValuePair : successfulChanges.entrySet()) {
+            message.append(attributeValuePair.getKey())
+                    .append(": ")
+                    .append(attributeValuePair.getValue())
+                    .append("\n");
+        }
+        printMessage(message.toString());
     }
 
     public void printInvalidTodoUpdateException() {

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
-import taskmate.exceptions.InvalidEventUpdateException;
+import taskmate.exceptions.*;
 
 /**
  * The Event class is a child class of the Task class that represents a 'Event' type task specified by the user.
@@ -89,20 +89,40 @@ public class Event extends Task {
     }
 
     @Override
-    public void update(HashMap<String, String> changes) throws InvalidEventUpdateException {
+    public HashMap<String, String> update(HashMap<String, String> changes) throws InvalidEventUpdateException,
+            InvalidFromException, InvalidToException {
+        HashMap<String, String> successfulUpdates = new HashMap<>();
+
+        // Check if update command is valid
+        for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
+            String attribute = attributeValuePair.getKey();
+            String newValue = attributeValuePair.getValue();
+            if (!attribute.equals("/name") & !attribute.equals("/from") & !attribute.equals("/to")) {
+                throw new InvalidEventUpdateException();
+            } else if (attribute.equals("/from") & !super.isValidDateFormat(newValue)) {
+                throw new InvalidFromException();
+            } else if (attribute.equals("/to") & !super.isValidDateFormat(newValue)) {
+                throw new InvalidToException();
+            }
+        }
+
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
             String newValue = attributeValuePair.getValue();
             if (attribute.equals("/name")) {
                 setName(newValue);
+                successfulUpdates.put("name", newValue);
             } else if (attribute.equals("/from")) {
                 setStartDatetime(newValue);
+                successfulUpdates.put("from", newValue);
             } else if (attribute.equals("/to")) {
                 setEndDatetime(newValue);
+                successfulUpdates.put("to", newValue);
             } else {
                 throw new InvalidEventUpdateException();
             }
         }
+        return successfulUpdates;
     }
 
     private void setName(String newName) {
