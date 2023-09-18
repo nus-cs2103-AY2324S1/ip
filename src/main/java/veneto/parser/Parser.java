@@ -8,6 +8,9 @@ import veneto.task.Task;
 import veneto.task.ToDo;
 
 public class Parser {
+    /* Fields */
+    public static final int FIND_COMMAND_START_INDEX = 5;
+
     /* Methods */
     /**
      * translate user put to commands that need to operate
@@ -34,9 +37,16 @@ public class Parser {
                 return prepareAdd(text, 3);
             case "delete":
                 return new DeleteCommand(Integer.parseInt(texts[1]));
+            case "find":
+                return prepareFind(text);
             default:
                 throw new VenetoException("Invalid Command");
         }
+    }
+    
+    private static Command prepareFind(String text) {
+        String keyword = text.substring(FIND_COMMAND_START_INDEX);
+        return new FindCommand(keyword);
     }
 
     /**

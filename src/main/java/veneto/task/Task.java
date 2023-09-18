@@ -76,4 +76,25 @@ public class Task {
     public String saveToString() {
         return this.description + "," + (isDone ? 1 : 0);
     }
+<<<<<<< HEAD
+=======
+
+    // Constructor
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
+     * @param keyword the target keyword
+     * @return if the description of the task contains the keyword
+     */
+    public boolean contains(String keyword) {
+        return description.contains(keyword);
+    }
+>>>>>>> level-9
 }
