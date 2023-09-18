@@ -1,12 +1,12 @@
 package juke.tasks;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import juke.commons.classes.JukeObject;
 import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
-import juke.commons.utils.StringUtils;
 import juke.exceptions.JukeStateException;
 import juke.exceptions.arguments.JukeIllegalArgumentException;
 import juke.exceptions.storage.JukeStorageException;
@@ -22,9 +22,6 @@ public class TaskList extends JukeObject {
 
     /** String representation of the {@code TaskList} when it is empty. */
     private static final String NO_TASKS_PRESENT_STRING = "No Tasks Present!";
-
-    /** Max number of characters on a line. */
-    private static final int MAX_LINE_LENGTH = 35;
 
     /** List of JukeTasks under this {@code TaskList}'s control. */
     private final LinkedList<JukeTask> tasks;
@@ -176,7 +173,11 @@ public class TaskList extends JukeObject {
         List<JukeTask> originalTasks = new LinkedList<>(this.tasks);
 
         try {
-            this.tasks.sort((task1, task2) -> task1.sortBy(task2, sortOrder, sortType));
+            this.tasks.sort((t1, t2) -> t2.sortBy(t1, sortType));
+
+            if (sortOrder.equals(SortOrderEnum.DESCENDING)) {
+                this.reverse();
+            }
         } catch (IllegalArgumentException | UnsupportedOperationException | ClassCastException ex) {
             // if there is an error, revert the changes
             this.tasks.clear();
@@ -186,6 +187,13 @@ public class TaskList extends JukeObject {
             // save any changes made to the task list
             this.storage.write(this.tasks);
         }
+    }
+
+    /**
+     * Reverses the order of the task list.
+     */
+    private void reverse() {
+        Collections.reverse(this.tasks);
     }
 
     /**
@@ -204,8 +212,10 @@ public class TaskList extends JukeObject {
         builder.append(TaskList.TASK_LIST_HEADER);
 
         for (int i = 0; i < this.tasks.size(); i++) {
-            String built = (i + 1) + ". " + this.tasks.get(i) + "\n";
-            builder.append(StringUtils.wrap(built, TaskList.MAX_LINE_LENGTH));
+            builder.append(i + 1)
+                   .append(". ")
+                   .append(this.tasks.get(i))
+                   .append("\n");
         }
 
         return builder.toString().strip();

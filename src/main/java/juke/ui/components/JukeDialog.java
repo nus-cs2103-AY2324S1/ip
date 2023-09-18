@@ -43,7 +43,7 @@ public class JukeDialog extends DialogBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
 
-            textLabel.setText(text);
+            this.textLabel.setText(text);
             this.backgroundRegion.maxHeightProperty().bind(this.textLabel.heightProperty().add(25.0d));
             this.backgroundRegion.minHeightProperty().bind(this.textLabel.heightProperty().add(25.0d));
             this.backgroundRegion.minWidthProperty().bind(this.textLabel.widthProperty().add(25.0d));

@@ -2,8 +2,6 @@ package juke.commands;
 
 import java.util.List;
 
-import juke.Juke;
-import juke.commons.utils.StringUtils;
 import juke.responses.Response;
 import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
@@ -55,7 +53,6 @@ public class JukeFindTaskCommand extends JukeCommand {
             }
         }
 
-        return response.withJuke(
-                StringUtils.wrap(stringBuilder.toString(), Juke.MAX_STRING_LENGTH));
+        return response.withJuke(stringBuilder.toString());
     }
 }

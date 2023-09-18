@@ -1,7 +1,5 @@
 package juke.commands;
 
-import juke.Juke;
-import juke.commons.utils.StringUtils;
 import juke.exceptions.JukeException;
 import juke.responses.Response;
 
@@ -29,7 +27,6 @@ public class JukeExceptionCommand extends JukeCommand {
      */
     @Override
     public Response execute(Response response) {
-        return response.withJuke(
-                StringUtils.wrap(exception.toString(), Juke.MAX_STRING_LENGTH));
+        return response.withJuke(exception.toString());
     }
 }
