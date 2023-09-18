@@ -9,7 +9,7 @@ import duke.task.TaskList;
  * Represents the main file that the application runs
  */
 public class Duke {
-    protected Ui helper;
+    protected Ui ui;
     protected TaskList tasks;
     protected Storage storage;
 
@@ -22,13 +22,13 @@ public class Duke {
      * @param filePath the path in the application that contains the file
      */
     public Duke(String filePath) {
-        this.helper = new Ui("DukeKing");
+        this.ui = new Ui("DukeKing");
         try {
             this.storage = new Storage(filePath);
             this.tasks = new TaskList(storage.load());
         } catch (Exception e) {
             this.tasks = new TaskList();
-            helper.noFile();
+            ui.noFile();
         }
     }
 
@@ -59,14 +59,14 @@ public class Duke {
             assert string != null : "string should not be null";
             // end the program
             try {
-                helper.printLine();
+                ui.printLine();
                 Command command = Parser.parse(string);
-                command.execute(tasks, helper, storage);
+                command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (Throwable e) {
                 System.out.println(e.getMessage());
             } finally {
-                helper.printLine();
+                ui.printLine();
             }
             if (isExit) {
                 break;
@@ -90,7 +90,7 @@ public class Duke {
         } else {
             try {
                 Command command = Parser.parse(input);
-                output = command.execute(tasks, helper, storage);
+                output = command.execute(tasks, ui, storage);
             } catch (Throwable e) {
                 return e.getMessage();
             }

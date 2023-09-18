@@ -24,7 +24,7 @@ public class Parser {
      * @param taskList Takes in a taskList to add/delete/change details
      *                 in the taskList from done to not done and vice
      *                 versa
-     * @param helper   Takes in the bot interaction with the user
+     * @param ui       Takes in the bot interaction with the user
      * @param storage  Takes in the storage to store the taskList
      *                 of the particular user after the user wants to end
      *                 the program of the bot

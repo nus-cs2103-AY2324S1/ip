@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
  * will add more possible ways in the future
  */
 public enum FormatterDate {
-    basicInput(DateTimeFormatter.ISO_LOCAL_DATE),
-    slashInput("dd/MM/yyyy"),
-    basicOutput("MMM dd yyyy");
+    BASIC_INPUT(DateTimeFormatter.ISO_LOCAL_DATE),
+    SLASH_INPUT("dd/MM/yyyy"),
+    BASIC_OUTPUT("MMM dd yyyy");
 
     public DateTimeFormatter formatter;
 

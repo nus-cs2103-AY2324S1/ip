@@ -24,15 +24,15 @@ public class Events extends Task {
     public Events(String description, String originalStart, String originalEnd) {
         super(description);
         this.start = originalStart;
-        this.startDate = Task.convertDatePlease(originalStart);
+        this.startDate = Task.convertDateFromStringtoObj(originalStart);
         this.end = originalEnd;
-        this.endDate = Task.convertDatePlease(originalEnd);
+        this.endDate = Task.convertDateFromStringtoObj(originalEnd);
         if (startDate != null) {
-            DateTimeFormatter stringFormatter = FormatterDate.basicOutput.formatter;
+            DateTimeFormatter stringFormatter = FormatterDate.BASIC_OUTPUT.formatter;
             this.start = startDate.format(stringFormatter);
         }
         if (endDate != null) {
-            DateTimeFormatter stringFormatter = FormatterDate.basicOutput.formatter;
+            DateTimeFormatter stringFormatter = FormatterDate.BASIC_OUTPUT.formatter;
             this.end = endDate.format(stringFormatter);
         }
     }

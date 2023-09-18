@@ -186,7 +186,7 @@ public class Task {
      * @param sDate is the string of the date
      * @return a localDate object
      */
-    public static LocalDate convertDatePlease(String sDate) {
+    public static LocalDate convertDateFromStringtoObj(String sDate) {
         // @@author-zhanyang01-reused
         // Reused from m1oojv DateTimeParser.java, LocalDateTime method
         // reuse with minor modifications

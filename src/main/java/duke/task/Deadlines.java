@@ -21,9 +21,9 @@ public class Deadlines extends Task {
     public Deadlines(String description, String originalEnd) {
         super(description);
         this.end = originalEnd;
-        this.date = Task.convertDatePlease(originalEnd);
+        this.date = Task.convertDateFromStringtoObj(originalEnd);
         if (date != null) {
-            DateTimeFormatter stringFormatter = FormatterDate.basicOutput.formatter;
+            DateTimeFormatter stringFormatter = FormatterDate.BASIC_OUTPUT.formatter;
             this.end = date.format(stringFormatter);
         }
     }
