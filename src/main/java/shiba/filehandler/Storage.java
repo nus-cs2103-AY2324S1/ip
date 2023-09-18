@@ -10,6 +10,7 @@ import java.util.Scanner;
 import shiba.exceptions.ShibaException;
 import shiba.parsers.SpaceSeparatedValuesParser;
 import shiba.tasks.ShibaTask;
+import shiba.ui.Replier;
 
 /**
  * Handles the saving and reading of tasks to and from the disk.
@@ -74,17 +75,25 @@ public class Storage {
             }
 
             Scanner scanner = new Scanner(file);
+            boolean isErrorEncountered = false;
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 ShibaTask taskParsed = ShibaTask.fromSaveParams(SpaceSeparatedValuesParser.parse(line));
                 if (taskParsed != null) {
                     tasks.add(taskParsed);
+                } else {
+                    isErrorEncountered = true;
                 }
+            }
+
+            if (isErrorEncountered) {
+                Replier.printWithNoIndents("Woof! One or more tasks could not be read from save file!");
             }
 
             return tasks;
         } catch (IOException e) {
-            throw new ShibaException("Error reading tasks from file!");
+            throw new ShibaException("Error reading tasks from save file! Consider running this program "
+                    + "from another directory.");
         }
     }
 }

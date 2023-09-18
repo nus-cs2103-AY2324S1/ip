@@ -19,7 +19,7 @@ import javafx.scene.text.Font;
 public class DialogNode extends HBox {
     private static final Image USER_IMAGE = new Image(DialogNode.class.getResourceAsStream("/images/user.jpg"));
     private static final Image SHIBA_IMAGE = new Image(DialogNode.class.getResourceAsStream("/images/shiba.png"));
-    private static final Font DIALOG_FONT = new Font("Comic Sans MS", 18);
+    private static final Font DIALOG_FONT = new Font("Comic Sans MS", 16);
     private static final int IMAGE_SIZE = 100;
     private static final int TEXT_PORTION_WIDTH = 475;
     private static final int HORIZONTAL_SPACING = 10;
