@@ -24,6 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("HelpBuddy");
             stage.show();
             helpBuddy = new HelpBuddy("data/tasks.txt");
             fxmlLoader.<MainWindow>getController().setHelpBuddy(helpBuddy);
