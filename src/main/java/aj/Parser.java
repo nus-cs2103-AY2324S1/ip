@@ -15,8 +15,7 @@ public class Parser {
      * Takes in user input string, parse it, and return command string and task string
      *
      * @param userInput User input.
-     * @return String array, where first element is command, and second element is task, if no match, return empty
-     * array.
+     * @return String array, where first element is command and second element is task, return empty array if no match.
      */
     public String[] parseCommand(String userInput) {
         Pattern pattern = Pattern.compile("(\\w+) (.*)");
