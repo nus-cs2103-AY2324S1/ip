@@ -1,5 +1,6 @@
 package puke.command;
 
+import puke.managers.PukeException;
 import puke.managers.TaskList;
 
 /**
@@ -15,10 +16,14 @@ public class FindCommand extends Command {
     /**
      * Creates a new FindCommand
      * @param rest the rest of the input line.
+     * @throws PukeException if an invalid input line is provided
      */
-    public FindCommand(String rest) {
+    public FindCommand(String rest) throws PukeException {
         super(false, true);
         this.key = rest;
+        if (!rest.isEmpty()) {
+            throw new PukeException();
+        }
     }
 
     /**
@@ -34,5 +39,16 @@ public class FindCommand extends Command {
         } catch (Exception PukeException) {
             return ERROR_MESSAGE;
         }
+    }
+    @Override
+    public String toString() {
+        return "find " + key;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        boolean isInstance = other instanceof FindCommand;
+        boolean isSameCommand = other.toString().equals(toString());
+        return isInstance && isSameCommand;
     }
 }

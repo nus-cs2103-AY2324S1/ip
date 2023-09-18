@@ -1,5 +1,6 @@
 package puke.command;
 
+import puke.managers.PukeException;
 import puke.managers.TaskList;
 
 /**
@@ -12,8 +13,16 @@ public class ListCommand extends Command {
             + "some level of action within an either "
             + "indicated or non indicated time period.\n\n";
 
-    public ListCommand(String rest) {
+    /**
+     * Creates a ListCommand
+     * @param rest the rest of the input line
+     * @throws PukeException if an invalid input line is provided
+     */
+    public ListCommand(String rest) throws PukeException {
         super(false, rest.isEmpty());
+        if (!rest.isEmpty()) {
+            throw new PukeException();
+        }
     }
 
     /**

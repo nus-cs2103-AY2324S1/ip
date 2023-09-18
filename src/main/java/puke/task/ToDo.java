@@ -16,6 +16,9 @@ public class ToDo extends Task {
      */
     public ToDo(String desc) throws PukeException {
         super(TODO_LABEL, desc);
+        if (desc.isEmpty()) {
+            throw new PukeException();
+        }
     }
 
     /**
@@ -40,7 +43,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns the string representation of a todo task to be stored in the ListData.txt file
+     * Returns the string representation of a to do task to be stored in the ListData.txt file
      * @return the string representation.
      */
     @Override
@@ -53,5 +56,11 @@ public class ToDo extends Task {
      */
     public String toString() {
         return String.format("%s %s", super.toString(), super.printTags());
+    }
+    @Override
+    public boolean equals(Object other) {
+        boolean isInstance = other instanceof ToDo;
+        boolean isSameTask = toString().equals(other.toString());
+        return isInstance && isSameTask;
     }
 }

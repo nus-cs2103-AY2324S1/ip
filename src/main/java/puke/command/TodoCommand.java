@@ -15,9 +15,12 @@ public class TodoCommand extends Command {
      * Creates a new ToDoCommand
      * @param rest the rest of the input line.
      */
-    public TodoCommand(String rest) {
+    public TodoCommand(String rest) throws PukeException {
         super(false, !rest.isEmpty());
         this.desc = rest;
+        if (rest.isEmpty()) {
+            throw new PukeException();
+        }
     }
 
     /**
@@ -57,7 +60,9 @@ public class TodoCommand extends Command {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof TodoCommand && other.toString().equals(this.toString()));
+        boolean isInstance = other instanceof TodoCommand;
+        boolean isSameCommand = other.toString().equals(toString());
+        return isInstance && isSameCommand;
     }
 
     /**

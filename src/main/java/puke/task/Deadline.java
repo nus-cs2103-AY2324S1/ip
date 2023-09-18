@@ -75,4 +75,10 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("%s (by: %s) %s", super.toString(), date, super.printTags());
     }
+    @Override
+    public boolean equals(Object other) {
+        boolean isInstance = other instanceof Deadline;
+        boolean isSameTask = toString().equals(other.toString());
+        return isInstance && isSameTask;
+    }
 }

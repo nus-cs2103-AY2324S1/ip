@@ -80,4 +80,10 @@ public class Event extends Task {
     public String toString() {
         return String.format("%s (from: %s to: %s) %s", super.toString(), from, to, super.printTags());
     }
+    @Override
+    public boolean equals(Object other) {
+        boolean isInstance = other instanceof Event;
+        boolean isSameTask = toString().equals(other.toString());
+        return isInstance && isSameTask;
+    }
 }

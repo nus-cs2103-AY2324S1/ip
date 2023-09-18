@@ -1,6 +1,7 @@
 package puke.command;
 
 import puke.managers.DataHandler;
+import puke.managers.PukeException;
 import puke.managers.TaskList;
 
 /**
@@ -15,13 +16,14 @@ public class UnmarkCommand extends Command {
     /**
      * Creates a new UnmarkCommand
      * @param rest the rest of the input line.
+     * @throws PukeException if an invalid input line is provided
      */
-    public UnmarkCommand(String rest) {
+    public UnmarkCommand(String rest) throws PukeException {
         super(false, true);
         try {
-            this.index = Integer.parseInt(rest.substring(1));
+            this.index = Integer.parseInt(rest);
         } catch (Exception e) {
-            this.index = -1;
+            throw new PukeException();
         }
     }
 
@@ -50,7 +52,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof UnmarkCommand && other.toString().equals(this.toString()));
+        boolean isInstance = other instanceof UnmarkCommand;
+        boolean isSameCommand = other.toString().equals(toString());
+        return isInstance && isSameCommand;
     }
 
     /**

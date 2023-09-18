@@ -14,10 +14,14 @@ public class EventCommand extends Command {
     /**
      * Creates a new EventCommand
      * @param rest the rest of the input line.
+     * @throws PukeException if an invalid input line is provided
      */
-    public EventCommand(String rest) {
+    public EventCommand(String rest) throws PukeException {
         super(false, !rest.isEmpty());
         this.rest = rest.split(" /");
+        if (rest.isEmpty()) {
+            throw new PukeException();
+        }
     }
 
     /**
@@ -58,7 +62,9 @@ public class EventCommand extends Command {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof EventCommand && other.toString().equals(this.toString()));
+        boolean isInstance = other instanceof EventCommand;
+        boolean isSameCommand = other.toString().equals(toString());
+        return isInstance && isSameCommand;
     }
 
     /**

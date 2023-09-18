@@ -1,5 +1,6 @@
 package puke.command;
 
+import puke.managers.PukeException;
 import puke.managers.TaskList;
 
 /**
@@ -10,8 +11,16 @@ public class ExitCommand extends Command {
             + "by the command of which this is the function being issued and therefore, "
             + "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
 
-    public ExitCommand(String rest) {
+    /**
+     * Creates a new ExitCommand
+     * @param rest the rest of the line
+     * @throws PukeException if the format of the input is incorrect
+     */
+    public ExitCommand(String rest) throws PukeException {
         super(rest.isEmpty(), rest.isEmpty());
+        if (!rest.isEmpty()) {
+            throw new PukeException();
+        }
     }
 
     /**
