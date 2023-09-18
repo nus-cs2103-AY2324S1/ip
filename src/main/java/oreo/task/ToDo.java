@@ -12,11 +12,11 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        String marker = "[ ]";
+        String marker = "☐";
         if (this.isComplete) {
-            marker = "[X]";
+            marker = "☑";
         }
-        return  "[T]" + marker + " " + this.description + "\n";
+        return  "TODO:" + " " + this.description + " " + marker + "\n";
     }
 
     @Override
@@ -24,5 +24,10 @@ public class ToDo extends Task {
         int mark = isComplete ? 1 : 0;
         String data = 1 + " " + mark + description + System.lineSeparator();
         return data;
+    }
+
+    @Override
+    public String getTaskInEditFormat() {
+        return "todo" + description;
     }
 }

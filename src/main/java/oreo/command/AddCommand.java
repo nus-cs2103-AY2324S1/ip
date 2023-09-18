@@ -18,6 +18,17 @@ public class AddCommand extends Command {
     }
 
     @Override
+    public String executeEditMode(TaskList tasks, int index, Task oldTask) throws IllegalCommandException,
+            IllegalDateTimeException {
+        Task newTask = Task.generateTask(command, tokeniser);
+        tasks.modifyTask(index, newTask);
+        return "Modified this: \n"
+                + Ui.indentLineBy(oldTask.toString(), 2) + "\n"
+                + "to this: \n"
+                + Ui.indentLineBy(newTask.toString(), 2);
+    }
+
+    @Override
     public String execute(TaskList tasks) {
         try {
             Task newTask = Task.generateTask(command, tokeniser);

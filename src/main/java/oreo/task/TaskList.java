@@ -43,7 +43,6 @@ public class TaskList {
     public Task remove(int index) {
         Task removedTask = taskList.remove(index);
         if (removedTask.isComplete()) numberOfCompletedTasks--;
-        System.out.println(numberOfCompletedTasks + " " + getNumberOfTask());
         assert numberOfCompletedTasks <= getNumberOfTask():
                 "completed task must always be less than or equal total number of task";
         return removedTask;
@@ -101,7 +100,7 @@ public class TaskList {
                 displayList.append("Here are the things you told me to keep track of:\n");
             }
             for (int i = 0; i < taskList.size(); i++) {
-                displayList.append(i + 1 + ".").append(taskList.get(i).toString());
+                displayList.append(i + 1 + ". ").append(taskList.get(i).toString());
             }
             return displayList.toString();
         }
@@ -170,9 +169,9 @@ public class TaskList {
         if (!tokeniser.hasNext()) {
             throw new IllegalCommandException("do that without specifying a task number");
         }
-        // specified content is n ot an integer
+        // specified content is not an integer
         String content = tokeniser.next();
-        if (isInteger(content)) {
+        if (!isInteger(content)) {
             throw new IllegalCommandException("do that... try a number instead");
         }
         // if number of task does not exist
@@ -239,6 +238,29 @@ public class TaskList {
             }
         }
         return toPrint.listResults(keyword);
+    }
+
+    public Task getEditTask(Scanner tokeniser) {
+        // nothing specified after command
+        if (!tokeniser.hasNext()) {
+            throw new IllegalCommandException("do that without specifying a task number");
+        }
+        // specified content is not an integer
+        String content = tokeniser.next();
+        if (!isInteger(content)) {
+            throw new IllegalCommandException("do that... try a number instead");
+        }
+        // if number of task does not exist
+        int id = Integer.parseInt(content);
+        if (id > getNumberOfTask() || id <= 0) {
+            System.out.println("hello");
+            throw new IllegalCommandException("do that... this task does not exist :(");
+        }
+        return get(id - 1);
+    }
+
+    public void modifyTask(int index, Task task) {
+        taskList.set(index, task);
     }
 
     /**

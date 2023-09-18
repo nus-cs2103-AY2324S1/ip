@@ -88,12 +88,15 @@ public abstract class Task implements Comparable<Task> {
     private static Task processDeadlineCommand(String contents) throws IllegalCommandException,
             IllegalDateTimeException {
         if (!contents.contains("/by")) {
-            throw new IllegalCommandException("set a deadline wihtout a \"/by\"");
+            throw new IllegalCommandException("set a deadline without a \"/by\"");
         } else if (contents.contains("/from") || contents.contains("/to")) {
             throw new IllegalCommandException("do that for a deadline,"
                     + "are you thinking of an event?");
         }
         String[] parts = contents.split(" /by ", 2);
+        if (parts[0].isEmpty()) {
+            throw new IllegalCommandException("process a deadline without a description");
+        }
         String[] dateTime = TimeParser.parseInputOut(parts[1]);
         return new Deadline(parts[0], dateTime[0], dateTime[1]);
     }
@@ -101,12 +104,15 @@ public abstract class Task implements Comparable<Task> {
     private static Task processEventCommand(String contents) throws IllegalCommandException,
             IllegalDateTimeException {
         if (!contents.contains("/from") || !contents.contains("/to")) {
-            throw new IllegalCommandException("set an event wihtout a \"/from\" and/or \"/to\"");
+            throw new IllegalCommandException("set an event without a \"/from\" and/or \"/to\"");
         } else if (contents.contains("/by")) {
             throw new IllegalCommandException("do that for an event,"
                     + "are you thinking of a deadline?");
         }
         String[] message = contents.split(" /from ", 2);
+        if (message[0].isEmpty()) {
+            throw new IllegalCommandException("process a deadline without a description");
+        }
         String[] fromto = message[1].split(" /to ", 2);
         String[] fromDateTime = TimeParser.parseInputOut(fromto[0]);
         String[] toDateTime = TimeParser.parseInputOut(fromto[1]);
@@ -158,6 +164,8 @@ public abstract class Task implements Comparable<Task> {
      * @return task in file data format.
      */
     public abstract String writeToFile();
+
+    public abstract String getTaskInEditFormat();
 
     /**
      * Checks if description contains keyword
