@@ -224,13 +224,17 @@ public class TaskList {
         String keyword = parts[1];
         String output = "Pau found these: \n";
 
-        int count = 1;
+        int count = 0;
         for (int i = 0; i < listSize(); i++) {
             Task curr = this.getTask(i);
             if (curr.description.contains(keyword)) {
-                output += count + ". " + curr.toString() + "\n";
                 count++;
+                output += count + ". " + curr.toString() + "\n";
             }
+        }
+
+        if (count == 0) {
+            output = "Pau can't find any tasks :(";
         }
         return output;
     }

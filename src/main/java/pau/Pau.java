@@ -34,6 +34,7 @@ public class Pau {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.list = storage.loadTasks();
+        assert this.list != null : "Pau should create a task list for users";
     }
 
     /**
