@@ -34,6 +34,7 @@ public class TaskList {
      * @return      String response
      */
     public String doTask(String input) {
+        assert input.startsWith("mark"): "Invalid input for mark";
         try {
             int number = Integer.parseInt(input.substring(5));
             Task t = getTask(number);
@@ -54,6 +55,7 @@ public class TaskList {
      * @return      String response
      */
     public String undoTask(String input) {
+        assert input.startsWith("unmark"): "Invalid input for unmark";
         try {
             int number = Integer.parseInt(input.substring(7));
             Task t = getTask(number);
@@ -83,20 +85,26 @@ public class TaskList {
      * @param input User-inputted string to be parsed
      * @return      String response
      */
-    public String deleteTask(String input) {
+    public String deleteFromInput(String input) {
+        assert input.startsWith("delete"): "Invalid input for delete";
         try {
             int number = Integer.parseInt(input.substring(7));
-            Task t = getTask(number);
-            System.out.printf("Alright say bye bye to task %d!%n", number);
-            System.out.println(t);
-            this.tasks.remove(t);
-            return String.format("There's %d task(s) in the list now.%n", tasks.size());
+            return deleteTask(number);
         } catch (NumberFormatException n) {
             return "Ugh to delete stuff, you have to input \"delete\" and the number...";
         } catch (IllegalArgumentException e) {
             return e.getMessage();
         }
     }
+
+    private String deleteTask(int i) {
+        String output = "";
+        Task t = getTask(i);
+        output += String.format("Alright say bye bye to task %d!\n%s\n", i, t.toString());
+        this.tasks.remove(t);
+        return output + String.format("There's %d task(s) in the list now.\n", tasks.size());
+    }
+
 
     /**
      * Prints the current task list. If list is empty, returns a corresponding response message
@@ -109,7 +117,7 @@ public class TaskList {
         } else {
             StringBuilder output = new StringBuilder();
             for (Task t : tasks) {
-                output.append(String.format("%d.%s%n", tasks.indexOf(t) + 1, t.toString()));
+                output.append(String.format("%d.%s\n", tasks.indexOf(t) + 1, t.toString()));
             }
             return output.toString();
         }
