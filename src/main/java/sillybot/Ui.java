@@ -75,7 +75,7 @@ public class Ui {
                 + task
                 + "\n"
                 + "Now you have "
-                + Task.getTaskCount()
+                + (Task.getTaskCount() - 1)
                 + " tasks in the list.";
 
         return output;

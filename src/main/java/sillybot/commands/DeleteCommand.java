@@ -29,8 +29,8 @@ public class DeleteCommand extends Command {
         String response;
 
         try {
+            response = ui.deleteTaskMessage(tasks.get(this.taskNumber));
             tasks.deleteTask(this.taskNumber);
-            response = ui.deleteTaskMessage(tasks.get(this.taskNumber - 1));
             storage.save(tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new Exception("delete what eh! ");
