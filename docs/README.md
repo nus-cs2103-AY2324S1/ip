@@ -22,17 +22,17 @@ Congratulations! You have just launched Emiya. Trace On!
 
 For all commands, all parts in upper-case are variables you can change! Try it out for yourself!
 
-| Commands                                               | Description                                                                               |   |   |   |   |   |   |   |   |
-|--------------------------------------------------------|-------------------------------------------------------------------------------------------|---|---|---|---|---|---|---|---|
-| `help`                                                 | Shows all available commands, as well as their usage.                                     |   |   |   |   |   |   |   |   |
-| `todo TASK_DESCRIPTION`                                | Creates a Todo task with a given description.                                             |   |   |   |   |   |   |   |   |
-| `deadline TASK_DESCRIPTION /by DEADLINE`               | Creates a Deadline task with a given description and deadline.                            |   |   |   |   |   |   |   |   |
-| `event TASK_DESCRIPTION /from START_DATE /to END_DATE` | Creates a Event task with a given description, start date and end date.                   |   |   |   |   |   |   |   |   |
-| `list`                                                 | Lists all tasks currently within the list of tasks.                                       |   |   |   |   |   |   |   |   |
-| `mark INDEX`                                           | Marks a task at a specified index as completed.                                           |   |   |   |   |   |   |   |   |
-| `unmark INDEX`                                         | Remove the completed status from a task.                                                  |   |   |   |   |   |   |   |   |
-| `delete INDEX`                                         | Deletes the task at the specified index in the list of tasks.                             |   |   |   |   |   |   |   |   |
-| `find WORD`                                            | Searches and displays all tasks within the list of tasks that contain the specified word. |   |   |   |   |   |   |   |   |
+| Commands                                               | Description                                                                               |
+|--------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| `help`                                                 | Shows all available commands, as well as their usage.                                     |
+| `todo TASK_DESCRIPTION`                                | Creates a Todo task with a given description.                                             |
+| `deadline TASK_DESCRIPTION /by DEADLINE`               | Creates a Deadline task with a given description and deadline.                            |
+| `event TASK_DESCRIPTION /from START_DATE /to END_DATE` | Creates a Event task with a given description, start date and end date.                   |
+| `list`                                                 | Lists all tasks currently within the list of tasks.                                       |
+| `mark INDEX`                                           | Marks a task at a specified index as completed.                                           |
+| `unmark INDEX`                                         | Remove the completed status from a task.                                                  |
+| `delete INDEX`                                         | Deletes the task at the specified index in the list of tasks.                             |
+| `find WORD`                                            | Searches and displays all tasks within the list of tasks that contain the specified word. |
 
 ## Main Features
 
