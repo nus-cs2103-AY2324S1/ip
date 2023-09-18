@@ -149,6 +149,9 @@ public class Deadline extends Task {
      */
     public static DayOfWeek getDayOfWeek(String string) throws DukeException {
         DayOfWeek result;
+        if (string.length() < 3) {
+            throw new DukeException("Only inputs such as 'Mon', 'Tuesday', 'sat' allowed!");
+        }
         String day = string.substring(0, 3);
         switch(day) {
         case "MON":

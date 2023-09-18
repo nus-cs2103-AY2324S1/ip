@@ -215,7 +215,7 @@ public class TaskList implements Serializable {
     }
     /**
      * Displays user guide
-     * @return The user guide
+     * @return Output
      */
     public String displayUserGuide() {
         return Ui.showUserGuide();
@@ -234,7 +234,6 @@ public class TaskList implements Serializable {
             storage.copyUndoToTemp();
         } catch (IOException e) {
             tasks.clear();
-            System.err.println("Something happened to undo " + e.getMessage());
         }
     }
 }
