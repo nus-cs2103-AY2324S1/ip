@@ -31,51 +31,63 @@ public class TaskList {
         if (contentsFromDisk.isEmpty()) {
             throw new NoDataException();
         }
-
-        String[] lines = contentsFromDisk.split("\\n");
-        boolean taskIsDone;
-        Task newTask;
-        for (String line: lines) {
-            String taskType = line.substring(1, 2);
-            taskIsDone = line.charAt(4) == 'X';
-            String name;
-            String delimiter;
-            String delimiter2;
+        String[] allTasksAsString = contentsFromDisk.split("\\n");
+        for (String taskAsString: allTasksAsString) {
+            String taskType = getSavedTaskType(taskAsString);
+            boolean taskIsDone = getSavedTaskIsDone(taskAsString);
+            Task newTask;
             switch (taskType) {
             case "T":
                 // To-do task
-                name = line.substring(7);
-                newTask = new Todo(name, taskIsDone);
-                this.addTask(newTask, taskIsDone);
+                newTask = createTodoTaskFromSavedTask(taskAsString, taskIsDone);
                 break;
             case "D":
                 // Deadline
-                delimiter = "(by: ";
-                int indexOfByParam = line.lastIndexOf(delimiter);
-                name = line.substring(7, indexOfByParam);
-                String by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
-                newTask = new Deadline(name, by, taskIsDone);
-                this.addTask(newTask, taskIsDone);
+                newTask = createDeadlineTaskFromSavedTask(taskAsString, taskIsDone);
                 break;
             case "E":
                 // Event
-                delimiter = "(from: ";
-                delimiter2 = " to: ";
-                int indexOfFromParam = line.lastIndexOf(delimiter);
-                int indexOfToParam = line.lastIndexOf(delimiter2);
-                name = line.substring(7, indexOfFromParam);
-                String from = line.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
-                String to = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
-                newTask = new Event(name, from, to, taskIsDone);
-                this.addTask(newTask, taskIsDone);
+                newTask = createEventTaskFromSavedTask(taskAsString, taskIsDone);
                 break;
             default:
                 // Invalid event. Happens when the saved file is tampered with
-                throw new FileCorruptedException("Invalid task: " + line);
+                throw new FileCorruptedException("Invalid task: " + taskAsString);
             }
-
-            System.out.println("Found and loaded saved task: " + line);
+            this.addTask(newTask, taskIsDone);
+            System.out.println("Found and loaded saved task: " + taskAsString);
         }
+    }
+
+    private String getSavedTaskType(String taskAsString) {
+        return taskAsString.substring(1, 2);
+    }
+
+    private boolean getSavedTaskIsDone(String taskAsString) {
+        return taskAsString.charAt(4) == 'X';
+    }
+
+    private Todo createTodoTaskFromSavedTask(String taskAsString, boolean taskIsDone) {
+        String name = taskAsString.substring(7);
+        return new Todo(name, taskIsDone);
+    }
+
+    private Deadline createDeadlineTaskFromSavedTask(String taskAsString, boolean taskIsDone) {
+        String delimiter = "(by: ";
+        int indexOfByParam = taskAsString.lastIndexOf(delimiter);
+        String name = taskAsString.substring(7, indexOfByParam);
+        String by = taskAsString.substring(indexOfByParam + delimiter.length(), taskAsString.length() - 1);
+        return new Deadline(name, by, taskIsDone);
+    }
+
+    private Event createEventTaskFromSavedTask(String taskAsString, boolean taskIsDone) {
+        String delimiter = "(from: ";
+        String delimiter2 = " to: ";
+        int indexOfFromParam = taskAsString.lastIndexOf(delimiter);
+        int indexOfToParam = taskAsString.lastIndexOf(delimiter2);
+        String name = taskAsString.substring(7, indexOfFromParam);
+        String from = taskAsString.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
+        String to = taskAsString.substring(indexOfToParam + delimiter2.length(), taskAsString.length() - 1);
+        return new Event(name, from, to, taskIsDone);
     }
 
     /**
