@@ -1,10 +1,11 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import duke.exception.DukeException;
 import duke.util.Storage;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents the event task.
@@ -34,6 +35,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Updates the from and to time of Event.
+     * @param from New from time.
+     * @param to New to time.
+     */
     public void updateTime(String from, String to) {
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);

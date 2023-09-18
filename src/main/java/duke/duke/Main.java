@@ -1,13 +1,10 @@
 package duke.duke;
 
 import java.io.IOException;
-import java.util.Objects;
 
-import duke.controller.DialogContainer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 

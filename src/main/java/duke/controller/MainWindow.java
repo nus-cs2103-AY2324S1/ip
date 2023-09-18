@@ -1,18 +1,19 @@
 package duke.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import duke.duke.Duke;
 import duke.task.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+
 
 /**
  * Represents the main window of the application.
