@@ -1,15 +1,16 @@
 package main;
 
 import command.CommandAddTaskHandler;
+import command.CommandDeadlineHandler;
+import command.CommandDeleteHandler;
+import command.CommandDurationHandler;
+import command.CommandEventHandler;
 import command.CommandExitHandler;
+import command.CommandFindHandler;
 import command.CommandIntroHandler;
 import command.CommandListHandler;
 import command.CommandMarkUnmarkHandler;
 import command.CommandTodoHandler;
-import command.CommandDeadlineHandler;
-import command.CommandEventHandler;
-import command.CommandDeleteHandler;
-import command.CommandFindHandler;
 import command.Parser;
 import javafx.application.Application;
 import task.TaskList;
@@ -43,12 +44,13 @@ public class Main {
         this.parser.registerCommand("event", new CommandEventHandler());
         this.parser.registerCommand("delete", new CommandDeleteHandler());
         this.parser.registerCommand("find", new CommandFindHandler());
+        this.parser.registerCommand("duration", new CommandDurationHandler());
     }
 
     /**
      * Main function for the program
      *
-     * @param args The arugments from JVM
+     * @param args The arguments from JVM
      */
     public static void main(String[] args) {
         initialize();
