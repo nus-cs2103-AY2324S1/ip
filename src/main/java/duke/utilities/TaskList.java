@@ -3,8 +3,12 @@ package duke.utilities;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import duke.exception.DukeException;
 import duke.main.Duke;
+=======
+import duke.tasks.Events;
+>>>>>>> branch-B-DetectAnomalies
 import duke.tasks.Task;
 
 /**
@@ -75,7 +79,7 @@ public class TaskList implements Serializable {
      * A getter function that returns the taskList itself.
      * @return The taskList.
      */
-    public ArrayList getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
 

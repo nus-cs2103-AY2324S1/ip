@@ -1,7 +1,14 @@
 package duke;
 
+<<<<<<< HEAD
 import duke.exception.DukeException;
 import duke.tasks.ToDos;
+=======
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
+import duke.exception.DukeException;
+>>>>>>> branch-B-DetectAnomalies
 import org.junit.jupiter.api.Test;
 
 import duke.tasks.Events;

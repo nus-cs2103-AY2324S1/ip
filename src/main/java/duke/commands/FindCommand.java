@@ -34,7 +34,7 @@ public class FindCommand extends Command {
         String[] inputList = this.input.split(" ");
         try {
             if (inputList.length == 1) {
-                throw new DukeException("Your input is wrong. This is unaaceptable");
+                throw new DukeException("Your input is wrong. This is unacceptable");
             }
             return ui.findFilteredTasks(taskList, input.substring(5));
         } catch (DukeException e) {
