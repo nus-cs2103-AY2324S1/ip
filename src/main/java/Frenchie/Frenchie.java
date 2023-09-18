@@ -1,3 +1,4 @@
+package Frenchie;
 
 public class Frenchie {
     private TaskList tasks;

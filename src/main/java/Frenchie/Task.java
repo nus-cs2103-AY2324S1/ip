@@ -1,3 +1,5 @@
+package Frenchie;
+
 public class Task {
     public boolean isCompleted;
     public String task_name;

@@ -1,3 +1,4 @@
+package Frenchie;
 
 public class Parser {
      public static Command parseCommand(String input) {
@@ -39,7 +40,7 @@ public class Parser {
             } else if (input.contains("mark")) { //Checking if user input is to mark/unmark tasks
                 String[] parts = input.split(" ");
                 int index = Integer.parseInt(parts[1]) - 1;
-                Frenchie.Task target_task = frenchie.tasks.get(index);
+                Frenchie.Frenchie.Frenchie.Task target_task = frenchie.tasks.get(index);
                 //Checking if user is looking to mark task as done or incomplete
                 if (parts[0].equals("mark")) {
                     frenchie.completeTask(index);
@@ -57,7 +58,7 @@ public class Parser {
             } else if (input.contains("delete")){
                 String[] parts = input.split(" ");
                 int index = Integer.parseInt(parts[1]) - 1;
-                Frenchie.Task target_task = frenchie.tasks.get(index);
+                Frenchie.Frenchie.Frenchie.Task target_task = frenchie.tasks.get(index);
                 frenchie.deleteTask(index);
                 System.out.println("____________________________________________________________\n" +
                         "Noted. I've removed this task: \n" +
@@ -68,13 +69,13 @@ public class Parser {
                 String[] parts = input.split(" ");
                 String taskType = parts[0];
                 if (parts.length <= 1) {
-                    throw new Frenchie.FrenchieException("____________________________________________________________\n" +
+                    throw new Frenchie.Frenchie.Frenchie.FrenchieException("____________________________________________________________\n" +
                             "OOPS!!! The description of a " + taskType + " cannot be empty.\n" +
                             "____________________________________________________________");
                 } else {
                     if (taskType.equals("todo")) {
                         String taskName = input.split("todo")[1].trim();
-                        Frenchie.ToDo currentTask = new Frenchie.ToDo(taskName);
+                        Frenchie.Frenchie.Frenchie.ToDo currentTask = new Frenchie.Frenchie.Frenchie.ToDo(taskName);
                         frenchie.addTask(currentTask);
                         System.out.println("____________________________________________________________\n" +
                                 " Got it! I've added this task: \n" +
@@ -84,7 +85,7 @@ public class Parser {
                     } else if (taskType.equals("deadline")) {
                         String taskName = input.split("/by")[0].split("deadline")[1].trim();
                         String deadline = input.split("/by")[1].trim();
-                        Frenchie.Deadline currentTask = new Frenchie.Deadline(taskName, deadline);
+                        Frenchie.Frenchie.Frenchie.Deadline currentTask = new Frenchie.Frenchie.Frenchie.Deadline(taskName, deadline);
                         frenchie.addTask(currentTask);
                         System.out.println("____________________________________________________________\n" +
                                 " Got it! I've added this task: \n" +
@@ -95,7 +96,7 @@ public class Parser {
                         String taskName = input.split("/")[0].split("event")[1].trim();
                         String startTime = input.split("/from")[1].split("/to")[0].trim();
                         String endTime = input.split("/from")[1].split("/to")[1].trim();
-                        Frenchie.Event currentTask = new Frenchie.Event(taskName, startTime, endTime);
+                        Frenchie.Frenchie.Frenchie.Event currentTask = new Frenchie.Frenchie.Frenchie.Event(taskName, startTime, endTime);
                         frenchie.addTask(currentTask);
                         System.out.println("____________________________________________________________\n" +
                                 " Got it! I've added this task: \n" +
@@ -105,12 +106,12 @@ public class Parser {
                     }
                 }
             } else {
-                throw new Frenchie.FrenchieException("____________________________________________________________\n" +
+                throw new Frenchie.Frenchie.Frenchie.FrenchieException("____________________________________________________________\n" +
                         "OOPS!!! I'm sorry but I don't know what that means! :-(\n" +
                         "____________________________________________________________");
             }
             frenchie.saveTasksToFile();
-        } catch (Frenchie.FrenchieException e) {
+        } catch (Frenchie.Frenchie.Frenchie.FrenchieException e) {
         System.err.println(e.getMessage());
     }
     }**/

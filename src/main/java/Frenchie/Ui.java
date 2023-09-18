@@ -1,3 +1,5 @@
+package Frenchie;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -9,7 +11,7 @@ public class Ui {
 
     public void welcomeMessage() {
         String skeleton = "____________________________________________________________\n" +
-                " Hello! I'm Frenchie.Frenchie\n" +
+                " Hello! I'm Frenchie.Frenchie.Frenchie.Frenchie\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________";
         System.out.println(skeleton);

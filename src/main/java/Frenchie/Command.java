@@ -1,3 +1,5 @@
+package Frenchie;
+
 public enum Command {
     list,
     mark,

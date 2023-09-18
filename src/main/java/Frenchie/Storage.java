@@ -1,4 +1,4 @@
-
+package Frenchie;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
