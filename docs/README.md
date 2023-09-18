@@ -24,7 +24,7 @@ You now have <Number of tasks> tasks to complete
 ### `Deadline`-  Add a task with a deadline to the list <br />
 Example of usage:
 
-`deadline <TASK NAME> /by <DUE DATE IN YYYY-MM-DD FORMAT>`
+`deadline <TASK NAME> /by <DUE DATE IN DD/MM/YYYY HHHH FORMAT>`
 
 Expected output:
 
@@ -36,7 +36,8 @@ You now have <Number of tasks> tasks to complete
 ### `Event` -  Add an event to the list <br />
 Example of usage:
 
-`event <TASK NAME> /from <START DATE IN YYYY-MM-DD FORMAT> /to <END DATE IN YYYY-MM-DD FORMAT>`
+`event <TASK NAME> /from <START DATE IN DD/MM/YYYY HHHH FORMAT> /to 
+<END DATE IN DD/MM/YYYY HHHH FORMAT>`
 
 Expected output:
 
