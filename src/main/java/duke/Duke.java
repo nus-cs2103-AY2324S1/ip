@@ -14,6 +14,7 @@ public class Duke {
         this.storage = new Storage(filePath);
     }
 
+    //this duke is no longer used.
     public Duke() {
         this("./data/duke.txt");
     }
