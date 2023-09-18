@@ -62,7 +62,7 @@ public class DialogBox extends HBox {
      * Sets the style attributes of the display picture.
      */
     private void setupDisplayPicture() {
-        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, 49.5);
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, 25);
         displayPicture.setClip(clip);
     }
 
@@ -71,7 +71,7 @@ public class DialogBox extends HBox {
      */
     private void setupLabel() {
         dialog.getStyleClass().add("dialog-label");
-        dialog.setPadding(new Insets(5.0, 15.0, 5.0, 15.0));
+        dialog.setPadding(new Insets(0, 15.0, 5.0, 15.0));
         dialog.setMaxHeight(Double.MAX_VALUE);
     }
 
