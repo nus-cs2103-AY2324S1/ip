@@ -21,10 +21,15 @@ public class ToDo extends Task {
 
     @Override
     public String update(String specifications) {
-        if (specifications.isEmpty()) {
-            throw new IllegalArgumentException("OOPS!!! Update of todo task needs a description");
+        String[] splits = specifications.split(" ", 2);
+        String updateType = splits[0];
+        String description = splits.length > 1 ? splits[1] : "";
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("OOPS!!! " +
+                    "Update of todo task description must in format " +
+                    "/description <description>");
         }
-        this.description = specifications;
+        this.description = description;
         return "Ok, I've updated the todo task to the following:\n" + this;
     }
 

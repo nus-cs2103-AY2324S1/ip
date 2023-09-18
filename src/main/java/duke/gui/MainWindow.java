@@ -1,5 +1,8 @@
 package duke.gui;
 
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -53,6 +56,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            int delay = 2000; // delay timer of 2 seconds
+            ActionListener exit = event -> javafx.application.Platform.exit();
+            Timer timer = new Timer(delay, exit);
+            timer.setRepeats(false);
+            timer.start();
+        }
     }
 }
 
