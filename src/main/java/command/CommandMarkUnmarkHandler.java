@@ -5,6 +5,13 @@ import task.Task;
 
 public class CommandMarkUnmarkHandler implements ICommandHandler {
 
+    /**
+     * Execute the command
+     *
+     * @param command the full command
+     * @param parameters the command parameters (splited by spaces)
+     * @throws CommandException when any exception happens during command execution
+     */
     @Override
     public void execute(String command, String[] parameters) throws CommandException {
         if(parameters.length < 2){
@@ -13,7 +20,7 @@ public class CommandMarkUnmarkHandler implements ICommandHandler {
         boolean mark = parameters[0].equals("mark");
         String taskName = mark ? command.replaceFirst("mark ", "") : command.replaceFirst("unmark ", "");
         Task task = Main.getInstance().getTaskList().findTaskByName(taskName);
-        if(task == null){
+        if(task == null) {
             throw new CommandException("Error: Can not find any task with name '" +taskName + "'.");
         }
         task.setIsDone(mark);

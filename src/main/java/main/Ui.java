@@ -1,5 +1,6 @@
 package main;
 
+import command.CommandException;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,6 +19,11 @@ public class Ui extends Application {
     private VBox dialogContainer;
 
 
+    /**
+     * Start method for JavaFX
+     *
+     * @param primaryStage The primary stage provided by JavaFX
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         INSTANCE = this;
@@ -54,7 +60,7 @@ public class Ui extends Application {
             closeConfirmation.setHeaderText("Do you really want to exit?");
             closeConfirmation.showAndWait().ifPresent(
                     result->{
-                        if(result == exitBtn){
+                        if(result == exitBtn) {
                             this.byeAndExit();
                         }
                     }
@@ -83,8 +89,7 @@ public class Ui extends Application {
     /**
      * Hide the main window, pops a message box to say goodbye to the user and finally exit the whole program.
      */
-    public void byeAndExit()
-    {
+    public void byeAndExit() {
         assert(Main.getInstance() != null);
         this.window.hide();
         ButtonType okBtn = new ButtonType("Bye");
@@ -119,12 +124,10 @@ public class Ui extends Application {
         Label text = new Label(content);
         text.setMaxWidth(400);
         text.setWrapText(true);
-        //text.setTextAlignment(isUser ? TextAlignment.RIGHT : TextAlignment.LEFT);
         messageBubble.getChildren().add(text);
         messageBubble.prefHeightProperty().bind(text.heightProperty());
         messageBubble.prefWidthProperty().bind(text.widthProperty());
         this.dialogContainer.getChildren().add(messageBubble);
-        //VBox.setMargin(messageBubble, new Insets(0, 0, 0, isUser ? 350 : 0));
     }
 
 
@@ -133,7 +136,7 @@ public class Ui extends Application {
      *
      * @return the instance
      */
-    public static Ui getInstance(){
+    public static Ui getInstance() {
         return INSTANCE;
     }
 }
