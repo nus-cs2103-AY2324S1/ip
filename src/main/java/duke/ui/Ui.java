@@ -24,15 +24,6 @@ public class Ui {
     }
 
     /**
-     * Retrieves the next line of input from the user and returns it.
-     *
-     * @return The next line of input.
-     */
-    public String getInput() {
-        return this.sc.nextLine();
-    }
-
-    /**
      * Prints out the specified String, wrapped in a horizontal line break.
      *
      * @param str The string to be printed out.

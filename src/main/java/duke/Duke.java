@@ -53,27 +53,6 @@ public class Duke {
         this(DEFAULT_DATA_FOLDER_PATH);
     }
 
-    /**
-     * Runs the Duke application.
-     * This method initializes the user interface, loads tasks from storage,
-     * and enters a loop to process user commands.
-     */
-    public void run() {
-        ui.greet();
-
-        boolean isRunning = true;
-        while (isRunning) {
-            try {
-                String fullCommand = ui.getInput();
-                Command c = parser.parse(fullCommand);
-                c.execute(items, ui, storage);
-                isRunning = !c.willExitNext();
-            } catch (DukeException e) {
-                ui.talk(e.getMessage());
-            }
-        }
-    }
-
     public String getResponse(String input) {
         try {
             Command c = parser.parse(input);
@@ -83,12 +62,7 @@ public class Duke {
         }
     }
 
-    /**
-     * The main method that starts the Duke application.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        new Duke("src/data/duke.txt").run();
+    public String getGreetString() {
+        return ui.greet();
     }
 }
