@@ -40,7 +40,8 @@ public class MarkExecutable implements Executable {
         } catch (IOException e) {
             throw new FailureInExecuteException(e.getMessage());
         }
-        ui.output("marked task " + targetIndex);
+        String outputString = (isToBeMarked ? "marked" : "unmarked") + " task " + targetIndex;
+        ui.output(outputString);
         return false;
     }
 }
