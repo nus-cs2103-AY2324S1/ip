@@ -1,6 +1,7 @@
 package crusader;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import crusader.exception.CrusaderException;
@@ -129,5 +130,12 @@ public class TaskList {
                         .filter(
                                 task -> task.getName().contains(query))
                         .collect(Collectors.toList())));
+    }
+
+    /**
+     * Sorts the task list.
+     */
+    public void sort() {
+        Collections.sort(tasks);
     }
 }

@@ -9,6 +9,7 @@ import crusader.command.DeleteCommand;
 import crusader.command.FindCommand;
 import crusader.command.ListCommand;
 import crusader.command.MarkCommand;
+import crusader.command.SortCommand;
 import crusader.exception.CrusaderDateFormatException;
 import crusader.exception.CrusaderException;
 import crusader.exception.CrusaderParseException;
@@ -35,10 +36,10 @@ public class Parser {
                            : prompt;
         switch (firstWord) {
         case "bye":
-            returnCommand = new ByeCommand();
+            returnCommand = parseBye(prompt);
             break;
         case "list":
-            returnCommand = new ListCommand();
+            returnCommand = parseList(prompt);
             break;
         case "mark":
             returnCommand = parseMarking(prompt, true);
@@ -60,6 +61,9 @@ public class Parser {
             break;
         case "find":
             returnCommand = parseFind(prompt);
+            break;
+        case "sort":
+            returnCommand = parseSort(prompt);
             break;
         default:
             throw new CrusaderParseException("Unknown command!");
@@ -183,6 +187,58 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a new bye command
+     *
+     * @param prompt User input to parse
+     * @return New bye command
+     * @throws CrusaderParseException
+     */
+    private static Command parseBye(String prompt) throws CrusaderParseException {
+        String[] components = prompt.split(" ");
+        if (components.length > 1) {
+            throw new CrusaderParseException("bye expects no parameters!");
+        }
+        return new ByeCommand();
+    }
+
+    /**
+     * Creates a new list command
+     *
+     * @param prompt User input to parse
+     * @return New list command
+     * @throws CrusaderParseException
+     */
+    private static Command parseList(String prompt) throws CrusaderParseException {
+        String[] components = prompt.split(" ");
+        if (components.length > 1) {
+            throw new CrusaderParseException("list expects no parameters!");
+        }
+        return new ListCommand();
+    }
+
+    /**
+     * Creates a new sort command
+     *
+     * @param prompt User input to parse
+     * @return New sort command
+     * @throws CrusaderParseException
+     */
+    private static Command parseSort(String prompt) throws CrusaderParseException {
+        String[] components = prompt.split(" ");
+        if (components.length > 1) {
+            throw new CrusaderParseException("sort expects no parameters!");
+        }
+        return new SortCommand();
+    }
+
+    /**
+     * Creates a new find command
+     *
+     * @param prompt User input to parse
+     * @return New find command
+     * @throws CrusaderParseException
+     */
     private static Command parseFind(String prompt) throws CrusaderParseException {
         String[] components = prompt.split(" ");
         if (components.length < 2) {
