@@ -53,6 +53,7 @@ public class TaskList {
      */
     public void clearAll() {
         taskList.clear();
+        numberOfCompletedTasks = 0;
     }
 
     public int getNumberOfTask() {
@@ -122,6 +123,9 @@ public class TaskList {
         // specified content is not an integer
         String content = tokeniser.next();
         if (!isInteger(content)) {
+            if (content.equals("all")) {
+                return command.equals("mark") ? markAll() : unmarkAll();
+            }
             throw new IllegalCommandException("do that... try a number instead");
         }
         // if number of task does not exist
@@ -140,6 +144,20 @@ public class TaskList {
         default:
             throw new IllegalCommandException("help mark or unmark that");
         }
+    }
+
+    public String markAll() {
+        for (int i = 0; i < getNumberOfTask(); i++) {
+            markDone(i);
+        }
+        return "Marked all your task done! TIME TO PLAY?";
+    }
+
+    public String unmarkAll() {
+        for (int i = 0; i < getNumberOfTask(); i++) {
+            markNotDone(i);
+        }
+        return "Oh noooo! Unmarked everything! D:";
     }
 
     public String listResults(String keyword) {
@@ -164,7 +182,11 @@ public class TaskList {
      * @return Message if task has been successful or not and if all task are complete
      * @throws IllegalCommandException invalid format of command
      */
-    public String deleteTask(Scanner tokeniser) throws IllegalCommandException {
+    public String deleteTask(String command, Scanner tokeniser) throws IllegalCommandException {
+        if (command.equals("clear")) {
+            clearAll();
+            return "Cleared all your task for you! Play time?";
+        }
         // nothing specified after command
         if (!tokeniser.hasNext()) {
             throw new IllegalCommandException("do that without specifying a task number");
@@ -172,6 +194,10 @@ public class TaskList {
         // specified content is not an integer
         String content = tokeniser.next();
         if (!isInteger(content)) {
+            if (content.equals("all")) {
+                clearAll();
+                return "Cleared all your task for you! Play time?";
+            }
             throw new IllegalCommandException("do that... try a number instead");
         }
         // if number of task does not exist
@@ -260,6 +286,7 @@ public class TaskList {
     }
 
     public void modifyTask(int index, Task task) {
+        if (taskList.get(index).isComplete()) numberOfCompletedTasks--;
         taskList.set(index, task);
     }
 

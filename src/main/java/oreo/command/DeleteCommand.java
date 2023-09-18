@@ -7,9 +7,11 @@ import oreo.ui.Ui;
 import java.util.Scanner;
 
 public class DeleteCommand extends Command {
+    private String command;
     private Scanner tokeniser;
 
-    public DeleteCommand(Scanner tokeniser) {
+    public DeleteCommand(String command, Scanner tokeniser) {
+        this.command = command;
         this.tokeniser = tokeniser;
     }
 
@@ -21,7 +23,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks) {
         try {
-            return tasks.deleteTask(tokeniser);
+            return tasks.deleteTask(command, tokeniser);
         } catch (IllegalCommandException e) {
             return e.getMessage();
         }
