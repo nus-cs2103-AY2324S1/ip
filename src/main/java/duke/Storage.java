@@ -43,12 +43,6 @@ public class Storage {
      * 2. ObjectOutputStream scans tasks, serializes each duke.Task into binary format, and writes them
      * to "data/temp.txt". This allows us to save the duke.TaskList to a file and retrieve it when the program
      * is run again
-     *
-     * Initially, I did a writeToFile method where everytime a duke.Task is added to taskArray, write
-     * the new task to duke.txt. However, this may cause some problems when it comes to updating
-     * or deleting tasks from the file, so I changed the implementation to rewriting the entire txt
-     * file everytime there is a change to the list. This causes a longer run time but since this mod
-     * is not about run time, it should be fine.
      */
     public void updateFile(TaskList tasks) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {
