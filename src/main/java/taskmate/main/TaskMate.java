@@ -3,16 +3,7 @@ package taskmate.main;
 import java.io.IOException;
 
 import taskmate.commands.Command;
-import taskmate.exceptions.EmptyByException;
-import taskmate.exceptions.EmptyFromException;
-import taskmate.exceptions.EmptyToException;
-import taskmate.exceptions.InvalidByException;
-import taskmate.exceptions.InvalidCommandTypeException;
-import taskmate.exceptions.InvalidDescriptionException;
-import taskmate.exceptions.InvalidFromException;
-import taskmate.exceptions.InvalidToException;
-import taskmate.exceptions.NoDataException;
-import taskmate.exceptions.NotAnIntegerException;
+import taskmate.exceptions.*;
 import taskmate.tools.Parser;
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
@@ -51,6 +42,8 @@ public class TaskMate {
             ui.printFileNotFoundResponse(storage.getSaveFilePath());
         } catch (NoDataException e) {
             ui.printNoDataResponse();
+        } catch (FileCorruptedException e) {
+            ui.printFileCorruptedResponse(e);
         }
     }
 

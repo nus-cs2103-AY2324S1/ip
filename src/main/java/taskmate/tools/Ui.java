@@ -3,6 +3,7 @@ package taskmate.tools;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import taskmate.exceptions.FileCorruptedException;
 import taskmate.tools.tasks.Task;
 
 /**
@@ -227,5 +228,9 @@ public class Ui {
             message.append((i + 1)).append(".").append(newTask.toString()).append("\n");
         }
         printMessage(message.toString());
+    }
+
+    public void printFileCorruptedResponse(FileCorruptedException e) {
+        printMessage(e.getMessage());
     }
 }

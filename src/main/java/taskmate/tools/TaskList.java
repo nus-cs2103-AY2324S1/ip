@@ -2,6 +2,7 @@ package taskmate.tools;
 
 import java.util.ArrayList;
 
+import taskmate.exceptions.FileCorruptedException;
 import taskmate.exceptions.NoDataException;
 import taskmate.exceptions.TaskNotFoundException;
 import taskmate.tools.tasks.Deadline;
@@ -26,7 +27,7 @@ public class TaskList {
      * @param contentsFromDisk A String object containing the saved task file contents
      * @throws NoDataException Thrown when the task file is empty
      */
-    public TaskList(String contentsFromDisk) throws NoDataException {
+    public TaskList(String contentsFromDisk) throws NoDataException, FileCorruptedException {
         if (contentsFromDisk.isEmpty()) {
             throw new NoDataException();
         }
@@ -37,38 +38,40 @@ public class TaskList {
         for (String line: lines) {
             String taskType = line.substring(1, 2);
             taskIsDone = line.charAt(4) == 'X';
-
+            String name;
+            String delimiter;
+            String delimiter2;
             switch (taskType) {
-            case "T" -> {
+            case "T":
                 // To-do task
-                String name = line.substring(7);
+                name = line.substring(7);
                 newTask = new Todo(name, taskIsDone);
                 this.addTask(newTask, taskIsDone);
-            }
-            case "D" -> {
+                break;
+            case "D":
                 // Deadline
-                String delimiter = "(by: ";
+                delimiter = "(by: ";
                 int indexOfByParam = line.lastIndexOf(delimiter);
-                String name = line.substring(7, indexOfByParam);
+                name = line.substring(7, indexOfByParam);
                 String by = line.substring(indexOfByParam + delimiter.length(), line.length() - 1);
                 newTask = new Deadline(name, by, taskIsDone);
                 this.addTask(newTask, taskIsDone);
-            }
-            case "E" -> {
+                break;
+            case "E":
                 // Event
-                String delimiter = "(from: ";
-                String delimiter2 = " to: ";
+                delimiter = "(from: ";
+                delimiter2 = " to: ";
                 int indexOfFromParam = line.lastIndexOf(delimiter);
                 int indexOfToParam = line.lastIndexOf(delimiter2);
-                String name = line.substring(7, indexOfFromParam);
+                name = line.substring(7, indexOfFromParam);
                 String from = line.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
                 String to = line.substring(indexOfToParam + delimiter2.length(), line.length() - 1);
                 newTask = new Event(name, from, to, taskIsDone);
                 this.addTask(newTask, taskIsDone);
-            }
-            default ->
-                // Invalid event
-                System.out.println("Invalid task: " + line);
+                break;
+            default:
+                // Invalid event. Happens when the saved file is tampered with
+                throw new FileCorruptedException("Invalid task: " + line);
             }
 
             System.out.println("Found and loaded saved task: " + line);
