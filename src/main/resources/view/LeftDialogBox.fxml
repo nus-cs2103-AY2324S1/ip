@@ -8,11 +8,7 @@
 
 <fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="385.0" style="-fx-background-color: #212121;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fx:id="displayPicture" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-radius: 20;">
-         <HBox.margin>
-            <Insets left="5.0" right="5.0" />
-         </HBox.margin>
-        </ImageView>
+        <ImageView fx:id="displayPicture" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-radius: 20;" />
         <Label id="text-bubble" fx:id="dialog" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" minHeight="-Infinity" style="-fx-padding: 15; -fx-background-color: #ffffff; -fx-background-radius: 20;" text=" Sample Text" wrapText="true">
             <HBox.margin>
                 <Insets left="10.0" right="10.0" />

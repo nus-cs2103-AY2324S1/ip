@@ -114,8 +114,8 @@ public class RatInput {
      */
     public String showCommands() {
         String output = "Hello! I'm Rat, your personal task manager.\n"
-                + "Here are the commands you can use:\n"
-                + "\nhelp: show this list of commands\n"
+                + "Here are the commands you can use:\n\n"
+                + "help: show this list of commands\n"
                 + "list: list all tasks\n"
                 + "mark <index>: mark task at <index> as done\n"
                 + "unmark <index>: mark task at <index> as not done\n"

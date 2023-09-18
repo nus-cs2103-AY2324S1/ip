@@ -47,12 +47,12 @@ public class MainWindow extends AnchorPane {
     /**
      * The display image of the user.
      */
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
 
     /**
      * The display image of Rat.
      */
-    private Image ratImage = new Image(this.getClass().getResourceAsStream("/images/Megamind.jpeg"));
+    private Image ratImage = new Image(this.getClass().getResourceAsStream("/images/megaMind.png"));
 
     /**
      * Initializes the scroll pane to scroll to the bottom of the dialog container.
