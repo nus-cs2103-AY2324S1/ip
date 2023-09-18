@@ -9,9 +9,11 @@ import java.util.stream.Collectors;
 
 import duke.Duke;
 import duke.exception.DukeException;
+import duke.exception.DuplicateTaskException;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.EmptyKeywordException;
 import duke.exception.EmptyTaskException;
+import duke.exception.InvalidStartEndDatetimeException;
 import duke.exception.NoSpaceAfterException;
 import duke.exception.NoSpaceBeforeException;
 
@@ -57,7 +59,12 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    private void addTask(Task task) {
+    private void addTask(Task task) throws DuplicateTaskException {
+        for (Task t : this.list) {
+            if (task.toString().equals(t.toString())) {
+                throw new DuplicateTaskException();
+            }
+        }
         this.list.add(task);
     }
 
@@ -149,7 +156,7 @@ public class TaskList {
             addTask(todo);
             assert getLength() == initialLen + 1 : "Number of tasks is incorrect after adding a todo.";
             return Duke.getUi().printAddTask(todo, getLength());
-        } catch (NoSpaceAfterException | EmptyDescriptionException e) {
+        } catch (NoSpaceAfterException | EmptyDescriptionException | DuplicateTaskException e) {
             return e.getMessage();
         }
     }
@@ -188,7 +195,8 @@ public class TaskList {
             return Duke.getUi().printAddTask(deadline, getLength());
         } catch (DateTimeParseException e) {
             return Duke.getUi().printDateTimeParseException();
-        } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DukeException e) {
+        } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DuplicateTaskException |
+                 DukeException e) {
             return e.getMessage();
         }
     }
@@ -237,7 +245,8 @@ public class TaskList {
             return Duke.getUi().printAddTask(event, getLength());
         } catch (DateTimeParseException e) {
             return Duke.getUi().printDateTimeParseException();
-        } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException | DukeException e) {
+        } catch (NoSpaceAfterException | EmptyDescriptionException | NoSpaceBeforeException |
+                 InvalidStartEndDatetimeException | DuplicateTaskException | DukeException e) {
             return e.getMessage();
         }
     }

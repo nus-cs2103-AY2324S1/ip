@@ -2,6 +2,7 @@ package duke.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.exception.InvalidStartEndDatetimeException;
 import org.junit.jupiter.api.Test;
 
 public class TaskTest {
@@ -16,9 +17,14 @@ public class TaskTest {
                 new Deadline("return book", "2023-06-06 1800").getDescription());
 
         // event task
-        assertEquals("project meeting",
-                new Event("project meeting", "2023-08-06 1400", "2023-08-06 1600")
-                        .getDescription());
+        try {
+            assertEquals("project meeting",
+                    new Event("project meeting", "2023-08-06 1400", "2023-08-06 1600")
+                            .getDescription());
+        } catch (InvalidStartEndDatetimeException e) {
+            final String expectedMsg = "☹ OOPS!!! Start datetime cannot be >= end datetime.";
+            assertEquals(expectedMsg, e.getMessage());
+        }
     }
 
     @Test
