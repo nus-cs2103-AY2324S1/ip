@@ -68,7 +68,7 @@ public class TaskList {
         } else {
             int count = 0;
             for (Task t : tasks) {
-                if (t.getDescription().contains(keyword)) {
+                if (t.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                     count++;
                     s += String.valueOf(count) + "." + t.toString();
                 }
