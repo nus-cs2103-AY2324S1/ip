@@ -88,10 +88,21 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Updates the description of the task.
+     * 
+     * @param changes Description to be updated.
+     */
     public void update(String changes) {
         this.description = changes;
     }
 
+    /**
+     * Updates the date of the task.
+     * 
+     * @param date Date to be updated with.
+     * @param isFirst Boolean value to indicate if the date to be changed is the first date.
+     */
     public void updateDate(LocalDateTime date, boolean isFirst) {};
 
     @Override

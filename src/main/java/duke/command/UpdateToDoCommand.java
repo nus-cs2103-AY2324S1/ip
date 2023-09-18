@@ -6,8 +6,17 @@ import duke.Ui;
 import duke.Storage;
 import duke.task.Task;
 
+/**
+ * Represents the command of updating a todo task.
+ */
 public class UpdateToDoCommand extends UpdateCommand {
 
+    /**
+     * Constructor for UpdateToDoCommand.
+     * 
+     * @param index Index of the todo to update.
+     * @param changeToBeMade Description to be updated with.
+     */
     public UpdateToDoCommand(int index, String changeToBeMade) {
         super(index + 1, changeToBeMade);
     }

@@ -87,7 +87,10 @@ public class TaskList {
     }
 
     /**
+     * Returns an array list containing tasks that contains the keyword.
      * 
+     * @param keyword Keyword to be found within tasks.
+     * @return Array List containing all tasks that contain the keyword.
      */
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> filteredTaskList = new ArrayList<>();
