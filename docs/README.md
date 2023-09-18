@@ -41,7 +41,7 @@ Shows a list of all tasks added.
 
 **Format:** `list`
 
-### Finding a task : `list`
+### Finding a task : `find`
 Finds a task whose description contains the keyword.
 
 **Format:** `find KEYWORD`
