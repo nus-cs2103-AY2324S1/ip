@@ -79,7 +79,7 @@ public class MainWindow extends AnchorPane {
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(400, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
