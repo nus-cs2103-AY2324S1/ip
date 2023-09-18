@@ -24,6 +24,7 @@ public class Ui {
         commands.append("> unmark <task number>\n");
         commands.append("> delete <task number>\n");
         commands.append("> find <keyword>\n");
+        commands.append("> update <task number> <new task description>\n");
         commands.append("> bye\n");
         return commands.toString();
     }

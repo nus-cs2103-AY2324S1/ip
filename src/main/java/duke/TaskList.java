@@ -157,7 +157,7 @@ public class TaskList {
                 throw new DukeException(ExceptionTypes.INVALIDTASKNUMBER);
             }
             StringBuilder markedMessage = new StringBuilder();
-            markedMessage.append("Nice! I've marked this task as done:");
+            markedMessage.append("Nice! I've marked this task as done:\n");
             Task markTask = this.tasks.get(taskNumber - 1);
             markTask.markAsDone();
             markedMessage.append(markTask.toString());
@@ -170,7 +170,7 @@ public class TaskList {
                 throw new DukeException(ExceptionTypes.INVALIDTASKNUMBER);
             }
             StringBuilder unmarkedMessage = new StringBuilder();
-            unmarkedMessage.append("OK, I've marked this task as not done yet:");
+            unmarkedMessage.append("OK, I've marked this task as not done yet:\n");
             Task unmarkTask = this.tasks.get(taskNumber - 1);
             unmarkTask.markAsNotDone();
             unmarkedMessage.append(unmarkTask.toString());
