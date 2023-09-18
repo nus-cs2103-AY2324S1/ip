@@ -17,6 +17,7 @@ import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.ReminderCommand;
 import duke.command.TodoCommand;
 import duke.command.UnrecognisedCommand;
 import duke.exception.DukeBadInputException;
@@ -45,6 +46,8 @@ public class ParserTest {
             // delete command
             assertEquals(new DeleteCommand(1), Parser.parse("delete 1"));
             // Find command
+            assertEquals(new ReminderCommand(1), Parser.parse("reminder 1"));
+            // Find command
             assertEquals(new FindCommand("testString"), Parser.parse("Find testString"));
             // deadline command
             // todo command
@@ -56,6 +59,10 @@ public class ParserTest {
             assertEquals(new EventCommand(LocalDateTime.parse("2023-05-07T03:03"),
                             LocalDateTime.parse("2023-05-07T03:05"), "testingEvent"),
                     Parser.parse("event testingEvent /from 2023-05-07 03:03 /to 2023-05-07 03:05"));
+            // swap location of by command
+            assertEquals(new EventCommand(LocalDateTime.parse("2023-05-07T03:03"),
+                            LocalDateTime.parse("2023-05-07T03:05"), "testingEvent"),
+                    Parser.parse("event testingEvent /to 2023-05-07 03:05 /from 2023-05-07 03:03"));
         } catch (DukeBadInputException e) {
             fail();
         }
@@ -67,6 +74,9 @@ public class ParserTest {
         assertEquals("For input string: \"gan\"", e.getMessage());
         // Bad index
         e = assertThrows(NumberFormatException.class, () -> Parser.parse("delete gan"));
+        assertEquals("For input string: \"gan\"", e.getMessage());
+        // Bad index
+        e = assertThrows(NumberFormatException.class, () -> Parser.parse("reminder gan"));
         assertEquals("For input string: \"gan\"", e.getMessage());
         // no index
         e = assertThrows(DukeBadInputException.class, () -> Parser.parse("mark"));
@@ -80,14 +90,20 @@ public class ParserTest {
     public void parseCommand_badFlag_exceptionThrown() {
         // no flag
         Exception e = assertThrows(DukeBadInputException.class, () -> Parser.parse("deadline test"));
-        assertEquals("Quack cant find the required /by flags, please provide quack with one please", e.getMessage());
+        assertEquals("Quack cant find the following required flags: /by,"
+                + " please provide quack with them please", e.getMessage());
         // missing flag
         e = assertThrows(DukeBadInputException.class, () -> Parser.parse("event test /from 2020-12-12 12:12"));
-        assertEquals("Quack cant find the required /to flags, please provide quack with one please", e.getMessage());
+        assertEquals("Quack cant find the following required flags: /to, please provide quack with them please",
+                e.getMessage());
         //bad flag input
         e = assertThrows(DateTimeParseException.class, () ->
                 Parser.parse("event test /from 2020-12-12 /to 2020-12-12 23:59"));
         assertEquals("Text '2020-12-12' could not be parsed at index 10", e.getMessage());
+        // extra flag
+        e = assertThrows(DukeBadInputException.class, () ->
+                Parser.parse("deadline test /by 2020-12-12 12:12 /by 2020-12-12 12:12"));
+        assertEquals("There are too many of the /by flag, please just provide one to quack", e.getMessage());
     }
 
     @Test
@@ -108,7 +124,7 @@ public class ParserTest {
     @Test
     public void parseStorage_correctInputs() {
         try {
-            // tod0 command and marked
+            // todo command and marked
             assertEquals(new TodoTask("testing1", true), Parser.fromStorage("TODO#testing1#1"));
             // deadline command
             assertEquals(new DeadlineTask(LocalDateTime.parse("2023-10-01T23:59"), "test1"),
@@ -121,5 +137,13 @@ public class ParserTest {
             System.out.println(e.getMessage());
             fail();
         }
+    }
+
+    @Test
+    public void parseCommand_eventToBeforeFrom_exceptionThrown() {
+        // Event command
+        DukeBadInputException e = assertThrows(DukeBadInputException.class, ()->
+                Parser.parse("event testingEvent /from 2023-05-07 03:03 /to 2021-05-07 03:05"));
+        assertEquals("Quack does not understand a event where /to is before /from", e.getMessage());
     }
 }
