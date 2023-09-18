@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import duke.Duke;
 import duke.exception.DukeException;
+import duke.exception.InvalidStartEndDatetimeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -114,7 +115,7 @@ public class Storage {
             }
         } catch (DateTimeParseException e) {
             System.out.println(Duke.getUi().printDateTimeParseException());
-        } catch (DukeException e) {
+        } catch (InvalidStartEndDatetimeException | DukeException e) {
             System.out.println(e.getMessage());
         }
         return task;

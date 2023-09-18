@@ -3,6 +3,8 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.exception.InvalidStartEndDatetimeException;
+
 /**
  * Represents an event.
  *
@@ -24,11 +26,14 @@ public class Event extends Task {
      * @param from The start date/time of the event.
      * @param to The end date/time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws InvalidStartEndDatetimeException {
         super(description, from);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
+        if (!(this.from.isBefore(this.to))) {
+            throw new InvalidStartEndDatetimeException();
+        }
     }
 
     /**
@@ -39,11 +44,14 @@ public class Event extends Task {
      * @param from The start date/time of the event.
      * @param to The end date/time of the event.
      */
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(String description, boolean isDone, String from, String to) throws InvalidStartEndDatetimeException {
         super(description, from, isDone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
+        if (!(this.from.isBefore(this.to))) {
+            throw new InvalidStartEndDatetimeException();
+        }
     }
 
     /**
