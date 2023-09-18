@@ -69,6 +69,7 @@ public class DeterministicParrot {
      * @throws FileNotFoundException If the file is not found.
      */
     private void dumpTaskListToFile() throws FileNotFoundException {
+        assert this.taskList != null : "TaskList should not be null when saving to file.";
         storage.save(this.taskList.serialize());
     }
 
@@ -234,6 +235,7 @@ public class DeterministicParrot {
         this.ui.greet();
         try {
             this.taskList = TaskList.deserialize(storage.load());
+            assert this.taskList != null : "TaskList should be initialized after loading from storage or creating a new one.";
         } catch (Exception e) {
             this.ui.println("     " + "No saved task list found. Starting with empty task list.");
             this.taskList = new TaskList();
