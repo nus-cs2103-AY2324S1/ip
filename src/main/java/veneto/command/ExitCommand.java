@@ -3,18 +3,25 @@ package veneto.command;
 import veneto.task.TaskList;
 
 public class ExitCommand extends Command {
-    /** Fields */
+    /* Fields */
     public static final String type = "exit";
 
-    /** Constructor */
+    /* Constructor */
     public ExitCommand() {
         super();
     }
 
-    /** Methods */
+    /* Methods */
+    /**
+     * the ExitCommand operates
+     * @param tasks the TaskList of Veneto
+     */
     @Override
     public void op(TaskList tasks) {}
 
+    /**
+     * @return the type of the Command
+     */
     public static String getType() {
         return type;
     }

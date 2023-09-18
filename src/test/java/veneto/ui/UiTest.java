@@ -1,9 +1,6 @@
 package veneto.ui;
 
 import org.junit.jupiter.api.Test;
-import veneto.exceptions.DanOperateException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UiTest {
 

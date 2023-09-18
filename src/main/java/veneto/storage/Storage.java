@@ -8,26 +8,42 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Storage {
-    /** Fields */
+    /* Fields */
     private String savePath;
     private Writer writer;
     private TaskList tasks;
 
-    /** Constructors */
+    /* Constructors */
+    /**
+     * create a storage for Veneto
+     * @param savePath path where the data stored
+     */
     public Storage(String savePath) {
         this.savePath = savePath;
     }
 
-    /** Methods */
+    /* Methods */
+    /**
+     * initialize the storage environment
+     * @param tasks
+     * @throws VenetoStorageException when it fails to create the directories
+     */
     public void init(TaskList tasks) {
         this.tasks = tasks;
         new File("./data").mkdir();
         try {
             new File(savePath).createNewFile();
         } catch (IOException e) {
-            throw new VenetoException("一般来讲这个不可能发生的");
+            // but may not happen
+            throw new VenetoStorageException("make path fail");
         }
     }
+
+    /**
+     * load the data in storage file if exist
+     * @return TaskList containing the data stored
+     * @throws VenetoException if the path is invalid
+     */
     public TaskList load() throws VenetoException {
         tasks = new TaskList(100);
         File f = new File(savePath);
@@ -47,6 +63,11 @@ public class Storage {
         }
     }
 
+    /**
+     * translate the text into a Task and add it to the TaskList
+     * @param text a task stored in the file
+     * @throws VenetoStorageException if the storage file is destroyed
+     */
     public void addTask(String text) throws VenetoException {
         try {
             String[] task = text.split(",");
@@ -69,6 +90,10 @@ public class Storage {
         }
     }
 
+    /**
+     * save the data if there's a change
+     * @param tasks the TaskList that may be modified
+     */
     public void checkChange(TaskList tasks) {
         if (tasks.storageChanged == 1) {
             save();
@@ -76,7 +101,11 @@ public class Storage {
         }
     }
 
-    public void save() {
+    /**
+     * save the data
+     * @throws VenetoException when write fails or close fails
+     */
+    private void save() {
         try {
             new File(savePath).delete();
             new File(savePath).createNewFile();
@@ -85,12 +114,14 @@ public class Storage {
                 writer.write(tasks.get(i).saveToString() + "\n");
             }
         } catch (IOException e) {
-            throw new VenetoException("一般来讲不会发生的");
+            // may not happen
+            throw new VenetoException("write fails");
         } finally {
             try {
                 writer.close();
             } catch (IOException e) {
-                throw new VenetoException("一般来讲也不会发生的，但是万一发生了也保不准");
+                // may not happen
+                throw new VenetoException("close fails");
             }
         }
     }

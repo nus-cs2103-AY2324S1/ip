@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ui {
-    /** Fields */
+    /* Fields */
     private final static String GREETS = "\nVeneto: \n";
     private final static String[] COMMANDS = new String[] {
             "toDo [TASK]",
@@ -20,8 +20,19 @@ public class Ui {
             "mark [TASK_ID]", "unmark [TASK_ID]",
             "list", "bye"
     };
+    private final static String LOGO =
+            " ___      ___ __________  ___    ___  __________  __________  __________\n" +
+            " \\  \\    /  /|   _______||   \\  |   ||   _______||___    ___||   ____   |\n" +
+            "  \\  \\  /  / |  |_______ |     \\|   ||  |_______     |  |    |  |    |  |\n" +
+            "   \\  \\/  /  |   _______||          ||   _______|    |  |    |  |    |  |\n" +
+            "    \\    /   |  |_______ |   |\\     ||  |_______     |  |    |  |____|  |\n" +
+            "     \\__/    |__________||___|  \\___||__________|    |__|    |__________|    ...starts\n\n";
 
-    /** Methods */
+    /* Methods */
+    /**
+     * shows which exception occurs and give hint to the user
+     * @param e the DanException
+     */
     public static void showError(VenetoException e) {
         if (e instanceof VenetoOperateException) {
             switch (e.getMessage()) {
@@ -36,15 +47,24 @@ public class Ui {
                     System.out.println(" 你可以跟我说：\n" + Arrays.toString(COMMANDS) + "\n");
             }
         } else if (e instanceof VenetoStorageException) {
-            System.out.println(GREETS + " 没找到内存哦 现在重新创建一个！\n");
+            if (e.getMessage().equals("Storage File Destroyed")) {
+                System.out.println(GREETS + " 没找到内存哦 现在重新创建一个！\n");
+            } else {
+                System.out.println(GREETS + " 不该发生的发生了…");
+            }
         } else if (e.getMessage().equals("Invalid Command")) {
             System.out.println(GREETS + " 输入格式不对！");
             System.out.println(" 你可以跟我说：\n" + Arrays.toString(COMMANDS) + "\n");
         } else {
-            System.out.println(GREETS + "???\n");
+            System.out.println(GREETS + " ???\n");
         }
     }
 
+    /**
+     * give responses to user after they call commands
+     * @param c the Command operated just now
+     * @param tasks the TaskList of Veneto
+     */
     public void afterCommand(Command c, TaskList tasks) {
         switch (c.getType()) {
             case "exit":
@@ -82,19 +102,29 @@ public class Ui {
         }
     }
 
+    /**
+     * get input from user
+     * @return the command translated from user input
+     */
     public Command getCommand() {
         String text = new Scanner(System.in).nextLine();
         return Parser.translateCommand(text);
     }
 
+    /**
+     * greets when Veneto runs
+     */
     public void hello() {
         System.out.println(
-                GREETS +
-                        " VV为您服务\n" +
-                        " 有什么可以要帮忙可以跟我说！\n"
+                LOGO + GREETS +
+                    " VV为您服务\n" +
+                    " 有什么可以要帮忙可以跟我说！\n"
         );
     }
 
+    /**
+     * says goodbye when session ends
+     */
     public void goodbye() {
         System.out.println(
                 GREETS +
