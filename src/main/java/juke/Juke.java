@@ -13,7 +13,7 @@ import juke.ui.Ui;
  */
 public class Juke {
     /** Represents the max character width of any String printed to screen. */
-    public static final int MAX_STRING_LENGTH = 35;
+    public static final int MAX_STRING_LENGTH = 50;
 
     /**
      * Runs the main event loop for Juke. This method invokes the inner {@code start()}

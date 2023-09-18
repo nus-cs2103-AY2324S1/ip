@@ -6,9 +6,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import juke.Juke;
 import juke.commands.JukeCommand;
 import juke.commands.JukeExceptionCommand;
 import juke.commands.JukeExitCommand;
+import juke.commons.utils.StringUtils;
 import juke.exceptions.JukeException;
 import juke.exceptions.JukeInitialisationException;
 import juke.exceptions.parsers.JukeParseException;
@@ -110,8 +112,8 @@ public class MainWindow extends AnchorPane {
 
             // otherwise, execute the command and get the responses from the user and Juke
             Response returns = action.execute(response);
-            String inputMessage = returns.getInputMessage();
-            String outputMessage = returns.getOutputMessage();
+            String inputMessage = StringUtils.wrap(returns.getInputMessage(), Juke.MAX_STRING_LENGTH);
+            String outputMessage = StringUtils.wrap(returns.getOutputMessage(), Juke.MAX_STRING_LENGTH);
 
             if (inputMessage != null) {
                 DialogBox userDialog = getAsUserInput(inputMessage);
@@ -125,8 +127,8 @@ public class MainWindow extends AnchorPane {
         } catch (JukeException ex) {
             Response returns = new JukeExceptionCommand(ex).execute(Response.ofUser(inputCommand));
             this.dialogContainer.getChildren().addAll(
-                    getAsUserInput(returns.getInputMessage()),
-                    getAsJukeOutput(returns.getOutputMessage()));
+                    getAsUserInput(StringUtils.wrap(returns.getInputMessage(), Juke.MAX_STRING_LENGTH)),
+                    getAsJukeOutput(StringUtils.wrap(returns.getOutputMessage(), Juke.MAX_STRING_LENGTH)));
         } finally {
             this.inputField.clear();
         }

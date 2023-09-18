@@ -1,7 +1,5 @@
 package juke.commands;
 
-import juke.Juke;
-import juke.commons.utils.StringUtils;
 import juke.exceptions.storage.JukeStorageException;
 import juke.responses.Response;
 import juke.tasks.JukeTask;
@@ -38,7 +36,6 @@ public class JukeDeleteTaskCommand extends JukeCommand {
     @Override
     public Response execute(Response response) {
         JukeTask jt = this.taskList.deleteTask(this.task);
-        return response.withJuke(
-                StringUtils.wrap("Task deleted: " + jt, Juke.MAX_STRING_LENGTH));
+        return response.withJuke("Task deleted: " + jt);
     }
 }
