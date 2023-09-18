@@ -177,3 +177,6 @@ Format: ```taskson {date}```
 Finds up to next 5 dates without tasks
 
 Format: ```freedates```
+
+
+[Go back to top](#user-guide-for-duke-cortana)
