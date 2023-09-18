@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
             System.out.println("File not found");
         }
     }
-
+//  old duke is no longer used
 //    public void setDuke(Duke d) {
 //        duke = d;
 //        this.duke = new Duke();
