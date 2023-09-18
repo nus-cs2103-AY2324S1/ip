@@ -49,7 +49,6 @@ Expected outcome:
 "[E][ ] Recess week from: 25 Sep 2023 12:00 AM to: 01 Oct 2023 11:59 PM" added :)
 Now got 4 tasks liao T_T
 ```
----------------------------------------------   
 
 ### Delete task
 
