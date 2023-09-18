@@ -26,6 +26,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return the list of tasks.
+     */
     public String list() {
         if (this.tasks.getNumberOfTasks() == 0) {
             return "You do not have any tasks in the list.";
@@ -41,6 +46,13 @@ public class Duke {
         return list.toString();
     }
 
+    /**
+     * Updates a task.
+     *
+     * @param parser the parser that parses the user input.
+     * @return the success message for update task.
+     * @throws DukeException if the user input is invalid.
+     */
     public String update(Parser parser) throws DukeException {
         int taskNumber = parser.getTaskNumber();
         Task task = this.tasks.getTasks().get(taskNumber - 1);
