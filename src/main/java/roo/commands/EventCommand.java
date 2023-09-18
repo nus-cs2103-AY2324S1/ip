@@ -2,15 +2,23 @@ package roo.commands;
 
 import java.util.ArrayList;
 
-import roo.task.Event;
+import roo.RooException;
 import roo.TaskList;
 import roo.Ui;
-import roo.RooException;
+import roo.task.Event;
 
+/**
+ * A command to create an event.
+ */
 public class EventCommand extends Command {
     private String input;
     private ArrayList<String> tags;
 
+    /**
+     * Constructs the command.
+     * @param input The input from the user.
+     * @param tags The tags in the input.
+     */
     public EventCommand(String input, ArrayList<String> tags) {
         this.input = input;
         this.tags = tags;

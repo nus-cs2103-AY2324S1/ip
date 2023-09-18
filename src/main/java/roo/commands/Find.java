@@ -3,6 +3,9 @@ package roo.commands;
 import roo.TaskList;
 import roo.Ui;
 
+/**
+ * A command of find function.
+ */
 public class Find extends Command {
     private String input;
 

@@ -1,11 +1,14 @@
 package roo.commands;
 
+import java.util.ArrayList;
+
 import roo.TaskList;
 import roo.Ui;
 
-import java.util.ArrayList;
-
-public class Tag extends Command{
+/**
+ * A command to add tags to the tasks.
+ */
+public class Tag extends Command {
     private String input;
     private ArrayList<String> tags;
 

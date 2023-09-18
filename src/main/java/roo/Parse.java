@@ -14,9 +14,9 @@ import roo.commands.ListDate;
 import roo.commands.Mark;
 import roo.commands.Tag;
 import roo.commands.TodoCommand;
+import roo.commands.UnTag;
 import roo.commands.Unknown;
 import roo.commands.Unmark;
-import roo.commands.UnTag;
 import roo.task.Deadline;
 import roo.task.Event;
 import roo.task.Task;
@@ -35,7 +35,7 @@ public class Parse {
         String[] inputs = str.substring(0, str.length() - 1).split("#");
         ArrayList<String> tags = new ArrayList<>();
         if (inputs.length > 0) {
-            for(int i = 1; i < inputs.length; i++) {
+            for (int i = 1; i < inputs.length; i++) {
                 tags.add("#" + inputs[i].replace(" ", "").strip());
             }
         }
@@ -113,7 +113,7 @@ public class Parse {
         if (input.contains("#")) {
             String[] inputs = input.split("#");
             if (inputs.length > 0) {
-                for(int i = 1; i < inputs.length; i++) {
+                for (int i = 1; i < inputs.length; i++) {
                     tags.add("#" + inputs[i].strip());
                 }
             }

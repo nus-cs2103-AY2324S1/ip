@@ -58,7 +58,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        Background userBackground = new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY));
+        Background userBackground = new Background(new BackgroundFill(Color.LIGHTBLUE,
+                CornerRadii.EMPTY, Insets.EMPTY));
         return new DialogBox(text, img, userBackground);
     }
 

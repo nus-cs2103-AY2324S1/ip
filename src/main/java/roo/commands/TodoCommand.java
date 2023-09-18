@@ -2,10 +2,10 @@ package roo.commands;
 
 import java.util.ArrayList;
 
-import roo.task.Todo;
 import roo.TaskList;
 import roo.Ui;
 import roo.RooException;
+import roo.task.Todo;
 
 public class TodoCommand extends Command {
     private String input;

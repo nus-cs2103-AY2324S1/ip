@@ -3,6 +3,9 @@ package roo.commands;
 import roo.TaskList;
 import roo.Ui;
 
+/**
+ * A command to mark the task as done.
+ */
 public class Mark extends Command {
     private String input;
 

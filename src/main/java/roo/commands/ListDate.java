@@ -1,10 +1,14 @@
 package roo.commands;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import roo.TaskList;
 import roo.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+/**
+ * A command to list all tasks on the provided date
+ */
 public class ListDate extends Command {
     private String input;
 

@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import roo.RooException;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import roo.RooException;
 
 public class TodoTest {
 
