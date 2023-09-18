@@ -82,7 +82,6 @@ class Event extends Task {
             taskStatus = TaskStatus.MARKED;
         }
 
-
         name = splitString[2];
 
         if (splitString[3].startsWith("from:")) {
@@ -90,7 +89,7 @@ class Event extends Task {
         }
 
         if (splitString[4].startsWith("to:")) {
-            startTime = splitString[4].substring(3);
+            endTime = splitString[4].substring(3);
         }
 
         for (int i = 5; i < splitString.length; i++) {
