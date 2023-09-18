@@ -10,18 +10,23 @@ import shiba.ui.Replier;
  * Represents the main class of the Shiba chatbot.
  */
 public class Shiba {
-    private static Shiba singleton;
     private final String name;
     private final CommandParser parser;
 
-    private Shiba(String name, String dataPath) {
+    /**
+     * Creates a new Shiba object.
+     *
+     * @param name The name of the bot.
+     * @param dataPath Path to the file where tasks are saved.
+     */
+    public Shiba(String name, String dataPath) {
         this.name = name;
         parser = new CommandParser(new FilePersistentTaskList(dataPath));
-
-        assert singleton == null : "Multiple instances of Shiba detected!";
-        singleton = this;
     }
 
+    /**
+     * Starts the bot.
+     */
     public void start() {
         Replier.printGreeting(name);
     }
@@ -49,19 +54,8 @@ public class Shiba {
     }
 
     public static void main(String[] args) {
-        new Shiba("SHIBA-BOT", "./shibaData/tasks.txt");
-
         Application.launch(MainWindow.class);
 
         MainWindow.getInstance().cleanUp();
-    }
-
-    /**
-     * Returns the singleton instance of Shiba.
-     *
-     * @return The singleton instance of Shiba.
-     */
-    public static Shiba getInstance() {
-        return singleton;
     }
 }

@@ -88,6 +88,7 @@ public class Storage {
 
             if (isErrorEncountered) {
                 Replier.printWithNoIndents("Woof! One or more tasks could not be read from save file!");
+                Replier.replyError();
             }
 
             return tasks;
