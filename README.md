@@ -1,6 +1,6 @@
 # Duke Jokey
 
-This is a duke named Jokey that records your task for you. Run the jar file to start using it. 
+This is a duke named Jokey that records your task for you. Run the jar file to start using it.
 
 ## Basic commands
 ### Add a task that has no strict time interval
