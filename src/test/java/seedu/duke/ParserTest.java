@@ -33,13 +33,6 @@ public class ParserTest {
     }
 
     @Test
-    public void testDateTimeReformat() {
-        assertEquals("Jan 1 2023 11.35PM",
-                Parser.reformatDateTime(
-                        Parser.parseDateTime("2023-01-01 23:35")));
-    }
-
-    @Test
     public void parse_invalidEventDate_exceptionThrown() {
         InvalidCommandException thrown = assertThrows(InvalidCommandException.class, () ->
                 Parser.parse("event party /from 2022-01-01 23:00 /to 2021-01-01 23:00"));

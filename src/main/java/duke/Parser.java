@@ -2,6 +2,7 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -167,10 +168,14 @@ public class Parser {
      * @param input The user date input.
      * @return The LocaleDateTime object.
      */
-    public static LocalDateTime parseDateTime(String input) {
+    public static LocalDateTime parseDateTime(String input) throws InvalidCommandException {
         String[] dateTime = input.split(" ", 2);
-        String dateTimeFormat = dateTime[0] + "T" + dateTime[1] + ":00";
-        return LocalDateTime.parse(dateTimeFormat);
+        try {
+            String dateTimeFormat = dateTime[0] + "T" + dateTime[1] + ":00";
+            return LocalDateTime.parse(dateTimeFormat);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandException("Ensure correct day, month, year, time given!");
+        }
     }
 
     /**
@@ -198,11 +203,13 @@ public class Parser {
             String deadLineDesc = deadlineFormat.group(1);
             String dateInput = deadlineFormat.group(2);
 
+
             LocalDateTime d = parseDateTime(dateInput);
 
             String byDate = reformatDateTime(d);
 
             return new String[]{deadLineDesc, byDate};
+
 
         case "event":
             Matcher eventFormat = EVENT_FORMAT.matcher(argument);
