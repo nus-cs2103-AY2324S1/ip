@@ -157,11 +157,10 @@ public class Ui extends Application {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response to the user input.
      *
      * @param input The user input.
-     * @return The response to the user input.
+     * @return The response.
      */
     private String getResponse(String input) {
         String dukeResponse;
