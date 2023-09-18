@@ -1,10 +1,8 @@
 package main;
 
 import command.Command;
-
-import task.TaskList;
-
 import exception.DukeException;
+import task.TaskList;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -27,9 +25,10 @@ public class Duke {
 
     /**
      * Constructor for Duke class
+     *
      * @param filePath file path from which past saved date, if available, should be read from
      */
-    private Duke(String filePath) {
+    public Duke(String filePath) {
         this.storage = new Storage(filePath, tasks);
         this.ui = new UI();
 
@@ -63,5 +62,24 @@ public class Duke {
             }
         }
     }
-}
+
+    public String getResponse(String input) {
+
+        StringBuilder botResponse = new StringBuilder();
+        boolean isContinue;
+
+        try {
+            Command command = Parser.parse(input);
+            botResponse.append(command.execute(this.tasks, this.ui, this.storage));
+            isContinue = command.isContinue();
+            if (isContinue) {
+                botResponse.append("\nNow you have " + tasks.getSize() + " tasks in the list.");
+                botResponse.append(this.ui.printDivider());
+            }
+        } catch(DukeException e){
+                return e.getMessage();
+            }
+            return String.valueOf(botResponse);
+        }
+    }
 

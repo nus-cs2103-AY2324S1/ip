@@ -13,7 +13,7 @@ public class FindCommand extends Command {
         this.keyword = fullCommand.substring(5);
     }
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
+    public String execute(TaskList taskList, UI ui, Storage storage) {
         TaskList findList = new TaskList();
 
         for (Task t : taskList.getTaskArrayList()) {
@@ -22,6 +22,7 @@ public class FindCommand extends Command {
             }
         }
 
-        ui.list(findList.getTaskArrayList(), true);
+        String message = ui.list(findList.getTaskArrayList(), true);
+        return message;
     }
 }

@@ -24,14 +24,17 @@ public class DeadlineCommand extends Command {
 
     /**
      * method to execute the deadline sequence
+     *
      * @param taskList object containing the ArrayList of tasks
-     * @param ui user interface responsible for terminal messages
-     * @param storage object to communicate with data.txt file
+     * @param ui       user interface responsible for terminal messages
+     * @param storage  object to communicate with data.txt file
+     * @return
      * @throws DukeException organic exception for Duke
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        taskList.addDeadline(fullCommand);
+    public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+        String message = taskList.addDeadline(fullCommand);
         storage.saveList(taskList);
+        return message;
     }
 }
