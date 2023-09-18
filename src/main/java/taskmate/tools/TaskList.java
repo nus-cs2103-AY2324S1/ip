@@ -37,20 +37,16 @@ public class TaskList {
             boolean taskIsDone = getSavedTaskIsDone(taskAsString);
             Task newTask;
             switch (taskType) {
-            case "T":
-                // To-do task
+            case "T": // To-do task
                 newTask = createTodoTaskFromSavedTask(taskAsString, taskIsDone);
                 break;
-            case "D":
-                // Deadline
+            case "D": // Deadline task
                 newTask = createDeadlineTaskFromSavedTask(taskAsString, taskIsDone);
                 break;
-            case "E":
-                // Event
+            case "E": // Event task
                 newTask = createEventTaskFromSavedTask(taskAsString, taskIsDone);
                 break;
-            default:
-                // Invalid event. Happens when the saved file is tampered with
+            default: // Invalid event. Happens when the saved file is corrupted/tampered with
                 throw new FileCorruptedException("Invalid task: " + taskAsString);
             }
             this.addTask(newTask, taskIsDone);
