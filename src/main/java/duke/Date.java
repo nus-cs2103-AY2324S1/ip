@@ -20,8 +20,6 @@ public class Date {
      * @param timeString the time of the task
      */
     public Date(String dateString, String timeString) {
-        String str = "2016-03-04 11:30";
-
         // Checking if the date or time String is null since they are optional
         date = dateString == null ? null : LocalDate.parse(dateString);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");

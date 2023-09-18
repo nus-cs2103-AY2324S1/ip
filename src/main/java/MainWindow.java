@@ -1,3 +1,4 @@
+import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -27,6 +28,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        greetUser();
     }
 
     public void setDuke(Duke d) {
@@ -34,7 +36,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing duke.Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -54,7 +56,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void greetUser() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hi I am Duke!", dukeImage)
+                DialogBox.getDukeDialog("Hi I am duke.Duke!", dukeImage)
         );
     }
 }

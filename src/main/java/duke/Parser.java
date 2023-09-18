@@ -31,28 +31,28 @@ public class Parser {
      */
     public Command parse(String response) {
         switch(response.split(" ")[0]) {
-            case "list":
-                return new PrintListCommand();
-            case "mark":
-            case "unmark":
-                return new MarkCommand(response);
-            case "todo":
-                return new ToDoCommand(response);
-            case "deadline":
-                return new DeadlineCommand(response);
-            case "event":
-                return new EventCommand(response);
-            case "delete":
-                return new DeleteCommand(response);
-            case "save":
-                return new SaveCommand(response);
-            case "load":
-                return new LoadCommand(response);
-            case "find":
-                return new FindCommand(response);
-            default: {
-                return new DefaultCommand(response);
-            }
+        case "list":
+            return new PrintListCommand();
+        case "mark":
+        case "unmark":
+            return new MarkCommand(response);
+        case "todo":
+            return new ToDoCommand(response);
+        case "deadline":
+            return new DeadlineCommand(response);
+        case "event":
+            return new EventCommand(response);
+        case "delete":
+            return new DeleteCommand(response);
+        case "save":
+            return new SaveCommand(response);
+        case "load":
+            return new LoadCommand(response);
+        case "find":
+            return new FindCommand(response);
+        default: {
+            return new DefaultCommand(response);
+        }
         }
     }
 
@@ -65,7 +65,7 @@ public class Parser {
     public Task parseSave(String response) throws InvalidFileTypeException, InvalidDateTimeFormatException {
         boolean done;
         String[] responseList = response.split("\\|");
-        Task newtask;
+        Task newTask;
 
         switch(responseList[0]) {
             case "T":
@@ -73,25 +73,25 @@ public class Parser {
                 if (responseList.length != 3) {
                     throw new InvalidFileTypeException(String.format("line: %s is invalid: Todo needs 3 parameters", response));
                 }
-                newtask = new ToDo(responseList[2]);
-                newtask.setDone(done);
-                return newtask;
+                newTask = new ToDo(responseList[2]);
+                newTask.setDone(done);
+                return newTask;
             case "D":
                 done = responseList[1] == "X" ? true : false;
                 if (responseList.length != 4) {
                     throw new InvalidFileTypeException(String.format("line: %s is invalid: Deadline needs 4 parameters", response));
                 }
-                newtask = new Deadlines(responseList[2], responseList[3]);
-                newtask.setDone(done);
-                return newtask;
+                newTask = new Deadlines(responseList[2], responseList[3]);
+                newTask.setDone(done);
+                return newTask;
             case "E":
                 done = responseList[1] == "X" ? true : false;
                 if (responseList.length != 5) {
                     throw new InvalidFileTypeException(String.format("line: %s is invalid: duke.task.Event requires 5 parameters", response));
                 }
-                newtask = new Event(responseList[2], responseList[3], responseList[4]);
-                newtask.setDone(done);
-                return newtask;
+                newTask = new Event(responseList[2], responseList[3], responseList[4]);
+                newTask.setDone(done);
+                return newTask;
             default: {
                 throw new InvalidFileTypeException(String.format("line: %s is invalid: duke.task.Event requires 5 parameters", response));
             }

@@ -2,7 +2,6 @@ import duke.exceptions.InvalidCommandException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import duke.command.DeadlineCommand;
 import duke.task.TaskList;
