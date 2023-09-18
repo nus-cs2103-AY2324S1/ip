@@ -56,82 +56,118 @@ public class Duke {
         Parser parser = Parser.from(input);
         assert parser != null : "The variable 'parser' is null";
 
-        Task task;
         switch (parser.getCommand()) {
         case "bye":
             return false;
         case "list":
-            ui.listTasks(taskList.getTasks());
+            listCommand();
             break;
         case "mark":
-            task = taskList.markTask(parser.getArgAsInt());
-            ui.markTask(task);
+            markCommand(parser);
             break;
         case "unmark":
-            task = taskList.unmarkTask(parser.getArgAsInt());
-            ui.unmarkTask(task);
+            unmarkCommand(parser);
             break;
         case "delete":
-            task = taskList.deleteTask(parser.getArgAsInt());
-            ui.deleteTask(task);
+            deleteCommand(parser);
             break;
         case "todo":
-            String todoName = parser.getArg();
-            if (todoName == null || todoName.equals("")) {
-                throw new DukeException("duke.Todo name cannot be empty");
-            }
-            task = new Todo(todoName);
-            taskList.addTask(task);
-            ui.addTask(task);
+            todoCommand(parser);
             break;
         case "deadline":
-            String deadlineName = parser.getArg();
-            if (deadlineName == null || deadlineName.equals("")) {
-                throw new DukeException("duke.Deadline name cannot be empty");
-            }
-
-            LocalDateTime deadline;
-            deadline = parser.getOptArgAsDateTime("by");
-
-            if (deadline == null) {
-                throw new DukeException("Use /by to specify deadline date");
-            }
-
-            task = new Deadline(deadlineName, deadline);
-            taskList.addTask(task);
-            ui.addTask(task);
+            deadlineCommand(parser);
             break;
         case "event":
-            String eventName = parser.getArg();
-            if (eventName == null || eventName.equals("")) {
-                throw new DukeException("duke.Deadline name cannot be empty");
-            }
-
-            LocalDateTime from;
-            LocalDateTime to;
-            from = parser.getOptArgAsDateTime("from");
-            to = parser.getOptArgAsDateTime("to");
-
-            if (from == null || to == null) {
-                throw new DukeException("Use /from and /to to specify event duration");
-            }
-
-            task = new Event(eventName, from, to);
-            taskList.addTask(task);
-            ui.addTask(task);
+            eventCommand(parser);
             break;
         case "find":
-            String search = parser.getArg();
-            List<Task> tasks = taskList.findTasks(search);
-            ui.listTasks(tasks);
+            findCommand(parser);
             break;
         default:
-            ui.invalidCommand(parser.getCommand());
+            invalidCommand(parser);
             break;
         }
 
         return true;
     }
+
+    private void listCommand() {
+        ui.listTasks(taskList.getTasks());
+    }
+
+    private void markCommand(Parser parser) throws DukeException  {
+        Task task = taskList.markTask(parser.getArgAsInt());
+        ui.markTask(task);
+    }
+
+    private void unmarkCommand(Parser parser) throws DukeException {
+        Task task = taskList.unmarkTask(parser.getArgAsInt());
+        ui.unmarkTask(task);
+    }
+
+    private void deleteCommand(Parser parser) throws DukeException {
+        Task task = taskList.deleteTask(parser.getArgAsInt());
+        ui.deleteTask(task);
+    }
+
+    private void todoCommand(Parser parser) throws DukeException {
+        String todoName = parser.getArg();
+        if (todoName == null || todoName.equals("")) {
+            throw new DukeException("duke.Todo name cannot be empty");
+        }
+        Task task = new Todo(todoName);
+        taskList.addTask(task);
+        ui.addTask(task);
+    }
+
+    private void deadlineCommand(Parser parser) throws DukeException {
+        String deadlineName = parser.getArg();
+        if (deadlineName == null || deadlineName.equals("")) {
+            throw new DukeException("duke.Deadline name cannot be empty");
+        }
+
+        LocalDateTime deadline;
+        deadline = parser.getOptArgAsDateTime("by");
+
+        if (deadline == null) {
+            throw new DukeException("Use /by to specify deadline date");
+        }
+
+        Task task = new Deadline(deadlineName, deadline);
+        taskList.addTask(task);
+        ui.addTask(task);
+    }
+
+    private void eventCommand(Parser parser) throws DukeException {
+        String eventName = parser.getArg();
+        if (eventName == null || eventName.equals("")) {
+            throw new DukeException("duke.Deadline name cannot be empty");
+        }
+
+        LocalDateTime from;
+        LocalDateTime to;
+        from = parser.getOptArgAsDateTime("from");
+        to = parser.getOptArgAsDateTime("to");
+
+        if (from == null || to == null) {
+            throw new DukeException("Use /from and /to to specify event duration");
+        }
+
+        Task task = new Event(eventName, from, to);
+        taskList.addTask(task);
+        ui.addTask(task);
+    }
+
+    private void findCommand(Parser parser) throws DukeException {
+        String search = parser.getArg();
+        List<Task> tasks = taskList.findTasks(search);
+        ui.listTasks(tasks);
+    }
+
+    private void invalidCommand(Parser parser) {
+        ui.invalidCommand(parser.getCommand());
+    }
+
 
     /**
      * Gracefully handle exception thrown by Duke.
