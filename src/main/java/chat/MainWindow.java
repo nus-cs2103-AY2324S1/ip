@@ -1,6 +1,7 @@
 package chat;
 
 import chat.controls.DialogBox;
+import chat.utils.Ui.ChatWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * Main Window Controller for Chat.
@@ -36,7 +38,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-            DialogBox.getChatDialog("Welcome to chat. Please enter a command.", chatImage)
+            DialogBox.getChatDialog(new ChatWrapper("Chat: ", chatImage, Color.GREEN), "Welcome to chat. Please enter a command.")
         );
     }
 
@@ -53,8 +55,9 @@ public class MainWindow extends AnchorPane {
         if (!chat.hasExited()) {
             String input = userInput.getText();
             String response = chat.getResponse(input);
+            ChatWrapper chatWrapper = chat.getChatWrapper();
             dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
-            dialogContainer.getChildren().add(DialogBox.getChatDialog(response, chatImage));
+            dialogContainer.getChildren().add(DialogBox.getChatDialog(chatWrapper, response));
             userInput.clear();
         }
     }

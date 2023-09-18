@@ -5,6 +5,8 @@ import chat.exceptions.ChatException;
 import chat.tasks.TaskList;
 import chat.utils.Parser;
 import chat.utils.Storage;
+import chat.utils.Ui;
+import chat.utils.Ui.ChatWrapper;
 
 /**
  * Contains the chat application, initializes storage and returns response to GUI.
@@ -15,6 +17,7 @@ public class Chat {
     private Storage storage;
     private TaskList tasklist;
     private boolean isExit;
+    private Ui ui;
 
     /**
      * Constructor method for Chat.
@@ -23,6 +26,7 @@ public class Chat {
     public Chat(String filepath) {
         isExit = false;
         storage = new Storage(filepath);
+        ui = new Ui();
         try {
             tasklist = storage.loadFromFile();
         } catch (ChatException e) {
@@ -48,6 +52,10 @@ public class Chat {
             reply += e.getMessage();
         }
         return reply;
+    }
+
+    public ChatWrapper getChatWrapper() {
+        return ui.getChatWrapper();
     }
 
     public boolean hasExited() {

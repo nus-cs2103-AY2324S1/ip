@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 import chat.MainWindow;
+import chat.utils.Ui.ChatWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * DialogBox Controller for Chat GUI.
@@ -24,6 +26,8 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
+    private Label chat;
+    @FXML
     private ImageView displayPicture;
 
     /**
@@ -31,7 +35,7 @@ public class DialogBox extends HBox {
      * @param text display text for DialogBox.
      * @param img display image for DialogBox.
      */
-    public DialogBox(String text, Image img) {
+    public DialogBox(String chatName, Color chatColor, String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
                 MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -41,7 +45,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        chat.setText(chatName);
+        chat.setTextFill(chatColor);
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -57,11 +62,12 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox("", Color.BLACK, text, img);
     }
 
-    public static DialogBox getChatDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getChatDialog(ChatWrapper chatWrapper, String text) {
+
+        var db = new DialogBox(chatWrapper.chatName, chatWrapper.chatColor, text, chatWrapper.chatImage);
         db.flip();
         return db;
     }
