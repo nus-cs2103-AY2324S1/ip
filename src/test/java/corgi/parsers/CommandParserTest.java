@@ -153,7 +153,7 @@ public class CommandParserTest {
         assertThrows(InvalidCommandFormatException.class, () ->
                 parser.parse("todo /desc"));
         // Invalid number of same argument
-        assertThrows(InvalidCommandFormatException.class, () -> 
+        assertThrows(InvalidCommandFormatException.class, () ->
                 parser.parse("todo /desc task1 /desc hard /desc urgent"));
     }
 
@@ -181,7 +181,7 @@ public class CommandParserTest {
         assertThrows(InvalidCommandFormatException.class, () ->
                 parser.parse("deadline /desc /by 2023-09-22"));
         // Invalid number of same argument
-        assertThrows(InvalidCommandFormatException.class, () -> 
+        assertThrows(InvalidCommandFormatException.class, () ->
                 parser.parse("deadline /desc task1 /by 2023-09-22 /by 2023-09-23"));
     }
 

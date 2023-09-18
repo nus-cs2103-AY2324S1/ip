@@ -23,12 +23,12 @@ public class CommandValidatorTest {
         arguments.add("/arg2");
         arguments.add("/arg3");
 
-        InvalidCommandFormatException exception1 = assertThrows(InvalidCommandFormatException.class,
-                () -> validator.validateArguments(command1, arguments));
-        InvalidCommandFormatException exception2 = assertThrows(InvalidCommandFormatException.class,
-                () -> validator.validateArguments(command2, arguments));
-        InvalidCommandFormatException exception3 = assertThrows(InvalidCommandFormatException.class,
-                () -> validator.validateArguments(command3, arguments));
+        InvalidCommandFormatException exception1 = assertThrows(InvalidCommandFormatException.class, () ->
+                validator.validateArguments(command1, arguments));
+        InvalidCommandFormatException exception2 = assertThrows(InvalidCommandFormatException.class, () ->
+                validator.validateArguments(command2, arguments));
+        InvalidCommandFormatException exception3 = assertThrows(InvalidCommandFormatException.class, () ->
+                validator.validateArguments(command3, arguments));
 
         assertEquals("Invalid number of argument \"/arg1\" !", exception1.getMessage());
         assertEquals("Invalid number of argument \"/arg2\" !", exception2.getMessage());
@@ -48,12 +48,12 @@ public class CommandValidatorTest {
         arguments.add("/arg2");
         arguments.add("/arg3");
 
-        InvalidCommandFormatException exception1 = assertThrows(InvalidCommandFormatException.class,
-                () -> validator.validateArguments(command1, arguments));
-        InvalidCommandFormatException exception2 = assertThrows(InvalidCommandFormatException.class,
-                () -> validator.validateArguments(command2, arguments));
-        InvalidCommandFormatException exception3 = assertThrows(InvalidCommandFormatException.class,
-                () -> validator.validateArguments(command3, arguments));
+        InvalidCommandFormatException exception1 = assertThrows(InvalidCommandFormatException.class, () ->
+                validator.validateArguments(command1, arguments));
+        InvalidCommandFormatException exception2 = assertThrows(InvalidCommandFormatException.class, () ->
+                validator.validateArguments(command2, arguments));
+        InvalidCommandFormatException exception3 = assertThrows(InvalidCommandFormatException.class, () ->
+                validator.validateArguments(command3, arguments));
 
         assertEquals("Missing argument \"/arg1\" !", exception1.getMessage());
         assertEquals("Missing argument \"/arg2\" !", exception2.getMessage());
