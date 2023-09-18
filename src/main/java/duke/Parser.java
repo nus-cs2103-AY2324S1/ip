@@ -42,12 +42,12 @@ public class Parser {
                 return this.taskList.addTask(newFixedDurationTask);
             } else if (command.startsWith("delete")) {
                 return this.taskList.deleteTask(Integer.valueOf(command.split(" ")[1]) - 1);
-            } else if (command.startsWith("bye")) {
-                this.isEnd = true;
-                return Ui.farewellMessage();
             } else if (command.startsWith("find")) {
                 String keyword = command.split(" ", 2)[1];
                 return this.taskList.findTask(keyword);
+            } else if (command.startsWith("bye")) {
+                this.isEnd = true;
+                return Ui.farewellMessage();
             } else {
                 throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
