@@ -55,15 +55,14 @@ public class Parser {
                         currentCommand = ValidCommand.INCORRECTFORMAT;
                     }
                 }
-            } else if (commandSorter(currentCommand).equals("short_comm")) {
-                title = titleGetter(currentCommand, inp);
-                endDate = endDateGetter(currentCommand, inp);
-                isValid = commandValidator(currentCommand, inp);
-            } else if (commandSorter(currentCommand).equals("event")) {
-                title = titleGetter(currentCommand, inp);
-                startDate = startDateGetter(currentCommand, inp);
-                endDate = endDateGetter(currentCommand, inp);
-                isValid = commandValidator(currentCommand, inp);
+            } else if (commandSorter(currentCommand).equals("short_comm")
+                    || commandSorter(currentCommand).equals("event")) {
+                if (commandSorter(currentCommand).equals("event")) {
+                    startDate = startDateGetter(inp);
+                }
+                title = titleGetter(inp);
+                endDate = endDateGetter(inp);
+                isValid = commandValidator(inp);
             }
         }
         return commandHandler(inp, isValid, title, startDate, endDate, taskIndex, currentCommand, taskList);
@@ -208,10 +207,9 @@ public class Parser {
     /**
      * Returns whether the description of the task is valid
      *
-     * @param currentCommand The current command entered by user
      * @return whether the description of the task is valid
      */
-    public static boolean commandValidator(ValidCommand currentCommand, String[] inp) {
+    public static boolean commandValidator(String[] inp) {
         int i = 1;
         for (; i < inp.length; i++) {
             if (inp[i].equals("/by") || inp[i].equals("/from")) {
@@ -227,11 +225,10 @@ public class Parser {
     /**
      * Returns the description for the task
      *
-     * @param currentCommand The current command entered by user
      * @param inp The String array for the user input
      * @return the description for the task
      */
-    public static String titleGetter(ValidCommand currentCommand, String[] inp) {
+    public static String titleGetter(String[] inp) {
         int i = 1;
         String title = "";
         for (; i < inp.length; i++) {
@@ -250,11 +247,10 @@ public class Parser {
     /**
      * Returns the endDate for the task
      *
-     * @param currentCommand The current command entered by user
      * @param inp The String array for the user input
      * @return the endDate for the task
      */
-    public static String endDateGetter(ValidCommand currentCommand, String[] inp) {
+    public static String endDateGetter(String[] inp) {
         int i = 1;
         String endDate = "";
         for (; i < inp.length; i++) {
@@ -275,11 +271,10 @@ public class Parser {
     /**
      * Returns the startDate for the task
      *
-     * @param currentCommand The current command entered by user
      * @param inp The String array for the user input
      * @return the startDate for the task
      */
-    public static String startDateGetter(ValidCommand currentCommand, String[] inp) {
+    public static String startDateGetter(String[] inp) {
         int start = 1;
         String startDate = "";
         for (; start < inp.length; start++) {
