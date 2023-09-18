@@ -1,6 +1,7 @@
 package puke.command;
 
 import puke.managers.DataHandler;
+import puke.managers.PukeException;
 import puke.managers.TaskList;
 import puke.task.Task;
 
@@ -15,9 +16,13 @@ public class DeleteCommand extends Command {
      * Creates a new DeleteCommand
      * @param rest the rest of the input line.
      */
-    public DeleteCommand(String rest) {
+    public DeleteCommand(String rest) throws PukeException {
         super(false, true);
-        this.index = Integer.parseInt(rest);
+        try {
+            this.index = Integer.parseInt(rest);
+        } catch (Exception e) {
+            throw new PukeException();
+        }
     }
 
     /**
@@ -57,7 +62,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof DeleteCommand && other.toString().equals(this.toString()));
+        boolean isInstance = other instanceof DeleteCommand;
+        boolean isSameCommand = other.toString().equals(toString());
+        return isInstance && isSameCommand;
     }
 
     /**

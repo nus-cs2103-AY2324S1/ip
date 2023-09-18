@@ -1,6 +1,7 @@
 package puke.command;
 
 import puke.managers.DataHandler;
+import puke.managers.PukeException;
 import puke.managers.TaskList;
 
 /**
@@ -12,10 +13,15 @@ public class MarkCommand extends Command {
     /**
      * Creates a new MarkCommand
      * @param rest the rest of the input line.
+     * @throws PukeException if an invalid input line is provided
      */
-    public MarkCommand(String rest) {
+    public MarkCommand(String rest) throws PukeException {
         super(false, true);
-        this.index = Integer.parseInt(rest);
+        try {
+            this.index = Integer.parseInt(rest);
+        } catch (Exception e) {
+            throw new PukeException();
+        }
     }
 
     /**
@@ -48,7 +54,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof MarkCommand && other.toString().equals(this.toString()));
+        boolean isInstance = other instanceof MarkCommand;
+        boolean isSameCommand = other.toString().equals(toString());
+        return isInstance && isSameCommand;
     }
 
     /**

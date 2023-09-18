@@ -15,9 +15,12 @@ public class DeadlineCommand extends Command {
      * Creates a new DeadlineCommand
      * @param rest the rest of the input line.
      */
-    public DeadlineCommand(String rest) {
+    public DeadlineCommand(String rest) throws PukeException {
         super(false, !rest.isEmpty());
         this.rest = rest.split(" /");
+        if (rest.isEmpty()) {
+            throw new PukeException();
+        }
     }
 
     /**
@@ -58,7 +61,9 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof DeadlineCommand && other.toString().equals(this.toString()));
+        boolean isInstance = other instanceof DeadlineCommand;
+        boolean isSameCommand = other.toString().equals(toString());
+        return isInstance && isSameCommand;
     }
 
     /**

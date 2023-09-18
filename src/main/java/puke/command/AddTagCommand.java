@@ -1,6 +1,7 @@
 package puke.command;
 
 import puke.managers.DataHandler;
+import puke.managers.PukeException;
 import puke.managers.TaskList;
 
 /**
@@ -17,8 +18,11 @@ public class AddTagCommand extends Command {
      * Creates a command to add a tag
      * @param rest the rest of the line
      */
-    public AddTagCommand(String rest) {
+    public AddTagCommand(String rest) throws PukeException {
         super(false, rest.isEmpty());
+        if (rest.isEmpty()) {
+            throw new PukeException();
+        }
         String[] inputs = rest.split(" ", 2);
         this.index = Integer.parseInt(inputs[0]);
         this.tag = inputs[1];
@@ -38,7 +42,16 @@ public class AddTagCommand extends Command {
             return ERROR_MESSAGE;
         }
     }
-
+    @Override
+    public boolean equals(Object other) {
+        boolean isAddTagCommand = other instanceof AddTagCommand;
+        boolean isSameCommand = other.toString().equals(toString());
+        return isAddTagCommand && isSameCommand;
+    }
+    @Override
+    public String toString() {
+        return "addTag " + this.index;
+    }
     private String generateMessage() {
         return TAG_MESSAGE;
     }

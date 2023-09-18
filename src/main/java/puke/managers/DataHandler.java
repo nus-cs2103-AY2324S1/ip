@@ -38,11 +38,9 @@ public class DataHandler {
             throw new PukeException();
         }
 
-        if (splitInput[1].equals("0")) {
-            output.unmark();
-        } else if (splitInput[1].equals("1")) {
+        if (splitInput[1].equals("1")) {
             output.mark();
-        } else {
+        } else if (!splitInput[1].equals("0")) {
             throw new PukeException();
         }
 
