@@ -12,3 +12,4 @@ D,0,buy milk ,2023-12-12
 D,0,party ,2023-12-12
 T,0,sleep
 T,0,eat
+T,0,do, work,
