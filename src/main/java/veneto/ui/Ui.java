@@ -62,17 +62,17 @@ public class Ui {
 
     /**
      * give responses to user after they call commands
-     * @param c the Command operated just now
+     * @param command the Command operated just now
      * @param tasks the TaskList of Veneto
      */
-    public void afterCommand(Command c, TaskList tasks) {
-        switch (c.getType()) {
+    public void afterCommand(Command command, TaskList tasks) {
+        switch (command.getType()) {
             case "exit":
                 goodbye();
                 break;
             case "add":
                 System.out.println(
-                        GREETS + " 记下来了：\n " + c +
+                        GREETS + " 记下来了：\n " + command +
                                 "!\n 现在有" + tasks.size() + "项任务要做\n"
                 );
                 break;
@@ -84,18 +84,18 @@ public class Ui {
                 break;
             case "mark":
                 System.out.println(
-                        GREETS + " 我这就帮您标记好！\n " + c + "\n"
+                        GREETS + " 我这就帮您标记好！\n " + command + "\n"
                 );
                 break;
             case "unmark":
                 System.out.println(
-                        GREETS + " 啊 没关系 帮您擦掉标记了哦" + "\n " + c + "\n"
+                        GREETS + " 啊 没关系 帮您擦掉标记了哦" + "\n " + command + "\n"
                 );
                 break;
             case "delete":
                 System.out.println(
                         GREETS +
-                                " 好啦，帮你擦掉了一条任务哦：\n " + c +
+                                " 好啦，帮你擦掉了一条任务哦：\n " + command +
                                 "\n 现在还剩下" + tasks.size() + "项任务\n"
                 );
                 break;
