@@ -3,7 +3,6 @@ package duke.ui;
 import duke.Duke;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,7 +28,6 @@ public class MainWindow {
         assert scrollPane != null : "ScrollPane should not be null";
         assert dialogContainer != null : "VBox dialogContainer should not be null";
         assert userInput != null : "TextField userInput should not be null";
-        assert sendButton != null : "Button sendButton should not be null";
 
     }
 

@@ -2,6 +2,9 @@ package duke.tasklist;
 
 import duke.data.exception.CCException;
 import duke.data.task.Task;
+import duke.data.task.ToDo;
+import duke.data.task.Deadline;
+import duke.data.task.Event;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
@@ -15,8 +18,11 @@ import java.util.Iterator;
 public class TaskList implements Iterable<Task> {
 
     private final ArrayList<Task> taskList;
-
     private final Ui ui;
+    private int markedCount;
+    private int todoCount;
+    private int deadlineCount;
+    private int eventCount;
 
     /**
      * Constructs a new TaskList with the provided list of tasks and a UI component for user interactions.
@@ -27,6 +33,10 @@ public class TaskList implements Iterable<Task> {
     public TaskList(ArrayList<Task> taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
+        this.markedCount = 0;
+        this.todoCount = 0;
+        this.deadlineCount = 0;
+        this.eventCount = 0;
     }
 
     /**
@@ -39,6 +49,13 @@ public class TaskList implements Iterable<Task> {
     public String addTask(Task task) {
         assert task != null : "Task should not be null"; // Check that the task is not null
         taskList.add(task);
+        if (task instanceof ToDo) {
+            todoCount++;
+        } else if (task instanceof Deadline) {
+            deadlineCount++;
+        } else {
+            eventCount++;
+        }
         return ui.displayAddTask(task, taskList.size());
     }
 
@@ -57,6 +74,7 @@ public class TaskList implements Iterable<Task> {
             Task task = taskList.get(getIndex(input));
             assert task != null : "Task should not be null"; // Check that the task is not null
             task.setDone(true);
+            markedCount++;
             return ui.displayMarkTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for marking list of length " + taskList.size());
@@ -78,6 +96,7 @@ public class TaskList implements Iterable<Task> {
             Task task = taskList.get(getIndex(input));
             assert task != null : "Task should not be null"; // Check that the task is not null
             task.setDone(false);
+            markedCount--;
             return ui.displayUnmarkTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for list of length " + taskList.size());
@@ -104,6 +123,12 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Searches for tasks in the task list that contain the specified keyword in their descriptions.
+     *
+     * @param input The keyword or search query used to find matching tasks.
+     * @return A string containing a list of tasks that match the search query.
+     */
     public String find(String input) {
         assert input != null : "Input should not be null"; // Check that the input is not null
         ArrayList<Task> matchingTasks = new ArrayList<>();
@@ -113,6 +138,33 @@ public class TaskList implements Iterable<Task> {
             }
         }
         return ui.displayMatchingTasks(matchingTasks);
+    }
+
+    public String countTasks(String input) {
+        String response = "";
+        switch (input) {
+        case "completed":
+            response = countCompletedTasks();
+            break;
+        case "uncompleted":
+            response = countUncompletedTasks();
+            break;
+        case "type":
+            response = countTaskType();
+        }
+        return response;
+    }
+
+    private String countCompletedTasks() {
+        return ui.displayCompletedTaskCount(markedCount, taskList.size());
+    }
+
+    private String countUncompletedTasks() {
+        return ui.displayUncompletedTaskCount(taskList.size() - markedCount, taskList.size());
+    }
+
+    private String countTaskType() {
+        return ui.displayTaskTypeCount(todoCount, deadlineCount, eventCount);
     }
 
     /**

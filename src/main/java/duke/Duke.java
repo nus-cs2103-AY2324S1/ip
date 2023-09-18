@@ -5,13 +5,7 @@ import duke.data.exception.CCException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
-import duke.ui.Gui;
 import duke.ui.Ui;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.util.Scanner;
 
@@ -126,6 +120,9 @@ public class Duke {
         case "deadline":
         case "event":
             response = tasks.addTask(parser.parseTask(action, taskDescription));
+            break;
+        case "count":
+            response = tasks.countTasks(taskDescription);
             break;
         default:
             throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
