@@ -50,7 +50,7 @@ application {
 shadowJar {
     archiveBaseName = "Oscar"
     archiveClassifier = null
-    archiveVersion = "v0.2"
+    archiveVersion = "v1.0.0"
 }
 
 run{
