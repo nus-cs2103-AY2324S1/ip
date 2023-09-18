@@ -56,7 +56,7 @@ Harvard is a command-line application for managing tasks.
   Shows a list of all tasks in the task list.
 
 
-- Remove a Task : `remove`
+### Remove a Task : `remove`
 
   Deletes the specified task from the task list.
 
