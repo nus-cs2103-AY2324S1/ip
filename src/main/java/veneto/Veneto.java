@@ -38,7 +38,7 @@ public class Veneto {
      * @param args the path of data stored
      */
     public static void main(String[] args) {
-        new Veneto("data/dan.txt").run();
+        new Veneto("data/veneto.txt").run();
     }
 
     /**
