@@ -10,13 +10,13 @@ import puke.managers.PukeException;
  */
 public class Task {
     protected String label;
-    protected boolean done;
+    protected boolean isDone;
     protected String description;
     protected ArrayList<String> tags;
     protected Task(String label, String description) throws PukeException {
         this.label = label;
         this.description = description;
-        this.done = false;
+        this.isDone = false;
         this.tags = new ArrayList<String>();
         if (label.isEmpty() || description.isEmpty()) {
             throw new PukeException();
@@ -26,7 +26,7 @@ public class Task {
     protected Task(String label, String description, String[] tags) throws PukeException {
         this.label = label;
         this.description = description;
-        this.done = false;
+        this.isDone = false;
         this.tags = new ArrayList<String>(List.of(tags));
         if (label.isEmpty() || description.isEmpty()) {
             throw new PukeException();
@@ -37,16 +37,16 @@ public class Task {
      * Marks a task as done
      */
     public void mark() {
-        assert (!done);
-        done = true;
+        assert (!isDone);
+        isDone = true;
     }
 
     /**
      * Marks a task as undone
      */
     public void unmark() {
-        assert (done);
-        done = false;
+        assert (isDone);
+        isDone = false;
     }
 
     public String getDescription() {
@@ -80,7 +80,7 @@ public class Task {
      */
     public String write() {
         int checked = 0;
-        if (done) {
+        if (isDone) {
             checked = 1;
         }
         return String.format("%s/%d/%s", label, checked , description);
@@ -106,7 +106,7 @@ public class Task {
     @Override
     public String toString() {
         String status = "[ ]";
-        if (done) {
+        if (isDone) {
             status = "[X]";
         }
         return String.format("%s%s %s", label, status, this.description);
