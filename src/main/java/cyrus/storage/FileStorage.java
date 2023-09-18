@@ -147,7 +147,11 @@ public class FileStorage implements IStorage {
         String[] mandatoryKeys = {"type", "status", "name"};
         Consumer<String[]> checkKeys = (keys) -> {
             for (String key : keys) {
-                assert map.containsKey(key) : String.format("All entries in data.json must contain \"%s\" field", key);
+                if (!map.containsKey(key)) {
+                    throw new IllegalStateException(
+                            String.format("All entries in data.json must contain \"%s\" field", key)
+                    );
+                }
             }
         };
         checkKeys.accept(mandatoryKeys);
