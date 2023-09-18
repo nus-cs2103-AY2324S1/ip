@@ -59,12 +59,12 @@ public class Event extends Task {
         }
     }
 
-    public void editStartTime(String newStart) {
+    public void editStart(String newStart) {
         TimeFormatter newStartTime = new TimeFormatter(newStart);
         this.start = newStartTime.formatDate();
     }
 
-    public void editEndTime(String newEnd) {
+    public void editEnd(String newEnd) {
         TimeFormatter newEndTime = new TimeFormatter(newEnd);
         this.end = newEndTime.formatDate();
     }
@@ -81,7 +81,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        if (this.done == true) {
+        if (this.done) {
             return "D | 1 | " + this.title + " | " + this.start +
                     " - " + this.end;
         }
@@ -98,7 +98,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String s = String.format("| FROM: %s TO: %s |", start, end);
-        if (this.done == true) {
+        if (this.done) {
             return "[E] " + "[X] " + this.title + " " + s;
         }
         return "[E] " + "[ ] " + this.title + " " + s;

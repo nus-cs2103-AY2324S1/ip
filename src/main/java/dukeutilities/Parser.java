@@ -37,6 +37,7 @@ public class Parser {
                 return new Deadline(title, isDone, details);
             default:
                 String[] startEnd = details.split(" - ");
+                assert startEnd.length == 2;
                 return new Event(title, isDone, startEnd[0], startEnd[1]);
         }
     }
@@ -50,6 +51,7 @@ public class Parser {
             case "E":
                 return 3;
             default:
+                assert false;
                 return 0;
         }
     }
@@ -93,7 +95,7 @@ public class Parser {
                 return createEditCommand(commandArgs, "mark");
             case "unmark":
                 return createEditCommand(commandArgs, "unmark");
-            case "edit":
+            case "update":
                 return createEditCommand(commandArgs, "update");
             case "bye":
                 return new ExitCommand();
