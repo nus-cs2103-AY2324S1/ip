@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(400.0, 550.0);
 
         scene = new Scene(mainLayout);
 
