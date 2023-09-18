@@ -8,6 +8,7 @@ import bob.task.TaskList;
 import bob.ui.TextGenerator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The DeleteCommand class encapsulates logic that can be executed
@@ -29,6 +30,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, StorageFile storageFile) throws BobException {
+
         try {
             for (Integer i: taskNumbers) {
                 taskList.getTask(i - 1);
@@ -38,9 +40,13 @@ public class DeleteCommand extends Command {
             String recommendation = "Use the command: \"list\" to find out what tasks you have.";
             throw new BobInvalidTaskNumberException(message + recommendation);
         }
+        Collections.sort(this.taskNumbers);
         for (Integer i : taskNumbers) {
             Task currTask = taskList.getTask(i - 1);
             deletedTasks.addTask(currTask);
+        }
+        this.taskNumbers.sort(Collections.reverseOrder());
+        for (Integer i : taskNumbers) {
             taskList.deleteTask(i);
         }
         storageFile.saveTasks(taskList);
