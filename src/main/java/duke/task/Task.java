@@ -7,8 +7,8 @@ package duke.task;
  */
 public class Task {
     private final String description;
-    private boolean isDone;
     private final TaskType type;
+    private boolean isDone;
     private String tag;
 
     /**
@@ -92,7 +92,7 @@ public class Task {
     @Override
     public String toString() {
         String result = "[" + getStatusIcon() + "] " + description;
-        result += " [" + this.tag + "]";
+        result += " [" + getTag() + "]";
         return result;
     }
 

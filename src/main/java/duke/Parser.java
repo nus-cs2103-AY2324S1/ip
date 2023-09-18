@@ -1,17 +1,17 @@
 package duke;
 import duke.command.AddCommand;
+import duke.command.AddTagCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
-import duke.command.AddTagCommand;
 import duke.command.MarkCommand;
 import duke.command.UnMarkCommand;
-
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
+
 /**
  * Represents a parser that makes sense of user commands.
  */

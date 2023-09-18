@@ -1,13 +1,13 @@
 package duke;
 
-import duke.task.Task;
-import duke.task.TaskType;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
+
+import duke.task.Task;
+import duke.task.TaskType;
+
 
 
 /**

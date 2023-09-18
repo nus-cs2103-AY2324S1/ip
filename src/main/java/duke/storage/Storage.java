@@ -25,12 +25,12 @@ public class Storage {
     /**
      * Creates a new Storage object.
      *
-     * @param file_Path The path to the file used for storage.
+     * @param filePath The path to the file used for storage.
      * @throws IOException When there's an error with file operations.
      * @throws DukeException When there's an error specific to the Duke application.
      */
-    public Storage(String file_Path) throws IOException, DukeException {
-        File savedFile = new File(file_Path);
+    public Storage(String filePath) throws IOException, DukeException {
+        File savedFile = new File(filePath);
         try {
             if (!savedFile.exists() && !savedFile.createNewFile()) {
                 throw new IOException("Failed to create a new file.");
@@ -57,33 +57,40 @@ public class Storage {
                 String[] splits = curLine.split("#");
                 Task newTask = null;
                 switch (splits[0].trim()) {
-                case "T":
-                    newTask = new Todo(splits[2].trim(), (splits[1].trim().equals("1")));
-                    break;
-                case "D":
-                    newTask = new Deadline(splits[2].trim(), splits[3].trim(), (splits[1].trim().equals("1")));
-                    break;
-                case "E":
-                    String[] eventTimes = splits[3].trim().split(" - ");
-                    if(eventTimes.length != 2) {
-                        throw new DukeException("Invalid date format for event. Expected start-end format.");
-                    }
-                    newTask = new Event(eventTimes[0], eventTimes[1], splits[2].trim());
-                    if (splits[1].trim().equals("1")) {
-                        newTask.mark();
-                    }
-                    break;
-                default:
-                    throw new DukeException("Invalid task type in the data file.");
+                    case "T":
+                        newTask = new Todo(splits[2].trim(), (splits[1].trim().equals("1")));
+                        if (splits.length == 4) {  // For Todo, if there's a tag
+                            newTask.setTag(splits[3].trim());
+                        }
+                        break;
+                    case "D":
+                        newTask = new Deadline(splits[2].trim(), splits[3].trim(), (splits[1].trim().equals("1")));
+                        if (splits.length == 5) {  // For Deadline, if there's a tag
+                            newTask.setTag(splits[4].trim());
+                        }
+                        break;
+                    case "E":
+                        String[] eventTimes = splits[3].trim().split(" - ");
+                        if (eventTimes.length != 2) {
+                            throw new DukeException("Invalid date format for event. Expected start-end format.");
+                        }
+                        newTask = new Event(eventTimes[0], eventTimes[1], splits[2].trim());
+                        if (splits[1].trim().equals("1")) {
+                            newTask.mark();
+                        }
+                        if (splits.length == 5) {  // For Event, if there's a tag
+                            newTask.setTag(splits[4].trim());
+                        }
+                        break;
+                    default:
+                        throw new DukeException("Invalid task type in the data file.");
                 }
 
                 if (newTask != null) {
-                    if (splits.length > 4) {
-                        newTask.setTag(splits[4].trim());
-                    }
                     tasks.add(newTask);
                 }
             }
+
         } catch (FileNotFoundException e) {
             throw new DukeException("Storage file not found.");
         } catch (Exception e) {
@@ -144,9 +151,9 @@ public class Storage {
                         .append(" # ")
                         .append(task.getTaskDescription())
                         .append(" # ")
-                        .append(event.getE_start())
+                        .append(event.getEventStart())
                         .append(" - ")
-                        .append(event.getE_end())
+                        .append(event.getEventEnd())
                         .append(" # ")
                         .append(task.getTag())
                         .append("\n");

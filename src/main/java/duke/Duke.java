@@ -43,7 +43,7 @@ public class Duke {
     }
 
 
-    
+
     public String getResponse(String input) {
         try {
             ui.showLine(); // show the divider line ("_______")

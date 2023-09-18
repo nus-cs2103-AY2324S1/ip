@@ -1,51 +1,43 @@
 package duke.task;
-import java.util.Arrays;
-import java.util.List;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
 import duke.DukeException;
-
-
 
 /**
  * Represents an event task with a start and end date.
  */
 public class Event extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy",
-            Locale.ENGLISH);
-    private final LocalDate e_start;
-    private final LocalDate e_end;
+    private static final DateTimeFormatter OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
 
-
-    public LocalDate getE_start() {
-        return e_start;
-    }
-    public LocalDate getE_end() {
-        return e_end;
-    }
+    private final LocalDate eventStart;
+    private final LocalDate eventEnd;
 
     /**
      * Constructs a new Event with the specified description, start date, and end date.
      *
-     * @param e_start     Start date of the event.
-     * @param e_end       End date of the event.
+     * @param eventStart     Start date of the event.
+     * @param eventEnd       End date of the event.
      * @param description Description of the event.
      * @throws DukeException If the given date format is invalid.
      */
-    public Event(String e_start, String e_end, String description) throws DukeException {
+    public Event(String eventStart, String eventEnd, String description) throws DukeException {
         super(description, TaskType.EVENT);
         try {
-            this.e_start = LocalDate.parse(e_start, FORMATTER);
-            this.e_end = LocalDate.parse(e_end, FORMATTER);
+            this.eventStart = LocalDate.parse(eventStart, FORMATTER);
+            this.eventEnd = LocalDate.parse(eventEnd, FORMATTER);
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid time format.");
         }
-        assert !this.e_start.isAfter(this.e_end) : "Event start date should not be after end date!";
+        assert !this.eventStart.isAfter(this.eventEnd) : "Event start date should not be after end date!";
     }
 
     /**
@@ -68,13 +60,20 @@ public class Event extends Task {
                 throw new DukeException("Invalid date format. Expected start-end format.");
             }
 
-            this.e_start = dates.get(0);
-            this.e_end = dates.get(1);
+            this.eventStart = dates.get(0);
+            this.eventEnd = dates.get(1);
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid time format.");
         }
     }
 
+    public LocalDate getEventStart() {
+        return eventStart;
+    }
+
+    public LocalDate getEventEnd() {
+        return eventEnd;
+    }
 
     /**
      * Returns a string representation of the event.
@@ -83,7 +82,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + e_start.format(OUTPUT_FORMATTER)
-                + " to: " + e_end.format(OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + eventStart.format(OUTPUT_FORMATTER)
+                + " to: " + eventEnd.format(OUTPUT_FORMATTER) + ")";
     }
 }
