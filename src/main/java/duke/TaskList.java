@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** Abstraction of a list that can store Tasks */
@@ -103,9 +104,17 @@ public class TaskList {
      */
     public String find(String filterWord) {
         StringBuilder reply = new StringBuilder("Here are the matching tasks in your list:\n");
-        this.list.stream()
-                .filter(task -> task.description.contains(filterWord))
-                .forEach(task -> reply.append(task + "\n"));
+        List<Task> filteredList = new ArrayList<>();
+        for (int i = 0; i < this.list.size(); i++) {
+            Task task = this.list.get(i);
+            if (task.description.contains(filterWord)) {
+                filteredList.add(task);
+            }
+        }
+        for (int i = 0; i < filteredList.size(); i++) {
+            String taskDescription = (i + 1) + ". " + filteredList.get(i) + "\n";
+            reply.append(taskDescription);
+        }
         return reply.toString();
     }
 }
