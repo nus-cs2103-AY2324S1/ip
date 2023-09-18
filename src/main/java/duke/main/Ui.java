@@ -8,7 +8,7 @@ public class Ui {
      * Returns reply format for list out tasks.
      * @param index
      * @param task
-     * @return
+     * @return message from bot for task list
      */
     public String listOutTasksString(int index, String task) {
         return String.format("%d. %s\n", index, task);
@@ -16,7 +16,7 @@ public class Ui {
 
     /**
      * Returns reply format for exit.
-     * @return
+     * @return message from bot for exit
      */
     public String exitString() {
         return "  Bye~ Hope to see you again soon! >w<";
@@ -25,7 +25,7 @@ public class Ui {
     /**
      * Returns reply format for mark.
      * @param task
-     * @return
+     * @return message from bot for task mark
      */
     public String markString(String task) {
         return String.format("  Nice! I've marked this task as done:\n  %s", task);
@@ -34,7 +34,7 @@ public class Ui {
     /**
      * Returns reply format for unmark.
      * @param task
-     * @return
+     * @return message from bot for task unmark
      */
     public String unmarkString(String task) {
         return String.format("  Ok, I've marked this task as not done yet:\n  %s", task);
@@ -44,7 +44,7 @@ public class Ui {
      * Returns reply format for delete.
      * @param removedTask
      * @param taskSize
-     * @return
+     * @return message from bot for task delete
      */
     public String deleteString(String removedTask, int taskSize) {
         String removeNofi = String.format("  Noted. I've removed this task:");
@@ -57,7 +57,7 @@ public class Ui {
      * Returns reply format for add task.
      * @param addedTask
      * @param taskSize
-     * @return
+     * @return message from bot for task add
      */
     public String addTaskString(String addedTask, int taskSize) {
         String addNofi = String.format("  Got it. I've added this task:");
@@ -69,7 +69,7 @@ public class Ui {
     /**
      * Returns reply format for find.
      * @param matchingTasks
-     * @return
+     * @return message from bot for task find
      */
     public String findString(String matchingTasks) {
         String findNofi = String.format("  Here are the matching tasks in your list:");

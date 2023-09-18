@@ -2,9 +2,9 @@ package duke.main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.exception.DukeDuplicatedTaskException;
 import org.junit.jupiter.api.Test;
 
+import duke.exception.DukeDuplicatedTaskException;
 import duke.task.Task;
 
 public class TaskListTest {

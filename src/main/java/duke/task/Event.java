@@ -34,7 +34,7 @@ public class Event extends Task {
      * @param description
      * @param from
      * @param to
-     * @return
+     * @return a new event task
      */
     public static Event create(String status, String description, String from, String to) {
         Event task = new Event(description, LocalDate.parse(from), LocalDate.parse(to));
@@ -44,6 +44,11 @@ public class Event extends Task {
         return task;
     }
 
+
+    /**
+     * Constructs the line for event task to be saved into disc.
+     * @return the constructed string
+     */
     public String saveToFileLine() {
         return String.format("E | %s | from %s to %s\n", super.saveToFileLine(), from, to);
     }

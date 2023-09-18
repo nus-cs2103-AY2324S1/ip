@@ -21,7 +21,7 @@ public class Deadline extends Task {
 
     /**
      * Returns task string.
-     * @return
+     * @return the string of deadline event
      */
     @Override
     public String toString() {
@@ -34,7 +34,7 @@ public class Deadline extends Task {
      * @param status
      * @param description
      * @param due
-     * @return
+     * @return a new deadline task
      */
     public static Deadline create(String status, String description, String due) {
         Deadline task = new Deadline(description, LocalDate.parse(due));
@@ -44,6 +44,10 @@ public class Deadline extends Task {
         return task;
     }
 
+    /**
+     * Constructs the line for deadline task to be saved into disc.
+     * @return the constructed string
+     */
     public String saveToFileLine() {
         return String.format("D | %s | %s\n", super.saveToFileLine(), due.toString());
     }

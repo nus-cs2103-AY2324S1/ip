@@ -5,7 +5,12 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import duke.command.FirstWord;
-import duke.exception.*;
+import duke.exception.DukeDuplicatedTaskException;
+import duke.exception.DukeEmptyToDoException;
+import duke.exception.DukeException;
+import duke.exception.DukeInvalidDateFormatException;
+import duke.exception.DukeInvalidMarkUnmarkArgumentException;
+import duke.exception.DukeUnknownCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -178,7 +183,6 @@ public class Parser {
      */
     public String interact(String reply) {
         while (true) {
-            // String reply = sc.nextLine();
             FirstWord firstWord;
             try {
                 firstWord = FirstWord.valueOf(reply.split(" ")[0].toUpperCase());
@@ -209,7 +213,6 @@ public class Parser {
                     throw new DukeUnknownCommandException();
                 }
             } catch (DukeException e) {
-                // this.line(e.toString());
                 return e.toString();
             }
         }

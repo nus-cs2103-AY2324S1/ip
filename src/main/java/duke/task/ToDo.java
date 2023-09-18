@@ -18,7 +18,7 @@ public class ToDo extends Task {
      * Create To Do task.
      * @param status
      * @param description
-     * @return
+     * @return a new to do task
      */
     public static ToDo create(String status, String description) {
         ToDo task = new ToDo(description);
@@ -28,6 +28,11 @@ public class ToDo extends Task {
         return task;
     }
 
+
+    /**
+     * Constructs the line for to do task to be saved into disc.
+     * @return the constructed string
+     */
     public String saveToFileLine() {
         return String.format("T | %s\n", super.saveToFileLine());
     }
