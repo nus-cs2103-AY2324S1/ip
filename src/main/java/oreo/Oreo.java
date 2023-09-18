@@ -1,15 +1,18 @@
 package oreo;
 
+import oreo.command.EditCommand;
 import oreo.exception.IllegalCommandException;
 import oreo.exception.IllegalDateTimeException;
 import oreo.command.Command;
 import oreo.parser.Parser;
 import oreo.storage.Storage;
 import oreo.task.TaskList;
+import oreo.task.Task;
 import oreo.ui.Ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 
@@ -26,6 +29,8 @@ public class Oreo {
 
     private TaskList tasks;
 
+    private ArrayList<Object> cache;
+
     /**
      * Constructor of Oreo chatbot.
      *
@@ -38,6 +43,7 @@ public class Oreo {
         this.ui = gui;
         gui.setOreo(this);
         this.storage = new Storage(filePath);
+        this.cache = new ArrayList();
         gui.startUp();
     }
 
@@ -71,6 +77,29 @@ public class Oreo {
 
     public String execute(Command command) {
         return command.execute(tasks);
+    }
+
+    public String executeEditMode(Command command) throws IllegalDateTimeException {
+        String input = (String) getCache(0);
+        Task oldTask = (Task) getCache(1);
+        int id = Integer.parseInt(input.split(" ")[1]);
+        return command.executeEditMode(tasks, id - 1, oldTask);
+    }
+
+    public Task getTask(EditCommand editCommand) {
+        return editCommand.getEditTask();
+    }
+
+    public void cache(Object toCache) {
+        cache.add(toCache);
+    }
+
+    public Object getCache(int index) {
+        return cache.get(index);
+    }
+
+    public void clearCache() {
+        cache.clear();
     }
 
     public void closeProcess() throws IOException {

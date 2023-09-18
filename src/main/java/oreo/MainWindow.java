@@ -9,8 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import oreo.command.Command;
+import oreo.command.EditCommand;
+import oreo.exception.IllegalCommandException;
 import oreo.exception.IllegalDateTimeException;
 import oreo.parser.Parser;
+import oreo.task.Task;
 import oreo.ui.Ui;
 
 import java.io.FileNotFoundException;
@@ -25,7 +28,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
+    private TextField userInputEdit;
+    @FXML
     private Button sendButton;
+    @FXML
+    private Button editButton;
 
     private Oreo oreo;
 
@@ -51,13 +58,67 @@ public class MainWindow extends AnchorPane {
         Command c = Parser.parse(input);
         if (c.isExit()) {
             exit(input);
+        } else if (c.isEdit()) {
+            userToEditHandler(c, input);
+            return;
         }
         String response = oreo.execute(c);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getOreoDialog(response, oreoImage)
-        );
+        setDialogContainer(input, response);
         userInput.clear();
+    }
+
+    @FXML
+    private void handleEditInput() {
+        String input = userInputEdit.getText();
+        Command c = Parser.parseEditMode(input);
+        String response;
+        try {
+            response = oreo.executeEditMode(c);
+        } catch (IllegalDateTimeException | IllegalCommandException e) {
+            setDialogContainer(input, e.getMessage());
+            Task taskToEdit = (Task) oreo.getCache(1);
+            userInputEdit.setText(taskToEdit.getTaskInEditFormat());
+            return;
+        }
+        if (c.isEdit()) {
+            setDialogContainer(input, response);
+            Task taskToEdit = (Task) oreo.getCache(1);
+            userInputEdit.setText(taskToEdit.getTaskInEditFormat());
+        } else {
+            setDialogContainer(input, response);
+            oreo.clearCache();
+            sendButton.setVisible(true);
+            editButton.setVisible(false);
+            userInputEdit.clear();
+            userInputEdit.setVisible(false);
+            userInput.setVisible(true);
+            userInput.clear();
+            userInput.requestFocus();
+        }
+    }
+
+
+    @FXML
+    public void userToEditHandler(Command command, String input) {
+        String response = "";
+        try {
+            response = oreo.execute(command);
+        } catch (IllegalCommandException e){
+            setDialogContainer(input, e.getMessage());
+            userInput.clear();
+            return;
+        }
+        Task taskToEdit = oreo.getTask((EditCommand) command);  // get task to edit
+        oreo.cache(input);    // cache input
+        oreo.cache(taskToEdit); // cache task
+        setDialogContainer(input, response);
+        // changes from normal input mode to edit mode
+        userInput.clear();
+        userInput.setVisible(false);
+        userInputEdit.setVisible(true);
+        userInputEdit.setText(taskToEdit.getTaskInEditFormat());
+        sendButton.setVisible(false);
+        editButton.setVisible(true);
     }
 
     @FXML
@@ -85,15 +146,20 @@ public class MainWindow extends AnchorPane {
     private void exit(String input) {
         try {
             oreo.closeProcess();
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getOreoDialog(oreo.sayBye(), oreoImage)
-            );
+            setDialogContainer(input, oreo.sayBye());
             Platform.exit();
         } catch (IOException e) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getOreoDialog(e.getMessage(), oreoImage));
         }
 
+    }
+
+    @FXML
+    private void setDialogContainer(String input, String response) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getOreoDialog(response, oreoImage)
+        );
     }
 }

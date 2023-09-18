@@ -1,6 +1,7 @@
 package oreo.command;
 
 import oreo.exception.IllegalCommandException;
+import oreo.task.Task;
 import oreo.task.TaskList;
 import oreo.ui.Ui;
 
@@ -11,6 +12,11 @@ public class FindCommand extends Command {
 
     public FindCommand(Scanner tokeniser) {
         this.tokeniser = tokeniser;
+    }
+
+    @Override
+    public String executeEditMode(TaskList tasks, int index, Task oldTask) {
+        return execute(tasks);
     }
 
     @Override

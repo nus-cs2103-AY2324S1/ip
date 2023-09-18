@@ -44,8 +44,34 @@ public class Parser {
         case "deadline" :
         case "event" :
             return new AddCommand(command, tokeniser);
+        case "edit" :
+        case "modify" :
+        case "update" :
+            return new EditCommand(command,tokeniser);
         default:
             return new InvalidCommand();
+        }
+    }
+
+    public static Command parseEditMode(String fullCommand) {
+        Scanner tokeniser = new Scanner(fullCommand);
+        String command = "";
+        try {
+            command = tokeniser.next();
+        } catch (NoSuchElementException e) {
+            return new EditCommand();
+        }
+
+        switch (command) {
+        case "todo":
+        case "deadline":
+        case "event":
+            return new AddCommand(command, tokeniser);
+        case "C" :
+        case "c" :
+            return new ExitModeCommand();
+        default:
+            return new EditCommand();
         }
     }
 }

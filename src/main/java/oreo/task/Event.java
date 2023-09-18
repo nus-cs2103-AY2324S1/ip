@@ -54,4 +54,11 @@ public class Event extends Task {
                 + TimeParser.parseTimeForFile(this.toTime) + System.lineSeparator();
         return data;
     }
+
+    @Override
+    public String getTaskInEditFormat() {
+        return "event" + description + " /from " + TimeParser.parseDateForFile(this.fromDate)
+                + TimeParser.parseTimeForFile(this.fromTime)
+                + "/to " + TimeParser.parseDateForFile(this.toDate) + TimeParser.parseTimeForFile(this.toTime);
+    }
 }
