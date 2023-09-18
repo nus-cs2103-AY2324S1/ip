@@ -25,6 +25,24 @@ public class Event extends Task {
     }
 
     /**
+     * Gets the start date and time of the event.
+     *
+     * @return The LocalDateTime representing the start date and time.
+     */
+    public LocalDateTime getFrom() {
+        return this.fromDateTime;
+    }
+
+    /**
+     * Gets the end date and time of the event.
+     *
+     * @return The LocalDateTime representing the end date and time.
+     */
+    public LocalDateTime getTo() {
+        return this.toDateTime;
+    }
+
+    /**
      * Returns a string representation of the Event task, including its description, 
      * start date/time, and end date/time.
      *
@@ -49,3 +67,4 @@ public class Event extends Task {
                 toDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 }
+

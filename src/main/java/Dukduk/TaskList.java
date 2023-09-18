@@ -1,6 +1,7 @@
 package dukduk;
 
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a list of tasks and provides methods to manage them.
@@ -121,17 +122,36 @@ public class TaskList {
 
     /**
      * Finds a task by searching for a keyword.
+     * Has been editted for extension C-BetterSearch.
+     * Allows for partial word matching, case-insensitive matching and searching for date/time.
      *
-     * @param keyword The index of the task to delete.
+     * @param keyword Used for searching tasks that matches keyword.
+     * @return An ArrayList of tasks that match the keyword partially.
      */
     public ArrayList<Task> findTasks(String keyword) {
         assert keyword != null : "Keyword cannot be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
+        String lowerKeyword = keyword.toLowerCase();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(lowerKeyword)) {
                 matchingTasks.add(task);
+            }
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                String deadlineString = deadlineTask.getBy().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                if (deadlineString.contains(lowerKeyword)) {
+                    matchingTasks.add(task);
+                }
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                String fromString = eventTask.getFrom().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                String toString = eventTask.getTo().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                if (fromString.contains(lowerKeyword) || toString.contains(lowerKeyword)) {
+                    matchingTasks.add(task);
+                }
             }
         }
         return matchingTasks;
     }
 }
+
