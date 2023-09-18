@@ -91,22 +91,12 @@ public class Parser {
             return new DeadlineCommand(deadlineTaskName, deadlineTaskBy);
         // event description /from date /to date
         } else if (commandType.equals(TaskMate.CommandTypes.event.toString())) {
-
-            userInput = userInput.substring(TaskMate.CommandTypes.event.toString()
-            .length() + 1); // +1 because we do not want the task name to start from the space character
-            String[] splitUserInput = userInput.split(" /");
-            return new EventCommand(
-            splitUserInput[0],
-            splitUserInput[1].replace("from ", ""),
-            splitUserInput[2].replace("to ", "")
-            );
-            /*
             checkValidEventCommand(userInput);
             String eventTaskName = getEventTaskName(userInput);
             String eventTaskFrom = getEventTaskFrom(userInput);
             String eventTaskTo = getEventTaskTo(userInput);
             return new EventCommand(eventTaskName, eventTaskFrom, eventTaskTo);
-            */
+
 
         // delete i
         } else if (commandType.equals(TaskMate.CommandTypes.delete.toString())) {
@@ -160,42 +150,42 @@ public class Parser {
 
     static String getTodoTaskName(String userInput) {
         String delimiter = TaskMate.CommandTypes.todo.toString();
-        return userInput.substring(delimiter.length() + 1); // +1 to remove the whitespace after "todo"
+        return userInput.substring(delimiter.length()).trim();
     }
 
     static String getDeadlineTaskName(String userInput) {
         String delimiter = TaskMate.CommandTypes.deadline.toString();
         String removedDeadlineWord = userInput.substring(delimiter.length() + 1);
         String deadlineTaskName = removedDeadlineWord.split(" /")[0];
-        return deadlineTaskName;
+        return deadlineTaskName.trim();
     }
 
     static String getDeadlineTaskBy(String userInput) {
         String delimiter = TaskMate.CommandTypes.deadline.toString();
         String removedDeadlineWord = userInput.substring(delimiter.length() + 1);
         String deadlineTaskBy = removedDeadlineWord.split(" /")[1];
-        return deadlineTaskBy.replace("by ", "");
+        return deadlineTaskBy.replace("by", "").trim();
     }
 
     static String getEventTaskName(String userInput) {
         String delimiter = TaskMate.CommandTypes.event.toString();
         String removedEventWord = userInput.substring(delimiter.length() + 1);
         String eventTaskName = removedEventWord.split("/")[0];
-        return eventTaskName;
+        return eventTaskName.trim();
     }
 
     static String getEventTaskFrom(String userInput) {
         String delimiter = TaskMate.CommandTypes.event.toString();
         String removedEventWord = userInput.substring(delimiter.length() + 1);
         String eventTaskFrom = removedEventWord.split("/")[1];
-        return eventTaskFrom.replace("from ", "");
+        return eventTaskFrom.replace("from", "").trim();
     }
 
     static String getEventTaskTo(String userInput) {
         String delimiter = TaskMate.CommandTypes.event.toString();
         String removedEventWord = userInput.substring(delimiter.length() + 1);
         String eventTaskFrom = removedEventWord.split("/")[2];
-        return eventTaskFrom.replace("to ", "");
+        return eventTaskFrom.replace("to", "").trim();
     }
 
 
