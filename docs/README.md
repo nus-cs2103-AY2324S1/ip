@@ -2,10 +2,17 @@
 
 ## Features 
 
+### Todos, Deadlines and Events
 
-### Feature-XYZ
+GOAT supports 3 kinds of tasks.
 
-Description of the feature.
+### Task finding
+
+GOAT supports finding by description via `find` or finding by date via `list`
+
+### Task editing
+
+GOAT supports task marking, unmarking and changing of dates
 
 ## Usage
 
