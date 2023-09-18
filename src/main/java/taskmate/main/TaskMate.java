@@ -3,7 +3,17 @@ package taskmate.main;
 import java.io.IOException;
 
 import taskmate.commands.Command;
-import taskmate.exceptions.*;
+import taskmate.exceptions.EmptyByException;
+import taskmate.exceptions.EmptyFromException;
+import taskmate.exceptions.EmptyToException;
+import taskmate.exceptions.FileCorruptedException;
+import taskmate.exceptions.InvalidByException;
+import taskmate.exceptions.InvalidCommandTypeException;
+import taskmate.exceptions.InvalidDescriptionException;
+import taskmate.exceptions.InvalidFromException;
+import taskmate.exceptions.InvalidToException;
+import taskmate.exceptions.NoDataException;
+import taskmate.exceptions.NotAnIntegerException;
 import taskmate.tools.Parser;
 import taskmate.tools.Storage;
 import taskmate.tools.TaskList;
@@ -38,12 +48,8 @@ public class TaskMate {
         try {
             String fileContents = storage.readFromFile();
             this.tasks = new TaskList(fileContents);
-        } catch (IOException e) {
-            ui.printFileNotFoundResponse(storage.getSaveFilePath());
-        } catch (NoDataException e) {
-            ui.printNoDataResponse();
-        } catch (FileCorruptedException e) {
-            ui.printFileCorruptedResponse(e);
+        } catch (Exception e) {
+            handleException(e);
         }
     }
 
@@ -96,6 +102,12 @@ public class TaskMate {
             ui.printEmptyFromExceptionResponse();
         } else if (e instanceof NotAnIntegerException) {
             ui.printNotAnIntegerExceptionResponse();
+        } else if (e instanceof IOException) {
+            ui.printFileNotFoundResponse(storage.getSaveFilePath());
+        } else if (e instanceof NoDataException) {
+            ui.printNoDataResponse();
+        } else if (e instanceof FileCorruptedException) {
+            ui.printFileCorruptedResponse((FileCorruptedException) e);
         }
     }
 
