@@ -33,7 +33,7 @@ public class Ui {
      *
      * @return welcome message
      */
-    public String showWelcome() {
+    public static String showWelcome() {
         return "Hello! I'm Dre\n" +
                 "What can I do for you?";
     }
@@ -117,6 +117,10 @@ public class Ui {
             sb.append(i).append(". ").append(tasks.getTask(i)).append("\n");
         }
         return sb.toString();
+    }
+
+    public String generateEditSuccessMessage(Task task) {
+        return "The following task has been successfully updated:\n" + task;
     }
 
     /**

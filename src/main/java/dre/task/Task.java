@@ -81,4 +81,8 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
+    public void editDescription(String newDescription) {
+        this.description = newDescription;
+    }
 }

@@ -3,18 +3,12 @@ package dre.parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import dre.command.*;
 import dre.task.Task;
 import dre.task.ToDo;
 import dre.task.Event;
 import dre.task.Deadline;
-import dre.command.AddCommand;
-import dre.command.DeleteCommand;
-import dre.command.ExitCommand;
-import dre.command.MarkCommand;
-import dre.command.UnmarkCommand;
-import dre.command.Command;
-import dre.command.ListCommand;
-import dre.command.FindCommand;
 import dre.exception.DreException;
 
 /**
@@ -147,8 +141,34 @@ public class Parser {
                     throw new DreException("The search keyword cannot be empty.");
                 }
                 return new FindCommand(words[1]);
+            case "edit":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new DreException("Please indicate which task you are editing.");
+                }
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(words[1].split(" ")[0]);
+                } catch (NumberFormatException e) {
+                    throw new DreException("Please indicate a task index using numbers.");
+                }
+                String[] editParts = words[1].split(" ", 3);
+                if (editParts.length != 3) {
+                    throw new DreException("Use this format:\n edit {task index} " +
+                            "{description / fromDate / toDate / byDate} {new description / yyyy-MM-dd");
+                }
+                String field = editParts[1];
+                String newValue = editParts[2];
+                return new EditCommand(taskNumber, field, newValue);
             default:
                 throw new DreException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    public static void main(String... args) {
+        try {
+            Command command = parse("edit 1 description something");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
