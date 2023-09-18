@@ -111,10 +111,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the type of command input by the user
+     * Possible values: "to\-do", "deadline", "event", "bye", "list", "mark", "unmark", "find"
+     * @param userInput a String object representing the raw user input
+     * @return a String object that represents the user input's command type
+     * @throws InvalidCommandTypeException thrown when the command entered by the user is not recognized
+     */
     private static String getCommandType(String userInput) throws InvalidCommandTypeException {
-        // Returns the type of command input by the user
-        // Possible values: "to\-do", "deadline", "event", "bye", "list", "mark", "unmark", "find"
-
         userInput = userInput.trim();
 
         for (TaskMate.CommandTypes type : TaskMate.CommandTypes.values()) {
@@ -199,10 +203,11 @@ public class Parser {
         return eventTaskFrom.replace("to", "").trim();
     }
 
-
+    /**
+     * Checks if "to-do" command is valid by checking if there is text coming after the word "to-do"
+     */
     private static void checkValidTodoCommand(String userInput) throws InvalidCommandTypeException,
             EmptyDescriptionException {
-        // Checks if "to-do" command is valid by checking if there is text coming after the word "to-do"
         if (!userInput.startsWith(TaskMate.CommandTypes.todo.toString())) {
             throw new InvalidCommandTypeException();
         } else if (userInput.substring(TaskMate.CommandTypes.todo.toString().length()).isEmpty()) {
@@ -210,11 +215,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if "deadline" command is valid by checking if there is text coming after the word "deadline"
+     * Additionally, checks if there is a "/by " substring within userInput, and if the date after "/by " substring
+     * can be parsed into a date
+     */
     private static void checkValidDeadlineCommand(String userInput) throws InvalidCommandTypeException,
             EmptyDescriptionException, EmptyByException, InvalidByException {
-        // Checks if "deadline" command is valid by checking if there is text coming after the word "deadline"
-        // Additionally, checks if there is a "/by " substring within userInput, and if the date after "/by " substring
-        // can be parsed into a date
         if (!userInput.startsWith(TaskMate.CommandTypes.deadline.toString())) {
             throw new InvalidCommandTypeException();
         } else if (userInput.substring(TaskMate.CommandTypes.deadline.toString().length()).isEmpty()) {
@@ -232,12 +239,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if "deadline" command is valid by checking if there is text coming after the word "deadline"
+     * Additionally, checks if there are "/from " and "/to " substrings within userInput, and if the dates after
+     * "/from " and "/to " substrings can be parsed into a date
+     */
     private static void checkValidEventCommand(String userInput) throws InvalidCommandTypeException,
             EmptyDescriptionException,
             EmptyFromException, InvalidFromException, EmptyToException, InvalidToException {
-        // Checks if "deadline" command is valid by checking if there is text coming after the word "deadline"
-        // Additionally, checks if there are "/from " and "/to " substrings within userInput, and if the dates after
-        // "/from " and "/to " substrings can be parsed into a date
 
         String fromDelimiter = "/from ";
         String toDelimiter = "/to ";
@@ -272,12 +281,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the user input command is a valid "mark" or "unmark" command
+     * by checking if the command starts with "mark"/"unmark", followed by a whitespace,
+     * followed by an integer
+     * Note: Does not check if the integer is within the size of TaskList object
+     */
     private static void checkValidMarkCommand(String userInput) throws InvalidCommandTypeException,
             NotAnIntegerException {
-        // Checks if the user input command is a valid "mark" or "unmark" command
-        // by checking if the command starts with "mark"/"unmark", followed by a whitespace,
-        // followed by an integer
-        // Note: Does not check if the integer is within the size of TaskList object
+
         String indexWithinList;
         if (!userInput.startsWith(TaskMate.CommandTypes.mark.toString())) {
             throw new InvalidCommandTypeException();
@@ -288,12 +300,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the user input command is a valid "mark" or "unmark" command
+     * by checking if the command starts with "mark"/"unmark", followed by a whitespace,
+     * followed by an integer
+     * Note: Does not check if the integer is within the size of TaskList object
+     */
     private static void checkValidUnmarkCommand(String userInput) throws InvalidCommandTypeException,
             NotAnIntegerException {
-        // Checks if the user input command is a valid "mark" or "unmark" command
-        // by checking if the command starts with "mark"/"unmark", followed by a whitespace,
-        // followed by an integer
-        // Note: Does not check if the integer is within the size of TaskList object
+
         String indexWithinList;
         if (!userInput.startsWith(TaskMate.CommandTypes.unmark.toString())) {
             throw new InvalidCommandTypeException();
@@ -304,12 +319,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the user input command is a valid "mark" or "unmark" command
+     * by checking if the command starts with "mark"/"unmark", followed by a whitespace,
+     * followed by an integer
+     * Note: Does not check if the integer is within the size of TaskList object
+     */
     private static void checkValidDeleteCommand(String userInput) throws InvalidCommandTypeException,
             NotAnIntegerException {
-        // Checks if the user input command is a valid "mark" or "unmark" command
-        // by checking if the command starts with "mark"/"unmark", followed by a whitespace,
-        // followed by an integer
-        // Note: Does not check if the integer is within the size of TaskList object
+
         String indexWithinList;
 
         if (userInput.startsWith(TaskMate.CommandTypes.delete.toString())) {
@@ -323,8 +341,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns true if String s can be parsed into an Integer object, and false otherwise
+     */
     private static boolean checkStringIsInteger(String s) {
-        // Returns true if String s can be parsed into an Integer object, and false otherwise
         try {
             Integer.parseInt(s);
         } catch (NumberFormatException e) {
