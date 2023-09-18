@@ -109,7 +109,7 @@ public class Duke {
         deadline = parser.getOptArgAsDateTime("by");
 
         if (deadline == null) {
-            throw new DukeException("Use /by to specify deadline date");
+            throw new DukeException("Use /by to specify deadline date (yyyy/MM/dd [HHmm])");
         }
 
         Task task = new Deadline(deadlineName, deadline);
@@ -129,7 +129,7 @@ public class Duke {
         to = parser.getOptArgAsDateTime("to");
 
         if (from == null || to == null) {
-            throw new DukeException("Use /from and /to to specify event duration");
+            throw new DukeException("Use /from and /to to specify event duration (yyyy/MM/dd [HHmm])");
         }
 
         Task task = new Event(eventName, from, to);
