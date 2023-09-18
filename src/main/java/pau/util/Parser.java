@@ -30,6 +30,8 @@ public class Parser {
             return list.addEvent(input);
         } else if (input.startsWith("find")) {
             return list.findTask(input);
+        } else if (input.startsWith("help")) {
+            return list.help();
         } else {
             return "can you follow instructions";
         }
