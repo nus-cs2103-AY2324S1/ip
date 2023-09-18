@@ -33,6 +33,10 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The `GUIController` class manages the graphical user interface (GUI) for the chat application.
+ * It handles user input, displays chat messages, and manages the layout of UI elements.
+ */
 public class GUIController extends Application {
 
     @FXML
@@ -47,6 +51,11 @@ public class GUIController extends Application {
     private Image pekoIcon = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_67c47d22da73ac2ba89e1e97bce6e525_76dfa232_400.png"));
     private Image userIcon = new Image(this.getClass().getResourceAsStream("/Pics/tumblr_cd531dc8ea0423c248426f9f8cf65f72_1a341469_1280.png"));
 
+    /**
+     * The main entry point for the JavaFX application.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -105,6 +114,13 @@ public class GUIController extends Application {
             userInput.clear();
         });
     }
+
+    /**
+     * Constructs a label for a chat message and configures its properties.
+     *
+     * @param text The text content of the label (chat message).
+     * @return A configured label for displaying a chat message.
+     */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
@@ -114,8 +130,12 @@ public class GUIController extends Application {
     }
 
 
+    /**
+     * Handles user input when the "Send" button is clicked or the Enter key is pressed.
+     */
     @FXML
     private void handleUserInput() {
     }
+
 
 }

@@ -1,5 +1,9 @@
 package peko.commands;
 
+
+/**
+ * The {@code Commands} enum represents various commands possible.
+ */
 public enum Commands {
 
         ECHO,
@@ -13,6 +17,7 @@ public enum Commands {
         EVENT,
         FIND,
         DELETE,
+        ARCHIVE,
         COPYPASTA
 
 
