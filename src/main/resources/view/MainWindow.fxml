@@ -29,6 +29,9 @@
                            <image>
                               <Image url="@../images/DaDuke.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
                         </ImageView>
                         <Label ellipsisString="" text="Hello I'm TaskMate! Please call for `help` if you need anything!" textOverrun="CLIP" wrapText="true">
                            <opaqueInsets>
