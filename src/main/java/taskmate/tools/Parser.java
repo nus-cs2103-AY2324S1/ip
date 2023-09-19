@@ -22,7 +22,6 @@ import taskmate.exceptions.EmptyFromException;
 import taskmate.exceptions.EmptyToException;
 import taskmate.exceptions.InvalidByException;
 import taskmate.exceptions.InvalidCommandTypeException;
-import taskmate.exceptions.InvalidDescriptionException;
 import taskmate.exceptions.InvalidFromException;
 import taskmate.exceptions.InvalidToException;
 import taskmate.exceptions.NotAnIntegerException;
@@ -57,7 +56,7 @@ public class Parser {
      */
     public static Command parse(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException,
             EmptyByException, InvalidByException, InvalidToException, EmptyToException, InvalidFromException,
-            EmptyFromException, NotAnIntegerException, InvalidDescriptionException {
+            EmptyFromException, NotAnIntegerException, ClauselessUpdateException {
 
         userInput = userInput.trim(); // remove trailing whitespaces
 
@@ -406,7 +405,7 @@ public class Parser {
     }
 
     private static void checkValidUpdateCommand(String userInput) throws EmptyDescriptionException,
-            InvalidCommandTypeException, NotAnIntegerException, InvalidDescriptionException {
+            ClauselessUpdateException, InvalidCommandTypeException, NotAnIntegerException {
 
         String[] tokens = userInput.split("\\s+");
 

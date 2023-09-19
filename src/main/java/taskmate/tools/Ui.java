@@ -290,4 +290,14 @@ public class Ui {
         message += "Syntax (for Event tasks): update <integer> /name <newName> /from <YYYY-mm-dd> /to <YYYY-mm-dd>";
         printMessage(message);
     }
+
+    /**
+     * Prints message when the user makes an update command without any clauses
+     * Possible clauses: /name, /by, /from, /to
+     */
+    public void printClauselessUpdateExceptionResponse() {
+        String message = "Invalid update command format!\n";
+        message += "Syntax for update command: update <integer> <TAG> <newValue> ...";
+        printMessage(message);
+    }
 }
