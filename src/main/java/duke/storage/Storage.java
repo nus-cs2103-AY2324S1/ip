@@ -26,7 +26,7 @@ public class Storage {
      * Constructor
      */
     public Storage() {
-        this.filePath = "src/data/duke.txt";
+        this.filePath = "./src/data/duke.txt";
         tasks = new ArrayList<>();
     }
 
@@ -44,6 +44,7 @@ public class Storage {
         }
         try {
             File obj = new File(filePath);
+            obj.getParentFile().mkdirs();
             Scanner reader = new Scanner(obj);
             while (reader.hasNextLine()) {
                 String taskInFile = reader.nextLine();

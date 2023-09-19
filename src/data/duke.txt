@@ -1,4 +1,0 @@
-1.[E][ ] (from: Sep 20 2023 09:00 to: Sep 21 2023 09:00)
-2.[T][ ] borrow book
-3.[D][ ] cs2103 iP (by: Sep 24 2023 23:59)
-4.[T][ ] read book 
