@@ -53,7 +53,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done.
+     * Updates a task as done.
      *
      * @param index Index of the task to be marked.
      */
@@ -62,7 +62,7 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task as done.
+     * Updates a task as done.
      *
      * @param index Index of the task to be unmarked.
      */
@@ -103,7 +103,6 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return this.tasks;
-
     }
 
     /**

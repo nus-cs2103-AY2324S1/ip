@@ -18,6 +18,8 @@ public class EventTask extends Task {
      * Constructor for duke.task.Task.
      *
      * @param description Description of the task.
+     * @param from        From date of the task.
+     * @param to          To date of the task.
      */
     public EventTask(String description, LocalDate from, LocalDate to) throws DukeException {
         super(description);

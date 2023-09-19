@@ -19,21 +19,21 @@ public class Task {
     }
 
     /**
-     * Mark isDone as true.
+     * Updates isDone as true.
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Mark isDone as false.
+     * Updates isDone as false.
      */
     public void unmark() {
         this.isDone = false;
     }
 
     /**
-     * Return the status of the task by a tick or X symbol.
+     * Returns the status of the task by a tick or X symbol.
      *
      * @return String representation of tick or X symbols.
      */
@@ -42,7 +42,7 @@ public class Task {
     }
 
     /**
-     * Get the description of the task.
+     * Returns the description of the task.
      *
      * @return String representation description of the task.
      */
@@ -51,7 +51,7 @@ public class Task {
     }
 
     /**
-     * Get the file descriptor of the task for parsing when reloaded.
+     * Returns the file descriptor of the task for parsing when reloaded.
      *
      * @return String representation of the file descriptor of the task.
      */
@@ -60,7 +60,7 @@ public class Task {
     }
 
     /**
-     * Get the string representation of the task.
+     * Returns the string representation of the task.
      *
      * @return String representation of the task.
      */
