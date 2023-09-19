@@ -1,4 +1,4 @@
-# User Guide
+# User Guide for Ding
 Ding is your personal desktop app that sometimes gets confused, but always remembers your tasks for you!
 It is optimised for use via a Command Line Interface (CLI) while still having a Graphical User Interface (GUI).
 
