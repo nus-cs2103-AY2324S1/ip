@@ -1,7 +1,7 @@
-[T] // //CS2103T//
-[T] // //CS2103T W6//
-[T] // //CS2103T iP GUI//
-[T] // //CS2103T iP Tests//
-[E] // //CS2103T Tutorial//Sep 21 2023 09:00//Sep 21 2023 10:00//
-[T] // //CS2103T again//
-[T] // //CS2101 OP//
+[T] // //2103T tP//
+[E] // //Dinner with Uke//Sep 20 2023 18:00//Sep 20 2023 20:00//
+[D] //X//UG//Sep 20 2023 23:59//
+[T] // //Unfriend Uke //
+[T] // //Learn to use Uke//
+[D] // //Add tasks to Uke//Oct 1 2023 23:59//
+[E] // //Uke's Party//Sep 21 2023 10:00//Sep 21 2023 12:00//
