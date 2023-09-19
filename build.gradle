@@ -43,13 +43,13 @@ test {
 }
 
 application {
-    mainClass.set("Eggbot.Eggbot")
-    mainClassName = 'Eggbot.Eggbot'
+    mainClass.set("Launcher")
+    mainClassName = 'Launcher'
 }
 
 shadowJar {
     archiveBaseName = "EGGBOT"
-    archiveVersion = "v0.1"
+    archiveVersion = "v0.2"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
