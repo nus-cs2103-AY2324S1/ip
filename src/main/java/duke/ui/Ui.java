@@ -12,39 +12,56 @@ public class Ui{
     static String bye = "\t" + "Expelliarmus! Hope to see you again muggle! :D";
 
     /**
-     * Displays a welcome message to the user.
+     * Retrieves and returns a welcome message to be displayed to the user.
+     * @return A welcome message to be shown to the user.
      */
     public static String printHello() {
         return hello;
     }
 
     /**
-     * Displays a goodbye essage to the user.
+     * Retrieves and returns a goodbye message to be displayed to the user.
+     * @return A goodbye message to be shown to the user.
      */
     public static String printBye() {
         return bye;
     }
 
     /**
-     * Prints a message when a task is marked as done.
+     * Generates a message to indicate that a task has been marked as done.
      *
      * @param done The task that was marked as done.
+     * @return A message indicating the task has been marked as done.
      */
     public static String printDone(Task done) {
         return "\t" + "Nice! I've marked this task " +
                 "as done:" + "\n" +
                 "\t " + done.taskString();
     }
-    public static String printAllDone() {
-        return "\t" + "Nice! I've marked all tasks " +
-                "as done!";
+
+    /**
+     * Generates a message to indicate that all tasks have been marked as done.
+     *
+     * @return A message indicating that all tasks have been marked as done
+     * and the updated task list.
+     */
+    public static String printAllDone(TaskList tasks) {
+        String answer = "\t" + "Nice! I've marked all tasks " +
+                "as done:";
+        int i = 1;
+        for (int j = 0; j < tasks.getSize(); j++) {
+            answer += "\n\t" + i + ". " + tasks.getTask(j).taskString();
+            i++;
+        }
+        return answer;
     }
 
 
     /**
-     * Prints a message when a task is marked as not done.
+     * Generates a message to indicate that a task has been marked as not done.
      *
      * @param notDone The task that was marked as not done.
+     * @return A message indicating the task has been marked as not done.
      */
     public static String printNotDone(Task notDone) {
         return "\t" + "OK, I've marked this task " +
@@ -52,23 +69,42 @@ public class Ui{
                 notDone.taskString();
     }
 
-    public static String printAllNotDone() {
-        return "\t" + "OK, I've marked all tasks " +
-                "as not done yet.";
+    /**
+     * Generates a message to indicate that all tasks have been marked as not done.
+     * @return A message indicating that all tasks have been marked as not done
+     * and the updated task list.
+     */
+    public static String printAllNotDone(TaskList tasks) {
+        String answer = "\t" + "OK, I've marked all tasks " +
+                "as not done yet:";
+        int i = 1;
+        for (int j = 0; j < tasks.getSize(); j++) {
+            answer += "\n\t" + i + ". " + tasks.getTask(j).taskString();
+            i++;
+        }
+        return answer;
     }
 
     /**
-     * Prints a message when a task is deleted from the list.
+     * Generates a message when a task is deleted from the list.
      *
      * @param toBeDeleted The task that was deleted.
-     * @param tasks       The task list.
+     * @param tasks       The task list from which the task was deleted.
+     * @return A message indicating the task has been removed and the updated task count.
      */
     public static String printDelete(Task toBeDeleted, TaskList tasks) {
         return "\tNoted. I've removed this task:\n\t " + toBeDeleted.taskString()
                 + "\n\tNow you have " + tasks.getSize() + " tasks in the list.";
     }
+
+    /**
+     * Generates a message when all tasks are deleted from the list.
+     *
+     * @param tasks The task list from which all tasks were deleted.
+     * @return A message indicating that all tasks have been removed from the list.
+     */
     public static String printAllDeleted(TaskList tasks) {
-        return "\tNoted. I've removed all tasks from the list.";
+        return "\tNoted. I've removed all tasks.\n\tNow you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
@@ -76,6 +112,7 @@ public class Ui{
      *
      * @param task  The task that was added.
      * @param tasks The task list.
+     * @return A message indicating the added task and the updated task count.
      */
     public static String printAddTask(Task task, TaskList tasks) {
         int len = tasks.getSize();
@@ -91,13 +128,16 @@ public class Ui{
      * Prints a custom message for an exception.
      *
      * @param message The custom exception message.
+     * @return The message indicating the exception occurred.
      */
     public static String printException(String message) {
         return message;
     }
 
+
     /**
-     * Prints a default exception message for EventDateTime Exception.
+     * Generates a default exception message for an EventDateTime exception.
+     * @return A message indicating the error on DateTime input and the expected date and time format.
      */
     public static String printException() {
         return"Accio error! I don't understand what the input means D:" +
@@ -105,6 +145,10 @@ public class Ui{
                 "(the time in the 24-hour format).";
     }
 
+    /**
+     * Generates a help message listing available commands.
+     * @return A message listing the available commands and their descriptions.
+     */
     public static String printHelp() {
         return "No worries, muggle! Harry Potter is here to help :D Accio Help Guide! \n"
                 + "Here are the commands for use: \n"
@@ -120,13 +164,14 @@ public class Ui{
                 + "10. todo <task>: specify the task to be added in the list with no start or end date\n"
                 + "11. deadline <task> /by <yyyy-MM-dd HHmm>: specify the task to be added with a specific deadline\n"
                 + "12. event <task> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>: specify the event to be added with both start & end dates\n"
-                + "13. bye: displays a goodbye message";
+                + "13. bye: displays a goodbye message. ";
 
     }
 
     /**
-     * Lists the tasks in the task list.
-     * @param tasks The task list to be printed.
+     * Generates a message listing the tasks in the given task list.
+     * @param tasks The task list.
+     * @return A message containing a list of tasks from the task list.
      */
     public static String listTasks(TaskList tasks) {
         String answer = "\tHere are the tasks in your list:";
@@ -139,9 +184,9 @@ public class Ui{
     }
 
     /**
-     * Lists the tasks in the task list
-     * containing tasks with matching keywords
-     * @param tasks The task list to be printed.
+     * Generates a message listing all tasks that match the input keyword in the given task list.
+     * @param tasks The task list.
+     * @return A message containing a list of all tasks that match the input keyword.
      */
     public static String printMatchingTasks(TaskList tasks){
         String answer = "\tHere are the tasks in your list:";

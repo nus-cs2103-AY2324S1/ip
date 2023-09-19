@@ -42,7 +42,7 @@ public class Parser {
                 for (int i = 0; i < tasks.getSize(); i++) {
                     tasks.markDone(i);
                 }
-                temp = Ui.printAllDone();
+                temp = Ui.printAllDone(tasks);
             }
             else {
                 String num = str.substring(5);
@@ -60,7 +60,7 @@ public class Parser {
                 for (int i = 0; i < tasks.getSize(); i++) {
                     tasks.markNotDone(i);
                 }
-                temp = Ui.printAllNotDone();
+                temp = Ui.printAllNotDone(tasks);
             } else {
                 String num = str.substring(7);
                 int number = Integer.valueOf(num);
@@ -112,6 +112,12 @@ public class Parser {
             temp = Ui.listTasks(tasks);
         }
     }
+    /**
+     * Adds the tasks of type ToDo into tasklist based on the input string.
+     * @param str   The input string.
+     * @param tasks The TaskList to process tasks.
+     * @throws ToDoCommandUseException
+     */
     private static void addToDo(String str, TaskList tasks) throws ToDoCommandUseException {
         String todo = str.substring(4);
         //remove any leading and trailing whitespace characters and
@@ -125,6 +131,12 @@ public class Parser {
         tasks.addTask(task);
         temp = Ui.printAddTask(task, tasks);
     }
+    /**
+     * Adds the tasks of type Deadline into tasklist based on the input string.
+     * @param str   The input string.
+     * @param tasks The TaskList to process tasks.
+     * @throws DeadlineCommandUseException
+     */
     private static void addDeadline(String str, TaskList tasks) throws DeadlineCommandUseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         if (!str.contains("/by ")) {
@@ -143,6 +155,12 @@ public class Parser {
             temp = Ui.printAddTask(task, tasks);
         }
     }
+    /**
+     * Adds the tasks of type Event into tasklist based on the input string.
+     * @param str   The input string.
+     * @param tasks The TaskList to process tasks.
+     * @throws EventCommandUseException
+     */
     private static void addEvent(String str, TaskList tasks) throws EventCommandUseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         if (!str.contains("/from")) {
@@ -205,18 +223,22 @@ public class Parser {
                 return Ui.printBye();
             }
             else if (str.equals("help")) {
+                Storage.saveTasks("src/data/Duke.txt", tasks);
                 return Ui.printHelp();
             }
             else if (str.startsWith("mark ") || str.startsWith("unmark ")
                     || str.startsWith("delete ")) {
                 updateList(str, tasks);
+                Storage.saveTasks("src/data/Duke.txt", tasks);
             }
             else if (str.startsWith("todo") || str.startsWith("deadline")
                     || str.startsWith("event")) {
                 addTasks(str, tasks);
+                Storage.saveTasks("src/data/Duke.txt", tasks);
             }
             else if (str.equals("list") || str.startsWith("find ")) {
                 returnList(str, tasks);
+                Storage.saveTasks("src/data/Duke.txt", tasks);
             } else {
                 throw new InvalidInputException(str);
             }

@@ -41,6 +41,9 @@ test {
         showStandardStreams = false
     }
 }
+run {
+    enableAssertions = true
+}
 
 application {
     mainClass.set("duke.Launcher")

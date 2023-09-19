@@ -12,6 +12,11 @@ import java.util.Scanner;
 
 public class Duke{
     TaskList tasks = Storage.loadTasks("src/data/Duke.txt");
+
+    /**
+     * Initiates interaction with the Duke application.
+     * This method prompts the user and parses their input.
+     */
     public void dukeInteraction() {
         Ui.printHello();
         Scanner scanner = new Scanner(System.in);

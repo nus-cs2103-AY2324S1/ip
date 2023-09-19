@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * It provides methods for adding, removing, and retrieving tasks from the list.
  */
 public class TaskList{
-    private List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
     /**
      * Default constructor to initialize an empty TaskList.
      */
