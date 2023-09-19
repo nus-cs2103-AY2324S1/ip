@@ -94,8 +94,6 @@ public class Gui extends Application {
 
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -132,4 +130,5 @@ public class Gui extends Application {
         }
         return ex.toString();
     }
+
 }

@@ -321,7 +321,7 @@ class DukeException extends Exception {
 
 
 /**
- * Manages displaying of information to the end-user.
+ * Builds output strings to show to the user.
  */
 
 class Ui {
@@ -392,18 +392,15 @@ class Ui {
      * Prints the introductory message to the end-user.
      */
 
-    public String printIntro() {
-        String out = "";
-        out += "Hello I'm Robot!\n";
-        out += "What can I do for you?\n";
-        return out;
+    public static String getIntroMessage() {
+        return "Hello, I'm Duke the Robot! How can I help you?\n";
     }
 
     /**
      * Prints the final message to the end-user when they exit the program.
      */
 
-    public String printExit() {
+    public static String getExitMessage() {
         return "Bye! Hope to see you again soon!\n";
     }
 

@@ -18,8 +18,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-
+    private Ui ui;
     private Gui gui;
+    private DtFormat dtf;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -27,8 +28,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(Ui.getIntroMessage(), dukeImage)
+        );
     }
-
+    /**
+     * Sets the Gui for the window.
+     */
     public void setGui(Gui g) {
         gui = g;
     }
@@ -46,9 +52,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         if (response.equals("bye")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(Ui.getExitMessage(), dukeImage)
+            );
             Stage stage = (Stage) userInput.getScene().getWindow();
             stage.close();
         }
         userInput.clear();
     }
+
+
 }
