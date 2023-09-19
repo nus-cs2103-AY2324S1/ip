@@ -78,7 +78,7 @@ public class Ui {
      * Displays a message when the task given is invalid.
      */
     public void invalidTaskMessage() {
-        showResponse("OOPS!!! I'm sorry but I don't know what that means :-(");
+        showResponse("Meow!!! I'm sorry but I don't know what that means :-(");
     }
 
     /**
@@ -114,7 +114,7 @@ public class Ui {
      * Displays a message when the user gives the wrong time format in the input.
      */
     public void wrongTimeFormat() {
-        showResponse("OOPS!! Looks like your time format is wrong, make sure to use "
+        showResponse("Meow!! Looks like your time format is wrong, make sure to use "
                 + "this format: DD/MM/YYYY HHmm.\nExample is 30/05/2023 2100.");
     }
 
@@ -151,7 +151,7 @@ public class Ui {
      * yet exist.
      */
     public void markUnmarkDeleteWrongTask() {
-        showResponse("OOPS!!! Such a task does not exist!");
+        showResponse("Meow!!! Such a task does not exist!");
     }
 
     /**
@@ -236,7 +236,7 @@ public class Ui {
      * Displays a message when there are no results that matches the user's query.
      */
     public void noSearchResults() {
-        showResponse("OOPS!!! There are no search results for your query.");
+        showResponse("Meow!!! There are no search results for your query.");
     }
 
     /**
