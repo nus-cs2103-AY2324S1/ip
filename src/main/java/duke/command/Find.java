@@ -30,6 +30,9 @@ public class Find extends Command {
      */
     @Override
     public String execute(TaskList lst, UI ui, Storage storage) throws DukeException {
+        if (str.isEmpty()) {
+            throw new DukeException("Please enter a search query.");
+        }
         return ui.showMatch(lst.find(str));
     }
 }

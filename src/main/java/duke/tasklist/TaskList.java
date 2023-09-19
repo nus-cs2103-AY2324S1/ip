@@ -114,17 +114,13 @@ public class TaskList extends ArrayList<Task> {
      * @return An ArrayList containing tasks that match the search query.
      */
     public ArrayList<Task> find(String string) {
-        if (string.isEmpty() || string.equals(" ")) {
-            return new ArrayList<>();
-        } else {
-            ArrayList<Task> res = new ArrayList<>();
-            forEach(x -> {
-                if (x.isMatch(string.substring(1))) {
-                    res.add(x);
-                }
-            });
-            return res;
-        }
+        ArrayList<Task> res = new ArrayList<>();
+        forEach(x -> {
+            if (x.isMatch(string)) {
+                res.add(x);
+            }
+        });
+        return res;
     }
 
     /**

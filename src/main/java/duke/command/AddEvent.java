@@ -25,13 +25,13 @@ public class AddEvent extends Command {
         super(str);
     }
 
-    private static final String EVENT_PATTERN = " \\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*";
+    private static final String EVENT_PATTERN = "\\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*";
 
     private Task generateTask(TaskList lst, String[] temp) throws DukeException {
         try {
-            LocalDate dFrom = LocalDate.parse(temp[1].substring(5));
-            LocalDate dTo = LocalDate.parse(temp[2].substring(3));
-            Task newTask = lst.addTask(temp[0].substring(1), dFrom, dTo);
+            LocalDate dFrom = LocalDate.parse(temp[1].substring(5).trim());
+            LocalDate dTo = LocalDate.parse(temp[2].substring(3).trim());
+            Task newTask = lst.addTask(temp[0].trim(), dFrom, dTo);
             assert newTask != null : "Task should not be null";
             return newTask;
         } catch (DateTimeException e) {
@@ -53,7 +53,7 @@ public class AddEvent extends Command {
      */
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
-        if (str.isEmpty() || str.equals(" ")) {
+        if (str.isEmpty()) {
             throw new DukeException("The description of a deadline cannot be empty.");
         } else if(str.matches(EVENT_PATTERN)) {
             String[] temp = str.split(" /");
@@ -63,7 +63,7 @@ public class AddEvent extends Command {
         } else {
             throw new DukeException(
                     "Can you follow the following pattern to add a task:\n  "
-                            + "deadline <task name> /by <deadline>\n");
+                            + "event <task name> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n");
         }
     }
 }

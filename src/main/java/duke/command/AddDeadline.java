@@ -15,7 +15,7 @@ import duke.ui.UI;
  */
 public class AddDeadline extends Command {
 
-    private static final String DEADLINE_PATTERN = " \\S.*\\s/by\\s\\d.*";
+    private static final String DEADLINE_PATTERN = "\\S.*\\s/by\\s\\d.*";
 
     /**
      * Constructs an AddDeadline command with the given input string.
@@ -29,7 +29,7 @@ public class AddDeadline extends Command {
     private Task generateTask(TaskList lst, String[] temp) throws DukeException {
         try {
             LocalDate d = LocalDate.parse(temp[1]);
-            Task newTask = lst.addTask(temp[0].substring(1), d);
+            Task newTask = lst.addTask(temp[0].trim(), d);
             assert newTask != null : "Task should not be null";
             return newTask;
         } catch (DateTimeException e) {
@@ -50,7 +50,7 @@ public class AddDeadline extends Command {
      */
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
-        if (str.isEmpty() || str.equals(" ")) {
+        if (str.isEmpty()) {
             throw new DukeException("The description of a deadline cannot be empty.");
         } else if (str.matches(DEADLINE_PATTERN)){
             String[] temp = str.split(" /by ");

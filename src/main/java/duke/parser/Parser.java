@@ -24,26 +24,26 @@ public class Parser {
      * @return A command object based on the parsed input.
      */
     public static Command parse(String instr) {
-        String keyWord = instr.split(" ")[0];
+        String keyWord = instr.trim().split(" ")[0];
         switch (keyWord) {
         case"":
             return new Unknown("You said nothing!\n");
         case "deadline":
-            return new AddDeadline(instr.substring(8));
+            return new AddDeadline(instr.substring(8).trim());
         case "event":
-            return new AddEvent(instr.substring(5));
+            return new AddEvent(instr.substring(5).trim());
         case "todo":
-            return new AddTodo(instr.substring(4));
+            return new AddTodo(instr.substring(4).trim());
         case "mark":
-            return new Remark(instr.substring(4), true);
+            return new Remark(instr.substring(4).trim(), true);
         case "unmark":
-            return new Remark(instr.substring(6), false);
+            return new Remark(instr.substring(6).trim(), false);
         case "delete":
-            return new Delete(instr.substring(6));
+            return new Delete(instr.substring(6).trim());
         case "find":
-            return new Find(instr.substring(4));
+            return new Find(instr.substring(4).trim());
         case "snooze":
-            return new Snooze(instr.substring(6));
+            return new Snooze(instr.substring(6).trim());
         case "list":
             return new List(instr);
         case "bye":
