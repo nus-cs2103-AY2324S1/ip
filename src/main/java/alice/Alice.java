@@ -70,6 +70,10 @@ public class Alice {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
+            // Exit the application if the command is an exit command.
+            if (command.isExit()) {
+                System.exit(0);
+            }
             return command.execute(tasks, ui, storage);
         } catch (DukeException e) {
             return ui.showError(e.getMessage());
