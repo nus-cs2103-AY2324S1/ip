@@ -47,14 +47,14 @@ public class DialogBox extends HBox {
             userDialog.setText(text);
 
             userDialog.setBackground(new Background(new BackgroundFill(Paint.valueOf("#e6f2ff"),
-                    new CornerRadii(10.0), new Insets(-10,-10,-10,-10))));
+                    new CornerRadii(10.0), new Insets(-10))));
             displayPicture.setImage(img);
         } else {
             userDialog.setText("");
             ukeDialog.setText(text);
 
             ukeDialog.setBackground(new Background(new BackgroundFill(Paint.valueOf("#f0e6ff"),
-                    new CornerRadii(10.0), new Insets(-10,-10,-10,-10))));
+                    new CornerRadii(10.0), new Insets(-10))));
             displayPicture.setImage(img);
         }
     }

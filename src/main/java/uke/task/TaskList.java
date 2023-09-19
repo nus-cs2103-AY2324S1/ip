@@ -121,7 +121,9 @@ public class TaskList {
             LocalDateTime dateTime = t.getDateTime();
 
             this.storedTasks.sort(new Comparator<Task>() {
-                public int compare(Task t1, Task t2) { return t1.getDateTime().compareTo(t2.getDateTime()); }
+                public int compare(Task t1, Task t2) {
+                    return t1.getDateTime().compareTo(t2.getDateTime());
+                }
             });
         }
     }

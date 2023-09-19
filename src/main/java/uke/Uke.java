@@ -1,5 +1,14 @@
 package uke;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
+import javafx.scene.image.Image;
 import uke.exception.UkeException;
 import uke.exception.UkeInvalidCommandException;
 import uke.exception.UkeInvalidDateException;
@@ -11,16 +20,6 @@ import uke.task.Event;
 import uke.task.Task;
 import uke.task.TaskList;
 import uke.task.Todo;
-
-import javafx.application.Platform;
-import javafx.scene.image.Image;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Represents the Uke chatbot.
@@ -62,36 +61,36 @@ public class Uke {
             String info = "";
 
             switch (command.toUpperCase()) {
-                case "BYE":
-                    return handleExit();
-                case "LIST":
-                    return handleList();
-                case "MARK":
-                    info = Parser.parseInfo(input);
-                    return handleMarking(info);
-                case "UNMARK":
-                    info = Parser.parseInfo(input);
-                    return handleUnmarking(info);
-                case "DELETE":
-                    info = Parser.parseInfo(input);
-                    return handleDelete(info);
-                case "TODO":
-                    info = Parser.parseInfo(input);
-                    return addTodo(info);
-                case "EVENT":
-                    info = Parser.parseInfo(input);
-                    return addEvent(info);
-                case "DEADLINE":
-                    info = Parser.parseInfo(input);
-                    return addDeadline(info);
-                case "FIND":
-                    info = Parser.parseInfo(input);
-                    return handleFind(info);
-                case "VIEW":
-                    info = Parser.parseInfo(input);
-                    return handleView(info);
-                default:
-                    throw new UkeInvalidCommandException(command);
+            case "BYE":
+                return handleExit();
+            case "LIST":
+                return handleList();
+            case "MARK":
+                info = Parser.parseInfo(input);
+                return handleMarking(info);
+            case "UNMARK":
+                info = Parser.parseInfo(input);
+                return handleUnmarking(info);
+            case "DELETE":
+                info = Parser.parseInfo(input);
+                return handleDelete(info);
+            case "TODO":
+                info = Parser.parseInfo(input);
+                return addTodo(info);
+            case "EVENT":
+                info = Parser.parseInfo(input);
+                return addEvent(info);
+            case "DEADLINE":
+                info = Parser.parseInfo(input);
+                return addDeadline(info);
+            case "FIND":
+                info = Parser.parseInfo(input);
+                return handleFind(info);
+            case "VIEW":
+                info = Parser.parseInfo(input);
+                return handleView(info);
+            default:
+                throw new UkeInvalidCommandException(command);
             }
         } catch (Exception e) {
             return ui.printError(e);
@@ -106,7 +105,9 @@ public class Uke {
     public String handleExit() throws UkeException {
         storage.update(tasks);
         new Timer().schedule(new TimerTask() {
-            public void run () { Platform.exit(); }
+            public void run() {
+                Platform.exit();
+            }
         }, 5000);
         return ui.printExit();
     }

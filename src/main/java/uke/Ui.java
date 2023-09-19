@@ -1,10 +1,10 @@
 package uke;
 
-import uke.task.Task;
-import uke.task.TaskList;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import uke.task.Task;
+import uke.task.TaskList;
 
 /**
  * Deals with interactions with the user.
@@ -67,7 +67,7 @@ public class Ui {
      * @return String representation of Uke's response which includes the task that was deleted.
      */
     public String printDelete(Task t, TaskList tl) {
-        return String.format("Okay! The following task has been deleted:\n%s\n%s", t, printNumberOfTasks(tl)) ;
+        return String.format("Okay! The following task has been deleted:\n%s\n%s", t, printNumberOfTasks(tl));
     }
 
     /**
