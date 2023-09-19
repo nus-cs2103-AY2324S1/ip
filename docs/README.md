@@ -1,29 +1,120 @@
-# User Guide
+# Duke
+>"Duke" is a sophisticated chatbot designed to be a versatile task manager and assistant for >users. It allows users to input tasks with or without specified deadlines and start dates. Users >can simply describe their tasks and optionally set deadlines and start dates for better >organization.
 
-## Features 
+Overall, Duke serves as an efficient and organized task manager that streamlines task creation, tracking, and retrieval. This chatbot's capabilities make it particularly useful for individuals looking to manage their tasks and responsibilities effectively, whether in an academic context or for personal use. In an academic context, Duke could assist the user, who is an engineering student, in managing assignments, projects, and deadlines related to their social science and arts-related academic writing modules.
 
-### Feature-ABC
+## Features
 
-Description of the feature.
+### Task Management
 
-### Feature-XYZ
+Duke allows users to input tasks, providing a brief description of each task. Users can specify deadlines and start dates for tasks if needed.
 
-Description of the feature.
+### Task Assignment
 
-## Usage
+Task Assignment: Users can assign tasks to Duke by describing the task they want to add, along with any relevant deadlines or start dates.
 
-### `Keyword` - Describe action
+### Task Completion
 
-Describe the action and its outcome.
+Duke enables users to mark tasks as "done" when they are completed. This helps users keep track of their progress.
 
-Example of usage: 
+### Search functionality
 
-`keyword (optional arguments)`
+Duke includes a search feature that allows users to search for specific strings or keywords within their task descriptions. This makes it easy to find and retrieve specific tasks or information.
+
+### `todo` - Adds a task that is to be done
+
+Example of usage:
+
+`todo [description]`
 
 Expected outcome:
 
-Description of the outcome.
+Outputs all the tasks along with the one that has been added
 
 ```
-expected output
+[T][ ] description
+```
+
+### `deadline` - Adds a task with a deadline to be completed
+
+Example of usage:
+
+`deadline [description] /by [2020-08-08 18:00]`
+
+Expected outcome:
+
+Outputs all the tasks along with the one that has been added
+
+```
+[D][ ] description (by: Aug 08 2020 06:00 PM)
+```
+
+### `event` - Adds a task with a start and end time
+
+Example of usage:
+
+`event [description] /from [18:00] /to [19:00]`
+
+Expected outcome:
+
+Outputs all the tasks along with the one that has been added
+
+```
+[E][ ] description (from: 06:00 PM to: 07:00 PM)
+```
+
+### `find` - searches the tasklist for similar strings
+
+Example of usage:
+
+`todo reach house`
+`todo go to bed`
+`todo house cleaning`
+`find house`
+
+Expected outcome:
+
+Outputs all the tasks that have been used so far that match the search string
+
+```
+1. [T][ ] reach house
+2. [T][ ] house cleaning
+```
+
+### `mark / unmark` - Marks a task as done / not done
+
+Example of usage:
+
+`todo reach house`
+`todo go to bed`
+`todo house cleaning`
+`mark 1`
+
+Expected outcome:
+
+Marks the task as done
+
+```
+1. [T][X] reach house
+2. [T][ ] go to bed
+2. [T][ ] house cleaning
+```
+
+### `list` - Lists the tasks that have been input
+
+Example of usage:
+
+`todo reach house`
+`todo go to bed`
+`todo house cleaning`
+`list`
+
+Expected outcome:
+
+Outputs all the tasks that have been used so far
+
+```
+1. [T][ ] reach house
+2. [T][ ] go to bed
+2. [T][ ] house cleaning
 ```
