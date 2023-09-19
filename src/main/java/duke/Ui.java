@@ -92,7 +92,9 @@ public class Ui {
         StringBuilder resultBuilder = new StringBuilder();
 
         if (allTasks.isEmpty()) {
-            resultBuilder.append("You have no tasks in your list.\n");
+            resultBuilder.append(horizontalLine
+                    + "You have no tasks in your list.\n"
+                    + horizontalLine);
             return resultBuilder.toString();
         }
 
@@ -104,7 +106,9 @@ public class Ui {
         }
 
         if (filteredList.getTasks().isEmpty()) {
-            resultBuilder.append("You have no matching tasks in your list.\n");
+            resultBuilder.append(horizontalLine
+                    + "You have no matching tasks in your list.\n"
+                    + horizontalLine);
             return resultBuilder.toString();
         }
 
