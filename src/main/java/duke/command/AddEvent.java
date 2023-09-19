@@ -27,7 +27,7 @@ public class AddEvent extends Command {
 
     private static final String EVENT_PATTERN = " \\S.*\\s/from\\s\\d.*\\s/to\\s\\d.*";
 
-    private Task addTask(TaskList lst, String[] temp) throws DukeException {
+    private Task generateTask(TaskList lst, String[] temp) throws DukeException {
         try {
             LocalDate dFrom = LocalDate.parse(temp[1].substring(5));
             LocalDate dTo = LocalDate.parse(temp[2].substring(3));
@@ -57,7 +57,7 @@ public class AddEvent extends Command {
             throw new DukeException("The description of a deadline cannot be empty.");
         } else if(str.matches(EVENT_PATTERN)) {
             String[] temp = str.split(" /");
-            Task newTask = addTask(lst, temp);
+            Task newTask = generateTask(lst, temp);
             storage.addToFile(newTask);
             return io.addTask(newTask, lst);
         } else {

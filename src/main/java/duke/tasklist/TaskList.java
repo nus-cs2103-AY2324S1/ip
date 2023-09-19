@@ -44,11 +44,11 @@ public class TaskList extends ArrayList<Task> {
      * Adds a Deadline task with the specified name and deadline to the task list.
      *
      * @param name The name or description of the task.
-     * @param d The deadline of the task.
+     * @param date The deadline of the task.
      * @return The added Deadline task.
      */
-    public Task addTask(String name, LocalDate d) {
-        Task t = Task.of(name, d);
+    public Task addTask(String name, LocalDate date) {
+        Task t = Task.of(name, date);
         add(t);
         return t;
     }
@@ -57,12 +57,12 @@ public class TaskList extends ArrayList<Task> {
      * Adds an Event task with the specified name and event times to the task list.
      *
      * @param name The name or description of the task.
-     * @param dFrom The start time of the event.
-     * @param dTo The end time of the event.
+     * @param dateFrom The start time of the event.
+     * @param dateTo The end time of the event.
      * @return The added Event task.
      */
-    public Task addTask(String name, LocalDate dFrom, LocalDate dTo) {
-        Task t = Task.of(name, dFrom, dTo);
+    public Task addTask(String name, LocalDate dateFrom, LocalDate dateTo) {
+        Task t = Task.of(name, dateFrom, dateTo);
         add(t);
         return t;
     }
@@ -110,16 +110,16 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Searches the task list for tasks that match the given search query.
      *
-     * @param s The search query to match against task names.
+     * @param string The search query to match against task names.
      * @return An ArrayList containing tasks that match the search query.
      */
-    public ArrayList<Task> find(String s) {
-        if (s.isEmpty() || s.equals(" ")) {
+    public ArrayList<Task> find(String string) {
+        if (string.isEmpty() || string.equals(" ")) {
             return new ArrayList<>();
         } else {
             ArrayList<Task> res = new ArrayList<>();
             forEach(x -> {
-                if (x.isMatch(s.substring(1))) {
+                if (x.isMatch(string.substring(1))) {
                     res.add(x);
                 }
             });

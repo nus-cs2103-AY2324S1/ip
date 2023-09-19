@@ -26,7 +26,7 @@ public class AddDeadline extends Command {
         super(str);
     }
 
-    private Task addTask(TaskList lst, String[] temp) throws DukeException {
+    private Task generateTask(TaskList lst, String[] temp) throws DukeException {
         try {
             LocalDate d = LocalDate.parse(temp[1]);
             Task newTask = lst.addTask(temp[0].substring(1), d);
@@ -54,7 +54,7 @@ public class AddDeadline extends Command {
             throw new DukeException("The description of a deadline cannot be empty.");
         } else if (str.matches(DEADLINE_PATTERN)){
             String[] temp = str.split(" /by ");
-            Task newTask = addTask(lst, temp);
+            Task newTask = generateTask(lst, temp);
             storage.addToFile(newTask);
             return io.addTask(newTask, lst);
         } else {
