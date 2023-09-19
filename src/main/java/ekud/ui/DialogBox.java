@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
@@ -26,6 +27,9 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    private static final String USER_DIALOG_BG_COLOR = "#D5FFC9";
+    private static final String DUKE_DIALOG_BG_COLOR = "#DCFFFD";
+
 
     private DialogBox(String text, Image img) {
         try {
@@ -57,12 +61,15 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setStyle(String.format("-fx-background-color: %s", USER_DIALOG_BG_COLOR));
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setStyle(String.format("-fx-background-color: %s", DUKE_DIALOG_BG_COLOR));
         return db;
     }
 }
