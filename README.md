@@ -2,6 +2,10 @@
 
 Cupid Bot serves to track all your todos, deadlines and events all in one application. It's named after the god of love and affection _Cupid_. Given below are instructions on how to use it.
 
+## Sample UI
+
+![Screenshot of sample UI](https://github.com/nicrandomlee/ip/blob/master/src/main/resources/Ui.png?raw=true)
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
