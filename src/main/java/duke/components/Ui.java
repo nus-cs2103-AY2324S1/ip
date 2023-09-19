@@ -62,7 +62,7 @@ public class Ui {
      * @return an update that task was deleted successfully.
      */
     public String showDeleteTask(Task removed, int listSize) {
-        String header = "ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:\n" + removed + "\n";
+        String header = "(/ˊuˋ)/ Ok! I've removed this task:\n" + removed + "\n";
         String numberOfTasksLeft = this.showNumberOfTasks(listSize);
         return header + numberOfTasksLeft;
     }
