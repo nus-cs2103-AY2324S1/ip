@@ -1,5 +1,8 @@
 package skye;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -59,6 +62,18 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getDukeDialog(response, skyeImage)
             );
             userInput.clear();
+        }
+
+        if (skye.isExit()) {
+            // Exit from the program after a delay of 1 second.
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            };
+            Timer timer = new Timer();
+            timer.schedule(timerTask, 1000);
         }
     }
 }
