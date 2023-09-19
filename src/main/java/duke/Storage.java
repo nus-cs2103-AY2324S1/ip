@@ -16,10 +16,10 @@ import duke.task.Task;
 public class Storage {
     private final File file;
 
-    // finds the file at filePath, creates the file if is not already there
 
     /**
      * Creates the Storage object.
+     * Finds the file at filePath, creates the file if is not already there
      *
      * @param filePath
      * @throws DukeException

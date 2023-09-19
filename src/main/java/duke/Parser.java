@@ -40,8 +40,6 @@ public class Parser {
     public Parser() {
     }
 
-    // takes in a line of text, split into different parts and covert them to a task
-
     /**
      * Converts a line of text into different useful parts and convert into a task.
      *
@@ -49,12 +47,8 @@ public class Parser {
      * @return The task made from user input.
      */
     public static Command parse(String text) throws DukeException {
-        //ArrayList<String> result = new ArrayList<>();
         String[] parts = text.split(" ", 2);
-        String description = null;
-        if (parts.length >= 2) {
-            description = parts[1];
-        }
+        String description = parts.length >= 2 ? parts[1] : null;
         Cmd action = COMMAND_MAP.get(parts[0]);
         switch (action) {
         case EXIT:
@@ -65,90 +59,22 @@ public class Parser {
             return new FindCommand(description);
         // tasks related commands below
         case MARK:
-            int taskNumber;
-            try {
-                taskNumber = Integer.parseInt(description) - 1;
-            } catch (NumberFormatException e) {
-                throw new DukeException("Invalid task number. Please enter a valid number to mark");
-            }
-            return new MarkCommand(taskNumber);
+            return handleMark(description);
         case UNMARK:
-            int taskNumberToUnmark;
-            try {
-                taskNumberToUnmark = Integer.parseInt(description) - 1;
-            } catch (NumberFormatException e) {
-                throw new DukeException(
-                        "Invalid task number. Please enter a valid number to unmark");
-            }
-            return new UnmarkCommand(taskNumberToUnmark);
+            return handleUnmark(description);
         case DELETE:
-            int taskNumberToDelete;
-            try {
-                taskNumberToDelete = Integer.parseInt(description) - 1;
-            } catch (NumberFormatException e) {
-                throw new DukeException(
-                        "Invalid task number. Please enter a valid number to delete");
-            }
-            return new DeleteCommand(taskNumberToDelete);
+            return handleDelete(description);
         case TODO:
-            String[] todoParts = description.split(" /at ");
-            String todoLocation = "";
-            if (todoParts.length > 1) {
-                description = todoParts[0];
-                todoLocation = todoParts[1];
-            }
-            return new TodoCommand(description, todoLocation);
+            return handleTodo(description);
         case EVENT:
-            try {
-                parts = description.split(" /from ", 2);
-                String eventLocation = "";
-                description = parts[0];
-                String eventDates = parts[1];
-                parts = eventDates.split(" /to ", 2);
-                String fromTime = parts[0];
-                String toTime = parts[1];
-                parts = toTime.split(" /at ", 2);
-                if (parts.length > 1) {
-                    toTime = parts[0];
-                    eventLocation = parts[1];
-                }
-                LocalDate parsedFromTime = LocalDate.parse(fromTime);
-                LocalDate parsedToTime = LocalDate.parse(toTime);
-                return new EventCommand(description, eventLocation, parsedFromTime, parsedToTime);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException(
-                        "Invalid format for adding an event! Please enter in this format:\n"
-                                + "event [description] /from [date] /to [date]");
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Wrong date format! Please use yyyy-mm-dd format");
-            }
+            return handleEvent(description);
         case DEADLINE:
-            try {
-                parts = description.split(" /by ", 2);
-                String deadlineLocation = "";
-                description = parts[0];
-                String deadline = parts[1];
-                parts = deadline.split(" /at ", 2);
-                if (parts.length > 1) {
-                    deadline = parts[0];
-                    deadlineLocation = parts[1];
-                }
-                LocalDate parsedDeadline = LocalDate.parse(deadline);
-                return new DeadlineCommand(description, deadlineLocation, parsedDeadline);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException(
-                        "Invalid format for adding a deadline! Please enter in this format:\n"
-                                + "deadline [description] /by [date]");
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Wrong date format! Please use yyyy-mm-dd format");
-            }
+            return handleDeadline(description);
         case LOCATION:
-            // finds all tasks at certain location given by description
-            return new LocationCommand(description);
+            return handleLocation(description);
         default:
-            throw new DukeException("Command given is invalid! You must start with a "
-                    + "todo/event/deadline to add tasks, "
-                    + "or list/mark/unmark/bye for other purposes");
+            handleDefault();
+            return null;
         }
     }
 
@@ -181,5 +107,107 @@ public class Parser {
         }
         assert task != null : "task should not be empty after parsing";
         return task;
+    }
+
+    // below are some private methods abstracted out from the main parsing method
+    private static MarkCommand handleMark(String description) throws DukeException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(description) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid task number. Please enter a valid number to mark");
+        }
+        return new MarkCommand(taskNumber);
+    }
+
+    private static UnmarkCommand handleUnmark(String description) throws DukeException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(description) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException(
+                    "Invalid task number. Please enter a valid number to unmark");
+        }
+        return new UnmarkCommand(taskNumber);
+    }
+
+    private static DeleteCommand handleDelete(String description) throws DukeException {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(description) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException(
+                    "Invalid task number. Please enter a valid number to delete");
+        }
+        return new DeleteCommand(taskNumber);
+    }
+
+    private static TodoCommand handleTodo(String description) throws DukeException {
+        String[] todoParts = description.split(" /at ");
+        String todoLocation = "";
+        if (todoParts.length > 1) {
+            description = todoParts[0];
+            todoLocation = todoParts[1];
+        }
+        return new TodoCommand(description, todoLocation);
+    }
+
+    private static EventCommand handleEvent(String description) throws DukeException {
+        try {
+            String[] parts = description.split(" /from ", 2);
+            String eventLocation = "";
+            description = parts[0];
+            String eventDates = parts[1];
+            parts = eventDates.split(" /to ", 2);
+            String fromTime = parts[0];
+            String toTime = parts[1];
+            parts = toTime.split(" /at ", 2);
+            if (parts.length > 1) {
+                toTime = parts[0];
+                eventLocation = parts[1];
+            }
+            LocalDate parsedFromTime = LocalDate.parse(fromTime);
+            LocalDate parsedToTime = LocalDate.parse(toTime);
+            return new EventCommand(description, eventLocation, parsedFromTime, parsedToTime);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(
+                    "Invalid format for adding an event! Please enter in this format:\n"
+                            + "event [description] /from [date] /to [date]");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Wrong date format! Please use yyyy-mm-dd format");
+        }
+    }
+
+    private static DeadlineCommand handleDeadline(String description) throws DukeException {
+        try {
+            String[] parts = description.split(" /by ", 2);
+            String deadlineLocation = "";
+            description = parts[0];
+            String deadline = parts[1];
+            parts = deadline.split(" /at ", 2);
+            if (parts.length > 1) {
+                deadline = parts[0];
+                deadlineLocation = parts[1];
+            }
+            LocalDate parsedDeadline = LocalDate.parse(deadline);
+            return new DeadlineCommand(description, deadlineLocation, parsedDeadline);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(
+                    "Invalid format for adding a deadline! Please enter in this format:\n"
+                            + "deadline [description] /by [date]");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Wrong date format! Please use yyyy-mm-dd format");
+        }
+    }
+
+    private static LocationCommand handleLocation(String description) throws DukeException {
+        // finds all tasks at certain location given by description
+        return new LocationCommand(description);
+    }
+
+    private static void handleDefault() throws DukeException {
+        throw new DukeException("Command given is invalid! You must start with a "
+                + "todo/event/deadline to add tasks, "
+                + "or list/mark/unmark/bye for other purposes");
     }
 }

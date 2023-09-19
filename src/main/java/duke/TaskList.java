@@ -82,7 +82,7 @@ public class TaskList {
     }
 
     /**
-     * Convert the tasks in the list into the correct format of String.
+     * Converts the tasks in the list into the correct format of String.
      *
      * @return Formatted tasks Strings.
      */
@@ -106,14 +106,11 @@ public class TaskList {
         return sb.toString();
     }
 
-    // takes in date input and output the list of tasks on that date (in the form of
-    // taskList's toString())
-    // No todos will be printed, since there is no dates
-    // Events will be printed only if the input date is within the date range of Event
-    // Deadline will be printed if the deadline is the same as date input
-
     /**
      * Finds all the tasks in the list that falls on the given date.
+     * No todos will be returned, since there is no dates
+     * Events will be returned only if the input date is within the date range of Event
+     * Deadline will be returned if the deadline is the same as date input
      *
      * @param date The date to check.
      * @return String of all tasks on the date.
