@@ -27,6 +27,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "T | " + super.completionStatus() + " | " + this.description;
+        return "T | " + super.completionStatus() + " | " + this.description + " | " + priorityString();
     }
 }

@@ -15,6 +15,6 @@ public class TaskListTest {
         Ui ui = new Ui();
         TaskList tasklst = new TaskList();
         tasklst.addTask(new ToDo("Homework"), ui);
-        assertEquals("T | 0 | Homework", tasklst.toWriteFormat().get(0));
+        assertEquals("T | 0 | Homework | LOW", tasklst.toWriteFormat().get(0));
     }
 }

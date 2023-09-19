@@ -10,7 +10,7 @@ import duke.task.Task;
 public class Ui {
     /**
      * Prints complete message when action is carried out.
-     * @param message complete message to be displayed
+     * @param message message to be displayed
      */
     public String showComplete(String message) {
         return message;

@@ -1,4 +1,7 @@
 package duke.task;
+
+import duke.util.Priority;
+
 /**
  * Task encapsulate a task with a String description and boolean isDone. It supports
  * marking the completion of tasks
@@ -6,6 +9,7 @@ package duke.task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Priority priority = Priority.LOW; //default priority of the task is low
 
     /**
      * Constructs a Task with a given description. Completion of the task
@@ -38,7 +42,7 @@ public class Task {
      * @return String containing completion status and description of task
      */
     public String toString() {
-        return " [" + getStatusIcon() + "] " + this.description;
+        return " [" + getStatusIcon() + "] " + this.description + " " + priorityString();
     }
 
     /**
@@ -70,5 +74,30 @@ public class Task {
      */
     public String completionStatus() {
         return this.isDone ? "1" : "0";
+    }
+
+    /**
+     * Sets the priority of current task.
+     * @param priority priority of task to be set to
+     */
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * Converts priority enum to String.
+     * @return string representation of enum
+     */
+    public String priorityString() {
+        assert priority != null;
+
+        switch (priority) {
+        case MEDIUM:
+            return "MEDIUM";
+        case HIGH:
+            return "HIGH";
+        default:
+            return "LOW"; //default priority should be low;
+        }
     }
 }
