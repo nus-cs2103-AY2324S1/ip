@@ -3,6 +3,9 @@ package duke.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import duke.exception.KoraException;
@@ -21,13 +24,27 @@ public class Storage {
     private static final String DEFAULT_PATH = "./data/savedtask.txt";
 
     private String path;
+    private TaskList taskList;
+    private Scanner scanner;
 
     /**
      * Class constructor of Storage.
      * @param filePath Location of the data stored.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath) throws KoraException {
         path = filePath;
+        taskList = new TaskList();
+        createFile();
+        initialiseScanner();
+    }
+
+    public void initialiseScanner() throws KoraException {
+        try {
+            File f = new File(path);
+            this.scanner = new Scanner(f);
+        } catch (IOException e) {
+                throw new KoraException("Unable to scan!");
+        }
     }
 
     /**
@@ -53,33 +70,36 @@ public class Storage {
 
     /**
      * Loads tasks from data stored.
-     * @param taskList List of tasks that is stored.
      * @throws KoraException When unable to scan.
      */
-    public void loadTask(TaskList taskList) throws KoraException {
-        createFile();
-        File f = new File(path);
+    public List<Task> loadTask() throws KoraException {
+        List<Task> list = new ArrayList<>();
+        String[] array;
         try {
-            Scanner s = new Scanner(f);
-            String[] array;
-            while (s.hasNextLine()) {
-                array = s.nextLine().split("/ ");
+            while (scanner.hasNext()) {
+                array = scanner.nextLine().split(" / ");
+                if (array[0].equals("")) {
+                    continue;
+                }
+                list.add(checkTask(array));
                 taskList.addTask(checkTask(array));
             }
-        } catch (IOException e) {
-            throw new KoraException("Unable to scan!");
+        } catch (NullPointerException e) {
+            return list;
         }
+        return list;
     }
 
 
     /**
      * Saves tasks in the current tasklist.
-     * @param taskList Current list of tasks.
+     * @param task Current task to be added.
      * @throws KoraException When unable to add.
      */
-    public void saveTask(TaskList taskList) throws KoraException {
+    public void saveTask(Task task) throws KoraException {
 
         try (FileWriter fw = new FileWriter(path, false)) {
+            taskList.addTask(task);
             fw.write(taskList.saveFormat());
         } catch (IOException e) {
             throw new KoraException("Couldn't add!");
@@ -114,19 +134,21 @@ public class Storage {
         return currentTask;
     }
 
-    public void loadCommand(CommandList commandList) throws KoraException {
-        createFile();
-        File f = new File(path);
+    public List<String[]> loadCommand() throws KoraException {
+        List<String[]> list = new ArrayList<>();
+        String[] array;
         try {
-            Scanner s = new Scanner(f);
-            String[] array;
-            while (s.hasNextLine()) {
-                array = s.nextLine().split("/ ");
-                commandList.saveCommand(array);
+            while (scanner.hasNext()) {
+                array = scanner.nextLine().split("/ ");
+                if (array[0].equals("")) {
+                    continue;
+                }
+                list.add(array);
             }
-        } catch (IOException e) {
-            throw new KoraException("Unable to scan!");
+        } catch (NullPointerException e) {
+            return list;
         }
+        return list;
     }
     public void saveCommand(CommandList commandList) throws KoraException {
         try (FileWriter fw = new FileWriter(path, false)) {
@@ -135,4 +157,6 @@ public class Storage {
             throw new KoraException("Couldn't add!");
         }
     }
+
+
 }

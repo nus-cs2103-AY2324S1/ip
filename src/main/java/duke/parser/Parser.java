@@ -64,6 +64,12 @@ public class Parser {
                 case "unset":
                     command = new UnsetCommand(userInput);
                     break;
+                case "load":
+                    command = new LoadFileCommand(userInput);
+                    break;
+                case "change":
+                    command = new ChangeFileCommand(userInput);
+                    break;
                 default:
                     command = new InvalidCommand();
             }

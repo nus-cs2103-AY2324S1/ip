@@ -23,7 +23,7 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList taskList, Storage storage) throws KoraException {
         Task currentTask = taskList.getTask(taskIndex);
         currentTask.setUnmarked();
-        storage.saveTask(taskList);
+        storage.saveTask(currentTask);
         commandMessage = "Wow you are not done!" + "\n" + currentTask.toString();
     }
 }

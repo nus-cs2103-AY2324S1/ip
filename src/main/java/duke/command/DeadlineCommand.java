@@ -29,7 +29,7 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList taskList, Storage storage) throws KoraException {
         Task currentTask = new Deadline(taskDetails, timeDetails);
         taskList.addTask(currentTask);
-        storage.saveTask(taskList);
+        storage.saveTask(currentTask);
         commandMessage = "Okay! I have added this task" + "\n"
                 + currentTask.toString() + "\n"
                 + String.format("Now you have %d tasks!", taskList.getLength());

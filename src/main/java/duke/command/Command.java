@@ -52,5 +52,13 @@ public abstract class Command {
 
     public void executeSet(CommandList commandList, Storage storage) throws KoraException {
         return;
-    };
+    }
+
+    public boolean isFileCommand() {
+        return false;
+    }
+
+    public String getFilePath() {
+        return "";
+    }
 }
