@@ -33,11 +33,11 @@ public class TaskList extends ArrayList<Task>{
     public String listTasks() {
         StringBuilder result = new StringBuilder();
         if (tasks.size() == 0) {
-            result.append("\t No tasks added yet.");
+            result.append("No tasks added yet.");
         } else {
-            result.append("\t Here are the tasks in your list:\n");
+            result.append("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                result.append("\t ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
+                result.append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }
         }
         return result.toString();
@@ -75,7 +75,7 @@ public class TaskList extends ArrayList<Task>{
         if (index >= 0 && index < tasks.size()) {
             return tasks.get(index);
         } else {
-            throw new DukeException("\t ☹ OOPS!!! Task not found.");
+            throw new DukeException("Task not found.");
         }
     }
 
@@ -92,7 +92,7 @@ public class TaskList extends ArrayList<Task>{
                 tasks.remove(index);
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("\t ☹ OOPS!!! Please enter a" +
+            System.out.println("Please enter a" +
              " valid task index to delete.");
         }
     }
@@ -110,7 +110,7 @@ public class TaskList extends ArrayList<Task>{
             if (index >= 0 && index < tasks.size()) {
                 tasks.get(index).markDone();
             } else {
-                throw new DukeException("☹ OOPS!!! Task not found.");
+                throw new DukeException("Task not found.");
             }
         } catch (DukeException e) {
             e.getMessage();

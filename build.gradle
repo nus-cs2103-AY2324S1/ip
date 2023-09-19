@@ -57,7 +57,6 @@ application {
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{

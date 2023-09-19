@@ -40,7 +40,7 @@ public class Parser {
         case "find":
             return parseFindCommand(input);
         default:
-            throw new DukeException("\t I'm sorry, but I don't know what that means.");
+            throw new DukeException("I'm sorry, but I don't know what that means.");
         }
     }
 
@@ -57,7 +57,7 @@ public class Parser {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             return commandType.equals("mark") ? new MarkCommand(taskIndex) : new UnmarkCommand(taskIndex);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("\t Please enter a valid task index to mark/unmark.");
+            throw new DukeException("Please enter a valid task index to mark/unmark.");
         }
     }
 
@@ -71,7 +71,7 @@ public class Parser {
     private static Command parseTodoCommand(String input) throws DukeException {
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
-            throw new DukeException("\t The description of a todo cannot be empty.");
+            throw new DukeException("The description of a todo cannot be empty.");
         }
         return new AddCommand(new Todo(description, false));
     }
@@ -86,15 +86,15 @@ public class Parser {
     private static Command parseDeadlineCommand(String input) throws DukeException {
         int byIndex = input.indexOf("/by");
         if (byIndex == -1) {
-            throw new DukeException("\t The deadline description must include a /by date.");
+            throw new DukeException("The deadline description must include a /by date.");
         }
         String description = input.substring(9, byIndex).trim();
         if (description.isEmpty()) {
-            throw new DukeException("\t The deadline description cannot be empty.");
+            throw new DukeException("The deadline description cannot be empty.");
         }
         String by = input.substring(byIndex + 3).trim();
         if (!isValidDateFormat(by)) {
-            throw new DukeException("\t The deadline date must be in the format yyyy-MM-dd.");
+            throw new DukeException("The deadline date must be in the format yyyy-MM-dd.");
         }
         return new AddCommand(new Deadline(description, false, by));
     }
@@ -110,16 +110,16 @@ public class Parser {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
         if (fromIndex == -1 || toIndex == -1) {
-            throw new DukeException("\t The event description must include both /from and /to dates.");
+            throw new DukeException("The event description must include both /from and /to dates.");
         }
         String description = input.substring(6, fromIndex).trim();
         if (description.isEmpty()) {
-            throw new DukeException("\t The event description cannot be empty.");
+            throw new DukeException("The event description cannot be empty.");
         }
         String from = input.substring(fromIndex + 5, toIndex).trim();
         String to = input.substring(toIndex + 3).trim();
         if (!isValidDateFormat(from) || !isValidDateFormat(to)) {
-            throw new DukeException("\t The event from and to date must be in the format yyyy-MM-dd.");
+            throw new DukeException("The event from and to date must be in the format yyyy-MM-dd.");
         }
         return new AddCommand(new Event(description, false, from, to));
     }
@@ -136,7 +136,7 @@ public class Parser {
             int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
             return new DeleteCommand(taskIndex);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("\t Please enter a valid task index to delete.");
+            throw new DukeException("Please enter a valid task index to delete.");
         }
     }
 

@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import java.io.File;
+
 /**
  * Handles the loading and saving of tasks from/to a specified file.
  */
@@ -34,8 +36,10 @@ public class Storage {
      * @throws DukeException If there are errors during loading.
      */
     public TaskList load() throws DukeException {
+        fileCheck(); // Check if the file exists
+
         try {
-            FileReader fileReader = new FileReader("./data/tasks.txt");
+            FileReader fileReader = new FileReader(filePath); // Use the specified file path
             Scanner scanner = new Scanner(fileReader);
 
             while (scanner.hasNext()) {
@@ -81,8 +85,9 @@ public class Storage {
      * @throws DukeException If there are errors during saving.
      */
     public void saveTasks(TaskList tasks) throws DukeException {
+        fileCheck(); // Check if the file exists
         try {
-            FileWriter fileWriter = new FileWriter("./data/tasks.txt");
+            FileWriter fileWriter = new FileWriter(filePath);
             for (int i = 0 ; i < tasks.listSize() ; i++) {
                 String taskType = "";
                 String dateInfo = "";
@@ -109,6 +114,19 @@ public class Storage {
             throw new DukeException("Error saving tasks: " + e.getMessage());
         } catch (DukeException e) {
             throw new DukeException("Invalid tasks in list: " + e.getMessage());
+        }
+    }
+
+    public void fileCheck() throws DukeException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            // File does not exist, create the necessary directories and files.
+            file.getParentFile().mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new DukeException("Error creating the file: " + e.getMessage());
+            }
         }
     }
 }

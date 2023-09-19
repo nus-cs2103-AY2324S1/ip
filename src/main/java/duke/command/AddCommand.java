@@ -32,8 +32,9 @@ public class AddCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.containsDuplicate(taskToAdd)) {
-            return "\t A task with the same description already exists.";
-        } else {
+            return "A task with the same description already exists.";
+        }
+        else {
             tasks.addTask(taskToAdd);
             storage.saveTasks(tasks);
             return ui.showAdded(taskToAdd, tasks.listSize());

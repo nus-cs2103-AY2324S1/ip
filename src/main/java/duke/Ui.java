@@ -29,10 +29,10 @@ public class Ui {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String welcomeMessage = "Hello from\n" + logo + "\n"
-                + "\t____________________________________________________________\n"
-                + "\t Hello! I'm Duke.\n"
-                + "\t What can I do for you?\n"
-                + "\t____________________________________________________________";
+                + "____________________________________________________________\n"
+                + " Hello! I'm Duke.\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
         return welcomeMessage;
     }
 
@@ -42,7 +42,7 @@ public class Ui {
      * @return The exit message.
      */
     public String showExit() {
-        return "\t Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon! Please close this window.";
     }
 
     /**
@@ -70,7 +70,7 @@ public class Ui {
      * @return The horizontal line separator.
      */
     public String showLine() {
-        return "\t____________________________________________________________";
+        return "____________________________________________________________";
     }
 
     /**
@@ -81,9 +81,9 @@ public class Ui {
      * @return The message for adding a task.
      */
     public String showAdded(Task task, int size) {
-        return "\t Got it. I've added this task:\n"
-                + "\t\t" + task + "\n"
-                + "\t Now you have " + size + " task(s) in the list.";
+        return "Got it. I've added this task:\n"
+                + task + "\n"
+                + "Now you have " + size + " task(s) in the list.";
     }
 
     /**
@@ -94,9 +94,9 @@ public class Ui {
      * @return The message for deleting a task.
      */
     public String showDeleted(Task task, int size) {
-        return "\t Noted. I've removed this task:\n"
-                + "\t   " + task + "\n"
-                + "\t Now you have " + size + " tasks in the list.";
+        return "Noted. I've removed this task:\n"
+                + "   " + task + "\n"
+                + " Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -106,8 +106,8 @@ public class Ui {
      * @return The message for marking a task as done.
      */
     public String showMarked(Task task) {
-        return "\t Nice! I've marked this task as done:\n"
-                + "\t   " + task;
+        return "Nice! I've marked this task as done:\n"
+                + "   " + task;
     }
 
     /**
@@ -117,8 +117,8 @@ public class Ui {
      * @return The message for marking a task as not done.
      */
     public String showUnmarked(Task task) {
-        return "\t OK, I've marked this task as not done yet:\n"
-                + "\t   " + task;
+        return "OK, I've marked this task as not done yet:\n"
+                + "   " + task;
     }
 
     /**
@@ -138,9 +138,9 @@ public class Ui {
      * @return The matching tasks as a String.
      */
     public String showMatchingTasks(TaskList matchingTasks) {
-        StringBuilder result = new StringBuilder("\t Here are the matching tasks in your list:\n");
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            result.append("\t ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
+            result.append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
         }
         return result.toString();
     }

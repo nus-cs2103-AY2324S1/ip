@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        String welcome = "\t Hey! I'm Duke";
+        String welcome = "Hey! I'm Duke";
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(welcome, dukeImage)
         );

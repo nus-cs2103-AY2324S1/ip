@@ -43,7 +43,7 @@ public class Duke extends Application {
      * Constructs a Duke instance with the specified file path.
      */
     public Duke() {
-        String filePath = "data/duke.txt";
+        String filePath = "./data/duke.txt";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -175,7 +175,7 @@ public class Duke extends Application {
      * @param args
      */
     public static void main(String[] args) {
-        new Duke().run();
+        launch(args);
     }
 
 
@@ -192,9 +192,6 @@ public class Duke extends Application {
         );
         userInput.clear();
     }
-
-
-
 
     /**
      * Generates a response to user input.
