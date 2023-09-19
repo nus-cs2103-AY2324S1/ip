@@ -57,7 +57,7 @@ public class DataParser {
      * @return An Event object corresponding to the parsed line.
      */
     public static Event parseEvent(String line) {
-        int descriptionStart = line.indexOf("] ") ; // Index of the first character after "] "
+        int descriptionStart = line.indexOf("] "); // Index of the first character after "] "
         int startFromIndex = line.indexOf("from ") + 6; // Index of the character after "from: "
         int toIndex = line.indexOf("to ", startFromIndex); // Index of the character before "to: "
         int endFromIndex = toIndex + 4; // Index of the character after "to: "

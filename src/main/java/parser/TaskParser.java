@@ -65,7 +65,9 @@ public class TaskParser {
 
     private ToDo parseTodo(String input) throws InvalidTaskFormatException {
         String taskDescription = input.replace("todo", "").trim();
-        if (taskDescription.isEmpty()) return null;
+        if (taskDescription.isEmpty()) {
+            return null;
+        }
         return new ToDo(taskDescription);
     }
 
