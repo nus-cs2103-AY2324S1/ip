@@ -1,12 +1,5 @@
----
-layout: page
-title: User Guide
----
+# Duke's User Guide
 
-* Table of Contents
-{:toc}
-
---------------------------------------------------------------------------------------------------------------------
 ## Introduction
 
 Duke is a desktop app for managing tasks specifically designed for **anyone who can type fast**. With Duke, you can now manage your tasks effectively in one unified place and get things done faster than traditional Graphical User Interface (GUI) apps.
