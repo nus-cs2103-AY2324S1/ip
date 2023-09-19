@@ -26,6 +26,7 @@ public class Parser {
     private static final int FIND_FIELD_TO_OFFSET = 4;
     private static final int FIND_FIELD_FROM_OFFSET = 6;
     private static final int FIND_FIELD_BY_OFFSET = 4;
+    private static final int NOTE_COMMAND_FIND_OFFSET = 5;
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
@@ -35,6 +36,8 @@ public class Parser {
     private static final String EVENT_COMMAND = "event";
     private static final String FIND_COMMAND = "find";
     private static final String BYE_COMMAND = "bye";
+    private static final String NOTE_COMMAND = "note";
+    private static final String LIST_NOTES_COMMAND = "list notes";
 
     /**
      * Constructor for a Parser object.
@@ -73,6 +76,10 @@ public class Parser {
             args = parseFindCommand(input);
         } else if (input.equals(BYE_COMMAND)) {
             args.add(BYE_COMMAND);
+        } else if (input.startsWith("note ")) {
+            args = parseNoteCommand(input);
+        } else if (input.equals(LIST_NOTES_COMMAND)) {
+            args.add(LIST_NOTES_COMMAND);
         } else {
             args.add("invalid_command");
         }
@@ -170,6 +177,16 @@ public class Parser {
         args.add(FIND_COMMAND);
         String findTerm = input.substring(FIND_COMMAND_FIND_OFFSET);
         args.add(findTerm);
+        return args;
+    }
+
+    static ArrayList<String> parseNoteCommand(String input) {
+        ArrayList<String> args = new ArrayList<>();
+        // Gets the note that the user wishes to add
+        // to his note list and returns args <command, note>
+        args.add(NOTE_COMMAND);
+        String note = input.substring(NOTE_COMMAND_FIND_OFFSET);
+        args.add(note);
         return args;
     }
 
