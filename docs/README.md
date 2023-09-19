@@ -7,10 +7,10 @@
 2. [Add a Deadline task](#add-a-deadline-task-deadline)
 3. [Add an Event task](#add-an-event-task-event)
 4. [Delete a task](#delete-a-task-delete)
-5. [List all the tasks](#list-all-the-tasks-list)
+5. [List all tasks](#list-all-the-tasks-list)
 6. [Mark a task](#mark-a-task-mark)
 7. [Unmark a task](#unmark-a-task-unmark)
-8. [Find a task with a keyword](#find-a-task-with-keyword-find)
+8. [Find a task containing a keyword](#find-a-task-with-keyword-find)
 ## Features 
 
 ### Add a Todo task `todo`
@@ -41,7 +41,7 @@ SUI, Got it. I've added this task:
 SUI, Now you have 3 tasks in the list.
 ```
 
-### Add a Event task `event`
+### Add an Event task `event`
 
 Adds a event task to the task list. The `/from` and `/to` date should be of the format `yyyy-mm-dd` and time should in 24hr format `hh:mm`.
 
