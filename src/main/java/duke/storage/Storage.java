@@ -106,14 +106,7 @@ public class Storage {
      * @param input The user input containing the task description.
      */
     public void handleTodoTaskInFile(String input) {
-        String task = "";
-        String[] parts = input.split(" ");
-
-        for (int i = 1; i < parts.length; i++) {
-            task += parts[i] + " ";
-        }
-
-        tasks.add(new ToDo(task, TaskType.TODO));
+        tasks.add(new ToDo(input, TaskType.TODO));
     }
     /**
      * Handle a deadline task from file
@@ -122,15 +115,10 @@ public class Storage {
      * @throws DukeException
      */
     public void handleDeadlineTaskInFile(String input) {
-        StringBuilder task = new StringBuilder();
         StringBuilder byDate = new StringBuilder();
         String [] parts = input.split("\\(by: ");
-        String[] taskArray = parts[0].split(" ");
+        String task = parts[0];
         String[] deadlineInfo = parts[1].split(" ");
-
-        for (int i = 1; i < taskArray.length; i++) {
-            task.append(taskArray[i]).append(" ");
-        }
 
         for (int i = 0; i < 3; i++) {
             byDate.append(deadlineInfo[i]).append(" ");
@@ -139,7 +127,7 @@ public class Storage {
         endTime = endTime.substring(0, endTime.length() - 1);
         byDate = new StringBuilder(DateAndTimeHandler.convertDateToFormat(byDate.substring(0, 11),
                 "MMM dd yyyy", "yyyy-MM-dd"));
-        tasks.add(new Deadline(task.toString(), byDate.toString(), endTime + ":00", TaskType.DEADLINE));
+        tasks.add(new Deadline(task, byDate.toString(), endTime + ":00", TaskType.DEADLINE));
     }
     /**
      * Handles a event task from file
@@ -147,19 +135,14 @@ public class Storage {
      * @throws DukeException
      */
     public void handleEventTaskInFile(String input) {
-        StringBuilder task = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
         String[] parts = input.split("\\(from: ");
-        String[] taskArray = parts[0].split(" ");
+        String task = parts[0];
         String[] taskInfo = parts[1].split("to: ");
 
         String[] fromInfo = taskInfo[0].split(" ");
         String[] toInfo = taskInfo[1].split(" ");
-
-        for (int i = 1; i < taskArray.length; i++) {
-            task.append(taskArray[i]).append(" ");
-        }
 
         for (int i = 0; i < 3; i++) {
             startDate.append(fromInfo[i]).append(" ");

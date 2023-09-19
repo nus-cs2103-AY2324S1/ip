@@ -46,7 +46,8 @@ public class DateAndTimeHandler {
     public static void checkIfDeadlineTimelineIsValid(String byDate, String endTime) throws DukeException {
         LocalDate todayDate = LocalDate.now();
         LocalTime nowTime = LocalTime.now();
-        if (todayDate.toString().compareTo(byDate) > 0 || nowTime.toString().compareTo(endTime) > 0) {
+        if (todayDate.toString().compareTo(byDate) > 0
+                || (todayDate.toString().compareTo(byDate) == 0 && nowTime.toString().compareTo(endTime) > 0)) {
             throw new DukeException("SUI, Enter a date and time from now");
         }
     }
