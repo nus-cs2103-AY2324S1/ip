@@ -46,7 +46,7 @@ public enum CommandType {
     }
 
     /**
-     * The fromString method is used to get the command from the given string.
+     * Gets the command from the given string.
      *
      * @param value The string representation of the command.
      * @return The command if it exists, null otherwise.

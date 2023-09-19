@@ -176,7 +176,7 @@ public class TaskList {
     }
 
     /**
-     * Find tasks that contain a specified query in their description.
+     * Finds tasks that contain a specified query in their description.
      *
      * @param query A query specified by the user.
      * @return An ArrayList containing the index of items that contain the specified
