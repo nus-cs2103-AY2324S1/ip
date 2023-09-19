@@ -54,7 +54,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
         stage.setTitle("Not a Chatbot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);

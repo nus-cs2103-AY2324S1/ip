@@ -1,18 +1,30 @@
 package duke.gui;
 
+import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Point3D;
 import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
 
 /**
  * Class for the box for dialog
  */
 public class DialogBox extends HBox {
 
+    private static final String BOTCOLOR = "gray";
+    private static final String USERCOLOR = "green";
+    private static final String SPACE = "    ";
     private Label text;
     private ImageView displayPicture;
 
@@ -22,7 +34,8 @@ public class DialogBox extends HBox {
      * @param l the label
      * @param iv the image view
      */
-    public DialogBox(Label l, ImageView iv) {
+
+    public DialogBox(Label l, ImageView iv, String color) {
         text = l;
         displayPicture = iv;
 
@@ -30,10 +43,11 @@ public class DialogBox extends HBox {
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
+        // Set the background color of the DialogBox to green
+        this.setStyle("-fx-background-color: " + color + ";");
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
     }
-
     /**
      * Flips the dialog box (used for the bot)
      */
@@ -52,7 +66,7 @@ public class DialogBox extends HBox {
      * @return a new dialog box for user
      */
     public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
+        return new DialogBox(new Label(l.getText() + SPACE), iv, USERCOLOR);
     }
 
     /**
@@ -63,7 +77,7 @@ public class DialogBox extends HBox {
      * @return a new dialog box for the bot
      */
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
-        DialogBox db = new DialogBox(l, iv);
+        DialogBox db = new DialogBox(l, iv, BOTCOLOR);
         db.flip();
         return db;
     }
