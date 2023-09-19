@@ -27,10 +27,10 @@ public class TaskListTest {
     public void deleteTask_invalidIndexNumber_exceptionThrown() {
         try {
             TaskList taskList = new TaskList();
-            taskList.deleteTask(1);
+            taskList.deleteTask(5);
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! There is no task with this index number.", e.getMessage());
+            assertEquals("OOPS!!! There is no task with this index number.", e.getMessage());
         }
     }
 
@@ -54,7 +54,7 @@ public class TaskListTest {
             taskList.getTask(2);
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! There is no task with this index number.", e.getMessage());
+            assertEquals("OOPS!!! There is no task with this index number.", e.getMessage());
         }
     }
 }

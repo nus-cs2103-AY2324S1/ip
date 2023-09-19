@@ -65,7 +65,7 @@ public class Parser {
         if (command.equals("todo")) {
             String taskName = input.trim().substring(4).trim();
             if (taskName.equals("")) {
-                throw new DukeException("☹ OOPS!!! Incorrect description of a todo.");
+                throw new DukeException("OOPS!!! Incorrect description of a todo.");
             }
             return new AddTodoCommand(taskName);
         } else {
@@ -94,7 +94,7 @@ public class Parser {
                 LocalDate.parse(dateString);
                 return new AddDeadlineCommand(eventName, dateString);
             } catch (Exception e) {
-                throw new DukeException("☹ OOPS!!! Incorrect description of a deadline.");
+                throw new DukeException("OOPS!!! Incorrect description of a deadline.");
             }
         } else {
             return null;
@@ -124,7 +124,7 @@ public class Parser {
                 LocalDate.parse(endDate);
                 return new AddEventCommand(eventName, startDate, endDate);
             } catch (Exception e) {
-                throw new DukeException("☹ OOPS!!! Incorrect description of an event.");
+                throw new DukeException("OOPS!!! Incorrect description of an event.");
             }
         } else {
             return null;
@@ -223,7 +223,7 @@ public class Parser {
         if (command.equals("find")) {
             String keyword = input.trim().substring(4).trim();
             if (keyword.equals("")) {
-                throw new DukeException("☹ OOPS!!! Incorrect description of a find command.");
+                throw new DukeException("OOPS!!! Incorrect description of a find command.");
             }
             return new FindTaskCommand(keyword);
         } else {
@@ -274,7 +274,7 @@ public class Parser {
         } else if (findTaskCommandChecker(input) != null) {
             return findTaskCommandChecker(input);
         } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
