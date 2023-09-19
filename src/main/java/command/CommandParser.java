@@ -28,11 +28,11 @@ public abstract class CommandParser {
      *
      * @param input User input string to be parsed.
      * @return A Command object corresponding to the parsed input.
-     * @throws ThorndikeException If there are errors in parsing or the input is
-     *                            invalid.
+     * @throws ThorndikeException If there are errors in parsing or the input is invalid.
      */
     public static Command parse(String input) throws ThorndikeException {
         String command = input.split(" ")[0];
+        CommandKeyword commandKeyword = CommandKeyword.of(command);
         String[] argList = input.split(" /");
         String description = StringUtility.removeFirstWord(input.split(" /")[0]);
         Map<String, String> arguments = new HashMap<>();
@@ -48,98 +48,132 @@ public abstract class CommandParser {
             }
         }
 
-        if (command.equals("list")) {
-            return new CmdList();
-        }
+        switch (commandKeyword) {
 
-        if (command.equals("bye")) {
+        case TODO:
+            return parseTodo(arguments);
+
+        case DEADLINE:
+            return parseDeadline(arguments);
+
+        case EVENT:
+            return parseEvent(arguments);
+
+        case EXIT:
             return new CmdBye();
-        }
 
-        if (command.equals("delete")) {
+        case DELETE:
             return new CmdDelete(parseIndex(description));
-        }
 
-        if (command.equals("mark")) {
-            return new CmdMark(parseIndex(description));
-        }
-
-        if (command.equals("unmark")) {
-            return new CmdUnmark(parseIndex(description));
-        }
-
-        if (command.equals("todo")) {
-            if (description.equals("")) {
-                throw new MissingDescriptionException("todo");
-            }
-
-            Todo res = new Todo(description);
-            if (arguments.containsKey("priority")) {
-                int priority = parsePriority(arguments.get("priority"));
-                res.setPriority(priority);
-            }
-
-            return new CmdAddTask(res);
-        }
-
-        if (command.equals("deadline")) {
-            if (description.equals("")) {
-                throw new MissingDescriptionException("deadline");
-            }
-
-            LocalDateTime by = DateTimeParser.parse(arguments.get("by"));
-            if (by == null) {
-                throw new InvalidDateTimeFormat();
-            }
-
-            Deadline res = new Deadline(description, by);
-            if (arguments.containsKey("priority")) {
-                int priority = parsePriority(arguments.get("priority"));
-                res.setPriority(priority);
-            }
-
-            return new CmdAddTask(res);
-        }
-
-        if (command.equals("event")) {
-            if (description.equals("")) {
-                throw new MissingDescriptionException("event");
-            }
-
-            LocalDateTime from = DateTimeParser.parse(arguments.get("from"));
-            LocalDateTime to = DateTimeParser.parse(arguments.get("to"));
-
-            if (from == null || to == null) {
-                throw new InvalidDateTimeFormat();
-            }
-
-            Event res = new Event(description, from, to);
-            if (arguments.containsKey("priority")) {
-                int priority = parsePriority(arguments.get("priority"));
-                res.setPriority(priority);
-            }
-
-            return new CmdAddTask(res);
-        }
-
-        if (command.equals("find")) {
+        case FIND:
             return new CmdFind(description);
-        }
 
-        if (command.equals("priority")) {
-            int index = parseIndex(description);
-            int priority = parsePriority(arguments.get("set"));
+        case HELP:
+            break;
 
-            return new CmdSetPriority(index, priority);
+        case LIST:
+            return new CmdList();
+
+        case MARK:
+            return new CmdMark(parseIndex(description));
+
+        case UNMARK:
+            return new CmdUnmark(parseIndex(description));
+
+        case PRIORITY:
+            return new CmdSetPriority(parseIndex(description), parsePriority(arguments.get("set")));
+
+        case INVALID:
+            return null;
         }
 
         return null;
     }
 
     /**
+     * Parses an add todo task command.
+     *
+     * @param arguments Given to the command.
+     * @return A Command that creates a todo task.
+     * @throws ThorndikeException If there is missing description.
+     */
+    private static Command parseTodo(Map<String, String> arguments) throws ThorndikeException {
+        String description = arguments.get("description");
+        if (description.equals("")) {
+            throw new MissingDescriptionException("todo");
+        }
+
+        Todo res = new Todo(description);
+        if (arguments.containsKey("priority")) {
+            int priority = parsePriority(arguments.get("priority"));
+            res.setPriority(priority);
+        }
+
+        return new CmdAddTask(res);
+
+    }
+
+    /**
+    * Parses an add deadline task command.
+    *
+    * @param arguments Given to the command.
+    * @return A Command that creates a deadline task.
+    * @throws ThorndikeException If there is missing description or wrong date, time format.
+    */
+    private static Command parseDeadline(Map<String, String> arguments) throws ThorndikeException {
+        String description = arguments.get("description");
+        if (description.equals("")) {
+            throw new MissingDescriptionException("deadline");
+        }
+
+        LocalDateTime by = DateTimeParser.parse(arguments.get("by"));
+        if (by == null) {
+            throw new InvalidDateTimeFormat();
+        }
+
+        Deadline res = new Deadline(description, by);
+        if (arguments.containsKey("priority")) {
+            int priority = parsePriority(arguments.get("priority"));
+            res.setPriority(priority);
+        }
+
+        return new CmdAddTask(res);
+
+    }
+
+    /**
+    * Parses an add event task command.
+    *
+    * @param arguments Given to the command.
+    * @return A Command that creates a event task.
+    * @throws ThorndikeException If there is missing description or wrong date, time format.
+    */
+    private static Command parseEvent(Map<String, String> arguments) throws ThorndikeException {
+        String description = arguments.get("description");
+        if (description.equals("")) {
+            throw new MissingDescriptionException("event");
+        }
+
+        LocalDateTime from = DateTimeParser.parse(arguments.get("from"));
+        LocalDateTime to = DateTimeParser.parse(arguments.get("to"));
+
+        if (from == null || to == null) {
+            throw new InvalidDateTimeFormat();
+        }
+
+        Event res = new Event(description, from, to);
+        if (arguments.containsKey("priority")) {
+            int priority = parsePriority(arguments.get("priority"));
+            res.setPriority(priority);
+        }
+
+        return new CmdAddTask(res);
+    }
+
+    /**
      * Parses an index string and returns the corresponding task list index.
      *
-     * @param index The string representing the index to be parsed.
+     * @param index The string to be parsed.
      * @return The parsed task list index (zero-based).
      * @throws ThorndikeException If the index cannot be parsed or is invalid.
      */
