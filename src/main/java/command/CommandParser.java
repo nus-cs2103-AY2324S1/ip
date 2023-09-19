@@ -42,9 +42,10 @@ public abstract class CommandParser {
             String value = StringUtility.removeFirstWord(arg);
 
             if (!option.equals(command)) {
+                arguments.put(option, value);
+            } else {
                 arguments.put("command", command);
                 arguments.put("description", value);
-                arguments.put(option, value);
             }
         }
 
@@ -69,7 +70,7 @@ public abstract class CommandParser {
             return new CmdFind(description);
 
         case HELP:
-            break;
+            return new CmdHelp(CommandKeyword.of(description));
 
         case LIST:
             return new CmdList();
@@ -84,10 +85,10 @@ public abstract class CommandParser {
             return new CmdSetPriority(parseIndex(description), parsePriority(arguments.get("set")));
 
         case INVALID:
-            return null;
+            return new CmdHelp(CommandKeyword.INVALID);
         }
 
-        return null;
+        return new CmdHelp(CommandKeyword.INVALID);
     }
 
     /**
@@ -99,6 +100,8 @@ public abstract class CommandParser {
      */
     private static Command parseTodo(Map<String, String> arguments) throws ThorndikeException {
         String description = arguments.get("description");
+
+        System.out.println(description);
         if (description.equals("")) {
             throw new MissingDescriptionException("todo");
         }

@@ -2,7 +2,6 @@ import java.io.IOException;
 
 import command.Command;
 import command.CommandParser;
-import exceptions.InvalidCommandException;
 import exceptions.ThorndikeException;
 import storage.Storage;
 import task.TaskList;
@@ -41,11 +40,6 @@ public class Thorndike {
      */
     public String getResponse(String input) throws ThorndikeException {
         Command command = CommandParser.parse(input);
-
-        if (command == null) {
-            throw new InvalidCommandException();
-        }
-
         return command.execute(taskList);
     }
 }

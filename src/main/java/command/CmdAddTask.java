@@ -34,7 +34,7 @@ public class CmdAddTask extends Command {
         taskList.addTask(task);
         Storage.writeToFile(taskList);
 
-        return StringUtility.joinLines(Message.DELETE_TASK,
+        return StringUtility.joinLines(Message.ADD_TASK,
                 task.toString(),
                 String.format(Message.TASKLIST_STATUS, taskList.size()));
     }
