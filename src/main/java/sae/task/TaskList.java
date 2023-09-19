@@ -15,14 +15,14 @@ import sae.util.Ui;
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    private Ui msg;
+    private Ui message;
 
     /**
      * Constructs a new TaskList with an empty task list and a user interface.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
-        this.msg = new Ui();
+        this.message = new Ui();
     }
 
     /**
@@ -43,7 +43,7 @@ public class TaskList {
         if (index >= 0 && index < tasks.size()) {
             Task task = tasks.get(index);
             tasks.remove(index);
-            return msg.deleteTaskMessage(task, tasks.size());
+            return message.deleteTaskMessage(task, tasks.size());
         } else {
             return "Invalid task index.";
         }
@@ -64,7 +64,7 @@ public class TaskList {
                 currentIndex++;
             }
 
-            return msg.groupDeleteMessage(start, end, deletedTasks);
+            return message.groupDeleteMessage(start, end, deletedTasks);
         } else {
             return "Invalid task index range.";
         }
@@ -79,7 +79,7 @@ public class TaskList {
     public String markTaskAsDone(int index) {
         Task task = tasks.get(index);
         task.markTask();
-        return msg.markAsDoneMessage(task);
+        return message.markAsDoneMessage(task);
     }
 
     /**
@@ -90,11 +90,14 @@ public class TaskList {
     public String unMarkTaskAsDone(int index) {
         Task task = tasks.get(index);
         task.unMarkTask();
-        return msg.unMarkAsDoneMessage(task);
+        return message.unMarkAsDoneMessage(task);
     }
 
     /**
-     * Lists all tasks in the task list.
+     * Returns a string containing a list of all tasks in the task list.
+     * Each task is numbered in the list.
+     *
+     * @return A formatted string listing all tasks, or an error message if the task list is empty.
      */
     public String listTasks() {
         int len = tasks.size();
@@ -107,7 +110,7 @@ public class TaskList {
             }
             return str.toString();
         } else {
-            return msg.invalidListCommand();
+            return message.invalidListCommand();
         }
     }
 
@@ -119,7 +122,7 @@ public class TaskList {
     public String addToDoTask(String description) {
         Todo task = new Todo(description);
         tasks.add(task);
-        return msg.addTaskMessage(task, tasks.size());
+        return message.addTaskMessage(task, tasks.size());
     }
 
     /**
@@ -131,7 +134,7 @@ public class TaskList {
     public String addDeadlineTask(String description, LocalDateTime by) {
         Deadline task = new Deadline(description, by);
         tasks.add(task);
-        return msg.addTaskMessage(task, tasks.size());
+        return message.addTaskMessage(task, tasks.size());
     }
 
     /**
@@ -144,7 +147,7 @@ public class TaskList {
     public String addEventTask(String description, String from, String to) {
         Event task = new Event(description, from, to);
         tasks.add(task);
-        return msg.addTaskMessage(task, tasks.size());
+        return message.addTaskMessage(task, tasks.size());
     }
 
     /**

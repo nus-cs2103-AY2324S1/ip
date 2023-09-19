@@ -1,8 +1,8 @@
 package sae.util;
 
+import java.util.ArrayList;
 import sae.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * The Ui class handles user interface interactions and messages.
@@ -39,24 +39,24 @@ public class Ui {
      * Generates a message for adding a task.
      *
      * @param task      The task to be added.
-     * @param taskcount The total number of tasks after adding.
+     * @param taskCount The total number of tasks after adding.
      * @return A message confirming the addition of the task.
      */
-    public String addTaskMessage(Task task, int taskcount) {
+    public String addTaskMessage(Task task, int taskCount) {
         return "Got it. I've added this task:\n" + "  " + task.toString() +
-                "\nNow you have " + taskcount + " task(s) in the list.";
+                "\nNow you have " + taskCount + " task(s) in the list.";
     }
 
     /**
      * Generates a message for deleting a task.
      *
      * @param task      The task to be deleted.
-     * @param taskcount The total number of tasks after deletion.
+     * @param taskCount The total number of tasks after deletion.
      * @return A message confirming the deletion of the task.
      */
-    public String deleteTaskMessage(Task task, int taskcount) {
+    public String deleteTaskMessage(Task task, int taskCount) {
         return "Noted. I've removed this task:\n"
-                + "  " + task.toString() + "\nNow you have " + taskcount + " tasks in the list.";
+                + "  " + task.toString() + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
@@ -97,6 +97,11 @@ public class Ui {
         return frontString + backString.toString();
     }
 
+    /**
+     * Generates a message for an invalid list command.
+     *
+     * @return A message informing the user that the list is empty.
+     */
     public String invalidListCommand() {
             return "☹ OOPS!!! Your list of tasks is still empty! Add a task.";
     }
