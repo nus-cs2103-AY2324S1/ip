@@ -38,6 +38,7 @@ find <keyword> // To find all tasks with the specified keyword
 ```
 
 ## Command Summary
+
 | Command  | Description                     | Format                                 |
 |----------|---------------------------------|----------------------------------------|
 | todo     | Add a new todo task             | `todo <task>`                          |
