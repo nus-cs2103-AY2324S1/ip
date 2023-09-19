@@ -2,10 +2,10 @@ package skye.commands;
 
 import java.util.List;
 
-import skye.data.TaskList;
+import skye.data.ListManager;
 import skye.data.VenueList;
 import skye.data.venue.Venue;
-import skye.storage.Storage;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -22,12 +22,13 @@ public class FindVenuesCommand extends FindCommand {
      * Execute the find tasks command and returns a list of tasks containing the keyword in
      * the description.
      *
-     * @param taskList TaskList
+     * @param listManager ListManager
      * @param ui UI
-     * @param storage Storage
+     * @param storageManager StorageManager
      */
     @Override
-    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage) {
+    public String execute(ListManager listManager, UI ui, StorageManager storageManager) {
+        VenueList venueList = listManager.getVenueList();
         List<Venue> venues = venueList.findVenuesContaining(getKeyword());
         return ui.showFoundVenues(venues);
     }

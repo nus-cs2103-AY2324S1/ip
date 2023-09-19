@@ -2,9 +2,8 @@ package skye.commands;
 
 import java.io.IOException;
 
-import skye.data.TaskList;
-import skye.data.VenueList;
-import skye.storage.Storage;
+import skye.data.ListManager;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -15,7 +14,8 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 
     @Override
-    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage) throws IOException {
-        return ui.showHelpMessage(storage.loadHelpGuide());
+    public String execute(ListManager listManager, UI ui, StorageManager storageManager)
+            throws IOException {
+        return ui.showHelpMessage(storageManager.loadHelpGuide());
     }
 }

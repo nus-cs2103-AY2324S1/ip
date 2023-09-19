@@ -6,7 +6,7 @@ import skye.data.venue.Venue;
 /**
  * Represents a utility class that decodes a venue from an encoded string
  */
-public class VenueDecoder {
+public class VenueDecoder implements Decoder<Venue> {
 
     /**
      * Decodes the encoded string representation of a venue.

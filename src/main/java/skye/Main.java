@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Skye skye = new Skye("data/tasks.txt");
+    private Skye skye = new Skye("./data");
 
     /**
      * {@inheritDoc}

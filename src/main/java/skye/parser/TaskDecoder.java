@@ -12,7 +12,7 @@ import skye.data.task.ToDo;
 /**
  * Represents a utility class that decodes a task from an encoded string
  */
-public class TaskDecoder {
+public class TaskDecoder implements Decoder<Task> {
 
     /**
      * Decodes the encoded string representation of a task.

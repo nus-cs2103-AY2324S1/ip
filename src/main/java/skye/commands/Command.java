@@ -2,10 +2,9 @@ package skye.commands;
 
 import java.io.IOException;
 
-import skye.data.TaskList;
-import skye.data.VenueList;
+import skye.data.ListManager;
 import skye.data.exception.DukeException;
-import skye.storage.Storage;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -20,13 +19,13 @@ public abstract class Command {
      * An unimplemented method for executing commands for the subclasses to implement how would
      * each unique command interact with the TaskList, Ui and Storage instances.
      *
-     * @param taskList TaskList
+     * @param listManager ListManager
      * @param ui UI
-     * @param storage Storage
+     * @param storageManager StorageManager
      * @throws DukeException Describes the error encountered when executing the command
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
-    public abstract String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage)
+    public abstract String execute(ListManager listManager, UI ui, StorageManager storageManager)
             throws DukeException, IOException;
 
     /**

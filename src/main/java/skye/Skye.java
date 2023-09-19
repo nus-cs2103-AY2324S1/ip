@@ -1,14 +1,12 @@
 package skye;
 
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
 import skye.commands.Command;
-import skye.data.TaskList;
-import skye.data.VenueList;
+import skye.data.ListManager;
 import skye.data.exception.DukeException;
 import skye.parser.Parser;
-import skye.storage.Storage;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -19,28 +17,23 @@ import skye.ui.UI;
 public class Skye {
 
     private Parser parser;
-    private Storage storage;
-    private TaskList taskList;
-    private VenueList venueList;
+    private StorageManager storageManager;
+    private ListManager listManager;
     private UI ui;
 
     /**
-     * Initializes an instance of Duke by providing the file path to the save file.
+     * Initializes an instance of the Skye chat-bot.
      *
-     * @param filePath File path to the directory containing the save file.
+     * @param saveDirectory File path to the directory containing the save file.
      */
-    public Skye(String filePath) {
+    public Skye(String saveDirectory) {
         parser = new Parser();
-        storage = new Storage(filePath);
+        storageManager = new StorageManager(saveDirectory);
         ui = new UI();
-        venueList = new VenueList();
         try {
-            taskList = new TaskList(storage.load());
-            venueList = new VenueList(storage.loadVenues());
+            listManager = new ListManager(storageManager);
         } catch (DukeException | IOException e) {
             ui.showLoadingError();
-            taskList = new TaskList();
-            venueList = new VenueList();
         }
     }
 
@@ -51,10 +44,9 @@ public class Skye {
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
-            return command.execute(taskList, venueList, ui, storage);
+            return command.execute(listManager, ui, storageManager);
         } catch (DukeException | IOException e) {
             return e.getMessage();
         }
-
     }
 }

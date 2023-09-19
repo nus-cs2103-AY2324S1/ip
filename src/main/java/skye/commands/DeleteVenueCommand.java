@@ -2,11 +2,11 @@ package skye.commands;
 
 import java.io.IOException;
 
-import skye.data.TaskList;
+import skye.data.ListManager;
 import skye.data.VenueList;
 import skye.data.exception.DukeException;
 import skye.data.venue.Venue;
-import skye.storage.Storage;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -25,10 +25,11 @@ public class DeleteVenueCommand extends DeleteCommand {
     }
 
     @Override
-    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage)
+    public String execute(ListManager listManager, UI ui, StorageManager storageManager)
             throws DukeException, IOException {
+        VenueList venueList = listManager.getVenueList();
         Venue removedVenue = venueList.deleteVenue(getIndex());
-        storage.writeVenue(venueList.getVenues());
+        storageManager.writeVenues(venueList.getVenues());
         return ui.showRemovedVenue(removedVenue, venueList.getVenues());
     }
 }

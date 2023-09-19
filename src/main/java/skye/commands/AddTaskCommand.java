@@ -2,10 +2,10 @@ package skye.commands;
 
 import java.io.IOException;
 
+import skye.data.ListManager;
 import skye.data.TaskList;
-import skye.data.VenueList;
 import skye.data.task.Task;
-import skye.storage.Storage;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -22,15 +22,16 @@ public class AddTaskCommand extends Command {
     /**
      * Executes the AddTaskCommand and its subclasses AddDeadlineCommand, AddEventCommand and AddToDoCommand.
      *
-     * @param taskList TaskList
+     * @param listManager ListManager
      * @param ui UI
-     * @param storage Storage
+     * @param storageManager StorageManager
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
     @Override
-    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage) throws IOException {
+    public String execute(ListManager listManager, UI ui, StorageManager storageManager) throws IOException {
+        TaskList taskList = listManager.getTaskList();
         taskList.addTask(task);
-        storage.write(taskList.getTasks());
+        storageManager.writeTasks(taskList.getTasks());
         return ui.showAddedTask(task, taskList.getTasks());
     }
 }
