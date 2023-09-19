@@ -1,5 +1,5 @@
 title: "Duke"
-theme: architect
+theme: minima
 
 header_pages:
   - UserGuide.md
