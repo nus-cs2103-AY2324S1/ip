@@ -33,6 +33,10 @@ public class TodoCommand implements Command {
         if (userInput.equalsIgnoreCase("todo")) {
             throw new InvalidTaskFormatException(null);
         }
+        return setTodo(taskList, ui, storage);
+    }
+
+    private String setTodo(TaskList taskList, Ui ui, Storage storage) {
         String taskTitle = userInput.substring(5).trim();
         Todo todo = new Todo(taskTitle, false);
         taskList.addTask(todo);

@@ -1,6 +1,7 @@
 package jarvis.commands;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import jarvis.exceptions.InvalidTaskFormatException;
 import jarvis.gui.Ui;
@@ -33,17 +34,23 @@ public class FindCommand implements Command {
             throw new InvalidTaskFormatException(null);
         }
         assert taskList != null && ui != null && storage != null;
-        int indexOfFind = userInput.indexOf("find");
-        String keyword = userInput.substring(indexOfFind + 4).trim();
+      
+        ArrayList<Task> foundTasks = findTasks(taskList);
+        return getResponse(ui, foundTasks);
+    }
 
-        ArrayList<Task> tasks = taskList.getTaskList();
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            String taskTitle = task.getTitle();
-            if (taskTitle.contains(keyword)) {
-                foundTasks.add(task);
-            }
-        }
+    private ArrayList<Task> findTasks(TaskList taskList) {
+        
+        int indexOfFind = userInput.indexOf("find");
+        String keyword = userInput.substring(indexOfFind + 4).trim().toLowerCase();
+
+        return taskList.getTaskList()
+                .stream()
+                .filter(task -> task.getTitle().toLowerCase().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private static String getResponse(Ui ui, ArrayList<Task> foundTasks) {
         if (foundTasks.isEmpty()) {
             return ui
                     .printResponse("No matching task is found, Master. Please check your spelling or use another word");
