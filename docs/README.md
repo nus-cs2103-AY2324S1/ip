@@ -67,7 +67,6 @@ DINGDONG GOT IT! I've added this task:
 Now you have 1 task in the list.
 ```
 `[T]` represents it is a todo type and `[]` is to indicate if the task is marked. By default, it will not be marked.
-
 ### `deadline` - Adds a _deadline_ type of task
 
 Adds a _deadline_ type of task into your tasks list and displays what you have just added.
@@ -127,7 +126,6 @@ ALRIGHTY! I've removed this task:
 [T][] assignment
 Now you have 2 tasks in the list.
 ```
-
 ### `list` - List the tasks in the tasks list
 
 List out all the tasks that are in the tasks list.
@@ -140,7 +138,6 @@ WHEET WHEET WHEET! Here are the tasks in your list:
 1.[D][] assignment (by: Sep 22 2023 11:59PM)
 2.[E][] training (from: Sep 20 2023 06:00PM to: Sep 20 2023 08:00PM)
 ```
-
 ### `mark` - Marks a task in the task lists
 
 Marks a task in your tasks lists as completed and display what you have just marked.
@@ -173,7 +170,6 @@ Expected outcome:
 GOTHYA! I've marked this task as done!
 [D][] assignment (by: Sep 22 2023 11:59PM)
 ```
-
 ### `find` - Finds tasks in the tasks list
 
 Finds tasks in your tasks list and display the results of it.
@@ -191,7 +187,6 @@ Expected outcome:
 HOOOOOYEAAAAA! Here are the matching tasks in your list:
 1.[E][] training (from: Sep 20 2023 06:00PM to: Sep 20 2023 08:00PM)
 ```
-
 ### `remind` - Lists tasks that are due or upcoming
 
 > [!NOTE]
@@ -207,7 +202,6 @@ ATTENTIONNNNNNNNNNNN!!! You have task(s) that are due/upcoming within 7 days:
 1.[D][] assignment (by: Sep 22 2023 11:59PM)
 2.[E][] training (from: Sep 20 2023 06:00PM to: Sep 20 2023 08:00PM)
 ```
-
 ### `bye` - Exits the application
 
 Exits the application.
@@ -218,7 +212,6 @@ Expected outcome:
 ```
 WEEEWOOWEEWOO GOODBYE! Hope to see you again soon!
 ```
-
 ## Command Summary
 
  Action   | Format                                            
