@@ -160,11 +160,21 @@ public class TaskList {
         task.undone();
     }
 
+    /**
+     * To get the list of tasks.
+     *
+     * @return ArrayList of tasks.
+     */
     public Task getTask(int listNum) {
         int index = listNum - 1;
         return tasks.get(index);
     }
 
+    /**
+     * To get the list of tasks.
+     *
+     * @return ArrayList of tasks.
+     */
     public int getLength() {
         return tasks.size();
     }

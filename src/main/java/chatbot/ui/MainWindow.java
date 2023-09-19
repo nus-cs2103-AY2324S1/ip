@@ -51,6 +51,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        
         String input = userInput.getText();
         String response = chatBot.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
@@ -58,6 +59,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getChatBotDialog(response, botImage)
         );
         userInput.clear();
+
+        if (input.equals("bye")) {
+            System.exit(0);
+        }
     }
 }
 
