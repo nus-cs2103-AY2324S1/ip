@@ -13,7 +13,7 @@ public class FindCommand extends Command {
     String description;
 
     /**
-     * Constructor of FindCommand.
+     * Creates an instance of FindCommand.
      *
      * @param description The description of task to find.
      */

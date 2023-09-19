@@ -8,10 +8,22 @@ import blip.tasks.TaskList;
 import blip.ui.BlipUI;
 
 public class ExceptionCommand extends Command {
+    /**
+     * The exception type.
+     */
     Exception exception;
 
+    /**
+     * The exception message.
+     */
     String exceptionMessage;
 
+    /**
+     * Creates an instance of ExceptionCommand.
+     *
+     * @param exception The exception type to execute exception handling for
+     * @param exceptionMessage The execution message displayed for this exception thrown
+     */
     public ExceptionCommand(Exception exception, String exceptionMessage) {
         this.exception = exception;
         this.exceptionMessage = exceptionMessage;

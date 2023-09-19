@@ -23,7 +23,7 @@ public class PriorityCommand extends Command {
     Priority priority;
 
     /**
-     * Constructor of MarkCommand.
+     * Creates an instance of MarkCommand.
      *
      * @param index The index of task to mark as done
      */

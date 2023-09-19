@@ -13,7 +13,7 @@ public class InvalidCommand extends Command {
     String description;
 
     /**
-     * Constructor of InvalidCommand.
+     * Creates an instance of InvalidCommand.
      *
      * @param description The description of the invalid command
      */

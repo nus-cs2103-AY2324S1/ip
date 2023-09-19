@@ -18,7 +18,7 @@ public class Event extends Task {
     protected LocalDateTime eventTo;
 
     /**
-     * Constructor of Event, sets priority to a default MEDIUM.
+     * Creates an instance of Event, sets priority to a default MEDIUM.
      * @param description The description of the event task
      * @param eventFrom The date time of the start of event
      * @param eventTo The date time of the end of event

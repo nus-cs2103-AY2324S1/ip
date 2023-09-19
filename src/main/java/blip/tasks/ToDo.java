@@ -7,7 +7,7 @@ import blip.priority.Priority;
  */
 public class ToDo extends Task{
     /**
-     * Contructor of To Do task, sets priority to desired priority.
+     * Creates an instance of To Do task, sets priority to desired priority.
      * @param description The description of the to do task
      * @param isDone Boolean that represents whether task is done
      */

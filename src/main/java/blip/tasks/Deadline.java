@@ -14,7 +14,7 @@ public class Deadline extends Task {
     protected LocalDateTime deadline;
 
     /**
-     * Constructor of Deadline, sets priority to a default MEDIUM.
+     * Creates an instance of Deadline, sets priority to a default MEDIUM.
      * @param description The description of the deadline task
      * @param deadline The date time of deadline
      * @param isDone Boolean that represents whether task is done

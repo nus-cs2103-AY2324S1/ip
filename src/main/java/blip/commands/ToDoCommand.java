@@ -22,7 +22,7 @@ public class ToDoCommand extends Command {
     Priority priority;
 
     /**
-     * Constructor of ToDoCommand.
+     * Creates an instance of ToDoCommand.
      *
      * @param description The description of the to do task
      */

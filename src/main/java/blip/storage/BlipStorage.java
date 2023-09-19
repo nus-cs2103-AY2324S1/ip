@@ -20,7 +20,7 @@ public class BlipStorage {
     private static String filePath;
 
     /**
-     * Constructor of BlipStorage
+     * Creates an instance of BlipStorage
      *
      * @param filePath The data file path for storage
      */

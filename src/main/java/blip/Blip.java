@@ -67,7 +67,7 @@ public class Blip {
 
 
     /**
-     * Main for Blip ChatBot where it runs Blip.
+     * Runs the main for Blip ChatBot.
      *
      * @param args CLI Arguments
      */

@@ -29,7 +29,7 @@ public class EventCommand extends Command {
     LocalDateTime eventEnd;
 
     /**
-     * Constructor of EventCommand.
+     * Creates an instance of EventCommand.
      *
      * @param description The description of the event task
      * @param eventStart The start time of the event task

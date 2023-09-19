@@ -6,7 +6,7 @@ package blip.exceptions;
  */
 public class WrongNumberException extends Exception{
     /**
-     * Constructor of WrongNumberException
+     * Creates an instance of WrongNumberException
      *
      * @param message
      */

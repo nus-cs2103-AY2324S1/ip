@@ -6,7 +6,7 @@ package blip.exceptions;
  */
 public class DateTimeFormatException extends Exception {
     /**
-     * Constructor of DateTimeFormatException.
+     * Creates an instance of DateTimeFormatException.
      *
      * @param message The error message
      */

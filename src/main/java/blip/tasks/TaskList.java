@@ -13,7 +13,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructor of TaskList with existing array list.
+     * Creates an instance of TaskList with existing array list.
      * @param tasks The Array List of tasks
      */
     public TaskList(ArrayList<Task> tasks) {

@@ -6,7 +6,7 @@ package blip.exceptions;
  */
 public class BlipException extends Exception {
     /**
-     * Constructor of BlipException.
+     * Creates an instance of BlipException.
      *
      * @param message The error message
      */

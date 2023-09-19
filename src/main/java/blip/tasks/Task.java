@@ -28,7 +28,7 @@ public abstract class Task {
 
 
     /**
-     * Constructor of Task.
+     * Creates an instance of Task.
      * @param description The description of the task
      * @param isDone Boolean the represents whether task is done or not
      */
@@ -88,7 +88,6 @@ public abstract class Task {
      */
     public static Task loadTaskFromFile(String lineToLoad) throws DateTimeFormatException {
         String[] taskComponents = lineToLoad.split(" \\| ");
-//        assert taskComponents.length >= 4 : "Invalid task format in data file for this line: " + lineToLoad;
         String taskType = taskComponents[0];
         boolean isDone = taskComponents[1].equals("1");
         String priorityString = taskComponents[2];
