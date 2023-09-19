@@ -22,9 +22,10 @@ public class Ui {
     /**
      * Prints a welcome message for the user.
      */
-    public static void showWelcomeMessage() {
+    public static String showWelcomeMessage() {
         String logo = "ChatterBot";
-        System.out.println("Hello! I'm " + logo + "\nWhat can I do for you?");
+        response = "Hello! I'm " + logo + "\nWhat can I do for you?";
+        return response;
     }
 
     /**
