@@ -31,6 +31,7 @@ public class AddTaskCommand extends DudeCommand {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws DudeException {
+        assert task != null : "Task should not be null.";
         taskList.add(task);
         storage.save(taskList.toArrayList());
         return String.format(ADDED_TASK_MSG, task, taskList.getNumTasks());
