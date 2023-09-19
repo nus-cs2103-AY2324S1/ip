@@ -28,7 +28,7 @@ public class DeleteWorker extends TaskWorker {
                     + "\nNow you have " + taskList.size()
                     + " tasks in the list.";
         } catch (IrisException e) {
-            return e.toString();
+            return e.getMessage();
         }
     }
 }

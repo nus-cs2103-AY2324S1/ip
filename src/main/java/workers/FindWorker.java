@@ -22,8 +22,9 @@ public class FindWorker extends TaskWorker {
 
         for (Task task : taskList) {
             if (task.getDescription().toLowerCase().contains(keyword)) {
-                output += count++ + ". " + task + "\n";
+                output += count + ". " + task + "\n";
             }
+            count++;
         }
 
         if (output == "Here are the matching tasks in your list:\n") {

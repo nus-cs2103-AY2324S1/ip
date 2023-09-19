@@ -25,7 +25,7 @@ public class Parser {
      */
     public String parse(String input, ArrayList<Task> taskList) {
         String[] inputParts = input.split(" ", 2);
-        String command = inputParts[0];
+        String command = inputParts[0].toLowerCase();
         TaskWorker worker;
         String output;
         switch (command) {

@@ -2,6 +2,7 @@ package workers;
 
 import java.util.ArrayList;
 
+import duke.IrisException;
 import tasks.Task;
 
 /**
@@ -18,13 +19,21 @@ public class MarkWorker extends TaskWorker {
     public String work(String[] inputParts, ArrayList<Task> taskList, boolean markAsDone) {
         assert  inputParts != null;
         int index = Integer.parseInt(inputParts[1]) - 1;
-        Task task = taskList.get(index);
-        if (markAsDone) {
-            task.markDone();
-            return "Nice! I've marked this task as done:\n" + task;
-        } else {
-            task.markUndone();
-            return "OK, I've marked this task as not done yet:\n" + task;
+        try {
+            if (index > taskList.size() || index < 0) {
+                throw new IrisException("Task does not exist. Please enter a valid index number.");
+            }
+            Task task = taskList.get(index);
+            if (markAsDone) {
+                task.markDone();
+                return "Nice! I've marked this task as done:\n" + task;
+            } else {
+                task.markUndone();
+                return "OK, I've marked this task as not done yet:\n" + task;
+
+            }
+        } catch (IrisException e) {
+            return e.getMessage();
         }
     }
 }
