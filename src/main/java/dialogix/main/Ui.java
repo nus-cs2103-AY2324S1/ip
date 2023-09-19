@@ -69,8 +69,7 @@ public class Ui {
     public void printList(ArrayList<Task> tasks, String message) {
         addToOutput(message + "\n");
         for (int i = 0; i < tasks.size(); i++) {
-            int oneBasedIndex = i + 1;
-            String formattedOutput = String.format("%d. %s\n", oneBasedIndex, tasks.get(i));
+            String formattedOutput = String.format("%d. %s\n", i, tasks.get(i));
             addToOutput(formattedOutput);
         }
     }
