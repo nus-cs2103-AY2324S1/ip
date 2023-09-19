@@ -26,8 +26,10 @@ public class Storage {
         File fileDir = new File(FILE_DIR);
         if (!fileDir.exists()) {
             fileDir.mkdirs();
+            assert fileDir.exists() : "File Dir creation was not successful";
         }
         File file = new File(FILE_PATH);
+        assert file.exists() : "File creation was not successful";
     }
 
     /**
@@ -42,6 +44,7 @@ public class Storage {
                 writer.write(task.toString());
                 writer.newLine();
             }
+            // assert new File(FILE_PATH).length() > 0 : "Data was not written to output file";
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -57,7 +60,9 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String nextLine;
             while ((nextLine = reader.readLine()) != null) {
-                tasks.add(Parser.parseStringToTask(nextLine));
+                Task task = Parser.parseStringToTask(nextLine);
+                tasks.add(task);
+                assert tasks.contains(task);
             }
         } catch (IOException e) {
             System.err.println("Unable to load tasks");

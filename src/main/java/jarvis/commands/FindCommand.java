@@ -33,11 +33,14 @@ public class FindCommand implements Command {
         if (userInput.equalsIgnoreCase("event")) {
             throw new InvalidTaskFormatException(null);
         }
+        assert taskList != null && ui != null && storage != null;
+      
         ArrayList<Task> foundTasks = findTasks(taskList);
         return getResponse(ui, foundTasks);
     }
 
     private ArrayList<Task> findTasks(TaskList taskList) {
+        
         int indexOfFind = userInput.indexOf("find");
         String keyword = userInput.substring(indexOfFind + 4).trim().toLowerCase();
 
@@ -49,7 +52,8 @@ public class FindCommand implements Command {
 
     private static String getResponse(Ui ui, ArrayList<Task> foundTasks) {
         if (foundTasks.isEmpty()) {
-            return ui.printResponse("No matching task is found, Master. Please check your spelling or use another word");
+            return ui
+                    .printResponse("No matching task is found, Master. Please check your spelling or use another word");
         } else {
             return ui.printTasks(foundTasks);
         }
