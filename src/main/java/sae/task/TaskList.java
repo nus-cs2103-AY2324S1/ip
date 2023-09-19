@@ -173,18 +173,18 @@ public class TaskList {
      * @return A string containing a list of matching tasks or a message indicating no matches.
      */
     public String findKeyword(String keyword) {
-        List<String> matchingTasks = new ArrayList<>();
+        List<String> relatedTasks = new ArrayList<>();
 
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             String taskName = task.toString();
             if (taskName.contains(keyword)) {
-                matchingTasks.add((i + 1) + "." + taskName);
+                relatedTasks.add((i + 1) + "." + taskName);
             }
         }
 
-        if (!matchingTasks.isEmpty()) {
-            return "Here are the matching tasks in your list:\n" + String.join("\n", matchingTasks);
+        if (!relatedTasks.isEmpty()) {
+            return "Here are the matching tasks in your list:\n" + String.join("\n", relatedTasks);
         } else {
             return "No tasks match the keyword given.";
         }

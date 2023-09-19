@@ -18,7 +18,7 @@ import java.util.Collections;
  * Represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  * This has been reused (with minor changes)
- * from <a href="https://se-education.org/guides/tutorials/javaFx.html">tutorial</a>
+ * from https://se-education.org/guides/tutorials/javaFx.html tutorial
  */
 public class DialogBox extends HBox {
     @FXML

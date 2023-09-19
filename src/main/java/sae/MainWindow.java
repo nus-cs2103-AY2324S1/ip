@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * Represents the controller for MainWindow, providing the layout for other controls.
  * This class is reused and adapted
- * from this <a href="https://se-education.org/guides/tutorials/javaFx.html"> tutorial.
+ * from this https://se-education.org/guides/tutorials/javaFx.html tutorial.
  */
 public class MainWindow extends AnchorPane {
     @FXML
