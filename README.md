@@ -1,24 +1,17 @@
-# duke.main.Duke project template
+Introducing **Duke Chatbot version 2.1.0**! With brand-new interface introduced to further enhance user experience! This chatbot was developed with user interaction in mind, offering a comprehensive range of features and tasks management capabilities.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Key Features:
 
-## Setting up in Intellij
+1. **Basic Interaction**: Greet, echo, and exit functionalities.
+2. **Task Management**: Add tasks, set them as done, and delete tasks as you complete them.
+3. **Task Types**: Support for ToDos, Deadlines, and Events.
+4. **Error Handling**: Improved error messages for better user interaction.
+5. **Search**: A new feature to find tasks by searching for a keyword.
+6. **Packaging**: Now available as a JAR file for easier distribution.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Installation:
+Simply download duke.jar, move to your desired directory, and run using the command: java -jar duke.jar.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/duke.main.Duke.java` file, right-click it, and choose `Run duke.main.Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+For developers, the JAR file has been organized better with the addition of packages, extensive JavaDoc comments, and a strict adherence to the provided coding standards.
+
+Thank you for your continued support. Please report any bugs or issues you come across. Enjoy managing your tasks with Duke Chatbot!
