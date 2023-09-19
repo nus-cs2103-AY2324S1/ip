@@ -7,13 +7,17 @@ import java.util.List;
  */
 public class UI {
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
-    private static final String MESSAGE_WELCOME = "Hello! I'm Afro\n" + "What can I do for you?\n";
+    private static final String MESSAGE_WELCOME = "Hello! I'm MEDIC!\n" + "What can I do for you?\n";
     private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:";
     private static final String MESSAGE_MARK = "OK, I've marked this task as done:";
     private static final String MESSAGE_ADD_TASK = "Got it. I've added this task:";
     private static final String MESSAGE_DELETE_TASK = "Noted. I have removed this task.";
     private static final String MESSAGE_ADD_EXPENSE = "Got it. I've added this expense";
+    private static final String MESSAGE_CALL_MEDIC_1 = "ze healing is not as rewarding as ze hurting";
+    private static final String MESSAGE_CALL_MEDIC_2 = "Dummkopfs!";
+    private static final String MESSAGE_CALL_MEDIC_3 = "MEDIC GAMING!";
     private static final String MESSAGE_INVALID = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+    private int index = 1;
 
     /** Storage to load and write files. */
     private Storage storage;
@@ -63,6 +67,28 @@ public class UI {
         assert !task.isDone : "This task is still marked as completed.";
         String toBePrinted = MESSAGE_UNMARK + "\n" + task;
         return toBePrinted;
+    }
+
+    /**
+     * Prints the medic voiceline.
+     */
+    public String printCallMedic() {
+        if (index > 3) {
+            index = 1;
+        }
+        switch (index) {
+            case 1:
+                index++;
+                return MESSAGE_CALL_MEDIC_1;
+            case 2:
+                index++;
+                return MESSAGE_CALL_MEDIC_2;
+            case 3:
+                index++;
+                return MESSAGE_CALL_MEDIC_3;
+            default:
+                return "No medic found!";
+        }
     }
 
     /**

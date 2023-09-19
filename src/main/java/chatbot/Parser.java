@@ -34,12 +34,13 @@ public class Parser {
      */
     public String runInput(String input) {
         if (input.equals("bye")) {
-            return ui.endProgram();
+            return endCommand();
         } else if (input.equals("list")) {
-            storage.write(taskHandler.getTaskList());
-            return ui.printStorageList(taskHandler.getTaskList());
+            return printStorageList();
         } else if (input.equals("report")) {
-            return ui.printExpenseReport(expenseReport.getExpenseReport());
+            return printExpenseReport();
+        } else if (input.toUpperCase().equals("MEDIC!")) {
+            return callMedicCommand();
         } else if (input.startsWith("unmark")) {
             return unmarkCommand(input);
         } else if (input.startsWith("mark")) {
@@ -50,22 +51,51 @@ public class Parser {
             return editExpenseCommand(input);
         } else if (input.startsWith("find")) {
             return findCommand(input);
-        } else {
-            if (!(input.startsWith("todo") || input.startsWith("event") 
+        } else if (!(input.startsWith("todo") || input.startsWith("event")
                     || input.startsWith("deadline") || input.startsWith("expense"))) {
-                return ui.invalidInput();
-            } else if (input.startsWith("todo")) {
-                return todoCommand(input);
-            } else if (input.startsWith("deadline")) {
-                return deadlineCommand(input);
-            } else if (input.startsWith("event")) {
-                return eventCommand(input);
-            } else if (input.startsWith("expense")) {
-                return expenseCommand(input);
-            }
+            return printInvalidInput();
+        } else if (input.startsWith("todo")) {
+            return todoCommand(input);
+        } else if (input.startsWith("deadline")) {
+            return deadlineCommand(input);
+        } else if (input.startsWith("event")) {
+            return eventCommand(input);
+        } else if (input.startsWith("expense")) {
+            return expenseCommand(input);
+        } else {
+            assert false : "execution should never reach here";
+            return "";
         }
-        assert false : "execution should never reach here";
-        return "";
+    }
+
+    /**
+     * Returns the String message for ending the program.
+     */
+    public String endCommand() {
+        return ui.endProgram();
+    }
+
+    /**
+     * Returns the String representation of the task list.
+     */
+    public String printStorageList() {
+        storage.write(taskHandler.getTaskList());
+        return ui.printStorageList(taskHandler.getTaskList());
+    }
+
+    /**
+     * Returns the String representation of the report.
+     */
+    public String printExpenseReport() {
+        return ui.printExpenseReport(expenseReport.getExpenseReport());
+    }
+
+    public String printInvalidInput() {
+        return ui.invalidInput();
+    }
+
+    public String callMedicCommand() {
+        return ui.printCallMedic();
     }
 
     public String markCommand(String input) {

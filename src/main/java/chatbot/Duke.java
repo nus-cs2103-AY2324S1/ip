@@ -153,8 +153,6 @@ public class Duke extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        // Label userText = new Label(userInput.getText());
-        // Label dukeText = new Label(getResponse(userInput.getText()));
         String userText = userInput.getText();
         String dukeText = getResponse(userText);
         dialogContainer.getChildren().addAll(
