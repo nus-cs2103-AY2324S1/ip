@@ -1,4 +1,4 @@
-# User Guide
+# Chatty User Guide
 
 ## Features 
 
