@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class to create a Todo.
  */
-class Todo extends Task {
+public class Todo extends Task {
 
     private LocalDate date;
 

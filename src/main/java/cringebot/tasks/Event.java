@@ -3,7 +3,7 @@ package cringebot.tasks;
 /**
  * Class to create an event.
  */
-class Event extends Task {
+public class Event extends Task {
 
     /**
      * Constructor for Event.
@@ -29,6 +29,7 @@ class Event extends Task {
         } else {
             checkBox = "[ ]";
         }
+        System.out.printf("%s%s %s%n", taskType, checkBox, super.getName());
         return String.format("%s%s %s", taskType, checkBox, super.getName());
     }
 }

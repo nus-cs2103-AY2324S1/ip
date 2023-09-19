@@ -1,10 +1,8 @@
-package cringebot;
+package cringebot.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
-import cringebot.tasks.Deadline;
 
 public class DeadlineTest {
     @Test
