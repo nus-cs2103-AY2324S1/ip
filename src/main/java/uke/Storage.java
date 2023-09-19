@@ -54,7 +54,7 @@ public class Storage {
     /**
      * Converts the given task list to a string ready to be saved in the text file.
      *
-     * @param stored Task list with all stored tasks.
+     * @param stored TaskList with all stored tasks.
      * @return String representation of the task list to be saved in the text file.
      */
     public String generateTaskListString(TaskList stored) {
@@ -92,7 +92,8 @@ public class Storage {
      * Loads the task list from the text file into an ArrayList.
      * Create a text file if file does not exist yet.
      *
-     * @throws UkeInvalidTaskStringException If line in text file is not correctly formatted.
+     * @return ArrayList containing the loaded tasks.
+     * @throws UkeException If line in text file is incorrectly formatted or error is encountered creating a text file.
      */
     public ArrayList<Task> loadTaskList() throws UkeException {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -116,6 +117,8 @@ public class Storage {
     /**
      * Converts the string representation of a task saved into the text file into a Task object.
      *
+     * @param str Stored string representation a task.
+     * @return Task object represented by the given string.
      * @throws UkeInvalidTaskStringException If line in text file is not correctly formatted.
      */
     public Task convertStrToTask(String str) throws UkeInvalidTaskStringException {

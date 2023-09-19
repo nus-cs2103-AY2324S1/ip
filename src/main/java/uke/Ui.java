@@ -4,9 +4,7 @@ import uke.task.Task;
 import uke.task.TaskList;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 /**
  * Deals with interactions with the user.
@@ -14,10 +12,11 @@ import java.util.Scanner;
 public class Ui {
 
     /**
-     * Prints the list of tasks in the TaskList given.
+     * Generates Uke's response to the list or find command.
      *
      * @param storedTasks TaskList to be printed.
      * @param isListCommand Whether the method is called from a list command.
+     * @return String representation of Uke's response which includes the TaskList or the empty list response.
      */
     public String printList(TaskList storedTasks, boolean isListCommand) {
         int len = storedTasks.getLength();
@@ -42,36 +41,40 @@ public class Ui {
     }
 
     /**
-     * Prints the task that was marked as done.
+     * Generates Uke's response to the mark command.
      *
      * @param t Task that was marked as done.
+     * @return String representation of Uke's response which includes the task that was marked as done.
      */
     public String printMark(Task t) {
         return "Okay! I have marked the following task as DONE:\n" + t;
     }
 
     /**
-     * Prints the task that was marked as undone.
+     * Generates Uke's response to the unmark command.
      *
      * @param t Task that was marked as undone.
+     * @return String representation of Uke's response which includes the task that was marked as undone.
      */
     public String printUnmark(Task t) {
         return "Okay! I have marked the following task as UNDONE:\n" + t;
     }
 
     /**
-     * Prints the task that was deleted.
+     * Generates Uke's response to the delete command.
      *
      * @param t Task that was deleted.
+     * @return String representation of Uke's response which includes the task that was deleted.
      */
     public String printDelete(Task t, TaskList tl) {
-        return String.format("Okay! The following task has been successfully deleted:\n%s\n%s", t, printNumberOfTasks(tl)) ;
+        return String.format("Okay! The following task has been deleted:\n%s\n%s", t, printNumberOfTasks(tl)) ;
     }
 
     /**
-     * Prints the number of tasks in the given TaskList.
+     * Generates a message indicating the number of tasks in the given TaskList.
      *
      * @param tl TaskList given.
+     * @return String representation of a message indicating the number of tasks in the given TaskList.
      */
     public String printNumberOfTasks(TaskList tl) {
         int len = tl.getLength();
@@ -79,7 +82,9 @@ public class Ui {
     }
 
     /**
-     * Prints the exit message.
+     * Generates Uke's response to the exit command.
+     *
+     * @return String representation of the exit message.
      */
     public String printExit() {
         String exit = "Bye! See you soon! :)\n";
@@ -88,23 +93,33 @@ public class Ui {
     }
 
     /**
-     * Prints the error message.
+     * Generates the string representation of the given error.
      *
      * @param e Exception which error message is to be printed.
+     * @return String representation of the error.
      */
     public String printError(Exception e) {
         return e.toString();
     }
 
     /**
-     * Prints the task that was added.
+     * Generates Uke's response to the commands that add tasks to the task list.
      *
      * @param t Task that was added.
+     * @param tl TaskList to which the task was added.
+     * @return String representation of Uke's response which includes the task that was added.
      */
     public String printAdd(Task t, TaskList tl) {
-        return String.format("Okay! The following task has been successfully added:\n%s\n%s", t, printNumberOfTasks(tl)) ;
+        return String.format("Okay! The following task has been added:\n%s\n%s", t, printNumberOfTasks(tl));
     }
 
+    /**
+     * Generates Uke's response to the view command.
+     *
+     * @param date Date for which the schedule is generated.
+     * @param tasks TaskList containing the tasks that start on or is due by the given date.
+     * @return String representation of Uke's response which includes the TaskList given.
+     */
     public String printSchedule(LocalDate date, TaskList tasks) {
         int len = tasks.getLength();
 

@@ -1,6 +1,6 @@
-[T] // //2103T tP//
-[E] // //Dinner with Uke//Sep 20 2023 18:00//Sep 20 2023 20:00//
-[D] //X//UG//Sep 20 2023 23:59//
+[T] //X//2103T tP//
+[E] //X//Dinner with Uke//Sep 20 2023 18:00//Sep 20 2023 20:00//
+[D] // //UG//Sep 20 2023 23:59//
 [T] // //Unfriend Uke //
 [T] // //Learn to use Uke//
 [D] // //Add tasks to Uke//Oct 1 2023 23:59//

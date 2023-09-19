@@ -2,6 +2,7 @@ package uke;
 
 import uke.exception.UkeException;
 import uke.exception.UkeInvalidCommandException;
+import uke.exception.UkeInvalidDateException;
 import uke.exception.UkeInvalidDateTimeException;
 import uke.exception.UkeInvalidTaskNumberException;
 import uke.exception.UkeMissingArgumentException;
@@ -49,6 +50,12 @@ public class Uke {
         }
     }
 
+    /**
+     * Generates Uke's response to the input entered by the user.
+     *
+     * @param input String representation of the input entered by the user.
+     * @return String representation of Uke's response.
+     */
     public String getResponse(String input) {
         try {
             String command = Parser.parseCommand(input);
@@ -93,6 +100,8 @@ public class Uke {
 
     /**
      * Exits the Uke chatbot.
+     *
+     * @return String representation of Uke's response to the exit command.
      */
     public String handleExit() throws UkeException {
         storage.update(tasks);
@@ -103,7 +112,9 @@ public class Uke {
     }
 
     /**
-     * Generates list of added tasks.
+     * Returns Uke's response to the list command.
+     *
+     * @return String representation of Uke's response to the list command.
      */
     public String handleList() {
         return ui.printList(tasks, true);
@@ -113,6 +124,7 @@ public class Uke {
      * Marks task as done.
      *
      * @param info Task number of the task to be marked as done.
+     * @return String representation of Uke's response to the mark command.
      * @throws UkeException If index is not an integer or if index is an integer that is not a valid task number.
      */
     public String handleMarking(String info) throws UkeException {
@@ -135,6 +147,7 @@ public class Uke {
      * Marks task as undone.
      *
      * @param info Task number of the task to be marked as undone.
+     * @return String representation of Uke's response to the unmark command.
      * @throws UkeException If index is not an integer or if index is an integer that is not a valid task number.
      */
     public String handleUnmarking(String info) throws UkeException {
@@ -157,6 +170,7 @@ public class Uke {
      * Deletes task.
      *
      * @param info Task number of the task to be deleted.
+     * @return String representation of Uke's response to the delete command.
      * @throws UkeException If index is not an integer or if index is an integer that is not a valid task number.
      */
     public String handleDelete(String info) throws UkeException {
@@ -179,6 +193,7 @@ public class Uke {
      * Adds todo task to task list.
      *
      * @param info Description of todo.
+     * @return String representation of Uke's response to the todo command.
      * @throws UkeException If length of info is less than 1.
      */
     public String addTodo(String info) throws UkeException {
@@ -196,7 +211,7 @@ public class Uke {
      * Adds deadline task to task list.
      *
      * @param info Description and due date and time of deadline task.
-     * @return
+     * @return String representation of Uke's response to the deadline command.
      * @throws UkeException If info is missing arguments or if date and time entered is wrongly formatted.
      */
     public String addDeadline(String info) throws UkeException {
@@ -223,6 +238,7 @@ public class Uke {
      * Adds event to task list.
      *
      * @param info Description, start date and time and end date and time of event.
+     * @return String representation of Uke's response to the event command.
      * @throws UkeException If info is missing arguments or if date and time entered is wrongly formatted.
      */
     public String addEvent(String info) throws UkeException {
@@ -248,9 +264,10 @@ public class Uke {
     }
 
     /**
-     * Generates list of tasks containing the given keyword.
+     * Finds and returns the list of tasks containing the given keyword.
      *
      * @param info Keyword entered by user.
+     * @return String representation of Uke's response to the find command.
      * @throws UkeMissingArgumentException If keyword is empty.
      */
     public String handleFind(String info) throws UkeMissingArgumentException {
@@ -262,7 +279,14 @@ public class Uke {
         return ui.printList(list, false);
     }
 
-    public String handleView(String info) throws UkeException {
+    /**
+     * Finds and returns the list of tasks that start on or is due by the given date.
+     *
+     * @param info Date in DD/MM/YYYY entered by user.
+     * @return String representation of Uke's response to the view command.
+     * @throws UkeInvalidDateException If date entered is invalid or in an invalid format.
+     */
+    public String handleView(String info) throws UkeInvalidDateException {
         try {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate viewingDate = LocalDate.parse(info, dateTimeFormatter);
@@ -272,7 +296,7 @@ public class Uke {
 
             return ui.printSchedule(viewingDate, matchingTasks);
         } catch (DateTimeParseException e) {
-            throw new UkeInvalidDateTimeException();
+            throw new UkeInvalidDateException();
         }
     }
 

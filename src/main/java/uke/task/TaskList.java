@@ -63,9 +63,10 @@ public class TaskList {
     }
 
     /**
-     * Filters the task list for tasks containing the given keyword.
+     * Filters the TaskList for tasks containing the given keyword.
      *
      * @param keyword Keyword to be searched and filtered for.
+     * @return A TaskList of all tasks containing the keyword.
      */
     public TaskList getTaskListWithKeyword(String keyword) {
         TaskList list = new TaskList();
@@ -84,6 +85,12 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Filters the TaskList for tasks starting on or due by the given date.
+     *
+     * @param date Date to be searched for.
+     * @return A TaskList of all tasks starting on or due by the given date.
+     */
     public TaskList getTaskListWithDate(LocalDate date) {
         TaskList list = new TaskList();
         int len = this.getLength();
@@ -102,6 +109,9 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Sorts the TaskList from earliest to latest.
+     */
     public void sortByTime() {
 
         int len = this.getLength();
