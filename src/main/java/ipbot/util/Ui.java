@@ -13,6 +13,7 @@ public class Ui {
      * @param number The number to be given to the task in the list.
      */
     public static String taskListFormatString(Task task, int number) {
+        assert task != null : "Task is null";
         return String.format("%d. %s\n", number, task.toString());
     }
 
@@ -23,6 +24,7 @@ public class Ui {
      * @param taskTypeStr The type of task that was added.
      */
     public static String addedItemString(Task task, String taskTypeStr) {
+        assert task != null : "Task is null";
         return "Added " + taskTypeStr + " item: " + task.toString();
     }
 
@@ -32,6 +34,7 @@ public class Ui {
      * @param task The task that was deleted.
      */
     public static String deletedItemString(Task task) {
+        assert task != null : "Task is null";
         return "Deleted item: " + task.toString();
     }
 
@@ -42,6 +45,7 @@ public class Ui {
      * @param markAsDone Whether we are marking or unmarking the task.
      */
     public static String markTaskString(Task task, boolean markAsDone) {
+        assert task != null : "Task is null";
         String done = markAsDone ? "done" : "undone";
         return "Marking task as " + done + ": " + task.toString();
     }
@@ -53,6 +57,7 @@ public class Ui {
      * @param markAsDone Whether we are marking or unmarking the task.
      */
     public static String alreadyMarkedTaskString(Task task, boolean markAsDone) {
+        assert task != null : "Task is null";
         String done = markAsDone ? "done" : "undone";
         return "Task was already marked as " + done + ": " + task.toString();
     }

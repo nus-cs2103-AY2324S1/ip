@@ -90,6 +90,7 @@ public class Task {
      * @throws DateTimeParseException
      */
     public static Task fromCommaString(String string) throws TaskFormatException, DateTimeParseException {
+        assert string != null : "String representation of Task is null";
         String[] args = commaStringToArgs(string);
         char taskType = args[0].charAt(0);
         char completionStatus = args[1].charAt(0);

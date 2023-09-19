@@ -77,6 +77,7 @@ public class Storage {
      * @param taskList The TaskList object that contains the tasks to write.
      */
     public void writeTasksToCSVFile(TaskList taskList) {
+        assert taskList != null : "Task list is null";
         try {
             FileWriter fw = new FileWriter(this.saveFile);
             BufferedWriter bw = new BufferedWriter(fw);

@@ -29,6 +29,9 @@ public class DialogBox extends HBox {
             throw new RuntimeException(e);
         }
 
+        assert this.dialog != null : "Dialog component not found";
+        assert this.displayPicture != null : "Display picture component not found";
+
         this.dialog.setText(dialogText);
         this.displayPicture.setImage(image);
     }
