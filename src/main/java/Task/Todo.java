@@ -3,7 +3,7 @@ package task;
 /**
  * Todo class is used for tasks that need to done.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Instantiates a new Todo.

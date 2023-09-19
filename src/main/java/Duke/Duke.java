@@ -23,6 +23,7 @@ public class Duke {
         //Default constructor
         userInterface = new UserInterface();
         storage = new Storage("data/duke.txt");
+        assert storage.load() != null : "Loading tasks from storage failed.";
         taskManager = new TaskManager(storage.load());
     }
     /**
@@ -47,20 +48,9 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        assert input != null && !input.isEmpty() : "User input should not be null or empty";
         return "Nila: \n" + Parser.parseCommand(input, taskManager, userInterface, storage);
     }
-
-
-
-    /**
-     * main method which is the entry point of chatbot.
-     *
-     * @param args the input arguments
-     */
-//    public static void main(String[] args) {
-//        new Duke("data/duke.txt").run();
-//    }
-
 
 }
 
