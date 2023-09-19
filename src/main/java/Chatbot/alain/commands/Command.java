@@ -1,7 +1,6 @@
 package chatbot.alain.commands;
 
 import chatbot.alain.AlainException;
-import chatbot.alain.Storage;
 import chatbot.alain.TaskList;
 
 /**
@@ -15,18 +14,15 @@ import chatbot.alain.TaskList;
 public abstract class Command {
     protected TaskList list;
     protected String text;
-    protected Storage storage;
     /**
      * Constructs a new Command with the given task list, text, and storage mechanism.
      *
      * @param list    the task list associated with this command
      * @param text    the text representation or description of this command
-     * @param storage the storage mechanism for tasks persistence
      */
-    public Command(TaskList list, String text, Storage storage) {
+    public Command(TaskList list, String text) {
         this.list = list;
         this.text = text;
-        this.storage = storage;
     }
     /**
      * Processes and executes this command.

@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import chatbot.alain.uis.Ui;
 import org.junit.jupiter.api.Test;
+
+import chatbot.alain.uis.Ui;
 
 public class UiTest {
     @Test

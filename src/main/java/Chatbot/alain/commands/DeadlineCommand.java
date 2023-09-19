@@ -2,11 +2,10 @@ package chatbot.alain.commands;
 
 import chatbot.alain.AlainException;
 import chatbot.alain.Assertions;
-import chatbot.alain.uis.GuiUi;
-import chatbot.alain.Storage;
 import chatbot.alain.TaskList;
-import chatbot.alain.uis.Ui;
 import chatbot.alain.tasks.Deadline;
+import chatbot.alain.uis.GuiUi;
+import chatbot.alain.uis.Ui;
 
 /**
  * Represents an abstract command that can be executed. This serves as the base class
@@ -17,8 +16,8 @@ import chatbot.alain.tasks.Deadline;
  * instance for persistence concerns.</p>
  */
 public class DeadlineCommand extends Command {
-    public DeadlineCommand(TaskList list, String text, Storage storage) {
-        super(list, text, storage);
+    public DeadlineCommand(TaskList list, String text) {
+        super(list, text);
     }
 
     @Override

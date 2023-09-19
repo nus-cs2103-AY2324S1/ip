@@ -1,12 +1,9 @@
 package chatbot.alain;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import chatbot.alain.commands.ByeCommand;
@@ -50,31 +47,19 @@ public class ChatbotAlain extends Application {
     private Scene scene;
 
     private Ui ui;
-    private Storage storage;
-    private TaskList tasks;
-    private TaskList listGui = new TaskList();
+    private Storage storageGui;
+    private String filePath = "./data/notebook.txt";
 
-    /**
-     * Default Constructor for ChatbotAlain
-     */
-    public ChatbotAlain() {
-    }
+    private TaskList tasksGui;
     /**
      * Constructs a ChatbotAlain object.
-     *
-     * @param filePath The file path for loading tasks.
      */
-    public ChatbotAlain(String filePath) throws AlainException {
-        ui = new Ui();
-        storage = new Storage(filePath);
+    public ChatbotAlain() {
+        storageGui = new Storage(filePath);
         try {
-            if (!Files.exists(Paths.get(filePath))) {
-                throw new AlainException("Error Occurs when loading tasks from file");
-            } else {
-                tasks = storage.loadTasksFromFile();
-            }
+            tasksGui = storageGui.loadTasksFromFile();
         } catch (IOException | AlainException e) {
-            ui.showError(e.getMessage());
+            Ui.showError(e.getMessage());
         }
     }
 
@@ -127,7 +112,7 @@ public class ChatbotAlain extends Application {
      * @throws AlainException If any user input error occurs, like invalid command or task details.
      * @throws IOException If there's any error related to file operations when saving tasks or errors.
      */
-    public static String proccessCommands(TaskList list, String text, Storage storage) {
+    public static String proccessCommands(TaskList list, String text) {
         try {
             boolean isMatchMarkCommand = Pattern.matches("mark \\d+", text);
             boolean isMatchUnmarkCommand = Pattern.matches("unmark \\d+", text);
@@ -139,34 +124,34 @@ public class ChatbotAlain extends Application {
             boolean isByeCommand = text.equals("bye");
             boolean isListCommand = text.equals("list");
             if (isFindCommand) {
-                return new FindCommand(list, text, storage).processCommand();
+                return new FindCommand(list, text).processCommand();
             }
             if (isDeleteCommand) {
-                return new DeleteCommand(list, text, storage).processCommand();
+                return new DeleteCommand(list, text).processCommand();
             }
             if (isToDoCommand) {
                 System.out.println(text);
-                return new TodoCommand(list, text, storage).processCommand();
+                return new TodoCommand(list, text).processCommand();
             }
             if (isDeadlineCommand) {
                 System.out.println(text);
-                return new DeadlineCommand(list, text, storage).processCommand();
+                return new DeadlineCommand(list, text).processCommand();
             }
             if (isEventCommand) {
                 System.out.println(text);
-                return new EventCommand(list, text, storage).processCommand();
+                return new EventCommand(list, text).processCommand();
             }
             if (isByeCommand) {
-                return new ByeCommand(list, text, storage).processCommand();
+                return new ByeCommand(list, text).processCommand();
             }
             if (isMatchMarkCommand) {
-                return new MarkCommand(list, text, storage).processCommand();
+                return new MarkCommand(list, text).processCommand();
             }
             if (isMatchUnmarkCommand) {
-                return new UnmarkCommand(list, text, storage).processCommand();
+                return new UnmarkCommand(list, text).processCommand();
             }
             if (isListCommand) {
-                return new ListCommand(list, text, storage).processCommand();
+                return new ListCommand(list, text).processCommand();
             }
             throw new AlainException("I'm sorry, but I don't know what that means :-(");
         } catch (AlainException e) {
@@ -174,54 +159,6 @@ public class ChatbotAlain extends Application {
             return GuiUi.showError(e.getMessage());
         }
     }
-
-    /**
-     * Runs the Alain chatbot.
-     *
-     * @throws AlainException If an exception occurs during chatbot execution.
-     * @throws IOException If an I/O error occurs during chatbot execution.
-     */
-    public void run() throws AlainException, IOException {
-        if (this.storage.isBye()) {
-            return;
-        }
-        TaskList list = null;
-        if (this.tasks == null) {
-            list = new TaskList();
-        } else {
-            list = this.tasks;
-        }
-        Scanner s = new Scanner(System.in);
-        while (true) {
-            String text = new String();
-            text = s.nextLine();
-            if (proccessCommands(list, text, storage) == null) {
-                break;
-            }
-        }
-        s.close();
-        try {
-            Ui.showList(list);
-            storage.saveTasksToFile(list, "list.txt", false, null);
-        } catch (IOException e) {
-            Ui.showError("Error saving tasks to file");
-            storage.saveTasksToFile(null, "list.txt", true, e.getMessage());
-        } finally {
-            Ui.showGoodbye();
-        }
-    }
-
-    /**
-     * Main method to start the Alain chatbot.
-     *
-     * @param args Command-line arguments (not used).
-     * @throws AlainException If an exception occurs during chatbot execution.
-     * @throws IOException If an I/O error occurs during chatbot execution.
-     */
-    public static void main(String[] args) throws AlainException, IOException {
-        new ChatbotAlain("tasks.txt").run();
-    }
-
     /**
      * Initializes the primary stage for the application.
      *
@@ -296,8 +233,20 @@ public class ChatbotAlain extends Application {
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(GuiUi.showWelcome()), dukeImageView));
 
         // Step 3: Add functionality to handle user input
-        sendButton.setOnMouseClicked((event) -> handleUserInput());
-        userInput.setOnAction((event) -> handleUserInput());
+        sendButton.setOnMouseClicked((event) -> {
+            try {
+                handleUserInput();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        userInput.setOnAction((event) -> {
+            try {
+                handleUserInput();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
@@ -319,7 +268,7 @@ public class ChatbotAlain extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Alain's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput() {
+    private void handleUserInput() throws IOException {
         Label userText = new Label("Conan: \n\n" + userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
@@ -333,14 +282,19 @@ public class ChatbotAlain extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    private String getResponse(String input) throws IOException {
         String ai = "Ai: \n";
         String text = input;
-        String chatOutput = proccessCommands(listGui, text, null);
+        String chatOutput = proccessCommands(tasksGui, text);
         if (chatOutput != null) {
             return ai + chatOutput;
         } else {
-            return ai + GuiUi.showList(listGui) + GuiUi.showGoodbye();
+            try {
+                storageGui.saveTasksToFile(tasksGui, filePath, false, null);
+            } catch (IOException e) {
+                storageGui.saveTasksToFile(null, filePath, true, e.getMessage());
+            }
+            return ai + GuiUi.showList(tasksGui) + GuiUi.showGoodbye();
         }
     }
 }

@@ -2,11 +2,10 @@ package chatbot.alain.commands;
 
 import chatbot.alain.AlainException;
 import chatbot.alain.Assertions;
-import chatbot.alain.uis.GuiUi;
-import chatbot.alain.Storage;
 import chatbot.alain.TaskList;
+import chatbot.alain.tasks.ToDo;
+import chatbot.alain.uis.GuiUi;
 import chatbot.alain.uis.Ui;
-import chatbot.alain.tasks.ToDos;
 
 /**
  * Represents an abstract command that can be executed. This serves as the base class
@@ -17,8 +16,8 @@ import chatbot.alain.tasks.ToDos;
  * instance for persistence concerns.</p>
  */
 public class TodoCommand extends Command {
-    public TodoCommand(TaskList list, String text, Storage storage) {
-        super(list, text, storage);
+    public TodoCommand(TaskList list, String text) {
+        super(list, text);
     }
 
     @Override
@@ -30,7 +29,7 @@ public class TodoCommand extends Command {
         if (mission.length() == 0) {
             throw new AlainException("The description of a Todo cannot be empty.");
         }
-        ToDos newTodo = new ToDos(mission);
+        ToDo newTodo = new ToDo(mission);
         list.addTask(newTodo);
         Assertions.assertNewTodo(list, newTodo);
         Ui.showAddTask(list.getTask(list.size() - 1), list);

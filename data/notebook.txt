@@ -1,0 +1,9 @@
+D|0|return pencil|October 12 2019 18:00
+T|1|read book
+D|1|return book|June 6th
+E|1|project meeting|Aug 6th 2|Aug 6th 4pm
+T|1|join sports club
+T|1|wash cloth
+T|1|sleep
+D|1|wash |10am
+T|0|submit draft

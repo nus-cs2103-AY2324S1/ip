@@ -44,6 +44,24 @@ public class Event extends Task {
             this.to = LocalDate.MAX;
         }
     }
+    /**
+     * Retrieves the start time of the time interval.
+     *
+     * @return The start time as a string representation.
+     */
+    public String getFromTime() {
+        return this.fromString;
+    }
+
+    /**
+     * Retrieves the end time of the time interval.
+     *
+     * @return The end time as a string representation.
+     */
+    public String getToTime() {
+        return this.toString;
+    }
+
 
     /**
      * Returns a string representation of the Event task.

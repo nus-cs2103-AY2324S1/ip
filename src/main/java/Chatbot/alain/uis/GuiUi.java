@@ -27,7 +27,8 @@ public class GuiUi {
         String output = "";
         output += showlines();
         output += logo + "\n";
-        output += "Hello! I'm Haibara Ai\nWhat can I do for you, Conan?\n";
+        output += "Hello! I'm Haibara Ai\nWhat can I do for you, Conan?\n\n"
+                + "I have record your schedule in './data/notebook.txt' \n";
         output += showlines();
         return output;
     }

@@ -1,7 +1,6 @@
 package chatbot.alain.commands;
 
 import chatbot.alain.AlainException;
-import chatbot.alain.Storage;
 import chatbot.alain.TaskList;
 
 /**
@@ -13,15 +12,12 @@ import chatbot.alain.TaskList;
  * instance for persistence concerns.</p>
  */
 public class ByeCommand extends Command {
-    public ByeCommand(TaskList list, String text, Storage storage) {
-        super(list, text, storage);
+    public ByeCommand(TaskList list, String text) {
+        super(list, text);
     }
 
     @Override
     public String processCommand() throws AlainException {
-        if (storage != null) {
-            storage.sayBye();
-        }
         return null;
     }
 }

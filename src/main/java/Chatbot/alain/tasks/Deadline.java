@@ -28,6 +28,14 @@ public class Deadline extends Task {
             byTime = LocalDate.MAX;
         }
     }
+    /**
+     * Retrieves the by time of the time interval.
+     *
+     * @return The by time as a string representation.
+     */
+    public String getByTime() {
+        return String.valueOf(this.byTimeString);
+    }
 
     /**
      * Returns a string representation of the Deadline task.

@@ -63,6 +63,26 @@ public abstract class Task {
     public String toString() {
         return this.getStatusIcon() + " " + this.name;
     }
+    /**
+     * Checks if the task is done.
+     *
+     * @return 1 if the task is done, 0 otherwise.
+     */
+    public int isDone() {
+        if (this.isDone) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    /**
+     * Retrieves the description of the task.
+     *
+     * @return The name of the task as its description.
+     */
+    public String getDescription() {
+        return this.name;
+    }
     public abstract void setTime(LocalDate date, boolean by);
     public abstract LocalDate getDate();
 }

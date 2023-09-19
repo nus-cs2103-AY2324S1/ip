@@ -2,9 +2,9 @@ package chatbot.alain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import chatbot.alain.tasks.Deadline;
 import org.junit.jupiter.api.Test;
 
+import chatbot.alain.tasks.Deadline;
 
 public class DeadlinesTest {
     @Test

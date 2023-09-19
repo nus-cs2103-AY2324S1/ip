@@ -1,9 +1,8 @@
 package chatbot.alain.commands;
 
 import chatbot.alain.AlainException;
-import chatbot.alain.uis.GuiUi;
-import chatbot.alain.Storage;
 import chatbot.alain.TaskList;
+import chatbot.alain.uis.GuiUi;
 import chatbot.alain.uis.Ui;
 
 /**
@@ -15,8 +14,8 @@ import chatbot.alain.uis.Ui;
  * instance for persistence concerns.</p>
  */
 public class MarkCommand extends Command {
-    public MarkCommand(TaskList list, String text, Storage storage) {
-        super(list, text, storage);
+    public MarkCommand(TaskList list, String text) {
+        super(list, text);
     }
 
     @Override
