@@ -27,7 +27,11 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        String greeting = "Hello! I'm Glub!\n" + "What can I do for you?";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getGlubDialog(greeting, dukeImage)
+        );
     }
 
     public void setGlub(Glub g) {
