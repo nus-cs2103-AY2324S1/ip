@@ -3,11 +3,8 @@ package duke.command;
 import java.time.DateTimeException;
 
 import duke.main.Storage;
-import duke.task.Deadlines;
-import duke.task.Events;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todos;
+import duke.task.*;
+import duke.task.Deadline;
 
 /**
  * A class for the command for adding new task to list based on user input.
@@ -35,6 +32,11 @@ public class AddCommand extends Command {
     private final String endDate;
 
     /**
+     * The task to be added.
+     */
+    private Task addedTask;
+
+    /**
      * The constructor for AddCommand
      *
      * @param commandType The type of task being added; todo, deadline or event
@@ -50,15 +52,15 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
         Task temp = null;
         switch (commandType) {
         case "T":
-            temp = new Todos(this.description);
+            temp = new Todo(this.description);
             break;
         case "D":
             try {
-                temp = new Deadlines(this.description, this.endDate);
+                temp = new Deadline(this.description, this.endDate);
                 break;
             } catch (DateTimeException e) {
                 return "JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\""
@@ -67,7 +69,7 @@ public class AddCommand extends Command {
 
         case "E":
             try {
-                temp = new Events(this.description, this.startDate, this.endDate);
+                temp = new Event(this.description, this.startDate, this.endDate);
                 break;
             } catch (DateTimeException e) {
                 return "JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\""
@@ -76,8 +78,13 @@ public class AddCommand extends Command {
         default:
             return "Something went wrong. Please try again.";
         }
-        taskList.addTask(temp);
-        storage.writeData(taskList.convertToFileContent());
+        this.addedTask = temp;
+        if (write) {
+            taskList.addTask(this.addedTask);
+            commandList.addCommand(this);
+            storage.writeData(taskList.convertToFileContent());
+            storage.previousCommandsWriter(commandList.convertToFileContent());
+        }
         return this.printCommand(taskList);
     }
 
@@ -91,5 +98,12 @@ public class AddCommand extends Command {
     @Override
     public boolean isContinue() {
         return true;
+    }
+
+    /**
+     * Returns the task that is added by the command
+     */
+    public Task getTask() {
+        return this.addedTask;
     }
 }

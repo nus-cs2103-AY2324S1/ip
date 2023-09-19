@@ -8,11 +8,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import duke.task.Deadlines;
-import duke.task.Events;
+import duke.command.*;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.task.Todos;
+import duke.task.Todo;
 
 /**
  * A class handling the saving and load the taskList
@@ -26,20 +27,36 @@ public class Storage {
     protected String filePath;
 
     /**
+     * The path of the file where the previous commands are saved
+     */
+    protected String fileCommandPath;
+
+    /**
      * The constructor for the Storage
      */
     public Storage() {
         String home = System.getProperty("user.home");
-        Path path = Paths.get(home, "data", "duke.txt");
-        File file = new File(path.toString());
+        Path path1 = Paths.get(home, "data", "duke.txt");
+        Path path2 = Paths.get(home, "data", "dukePreviousCommands.txt");
+        File file1 = new File(path1.toString());
+        File file2 = new File(path2.toString());
         try {
-            file.getParentFile().mkdirs();
-            if (!file.exists()) {
-                file.createNewFile();
+            file1.getParentFile().mkdirs();
+            if (!file1.exists()) {
+                file1.createNewFile();
             }
-            this.filePath = path.toString();
+            this.filePath = path1.toString();
         } catch (IOException e) {
-            System.out.println("Cannot create file!");
+            System.out.println("Cannot create file for duke!");
+        }
+        try {
+            file2.getParentFile().mkdirs();
+            if (!file2.exists()) {
+                file2.createNewFile();
+            }
+            this.fileCommandPath = path2.toString();
+        } catch (IOException e) {
+            System.out.println("Cannot create file for previous commands!");
         }
     }
 
@@ -53,7 +70,22 @@ public class Storage {
             file.write(data);
             file.close();
         } catch (IOException e) {
-            //Throw DukeException
+            System.out.println("Error writing to duke file!");
+        }
+
+    }
+
+    /**
+     * Writes the previous commands into the file.
+     * @param data The content to be written into the file
+     */
+    public void previousCommandsWriter(String data) {
+        try {
+            FileWriter file = new FileWriter(this.fileCommandPath, false);
+            file.write(data);
+            file.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to previous commands file!");
         }
 
     }
@@ -80,6 +112,27 @@ public class Storage {
     }
 
     /**
+     * Reads the content of the file for previous commands
+     * @return list of previous commands
+     */
+    public CommandList previousCommandsLoader() {
+        CommandList tempList = new CommandList();
+        File file = new File(this.fileCommandPath);
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                tempList.addCommand(previousCommandsLineParser(line));
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Command File is not found!");
+        }
+        return tempList;
+
+    }
+
+    /**
      * Reads the line and convert them into Task objects
      * @param line The line read from the file
      * @return Task
@@ -87,23 +140,56 @@ public class Storage {
     public Task parseLine(String line) {
         String[] input = line.split(" \\| ");
         if (input[0].equals("T")) {
-            Todos task = new Todos(input[2]);
+            Todo task = new Todo(input[2]);
             if (input[1].equals("1")) {
                 task.markAsDone();
             }
             return task;
         } else if (input[0].equals("D")) {
-            Deadlines task = new Deadlines(input[2], input[3]);
+            Deadline task = new Deadline(input[2], input[3]);
             if (input[1].equals("1")) {
                 task.markAsDone();
             }
             return task;
         } else if (input[0].equals("E")) {
-            Events task = new Events(input[2], input[3], input[4]);
+            Event task = new Event(input[2], input[3], input[4]);
             if (input[1].equals("1")) {
                 task.markAsDone();
             }
             return task;
+        }
+        return null;
+    }
+
+    /**
+     * Reads the line and convert them into Commands objects
+     * @param line The line read from the file
+     * @return Command
+     */
+    public Command previousCommandsLineParser(String line) {
+        String[] input = line.split(" \\| ");
+        if (input[0].equals("delete")) {
+            String tempLine = "";
+            for (int i = 0; i < input.length; i++) {
+                if (i < 2) {
+                    continue;
+                }
+                if (i < input.length - 1) {
+                    tempLine += input[i] + " | ";
+                } else {
+                    tempLine += input[i];
+                }
+            }
+            Task task = parseLine(tempLine);
+            DeleteCommand comm = new DeleteCommand(Integer.parseInt(input[1]));
+            comm.taskSetter(task);
+            return comm;
+        } else if (input[0].equals("add")) {
+            return new AddCommand("", "", "", "");
+        } else if (input[0].equals("mark")) {
+            return new MarkCommand(Integer.parseInt(input[1]));
+        } else if (input[0].equals("unmark")) {
+            return new UnmarkCommand(Integer.parseInt(input[1]));
         }
         return null;
     }

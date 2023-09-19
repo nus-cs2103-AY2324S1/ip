@@ -21,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
         TaskList tempList = new TaskList();
         for (Task task : taskList.getTaskList()) {
             String description = task.getDescription().toLowerCase();

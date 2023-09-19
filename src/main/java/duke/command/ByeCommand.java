@@ -8,7 +8,7 @@ import duke.task.TaskList;
  */
 public class ByeCommand extends Command {
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
         return this.printCommand(taskList);
     }
 

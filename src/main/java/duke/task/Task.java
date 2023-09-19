@@ -27,6 +27,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /** Method to return whether the task is marked as done or not*/
+    public boolean isDoneGetter() {
+        return this.isDone;
+    }
+
     /** Return icon based on whether task is done or undone*/
     public String getStatusIcon() {
         return (this.isDone ? "[X] " : "[ ] "); // mark done task with X

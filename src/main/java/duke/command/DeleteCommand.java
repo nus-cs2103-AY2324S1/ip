@@ -15,6 +15,11 @@ public class DeleteCommand extends Command {
     private final int index;
 
     /**
+     * The task to be deleted.
+     */
+    private Task deletedTask;
+
+    /**
      * The constructor for DeleteCommand
      * @param index The index of the task in the taskList to be deleted
      */
@@ -23,10 +28,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
         String result = this.printCommand(taskList);
-        taskList.removeTask(this.index - 1);
-        storage.writeData(taskList.convertToFileContent());
+        this.deletedTask = taskList.getTask(this.index - 1);
+        if (write) {
+            taskList.removeTask(this.index - 1);
+            commandList.addCommand(this);
+            storage.writeData(taskList.convertToFileContent());
+            storage.previousCommandsWriter(commandList.convertToFileContent());
+        }
         return result;
     }
 
@@ -41,5 +51,26 @@ public class DeleteCommand extends Command {
     @Override
     public boolean isContinue() {
         return true;
+    }
+
+    /**
+     * Returns the task that is deleted by the command
+     */
+    public Task getTask() {
+        return this.deletedTask;
+    }
+
+    /**
+     * Returns the index of the task that is deleted by the command
+     */
+    public int getIndex() {
+        return this.index;
+    }
+
+    /**
+     * Set the task for the delete command
+     */
+    public void taskSetter(Task task) {
+        this.deletedTask = task;
     }
 }

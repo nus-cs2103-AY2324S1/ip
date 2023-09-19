@@ -3,10 +3,12 @@ package duke.main;
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
+import duke.command.CommandList;
 import duke.command.DeleteCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.UndoCommand;
 import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 import duke.exception.InvalidSyntaxException;
@@ -21,7 +23,7 @@ public class Parser {
      * A list of valid commands
      */
     public enum ValidCommand {
-        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN, FIND, INCORRECTFORMAT
+        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN, FIND, INCORRECTFORMAT, UNDO
     }
 
     /**
@@ -37,7 +39,7 @@ public class Parser {
      * @return Command
      * @throws DukeException if the format of Command is wrong
      */
-    public Command parse(String[] inp, TaskList taskList) throws DukeException {
+    public Command parse(String[] inp, TaskList taskList, CommandList commandList) throws DukeException {
         String title = "";
         String startDate = "";
         String endDate = "";
@@ -66,7 +68,8 @@ public class Parser {
                 isValid = commandValidator(inp);
             }
         }
-        return commandHandler(inp, isValid, title, startDate, endDate, taskIndex, currentCommand, taskList);
+        return commandHandler(inp, isValid, title, startDate, endDate,
+                taskIndex, currentCommand, taskList, commandList);
     }
 
     /**
@@ -95,19 +98,21 @@ public class Parser {
      * @return Command
      * @throws DukeException if the format of Command is wrong
      */
-    public static Command taskHandler(String[] inp, boolean isValid, String title, String startDate, String endDate)
-            throws DukeException {
+    public static Command taskHandler(String[] inp, boolean isValid, String title, String startDate, String endDate,
+                                      CommandList commandList) throws DukeException {
         if (inp.length < 2 || !isValid) {
             throw new InvalidSyntaxException("The description of a " + inp[0] + " cannot be empty.");
         }
         if (inp[0].equals("todo")) {
-            return new AddCommand("T", title, "", "");
+            AddCommand temp = new AddCommand("T", title, "", "");
+            return temp;
         }
         if (inp[0].equals("deadline")) {
             if (endDate.equals("")) {
                 throw new InvalidSyntaxException("The end date of a " + inp[0] + " cannot be empty.");
             }
-            return new AddCommand("D", title, "", endDate);
+            AddCommand temp = new AddCommand("D", title, "", endDate);
+            return temp;
         }
         if (inp[0].equals("event")) {
             if (startDate.equals("")) {
@@ -116,7 +121,8 @@ public class Parser {
             if (endDate.equals("")) {
                 throw new InvalidSyntaxException("The end date of a " + inp[0] + " cannot be empty.");
             }
-            return new AddCommand("E", title, startDate, endDate);
+            AddCommand temp = new AddCommand("E", title, startDate, endDate);
+            return temp;
         }
         return null;
     }
@@ -130,18 +136,21 @@ public class Parser {
      * @return Command for Mark, Unmark and Delete if task index is valid
      * @throws DukeException if the task index is invalid
      */
-    public static Command taskIndexValidator(int taskIndex, ValidCommand command, TaskList taskList)
-            throws DukeException {
+    public static Command taskIndexValidator(int taskIndex, ValidCommand command, TaskList taskList,
+                                             CommandList commandList) throws DukeException {
         if (taskIndex > taskList.size() || taskIndex < 1) {
             throw new InvalidSyntaxException("The task does not exist.");
         }
         assert taskIndex >= 0 && taskIndex <= taskList.size() : "Task index should be valid";
         if (command == ValidCommand.MARK) {
-            return new MarkCommand(taskIndex);
+            MarkCommand temp = new MarkCommand(taskIndex);
+            return temp;
         } else if (command == ValidCommand.UNMARK) {
-            return new UnmarkCommand(taskIndex);
+            UnmarkCommand temp = new UnmarkCommand(taskIndex);
+            return temp;
         } else {
-            return new DeleteCommand(taskIndex);
+            DeleteCommand temp = new DeleteCommand(taskIndex);
+            return temp;
         }
 
     }
@@ -162,12 +171,14 @@ public class Parser {
      */
     public static Command commandHandler(String[] inp, boolean isValid, String title, String startDate, String endDate,
                                          int taskIndex, ValidCommand currentCommand,
-                                         TaskList taskList) throws DukeException {
+                                         TaskList taskList, CommandList commandList) throws DukeException {
         switch (currentCommand) {
         case UNKNOWN:
             throw new InvalidSyntaxException("I'm sorry, but I don't know what that means :-(");
         case INCORRECTFORMAT:
             throw new InvalidSyntaxException("The format of the command is invalid.");
+        case UNDO:
+            return new UndoCommand();
         case BYE:
             return new ByeCommand();
         case LIST:
@@ -177,9 +188,9 @@ public class Parser {
         case UNMARK:
         case MARK:
         case DELETE:
-            return taskIndexValidator(taskIndex, currentCommand, taskList);
+            return taskIndexValidator(taskIndex, currentCommand, taskList, commandList);
         default:
-            return taskHandler(inp, isValid, title, startDate, endDate);
+            return taskHandler(inp, isValid, title, startDate, endDate, commandList);
         }
     }
 

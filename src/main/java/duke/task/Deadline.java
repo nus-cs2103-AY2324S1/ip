@@ -7,7 +7,7 @@ import duke.main.DateFormatter;
 /**
  * A Task with deadline.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
     /**
      * A formatter for the date
      */
@@ -19,11 +19,11 @@ public class Deadlines extends Task {
     protected LocalDateTime endDate;
 
     /**
-     * The constructor for Deadlines
+     * The constructor for Deadline
      * @param description The description of the task with deadline
      * @param endDate The deadline of a task
      */
-    public Deadlines(String description, String endDate) {
+    public Deadline(String description, String endDate) {
         super(description);
         this.endDate = DF.stringToDate(endDate);
     }
@@ -37,5 +37,12 @@ public class Deadlines extends Task {
     public String printTask() {
         return "[" + this.getTypeIcon() + "]" + this.getStatusIcon() + this.description
                 + " (by: " + DF.dateToString(this.endDate) + ")";
+    }
+
+    /**
+     * Return the endDate of the deadline
+     */
+    public LocalDateTime getEndDate() {
+        return this.endDate;
     }
 }

@@ -44,6 +44,14 @@ public class TaskList {
     }
 
     /**
+     * Inserts task to specific position of the taskList
+     * @param task The task to be added
+     */
+    public void insertTask(int index, Task task) {
+        this.getTaskList().add(index, task);
+    }
+
+    /**
      * Returns task from taskList
      * @param index The index of the task inside the taskList to be returned
      * @return task
@@ -69,18 +77,18 @@ public class TaskList {
         String line = "";
         for (int i = 0; i < this.size(); i++) {
             Task currentTask = this.getTask(i);
-            if (currentTask instanceof Todos) {
+            if (currentTask instanceof Todo) {
                 String mark = currentTask.isDone ? "1" : "0";
                 line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description;
-            } else if (currentTask instanceof Deadlines) {
+            } else if (currentTask instanceof Deadline) {
                 String mark = currentTask.isDone ? "1" : "0";
                 line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description + " | "
-                        + DF.saveDateToFile(((Deadlines) currentTask).endDate);
-            } else if (currentTask instanceof Events) {
+                        + DF.saveDateToFile(((Deadline) currentTask).endDate);
+            } else if (currentTask instanceof Event) {
                 String mark = currentTask.isDone ? "1" : "0";
                 line = currentTask.getTypeIcon() + " | " + mark + " | " + currentTask.description + " | "
-                        + DF.saveDateToFile(((Events) currentTask).startDate) + " | "
-                        + DF.saveDateToFile(((Events) currentTask).endDate);
+                        + DF.saveDateToFile(((Event) currentTask).startDate) + " | "
+                        + DF.saveDateToFile(((Event) currentTask).endDate);
             }
             result += line + "\n";
         }

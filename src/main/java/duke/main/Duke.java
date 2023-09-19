@@ -3,6 +3,7 @@ package duke.main;
 import java.time.DateTimeException;
 
 import duke.command.Command;
+import duke.command.CommandList;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 
@@ -17,16 +18,19 @@ public class Duke {
     private static final Ui ui = new Ui();
 
     private static TaskList inputList;
+
+    private static CommandList commandList;
     private static Parser parser = new Parser();
     private static Storage storage = new Storage();
 
     String getResponse(String userInput) {
         inputList = storage.loadData();
+        commandList = storage.previousCommandsLoader();
         String input = userInput.trim();
         String[] inp = input.split("\\s+");
         try {
-            Command currentCommand = parser.parse(inp, inputList);
-            return currentCommand.execute(inputList, storage);
+            Command currentCommand = parser.parse(inp, inputList, commandList);
+            return currentCommand.execute(inputList, storage, commandList, true);
         } catch (DukeException e) {
             return "JonBird:\n\t" + e;
         } catch (DateTimeException e) {

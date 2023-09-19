@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.main.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 
 /**
@@ -15,6 +16,11 @@ public class UnmarkCommand extends Command {
     private final int index;
 
     /**
+     * The task to be unmarked.
+     */
+    private Task unmarkedTask;
+
+    /**
      * The constructor for UnmarkCommand
      * @param index The index of the task in the taskList to be unmarked
      */
@@ -23,9 +29,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
+        this.unmarkedTask = taskList.getTask(this.index - 1);
         taskList.getTask(this.index - 1).markAsUndone();
-        storage.writeData(taskList.convertToFileContent());
+        if (write) {
+            commandList.addCommand(this);
+            storage.writeData(taskList.convertToFileContent());
+            storage.previousCommandsWriter(commandList.convertToFileContent());
+        }
         return this.printCommand(taskList);
     }
 
@@ -38,5 +49,19 @@ public class UnmarkCommand extends Command {
     @Override
     public boolean isContinue() {
         return true;
+    }
+
+    /**
+     * Returns the task that is unmarked by the command
+     */
+    public Task getTask() {
+        return this.unmarkedTask;
+    }
+
+    /**
+     * Returns the index of the task that is unmarked by the command
+     */
+    public int getIndex() {
+        return this.index;
     }
 }
