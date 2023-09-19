@@ -20,6 +20,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Adds a new task into the array list.
+     *
+     * @param newTask
+     */
     public void add(Task newTask) {
         tasks.add(newTask);
         assert !(tasks.isEmpty());
@@ -103,6 +108,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Modifies the task list.
+     *
+     * @param userOutput User command.
+     */
     public void update(String userOutput) {
         Task selectedTask = tasks.get(Integer.parseInt(userOutput.split(" ")[1]) - 1);
         selectedTask.update(userOutput);

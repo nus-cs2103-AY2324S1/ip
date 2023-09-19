@@ -55,6 +55,11 @@ public class Deadline extends Task {
         tasks.add(updatedDeadline);
     }
 
+    /**
+     * Modifies the task list.
+     *
+     * @param userOutput User command.
+     */
     public void update(String userOutput) {
         String[] splitDes = userOutput.split("/desc");
         if (splitDes.length > 1) {

@@ -1,6 +1,5 @@
 package duke;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -52,6 +51,11 @@ public class Event extends Task {
         tasks.add(updatedEvent);
     }
 
+    /**
+     * Modifies the task list.
+     *
+     * @param userOutput User command.
+     */
     public void update(String userOutput) {
         String[] splitDes = userOutput.split("/desc");
         if (splitDes.length > 1) {

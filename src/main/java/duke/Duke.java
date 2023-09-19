@@ -23,7 +23,7 @@ public class Duke {
     }
 
     public void run() {
-        ui.identity();
+        ui.showIdentity();
         Scanner userInput = new Scanner(System.in); // Create a Scanner object
         String userOutput = userInput.nextLine(); // Read user input
         while (!userOutput.equals("bye")) {

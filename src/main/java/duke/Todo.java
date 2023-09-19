@@ -1,6 +1,5 @@
 package duke;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +45,11 @@ public class Todo extends Task {
         tasks.add(updatedTodo);
     }
 
+    /**
+     * Modifies the task list.
+     *
+     * @param userOutput User command.
+     */
     public void update(String userOutput) {
         String[] splitDes = userOutput.split("/desc");
         if (splitDes.length > 1) {

@@ -2,24 +2,24 @@ package duke;
 
 public class Ui {
 
-    public static void identity() {
+    public static void showIdentity() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        horizontalLine();
+        printHorizontalLine();
         System.out.println("Hello! I'm Snow!");
         System.out.println("What can I do for you?");
-        horizontalLine();
+        printHorizontalLine();
     }
 
     public static void printBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void horizontalLine() {
+    public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
 
