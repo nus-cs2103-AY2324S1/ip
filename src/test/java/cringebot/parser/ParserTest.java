@@ -2,11 +2,12 @@ package cringebot.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 import cringebot.datafile.Storage;
 import cringebot.exceptions.CringeBotException;
 import cringebot.mocks.MockStorage;
 import cringebot.tasks.TaskList;
-import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
@@ -18,7 +19,10 @@ public class ParserTest {
         } catch (CringeBotException e) {
             tasks = new TaskList();
         }
-        assertEquals("Bye. Hope to see you again soon!", Parser.parseCommands("bye", tasks, storage));
+        assertEquals(
+                "Bye. Hope to see you again soon!",
+                Parser.parseCommands("bye", tasks, storage)
+        );
     }
 
     @Test
@@ -30,7 +34,10 @@ public class ParserTest {
         } catch (CringeBotException e) {
             tasks = new TaskList();
         }
-        assertEquals("OOPS!!! I'm sorry, but I don't know what that means. :(( ", Parser.parseCommands("hello", tasks, storage));
+        assertEquals(
+                "OOPS!!! I'm sorry, but I don't know what that means. :(( ",
+                Parser.parseCommands("hello", tasks, storage)
+        );
     }
 
     @Test
@@ -60,7 +67,11 @@ public class ParserTest {
         String expectedString = "Got it. I've added this task:\n"
                 + "[E][ ] project meeting (from: monday to: friday)\n"
                 + "Now you have 1 tasks in the list.";
-        assertEquals(expectedString, Parser.parseCommands("event project meeting /from monday /to friday", tasks, storage));
+        assertEquals(expectedString, Parser.parseCommands(
+                "event project meeting /from monday /to friday",
+                tasks,
+                storage
+        ));
     }
 
     @Test
@@ -75,7 +86,11 @@ public class ParserTest {
         String expectedString = "Got it. I've added this task:\n"
                 + "[D][ ] return book (by: Sep 18 2023)\n"
                 + "Now you have 1 tasks in the list.";
-        assertEquals(expectedString, Parser.parseCommands("deadline return book /by 2023-09-18", tasks, storage));
+        assertEquals(expectedString, Parser.parseCommands(
+                "deadline return book /by 2023-09-18",
+                tasks,
+                storage)
+        );
     }
 
     @Test
@@ -91,7 +106,11 @@ public class ParserTest {
                 + "[D][ ] return book (by: Sep 18 2023)\n"
                 + "[D][ ] return book (by: Sep 25 2023)\n"
                 + "Now you have 2 tasks in the list.";
-        assertEquals(expectedString, Parser.parseCommands("deadline return book /by 2023-09-18 /recurring 2023-09-30", tasks, storage));
+        assertEquals(expectedString, Parser.parseCommands(
+                "deadline return book /by 2023-09-18 /recurring 2023-09-30",
+                tasks,
+                storage
+        ));
     }
 
     @Test
@@ -177,7 +196,11 @@ public class ParserTest {
             tasks = new TaskList();
         }
         String expectedString = "Oops! I can't do recurring events :((";
-        assertEquals(expectedString, Parser.parseCommands("event project meeting /from monday /to friday /recurring", tasks, storage));
+        assertEquals(expectedString, Parser.parseCommands(
+                "event project meeting /from monday /to friday /recurring",
+                tasks,
+                storage
+        ));
     }
 
     @Test

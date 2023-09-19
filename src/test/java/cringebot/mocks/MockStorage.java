@@ -1,14 +1,24 @@
 package cringebot.mocks;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 import cringebot.datafile.Storage;
 import cringebot.exceptions.CringeBotException;
 import cringebot.tasks.Task;
 
-import java.io.*;
-import java.util.ArrayList;
-
+/**
+ * Mock storage for testing.
+ */
 public class MockStorage extends Storage {
 
+    /**
+     * Constructor for mock storage.
+     */
     public MockStorage() {
         super("./src/test/resources/data/MockData.ser");
     }
@@ -29,6 +39,11 @@ public class MockStorage extends Storage {
         }
     }
 
+    /**
+     * Resets the file to an empty ArrayList.
+     *
+     * @param filePath path to the data storage file.
+     */
     public void resetFile(String filePath) {
         try {
             FileOutputStream fileOut = new FileOutputStream(filePath);
