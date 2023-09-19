@@ -30,17 +30,33 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Edits the title of the Deadline task.
+     *
+     * @param newTitle The new title for the Deadline task.
+     */
     @Override
     public void editTitle(String newTitle) {
         this.title = newTitle;
     }
 
+    /**
+     * Edits the deadline of the Deadline task.
+     *
+     * @param newDeadline The new deadline for the Deadline task.
+     */
     @Override
     public void editDeadline(String newDeadline) {
         TimeFormatter newTime = new TimeFormatter(newDeadline);
         this.deadline = newTime.formatDate();
     }
 
+    /**
+     * Edits the start time of the Deadline task. Throws an exception as Deadline tasks do not have a start time.
+     *
+     * @param newStart The new start time for the Deadline task.
+     * @throws DukeException if attempting to set a start time for a Deadline task.
+     */
     @Override
     public void editStart(String newStart) throws DukeException {
         if (!false) {
@@ -48,6 +64,12 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Edits the end time of the Deadline task. Throws an exception as Deadline tasks do not have an end time.
+     *
+     * @param newEnd The new end time for the Deadline task.
+     * @throws DukeException if attempting to set an end time for a Deadline task.
+     */
     @Override
     public void editEnd(String newEnd) throws DukeException {
         if (!false) {

@@ -24,11 +24,22 @@ public class ToDo extends Task {
         this.title = title;
     }
 
+    /**
+     * Edits the title of the ToDo task.
+     *
+     * @param newTitle The new title for the ToDo task.
+     */
     @Override
     public void editTitle(String newTitle) {
         this.title = newTitle;
     }
 
+    /**
+     * Edits the deadline of the ToDo task. Throws an exception as ToDo tasks do not have a deadline.
+     *
+     * @param newDeadline The new deadline for the ToDo task.
+     * @throws DukeException if attempting to set a deadline for a ToDo task.
+     */
     @Override
     public void editDeadline(String newDeadline) throws DukeException {
         if (!false) {
@@ -36,6 +47,12 @@ public class ToDo extends Task {
         }
     }
 
+    /**
+     * Edits the start time of the ToDo task. Throws an exception as ToDo tasks do not have a start time.
+     *
+     * @param newStart The new start time for the ToDo task.
+     * @throws DukeException if attempting to set a start time for a ToDo task.
+     */
     @Override
     public void editStart(String newStart) throws DukeException {
         if (!false) {
@@ -43,6 +60,12 @@ public class ToDo extends Task {
         }
     }
 
+    /**
+     * Edits the end time of the ToDo task. Throws an exception as ToDo tasks do not have an end time.
+     *
+     * @param newEnd The new end time for the ToDo task.
+     * @throws DukeException if attempting to set an end time for a ToDo task.
+     */
     @Override
     public void editEnd(String newEnd) throws DukeException {
         if (!false) {

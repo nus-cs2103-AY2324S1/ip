@@ -8,31 +8,30 @@ import exceptions.DukeException;
  */
 public abstract class Task {
 
-    protected Boolean done;
+    protected Boolean isDone;
 
     /**
      * Constructs a Task object with the specified done status.
      *
      * @param done The done status of the task.
      */
-    public Task(boolean done) {
-        this.done = done;
+    public Task(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**
      * Marks the task as done.
      */
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as undone.
      */
     public void markUndone() {
-        this.done = false;
+        this.isDone = false;
     }
-
 
     /**
      * Checks if title of task contains the query.
@@ -50,15 +49,38 @@ public abstract class Task {
         return "task";
     }
 
+    /**
+     * Edits the title of the task.
+     *
+     * @param edit The new title for the task.
+     */
     public void editTitle(String edit) {
     }
 
+    /**
+     * Edits the deadline of the task.
+     *
+     * @param newDeadline The new deadline for the task.
+     * @throws DukeException If there is an issue editing the deadline.
+     */
     public void editDeadline(String newDeadline) throws DukeException {
     }
 
+    /**
+     * Edits the start time of the task.
+     *
+     * @param newStart The new start time for the task.
+     * @throws DukeException If there is an issue editing the start time.
+     */
     public void editStart(String newStart) throws DukeException {
     }
 
+    /**
+     * Edits the end time of the task.
+     *
+     * @param newEnd The new end time for the task.
+     * @throws DukeException If there is an issue editing the end time.
+     */
     public void editEnd(String newEnd) throws DukeException {
     }
 }

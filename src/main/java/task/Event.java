@@ -40,6 +40,14 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Constructs an Event object with the specified title, done status, start, and end times.
+     *
+     * @param title  The title of the Event task.
+     * @param isDone The done status of the Event task.
+     * @param start  The start time of the Event task.
+     * @param end    The end time of the Event task.
+     */
     public Event(String title, Boolean isDone, String start, String end) {
         super(isDone);
         this.title = title;
@@ -47,11 +55,22 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Edits the title of the Event task.
+     *
+     * @param newTitle The new title for the Event task.
+     */
     @Override
     public void editTitle(String newTitle) {
         this.title = newTitle;
     }
 
+    /**
+     * Edits the deadline of the Event task. Throws an exception as Event tasks do not have a deadline.
+     *
+     * @param newDeadline The new deadline for the Event task.
+     * @throws DukeException if attempting to set a deadline for an Event task.
+     */
     @Override
     public void editDeadline(String newDeadline) throws DukeException {
         if (!false) {
@@ -59,11 +78,22 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Edits the start time of the Event task.
+     *
+     * @param newStart The new start time for the Event task.
+     */
     public void editStart(String newStart) {
         TimeFormatter newStartTime = new TimeFormatter(newStart);
         this.start = newStartTime.formatDate();
     }
 
+
+    /**
+     * Edits the end time of the Event task.
+     *
+     * @param newEnd The new end time for the Event task.
+     */
     public void editEnd(String newEnd) {
         TimeFormatter newEndTime = new TimeFormatter(newEnd);
         this.end = newEndTime.formatDate();

@@ -39,7 +39,7 @@ public class Duke {
     /**
      * Dukey's chatbot logic, generates a response based on input
      *
-     * @param String input
+     * @param input A string of the input
      */
     public String getResponse(String input) {
         if (input.equals("sexy time")) {

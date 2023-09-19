@@ -21,8 +21,15 @@ import task.ToDo;
 /**
  * The Parser class parses user input to create appropriate Command objects.
  * It handles different types of user commands and returns corresponding Command objects.
+ * It also handles reading and parsing text from files.
  */
 public class Parser {
+    /**
+     * Parses a line in the user's file text and returns the corresponding Task.
+     *
+     * @param line The full line in the file.
+     * @return The task object represented by the text.
+     */
     public static Task parseLine(String line) {
         String[] sections = line.split(" | ");
         int type = parseType(sections[0]);
@@ -42,6 +49,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string value of a letter to determine task type.
+     *
+     * @param letter A string representing the task type.
+     * @return An integer representing the task type.
+     */
     private static int parseType(String letter) {
         switch (letter) {
             case "T":
@@ -56,6 +69,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string value of a number to determine if task is done.
+     *
+     * @param number A string representing the task status.
+     * @return A Boolean representing the task status.
+     */
     private static Boolean parseDone(String number) {
         int isComplete = Integer.parseInt(number);
         assert (isComplete == 1 || isComplete == 0);
@@ -73,11 +92,9 @@ public class Parser {
         if (fullCommand.isEmpty()) {
             throw new DukeException("You entered nothing! Try again!");
         }
-
         String[] parts = fullCommand.split(" ", 2);
         String commandType = parts[0].toLowerCase();
         String commandArgs = parts.length > 1 ? parts[1] : "";
-
         switch (commandType) {
             case "list":
                 return new ListCommand();
@@ -104,11 +121,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a Task command object according to the user's arugments and type.
+     *
+     * @param commandArgs The arguments of the command.
+     * @param type        The type of the command.
+     * @return A Command object representing the created command.
+     * @throws DukeException If the command is invalid.
+     */
     private static Command createTaskCommand(String commandArgs, String type) throws DukeException {
         if (commandArgs.isEmpty()) {
             throw new DukeException("Description cannot be empty!");
         }
-
         try {
             switch (type) {
                 case "todo":
@@ -125,6 +149,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates an Edit command object according to the user's arugments and type.
+     *
+     * @param commandArgs The arguments of the command.
+     * @param type        The type of the command.
+     * @return A Command object representing the created command.
+     * @throws DukeException If the command is invalid.
+     */
     private static Command createEditCommand(String commandArgs, String type) throws DukeException {
         try {
             if (type.equals("unmark")) {

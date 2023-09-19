@@ -138,6 +138,12 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Reads from an existing file of Tasks.
+     *
+     * @param filePath The file to be read from.
+     * @return A TaskList object of the tasks in the file.
+     */
     public static TaskList readFromFile(String filePath) {
         TaskList list = new TaskList();
 
