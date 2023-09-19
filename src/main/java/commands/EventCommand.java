@@ -48,6 +48,10 @@ public class EventCommand extends Command {
                 return "Please input a date in the correct format.";
             }
 
+            if (toDate.isBefore(fromDate)) {
+                return "Error adding event to task list. The start date cannot be after end date!";
+            }
+
             Event newEvent = new Event(eventDescription, fromDate, toDate);
             taskList.add(newEvent);
 

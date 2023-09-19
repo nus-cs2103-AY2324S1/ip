@@ -30,9 +30,7 @@ public class Ui {
      */
     public String goodbye() {
         String message = "";
-        message += "_______________________________________\n";
         message += "Bye. Hope to see you again soon!\n";
-        message += "_______________________________________";
         return message;
     }
 }
