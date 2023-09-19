@@ -19,6 +19,8 @@ public class Parser {
     private Pattern eventRegex = Pattern.compile("^" + Commands.EVENT, Pattern.CASE_INSENSITIVE);
     private Pattern deleteRegex = Pattern.compile("^" + Commands.DELETE, Pattern.CASE_INSENSITIVE);
     private Pattern findRegex = Pattern.compile("^" + Commands.FIND, Pattern.CASE_INSENSITIVE);
+
+    private Pattern helpRegex = Pattern.compile("^" + Commands.HELP, Pattern.CASE_INSENSITIVE);
     /**
      * The constructor for the Parser class.
      */
@@ -54,6 +56,8 @@ public class Parser {
             return taskList.deleteTask(command);
         } else if (findRegex.matcher(command).find()) {
             return taskList.findTasks(command);
+        } else if (helpRegex.matcher(command).find()) {
+            return taskList.linkHelp();
         } else {
             try {
                 throw new DukeException("Invalid Response");

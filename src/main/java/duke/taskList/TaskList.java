@@ -322,6 +322,10 @@ public class TaskList {
         return strToPrint;
     }
 
+    public String linkHelp() {
+        return "Read the README.md file at:\nhttps://github.com/tanshiyu1999/ip";
+    }
+
     /**
      * Finds the tasks in the command and print them out.
      * @param command The command specifying the task.
