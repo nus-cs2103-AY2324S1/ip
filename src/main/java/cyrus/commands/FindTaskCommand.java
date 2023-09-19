@@ -18,7 +18,11 @@ public class FindTaskCommand extends Command {
      * Returns list of matching tasks given keyword, taken from argument.
      */
     @Override
-    public String[] execute() {
+    public String[] execute() throws CommandError {
+        if (this.parseInfo.hasNoArgument()) {
+            throw new CommandError("Missing search term");
+        }
+
         var tasks = this.taskList.findTask(this.parseInfo.getArgument());
         if (tasks.size() == 0) {
             return new String[]{
