@@ -133,7 +133,7 @@ public class CatBot implements Bot {
 
         commands.addCommand("find",
                 args -> stringPattern.ifParsableElseDefault(args,
-                        str -> io.displayTaskList(taskList.find(str)))
+                        str -> io.displayTaskList(taskList.findInDescriptions(str)))
         );
 
     }

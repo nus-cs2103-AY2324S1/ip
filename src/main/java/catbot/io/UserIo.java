@@ -2,6 +2,9 @@ package catbot.io;
 
 import catbot.bot.Bot;
 
+/**
+ * Object that implements the full expected functionality of IO expected of a CatBot assistant.
+ */
 public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
 
     /**

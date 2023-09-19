@@ -1,5 +1,6 @@
 package catbot.io;
 
+import catbot.internal.Bounds;
 import catbot.internal.NamedParameterMap;
 import catbot.task.TaskList;
 
@@ -30,13 +31,13 @@ public interface ErrorIndicatorIo {
      * @param attemptedIndex integer that was provided, that does not fall within expected bounds.
      * @param bounds         {@link TaskList.Bounds Bounds} object signifying the minimum and maximum accepted indices.
      */
-    void indicateInvalidIndex(int attemptedIndex, TaskList.Bounds bounds);
+    void indicateInvalidIndex(int attemptedIndex, Bounds bounds);
 
     /**
      * Enum that identifies reason for the invalidity of arguments.
      * Used as a default option when parameter-specific information is not required.
      *
-     * @see ErrorIndicatorIo::indicateInvalidIndex example of invalid argument with parameter-specific information
+     * @see ErrorIndicatorIo#indicateInvalidIndex example of invalid argument with parameter-specific information
      */
     enum InvalidArgumentState {
         PARAMETER_EMPTY, PARAMETER_MISSING, NOT_A_DATE
