@@ -1,7 +1,14 @@
 package duke.ui;
 
+/**
+ * Represents the different commands that the user can input.
+ */
 public class Exit {
-    Thread thread;
+    private Thread thread;
+
+    /**
+     * Creates an exit command.
+     */
     public Exit() {
         thread = new Thread(new Runnable() {
             public void run() {
@@ -14,6 +21,10 @@ public class Exit {
             }
         });
     }
+
+    /**
+     * Starts the exit command.
+     */
     public void start() {
         thread.start();
     }

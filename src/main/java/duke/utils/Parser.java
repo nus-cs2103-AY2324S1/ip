@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import duke.Duke;
 import duke.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
