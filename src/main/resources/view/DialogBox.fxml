@@ -7,7 +7,6 @@
 
 <fx:root alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefWidth="370.0" style="-fx-spacing: 10; -fx-background-color: transparent;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <!-- Message Bubble -->
         <HBox style="-fx-background-color: #79a5ed; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 8px;" HBox.hgrow="ALWAYS">
             <children>
                 <Label fx:id="dialog" style="-fx-text-fill: white;" text="Message Text Here" wrapText="true" HBox.hgrow="ALWAYS">

@@ -23,11 +23,12 @@ import javafx.scene.text.Font;
  * It consists of an ImageView to represent the speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final double IMAGE_RADIUS = 300d;
+    private static final String FONT_FAMILY = "Montserrat";
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    static double IMAGE_RADIUS = 300d;
 
     /**
      * Constructs a new `DialogBox` with the specified text and image.
@@ -47,7 +48,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        dialog.setFont(Font.font("Montserrat", 12));
+        dialog.setFont(Font.font(FONT_FAMILY, 12));
 
         displayPicture.setImage(img);
     }
