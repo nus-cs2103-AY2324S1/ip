@@ -47,11 +47,12 @@ test {
 }
 
 application {
-    mainClass.set("chatter.Chatter")
+    mainClassName="chatter.Launcher"
 }
 
 shadowJar {
     archiveBaseName = "chatter"
+    archiveFileName = "chatter.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
