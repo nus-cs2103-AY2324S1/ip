@@ -1,12 +1,16 @@
 package duke.commands;
 
-import duke.task.*;
-import duke.ui.Ui;
-import duke.utilities.MYBotExceptions;
-import duke.utilities.Storage;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.ui.Ui;
+import duke.utilities.MyBotExceptions;
+import duke.utilities.Storage;
 
 /**
  * The Commands class provides methods for executing various commands tasks.
@@ -24,17 +28,17 @@ public class Commands {
      *
      * @param ui The UI component for displaying messages to the user.
      * @param storage The storage component for loading and saving task data.
-     * @param task_List The task list containing existing tasks.
+     * @param taskList The task list containing existing tasks.
      */
-    public Commands(Ui ui, Storage storage, TaskList task_List) {
+    public Commands(Ui ui, Storage storage, TaskList taskList) {
         this.ui = ui;
-        this.taskList = task_List;
+        this.taskList = taskList;
         this.storage = storage;
 
         // Assertions for constructor parameters
         assert ui != null : "UI cannot be null";
         assert storage != null : "Storage cannot be null";
-        assert task_List != null : "TaskList cannot be null";
+        assert taskList != null : "TaskList cannot be null";
     }
 
     /**
@@ -48,11 +52,11 @@ public class Commands {
         boolean isExistingTask = taskList.findMatchingTasks(input).isEmpty();
         boolean isSupposedtoProceed = input.startsWith("!");
 
-        if(!isExistingTask) {
+        if (!isExistingTask) {
             List<Task> repeatedTasks = taskList.findMatchingTasks(input);
             ui.printRepeatedTasks(repeatedTasks);
-            taskList.tempStoreTask("todo "+ "!" + input);
-        } else if (isSupposedtoProceed){
+            taskList.tempStoreTask("todo " + "!" + input);
+        } else if (isSupposedtoProceed) {
             input = input.substring(1);
             Task task = new Todo(input);
             generalAddTasks(task);
@@ -76,11 +80,11 @@ public class Commands {
         boolean isExistingTask = taskList.findMatchingTasks(input).isEmpty();
         boolean isSupposedtoProceed = input.startsWith("!");
 
-        if(!isExistingTask) {
+        if (!isExistingTask) {
             List<Task> repeatedTasks = taskList.findMatchingTasks(input);
             ui.printRepeatedTasks(repeatedTasks);
-            taskList.tempStoreTask("deadline "+ "!" + input + " /by" + dueBy);
-        } else if (isSupposedtoProceed){
+            taskList.tempStoreTask("deadline " + "!" + input + " /by" + dueBy);
+        } else if (isSupposedtoProceed) {
             input = input.substring(1);
             Task task = new Deadline(input, dueBy);
             generalAddTasks(task);
@@ -105,12 +109,12 @@ public class Commands {
         boolean isExistingTask = taskList.findMatchingTasks(input).isEmpty();
         boolean isSupposedtoProceed = input.startsWith("!");
 
-        if(!isExistingTask) {
+        if (!isExistingTask) {
             List<Task> repeatedTasks = taskList.findMatchingTasks(input);
             ui.printRepeatedTasks(repeatedTasks);
-            taskList.tempStoreTask("event "+ "!" + input +
-                    " /from" + from + " /to" + to);
-        } else if (isSupposedtoProceed){
+            taskList.tempStoreTask("event " + "!"
+                    + input + " /from" + from + " /to" + to);
+        } else if (isSupposedtoProceed) {
             input = input.substring(1);
             Task task = new Event(input, from, to);
             generalAddTasks(task);
@@ -130,19 +134,19 @@ public class Commands {
 
         taskList.addTask(task);
         storage.saveTasksToFile(taskList);
-        ui.printAddTask(task, taskList.getTask_Count());
+        ui.printAddTask(task, taskList.getTaskCount());
     }
 
     /**
      * Lists all tasks in the task list.
      *
-     * @param task_List The task list containing tasks to be listed.
+     * @param taskList The task list containing tasks to be listed.
      */
-    public void listTasks(TaskList task_List){
-        assert task_List != null : "TaskList cannot be null";
+    public void listTasks(TaskList taskList) {
+        assert taskList != null : "TaskList cannot be null";
 
-        List<Task> tasks = task_List.getTaskList();
-        int taskCount = task_List.getTask_Count();
+        List<Task> tasks = taskList.getTaskList();
+        int taskCount = taskList.getTaskCount();
         ui.printTaskList(tasks, taskCount);
     }
 
@@ -165,9 +169,9 @@ public class Commands {
                 storage.saveTasksToFile(taskList);
                 ui.printMarkTask(taskTobeMarked);
             } else {
-                throw new MYBotExceptions.NoSuchTaskException();
+                throw new MyBotExceptions.NoSuchTaskException();
             }
-        } catch (MYBotExceptions e) {
+        } catch (MyBotExceptions e) {
             ui.printException(e);
         }
     }
@@ -177,7 +181,7 @@ public class Commands {
      *
      * @param taskNumber The index of the task to be marked.
      */
-    public void unmarkTask(int taskNumber){
+    public void unmarkTask(int taskNumber) {
         try {
             assert taskNumber > 0 : "Task number must be greater than 0";
             assert taskList.getTask(taskNumber) != null : "Task does not exist";
@@ -191,9 +195,9 @@ public class Commands {
                 storage.saveTasksToFile(taskList);
                 ui.printUnmarkTask(taskTobeMarked);
             } else {
-                throw new MYBotExceptions.NoSuchTaskException();
+                throw new MyBotExceptions.NoSuchTaskException();
             }
-        } catch (MYBotExceptions e) {
+        } catch (MyBotExceptions e) {
             System.out.println(e.getMessage());
         }
     }
@@ -206,10 +210,10 @@ public class Commands {
     public void removeTask(int taskNumber) {
 
         try {
-            assert taskNumber >= 0 && taskNumber <= taskList.getTask_Count() : "Invalid task number";
+            assert taskNumber >= 0 && taskNumber <= taskList.getTaskCount() : "Invalid task number";
 
             boolean isValidTaskNumber = taskNumber >= 0;
-            boolean isValidTask = taskNumber <= taskList.getTask_Count();
+            boolean isValidTask = taskNumber <= taskList.getTaskCount();
 
             if (isValidTaskNumber && isValidTask) {
                 Task taskToBeRemoved = taskList.getTask(taskNumber);
@@ -217,9 +221,9 @@ public class Commands {
                 storage.saveTasksToFile(taskList);
                 ui.printRemoveTask(taskToBeRemoved, taskList);
             } else {
-                throw new MYBotExceptions.InvalidTaskException();
+                throw new MyBotExceptions.InvalidTaskException();
             }
-        } catch (MYBotExceptions e) {
+        } catch (MyBotExceptions e) {
             ui.printException(e);
         }
     }
@@ -233,7 +237,7 @@ public class Commands {
         assert keyword != null : "Keyword cannot be null";
 
         List<Task> matchingTasks = taskList.findMatchingTasks(keyword);
-        if(matchingTasks.isEmpty()) {
+        if (matchingTasks.isEmpty()) {
             ui.printNoMatchingTasks();
         } else {
             ui.printMatchingTasks(matchingTasks);

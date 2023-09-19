@@ -1,10 +1,10 @@
 package duke.ui;
 
+import java.util.List;
+
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.utilities.MYBotExceptions;
-
-import java.util.List;
+import duke.utilities.MyBotExceptions;
 
 /**
  * The UI class provides methods for displaying messages and interacting with the user.
@@ -15,7 +15,7 @@ public class Ui {
     /**
      * Prints greeting message when the application starts.
      */
-    public void showGreeting(){
+    public void showGreeting() {
         System.out.println("Hello! I'm MYBOT:)");
         System.out.println("What can I do for you?");
         System.out.println("(if you are entering a deadline/event time please enter in the format date,day,time)");
@@ -24,7 +24,7 @@ public class Ui {
     /**
      * Prints exit message when the application is exited.
      */
-    public void closeGreeting(){
+    public void closeGreeting() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
@@ -33,7 +33,7 @@ public class Ui {
      *
      * @param e The customed exception to be printed.
      */
-    public void printException(MYBotExceptions e){
+    public void printException(MyBotExceptions e) {
         System.out.println(e.getMessage());
     }
 
@@ -43,10 +43,10 @@ public class Ui {
      * @param tasks The list of tasks to be printed.
      * @param taskCount The number of tasks in the list.
      */
-    public void printTaskList(List<Task> tasks, int taskCount){
+    public void printTaskList(List<Task> tasks, int taskCount) {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++){
-            System.out.println((i+1) + "." + tasks.get(i).toString());
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
 
@@ -56,7 +56,7 @@ public class Ui {
      * @param task The task to be added.
      * @param taskCount The total number of tasks after new task is added.
      */
-    public void printAddTask(Task task, int taskCount){
+    public void printAddTask(Task task, int taskCount) {
         System.out.println("I've added this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + taskCount + " tasks in the list.");
@@ -67,7 +67,7 @@ public class Ui {
      *
      * @param task The task that has been marked as completed.
      */
-    public void printMarkTask(Task task){
+    public void printMarkTask(Task task) {
         System.out.println("Good job completing! I've marked these task as done:):");
         System.out.println(task.toString());
     }
@@ -77,7 +77,7 @@ public class Ui {
      *
      * @param task The task that has been marked as not completed.
      */
-    public void printUnmarkTask(Task task){
+    public void printUnmarkTask(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.toString());
     }
@@ -86,11 +86,11 @@ public class Ui {
      * Prints a message indicating a task has been removed.
      *
      * @param task The task that has been removed.
-     * @param task_List The updated task list after task is removed.
+     * @param taskList The updated task list after task is removed.
      */
-    public void printRemoveTask(Task task, TaskList task_List) {
+    public void printRemoveTask(Task task, TaskList taskList) {
         System.out.println("Noted. I've removed this task:\n  " + task.toString());
-        System.out.println("Now you have " + task_List.getTask_Count() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list.");
     }
 
     /**
@@ -99,7 +99,6 @@ public class Ui {
     public void printFileError() {
         System.out.println("MYBOT has created a file MYBOT.txt to record your tasks");
     }
-    
     /**
      * Prints the list of tasks that matches user's input.
      *

@@ -36,7 +36,7 @@ public class Parser {
      * Analyze inputs based on what inputs begin with.
      * If input is related to creating a new task, call next analyzer.
      * If input is related to modifying existing task, call relevant commands.
-     * If is none of the above, throw MYBotExceptions accordingly.
+     * If is none of the above, throw MyBotExceptions accordingly.
      *
      * @param input The user input to be analysed
      */
@@ -45,32 +45,32 @@ public class Parser {
             if (input.equals("list")) {
                 command.listTasks(tasks);
             } else if (input.startsWith("mark ")) {
-                int task_index = Integer.parseInt(input.substring(5));
-                command.markTask(task_index);
+                int taskIndex = Integer.parseInt(input.substring(5));
+                command.markTask(taskIndex);
             } else if (input.startsWith("unmark ")) {
-                int task_index = Integer.parseInt(input.substring(7));
-                command.unmarkTask(task_index);
+                int taskIndex = Integer.parseInt(input.substring(7));
+                command.unmarkTask(taskIndex);
             } else if (input.startsWith("delete ")) {
-                int task_index = Integer.parseInt(input.substring(7));
-                command.removeTask(task_index);
-            } else if(input.startsWith("find ")) {
+                int taskIndex = Integer.parseInt(input.substring(7));
+                command.removeTask(taskIndex);
+            } else if (input.startsWith("find ")) {
                 String keyword = input.substring(5);
                 command.findTasks(keyword);
-            } else if(input.startsWith("proceed")) {
+            } else if (input.startsWith("proceed")) {
                 String taskToAdd = tasks.getTempStoredTask();
-                if(taskToAdd != "") {
+                if (taskToAdd != "") {
                     analyseAddTaskInput(taskToAdd);
                 } else {
-                    throw new MYBotExceptions.UnknownCommandException();
+                    throw new MyBotExceptions.UnknownCommandException();
                 }
             } else if (input.isEmpty()) {
-                throw new MYBotExceptions.UnknownCommandException();
+                throw new MyBotExceptions.UnknownCommandException();
             } else if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")) {
-                throw new MYBotExceptions.InvalidTaskException();
+                throw new MyBotExceptions.InvalidTaskException();
             } else {
                 analyseAddTaskInput(input);
             }
-        } catch (MYBotExceptions e) {
+        } catch (MyBotExceptions e) {
             ui.printException(e);
         }
     }
@@ -86,7 +86,7 @@ public class Parser {
      */
     public void analyseAddTaskInput(String input) {
         try {
-            if(command == null) {
+            if (command == null) {
                 throw new NullPointerException();
             }
 
@@ -97,13 +97,13 @@ public class Parser {
                 if (!description.isBlank()) {
                     command.addTodoTask(description);
                 } else {
-                    throw new MYBotExceptions.EmptyDetailsException("description", "todo");
+                    throw new MyBotExceptions.EmptyDetailsException("description", "todo");
                 }
 
             } else if (input.startsWith("deadline ")) {
                 // Checks if a deadline is entered for a deadline task
-                if(!input.contains(" /by")) {
-                    throw new MYBotExceptions.InvalidInputException("deadline", "duedate");
+                if (!input.contains(" /by")) {
+                    throw new MyBotExceptions.InvalidInputException("deadline", "duedate");
                 }
 
                 String description = input.substring(9, input.indexOf(" /by "));
@@ -111,9 +111,9 @@ public class Parser {
 
                 // Check if task description/by input is blank
                 if (description.isBlank()) {
-                    throw new MYBotExceptions.EmptyDetailsException("description", "deadline");
+                    throw new MyBotExceptions.EmptyDetailsException("description", "deadline");
                 } else if (by.isBlank()) {
-                    throw new MYBotExceptions.EmptyDetailsException("duedate", "deadline");
+                    throw new MyBotExceptions.EmptyDetailsException("duedate", "deadline");
                 } else {
                     command.addDeadlineTask(description, by);
                 }
@@ -121,10 +121,10 @@ public class Parser {
             } else if ((input.startsWith("event "))) {
 
                 // Checks if there is a start and end time
-                if(!input.contains(" /from")) {
-                    throw new MYBotExceptions.InvalidInputException("event", "start time");
+                if (!input.contains(" /from")) {
+                    throw new MyBotExceptions.InvalidInputException("event", "start time");
                 } else if (!input.contains(" /to")) {
-                    throw new MYBotExceptions.InvalidInputException("event", "end time");
+                    throw new MyBotExceptions.InvalidInputException("event", "end time");
                 }
 
                 String description = input.substring(6, input.indexOf(" /from "));
@@ -133,16 +133,16 @@ public class Parser {
 
                 // Checks if any of the start, end or description is empty
                 if (description.isBlank()) {
-                    throw new MYBotExceptions.EmptyDetailsException("description", "event");
+                    throw new MyBotExceptions.EmptyDetailsException("description", "event");
                 } else if (from.isBlank()) {
-                    throw new MYBotExceptions.EmptyDetailsException("start time", "event");
+                    throw new MyBotExceptions.EmptyDetailsException("start time", "event");
                 } else if (to.isBlank()) {
-                    throw new MYBotExceptions.EmptyDetailsException("end time", "event");
+                    throw new MyBotExceptions.EmptyDetailsException("end time", "event");
                 } else {
                     command.addEventTask(description, from, to);
                 }
             }
-        } catch (MYBotExceptions e) {
+        } catch (MyBotExceptions e) {
             ui.printException(e);
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());

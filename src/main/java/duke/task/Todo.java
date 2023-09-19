@@ -27,7 +27,7 @@ public class Todo extends Task {
         assert description != null : "Description cannot be null";
         assert status != null : "Status cannot be null";
 
-        if(status.contains("Y")){
+        if (status.contains("Y")) {
             super.taskStatusFromFile(true);
         } else {
             super.taskStatusFromFile(false);
@@ -50,7 +50,7 @@ public class Todo extends Task {
      * @return The formatted string representation of the task for file storage.
      */
     @Override
-    public String toFileString(){
-        return "T" + super.toFileString() ;
+    public String toFileString() {
+        return "T" + super.toFileString();
     }
 }

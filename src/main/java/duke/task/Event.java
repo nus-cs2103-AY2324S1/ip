@@ -2,7 +2,6 @@ package duke.task;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The Event class represents a task without a specific deadline or time.
@@ -10,9 +9,13 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    private LocalDate fromDate, toDate;
-    private LocalTime fromTime, toTime;
-    private DayOfWeek fromDay, toDay;
+    private LocalDate fromDate;
+    private LocalDate toDate;
+    private LocalTime fromTime;
+    private LocalTime toTime;
+    private DayOfWeek fromDay;
+    private DayOfWeek toDay;
+
 
     /**
      * Constructs an Event task.
@@ -88,7 +91,7 @@ public class Event extends Task {
             toDate = super.convertStringToDate(to);
         }
 
-        if(status.equals("Y")){
+        if (status.equals("Y")) {
             super.taskStatusFromFile(true);
         } else {
             super.taskStatusFromFile(false);
@@ -111,7 +114,8 @@ public class Event extends Task {
         String fromTime = timeToString(this.fromTime);
         String toTime = timeToString(this.toTime);
 
-        return "[E]" + super.toString() + " (from:" + fromDate + fromDay + fromTime + " to:" + toDate + toDay + toTime + ")";
+        return "[E]" + super.toString() + " (from:" + fromDate + fromDay
+                + fromTime + " to:" + toDate + toDay + toTime + ")";
 
     }
 
@@ -121,7 +125,7 @@ public class Event extends Task {
      * @return The formatted string representation of the task for file storage.
      */
     @Override
-    public String toFileString(){
+    public String toFileString() {
         String fromDate = dateToString(this.fromDate);
         String toDate = dateToString(this.toDate);
         String fromDay = dayToString(this.fromDay);

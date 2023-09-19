@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +10,12 @@ import java.util.List;
 public class TaskList {
     private List<Task> taskList;
     private int taskCount;
-    private List<String> tempStoredList = new ArrayList<>();;
+    private List<String> tempStoredList = new ArrayList<>();
 
     /**
      * Constructs an empty TaskList.
      */
-    public TaskList(){
+    public TaskList() {
         taskList = new ArrayList<>();
         taskCount = 0;
     }
@@ -27,7 +25,7 @@ public class TaskList {
      *
      * @param existingTasks The existing list of tasks that was saved.
      */
-    public TaskList(List<Task> existingTasks){
+    public TaskList(List<Task> existingTasks) {
         taskList = new ArrayList<>(existingTasks);
         taskCount = taskList.size();
     }
@@ -38,26 +36,26 @@ public class TaskList {
      *
      * @param task The task to be addded.
      */
-    public void addTask(Task task){
+    public void addTask(Task task) {
         taskList.add(taskCount, task);
         taskCount++;
     }
 
 
-    public List<Task> getTaskList(){
+    public List<Task> getTaskList() {
         return taskList;
     }
 
-    public int getTask_Count(){
+    public int getTaskCount() {
         return taskList.size();
     }
 
-    public Task getTask(int task_number){
-        return taskList.get(task_number - 1);
+    public Task getTask(int taskNumber) {
+        return taskList.get(taskNumber - 1);
     }
 
-    public String getTempStoredTask(){
-        if(tempStoredList.isEmpty()) {
+    public String getTempStoredTask() {
+        if (tempStoredList.isEmpty()) {
             return "";
         } else {
             return tempStoredList.get(0);
@@ -79,7 +77,7 @@ public class TaskList {
     }
 
     /**
-     * Find the tasks that contains the keyword and put them in a List</Task>.
+     * Find the tasks that contains the keyword and put them in a List Task.
      *
      * @param keyword Find tasks that contains this keyword.
      * @return A list of tasks that match the keyword.
@@ -87,7 +85,7 @@ public class TaskList {
     public List<Task> findMatchingTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : taskList) {
-            if(task.getDescription().contains(keyword)) {
+            if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
             }
         }
@@ -95,7 +93,7 @@ public class TaskList {
     }
 
     /**
-     * Stores task that are suspected to be repeated in a List</String>.
+     * Stores task that are suspected to be repeated in a List String.
      *
      * @param taskFullDescription The full description including dueBy, from and to of task.
      */
@@ -107,7 +105,7 @@ public class TaskList {
     /**
      * Clears all stored strings in the temporary task list
      */
-    public void clearTempStoreTask(){
+    public void clearTempStoreTask() {
         tempStoredList.clear();
     }
 }

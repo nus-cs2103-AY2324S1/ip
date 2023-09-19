@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'org.jetbrains.kotlin.jvm' version '1.9.10'
 }
@@ -42,6 +43,10 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 application {

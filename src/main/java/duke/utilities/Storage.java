@@ -1,10 +1,18 @@
 package duke.utilities;
 
-import duke.task.*;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 /**
  * The Storage class handles saving and loading tasks from a file.
@@ -26,12 +34,12 @@ public class Storage {
     /**
      * Saves the tasks from the TaskList to the file specified in the constructor.
      *
-     * @param task_List The TaskList containing tasks to be saved.
+     * @param storedTaskList The TaskList containing tasks to be saved.
      */
-    public void saveTasksToFile(TaskList task_List) {
+    public void saveTasksToFile(TaskList storedTaskList) {
         clearTasksInFile(filePath);
         try (FileWriter writer = new FileWriter(filePath)) {
-            List<Task> taskList = task_List.getTaskList();
+            List<Task> taskList = storedTaskList.getTaskList();
             for (Task task : taskList) {
                 writer.write(task.toFileString() + "\n");
             }
@@ -43,12 +51,12 @@ public class Storage {
     /**
      * Reloads the tasks from a list and updates the file specified in the constructor.
      *
-     * @param task_List A list of tasks to reload.
+     * @param storedTaskList A list of tasks to reload.
      */
-    public void reloadTasksToFile(List<Task> task_List) {
+    public void reloadTasksToFile(List<Task> storedTaskList) {
         clearTasksInFile(filePath);
         try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : task_List) {
+            for (Task task : storedTaskList) {
                 writer.write(task.toFileString() + "\n");
             }
         } catch (Exception e) {
@@ -61,32 +69,35 @@ public class Storage {
      *
      * @return A list of tasks loaded from the file.
      */
+    @SuppressWarnings("checkstyle:EmptyCatchBlock")
     public List<Task> loadTaskFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String inputLines;
-            List<Task> task_List = new ArrayList<>();
+            List<Task> taskList = new ArrayList<>();
 
-            while((inputLines = reader.readLine()) != null) {
+            while ((inputLines = reader.readLine()) != null) {
                 String [] taskSplit = inputLines.split("\\|");
                 String taskType = taskSplit[0];
                 String status = taskSplit[1];
                 String taskDescription = taskSplit[2];
 
                 if (taskType.equals("T")) {
-                    task_List.add(new Todo(taskDescription, status));
+                    taskList.add(new Todo(taskDescription, status));
                 } else if (taskType.equals("D")) {
                     String by = taskSplit[3];
-                    task_List.add(new Deadline(taskDescription, by, status));
+                    taskList.add(new Deadline(taskDescription, by, status));
                 } else if (taskType.equals("E")) {
                     String from = taskSplit[3];
-                    String to =  taskSplit[4];
-                    task_List.add(new Event(taskDescription, from, to, status));
+                    String to = taskSplit[4];
+                    taskList.add(new Event(taskDescription, from, to, status));
                 }
             }
-            reloadTasksToFile(task_List);
-            return task_List;
+            reloadTasksToFile(taskList);
+            return taskList;
         } catch (IOException e) {
+            System.out.println("IOException Error");
         } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ArrayIndexOutOfBoundsException");
         } catch (Exception e) {
             System.out.println("The file to store your tasks entered cannot be accessed.");
         }

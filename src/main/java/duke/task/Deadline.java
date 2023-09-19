@@ -2,8 +2,6 @@ package duke.task;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 
 /**
@@ -20,7 +18,7 @@ public class Deadline extends Task {
      * Constructs a Deadline task.
      *
      * @param description The description of the Deadline task.
-     * @param by The deadline of the Deadline task.
+     * @param dueBy The deadline of the Deadline task.
      */
     public Deadline(String description, String dueBy) {
         super(description);
@@ -43,7 +41,7 @@ public class Deadline extends Task {
      * Constructs a Deadline task when reloading tasks from storage file.
      *
      * @param description The description of the Deadline task.
-     * @param by The deadline of the Deadline task.
+     * @param dueBy The deadline of the Deadline task.
      * @param status A string indicating the status of the task ("Y" for done, "N" for not done).
      */
     public Deadline(String description, String dueBy, String status) {
@@ -63,7 +61,7 @@ public class Deadline extends Task {
             date = super.convertStringToDate(dueBy);
         }
 
-        if(status.contains("Y")){
+        if (status.contains("Y")) {
             super.taskStatusFromFile(true);
         } else {
             super.taskStatusFromFile(false);
@@ -89,7 +87,7 @@ public class Deadline extends Task {
      * @return The formatted string representation of the task for file storage.
      */
     @Override
-    public String toFileString(){
+    public String toFileString() {
         String date = dateToString(this.date);
         String day = dayToString(this.day);
         String time = timeToString(this.time);

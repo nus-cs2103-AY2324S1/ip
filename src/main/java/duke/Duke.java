@@ -1,13 +1,15 @@
 package duke;
-import duke.commands.Commands;
-import duke.task.TaskList;
-import duke.ui.Ui;
-import duke.utilities.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import duke.commands.Commands;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.utilities.Parser;
+import duke.utilities.Storage;
 
 
 
@@ -34,7 +36,7 @@ public class Duke {
 
         try {
             tasks = new TaskList(storage.loadTaskFromFile());
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             tasks = new TaskList();
         } catch (Exception e) {
             ui.printFileError();
@@ -55,10 +57,10 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        while(true){
+        while (true) {
             String input = scanner.nextLine();
 
-            if(input.equals("bye")) {
+            if (input.equals("bye")) {
                 ui.closeGreeting();
                 break;
             } else {
