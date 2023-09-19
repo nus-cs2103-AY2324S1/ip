@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeException;
 import duke.management.NotesList;
+import duke.management.Storage;
 import duke.management.TaskList;
 import duke.note.Note;
 
@@ -19,11 +20,11 @@ public class NoteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, NotesList notes) {
+    public String execute(Storage storage, TaskList tasks, NotesList notes) {
         String[] commandArr = this.command.split(" ", 2);
         Note note = new Note(commandArr[1]);
         notes.addNote(note);
-
+        storage.saveNotesToFile(notes.getNotes());
         return "Ren helped you add a new note: \n" + note.toString();
     }
 

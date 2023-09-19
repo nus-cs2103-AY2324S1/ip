@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeException;
 import duke.management.NotesList;
+import duke.management.Storage;
 import duke.management.TaskList;
 import duke.task.Task;
 
@@ -21,11 +22,12 @@ public class DeleteCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, NotesList notes) {
+    public String execute(Storage storage, TaskList tasks, NotesList notes) {
         try {
             String[] commandArr = this.command.split(" ", 2);
             int index = Integer.parseInt(commandArr[1]) - 1;
             Task deleted = tasks.deleteTask(index);
+            storage.saveTasksToFile(tasks.getTasks());
             String result = "Ren removed the task: \n" + deleted.toString() + "\n";
             return result + "\nNow you have " + tasks.getSize() + " tasks in the list.";
         } catch (NumberFormatException e) {

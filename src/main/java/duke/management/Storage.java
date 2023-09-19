@@ -142,12 +142,16 @@ public class Storage {
      * @param tasks The tasklist.
      * @throws IOException Throws if FileWriter cannot be created.
      */
-    public void writeTasksToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(this.directoryPath + tasksFileName);
-        for (Task task : tasks) {
-            fw.write(task.writeToFile());
+    public void saveTasksToFile(ArrayList<Task> tasks) {
+        try {
+            FileWriter fw = new FileWriter(this.directoryPath + this.tasksFileName);
+            for (Task task : tasks) {
+                fw.write(task.writeToFile());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("Cannot write tasks into file!");
         }
-        fw.close();
     }
 
     /**
@@ -156,11 +160,15 @@ public class Storage {
      * @param notes The noteslist.
      * @throws IOException Throws if FileWriter cannot be created.
      */
-    public void writeNotesToFile(ArrayList<Note> notes) throws IOException {
-        FileWriter fw = new FileWriter(this.directoryPath + this.notesFileName);
-        for (Note note : notes) {
-            fw.write(note.toString() + "\n");
+    public void saveNotesToFile(ArrayList<Note> notes) {
+        try {
+            FileWriter fw = new FileWriter(this.directoryPath + this.notesFileName);
+            for (Note note : notes) {
+                fw.write(note.toString() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("Cannot write notes into file!");
         }
-        fw.close();
     }
 }

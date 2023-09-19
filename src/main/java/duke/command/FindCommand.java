@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import duke.DukeException;
 import duke.management.NotesList;
+import duke.management.Storage;
 import duke.management.TaskList;
 import duke.task.Task;
 
@@ -23,7 +24,7 @@ public class FindCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, NotesList notes) {
+    public String execute(Storage storage, TaskList tasks, NotesList notes) {
         String[] commandArr = this.command.split(" ", 2);
         ArrayList<Task> targetList = new ArrayList<>();
         String target = commandArr[1];

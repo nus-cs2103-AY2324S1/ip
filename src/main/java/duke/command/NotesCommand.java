@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeException;
 import duke.management.NotesList;
+import duke.management.Storage;
 import duke.management.TaskList;
 
 /**
@@ -21,7 +22,7 @@ public class NotesCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, NotesList notes) {
+    public String execute(Storage storage, TaskList tasks, NotesList notes) {
         return notes.printNotes();
     }
 

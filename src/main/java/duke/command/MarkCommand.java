@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeException;
 import duke.management.NotesList;
+import duke.management.Storage;
 import duke.management.TaskList;
 import duke.task.Task;
 
@@ -21,12 +22,13 @@ public class MarkCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, NotesList notes) {
+    public String execute(Storage storage, TaskList tasks, NotesList notes) {
         try {
             String[] commandArr = this.command.split(" ", 2);
             int index = Integer.parseInt(commandArr[1]) - 1;
             Task t = tasks.getTask(index);
             t.markAsDone();
+            storage.saveTasksToFile(tasks.getTasks());
             return "Nice! Ren marked this task as done: \n" + t.toString();
         } catch (NumberFormatException e) {
             throw new DukeException(DukeException.INVALID_INDEX);

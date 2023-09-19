@@ -31,20 +31,6 @@ public class Duke {
     }
 
     /**
-     * Saves tasks and notes into their respective data files.
-     *
-     * @throws DukeException Cannot write tasks into file.
-     */
-    public void saveToFile() throws DukeException {
-        try {
-            this.storage.writeTasksToFile(this.tasks.getTasks());
-            this.storage.writeNotesToFile(this.notes.getNotes());
-        } catch (IOException e) {
-            throw new DukeException("Cannot write tasks into file!");
-        }
-    }
-
-    /**
      * Gets the response of the bot.
      *
      * @param input User's input.
@@ -55,7 +41,7 @@ public class Duke {
         try {
             Command command = Parser.parse(input);
             command.validateCommand();
-            return command.execute(tasks, notes);
+            return command.execute(storage, tasks, notes);
         } catch (DukeException e) {
             return e.getMessage();
         }

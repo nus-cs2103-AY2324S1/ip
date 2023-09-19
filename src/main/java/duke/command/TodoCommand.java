@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeException;
 import duke.management.NotesList;
+import duke.management.Storage;
 import duke.management.TaskList;
 import duke.task.Task;
 import duke.task.Todo;
@@ -22,10 +23,11 @@ public class TodoCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, NotesList notes) {
+    public String execute(Storage storage, TaskList tasks, NotesList notes) {
         String[] commandArr = this.command.split(" ", 2);
         Task todo = new Todo(commandArr[1]);
         tasks.addTask(todo);
+        storage.saveTasksToFile(tasks.getTasks());
         String result = "Ren helped you add: \n" + todo.toString() + "\n";
         return result + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
