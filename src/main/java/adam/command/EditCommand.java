@@ -1,10 +1,9 @@
 package adam.command;
 
 import adam.Storage;
-import adam.Ui;
 import adam.TaskList;
+import adam.Ui;
 import adam.exception.NumberException;
-import adam.exception.OutOfBoundException;
 
 /**
  * This class is used to call the appropriate methods to edit a Task inside the list
@@ -42,25 +41,22 @@ public class EditCommand implements Command {
         if (!tokens[1].matches("[0-9]+")) {
             throw new NumberException();
         }
-        int number = Integer.valueOf(tokens[1]);
-        if (number > tasks.getSize()) {
-            throw new OutOfBoundException();
-        }
+
         switch (text) {
         case "mark":
-            respond = tasks.markAsDone(number, tokens);
+            respond = tasks.markAsDone(tokens);
             assert tasks.getSize() == length : "The size of the task should stay the same";
             break;
         case "unmark":
-            respond = tasks.unmarkAsDone(number, tokens);
+            respond = tasks.unmarkAsDone(tokens);
             assert tasks.getSize() == length : "The size of the task should stay the same";
             break;
         case "delete":
-            respond = tasks.deleteTask(number, tokens);
+            respond = tasks.deleteTask(tokens);
             assert tasks.getSize() == length - 1 : "The size of the task should decrease";
             break;
         case "tag":
-            respond = tasks.tagTask(number, tokens);
+            respond = tasks.tagTask(tokens);
             break;
         default:
             respond = "Wrong input";

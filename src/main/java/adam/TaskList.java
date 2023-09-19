@@ -2,6 +2,7 @@ package adam;
 
 import adam.exception.NoTagException;
 import adam.exception.NumberException;
+import adam.exception.OutOfBoundException;
 import adam.tasks.Deadline;
 import adam.tasks.Event;
 import adam.tasks.Task;
@@ -29,14 +30,17 @@ public class TaskList {
     /**
      * Deletes the Task object from the ArrayList according to its index.
      *
-     * @param num Number thatinidcates the index inside the array.
      */
-    public String deleteTask(int num, String[] tokens) {
+    public String deleteTask( String[] tokens) {
+        int number = Integer.valueOf(tokens[1]);
         if (tokens.length != 2) {
             throw new NumberException();
         }
-        Task curr = tasks.get(num-1);
-        tasks.remove(num-1);
+        if (number > getSize()) {
+            throw new OutOfBoundException();
+        }
+        Task curr = tasks.get(number - 1);
+        tasks.remove(number - 1);
         return ui.delete(curr, tasks.size());
     }
 
@@ -92,12 +96,14 @@ public class TaskList {
 
     /**
      * Marks the intended Tasks as complete according to their index.
-     *
-     * @param number Number of index that is going to be marked.
      */
-    public String markAsDone(int number, String[] tokens) {
+    public String markAsDone(String[] tokens) {
+        int number = Integer.valueOf(tokens[1]);
         if (tokens.length != 2) {
             throw new NumberException();
+        }
+        if (number > getSize()) {
+            throw new OutOfBoundException();
         }
         Task curr = tasks.get(number - 1);
         curr.markAsDone();
@@ -108,11 +114,14 @@ public class TaskList {
     /**
      * Unmarks the intended Tasks as uncomplete according to their index.
      *
-     * @param number Number of index that is going to be unmarked.
      */
-    public String unmarkAsDone(int number, String[] tokens) {
+    public String unmarkAsDone(String[] tokens) {
+        int number = Integer.valueOf(tokens[1]);
         if (tokens.length != 2) {
             throw new NumberException();
+        }
+        if (number > getSize()) {
+            throw new OutOfBoundException();
         }
         Task curr = tasks.get(number - 1);
         curr.unmarkAsDone();
@@ -181,9 +190,13 @@ public class TaskList {
         }
     }
 
-    public String tagTask(int number, String[] tokens) {
+    public String tagTask(String[] tokens) {
+        int number = Integer.valueOf(tokens[1]);
         if(tokens.length < 3) {
             throw new NoTagException();
+        }
+        if (number > getSize()) {
+            throw new OutOfBoundException();
         }
         String description = "";
         for(int i = 2 ; i < tokens.length; i++) {

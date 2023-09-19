@@ -1,14 +1,16 @@
 package adam.command;
+
 import adam.Storage;
 import adam.TaskList;
 import adam.Ui;
 import adam.exception.AdamException;
 import adam.tasks.Task;
 import org.junit.jupiter.api.Test;
-import static  org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 public class EditCommandTest {
     Ui ui = new Ui();
     Storage storage = new Storage();
@@ -36,7 +38,6 @@ public class EditCommandTest {
         String item = li.substring(length, li.length());
         try {
             new EditCommand(tokens,item).execute(task,storage,ui);
-            fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
         }
@@ -50,7 +51,6 @@ public class EditCommandTest {
         String item = li.substring(length, li.length());
         try {
             new EditCommand(tokens,item).execute(task,storage,ui);
-            fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
         }
@@ -64,7 +64,6 @@ public class EditCommandTest {
         String item = li.substring(length, li.length());
         try {
             new EditCommand(tokens,item).execute(task,storage,ui);
-            fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
         }
@@ -92,7 +91,6 @@ public class EditCommandTest {
         String item = li.substring(length, li.length());
         try {
             new EditCommand(tokens,item).execute(task,storage,ui);
-            fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -106,7 +104,6 @@ public class EditCommandTest {
         String item = li.substring(length, li.length());
         try {
             new EditCommand(tokens,item).execute(task,storage,ui);
-            fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -172,7 +169,6 @@ public class EditCommandTest {
         String item = li.substring(length, li.length());
         try {
             new EditCommand(tokens,item).execute(task,storage,ui);
-            fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }

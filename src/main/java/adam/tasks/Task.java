@@ -74,16 +74,6 @@ public class Task implements Serializable {
      * @return Boolean.
      */
     public boolean search(String item) {
-        boolean isIdentical = true;
-        String[] tokens = item.split(" ");
-        String[] descriptions = description.split(" ");
-        for (String word : tokens) {
-            for (String line : descriptions) {
-                if (!word.equals(line)) {
-                    isIdentical = false;
-                }
-            }
-        }
-        return isIdentical;
+        return description.contains(item);
     }
 }
