@@ -12,6 +12,7 @@ public class Task {
         this.isDone = false;
     }
 
+
     /**
      * Returns a String representation of the Task, including the status icon and description only.
      *
@@ -23,6 +24,7 @@ public class Task {
         //return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+
     /**
      * Returns a symbol depending on whether the Task is done.
      *
@@ -32,35 +34,38 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
+
     /**
      * Marks an undone Task as done.
      */
     public void mark(){
         try {
-            if (isDone == true) {
+            if (isDone) {
                 throw new GmanException("Haha nice going... This task is already done, bozo!");
             }
             isDone = true;
-            assert this.getStatusIcon() == "[X]" : "The status icon is wrong!";
+            assert this.getStatusIcon().equals("[X]") : "The status icon is wrong!";
         } catch (GmanException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * Marks a done Task as undone.
      */
     public void unmark() {
         try {
-            if (isDone == false) {
+            if (!isDone) {
                 throw new GmanException("Hey... this task was never done in the first place!");
             }
             isDone = false;
-            assert this.getStatusIcon() == "[]" : "The status icon is wrong!";
+            assert this.getStatusIcon().equals("[]") : "The status icon is wrong!";
         } catch (GmanException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * Reads a line in a .txt file that represents an Event task and converts it into either a Todo,
@@ -71,29 +76,32 @@ public class Task {
      */
     public static Task readFromFile(String line) {
         String[] segments = line.split(" \\| ");
-        if (segments[0].equals("T")) {
-            return Todo.readFromFile(segments);
-        } else if (segments[0].equals("D")) {
-            return Deadline.readFromFile(segments);
-        } else if (segments[0].equals("E")) {
-            return Event.readFromFile(segments);
-        } else {
-            return null;
+        switch (segments[0]) {
+            case "T":
+                return Todo.readFromFile(segments);
+            case "D":
+                return Deadline.readFromFile(segments);
+            case "E":
+                return Event.readFromFile(segments);
+            default:
+                return null;
         }
     }
+
 
     /**
      * Returns a String to be written into the .txt file. Overridden by all child classes.
      *
      * @return A formatted String for the Task with a " | " separator.
      */
-    public String toWriteString() {
+    public String stringToWrite() {
         String symbol = "O";
         if (this.isDone) {
             symbol = "X";
         }
         return (symbol + " | " + this.description);
     }
+
 
     /**
      * Returns the description of the target Task.
@@ -102,6 +110,5 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
-
 
 }
