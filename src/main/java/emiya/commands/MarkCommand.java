@@ -1,5 +1,6 @@
 package emiya.commands;
 
+import emiya.emiyaexception.AlreadyMarkedException;
 import emiya.emiyaexception.EmptyMarkException;
 import emiya.emiyaexception.OutOfListBoundsException;
 import emiya.emiyaexception.UnknownCommandException;
@@ -29,7 +30,7 @@ public class MarkCommand implements Command {
      *     does not exist.
      */
     public static String mark(String posString, TaskList taskList, Storage storage, Ui ui, String fileName, String dirName)
-            throws EmptyMarkException, OutOfListBoundsException, UnknownCommandException {
+            throws EmptyMarkException, OutOfListBoundsException, UnknownCommandException, AlreadyMarkedException {
 
         if (posString.equals("")) {
             throw new EmptyMarkException();

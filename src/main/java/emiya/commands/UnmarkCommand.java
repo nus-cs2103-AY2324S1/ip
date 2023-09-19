@@ -1,5 +1,6 @@
 package emiya.commands;
 
+import emiya.emiyaexception.AlreadyUnmarkedException;
 import emiya.emiyaexception.EmptyUnmarkException;
 import emiya.emiyaexception.OutOfListBoundsException;
 import emiya.emiyaexception.UnknownCommandException;
@@ -29,7 +30,7 @@ public class UnmarkCommand implements Command {
      *     does not exist.
      */
     public static String unmark(String posString, TaskList taskList, Storage storage, Ui ui, String fileName, String dirName)
-            throws EmptyUnmarkException, OutOfListBoundsException, UnknownCommandException {
+            throws EmptyUnmarkException, OutOfListBoundsException, UnknownCommandException, AlreadyUnmarkedException {
 
         if (posString.equals("")) {
             throw new EmptyUnmarkException();

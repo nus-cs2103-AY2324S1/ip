@@ -62,7 +62,7 @@ public class DateHandler {
         StringBuilder finalStr = new StringBuilder();
         finalStr.append(month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
         finalStr.append(" ");
-        finalStr.append(day);
+        finalStr.append(day < 10 ? "0" + day : day);
         finalStr.append(" ");
         finalStr.append(year);
         finalStr.append(" ");
@@ -71,8 +71,7 @@ public class DateHandler {
         finalStr.append(min < 10 ? "0" + min : min);
         finalStr.append(":");
         finalStr.append("00");
-
-        assert finalStr.length() == EXAMPLE_OF_CORRECT_FORMAT.length() : "Final Date to be printed should be" +
+        assert finalStr.length() == EXAMPLE_OF_CORRECT_FORMAT.length() : "Final Date to be printed should be " +
                 "the same as the example with correct format.";
 
         return finalStr.toString();

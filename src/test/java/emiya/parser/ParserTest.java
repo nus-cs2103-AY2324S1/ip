@@ -14,7 +14,6 @@ public class ParserTest {
     @Test
     public void parseToRemoveUnknownCommands_correctlyFormattedInput_generateExpectedOutput() throws UnknownCommandException {
         Parser parser = new Parser();
-        Integer[] position = new Integer[1];
         String input = "todo finish homework";
         String[] expectedOutput = {"todo", "finish homework"};
         assertArrayEquals(expectedOutput, parser.parseToRemoveUnknownCommands(input));
@@ -47,7 +46,6 @@ public class ParserTest {
     @Test
     public void parseToRemoveUnknownCommands_invalidInput_exceptionThrown() {
         Parser parser = new Parser();
-        Integer[] position = new Integer[1];
         String input = "invalid";
         try {
             parser.parseToRemoveUnknownCommands(input);

@@ -1,5 +1,8 @@
 package emiya.task;
 
+import emiya.emiyaexception.AlreadyMarkedException;
+import emiya.emiyaexception.AlreadyUnmarkedException;
+
 /**
  * An abstract class the other Task subtypes inherit from.
  */
@@ -45,11 +48,17 @@ public abstract class Task {
      */
     public abstract String printTaskDetailsString();
 
-    public void setUnmarked() {
+    public void setUnmarked() throws AlreadyUnmarkedException {
+        if (!this.isCompleted) {
+            throw new AlreadyUnmarkedException();
+        }
         this.isCompleted = false;
     }
 
-    public void setMarked() {
+    public void setMarked() throws AlreadyMarkedException {
+        if (this.isCompleted) {
+            throw new AlreadyMarkedException();
+        }
         this.isCompleted = true;
     }
 
