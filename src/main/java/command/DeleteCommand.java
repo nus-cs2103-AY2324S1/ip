@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand object with the task index to delete.
      *
-     * @param fullCommand The full command string containing the task index.
+     * @param response String containing the task index.
      */
     public DeleteCommand(int response) {
         super(false);

@@ -13,7 +13,7 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs an UnmarkCommand object with the task index to unmark.
      *
-     * @param fullCommand The full command string containing the task index.
+     * @param response The full command string containing the task index.
      */
     public UnmarkCommand(int response) {
         super(false);

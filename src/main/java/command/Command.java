@@ -35,7 +35,6 @@ public abstract class Command {
      *
      * @param taskList The task list to operate on.
      * @param storage  The storage handler for reading/writing tasks.
-     * @param ui       The user interface for displaying messages.
      * @throws DukeException If there is an error executing the command.
      */
     public abstract String execute(TaskList taskList, Storage storage) throws DukeException;

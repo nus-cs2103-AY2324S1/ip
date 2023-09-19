@@ -9,6 +9,11 @@ public class UpdateCommand extends Command {
     private String editType;
     private String edit;
 
+    /**
+     * Constructs an UpdateCommand object with the string containing the fields.
+     *
+     * @param response The string containing relevant field to be updated.
+     */
     public UpdateCommand(String response) {
         super(false);
         String[] parts = response.split(" ", 3);
@@ -18,6 +23,13 @@ public class UpdateCommand extends Command {
         this.edit = parts[2].substring(1);
     }
 
+    /**
+     * Executes the update command, updating the relevant field in the the command.
+     *
+     * @param taskList The task list to operate on.
+     * @param storage  The storage handler for reading/writing tasks.
+     * @throws DukeException If there is an error executing the command.
+     */
     @Override
     public String execute(TaskList taskList, Storage storage) throws DukeException {
         switch (editType) {
