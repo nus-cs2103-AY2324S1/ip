@@ -28,6 +28,10 @@ public class FindCommand extends Command {
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
-        return GobbleMessage.getGobbleDialog(taskList.findTask(this.keyword).toString());
+        return GobbleMessage.getGobbleDialog(
+                taskList.findTask(this.keyword)
+                        .toString()
+                        .replace("[", "")
+                        .replace("]", ""));
     }
 }

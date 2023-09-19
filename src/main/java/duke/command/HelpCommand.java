@@ -16,7 +16,7 @@ public class HelpCommand extends Command {
         return GobbleMessage.getGobbleDialog("Here are the list of commands:\n"
                 + "1. todo <description>\n"
                 + "2. deadline <description> /by <date>\n"
-                + "3. event <description> /at <date>\n"
+                + "3. event <description> /from <date> /to <date>\n"
                 + "4. list\n"
                 + "5. done <task number>\n"
                 + "6. delete <task number>\n"
