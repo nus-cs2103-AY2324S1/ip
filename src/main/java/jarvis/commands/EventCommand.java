@@ -37,6 +37,7 @@ public class EventCommand implements Command {
         if (userInput.equalsIgnoreCase("event")) {
             throw new InvalidTaskFormatException(null);
         }
+        assert taskList != null && ui != null && storage != null;
         int indexOfFrom = userInput.indexOf("from");
         int indexOfTo = userInput.indexOf("to");
 

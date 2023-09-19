@@ -25,7 +25,8 @@ import jarvis.tasks.Task;
 import jarvis.tasks.Todo;
 
 /**
- * The Parser class is responsible for parsing user input and converting it into executable commands and tasks.
+ * The Parser class is responsible for parsing user input and converting it into executable commands and
+ * tasks.
  */
 public class Parser {
     /**
@@ -37,6 +38,8 @@ public class Parser {
      */
     public static Command parseCommand(final String userInput) throws InvalidCommandException {
         String[] splitUserInput = userInput.split(" ");
+
+        assert userInput != null && !userInput.isEmpty() : "User input should not be null or empty";
 
         if (userInput.equalsIgnoreCase("bye")) {
             return new ByeCommand();
@@ -66,8 +69,7 @@ public class Parser {
      *
      * @param inputDateTime The date and time string to parse.
      * @return A LocalDateTime object representing the parsed date and time.
-     * @throws InvalidDateTimeFormatException If the input date and time format is
-     *                                        invalid.
+     * @throws InvalidDateTimeFormatException If the input date and time format is invalid.
      */
     public static LocalDateTime parseDateTime(final String inputDateTime) throws InvalidDateTimeFormatException {
         List<String> inputFormats = new ArrayList<>();
@@ -107,6 +109,7 @@ public class Parser {
             String taskType = splitLine[0].trim();
             boolean isCompleted = Integer.parseInt(splitLine[1].trim()) == 1;
             String taskDetails = splitLine[2].trim();
+            assert taskDetails.isEmpty() : "Task should have description";
 
             switch (taskType) {
             case "T":

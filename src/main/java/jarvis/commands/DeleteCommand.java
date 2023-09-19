@@ -18,8 +18,7 @@ public class DeleteCommand implements Command {
     }
 
     /**
-     * Executes the delete command by removing the specified task from the task
-     * list.
+     * Executes the delete command by removing the specified task from the task list.
      *
      * @param taskList The TaskList containing the tasks.
      * @param ui       The Ui for user interface interactions.
@@ -28,6 +27,7 @@ public class DeleteCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException {
+        assert taskList != null && ui != null && storage != null;
         String[] splitUserInput = userInput.split(" ");
         int index = Integer.parseInt(splitUserInput[1]);
 
@@ -37,9 +37,8 @@ public class DeleteCommand implements Command {
             return ui.printResponse("Noted Master! I've removed this task:\n" + "\t" + removedTask.toString() + "\n"
                     + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
         } else {
-            throw new InvalidIndexException("    Please indicate which task you wish to DELETE?\n"
-                    + "    From 1 to " + taskList.getTaskCount() + "\n"
-                    + "    Current Index: " + index);
+            throw new InvalidIndexException("    Please indicate which task you wish to DELETE?\n" + "    From 1 to "
+                    + taskList.getTaskCount() + "\n" + "    Current Index: " + index);
         }
     }
 }

@@ -12,9 +12,7 @@ public class Ui {
     /**
      * ASCII Art Generated from <a href="http://patorjk.com/software/taag/">...</a>
      */
-    private static final String LOGO_TEST = "\t┏┳┏┓┳┓┓┏┳┏┓\n"
-            + "\t   ┃┣┫┣┫┃┃┃┗┓\n"
-            + "\t┗┛┛┗┛┗┗┛┻┗┛\n";
+    private static final String LOGO_TEST = "\t┏┳┏┓┳┓┓┏┳┏┓\n" + "\t   ┃┣┫┣┫┃┃┃┗┓\n" + "\t┗┛┛┗┛┗┗┛┻┗┛\n";
 
     /**
      * Default date and time format used n Jarvis app.
@@ -29,8 +27,8 @@ public class Ui {
      * Prints the intro message when Jarvis starts.
      */
     public String printIntro() {
-        return "Hi Master! I'm your personal assistant: JARVIS! \n"
-                + "\n" + LOGO_TEST + "\n" + "    How can I serve you today? \n";
+        return "Hi Master! I'm your personal assistant: JARVIS! \n" + "\n" + LOGO_TEST + "\n"
+                + "    How can I serve you today? \n";
     }
 
     /**
@@ -54,6 +52,7 @@ public class Ui {
      * @return A formatted string representing the list of tasks.
      */
     public String printTasks(ArrayList<Task> tasks) {
+        assert tasks.size() > 0 : "A list of tasks should be provided";
         String outputString;
         outputString = "    Tasks:\n";
         for (int i = 0; i < tasks.size(); i++) {
@@ -70,9 +69,8 @@ public class Ui {
      * @return A string indicating the change in status of the task.
      */
     public String printTaskStatus(Task task) {
-        return "Understood Master. I've marked this task as "
-                + (task.isCompleted() ? "completed" : "uncompleted") + "\n"
-                + "\t" + task.toString();
+        return "Understood Master. I've marked this task as " + (task.isCompleted() ? "completed" : "uncompleted")
+                + "\n" + "\t" + task.toString();
     }
 
     /**
