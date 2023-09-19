@@ -1,0 +1,13 @@
+title: "Duke"
+theme: architect
+
+header_pages:
+  - UserGuide.md
+  -
+markdown: kramdown
+
+repository: "waseemingly/ip"
+github_icon: "images/github-icon.png"
+
+plugins:
+  - jemoji
