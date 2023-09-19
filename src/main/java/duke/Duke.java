@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * The main class that represents the Duke but BTR chatbot application.
+ *  main class that represents the Duke but BTR chatbot application.
  */
 public class Duke {
     private Storage storage;
@@ -29,8 +29,10 @@ public class Duke {
         }
     }
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns a response based on the given user input.
+     *
+     * @param input The String given by the user.
+     * @return Returns a String response based on the user input.
      */
     public String getResponse(String input) {
         try {
@@ -39,12 +41,5 @@ public class Duke {
         } catch (DukeException e) {
             return ui.showError(e.getMessage());
         }
-    }
-    /**
-     * The main method to start the Duke application.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
     }
 }

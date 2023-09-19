@@ -237,8 +237,9 @@ public class TaskList {
         Task[] temp = list.toArray(new Task[0]);
 
         for (Task task : temp) {
-            String description = task.getDescription().stripTrailing().toLowerCase();
-            if (description.contains(keyword.stripTrailing().toLowerCase())) {
+            String cleanDescription = task.getDescription().stripTrailing().toLowerCase();
+            String cleanKeyword = keyword.stripTrailing().toLowerCase();
+            if (cleanDescription.contains(cleanKeyword)) {
                 resultList.add(task);
             }
         }

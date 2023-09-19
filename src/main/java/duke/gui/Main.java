@@ -47,7 +47,7 @@ public class Main extends Application {
     }
 
     /**
-     * The main method to launch the Duke GUI application.
+     * Launches the Duke GUI application.
      *
      * @param args Command-line arguments (not used in this application).
      */

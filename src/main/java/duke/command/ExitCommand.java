@@ -10,7 +10,7 @@ import duke.ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Executes the exit command, saving data and displaying an exit message.
+     * Executes the exit command, saving data and exiting the program.
      *
      * @param list    The TaskList object managing the list of tasks.
      * @param ui      The Ui object to interact with the user interface.

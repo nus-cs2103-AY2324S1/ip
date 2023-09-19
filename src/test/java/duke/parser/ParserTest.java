@@ -6,10 +6,6 @@ import org.junit.jupiter.api.Test;
 import duke.DukeException;
 import duke.command.ExitCommand;
 
-
-
-
-
 public class ParserTest {
 
     @Test
