@@ -48,3 +48,8 @@ jobs:
         working-directory:  ${{ github.workspace }}/text-ui-test
         shell: cmd
         run: runtest.bat
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
