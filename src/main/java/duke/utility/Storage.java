@@ -55,6 +55,7 @@ public class Storage {
             System.out.println("Loading tasks...");
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
+                file.createNewFile();
                 System.out.println("No existing duke.txt found. File created!");
             }
             BufferedReader reader = new BufferedReader(new FileReader(file));
