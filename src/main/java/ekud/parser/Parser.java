@@ -49,9 +49,7 @@ public class Parser {
         String userArgs = userInputs[1];
         Command command = Command.getCommand(userCommand); // Command enum
         if (command == null) {
-            throw new EkudInvalidCommandException(String.format(
-                    "Command '%s' not found :(",
-                    userCommand));
+            throw new EkudInvalidCommandException(String.format("Command '%s' not found :(", userCommand));
         }
         switch (command) {
         case SHOWTASKS:
@@ -63,45 +61,11 @@ public class Parser {
             int notDoneTaskNum = this.parseTaskNum(userArgs);
             return taskList.markTaskAsNotDone(notDoneTaskNum - 1);
         case ADDTODO:
-            if (userArgs.isBlank()) { // isBlank() checks if string is all whitespace
-                throw new EkudIllegalArgException("Description shouldn't be empty :(");
-            }
-            return taskList.addToDo(userArgs);
+            return this.parseAndAddTodo(userArgs, taskList);
         case ADDDEADLINE:
-            try {
-                String[] deadlineArgs = userArgs.split(" /by ");
-                String description = deadlineArgs[0];
-                LocalDateTime dateTime = this.parseDateTime(deadlineArgs[1]);
-                if (description.isBlank()) {
-                    throw new EkudIllegalArgException("Description shouldn't be empty :(");
-                }
-                return taskList.addDeadline(description, dateTime);
-            } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-                throw new EkudIllegalArgException(String.format(
-                        "Deadline formatted wrongly\n"
-                        + "-> Please ensure 'deadline <description> /by <%s>' is followed\n"
-                        + "-> For example: deadline finish quiz /by 3 Jun 1830",
-                        INPUT_DATETIME_FORMAT));
-            }
+            return this.parseAndAddDeadline(userArgs, taskList);
         case ADDEVENT:
-            try {
-                String[] eventArgs = userArgs.split(" /from ");
-                String[] timings = eventArgs[1].split(" /to ");
-                String description = eventArgs[0];
-                if (description.isBlank() || timings[0].isBlank() || timings[1].isBlank()) {
-                    throw new EkudIllegalArgException("Description/start/end shouldn't be empty :(");
-                }
-                LocalDateTime fromDateTime = this.parseDateTime(timings[0]);
-                LocalDateTime toDateTime = this.parseDateTime(timings[1]);
-                return taskList.addEvent(description, fromDateTime, toDateTime);
-            } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-                throw new EkudIllegalArgException(String.format(
-                        "Event formatted wrongly\n"
-                        + "-> Ensure 'event <description> /from <%s> /to <%s>' is followed\n"
-                        + "-> For example: event company dinner /from 20 Oct 1730 /to 20 Oct 2215",
-                        INPUT_DATETIME_FORMAT,
-                        INPUT_DATETIME_FORMAT));
-            }
+            return this.parseAndAddEvent(userArgs, taskList);
         case DELETETASK:
             int deleteTaskNum = this.parseTaskNum(userArgs);
             return taskList.deleteTask(deleteTaskNum - 1);
@@ -113,55 +77,10 @@ public class Parser {
         case UNDOCLEAR:
             return taskList.undoClear();
         case CHANGEPRIORITY:
-            String[] prioArgs = userArgs.split(" ");
-            int taskNum = this.parseTaskNum(prioArgs[0]);
-            Priority priority = Priority.getPriority(prioArgs[1]);
-            if (priority == null) {
-                throw new EkudIllegalArgException(
-                        "Priority formatted wrongly\n"
-                                + "-> Ensure 'priority <taskNum> <high/mid/low>' is followed\n"
-                                + "-> For example: prio 3 high");
-            }
-            return taskList.changePriority(priority, taskNum - 1);
+            return this.parseAndChangePriority(userArgs, taskList);
         default:
             throw new EkudIllegalArgException("Error parsing arguments :(");
         }
-    }
-
-    /**
-     * Helper function to check for a valid task number.
-     * @param userArgs Number String supplied by the user.
-     * @return An integer index number.
-     * @throws EkudIllegalArgException
-     */
-    private int parseTaskNum(String userArgs) throws EkudIllegalArgException {
-        try {
-            int index = Integer.valueOf(userArgs);
-            if (index <= 0) {
-                throw new EkudIllegalArgException("Task number cannot be 0 or negative :o");
-            }
-            return index;
-        } catch (NumberFormatException e) {
-            throw new EkudIllegalArgException("Please input a valid task number :o");
-        }
-    }
-
-    /**
-     * Helper function to check for a valid keyword.
-     * @param userArgs
-     * @return
-     * @throws EkudIllegalArgException
-     */
-    private String parseKeyword(String userArgs) throws EkudIllegalArgException {
-        String[] keyword = userArgs.split(" ");
-        if (keyword.length == 0 || keyword[0].isBlank()) {
-            throw new EkudIllegalArgException("Keyword shouldn't be empty :(");
-        }
-        if (keyword.length > 1) {
-            throw new EkudIllegalArgException("Please input a valid keyword (multiple words "
-                    + "are not accepted) :(");
-        }
-        return keyword[0];
     }
 
     /**
@@ -184,5 +103,133 @@ public class Parser {
      */
     public LocalDateTime parseSavedDateTime(String savedDateTime) {
         return LocalDateTime.parse(savedDateTime, DateTimeFormatter.ofPattern(SAVED_DATETIME_FORMAT));
+    }
+
+    /**
+     * Helper function to check for a valid task number.
+     * @param userArgs Number String supplied by the user.
+     * @return An integer index number
+     * @throws EkudIllegalArgException
+     */
+    private int parseTaskNum(String userArgs) throws EkudIllegalArgException {
+        try {
+            int index = Integer.valueOf(userArgs);
+            if (index <= 0) {
+                throw new EkudIllegalArgException("Task number cannot be 0 or negative :o");
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new EkudIllegalArgException("Please input a valid task number :o");
+        }
+    }
+
+    /**
+     * Helper function to ensure valid arguments for a to-do task before adding it to taskList.
+     * @param userArgs
+     * @param taskList
+     * @return String response after adding task
+     * @throws EkudIllegalArgException
+     */
+    private String parseAndAddTodo(String userArgs, TaskList taskList)
+            throws EkudIllegalArgException {
+        if (userArgs.isBlank()) { // isBlank() checks if string is all whitespace
+            throw new EkudIllegalArgException("Description shouldn't be empty :(");
+        }
+        return taskList.addToDo(userArgs);
+    }
+
+    /**
+     * Helper function to ensure valid arguments for a deadline task before adding it to taskList.
+     * @param userArgs
+     * @param taskList
+     * @return String response after adding task
+     * @throws EkudIllegalArgException
+     */
+    private String parseAndAddDeadline(String userArgs, TaskList taskList)
+            throws EkudIllegalArgException {
+        try {
+            String[] deadlineArgs = userArgs.split(" /by ");
+            String description = deadlineArgs[0];
+            LocalDateTime dateTime = this.parseDateTime(deadlineArgs[1]);
+            if (description.isBlank()) {
+                throw new EkudIllegalArgException("Description shouldn't be empty :(");
+            }
+            return taskList.addDeadline(description, dateTime);
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+            throw new EkudIllegalArgException(String.format(
+                    "Deadline formatted wrongly\n"
+                            + "-> Please ensure 'deadline <description> /by <%s>' is followed\n"
+                            + "-> For example: deadline finish quiz /by 3 Jun 1830",
+                    INPUT_DATETIME_FORMAT));
+        }
+    }
+
+    /**
+     * Helper function to ensure valid arguments for an event task before adding to taskList.
+     * @param userArgs
+     * @param taskList
+     * @return String response after adding task
+     * @throws EkudIllegalArgException
+     */
+    private String parseAndAddEvent(String userArgs, TaskList taskList) throws EkudIllegalArgException {
+        try {
+            String[] eventArgs = userArgs.split(" /from ");
+            String[] timings = eventArgs[1].split(" /to ");
+            String description = eventArgs[0];
+            if (description.isBlank() || timings[0].isBlank() || timings[1].isBlank()) {
+                throw new EkudIllegalArgException("Description/start/end shouldn't be empty :(");
+            }
+            LocalDateTime fromDateTime = this.parseDateTime(timings[0]);
+            LocalDateTime toDateTime = this.parseDateTime(timings[1]);
+            if (fromDateTime.isAfter(toDateTime) || fromDateTime.isEqual(toDateTime)) {
+                throw new EkudIllegalArgException("End should be later than start :(");
+            }
+            return taskList.addEvent(description, fromDateTime, toDateTime);
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+            throw new EkudIllegalArgException(String.format(
+                    "Event formatted wrongly\n"
+                            + "-> Ensure 'event <description> /from <%s> /to <%s>' is followed\n"
+                            + "-> For example: event company dinner /from 20 Oct 1730 /to 20 Oct 2215",
+                    INPUT_DATETIME_FORMAT,
+                    INPUT_DATETIME_FORMAT));
+        }
+    }
+
+    /**
+     * Helper function to check for a valid keyword.
+     * @param userArgs
+     * @return keyword
+     * @throws EkudIllegalArgException
+     */
+    private String parseKeyword(String userArgs) throws EkudIllegalArgException {
+        String[] keyword = userArgs.split(" ");
+        if (keyword.length == 0 || keyword[0].isBlank()) {
+            throw new EkudIllegalArgException("Keyword shouldn't be empty :(");
+        }
+        if (keyword.length > 1) {
+            throw new EkudIllegalArgException("Please input a valid keyword (multiple words "
+                    + "are not accepted) :(");
+        }
+        return keyword[0];
+    }
+
+    /**
+     * Helper function to ensure valid arguments before changing a task priority.
+     * @param userArgs
+     * @param taskList
+     * @return String response after changing priority
+     * @throws EkudIllegalArgException
+     */
+    private String parseAndChangePriority(String userArgs, TaskList taskList) throws EkudIllegalArgException {
+        String[] prioArgs = userArgs.split(" ");
+        int taskNum = this.parseTaskNum(prioArgs[0]);
+        Priority priority = Priority.getPriority(prioArgs[1]);
+        if (priority == null) {
+            throw new EkudIllegalArgException(
+                    "Priority formatted wrongly\n"
+                            + "-> Ensure 'priority <taskNum> <high/mid/low>' is followed\n"
+                            + "-> For example: prio 3 high");
+        }
+        return taskList.changePriority(priority, taskNum - 1);
     }
 }
