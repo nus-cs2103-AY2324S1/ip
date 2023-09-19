@@ -7,19 +7,32 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
- * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final double PROFILE_CLIP_RADIUS = 40.0;
+    private static final double DIALOG_MARGIN = 10.0;
+    private static final double DIALOG_PADDING = 10.0;
+    private static final double DIALOG_CORNER_RADIUS = 10.0;
+    private static final String ALICE_TEXT_COLOR = "#FF69B4";
+    private static final String USER_TEXT_COLOR = "#000000";
+    private static final String ALICE_BACKGROUND_COLOR = "#FFFFFF";
+    private static final String USER_BACKGROUND_COLOR = "#90EE90";
     @FXML
     private Label dialog;
     @FXML
@@ -36,17 +49,34 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+
+        displayPicture.setClip(new Circle(PROFILE_CLIP_RADIUS, PROFILE_CLIP_RADIUS, PROFILE_CLIP_RADIUS));
         displayPicture.setImage(img);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        BackgroundFill backgroundFill = new BackgroundFill(Color.valueOf(USER_BACKGROUND_COLOR),
+                new CornerRadii(DIALOG_CORNER_RADIUS), null);
+        Background background = new Background(backgroundFill);
+        DialogBox dialogBox = new DialogBox(text, img);
+        dialogBox.dialog.setBackground(background);
+        dialogBox.dialog.setTextFill(Color.valueOf(USER_TEXT_COLOR));
+        dialogBox.dialog.setPadding(new Insets(DIALOG_PADDING));
+        setMargin(dialogBox.dialog, new Insets(0, DIALOG_MARGIN, 0, 0));
+        return dialogBox;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+    public static DialogBox getAliceDialog(String text, Image img) {
+        BackgroundFill backgroundFill = new BackgroundFill(Color.valueOf(ALICE_BACKGROUND_COLOR),
+                new CornerRadii(DIALOG_CORNER_RADIUS), null);
+        Background background = new Background(backgroundFill);
+        DialogBox dialogBox = new DialogBox(text, img);
+        dialogBox.dialog.setBackground(background);
+        dialogBox.dialog.setTextFill(Color.valueOf(ALICE_TEXT_COLOR));
+        dialogBox.dialog.setPadding(new Insets(DIALOG_PADDING));
+        setMargin(dialogBox.dialog, new Insets(0, 0, 0, DIALOG_MARGIN));
+        dialogBox.flip();
+        return dialogBox;
     }
 
     /**

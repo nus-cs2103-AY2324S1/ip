@@ -93,7 +93,7 @@ public class Task {
     }
 
     /**
-     * Append tags to the task.
+     * Appends tags to the task.
      *
      * @param tags The tags to be added.
      */
