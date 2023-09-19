@@ -27,8 +27,7 @@ public class UI {
      * Display the error message when reading or writing to the save file has failed.
      */
     public String showLoadingError() {
-        String message = "Sorry! I was unable to load the save file :(";
-        return message;
+        return DukeExceptionType.SAVE_FILE_LOAD_FAILED.getMessage();
     }
 
     /**
@@ -50,7 +49,7 @@ public class UI {
             }
         } else {
             stringBuilder
-                    .append("Amazing!! You're all caught up and have no pending tasks to worry about!")
+                    .append("Amazing!! You're all caught up! Enjoy your day :)")
                     .append(System.lineSeparator());
         }
         return stringBuilder.toString();
