@@ -141,7 +141,7 @@ public class TaskList {
             return "Horray!! No tasks in the task list!";
         } else {
             String taskListString = IntStream.range(0, tasks.size())
-                    .mapToObj(i -> (i+1) + ". " + tasks.get(i).toString())
+                    .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
                     .collect(Collectors.joining("\n", "Here are the tasks in your list:\n", ""));
             return taskListString;
         }
