@@ -136,7 +136,7 @@ public class RatTaskManager {
     public String addToDo(String item) {
         ToDo newToDo = new ToDo(item);
         this.taskList.add(newToDo);
-        String response = "Got it. I've added this Deadline:\n"
+        String response = "Got it. I've added this to do:\n"
                 + newToDo
                 + "\nNow you have " + this.taskList.size() + " tasks in the list.";
         printWithLines(response);
