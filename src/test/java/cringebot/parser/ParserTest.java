@@ -149,4 +149,48 @@ public class ParserTest {
                 + "[T][ ] read book";
         assertEquals(expectedString, Parser.parseCommands("unmark 1", tasks, storage));
     }
+
+    @Test
+    public void parserInvalidInput1() {
+        Storage storage = new MockStorage();
+        TaskList tasks;
+        try {
+            tasks = new TaskList(storage.loadFromFile());
+            Parser.parseCommands("todo read book", tasks, storage);
+            Parser.parseCommands("event project meeting /from monday /to friday", tasks, storage);
+            Parser.parseCommands("deadline return book /by 2023-09-18", tasks, storage);
+        } catch (CringeBotException e) {
+            tasks = new TaskList();
+        }
+        String expectedString = "OOPS!!! I'm sorry, but I don't know what that means. :(( ";
+        assertEquals(expectedString, Parser.parseCommands("invalid input", tasks, storage));
+    }
+
+    @Test
+    public void parserRecurringEventTest() {
+        Storage storage = new MockStorage();
+        TaskList tasks;
+        try {
+            tasks = new TaskList(storage.loadFromFile());
+            Parser.parseCommands("event project meeting /from monday /to friday", tasks, storage);
+        } catch (CringeBotException e) {
+            tasks = new TaskList();
+        }
+        String expectedString = "Oops! I can't do recurring events :((";
+        assertEquals(expectedString, Parser.parseCommands("event project meeting /from monday /to friday /recurring", tasks, storage));
+    }
+
+    @Test
+    public void parserRecurringTodoTest() {
+        Storage storage = new MockStorage();
+        TaskList tasks;
+        try {
+            tasks = new TaskList(storage.loadFromFile());
+            Parser.parseCommands("todo read book", tasks, storage);
+        } catch (CringeBotException e) {
+            tasks = new TaskList();
+        }
+        String expectedString = "Oops! I can't do recurring todos :((";
+        assertEquals(expectedString, Parser.parseCommands("todo read book /recurring", tasks, storage));
+    }
 }
