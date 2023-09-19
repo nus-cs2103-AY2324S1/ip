@@ -42,8 +42,6 @@ public class Storage {
      */
     public static void saveTasksToFile(TaskList list, String fileName, Boolean except, String msg) throws IOException {
         File listFile = new File(fileName);
-        System.out.println("Attempting to save tasks to: " + fileName);
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         if (listFile.getParentFile() != null && !listFile.getParentFile().exists()) {
             listFile.getParentFile().mkdirs();
         }
@@ -62,7 +60,6 @@ public class Storage {
                     filecontent.append(Storage.turnIntoTextForm(list.getTask(i))).append("\n");
                 }
             }
-            System.out.println(filecontent);
             writer.write(filecontent.toString());
         }
     }
@@ -88,7 +85,6 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
                 Storage.processLine(list, line);
             }
         }
