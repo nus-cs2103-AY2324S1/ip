@@ -28,7 +28,7 @@ public class Ui {
             Task curr = tasks.getTask(i);
             System.out.println((i + 1) + ". " + curr);
         }
-        return ;
+        return;
     }
 
     /**
@@ -84,7 +84,7 @@ public class Ui {
      * Print search query result
      * @param results a TaskList of search result
      */
-    public void printQueryResult (TaskList results) {
+    public void printQueryResult(TaskList results) {
         System.out.println("Here are the matching tasks in your list:");
         printTaskList(results);
     }

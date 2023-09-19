@@ -1,8 +1,8 @@
-import duke.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import duke.*;
 
 /**
  * Main class for the duke application.

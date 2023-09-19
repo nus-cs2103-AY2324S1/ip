@@ -7,7 +7,7 @@ public class GuiResponse {
     /**
      * show welcome message
      */
-    public String getWelcomeMessage (){
+    public String getWelcomeMessage() {
         return "Hello! I'm ChatBot" + "\n" + "What can I do for you?" + "\n";
     }
 

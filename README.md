@@ -6,7 +6,7 @@ DukePro frees your mind of having to remember things you need to do. It's,
 
 - text-based
 - easy to learn
-- ~~FAST~~ **SUPER FAST** to use
+- ~~FAST~~ **Very FAST** to use
 
 All you need to do is,
 
