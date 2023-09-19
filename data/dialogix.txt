@@ -3,3 +3,4 @@ T | 0 | b
 T | 0 | c
 E | 0 | a | c
 T | 0 | abc
+T | 0 | abc
