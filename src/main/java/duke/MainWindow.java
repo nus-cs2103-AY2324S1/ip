@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private final String DUKE_FILE_PATH = "data/duke.txt";
+    private final String DUKE_FILE_PATH = "./data/duke.txt";
     private Duke duke;
     private TaskList tasks;
     private Storage storage;

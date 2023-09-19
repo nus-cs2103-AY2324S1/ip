@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * class where main is run
  */
 public class Duke extends Application implements Serializable {
-    private static final String DUKE_FILE_PATH = "data/duke.txt";
+    private static final String DUKE_FILE_PATH = "./data/duke.txt";
     private static Storage storage;
     private static TaskList tasks;
     public Duke() {}
@@ -35,6 +35,7 @@ public class Duke extends Application implements Serializable {
         } catch (IOException | ClassNotFoundException e) {
             createTxtFile();
             tasks = new TaskList();
+            System.err.println(e.getMessage());
         }
     }
     @Override
@@ -103,7 +104,7 @@ public class Duke extends Application implements Serializable {
             FileWriter fw = new FileWriter(DUKE_FILE_PATH);
             fw.close();
         } catch (IOException e) {
-            System.out.println("shag");
+            System.out.println("shag" + e.getMessage());
         }
     }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
+    private String undoFilePath = "./data/undo.txt";
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -222,7 +223,7 @@ public class TaskList implements Serializable {
      */
     public void undo(Storage storage) throws IOException, ClassNotFoundException {
         try {
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data/undo.txt"));
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(undoFilePath));
             @SuppressWarnings("unchecked")
             ArrayList<Task> loadedTasks = (ArrayList<Task>) inputStream.readObject();
             tasks.clear();

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
-    private String dukeFilePath = "data/duke.txt";
+    private String dukeFilePath = "./data/duke.txt";
     /*
          txt file that contains the contents of the TaskList in a human-readable format
          this file is read in the printFileContents method in Ui.java
@@ -25,7 +25,7 @@ public class Storage {
          txt file that contains the contents of the TaskList in binary format
          this file is used to store TaskList contents that will persist with consecutive runs of the application
      */
-    private String undoFilePath = "data/undo.txt";
+    private String undoFilePath = "./data/undo.txt";
     /*
          txt file that contains the contents of the OLD TaskList in binary format
          contents of this file is read when 'undo' command is called, so the old TaskList will be obtained

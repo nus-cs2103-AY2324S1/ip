@@ -137,7 +137,7 @@ public class Ui {
         return stringBuilder.toString();
     }
     public static String handleUndoUi() {
-        return "Most recent move undone :)\n\n";
+        return "Most recent move undone :)\n";
     }
     public static String handleExitUi() {
         return "Thanks for coming!";
