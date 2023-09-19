@@ -21,6 +21,7 @@ import jeeves.task.Task;
 import jeeves.task.TaskList;
 import jeeves.task.Todo;
 import jeeves.ui.Ui;
+import jeeves.note.Note;
 
 /**
  * Contains the main method and primary logic for Jeeves.
@@ -35,7 +36,7 @@ public class Jeeves {
     private static final Parser parser = new Parser();
 
     /**
-     * Main process.
+     * Launches the GUI and executes the main logic of Jeeves.
      *
      * @param args Optional command line arguments.
      */
@@ -80,6 +81,8 @@ public class Jeeves {
             return processEventCommand(tokens);
         case "find":
             return tasks.searchFor(tokens.get(1));
+        case "note":
+            return processNoteCommand(tokens);
         case "bye":
             processByeCommand();
             break;
@@ -202,6 +205,15 @@ public class Jeeves {
                 + "    "
                 + newEvent
                 + "\n";
+    }
+    
+    private static String processNoteCommand(ArrayList<String> tokens) {
+        // Adds the Note to the note list
+        Note newNote = new Note(tokens.get(1));
+        return "Note added to your list:\n"
+                    + "    "
+                    + newNote
+                    + "\n";
     }
 
     private static void processByeCommand() {
