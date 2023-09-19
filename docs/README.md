@@ -29,7 +29,7 @@ Adds a task with a deadline.
 
 Example of usage:
 
-'deadline homework /by 2023-10-01'
+`deadline homework /by 2023-10-01`
 
 ### `event` - Adding an event with a start and an end
 
