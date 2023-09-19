@@ -698,19 +698,20 @@ class CommandHandler {
      */
     public String handleFindCommand(String[] splitStr) throws DukeException {
         String out = "";
+        String foundTaskStr = "";
         if (splitStr.length < 2) {
             throw new DukeException("Invalid format detected for 'find' command. Enter find [search_term]");
         }
         String searchTerm = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
 
-        ArrayList<TaskType> suitable = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             if (taskList.getItem(i).getTaskDesc().contains(searchTerm)) {
-                suitable.add(taskList.getItem(i));
+                foundTaskStr += (i + 1) + ". " + ui.formatTaskToPrint(taskList.getItem(i), dtf.getOutFormatter());
+                foundTaskStr += "\n";
             }
         }
         out += ui.print("Here are the matching tasks in your list:");
-        out += ui.printItems(suitable);
+        out += foundTaskStr;
         return out;
     }
 
@@ -861,6 +862,11 @@ class CommandHandler {
         return out;
     }
 
+    /**
+     * Handles actions when user issues a 'priority' command.
+     *
+     * @param splitStr user's full command, including arguments for command.
+     */
     public String handlePriorityCommand(String[] splitStr) throws DukeException {
         DukeException e = new DukeException("""
                 Invalid format for command. priority command takes the form: priority [task number] [0/1]

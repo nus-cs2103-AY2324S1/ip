@@ -1,68 +1,123 @@
-# Duke Personal Assistant
+# DukeBot: User Guide
 
-Have you ever needed to organize your tasks, deadlines and event in a neat way? Are 
-you sick of other task organization apps on the internet with actual quality? Never
-fear, because DukeBot is here to cure you of your malaise.
+DukeBot is a desktop app for managing tasks, optimized for use via a Command 
+Line Interface, whilst maintaining a user-friendly Graphical User Interface (GUI). If you
+are an experienced typer, DukeBot will be just for you!
 
 
-## Starting the application
+## Quickstart
 
-Prerequisites: Java 11
 
-1. Download the Duke.jar from the latest releases into a directory. 
-2. Run the command `java -jar Duke.jar` in that directory.
-3. A window should appear on your screen, and our Duke agent will greet you.
- 
+1. Ensure that you have Java 11 installed on your computer. 
+2. Download the Duke.jar from the latest releases. (v0.3 recommended)
+3. Copy the file into the folder you want to use as the home folder for DukeBot 
+and run the command `java -jar Duke.jar` in that directory.
+4. A GUI should appear in a few seconds, and our Duke agent will greet you.
+
+![Screenshot of the GUI that the user should see when first 
+opening DukeBot](https://seraphimstreets.github.io/ip/dukeIntro.png)
+
 Note: A `data` folder will be created in that directory if it does not exist to store
 Duke-related data. 
 
-## Task Management
+## Features
 
 Duke classifies tasks into 3 categories: Todo, Deadline and Event. You can add, delete
 and list tasks by typing commands in the text area at the bottom of the window and pressing
 'Enter' to submit, after which you will receive a reply from Duke either confirming the action
 has been taken or that there was an error in parsing the command. 
 
-### Adding Todo tasks
+### Adding Todo tasks: `todo`
 
-To add a todo task, type `todo [task description]` . (eg. `todo feed cat`)
+Adds a todo task to the task list. 
 
-### Adding Deadline tasks
+Format: `todo [task description]` 
 
-To add a deadline task, type `deadline [task description] \by [date] `. Only 
-accepted datetime formats (see Accepted Datetimes section for more details) will be recognized by Duke. (eg. `deadline submit PS1 /by 25/9/2023`)
+Example: 
 
-### Adding Event tasks
+`todo feed cat` adds a todo task with description "feed cat" into the task list.
 
-To add an event task, type `event [task description] \from [date] \to [date]`. Only
-accepted datetime formats (see Accepted Datetimes section for more details) will be recognized by Duke.
-(eg. `event code review /from 8/8/2023 1700 /to 8/8/2023 1800`)
+### Adding Deadline tasks: `deadline`
 
-### Listing tasks
+Adds a deadline task to the task list. For the `datetime` bracket, only certain
+datetime formats will be recognized by DukeBot. (For more information, view "Accepted Datetime Formats" section)
 
-To list all tasks, type `list`. When listed, a task may appear as follows 
-`1. [E][X] code review (from: 2023-08-08 17:00 to: 2023-08-08 18:00) [Prority: High]`,
-where the number indicates its position in the list, the first box indicates the task type
-(either T, D or E), the second box indicates whether it is marked as completed (X if marked, empty if not),
+Format: `deadline [task description] /by [datetime]`
+
+Example:
+
+`deadline submit homework /by 18/8/2023 1800` adds a deadline task 
+with description "submit homework" into the task list, with a deadline of 18/8/2023 at 6pm. 
+
+### Adding Event tasks: `event`
+
+Adds a event task to the task list. For the `datetime` brackets, only certain
+datetime formats will be recognized by DukeBot. (For more information, view "Accepted Datetime Formats" section)
+
+Format: `event [task description] /from [datetime] /to [datetime] `
+
+Example:
+
+`event open house /from 2023-08-08 10:00 /to 2023-08-08 15:00` adds 
+an event with description "open house" into the task list, which occurs from 2023/08/08 10am to 3pm.
+
+### Listing tasks: `list`
+
+Lists all tasks in the task list. A task has the following format when listed:
+
+`1. [E][X] code review (from: 2023-08-08 17:00 to: 2023-08-08 18:00) [Prority: High]`
+
+The number `1.` indicates its position in the list. The first box indicates the task type
+(either `[T]`, `[D]` or `[E]`), the second box indicates whether it is marked as completed (`[X]` if marked, `[]` if not).
 followed by the task description. This is followed by a parentheses block if there are the associated
 datetimes of the task (only applicable for event and deadlines). This is followed by square bracket block 
 indicating the task is of high priority if it has been marked as such. 
 
-### Removing tasks
-To remove a task, type `remove [task_no]` where task_no is the 1-based index of the 
-task in the list. You can view this the indexes of all tasks in the list with the `list` command.
+### Removing tasks: `remove`
+Removes a task from the task list, based on their 1-based index. 
 
-### Marking tasks
-To mark a task as completed, type `mark [task_no]` where task_no is the 1-based index of the
+Format: `remove [task_no]` where `task_no` is the 1-based index of the 
 task in the list. 
 
-### Unmarking tasks
-To mark a task as not completed, type `unmark [task_no]` where task_no is the 1-based index of the
+
+### Marking tasks: `mark`
+Marks a task on the task list as completed.
+
+Format: `mark [task_no]` where `task_no` is the 1-based index of the
 task in the list. 
 
-### Find tasks
-To locate a task in the list by a certain substring, type `find [substring]`.
-Duke will list all tasks whose task descriptions contains the substring. 
+### Unmarking tasks: `unmark`
+Removes a competed mark on a task. (No effect if task has not been marke)
+
+Format: `unmark [task_no]` where `task_no` is the 1-based index of the
+task in the list.
+
+### Finding tasks: `find`
+Returns a list of all tasks whose description contains a given substring.
+
+Format: `find [substring]`. 
+
+Example: `find EXCO` returns all entries with the substring "EXCO" 
+in their task description. 
+
+![Screenshot of the the user using the find command to find all tasks
+with a given substring](https://seraphimstreets.github.io/ip/findCommand.png)
+
+### Setting a task's priority: `priority`
+Set a task's priority as either high (1) or normal (0). If it is set to high, 
+the task will be marked with a `[Priority:High]` box when listed, otherwise, it will
+be displayed normally. `priority_value` currently only takes a value of either 0 or 1.
+
+Format: `priority [task_no] [priority_value]` where `task_no` is the 1-based index of the
+task in the list.
+
+Example: `priority 2 1` sets the priority of the 2nd item in the list as high, 
+while `priority 3 0` sets the priority of the 3rd itme in the list as normal.
+
 
 ### Saving tasks
-All data is saved after any command besides `list` has been successfully carried out. 
+All data is saved after any command that changes a task or the task list 
+has been successfully carried out. Manual saving is not needed.
+
+### Exiting the program: `bye`
+The command `bye` will prompt the program to exit and the GUI to close. 
