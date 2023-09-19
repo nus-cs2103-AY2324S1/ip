@@ -22,7 +22,6 @@ import javafx.scene.text.TextAlignment;
  */
 public class DialogBox extends HBox {
     @FXML
-    //private Label dialog;
     private Text dialog;
     @FXML
     private ImageView displayPicture;
