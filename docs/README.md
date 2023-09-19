@@ -1,4 +1,4 @@
-# User Guide
+# Ken - User Guide
 
 Ken is a task management bot designed to help you organize your tasks, set deadlines, and manage events efficiently.
 
