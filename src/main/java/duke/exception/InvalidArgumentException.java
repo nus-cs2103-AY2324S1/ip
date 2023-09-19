@@ -4,8 +4,7 @@ package duke.exception;
  */
 public class InvalidArgumentException extends DukeException {
     /**
-     * Invalid argument exception that throws error when invalid
-     * arguments are inputted with a function.
+     * Constructor for invalid argument exception.
      * @param errorMessage message describing the error
      */
     public InvalidArgumentException(String errorMessage) {
