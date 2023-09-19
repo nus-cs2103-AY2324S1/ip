@@ -48,7 +48,9 @@ Now you have 1 task in the list.
 Describe the action and its outcome.
 #### Usage:
 `event <task_name> /from <dd/m/yyyy HHmm> /to <dd/m/yyyy HHmm>`
-> Note: `/to` should be equals to or after `/from`
+
+> **Note**: `/to` should be equals to or after `/from`
+
 #### Example of usage:
 
 `event CS2103t finals /from 01/12/2023 0900 /to 01/12/2023 1100`
@@ -80,7 +82,9 @@ Here are your tasks:
 ```
 
 ### `mark` - Marks a task as completed
+
 > **Note**: <task_number> refers to the numbering shown in `list`
+
 #### Usage:
 `mark <task_number>`
 #### Example of usage:
@@ -97,7 +101,9 @@ Nice! I've marked this task as done:
 ```
 
 ### `unmark` - Unmarks a task as completed
+
 > **Note**: <task_number> refers to the numbering shown in `list`
+
 #### Usage:
 `unmark <task_number>`
 #### Example of usage:
@@ -114,7 +120,9 @@ Ok! I've marked this task as not done:
 ```
 
 ### `find` - Searches for tasks whose `<task_name>` contains the keyword
->**Note**: `find` is **NOT** case-sensitive
+
+> **Note**: `find` is **NOT** case-sensitive
+
 #### Usage:
 `find <key_words>`
 #### Example of usage:
@@ -131,7 +139,9 @@ Here are the find results:
 ```
 
 ### `findmatch` - Searches for tasks whose `<task_name>` contains the keyword with matching case
->**Note**: `findmatch` **IS** case-sensitive
+
+> **Note**: `findmatch` **IS** case-sensitive
+
 #### Usage:
 `find <key_words>`
 #### Example of usage:
@@ -148,7 +158,9 @@ No tasks available
 ```
 
 ### `findall` - Searches for tasks that contains the keyword in any part of the tasks
->**Note**: `findall` is **NOT** case-sensitive
+
+> **Note**: `findall` is **NOT** case-sensitive
+
 #### Usage:
 `find <key_words>`
 #### Example of usage:
@@ -168,7 +180,9 @@ Here are the find results:
 
 #### Usage:
 `delete <task_number>`
+
 > **Note**: <task_number> refers to the numbering shown in `list`
+
 #### Example of usage:
 
 `delete 1`
