@@ -1,29 +1,104 @@
 # User Guide
 
-## Features 
+## Table of Contents
 
-### Feature-ABC
+- [Getting Started](#getting-started)
+- [Features](#features)
 
-Description of the feature.
+## Getting Started
 
-### Feature-XYZ
+1. Ensure that you are using java 11.
+2. Download the jar file from the version on github.
+3. Navigate to the directory containing the jar file.
+4. Run java -jar duke.jar to begin.
+5. A chatbot should appear.
 
-Description of the feature.
+## Features
 
-## Usage
+### Adding a task: `todo`, `event`, `deadline`
 
-### `Keyword` - Describe action
+Add a new task of the choosen type into the task list.
 
-Describe the action and its outcome.
+Format:
 
-Example of usage: 
+- `todo [DESCRIPTION]`
+- `event [DESCRIPTION] /from [yyyy-MM-dd] /to [yyyy-MM-dd]`
+- `deadline [DESCRIPTION] /by [yyyy-MM-dd]`
 
-`keyword (optional arguments)`
+Example of usage:
 
-Expected outcome:
+- `todo watch lecture videos`
+- `event hackathon /from 2023-09-29 /to 2023-10-02`
+- `deadline 2100 assignment /by 2023-10-23`
 
-Description of the outcome.
+### Deleting a task: `delete`
 
-```
-expected output
-```
+Delete the task from the task list.
+
+Format:
+
+`delete [TASKNUMBER]`
+
+Example of usage:
+
+`delete 1`
+
+### Listing all the tasks: `list`
+
+List down all the tasks.
+
+Format:
+
+`list`
+
+### Getting help: `help`
+
+List down all the commands.
+
+Format:
+
+`help`
+
+### Find specific tasks: `find`
+
+Find all tasks that contains the keyword.
+
+Format:
+
+`find [KEYWORD]`
+
+Example of usage:
+
+`find do`
+
+### Marking each task: `mark`
+
+Mark the task as done with an X.
+
+Format:
+
+`mark [TASKNUMBER]`
+
+Example of usage:
+
+`mark 1`
+
+### Unmarking marked task: `unmark`
+
+Remove the X in marked task.
+
+Format:
+
+`unmark [TASKNUMBER]`
+
+Example of usage:
+
+`unmark 1`
+
+### Exiting the application: `bye`
+
+Exit the application.
+
+Format:
+
+`bye`
