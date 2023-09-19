@@ -55,22 +55,102 @@ Example of usage:
 
 Expected outcome:
 
-Displayed list of tasks.
-
 ![list command](./res/img/list.png)
 
-### `list` - Describe action
+### `todo` - Create a todo task
 
-Describe the action and its outcome.
+Creates a todo task and saves to disk.
 
 Example of usage:
 
-`keyword (optional arguments)`
+`todo <task name>`
 
 Expected outcome:
 
-Description of the outcome.
+![todo command](./res/img/todo.png)
 
-```
-expected output
-```
+### `deadline` - Create a deadline task
+
+Creates a deadline task and saves to disk.
+
+Example of usage:
+
+`deadline <task name> /by {dd/MM/yyyy}`
+
+Expected outcome:
+
+![deadline command](./res/img/deadline.png)
+
+### `event` - Create an event task
+
+Creates an event task and saves to disk.
+
+Example of usage:
+
+`event <task name> /from {dd/MM/yyyy} /to {dd/MM/yyyy}`
+
+Expected outcome:
+
+![event command](./res/img/event.png)
+
+### `mark` - Mark task as completed
+
+Marks task as completed and saves to disk. If task was previously incomplete, updates completion date.
+
+Example of usage:
+
+`mark 1`
+
+Expected outcome:
+
+![mark command](./res/img/mark.png)
+
+### `unmark` - Unmark completed task
+
+Unmarks completed task and saves to disk.
+
+Example of usage:
+
+`unmark 6`
+
+Expected outcome:
+
+![unmark command](./res/img/unmark.png)
+
+### `delete` - Deletes a task
+
+Deletes a task and saves to disk.
+
+Example of usage:
+
+`delete 2`
+
+Expected outcome:
+
+![delete command](./res/img/delete.png)
+
+### `find` - Finds tasks that contain given keyword
+
+Finds tasks that contain the given word.
+
+Example of usage:
+
+`find do`
+
+Expected outcome:
+
+![find command](./res/img/find.png)
+
+### `statistics` - Display statistics dashboard
+
+Provide statistics dashboard to view Cyrus usage in terms of distribution of task by
+type and weekly completion rate.
+
+Example of usage:
+
+`statistics`
+
+Expected outcome:
+
+![statistics command](./res/img/statistics_2.png)
+
