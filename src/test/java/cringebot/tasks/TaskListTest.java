@@ -1,4 +1,4 @@
-package cringebot;
+package cringebot.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import cringebot.exceptions.CringeBotException;
 import cringebot.parser.Parser;
-import cringebot.tasks.Task;
-import cringebot.tasks.TaskList;
 
 public class TaskListTest {
     @Test

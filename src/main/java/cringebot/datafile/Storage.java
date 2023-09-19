@@ -16,7 +16,7 @@ import cringebot.tasks.TaskList;
  * Class to handle storage events to the indicated FILEPATH.
  */
 public class Storage {
-    private final String filePath; // Path to the data storage file.
+    protected final String filePath; // Path to the data storage file.
 
     /**
      * Constructor for storage.
