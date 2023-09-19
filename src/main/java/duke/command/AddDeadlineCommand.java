@@ -29,6 +29,10 @@ public class AddDeadlineCommand extends Command {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Executes the command by creating a deadline, adding it to the taskList,
+     * adding it to the storage, and displaying a message to the ui.
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {

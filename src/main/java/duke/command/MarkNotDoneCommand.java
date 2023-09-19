@@ -23,6 +23,10 @@ public class MarkNotDoneCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Marks the specified task as not done, updates the storage,
+     * and displays a message to the ui.
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {

@@ -15,6 +15,11 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Returns the next command by the user.
+     *
+     * @return The command string.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
@@ -110,6 +115,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns the help list.
+     *
+     * @return the help list.
+     */
     public String showHelpList() {
         String str = "Here are the formats of possible commands:\n"
                 + "1. help\n"

@@ -23,6 +23,10 @@ public class DeleteTaskCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Deletes the specified task from the taskList, storage,
+     * and displaying a message to the ui.
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {

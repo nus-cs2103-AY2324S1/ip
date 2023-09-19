@@ -1,7 +1,6 @@
 package duke.main;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import duke.command.*;
 
@@ -185,10 +184,10 @@ public class Parser {
     }
 
     /**
-     * Checks for a valid "delete" command.
+     * Checks for a valid "delete task" command.
      *
      * @param input the string input by the user.
-     * @return A duke.command.DeleteTaskCommand if the command is valid and null if the command is not a delete command.
+     * @return A duke.command.DeleteTaskCommand if it is valid and null if the command is not a "delete" command.
      * @throws DukeException if the command is "delete" but the keywords are not valid.
      */
     public static DeleteTaskCommand deleteCommandChecker(String input) throws DukeException {
@@ -211,10 +210,10 @@ public class Parser {
     }
 
     /**
-     * Checks for a valid "find" command.
+     * Checks for a valid "find task" command.
      *
      * @param input The string input by the user.
-     * @return A duke.command.FindTaskCommand if the command is valid and null if the command is not a find command.
+     * @return A duke.command.FindTaskCommand if the command is valid and null if the command is not a "find" command.
      * @throws DukeException if the command is "find" but the keywords are not valid
      */
     public static FindTaskCommand findTaskCommandChecker(String input) throws DukeException {
@@ -232,6 +231,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks for a valid "help" command.
+     *
+     * @param input The string input by the user.
+     * @return A duke.command.HelpCommand if the command is valid and null if the command is not a "help" command.
+     */
     public static HelpCommand findHelpCommand(String input) {
         if (input.trim().equals("help")) {
             return new HelpCommand();

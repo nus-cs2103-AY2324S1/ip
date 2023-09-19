@@ -23,6 +23,10 @@ public class MarkDoneCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Marks the specified task as done, updates the storage,
+     * then displays a message to the ui.
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
