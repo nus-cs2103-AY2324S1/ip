@@ -15,15 +15,26 @@ import duke.commands.MarkAsDoneCommand;
 import duke.commands.UnmarkCommand;
 import duke.exceptions.ErrorMessages;
 import duke.exceptions.UnknownCommandException;
-import duke.tasks.Task;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.Task;
 import duke.tasks.Todo;
 
+/**
+ * Provides utility functions to assist in parsing command strings and constructing the corresponding Command objects.
+ */
 public class ParserHelper {
     private static final Pattern EMPTY_STRING_CHECKER = Pattern.compile("\\S.*+");
     private static final Pattern NUMBER_CHECKER = Pattern.compile("\\d+?");
 
+    /**
+     * Parses the command based on its type and the provided information.
+     *
+     * @param commandType The type of command to parse.
+     * @param information The additional information related to the command.
+     * @return The constructed Command object.
+     * @throws UnknownCommandException If the command or the information format is not recognized.
+     */
     public static Command parseCommandByType(CommandType commandType, String information)
             throws UnknownCommandException {
         if (!NUMBER_CHECKER.matcher(information).matches()) {
@@ -43,6 +54,13 @@ public class ParserHelper {
         }
     }
 
+    /**
+     * Parses the information to construct a FindCommand.
+     *
+     * @param information The information related to the find command.
+     * @return A FindCommand based on the provided information.
+     * @throws UnknownCommandException If the information format is not recognized.
+     */
     public static FindCommand parseFindCommand(String information) throws UnknownCommandException {
         validateNonEmptyInput(information, ErrorMessages.EMPTY_DESCRIPTION_ERROR);
 
@@ -50,11 +68,25 @@ public class ParserHelper {
         return new FindCommand(descriptions);
     }
 
+    /**
+     * Parses the information to construct an AddTaskCommand for a Todo task.
+     *
+     * @param information The information related to the Todo command.
+     * @return An AddTaskCommand with a Todo task based on the provided information.
+     * @throws UnknownCommandException If the information format is not recognized.
+     */
     public static AddTaskCommand parseTodoCommand(String information) throws UnknownCommandException {
         validateNonEmptyInput(information, ErrorMessages.EMPTY_TODO_ERROR);
         return new AddTaskCommand(new Todo(information));
     }
 
+    /**
+     * Parses the information to construct an AddTaskCommand for a Deadline task.
+     *
+     * @param information The information related to the Deadline command.
+     * @return An AddTaskCommand with a Deadline task based on the provided information.
+     * @throws UnknownCommandException If the information format is not recognized.
+     */
     public static AddTaskCommand parseDeadlineCommand(String information) throws UnknownCommandException {
         Matcher matcher = validateAndGetMatcher(information, "(?<name>.*)/by\\s*(?<date>.*)",
                 ErrorMessages.EMPTY_DEADLINE_ERROR, ErrorMessages.INVALID_DEADLINE_FORMAT_ERROR);
@@ -62,11 +94,33 @@ public class ParserHelper {
         return createDeadlineTaskCommand(matcher);
     }
 
+    /**
+     * Parses the information to construct an AddTaskCommand for an Event task.
+     *
+     * @param information The information related to the Event command.
+     * @return An AddTaskCommand with an Event task based on the provided information.
+     * @throws UnknownCommandException If the information format is not recognized.
+     */
     public static AddTaskCommand parseEventCommand(String information) throws UnknownCommandException {
         Matcher matcher = validateAndGetMatcher(information, "(?<name>.*)/from(?<from>.*)/to(?<to>.*)",
                 ErrorMessages.EMPTY_EVENT_ERROR, ErrorMessages.INVALID_EVENT_FORMAT_ERROR);
 
         return createEventTaskCommand(matcher);
+    }
+
+    /**
+     * Parses the information to construct a HelpCommand.
+     *
+     * @param information The information related to the Help command.
+     * @return A HelpCommand based on the provided information.
+     * @throws UnknownCommandException If the information format is not recognized.
+     */
+    public static HelpCommand parseHelpCommand(String information) throws UnknownCommandException {
+        if (!EMPTY_STRING_CHECKER.matcher(information).matches()) {
+            return new HelpCommand("normal");
+        } else {
+            return new HelpCommand(information);
+        }
     }
 
     private static void validateNonEmptyInput(String information, String errorMessage) throws UnknownCommandException {

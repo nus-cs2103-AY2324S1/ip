@@ -6,11 +6,20 @@ import java.util.regex.Pattern;
 import duke.commands.Command;
 import duke.commands.ExitCommand;
 import duke.commands.ListCommand;
-
 import duke.exceptions.ErrorMessages;
 import duke.exceptions.UnknownCommandException;
 
+/**
+ * Represents a parser that processes command inputs.
+ */
 public class CommandParser {
+    /**
+     * Parses the input string to return a corresponding Command.
+     *
+     * @param input The string input from the user.
+     * @return A Command corresponding to the input string.
+     * @throws Exception If there's an error in parsing the input.
+     */
     public static Command parse(String input) throws Exception {
         Matcher instructionExtractor = extractInstructionAndInformation(input);
         String instructionTag = instructionExtractor.group("instructionTag").trim();
@@ -20,6 +29,13 @@ public class CommandParser {
         return createCommand(instruction, information);
     }
 
+    /**
+     * Extracts the instruction and its corresponding information from the input.
+     *
+     * @param input The string input from the user.
+     * @return A Matcher containing extracted instruction and information.
+     * @throws UnknownCommandException If the instruction cannot be recognized.
+     */
     private static Matcher extractInstructionAndInformation(String input) throws UnknownCommandException {
         Matcher instructionExtractor = Pattern
                 .compile("(?<instructionTag>\\S++)(?<information>.*)").matcher(input.trim());
@@ -31,6 +47,13 @@ public class CommandParser {
         return instructionExtractor;
     }
 
+    /**
+     * Converts the type flag to its corresponding CommandType.
+     *
+     * @param typeFlag The type flag string.
+     * @return The corresponding CommandType.
+     * @throws UnknownCommandException If the type flag cannot be recognized.
+     */
     private static CommandType matchFlag(String typeFlag) throws UnknownCommandException {
         try {
             return CommandType.valueOf(typeFlag.toUpperCase());
@@ -58,6 +81,8 @@ public class CommandParser {
             return ParserHelper.parseEventCommand(information);
         case FIND:
             return ParserHelper.parseFindCommand(information);
+        case HELP:
+            return ParserHelper.parseHelpCommand(information);
         default:
             throw new UnknownCommandException(ErrorMessages.UNRECOGNIZED_ERROR);
         }
