@@ -4,7 +4,7 @@ Cupid Bot serves to track all your todos, deadlines and events all in one applic
 
 ## Sample UI
 
-![Screenshot of sample UI](https://github.com/nicrandomlee/ip/blob/master/src/main/resources/Ui.png?raw=true)
+![Screenshot of sample UI](https://github.com/nicrandomlee/ip/blob/master/docs/Ui.png?raw=true)
 
 ## Setting up in Intellij
 
