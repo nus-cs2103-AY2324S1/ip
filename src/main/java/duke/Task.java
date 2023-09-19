@@ -74,10 +74,7 @@ public class Task {
      */
     public static Task loadData(String savedTasks) {
         String[] parts = savedTasks.split(" \\| ");
-        String type = parts[0];
-        String doneOrNot = parts[1];
-        String description = parts[2];
-
+        String type = parts[0], doneOrNot = parts[1], description = parts[2];
         Task task;
         if (doneOrNot.equals("1")) {
             if (type.equals("T")) {
@@ -88,8 +85,7 @@ public class Task {
                 task = new Deadline(description, by);
                 task.markAsDone();
             } else {
-                String from = parts[3];
-                String to = parts[4];
+                String from = parts[3], to = parts[4];
                 task = new Event(description, from, to);
                 task.markAsDone();
             }
@@ -100,8 +96,7 @@ public class Task {
                 String by = parts[3];
                 task = new Deadline(description, by);
             } else {
-                String from = parts[3];
-                String to = parts[4];
+                String from = parts[3], to = parts[4];
                 task = new Event(description, from, to);
             }
         }

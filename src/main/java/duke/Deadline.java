@@ -31,24 +31,24 @@ public class Deadline extends Task {
      */
     public void dateTime() {
         parts = this.dueDate.split("/");
-        String day;
-        String month;
-        String year;
+        String day, month, year;
 
         if (parts.length != 1) {
-
             if (parts[0].length() == 1) {
                 day = "0" + parts[0];
             } else {
                 day = parts[0];
             }
+            int dayInt = Integer.parseInt(day);
+            assert (dayInt >= 1 && dayInt <= 31) : "Day is not between 1 and 31";
 
             if (parts[1].length() == 1) {
                 month = "0" + parts[1];
             } else {
                 month = parts[1];
             }
-
+            int monthInt = Integer.parseInt(month);
+            assert (monthInt >= 1 && monthInt <= 12) : "Month is not between 1 and 12";
             String[] yearTime = parts[2].split("\\s+");
 
             if (yearTime.length == 1) {
