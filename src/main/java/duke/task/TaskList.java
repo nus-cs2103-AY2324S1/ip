@@ -25,6 +25,7 @@ public class TaskList {
      * @param index an integer representing the index of a task that will be marked.
      */
     public void mark(Integer index) {
+        assert index >= 1 : "The index of the task should be a positive Integer";
         tasks.get(index).mark();
     }
 
@@ -34,6 +35,7 @@ public class TaskList {
      * @param index an integer representing the index of a task that will be unmarked.
      */
     public void unmark(Integer index) {
+        assert index >= 1 : "The index of the task should be a positive Integer";
         tasks.get(index).unmark();
     }
 
@@ -43,6 +45,7 @@ public class TaskList {
      * @param index an integer representing the index of a task.
      */
     public Task getTask(Integer index) {
+        assert index >= 1 : "The index of the task should be a positive Integer";
         return tasks.get(index);
     }
 
@@ -53,6 +56,7 @@ public class TaskList {
      * @return the String representing the specific task that will be stored.
      */
     public String getTaskInput(Integer index) {
+        assert index >= 1 : "The index of the task should be a positive Integer";
         return tasks.get(index).getInput();
     }
 
@@ -80,6 +84,7 @@ public class TaskList {
      * @param index an integer representing the index of a task.
      */
     public void delete(Integer index) {
+        assert index >= 1 : "The index of the task should be a positive Integer";
         tasks.remove(index);
     }
 
