@@ -6,7 +6,6 @@ Chatbot Alain provides users with a helpful assistant to manage tasks efficientl
 
 - [Features](#features)
 - [Usage](#usage)
-    - [`add`](#add-task-description)
     - [`list`](#list)
     - [`mark`](#mark-task-number)
     - [`unmark`](#unmark-task-number)
@@ -17,48 +16,6 @@ Chatbot Alain provides users with a helpful assistant to manage tasks efficientl
     - [`find`](#find-key-word)
 
 ## Features
-
-### 1. **Add Tasks**:
-Allows users to add tasks such as reading a book or returning items.
-
-### 2. **List Tasks**:
-Displays all the tasks added by the user in a list format.
-
-### 3. **Mark as Done**:
-Users can mark specific tasks as completed.
-
-### 4. **Unmark a Task**:
-Change a task's status back to not done.
-
-### 5. **Task Types: ToDos, Deadlines, and Events**:
-Supports three types of tasks:
-- **ToDos** - tasks without any specific date/time.
-- **Deadlines** - tasks that have a completion date/time.
-- **Events** - tasks that have both start and end date/time.
-
-### 6. **Error Handling**:
-The chatbot provides feedback for incorrect or unrecognizable inputs.
-
-### 7. **Delete Task**:
-Users can remove tasks from their list.
-
-### 8. **Task Sorting**:
-User can see tasks already sorted by deadlines(only applicable for those with specific dates) when applying "list" command
-## Usage
-
-### `add [task description]`
-
-- **Action:** Add a new task with the provided description.
-- **Example:**
-  add read book
-
-markdown
-Copy code
-- **Expected Outcome:**
-  added: read book
-
-markdown
-Copy code
 
 ### `list`
 
