@@ -160,4 +160,39 @@ You have 4 tasks. (0 complete, 4 incomplete)
 4. [E] [ ] Career Fair (from: 01 Oct 2023 11:00 to: 01 Oct 2023 17:00)
 ```
 
+### `mark` - Mark a task as complete
+
+The user inputs the keyword `mark`, followed by the task number. Leon will then mark the corresponding task as complete.
+
+Example of usage:
+
+- User: `mark`
+- Leon: `Please input the task number you wish to mark.` (List of tasks will be provided for reference)
+- User: `1`
+- Leon: `Task 1 set as complete.`
+
+Expected outcome:
+
+The task is marked as complete.
+
+Leon will raise an error if:
+
+- There are no tasks in the list.
+- The task number input is invalid or outside the range 1 < taskNumber < totalNumberOfTasks.
+- The corresponding task is already marked as complete.
+
+```
+mark
+
+Please input the task number you wish to mark.
+1. [ ] clean the room
+2. [T] [ ] finish cs2103 project
+3. [D] [ ] CS2100 Assignment (by: Fri, 22 Sep 2023, 23:59)
+4. [E] [ ] Career Fair (from: 01 Oct 2023 11:00 to: 01 Oct 2023 17:00)
+
+1
+
+Task 1 set as complete.
+```
+
 
