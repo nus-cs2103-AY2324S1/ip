@@ -270,7 +270,7 @@ public class Commands {
         @Override
         public String execute(ListOfTask taskList, boolean print) throws DukeException {
             String response;
-            if (Objects.requireNonNull(super.primaryCommand) == CommandEnum.EVENT) {
+            if (super.primaryCommand == CommandEnum.EVENT) {
                 response = taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
                         this.phaseThree.dateTime, print);
             } else {

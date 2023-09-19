@@ -113,7 +113,7 @@ public class Storage {
             startLine++;
             // Carries the error to be shown at the end of the load
             return load(taskList, startLine, errorCarryForward
-                    + "line " + startLine + " corrupted: " + error + "\n");
+                    + "line " + startLine + " corrupted: " + e.getMessage() + "\n" + error + "\n");
 
         } catch (IOException f) {
             return "You do not have access to create a save file";

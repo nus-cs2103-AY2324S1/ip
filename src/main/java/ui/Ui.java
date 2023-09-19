@@ -16,8 +16,8 @@ public class Ui {
      * Prints the greeting of the program.
      */
     public static String greet() {
-        return "Hello. I am Luxion. \n"
-                + "What can I do for you?";
+        return "Hello. I am Luxion.\n"
+                + "What can I do for you?\n";
     }
 
     /**
