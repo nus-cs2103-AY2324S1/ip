@@ -13,9 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * This control represents a dialog box consisting of a list view
- * to display the available file names as well as a text box
- * to allow user to submit filename
+ * Represents a dialog box controller that allows users to:
+ * - View a list of available filenames.
+ * - Submit a chosen filename.
  */
 public class FilenameDialogController {
     @FXML
@@ -24,24 +24,38 @@ public class FilenameDialogController {
     @FXML
     private ListView<String> filenameListView;
 
-    private Stage stage;
-    private String filename;
+    private Stage dialogStage;
+    private String selectedFilename;
 
+    /**
+     * Sets the stage for this dialog.
+     *
+     * @param stage The stage of this dialog.
+     */
     public void setStage(Stage stage) {
-        this.stage = stage;
+        this.dialogStage = stage;
     }
 
+    /**
+     * Submits the filename input by the user.
+     */
     @FXML
     private void submitFilename() {
-        filename = filenameField.getText().trim();
+        selectedFilename = filenameField.getText().trim();
 
-        if (filename.isEmpty()) {
+        if (selectedFilename.isEmpty()) {
             showAlert("Error", "Filename cannot be empty!");
         } else {
-            stage.close();
+            dialogStage.close();
         }
     }
 
+    /**
+     * Displays an alert dialog with the specified title and message.
+     *
+     * @param title   The title of the alert.
+     * @param message The message to be displayed in the alert.
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -50,29 +64,44 @@ public class FilenameDialogController {
         alert.showAndWait();
     }
 
-
+    /**
+     * Returns the filename chosen by the user.
+     *
+     * @return The chosen filename.
+     */
     public String getFilename() {
-        return filename;
+        return selectedFilename;
     }
 
+    /**
+     * Populates the ListView with filenames found in the "./data/" directory.
+     */
     void populateFilenamesToListView() {
-        Path dirPath = Paths.get("./data/");
+        Path directoryPath = Paths.get("./data/");
 
-        // Ensure the directory exists
-        if (Files.exists(dirPath) && Files.isDirectory(dirPath)) {
-            try (Stream<Path> paths = Files.walk(dirPath, 1)) {
-                // "1" to ensure only one level depth
-                paths.filter(Files :: isRegularFile)
+        if (Files.exists(directoryPath) && Files.isDirectory(directoryPath)) {
+            try (Stream<Path> filePaths = Files.walk(directoryPath, 1)) {
+                filePaths
+                        .filter(Files::isRegularFile)
                         .filter(path -> path.toString().endsWith(".txt"))
-                        // Only .txt files
                         .forEach(path -> {
-                            String filename = path.getFileName().toString();
-                            filenameListView.getItems().add(filename.substring(0, filename.length() - 4));
-                            // remove the .txt extension
+                            String filenameWithoutExtension = removeFileExtension(path.getFileName().toString());
+                            filenameListView.getItems().add(filenameWithoutExtension);
                         });
             } catch (IOException e) {
+                System.err.println("Error populating filenames: " + e.getMessage());
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Removes the file extension from the provided filename.
+     *
+     * @param filename The filename with the extension.
+     * @return The filename without its extension.
+     */
+    private String removeFileExtension(String filename) {
+        return filename.substring(0, filename.length() - 4); // Removes the ".txt" extension.
     }
 }

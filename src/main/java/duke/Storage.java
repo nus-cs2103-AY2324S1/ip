@@ -16,6 +16,12 @@ import duke.taskclasses.TaskList;
  * Represents the storage mechanism responsible for saving and loading tasks to and from a file.
  */
 public class Storage {
+    private static final String DATA_DIRECTORY = "./data/";
+    private static final String FILE_EXTENSION = ".txt";
+    private static final String TODO_PREFIX = "T";
+    private static final String DEADLINE_PREFIX = "D";
+    private static final String EVENT_PREFIX = "E";
+
     private final String filePath;
 
     /**
@@ -25,7 +31,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
-        this.filePath = "./data/" + filePath + ".txt";
+        this.filePath = DATA_DIRECTORY + filePath + FILE_EXTENSION;
     }
 
     /**
@@ -38,7 +44,6 @@ public class Storage {
         try {
             processFileContents(taskList);
         } catch (FileNotFoundException e) {
-
             System.out.println("The file is not found. Initializing an empty task list.");
         }
         return taskList;
@@ -49,70 +54,73 @@ public class Storage {
      *
      * @param taskList The list of tasks to be saved.
      */
-    public void writeToDB(TaskList taskList) {
+    public void writeToStorage(TaskList taskList) {
         StringBuilder content = buildDbContentFromTaskList(taskList);
-
         try {
             writeContentToFile(content);
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
-            File f = new File(this.filePath);
             try {
-                f.createNewFile();
+                new File(this.filePath).createNewFile();
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                throw new RuntimeException("Error creating a new file.", ex);
             }
-            e.printStackTrace();
         }
     }
 
+    /**
+     * Reads each line from the file and processes the tasks.
+     */
     private void processFileContents(TaskList taskList) throws FileNotFoundException {
-        File file = new File(this.filePath);
-        Scanner scanner = new Scanner(file);
-
-        while (scanner.hasNext()) {
-            processSingleLine(scanner.nextLine().trim(), taskList);
+        try (Scanner scanner = new Scanner(new File(this.filePath))) {
+            while (scanner.hasNext()) {
+                processSingleLine(scanner.nextLine().trim(), taskList);
+            }
         }
-
-        scanner.close();
     }
 
+    /**
+     * Process a single line from the file to create the respective Task object.
+     */
     private void processSingleLine(String line, TaskList taskList) {
         try {
             String[] taskParts = line.split("\\|");
-            boolean isDone = taskParts[1].trim().equals("1");
-
+            boolean isDone = "1".equals(taskParts[1].trim());
             switch (taskParts[0].trim()) {
-            case "T":
-                assert taskParts.length == 3 : "ToDo task data format is incorrect";
-                taskList.addToDoToList(isDone, taskParts[2].trim());
-                break;
-            case "D":
-                assert taskParts.length == 4 : "Deadline task data format is incorrect";
-                taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
-                break;
-            case "E":
-                assert taskParts.length == 5 : "Event task data format is incorrect";
-                taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
-                break;
-            default:
-                System.out.println("Unexpected task type encountered: " + line);
+                case TODO_PREFIX:
+                    assert taskParts.length == 3 : "ToDo task data format is incorrect";
+                    taskList.addToDoToList(isDone, taskParts[2].trim());
+                    break;
+                case DEADLINE_PREFIX:
+                    assert taskParts.length == 4 : "Deadline task data format is incorrect";
+                    taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
+                    break;
+                case EVENT_PREFIX:
+                    assert taskParts.length == 5 : "Event task data format is incorrect";
+                    taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
+                    break;
+                default:
+                    System.out.println("Unexpected task type encountered: " + line);
             }
         } catch (InvalidDateTimeException e) {
-            System.out.println("Invalid date format encountered in some tasks. Please check.");
+            System.out.println("Invalid date format encountered in: " + line);
         }
     }
 
+    /**
+     * Build a string representation of the entire task list for saving to file.
+     */
     private StringBuilder buildDbContentFromTaskList(TaskList taskList) {
         StringBuilder content = new StringBuilder();
-
         for (Task task : taskList.getList()) {
             content.append(task.getDbString()).append("\n");
         }
-
         return content;
     }
 
+    /**
+     * Writes the content to the storage file.
+     */
     private void writeContentToFile(StringBuilder content) throws IOException {
         Path path = Paths.get(this.filePath);
         Files.write(path, content.toString().getBytes());

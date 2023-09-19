@@ -41,7 +41,7 @@ public class Parser {
             command = getCommand(parts[0]);
             executeCommand(output, command, ui, taskList, parts, details, input);
             if (command == Command.BYE) {
-                storage.writeToDB(taskList);
+                storage.writeToStorage(taskList);
             }
             return output;
         } catch (DukeException e) {

@@ -18,13 +18,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         String filename = showFilenameDialog(stage);
-        if (filename != null && !filename.isEmpty()) {
+
+        if (filename != null && !filename.trim().isEmpty()) {
             duke = new Duke(filename);
 
             try {
                 initializeMainWindow(stage);
             } catch (IOException e) {
-                System.err.println("Error initializing main window.");
+                System.err.println("Error initializing main window: " + e.getMessage());
                 e.printStackTrace();
             }
         } else {
@@ -33,12 +34,20 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Show a dialog to the user to choose a filename.
+     *
+     * @param parentStage The parent stage of the dialog.
+     * @return The selected filename.
+     */
     private String showFilenameDialog(Stage parentStage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/FilenameDialog.fxml"));
             AnchorPane root = fxmlLoader.load();
             FilenameDialogController controller = fxmlLoader.<FilenameDialogController>getController();
+
             controller.populateFilenamesToListView();
+
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Dong");
             dialogStage.initOwner(parentStage);
@@ -49,20 +58,28 @@ public class Main extends Application {
 
             return controller.getFilename();
         } catch (IOException e) {
+            System.err.println("Error showing filename dialog: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
     }
 
+    /**
+     * Initializes and displays the main application window.
+     *
+     * @param stage The primary stage of the application.
+     * @throws IOException If there's an issue initializing the window.
+     */
     private void initializeMainWindow(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap);
         stage.setScene(scene);
+
         mainWindow = fxmlLoader.<MainWindow>getController();
         mainWindow.setDuke(duke);
         duke.activate(mainWindow);
+
         stage.show();
     }
-
 }
