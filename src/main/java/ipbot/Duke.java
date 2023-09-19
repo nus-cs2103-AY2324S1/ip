@@ -5,7 +5,6 @@ import ipbot.model.Command;
 import ipbot.model.Deadline;
 import ipbot.model.Event;
 import ipbot.model.Pair;
-import ipbot.model.Task;
 import ipbot.model.TaskFormatException;
 import ipbot.model.ToDo;
 import ipbot.util.CommandArgumentException;
@@ -77,29 +76,6 @@ public class Duke extends Application {
         return command;
     }
 
-    public String handleMark(boolean isMark, Map<String, String> commandArgs) throws CommandArgumentException {  // TODO: private
-        int markIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
-        if (markIndex == -1) {
-            String markString = (isMark ? "mark" : "unmark");
-            throw new CommandArgumentException("Invalid task to " + markString + ": " + commandArgs.get(""));
-        }
-        Pair<Task, Boolean> taskMark = (isMark ? taskList.markTask(markIndex) : taskList.unmarkTask(markIndex));
-        if (taskMark.getSecond()) {
-            return Ui.markTaskString(taskMark.getFirst(), isMark);
-        } else {
-            return Ui.alreadyMarkedTaskString(taskMark.getFirst(), isMark);
-        }
-    }
-
-    public String handleDelete(Map<String, String> commandArgs) throws CommandArgumentException {  // TODO: Move to taskList
-        int deleteIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
-        if (deleteIndex == -1) {
-            throw new CommandArgumentException("Invalid task to delete: " + commandArgs);  // TODO: change commandArgs
-        }
-        Task task = taskList.deleteTask(deleteIndex);
-        return Ui.deletedItemString(task);
-    }
-
     /**
      * Get the bot response for a user input.
      *
@@ -123,10 +99,10 @@ public class Duke extends Application {
                 }
                 break;
             case MARK:
-                response = handleMark(true, commandArgs);
+                response = taskList.handleMark(true, commandArgs);
                 break;
             case UNMARK:
-                response = handleMark(false, commandArgs);
+                response = taskList.handleMark(false, commandArgs);
                 break;
             case TODO:
                 ToDo toDo = taskList.addToDoWithArgs(commandArgs);
@@ -141,7 +117,7 @@ public class Duke extends Application {
                 response = Ui.addedItemString(event, "event");
                 break;
             case DELETE:
-                response = handleDelete(commandArgs);
+                response = taskList.handleDelete(commandArgs);
                 break;
             case FIND:
                 if (commandArgs.get("").isEmpty()) {

@@ -6,16 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private TextFlow dialog;
     @FXML
     private ImageView displayPicture;
 
@@ -32,7 +33,7 @@ public class DialogBox extends HBox {
         assert this.dialog != null : "Dialog component not found";
         assert this.displayPicture != null : "Display picture component not found";
 
-        this.dialog.setText(dialogText);  // TODO: Update bind height
+        this.dialog.getChildren().add(new Text(dialogText));
         this.displayPicture.setImage(image);
     }
 

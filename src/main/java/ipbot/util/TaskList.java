@@ -130,7 +130,22 @@ public class TaskList {
         return new Pair<>(tasks.get(index), wasNotUnmarked);
     }
 
-    private String getArgument(Map<String, String> commandArgs, String taskType, String arg) throws CommandArgumentException {  // TODO: Length check
+    public String handleMark(boolean isMark, Map<String, String> commandArgs) throws CommandArgumentException {
+        int markIndex = Parser.checkIndexArg(commandArgs.get(""), this.getTasksSize());
+        if (markIndex == -1) {
+            String markString = (isMark ? "mark" : "unmark");
+            throw new CommandArgumentException("Invalid task to " + markString + ": " + commandArgs.get(""));
+        }
+        Pair<Task, Boolean> taskMark = (isMark ? this.markTask(markIndex) : this.unmarkTask(markIndex));
+        if (taskMark.getSecond()) {
+            return Ui.markTaskString(taskMark.getFirst(), isMark);
+        } else {
+            return Ui.alreadyMarkedTaskString(taskMark.getFirst(), isMark);
+        }
+    }
+
+    private String getArgument(Map<String, String> commandArgs, String taskType, String arg)
+            throws CommandArgumentException {
         if (commandArgs.get(arg) == null) {
             throw new CommandArgumentException(String.format(MISSING_ARGUMENT_FORMAT, taskType, arg));
         }
@@ -200,6 +215,15 @@ public class TaskList {
         Event event = new Event(commandArgs.get(""), fromArg, toArg);
         tasks.add(event);
         return event;
+    }
+
+    public String handleDelete(Map<String, String> commandArgs) throws CommandArgumentException {
+        int deleteIndex = Parser.checkIndexArg(commandArgs.get(""), this.getTasksSize());
+        if (deleteIndex == -1) {
+            throw new CommandArgumentException("Invalid task to delete: " + commandArgs.get(""));
+        }
+        Task task = this.deleteTask(deleteIndex);
+        return Ui.deletedItemString(task);
     }
 
     /**

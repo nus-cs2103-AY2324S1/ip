@@ -49,7 +49,7 @@ public class MainWindowController {
         assert this.duke != null : "Duke not set";
         assert this.dialogContainer != null : "Dialog container component not found";
         String userText = this.userInput.getText();
-        String botText = duke.getResponse(this.userInput.getText());  // TODO: Check if duke is not set
+        String botText = duke.getResponse(this.userInput.getText());
         this.dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getBotDialog(botText, botImage)
