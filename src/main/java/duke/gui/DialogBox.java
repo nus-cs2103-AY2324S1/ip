@@ -50,12 +50,17 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox dialogBox = new DialogBox(text, img);
+        dialogBox.setStyle("-fx-background-color: #91DCEE;"
+                + "-fx-background-radius: 20px;" + "-fx-background-radius: 30px;");
+        return dialogBox;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        DialogBox dialogBox = new DialogBox(text, img);
+        dialogBox.setStyle("-fx-background-color: #F2BBE2;"
+                + "-fx-background-radius: 20px;" + "-fx-background-radius: 30px;");
+        dialogBox.flip();
+        return dialogBox;
     }
 }
