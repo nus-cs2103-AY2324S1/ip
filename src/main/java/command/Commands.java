@@ -1,6 +1,7 @@
 package command;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import dukeexceptions.DukeException;
 import task.ListOfTask;
@@ -18,7 +19,7 @@ public class Commands {
     public enum CommandEnum { BYE, LIST, TODO, DEADLINE, EVENT, MARK,
             UNMARK, DELETE, BY, FROM, TO, FIND, UNDO, UNKNOWN }
 
-    private CommandEnum primaryCommand;
+    private final CommandEnum primaryCommand;
     private String taskDescription;
     private int index;
     private LocalDateTime dateTime;
@@ -132,7 +133,7 @@ public class Commands {
      * @throws DukeException The exception thrown when encountering any problems in executing.
      */
     public String execute(ListOfTask taskList, boolean print) throws DukeException {
-        String response = "";
+        String response;
         switch (this.primaryCommand) {
 
         case BYE:
@@ -226,7 +227,7 @@ public class Commands {
 
 
     private static class TwoCommands extends Commands {
-        private Commands secondaryCommand;
+        private final Commands secondaryCommand;
 
         private TwoCommands(CommandEnum command, String str, Commands secondaryCommand) {
             super(command, str);
@@ -238,36 +239,24 @@ public class Commands {
          */
         @Override
         public String execute(ListOfTask taskList, boolean print) throws DukeException {
-            String response = "";
-            switch (super.primaryCommand) {
-
-            case DEADLINE:
+            String response;
+            if (Objects.requireNonNull(super.primaryCommand) == CommandEnum.DEADLINE) {
                 response = taskList.addDeadline(super.taskDescription, this.secondaryCommand.dateTime, print);
-                break;
-
-            default:
+            } else {
                 return null;
             }
 
             // Adding the user's command input into the previous command stack
             if (print) {
-                switch (super.primaryCommand) {
-
-                case DEADLINE:
-                    taskList.addCommand(this);
-                    break;
-
-                default:
-
-                }
+                taskList.addCommand(this);
             }
             return response;
         }
     }
 
     private static class ThreeCommands extends Commands {
-        private Commands phaseTwo;
-        private Commands phaseThree;
+        private final Commands phaseTwo;
+        private final Commands phaseThree;
 
         private ThreeCommands(CommandEnum command, String str, Commands phaseTwo, Commands phaseThree) {
             super(command, str);
@@ -280,29 +269,17 @@ public class Commands {
          */
         @Override
         public String execute(ListOfTask taskList, boolean print) throws DukeException {
-            String response = "";
-            switch (super.primaryCommand) {
-
-            case EVENT:
+            String response;
+            if (Objects.requireNonNull(super.primaryCommand) == CommandEnum.EVENT) {
                 response = taskList.addEvent(super.taskDescription, this.phaseTwo.dateTime,
                         this.phaseThree.dateTime, print);
-                break;
-
-            default:
+            } else {
                 return null;
             }
 
             // Adding the user's command input into the previous command stack
             if (print) {
-                switch (super.primaryCommand) {
-
-                case DEADLINE:
-                    taskList.addCommand(this);
-                    break;
-
-                default:
-
-                }
+                taskList.addCommand(this);
             }
             return response;
         }

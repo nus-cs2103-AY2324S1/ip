@@ -1,7 +1,5 @@
 package task;
 
-import java.time.LocalDateTime;
-
 import dukeexceptions.DukeException;
 
 /**
@@ -9,15 +7,13 @@ import dukeexceptions.DukeException;
  */
 public abstract class Task {
 
-    private String taskDescription;
+    private final String taskDescription;
     private Boolean isDone;
-    private LocalDateTime dateAdded;
 
 
     Task(String taskName) {
         this.taskDescription = taskName;
         this.isDone = false;
-        this.dateAdded = LocalDateTime.now();
     }
 
     /**

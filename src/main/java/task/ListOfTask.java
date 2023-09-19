@@ -14,9 +14,9 @@ import storage.Storage;
  * This class holds and controls all interactions with tasks and holds a list of them.
  */
 public class ListOfTask {
-    private ArrayList<Task> listOfTask = new ArrayList<>();
-    private Stack<Commands> logOfCommands = new Stack<>();
-    private Stack<Task> listOfDeletedTask = new Stack<>();
+    private final ArrayList<Task> listOfTask = new ArrayList<>();
+    private final Stack<Commands> logOfCommands = new Stack<>();
+    private final Stack<Task> listOfDeletedTask = new Stack<>();
 
     /**
      * The size of the task list.
@@ -135,7 +135,6 @@ public class ListOfTask {
         int[] foundCounter = new int[1];
         int[] listIndex = new int[1];
         listIndex[0] = 1;
-        assert(foundCounter[0] == 0);
 
         listOfTask.forEach(task -> {
             // For each item in the array list, I am accessing the arrays above to update

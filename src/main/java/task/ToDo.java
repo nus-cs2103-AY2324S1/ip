@@ -9,7 +9,6 @@ class ToDo extends Task {
      * Creates a ToDo object.
      *
      * @param taskDescription The name of the task.
-     * @return Returns a Task object.
      */
     ToDo(String taskDescription) {
         super(taskDescription);

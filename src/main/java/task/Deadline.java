@@ -8,14 +8,13 @@ import duke.Duke;
  * This class represents the task type Deadline.
  */
 class Deadline extends Task {
-    private LocalDateTime dayDate;
+    private final LocalDateTime dayDate;
 
     /**
      * Creates a Deadline object.
      *
      * @param taskDescription The name of the task.
      * @param dayDate The date and time of the deadline of the task.
-     * @return Returns a Task object.
      */
     Deadline(String taskDescription, LocalDateTime dayDate) {
         super(taskDescription);

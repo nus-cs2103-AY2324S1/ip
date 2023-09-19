@@ -22,7 +22,7 @@ import dukeexceptions.DukeUnknownCommandException;
  */
 public class Parser {
 
-    private String command;
+    private final String command;
     private String[] initialParse;
     private String[] phaseParse;
 

@@ -8,8 +8,8 @@ import duke.Duke;
  * This class represents the task type Event.
  */
 class Event extends Task {
-    private LocalDateTime startDayDateTime;
-    private LocalDateTime endDayDateTime;
+    private final LocalDateTime startDayDateTime;
+    private final LocalDateTime endDayDateTime;
 
     /**
      * Creates an Event object.
@@ -17,7 +17,6 @@ class Event extends Task {
      * @param taskDescription The name of the task.
      * @param startDayDateTime The date and time of the start of the event.
      * @param endDayDateTime The date and time of the end of the event.
-     * @return Returns a Task object.
      */
     Event(String taskDescription, LocalDateTime startDayDateTime, LocalDateTime endDayDateTime) {
         super(taskDescription);

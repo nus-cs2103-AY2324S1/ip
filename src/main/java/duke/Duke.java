@@ -10,7 +10,7 @@ import task.ListOfTask;
 import ui.Ui;
 
 /**
- * This is the file that outlines the logic in the chat bot.
+ * This is the file that outlines the logic in the chatbot.
  */
 public class Duke {
 
@@ -18,8 +18,7 @@ public class Duke {
      * This is the format for all date and time input.
      */
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-    private static ListOfTask taskList = new ListOfTask();
-    private static Ui ui = new Ui();
+    private static final ListOfTask taskList = new ListOfTask();
 
     /**
      * This starts the Duke chatbot.
@@ -37,7 +36,7 @@ public class Duke {
      */
     public static String greet() {
         String str = Storage.load(taskList);
-        return ui.greet() + str;
+        return Ui.greet() + str;
     }
 
     /**
