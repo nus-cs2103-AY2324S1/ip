@@ -35,7 +35,8 @@ public class Event extends Task {
             LocalDateTime toDateTime = LocalDateTime.parse(to);
             return new Event(description, fromDateTime, toDateTime);
         } catch (Exception e) {
-            throw new EmptyDescriptionException("event", "event project meeting /from 2023-09-09T11:50 /to 2023-09-09T11:55");
+            throw new EmptyDescriptionException("event",
+                    "event project meeting /from 2023-09-09T11:50 /to 2023-09-09T11:55");
         }
     }
 

@@ -15,19 +15,19 @@ public class FreeTimeFinder {
         List<Event> events = tasks.getEvents();
         intervals = events.stream().map(event -> new TimeInterval(event.getFrom(), event.getTo())).collect(Collectors.toList());
         // Sort the intervals based on their start times
-        intervals.sort(Comparator.comparing(a -> a.from));
+        intervals.sort(Comparator.comparing(a -> a.getFrom()));
 
         LocalDateTime currentEnd = LocalDateTime.now();
 
         // Iterate through the sorted intervals to find free time slots
         for (TimeInterval currentInterval : intervals) {
-            if (currentInterval.from.isAfter(currentEnd)) {
+            if (currentInterval.getFrom().isAfter(currentEnd)) {
                 // Found a gap, add it to free time slots
-                freeTime = new TimeInterval(currentEnd, currentInterval.from);
+                freeTime = new TimeInterval(currentEnd, currentInterval.getFrom());
                 break;
             } else {
                 // Update the current end time if the current interval overlaps
-                currentEnd = currentEnd.isAfter(currentInterval.to) ? currentEnd : currentInterval.to;
+                currentEnd = currentEnd.isAfter(currentInterval.getTo()) ? currentEnd : currentInterval.getTo();
             }
         }
         if (freeTime == null) {

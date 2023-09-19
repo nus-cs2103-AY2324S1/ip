@@ -4,13 +4,24 @@ import duke.Ui;
 
 import java.time.LocalDateTime;
 
+/**
+ * An interval with start time and end time.
+ */
 public class TimeInterval {
-    LocalDateTime from;
-    LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     public TimeInterval(LocalDateTime from, LocalDateTime to) {
         this.from = from;
         this.to = to;
+    }
+
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
     }
 
     @Override
