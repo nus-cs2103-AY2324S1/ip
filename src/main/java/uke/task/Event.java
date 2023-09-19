@@ -1,7 +1,5 @@
 package uke.task;
 
-import uke.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
