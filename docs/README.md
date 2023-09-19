@@ -10,7 +10,7 @@ The todo feature allows you to add tasks to your list.
 
 Format: `todo [DESCRIPTION]`
 
-`Example of usage: todo buy groceries`
+Example of usage: `todo buy groceries`
 
 ### Adding a Event task: `event`
 
@@ -80,10 +80,12 @@ Format: `bye`
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Delete** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Search** | `search` e.g., `search tuna event`
-**Bye** | `bye`
+**Add Deadline Task** | `deadline [DESCRIPTION] /by [DATE_TIME]` <br> e.g., `deadline assignment submission /by 15/10/2023 0800`
+**Add Event Task** | `event [DESCRIPTION] /from [DATE_TIME] /to [DATE_TIME` <br> e.g., `event car roadshow /from 2023/12/12 1200 /to 2023/12/15 1200`
+**Add Todo Task** | `todo [DESCRIPTION]` <br> e.g., `todo buy groceries`
+**List** | `list`
+**Delete** | `delete TASK_INDEX`<br> e.g., `delete 3`
+**Mark** | `mark [TASK_INDEX]`<br> e.g., `mark 3`
+**Unmark** | `unmark [TASK_INDEX]`<br> e.g., `unmark 3`
+**Search** | `search [KEYWORD_STRING] [TASK_TYPE] (optional)`<br> e.g., `search tuna event`
+**Exit** | `bye`
