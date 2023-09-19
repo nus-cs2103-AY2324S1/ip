@@ -231,8 +231,8 @@ public class Parser {
             throw new DukeException("Invalid task type!");
         }
 
-        if (taskStatus.equals("0")) {
-            task.markAsUndone();
+        if (taskStatus.equals("1")) {
+            task.markAsDone();
         }
         return task;
     }
