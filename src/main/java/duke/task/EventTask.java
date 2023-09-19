@@ -21,7 +21,7 @@ public class EventTask extends Task {
      * @param from        From date of the task.
      * @param to          To date of the task.
      */
-    public EventTask(String description, LocalDate from, LocalDate to) throws DukeException {
+    public EventTask(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
