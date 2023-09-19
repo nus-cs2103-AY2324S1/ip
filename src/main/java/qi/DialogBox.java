@@ -7,14 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -44,8 +43,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        dialog.setBorder(new Border(new BorderStroke(Color.GREEN,
-                BorderStrokeStyle.DASHED, new CornerRadii(5), BorderWidths.DEFAULT)));
+        dialog.setBackground(new Background(new BackgroundFill(Color.WHEAT, new CornerRadii(6), Insets.EMPTY)));
         avatar.setFill(new ImagePattern(img));
     }
 

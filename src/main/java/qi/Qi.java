@@ -39,14 +39,14 @@ public class Qi {
         try {
             Command c = Parser.parse(input);
             String message = c.execute(this.tasks, this.ui, this.storage);
-            return "Qi:\n" + message;
+            return message;
         } catch (QiException e) {
-            return "Qi:\n" + e.getMessage();
+            return e.getMessage();
         }
     }
 
     public String showWelcome() {
-        return "Qi:\n" + this.ui.showWelcome();
+        return this.ui.showWelcome();
     }
 }
 

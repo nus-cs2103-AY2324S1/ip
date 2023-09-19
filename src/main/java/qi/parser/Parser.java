@@ -7,6 +7,7 @@ import qi.command.Command;
 import qi.command.DeleteCommand;
 import qi.command.ExitCommand;
 import qi.command.FindCommand;
+import qi.command.HelpCommand;
 import qi.command.InvalidCommand;
 import qi.command.ListCommand;
 import qi.command.MarkCommand;
@@ -33,6 +34,10 @@ public class Parser {
 
         if (command.equals("list")) {
             return new ListCommand();
+        }
+
+        if (command.equals("help")) {
+            return new HelpCommand();
         }
 
         if (command.startsWith("mark")) {
