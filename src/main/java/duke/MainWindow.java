@@ -27,7 +27,10 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+//        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.greet(), dukeImage));
     }
 
     public void setDuke(Duke d) {
@@ -49,8 +52,4 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-//            return Parser.parse(input);
-    }
 }
