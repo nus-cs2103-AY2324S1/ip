@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Categorise task as a todo
+ * Categorise task as a to-do.
  */
 public class Todo extends Task {
 
@@ -10,10 +10,10 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns string representation of the todo task in the
+     * Returns string representation of the to-do task in the
      * format that will be outputted to the user.
      *
-     * @return String representation of todo task.
+     * @return String representation of to-do task.
      */
     @Override
     public String toString() {

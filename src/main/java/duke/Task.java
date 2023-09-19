@@ -1,16 +1,17 @@
 package duke;
 
 /**
- * Tasks to be added to tasklist
+ * Tasks to be added to tasklist.
  */
 public class Task {
-    /** Description of task */
+    /** Description of task. */
     protected String description;
 
-    /** To access whether a task is completed */
+    /** To access whether a task is completed. */
     protected boolean isDone;
 
-    /** Task to be added to list
+    /**
+     * Task to be added to list.
      *
      * @param description Description of task.
      */
@@ -20,7 +21,7 @@ public class Task {
     }
 
     /**
-     * Get icon depending on whether the task is completed
+     * Get icon depending on whether the task is completed.
      *
      * @return "X" for completed task, " " for uncompleted task.
      */
@@ -30,7 +31,7 @@ public class Task {
 
     /**
      * Get icon depending on whether the task is completed,
-     * in storage form
+     * in storage form.
      *
      * @return "1" for completed task, "0" for uncompleted task.
      */
@@ -39,23 +40,23 @@ public class Task {
     }
 
     /**
-     * To mark a task as done
+     * To mark a task as done.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * To mark a task as undone
+     * To mark a task as undone.
      */
     public void markAsUndone() {
         isDone = false;
     }
 
     /**
-     * Gets String of the task with its corresponding status
+     * Gets String of the task with its corresponding status.
      *
-     * @return String of status and description of task
+     * @return String of status and description of task.
      */
     @Override
     public String toString() {

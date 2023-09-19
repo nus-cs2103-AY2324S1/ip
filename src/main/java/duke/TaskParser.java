@@ -1,12 +1,15 @@
 package duke;
 
+/**
+ * Convert task list between file format and display format.
+ */
 public class TaskParser {
 
 	/**
-	 * Convert tasks in file to remake the list
+	 * Convert tasks in file to remake the list.
 	 *
-	 * @param taskString Tasks in String from storage file
-	 * @return	List of tasks
+	 * @param taskString Tasks in String from storage file.
+	 * @return	List of tasks.
 	 */
 	public static Task parseTask(String taskString) {
 		String[] parts = taskString.split(" \\| ");
@@ -30,10 +33,10 @@ public class TaskParser {
 	}
 
 	/**
-	 * To convert tasks from the list to strings to be stored in the file
+	 * To convert tasks from the list to strings to be stored in the file.
 	 *
-	 * @param task Tasks from the list to be stored
-	 * @return String converted from task list in storage form
+	 * @param task Tasks from the list to be stored.
+	 * @return String converted from task list in storage form.
 	 */
 	public static String taskToString(Task task) {
 		StringBuilder sb = new StringBuilder();

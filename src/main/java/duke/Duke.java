@@ -13,13 +13,13 @@ import javafx.scene.image.Image;
  */
 public class Duke {
 
-    /** To access file which stores the saved tasks*/
+    /** To access file which stores the saved tasks. */
     private final Storage storage;
 
     /** List to be updated as tasks are added or removed. */
     private final TaskList list;
 
-    /** Images of user and chatbot to be used for GUI*/
+    /** Images of user and chatbot to be used for GUI. */
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
@@ -28,17 +28,17 @@ public class Duke {
      * message, starts reading user input and load tasks
      * from the file into tasklist.
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when file is missing
      */
     public Duke() throws FileNotFoundException {
-        storage = new Storage("duke.txt");
+        storage = new Storage("./duke.txt");
         list = new TaskList(storage.load());
     }
 
     /**
-     * ALlows the chatbbot to run
+     * ALlows the chatbbot to run.
      */
-    public String run(String input, TaskList list) { //returns string cus DialogBox returns string
+    public String run(String input, TaskList list) {
         String message = "";
         try {
             if (input.equals("list")) {
@@ -57,7 +57,6 @@ public class Duke {
                 message = Parser.parseDelete(input, list);
             } else if (input.equals("bye")) {
                 message = "slay";
-                //should exit
             } else if (input.startsWith("find ")) {
                 message = Parser.parseFind(input, list);
             } else if (input.startsWith("edit ")){

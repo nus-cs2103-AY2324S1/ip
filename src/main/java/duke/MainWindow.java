@@ -1,6 +1,5 @@
 package duke;
 
-import exceptions.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -18,8 +17,6 @@ public class MainWindow extends AnchorPane {
 	private VBox dialogContainer;
 	@FXML
 	private TextField userInput;
-	@FXML
-	private Button sendButton;
 
 	private Duke duke;
 

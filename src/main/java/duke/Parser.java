@@ -13,6 +13,13 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
+    /**
+     * Takes in a deadline task detail as input to add a deadline task to the list.
+     *
+     * @param input User command.
+     * @param list List for task to be added into.
+     * @return Message to user when task is successfully added.
+     */
     public static String parseDeadline(String input, TaskList list) {
         try {
             if (input.substring(9).isBlank()) {
@@ -30,6 +37,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes in to-do details as input to add a to-do task to the list.
+     *
+     * @param input User command.
+     * @param list List for task to be added into.
+     * @return Message to user when task is successfully added.
+     */
     public static String parseToDo(String input, TaskList list) {
         try {
             String description = input.substring(5);
@@ -42,6 +56,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes in event details as input to add an event task to the list.
+     *
+     * @param input User command.
+     * @param list List for task to be added into.
+     * @return Message to user when task is successfully added.
+     */
     public static String parseEvent(String input, TaskList list) {
         try {
             if (input.substring(6).isBlank()) {
@@ -60,8 +81,15 @@ public class Parser {
         } catch (DateTimeParseException e) {
             return "oOps invalid time input";
         }
-
     }
+
+    /**
+     * Takes in an index as input to delete the corresponding task from the list.
+     *
+     * @param input User command.
+     * @param list List for task to be deleted from.
+     * @return Message to user when task is successfully deleted.
+     */
     public static String parseDelete(String input, TaskList list) {
         try {
             int index = Integer.parseInt(input.substring(7)) - 1;
@@ -74,6 +102,15 @@ public class Parser {
             return e.getMessage();
         }
     }
+
+    /**
+     * Takes in an index as input to mark the corresponding task from the list
+     * as completed.
+     *
+     * @param input User command.
+     * @param list List for task to be marked.
+     * @return Message to user when task is successfully marked
+     */
     public static String parseMark(String input, TaskList list) {
         try {
             int num = input.charAt(5) - '0' - 1;
@@ -88,6 +125,15 @@ public class Parser {
         }
 
     }
+
+    /**
+     * Takes in an index as input to unmark the corresponding task from the list
+     * as uncompleted.
+     *
+     * @param input User command.
+     * @param list List for task to be unmarked.
+     * @return Message to user when task is successfully unmarked
+     */
     public static String parseUnmark(String input, TaskList list) {
         try {
             int num = input.charAt(7) - '0' - 1;
@@ -102,16 +148,39 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes in a keyword as input to find the tasks with matching keywords.
+     *
+     * @param input User command.
+     * @param list List for tasks to be found.
+     * @return List of tasks with the same keyword
+     */
     public static String parseFind(String input, TaskList list) {
         String description = input.substring(5);
         return list.findTask(description, list);
     }
 
+    /**
+     * Takes in an index as input to edit the corresponding task from the list.
+     *
+     * @param input User command.
+     * @param list List for task to be edited.
+     * @return Message to user when task is successfully edited
+     */
     public static String parseEdit(String input, TaskList list) {
-        int num = input.charAt(5) - '0' - 1;
-        String edit = input.substring(7);
-        list.getTask(num).description = edit;
-        return "Ok! I've edited this task :\n" + (num + 1) + ". " + list.getTask(num);
+        try {
+            int num = input.charAt(5) - '0' - 1;
+            if (num >= 0 && num < list.count) {
+                String edit = input.substring(7);
+                list.getTask(num).description = edit;
+                return "Ok! I've edited this task :\n" + (num + 1) + ". " + list.getTask(num);
+            } else {
+                throw new OutOfRangeException();
+            }
+
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
 }

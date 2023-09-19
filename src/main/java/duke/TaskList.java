@@ -60,8 +60,8 @@ public class TaskList {
     /**
      * Gets the task from the list.
      *
-     * @param index Index of item to be accessed
-     * @return Task to be accessed
+     * @param index Index of item to be accessed.
+     * @return Task to be accessed.
      */
     public Task getTask(int index) {
         for (int i = 0; i < count; i++) {
@@ -73,11 +73,11 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks
+     * Finds tasks.
      *
-     * @param input task to be found
-     * @param list List in which the task is to be found
-     * @return Found tasks
+     * @param input task to be found.
+     * @param list List in which the task is to be found.
+     * @return Found tasks.
      */
     public String findTask(String input, TaskList list) {
         int[] indexList = new int[100];

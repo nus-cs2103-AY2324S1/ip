@@ -5,18 +5,20 @@ package duke;
  */
 public class Deadline extends Task {
 
-    /** String to hold deadline of a task */
+    /** String to hold deadline of a task. */
     protected String by;
+
     /**
-     * To create a new task categorised as deadline
+     * To create a new task categorised as deadline.
      *
-     * @param description Description of the task
-     * @param by Deadline of the task
+     * @param description Description of the task.
+     * @param by Deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
+
     /**
      * Returns string representation of the deadline task in the
      * format that will be outputted to the user.

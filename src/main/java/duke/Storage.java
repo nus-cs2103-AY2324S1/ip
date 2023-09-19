@@ -12,20 +12,20 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    /** Store filepath to text file used to store the tasks*/
+    /** Store filepath to text file used to store the tasks. */
     private final String filepath;
 
-    /** Takes in filepath to store tasklist*/
+    /** Takes in filepath to store tasklist. */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
     /**
      * Loads tasks stored in the file to recreate the tasklist,
-     * else it will return an empty new TaskList
+     * else it will return an empty new TaskList.
      *
-     * @return Original tasklist
-     * @throws FileNotFoundException
+     * @return Original tasklist.
+     * @throws FileNotFoundException When file is missing.
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> dukeList = new ArrayList<>();
@@ -42,9 +42,9 @@ public class Storage {
     }
 
     /**
-     * Save the tasklist into the file after exiting chatbot
+     * Save the tasklist into the file after exiting chatbot.
      *
-     * @param list TaskList to be saved
+     * @param list TaskList to be saved.
      */
     public void save(TaskList list) {
         try (PrintWriter out = new PrintWriter(filepath)) {

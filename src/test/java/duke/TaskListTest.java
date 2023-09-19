@@ -22,4 +22,5 @@ public class TaskListTest {
 		list.deleteTask(0);
 		assertEquals("[T][ ] study",list.getTask(0).toString());
 	}
+
 }
