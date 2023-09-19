@@ -1,10 +1,5 @@
 package catbot.task;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -36,12 +31,21 @@ public class TaskList {
         return removed;
     }
 
-    public void ifValidIndexElse(int index, Consumer<Integer> ifValid, Consumer<Integer> otherwise) {
+    /**
+     * Checks if the provided integer is a valid index starting from 1.
+     * If so, converts to index starting from 0, and passes to the first consumer.
+     * Otherwise, passes the original integer to the second consumer.
+     *
+     * @param integer   integer to check if is valid index based on {@link Bounds Bounds}
+     * @param ifValid   consumer to accept (integer - 1) if it is a valid index
+     * @param otherwise consumer to accept (integer) if it is not a valid index
+     */
+    public void ifValidIndexElse(int integer, Consumer<Integer> ifValid, Consumer<Integer> otherwise) {
         Bounds bounds = getIndexBounds();
-        if (bounds.contains(index)) {
-            ifValid.accept(index);
+        if (bounds.contains(integer)) {
+            ifValid.accept(integer - 1);
         } else {
-            otherwise.accept(index);
+            otherwise.accept(integer);
         }
     }
 

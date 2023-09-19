@@ -11,8 +11,11 @@ import catbot.internal.CommandPattern;
 import catbot.internal.NamedParameterMap;
 import catbot.io.ErrorIndicatorIo;
 import catbot.io.UserIo;
+import catbot.task.Deadline;
+import catbot.task.Event;
 import catbot.task.Task;
 import catbot.task.TaskList;
+import catbot.task.Todo;
 
 /**
  * Main runnable class for the CatBot assistant.
@@ -70,18 +73,19 @@ public class CatBot implements Bot {
                 .addCommand("list", args -> io.displayTaskList(taskList));
 
         // User modifying existing tasks (through IntegerPattern, and Index)
+        // noinspection FunctionalExpressionCanBeFolded for better readability
         BiConsumer<String, Consumer<Integer>> runIfValidIndexElseIndicateError = (args, lambda) ->
                 integerPattern.ifParsableElseDefault(args,
                         integer -> taskList.ifValidIndexElse(integer,
-                                lambda,
+                                validIndex -> lambda.accept(validIndex),
                                 invalidIndex -> io.indicateInvalidIndex(invalidIndex, taskList.getIndexBounds())
                         ));
 
-        //noinspection SpellCheckingInspection
+        //noinspection SpellCheckingInspection for "unmark"
         commands.addCommand("mark",
                         string -> runIfValidIndexElseIndicateError.accept(string,
                                 validIndex -> {
-                                    taskList.markTask(validIndex - 1);
+                                    taskList.markTask(validIndex);
                                     io.displayTaskModified(taskList, validIndex);
                                 }
                         )
@@ -89,14 +93,14 @@ public class CatBot implements Bot {
                 .addCommand("unmark",
                         string -> runIfValidIndexElseIndicateError.accept(string,
                                 validIndex -> {
-                                    taskList.unmarkTask(validIndex - 1);
+                                    taskList.unmarkTask(validIndex);
                                     io.displayTaskModified(taskList, validIndex);
                                 }
                         )
                 )
                 .addCommand("delete",
                         string -> runIfValidIndexElseIndicateError.accept(string,
-                                validIndex -> io.displayTaskDeleted(taskList.removeTask(validIndex - 1))
+                                validIndex -> io.displayTaskDeleted(taskList.removeTask(validIndex))
                         )
                 );
 
@@ -116,14 +120,14 @@ public class CatBot implements Bot {
         );
 
         commands.addCommand("todo",
-                        args -> createTaskIfValidElseWarn.accept(args, Task.Todo::createIfValidElse)
+                        args -> createTaskIfValidElseWarn.accept(args, Todo::createIfValidElse)
                 )
                 .addCommand("event",
-                        args -> createTaskIfValidElseWarn.accept(args, Task.Event::createIfValidElse)
+                        args -> createTaskIfValidElseWarn.accept(args, Event::createIfValidElse)
                 )
                 .addCommand("deadline",
-                        args -> createTaskIfValidElseWarn.accept(args, Task.Deadline::createIfValidElse)
-                );
+                        args -> createTaskIfValidElseWarn.accept(args, Deadline::createIfValidElse)
+            );
 
         // User filtering for tasks
 

@@ -6,7 +6,6 @@ import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 import catbot.internal.NamedParameterMap;
 import catbot.io.ErrorIndicatorIo;
@@ -52,7 +51,7 @@ public abstract class Task implements Serializable {
 
     //endregion
 
-    //region Handling NamedParameterMaps
+    //region Internal Helpers
 
     private static Optional<NamedParameterMap> mapIfDescriptionEmpty(NamedParameterMap map) {
         String desc = map.get("");
@@ -83,9 +82,9 @@ public abstract class Task implements Serializable {
         }
     }
 
-    private static class InvalidArgumentStruct {
-        private final ErrorIndicatorIo.InvalidArgumentState state;
-        private final NamedParameterMap parameters;
+    protected static class InvalidArgumentStruct {
+        protected final ErrorIndicatorIo.InvalidArgumentState state;
+        protected final NamedParameterMap parameters;
 
         private InvalidArgumentStruct(ErrorIndicatorIo.InvalidArgumentState state, NamedParameterMap map) {
             this.state = state;
@@ -93,7 +92,7 @@ public abstract class Task implements Serializable {
         }
     }
 
-    private static Optional<InvalidArgumentStruct> invalidStateIfTaskParametersMissingOrBlank(
+    protected static Optional<InvalidArgumentStruct> invalidStateIfTaskParametersMissingOrBlank(
             NamedParameterMap namedParameterMap, String... arguments
     ) {
         // parameters cannot be missing
@@ -120,7 +119,7 @@ public abstract class Task implements Serializable {
         return Optional.empty();
     }
 
-    private static Optional<LocalDate> parseOptionalDateElseMap(
+    protected static Optional<LocalDate> parseOptionalDateElseMap(
             NamedParameterMap map, NamedParameterMap elseMap, String arg
     ) {
         String val = map.get(arg);
@@ -132,156 +131,15 @@ public abstract class Task implements Serializable {
         }
     }
 
-    //endregion
-
-    //region Subclasses
-
-    public static class Todo extends Task {
-        private Todo(String desc) {
-            setDescription(desc);
-        }
-
-        public static Optional<Task> createIfValidElse(
-                NamedParameterMap namedParameterMap,
-                BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap> invalidStateHandler
-        ) {
-
-            Optional<InvalidArgumentStruct> optionalInvalidParameterState =
-                Task.invalidStateIfTaskParametersMissingOrBlank(
-                        namedParameterMap,
-                        ""
-                );
-            if (optionalInvalidParameterState.isPresent()) {
-                InvalidArgumentStruct invalidArgumentStruct = optionalInvalidParameterState.get();
-                invalidArgumentStruct.parameters.moveToNewKey("", "description");
-                invalidStateHandler.accept(invalidArgumentStruct.state, invalidArgumentStruct.parameters);
-                return Optional.empty();
-            }
-
-            return Optional.of(new Todo(
-                    namedParameterMap.get("")
-            ));
-        }
-    }
-
-    public static class Deadline extends Task {
-
-        private LocalDate dueDate;
-
-        public Deadline(String desc, LocalDate dateTime) {
-            setDescription(desc);
-            setDueDate(dateTime);
-        }
-
-        public void setDueDate(LocalDate dueDate) {
-            this.dueDate = dueDate;
-        }
-
-        public static Optional<Task> createIfValidElse(
-                NamedParameterMap map,
-                BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap> invalidStateHandler
-        ) {
-
-            Optional<InvalidArgumentStruct> optionalInvalidParameterState =
-                    Task.invalidStateIfTaskParametersMissingOrBlank(
-                            map,
-                            "", "by"
-                    );
-            if (optionalInvalidParameterState.isPresent()) {
-                InvalidArgumentStruct invalidArgumentStruct = optionalInvalidParameterState.get();
-                invalidArgumentStruct.parameters.moveToNewKey("", "description");
-                invalidArgumentStruct.parameters.moveToNewKey("by", "due date");
-                invalidStateHandler.accept(invalidArgumentStruct.state, invalidArgumentStruct.parameters);
-                return Optional.empty();
-            }
-
-            String description = map.get("");
-            NamedParameterMap invalidArgs = new NamedParameterMap();
-            Optional<LocalDate> optionalDueDate = Task.parseOptionalDateElseMap(map, invalidArgs, "by");
-            if (optionalDueDate.isPresent()) {
-                return Optional.of(new Deadline(description, optionalDueDate.get()));
-            } else {
-                invalidArgs.moveToNewKey("by", "due date");
-                invalidStateHandler.accept(ErrorIndicatorIo.InvalidArgumentState.NOT_A_DATE, invalidArgs);
-                return Optional.empty();
-            }
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " [due: " + Task.formatDate(this.dueDate) + "]";
-        }
-    }
-
-    public static class Event extends Task {
-
-        private LocalDate eventStart;
-        private LocalDate eventEnd;
-
-        public Event(String desc, LocalDate start, LocalDate end) {
-            setDescription(desc);
-            setEventStart(start);
-            setEventEnd(end);
-        }
-
-        public void setEventEnd(LocalDate eventEnd) {
-            this.eventEnd = eventEnd;
-        }
-
-        public void setEventStart(LocalDate eventStart) {
-            this.eventStart = eventStart;
-        }
-
-        public static Optional<Task> createIfValidElse(
-                NamedParameterMap namedParameterMap,
-                BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap> invalidStateHandler
-        ) {
-
-            Optional<InvalidArgumentStruct> optionalInvalidParameterState =
-                    Task.invalidStateIfTaskParametersMissingOrBlank(
-                            namedParameterMap,
-                            "", "from", "to"
-                    );
-            if (optionalInvalidParameterState.isPresent()) {
-                InvalidArgumentStruct invalidArgumentStruct = optionalInvalidParameterState.get();
-                invalidArgumentStruct.parameters.moveToNewKey("", "description");
-                invalidArgumentStruct.parameters.moveToNewKey("from", "start date");
-                invalidArgumentStruct.parameters.moveToNewKey("to", "end date");
-                invalidStateHandler.accept(invalidArgumentStruct.state, invalidArgumentStruct.parameters);
-                return Optional.empty();
-            }
-
-            String description = namedParameterMap.get("");
-            NamedParameterMap invalidArgs = new NamedParameterMap();
-            Optional<LocalDate> start = Task.parseOptionalDateElseMap(namedParameterMap, invalidArgs, "from");
-            Optional<LocalDate> end = Task.parseOptionalDateElseMap(namedParameterMap, invalidArgs, "to");
-            if (start.isEmpty() || end.isEmpty()) {
-                invalidArgs.moveToNewKey("", "description");
-                invalidArgs.moveToNewKey("from", "start date");
-                invalidArgs.moveToNewKey("to", "end date");
-                invalidStateHandler.accept(ErrorIndicatorIo.InvalidArgumentState.NOT_A_DATE, invalidArgs);
-                return Optional.empty();
-            } else {
-                return Optional.of(new Event(description, start.get(), end.get()));
-            }
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " [from: " + Task.formatDate(this.eventStart) + " | to: "
-                    + Task.formatDate(this.eventEnd) + "]";
-        }
-    }
-
-    //endregion
-
-    public static String formatDate(LocalDate date) {
+    protected static String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern(
-                date.getYear() == Year.now().getValue()
-                        ? "MMM d"
-                        : "MMM d yyyy"
+                        date.getYear() == Year.now().getValue()
+                                ? "MMM d"
+                                : "MMM d yyyy"
                 )
         );
     }
+
+    //endregion
 
 }
