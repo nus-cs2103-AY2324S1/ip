@@ -38,8 +38,9 @@ public class Ui {
      *
      * @param task The task that is added.
      */
-    public String showAddedTask(Task task) {
-        return "Got it. I've added this task:\n" + task;
+    public String showAddedTask(Task task, TaskList tasks) {
+        return "Got it. I've added this task:\n" + task + "\n You now have " + tasks.getListSize()
+                + " task(s) in the list.";
     }
 
     /**

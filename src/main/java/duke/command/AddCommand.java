@@ -2,8 +2,8 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.ui.Ui;
 import duke.task.Task;
+import duke.ui.Ui;
 /**
  * Represents a command to add a new task to the task list.
  */
@@ -35,6 +35,6 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
         storage.save(tasks);
-        return ui.showAddedTask(task);
+        return ui.showAddedTask(task, tasks);
     }
 }
