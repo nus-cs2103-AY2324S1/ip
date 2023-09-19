@@ -20,23 +20,20 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * ad
-     * @param l asd
-     * @param iv asd
+     * DialogBox constructor
+     * @param l Label
+     * @param iv ImageView
      */
     public DialogBox(Label l, ImageView iv) {
         dialog = l;
         displayPicture = iv;
-
-        // Set the background color using CSS style
-        //this.setStyle("-fx-background-color: lightgray;");
 
         dialog.setWrapText(true);
 
         displayPicture.setFitWidth(50.0);
         displayPicture.setFitHeight(50.0);
         // Clip the ImageView into a circle
-        Circle clipCircle = new Circle(25); // ImageView clipped to Circle of radius 50
+        Circle clipCircle = new Circle(25); // ImageView clipped to Circle of radius 25
         displayPicture.setClip(clipCircle);
         clipCircle.setCenterX(displayPicture.getFitWidth() / 2);
         clipCircle.setCenterY(displayPicture.getFitHeight() / 2);

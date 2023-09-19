@@ -53,6 +53,7 @@ public class Ui {
         string.append("8. find <keyword>\n");
         string.append("   eg. find book (finds all task with description 'book')\n");
         string.append("9. undo (undo the latest command)\n");
+        string.append("10. bye (ends the chat)\n");
         return string.toString();
     }
 
@@ -136,7 +137,7 @@ public class Ui {
         return stringBuilder.toString();
     }
     public static String handleUndoUi() {
-        return "Most recent move undone, here is the updated list :)\n";
+        return "Most recent move undone :)\n\n";
     }
     public static String handleExitUi() {
         return "Thanks for coming!";

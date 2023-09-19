@@ -20,7 +20,6 @@ public class TaskList implements Serializable {
 
     /**
      * Gets the number of tasks in ArrayList(Task)
-     *
      * @return The number of tasks in the collection
      */
     public int getSize() {
@@ -28,7 +27,6 @@ public class TaskList implements Serializable {
     }
     /**
      * Gets the duke.Task at the specific position of the ArrayList(Task)
-     *
      * @param i The position of the duke.Task
      * @return The duke.Task
      */
@@ -37,14 +35,13 @@ public class TaskList implements Serializable {
     }
     /**
      * Gets the ArrayList(Task)
-     *
      * @return The collection
      */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
     /**
-     * displays the list of Tasks
+     * Displays the list of Tasks
      */
     public String displayList() {
         return Ui.displayList(tasks);
@@ -65,7 +62,6 @@ public class TaskList implements Serializable {
     }
     /**
      * Adds a Task to TaskList
-     *
      * @param letter The letter corresponding to the first letter of the Task
      * @param userInput The string corresponding to the chunk of text after the word todo, deadline, or event
      */
@@ -208,8 +204,8 @@ public class TaskList implements Serializable {
         } else {
             assert pos < tasks.size() : "pos should be less than the length of TaskList";
             Task deletedTask = tasks.get(pos);
-            int tasksSize = tasks.size();
             tasks.remove(pos);
+            int tasksSize = tasks.size();
             return Ui.handleDeleteTaskUi(deletedTask, tasksSize);
         }
     }

@@ -106,5 +106,4 @@ public class Duke extends Application implements Serializable {
             System.out.println("shag");
         }
     }
-    public static void main(String[] args) {}
 }

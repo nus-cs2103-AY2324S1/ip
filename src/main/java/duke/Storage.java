@@ -103,7 +103,8 @@ public class Storage {
     }
 
     /**
-     * When 'undo' command is called, update temp.txt to contain the contents of undo.txt, which is the old TaskList
+     * This method is called when 'undo' command is ran. Copies contents of undo.txt into temp.txt.
+     * This updates temp.txt to contain the old TaskList
      * @throws IOException If source or destination files cannot be found
      */
     public void copyUndoToTemp() throws IOException {
