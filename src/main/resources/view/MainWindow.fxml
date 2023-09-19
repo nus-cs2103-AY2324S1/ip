@@ -8,11 +8,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jeoe.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="447.0" onAction="#handleUserInput" prefHeight="153.0" prefWidth="324.0" AnchorPane.bottomAnchor="0.0" />
-        <Button fx:id="sendButton" layoutX="324.0" layoutY="446.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="153.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="447.0" prefWidth="400.0" vvalue="1.0">
+        <TextField fx:id="userInput" layoutY="447.0" onAction="#handleUserInput" prefHeight="44.0" prefWidth="326.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="75.0" AnchorPane.bottomAnchor="0.0" />
+        <Button fx:id="sendButton" layoutX="325.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="44.0" prefWidth="75.0" text="Send" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" vvalue="1.0" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" maxHeight="-Infinity" maxWidth="-Infinity">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="472.0" prefWidth="388.0" />
+                <VBox fx:id="dialogContainer" prefHeight="549.0" prefWidth="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"/>
             </content>
         </ScrollPane>
     </children>

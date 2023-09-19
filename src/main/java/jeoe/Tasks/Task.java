@@ -7,7 +7,7 @@ package jeoe.Tasks;
  * @author Joe Chua
  * @version Week-3
  */
-public class Task implements Comparable<Task>{
+public class Task implements Comparable<Task> {
 
     /** Description of the task. */
     private String description; // the toString handles the space after the [ ] or [X]

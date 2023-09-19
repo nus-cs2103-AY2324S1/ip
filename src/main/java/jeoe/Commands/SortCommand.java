@@ -1,13 +1,19 @@
 package jeoe.Commands;
 
+import java.util.ArrayList;
+
 import jeoe.Others.StorageManager;
 import jeoe.Others.Ui;
 import jeoe.Tasks.Task;
 import jeoe.Tasks.TaskManager;
-import jeoe.Tasks.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * This class encapsulates the class SortCommand.
+ * It is meant to sort the current list of tasks.
+ *
+ * @author Joe Chua
+ * @version Week-3
+ */
 public class SortCommand extends Command {
 
     /**

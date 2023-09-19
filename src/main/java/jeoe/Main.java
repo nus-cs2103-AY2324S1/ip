@@ -31,6 +31,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             assert scene != null : "a scene has to exist";
             stage.setScene(scene);
+            stage.setTitle("Jeoe application");
             assert stage != null : "a stage has to exist";
             fxmlLoader.<MainWindow>getController().setJeoe(jeoe);
             stage.show();
