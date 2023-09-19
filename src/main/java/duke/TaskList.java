@@ -22,7 +22,6 @@ public class TaskList {
      * @throws DukeException If there is an error loading the file.
      */
     public TaskList(ArrayList<Task> savedTaskList) throws DukeException {
-        // this.taskList.addAll(savedTaskList);
         this.taskList = savedTaskList;
     }
 
@@ -94,6 +93,10 @@ public class TaskList {
         return taskList.get(i).saveString();
     }
     
+    /**
+     * Returns boolean representing whether the task list is empty.
+     * @return Boolean True if the task list is empty, false otherwise.
+     */
     public Boolean isEmpty() {
         return taskList.isEmpty();
     }

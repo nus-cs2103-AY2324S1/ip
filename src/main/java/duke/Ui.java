@@ -12,32 +12,20 @@ public class Ui {
             + "╚█████╔╝██║░░██║██║░░██║░░░██║░░░░░░██║░░░░░░██║░░░\n"
             + "░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░░░╚═╝░░░░░░╚═╝░░░\n";
     private final String GREETING = "Hello! I'm Chatty.\nWhat can I do for you?";
-    private final String FAREWELL = "Bye. Have \"fun\" in school!";
+    private final String FAREWELL = "Bye. Have \"fun\" in school!\nExiting in 2 seconds...";
     private final String ERROR = "Error: ";
 
     /**
      * Prints the introduction message to console.
      */
     public String showIntroduction() {
-        // System.out.println("\nWelcome to Chatty.\n" + LOGO);
         return GREETING;
     }
-
-    // private String sendGreeting() {
-    //     // System.out.println(DIVIDER);
-    //     // System.out.println(GREETING);
-    //     // System.out.println(DIVIDER);
-    //     return GREETING;
-
-    // }
 
     /**
      * Prints the concluding message to console.
      */
     public String sendFarewell() {
-        // System.out.println(DIVIDER);
-        // System.out.println(FAREWELL);
-        // System.out.println(DIVIDER);
         return FAREWELL;
     }
 

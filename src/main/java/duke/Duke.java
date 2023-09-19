@@ -64,11 +64,13 @@ public class Duke {
                 System.out.println();
                 input = sc.nextLine().trim();
             }
+
+            // bye
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
 
-        ui.sendFarewell();
+        byeCommand();
     }
 
     private String handleTextInput(String inputString) {
@@ -76,104 +78,154 @@ public class Duke {
         assert !inputString.isEmpty() : "Input string cannot be empty";
         // handle key logic here.
         String command = inputString.split(" ")[0];
-        int taskIndex;
 
         switch (command) {
         case "bye":
-            return ui.sendFarewell();
+            return byeCommand();
 
         case "list":
-            return ui.printTaskList(tasks.toString());
+            return listCommand();
 
         case "mark":
-            // taskIndex is the second word in the input string
-            taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
-
-            tasks.markTaskAsDone(taskIndex);
-
-            return ui.markTaskAsDoneMessage(tasks.taskToString(taskIndex));
+            return markCommand(inputString);
 
         case "unmark":
-            taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
-            tasks.unmarkTaskAsDone(taskIndex);
-            return ui.unmarkTaskAsDoneMessage(tasks.taskToString(taskIndex));
+            return unmarkCommand(inputString);
 
         case "todo":
-            try {
-                String taskName = inputString.substring(5);
-                Task newTask = new ToDo(taskName);
-                tasks.addToTaskList(newTask);
-                assert !tasks.isEmpty() : "Task list should not be empty";
-
-                return ui.addTaskOutputText(newTask, tasks.size());
-            } catch (StringIndexOutOfBoundsException e) {
-                return ui.showErrorMessage("\t☹ OOPS!!! The description of a todo cannot be empty.");
-            }
+            return toDoCommand(inputString);
+            
         case "deadline":
-            try {
-                // stop before /by
-                String taskName = inputString.substring(9, inputString.indexOf("/by") - 1);
-                // get day
-                String deadline = inputString.substring(inputString.indexOf("/by") + 4);
-                try {
-                    Task newTask = new Deadline(taskName, deadline);
-
-                    tasks.addToTaskList(newTask);
-
-                    return ui.addTaskOutputText(newTask, tasks.size());
-                } catch (java.time.format.DateTimeParseException e) {
-                    return ui.showErrorMessage("\tInvalid date format. Please use yyyy-mm-dd.");
-                }
-            } catch (StringIndexOutOfBoundsException e) {
-                return ui.showErrorMessage("\t☹ OOPS!!! The description of a deadline cannot be empty.");
-            }
+            return deadlineCommand(inputString);
+            
         case "event":
-            try {
-                String taskName = inputString.substring(6, inputString.indexOf("/from") - 1);
-                String from = inputString.substring(inputString.indexOf("/from") + 6, inputString.indexOf("/to") - 1);
-                String to = inputString.substring(inputString.indexOf("/to") + 4);
-                Task newTask = new Event(taskName, from, to);
-
-                tasks.addToTaskList(newTask);
-
-                return ui.addTaskOutputText(newTask, tasks.size());
-            } catch (StringIndexOutOfBoundsException e) {
-                return ui.showErrorMessage("\t☹ OOPS!!! The description of an event cannot be empty.");
-            }
+            return eventCommand(inputString);
+            
         case "delete":
-            taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
-            String msg = ui.printDeleteMessage(tasks.taskToString(taskIndex), taskIndex, tasks.size());
-            tasks.deleteTask(taskIndex);
-            return msg;
+            return deleteCommand(inputString);
             
         case "find":
-            String keyword = inputString.substring(5);
-            String outputString = "";
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.taskToString(i).contains(keyword)) {
-                    outputString += tasks.taskToString(i) + "\n";
-                }
-            }
-            return ui.printTaskList(outputString);
+            return findCommand(inputString);
 
         case "priority":
-            // the format will be priority <index> <priority>
-            // priority is an integer
-            // index is an integer
-            // priority is between 1 and 5
-            // index is between 1 and taskList.size()
-            String[] inputArr = inputString.split(" ");
-            int priority = Integer.parseInt(inputArr[2]);
-            taskIndex = Integer.parseInt(inputArr[1]) - 1;
-            tasks.setPriority(taskIndex, priority);
-            return ui.printPriorityMessage(tasks.taskToString(taskIndex), priority);
+            return priorityCommand(inputString);
 
         default:
-            return ui.showErrorMessage(
-                    "\t☹ OOPS!!! I'm sorry, but I don't know what that means. Try again using either mark <index>,"
-                            + "unmark <index>, todo <task>, deadline <task /by ..>, event <task /from .. /to ..>, or bye.");
+            return wrongCommand();
         }
 
+    }
+
+    private String wrongCommand() {
+        return ui.showErrorMessage(
+                "\t☹ OOPS!!! I'm sorry, but I don't know what that means. Try again using either mark <index>,"
+                        + "unmark <index>, todo <task>, deadline <task /by ..>, event <task /from .. /to ..>, or bye.");
+    }
+
+    private String priorityCommand(String inputString) {
+        int taskIndex;
+        // the format will be priority <index> <priority>
+        // priority is an integer
+        // index is an integer
+        // priority is between 1 and 5
+        // index is between 1 and taskList.size()
+        String[] inputArr = inputString.split(" ");
+        int priority = Integer.parseInt(inputArr[2]);
+        taskIndex = Integer.parseInt(inputArr[1]) - 1;
+        tasks.setPriority(taskIndex, priority);
+        return ui.printPriorityMessage(tasks.taskToString(taskIndex), priority);
+    }
+
+    private String findCommand(String inputString) {
+        String keyword = inputString.substring(5);
+        String outputString = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.taskToString(i).contains(keyword)) {
+                outputString += tasks.taskToString(i) + "\n";
+            }
+        }
+        return ui.printTaskList(outputString);
+    }
+
+    private String deleteCommand(String inputString) {
+        int taskIndex;
+        taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
+        String msg = ui.printDeleteMessage(tasks.taskToString(taskIndex), taskIndex, tasks.size());
+        tasks.deleteTask(taskIndex);
+        return msg;
+    }
+
+    private String eventCommand(String inputString) {
+        try {
+            String taskName = inputString.substring(6, inputString.indexOf("/from") - 1);
+            String from = inputString.substring(inputString.indexOf("/from") + 6, inputString.indexOf("/to") - 1);
+            String to = inputString.substring(inputString.indexOf("/to") + 4);
+            Task newTask = new Event(taskName, from, to);
+
+            tasks.addToTaskList(newTask);
+
+            return ui.addTaskOutputText(newTask, tasks.size());
+        } catch (StringIndexOutOfBoundsException e) {
+            return ui.showErrorMessage("\t☹ OOPS!!! The description of an event cannot be empty.");
+        }
+    }
+
+    private String deadlineCommand(String inputString) {
+        try {
+            // stop before /by
+            String taskName = inputString.substring(9, inputString.indexOf("/by") - 1);
+            // get day
+            String deadline = inputString.substring(inputString.indexOf("/by") + 4);
+            try {
+                Task newTask = new Deadline(taskName, deadline);
+
+                tasks.addToTaskList(newTask);
+
+                return ui.addTaskOutputText(newTask, tasks.size());
+            } catch (java.time.format.DateTimeParseException e) {
+                return ui.showErrorMessage("\tInvalid date format. Please use yyyy-mm-dd.");
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            return ui.showErrorMessage("\t☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+    }
+
+    private String toDoCommand(String inputString) {
+        try {
+            String taskName = inputString.substring(5);
+            Task newTask = new ToDo(taskName);
+            tasks.addToTaskList(newTask);
+            assert !tasks.isEmpty() : "Task list should not be empty";
+
+            return ui.addTaskOutputText(newTask, tasks.size());
+        } catch (StringIndexOutOfBoundsException e) {
+            return ui.showErrorMessage("\t☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+    }
+
+    private String unmarkCommand(String inputString) {
+        int taskIndex;
+        taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
+        tasks.unmarkTaskAsDone(taskIndex);
+        return ui.unmarkTaskAsDoneMessage(tasks.taskToString(taskIndex));
+    }
+
+    private String markCommand(String inputString) {
+        int taskIndex;
+        // taskIndex is the second word in the input string
+        taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
+
+        tasks.markTaskAsDone(taskIndex);
+
+        return ui.markTaskAsDoneMessage(tasks.taskToString(taskIndex));
+    }
+
+    private String listCommand() {
+        return ui.printTaskList(tasks.toString());
+    }
+
+    private String byeCommand() {
+        return ui.sendFarewell();
     }
 
     // Obtains the response from the input

@@ -1,6 +1,9 @@
 package duke.gui;
 
 import duke.Duke;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
+import java.util.Objects;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -50,14 +57,21 @@ public class MainWindow extends AnchorPane {
   @FXML
   private void handleUserInput() {
     String input = userInput.getText();
+
     String response = duke.getResponse(input);
-    
+
     // Aligned with SLAP principle
     printToTerminal(input, response);
     dialogContainer.getChildren().addAll(
         DialogBox.getUserDialog(input, userImage),
         DialogBox.getDukeDialog(response, dukeImage)
     );
+    if (Objects.equals(input, "bye")) {
+      // sleep
+//      dialogContainer.getChildren().add(DialogBox.getDukeDialog("Exiting in 2 seconds", dukeImage));
+      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000), event -> {Platform.exit();}));
+      timeline.play();
+    }
     userInput.clear();
   }
 
