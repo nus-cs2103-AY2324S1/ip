@@ -1,6 +1,6 @@
 package duke.tasks;
 
-import duke.TaskType;
+import duke.ronaldoSaysDo.TaskType;
 import duke.exceptions.DukeException;
 
 /**

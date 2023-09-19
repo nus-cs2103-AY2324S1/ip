@@ -1,4 +1,4 @@
-package duke;
+package duke.ronaldoSaysDo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import duke.util.TaskList;
 /**
  * Main to class to handle duke operations
  */
-public class Duke {
+public class RonaldoSaysDo {
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
@@ -26,7 +26,7 @@ public class Duke {
     /**
      * Constructor
      */
-    public Duke() {
+    public RonaldoSaysDo() {
         storage = new Storage();
         parser = new Parser();
         ui = new Ui();

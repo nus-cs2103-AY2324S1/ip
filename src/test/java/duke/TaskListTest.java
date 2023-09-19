@@ -2,6 +2,7 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.ronaldoSaysDo.RonaldoSaysDo;
 import org.junit.jupiter.api.Test;
 
 import duke.exceptions.DukeException;
@@ -11,8 +12,8 @@ public class TaskListTest {
     @Test
     public void markTask_withNegativeIndex() {
         try {
-            Duke duke = new Duke();
-            duke.handleTodoTask("todo borrow");
+            RonaldoSaysDo ronaldoSaysDo = new RonaldoSaysDo();
+            ronaldoSaysDo.handleTodoTask("todo borrow");
         } catch (DukeException e) {
             assertEquals("SUI, Enter mark command with positive index lesser than 2", e.getMessage());
         }

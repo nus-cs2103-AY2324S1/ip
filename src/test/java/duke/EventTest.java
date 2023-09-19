@@ -2,6 +2,8 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.ronaldoSaysDo.RonaldoSaysDo;
+import duke.ronaldoSaysDo.TaskType;
 import org.junit.jupiter.api.Test;
 
 import duke.exceptions.DukeException;
@@ -39,8 +41,8 @@ public class EventTest {
     public void event_missingDescription_exception() {
         try {
             String input = "event /from 2023-10-23 09:00 /to 2023-10-24 09:00";
-            Duke duke = new Duke();
-            duke.handleEventTask(input);
+            RonaldoSaysDo ronaldoSaysDo = new RonaldoSaysDo();
+            ronaldoSaysDo.handleEventTask(input);
         } catch (DukeException e) {
             assertEquals("SUI, No description specified la dei!! How to do work when no work is said!! "
                     +

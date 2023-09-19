@@ -2,6 +2,8 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.ronaldoSaysDo.RonaldoSaysDo;
+import duke.ronaldoSaysDo.TaskType;
 import org.junit.jupiter.api.Test;
 
 import duke.exceptions.DukeException;
@@ -38,8 +40,8 @@ public class DeadlineTest {
     public void deadline_missingEndDate_exception() {
         try {
             String input = "deadline cs2103 iP";
-            Duke duke = new Duke();
-            duke.handleDeadlineTask(input);
+            RonaldoSaysDo ronaldoSaysDo = new RonaldoSaysDo();
+            ronaldoSaysDo.handleDeadlineTask(input);
         } catch (DukeException e) {
             assertEquals("SUI, Specify by date and time!", e.getMessage());
         }
@@ -48,8 +50,8 @@ public class DeadlineTest {
     public void deadline_missingDescription_exception() {
         try {
             String input = "deadline /by 2023-10-09 09:00";
-            Duke duke = new Duke();
-            duke.handleDeadlineTask(input);
+            RonaldoSaysDo ronaldoSaysDo = new RonaldoSaysDo();
+            ronaldoSaysDo.handleDeadlineTask(input);
         } catch (DukeException e) {
             assertEquals("SUI, No description specified la dei!! "
                     +

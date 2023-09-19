@@ -1,6 +1,6 @@
 package duke.components;
 
-import duke.Duke;
+import duke.ronaldoSaysDo.RonaldoSaysDo;
 import duke.ui.Ui;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Ui ui = new Ui();
 
-    private Duke duke = new Duke();
+    private RonaldoSaysDo ronaldoSaysDo = new RonaldoSaysDo();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -43,8 +43,8 @@ public class MainWindow extends AnchorPane {
         dialogContainer.autosize();
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(RonaldoSaysDo d) {
+        ronaldoSaysDo = d;
     }
 
     /**
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = ronaldoSaysDo.getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
