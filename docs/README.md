@@ -5,9 +5,6 @@
 # User Guide
 Duke is a *Personal Assistant Chatbot that helps a person to keep track of various things., optimized for use via a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-* Table of Contents
-  {:toc}
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
