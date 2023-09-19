@@ -3,6 +3,7 @@ package seedu.duke.ui;
 import java.util.ArrayList;
 
 import seedu.duke.exceptions.InvalidTaskIndexException;
+import seedu.duke.exceptions.LemonException;
 import seedu.duke.tasklist.TaskList;
 import seedu.duke.tasks.Task;
 
@@ -94,8 +95,8 @@ public class Ui {
     /**
      * Returns the message after rescheduling a deadline task.
      * @param changeDeadlineTask task to change
-     * @param tasks
-     * @return represen
+     * @param tasks task list with all tasks.
+     * @return String representation of the task that has been rescheduled.
      */
     public String rescheduleDeadline(String changeDeadlineTask, TaskList tasks) {
         String output = "";
@@ -109,7 +110,7 @@ public class Ui {
      * @param tasks The TaskList object containing the task list.
      * @return String of all the tasks in the TaskList.
      */
-    public String listAll(TaskList tasks) throws InvalidTaskIndexException {
+    public String listAll(TaskList tasks) throws LemonException {
         String output = "";
         try {
             for (int i = 0; i < tasks.getTasksSize(); i++) {
@@ -118,7 +119,7 @@ public class Ui {
             output += System.lineSeparator();
             return output;
         } catch (InvalidTaskIndexException e) {
-            throw new InvalidTaskIndexException("Invalid task index");
+            throw new LemonException("Error loading all tasks!");
         }
     }
 
