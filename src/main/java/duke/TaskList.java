@@ -80,25 +80,22 @@ public class TaskList {
      * @return Found tasks.
      */
     public String findTask(String input, TaskList list) {
-        int[] indexList = new int[100];
-        int counter = 0;
-        StringBuilder tasksFound = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < count; i++) {
-            if (list.getTask(i).toString().contains(input)) {
-                indexList[counter] = i;
-                counter++;
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (Task task : this.list) {
+            if (task.toString().contains(input)) {
+                foundTasks.add(task);
             }
         }
-        if (counter == 0) {
-            tasksFound = new StringBuilder("Oops, there are no matching tasks in your list");
+        if (foundTasks.size() == 0) {
+            output = new StringBuilder("Oops, there are no matching tasks in your list");
         } else {
-            for(int j = 0; j < counter; j++) {
-                tasksFound.append(indexList[j] + 1)
-                        .append(".")
-                        .append(list.getTask(indexList[j]).toString())
-                        .append("\n");
+            for(int j = 0; j < foundTasks.size(); j++) {
+                output.append(j + 1).append(".")
+                        .append(foundTasks.get(j).toString())
+                        .append("\n");;
             }
         }
-        return tasksFound.toString();
+        return output.toString();
     }
 }

@@ -33,9 +33,9 @@ public class Storage {
         if (file.exists()) {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
-                String task = fileScanner.nextLine();
-                Task dtask = TaskParser.parseTask(task);
-                dukeList.add(dtask);
+                String taskString = fileScanner.nextLine();
+                Task task = TaskParser.parseTask(taskString);
+                dukeList.add(task);
             }
         }
         return dukeList;
