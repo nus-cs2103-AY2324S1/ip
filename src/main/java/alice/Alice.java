@@ -75,4 +75,13 @@ public class Alice {
             return e.getMessage();
         }
     }
+
+    /**
+     * Gets the welcome message of the application.
+     *
+     * @return The welcome message of the application.
+     */
+    public String getWelcome() {
+        return ui.showWelcome();
+    }
 }

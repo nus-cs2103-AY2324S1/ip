@@ -18,7 +18,7 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(
         Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
     private final Image aliceImage = new Image(
-        Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+        Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaAlice.png")));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -34,8 +34,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setAlice(Alice d) {
-        alice = d;
+    public void setAlice(Alice a) {
+        alice = a;
+        dialogContainer.getChildren().add(
+            DialogBox.getAliceDialog(a.getWelcome(), aliceImage)
+        );
     }
 
     /**
