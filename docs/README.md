@@ -16,7 +16,7 @@ Example of usage: `todo buy groceries`
 
 The event feature enables you to add event-based tasks with start and end times.
 
-Format: `event [DESCRIPTION] /from [DATE_TIME] /to [DATE_TIME`
+Format: `event [DESCRIPTION] /from [DATE_TIME] /to [DATE_TIME]`
 
 Example of usage: `event car roadshow /from 2023/12/12 1200 /to 2023/12/15 1200`
 
@@ -81,7 +81,7 @@ Format: `bye`
 Action | Format, Examples
 --------|------------------
 **Add Deadline Task** | `deadline [DESCRIPTION] /by [DATE_TIME]` <br> e.g., `deadline assignment submission /by 15/10/2023 0800`
-**Add Event Task** | `event [DESCRIPTION] /from [DATE_TIME] /to [DATE_TIME` <br> e.g., `event car roadshow /from 2023/12/12 1200 /to 2023/12/15 1200`
+**Add Event Task** | `event [DESCRIPTION] /from [DATE_TIME] /to [DATE_TIME]` <br> e.g., `event car roadshow /from 2023/12/12 1200 /to 2023/12/15 1200`
 **Add Todo Task** | `todo [DESCRIPTION]` <br> e.g., `todo buy groceries`
 **List** | `list`
 **Delete** | `delete TASK_INDEX`<br> e.g., `delete 3`
