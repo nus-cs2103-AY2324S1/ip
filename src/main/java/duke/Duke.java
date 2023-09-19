@@ -58,14 +58,14 @@ public class Duke {
         }
     }
     /**
-     * Method to handle input
+     * Returns the specific command from the given user input
      * @param command command of user
      * @param input inout of user
      * @return String representing the process performed
      * @throws DukeException
      * @throws IOException
      */
-    public String handleCommand(String command, String input) throws DukeException, IOException {
+    public String handleCommand(String command, String input) throws DukeException {
         if (input.equals("")) {
             throw new DukeException("SUI, Invalid empty command!");
         }
@@ -208,7 +208,6 @@ public class Duke {
                 throw new DukeException("SUI, Enter a valid positive integer after your mark/unmark command!\n");
             }
         }
-
         return res;
     }
     /**
@@ -241,7 +240,7 @@ public class Duke {
     }
 
     /**
-     * Adds a duke.tasks.Deadline task to the task tasks based on the provided input.
+     * Adds a deadline task to the task tasks based on the provided input.
      *
      * @param input The user input containing the task description and deadline.
      * @return A message indicating the success of adding the duke.tasks.Deadline task.
@@ -260,9 +259,6 @@ public class Duke {
         }
         String byDate = deadlineInfo[0];
         String endTime = deadlineInfo[1];
-
-        DateAndTimeHandler.checkIfDateIsValid(byDate);
-        DateAndTimeHandler.checkIfDeadlineTimelineIsValid(byDate, endTime);
         String task = "";
         for (int i = 1; i < taskArray.length; i++) {
             task += taskArray[i] + " ";
@@ -275,6 +271,9 @@ public class Duke {
             throw new DukeException("SUI, deadline task must have /by date and time\n");
         }
 
+        DateAndTimeHandler.checkIfDateIsValid(byDate);
+        DateAndTimeHandler.checkIfDeadlineTimelineIsValid(byDate, endTime);
+
         tasks.addTask(new Deadline(task, byDate, endTime + ":00", TaskType.DEADLINE));
 
         String str = tasks.getTaskAtIndex(tasks.getSize() - 1).toString();
@@ -283,68 +282,9 @@ public class Duke {
 
         return res;
     }
-
     /**
-     * Method to handle deadline task from user
-     * @param input user input
-     * @return string array consisting of the contents of deadline task
-     * @throws DukeException
-     */
-    public String[] handleDeadlineTaskFromUser(String input) throws DukeException {
-        String task = "";
-        String byDate = "";
-        String endTime = "";
-        String[] parts = input.split("/by ");
-        String[] taskArray = parts[0].split(" ");
-        if (parts.length != 2) {
-            throw new DukeException("SUI, Specify by date and time!");
-        }
-        String[] deadlineInfo = parts[1].split(" ");
-
-        if (deadlineInfo.length != 2) {
-            throw new DukeException("SUI, Specify both date and time in the following manner : yyyy-mm-dd hh:mm");
-        }
-        byDate = deadlineInfo[0];
-        endTime = deadlineInfo[1];
-
-        DateAndTimeHandler.checkIfDateIsValid(byDate);
-        DateAndTimeHandler.checkIfDeadlineTimelineIsValid(byDate, endTime);
-
-
-        for (int i = 1; i < taskArray.length; i++) {
-            task += taskArray[i] + " ";
-        }
-
-        return new String[]{task, byDate, endTime};
-    }
-    /**
-     * Method to handle deadline task from file
-     * @param input user input
-     * @return string array consisting of the contents of deadline task
-     * @throws DukeException
-     */
-    public String[] handleDeadlineTaskFromFile(String input) {
-        String task = "";
-        String byDate = "";
-        String endTime = "";
-        String [] parts = input.split("\\(by: ");
-        String[] taskArray = parts[0].split(" ");
-        String[] deadlineInfo = parts[1].split(" ");
-
-        for (int i = 1; i < taskArray.length; i++) {
-            task += taskArray[i] + " ";
-        }
-
-        for (int i = 0; i < 3; i++) {
-            byDate += deadlineInfo[i] + " ";
-        }
-        endTime = deadlineInfo[3];
-        endTime = endTime.substring(0, endTime.length() - 1);
-        byDate = DateAndTimeHandler.convertDateToFormat(byDate.substring(0, 11), "MMM dd yyyy", "MMM dd yyyy");
-        return new String[]{task, byDate, endTime};
-    }
-    /**
-     * Adds an duke.tasks.Event task to the task tasks based on the provided input.
+     * Adds an event task to the task tasks based on the provided input.
+     *
      * @param input The user input containing the task description and event timings.
      * @return A message indicating the success of adding the duke.tasks.Event task.
      * @throws DukeException If there's an issue with the input, task description, or event timings.
@@ -377,10 +317,6 @@ public class Duke {
         String startTime = fromInfo[1];
         String endDate = toInfo[0];
         String endTime = toInfo[1];
-
-        DateAndTimeHandler.checkIfDateIsValid(startDate);
-        DateAndTimeHandler.checkIfDateIsValid(endDate);
-
         String task = "";
         for (int i = 1; i < taskArray.length; i++) {
             task += taskArray[i] + " ";
@@ -389,10 +325,12 @@ public class Duke {
             throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said!! "
                     + "Enter again!\n");
         }
-
         if (startDate.isEmpty() || endDate.isEmpty()) {
             throw new DukeException("SUI, event task must have both /from and /to times\n");
         }
+
+        DateAndTimeHandler.checkIfDateIsValid(startDate);
+        DateAndTimeHandler.checkIfDateIsValid(endDate);
 
         tasks.addTask(new Event(task, startDate, endDate, startTime + ":00", endTime + ":00", TaskType.EVENT));
 
@@ -402,88 +340,5 @@ public class Duke {
         res += tasks.getTaskLeft();
 
         return res;
-    }
-    /**
-     * Method to handle event task from user
-     * @param input user input
-     * @return string array consisting of the contents of event task
-     * @throws DukeException
-     */
-    public String[] handleEventFromUser(String input) throws DukeException {
-        String task = "";
-        String[] parts = input.split("/from ");
-        if (parts.length != 2) {
-            throw new DukeException("SUI, Specify from and to date and time!");
-        }
-        String[] taskArray = parts[0].split(" ");
-        String[] taskInfo = parts[1].split("/to ");
-
-        if (taskInfo.length != 2) {
-            throw new DukeException("SUI, Specify both date and time for /from and /to in the following manner "
-                    + ": yyyy-mm-dd hh:mm");
-        }
-
-        String[] fromInfo = taskInfo[0].split(" ");
-        String[] toInfo = taskInfo[1].split(" ");
-        if (fromInfo.length != 2) {
-            throw new DukeException("SUI, Specify both date and time for /from in the following manner "
-                    + ": yyyy-mm-dd hh:mm");
-        }
-        if (toInfo.length != 2) {
-            throw new DukeException("SUI, Specify both date and time for /to in the following manner "
-                    + ": yyyy-mm-dd hh:mm");
-        }
-
-        String startDate = fromInfo[0];
-        String startTime = fromInfo[1];
-        String endDate = toInfo[0];
-        String endTime = toInfo[1];
-
-        DateAndTimeHandler.checkIfDateIsValid(startDate);
-        DateAndTimeHandler.checkIfDateIsValid(endDate);
-
-        for (int i = 1; i < taskArray.length; i++) {
-            task += taskArray[i] + " ";
-        }
-        return new String[] {task, startDate, endDate, startTime, endTime};
-    }
-
-    /**
-     * Method to handle event task from file
-     * @param input user input
-     * @return string array consisting of the contents of event task
-     * @throws DukeException
-     */
-    public String[] handleEventFromFile(String input) {
-        String task = "";
-        String startDate = "";
-        String endDate = "";
-        String startTime = "";
-        String endTime = "";
-        String[] parts = input.split("\\(from: ");
-        String[] taskArray = parts[0].split(" ");
-        String[] taskInfo = parts[1].split("to: ");
-
-        String[] fromInfo = taskInfo[0].split(" ");
-        String[] toInfo = taskInfo[1].split(" ");
-
-        for (int i = 1; i < taskArray.length; i++) {
-            task += taskArray[i] + " ";
-        }
-
-        for (int i = 0; i < 3; i++) {
-            startDate += fromInfo[i] + " ";
-        }
-
-        for (int i = 0; i < 3; i++) {
-            endDate += toInfo[i] + " ";
-        }
-
-        startDate = DateAndTimeHandler.convertDateToFormat(startDate.substring(0, 11), "MMM dd yyyy", "yyyy-MM-dd");
-        endDate = DateAndTimeHandler.convertDateToFormat(endDate.substring(0, 11), "MMM dd yyyy", "yyyy-MM-dd");
-        startTime = fromInfo[3];
-        endTime = toInfo[3];
-        endTime = endTime.substring(0, endTime.length() - 1);
-        return new String[]{task, startDate, endDate, startTime, endTime};
     }
 }

@@ -6,8 +6,18 @@ import java.time.format.DateTimeFormatter;
 
 import duke.exceptions.DukeException;
 
+/**
+ * Custom class to handle date and time
+ */
 public class DateAndTimeHandler {
 
+    /**
+     * Converts the given date to a specific format
+     * @param date given date
+     * @param inputPattern given input pattern
+     * @param outputPattern expected output pattern
+     * @return
+     */
     public static String convertDateToFormat(String date, String inputPattern, String outputPattern) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(inputPattern);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(outputPattern);
@@ -15,7 +25,7 @@ public class DateAndTimeHandler {
         return localDate.format(outputFormatter);
     }
     /**
-     * Method to check if the date is in valid format
+     * Throws exception if the date is in valid format
      * @param date date as a string
      * @throws DukeException
      */
@@ -28,7 +38,7 @@ public class DateAndTimeHandler {
     }
 
     /**
-     * Method to check if the end date and end time is valid
+     * Throws exception if the end date and end time is valid
      * @param byDate the end date for the deadline event
      * @param endTime the end time for the deadline event
      * @throws DukeException

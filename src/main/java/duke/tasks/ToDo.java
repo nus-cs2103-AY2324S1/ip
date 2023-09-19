@@ -1,10 +1,10 @@
 package duke.tasks;
 
-import duke.exceptions.DukeException;
 import duke.TaskType;
+import duke.exceptions.DukeException;
 
 /**
- * Class to hanlde todo tasks
+ * Class to handle todo tasks
  */
 public class ToDo extends Task {
     public ToDo(String list, TaskType type) {

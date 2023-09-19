@@ -54,7 +54,7 @@ public class Parser {
     }
 
     /**
-     * Method to check if the input has more than one space.
+     * Throws exception if the input has more than one space.
      * @param input user input
      * @throws DukeException
      */
@@ -65,7 +65,7 @@ public class Parser {
     }
 
     /**
-     * Method to check if the input has leading space
+     * Throws exception if the input has leading space
      * @param input use input
      * @throws DukeException
      */
@@ -76,7 +76,7 @@ public class Parser {
     }
 
     /**
-     * Method to check if the input has trailing space
+     * Throws exception if the input has trailing space
      * @param input use input
      * @throws DukeException
      */

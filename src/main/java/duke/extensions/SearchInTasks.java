@@ -6,11 +6,11 @@ import duke.exceptions.DukeException;
 import duke.tasks.Task;
 
 /**
- * Class to search for a keyword in tasks
+ * Custom class to search for a given keyword in the list of tasks
  */
 public class SearchInTasks {
     /**
-     * Returns the various tasks that match the input by user
+     * Returns the various tasks that match substrings of the keyword
      * @param input user's input
      * @return string representation of operayion
      * @throws DukeException
@@ -46,7 +46,7 @@ public class SearchInTasks {
     }
 
     /**
-     * Method to search for the keyword in the tasks
+     * Returns all the matching tasks for the substrings
      * @param keywordToSearch keyword to search for
      * @param isTaskAddedToResults boolean array to check if the specific tasl has been added already
      * @param resultCounter the number of result tasks in the result string

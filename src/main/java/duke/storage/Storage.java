@@ -36,12 +36,11 @@ public class Storage {
      * Handles Todo, duke.tasks.Deadline, and duke.tasks.Event tasks stored in the file.
      */
     public ArrayList<Task> handleReadAllTasksFromFile() throws FileNotFoundException {
-
         //Check if file exists
         try {
             new File(filePath);
         } catch (Exception e) {
-            System.out.println("SUI, Please create a folder at the specified folder : src/data/duke.txt");
+            System.out.println("SUI, Create a text file named duke.txt at the specified directory : src/data/duke.txt");
         }
         try {
             File obj = new File(filePath);
@@ -53,7 +52,7 @@ public class Storage {
             reader.close();
             return tasks;
         } catch (FileNotFoundException e) {
-            System.out.println("SUI, Please create a folder at the specified folder : src/data/duke.txt");
+            System.out.println("SUI, Create a text file named duke.txt at the specified directory : src/data/duke.txt");
         }
         return tasks;
     }
@@ -117,7 +116,7 @@ public class Storage {
         tasks.add(new ToDo(task, TaskType.TODO));
     }
     /**
-     * Method to handle deadline task from file
+     * Handle a deadline task from file
      *
      * @param input user input
      * @throws DukeException
@@ -125,7 +124,6 @@ public class Storage {
     public void handleDeadlineTaskInFile(String input) {
         StringBuilder task = new StringBuilder();
         StringBuilder byDate = new StringBuilder();
-        String endTime = "";
         String [] parts = input.split("\\(by: ");
         String[] taskArray = parts[0].split(" ");
         String[] deadlineInfo = parts[1].split(" ");
@@ -137,14 +135,14 @@ public class Storage {
         for (int i = 0; i < 3; i++) {
             byDate.append(deadlineInfo[i]).append(" ");
         }
-        endTime = deadlineInfo[3];
+        String endTime = deadlineInfo[3];
         endTime = endTime.substring(0, endTime.length() - 1);
-        byDate = new StringBuilder(DateAndTimeHandler.convertDateToFormat(byDate.substring(0, 11), "MMM dd yyyy", "yyyy-MM-dd"));
+        byDate = new StringBuilder(DateAndTimeHandler.convertDateToFormat(byDate.substring(0, 11),
+                "MMM dd yyyy", "yyyy-MM-dd"));
         tasks.add(new Deadline(task.toString(), byDate.toString(), endTime + ":00", TaskType.DEADLINE));
     }
-
     /**
-     * Method to handle event task from file
+     * Handles a event task from file
      * @param input user input
      * @throws DukeException
      */
@@ -152,8 +150,6 @@ public class Storage {
         StringBuilder task = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
-        String startTime = "";
-        String endTime = "";
         String[] parts = input.split("\\(from: ");
         String[] taskArray = parts[0].split(" ");
         String[] taskInfo = parts[1].split("to: ");
@@ -173,11 +169,14 @@ public class Storage {
             endDate.append(toInfo[i]).append(" ");
         }
 
-        startDate = new StringBuilder(DateAndTimeHandler.convertDateToFormat(startDate.substring(0, 11), "MMM dd yyyy", "yyyy-MM-dd"));
-        endDate = new StringBuilder(DateAndTimeHandler.convertDateToFormat(endDate.substring(0, 11), "MMM dd yyyy", "yyyy-MM-dd"));
-        startTime = fromInfo[3];
-        endTime = toInfo[3];
+        startDate = new StringBuilder(DateAndTimeHandler.convertDateToFormat(startDate.substring(0, 11),
+                "MMM dd yyyy", "yyyy-MM-dd"));
+        endDate = new StringBuilder(DateAndTimeHandler.convertDateToFormat(endDate.substring(0, 11),
+                "MMM dd yyyy", "yyyy-MM-dd"));
+        String startTime = fromInfo[3];
+        String endTime = toInfo[3];
         endTime = endTime.substring(0, endTime.length() - 1);
-        tasks.add(new Event(task.toString(), startDate.toString(), endDate.toString(), startTime + ":00", endTime + ":00", TaskType.EVENT));
+        tasks.add(new Event(task.toString(), startDate.toString(), endDate.toString(),
+                startTime + ":00", endTime + ":00", TaskType.EVENT));
     }
 }

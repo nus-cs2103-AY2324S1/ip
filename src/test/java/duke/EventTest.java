@@ -2,12 +2,12 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidInputExpression;
 import duke.parser.Parser;
 import duke.tasks.Event;
-import duke.util.TaskList;
-import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
@@ -15,7 +15,6 @@ public class EventTest {
         Event event = new Event("CS2103T iP", "2022-12-03" , "2022-12-14" , "09:00", "08:00", TaskType.EVENT);
         assertEquals("[E][ ] CS2103T iP(from: Dec 03 2022 09:00 to: Dec 14 2022 08:00)", event.toString());
     }
-
     @Test
     public void event_setMarkAgain_exception() {
         try {
@@ -26,7 +25,6 @@ public class EventTest {
             assertEquals("SUI, This task has already been marked as done!\n", e.getMessage());
         }
     }
-
     @Test
     public void event_setUnMarkAgain_exception() {
         try {
@@ -41,15 +39,14 @@ public class EventTest {
     public void event_missingDescription_exception() {
         try {
             String input = "event /from 2023-10-23 09:00 /to 2023-10-24 09:00";
-            TaskList tasklist = new TaskList();
-            tasklist.handleEventFromUser(input);
+            Duke duke = new Duke();
+            duke.handleEventTask(input);
         } catch (DukeException e) {
-            assertEquals("SUI, No description specified la dei!! How to do work when no work is said!! \n"
+            assertEquals("SUI, No description specified la dei!! How to do work when no work is said!! "
                     +
                     "Enter again!\n", e.getMessage());
         }
     }
-
     @Test
     public void event_hasLeadingSpace_exception() {
         try {

@@ -1,7 +1,7 @@
 package duke.tasks;
 
-import duke.exceptions.DukeException;
 import duke.TaskType;
+import duke.exceptions.DukeException;
 
 /**
  * Class to handle the task

@@ -52,9 +52,17 @@ public class TaskList {
         }
         return res.toString();
     }
+    /**
+     * Adds a task to the task list
+     * @param task task to add
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
+    /**
+     * Removes a task to the task list
+     * @param index index to remove
+     */
     public void removeTask(int index) {
         this.tasks.remove(index);
     }
