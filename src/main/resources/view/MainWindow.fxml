@@ -2,18 +2,23 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0">
-         <font>
-            <Font size="15.0" />
-         </font></TextField>
-        <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="40.0" prefWidth="355.0" AnchorPane.bottomAnchor="1.0" />
+        <fx:define>
+            <Image fx:id="btnImage" url="/images/send.png"/>
+        </fx:define>
+        <Button fx:id="sendButton" layoutX="355.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="40.0" prefWidth="40.0">
+            <graphic>
+                <ImageView image="$btnImage" fitHeight="25" fitWidth="25" />
+            </graphic>
+        </Button>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+                <VBox style="-fx-background-image: url('/images/background.png');"  fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0"/>
             </content>
         </ScrollPane>
     </children>
