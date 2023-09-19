@@ -45,7 +45,7 @@ If you can type fast, Ren can get your task management done faster than traditio
 
 Adds a ToDo Task to Ren.
 
-Format: `add todo NAME ​`
+Format: `add todo NAME `
 
 Examples:
 * `add todo Buy groceries`
@@ -55,7 +55,7 @@ Examples:
 
 Adds a Deadline Task to Ren.
 
-Format: `add deadline NAME /by DATE ​`
+Format: `add deadline NAME /by DATE `
 
 Examples:
 * `add deadline Buy groceries /by 2020-02-02`
@@ -65,7 +65,7 @@ Examples:
 
 Adds an Event Task to Ren.
 
-Format: `add event NAME /from DATE /to DATE ​`
+Format: `add event NAME /from DATE /to DATE `
 
 ### Mark an event as completed : `mark`
 
@@ -119,28 +119,3 @@ Exits the app.
 
 Format: `bye`
 
-
-
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage:
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```

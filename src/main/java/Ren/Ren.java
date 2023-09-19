@@ -5,7 +5,6 @@ import ren.task.Task;
 import ren.task.TaskList;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Ren {
     private static RenObjectMapper objectMapper = new RenObjectMapper();
@@ -29,16 +28,18 @@ public class Ren {
             e.printStackTrace();
             tasks = new TaskList(new ArrayList<Task>());
         }
+        
+        ren.Launcher.main(args);
 
-        Scanner input = new Scanner(System.in);
-        RenUi.printWelcomeMsg();
-        String inputStr = input.nextLine();
-        while (!inputStr.equals(Commands.EXIT_COMMAND.getValue())) {
-            RenParser.parseInputString(inputStr, tasks);
-            inputStr = input.nextLine();
-        }
-
-        input.close();
-        RenUi.printGoodbyeMsg();
+//        Scanner input = new Scanner(System.in);
+//        RenUi.printWelcomeMsg();
+//        String inputStr = input.nextLine();
+//        while (!inputStr.equals(Commands.EXIT_COMMAND.getValue())) {
+//            RenParser.parseInputString(inputStr, tasks);
+//            inputStr = input.nextLine();
+//        }
+//
+//        input.close();
+//        RenUi.printGoodbyeMsg();
     }
 }
