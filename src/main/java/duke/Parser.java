@@ -8,7 +8,7 @@ import java.nio.file.StandardOpenOption;
  * This class deals with making sense of the user input and carrying out tasks accordingly.
  */
 public class Parser {
-    public enum TaskKeyVal {ToDo, Deadline, Event, Delete, mark, unmark, bye, list, find};
+    private enum TaskKeyVal { ToDo, Deadline, Event, Delete, mark, unmark, bye, list, find};
 
     /**
      * Returns a boolean based on the user input choice.
@@ -54,7 +54,7 @@ public class Parser {
             return TaskList.deleteTask(delUserChoice);
         case find:
             String findThis = userInputList[1];
-            return TaskList.taskToBeFound(findThis);
+            return TaskList.findTask(findThis);
 
         default:
             if (userInputList.length == 1 && enumCheck(userTaskChoiceKey)) {
@@ -75,10 +75,10 @@ public class Parser {
     }
     private static String userExit() {
         try {
-            Files.write(Duke.pathOfDirectory, new byte[0], StandardOpenOption.TRUNCATE_EXISTING); //closes file and truncates it
+            Files.write(Duke.PATHOFDIRECTORY, new byte[0], StandardOpenOption.TRUNCATE_EXISTING); //closes file and truncates it
             for (int i = 0; i < TaskList.getTaskSize(); i++) {
                 String taskToString = TaskList.getStoreTask().get(i).storeToDiskFormat() + "\n";
-                Files.write(Duke.pathOfDirectory, taskToString.getBytes(), StandardOpenOption.APPEND);
+                Files.write(Duke.PATHOFDIRECTORY, taskToString.getBytes(), StandardOpenOption.APPEND);
             }
             return Ui.endDukeMsg();
         } catch (IOException e) {

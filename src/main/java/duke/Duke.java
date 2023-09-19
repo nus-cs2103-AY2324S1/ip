@@ -1,4 +1,5 @@
 package duke;
+
 import dukeuielements.Ui;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,7 +8,7 @@ import javafx.scene.image.Image;
 
 public class Duke {
     private Ui ui;
-    public static Path pathOfDirectory = Paths.get("./data/duke.txt");
+    public static final Path PATHOFDIRECTORY = Paths.get("./data/duke.txt");
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
@@ -15,7 +16,7 @@ public class Duke {
         ui = new Ui();
         assert ui != null;
         try {
-            Storage.readFromDisk(pathOfDirectory, TaskList.getStoreTask());
+            Storage.readFromDisk(PATHOFDIRECTORY, TaskList.getStoreTask());
         } catch (IOException e) {
             e.printStackTrace();
         }

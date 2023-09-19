@@ -1,12 +1,13 @@
 package duke;
 import dukeuielements.Ui;
-import task.Task;
-import task.ToDo;
 import task.Deadline;
 import task.Event;
-import java.time.format.DateTimeParseException;
+import task.Task;
+import task.ToDo;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.time.format.DateTimeParseException;
+
 
 /**
  * This class holds the ArrayList to load all the tasks. Contains important Task manipulation methods.
@@ -91,7 +92,7 @@ public class TaskList {
             return Ui.deleteTaskPrint(itemRemoved);
         }
     }
-    public static String taskToBeFound(String findThis) {
+    public static String findTask(String findThis) {
         ArrayList<Task> filteredList = altFindFunctions(findThis);
         ListIterator<Task> iterFilteredList = filteredList.listIterator();
         if (filteredList.size() == 0) {
@@ -100,7 +101,7 @@ public class TaskList {
             return Ui.findTaskPrint(iterFilteredList);
         }
     }
-    public static ArrayList<Task> altFindFunctions(String findThis) {
+    private static ArrayList<Task> altFindFunctions(String findThis) {
         String[] breakDownFindFunction = findThis.split(" ");
         ListIterator<Task> ls = storeTask.listIterator();
         ArrayList<Task> filteredList = new ArrayList<>();
