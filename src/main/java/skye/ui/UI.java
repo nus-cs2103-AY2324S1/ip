@@ -50,7 +50,7 @@ public class UI {
             }
         } else {
             stringBuilder
-                    .append("Nice!! You're all caught up and have no pending tasks to worry about.")
+                    .append("Amazing!! You're all caught up and have no pending tasks to worry about!")
                     .append(System.lineSeparator());
         }
         return stringBuilder.toString();
@@ -90,7 +90,7 @@ public class UI {
      * @param task Task marked as completed
      */
     public String showMarkedTask(Task task) {
-        return String.format("Nice! I've marked this task as done:\n %s", task);
+        return String.format("Good job! I've marked this task as done:\n %s", task);
     }
 
     /**
@@ -118,7 +118,7 @@ public class UI {
             tasks.forEach(task -> stringBuilder.append(task).append(System.lineSeparator()));
         } else {
             stringBuilder
-                    .append("Great!! You've nothing due!")
+                    .append("Great!! You've nothing due to worry about!")
                     .append(System.lineSeparator());
         }
         return stringBuilder.toString();

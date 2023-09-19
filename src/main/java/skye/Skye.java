@@ -20,9 +20,10 @@ public class Skye {
     private StorageManager storageManager;
     private ListManager listManager;
     private UI ui;
+    private boolean isExit;
 
     /**
-     * Initializes an instance of the Skye chat-bot.
+     * Initializes an instance of the Skye chatbot.
      *
      * @param saveDirectory File path to the directory containing the save file.
      */
@@ -30,6 +31,7 @@ public class Skye {
         parser = new Parser();
         storageManager = new StorageManager(saveDirectory);
         ui = new UI();
+        isExit = false;
         try {
             listManager = new ListManager(storageManager);
         } catch (DukeException | IOException e) {
@@ -37,13 +39,20 @@ public class Skye {
         }
     }
 
+    public boolean isExit() {
+        return isExit;
+    }
+
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response from the chatbot.
+     *
+     * @param input User input
+     * @return Response from the chatbot.
      */
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
+            isExit = command.isExit();
             return command.execute(listManager, ui, storageManager);
         } catch (DukeException | IOException e) {
             return e.getMessage();
