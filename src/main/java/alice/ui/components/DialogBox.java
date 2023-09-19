@@ -18,14 +18,12 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 /**
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
-    private static final double PROFILE_CLIP_RADIUS = 40.0;
     private static final double DIALOG_MARGIN = 10.0;
     private static final double DIALOG_PADDING = 10.0;
     private static final double DIALOG_CORNER_RADIUS = 10.0;
@@ -49,14 +47,12 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-
-        displayPicture.setClip(new Circle(PROFILE_CLIP_RADIUS, PROFILE_CLIP_RADIUS, PROFILE_CLIP_RADIUS));
         displayPicture.setImage(img);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         BackgroundFill backgroundFill = new BackgroundFill(Color.valueOf(USER_BACKGROUND_COLOR),
-                new CornerRadii(DIALOG_CORNER_RADIUS), null);
+            new CornerRadii(DIALOG_CORNER_RADIUS), null);
         Background background = new Background(backgroundFill);
         DialogBox dialogBox = new DialogBox(text, img);
         dialogBox.dialog.setBackground(background);
@@ -68,7 +64,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getAliceDialog(String text, Image img) {
         BackgroundFill backgroundFill = new BackgroundFill(Color.valueOf(ALICE_BACKGROUND_COLOR),
-                new CornerRadii(DIALOG_CORNER_RADIUS), null);
+            new CornerRadii(DIALOG_CORNER_RADIUS), null);
         Background background = new Background(backgroundFill);
         DialogBox dialogBox = new DialogBox(text, img);
         dialogBox.dialog.setBackground(background);
