@@ -76,4 +76,7 @@ public abstract class Task {
         return " | " + (isDone ? "1" : "0") + " | " + this.description;
     }
 
+    public boolean getStatus() {
+        return this.isDone;
+    }
 }
