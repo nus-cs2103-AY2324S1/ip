@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="duke.controller.MainWindowController">
+    <children>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" vvalue="1.0"
+                    AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefHeight="-1" />
+            </content>
+        </ScrollPane>
+        <TextField fx:id="userInput" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" prefWidth="325.0" />
+        <Button text="Send" fx:id="sendButton" onAction="#handleSendButtonAction"
+                AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" prefWidth="55.0" />
+    </children>
+</AnchorPane>
