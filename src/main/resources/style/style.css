@@ -31,21 +31,14 @@
     -fx-cursor: hand;
 }
 
-.thorndike-dialog * {
-    -fx-text-fill: #b18430;
-}
-
 .user-dialog {
     -fx-text-fill: #cce6ff;
-}
-
-.dialog-label {
     -fx-font-size: 14px;
 }
 
-.user-diaglog {
-
-    -fx-opacity: 100;
+.thorndike-dialog {
+    -fx-text-fill: #b18430;
+    -fx-font-size: 14px;
 }
 
 .light-mode {
@@ -53,10 +46,6 @@
 }
 
 .light-mode .dialog-box {
-    -fx-background-color: #f3f3f3;
-}
-
-.light-mode .dialog-box * {
     -fx-background-color: #f3f3f3;
 }
 

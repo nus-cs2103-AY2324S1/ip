@@ -73,7 +73,6 @@ public class DialogBox extends HBox {
      * Sets the style attributes of the label.
      */
     private void setupLabel() {
-        dialog.getStyleClass().add("dialog-label");
         dialog.setPadding(new Insets(0, 15.0, 5.0, 15.0));
         dialog.setMaxHeight(Double.MAX_VALUE);
     }
@@ -101,7 +100,7 @@ public class DialogBox extends HBox {
     public static DialogBox getThorndikeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.getStyleClass().add("thorndike-dialog");
+        db.dialog.getStyleClass().add("thorndike-dialog");
 
         db.setOpacity(0);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), db);
