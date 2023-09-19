@@ -41,6 +41,7 @@ public class Parser {
      * @return The parsed command.
      */
     public static Command getCommand(String str, Storage storage, TaskList taskList, Ui ui) {
+
         String commandWord = str.split(" ")[0];
         switch (commandWord) {
         case "list":
@@ -77,9 +78,11 @@ public class Parser {
      */
     public static int taskToMark(String str, TaskList tasks)
             throws InvalidTaskIndexException, MissingTaskIndexException {
-        if (str.split(" ").length != 2) {
+        int parts = str.split(" ").length;
+        if (parts != 2) {
             throw new MissingTaskIndexException("Task Index Missing.");
         }
+        assert parts == 2 : "parts should be 2";
         int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
         if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
             throw new InvalidTaskIndexException("Invalid Task Index.");
@@ -99,10 +102,16 @@ public class Parser {
      */
     public static int taskToUnmark(String str, TaskList tasks)
             throws InvalidTaskIndexException, MissingTaskIndexException {
-        if (str.split(" ").length != 2) {
+        int parts = str.split(" ").length;
+        if (parts != 2) {
             throw new MissingTaskIndexException("Task Index Missing.");
 
         }
+        int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+        if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
+            throw new InvalidTaskIndexException("Invalid Task Index.");
+        }
+        assert parts == 2 : "parts should be 2";
         int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
         if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
             throw new InvalidTaskIndexException("Invalid Task Index.");
@@ -120,9 +129,11 @@ public class Parser {
      * @throws InvalidKeywordException If the keyword is missing, or if there is more than 1 keyword.
      */
     public static TaskList findKeyword(String str, TaskList tasks) throws InvalidKeywordException {
-        if (str.split(" ").length != 2) {
+        int parts = str.split(" ").length;
+        if (parts != 2) {
             throw new InvalidKeywordException("Keyword given is not a single word.");
         }
+        assert parts == 2 : "parts should be 2";
         String keyword = str.split(" ")[1];
         return tasks.findTask(keyword);
     }
@@ -138,9 +149,11 @@ public class Parser {
      */
     public static Task taskToDelete(String str, TaskList tasks)
             throws InvalidTaskIndexException, MissingTaskIndexException {
-        if (str.split(" ").length != 2) {
+        int parts = str.split (" ").length;
+        if (parts != 2) {
             throw new MissingTaskIndexException("Task Index Missing.");
         }
+        assert parts == 2 : "parts should be 2";
         int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
         if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
             throw new InvalidTaskIndexException("Invalid Task Index.");
