@@ -5,6 +5,7 @@ import duke.exception.InvalidInputException;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.FixedTask;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
@@ -69,6 +70,12 @@ public class AddCommand extends Command {
             }
             tasks.add(new Event(taskDescription));
 
+        } else if (type.equalsIgnoreCase("fixed")) {
+            int fromIndex = taskDescription.indexOf("/need");
+            if (fromIndex == -1) {
+                throw new InvalidInputException("Fixed Task must contain /need");
+            }
+            tasks.add(new FixedTask(taskDescription));
         } else {
             throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
