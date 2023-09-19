@@ -59,7 +59,4 @@ public class Task implements Serializable {
         return this.getDescription();
     }
 
-    public boolean contains(String word) {
-        return this.toString().contains(word);
-    }
 }

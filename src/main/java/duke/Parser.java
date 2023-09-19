@@ -1,6 +1,6 @@
 package duke;
 
-import static duke.Event.DATE_TIME_FORMATTER;
+import static duke.Event.INPUT_DATE_TIME_FORMATTER;
 import static duke.Storage.saveTasksToFile;
 
 import java.time.LocalDate;
@@ -164,7 +164,7 @@ public class Parser {
         finalText += "Got it. I've added this task: \n";
         finalText += taskList.get(i).toString();
         i++;
-        finalText += "Now you have " + i + " tasks in the list.";
+        finalText += "\nNow you have " + i + " tasks in the list.";
         return finalText;
     }
 
@@ -175,15 +175,15 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
         }
         String[] eventAndTime = instructionDetails.split("/from ");
-        String[] eventDuration = eventAndTime[1].split("/to ");
-        LocalDateTime from = LocalDateTime.parse(eventDuration[0], DATE_TIME_FORMATTER);
-        LocalDateTime to = LocalDateTime.parse(eventDuration[1], DATE_TIME_FORMATTER);
+        String[] eventDuration = eventAndTime[1].split(" /to ");
+        LocalDateTime from = LocalDateTime.parse(eventDuration[0], INPUT_DATE_TIME_FORMATTER);
+        LocalDateTime to = LocalDateTime.parse(eventDuration[1], INPUT_DATE_TIME_FORMATTER);
 
         taskList.add(new Event(eventAndTime[0], from, to));
         finalText += "Got it. I've added this task: \n";
         finalText += taskList.get(i).toString();
         i++;
-        finalText += "Now you have " + i + " tasks in the list.";
+        finalText += "\nNow you have " + i + " tasks in the list.";
         return finalText;
     }
 

@@ -8,9 +8,11 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the Task class.
  */
 public class Event extends Task {
+    private static final String INPUT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+    private static final String OUTPUT_DATE_TIME_FORMAT = "dd MMM yyyy HH:mm";
 
-    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
-    static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(INPUT_DATE_TIME_FORMAT);
+    static final DateTimeFormatter OUTPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT);
     private final LocalDateTime from;
     private final LocalDateTime to;
 
@@ -35,7 +37,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + "[" + this.getStatusIcon() + "] "
-                + super.toString() + " (from: " + from.format(DATE_TIME_FORMATTER)
-                + " to: " + to.format(DATE_TIME_FORMATTER) + ")";
+                + super.toString() + " (from: " + from.format(OUTPUT_DATE_TIME_FORMATTER)
+                + " to: " + to.format(OUTPUT_DATE_TIME_FORMATTER) + ")";
     }
 }
