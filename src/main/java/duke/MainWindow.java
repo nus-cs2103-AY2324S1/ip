@@ -25,11 +25,15 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Piglet.png"));
     private Image popoohImage = new Image(this.getClass().getResourceAsStream("/images/Pooh.png"));
 
+    /**
+     * Initialises the main window with the "greet" message and "reminders" if applicable.
+     */
     @FXML
     public void initialize() {
         this.ui = new Ui();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String openingMessage = ui.greet() + TaskList.printReminders();
+        dialogContainer.getStylesheets().add("/stylesheets/MainWindow.css");
         dialogContainer.getChildren().add(DialogBox.getPopoohDialog(openingMessage, popoohImage));
     }
 

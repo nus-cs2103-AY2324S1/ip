@@ -1,2 +1,2 @@
-T~notDone~reminder~work
+T~done~reminder~work
 T~notDone~NA~go home
