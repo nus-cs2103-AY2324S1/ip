@@ -44,26 +44,7 @@ public class Duke extends Application {
         Duke.ui = new Ui();
         Duke.ui.showWelcome();
         Duke.storage = new Storage(this.pathname);
-        if (Duke.storage.getHasFile()) {
-            Duke.taskList = new TaskList(Duke.storage.loadData());
-        } else {
-            Duke.taskList = new TaskList();
-        }
-    }
-
-    /**
-     * Constructor for duke.Duke class.
-     *
-     * @param pathname The pathname of the file.
-     */
-    public Duke(String pathname) {
-        Duke.ui = new Ui();
-        Duke.storage = new Storage(pathname);
-        if (Duke.storage.getHasFile()) {
-            Duke.taskList = new TaskList(Duke.storage.loadData());
-        } else {
-            Duke.taskList = new TaskList();
-        }
+        Duke.taskList = new TaskList(Duke.storage.loadData());
     }
 
     /**
@@ -115,7 +96,7 @@ public class Duke extends Application {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new Duke().run();
     }
 
     /**

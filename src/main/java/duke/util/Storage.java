@@ -26,7 +26,6 @@ import duke.task.Todo;
 
 public class Storage {
     private final String pathname;
-    private boolean hasFile;
 
     /**
      * Constructor for duke.util.Storage class.
@@ -35,12 +34,6 @@ public class Storage {
      */
     public Storage(String pathname) {
         this.pathname = pathname;
-        File f = new File(pathname);
-        try {
-            this.hasFile = !f.createNewFile();
-        } catch (IOException e) {
-            System.out.println("IOException: " + e.getMessage());
-        }
     }
 
     /**
@@ -137,14 +130,5 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         }
-    }
-
-    /**
-     * Returns true if the file exists, false if otherwise.
-     *
-     * @return true if the file exists, false if otherwise.
-     */
-    public boolean getHasFile() {
-        return this.hasFile;
     }
 }
