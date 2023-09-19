@@ -1,4 +1,6 @@
-package friday;
+package friday.task;
+
+import friday.Item;
 
 /**
  * Represents a note taken in the Friday application. Each note contains some content.

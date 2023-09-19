@@ -1,4 +1,9 @@
-package friday;
+package friday.util;
+
+import friday.task.Deadline;
+import friday.task.Event;
+import friday.task.Note;
+import friday.task.Todo;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;

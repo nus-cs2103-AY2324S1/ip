@@ -1,4 +1,6 @@
-package friday;
+package friday.util;
+
+import friday.task.Note;
 
 import java.util.ArrayList;
 

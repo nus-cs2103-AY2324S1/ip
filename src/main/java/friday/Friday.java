@@ -1,5 +1,10 @@
 package friday;
 
+import friday.util.NoteList;
+import friday.util.Parser;
+import friday.util.Storage;
+import friday.util.TaskList;
+
 /**
  * Represents the main class for the Friday application.
  */
