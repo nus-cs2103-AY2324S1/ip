@@ -21,26 +21,17 @@ ToDo Tasks
 Example: 
 - `todo delete gym`
 
-Outcome:
-- `[T][ ] delete gym`
-
 Deadline Tasks
 - `deadline (task description) /by (date and time of deadline)`
 
 Example: 
 - `deadline hit the lawyer /by 2019-12-01T10:00`
 
-Outcome:
-- `[D][ ] hit the lawyer (by: 2019-12-01T10:00)`
-
 Event Tasks
 - `event (task description) /from (starting date and time) /to (end date and time)`
 
 Example: 
 - `event Facebook up /from 2023-08-30T14:00 /to 2023-08-30T16:00`
-
-Outcome:
-- `[E][ ] Facebook up (from: 2023-08-30T14:00 to: 2023-08-30T16:00)`
 
 ### Viewing Tasks
 
@@ -71,6 +62,8 @@ Example:
 - `find the reason why we're still here`
 
 Leaving the keywords as empty will return an error instead.
+
+The order of the keywords as well as spaces will matter.
 ### Deleting Tasks
 
 Tasks can be easily deleted using the following command:
@@ -79,10 +72,12 @@ Tasks can be easily deleted using the following command:
 Example: 
 - `delete 42`
 
+The index must be positive and returns an error if it is negative, out of range or is not an integer.
+
 Additionally, all tasks can be cleared immediately using the following command:
 - `clearall`
 
-Do note that there is no confirmation for this command and it is done immediately after input.
+Do note that there is no confirmation for this command, and it is done immediately after input.
 ### Adding Tags
 Tags can be added to tasks to signify that a task is important. However, there is no additional
 functionality such as searching by tags for now.
