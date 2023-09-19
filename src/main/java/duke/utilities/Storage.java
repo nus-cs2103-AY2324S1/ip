@@ -69,7 +69,7 @@ public class Storage {
      *
      * @return A list of tasks loaded from the file.
      */
-    @SuppressWarnings("checkstyle:EmptyCatchBlock")
+
     public List<Task> loadTaskFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String inputLines;

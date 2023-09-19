@@ -4,7 +4,7 @@ import java.util.List;
 
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.utilities.MyBotExceptions;
+import duke.exceptions.MyBotExceptions;
 
 /**
  * The UI class provides methods for displaying messages and interacting with the user.

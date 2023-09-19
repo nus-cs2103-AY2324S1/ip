@@ -9,7 +9,8 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
-import duke.utilities.MyBotExceptions;
+import duke.exceptions.MyBotExceptions;
+import duke.exceptions.NoSuchTaskException;
 import duke.utilities.Storage;
 
 /**
@@ -42,6 +43,30 @@ public class Commands {
     }
 
     /**
+     * Adds a task to the task list, saves it to storage and prints tasks details.
+     *
+     * @param task The task to be added.
+     */
+    public void generalAddTasks(Task task) {
+        assert task != null : "Task cannot be null";
+
+        taskList.addTask(task);
+        storage.saveTasksToFile(taskList);
+        ui.printAddTask(task, taskList.getTaskCount());
+    }
+
+    /**
+     * Puts repeated tasks into a List of Tasks
+     * Prints the command telling users input entered exists
+     *
+     * @param input The description of the newly added task
+     */
+    public void taskRepeated(String input) {
+        List<Task> repeatedTasks = taskList.findMatchingTasks(input);
+        ui.printRepeatedTasks(repeatedTasks);
+    }
+
+    /**
      * Adds a Todo task to the task list and saves it to storage.
      *
      * @param input The description of the Todo task.
@@ -53,8 +78,7 @@ public class Commands {
         boolean isSupposedtoProceed = input.startsWith("!");
 
         if (!isExistingTask) {
-            List<Task> repeatedTasks = taskList.findMatchingTasks(input);
-            ui.printRepeatedTasks(repeatedTasks);
+            taskRepeated(input);
             taskList.tempStoreTask("todo " + "!" + input);
         } else if (isSupposedtoProceed) {
             input = input.substring(1);
@@ -81,8 +105,7 @@ public class Commands {
         boolean isSupposedtoProceed = input.startsWith("!");
 
         if (!isExistingTask) {
-            List<Task> repeatedTasks = taskList.findMatchingTasks(input);
-            ui.printRepeatedTasks(repeatedTasks);
+            taskRepeated(input);
             taskList.tempStoreTask("deadline " + "!" + input + " /by" + dueBy);
         } else if (isSupposedtoProceed) {
             input = input.substring(1);
@@ -110,8 +133,7 @@ public class Commands {
         boolean isSupposedtoProceed = input.startsWith("!");
 
         if (!isExistingTask) {
-            List<Task> repeatedTasks = taskList.findMatchingTasks(input);
-            ui.printRepeatedTasks(repeatedTasks);
+            taskRepeated(input);
             taskList.tempStoreTask("event " + "!"
                     + input + " /from" + from + " /to" + to);
         } else if (isSupposedtoProceed) {
@@ -122,19 +144,6 @@ public class Commands {
             Task task = new Event(input, from, to);
             generalAddTasks(task);
         }
-    }
-
-    /**
-     * Adds a task to the task list, saves it to storage and prints tasks details.
-     *
-     * @param task The task to be added.
-     */
-    public void generalAddTasks(Task task) {
-        assert task != null : "Task cannot be null";
-
-        taskList.addTask(task);
-        storage.saveTasksToFile(taskList);
-        ui.printAddTask(task, taskList.getTaskCount());
     }
 
     /**
@@ -154,8 +163,10 @@ public class Commands {
      * Marks a task as done in the task list and saves it to storage.
      *
      * @param taskNumber The index of the task to be marked.
+     * @throws MyBotExceptions If a specified task number does not exist,
+     *     throws the NoSuchTaskException
      */
-    public void markTask(int taskNumber) {
+    public void markTask(int taskNumber) throws MyBotExceptions {
         try {
             assert taskNumber > 0 : "Task number must be greater than 0";
             assert taskList.getTask(taskNumber) != null : "Task does not exist";
@@ -169,7 +180,7 @@ public class Commands {
                 storage.saveTasksToFile(taskList);
                 ui.printMarkTask(taskTobeMarked);
             } else {
-                throw new MyBotExceptions.NoSuchTaskException();
+                throw new NoSuchTaskException();
             }
         } catch (MyBotExceptions e) {
             ui.printException(e);
@@ -180,8 +191,10 @@ public class Commands {
      * Unmarks a task as not sone in task list and saves it to storage
      *
      * @param taskNumber The index of the task to be marked.
+     * @throws MyBotExceptions If a specified task number does not exist,
+     *      *     throws the NoSuchTaskException
      */
-    public void unmarkTask(int taskNumber) {
+    public void unmarkTask(int taskNumber) throws MyBotExceptions {
         try {
             assert taskNumber > 0 : "Task number must be greater than 0";
             assert taskList.getTask(taskNumber) != null : "Task does not exist";
@@ -195,7 +208,7 @@ public class Commands {
                 storage.saveTasksToFile(taskList);
                 ui.printUnmarkTask(taskTobeMarked);
             } else {
-                throw new MyBotExceptions.NoSuchTaskException();
+                throw new NoSuchTaskException();
             }
         } catch (MyBotExceptions e) {
             System.out.println(e.getMessage());
@@ -206,6 +219,8 @@ public class Commands {
      * Removes a task from the task list and saves the updated list to storage.
      *
      * @param taskNumber The index of the task to be removed.
+     * @throws MyBotExceptions If a specified task number does not exist,
+     *      throws the NoSuchTaskException
      */
     public void removeTask(int taskNumber) {
 
@@ -221,7 +236,7 @@ public class Commands {
                 storage.saveTasksToFile(taskList);
                 ui.printRemoveTask(taskToBeRemoved, taskList);
             } else {
-                throw new MyBotExceptions.InvalidTaskException();
+                throw new NoSuchTaskException();
             }
         } catch (MyBotExceptions e) {
             ui.printException(e);
