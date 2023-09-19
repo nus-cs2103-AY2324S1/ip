@@ -1,7 +1,55 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+ ---------------------------------------------
+    hi, it's kiera.
+    what do you need?
+   ---------------------------------------------
+   ---------------------------------------------
+    alright, one more task has been added:
+      [T][ ] borrow book
+    1 more task to go!
+   ---------------------------------------------
+   ---------------------------------------------
+    alright, one more task has been added:
+      [D][ ] return book  (by: Sunday)
+    2 more tasks to go!
+   ---------------------------------------------
+   ---------------------------------------------
+    alright, one more task has been added:
+      [E][ ] project meeting  (from Mon 2pm  - 4pm)
+    3 more tasks to go!
+   ---------------------------------------------
+   ---------------------------------------------
+    you need to get these done today:
+    1. [T][ ] borrow book
+    2. [D][ ] return book  (by: Sunday)
+    3. [E][ ] project meeting  (from Mon 2pm  - 4pm)
+   ---------------------------------------------
+   ---------------------------------------------
+    yay, one task down:
+     [D][X] return book  (by: Sunday)
+   ---------------------------------------------
+   ---------------------------------------------
+    you need to get these done today:
+    1. [T][ ] borrow book
+    2. [D][X] return book  (by: Sunday)
+    3. [E][ ] project meeting  (from Mon 2pm  - 4pm)
+   ---------------------------------------------
+   ---------------------------------------------
+    ok, this task is not done yet:
+     [D][ ] return book  (by: Sunday)
+   ---------------------------------------------
+   ---------------------------------------------
+    you need to get these done today:
+    1. [T][ ] borrow book
+    2. [D][ ] return book  (by: Sunday)
+    3. [E][ ] project meeting  (from Mon 2pm  - 4pm)
+   ---------------------------------------------
+   ---------------------------------------------
+    alright, this task is gone:
+      [D][ ] return book  (by: Sunday)
+    2 more tasks left!
+   ---------------------------------------------
+   ---------------------------------------------
+    you need to get these done today:
+    1. [T][ ] borrow book
+    2. [E][ ] project meeting  (from Mon 2pm  - 4pm)
+   ---------------------------------------------
