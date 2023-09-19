@@ -5,7 +5,6 @@ import java.util.Objects;
 import duke.Duke;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -51,7 +50,16 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the Duke instance for this window.
+     * <p>
+     * Assumes that the provided Duke instance is not null.
+     * </p>
+     *
+     * @param duke The Duke instance.
+     */
     public void setDuke(Duke duke) {
+        assert duke != null : "Duke instance should not be null.";
         this.duke = duke;
     }
 

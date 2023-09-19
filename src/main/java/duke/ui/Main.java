@@ -70,4 +70,3 @@ public class Main extends Application {
         stage.getIcons().add(new Image(iconPath));
     }
 }
-

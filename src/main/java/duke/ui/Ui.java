@@ -29,9 +29,18 @@ public class Ui {
     }
 
     /**
-     * Constructor with custom values for length and space.
+     * Constructor that sets the horizontal line length and indent space.
+     * <p>
+     * Assumes that the horizontal line length and indent space are non-negative values.
+     * </p>
+     *
+     * @param horizontalLineLength Length of the horizontal bar.
+     * @param indentSpace Space used for indentation.
      */
     public Ui(int horizontalLineLength, int indentSpace) {
+        assert horizontalLineLength >= 0 : "Horizontal line length should be non-negative.";
+        assert indentSpace >= 0 : "Indent space should be non-negative.";
+
         this.horizontalLineLength = horizontalLineLength;
         this.indentSpace = indentSpace;
     }
@@ -66,9 +75,14 @@ public class Ui {
 
     /**
      * Appends a string to the current response.
+     * <p>
+     * Assumes the provided response string is not null.
+     * </p>
+     *
      * @param response The string to append.
      */
     public void addToResponse(String response) {
+        assert response != null : "Response string should not be null.";
         this.response.append(response);
     }
 

@@ -28,7 +28,7 @@ public class ErrorMessages {
     public static final String UNRECOGNIZED_ERROR = "Sorry, I'm not sure about that command. Type \"help\" for available commands.";
     public static final String ADD_TASKS = "Consider adding more tasks.";
     public static final String INVALID_HELP_COMMAND_ERROR = "Oops! That's not a recognized help command. You can try:\n"
-            + "- help\n- help date\n- help time\n- help duration";
+            + "- help\n- help date\n- help time";
     public static final String FILEIO_ERROR = "OOPS!!! Errors in handling the file ...\n";
 }
 
