@@ -37,7 +37,7 @@ public class EventCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) {
         try {
-            taskList.addTask(Parser.parseStringToTask(userInput, "event"));
+            taskList.addTask(Parser.parseInputToTask(userInput, "event"));
             storage.updateStorage(taskList);
             return ui.addTaskReply(userInput, taskList);
         } catch (InvalidDescriptionException e) {
