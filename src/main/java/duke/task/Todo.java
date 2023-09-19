@@ -7,7 +7,6 @@ import duke.Task;
  * A Todo task contains a description of the task to be done.
  */
 public class Todo extends Task {
-
     /**
      * Constructs a Todo task with the specified description.
      *
@@ -26,5 +25,15 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + "[" + getStatusIcon() + "]" + " " + description;
+    }
+
+    /**
+     * Converts the Todo task to a formatted string for storage in a file.
+     *
+     * @return A string representing the Event task in the format suitable for storage.
+     */
+    public String toFileString() {
+        String statusIcon = (isDone ? "1" : "0");
+        return "T " + "| " + statusIcon + " | " + getDescription() + "\n";
     }
 }

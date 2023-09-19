@@ -99,7 +99,7 @@ public class AddCommand extends Command {
                 newTask = new Event(taskDescription, parsedFromDate, parsedToDate);
                 break;
             default:
-                newTask = new Task(taskDescription, Task.Type.OTHERS);
+                throw new IllegalArgumentException("Unsupported task type: " + taskType);
             }
             taskList.addTask(newTask);
             storage.saveTasks(taskList.getAllTasks()); // Save the updated task list

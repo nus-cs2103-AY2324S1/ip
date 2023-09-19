@@ -1,4 +1,5 @@
 package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,20 +20,28 @@ public class DeadlineParser {
      * @throws DukeException.DeadlineException       If there is an issue creating the deadline task.
      */
     public static AddCommand parseDeadlineCommand(String input) throws DukeException {
+
+        // Solution below adapted and inspired by https://chat.openai.com/share/b706b4df-ab30-4d0f-93eb-b85617616319
+        if (input.isEmpty()) {
+            throw new DukeException.DeadlineException();
+        }
+
         // Split the input and perform parsing here
-        String userCommandD = input.split(" ")[0];
-        String argsD = input.replaceFirst(userCommandD, "").trim();
-        String[] splitTheArgumentsD = argsD.split("/by", 2);
+        String[] splitTheArgumentsD = input.split("/by", 2);
 
         if (splitTheArgumentsD.length != 2) {
             throw new DukeException.DeadlineFormatException();
         }
 
-        String theDescriptionD = splitTheArgumentsD[0];
+        String theDescriptionD = splitTheArgumentsD[0].trim();
         String[] theDateTimeD = splitTheArgumentsD[1].trim().split(" ", 2);
 
         String date = theDateTimeD[0];
         String time = theDateTimeD[1];
+
+        System.out.println(theDescriptionD);
+        System.out.println(date);
+        System.out.println(time);
 
         DateTimeValidator validator = new DateTimeValidator("dd/MM/yyyy HHmm");
         boolean isDateValid = validator.validateDate(date + " " + time);

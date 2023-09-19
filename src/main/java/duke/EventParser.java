@@ -1,4 +1,5 @@
 package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,13 +20,17 @@ public class EventParser {
      * @throws DukeException.EventException       If there is an issue creating the event task.
      */
     public static AddCommand parseEventCommand(String input) throws DukeException {
-        String userCommandE = input.split(" ")[0];
-        String argsE = input.replaceFirst(userCommandE, "").trim();
-        String[] splitTheArgumentsE = argsE.split("/from", 2);
+
+        if (input.isEmpty() || !input.contains("/from")) {
+            throw new DukeException.EventException();
+        }
+
+        String[] splitTheArgumentsE = input.split("/from", 2);
 
         if (splitTheArgumentsE.length != 2 || !splitTheArgumentsE[1].contains("/to")) {
             throw new DukeException.EventFormatException();
         }
+
         String theDescriptionE = splitTheArgumentsE[0].trim();
         String[] theDateTimeE = splitTheArgumentsE[1].trim().split("/to", 2);
 

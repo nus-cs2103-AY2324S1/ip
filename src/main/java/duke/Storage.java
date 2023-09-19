@@ -18,9 +18,6 @@ import duke.task.Todo;
  */
 public class Storage {
     private static String filePath = "./data/duke.txt";
-    private static final String EVENT_TASK = "Event";
-    private static final String DEADLINE_TASK = "Deadline";
-    private static final String TODO_TASK = "Todo";
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -40,39 +37,9 @@ public class Storage {
      * @param tasks The list of tasks to be saved.
      */
     public static void saveTasks(ArrayList<Task> tasks) {
-
         try (FileWriter writer = new FileWriter(filePath)) {
-
             for (Task task : tasks) {
-                String taskType = "";
-                if (task instanceof Event) {
-                    taskType = EVENT_TASK;
-                } else if (task instanceof Todo) {
-                    taskType = TODO_TASK;
-                } else if (task instanceof Deadline) {
-                    taskType = DEADLINE_TASK;
-                }
-
-                String statusIcon = (task.getStatusIcon().equals("X")) ? "1" : "0";
-
-                if (taskType.equals("Event")) {
-                    Event event = (Event) task;
-                    LocalDateTime fromDateTime = event.fromDateAndTime();
-                    LocalDateTime toDateTime = event.toDateAndTime();
-                    String formattedFromDateTime = fromDateTime.format(DateTimeFormatter.ofPattern("MMMM d yyyy ha"));
-                    String formattedToDateTime = toDateTime.format(DateTimeFormatter.ofPattern("MMMM d yyyy ha"));
-                    writer.write("E " + "| " + statusIcon + " | " + event.description
-                        + " | " + formattedFromDateTime + " - " + formattedToDateTime + "\n");
-                } else if (taskType.equals("Deadline")) {
-                    Deadline deadline = (Deadline) task;
-                    LocalDateTime dateTime = deadline.getDateAndTime();
-                    String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
-                    writer.write("D " + "| " + statusIcon + " | " + deadline.description
-                        + " | " + formattedDateTime + "\n");
-                } else if (taskType.equals("Todo")) {
-                    Todo todo = (Todo) task;
-                    writer.write("T " + "| " + statusIcon + " | " + todo.description + "\n");
-                }
+                writer.write(task.toFileString());
             }
         } catch (IOException e) {
             System.out.println("Error writing to: " + filePath);
@@ -93,76 +60,99 @@ public class Storage {
     static ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        try {
-            File file = new File(filePath);
-            assert file.exists() : "File does not exist: " + filePath;
-            if (!file.exists()) {
-                // Handling data file to be in a specific folder
-                if (file.getParentFile() != null) {
-                    // Solution below adapted from
-                    // https://www.oreilly.com/library/view/java-cookbook/0596001703/ch10s10.html#:~:
-                    // text=Of%20the%20two%20methods%20used,%2Fian%2Fbin%22).
-                    file.getParentFile().mkdirs();
-                }
-                file.createNewFile();
-            } else {
-                BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        File file = getFileOrCreate();
+        if (file != null) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String dataToWrite;
                 while ((dataToWrite = reader.readLine()) != null) {
                     System.out.println(dataToWrite); // Debug line
-
-
-                    String[] sections = dataToWrite.split(" \\| ");
-                    if (sections.length >= 3) {
-                        String taskType = sections[0];
-                        String taskStatus = sections[1];
-                        String taskDescription = sections[2];
-                        String taskOtherInfo = sections.length > 3 ? sections[3] : "";
-
-                        // declares variable of type Task and initialize with null value
-                        Task task = null;
-                        boolean isDone = taskStatus.equals("1");
-
-                        switch (taskType) {
-
-                        case "E":
-                            String[] eventParts = taskOtherInfo.trim().split("-");
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy ha");
-                            LocalDateTime parsedFromStartDateTime = LocalDateTime.parse(eventParts[0].trim(),
-                                formatter);
-                            LocalDateTime parsedFromEndDateTime = LocalDateTime.parse(eventParts[1].trim(),
-                                formatter);
-                            if (eventParts.length == 2) {
-                                task = new Event(taskDescription, parsedFromStartDateTime, parsedFromEndDateTime);
-                            }
-                            break;
-                        case "D":
-                            DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
-                            LocalDateTime dateTimeD = LocalDateTime.parse(taskOtherInfo, formatterD);
-                            task = new Deadline(taskDescription, dateTimeD);
-                            break;
-                        case "T":
-                            task = new Todo(taskDescription);
-                            break;
-                        default:
-                            task = new Task(taskDescription, Task.Type.OTHERS);
-                        }
-
-                        if (task != null) {
-                            if (isDone) {
-                                task.markAsDone();
-                            } else {
-                                task.markAsNotDone();
-                            }
-                            tasks.add(task);
-                        }
-                    }
+                    parseAndAddTask(dataToWrite, tasks);
                 }
-                reader.close();
+            } catch (IOException e) {
+                System.out.println("Error reading from: " + filePath);
             }
-        } catch (IOException e) {
-            System.out.println("Error reading from: " + filePath);
         }
         return tasks;
+    }
+
+    private static File getFileOrCreate() throws IOException {
+        File file = new File(filePath);
+        assert file.exists() : "File does not exist: " + filePath;
+
+        if (!file.exists()) {
+            createFileAndDirectories(file);
+        }
+
+        return file;
+    }
+
+    private static void createFileAndDirectories(File file) throws IOException {
+        if (file.getParentFile() != null) {
+            // Solution below adapted from
+            // https://www.oreilly.com/library/view/java-cookbook/0596001703/ch10s10.html#:~:
+            // text=Of%20the%20two%20methods%20used,%2Fian%2Fbin%22).
+            file.getParentFile().mkdirs();
+        }
+        file.createNewFile();
+    }
+
+    private static void parseAndAddTask(String dataToWrite, ArrayList<Task> tasks) {
+        String[] sections = dataToWrite.split(" \\| ");
+
+        if (sections.length >= 3) {
+            String taskType = sections[0];
+            String taskStatus = sections[1];
+            String taskDescription = sections[2];
+            String taskOtherInfo = sections.length > 3 ? sections[3] : "";
+
+            Task task = createTask(taskType, taskDescription, taskOtherInfo);
+            boolean isDone = taskStatus.equals("1");
+
+            if (task != null) {
+                if (isDone) {
+                    task.markAsDone();
+                } else {
+                    task.markAsNotDone();
+                }
+                tasks.add(task);
+            }
+        }
+    }
+
+    private static Task createTask(String taskType, String taskDescription, String taskOtherInfo) {
+        Task task = null;
+
+        switch (taskType) {
+        case "E":
+            task = createEventTask(taskDescription, taskOtherInfo);
+            break;
+        case "D":
+            task = createDeadlineTask(taskDescription, taskOtherInfo);
+            break;
+        case "T":
+            task = createTodoTask(taskDescription);
+            break;
+        default:
+            throw new IllegalArgumentException("Unsupported task type: " + taskType);
+        }
+        return task;
+    }
+
+    private static Task createEventTask(String taskDescription, String taskOtherInfo) {
+        String[] eventParts = taskOtherInfo.trim().split("-");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy ha");
+        LocalDateTime parsedFromStartDateTime = LocalDateTime.parse(eventParts[0].trim(), formatter);
+        LocalDateTime parsedToDateTime = LocalDateTime.parse(eventParts[1].trim(), formatter);
+        return new Event(taskDescription, parsedFromStartDateTime, parsedToDateTime);
+    }
+
+    private static Task createDeadlineTask(String taskDescription, String taskOtherInfo) {
+        DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
+        LocalDateTime dateTimeD = LocalDateTime.parse(taskOtherInfo, formatterD);
+        return new Deadline(taskDescription, dateTimeD);
+    }
+
+    private static Task createTodoTask(String taskDescription) {
+        return new Todo(taskDescription);
     }
 }

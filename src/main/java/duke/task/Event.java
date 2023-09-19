@@ -41,21 +41,20 @@ public class Event extends Task {
             + " to: " + toDateAndTime.format(formatter) + ")";
     }
 
-    /**
-     * Gets the event start date and time associated with this object.
-     *
-     * @return The date and time as a LocalDateTime object.
-     */
-    public LocalDateTime fromDateAndTime() {
-        return this.fromDateAndTime;
-    }
+    // Solution adapted and inspired from https://chat.openai.com/share/954ddc6e-dc2b-4f78-a9af-69f865aeff12
 
     /**
-     * Gets the event end date and time associated with this object.
+     * Converts the Event task to a formatted string for storage in a file.
      *
-     * @return The date and time as a LocalDateTime object.
+     * @return A string representing the Event task in the format suitable for storage.
      */
-    public LocalDateTime toDateAndTime() {
-        return this.toDateAndTime;
+
+    @Override
+    public String toFileString() {
+        String statusIcon = (isDone ? "1" : "0");
+        String formattedFromDateTime = fromDateAndTime.format(DateTimeFormatter.ofPattern("MMMM d yyyy ha"));
+        String formattedToDateTime = toDateAndTime.format(DateTimeFormatter.ofPattern("MMMM d yyyy ha"));
+        return "E " + "| " + statusIcon + " | " + getDescription() + " | " + formattedFromDateTime + " - "
+            + formattedToDateTime + "\n";
     }
 }

@@ -43,7 +43,7 @@ public class Ui {
      * @param remainingNumberTasks The number of tasks remaining in the list.
      */
     public String displayDeleteTask(Task deletedTask, int remainingNumberTasks) {
-        return SEPARATORS + "\n" + "Noted. I've removed this task:" + "\n" + deletedTask.toString() + "\n"
+        return SEPARATORS + "\n" + "Noted. I've removed this task:" + "\n" + deletedTask + "\n"
             + "Now you have " + remainingNumberTasks + " tasks in the list." + SEPARATORS;
     }
 
@@ -54,7 +54,7 @@ public class Ui {
      * @param newNumber The new total number of tasks in the list.
      */
     public String displayAddedTask(Task newTask, int newNumber) {
-        return SEPARATORS + "\n" + "Got it. I've added this task:" + "\n" + newTask.toString() + "\n"
+        return SEPARATORS + "\n" + "Got it. I've added this task:" + "\n" + newTask + "\n"
             + "Now you have " + newNumber + " tasks in the list." + SEPARATORS;
     }
 

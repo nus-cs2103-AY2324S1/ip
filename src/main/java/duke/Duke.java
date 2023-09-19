@@ -51,6 +51,7 @@ public class Duke {
         try {
             tasks = storage.loadTasks(); // Load tasks from file
             taskList.setTasks(tasks);
+            ui.displayWelcomeText();
         } catch (IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }

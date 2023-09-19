@@ -3,8 +3,7 @@ package duke;
 /**
  * Represents a task in the Duke application.
  */
-public class Task {
-
+public abstract class Task {
     /**
      * The type of the task (e.g., TODO, DEADLINE, EVENT).
      */
@@ -67,7 +66,7 @@ public class Task {
 
     /**
      * Gets the description of the task.
-     *
+     * <p>
      * This method returns the description of the task as a String.
      *
      * @return The description of the task as a String.
@@ -79,4 +78,7 @@ public class Task {
     public Type getTaskType() {
         return this.taskType;
     }
+
+    public abstract String toFileString();
 }
+

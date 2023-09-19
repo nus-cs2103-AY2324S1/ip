@@ -1,6 +1,4 @@
-E | 0 | project | September 12 2023 3pm - December 22 2023 3pm
-T | 0 | hello
-T | 1 | cool
-T | 0 | tuna bread
-T | 0 | food
-T | 0 | tuna food
+D | 1 | testing hello ok | 12 Dec 2023 3:00pm
+T | 0 | drink water
+E | 0 | switch | December 22 2023 3pm - December 23 2023 5pm
+E | 0 |  | December 22 2023 3pm - December 23 2023 5pm

@@ -37,12 +37,15 @@ public class Deadline extends Task {
     }
 
     /**
-     * Gets the date and time associated with this object.
+     * Converts the Deadline task to a formatted string for storage in a file.
      *
-     * @return The date and time as a LocalDateTime object.
+     * @return A string representing the Event task in the format suitable for storage.
      */
-    public LocalDateTime getDateAndTime() {
-        return this.dateAndTime;
+    @Override
+    public String toFileString() {
+        String statusIcon = (isDone ? "1" : "0");
+        String formattedDateTime = dateAndTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mma"));
+        return "D " + "| " + statusIcon + " | " + getDescription() + " | " + formattedDateTime + "\n";
     }
 }
 
