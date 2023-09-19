@@ -31,7 +31,7 @@ public class Parser {
             response = ui.showGoodbyeMessage();
             System.out.println(response);
         } else if (userMessage.toLowerCase().equals("list")) {
-            response = ui.showTaskList();
+            response = ui.showTaskList(taskList.getList());
             System.out.println(response);
         } else if (userMessage.startsWith("mark") && isInteger(userMessage.substring(5))) {
             String toMark = userMessage.substring(5);
@@ -60,6 +60,7 @@ public class Parser {
                     String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
                     Deadline d = new Deadline(deadlineDescription, deadlineBy);
                     list.add(d);
+                    taskList.addTask(d, storage, file);
                     response = ui.showAddedDeadline(d);
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input!");
@@ -76,6 +77,7 @@ public class Parser {
                     }
                     Todo td = new Todo(userMessage.substring(5));
                     list.add(td);
+                    taskList.addTask(td, storage, file);
                     response = ui.showAddedTodo(td);
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input! " + e.getMessage() + ".");
@@ -96,6 +98,7 @@ public class Parser {
                     String eventFrom = eventSplit[2].substring(3);
                     Event e = new Event(eventDescription, eventTo, eventFrom);
                     list.add(e);
+                    taskList.addTask(e, storage, file);
                     response = ui.showAddedEvent(e);
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input!");
@@ -103,6 +106,7 @@ public class Parser {
             } else if (userMessage.startsWith("delete") && isInteger(userMessage.substring(7))) {
                 response = ui.showDeleted(userMessage);
                 list.remove((Integer.parseInt(userMessage.substring(7))) - 1);
+                taskList.deleteTask(((Integer.parseInt(userMessage.substring(7))) - 1), storage, file);
                 try {
                     storage.writeToFile(file, taskList.convertToString(list));
                 } catch (IOException e) {
