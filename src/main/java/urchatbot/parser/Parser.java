@@ -43,13 +43,13 @@ public class Parser {
         case "LIST":
             return parseListCommand(command);
         case "MARK":
-            return parseMarkCommand(command);
+            return parseNumericCommand(command, "MARK");
         case "UNMARK":
-            return parseUnmarkCommand(command);
+            return parseNumericCommand(command, "UNMARK");
         case "CLEAR":
             return parseClearCommand(command);
         case "DELETE":
-            return parseDeleteCommand(command);
+            return parseNumericCommand(command, "DELETE");
         case "PRINT":
             return parsePrintCommand(command);
         case "FIND":
@@ -88,68 +88,47 @@ public class Parser {
         }
     }
 
-
     private static String getCommandType(String command) {
         return command.split("\\s")[0].toUpperCase();
     }
 
     private static Command parseTodoCommand(String command) throws URChatBotException {
-        if (command.length() <= 5) {
-            throw new URChatBotException("OOPS!!! The description of a todo cannot be empty.");
-        }
-        String task = command.substring(command.indexOf("todo") + 5);
+        validateCommandNotEmpty(command, 4);
+        String task = extractTask(command, "todo");
         return new TodoCommand(task);
     }
     private static Command parseDeadlineCommand(String command) throws URChatBotException {
-        if (command.length() <= 5) {
-            throw new URChatBotException("OOPS!!! The description of a deadline cannot be empty.");
-        }
-        if (!command.contains("/by")
-                || command.substring(command.indexOf("deadline") + 9, command.indexOf("/by")).trim().length() < 1
-                || command.substring(command.indexOf("/by") + 3).trim().length() < 1) {
-            throw new URChatBotException("OOPS!!! The deadline cannot be empty.");
-        }
-        String task = command.substring(command.indexOf("deadline") + 9, command.indexOf("/by") - 1);
-        String by = command.substring(command.indexOf("/by") + 4).trim();
-        String time = changeTimeFormat(by);
-        if (time == null) {
-            throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'");
-        }
+        validateCommandNotEmpty(command, 8);
+        validateKeywordsExistenceForDeadline(command);
+
+        String task = extractTask(command, "deadline", "/by");
+        String by = extractField(command, "/by");
+        String time = validateAndChangeTimeFormat(by);
+
         return new DeadlineCommand(task, time);
     }
+
     private static Command parseEventCommand(String command) throws URChatBotException {
+        validateCommandNotEmpty(command, 5);
+        validateKeywordsExistenceForEvent(command);
 
-        if (command.trim().length() <= 5) {
-            throw new URChatBotException("OOPS!!! The description of a event cannot be empty.");
-        }
-        if (!command.contains("/from") || !command.contains("/to")
-                || command.substring(command.indexOf("event") + 6, command.indexOf("/from")).trim().length() < 1
-                || command.substring(command.indexOf("/from") + 5, command.indexOf("/to") - 1).trim().length() < 1
-                || command.substring(command.indexOf("/to") + 3).trim().length() < 1) {
-            throw new URChatBotException("OOPS!!! The task name or/and from or/and to cannot be empty.");
-        }
+        String task = extractTask(command, "event", "/from");
+        String from = extractField(command, "/from", "/to");
+        String to = extractField(command, "/to");
 
-        String task = command.substring(command.indexOf("event") + 6, command.indexOf("/from") - 1);
-        String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to") - 1).trim();
-        String to = command.substring(command.indexOf("/to") + 4).trim();
-        String timeFrom = changeTimeFormat(from);
-        String timeTo = changeTimeFormat(to);
-        if (timeFrom == null || timeTo == null) {
-            throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'");
-        }
+        validateFieldsNotEmpty(task, from, to);
+
+        String timeFrom = validateAndChangeTimeFormat(from);
+        String timeTo = validateAndChangeTimeFormat(to);
+
+        LocalDateTime dateTimeFrom = parseDateTime(from);
+        LocalDateTime dateTimeTo = parseDateTime(to);
+
+        validateDateRange(dateTimeFrom, dateTimeTo);
+
         return new EventCommand(task, timeFrom, timeTo);
     }
-    private static Command parseMarkCommand(String command) {
-        assert !command.isBlank(): "Command should not be blank!";
-        int value = Integer.parseInt(command.replaceAll("[^0-9]", "")) - 1;
-        return new MarkCommand(value);
-    }
-
-    private static Command parseUnmarkCommand(String command) {
-        assert !command.isBlank(): "Command should not be blank!";
-        int value = Integer.parseInt(command.replaceAll("[^0-9]", "")) - 1;
-        return new UnmarkCommand(value);
-    }
+  
     private static Command parseClearCommand(String command) {
         assert !command.isBlank(): "Command should not be blank!";
         return new ClearCommand(command);
@@ -158,15 +137,37 @@ public class Parser {
         assert !command.isBlank(): "Command should not be blank!";
         return new ListCommand(command);
     }
-    private static Command parseDeleteCommand(String command) {
-        assert !command.isBlank(): "Command should not be blank!";
-        int value = Integer.parseInt(command.replaceAll("[^0-9]", "")) - 1;
-        assert value > -1: "Task number should be more than -1!";
-        return new DeleteCommand(value);
+
+    private static Command parseNumericCommand(String command, String commandName) throws URChatBotException {
+        int value;
+        try {
+            value = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+            assert value > -1: "Task number should be more than -1!";
+        } catch (NumberFormatException e) {
+            throw new URChatBotException("OOPS!!! Please provide a valid numeric value for the " + commandName + " command.");
+        }
+
+        if (value <= 0) {
+            throw new URChatBotException("OOPS!!! The numeric value for the " + commandName + " command must be greater than zero.");
+        }
+
+        switch (commandName) {
+        case "MARK":
+            return new MarkCommand(value - 1);
+        case "UNMARK":
+            return new UnmarkCommand(value - 1);
+        case "DELETE":
+            return new DeleteCommand(value - 1);
+        default:
+            throw new URChatBotException("OOPS!!! Invalid command: " + commandName);
+        }
     }
+
     private static Command parsePrintCommand(String command) throws URChatBotException {
         assert !command.isBlank(): "Command should not be blank!";
-        String date = command.substring(command.indexOf("print") + 6).trim();
+
+        String date = extractTask(command, "print");
+
         String formattedDate = changeTimeFormat(date);
         if (formattedDate == null) {
             throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'.");
@@ -174,7 +175,7 @@ public class Parser {
         return new PrintCommand(formattedDate);
     }
     private static Command parseFindCommand(String command) throws URChatBotException {
-        String searchWord = command.substring(command.indexOf("find") + 5).trim();
+        String searchWord = extractTask(command, "find");
         if (searchWord == null) {
             throw new URChatBotException("No words input for searching.");
         }
@@ -183,4 +184,90 @@ public class Parser {
     private static Command parseExitCommand(String command) {
         return new ExitCommand(command);
     }
+    private static void validateCommandNotEmpty(String command, int minLength) throws URChatBotException {
+        if (command.trim().length() <= minLength) {
+            throw new URChatBotException("OOPS!!! The description cannot be empty.");
+        }
+    }
+
+    private static void validateKeywordsExistenceForEvent(String command) throws URChatBotException {
+        if (!command.contains("/from") || !command.contains("/to")) {
+            throw new URChatBotException("OOPS!!! The /from or /to keywords are missing in the command.");
+        }
+    }
+    private static void validateKeywordsExistenceForDeadline(String command) throws URChatBotException {
+        if (!command.contains("/by")) {
+            throw new URChatBotException("OOPS!!! The /by keywords are missing in the command.");
+        }
+    }
+    private static void validateFieldsNotEmpty(String task, String from, String to) throws URChatBotException {
+        if (task.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new URChatBotException("OOPS!!! The task name, from, and to fields cannot be empty.");
+        }
+    }
+
+    private static LocalDateTime parseDateTime(String time) {
+        try {
+            // Attempt to parse with both date-time and date-only formats
+            DateTimeFormatter formatterWithTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatterDateOnly = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            try {
+                LocalDateTime dateTimeWithTime = LocalDateTime.parse(time, formatterWithTime);
+                return dateTimeWithTime;
+            } catch (DateTimeParseException e) {
+                try {
+                    // Try parsing without the date part for the "HH:mm" format
+                    LocalTime timeOnly = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+                    // Get the current date and combine it with the parsed time
+                    LocalDate currentDate = LocalDate.now();
+                    // Check if the timeOnly is earlier than the current time; if yes, assume it's for the next day
+                    if (timeOnly.isBefore(LocalTime.now())) {
+                        currentDate = currentDate.plusDays(1);
+                    }
+                    return LocalDateTime.of(currentDate, timeOnly);
+                } catch (DateTimeParseException ex) {
+                    LocalDate dateOnly = LocalDate.parse(time, formatterDateOnly);
+                    // Set the time part to midnight (00:00) for date-only input
+                    return dateOnly.atStartOfDay();
+                }
+            }
+        } catch (DateTimeParseException e) {
+            return null; // Invalid format
+        }
+    }
+
+    private static String extractTask(String command, String keyword) {
+        return command.substring(command.indexOf(keyword) + keyword.length()).trim();
+    }
+    private static String extractTask(String command, String commandType, String keyword) {
+        int startIndex = command.indexOf(commandType) + keyword.length();
+        int endIndex = command.indexOf(keyword);
+        return command.substring(startIndex, endIndex).trim();
+    }
+
+    private static String extractField(String command, String fieldName) {
+        return command.substring(command.indexOf(fieldName) + fieldName.length()).trim();
+    }
+
+    private static String extractField(String command, String fieldName1, String fieldName2) {
+        int startIndex = command.indexOf(fieldName1) + fieldName1.length();
+        int endIndex = command.indexOf(fieldName2);
+        return command.substring(startIndex, endIndex).trim();
+    }
+
+    private static String validateAndChangeTimeFormat(String time) throws URChatBotException {
+        String formattedTime = changeTimeFormat(time);
+        if (formattedTime == null) {
+            throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'.");
+        }
+        return formattedTime;
+    }
+
+    private static void validateDateRange(LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo) throws URChatBotException {
+        if (dateTimeFrom.isAfter(dateTimeTo)) {
+            throw new URChatBotException("OOPS!!! The /from date must be before the /to date.");
+        }
+    }
+
 }
