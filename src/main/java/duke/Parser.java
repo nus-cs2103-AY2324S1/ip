@@ -79,36 +79,44 @@ public class Parser {
 
     public static ArrayList<String> filterDetails(String[] updateDetails) throws DukeException {
         String description = "";
-        int counter = 0;
+        String firstDate = "";
+        String secondDate = "";
+        int i = 1;
         ArrayList<String> filteredDetails = new ArrayList<>();
         filteredDetails.add(updateDetails[0]);
 
-        for (int i = 1; i < updateDetails.length; i++) {
+        while (i < updateDetails.length) {
             if (!updateDetails[i].startsWith("/by") 
-                || !updateDetails[i].startsWith("/from") 
-                || !updateDetails[i].startsWith("/to")) {
+                && !updateDetails[i].startsWith("/from") 
+                && !updateDetails[i].startsWith("/to")) {
                     description += updateDetails[i] + " ";
-                    counter++;
-                }
+                    i++;
+            } else if (updateDetails[i].startsWith("/by")) {
+                firstDate += updateDetails[i] + " " + updateDetails[i + 1] + " " + updateDetails[i + 2];
+                i += 3;
+            } else if (updateDetails[i].startsWith("/from")) {
+                firstDate += updateDetails[i] + " " + updateDetails[i + 1] + " " + updateDetails[i + 2];
+                i += 3;
+            } else if (updateDetails[i].startsWith("/to")) {
+                secondDate += updateDetails[i] + " " + updateDetails[i + 1] + " " + updateDetails[i + 2];
+                i += 3;
+            }
         }
         if (description != "") {
             filteredDetails.add(description.trim());
-            for (int j = 2; j < updateDetails.length; j++) {
-                if (j + counter < updateDetails.length) {
-                    filteredDetails.add(updateDetails[j + counter]);
-                }
-            }
-        } else {
-            for (int k = 1; k < updateDetails.length; k++) {
-                filteredDetails.add(updateDetails[k]);
-            }
+        }
+        if (firstDate != "") {
+            filteredDetails.add(firstDate);
+        }
+        if (secondDate != "") {
+            filteredDetails.add(secondDate);
         }
         return filteredDetails;
     }
 
     public static Command createUpdateCommandTwo(int index, ArrayList<String> filteredDetails) throws DukeException {
         if (filteredDetails.get(1).startsWith("/by")) {
-                String date = filteredDetails.get(1).replace("/by", "");
+                String date = filteredDetails.get(1).replace("/by ", "");
                 if (isDate(date)) {
                     LocalDateTime dueDate = parseDate(date);
                     return new UpdateCommand(index, dueDate, true);
@@ -193,7 +201,7 @@ public class Parser {
     private static LocalDateTime parseDate(String date) throws DukeException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            return LocalDateTime.parse(date, formatter);
+            return LocalDateTime.parse(date.trim(), formatter);
         } catch (DateTimeParseException e) {
             throw new DukeException("An error occurred while parsing date: " + e);
         }

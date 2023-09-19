@@ -148,7 +148,7 @@ public class UpdateCommand extends Command {
                         Command newCommand = new UpdateEventCommand(index, firstDate, secondDate);
                         newCommand.execute(taskList, ui, storage);
                     } else {
-                        Command newCommand = new UpdateCommand(index, firstDate, isFirst);
+                        Command newCommand = new UpdateEventCommand(index, firstDate, isFirst);
                         newCommand.execute(taskList, ui, storage);
                     }
                 }

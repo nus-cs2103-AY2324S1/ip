@@ -66,7 +66,7 @@ public class UpdateEventCommand extends UpdateCommand {
      * @param secondDate Second date to be updated with.
      */
     public UpdateEventCommand(int index, String description, LocalDateTime firstDate, LocalDateTime secondDate) {
-        super(index, description, firstDate, secondDate);
+        super(index + 1, description, firstDate, secondDate);
     }
     
     @Override
