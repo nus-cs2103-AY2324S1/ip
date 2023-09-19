@@ -37,14 +37,11 @@ public class Storage {
      * @throws DukeException If there is an error while loading tasks.
      */
     public Collection<Task> load() throws DukeException {
-        boolean directoryExistsWIn = new java.io.File(home + "\\Documents\\ip\\data").exists();
-        java.nio.file.Path path = java.nio.file.Paths.get(home,
-                "Desktop", "NUS", "Y2", "CS2103T", "ip", "data");
-        boolean directoryExistsMac = java.nio.file.Files.exists(path);
+        String projectRoot = System.getProperty("user.dir");
+        String dataFolderPath = projectRoot + File.separator + "data";
+        boolean directoryExists = new java.io.File(dataFolderPath).exists();
 
-        if (!directoryExistsWIn && !directoryExistsMac) {
-            String projectRoot = System.getProperty("user.dir");
-            String dataFolderPath = projectRoot + File.separator + "data";
+        if (!directoryExists) {
             File dataFolder = new File(dataFolderPath);
             dataFolder.mkdir();
         }
