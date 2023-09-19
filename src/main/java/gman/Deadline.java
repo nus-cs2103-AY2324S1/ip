@@ -1,6 +1,7 @@
 package gman;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -9,8 +10,9 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task{
 
     protected String by;
-    protected DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
-    protected DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private LocalDate deadline = null;
+    protected DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+    protected DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
     /**
@@ -19,11 +21,12 @@ public class Deadline extends Task{
      * @param s String that is in the specified inputFormat, represents a date and time.
      * @return String of date and time to be printed to the user.
      */
+    /*
     public String getDateTime(String s) {
         LocalDateTime localDateTime = LocalDateTime.parse(s, inputFormat);
         String dateTime = localDateTime.format(outputFormat);
         return dateTime;
-    }
+    } */
 
     /**
      * A Deadline task constructor.
@@ -33,6 +36,7 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String by) {
         super(description);
+        this.deadline = LocalDate.parse(by, inputFormat);
         this.by = by;
     }
 
@@ -44,7 +48,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.getStatusIcon() + description + " (by: " + getDateTime(by) + ")";
+        return "[D]" + super.getStatusIcon() + description + " (by: " + deadline.format(outputFormat) + ")";
     }
 
     /**

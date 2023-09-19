@@ -41,7 +41,6 @@ public class Task {
                 throw new GmanException("Haha nice going... This task is already done, bozo!");
             }
             isDone = true;
-            //assert isDone == false : "hi ur assert is working!";
             assert this.getStatusIcon() == "[X]" : "The status icon is wrong!";
         } catch (GmanException e) {
             System.out.println(e.getMessage());
