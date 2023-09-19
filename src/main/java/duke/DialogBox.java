@@ -37,7 +37,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-
+        dialog.setMaxWidth(300);
+        dialog.setWrapText(true);
 
         displayPicture.setImage(img);
         double width = displayPicture.getFitWidth();
@@ -57,7 +58,9 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setAlignment(Pos.TOP_RIGHT);
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
