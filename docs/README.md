@@ -15,7 +15,7 @@ and run the command `java -jar Duke.jar` in that directory.
 4. A GUI should appear in a few seconds, and our Duke agent will greet you.
 
 ![Screenshot of the GUI that the user should see when first 
-opening DukeBot](https://github.com/seraphimstreets/ip/dukeIntro.png)
+opening DukeBot](https://seraphimstreets.github.io/ip/dukeIntro.png)
 
 Note: A `data` folder will be created in that directory if it does not exist to store
 Duke-related data. 
@@ -100,6 +100,9 @@ Format: `find [substring]`.
 Example: `find EXCO` returns all entries with the substring "EXCO" 
 in their task description. 
 
+![Screenshot of the the user using the find command to find all tasks
+with a given substring](https://seraphimstreets.github.io/ip/findCommand.png)
+
 ### Setting a task's priority: `priority`
 Set a task's priority as either high (1) or normal (0). If it is set to high, 
 the task will be marked with a `[Priority:High]` box when listed, otherwise, it will
@@ -115,3 +118,6 @@ while `priority 3 0` sets the priority of the 3rd itme in the list as normal.
 ### Saving tasks
 All data is saved after any command that changes a task or the task list 
 has been successfully carried out. Manual saving is not needed.
+
+### Exiting the program: `bye`
+The command `bye` will prompt the program to exit and the GUI to close. 
