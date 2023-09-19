@@ -116,7 +116,7 @@ Format: `unmark INDEX`
 - Does not matter whether the task was un-marked or not previously; it just un-marks the task NOW
 
 Examples:
-- `unmark 1 ` returns [T][] test 1
+- `unmark 1` returns [T][] test 1
 
 #### <span id="feature-delete-anchor" style="color: orange;">Deleting a task: `delete`</span>
 Deletes the task at that specified index for the current list.
@@ -133,6 +133,7 @@ Examples:
 
 #### <span id="feature-find-anchor" style="color: orange;">Finding a task: `find`</span>
 Finds tasks whose description contain any of the given words.
+
 Format: `find [KEYWORDS]`
 - The search is case-sensitive. e.g `hans` will match `Hans`
 - The order of the keywords does matter. e.g. `Hans Bo` will NOT match `Bo Hans`
@@ -181,8 +182,15 @@ Jeoe chatbot home folder.
 
 ---
 ## Command summary <a id="command-summary-anchor"></a>
-| Name      | Age | Location       |
-| --------- | --- | -------------- |
-| John      | 30  | New York       |
-| Alice     | 25  | San Francisco  |
-| Bob       | 35  | Los Angeles    |
+| Action       | Format, Examples                                                                      |
+|--------------|---------------------------------------------------------------------------------------|
+| Add todo     | `todo [TODO]`<br/> e.g. `todo task 1`                                                 |
+| Add event    | `event TASK /from START /to END`<br/>e.g. `event birthday /from yesterday /to tomorrow` |
+| Add deadline | `deadline TASK /by DATE&TIME`<br/>e.g.`deadline my deadline task /by 2023-06-01 15:00` |
+| list         | `list`                                                                                |
+| mark         | `mark INDEX`<br/>e.g.`mark 1 `                                                        |
+| unmark       | `unmark INDEX`<br/>e.g.`unmark 1 `                                                    |
+| delete       | `delete INDEX`<br/>e.g.`delete 1 `                                                    |
+| find         | `find [KEYWORDS]`<br/>e.g.`find smt`                                                  |
+| sort         | `sort`                                                                                |
+| bye          | `bye`                                                                                 |

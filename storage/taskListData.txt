@@ -1,6 +1,0 @@
-T | 0 | test
-T | 0 | smt
-T | 0 | anything
-T | 0 | anything & smt
-T | 0 | task 1 test 1
-E | 0 | birthday | end
