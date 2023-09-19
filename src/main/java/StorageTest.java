@@ -1,6 +1,6 @@
-import DukePackage.Storage;
-import DukePackage.Task;
-import DukePackage.TaskType;
+import dukepackage.Storage;
+import dukepackage.Task;
+import dukepackage.TaskType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

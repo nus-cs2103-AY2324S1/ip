@@ -11,7 +11,7 @@
 <!--            <content>-->
                 <Label text="Welcome to the Chat bot" style="-fx-font-size: 20;" />
                 <Label text="Enter your message:" />
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+                <VBox fx:id="dialogContainer" prefWidth="388.0" />
 <!--            </content>-->
         </ScrollPane>
 <!--    </children>-->
