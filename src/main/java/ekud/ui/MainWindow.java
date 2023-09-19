@@ -42,26 +42,26 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
 
-        // Prevent text from being clipped in dialog boxes using setMinHeight(), credits to
+        // Prevent text from being clipped in dialog boxes using setMinHeight(Region.USE_PREF_SIZE),
+        // credits to
         // https://stackoverflow.com/questions/35012518/resize-javafx-label-if-overrun
-        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
-        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+        DialogBox userDialog = DialogBox.getUserDialog(input, this.userImage);
+        DialogBox dukeDialog = DialogBox.getDukeDialog(response, this.dukeImage);
         userDialog.setMinHeight(Region.USE_PREF_SIZE);
         dukeDialog.setMinHeight(Region.USE_PREF_SIZE);
         dialogContainer.getChildren().addAll(userDialog, dukeDialog);
 
         userInput.clear();
     }
-    public void setDuke(Ekud d) {
-        duke = d;
-    }
 
     /**
-     * Adds a Duke Dialog Box to greet the user upon loading the MainWindow.
+     * Adds the chatbot object to the GUI, and shows a Duke Dialog Box to greet
+     * the user upon loading the MainWindow.
+     * @param d
      */
-    public void greetUser() {
-        System.out.println("GREET USER CALLED");
+    public void setDuke(Ekud d) {
+        this.duke = d;
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(
-                duke.loadData() + "\n" + duke.getGreeting(), dukeImage));
+                this.duke.loadData() + "\n" + this.duke.getGreeting(), this.dukeImage));
     }
 }
