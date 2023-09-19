@@ -11,13 +11,11 @@
 <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow" stylesheets="@mainWindow.css">
     <children>
         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="600.0" prefWidth="400.0"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="0.0">
-            <HBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <VBox fx:id="dialogContainer" prefHeight="600.0" prefWidth="400.0" HBox.hgrow="ALWAYS"/>
-            </HBox>
         </ScrollPane>
-        <HBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <TextField fx:id="userInput" HBox.hgrow="ALWAYS" minHeight="30.0" minWidth="100.0" prefHeight="30.0" prefWidth="200.0" onAction="#handleUserInput" />
                 <Button fx:id="sendButton" HBox.hgrow="ALWAYS" mnemonicParsing="false" minHeight="30.0" minWidth="100.0" prefHeight="30.0" prefWidth="100.0" onAction="#handleUserInput" text="Send" />
