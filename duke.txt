@@ -2,3 +2,4 @@ T | 1 | borrow book
 E | 0 | recess week | 2023-09-25 | 2023-09-29
 T | 1 | finish cs2103t tut sheet
 D | 0 | return book | 2023-10-10
+T | 1 | makan mcd
