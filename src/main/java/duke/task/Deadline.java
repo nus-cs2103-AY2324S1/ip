@@ -30,6 +30,6 @@ public class Deadline extends Task {
      * @return string representation of task
      */
     public String toWriteString() {
-        return "D | " + super.toWriteString() + " | " + this.by;
+        return "D | " + super.toWriteString() + " | " + this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

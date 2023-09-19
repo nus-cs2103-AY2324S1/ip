@@ -34,6 +34,8 @@ public class Event extends Task {
      * @return string representation of task
      */
     public String toWriteString() {
-        return "E | " + super.toWriteString() + " | " + this.from + " | " + this.to;
+        return "E | " + super.toWriteString() + " | "
+                + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | "
+                + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
