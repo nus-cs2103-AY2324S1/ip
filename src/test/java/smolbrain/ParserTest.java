@@ -108,7 +108,7 @@ public class ParserTest {
     @Test
     public void parseInvalidDeadlineTest3() {
         String input = "deadline description /by 12/2/2000 1900";
-        String output = "OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
+        String output = "OOPS!!! Please provide a valid date and time with format of dd/MM/yyyy HHmm.";
         try {
             Task task = Parser.parseLoading(input);
             fail();
@@ -121,7 +121,7 @@ public class ParserTest {
     @Test
     public void parseInvalidDeadlineTest4() {
         String input = "deadline description /by 12/31/2000 1900";
-        String output = "OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
+        String output = "OOPS!!! Please provide a valid date and time with format of dd/MM/yyyy HHmm.";
         try {
             Task task = Parser.parseLoading(input);
             fail();
@@ -134,7 +134,7 @@ public class ParserTest {
     @Test
     public void parseInvalidDeadlineTest5() {
         String input = "deadline description /by 12/11/2000 2500";
-        String output = "OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
+        String output = "OOPS!!! Please provide a valid date and time with format of dd/MM/yyyy HHmm.";
         try {
             Task task = Parser.parseLoading(input);
             fail();
@@ -147,7 +147,7 @@ public class ParserTest {
     @Test
     public void parseInvalidDeadlineTest6() {
         String input = "deadline description /by 12/11/2000 11:00";
-        String output = "OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
+        String output = "OOPS!!! Please provide a valid date and time with format of dd/MM/yyyy HHmm.";
         try {
             Task task = Parser.parseLoading(input);
             fail();
@@ -225,7 +225,7 @@ public class ParserTest {
     @Test
     public void parseInvalidEventTest4() {
         String input = "event description /from 12/2/2000 1900 /to 12/2/2000 1900";
-        String output = "OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
+        String output = "OOPS!!! Please provide a valid date and time with format of dd/MM/yyyy HHmm.";
         try {
             Task task = Parser.parseLoading(input);
             fail();
@@ -238,7 +238,7 @@ public class ParserTest {
     @Test
     public void parseInvalidEventTest5() {
         String input = "event description /from 12/31/2000 1900 /to 12/31/2000 1900";
-        String output = "OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
+        String output = "OOPS!!! Please provide a valid date and time with format of dd/MM/yyyy HHmm.";
         try {
             Task task = Parser.parseLoading(input);
             fail();
@@ -251,7 +251,7 @@ public class ParserTest {
     @Test
     public void parseInvalidEventTest6() {
         String input = "event description /from 12/11/2000 2500 /to 12/11/2000 2500";
-        String output = "OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
+        String output = "OOPS!!! Please provide a valid date and time with format of dd/MM/yyyy HHmm.";
         try {
             Task task = Parser.parseLoading(input);
             fail();
@@ -264,7 +264,7 @@ public class ParserTest {
     @Test
     public void parseInvalidEventTest7() {
         String input = "event description /from 12/11/2000 11:00 /to 12/11/2000 11:00";
-        String output = "OOPS!!! Please provide a valid date and time with format of dd//MM/yyyy HHmm.";
+        String output = "OOPS!!! Please provide a valid date and time with format of dd/MM/yyyy HHmm.";
         try {
             Task task = Parser.parseLoading(input);
             fail();
