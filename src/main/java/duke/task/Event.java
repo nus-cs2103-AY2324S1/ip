@@ -47,8 +47,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.fromDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " "
-                + this.fromTime + " to: " + this.toDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+                + " (from: " + formattedFromDate() + " "
+                + this.fromTime + " to: " + formattedToDate()
                 + " " + this.toTime + ")";
     }
 
@@ -58,8 +58,25 @@ public class Event extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | "
+        return "E | " + super.completionStatus() + " | " + this.description + " | "
                 + this.fromDate + " " + this.fromTime + "->"
                 + this.toDate + " " + this.toTime;
     }
+
+    /**
+     * formats from date for display
+     * @return string of formatted from date
+     */
+    private String formattedFromDate() {
+        return this.fromDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
+
+    /**
+     * formats to date for display
+     * @return string of formatted to date
+     */
+    private String formattedToDate() {
+        return this.toDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
+
 }
