@@ -138,7 +138,7 @@ public class Ui {
     }
 
     public void printInvalidCommandTypeExceptionResponse() {
-        printMessage("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        printMessage("OOPS!!!:( I'm sorry, but I don't know what that means :-(");
     }
 
     /**
@@ -170,7 +170,7 @@ public class Ui {
     }
 
     public void printInvalidMarkOrUnmarkResponse(int numTotalTasks) {
-        printMessage("☹ OOPS!!! The description of a mark/unmark must be between 1 and " + numTotalTasks + ".");
+        printMessage("OOPS!!!:( The description of a mark/unmark must be between 1 and " + numTotalTasks + ".");
     }
 
     public void printEmptyByExceptionResponse() {
@@ -198,11 +198,11 @@ public class Ui {
     }
 
     public void printEmptyTodoDescriptionResponse() {
-        printMessage("☹ OOPS!!! The description of a todo cannot be empty.");
+        printMessage("OOPS!!!:( The description of a todo cannot be empty.");
     }
 
     public void printInvalidDeleteResponse(int numTotalTasks) {
-        printMessage("☹ OOPS!!! The description of a delete must be between 1 and " + numTotalTasks + ".");
+        printMessage("OOPS!!!:( The description of a delete must be between 1 and " + numTotalTasks + ".");
     }
 
     public void printNotAnIntegerExceptionResponse() {
@@ -214,7 +214,7 @@ public class Ui {
     }
 
     public void printTaskNotFoundExceptionResponse() {
-        printMessage("☹ OOPS!!! No such task exists in your task list");
+        printMessage("OOPS!!!:( No such task exists in your task list");
     }
 
     /**
