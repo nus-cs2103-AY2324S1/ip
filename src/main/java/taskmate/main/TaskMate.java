@@ -111,8 +111,7 @@ public class TaskMate {
         } else if (e instanceof InvalidCommandTypeException | e instanceof InvalidDescriptionException) {
             ui.printInvalidCommandTypeExceptionResponse();
         } else {
-            // All error types should be handled, this line should never run
-            assert false;
+            ui.printInvalidCommandTypeExceptionResponse();
         }
     }
 

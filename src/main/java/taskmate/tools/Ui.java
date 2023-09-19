@@ -206,7 +206,7 @@ public class Ui {
     }
 
     public void printNotAnIntegerExceptionResponse() {
-        printMessage("Please enter a valid integer (E.g. mark 1, unmark 8, delete 3)");
+        printMessage("Please enter a valid integer (E.g. mark 1, unmark 8, delete 3, update 2 <TAG> <newValue>...)");
     }
 
     public void printFileNotFoundResponse(String filePath) {
