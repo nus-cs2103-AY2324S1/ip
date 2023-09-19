@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 /**
  * Contains the task list with operations such as
- * add or delete to alter the list
+ * add or delete to alter the list.
  */
 public class TaskList {
-    /** List of tasks */
+    /** List of tasks. */
     ArrayList<Task> list;
 
-    /** Number of tasks in the list */
+    /** Number of tasks in the list. */
     int count;
 
     public TaskList(ArrayList<Task> list) {

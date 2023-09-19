@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import exceptions.DukeException;
 import exceptions.UnknownCommandException;
@@ -31,12 +32,7 @@ public class Duke {
      */
     public Duke() throws FileNotFoundException {
         storage = new Storage("duke.txt");
-//        try {
         list = new TaskList(storage.load());
-//        } catch (Exceptions.DukeException e) {
-//            ui.showLoadingError();
-//            tasks = new duke.TaskList();
-//        }
     }
 
     /**
@@ -64,20 +60,14 @@ public class Duke {
                 //should exit
             } else if (input.startsWith("find ")) {
                 message = Parser.parseFind(input, list);
+            } else if (input.startsWith("edit ")){
+                message = Parser.parseEdit(input, list);
             } else {
                 throw new UnknownCommandException();
             }
         } catch (DukeException e) {
             message = e.getMessage();
         }
-//        ui.showWelcome();
-//        boolean isExit = false;
-//        Parser parser = new Parser();
-//        while (!isExit) {
-//            String input = ui.getUserCommand();
-//            parser.parse(input, list);
-//            isExit = ui.isExit(input);
-//        }
         storage.save(list);
         return message;
     }

@@ -15,16 +15,14 @@ public class Storage {
     /** Store filepath to text file used to store the tasks*/
     private final String filepath;
 
-    /** Task list*/
-    private TaskList list;
-
     /** Takes in filepath to store tasklist*/
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
     /**
-     * Loads tasks stored in the file to recreate the tasklist
+     * Loads tasks stored in the file to recreate the tasklist,
+     * else it will return an empty new TaskList
      *
      * @return Original tasklist
      * @throws FileNotFoundException
@@ -33,12 +31,11 @@ public class Storage {
         ArrayList<Task> dukeList = new ArrayList<>();
         File file = new File(filepath);
         if (file.exists()) {
-            try (Scanner fileScanner = new Scanner(file)) {
-                while (fileScanner.hasNextLine()) {
-                    String task = fileScanner.nextLine();
-                    Task dtask = Taskparser.parseTask(task);
-                    dukeList.add(dtask);
-                }
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String task = fileScanner.nextLine();
+                Task dtask = TaskParser.parseTask(task);
+                dukeList.add(dtask);
             }
         }
         return dukeList;
@@ -52,7 +49,7 @@ public class Storage {
     public void save(TaskList list) {
         try (PrintWriter out = new PrintWriter(filepath)) {
             for (int i = 0; i < list.count; i++) {
-                String taskString = Taskparser.taskToString(list.getTask(i)); //convert task to string
+                String taskString = TaskParser.taskToString(list.getTask(i)); //convert task to string
                 out.println(taskString);
             }
         } catch (FileNotFoundException e) {

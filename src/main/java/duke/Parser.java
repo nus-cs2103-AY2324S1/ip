@@ -27,7 +27,7 @@ public class Parser {
         } catch(DukeException e) {
             return e.getMessage();
         } catch (DateTimeParseException e) {
-            return "OOps invalid time input";
+            return "oOps invalid time input";
         }
     }
 
@@ -76,7 +76,7 @@ public class Parser {
             int num = input.charAt(5) - '0' - 1;
             if (num >= 0 && num < list.count) {
                 list.getTask(num).markAsDone();
-                return "Nice! I've marked this task done:" + list.getTask(num);
+                return "Nice! I've marked this task done:\n" + list.getTask(num);
             } else {
                 throw new OutOfRangeException();
             }
@@ -90,7 +90,7 @@ public class Parser {
             int num = input.charAt(7) - '0' - 1;
             if (num >= 0 && num < list.count) {
                 list.getTask(num).markAsUndone();
-                return "OK, I've marked this task as not done yet:" + list.getTask(num);
+                return "OK, I've marked this task as not done yet:\n" + list.getTask(num);
             } else {
                 throw new OutOfRangeException();
             }
@@ -102,6 +102,13 @@ public class Parser {
     public static String parseFind(String input, TaskList list) {
         String description = input.substring(5);
         return list.findTask(description, list);
+    }
+
+    public static String parseEdit(String input, TaskList list) {
+        int num = input.charAt(5) - '0' - 1;
+        String edit = input.substring(7);
+        list.getTask(num).description = edit;
+        return "Ok! I've edited this task :\n" + (num + 1) + ". " + list.getTask(num);
     }
 
 }
