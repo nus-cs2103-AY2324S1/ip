@@ -2,12 +2,14 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.ui.Ui;
 
 /**
  * Represents the main Duke application.
  */
 public class Duke {
 
+    private boolean isExit = false;
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -28,17 +30,21 @@ public class Duke {
         }
     }
 
-    protected String getResponse(String input) {
+    public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
             assert c != null : "Command should not be null";
-            if (c != null) {
-                return c.execute(tasks, ui, storage);
-            } else {
-                return ui.showInvalidCommand();
+            String response = c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                isExit = true;
             }
+            return response;
         } catch (DukeException e) {
             return ui.showError(e.getMessage());
         }
+    }
+
+    public boolean isExit() {
+        return isExit;
     }
 }

@@ -1,7 +1,8 @@
-package duke;
+package duke.ui;
 
 import java.util.stream.Collectors;
 
+import duke.TaskList;
 import duke.task.Task;
 
 /**
@@ -125,9 +126,5 @@ public class Ui {
      */
     public String showNumberOfTasks(TaskList taskList) {
         return "Now you have " + taskList.getListSize() + " tasks in the list.";
-    }
-
-    public String showInvalidCommand() {
-        return "Invalid command. Please try again.";
     }
 }
