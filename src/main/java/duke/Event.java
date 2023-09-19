@@ -38,14 +38,18 @@ public class Event extends Task {
      *
      * @return the String representation of the start date.
      */
-    public String getFrom() { return this.from; }
+    public String getFrom() {
+        return this.from;
+    }
 
     /**
      * An accessor method to retrieve the end date of an event.
      *
      * @return the String representation of the end date.
      */
-    public String getTo() { return this.to; }
+    public String getTo() {
+        return this.to;
+    }
 
     /**
      * Check if the input task is equals to the current Event instance.

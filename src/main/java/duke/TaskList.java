@@ -36,13 +36,15 @@ public class TaskList {
     }
 
     /**
+     * Checks if the new Task is a duplicate of task
+     * already in the task list.
      *
-     * @param addTask
-     * @return
+     * @param addTask the new Task to be added.
+     * @return True if the new task matches an existing task in the task list.
      */
     public boolean isDuplicate(Task addTask) {
         for (Task task: this.tasks) {
-            if(task.isDuplicate(addTask)) {
+            if (task.isDuplicate(addTask)) {
                 return true;
             }
         }
@@ -63,7 +65,7 @@ public class TaskList {
                     + this.tasks.size() + " tasks in the list.");
         }
         this.tasks.add(newTask);
-        assert !this.tasks.isEmpty(): "TasksList should not be empty";
+        assert !this.tasks.isEmpty() : "TasksList should not be empty";
         return ("Got it. I've added this task:\n " + newTask
                 + "\nNow you have " + this.tasks.size() + " tasks in the list.");
 
@@ -92,7 +94,7 @@ public class TaskList {
                 }
                 newTask = new Deadline(a[0], getDate(a[1]));
             } else {
-                assert arr[0].equals("event"): "The userInput should start with event";
+                assert arr[0].equals("event") : "The userInput should start with event";
                 String[] a = arr[1].split(" /from ");
                 if (a.length != 2 || a[1].isEmpty()) {
                     throw new EmptyDateException(arr[0]);

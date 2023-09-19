@@ -4,7 +4,7 @@ package duke;
  * The duke.Task class represents a basic task with a description and status to determine if task is done.
  * Tasks can be marked as done or undone.
  */
-abstract public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -64,5 +64,5 @@ abstract public class Task {
      * @param newTask The task to be compared to
      * @return True if the both task are the same
      */
-    abstract public boolean isDuplicate(Task newTask);
+    public abstract boolean isDuplicate(Task newTask);
 }

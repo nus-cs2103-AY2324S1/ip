@@ -31,11 +31,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * An accessor method to retrieve the end date of a dealine.
+     * Retrieves the end date of the deadline.
      *
      * @return the String representation of the end date.
      */
-    public String getBy() { return this.by; }
+    public String getBy() {
+        return this.by;
+    }
 
     /**
      * Check if the input task is equals to the current Deadline instance.
