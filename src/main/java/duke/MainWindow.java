@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
         );
 
 
-        if (response.equals("\nBye. Hope to see you again soon!")) {
+        if (response.equals("Bye. Hope to see you again soon!")) {
             PauseTransition wait = new PauseTransition(Duration.seconds(2));
             wait.setOnFinished((e) -> {
                 Stage stage = (Stage) sendButton.getScene().getWindow();
