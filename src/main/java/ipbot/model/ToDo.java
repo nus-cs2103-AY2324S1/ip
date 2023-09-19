@@ -1,5 +1,7 @@
 package ipbot.model;
 
+import java.time.Period;
+
 /**
  * Represents a todo, with a description.
  */
@@ -27,5 +29,14 @@ public class ToDo extends Task {
     @Override
     public String toString(){
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public ToDo copy() {
+        return new ToDo(this.description);
+    }
+
+    @Override
+    public void translateTime(Period period) {
     }
 }

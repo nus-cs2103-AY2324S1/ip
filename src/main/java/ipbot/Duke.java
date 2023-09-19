@@ -77,7 +77,7 @@ public class Duke extends Application {
         return command;
     }
 
-    public String handleMark(boolean isMark, Map<String, String> commandArgs) throws CommandArgumentException {
+    public String handleMark(boolean isMark, Map<String, String> commandArgs) throws CommandArgumentException {  // TODO: private
         int markIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
         if (markIndex == -1) {
             String markString = (isMark ? "mark" : "unmark");
@@ -91,10 +91,10 @@ public class Duke extends Application {
         }
     }
 
-    public String handleDelete(Map<String, String> commandArgs) throws CommandArgumentException {
+    public String handleDelete(Map<String, String> commandArgs) throws CommandArgumentException {  // TODO: Move to taskList
         int deleteIndex = Parser.checkIndexArg(commandArgs.get(""), taskList.getTasksSize());
         if (deleteIndex == -1) {
-            throw new CommandArgumentException("Invalid task to delete: " + commandArgs);
+            throw new CommandArgumentException("Invalid task to delete: " + commandArgs);  // TODO: change commandArgs
         }
         Task task = taskList.deleteTask(deleteIndex);
         return Ui.deletedItemString(task);
@@ -148,6 +148,9 @@ public class Duke extends Application {
                     throw new CommandArgumentException("Find string cannot be empty!");
                 }
                 response = taskList.listTasks(commandArgs.get(""));
+                break;
+            case RECUR:
+                response = taskList.recurTask(commandArgs);
                 break;
             case BYE:
                 primaryStage.close();

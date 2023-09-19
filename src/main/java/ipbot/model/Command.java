@@ -13,6 +13,7 @@ public enum Command {
     EVENT ("event"),
     DELETE ("delete"),
     FIND ("find"),
+    RECUR("recur"),
     INVALID ("");
 
     private final String command;

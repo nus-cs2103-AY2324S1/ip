@@ -1,6 +1,7 @@
 package ipbot.model;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
@@ -59,5 +60,15 @@ public class Deadline extends Task {
     @Override
     public String toString(){
         return "[D]" + super.toString() + " (by: " + this.endTime.format(Task.DISPLAY_DATE_TIME_FORMATTER) + ")";
+    }
+
+    @Override
+    public Deadline copy() {
+        return new Deadline(this.description, this.endTime);
+    }
+
+    @Override
+    public void translateTime(Period period) {
+        this.endTime = this.endTime.plus(period);
     }
 }

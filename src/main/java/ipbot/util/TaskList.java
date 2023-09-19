@@ -7,6 +7,7 @@ import ipbot.model.Task;
 import ipbot.model.ToDo;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -129,9 +130,19 @@ public class TaskList {
         return new Pair<>(tasks.get(index), wasNotUnmarked);
     }
 
-    private String getArgument(Map<String, String> commandArgs, String taskType, String arg) throws CommandArgumentException {
+    private String getArgument(Map<String, String> commandArgs, String taskType, String arg) throws CommandArgumentException {  // TODO: Length check
         if (commandArgs.get(arg) == null) {
             throw new CommandArgumentException(String.format(MISSING_ARGUMENT_FORMAT, taskType, arg));
+        }
+        if (commandArgs.get(arg).isEmpty()) {
+            throw new CommandArgumentException(String.format(ARGUMENT_EMPTY_FORMAT, arg));
+        }
+        return commandArgs.get(arg);
+    }
+
+    private String getOptionalArgument(Map<String, String> commandArgs, String arg) throws CommandArgumentException {
+        if (commandArgs.get(arg) == null) {
+            return null;
         }
         if (commandArgs.get(arg).isEmpty()) {
             throw new CommandArgumentException(String.format(ARGUMENT_EMPTY_FORMAT, arg));
@@ -201,6 +212,46 @@ public class TaskList {
         assert 0 <= index && index < tasks.size() : "Invalid index";
         Task task = tasks.remove(index);
         return task;
+    }
+
+    private int strToPositiveInt(String string, String errorPrefix, int defVal) throws CommandArgumentException {
+        if (string == null) {
+            return defVal;
+        }
+        if (!string.matches("^\\d+$")) {
+            throw new CommandArgumentException(errorPrefix + string);
+        }
+        return Integer.parseInt(string);
+    }
+
+    public String recurTask(Map<String, String> commandArgs) throws CommandArgumentException {
+        int recurIndex = Parser.checkIndexArg(commandArgs.get(""), this.getTasksSize());
+        if (recurIndex == -1) {
+            throw new CommandArgumentException("Invalid task to recur: " + commandArgs.get(""));
+        }
+        String yearArg = getOptionalArgument(commandArgs, "year");
+        int year = strToPositiveInt(yearArg, "Invalid number of years: ", 0);
+        String monthArg = getOptionalArgument(commandArgs,"month");
+        int month = strToPositiveInt(monthArg, "Invalid number of months: ", 0);
+        String weekArg = getOptionalArgument(commandArgs, "week");
+        int week = strToPositiveInt(weekArg, "Invalid number of weeks: ", 0);
+        String dayArg = getOptionalArgument(commandArgs, "day");
+        int day = strToPositiveInt(dayArg, "Invalid number of days: ", 0);
+        if (year == 0 && month == 0 && week == 0 && day == 0) {
+            throw new CommandArgumentException("Invalid frequency of recurrence");
+        }
+        String numTimesArg = getArgument(commandArgs, "Recurrent Task", "times");
+        int numTimes = strToPositiveInt(numTimesArg, "Invalid number of times to recur: ", 0);
+        Period period = Period.parse(String.format("P%dY%dM%dW%dD", year, month, week, day));
+        Task task = tasks.get(recurIndex);
+        for (int i = 0; i < numTimes; i++) {
+            task = task.copy();
+            task.translateTime(period);
+            tasks.add(task);
+        }
+        return "Added recurrence of task " + task.toString() + " for frequency "
+                + year + " years, " + month + " months, " + day + " days, "
+                + numTimes + " times";
     }
 
     public String toCommaString() {
