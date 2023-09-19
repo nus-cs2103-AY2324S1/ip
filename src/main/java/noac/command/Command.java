@@ -19,6 +19,7 @@ public abstract class Command {
      * @param tasks List of all the task.
      * @param ui UI for printing result to user.
      * @param storage Storage class meant for saving to file.
+     * @return String to be displayed to user.
      * @throws NoacException For any errors that needs to be displayed to user.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NoacException;

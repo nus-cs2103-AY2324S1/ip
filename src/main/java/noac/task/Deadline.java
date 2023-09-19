@@ -31,7 +31,7 @@ public class Deadline extends Task {
         String formattedBy = this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
 
         return "[D]" + super.toString() + " (by: "
-                + formattedBy + ")";
+                + formattedBy + ") " + tagsToString();
     }
 
     /**
@@ -45,7 +45,7 @@ public class Deadline extends Task {
 
 
         return "D|" + super.printToFile() + "|"
-                + formattedBy;
+                + formattedBy + "|" + tagsToString();
     }
 
     /**

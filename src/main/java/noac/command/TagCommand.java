@@ -5,27 +5,24 @@ import noac.util.Storage;
 import noac.util.TaskList;
 import noac.util.Ui;
 
-/**
- * For executing the mark/unmark command.
- */
-public class MarkCommand extends Command {
+public class TagCommand extends Command{
 
     private int taskIndex;
-    private boolean isMark;
+    private String tag;
 
     /**
-     * Create the mark command class.
+     * Create the tag command class.
      *
-     * @param taskIndex Which task to mark/unmark.
-     * @param isMark Whether to mark/unmark.
+     * @param taskIndex Index of the task to be tagged.
+     * @param tag String to be tagged to the task.
      */
-    public MarkCommand(int taskIndex, boolean isMark) {
+    public TagCommand(int taskIndex, String tag) {
         this.taskIndex = taskIndex;
-        this.isMark = isMark;
+        this.tag = tag;
     }
 
     /**
-     * Mark/unmark the task and update the user, task list and save file.
+     * Tag the task and update the user, task list and save file.
      *
      * @param tasks List of all the task.
      * @param ui UI for printing result to user.
@@ -35,19 +32,14 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
-
         if (taskIndex + 1 > tasks.size() || taskIndex < 0) {
             throw new NoacException("OOPS!!! Please enter a task in your list!");
         }
 
-        if (isMark) {
-            tasks.getTask(this.taskIndex).markAsDone();
-        } else {
-            tasks.getTask(this.taskIndex).unmarkAsDone();
-        }
+        tasks.getTask(taskIndex).addTag(tag);
 
         storage.save(tasks);
 
-        return ui.showMarkOrUnmark(tasks.getTask(this.taskIndex), this.isMark);
+        return ui.showTagTask(tasks.getTask(taskIndex), tag);
     }
 }

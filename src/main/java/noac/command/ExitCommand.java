@@ -18,6 +18,7 @@ public class ExitCommand extends Command {
      * @param tasks List of all the task.
      * @param ui UI for printing result to user.
      * @param storage Storage class meant for saving to file.
+     * @return String to be displayed to user.
      * @throws NoacException For any errors that needs to be displayed to user.
      */
     @Override

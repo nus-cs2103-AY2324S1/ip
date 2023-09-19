@@ -22,7 +22,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() ;
+        return "[T]" + super.toString() + " " + tagsToString();
     }
 
     /**
@@ -32,7 +32,7 @@ public class Todo extends Task {
      */
     @Override
     public String printToFile() {
-        return "T|" + super.printToFile();
+        return "T|" + super.printToFile() + "|" + tagsToString();
     }
 
 }

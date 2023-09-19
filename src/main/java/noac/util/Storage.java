@@ -110,7 +110,7 @@ public class Storage {
 
 
     private ArrayList<Task> handleCaseTodo(String[] fileLineInput, ArrayList<Task> returnList) throws NoacException{
-        if (fileLineInput.length != 3) {
+        if (fileLineInput.length != 4) {
             throw new NoacException("OOPS!!! Corrupted Save file");
         }
 
@@ -119,13 +119,19 @@ public class Storage {
             todo.markAsDone();
         }
 
+        String[] tags = fileLineInput[3].split(" ");
+
+        for (int i = 0; i < tags.length; i++) {
+            todo.addTag(tags[i]);
+        }
+
         returnList.add(todo);
 
         return returnList;
     }
 
     private ArrayList<Task> handleCaseDeadline(String[] fileLineInput, ArrayList<Task> returnList) throws NoacException{
-        if (fileLineInput.length != 4) {
+        if (fileLineInput.length != 5) {
             throw new NoacException("OOPS!!! Corrupted Save file");
         }
 
@@ -140,13 +146,19 @@ public class Storage {
             deadline.markAsDone();
         }
 
+        String[] tags = fileLineInput[4].split(" ");
+
+        for (int i = 0; i < tags.length; i++) {
+            deadline.addTag(tags[i]);
+        }
+
         returnList.add(deadline);
 
         return returnList;
     }
 
     private ArrayList<Task> handleCaseEvent(String[] fileLineInput, ArrayList<Task> returnList) throws NoacException{
-        if (fileLineInput.length != 5) {
+        if (fileLineInput.length != 6) {
             throw new NoacException("OOPS!!! Corrupted Save file");
         }
 
@@ -159,6 +171,12 @@ public class Storage {
 
         if (fileLineInput[1].equals("1")) {
             event.markAsDone();
+        }
+
+        String[] tags = fileLineInput[5].split(" ");
+
+        for (int i = 0; i < tags.length; i++) {
+            event.addTag(tags[i]);
         }
 
         returnList.add(event);

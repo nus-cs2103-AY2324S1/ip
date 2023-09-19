@@ -11,6 +11,8 @@ public class Ui {
 
     /**
      * Print the welcome message.
+     *
+     * @return The message to be displayed to the user.
      */
     public static String showWelcomeMessage() {
 
@@ -24,6 +26,8 @@ public class Ui {
 
     /**
      * Print the bye message.
+     *
+     * @return The message to be displayed to the user.
      */
     public String showByeMessage() {
         String byeMessage =  "Bye. Hope to see you again soon!\n" ;
@@ -35,6 +39,7 @@ public class Ui {
      * Prints the error message.
      *
      * @param e The error which message is to be printed.
+     * @return The message to be displayed to the user.
      */
     public String showErrorMessage(NoacException e) {
         return e.getMessage();
@@ -45,6 +50,7 @@ public class Ui {
      * Prints all the tasks in the list.
      *
      * @param taskList The list to be printed.
+     * @return The message to be displayed to the user.
      */
     public String showList(TaskList taskList) {
         String returnMessage =  "Here are the tasks in your list:\n";
@@ -61,6 +67,7 @@ public class Ui {
      *
      * @param task The task to be mark/unmark.
      * @param isMark Boolean to determine whether to mark or unmark.
+     * @return The message to be displayed to the user.
      */
     public String showMarkOrUnmark(Task task, boolean isMark) {
         String returnMessage = "";
@@ -82,6 +89,7 @@ public class Ui {
      *
      * @param task The task that was added.
      * @param listSize The number of task in the list.
+     * @return The message to be displayed to the user.
      */
     public String showAddTask(Task task, int listSize) {
         String returnMessage = "";
@@ -99,6 +107,7 @@ public class Ui {
      *
      * @param task The task that was added.
      * @param listSize The number of task in the list.
+     * @return The message to be displayed to the user.
      */
     public String showDeleteTask(Task task, int listSize) {
         String returnMessage = "";
@@ -115,6 +124,7 @@ public class Ui {
      * Shows the task on that date.
      *
      * @param tasks The task to be displayed.
+     * @return The message to be displayed to the user.
      */
     public String showTasksOnDate(ArrayList<Task> tasks) {
         String returnMessage = "";
@@ -131,6 +141,7 @@ public class Ui {
      * Prints all the tasks that matched a word.
      *
      * @param tasks The task to be printed.
+     * @return The message to be displayed to the user.
      */
     public String showFind(ArrayList<Task> tasks) {
         String returnMessage = "";
@@ -147,4 +158,19 @@ public class Ui {
 
         return returnMessage;
     }
+
+    /**
+     * Prints the task that has been tagged.
+     *
+     * @param task The task to be printed.
+     * @param tag The tag to be printed.
+     * @return The message to be displayed to the user.
+     */
+    public String showTagTask(Task task, String tag) {
+        String returnMessage = "";
+        returnMessage += task.toString() + " has been tagged with " + tag;
+
+        return returnMessage;
+    }
+
 }

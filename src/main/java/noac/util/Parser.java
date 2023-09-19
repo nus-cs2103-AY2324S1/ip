@@ -33,7 +33,6 @@ public class Parser {
             case "list":
                 returnCommand = handleCaseList();
                 break;
-
             case "mark":
             case "unmark":
                 returnCommand = handleCaseMark(userInputArr, command);
@@ -58,6 +57,9 @@ public class Parser {
                 break;
             case "find":
                 returnCommand = handleCaseFind(userInputArr);
+                break;
+            case "tag":
+                returnCommand = handleCaseTag(userInputArr);
                 break;
             default:
                 throw new NoacException("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -239,6 +241,20 @@ public class Parser {
         assert searchString.length() >= 1 : "searchString too short";
 
         return new FindCommand(searchString.trim());
+    }
+
+    private static Command handleCaseTag(String[] userInputArr) throws NoacException {
+        if (userInputArr.length > 3 || userInputArr.length <= 1) {
+            throw new NoacException("OOPS!!! Please enter in the format tag [TASK_NUMBER] #[TAG] e.g. tag 1 #fun");
+        } else if (!userInputArr[1].matches("\\d+")) {
+            throw new NoacException("OOPS!!! Please enter in the format tag [TASK_NUMBER] #[TAG] e.g. tag 1 #fun");
+        } else if (userInputArr[2].charAt(0) != '#') {
+            throw new NoacException("OOPS!!! Please enter in the format tag [TASK_NUMBER] #[TAG] e.g. tag 1 #fun");
+        }
+
+        int taskNo = Integer.parseInt(userInputArr[1]) - 1;
+
+        return new TagCommand(taskNo, userInputArr[2]);
     }
 
 

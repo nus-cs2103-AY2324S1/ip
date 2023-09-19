@@ -35,6 +35,7 @@ public class EventCommand extends Command {
      * @param tasks List of all the task.
      * @param ui UI for printing result to user.
      * @param storage Storage class meant for saving to file.
+     * @return String to be displayed to user.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
