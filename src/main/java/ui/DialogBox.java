@@ -46,6 +46,8 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         setupDisplayPicture();
         setupLabel();
+
+        this.getStyleClass().add("dialog-box");
     }
 
     /**

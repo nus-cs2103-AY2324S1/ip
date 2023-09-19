@@ -16,5 +16,6 @@ public abstract class Message {
     public static final String ADD_TASK = "Got it. I've added this task:";
     public static final String TASKLIST_STATUS = "Now you have %d tasks in the list.";
     public static final String GREET = "Meow! I'm Thorndike.\nWhat can I do for you?";
+    public static final String TOGGLE = "Meow, I've switched to %s mode.";
 
 }

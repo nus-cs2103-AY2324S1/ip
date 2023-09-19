@@ -66,6 +66,9 @@ public class CmdHelp extends Command {
         case INVALID:
             return HelpMessage.INVALID;
 
+        case TOGGLE:
+            return HelpMessage.TOGGLE;
+
         default:
             return HelpMessage.INVALID;
         }

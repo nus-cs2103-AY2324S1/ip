@@ -54,6 +54,8 @@ public class HelpMessage {
             + "Priority = Any number from 0-5.\n\n"
             + "Example: priority 3 /set 5";
 
+    public static final String TOGGLE = "Function: Switch to dark/light mode.\n\n";
+
     public static final String INVALID = "Here are the list of commands:\n"
             + "1. todo\n"
             + "2. deadline\n"
@@ -65,5 +67,7 @@ public class HelpMessage {
             + "8. mark\n"
             + "9. unmark\n"
             + "10. priority\n"
+            + "11. toggle\n"
             + "Send 'help [Command]' to see the details of each commands.";
+
 }

@@ -1,4 +1,5 @@
 package ui;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,6 +22,8 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            ap.getStyleClass().add("root");
+            ModeControl.setWindow(ap);
 
             Scene scene = new Scene(ap);
             scene.getStylesheets().add(getClass().getResource("/style/style.css").toExternalForm());

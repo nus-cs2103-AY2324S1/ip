@@ -61,6 +61,11 @@ public enum CommandKeyword {
     PRIORITY,
 
     /**
+    * Represents the "toggle" command keyword.
+    */
+    TOGGLE,
+
+    /**
      * Represents an invalid or unrecognized command keyword.
      */
     INVALID;
@@ -107,6 +112,9 @@ public enum CommandKeyword {
 
         case "priority":
             return PRIORITY;
+
+        case "toggle":
+            return TOGGLE;
 
         default:
             return INVALID;

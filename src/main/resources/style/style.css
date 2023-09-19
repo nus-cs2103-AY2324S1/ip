@@ -1,11 +1,11 @@
 * {
     -fx-background-color: #1a1a1a;
-    -fx-text-fill: #cce6ff;
 }
 
 .user-input {
     -fx-background-color: #333333;
     -fx-focus-color: transparent;
+    -fx-text-fill: #cce6ff;
     -fx-font-size: 18px;
 }
 
@@ -35,10 +35,52 @@
     -fx-text-fill: #b18430;
 }
 
+.user-dialog {
+    -fx-text-fill: #cce6ff;
+}
+
 .dialog-label {
     -fx-font-size: 14px;
 }
 
 .user-diaglog {
+
     -fx-opacity: 100;
+}
+
+.light-mode {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .dialog-box {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .dialog-box * {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .user-input {
+    -fx-background-color: #d1d1d1;
+    -fx-text-fill: #000000;
+}
+
+.light-mode .user-input * {
+    -fx-background-color: #d1d1d1;
+}
+
+.light-mode .scroll-pane {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .scroll-pane * {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .user-dialog {
+    -fx-text-fill: #000000;
+}
+
+.light-mode .send-button {
+    -fx-background-color: #6699ff;
 }
