@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * This class tests the worker classes that rely on indexes.
+ */
 public class WorkersIndexOutOfBoundsTests {
     ArrayList<Task> testTaskList = new ArrayList<>();
     DeleteWorker deleteWorker = new DeleteWorker();
@@ -18,6 +21,10 @@ public class WorkersIndexOutOfBoundsTests {
     String[] testInputPartsZero = new String[] {"random", "0"};
     String[] testInputPartsAboveOne = new String[] {"random", "10"};
 
+    /**
+     * This method tests if the methods return the right error messages when given an index
+     * that is 0 or below and above the size of the current tasklist.
+     */
     @Test
     public void testWorkerClasses() {
         testTaskList.add(todoTask);
