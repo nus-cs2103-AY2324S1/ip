@@ -6,55 +6,119 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import duke.command.AddCommand;
-import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.SortCommand;
 import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
+import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
+import duke.exception.InvalidFormatException;
 
-public class ParserTest {
+class ParserTest {
 
     @Test
-    public void testParseListCommand() throws DukeException {
-        Command command = Parser.parse("list");
-        assertTrue(command instanceof ListCommand);
+    void parse_validTodoInput_returnAddCommand() throws DukeException {
+        String input = "todo read a book";
+        assertTrue(Parser.parse(input) instanceof AddCommand);
     }
 
     @Test
-    public void testParseDeleteCommand() throws DukeException {
-        Command command = Parser.parse("delete 1");
-        assertTrue(command instanceof DeleteCommand);
+    void parse_emptyTodoInput_throwEmptyDescriptionException() {
+        String input = "todo";
+        assertThrows(EmptyDescriptionException.class, () -> Parser.parse(input));
     }
 
     @Test
-    public void testParseMarkCommand() throws DukeException {
-        Command command = Parser.parse("mark 1");
-        assertTrue(command instanceof MarkCommand);
+    void parse_validDeadlineInput_returnAddCommand() throws DukeException {
+        String input = "deadline submit assignment /by 2023-09-19 1800";
+        assertTrue(Parser.parse(input) instanceof AddCommand);
     }
 
     @Test
-    public void testParseUnmarkCommand() throws DukeException {
-        Command command = Parser.parse("unmark 1");
-        assertTrue(command instanceof UnmarkCommand);
+    void parse_invalidDeadlineInput_throwInvalidFormatException() {
+        String input = "deadline submit assignment";
+        assertThrows(InvalidFormatException.class, () -> Parser.parse(input));
     }
 
     @Test
-    public void testParseAddCommand() throws DukeException {
-        Command command = Parser.parse("todo Test");
-        assertTrue(command instanceof AddCommand);
+    void parse_validEventInput_returnAddCommand() throws DukeException {
+        String input = "event team meeting /from 2023-09-19 1400 /to 2023-09-19 1600";
+        assertTrue(Parser.parse(input) instanceof AddCommand);
     }
 
     @Test
-    public void testParseExitCommand() throws DukeException {
-        Command command = Parser.parse("bye");
-        assertTrue(command instanceof ExitCommand);
+    void parse_unknownCommand_throwInvalidCommandException() {
+        String input = "unknown command";
+        assertThrows(InvalidCommandException.class, () -> Parser.parse(input));
     }
 
     @Test
-    public void testInvalidCommand() {
-        assertThrows(InvalidCommandException.class, () -> Parser.parse("invalid_command"));
+    void parse_listCommand_returnListCommand() throws DukeException {
+        String input = "list";
+        assertTrue(Parser.parse(input) instanceof ListCommand);
+    }
+
+    @Test
+    void parse_validDeleteCommand_returnDeleteCommand() throws DukeException {
+        String input = "delete 2";
+        assertTrue(Parser.parse(input) instanceof DeleteCommand);
+    }
+
+    @Test
+    void parse_invalidDeleteCommand_throwInvalidFormatException() {
+        String input = "delete";
+        assertThrows(InvalidFormatException.class, () -> Parser.parse(input));
+    }
+
+    @Test
+    void parse_validMarkCommand_returnMarkCommand() throws DukeException {
+        String input = "mark 2";
+        assertTrue(Parser.parse(input) instanceof MarkCommand);
+    }
+
+    @Test
+    void parse_invalidMarkCommand_throwInvalidFormatException() {
+        String input = "mark";
+        assertThrows(InvalidFormatException.class, () -> Parser.parse(input));
+    }
+
+    @Test
+    void parse_validUnmarkCommand_returnUnmarkCommand() throws DukeException {
+        String input = "unmark 2";
+        assertTrue(Parser.parse(input) instanceof UnmarkCommand);
+    }
+
+    @Test
+    void parse_invalidUnmarkCommand_throwInvalidFormatException() {
+        String input = "unmark";
+        assertThrows(InvalidFormatException.class, () -> Parser.parse(input));
+    }
+
+    @Test
+    void parse_validFindCommand_returnFindCommand() throws DukeException {
+        String input = "find book";
+        assertTrue(Parser.parse(input) instanceof FindCommand);
+    }
+
+    @Test
+    void parse_invalidFindCommand_throwInvalidFormatException() {
+        String input = "find";
+        assertThrows(InvalidFormatException.class, () -> Parser.parse(input));
+    }
+
+    @Test
+    void parse_sortCommand_returnSortCommand() throws DukeException {
+        String input = "sort";
+        assertTrue(Parser.parse(input) instanceof SortCommand);
+    }
+
+    @Test
+    void parse_byeCommand_returnExitCommand() throws DukeException {
+        String input = "bye";
+        assertTrue(Parser.parse(input) instanceof ExitCommand);
     }
 }
