@@ -1,3 +1,5 @@
+##Duke Chatbot##
+
 Introducing **Duke Chatbot version 2.1.0**! With brand-new interface introduced to further enhance user experience! This chatbot was developed with user interaction in mind, offering a comprehensive range of features and tasks management capabilities.
 
 ## Key Features:
