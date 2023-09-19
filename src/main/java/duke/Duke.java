@@ -48,7 +48,7 @@ public class Duke {
      * @param userInput Input from the user.
      * @return Command.
      */
-    public Command getResponse(String userInput) {
+    public String getResponse(String userInput) {
         try {
             Command command = parser.parse(userInput);
             if (command.isSetCommand()) {
@@ -57,11 +57,10 @@ public class Duke {
             } else {
                 command.execute(taskList, storageTask);
             }
-            command.printOutput(command.getCommandMessage());
-            return command;
+            //command.printOutput(command.getCommandMessage());
+            return command.getCommandMessage();
         } catch (KoraException e) {
-            System.out.println("la");
-            return null;
+            return e.getMessage();
         }
     }
 
@@ -72,11 +71,18 @@ public class Duke {
         ui.greet();
         while (!isExit) {
             String userInput = ui.getUserInput();
-            Command command = getResponse(userInput);
-            if (command == null) {
-                isExit = false;
-            } else {
+            Command command;
+            try {
+                command = parser.parse(userInput);
+                if (command.isSetCommand()) {
+                    command.executeSet(commandList, storageCommand);
+                } else {
+                    command.execute(taskList, storageTask);
+                }
+                command.printOutput(command.getCommandMessage());
                 isExit = command.isExit();
+            } catch (KoraException e) {
+                System.out.println(e.getMessage());
             }
         }
         ui.closeScanner();
