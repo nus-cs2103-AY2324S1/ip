@@ -15,18 +15,19 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 
 
 /**
  * Represents a Brotherman chatbot
  */
 public class Brotherman extends Application {
-
 
     private Storage storage;
     private TaskList taskList;
@@ -41,137 +42,142 @@ public class Brotherman extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/riversprite.jpg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/ufosprite.jpg"));
 
-    /**
-     * Constructor for Brotherman
-     * @param filepath File path of the storage
-     */
     public Brotherman(String filepath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filepath);
-        this.taskList = storage.readFromFile();
+        initialize(filepath);
     }
 
-    /**
-     * Constructor for Brotherman
-     */
     public Brotherman() {
-        this.ui = new Ui();
-        this.storage = new Storage("./data/brotherman.txt");
-        this.taskList = storage.readFromFile();
+        initialize("./data/brotherman.txt");
+    }
+
+    private void initialize(String filepath) {
+        ui = new Ui();
+        storage = new Storage(filepath);
+        taskList = storage.readFromFile();
     }
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
+        initializeStage(stage);
+        initializeLayout();
+        initializeEventHandlers();
+    }
 
-        Brotherman brotherman = new Brotherman("./data/brotherman.txt");
-        this.storage = brotherman.storage;
-        this.taskList = brotherman.taskList;
-        this.ui = brotherman.ui;
-
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
+    private void initializeStage(Stage stage) {
         stage.setTitle("Brotherman");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
-        stage.setOnCloseRequest((event) -> {
-            closeProgram();
-        }
-        );
+        stage.setOnCloseRequest((event) -> closeProgram());
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        scene = new Scene(createMainLayout(), 400, 600);
+        stage.setScene(scene);
+        stage.show();
+    }
 
+    private BorderPane createMainLayout() {
+        scrollPane = createScrollPane();
+        userInput = createTextField();
+        sendButton = createSendButton();
+
+        BorderPane mainLayout = new BorderPane();
+        mainLayout.setCenter(scrollPane);
+        mainLayout.setBottom(createInputLayout());
+
+        return mainLayout;
+    }
+
+    private ScrollPane createScrollPane() {
+        ScrollPane scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
-
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        sendButton.setOnMouseClicked((event) -> {
-            try {
-                handleUserInput();
-            } catch (BrothermanException e) {
-                ui.showError(e.getMessage());
-            }
-        });
-
-        userInput.setOnAction((event) -> {
-            try {
-                handleUserInput();
-            } catch (BrothermanException e) {
-                ui.showError(e.getMessage());
-            }
-        });
-
-        stage.setScene(scene);
-        stage.show();
-
-        // more code to be added here later
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
+        return scrollPane;
     }
 
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
+    private ImageView createRoundedImageView(Image image) {
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
 
-        return textToAdd;
+        Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
+
+        imageView.setClip(clip);
+
+        return imageView;
     }
 
-    private void handleUserInput() throws BrothermanException {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+    private HBox createInputLayout() {
+        HBox inputLayout = new HBox();
+        inputLayout.getChildren().addAll(userInput, sendButton);
+        userInput.setPrefWidth(325.0);
+        sendButton.setPrefWidth(55.0);
+        return inputLayout;
+    }
+
+    private TextField createTextField() {
+        TextField textField = new TextField();
+        textField.setOnAction((event) -> handleUserInput());
+        return textField;
+    }
+
+    private Button createSendButton() {
+        Button button = new Button("Send");
+        button.setOnMouseClicked((event) -> handleUserInput());
+        return button;
+    }
+
+    private void initializeLayout() {
+    }
+
+    private void initializeEventHandlers() {
+    }
+
+    private void handleUserInput() {
+        String inputText = userInput.getText();
+
+        StackPane userMessagePane = createUserMessagePane(inputText);
+        StackPane dukeMessagePane = createDukeMessagePane(getResponse(inputText));
+
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userMessagePane, createRoundedImageView(user)),
+                DialogBox.getDukeDialog(dukeMessagePane, createRoundedImageView(duke))
         );
+
         userInput.clear();
     }
 
-    private String getResponse(String input) throws BrothermanException {
+    private StackPane createUserMessagePane(String text) {
+        Label userText = createDialogLabel(text);
+        userText.setStyle("-fx-background-color: lightblue; -fx-padding: 10px;");
+        StackPane userMessagePane = new StackPane(userText);
+        userMessagePane.setStyle("-fx-background-color: transparent;");
+        return userMessagePane;
+    }
+
+    private StackPane createDukeMessagePane(String text) {
+        Label dukeText = createDialogLabel(text);
+        dukeText.setStyle("-fx-background-color: lightgreen; -fx-padding: 10px;");
+        StackPane dukeMessagePane = new StackPane(dukeText);
+        dukeMessagePane.setStyle("-fx-background-color: transparent;");
+        return dukeMessagePane;
+    }
+
+    private Label createDialogLabel(String text) {
+        Label label = new Label(text);
+        label.setWrapText(true);
+        return label;
+    }
+
+    private String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
             return command.execute(taskList, ui, storage);
@@ -183,5 +189,9 @@ public class Brotherman extends Application {
     private void closeProgram() {
         storage.saveToFile(taskList.list());
         Platform.exit();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
