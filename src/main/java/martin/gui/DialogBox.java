@@ -1,11 +1,13 @@
 package martin.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box in the GUI for Martin. It can represent either user input or Martin's response.
@@ -30,6 +32,12 @@ public class DialogBox extends HBox {
         displayPicture.setFitHeight(50.0);
         text.setMinHeight(Region.USE_PREF_SIZE);
 
+        HBox.setMargin(text, new Insets(20));
+        HBox.setMargin(displayPicture, new Insets(10));
+
+        Circle circleClip = new Circle(25, 25, 25);
+        displayPicture.setClip(circleClip);
+
         this.getChildren().addAll(text, displayPicture);
     }
 
@@ -42,8 +50,11 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(new Label(text), new ImageView(img));
+
         db.setAlignment(Pos.TOP_LEFT);
+        db.setStyle("-fx-background-color: #E1F5FE; -fx-background-radius: 5; -fx-margin: 5px;");
         db.getChildren().setAll(db.displayPicture, db.text);
+
         return db;
     }
 
@@ -56,7 +67,10 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getMartinDialog(String text, Image img) {
         var db = new DialogBox(new Label(text), new ImageView(img));
-        db.setAlignment(Pos.TOP_LEFT);
+
+        db.setAlignment(Pos.TOP_RIGHT);
+        db.setStyle("-fx-background-color: #FFECB3; -fx-background-radius: 5; -fx-margin: 5px;");
+
         return db;
     }
 }

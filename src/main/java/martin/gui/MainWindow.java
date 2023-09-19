@@ -2,17 +2,26 @@ package martin.gui;
 
 import java.io.IOException;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import martin.Martin;
 
 public class MainWindow extends Application {
@@ -61,21 +70,30 @@ public class MainWindow extends Application {
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setBottomAnchor(scrollPane, 40.0); // reserve space for userInput and sendButton
+        AnchorPane.setLeftAnchor(scrollPane, 1.0);
+        AnchorPane.setRightAnchor(scrollPane, 1.0);
 
-        scrollPane.setPrefSize(385, 535);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setRightAnchor(userInput, 60.0); // reserve space for the button
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0); 
+
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.setPadding(new Insets(10));
 
         userInput.setPrefWidth(325.0);
 
@@ -134,7 +152,10 @@ public class MainWindow extends Application {
                 DialogBox.getMartinDialog(response, martinImage)
         );
 
-        scrollPane.setVvalue(1.0);
+        // Introduce a small delay using PauseTransition
+        PauseTransition pause = new PauseTransition(Duration.millis(100)); // 100ms delay
+        pause.setOnFinished(event -> scrollPane.setVvalue(1.0));
+        pause.play();
         userInput.clear();
     }
 
@@ -159,6 +180,21 @@ public class MainWindow extends Application {
         alert.setTitle("Error");
         alert.setHeaderText("Something went wrong!");
         alert.setContentText(errorMessage);
+
+        // Modify the padding of the DialogPane's content
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setContentText(errorMessage);  // Set content text again to refresh the layout
+
+        // Retrieve the content and modify its appearance
+        if (dialogPane.getContent() instanceof Label) {
+            Label contentLabel = (Label) dialogPane.getContent();
+
+            // Adjust padding
+            contentLabel.setPadding(new Insets(15));
+
+            // Change background color to light red
+            contentLabel.setBackground(new Background(new BackgroundFill(Color.LIGHTCORAL, CornerRadii.EMPTY, Insets.EMPTY)));
+        }
 
         alert.showAndWait();
     }
