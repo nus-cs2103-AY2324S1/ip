@@ -28,6 +28,7 @@ You will receive a successful message (like below) if done correctly.
 
 `Got it. I've added this task`
 
+---------
 ### 2. Adding a Deadline task `deadline`
 Description: Adds a deadline task named **return book** with sunday as deadline
 
@@ -39,6 +40,7 @@ You will receive a successful message (like below) if done correctly.
 
 `Got it. I've added this task`
 
+----
 ### 3. Adding a Event task `event`
 Description: Adds a `taylor swift concert` event with start time `12pm` and end time `6pm`
 
@@ -50,6 +52,7 @@ You will receive a successful message (like below) if done correctly.
 
 `Got it. I've added this task`
 
+----
 ### 4. Listing all tasks `list`
 Description: Returns all tasks stored in the chatbot
 
@@ -63,6 +66,7 @@ Output (if you have tasks in the list stored) :
 
 `2. [D][ ] return book`
 
+----
 ### 5. Deleting a Task `delete`
 Description: Deletes the task at the `INDEX` in the Chatbot's list
 
@@ -74,6 +78,7 @@ You will receive a successful message (like below) if done correctly.
 
 `Noted. I've removed this task`
 
+----
 ### 6. Marking a Task `mark`
 Description: Marks a task at `INDEX` completed in the Chatbot's list
 
@@ -85,6 +90,7 @@ You will receive a successful message (like below) if done correctly.
 
 `Nice! I've marked this task as done`
 
+----
 ### 7. Unmarking a Task `unmark`
 Description: Unmarks a task at `INDEX` as uncompleted in the Chatbot's list
 
@@ -96,6 +102,7 @@ You will receive a successful message (like below) if done correctly.
 
 `OK, I've marked this task as not done yet`
 
+----
 ### 8. Finding a Task `find`
 Description: Returns a list of all tasks with names containing `KEYWORD`in the Chatbot's list
 
@@ -107,6 +114,7 @@ You will receive a list of all the tasks in list matching `book`
 1. read book
 2. return book
 
+----
 
 ### 9. Updating a Task `update`
 Description: Updates the task at `INDEX` to the given `FULL DETAILS`
@@ -121,7 +129,7 @@ Assuming `1. todo read book` in list
 
 output:
 `Task read cinderella has been updated successfully`
-
+----
 # FAQ
 **Q**: What happens if I do not get the output as expected?
 
