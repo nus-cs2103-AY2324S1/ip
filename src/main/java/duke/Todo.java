@@ -4,14 +4,11 @@ package duke;
  * Categorise task as a todo
  */
 public class Todo extends Task {
+    protected String type;
 
-    /**
-     * To create a new task categorised as todo
-     *
-     * @param description Description of the task
-     */
     public Todo(String description) {
         super(description);
+        this.type = "todo";
     }
 
     /**

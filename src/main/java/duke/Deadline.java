@@ -7,7 +7,6 @@ public class Deadline extends Task {
 
     /** String to hold deadline of a task */
     protected String by;
-
     /**
      * To create a new task categorised as deadline
      *

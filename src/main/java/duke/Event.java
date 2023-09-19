@@ -4,6 +4,7 @@ package duke;
  * Categorises task as Event.
  */
 public class Event extends Task {
+
     /** String to hold start time of an event */
     protected String from;
 
