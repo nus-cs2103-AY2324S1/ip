@@ -10,6 +10,17 @@ public class Parser {
     private TaskList taskList;
     /** Storage associated to parser. */
     private Storage storage;
+    private final String UNKNOWN_ERROR_MSG = "OOPS!! I'm sorry, but I don't know what that means :-(\n\n"
+            + "The available commands are: \n"
+            + "list\n"
+            + "mark TASK_INDEX\n"
+            + "unmark TASK_INDEX\n"
+            + "delete TASK_INDEX\n"
+            + "tag TASK_INDEX TAG\n"
+            + "todo TASK_DESCRIPTION\n"
+            + "deadline TASK_DESCRIPTION /by DATETIME\n"
+            + "event TASK_DESCRIPTION /by START_DATETIME /to END_DATETIME\n"
+            + "find SEARCH_PATTERN";
 
     /**
      * Initialises Parser object.
@@ -54,7 +65,7 @@ public class Parser {
         case "find":
             return Ui.printFindMsg(taskList, args);
         default:
-            throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
+            throw new GlubException(UNKNOWN_ERROR_MSG);
         }
     }
 }
