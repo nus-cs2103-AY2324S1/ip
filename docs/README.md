@@ -21,7 +21,7 @@ Allows users to mark task at the specified index of the list as done or not done
 
 Allows users to mark, unmark or delete all the tasks in the list in one go.
 
-### Find tasks with matching keyword
+### Find tasks with a matching keyword
 
 Allows users to view tasks with the matching keyword in their description.
 
@@ -82,6 +82,37 @@ Got it. I've added this task:
     [T][] go on a holiday
 Now you have X tasks in the list.
 ```
+
+### `deadline` - Add task of type Deadline to list
+
+Users can add tasks with a deadline of type Deadline to list
+
+Example of usage:
+
+`deadline homework /by 2023-09-22 2359`
+
+Expected outcome:
+```
+Got it. I've added this task:
+    [D][] homework (by: Sep 22 2023 2359)
+Now you have X tasks in the list.
+```
+
+### `event` - Add task of type Event to list
+
+Users can add tasks with a start and end date & time of type Event to list
+
+Example of usage:
+
+`event networking /from 2023-09-22 1900 /to 2023-09-22 2130`
+
+Expected outcome:
+```
+Got it. I've added this task:
+    [E][] networking (from: Sep 22 2023 1900 to: Sep 22 2023 2130)
+Now you have X tasks in the list.
+```
+
 ### `mark all` - mark all tasks in list as done
 
 Users can now mark all the tasks in the list as done easily
