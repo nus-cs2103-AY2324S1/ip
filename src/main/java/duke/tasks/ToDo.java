@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.exceptions.InvalidRescheduleException;
+
 /**
  * Represents a to-do task without any specific time constraints.
  * This class extends the duke.tasks.Task class and represents a simple to-do item.
@@ -12,6 +14,11 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
+    }
+
+    @Override
+    public void reschedule(String newDateTimeString) throws InvalidRescheduleException {
+        throw new InvalidRescheduleException("Cannot reschedule a ToDo");
     }
 
     /**

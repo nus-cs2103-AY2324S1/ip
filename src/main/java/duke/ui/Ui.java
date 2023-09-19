@@ -113,7 +113,7 @@ public class Ui {
         return "Ding: I seriously have no idea what I need to do here\n"
                 + "Ding: No way you forgot to even input a proper command...\n"
                 + "Ding: Available commands are 'todo', 'deadline', 'event', \n"
-                + "'list', 'mark', 'unmark', 'delete', 'find', 'bye'\n";
+                + "'list', 'mark', 'unmark', 'delete', 'find', 'reschedule', 'bye'\n";
     }
 
     /**
@@ -157,6 +157,15 @@ public class Ui {
     }
 
     /**
+     * Displays a reply after rescheduling a task.
+     *
+     * @return The reply message for a rescheduled task.
+     */
+    public static String rescheduleReply(Task task) {
+        return String.format("Successfully rescheduled your task: %s", task);
+    }
+
+    /**
      * Displays a reply for an invalid date-time format exception.
      *
      * @return The reply message for an invalid date-time format exception.
@@ -173,5 +182,15 @@ public class Ui {
      */
     public static String invalidKeywordExceptionReply() {
         return "Ding: Please use the format 'find (keyword)' so I that can help you look around";
+    }
+
+    /**
+     * Displays a reply for an invalid keyword exception.
+     *
+     * @return The reply message for an invalid keyword exception.
+     */
+    public static String invalidRescheduleExceptionReply() {
+        return "Ding: Please use the format 'reschedule (task number) (date) (time)' for deadlines\n"
+                + "and 'reschedule (task number) (fromdate) (fromtime) (todate) (totime)' for events";
     }
 }

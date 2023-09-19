@@ -1,10 +1,13 @@
 package duke.tasks;
 
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidRescheduleException;
+
 /**
  * Represents a task with a description and completion status.
  * This class provides basic functionality for managing tasks.
  */
-public class Task {
+public abstract class Task {
     /**
      * The description of the task.
      */
@@ -54,6 +57,14 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    /**
+     * Reschedules the task with a new date and time.
+     *
+     * @param newDateTimeString The new date and time in string format.
+     */
+    public abstract void reschedule(String newDateTimeString)
+            throws InvalidDateTimeException, InvalidRescheduleException;
 
     /**
      * Returns a string representation of the duke.tasks.Task object.
