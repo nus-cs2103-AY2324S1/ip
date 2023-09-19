@@ -97,7 +97,6 @@ public class Parser {
      * @param tasks The list of tasks.
      * @param ui    The user interface.
      * @return A string message indicating the result of the mark operation.
-     * @throws AssertionError If the task index is out of bounds.
      */
     private static String parseMarkCommand(String input, TaskList tasks, Ui ui) {
         int taskIndex;

@@ -47,7 +47,6 @@ public class Tired {
                 storage.saveToFile(tasks);
                 return ui.showGoodbyeMessage();
             }
-
             return Parser.parseCommand(input, tasks, ui);
         } catch (DukeException e) {
             return ui.showError(e.getMessage());

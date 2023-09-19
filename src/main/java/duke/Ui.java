@@ -81,7 +81,7 @@ public class Ui {
         if (tasks.getSize() == 0) {
             return ("Wow! You have no tasks in your task list!");
         }
-        return tasks.toString();
+        return (tasks + "You have " + tasks.getSize() + " task(s) remaining");
     }
 
     /**
