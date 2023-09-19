@@ -1,0 +1,3 @@
+T | X |  that
+D | O |  this  | now
+E | O |   | now  | then

@@ -8,7 +8,7 @@ public class Gman {
     private static Scanner scanner = new Scanner(System.in);
     private static final String exitWord = "bye";
     public static void main(String[] args) {
-        Ui.greet();
+        //System.out.println(Ui.greet());
         String userInput = scanner.nextLine();
         while(!userInput.equals(exitWord)) {
             Parser.readInput(userInput, taskList);
