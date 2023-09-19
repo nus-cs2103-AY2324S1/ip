@@ -63,9 +63,13 @@ public class Storage {
      * @throws IOException If there is an error reading or writing to the file.
      */
     public static void writeToFile(String filePath, String textToWrite) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToWrite);
-        fw.close();
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(textToWrite);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

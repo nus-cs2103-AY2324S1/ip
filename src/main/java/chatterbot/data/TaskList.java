@@ -3,6 +3,7 @@ package chatterbot.data;
 import chatterbot.storage.Storage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    protected static ArrayList<Task> list;
+    public static ArrayList<Task> list;
 
     public TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -41,4 +42,32 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    public ArrayList<Task> getList() {
+        return list;
+    }
+
+    public String addTask(Task task, Storage storage, String filePath) {
+        list.add(task);
+        try {
+            // Save the updated task list to the storage file.
+            storage.writeToFile(filePath, convertToString(list));
+        } catch (IOException e) {
+            return "Error: File not found.";
+        }
+        return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + list.size() + " tasks in the list.";
+    }
+
+    public String deleteTask(int taskIndex, Storage storage, String filePath) {
+        if (taskIndex < 0 || taskIndex >= list.size()) {
+            return "Invalid task index. No task removed.";
+        }
+        Task removedTask = list.remove(taskIndex);
+        try {
+            // Save the updated task list to the storage file.
+            storage.writeToFile(filePath, convertToString(list));
+        } catch (IOException e) {
+            return "Error: File not found.";
+        }
+        return "Noted. I've removed this task:\n" + removedTask.toString() + "\nNow you have " + list.size() + " tasks in the list.";
+    }
 }
