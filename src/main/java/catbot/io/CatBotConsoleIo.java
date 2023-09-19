@@ -167,6 +167,13 @@ public class CatBotConsoleIo implements UserIo {
     }
 
     @Override
+    public void displayTaskListWithoutNumber(TaskList taskList) {
+        for (String taskString : taskList.getTaskStrings()) {
+            send(String.format("- " + taskString));
+        }
+    }
+
+    @Override
     public void displayTaskAdded(TaskList taskList) {
         int index = taskList.size() - 1;
         send("Added: " + (index + 1) + ". " + taskList.getTask(index));

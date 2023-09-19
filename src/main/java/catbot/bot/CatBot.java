@@ -136,6 +136,25 @@ public class CatBot implements Bot {
                         str -> io.displayTaskList(taskList.findInDescriptions(str)))
         );
 
+        // User editing tasks (with more control)
+
+        BiConsumer<String, BiConsumer<Integer, NamedParameterMap>> editTaskIfValidIndexElseIndicate =
+                (string, biconsumer) -> slashPattern.ifParsableElseDefault(string,
+                        map -> runIfValidIndexElseIndicateError.accept(map.remove(""),
+                                integer -> biconsumer.accept(integer, map)
+                            )
+                    );
+
+        commands.addCommand("edit",
+                str -> editTaskIfValidIndexElseIndicate.accept(str,
+                        (index, map) -> {
+                            taskList.editTask(index, map);
+                            io.displayTaskModified(taskList, index);
+                        }
+                )
+        );
+
+
     }
 
     //endregion

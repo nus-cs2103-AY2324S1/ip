@@ -27,6 +27,14 @@ public class NamedParameterMap {
         }
     }
 
+    public String remove(String key) {
+        if (!containsKey(key)) {
+            return null;
+        }
+
+        return parameters.remove(key);
+    }
+
     public Set<String> keySet() {
         return parameters.keySet();
     }

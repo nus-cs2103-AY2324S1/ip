@@ -62,6 +62,13 @@ public abstract class Task implements Serializable {
         this.description = description;
     }
 
+    /**
+     * Replaces relevant information in the task with the new values provided by the NamedParameterMap.
+     *
+     * @param map map containing new arguments to override previous values.
+     */
+    public abstract void edit(NamedParameterMap map);
+
     //endregion
 
     //region Overrides
@@ -148,7 +155,9 @@ public abstract class Task implements Serializable {
         try {
             return Optional.of(LocalDate.parse(val));
         } catch (DateTimeParseException ignored) {
-            elseMap.addNamedParameter(arg, val);
+            if (elseMap != null) {
+                elseMap.addNamedParameter(arg, val);
+            }
             return Optional.empty();
         }
     }

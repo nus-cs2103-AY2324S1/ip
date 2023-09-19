@@ -32,4 +32,13 @@ public class Todo extends Task {
                 namedParameterMap.get("")
         ));
     }
+
+    @Override
+    public void edit(NamedParameterMap map) {
+        map.moveToNewKey("desc", "description");
+        if (!map.containsKey("description")) {
+            return;
+        }
+        this.setDescription(map.get("description"));
+    }
 }
