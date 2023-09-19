@@ -51,15 +51,14 @@ public class TaskList {
     public String listTasks() {
         if (this.list.size() == 0) {
             return ui.showNumberOfTasks(0);
-        } else {
-            String result = "";
-            for (int i = 0; i < this.list.size(); i++) {
-                int index = i + 1;
-                Task task = this.list.get(i);
-                result += index + ". " + task.toString() + "\n";
-            }
-            return ui.showTasks(result);
         }
+        String result = "";
+        for (int i = 0; i < this.list.size(); i++) {
+            int index = i + 1;
+            Task task = this.list.get(i);
+            result += index + ". " + task.toString() + "\n";
+        }
+        return ui.showTasks(result);
     }
 
     /**

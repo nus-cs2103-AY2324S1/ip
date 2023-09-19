@@ -76,6 +76,12 @@ public class Parser {
         String command = inputs[0];
 
         switch (command) {
+        case "todo":
+            return parseToDo(input);
+        case "deadline":
+            return parseDeadline(input);
+        case "event":
+            return parseEvent(input);
         case "list":
             return parseList(input);
         case "delete":
@@ -86,12 +92,6 @@ public class Parser {
             return parseUnMark(input);
         case "find":
             return findTask(input);
-        case "todo":
-            return parseToDo(input);
-        case "deadline":
-            return parseDeadline(input);
-        case "event":
-            return parseEvent(input);
         case "bye":
             return parseBye();
         default:

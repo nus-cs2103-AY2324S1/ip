@@ -97,6 +97,26 @@ public class TaskListTest {
     }
 
     @Test
+    public void findMatches_keywordContainedWithinWord() {
+        UiStub ui = new UiStub();
+        StorageStub storage = new StorageStub("./src/test/testdata.txt");
+        TaskListStub list = new TaskListStub(this.tasks, storage, ui);
+
+        String result = list.findMatches("cookie");
+        ArrayList<Task> expectedList = new ArrayList<>();
+        expectedList.add(tasks.get(0));
+        expectedList.add(tasks.get(1));
+        expectedList.add(tasks.get(2));
+        expectedList.add(tasks.get(3));
+        expectedList.add(tasks.get(6));
+        expectedList.add(tasks.get(7));
+
+        String expected = ui.showMatches(list.listTasks(expectedList));
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void findMatches_moreThanOneKeyword() {
         UiStub ui = new UiStub();
         StorageStub storage = new StorageStub("./src/test/testdata.txt");

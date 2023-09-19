@@ -132,14 +132,13 @@ Finds tasks that contain the input keyword.
 
 Format: `find KEYWORD`
 
-Example of usage: `find cookie`
+Example of usage: `find batches`
 
 Expected outcome:
 
 ```
 (⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are the matching tasks in your list:
 1. [D] [] bake 2 cookie batches (by: 2023-10-10 09:00)
-2. [E] [] cookie fundraiser (from: 2023-10-10 14:00 to: 2023-10-11 11:00)
 ```
 
 ### `delete` - Deleting a task
