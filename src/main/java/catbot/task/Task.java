@@ -10,6 +10,10 @@ import java.util.Optional;
 import catbot.internal.NamedParameterMap;
 import catbot.io.ErrorIndicatorIo;
 
+/**
+ * Abstract object representing an entry in a TaskList.
+ * Intended to represent a single task that needs to be done by the user.
+ */
 public abstract class Task implements Serializable {
 
     //region Fields

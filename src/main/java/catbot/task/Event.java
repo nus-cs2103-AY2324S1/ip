@@ -1,12 +1,15 @@
 package catbot.task;
 
-import catbot.internal.NamedParameterMap;
-import catbot.io.ErrorIndicatorIo;
-
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
+import catbot.internal.NamedParameterMap;
+import catbot.io.ErrorIndicatorIo;
+
+/**
+ * Task with start and end dates.
+ */
 public class Event extends Task {
 
     private static final String DESC_KEY = "";
@@ -31,14 +34,21 @@ public class Event extends Task {
         this.eventStart = eventStart;
     }
 
+    /**
+     * Optionally creates a Deadline, if the given NamedParameterMap has valid arguments.
+     *
+     * @param map                 map of parameters and arguments to attempt to create a Deadline.
+     * @param invalidStateHandler consumer to accept information about the error in case of argument invalidity.
+     * @return an Optional Task if arguments are valid, otherwise an empty Optional.
+     */
     public static Optional<Task> createIfValidElse(
-            NamedParameterMap namedParameterMap,
+            NamedParameterMap map,
             BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap> invalidStateHandler
     ) {
 
         Optional<InvalidArgumentStruct> optionalInvalidParameterState =
                 Task.invalidStateIfTaskParametersMissingOrBlank(
-                        namedParameterMap,
+                        map,
                         DESC_KEY, START_DATE_KEY, END_DATE_KEY
                 );
         if (optionalInvalidParameterState.isPresent()) {
@@ -50,10 +60,10 @@ public class Event extends Task {
             return Optional.empty();
         }
 
-        String description = namedParameterMap.get(DESC_KEY);
+        String description = map.get(DESC_KEY);
         NamedParameterMap invalidArgs = new NamedParameterMap();
-        Optional<LocalDate> start = Task.parseOptionalDateElseMap(namedParameterMap, invalidArgs, START_DATE_KEY);
-        Optional<LocalDate> end = Task.parseOptionalDateElseMap(namedParameterMap, invalidArgs, END_DATE_KEY);
+        Optional<LocalDate> start = Task.parseOptionalDateElseMap(map, invalidArgs, START_DATE_KEY);
+        Optional<LocalDate> end = Task.parseOptionalDateElseMap(map, invalidArgs, END_DATE_KEY);
         if (start.isEmpty() || end.isEmpty()) {
             invalidArgs.moveToNewKey(DESC_KEY, "description");
             invalidArgs.moveToNewKey(START_DATE_KEY, "start date");

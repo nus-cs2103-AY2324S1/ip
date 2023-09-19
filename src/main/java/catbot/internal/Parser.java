@@ -2,6 +2,9 @@ package catbot.internal;
 
 import java.util.Arrays;
 
+/**
+ * Object that parses a String into a NamedParameterMap.
+ */
 public class Parser {
 
     private final String delimiter;

@@ -1,12 +1,15 @@
 package catbot.task;
 
-import catbot.internal.NamedParameterMap;
-import catbot.io.ErrorIndicatorIo;
-
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
+import catbot.internal.NamedParameterMap;
+import catbot.io.ErrorIndicatorIo;
+
+/**
+ * Task with a due date.
+ */
 public class Deadline extends Task {
 
 
@@ -24,6 +27,13 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Optionally creates a Deadline, if the given NamedParameterMap has valid arguments.
+     *
+     * @param map                 map of parameters and arguments to attempt to create a Deadline.
+     * @param invalidStateHandler consumer to accept information about the error in case of argument invalidity.
+     * @return an Optional Task if arguments are valid, otherwise an empty Optional.
+     */
     public static Optional<Task> createIfValidElse(
             NamedParameterMap map,
             BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap> invalidStateHandler

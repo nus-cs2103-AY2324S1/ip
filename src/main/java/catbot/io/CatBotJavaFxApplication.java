@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Application that creates a JavaFX UI.
+ */
 public class CatBotJavaFxApplication extends Application {
 
     private static CatbotJavaFxController lastCreatedController;
@@ -25,10 +28,10 @@ public class CatBotJavaFxApplication extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            lastCreatedController = fxmlLoader.<CatbotJavaFxController>getController();
+            lastCreatedController = fxmlLoader.getController();
             stage.show();
-            CatBotJavaFxIo.lastApplicationLaunchPoint.initializeAfterFxml();
-        } catch (IOException ignored) {
+            CatBotJavaFxIo.getLastApplicationLaunchPoint().initializeAfterFxml();
+        } catch (IOException ignored) { //noinspection UnnecessarySemicolon
             ;
         }
     }

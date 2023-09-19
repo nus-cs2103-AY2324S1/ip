@@ -5,6 +5,10 @@ import catbot.io.CatBotJavaFxIo;
 import catbot.io.UserIo;
 import catbot.task.TaskList;
 
+/**
+ * Entrypoint for the CatBot Assistant.
+ * Contains a public static void main to run.
+ */
 public class CatBotEntrypoint {
 
     public static void main(String[] args) {
