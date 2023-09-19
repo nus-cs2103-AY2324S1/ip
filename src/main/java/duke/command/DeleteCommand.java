@@ -26,7 +26,7 @@ public class DeleteCommand implements Command {
             int index = Integer.parseInt(words[1]) - 1;
             Task temp = tasks.get(index);
             tasks.remove(index);
-            ui.respond("Noted. I've removed this task: " + "\n" + temp
+            ui.respond("Well done! I've removed this task: " + "\n" + temp
                     + "\n" + "Now you have " + tasks.size() + " tasks in the list");
         } catch (Exception e) {
             throw new DukeException("Wrong index. Try checking your list first.");

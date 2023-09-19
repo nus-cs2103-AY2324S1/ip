@@ -41,10 +41,30 @@ public class Duke extends Application {
         Application.launch(Duke.class, args);
     }
 
+    /**
+     * Start the program with GUI.
+     *
+     * @param stage the primary stage for this application, onto which
+     *              the application scene can be set.
+     *              Applications may create other stages, if needed, but they will not be
+     *              primary stages.
+     */
     @Override
     public void start(Stage stage) {
-        // Read file
+        // Read tasks from file and save it to tasks.
         Storage.readTask(tasks, ui);
+
+        // Start GUI
+        startGui(stage);
+    }
+
+    /**
+     * Start graphical user interface.
+     *
+     * @param stage the primary stage for this application, onto which
+     *              the application scene can be set.
+     */
+    public void startGui(Stage stage) {
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -68,7 +88,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("KEN");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -120,8 +140,21 @@ public class Duke extends Application {
             handleUserInput();
         });
 
-        // Show welcome message
+        // Style GUI
+        mainLayout.setStyle("-fx-background-color: #121212;");
+        scrollPane.setStyle("-fx-background: #121212; -fx-border-color: #444;");
+        userInput.setStyle("-fx-background-color: #222; -fx-text-fill: #FFF;");
+        sendButton.setStyle("-fx-background-color: #333; -fx-text-fill: #FFF;");
+        dialogContainer.setStyle("-fx-background-color: #121212;");
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Remove Scroll bar.
+        AnchorPane.setRightAnchor(scrollPane, 1.0);
+        AnchorPane.setLeftAnchor(scrollPane, 1.0);
+        userInput.setStyle("-fx-background-color: #222; -fx-text-fill: #FFF; "
+                + "-fx-border-color: #444; -fx-border-width: 1; -fx-border-radius: 5;");
+        sendButton.setStyle("-fx-background-color: #333; -fx-text-fill: #FFF; "
+                + "-fx-border-color: #444; -fx-border-width: 1; -fx-border-radius: 5;");
 
+        // Show welcome message
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(new Label(ui.showWelcome()), new ImageView(duke))
         );
@@ -187,7 +220,7 @@ public class Duke extends Application {
         /**
          * Constructor.
          *
-         * @param l Label.
+         * @param l  Label.
          * @param iv ImageView.
          */
         public DialogBox(Label l, ImageView iv) {
@@ -223,7 +256,7 @@ public class Duke extends Application {
         /**
          * GetDukeDialog.
          *
-         * @param l Label.
+         * @param l  Label.
          * @param iv ImageView.
          * @return DialogBox.
          */

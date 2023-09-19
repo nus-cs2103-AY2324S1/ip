@@ -5,7 +5,7 @@ import duke.Ui;
 import duke.exception.DukeException;
 
 /**
- * FindCommand to search for a task in the taskList.
+ * Command to search for nearest dated task.
  */
 public class ReminderCommand implements Command {
 

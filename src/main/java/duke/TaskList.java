@@ -2,7 +2,6 @@ package duke;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import duke.exception.DukeException;
@@ -99,6 +98,9 @@ public class TaskList {
                 stringBuilder.append("\n");
             }
         }
+        if (tasks.size() > 5) {
+            stringBuilder.append("\n\nWah a lot of tasks to do!");
+        }
         return stringBuilder.toString();
     }
 
@@ -118,10 +120,11 @@ public class TaskList {
         }
 
         if (tasks.size() == 0) {
-            return "There are no tasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return "You don't have any tasks at all";
         }
 
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here is want I found:\n\n");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).onDate(targetDate)) {
                 stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());

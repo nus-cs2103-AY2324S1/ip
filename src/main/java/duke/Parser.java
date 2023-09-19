@@ -45,7 +45,7 @@ public class Parser {
         case "reminders":
             return new ReminderCommand();
         default:
-            throw new DukeException("Unknown Command!");
+            throw new DukeException(userInput + "?\nI don't know what that is!");
         }
     }
 }
