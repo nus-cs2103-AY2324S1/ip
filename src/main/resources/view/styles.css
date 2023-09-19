@@ -42,3 +42,33 @@
 .user-dialog {
     -fx-background-color: linear-gradient(to bottom, #505050, #606060); /* Gradient effect */
 }
+
+/* Button */
+.button {
+    -fx-border-radius: 20px;  /* More rounded corners */
+    -fx-background-radius: 20px;  /* More rounded corners */
+}
+
+.button:hover {
+    -fx-background-color: #444;
+}
+
+.button:pressed {
+    -fx-background-color: #222;
+    -fx-translate-y: 2px; /* A subtle button press effect */
+}
+
+/* TextField */
+.text-field {
+    -fx-border-radius: 20px;
+    -fx-background-color: #333;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.5), 2, 0, 0, 1);  /* subtle shadow effect */
+}
+
+/* DialogBox */
+.dialog-box {
+    -fx-padding: 5px; /* Padding for each dialog box */
+    -fx-spacing: 5px; /* Spacing between dialog boxes */
+}
+
