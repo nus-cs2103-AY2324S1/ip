@@ -27,8 +27,6 @@ public class Main extends Application {
             // Load tasks from the data file into the TaskList
             storage.loadTasksFromFile(taskList);
             List<Task> allTasks = taskList.getTasks();
-            // Create a user interface
-            Ui ui = new Ui();
             Parser parser = new Parser();
             if (allTasks.size() == 0) {
             parser.run = 1;

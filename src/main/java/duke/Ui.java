@@ -18,8 +18,8 @@ public class Ui {
     /**
      * Displays a greeting message when the program starts.
      */
-    public static void greet() {
-        System.out.println("Hello! I'm Bot\n"
+    public static String greet() {
+        return (horizontalLine + "Hello! I'm Bot\n"
                 + "What can I do for you?\n" + horizontalLine);
     }
 
