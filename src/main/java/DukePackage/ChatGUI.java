@@ -21,6 +21,9 @@ public class ChatGUI {
     public String process(String input) {
         String result = HORIZONTAL_LINE;
         String[] parts = input.split(" ");
+        // assertion
+        assert storage != null : "Storage should be initialised";
+
         switch (parts[0]) {
             case "bye":
                 result += OUTRO;

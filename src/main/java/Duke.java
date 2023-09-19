@@ -26,6 +26,7 @@ public class Duke{
         Storage storage = new Storage();
         Parser parser = new Parser();
 
+
         // read from txt file and create tasks and put into storage
         storage.loadListFromFile();
 //        ui.printIntro();
