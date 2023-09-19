@@ -57,13 +57,31 @@ public class Command {
         return command;
     }
 
+    /**
+     * Creates a command with the given command type, description and deadline date
+     *
+     * @param commandType The command type.
+     * @param description The description.
+     * @param deadlineDate The deadline date.
+     * @return The command.
+     */
     public static Command ofDeadline(String commandType, String description, LocalDate deadlineDate) {
         Command command = ofDescription(commandType, description);
         command.deadlineDate = Optional.ofNullable(deadlineDate);
         return command;
     }
 
-    public static Command ofEvent(String commandType, String description, LocalDate eventFromDate, LocalDate eventToDate) {
+    /**
+     * Creates a command with the given command type, description and event dates
+     *
+     * @param commandType The command type.
+     * @param description The description.
+     * @param eventFromDate The event start date.
+     * @param eventToDate The event end date.
+     * @return The command.
+     */
+    public static Command ofEvent(String commandType, String description,
+                                  LocalDate eventFromDate, LocalDate eventToDate) {
         Command command = ofDescription(commandType, description);
         command.eventFromDate = Optional.ofNullable(eventFromDate);
         command.eventToDate = Optional.ofNullable(eventToDate);

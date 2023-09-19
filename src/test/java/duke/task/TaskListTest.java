@@ -1,15 +1,15 @@
 package duke.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TaskListTest {
     private TaskList taskList;
@@ -90,7 +90,7 @@ class TaskListTest {
         taskList.addTask(task1);
         taskList.addTask(task2);
 
-        String expected = "Here are the tasks in your list:\n1. [ ] Sample Task 1\n2. [ ] Sample Task 2\n";
+        String expected = "Here are the tasks in your list:\n1. [ ] Sample Task 1\n2. [ ] Sample Task 2";
         assertEquals(expected, taskList.toString());
     }
 }

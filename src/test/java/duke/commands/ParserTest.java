@@ -1,4 +1,4 @@
-package commands;
+package duke.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,7 +23,7 @@ public class ParserTest {
         Command command = Parser.parse(userInput);
 
         assertEquals(command.getCommandType(), "todo");
-        assertEquals("Sample", command.getDescription());
+        assertEquals("Sample", command.getDescription().orElseGet(null));
     }
 
     @Test
@@ -32,8 +32,8 @@ public class ParserTest {
         Command command = Parser.parse(userInput);
 
         assertEquals(command.getCommandType(), "deadline");
-        assertEquals("Sample", command.getDescription());
-        assertEquals(LocalDate.parse("2023-12-31"), command.getDeadlineDate());
+        assertEquals("Sample", command.getDescription().orElseGet(null));
+        assertEquals(LocalDate.parse("2023-12-31"), command.getDeadlineDate().orElseGet(null));
     }
 
     @Test
@@ -42,9 +42,9 @@ public class ParserTest {
         Command command = Parser.parse(userInput);
 
         assertEquals(command.getCommandType(), "event");
-        assertEquals("Sample", command.getDescription());
-        assertEquals(LocalDate.parse("2023-12-31"), command.getEventFromDate());
-        assertEquals(LocalDate.parse("2024-01-01"), command.getEventToDate());
+        assertEquals("Sample", command.getDescription().orElseGet(null));
+        assertEquals(LocalDate.parse("2023-12-31"), command.getEventFromDate().orElseGet(null));
+        assertEquals(LocalDate.parse("2024-01-01"), command.getEventToDate().orElseGet(null));
     }
 
     @Test

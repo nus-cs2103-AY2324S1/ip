@@ -238,6 +238,11 @@ public class Duke {
         return matchingTasksString.toString();
     }
 
+    /**
+     * Returns the help message.
+     *
+     * @return The help message.
+     */
     public String helpMessage() {
         return "Here are the list of commands:\n"
                 + "todo <description>\n"

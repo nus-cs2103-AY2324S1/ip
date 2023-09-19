@@ -1,7 +1,6 @@
 package duke.ui;
 
 import java.io.InputStream;
-import java.util.Objects;
 import java.util.Scanner;
 
 import duke.commands.Command;
@@ -28,6 +27,13 @@ import javafx.util.Duration;
  */
 public class Ui extends Application {
     private static final Scanner scanner = new Scanner(System.in);
+    private static final double MAIN_WIDTH = 400.0;
+    private static final double MAIN_HEIGHT = 600.0;
+    private static final double SCROLLPANE_WIDTH = 385.0;
+    private static final double SCROLLPANE_HEIGHT = 535.0;
+    private static final double USER_INPUT_WIDTH = 325.0;
+    private static final double SEND_BUTTON_WIDTH = 55.0;
+    private static final double ANCHOR_CONST = 1.0;
     private static VBox dialogContainer;
     private ScrollPane scrollPane;
     private TextField userInput;
@@ -38,15 +44,7 @@ public class Ui extends Application {
 
 
     private final Image userImage = new Image(loadResource("/AncientHuman.jpeg"));
-    private final Image dukeImage = new Image(loadResource("/HolyGod.jpeg"));;
-
-    private static final double MAIN_WIDTH = 400.0;
-    private static final double MAIN_HEIGHT = 600.0;
-    private static final double SCROLLPANE_WIDTH = 385.0;
-    private static final double SCROLLPANE_HEIGHT = 535.0;
-    private static final double USER_INPUT_WIDTH = 325.0;
-    private static final double SEND_BUTTON_WIDTH = 55.0;
-    private static final double ANCHOR_CONST = 1.0;
+    private final Image dukeImage = new Image(loadResource("/HolyGod.jpeg"));
 
     @Override
     public void start(Stage stage) throws Exception {

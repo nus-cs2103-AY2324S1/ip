@@ -2,6 +2,7 @@ package duke.task;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.exception.DukeException;
 
@@ -139,15 +140,21 @@ public class TaskList {
         if (taskCount == 0) {
             return "Horray!! No tasks in the task list!";
         } else {
-            String taskListString = tasks.stream()
-                    .map(Task::toString)
+            String taskListString = IntStream.range(0, tasks.size())
+                    .mapToObj(i -> (i+1) + ". " + tasks.get(i).toString())
                     .collect(Collectors.joining("\n", "Here are the tasks in your list:\n", ""));
             return taskListString;
         }
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return True if the task list is empty, otherwise false.
+     */
     public boolean isEmpty() {
-        assert (taskCount == 0 && tasks.isEmpty()) || taskCount == tasks.size() : "Mismatch between taskCount and tasks list size!";
+        assert (taskCount == 0 && tasks.isEmpty()) || taskCount == tasks.size()
+                : "Mismatch between taskCount and tasks list size!";
         return (taskCount == 0);
     }
 }
