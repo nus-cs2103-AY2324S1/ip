@@ -7,7 +7,7 @@ import dialogix.exception.DialogixException;
  * Represents the main class for the Dialogix application.
  */
 public class Dialogix {
-    private static final String filePath = "/data/dialogix.txt";
+    private static final String filePath = "data/dialogix.txt";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
