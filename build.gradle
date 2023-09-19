@@ -32,7 +32,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Main")
+    mainClass.set("duke.Main")
 }
 
 shadowJar {

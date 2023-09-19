@@ -41,7 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dueDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+        return "[D]" + super.toString() + " (by: " + formattedDueDate()
                 + " " + this.dueTime + ")";
     }
 
@@ -51,7 +51,15 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "D | " + (this.isDone ? 1 : 0) + " | " + this.description + " | "
+        return "D | " + completionStatus() + " | " + this.description + " | "
                 + this.dueDate + " " + this.dueTime;
+    }
+
+    /**
+     * formats due date for display
+     * @return string of formatted due date
+     */
+    private String formattedDueDate() {
+        return this.dueDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
 }

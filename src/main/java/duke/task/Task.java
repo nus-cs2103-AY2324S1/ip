@@ -63,4 +63,12 @@ public class Task {
     public boolean contains(String keyword) {
         return this.description.contains(keyword);
     }
+
+    /**
+     * Returns numerical value of completion status
+     * @return 1 if completed 0 otherwise
+     */
+    public String completionStatus() {
+        return this.isDone ? "1" : "0";
+    }
 }
