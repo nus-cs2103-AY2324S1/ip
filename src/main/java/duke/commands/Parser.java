@@ -31,6 +31,7 @@ public class Parser {
         switch (commandType) {
         case "bye":
         case "list":
+        case "help":
             return Command.of(commandType);
 
         case "mark":

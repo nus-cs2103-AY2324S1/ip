@@ -68,6 +68,8 @@ public class Duke {
             return this.addEvent(description, eventFromDate, eventToDate);
         case "delete":
             return this.deleteTaskByBot(taskIndex);
+        case "help":
+            return this.helpMessage();
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
@@ -234,5 +236,18 @@ public class Duke {
             }
         }
         return matchingTasksString.toString();
+    }
+
+    public String helpMessage() {
+        return "Here are the list of commands:\n"
+                + "todo <description>\n"
+                + "deadline <description> /by <deadline date>\n"
+                + "event <description> /from <start date> /to <end date>\n"
+                + "list\n"
+                + "find <keyword>\n"
+                + "mark <task index>\n"
+                + "unmark <task index>\n"
+                + "delete <task index>\n"
+                + "bye";
     }
 }
