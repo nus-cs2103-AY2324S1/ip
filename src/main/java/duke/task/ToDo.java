@@ -4,7 +4,7 @@ package duke.task;
  */
 public class ToDo extends Task {
     /**
-     * Construct a task with a given description. Completion of the task
+     * Constructs a task with a given description. Completion of the task
      * is false by default.
      * @param description The description of the task
      */

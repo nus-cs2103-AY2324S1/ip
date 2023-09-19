@@ -22,7 +22,7 @@ public class Task {
     }
 
     /**
-     * Save format function to be overridden.
+     * Formats task to be saved. Should be overwritten.
      * @return null in case of a Task
      */
     public String toSaveFormat() {
