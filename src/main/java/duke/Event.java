@@ -65,7 +65,7 @@ public class Event extends Task {
             return true;
         }
 
-        if (!(obj instanceof Deadline)) {
+        if (!(obj instanceof Event)) {
             return false;
         }
 
