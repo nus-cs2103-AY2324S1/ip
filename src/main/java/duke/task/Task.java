@@ -49,8 +49,8 @@ public class Task {
     }
 
     /**
-     * Add tags to the task.
-     * @param tags The tags to be added.
+     * Returns the description of the task that is to be saved by Storage.
+     * @param tags The tags of the task.
      */
     public void addTags(String... tags) {
         if (tags.length == 0) {
