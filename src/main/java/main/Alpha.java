@@ -116,13 +116,4 @@ public class Alpha extends Application{
             return command.execute();
         }
     }
-
-    /**
-     * This is the main method that calls the run() function and starts Chatbot Alpha.
-     *
-     * @param args Unused.
-     */
-    public static void main(String[] args) {
-
-    }
 }
