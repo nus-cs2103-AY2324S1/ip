@@ -163,7 +163,6 @@ public class BlipParser {
             eventEnd = components[2];
         }
 
-
         return new String[] {description, eventStart, eventEnd, priorityString};
     }
 
