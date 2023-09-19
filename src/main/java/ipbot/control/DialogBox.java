@@ -32,7 +32,7 @@ public class DialogBox extends HBox {
         assert this.dialog != null : "Dialog component not found";
         assert this.displayPicture != null : "Display picture component not found";
 
-        this.dialog.setText(dialogText);
+        this.dialog.setText(dialogText);  // TODO: Update bind height
         this.displayPicture.setImage(image);
     }
 

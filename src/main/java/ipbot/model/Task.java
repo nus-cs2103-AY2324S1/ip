@@ -1,5 +1,6 @@
 package ipbot.model;
 
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -142,6 +143,14 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public Task copy() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void translateTime(Period period) {
+        throw new UnsupportedOperationException();
     }
 }
 

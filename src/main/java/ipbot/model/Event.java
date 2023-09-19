@@ -1,6 +1,7 @@
 package ipbot.model;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
@@ -75,5 +76,16 @@ public class Event extends Task {
         return "[E]" + super.toString()
                 + " (from: " + this.startTime.format(Task.DISPLAY_DATE_TIME_FORMATTER)
                 + " to: " + this.endTime.format(Task.DISPLAY_DATE_TIME_FORMATTER) + ")";
+    }
+
+    @Override
+    public Event copy() {
+        return new Event(this.description, this.startTime, this.endTime);
+    }
+
+    @Override
+    public void translateTime(Period period) {
+        this.startTime = this.startTime.plus(period);
+        this.endTime = this.endTime.plus(period);
     }
 }
