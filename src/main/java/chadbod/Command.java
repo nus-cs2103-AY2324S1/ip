@@ -18,7 +18,7 @@ public enum Command {
     private final String alias;
 
     /**
-     * Constructor for the Command enumeration.
+     * Constructs an instance of the Command enumeration.
      *
      * @param value The string representation of the command.
      */
@@ -28,7 +28,7 @@ public enum Command {
     }
 
     /**
-     * Get the string representation of the command.
+     * Returns the string representation of the command.
      *
      * @return The string value of the command.
      */
@@ -36,7 +36,7 @@ public enum Command {
         return this.value;
     }
     /**
-     * Get the string alias of the command.
+     * Returns the string alias of the command.
      *
      * @return The string alias of the command.
      */

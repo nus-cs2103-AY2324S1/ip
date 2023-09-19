@@ -20,7 +20,7 @@ public abstract class Task {
     }
 
     /**
-     * Get the status icon for the task (done or not done).
+     * Returns the status icon for the task (done or not done).
      *
      * @return The status icon as a string.
      */
@@ -43,7 +43,7 @@ public abstract class Task {
     }
 
     /**
-     * Convert the task to a string representation.
+     * Returns the string representation of the task.
      *
      * @return The string representation of the task.
      */
@@ -53,7 +53,7 @@ public abstract class Task {
     }
 
     /**
-     * Create a Task object from a string representation.
+     * Create a Task object from a given string.
      *
      * @param line The string representation of the task.
      * @return The Task object created from the string, or null if parsing fails.
@@ -103,7 +103,7 @@ public abstract class Task {
     }
 
     /**
-     * Convert the task to a string representation for saving to a file.
+     * Returns a string representation of the task for saving to a file.
      *
      * @return The string representation of the task for file storage.
      */

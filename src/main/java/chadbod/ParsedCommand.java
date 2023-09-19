@@ -19,16 +19,16 @@ public class ParsedCommand {
     }
 
     /**
-     * Get the parsed command type.
+     * Returns the command type associated with the parsed command.
      *
-     * @return The command type.
+     * @return The command type associated with the parsed command.
      */
     public Command getCommand() {
         return this.command;
     }
 
     /**
-     * Get the details associated with the command.
+     * Returns the details associated with the command.
      *
      * @return The command details.
      */
