@@ -33,14 +33,11 @@ public class Duke {
      * by the Parser.
      * @param message The message to be parsed and executed.
      * @return The text response by the chatbot.
+     * @throws DukeException When there are errors in the response.
      */
-    public String getResponse(String message) {
-        try {
-            Command c = Parser.parse(message);
-            return c.execute(tasks, storage);
-        } catch (DukeException e) {
-            return e.toString();
-        }
+    public String getResponse(String message) throws DukeException {
+        Command c = Parser.parse(message);
+        return c.execute(tasks, storage);
     }
 
     /**
