@@ -9,12 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     @Test
+    public void initialiseList() {
+        TaskList testList = new TaskList();
+        int taskListSize = testList.size();
+        assertEquals(0, taskListSize);
+    }
+    @Test
     public void toggleMark_invalidInput_throwsException() throws DukeException {
         ArrayList<Task> testList = new ArrayList<Task>();
         TaskList taskList = new TaskList();
         taskList.addTask(TaskList.TaskType.TODO, "read book", "unmarked");
         assertThrows(DukeException.class, () -> taskList.toggleMark(TaskList.MarkStatus.MARK, 3));
         assertDoesNotThrow(() -> taskList.toggleMark(TaskList.MarkStatus.MARK, 0));
+        assertEquals(1, taskList.size());
     }
 
     @Test

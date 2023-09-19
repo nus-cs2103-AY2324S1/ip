@@ -200,14 +200,14 @@ public class TaskList {
 
         //No duplicates, add deadline to list
         list.add(new Deadline(details, by, marked));
-        stringBuilder.append("Got it. I've added this to-do task:").append("\n");
+        stringBuilder.append("Got it. I've added this deadline:").append("\n");
         stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
         stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
         return stringBuilder.toString();
     }
 
     /**
-     * Returns a string representation of Taskmaster's reply when a event is added.
+     * Returns a string representation of Taskmaster's reply when an event is added.
      *
      * @param description Description of the event.
      * @param marked Whether the task should be added as a marked task.
@@ -238,7 +238,7 @@ public class TaskList {
         }
         //No duplicate, add event to list
         list.add(new Event(details, start, end, marked));
-        stringBuilder.append("Got it. I've added this to-do task:").append("\n");
+        stringBuilder.append("Got it. I've added this event:").append("\n");
         stringBuilder.append("  ").append(list.get(list.size() - 1)).append("\n");
         stringBuilder.append("Now you have ").append(list.size()).append(" tasks in the list.").append("\n");
         return stringBuilder.toString();
@@ -333,7 +333,20 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    /**
+     * Check if given index is within size of task list.
+     * @param index Index to be checked.
+     * @return Boolean to indicate if index is valid.
+     */
     private static boolean validIndex(int index) {
         return index >= 0 && index < TaskList.list.size();
+    }
+
+    /**
+     * Return size of list.
+     * @return size of list as integer number.
+     */
+    public int size() {
+        return list.size();
     }
 }

@@ -48,7 +48,7 @@ public class Parser {
                 return response;
             } else {
                 throw new DukeException("Invalid command");
-            }
+            }   
         } else if (userInput.startsWith("delete")) {
             String[] parts = userInput.split(" ");
             if (parts.length == 2) {
