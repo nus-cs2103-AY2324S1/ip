@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("ratspeak.gui.Launcher")
 }
 
 shadowJar {

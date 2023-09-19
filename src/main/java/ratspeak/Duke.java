@@ -20,7 +20,6 @@ public class Duke {
         while (true) {
             String command = inputReceiver.getInput();
 
-            //break out of the loop when it is "bye"
             if (command.equals("bye")) {
                 ui.bye();
                 break;

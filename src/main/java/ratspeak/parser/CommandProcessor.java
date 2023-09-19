@@ -20,7 +20,7 @@ public class CommandProcessor {
 
     /**
      * initialize command processor
-     * Load list of tasks from storage (if any)
+     * load list of tasks from storage (if any)
      */
     public CommandProcessor() {
         this.tasks = new TaskList(storage.loadFromFile());
@@ -59,8 +59,8 @@ public class CommandProcessor {
 
 
     /**
-     * Returns a string that is the output for the command given.
-     * Process mark, unmark, delete, find, event, todo, deadline
+     * returns a string that is the output for the command given.
+     * process mark, unmark, delete, find, event, todo, deadline
      * @return the string that is the output string for the command given.
      */
     public String processCommand(String command) {

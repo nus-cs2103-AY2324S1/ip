@@ -5,14 +5,14 @@ public class InputReceiver {
     private final Scanner scanner;
 
     /**
-     * Initialize InputReceiver object that focus on taking in inputs
+     * initialize InputReceiver object that focus on taking in inputs
      */
     public InputReceiver() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Returns the user input in a line as a string
+     * returns the user input in a line as a string
      * @return string of user input
      */
     public String getInput() {
