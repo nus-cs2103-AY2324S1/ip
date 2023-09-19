@@ -38,6 +38,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog("Hello!\nHow can I help you?" , dukeImage)
         );
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setFitToWidth(true);
     }
 
     public void setDuke(Duke d) {
