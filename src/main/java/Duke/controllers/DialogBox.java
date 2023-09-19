@@ -9,16 +9,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  * The `DialogBox` class represents a graphical control for displaying a dialog box in a JavaFX application.
  * It consists of an ImageView to represent the speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final double IMAGE_RADIUS = 300d;
+    private static final String FONT_FAMILY = "Montserrat";
     @FXML
     private Label dialog;
     @FXML
@@ -42,6 +48,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setFont(Font.font(FONT_FAMILY, 12));
+
         displayPicture.setImage(img);
     }
 
@@ -63,7 +71,7 @@ public class DialogBox extends HBox {
      * @return A `DialogBox` representing the user's dialog.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, getRoundedImage(img, IMAGE_RADIUS));
     }
 
     /**
@@ -75,9 +83,18 @@ public class DialogBox extends HBox {
      * @return A flipped `DialogBox` representing Duke's dialog.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, getRoundedImage(img, IMAGE_RADIUS));
         db.flip();
         return db;
+    }
+
+    private static Image getRoundedImage(Image image, double radius) {
+        Circle clip = new Circle(image.getWidth() / 2, image.getHeight() / 2, radius);
+        ImageView imageView = new ImageView(image);
+        imageView.setClip(clip);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        return imageView.snapshot(parameters, null);
     }
 }
 

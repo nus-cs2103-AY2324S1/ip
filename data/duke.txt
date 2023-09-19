@@ -2,3 +2,6 @@ T | 0 | borrow book
 D | 0 | go to event | 2023-01-01T18:00
 T | 0 | leave the library
 T | 0 | do 2103
+T | 0 | borrow book
+T | 0 | sleep
+T | 0 | wake up
