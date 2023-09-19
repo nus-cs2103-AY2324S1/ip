@@ -210,8 +210,12 @@ public class Parser {
      * @param input input of the user.
      * @return the task number of the task to be deleted.
      */
-    public String getLocation(String input) {
-        return input.split(" /at ")[1];
+    public String getLocation(String input) throws BotException {
+        try {
+            return input.split(" /at ")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BotException("You did not input your location.");
+        }
     }
 }
 
