@@ -8,11 +8,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+
 
 /**
  * An example of a custom control using FXML.
@@ -37,6 +40,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        HBox.setMargin(displayPicture, new Insets(0, 0, 0, 10));
     }
 
     /**
@@ -47,6 +51,8 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+
+        HBox.setMargin(displayPicture, new Insets(0, 10, 0, 0));
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
