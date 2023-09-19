@@ -147,6 +147,11 @@ Got it. I've added this task:
 Now you have 5 tasks in the list.
 ```
 
+### Add priority to task: `priority <index> <priority>`
+
+Adds a priority to the task at the specified index. Priority ranges from 0 to 5.
+
+
 ### Exit the program: `bye`
 
 Exits the program.

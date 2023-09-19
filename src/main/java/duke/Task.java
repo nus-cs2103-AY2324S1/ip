@@ -6,7 +6,6 @@ package duke;
 public class Task {
     private String taskName;
     private boolean isDone;
-    private boolean prioritySet;
     private int priority;
 
     /**

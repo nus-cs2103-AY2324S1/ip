@@ -45,10 +45,19 @@ application {
 }
 
 shadowJar {
+    mainClassName = "duke.Launcher"
     archiveBaseName = "duke"
     archiveClassifier = null
     archiveFileName = "duke.jar"
     dependsOn("distZip", "distTar")
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'duke.Launcher'
+        )
+    }
 }
 
 run{

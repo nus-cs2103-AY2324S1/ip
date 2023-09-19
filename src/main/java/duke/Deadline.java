@@ -1,6 +1,5 @@
 package duke;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
