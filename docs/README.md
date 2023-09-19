@@ -13,7 +13,7 @@ to conquering tasks like a true hero. 🦸‍♀️
 
 Ready to embark on this epic adventure of productivity? Let's go! 🌟
 
-![SAMDemo](../docs/UI.png)
+![SAMDemo](../docs/Ui.png)
 
 ## Features 
 
