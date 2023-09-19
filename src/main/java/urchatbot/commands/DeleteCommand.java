@@ -21,7 +21,8 @@ public class DeleteCommand extends Command {
     }
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
-        if (tasks.getSize() < 1 || tasks.getSize() <= taskNumber) {
+        boolean isInvalidSize = tasks.getSize() < 1 || tasks.getSize() <= taskNumber;
+        if (isInvalidSize) {
             throw new URChatBotException("OOPS!!! No task to delete!");
         }
         String deletedTask = tasks.getTasks().get(taskNumber).toString();

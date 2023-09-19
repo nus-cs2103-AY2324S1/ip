@@ -166,7 +166,7 @@ public class Ui {
      * Shows delete message for DeleteCommand if there are more 1 task in tasklist.
      */
     public String showDeleteMessagePlural(String deletedTask, int taskSize) {
-        return (MESSAGE_ADD + deletedTask + MESSAGE_NOW_YOU_HAVE
+        return (MESSAGE_DELETE + deletedTask + MESSAGE_NOW_YOU_HAVE
                 + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
     /**
