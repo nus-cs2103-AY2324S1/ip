@@ -15,6 +15,9 @@ public class Main extends Application {
 
     private Ren ren = new Ren();
 
+    public Main() {
+    }
+
     @Override
     public void start(Stage stage) {
         try {

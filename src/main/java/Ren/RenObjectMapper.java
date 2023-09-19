@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public final class RenObjectMapper {
     static ObjectMapper objectMapper = new ObjectMapper();
-    private static String cacheFileAddress = "./src/main/resources/cacheTaskList.txt";
+    private static String cacheFileAddress = "./cacheTaskList.txt";
 
     public RenObjectMapper() {
         objectMapper.registerSubtypes(new NamedType(ToDo.class, "ren.task.ToDo"));
@@ -38,8 +38,8 @@ public final class RenObjectMapper {
      */
     public static void storeIntoHarddisk(TaskList taskList) {
         try {
-            String home = System.getProperty("user.home");
-            Path path = Paths.get(home, "src", "main", "resources", "cacheTaskList.txt");
+            String home = System.getProperty("user.dir");
+            Path path = Paths.get(home, "cacheTaskList.txt");
             String json = objectMapper.writeValueAsString(taskList);
             boolean directoryExists = Files.exists(path);
             if (!directoryExists) {
@@ -70,9 +70,10 @@ public final class RenObjectMapper {
     public static TaskList retrieveFromHarddisk() {
         TaskList taskList = null;
         try {
-            String home = System.getProperty("user.home");
-            Path path = Paths.get(home, "src", "main", "resources", "cacheTaskList.txt");
+            String home = System.getProperty("user.dir");
+            Path path = Paths.get(home, "cacheTaskList.txt");
             boolean directoryExists = Files.exists(path);
+            System.out.println("Directory exists: " + directoryExists);
             if (!directoryExists) {
                 System.out.println("Creating directory: " + path);
                 Files.createDirectories(path.getParent());

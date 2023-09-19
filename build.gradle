@@ -50,13 +50,11 @@ test {
 }
 
 application {
-    mainClass.set("ren.Launcher")
+    mainClass.set("ren.Ren")
 }
 
 shadowJar {
-    archiveFileName = 'Ren.jar'
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'ren.jar'
 }
 
 run{
