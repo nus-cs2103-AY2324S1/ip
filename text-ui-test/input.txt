@@ -1,0 +1,15 @@
+todo eat
+todo shit
+deadline run /by 2019-02-03 1000
+deadline submit this /by 2023-01-09 1800
+event help /from 2022-02-02 1900 /to 2023-09-08 1000
+unmark 2
+mark 1
+unmark 1
+blah
+whysohard
+delete 3
+deadline
+todo
+event
+bye
