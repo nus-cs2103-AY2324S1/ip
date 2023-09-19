@@ -134,13 +134,21 @@ public class RatNoteManager {
      * @return The response to the user saying that the notes are saved.
      */
     public String save() {
-        StringBuilder data = new StringBuilder();
-        for (Note note : this.noteList) {
-            data.append(note.formatForFile()).append("\n");
-        }
         String existingItems = this.storage.readFile();
-        if (!existingItems.contains(data.toString())) {
-            this.storage.addToFile(data.toString());
+        if (this.noteList.isEmpty()) {
+            String[] items = existingItems.split("\n");
+            StringBuilder sb = new StringBuilder();
+            for (String s : items) {
+                if (s.startsWith("T") || s.startsWith("D") || s.startsWith("E")) {
+                    sb.append(s + "\n");
+                }
+            }
+            this.storage.overwriteFile(sb.toString());
+        }
+        for (Note note : this.noteList) {
+            if (!existingItems.contains(note.formatForFile())) {
+                this.storage.addToFile(note.formatForFile() + ("\n"));
+            }
         }
         return "Notes saved to file.";
     }

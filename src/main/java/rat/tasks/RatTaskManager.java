@@ -272,13 +272,21 @@ public class RatTaskManager {
      * Checks if the taskList is already in the file, and if not, adds it to the file.
      */
     public String save() {
-        StringBuilder data = new StringBuilder();
-        for (Task task : this.taskList) {
-            data.append(task.formatForFile()).append("\n");
-        }
         String existingItems = this.storage.readFile();
-        if (!existingItems.contains(data.toString())) {
-            this.storage.addToFile(data.toString());
+        if (this.taskList.isEmpty()) {
+            String[] items = existingItems.split("\n");
+            StringBuilder sb = new StringBuilder();
+            for (String s : items) {
+                if (s.startsWith("N")) {
+                    sb.append(s + "\n");
+                }
+            }
+            this.storage.overwriteFile(sb.toString());
+        }
+        for (Task task : this.taskList) {
+            if (!existingItems.contains(task.formatForFile())) {
+                this.storage.addToFile(task.formatForFile() + ("\n"));
+            }
         }
         return "Tasks saved to file. ";
     }
