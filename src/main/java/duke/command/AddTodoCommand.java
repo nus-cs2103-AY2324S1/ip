@@ -23,6 +23,10 @@ public class AddTodoCommand extends Command {
         this.taskName = taskName;
     }
 
+    /**
+     * Executes the command by creating a todo, adding it to the taskList,
+     * adding it to the storage and displaying a message to the ui.
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {

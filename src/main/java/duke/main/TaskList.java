@@ -98,6 +98,13 @@ public class TaskList {
         return this.index;
     }
 
+    /**
+     * Returns the task with the indicated index.
+     *
+     * @param index The index of the task.
+     * @return The task.
+     * @throws DukeException
+     */
     public Task getTask(int index) throws DukeException {
         try {
             return this.taskList.get(index - 1);
@@ -110,12 +117,12 @@ public class TaskList {
      * Prints the tasks in the list.
      */
     public String produceTaskList() {
-        String result = "";
-        result += "Here are the tasks in your list:\n";
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.getSize(); i++) {
-            result += ((i + 1) + ". " + this.taskList.get(i).userDisplayString() + "\n");
+            result.append(i + 1).append(". ").append(this.taskList.get(i).userDisplayString()).append("\n");
         }
-        return result;
+        return result.toString();
     }
 
     /**

@@ -8,6 +8,9 @@ import duke.main.Ui;
  * The ByeCommand class.
  */
 public class ByeCommand extends Command {
+    /**
+     * Displays a goodbye message to the ui.
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         return ui.showGoodbyeMsg();

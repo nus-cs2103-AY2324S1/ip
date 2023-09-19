@@ -30,6 +30,10 @@ public class AddEventCommand extends Command {
         this.endDate = endDate;
     }
 
+    /**
+     * Executes the command by creating an event, adding it to the taskList,
+     * adding it to the storage and displaying a message to the ui.
+     */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {

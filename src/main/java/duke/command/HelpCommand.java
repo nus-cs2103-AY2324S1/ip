@@ -5,6 +5,9 @@ import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
 
+/**
+ * The HelpCommand class.
+ */
 public class HelpCommand extends Command {
 
     @Override
