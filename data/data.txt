@@ -1,2 +1,2 @@
-[T] | [ ] | ur mom
-[T] | [ ] | ur mom
+[T] | [X] | finish cs2103t assignments
+[D] | [ ] | submit cs2103t homework  | Dec 12 2003 1200
