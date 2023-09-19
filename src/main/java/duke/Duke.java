@@ -50,7 +50,7 @@ public class Duke {
                 throw new DukeException("Error: Invalid Command!");
             }
         } catch (DukeException exception) {
-            return ui.getLine() + exception.getMessage() + "\n" + ui.getLine();
+            return exception.getMessage();
         }
     }
 }

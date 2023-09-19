@@ -82,16 +82,15 @@ public class TaskList {
             if (taskCount == 0) {
                 throw new DukeException("Error: There are no items in the list!");
             }
-            res = new StringBuilder(Ui.line);
+            res = new StringBuilder();
             Collections.sort(tasks);
             for (int i = 0; i < taskCount; i++) {
                 Task task = tasks.get(i);
                 int index = i + 1;
                 res.append(index).append(task.getTask()).append("\n");
             }
-            res.append(Ui.line);
         } catch (DukeException emptyList) {
-            res = new StringBuilder(Ui.line + emptyList.getMessage() + "\n" + Ui.line);
+            res = new StringBuilder(emptyList.getMessage());
         }
         return res.toString();
     }
@@ -103,14 +102,13 @@ public class TaskList {
      * @return The formatted string representation of the task list.
      */
     public static String displayList(ArrayList<Task> tasks) {
-        String res = Ui.line + "\n";
+        String res = "";
         Collections.sort(tasks);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             int index = i + 1;
             res = res + index + task.getTask() + "\n";
         }
-        res += Ui.line;
         return res;
     }
 
@@ -126,10 +124,10 @@ public class TaskList {
                 throw new DukeException("Error: Invalid Task Index!");
             } else {
                 int remainingTasks = taskCount - 1;
-                String response = Ui.line + "Got it! I've removed this task:"
+                String response = "Got it! I've removed this task:"
                         + "\n" + tasks.get(taskIndex).toString()
                         + "\n" + "You now have " + remainingTasks
-                        + " task(s) in the list" + "\n" + Ui.line;
+                        + " task(s) in the list";
                 tasks.remove(taskIndex);
                 if (taskCount > 0) {
                     taskCount--;
@@ -138,7 +136,7 @@ public class TaskList {
                 return response;
             }
         } catch (DukeException exception) {
-            return Ui.line + exception.getMessage() + "\n" + Ui.line;
+            return exception.getMessage();
         }
     }
 
@@ -158,13 +156,12 @@ public class TaskList {
                 tasks.get(taskIndex).mark();
                 assert tasks.get(taskIndex).done : "Unable to mark Task!";
                 writeToFile();
-                String response = Ui.line + "Great job! You've completed the following task:"
-                        + "\n" + tasks.get(taskIndex).toString()
-                        + "\n" + Ui.line;
+                String response = "Great job! You've completed the following task:"
+                        + "\n" + tasks.get(taskIndex).toString();
                 return response;
             }
         } catch (DukeException exception) {
-            return Ui.line + exception.getMessage() + "\n" + Ui.line;
+            return exception.getMessage();
         }
     }
 
@@ -184,13 +181,12 @@ public class TaskList {
                 tasks.get(taskIndex).unMark();
                 writeToFile();
                 assert !tasks.get(taskIndex).done : "Unable to unmark Task!";
-                String response = Ui.line + "You've marked the following task as incomplete:"
-                        + "\n" + tasks.get(taskIndex).toString()
-                        + "\n" + Ui.line;
+                String response = "You've marked the following task as incomplete:"
+                        + "\n" + tasks.get(taskIndex).toString();
                 return response;
             }
         } catch (DukeException exception) {
-            return Ui.line + exception.getMessage() + "\n" + Ui.line;
+            return exception.getMessage();
         }
     }
 
@@ -203,10 +199,10 @@ public class TaskList {
      */
     public String addToList(Task task, int taskId) {
         int numTasks = taskCount + 1;
-        String response = Ui.line + "Got it! I've added this task:"
+        String response = "Got it! I've added this task:"
                 + "\n" + task.toString() + "\n"
                 + "You now have " + numTasks
-                + " task(s) in the list" + "\n" + Ui.line;
+                + " task(s) in the list";
         tasks.add(taskId, task);
         assert tasks.size() == numTasks : "Error with tallying tasks";
         if (taskCount < tasks.size()) {

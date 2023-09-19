@@ -12,8 +12,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
 
 /**
  * An example of a custom control using FXML.
@@ -25,6 +28,7 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    private static final Ui ui = new Ui();
 
     private DialogBox(String text, Image img) {
         try {
@@ -37,7 +41,10 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+        dialog.setMinWidth(260);
         displayPicture.setImage(img);
+        setAlignment(Pos.CENTER);
     }
 
     /**
@@ -47,16 +54,28 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+    }
+
+    private void setUserBackground() {
+        setBackground(new Background(new BackgroundFill(Color.rgb(173, 216, 230), new CornerRadii(12.00), null)));
+    }
+
+    private void setDukeBackground() {
+        setBackground(new Background(new BackgroundFill(Color.rgb(230, 230, 250), new CornerRadii(12.00), null)));
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        text = ui.formatText(text);
+        var db = new DialogBox(text, img);
+        db.setUserBackground();
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
+        text = ui.formatText(text);
         var db = new DialogBox(text, img);
         db.flip();
+        db.setDukeBackground();
         return db;
     }
 }
