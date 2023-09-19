@@ -4,18 +4,17 @@ DukeBot is a desktop app for managing tasks, optimized for use via a Command
 Line Interface, whilst maintaining a user-friendly Graphical User Interface (GUI). If you
 are an experienced typer, DukeBot will be just for you!
 
+![Screenshot of the GUI that the user should see when first
+opening DukeBot](https://github.com/seraphimstreets/ip/blob/master/docs/Ui.png?raw=true)
+
 
 ## Quickstart
-
 
 1. Ensure that you have Java 11 installed on your computer. 
 2. Download the Duke.jar from the latest releases. (v0.3 recommended)
 3. Copy the file into the folder you want to use as the home folder for DukeBot 
 and run the command `java -jar Duke.jar` in that directory.
 4. A GUI should appear in a few seconds, and our Duke agent will greet you.
-
-![Screenshot of the GUI that the user should see when first 
-opening DukeBot](https://seraphimstreets.github.io/ip/dukeIntro.png)
 
 Note: A `data` folder will be created in that directory if it does not exist to store
 Duke-related data. 
@@ -101,7 +100,7 @@ Example: `find EXCO` returns all entries with the substring "EXCO"
 in their task description. 
 
 ![Screenshot of the the user using the find command to find all tasks
-with a given substring](https://seraphimstreets.github.io/ip/findCommand.png)
+with a given substring](https://github.com/seraphimstreets/ip/blob/master/docs/findCommand.png?raw=true)
 
 ### Setting a task's priority: `priority`
 Set a task's priority as either high (1) or normal (0). If it is set to high, 
