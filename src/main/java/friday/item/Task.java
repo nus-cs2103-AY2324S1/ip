@@ -1,7 +1,5 @@
 package friday.item;
 
-import friday.Item;
-
 /**
  * Represents a task in the Friday application.
  */

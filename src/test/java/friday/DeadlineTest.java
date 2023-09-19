@@ -4,6 +4,8 @@ import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
+import friday.item.Deadline;
+
 
 /**
  * Represents a test suite for the Deadline class in the Friday application.

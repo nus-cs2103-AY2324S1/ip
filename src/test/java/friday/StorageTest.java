@@ -7,6 +7,9 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import friday.util.Storage;
+
+
 /**
  * Represents a test suite for the Storage class in the Friday application.
  */

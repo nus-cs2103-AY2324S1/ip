@@ -1,4 +1,4 @@
-package friday;
+package friday.item;
 
 /**
  * Represents a generic item in the Friday application.
