@@ -19,7 +19,7 @@
 
    - `bye` : Exits the app.
 
-Refer to the [Features](#Features) below for details of each command.
+Refer to the [Features](#features) below for details of each command.
 
 ---
 ## Features
