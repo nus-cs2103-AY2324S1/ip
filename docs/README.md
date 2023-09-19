@@ -37,6 +37,10 @@ Enables users to create a Todo Task, which has no date.
 
 The `bye` command exits the application at its current state.
 
+Format:
+
+`bye`
+
 Example of usage: 
 
 `bye`
@@ -50,9 +54,13 @@ The application exits successfully
 The `deadline` command creates a deadline task, which includes a due by date.
 It must include a non-empty description and a due date.
 
+Format:
+
+`deadline <description> /by <YYYY-MM-DD>`
+
 Example of usage:
 
-`deadline description /by YYYY-MM-DD`
+`deadline CS2101 OP1 /by 2023-09-22`
 
 Expected outcome:
 
@@ -60,14 +68,19 @@ Successfully creates a Deadline Task and adds it to storage.
 
 ```
 Got it. I've added this task:
-  [D][] description (by: Sep 22 2023)
+  [D][] CS2101 OP1 (by: Sep 22 2023)
 Now you have 5 tasks in the list.
 ```
 
 ### `delete` - Deletes a selected Task
 
 The `delete` command deletes a specified task.
-It must include a non-empty numerical choice which corresponds to a valid task.
+It must include a non-empty numerical choice which corresponds to a valid task. 
+Where the task id is the id when using the `list` command.
+
+Format:
+
+`delete <task id>`
 
 Example of usage:
 
@@ -79,7 +92,7 @@ Successfully deletes a selected task and removes it from storage.
 
 ```
 Noted. I've removed this task:
-  [D][] description (by: Sep 22 2023)
+  [D][] CS2101 OP1 (by: Sep 22 2023)
 Now you have 4 tasks in the list.
 ```
 
@@ -88,9 +101,13 @@ Now you have 4 tasks in the list.
 The `event` command creates an Event Task, which has a date range.
 It must include a non-empty description, a from date and to date.
 
+Format:
+
+`event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>`
+
 Example of usage:
 
-`event description /from YYYY-MM-DD /to YYYY-MM-DD`
+`event CS2101 OP1 /from 2023-09-23 /to 2023-09-23`
 
 Expected outcome:
 
@@ -98,13 +115,17 @@ Successfully creates an event task and adds it to storage.
 
 ```
 Got it. I've added this task:
-  [E][] description (from: Sep 22 2023 to: Sep 23 2023)
+  [E][] CS2101 OP1 (from: Sep 22 2023 to: Sep 23 2023)
 Now you have 5 tasks in the list.
 ```
 
 ### `find` - Finds Tasks matching Search Query
 
 The `find` command searches the list of tasks and returns those, if any, whose description matches the given search query.
+
+Format:
+
+`find <query>`
 
 Example of usage:
 
@@ -126,6 +147,16 @@ The `list` command list the tasks stored in the application. It can operate in t
 * List tasks whose end date is before one week from now
 * List all tasks whose end date is before a specified date
 
+Format:
+List all tasks
+`list`
+
+List tasks whose end date is before one week from now
+`list now`
+
+List all tasks whose end date is before a specified date
+`list <YYYY-MM-DD>`
+
 Example of usage:
 
 List all tasks
@@ -135,7 +166,7 @@ List tasks whose end date is before one week from now
 `list now`
 
 List all tasks whose end date is before a specified date
-`list YYYY-MM-DD`
+`list 2023-09-24`
 
 Expected outcome:
 
@@ -150,6 +181,11 @@ Returns a list of tasks, filtered depending on the additional arguments specifie
 
 The `mark` command marks a specified task as done.
 It must include a non-empty numerical choice which corresponds to a valid task.
+Where the task id is the id when using the `list` command.
+
+Format:
+
+`mark <task id>`
 
 Example of usage:
 
@@ -169,9 +205,13 @@ Nice! I've marked this task as done:
 The `todo` command creates a todo task, which has no date.
 It must include a non-empty description
 
+Format:
+
+`mark <description>`
+
 Example of usage:
 
-`todo description`
+`todo bake pie`
 
 Expected outcome:
 
@@ -179,7 +219,7 @@ Marks a specified task as done.
 
 ```
 Got it. I've added this task:
-  [T][] description
+  [T][] bake pie
 Now you have 5 tasks in the list.
 ```
 
@@ -187,6 +227,11 @@ Now you have 5 tasks in the list.
 
 The `unmark` command marks a specified task as not done.
 It must include a non-empty numerical choice which corresponds to a valid task.
+Where the task id is the id when using the `list` command.
+
+Format:
+
+`unmark <task id>`
 
 Example of usage:
 
