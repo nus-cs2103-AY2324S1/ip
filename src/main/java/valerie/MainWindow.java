@@ -1,14 +1,14 @@
 package valerie;
 
-import javafx.fxml.FXML;
+import java.util.ArrayList;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.util.ArrayList;
+import javafx.fxml.FXML;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -28,12 +28,15 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
     private Image valerieImage = new Image(this.getClass().getResourceAsStream("/images/Valerie.jpg"));
 
+    /**
+     * Initializes the dialog container and sets up the initial dialog message.
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getValerieDialog("Hi! I'm Valerie. What can I do for you today? " +
-                        "\nPlease type 'help' to access a list of available commands!", valerieImage)
-                );
+                DialogBox.getValerieDialog("Hi! I'm Valerie. What can I do for you today? "
+                        + "\nPlease type 'help' to access a list of available commands!", valerieImage)
+        );
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 

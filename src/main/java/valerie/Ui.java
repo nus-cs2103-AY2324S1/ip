@@ -66,7 +66,8 @@ public class Ui {
     }
 
     /**
-     * Generates a message to indicate a task has been deleted from a task list and returns it as an ArrayList of strings.
+     * Generates a message to indicate a task has been deleted from a task list
+     * and returns it as an ArrayList of strings.
      *
      * @param task The task to be deleted and included in the message.
      * @param taskList The task list from which the task is removed.
@@ -99,7 +100,8 @@ public class Ui {
     }
 
     /**
-     * Generates a message displaying the tasks that match a certain criteria from a task list and returns it as an ArrayList of strings.
+     * Generates a message displaying the tasks that match a certain criteria from a task list
+     * and returns it as an ArrayList of strings.
      *
      * @param matchingTasks The task list containing matching tasks to be displayed.
      * @return An ArrayList containing the message displaying the matching tasks in the list.

@@ -39,7 +39,7 @@ public class Parser {
             return handleTodoCommand(userInput, taskList);
 
         case "deadline":
-        return handleDeadlineCommand(userInput, taskList);
+            return handleDeadlineCommand(userInput, taskList);
 
         case "event":
             return handleEventCommand(userInput, taskList);
@@ -54,8 +54,8 @@ public class Parser {
             return handleHelpCommand();
 
         default:
-            return Ui.showError("I'm sorry, but I don't know what that means!\n" +
-                    "Please type 'help' to access a list of available commands");
+            return Ui.showError("I'm sorry, but I don't know what that means!\n"
+                    + "Please type 'help' to access a list of available commands");
         }
     }
 
@@ -80,25 +80,25 @@ public class Parser {
         Task task = null;
 
         switch (type) {
-            case "T":
-                task = new ToDos(description);
-                break;
-            case "D":
-                String by = parts[FILE_DEADLINE_DATE_INDEX].trim();
+        case "T":
+            task = new ToDos(description);
+            break;
+        case "D":
+            String by = parts[FILE_DEADLINE_DATE_INDEX].trim();
 
-                // Parse the date and time
-                LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
+            // Parse the date and time
+            LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
 
-                task = new Deadlines(description, deadlineDate);
-                break;
-            case "E":
-                String from = parts[FILE_EVENT_FROM_INDEX].trim();
-                String to = parts[FILE_EVENT_TO_INDEX].trim();
+            task = new Deadlines(description, deadlineDate);
+            break;
+        case "E":
+            String from = parts[FILE_EVENT_FROM_INDEX].trim();
+            String to = parts[FILE_EVENT_TO_INDEX].trim();
 
-                task = new Events(description, from, to);
-                break;
-            default:
-                break;
+            task = new Events(description, from, to);
+            break;
+        default:
+            break;
         }
 
         if (task != null && isDone) {
@@ -294,15 +294,15 @@ public class Parser {
         helpText.add("Here are the available commands:");
 
         String[] commands = {
-                "list - Show list of tasks",
-                "mark - Mark a task",
-                "unmark - Unmark a task",
-                "todo [task description] - Create a todos task",
-                "deadline [task description] /by [YYYY-MM-DD] - Create a deadline task due by [YYYY-MM-DD]",
-                "event [task description] /from [start] /to [end] - Create an event task from [start] to [end]",
-                "find - Find a task with matching description",
-                "delete - Delete a task",
-                "bye - Save list of tasks and exit application"
+            "list - Show list of tasks",
+            "mark - Mark a task",
+            "unmark - Unmark a task",
+            "todo [task description] - Create a todos task",
+            "deadline [task description] /by [YYYY-MM-DD] - Create a deadline task due by [YYYY-MM-DD]",
+            "event [task description] /from [start] /to [end] - Create an event task from [start] to [end]",
+            "find - Find a task with matching description",
+            "delete - Delete a task",
+            "bye - Save list of tasks and exit application"
         };
 
         for (int i = 0; i < commands.length; i++) {
