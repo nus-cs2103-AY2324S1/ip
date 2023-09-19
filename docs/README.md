@@ -323,10 +323,10 @@ When the user inputs `bye`, the chatbot will close. All existing tasks will be s
 
 ## Frequently Asked Questions
 
-**Q: I can't create a Task, even though I filled in all fields.**
+**Q: I can't create a Task, even though I filled in all fields.** <br>
 A: Before you create a Task, you may wish to execute the `list` command and make sure that there are no existing tasks of the same name, especially if it was saved from a previous session. In the case of Deadlines and Events, please check that your date and time inputs are of the form `YYYY-MM-DD` and `HH:MM` respectively.
 
-**Q: When I run the `find` command, I can't see the list of tasks with the keyword, even though I typed it correctly.**
+**Q: When I run the `find` command, I can't see the list of tasks with the keyword, even though I typed it correctly.** <br>
 A: Currently, the keyword is case-sensitive, i.e. the keyword `finish` will correctly return a task named `finish assignment`, but the keyword `Finish` will return nothing. We are working on allowing non-case-sensitive inputs in a future update to enhance the user experience.
 
 
