@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,7 @@ public class Ui {
         return ("Hello! I'm Gman! \nWhat can I do for you?");
     }
 
+
     /**
      * Returns a goodbye message.
      * @return a goodbye message.
@@ -22,6 +23,7 @@ public class Ui {
     public static String goodbye() {
         return ("Bye. Hope to see you again soon!");
     }
+
 
     /**
      * Returns a list of all tasks in a String.
@@ -39,6 +41,7 @@ public class Ui {
         return listOfTasks;
     }
 
+
     /**
      * Returns a String stating how many tasks there are in the current tasklist.
      * @param taskList the Task List containing all tasks.
@@ -54,15 +57,16 @@ public class Ui {
         }
     }
 
+
     /**
      * Returns a message stating the task has been added and the task description.
      * @param task The task to be added.
      * @return a message stating the task has been added and the task description.
      */
     public static String addedTask(Task task) {
-        String message = "Got it. I've added this task:\n" + task.toString();
-        return message;
+        return "Got it. I've added this task:\n" + task.toString();
     }
+
 
     /**
      * Returns a message stating the task has been removed and the task description.
@@ -70,9 +74,9 @@ public class Ui {
      * @return a message stating the task has been removed and the task description.
      */
     public static String removedTask(Task task) {
-        String message = "Noted. I've removed this task:\n" + task.toString();
-        return message;
+        return "Noted. I've removed this task:\n" + task.toString();
     }
+
 
     /**
      * Returns a message stating the task has been marked and the task description.
@@ -80,9 +84,9 @@ public class Ui {
      * @return a message stating the task has been marked and the task description.
      */
     public static String mark(String taskToString) {
-        String message = "Nice! I've marked this task as done:\n" + taskToString;
-        return message;
+        return "Nice! I've marked this task as done:\n" + taskToString;
     }
+
 
     /**
      * Returns a message stating the task has been unmarked and the task description.
@@ -90,9 +94,9 @@ public class Ui {
      * @return a message stating the task has been unmarked and the task description.
      */
     public static String unmark(String taskToString) {
-        String message = "OK, I've marked this task as not done yet:\n" + taskToString;
-        return message;
+        return "OK, I've marked this task as not done yet:\n" + taskToString;
     }
+
 
     /**
      * Prints to the user which tasks have been found using the keyword provided by the user.

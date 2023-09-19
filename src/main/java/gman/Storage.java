@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 import java.io.IOException;
 import java.io.File;
@@ -35,7 +35,7 @@ public class Storage {
             return tasksFromFile;
         } catch (FileNotFoundException e) {
             System.out.println("Looks like you do not have any previous tasks saved!");
-            return new ArrayList<Task>();
+            return new ArrayList<>();
         }
     }
 
@@ -43,9 +43,8 @@ public class Storage {
      * Writes the current taskList into the .txt file provided at FILE_PATH.
      *
      * @param tasks The ArrayList of tasks.
-     * @throws IOException
      */
-    public static void writeTasks(ArrayList<Task> tasks) throws IOException {
+    public static void writeTasks(ArrayList<Task> tasks) {
         try {
             File dir = new File(DIR_PATH);
             if (!dir.exists()) {
@@ -53,7 +52,7 @@ public class Storage {
             }
             FileWriter writer = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
-                writer.write(task.toWriteString() + "\n");
+                writer.write(task.stringToWrite() + "\n");
             }
             writer.close();
         } catch (IOException e) {

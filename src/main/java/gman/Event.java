@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 /**
  * An Event Task that contains a description, a from indicator and a to indicator.
@@ -30,8 +30,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return ("[E]" + super.getStatusIcon() + description +
-                " (from: " + from + "to: " + to + ")");
+        return ("[E]" + super.getStatusIcon() + description + " (from: " + from + "to: " + to + ")");
     }
 
     /**
@@ -58,8 +57,7 @@ public class Event extends Task {
      * @return A formatted String for the Deadline task with " | " separators.
      */
     @Override
-    public String toWriteString() {
-        String toWrite = "E" + " | " + super.toWriteString() + " | " + from + " | " + to;
-        return toWrite;
+    public String stringToWrite() {
+        return "E" + " | " + super.stringToWrite() + " | " + from + " | " + to;
     }
 }

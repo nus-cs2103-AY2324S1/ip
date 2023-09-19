@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 /**
  * A Todo Task that contains a description.
@@ -14,6 +14,7 @@ public class Todo extends Task{
         super(description);
     }
 
+
     /**
      * Returns a string representation of the Todo Task containing the symbol, status icon and description.
      *
@@ -23,6 +24,7 @@ public class Todo extends Task{
     public String toString() {
         return "[T]" + super.getStatusIcon() + description;
     }
+
 
     /**
      * Reads a line in a .txt file that represents a Todo task and converts it to a Todo Task.
@@ -38,8 +40,8 @@ public class Todo extends Task{
             toReturn.mark();
         }
         return toReturn;
-        
     }
+
 
     /**
      * Returns A String to be written into the .txt file.
@@ -47,8 +49,8 @@ public class Todo extends Task{
      * @return A formatted String for the Todo task and " | " separators.
      */
     @Override
-    public String toWriteString() {
-        String toWrite = "T" + " | " + super.toWriteString();
-        return toWrite;
+    public String stringToWrite() {
+        return "T" + " | " + super.stringToWrite();
     }
+
 }

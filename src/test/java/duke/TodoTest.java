@@ -1,5 +1,6 @@
 package duke;
 
+import gman.Todo;
 import org.junit.jupiter.api.Test;
 
 public class TodoTest {

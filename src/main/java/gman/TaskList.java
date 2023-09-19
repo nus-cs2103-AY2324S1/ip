@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class TaskList {
      */
     public TaskList() {
         try {
-            this.tasks = this.storage.readTasks(); //will return empty ArrayList when nothing in file.
+            this.tasks = Storage.readTasks(); //will return empty ArrayList when nothing in file.
         } catch (FileNotFoundException e) {
             System.out.println("Looks like you do not have any previous tasks saved!");
         }
@@ -40,7 +40,6 @@ public class TaskList {
      * Deletes specified Task from the ArrayList of Tasks.
      *
      * @param index specified index of Task to delete in the ArrayList.
-     * @throws GmanException When there is no Task to delete.
      */
     public String deleteTask(int index) {
         if (index > this.getSize() || this.getSize() == 0) {
@@ -101,7 +100,7 @@ public class TaskList {
     /**
      * Writes the toString format of tasks to the specified .txt file.
      *
-     * @throws IOException
+     * @throws IOException IOException
      */
     public void write() throws IOException {
         Storage.writeTasks(tasks);

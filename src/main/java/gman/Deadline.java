@@ -1,6 +1,6 @@
-package duke;
+package gman;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -9,21 +9,10 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task{
 
     protected String by;
-    protected DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
-    protected DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final LocalDate deadline;
+    protected DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+    protected DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-
-    /**
-     * Returns a String that is formatted accordingly to the outputFormat, represents a date and time.
-     *
-     * @param s String that is in the specified inputFormat, represents a date and time.
-     * @return String of date and time to be printed to the user.
-     */
-    public String getDateTime(String s) {
-        LocalDateTime localDateTime = LocalDateTime.parse(s, inputFormat);
-        String dateTime = localDateTime.format(outputFormat);
-        return dateTime;
-    }
 
     /**
      * A Deadline task constructor.
@@ -33,8 +22,10 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String by) {
         super(description);
+        this.deadline = LocalDate.parse(by, inputFormat);
         this.by = by;
     }
+
 
     /**
      * Returns A string representation of the Deadline Task, including the symbol, status icon,
@@ -44,8 +35,9 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.getStatusIcon() + description + " (by: " + getDateTime(by) + ")";
+        return "[D]" + super.getStatusIcon() + description + " (by: " + deadline.format(outputFormat) + ")";
     }
+
 
     /**
      * Reads a line in a .txt file that represents a Deadline task and converts it to a Deadline Task.
@@ -64,15 +56,15 @@ public class Deadline extends Task{
         return toReturn;
     }
 
+
     /**
      * Returns A String to be written into the .txt file.
      *
      * @return A formatted String for the Deadline task with " | " separators.
      */
     @Override
-    public String toWriteString() {
-        String toWrite = "D" + " | " + super.toWriteString() + " | " + by;
-        return toWrite;
+    public String stringToWrite() {
+        return "D" + " | " + super.stringToWrite() + " | " + by;
     }
 
 
