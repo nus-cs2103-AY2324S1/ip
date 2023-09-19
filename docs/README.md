@@ -12,7 +12,7 @@ User Interface to allow users to easily visualise their tasks.
 > * Words in `UPPER_CASE` are parameters to be supplied by the user. 
 > * Certain commands have additional parameters denoted by `/`. 
 > * Some task have date fields, input format should be `yyyy-dd-MM h:mma`.
-> * Task list will be saved locally on a `data.txt` file. Changes to task list will automatically be saved after each command.
+> * Task list will be saved locally on a `duke.txt` file. Changes to task list will automatically be saved after each command.
 
 ### List: `List`
 List all tasks in task list. 
@@ -67,6 +67,7 @@ Now you have 4 tasks in the list.
 
 
 ### Mark a task by index `mark`
+
 Mark a task as completed. <br>
 Format: `mark TASK_IND` <br> 
 Example: `mark 1` <br>
@@ -117,5 +118,5 @@ Here is a list of upcoming tasks due:
 ```
 
 ### Existing program `bye`
-Exits Obi_wan Chat Bot. Saves all tasks data into a `duke.txt` file.  <br>
+Exits Obi_wan Chat Bot.  <br>
 Format: `bye`
