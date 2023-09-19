@@ -6,12 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -22,7 +20,7 @@ import javafx.scene.image.Image;
  * Main class of the application.
  */
 
-public class Duke extends Application{
+public class Duke extends Application {
     private final String filePath;
     private final Storage storage;
     private TaskList taskList;
@@ -89,6 +87,8 @@ public class Duke extends Application{
 
     @Override
     public void start(Stage stage){
+        String welcomeMessage = "Hi I'm Chad! What can I do for you? ";
+        displayMessage(welcomeMessage);
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -103,12 +103,12 @@ public class Duke extends Application{
 
         stage.setTitle("Duke");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinHeight(900.0);
+        stage.setMinWidth(700.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(700.0, 900.0);
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(685, 755);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -118,17 +118,22 @@ public class Duke extends Application{
         // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.setPrefWidth(585.0);
 
-        sendButton.setPrefWidth(55.0);
+        sendButton.setPrefWidth(100.0);
 
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setTopAnchor(scrollPane, 10.0);
+        AnchorPane.setLeftAnchor(scrollPane, 5.0);
+        AnchorPane.setRightAnchor(scrollPane, 5.0);
+        AnchorPane.setBottomAnchor(scrollPane, 70.0);
 
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
+        AnchorPane.setBottomAnchor(sendButton, 10.0);
+        AnchorPane.setRightAnchor(sendButton, 10.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setLeftAnchor(userInput , 10.0);
+        AnchorPane.setBottomAnchor(userInput, 10.0);
+
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(getResponse("list"), duke));
 
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -142,6 +147,12 @@ public class Duke extends Application{
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        storage.update(taskList, filePath);
     }
 
     /**
@@ -185,6 +196,16 @@ public class Duke extends Application{
         } catch (DukeException e){
             return e.getMessage();
         }
+    }
+
+    private void displayMessage(String message){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Welcome");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        });
     }
 
     public static void main(String[] args) throws DukeException, IOException {

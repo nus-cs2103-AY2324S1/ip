@@ -52,6 +52,7 @@ public class Storage {
             for (Task task : taskList.getTaskList()) {
                 fileWriter.write(task.toString() + '\n');
             }
+            taskList.getTaskList().clear();
             fileWriter.close();
         } catch (IOException e) {
             throw new DukeException("Unable to locate file.");
