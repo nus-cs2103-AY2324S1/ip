@@ -130,6 +130,7 @@ ALRIGHTY! I've removed this task:
 [T][] assignment
 Now you have 2 tasks in the list.
 ```
+
 #
 
 ### `list` - List the tasks in the tasks list
@@ -144,6 +145,7 @@ WHEET WHEET WHEET! Here are the tasks in your list:
 1.[D][] assignment (by: Sep 22 2023 11:59PM)
 2.[E][] training (from: Sep 20 2023 06:00PM to: Sep 20 2023 08:00PM)
 ```
+
 #
 
 ### `mark` - Marks a task in the task lists
@@ -162,6 +164,7 @@ GOTHYA! I've marked this task as done!
 [D][X] assignment (by: Sep 22 2023 11:59PM)
 ```
 `[X]` indicates the task as completed
+#
 
 ### `unmark` - Unmarks a task in the task lists
 
@@ -178,6 +181,7 @@ Expected outcome:
 GOTHYA! I've marked this task as done!
 [D][] assignment (by: Sep 22 2023 11:59PM)
 ```
+
 #
 
 ### `find` - Finds tasks in the tasks list
@@ -197,6 +201,7 @@ Expected outcome:
 HOOOOOYEAAAAA! Here are the matching tasks in your list:
 1.[E][] training (from: Sep 20 2023 06:00PM to: Sep 20 2023 08:00PM)
 ```
+
 #
 
 ### `remind` - Lists tasks that are due or upcoming
@@ -214,6 +219,7 @@ ATTENTIONNNNNNNNNNNN!!! You have task(s) that are due/upcoming within 7 days:
 1.[D][] assignment (by: Sep 22 2023 11:59PM)
 2.[E][] training (from: Sep 20 2023 06:00PM to: Sep 20 2023 08:00PM)
 ```
+
 #
 
 ### `bye` - Exits the application
@@ -226,9 +232,11 @@ Expected outcome:
 ```
 WEEEWOOWEEWOO GOODBYE! Hope to see you again soon!
 ```
+
 #
 
 ## Command Summary
+
 | Action   | Format                                            |
 |----------|---------------------------------------------------|
 | todo     | `todo DESCRIPTION`                                |
