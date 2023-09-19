@@ -15,10 +15,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import cyrus.adapters.LocalDateAdapter;
@@ -38,6 +38,9 @@ public class FileStorage implements IStorage {
                     .setPrettyPrinting()
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                     .create();
+    private static final Type JSON_TYPE = new TypeToken<List<HashMap<String, String>>>() {
+    }.getType();
+
     private final String dataFilePath;
 
     /**
@@ -54,48 +57,28 @@ public class FileStorage implements IStorage {
      * Loads a list of {@code Task} from a file, determined by {@code dataFilePath}.
      *
      * @return list of {@code Task} from file.
-     * @throws AssertionError if task format is invalid.
      */
-    // TODO: Figure out a better way to handle file IO errors in the code
-    // Potentially just delete and re-create a blank file (but that means any existing data is
-    // immediately lost)
     @Override
     public List<Task> load() {
         try (BufferedReader br = new BufferedReader(new FileReader(dataFilePath))) {
-            Type listType = new TypeToken<List<HashMap<String, String>>>() {
-            }.getType();
-            List<HashMap<String, String>> jsonTasks = GSON.fromJson(br, listType);
-            List<Task> fileTasks = new ArrayList<>();
+            List<HashMap<String, String>> jsonTasks = GSON.fromJson(br, JSON_TYPE);
 
             if (jsonTasks == null) {
                 return new ArrayList<>();
             }
 
-            for (HashMap<String, String> entry : jsonTasks) {
-                enforceFields(entry);
-                String type = entry.get("type");
-                Task task;
-                switch (type) {
-                case "todo":
-                    task = parseToDo(entry);
-                    break;
-                case "deadline":
-                    task = parseDeadline(entry);
-                    break;
-                case "event":
-                    task = parseEvent(entry);
-                    break;
-                default:
-                    throw new IllegalStateException("Invalid task type found in data.json");
-                }
-                fillFields(task, entry);
-                fileTasks.add(task);
+            List<Task> tasks = new ArrayList<>();
+            for (HashMap<String, String> jsonTask : jsonTasks) {
+                Task task = parseEntry(jsonTask);
+                tasks.add(task);
             }
-            return fileTasks;
+            return tasks;
         } catch (FileNotFoundException e) {
             createDataFile();
-        } catch (IOException e) {
-            System.out.println("Failed to read cyrus.tasks from data file");
+        } catch (JsonSyntaxException | IOException | StorageError e) {
+            System.out.println("Failed to read tasks from data file");
+            System.out.println("Error reason:");
+            System.out.println(e.getMessage());
             System.exit(0);
         }
 
@@ -111,8 +94,10 @@ public class FileStorage implements IStorage {
     public void save(List<Task> tasks) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(dataFilePath))) {
             GSON.toJson(tasks, bw);
-        } catch (IOException e) {
-            System.out.println("Failed to save cyrus.tasks to data file");
+        } catch (JsonSyntaxException | IOException e) {
+            System.out.println("Failed to save tasks to data file.");
+            System.out.println("Error reason:");
+            System.out.println(e.getMessage());
             System.exit(0);
         }
     }
@@ -124,7 +109,10 @@ public class FileStorage implements IStorage {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException ne) {
-            System.out.println("Unable to create file, Cyrus cannot run");
+            System.out.printf(
+                    "Unable to create file, Cyrus cannot run. Create the file %s and try again.\n",
+                    dataFilePath
+            );
             System.exit(0);
         }
     }
@@ -133,58 +121,81 @@ public class FileStorage implements IStorage {
         return new ToDo(entry.get("name"));
     }
 
-    private Deadline parseDeadline(HashMap<String, String> entry) {
+    private Deadline parseDeadline(HashMap<String, String> entry) throws StorageError {
         LocalDate deadlineDate = DateUtility.parse(entry.get("due"));
         if (deadlineDate == null) {
-            throw new IllegalStateException("Invalid deadline format");
+            throw new StorageError("Invalid deadline format");
         }
         return new Deadline(entry.get("name"), deadlineDate);
     }
 
-    private Event parseEvent(HashMap<String, String> entry) {
+    private Event parseEvent(HashMap<String, String> entry) throws StorageError {
         LocalDate fromDate = DateUtility.parse(entry.get("from"));
         LocalDate toDate = DateUtility.parse(entry.get("to"));
         if (fromDate == null || toDate == null) {
-            throw new IllegalStateException("Invalid from/to format");
+            throw new StorageError("Invalid from/to format");
         }
         return new Event(entry.get("name"), fromDate, toDate);
     }
 
-    private void fillFields(Task task, HashMap<String, String> entry) {
+    private void fillFields(Task task, HashMap<String, String> entry) throws StorageError {
         task.setDone(parseBoolean(entry.get("status")));
         if (entry.containsKey("completed_date")) {
             LocalDate completedDate = DateUtility.parse(entry.get("completed_date"));
             if (completedDate == null) {
-                throw new IllegalStateException("Invalid completed date format");
+                throw new StorageError("Invalid completed date format");
             }
             task.setCompletedDate(completedDate);
         }
     }
 
-    private void enforceFields(HashMap<String, String> map) {
+    private Task parseEntry(HashMap<String, String> entry) throws StorageError {
+        enforceFields(entry);
+        String type = entry.get("type");
+        Task task;
+        switch (type) {
+        case "todo":
+            task = parseToDo(entry);
+            break;
+        case "deadline":
+            task = parseDeadline(entry);
+            break;
+        case "event":
+            task = parseEvent(entry);
+            break;
+        default:
+            throw new StorageError("Invalid task type found in data.json");
+        }
+        fillFields(task, entry);
+        return task;
+    }
+
+    private void enforceFields(HashMap<String, String> map) throws StorageError {
         String[] mandatoryKeys = {"type", "status", "name"};
-        Consumer<String[]> checkKeys = (keys) -> {
-            for (String key : keys) {
-                if (!map.containsKey(key)) {
-                    throw new IllegalStateException(
-                            String.format("All entries in data.json must contain \"%s\" field", key)
-                    );
-                }
-            }
-        };
-        checkKeys.accept(mandatoryKeys);
+        checkKeys(mandatoryKeys, map);
 
         String type = map.get("type");
         switch (type) {
         case "deadline":
-            checkKeys.accept(new String[]{"due"});
+            checkKeys(new String[]{"due"}, map);
             break;
         case "event":
-            checkKeys.accept(new String[]{"from", "to"});
+            checkKeys(new String[]{"from", "to"}, map);
             break;
         default:
             break;
         }
+    }
 
+    private void checkKeys(String[] keys, HashMap<String, String> map) throws StorageError {
+        for (String key : keys) {
+            if (map.containsKey(key)) {
+                continue;
+            }
+
+            throw new StorageError(
+                    String.format("All entries in data.json must contain \"%s\" field", key)
+            );
+        }
     }
 }
