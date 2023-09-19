@@ -117,8 +117,10 @@ public class ChatCommand {
             case EXIT:
                 return "Stops the conversation.";
             case UNKNOWN:
-            default:
                 return "Unknown command.";
+            default:
+                assert false : "All known command types must have a description.";
+                return "Unhandled command.";
             }
         }
 
@@ -135,24 +137,26 @@ public class ChatCommand {
         public String getSyntaxDescriptionAsFormatString() {
             switch (this) {
             case ADD_TODO:
-                return "%s [task title]";
+                return "%s <task title>";
             case ADD_DEADLINE:
-                return "%s [deadline title] --by [deadline in ISO8601]";
+                return "%s <deadline title> --by <deadline in ISO8601>";
             case ADD_EVENT:
-                return "%s [event title] --from [start date in ISO8601] --to [end date in ISO8601]";
+                return "%s <event title> --from <start date in ISO8601> --to <end date in ISO8601>";
             case DELETE:
             case MARK_COMPLETE:
             case UNMARK_COMPLETE:
-                return "%s [task number]";
+                return "%s <task number>";
             case SEARCH:
-                return "%s [search terms]";
+                return "%s <search terms>";
             case LIST:
             case HELP:
             case EXIT:
                 return "%s";
             case UNKNOWN:
+                return "%s <?>";
             default:
-                return "%s [..?]";
+                assert false : "All known command types must have a syntax description.";
+                return "%s <..unknown..?>";
             }
         }
 

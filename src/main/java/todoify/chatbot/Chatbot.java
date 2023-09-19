@@ -226,7 +226,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
             case UNKNOWN:
             default:
-                throw new ChatbotCommandException("Sorry, idgi :(");
+                throw new ChatbotCommandException("Sorry, idgi :(\nYou might wanna try the 'help' command to let me "
+                        + "guide you about all available commands!");
             }
         } catch (ChatbotIrrelevantOperationException e) {
             // This will only be thrown if the code path unexpectedly processes data in a format not relevant to the
