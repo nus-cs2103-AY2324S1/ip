@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import duke.exceptions.InvalidListFlagException;
 import duke.exceptions.InvalidTaskIdException;
 import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 
 /**
@@ -196,7 +197,7 @@ public class TaskList {
 
         ArrayList<Task> upcoming = new ArrayList<>();
         for (Task task : this.list) {
-            if (task.isWithin(start, endOfPeriod)) {
+            if (task.isWithin(start, endOfPeriod) || task instanceof ToDo) {
                 upcoming.add(task);
             }
         }
