@@ -1,29 +1,47 @@
-# User Guide
+# botM User Guide
+
+botM is a task manager app.
 
 ## Features 
 
-### Feature-ABC
+## See all commands: `help`
+Prints the list of commands.  
+Format: `help`
 
-Description of the feature.
+## Print goodbye message: `bye`
+Prints a goodbye message.  
+Format: `bye`
 
-### Feature-XYZ
+## See all tasks: `list`
+Prints the list of tasks you have.  
+Format: `list`
 
-Description of the feature.
+## Set task as complete: `mark`
+Marks the task given by the task number as complete.  
+Format: `mark (task number)`  
+Example: `mark 1`
 
-## Usage
+## Remove task from task list: `delete`
+Delete the task given by the task number.  
+Format: `delete (task number)`  
+Example: `delete 1`
 
-### `Keyword` - Describe action
+## Add todo task: `todo`
+Creates a todo task with a required title.  
+Format: `todo <title>`  
+Example: `todo Homework`
 
-Describe the action and its outcome.
+## deadline
+Creates a deadline task with a required title and a optional deadline.  
+Format: `deadline <title> /by <deadline>`  
+Example: `deadline Promotion /by Sunday` 
 
-Example of usage: 
+## event
+Creates a event task with a required title and a optional from time and to time.  
+Format: `event <title> /from <fromTime> /to <toTime>`  
+Example: `event Concert /from Sunday 2pm /to Sunday 4pm`
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
+## find
+Finds all tasks that match the keyword provided.  
+Format: `find <keyword>`  
+Example: `find chocolate` finds all tasks that have "chocolate" somewhere in their titles.
