@@ -1,7 +1,6 @@
-T | 0 | coffee
-D | 0 | hw | 1920-10-22
+E | 0 | Piano Concert | 6pm | 10pm
 T | 0 | task
-T | 0 | more tasks
-T | 0 | more more tasks
-T | 0 | eat popcorn
-E | 1 | CS2103T | 1pm | 2pm
+D | 0 | return book | 2021-06-06
+T | 0 | read book
+D | 0 | return book | 2021-06-06
+E | 0 | concert | 6pm | 9pm
