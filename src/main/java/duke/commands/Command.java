@@ -20,7 +20,7 @@ public class Command {
 
     /**
      * Creates a command with the given command type
-     * e.g. "bye", "list"
+     * e.g. "bye", "list", "help"
      *
      * @param commandType The command type.
      * @return The command.
