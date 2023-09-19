@@ -40,7 +40,7 @@ public class Parser {
                 return new UnmarkAsDoneCommand(argument);
             case DELETE:
                 return new DeleteCommand(argument);
-            case BYE:
+            case EXIT:
                 return new ExitCommand();
             case TODO:
                 return new AddCommand(Task.TaskType.TODO, argument);
