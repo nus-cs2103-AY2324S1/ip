@@ -11,10 +11,6 @@ Todoify is easy to use for users with experience of the CLI. It:
 
 ## Table of Contents
 
-<details>
-
-<summary>[Click to Expand/Dismiss Table of Contents]</summary>
-
 - [Getting Started](#getting-started)
 - [Features](#features)
     - [Command-Line Interface (CLI)](#command-line-interface-cli)
@@ -30,8 +26,6 @@ Todoify is easy to use for users with experience of the CLI. It:
     - [Closing the conversation](#closing-the-conversation-bye-exit)
     - [Launch Modes](#launch-modes)
 - [Command Summary](#command-summary)
-
-</details>
 
 ## Getting Started
 
