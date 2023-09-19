@@ -1,5 +1,6 @@
 package harvard;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +30,12 @@ public class TaskReader {
     public ArrayList<Task> readTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
+            // Create the data directory if it doesn't exist
+            File dataDirectory = new File("data");
+            if (!dataDirectory.exists()) {
+                dataDirectory.mkdir();
+            }
+
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {

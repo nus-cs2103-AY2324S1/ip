@@ -1,4 +1,5 @@
 package harvard;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -25,6 +26,12 @@ public class TaskWriter {
 
     public void write(TaskList tasks) {
         try {
+            // Create the data directory if it doesn't exist
+            File dataDirectory = new File("data");
+            if (!dataDirectory.exists()) {
+                dataDirectory.mkdir();
+            }
+
             FileWriter fw = new FileWriter(this.filePath);
             assert fw != null : "FileWriter should not be null";
             for (int i = 0; i < tasks.size(); i++) {
