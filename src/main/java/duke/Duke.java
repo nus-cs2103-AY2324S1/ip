@@ -40,35 +40,6 @@ public class Duke {
     }
 
 
-//    /**
-//     * The main method of the Duke chatbot application.
-//     *
-//     * @param args The command-line arguments (not used in this application).
-//     * @throws DukeException If there is an issue with Duke's operation.
-//     */
-//    public static void main(String[] args) {
-//        // Create the data location for storing task data
-//        Storage storage = new Storage();
-//        Storage.createDataLocation();
-//        // Load tasks from the data file into the TaskList
-//        storage.loadTasksFromFile(taskList);
-//        List<Task> allTasks = taskList.getTasks();
-//        // Create a scanner to read user input
-//        Scanner sc = new Scanner(System.in);
-//        // Create a parser to process user commands
-//        Parser parser = new Parser();
-//        // Create a user interface
-//        Ui ui = new Ui();
-//        if (allTasks.size() == 0) {
-//            parser.run = 1;
-//        }
-//        String task = "";
-//        ui.greet();
-//        System.out.flush();
-//        parser.parse(sc);
-//        ui.sayBye();
-//    }
-
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
