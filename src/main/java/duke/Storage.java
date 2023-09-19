@@ -87,20 +87,20 @@ public class Storage {
             String[] taskParts = line.split("\\|");
             boolean isDone = "1".equals(taskParts[1].trim());
             switch (taskParts[0].trim()) {
-                case TODO_PREFIX:
-                    assert taskParts.length == 3 : "ToDo task data format is incorrect";
-                    taskList.addToDoToList(isDone, taskParts[2].trim());
-                    break;
-                case DEADLINE_PREFIX:
-                    assert taskParts.length == 4 : "Deadline task data format is incorrect";
-                    taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
-                    break;
-                case EVENT_PREFIX:
-                    assert taskParts.length == 5 : "Event task data format is incorrect";
-                    taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
-                    break;
-                default:
-                    System.out.println("Unexpected task type encountered: " + line);
+            case TODO_PREFIX:
+                assert taskParts.length == 3 : "ToDo task data format is incorrect";
+                taskList.addToDoToList(isDone, taskParts[2].trim());
+                break;
+            case DEADLINE_PREFIX:
+                assert taskParts.length == 4 : "Deadline task data format is incorrect";
+                taskList.addDeadlineToList(isDone, taskParts[2].trim(), taskParts[3].trim());
+                break;
+            case EVENT_PREFIX:
+                assert taskParts.length == 5 : "Event task data format is incorrect";
+                taskList.addEventToList(isDone, taskParts[2].trim(), taskParts[3].trim(), taskParts[4].trim());
+                break;
+            default:
+                System.out.println("Unexpected task type encountered: " + line);
             }
         } catch (InvalidDateTimeException e) {
             System.out.println("Invalid date format encountered in: " + line);

@@ -1,12 +1,15 @@
-package taskClasses;
-
-import duke.exception.InvalidDateTimeException;
-import duke.taskclasses.TaskList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+package taskclasses;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.exception.InvalidDateTimeException;
+import duke.taskclasses.TaskList;
+
+
 
 public class TaskListTest {
 
@@ -44,12 +47,14 @@ public class TaskListTest {
     public void testAddEventWithDates() throws InvalidDateTimeException {
         tasks.addEventToList(false, "Duke project meeting", "2023-09-01", "2023-09-02");
         assertEquals(1, tasks.getTasksCount());
-        assertEquals("[E][ ] Duke project meeting (from: Sep 1 2023 to: Sep 2 2023)", tasks.getStatusAndDescription(1));
+        assertEquals("[E][ ] Duke project meeting (from: Sept 1 2023 to: Sept 2 2023)",
+                tasks.getStatusAndDescription(1));
     }
 
     @Test
     public void testAddEventWithStartDateAfterEndDate() {
-        assertThrows(InvalidDateTimeException.class, () -> tasks.addEventToList(false, "Duke project meeting", "2023-09-40", "2023-09-02"));
+        assertThrows(InvalidDateTimeException.class, () -> tasks.addEventToList(false,
+                "Duke project meeting", "2023-09-40", "2023-09-02"));
     }
 
     @Test
