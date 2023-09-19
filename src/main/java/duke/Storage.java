@@ -1,18 +1,14 @@
 package duke;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+
+import java.io.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Storage class handles loading and saving tasks to a file.
@@ -43,40 +39,49 @@ public class Storage {
             String directoryPath = file.getParent();
             File directory = new File(directoryPath);
 
-            if (!directory.exists()) {
-                directory.mkdirs();
+            if (!directory.exists() && directory.mkdirs()) {
                 System.out.println("Directory created: " + directoryPath);
             }
 
-            if (!file.exists()) {
-                file.createNewFile();
+            if (!file.exists() && file.createNewFile()) {
                 System.out.println("File created: " + filePath);
             }
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("\\|");
-
-                String taskType = parts[0].trim();
-                boolean isDone = parts[1].trim().equals("1");
-                String description = parts[2].trim();
-
-                if (taskType.equals("T")) {
-                    tasks.add(new ToDo(description, isDone));
-                } else if (taskType.equals("D")) {
-                    LocalDate by = LocalDate.parse(parts[3].trim());
-                    tasks.add(new Deadline(description, by, isDone));
-                } else if (taskType.equals("E")) {
-                    String from = parts[3].trim();
-                    String to = parts[4].trim();
-                    tasks.add(new Event(description, from, to, isDone));
-                } else {
-                    throw new DukeException("☹ OOPS!!! Invalid task type in file");
-                }
+                addToTasks(line, tasks);
             }
             return tasks;
         } catch (IOException e) {
             throw new DukeException("☹ OOPS!!! Error loading tasks from the file");
+        }
+    }
+
+    /**
+     * Parses a line from the file and adds the corresponding Task object to the tasks list.
+     *
+     * @param line  The line from the file.
+     * @param tasks The list of Task objects.
+     * @throws DukeException If there is an issue or error encountered during parsing.
+     */
+    public void addToTasks(String line, List<Task> tasks) throws DukeException {
+        String[] parts = line.split("\\|");
+
+        String taskType = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        if (taskType.equals("T")) {
+            tasks.add(new ToDo(description, isDone));
+        } else if (taskType.equals("D")) {
+            LocalDate by = LocalDate.parse(parts[3].trim());
+            tasks.add(new Deadline(description, by, isDone));
+        } else if (taskType.equals("E")) {
+            String from = parts[3].trim();
+            String to = parts[4].trim();
+            tasks.add(new Event(description, from, to, isDone));
+        } else {
+            throw new DukeException("☹ OOPS!!! Invalid task type in file");
         }
     }
 
