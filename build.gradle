@@ -2,23 +2,16 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'checkstyle'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+repositories {
+    mavenCentral()
 }
 
 javafx {
     version = "17.0.8"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
-
-checkstyle {
-    toolVersion = '10.2'
-    configFile = file("./config/checkstyle/checkstyle.xml")
-    configProperties = [ "suppressionFile" : "./config/checkstyle/suppressions.xml" ]
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -41,7 +34,7 @@ test {
 }
 
 application {
-    mainClass.set("sally.Launcher") //or Sally?
+    mainClass.set("sally.Launcher")
 }
 
 shadowJar {
@@ -52,5 +45,4 @@ shadowJar {
 
 run {
     standardInput = System.in
-    enableAssertions = true
 }

@@ -143,7 +143,9 @@ public class Task {
      */
     public static Task fromFileString(String fileString) {
         String[] split = fileString.split("]\\[");
+
         String splitOne = split[0]; // [D
+
         String[] toGetTaskType = splitOne.split("\\[");
         String taskType = toGetTaskType[1]; // D
 
