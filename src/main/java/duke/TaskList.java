@@ -71,7 +71,7 @@ public class TaskList {
         try {
             storage.saveTask(taskArray);
         } catch (IOException e) {
-            return "      Uhm.. something is not working right..";
+            return "Uhm.. something is not working right..";
         }
         return message;
     }
@@ -90,9 +90,9 @@ public class TaskList {
         taskArray.remove(deleteTask);
         numTask--;
         assert taskArray.size() == numTask : "Task is not deleted successfully.";
-        return "     Noted. I've removed this task:\n"
-                + "     " + removed.printDesc() + "\n"
-                + "     Now you have " + numTask + " tasks in the list.";
+        return "Noted. I've removed this task:\n"
+                + removed.printDesc() + "\n"
+                + "Now you have " + numTask + " tasks in the list.";
     }
     /**
      * Retrieves the full task list.
@@ -100,7 +100,7 @@ public class TaskList {
      */
     public static String listTask() {
         String message;
-        message = "     Here are the tasks in your list:\n";
+        message = "Here are the tasks in your list:\n";
         for (int a = 0; a < numTask; a++) {
             message += "     " + (a + 1) + ". " + taskArray.get(a).printDesc() + "\n";
         }
@@ -138,7 +138,7 @@ public class TaskList {
         }
         String[] deadlineDetails = parser.deadlineDetails(taskDetails[1]);
         if (deadlineDetails.length != 2) {
-            throw new DukeArgumentException("     OOPS!!! Where is the deadline time?");
+            throw new DukeArgumentException("OOPS!!! Where is the deadline time?");
         }
         taskArray.add(new Deadline(deadlineDetails[0], deadlineDetails[1]));
         message = taskArray.get(numTask).printMessage(numTask);
@@ -160,7 +160,7 @@ public class TaskList {
         }
         String[] eventDetails = parser.eventDetails(taskDetails[1]);
         if (eventDetails.length != 3) {
-            throw new DukeArgumentException("     OOPS!!! The details for the event is missing!");
+            throw new DukeArgumentException("OOPS!!! The details for the event is missing!");
         }
         taskArray.add(new Event(eventDetails[0], eventDetails[1].substring(5),
                 eventDetails[2].substring(3)));
@@ -181,9 +181,9 @@ public class TaskList {
                 keywordTasks.add(taskArray.get(i));
             }
         }
-        message = "     Here are the matching tasks in your list:\n";
+        message = "Here are the matching tasks in your list:\n";
         for (int a = 0; a < keywordTasks.size(); a++) {
-            message += "     " + (a + 1) + ". " + keywordTasks.get(a).printDesc() + "\n";
+            message += (a + 1) + ". " + keywordTasks.get(a).printDesc() + "\n";
         }
         return message;
     }
@@ -198,22 +198,22 @@ public class TaskList {
         try {
             storage.saveTask(taskArray);
         } catch (IOException e) {
-            return "      Uhm.. something is not working right..";
+            return "Uhm.. something is not working right..";
         }
         return message;
     }
     protected static String printReminders() {
         String message;
         int counter = 0;
-        message = "     Here are some reminders for you:\n";
+        message = "Here are some reminders for you:\n";
         for (int a = 0; a < numTask; a++) {
             if (taskArray.get(a).isReminder) {
-                message += "     " + (a + 1) + ". " + taskArray.get(a).printDesc() + "\n";
+                message += (a + 1) + ". " + taskArray.get(a).printDesc() + "\n";
                 counter++;
             }
         }
         if (counter == 0) {
-            return "     You have no reminders for today.";
+            return "You have no reminders for today.";
         } else {
             return message;
         }

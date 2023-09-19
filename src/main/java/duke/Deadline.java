@@ -25,7 +25,7 @@ public class Deadline extends Task {
             String byString = this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm"));
             return "[D]" + super.printDesc() + " (by: " + byString + ")";
         } catch (IllegalArgumentException e) {
-            return "     Please key in the dates in the format of YYYY-MM-ddThh:mm:ss";
+            return "Please key in the dates in the format of YYYY-MM-ddThh:mm:ss";
         }
     }
 

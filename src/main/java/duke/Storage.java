@@ -2,7 +2,6 @@ package duke;
 
 import Exceptions.DukeException;
 
-import javax.management.ObjectName;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -33,17 +32,17 @@ public class Storage {
     protected void checkHardDisk() {
         File dataDirectory = new File(this.directoryPath);
         if (!dataDirectory.exists()) {
-            System.out.println("     OOPS! The data directory doesn't exist. I'll create one for you!");
+            System.out.println("OOPS! The data directory doesn't exist. I'll create one for you!");
             dataDirectory.mkdir();
         }
         if (!hardDisk.exists()) {
-            System.out.println("     OOPS! The hard disk doesn't exist. I'll create one for you!");
+            System.out.println("OOPS! The hard disk doesn't exist. I'll create one for you!");
             try {
                 hardDisk.createNewFile();
                 hardDisk.setReadable(true);
                 hardDisk.setWritable(true);
             } catch (IOException e) {
-                System.out.println("     Something went wrong, we couldn't create duke.txt");
+                System.out.println("Something went wrong, we couldn't create duke.txt");
             }
         }
     }
@@ -93,12 +92,12 @@ public class Storage {
                     taskArray.add(addEvent);
                     break;
                 default:
-                    throw new DukeException("     invalid task in the hard disk");
+                    throw new DukeException("Invalid task in the hard disk");
                 }
 
             }
         } catch (FileNotFoundException e) {
-            System.out.println("     There is no saved duke.txt");
+            System.out.println("There is no saved duke.txt");
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

@@ -92,7 +92,7 @@ public class Duke {
         case REMINDER:
             return tasks.setReminder(info);
         default:
-            throw new DukeException("     OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
     /**
@@ -120,7 +120,7 @@ public class Duke {
         } catch (DukeException | DukeArgumentException message) {
             response = message.getMessage();
         } catch (IOException e) {
-            response = "     Oh no, seems like something is not working.. We can't save your data.";
+            response = "Oh no, seems like something is not working.. We can't save your data.";
         }
         return response;
     }

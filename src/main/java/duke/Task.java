@@ -36,8 +36,8 @@ public class Task {
      */
     public String markAsDone() {
         this.isDone = true;
-        return "     Nice! I've marked this task as done:\n"
-                + "       " + this.printDesc();
+        return "Yummy honey! I've marked this task as done:\n"
+                + this.printDesc();
     }
     /**
      * Updates the status of the task as done.
@@ -45,8 +45,8 @@ public class Task {
      */
     public String markAsUndone() {
         this.isDone = false;
-        return "     OK, I've marked this task as not done yet:\n"
-                + "       " + this.printDesc();
+        return "OK, I've marked this task as not done:\n"
+                + this.printDesc();
     }
     /**
      * Gets the status of the task.
@@ -60,9 +60,9 @@ public class Task {
      * @return Message for the new creation of the task.
      */
     public String printMessage(int numTask) {
-        return "     Got it. I've added this task:\n"
-                + "       " + this.printDesc() + "\n"
-                + "     Now you have " + (numTask + 1) + " tasks in the list.";
+        return "More things to do? Oh dear :( I've added the task:\n"
+                + this.printDesc() + "\n"
+                + "Now you have " + (numTask + 1) + " tasks in the list.";
     }
     /**
      * Gets the description and status of the task.
@@ -90,7 +90,7 @@ public class Task {
     }
     public String makeReminder() {
         this.isReminder = true;
-        return "     OK, I will remind you of this task the next time I see you!\n";
+        return "OK, I will remind you of this task the next time I see you!\n";
     }
     public void updateReminder() {
         this.isReminder = true;
