@@ -7,14 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import main.Corubi;
+import main.GigaChadBot;
 
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private Corubi duke = new Corubi();
+    private GigaChadBot duke = new GigaChadBot();
 
     @Override
     public void start(Stage stage) {
@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("GigaChadbot");
             fxmlLoader.<MainWindow>getController().setBot(duke);
             stage.show();
         } catch (IOException e) {

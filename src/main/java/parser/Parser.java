@@ -140,9 +140,6 @@ public class Parser {
      */
     public String taskToFromTextFile(String taskinfo) {
         // Extract the "to" value
-        String toPrefix = "to: ";
-        int toValueIndex = taskinfo.indexOf(toPrefix) + toPrefix.length();
-        String taskToInput = taskinfo.substring(toValueIndex, toValueIndex + "MMM d yyyy".length() + 1);
         String fromPrefix = "from : ";
         int fromIndex = taskinfo.indexOf(fromPrefix) + fromPrefix.length();
         int toIndex = taskinfo.indexOf(" to:");
