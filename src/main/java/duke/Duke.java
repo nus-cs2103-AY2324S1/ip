@@ -10,7 +10,7 @@ import duke.ui.Ui;
 import javafx.application.Application;
 
 /**
- * Represents a chat bot
+ * Represents a chatbot
  */
 public class Duke {
     /**
@@ -56,8 +56,10 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets the response from the bot
+     *
+     * @param input the input from the user
+     * @return the response from the bot
      */
     public String getResponse(String input) {
         try {

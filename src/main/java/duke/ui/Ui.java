@@ -107,6 +107,11 @@ public class Ui {
                 + "bye - Exits the program";
     }
 
+    /**
+     * Displays the filtered list of tasks.
+     *
+     * @param length Length of the filtered list.
+     */
     public String showFilteredList(int length) {
         return "Here are the matching tasks in your list:" + "\n" + length + " tasks in total.";
     }

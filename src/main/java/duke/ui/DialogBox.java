@@ -38,10 +38,24 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    /**
+     * Returns a DialogBox with the user's text and image
+     *
+     * @param text the user's text
+     * @param img  the user's image
+     * @return a DialogBox with the user's text and image
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox with Duke's text and image
+     *
+     * @param text Duke's text
+     * @param img  Duke's image
+     * @return a DialogBox with Duke's text and image
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
