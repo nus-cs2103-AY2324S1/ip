@@ -55,10 +55,10 @@ public class Parser {
         case SHOWTASKS:
             return taskList.showTasks();
         case MARKTASKASDONE:
-            int doneTaskNum = this.parseTaskNum(userArgs);
+            int doneTaskNum = this.parseTaskNum(userArgs, taskList.getSize());
             return taskList.markTaskAsDone(doneTaskNum - 1);
         case MARKTASKASNOTDONE:
-            int notDoneTaskNum = this.parseTaskNum(userArgs);
+            int notDoneTaskNum = this.parseTaskNum(userArgs, taskList.getSize());
             return taskList.markTaskAsNotDone(notDoneTaskNum - 1);
         case ADDTODO:
             return this.parseAndAddTodo(userArgs, taskList);
@@ -67,7 +67,7 @@ public class Parser {
         case ADDEVENT:
             return this.parseAndAddEvent(userArgs, taskList);
         case DELETETASK:
-            int deleteTaskNum = this.parseTaskNum(userArgs);
+            int deleteTaskNum = this.parseTaskNum(userArgs, taskList.getSize());
             return taskList.deleteTask(deleteTaskNum - 1);
         case FIND:
             String keyword = this.parseKeyword(userArgs);
@@ -111,13 +111,16 @@ public class Parser {
      * @return An integer index number
      * @throws EkudIllegalArgException
      */
-    private int parseTaskNum(String userArgs) throws EkudIllegalArgException {
+    private int parseTaskNum(String userArgs, int size) throws EkudIllegalArgException {
         try {
-            int index = Integer.valueOf(userArgs);
-            if (index <= 0) {
+            int taskNum = Integer.valueOf(userArgs);
+            if (taskNum <= 0) {
                 throw new EkudIllegalArgException("Task number cannot be 0 or negative :o");
             }
-            return index;
+            if (taskNum > size) {
+                throw new EkudIllegalArgException("Task index number is out of bounds :/");
+            }
+            return taskNum;
         } catch (NumberFormatException e) {
             throw new EkudIllegalArgException("Please input a valid task number :o");
         }
@@ -182,7 +185,7 @@ public class Parser {
             LocalDateTime fromDateTime = this.parseDateTime(timings[0]);
             LocalDateTime toDateTime = this.parseDateTime(timings[1]);
             if (fromDateTime.isAfter(toDateTime) || fromDateTime.isEqual(toDateTime)) {
-                throw new EkudIllegalArgException("End should be later than start :(");
+                throw new EkudIllegalArgException("End date & time should be later than the start :(");
             }
             return taskList.addEvent(description, fromDateTime, toDateTime);
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
@@ -222,7 +225,7 @@ public class Parser {
      */
     private String parseAndChangePriority(String userArgs, TaskList taskList) throws EkudIllegalArgException {
         String[] prioArgs = userArgs.split(" ");
-        int taskNum = this.parseTaskNum(prioArgs[0]);
+        int taskNum = this.parseTaskNum(prioArgs[0], taskList.getSize());
         Priority priority = Priority.getPriority(prioArgs[1]);
         if (priority == null) {
             throw new EkudIllegalArgException(

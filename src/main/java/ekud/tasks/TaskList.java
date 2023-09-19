@@ -48,10 +48,7 @@ public class TaskList {
      * @return String response message for user.
      * @throws EkudIllegalArgException Illegal arg for index number.
      */
-    public String markTaskAsDone(int index) throws EkudIllegalArgException {
-        if (index >= this.tasks.size()) {
-            throw new EkudIllegalArgException("Task index number is out of bounds :/");
-        }
+    public String markTaskAsDone(int index) {
         Task task = this.tasks.get(index);
         task.markAsDone();
         return "The following task is marked done, sheeesh:\n" + task;
@@ -72,19 +69,13 @@ public class TaskList {
      * @return String response message for user.
      * @throws EkudIllegalArgException Illegal arg for index number.
      */
-    public String markTaskAsNotDone(int index) throws EkudIllegalArgException {
-        if (index >= this.tasks.size()) {
-            throw new EkudIllegalArgException("Task index number is out of bounds :/");
-        }
+    public String markTaskAsNotDone(int index) {
         Task task = this.tasks.get(index);
         task.markAsNotDone();
         return "The following task is marked as not done yet:\n" + task;
     }
 
-    public String changePriority(Priority priority, int index) throws EkudIllegalArgException {
-        if (index >= this.tasks.size()) {
-            throw new EkudIllegalArgException("Task index number is out of bounds :/");
-        }
+    public String changePriority(Priority priority, int index) {
         Task task = this.tasks.get(index);
         task.changePriority(priority);
         return String.format(
@@ -157,12 +148,9 @@ public class TaskList {
      * @param index Index number of task to be deleted as supplied by user.
      * @return String response message for user.
      */
-    public String deleteTask(int index) throws EkudException {
+    public String deleteTask(int index) throws EkudInvalidCommandException {
         if (this.tasks.isEmpty()) {
             throw new EkudInvalidCommandException("You cannot delete from an empty task list :/");
-        }
-        if (index >= this.tasks.size()) {
-            throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
         Task task = this.tasks.get(index);
         this.tasks.remove(index);
