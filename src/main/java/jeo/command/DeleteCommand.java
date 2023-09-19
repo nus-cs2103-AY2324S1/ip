@@ -1,5 +1,6 @@
 package jeo.command;
 
+import jeo.exception.JeoException;
 import jeo.storage.Storage;
 import jeo.task.Task;
 import jeo.task.TaskList;
@@ -31,7 +32,11 @@ public class DeleteCommand extends Command {
      * @return A String to be shown to the user after the command is executed.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JeoException {
+        boolean validIndex = (index >= 0) && (index < tasks.getCountTasks());
+        if (!validIndex) {
+            throw new JeoException("The index number is invalid!");
+        }
         Task task = tasks.getTask(this.index);
         tasks.removeTask(this.index);
         return ui.deleteTask(task, tasks.getCountTasks());

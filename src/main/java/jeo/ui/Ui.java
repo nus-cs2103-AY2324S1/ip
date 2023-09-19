@@ -54,6 +54,10 @@ public class Ui {
      * @return A String to be shown to the user.
      */
     public String taskList(TaskList tasks, int countTasks) {
+        if (countTasks == 0) {
+            String output = "There are no tasks in the list.";
+            return output;
+        }
         String output = "";
         for (int i = 0; i < countTasks; i++) {
             output += (i + 1) + ". " + tasks.getTask(i) + "\n";
