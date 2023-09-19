@@ -33,6 +33,7 @@ Mark the task with the indicated index as done. `index` must be a positive integ
 **Expected outcome:**
 
 The task with index 1 in the task list is marked as **done**, and `X` indicator beside the task is shown.
+
 `Good job! I have marked this task as completed:
 [T][X] homework`
 
@@ -45,6 +46,7 @@ Unmark a marked task with the indicated index. `index` must be a positive intege
 **Expected outcome:**
 
 The task with index 1 in the task list is marked as **not done**, and `X` indicator beside the task is shown.
+
 `OK, i have marked this as undone:
 [T][] homework`
 
@@ -71,6 +73,7 @@ Add a new todo task with specified `name`. A todo task as no start time or end t
 **Expected outcome:**
 
 Adds a todo task to the current task list.
+
 `Got it. I've added this to-do task:
 [T][] complete presentation slides
 Now you have 3 tasks in the list`
@@ -85,6 +88,7 @@ Add a new deadline with specified `name` and a duedate given as `datetime`. All 
 **Expected outcome:**
 
 Add a new deadline task to the current task list.
+
 `Got it. I've added a new deadline:
 [D][] CS2103T quiz (by: Friday)
 Now you have 4 tasks in the list`
@@ -99,6 +103,7 @@ Add a new event with specified `name` and given `start` and `end` times. All eve
 **Expected outcome:**
 
 Add a new event task to the current task list.
+
 `Got it. I've added a new event:
 [E][] student fair (from: 3pm to 5pm)
 Now you have 5 tasks in the list`
@@ -113,6 +118,7 @@ Find a task that has `keyword` as name. Note that keyword is case sensitive and 
 **Expected outcome:**
 
 Displays all tasks that has name matching keyword.
+
 `1: [D][] project work (by Oct 11 2023)`
 
 ### Find task using duedate: `due [duedate]`
@@ -125,6 +131,7 @@ Find all deadlines and events that has `duedate` as their `datetime` and `start`
 **Expected outcome:**
 
 Displays all tasks that has name matching keyword.
+
 `1: [D][] project work (by Oct 11 2023)
 2: [E][] student fair (from: Oct 11 2023 to Oct 12 2023)`
 
