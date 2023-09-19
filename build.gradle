@@ -51,6 +51,8 @@ test {
 application {
     mainClass.set("seedu.duke.Duke")
     mainClassName = 'seedu.duke.Main'
+//    mainClass.set("duke.taskmanagement.Duke")
+//    mainClassName = 'duke.taskmanagement.Main'
 }
 
 shadowJar {
@@ -64,4 +66,4 @@ shadowJar {
 //    standardInput = System.in
 //}
 
-mainClassName = 'Main'
+mainClassName = 'duke.taskmanagement.Main'
