@@ -17,12 +17,10 @@ public class ErrorMessages {
 
     public static final String INVALID_DATE_ERROR = "Oops! That date format isn't correct.";
     public static final String INVALID_DATETIME_ERROR = "Oops! That date-time format isn't right.";
-    public static final String INVALID_DEADLINE_FORMAT_ERROR = "Oops! Use the correct deadline format. For example: deadline Quiz 1 /by 01/09/2023 2030";
-    public static final String INVALID_EVENT_FORMAT_ERROR = "Oops! Use the right event format. For example: event Tp /from 01/09/2023 2030 /to 01/09/2023 2230";
-    public static final String INVALID_FROM_AND_TO_ERROR = "Oops! The starting date cannot be later than the ending date.";
-
-    public static final String INVALID_TYPE_ERROR = "The event type tag should be one of [T], [D], or [E].";
-    public static final String INVALID_STATUS_ERROR = "The 'IsDone' tag should be either [ ] or [X].";
+    public static final String INVALID_DEADLINE_FORMAT_ERROR = "Oops! Use the correct deadline format. "
+            + "For example: deadline Quiz 1 /by 01/09/2023 2030";
+    public static final String INVALID_EVENT_FORMAT_ERROR = "Oops! Use the right event format. "
+            + "For example: event meeting /from 01/09/2023 2030 /to 01/09/2023 2230";
 
     public static final String EMPTY_ERROR = "Oops! You didn't provide any instruction.";
     public static final String STORAGE_ERROR = "Oops! There was an issue accessing the storage list.";
@@ -31,5 +29,6 @@ public class ErrorMessages {
     public static final String ADD_TASKS = "Consider adding more tasks.";
     public static final String INVALID_HELP_COMMAND_ERROR = "Oops! That's not a recognized help command. You can try:\n"
             + "- help\n- help date\n- help time\n- help duration";
+    public static final String FILEIO_ERROR = "OOPS!!! Errors in handling the file ...\n";
 }
 

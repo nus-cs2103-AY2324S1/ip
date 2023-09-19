@@ -21,15 +21,5 @@ public class ExitCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.addToResponse(EXIT_MESSAGE);
     }
-
-    /**
-     * Indicates that this command results in an application exit.
-     *
-     * @return true to signify that the application should exit, false otherwise.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }
 

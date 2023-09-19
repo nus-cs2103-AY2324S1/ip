@@ -11,16 +11,6 @@ import duke.ui.Ui;
  * for the execute method.
  */
 public abstract class Command {
-
-    /**
-     * Checks if the command indicates an exit request.
-     *
-     * @return false by default, indicating that the command is not an exit request.
-     */
-    public boolean isExit() {
-        return false;
-    }
-
     /**
      * Executes the command with respect to the provided task list, UI, and storage.
      * This method needs to be implemented by all concrete subclasses of Command.

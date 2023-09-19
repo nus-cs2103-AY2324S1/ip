@@ -1,5 +1,13 @@
 package duke.ui;
 
+/**
+ * The {@code Ui} class manages the user interface display functionality. It helps
+ * in formatting the display content by adding indentation, horizontal bars, and managing
+ * user messages. The class also provides utility functions to handle user responses.
+ *
+ * <p>Some of the primary functionalities include indenting lines, displaying messages
+ * with horizontal bars, and managing user responses with the ability to reset, add, or retrieve them.</p>
+ */
 public class Ui {
     // Constants
     private static final int DEFAULT_LENGTH = 70;

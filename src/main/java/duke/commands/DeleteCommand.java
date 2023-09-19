@@ -52,7 +52,6 @@ public class DeleteCommand extends Command {
             String message = String.format(format, deletedTask.toString(), tasks.getNumberOfTasks());
             ui.addToResponse(message);
         } finally {
-            // Ensures that any changes made to the tasks object are saved, even if an exception occurs.
             storage.save(tasks);
         }
     }
