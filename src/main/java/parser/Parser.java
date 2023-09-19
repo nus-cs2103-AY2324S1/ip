@@ -95,8 +95,8 @@ public class Parser {
      */
     public Command prepareDeadline(String args) {
         String[] arr = args.split("/");
-        String description = arr[0];
-        String endTime = arr[1];
+        String description = arr[0].trim();
+        String endTime = arr[1].trim();
         return new DeadlineCommand(description, endTime);
     }
 
@@ -109,9 +109,9 @@ public class Parser {
     public Command prepareEvent(String args) {
 
         String[] arr = args.split("/");
-        String description = arr[0];
-        String startTime = arr[1];
-        String endTime = arr[2];
+        String description = arr[0].trim();
+        String startTime = arr[1].trim();
+        String endTime = arr[2].trim();
         return new EventCommand(description, startTime, endTime);
     }
 
