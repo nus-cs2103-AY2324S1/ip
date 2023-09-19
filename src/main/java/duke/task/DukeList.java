@@ -169,12 +169,10 @@ public class DukeList {
         }
     }
 
-    public String findTasks(String description) throws DukeException {
-        String[] splited = description.split(" ", 2);
-        if (splited.length > 1) {
-            String desc = splited[1];
+    public String findTasks(String desc) throws DukeException {
+        if (!desc.equals(null)) {
             DukeList newList = new DukeList();
-            String strToReturn = "Here are the matching tasks in the list:";
+            String strToReturn = "Here are the matching tasks in the list:" + "\n";
             for (int i = 0; i < this.arr.size(); i++) {
                 int count = 1;
                 if (arr.get(i).description.contains(desc)) {

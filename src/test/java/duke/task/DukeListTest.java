@@ -22,21 +22,6 @@ public class DukeListTest {
         assertEquals(1, dukeList.getList().size());
     }
 
-//    @Test
-//    public void testAddDeadline() {
-//        LocalDateTime by = LocalDateTime.now().plusDays(1);
-//        dukeList.addTask("make tiramisu by );
-//        assertEquals(1, dukeList.getList().size());
-//    }
-//
-//    @Test
-//    public void testAddEvent() {
-//        LocalDateTime start = LocalDateTime.now();
-//        LocalDateTime end = start.plusHours(2);
-//        dukeList.addTask("Team meeting", start, end);
-//        assertEquals(1, dukeList.getList().size());
-//    }
-
     @Test
     public void testDeleteTask() throws DukeException {
         dukeList.addTask("Todo", "Do something");

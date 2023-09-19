@@ -24,7 +24,6 @@ public class Duke {
     private Parser parser;
 
     /**
-<<<<<<< HEAD
      * Constructs a Duke object with the specified file path.
      *
      * @param filePath The path to the data file for storage.
@@ -53,7 +52,7 @@ public class Duke {
             Command c = this.parser.parseCommand(userInput);
             responseStr = c.execute(dukelist, storage);
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
         return responseStr;
 

@@ -57,17 +57,25 @@ public class Storage {
 
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
-                String[] splited = line.split(" ", 6);
+                String[] splited;
+                int arrLength = 0;
+                if (line.split(" ", 2)[0].equals("1")) {
+                    splited = line.split(" ", 5);
+                    arrLength = 5;
+                } else {
+                    splited = line.split(" ", 6);
+                    arrLength = 6;
+                }
                 String taskType = splited[2];
                 switch (taskType) {
                     case "[T]" :
-                        readTodo(splited[5], splited[0], oldTasks);
+                        readTodo(splited[arrLength - 1], splited[0], oldTasks);
                         break;
                     case "[D]" :
-                        readDeadline(splited[5], splited[0], oldTasks);
+                        readDeadline(splited[arrLength -1], splited[0], oldTasks);
                         break;
                     case "[E]" :
-                        readEvent(splited[5], splited[0], oldTasks);
+                        readEvent(splited[arrLength -1], splited[0], oldTasks);
                         break;
 
                 }

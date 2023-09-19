@@ -19,7 +19,6 @@ public class EditCommand extends Command {
     public String execute(DukeList dukeList, Storage storage) throws DukeException {
         Task taskToEdit;
         try {
-            //assert taskType != null : "Task type cannot be null";
             assert description != null : "Description of task cannot be null";
             taskToEdit = dukeList.editTask(this.taskType, this.description);
             storage.saveData(dukeList.getList());
