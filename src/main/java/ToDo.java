@@ -7,15 +7,12 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toFileString() {
-        if (super.isDone) {
-            return "T | 1 | " + super.task;
-        } 
-        return "T | 0 | " + super.task;
+    public String getStatus() {
+        return "[To-Do]" + super.getStatus();
     }
 
     @Override
-    public String getStatus() {
-        return "[To-Do]" + super.getStatus();
+    public String toFileString() {
+        return super.isDone ? ("T | 1 | " + super.task) : ("T | 0 | " + super.task);
     }
 }
