@@ -1,4 +1,4 @@
-package DukePackage;
+package dukepackage;
 
 /**
  * The DukeException class represents an exception specific to the Duke application.

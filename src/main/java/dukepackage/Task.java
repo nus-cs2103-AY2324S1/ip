@@ -1,4 +1,4 @@
-package DukePackage;
+package dukepackage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -135,9 +135,12 @@ public class Task {
         }
         result += String.format("       [%s][%s] %s", this.getTypeIcon(), this.getStatusIcon(), this.description);
         if (!Objects.isNull(this.startTime) && !Objects.isNull(this.endTime)) {
-            result += String.format(" (from: %s to: %s)", this.startTime.toString().replace("T", " "), this.endTime.toString().replace("T", " "));
+            String start = this.startTime.toString().replace("T", " ");
+            String end = this.endTime.toString().replace("T", " ");
+            result += String.format(" (from: %s to: %s)", start, end);
         } else if (!Objects.isNull(this.startTime)) {
-            result += String.format(" (by: %s)", this.startTime.toString().replace("T", " "));
+            String start = this.startTime.toString().replace("T", " ");
+            result += String.format(" (by: %s)", start);
         } else {
             result += "";
         }

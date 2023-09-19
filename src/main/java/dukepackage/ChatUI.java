@@ -1,4 +1,4 @@
-package DukePackage;
+package dukepackage;
 
 /**
  * The ChatUI class represents the user interface for the chatbot application.

@@ -1,4 +1,4 @@
-package DukePackage;
+package dukepackage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,6 +20,7 @@ public class Storage {
      */
     protected ArrayList<Task> taskList;
     protected final String MATCHING_STRING = "     Here are the matching tasks in your list:";
+    protected final String filePathRelativeFromJar = "../../data/duke.txt";
 
     /**
      * Constructs a Storage object with an empty task list.
@@ -67,29 +68,25 @@ public class Storage {
      */
     public void writeTasksToFile() {
         try {
-            FileWriter fileWriter = new FileWriter("../data/duke.txt");
+            FileWriter fileWriter = new FileWriter(filePathRelativeFromJar);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (Task tasking : this.taskList) {
                 // format the string
                 String formattedString = "";
-                Integer priority = tasking.isDone
-                        ? 1
-                        : 0;
+                Integer priority = tasking.isDone ? 1 : 0;
                 switch (tasking.type) {
                     case TODO:
-                        formattedString = String.format("%c|%d|%s",
-                                'T', priority, tasking.description);
+                        formattedString = String.format("%c|%d|%s", 'T', priority, tasking.description);
                         break;
                     case DEADLINE:
-                        formattedString = String.format("%c|%d|%s|%s",
-                                'D', priority, tasking.description,
-                                tasking.startTime.toString().replace("T", " "));
+                        String start = tasking.startTime.toString().replace("T", " ");
+                        formattedString = String.format("%c|%d|%s|%s", 'D', priority, tasking.description, start);
                         break;
                     case EVENT:
+                        start = tasking.startTime.toString().replace("T", " ");
+                        String end = tasking.endTime.toString().replace("T", " ");
                         formattedString = String.format("%c|%d|%s|%s|%s",
-                                'E', priority, tasking.description,
-                                tasking.startTime.toString().replace("T", " "),
-                                tasking.endTime.toString().replace("T", " "));
+                                'E', priority, tasking.description, start, end);
                         break;
                 }
                 bufferedWriter.write(formattedString);
@@ -102,11 +99,29 @@ public class Storage {
     }
 
     /**
+     * Initializes a Task object from an array of values.
+     *
+     * @param values An array of values representing task information.
+     * @return A Task object initialized from the provided values.
+     */
+    public Task initTaskFromLine(String[] values) {
+        TaskType type = Objects.equals(values[0], "T")
+                ? TaskType.TODO
+                : Objects.equals(values[0], "D")
+                ? TaskType.DEADLINE
+                : TaskType.EVENT;
+        int valuesLength = values.length;
+        String start = valuesLength >= 4 ? values[3] : "";
+        String end = valuesLength >= 5 ? values[4] : "";
+        return new Task(values[2], type, start, end);
+    }
+
+    /**
      * Loads the task list from a file.
      */
     public void loadListFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("data/duke.txt"))) {
-            File file = new File("data/duke.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePathRelativeFromJar))) {
+            File file = new File(filePathRelativeFromJar);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -116,25 +131,8 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 // Assuming your line contains comma-separated values
                 String[] values = line.split("\\|");
-                // Create your Java object based on the parsed values
-                TaskType type = Objects.equals(values[0], "T")
-                        ? TaskType.TODO
-                        : Objects.equals(values[0], "D")
-                        ? TaskType.DEADLINE
-                        : TaskType.EVENT;
-                String start = "", end = "";
-                try {
-                    start = values[3];
-                } catch (Exception e) {
-                    start = "";
-                }
-                try {
-                    end = values[4];
-                } catch (Exception e) {
-                    end = "";
-                }
-                Task obj = new Task(values[2], type, start, end); // Instantiate with appropriate arguments
-                obj.setStatus(!Objects.equals(values[1], "0"));
+                Task obj = initTaskFromLine(values); // Instantiate with appropriate arguments
+                obj.setStatus(!(values[1].equals("0")));
                 // Store the object in your storage instance
                 addList(obj);
                 bufferedReader.close();
@@ -146,32 +144,72 @@ public class Storage {
     }
 
     /**
-     * Prints the task list.
+     * Appends a task's information to a StringBuilder.
+     *
+     * @param result The StringBuilder to which the task information is appended.
+     * @param index  The index of the task.
+     * @param t      The Task object containing task information.
+     * @return The updated StringBuilder containing the appended task information.
      */
-    public String printTaskList() {
-        String result = "";
-        for (int i = 0; i < this.taskList.size(); i++) {
-            int index = i + 1;
-            Task t = this.taskList.get(i);
-            result += String.format("     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
-            if (!Objects.isNull(t.startTime) && !Objects.isNull(t.endTime)) {
-                result += String.format(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
-            } else if (!Objects.isNull(t.startTime)) {
-                result += String.format(" (by: %s)%n", t.startTime.toString().replace("T", " "));
-            } else {
-                result += String.format("\n");
-            }
+    public StringBuilder appendTaskToString(StringBuilder result, int index, Task t) {
+        result.append(String.format("     %d.[%s][%s] %s",
+                index, t.getTypeIcon(), t.getStatusIcon(), t.description));
+        if (!Objects.isNull(t.startTime) && !Objects.isNull(t.endTime)) {
+            String start = t.startTime.toString().replace("T", " ");
+            String end = t.endTime.toString().replace("T", " ");
+            result.append(String.format(" (from: %s to: %s)%n", start, end));
+        } else if (!Objects.isNull(t.startTime)) {
+            String start = t.startTime.toString().replace("T", " ");
+            result.append(String.format(" (by: %s)%n", start));
+        } else {
+            result.append("\n");
         }
         return result;
     }
 
     /**
+     * Prints the task list.
+     *
+     * @return A string representation of the entire task list.
+     */
+    public String printTaskList() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            // taskList is 0 indexed while list in GUI is 1-indexed
+            int index = i + 1;
+            Task t = this.taskList.get(i);
+            result = appendTaskToString(result, index, t);
+        }
+        return result.toString();
+    }
+
+    /**
+     * Prints a list of matching tasks based on a search string.
+     *
+     * @param toFindString The search string used to filter matching tasks.
+     * @return A string representation of the matching tasks.
+     */
+    public String printMatchingList(String toFindString) {
+        StringBuilder result = new StringBuilder();
+        result.append(MATCHING_STRING);
+        for (int i = 0; i < this.taskList.size(); i++) {
+            int index = i + 1;
+            Task t = this.taskList.get(i);
+            if (t.getDescription().contains(toFindString)) {
+                result = appendTaskToString(result, index, t);
+            }
+        }
+        return result.toString();
+    }
+
+
+    /**
      * Prints the marking for a task.
      *
      * @param i The index of the task.
-     * @throws DukeException If the task index is invalid.
+     * @return The marking information.
      */
-    public String printTaskMarking(int i) throws DukeException {
+    public String printTaskMarking(int i) {
         String result = "";
         try {
             Task t = this.taskList.get(i);
@@ -203,32 +241,13 @@ public class Storage {
      * Prints the entry of a task.
      *
      * @param t The task.
+     * @return The task entry information.
      */
-    public String  printTaskEntry(Task t) {
+    public String printTaskEntry(Task t) {
         String result = "";
         result += t.printDescription();
         int size = this.taskList.size();
         result += String.format("\n     Now you have %d tasks in the list.\n", size);
-        return result;
-    }
-
-    public String printMatchingList(String toFindString) {
-        String result = "";
-        result += MATCHING_STRING;
-        for (int i = 0; i < this.taskList.size(); i++) {
-            int index = i + 1;
-            Task t = this.taskList.get(i);
-            if (t.getDescription().contains(toFindString)) {
-                result += String.format("%n     %d.[%s][%s] %s", index, t.getTypeIcon(), t.getStatusIcon(), t.description);
-                if (!Objects.isNull(t.startTime) && !Objects.isNull(t.endTime)) {
-                    result += String.format(" (from: %s to: %s)%n", t.startTime.toString().replace("T", " "), t.endTime.toString().replace("T", " "));
-                } else if (!Objects.isNull(t.startTime)) {
-                    result += String.format(" (by: %s)%n", t.startTime.toString().replace("T", " "));
-                } else {
-                    result += "";
-                }
-            }
-        }
         return result;
     }
 }

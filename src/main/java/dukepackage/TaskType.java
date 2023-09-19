@@ -1,4 +1,4 @@
-package DukePackage;
+package dukepackage;
 
 /**
  * The TaskType enum represents the types of tasks that can be used in the task list.

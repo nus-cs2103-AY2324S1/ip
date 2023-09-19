@@ -1,20 +1,26 @@
-import DukePackage.ChatGUI;
-import DukePackage.Parser;
-import DukePackage.Storage;
+import dukepackage.ChatGUI;
+import dukepackage.Parser;
+import dukepackage.Storage;
 
 /**
  * The Duke class is the main class that runs the Duke chatbot application.
  */
 public class Duke{
-    protected static ChatGUI ui = new ChatGUI();
+
+    protected static Storage storage = new Storage();
+    protected static ChatGUI ui = new ChatGUI(storage);
     protected String getResponse(String input) {
 
         return ui.process(input);
     }
 
     /**
-     * The main method that starts the Duke application.
-     * @param args The command-line arguments passed to the application.
+     * The main method that serves as the entry point for the Duke application.
+     *
+     * This method initializes key components of the Duke application, such as the storage and parser,
+     * and handles the execution of user commands and interactions with the chatbot.
+     *
+     * @param args The command-line arguments passed to the application (not used in this application).
      */
     public static void main(String[] args) {
         // standard response
@@ -28,7 +34,7 @@ public class Duke{
 
 
         // read from txt file and create tasks and put into storage
-        storage.loadListFromFile();
+//        storage.loadListFromFile();
 //        ui.printIntro();
 //
 //        while (true) {
