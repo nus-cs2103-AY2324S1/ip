@@ -41,6 +41,13 @@ public class Parser {
         return parseToCommand(commandType, description);
     }
 
+    /**
+     * Parses the user input and returns the corresponding command
+     * @param command Type of command
+     * @param description Description of the command
+     * @return Command corresponding to the user input
+     * @throws BrothermanException If the user input is invalid
+     */
     private static Command parseToCommand(CommandType command, String description) throws BrothermanException {
         switch (command) {
         case BYE:
@@ -68,6 +75,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input as a command type
+     * @param input User input
+     * @return Command type parsed from the user input
+     */
     private static CommandType parseType(String input) {
         String userCommand = input.split(" ")[0];
         try {
@@ -76,6 +88,11 @@ public class Parser {
             return CommandType.INVALID;
         }
     }
+    /**
+     * Parses the user input as a description
+     * @param input User input
+     * @return Description parsed from the user input
+     */
     private static String parseDescription(String input) {
         if (!input.contains(" ")) {
             return "";
@@ -83,30 +100,66 @@ public class Parser {
         return input.split(" ", 2)[1].trim();
     }
 
+    /**
+     * Handles the user input as a mark command
+     * @param description Description of the command
+     * @return Command type parsed from the user input
+     * @throws BrothermanException If the user input is invalid
+     */
     private static Command handleMarkDone(String description) throws BrothermanException {
         int task = Integer.parseInt(description) - 1;
         return new MarkDoneCommand(task);
     }
 
+    /**
+     * Handles the user input as an unmark command
+     * @param description Description of the command
+     * @return Command type parsed from the user input
+     * @throws BrothermanException If the user input is invalid
+     */
     private static Command handleUnmark(String description) throws BrothermanException {
         int task = Integer.parseInt(description) - 1;
         return new UnmarkCommand(task);
     }
 
-    private static Command handleDelete(String description) throws BrothermanException {
-        int task = Integer.parseInt(description) - 1;
+    /**
+     * Handles the user input as a delete command
+     * @param number NUmber of the command
+     * @return Command type parsed from the user input
+     * @throws BrothermanException If the user input is invalid
+     */
+    private static Command handleDelete(String number) throws BrothermanException {
+        int task = Integer.parseInt(number) - 1;
         return new DeleteCommand(task);
     }
 
+    /**
+     * Handles the user input as a todo command
+     * @param description Description of the command
+     * @return Command type parsed from the user input
+     * @throws BrothermanException If the user input is invalid
+     */
     private static Command handleTodo(String description) throws BrothermanException {
         return new AddCommand(parseTodo(description));
     }
 
+    /**
+     * Handles the user input as a deadline command
+     * @param description Description of the command
+     * @return Command type parsed from the user input
+     * @throws BrothermanException If the user input is invalid
+     */
     private static Command handleDeadline(String description) throws BrothermanException {
         String[] deadlineArgs = description.split(" /by ");
         return new AddCommand(parseDeadline(deadlineArgs[0], deadlineArgs[1]));
     }
 
+    /**
+     * Handles the user input as an event command
+     * @param description Description of the command
+     * @return Command type parsed from the user input
+     * @throws BrothermanException If the user input is invalid
+     */
     private static Command handleEvent(String description) throws BrothermanException {
         String desc = description.split("event|/from")[1].trim();
         String[] parts = description.split("\\s*/from\\s*|\\s*/to\\s*");
@@ -117,7 +170,11 @@ public class Parser {
     }
 
 
-
+    /**
+     * Handles the user input as an invalid command
+     * @return Command type parsed from the user input
+     * @throws BrothermanException If the user input is invalid
+     */
     private static Command handleInvalidCommand() throws BrothermanException {
         throw new BrothermanException("brotherman wtf does that even mean!");
     }
@@ -134,43 +191,33 @@ public class Parser {
         if (command.split(" ").length == 0) {
             throw new BrothermanException("Error! There is no command!");
         }
-
         if (command.split(" ").length == 1) {
             return true;
         }
-
         if (command.equals("find") && command.split(" ").length <= 1) {
             throw new BrothermanException("Error! There must be a keyword to search for!");
         }
-
         if (command.split(" ")[0].equals("mark") && command.split(" ").length <= 1) {
             throw new BrothermanException("Error! Something has to be marked!");
         }
-
         if (command.split(" ")[0].equals("unmark") && command.split(" ").length <= 1) {
             throw new BrothermanException("Error! Something has to be unmarked!");
         }
-
         if (command.split(" ")[0].equals("todo") && command.split(" ").length <= 1) {
             throw new BrothermanException("Error! There must be a description!!!");
         }
-
         if (command.split(" ")[0].equals("deadline") && command.split(" ")[1].equals("/by")) {
             throw new BrothermanException("Error! There has to be a description!!");
         }
-
         if (command.split(" ")[0].equals("deadline") && !command.contains("/by")) {
             throw new BrothermanException("Error! There has to be a due date/time!");
         }
-
         if (command.split(" ")[0].equals("event") && !command.contains("/from")) {
             throw new BrothermanException("Error! There has to be a start date/time!");
         }
-
         if (command.split(" ")[0].equals("event") && !command.contains("/to")) {
             throw new BrothermanException("Error! There has to be a end date/time!");
         }
-
         if (command.split(" ")[0].equals("event") && command.split(" ")[1].equals("/from")) {
             throw new BrothermanException("Error! There has to be a description");
         }
@@ -201,8 +248,6 @@ public class Parser {
         );
 
         LocalDateTime dateTimeObj = null;
-
-
         try {
             dateTimeObj = LocalDateTime.parse(time, formatter);
         } catch (DateTimeParseException e) {

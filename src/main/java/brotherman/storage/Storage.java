@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import brotherman.exceptions.BrothermanException;
 import brotherman.parser.Parser;
 import brotherman.tasks.Task;
 import brotherman.tasks.TaskList;
@@ -43,30 +44,63 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String taskString = sc.nextLine();
                 String[] task = taskString.split("\\|");
-                if (task[0].equals("T")) {
+                String type = task[0];
 
-                    Task task1 = Parser.parseTodo(task[2].trim());
-
-                    task1.markedChecker(task[1]);
-                    taskList.add(task1);
-
-                } else if (task[0].equals("D")) {
-                    String[] parts = task[2].split("/by");
-                    Task task1 = Parser.parseDeadline(parts[0].trim(), parts[1].trim());
-                    task1.markedChecker(task[1]);
-                    taskList.add(task1);
-                } else if (task[0].equals("E")) {
-                    String[] parts = task[2].trim().split("\\s*/from\\s*|\\s*/to\\s*");
-                    Task task1 = Parser.parseEvent(parts[0], parts[1], parts[2]);
-                    task1.markedChecker(task[1]);
-                    taskList.add(task1);
-                } else {
+                switch (type) {
+                case "T":
+                    handleTodo(task, taskList);
+                    break;
+                case "D":
+                    handleDeadline(task, taskList);
+                    break;
+                case "E":
+                    handleEvent(task, taskList);
+                    break;
+                default:
+                    throw new BrothermanException("☹ OOPS!!! Brotherman file read error! :-(");
                 }
             }
         } catch (FileNotFoundException e) {
             System.out.println("Welcome to Brotherman!");
+        } catch (BrothermanException e) {
+            System.out.println(e.getMessage());
         }
         return new TaskList(taskList);
+    }
+
+    /**
+     * Handles the todo task
+     * @param description Description of the todo task
+     * @param taskList Task list to be added to
+     */
+    private void handleTodo(String[] description, ArrayList<Task> taskList) {
+        Task task = Parser.parseTodo(description[2].trim());
+        task.markedChecker(description[1]);
+        taskList.add(task);
+    }
+
+    /**
+     * Handles the deadline task
+     * @param description Description of the deadline task
+     * @param taskList Task list to be added to
+     */
+    private void handleDeadline(String[] description, ArrayList<Task> taskList) {
+        String[] parts = description[2].split("/by");
+        Task task = Parser.parseDeadline(parts[0].trim(), parts[1].trim());
+        task.markedChecker(description[1]);
+        taskList.add(task);
+    }
+
+    /**
+     * Handles the event task
+     * @param description Description of the event task
+     * @param taskList Task list to be added to
+     */
+    private void handleEvent(String[] description, ArrayList<Task> taskList) {
+        String[] parts = description[2].trim().split("\\s*/from\\s*|\\s*/to\\s*");
+        Task task = Parser.parseEvent(parts[0], parts[1], parts[2]);
+        task.markedChecker(description[1]);
+        taskList.add(task);
     }
 
 

@@ -3,11 +3,12 @@ package brotherman.commands;
 import brotherman.storage.Storage;
 import brotherman.tasks.TaskList;
 import brotherman.ui.Ui;
+/**
+ * Represents a command to show the help message
+ */
 public class HelpCommand extends Command {
     /**
      * Constructor for Command
-     *
-     * @param isExit Whether the command is an exit command
      */
     public HelpCommand() {
         super(false);
