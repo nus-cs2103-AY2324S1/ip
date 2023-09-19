@@ -173,6 +173,11 @@ public class TaskList {
                 filteredList.add(task.toString());
             }
         }
+
+        if(filteredList.isEmpty()) {
+            filteredList.add("No results match your filter");
+        }
+
         return filteredList;
     }
 }
