@@ -22,6 +22,6 @@ public class TaskTest {
     public void testLineToBeWritten() {
         Deadline temp = new Deadline("iP Tasks", LocalDateTime.parse("2023-09-01T23:59:50"));
         String expectedOutput = "D |   | iP Tasks | Sep 01 2023 11:59PM";
-        assertEquals(expectedOutput, temp.lineToWriteFile());
+        assertEquals(expectedOutput, temp.convertToSaveFormat());
     }
 }
