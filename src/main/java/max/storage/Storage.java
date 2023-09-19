@@ -64,7 +64,7 @@ public class Storage {
             break;
         case "D": {
             int byIndex = task.indexOf("by:");
-            String item = task.substring(7, byIndex - 1).trim();
+            String item = task.substring(7, byIndex).trim();
             String by = task.substring(byIndex + 3).trim();
             LocalDate byDate = LocalDate.parse(by);
             tasks.add(new Deadline(item, byDate, isDone));

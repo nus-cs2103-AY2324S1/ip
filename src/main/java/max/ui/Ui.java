@@ -98,7 +98,7 @@ public class Ui {
      */
     public String showDelete(Task task, int size) {
         return "Aights mate. I've killed this task:\n" + task
-                + String.format("     Now you have %d task(s) left.", size);
+                + String.format("\nNow you have %d task(s) left.", size);
     }
 
     /**

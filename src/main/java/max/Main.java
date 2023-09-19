@@ -25,7 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Max Max Max");
+            stage.setTitle("Max");
             stage.getIcons().add(new Image("/images/Max.png"));
             fxmlLoader.<MainWindow>getController().setMax(max);
             stage.show();
