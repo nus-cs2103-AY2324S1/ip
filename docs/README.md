@@ -4,7 +4,7 @@ Nano is a **Chatbot for tracking tasks, optimised for use via a Command Line Int
 
 
 ## Quick start
-1. Ensure that Java `11` or above installed in your Computer.
+1. Ensure that you have Java `11` or above installed in your Computer.
 2. Download the latest `duke.jar` from [here](https://github.com/richiehx/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the _home folder_ for your Nano Chatbot.
 4. To run the application, open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to run the application.
@@ -15,8 +15,8 @@ Nano is a **Chatbot for tracking tasks, optimised for use via a Command Line Int
    Some example commands you can try:
    * `list` : Lists all tasks.
    * `todo Task` : Adds a new task of type **Todo** with the title `Task` to the Chatbot.
-   * `delete 3` : Deletes the 3rd task shown in the current task list.
-   * `mark 1` : Marks the 1st task shown in the current task list.
+   * `delete 3` : Deletes the 3rd task shown in the task list.
+   * `mark 1` : Marks the 1st task shown in the task list.
    * `bye` : Exits the app.
      
 8. Refer to the Features below for details of each command.
@@ -170,13 +170,13 @@ Edits an existing task in the Task List.
 
 Format: `edit INDEX FIELD_TO_EDIT NEW_VALUE`
 
-* Edits the task at the specified `INDEX`. The index refers to the index number shown in the displayed Task List. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the task at the specified `INDEX`. The index refers to the index number shown in the full Task List. The index **must be a positive integer** 1, 2, 3, …​
 * All parameter fields must be provided.
 
 #### 1. Editing a Todo Task
 For **Todo** tasks, only the description can be edited.
 * `FIELD_TO_EDIT` : Possible fields are `/desc`
-* `NEW_VALUE` : The new value must follow the restrictions of the specified field.
+* `NEW_VALUE` : The new value must follow the restrictions of the specified field. (For `/desc`, Description provided cannot be empty)
   
 Examples:
 *  `edit 1 /desc Do CS2103T Tutorial` : Edits the description of the 1st task to be `Do CS2103T Tutorial`.
@@ -296,14 +296,14 @@ Chat has ended! Please Exit.
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Nano Chatbot data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users can update data directly by editing that data file.
+Nano Chatbot data is saved automatically as a Text file `[JAR file location]/data/duke.txt`. Advanced users can update the data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, Nano may process the data wrongly and load corrupted data. Hence, it is recommended to take a backup of the file before editing it.
+If your changes to the data file make its format invalid, Nano may process the data wrongly and load corrupted data. Hence, it is recommended to make a backup of the file before editing it.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -314,11 +314,11 @@ Action | Format, Examples
 --------|------------------
 **Add Todo** | `todo DESCRIPTION` <br> e.g., `todo Watch CS2103T Lecture`
 **Add Deadline** | `deadline DESCRIPTION /by DUE_DATE` <br> e.g., `deadline Do CS2103T project /by 2023-09-22 23:59`
-**Add Event** | `event DESCRIPTION /from START_DATE /to END_DATE` <br> e.g., `Event Watch CS2100 Lecture /from 2023-09-15 16:00 /to 2023-09-15 18:00`
+**Add Event** | `event DESCRIPTION /from START_DATE /to END_DATE` <br> e.g., `event Watch CS2100 Lecture /from 2023-09-15 16:00 /to 2023-09-15 18:00`
 **Mark Task** | `mark INDEX`<br> e.g., `mark 2`
 **Unmark Task** | `unmark INDEX`<br> e.g., `unmark 2`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX FIELD_TO_EDIT NEW_VALUE` <br> e.g.,`edit 2 /desc newDesc`
+**Edit** | `edit INDEX FIELD_TO_EDIT NEW_VALUE` <br> e.g.,`edit 2 /desc newDesc`, `edit 3 /from 2023-09-15 17:00`
 **Find** | `find KEYWORD`<br> e.g., `find tutorial`
 **List** | `list`
 **Exit** | `bye`
