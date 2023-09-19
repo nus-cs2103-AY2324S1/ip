@@ -47,8 +47,8 @@ public class BlipUI {
      */
     public String showInvalidTaskNumErr() {
         return "Oh no! The task number does not exist."
-        + "\nYou can find out the tasks and their numbers by typing list."
-        + "\nPlease re-enter the correct task number to mark/unmark/delete.";
+                + "\nYou can find out the tasks and their numbers by typing list."
+                + "\nPlease re-enter the correct task number to mark/unmark/delete.";
     }
 
     /**
@@ -57,11 +57,20 @@ public class BlipUI {
      * @return String representation of the empty description error
      */
     public String showEmptyDescErr() {
-        return "Oh no! The task description cannot be empty."
-        + "\nPlease key in the task description, with date time where applicable."
-        + "\n1. deadline [task description] /by [yyyy-MM-dd HH:mm]"
-        + "\n2. event [task description] /from [yyyy-MM-dd HH:mm] /to [yyyy-MM-dd HH:mm]"
-        + "\n3. todo [task description].";
+        return "Oh no! Some command details are empty."
+            + "\nPlease key in the task DESCRIPTION, with DETAILS where applicable."
+            + "\n1. deadline [task description] /by [yyyy-MM-dd HH:mm] /priority [priority level: low/medium/high]*"
+            + "\n2. event [task description] /from [yyyy-MM-dd HH:mm] /to [yyyy-MM-dd HH:mm] " +
+                "/priority [priority level: low/medium/high]*"
+            + "\n3. todo [task description] /priority [priority level: low/medium/high]*"
+            + "\n4. mark [task number]"
+            + "\n5. unmark [task number]"
+            + "\n6. delete [task number]"
+            + "\n7. priority [task number] [priority level: low/medium/high]"
+            + "\n8. list"
+            + "\n9. find [task description]"
+            + "\n*Note that /priority is not necessary to be indicated."
+            + "\n If /priority is NOT indicated, it will be set to a default of LOW priority";
     }
 
     /**
@@ -70,14 +79,16 @@ public class BlipUI {
      * @return String representation of the invalid command error
      */
     public String showInvalidCmdErr() {
-        return "Oh no! I don't understand what you mean. Please key in either"
-        + "\n1. deadline [task description] /by [yyyy-MM-dd HH:mm]"
-        + "\n2. event [task description] /from [yyyy-MM-dd HH:mm] /to [yyyy-MM-dd HH:mm]"
-        + "\n3. todo [task description]."
-        + "\n4. mark [task number]"
-        + "\n5. unmark [task number]"
-        + "\n6. delete [task number]"
-        + "\n7. list";
+        return "Oh no! I don't understand what you mean. Please key in the following commands only:"
+            + "\n1. deadline"
+            + "\n2. event"
+            + "\n3. todo"
+            + "\n4. mark"
+            + "\n5. unmark"
+            + "\n6. delete"
+            + "\n7. priority"
+            + "\n8. list"
+            + "\n9. find";
     }
 
 
