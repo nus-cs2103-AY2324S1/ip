@@ -68,7 +68,7 @@ public class HelpCommand extends Command {
     public HelpCommand(String information) throws UnknownCommandException {
         super();
         try {
-            this.type = HelpType.valueOf(information.toUpperCase());
+            type = HelpType.valueOf(information.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new UnknownCommandException(ErrorMessages.INVALID_HELP_COMMAND_ERROR);
         }

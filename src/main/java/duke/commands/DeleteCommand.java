@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
      * @return true if the index is valid, false otherwise.
      */
     private boolean isValidIndex(TaskList list) {
-        return this.indexToDelete >= 0 && this.indexToDelete < list.getNumberOfTasks();
+        return this.indexToDelete >= 0 && indexToDelete < list.getNumberOfTasks();
     }
 
     /**

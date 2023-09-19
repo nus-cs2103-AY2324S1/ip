@@ -34,12 +34,12 @@ public class AddTaskCommand extends Command {
      * @throws Exception If there are issues saving the updated task list.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        tasks.addTask(this.task);
+        tasks.addTask(task);
 
         storage.save(tasks);
 
         String format = "Got it. I've added this task:\n%s\n" + "Now you have %d tasks in the list.";
-        String message = String.format(format, this.task, tasks.getNumberOfTasks());
+        String message = String.format(format, task, tasks.getNumberOfTasks());
 
         ui.addToResponse(message);
     }
