@@ -1,4 +1,4 @@
-package sae;
+package sae.gui;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -6,12 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sae.Sae;
 
 /**
  * The Main class represents the entry point for the Sae GUI application using FXML.
  * It launches the GUI and initializes the main Sae instance.
  * The structure of this class has been adapted (with minor changes)
- * from a <a href="https://se-education.org/guides/tutorials/javaFx.html"> tutorial.
+ * from a https://se-education.org/guides/tutorials/javaFx.html tutorial.
  */
 public class Main extends Application {
 

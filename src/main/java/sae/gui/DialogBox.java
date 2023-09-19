@@ -1,4 +1,4 @@
-package sae;
+package sae.gui;
 
 import java.io.IOException;
 import javafx.collections.FXCollections;
@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
 import java.util.Collections;
 
 
@@ -18,7 +19,7 @@ import java.util.Collections;
  * Represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  * This has been reused (with minor changes)
- * from <a href="https://se-education.org/guides/tutorials/javaFx.html">tutorial</a>
+ * from https://se-education.org/guides/tutorials/javaFx.html tutorial
  */
 public class DialogBox extends HBox {
     @FXML

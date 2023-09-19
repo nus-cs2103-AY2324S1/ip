@@ -1,4 +1,4 @@
-package sae;
+package sae.gui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import sae.Sae;
+import sae.gui.DialogBox;
 import sae.util.Ui;
 
 import java.util.Objects;
@@ -16,7 +18,7 @@ import java.util.Objects;
 /**
  * Represents the controller for MainWindow, providing the layout for other controls.
  * This class is reused and adapted
- * from this <a href="https://se-education.org/guides/tutorials/javaFx.html"> tutorial.
+ * from this https://se-education.org/guides/tutorials/javaFx.html tutorial.
  */
 public class MainWindow extends AnchorPane {
     @FXML
