@@ -48,17 +48,17 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke'stages reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing
+     * Duke'stages reply and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String[] response = duke.getResponse(input);
+        String response = duke.getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response[0], dukeImage)
+                DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
 
@@ -68,8 +68,6 @@ public class MainWindow extends AnchorPane {
                 Platform.exit();
             });
             pause.play();
-        } else if (response[1].equals("error")) {
-
         }
     }
 }

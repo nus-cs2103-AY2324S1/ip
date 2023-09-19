@@ -21,6 +21,10 @@ public class Task {
         this.type = type;
     }
 
+    public String getList() {
+        return this.list;
+    }
+
     /**
      * Marks the task as isCompleted and returns a message indicating the task's new status.
      *
@@ -67,5 +71,4 @@ public class Task {
         }
         return typeSymbol + (this.isCompleted ? "[X] " : "[ ] ") + this.list;
     }
-
 }

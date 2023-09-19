@@ -1,14 +1,19 @@
 package duke;
 
-import duke.exceptions.DukeException;
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.tasks.Task;
-import duke.ui.Ui;
-import duke.util.TaskList;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import duke.exceptions.DukeException;
+import duke.extensions.SearchInTasks;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.ui.Ui;
+import duke.util.DateAndTimeHandler;
+import duke.util.TaskList;
 
 /**
  * Main to class to handle duke operations
@@ -25,30 +30,31 @@ public class Duke {
         storage = new Storage();
         parser = new Parser();
         ui = new Ui();
+        tasks = new TaskList();
         try {
-            String tasksFromStorage = storage.handleReadAllTasksFromFile();
-            tasks = new TaskList(tasksFromStorage);
-        } catch (DukeException | IOException e) {
-            tasks = new TaskList();
+            tasks = new TaskList(storage.handleReadAllTasksFromFile());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
-
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response equivalent of the input
+     * Else, exception is thrown
+     * @param input user input
+     * @return response equivalent of the input
      */
-    public String[] getResponse(String input) {
+    public String getResponse(String input) {
         if (input.equals("bye")) {
-            return new String[]{ui.exit(), "nonError"};
+            return ui.exit();
         }
         try {
             String[] commandType = parser.handleUserInput(input);
             String str = handleCommand(commandType[0], commandType[1]);
             ArrayList<Task>currentTasks = tasks.getTasks();
             storage.handleChangesInFile(currentTasks);
-            return new String[]{str, "nonError"};
+            return str;
         } catch (Exception e) {
-            return new String[]{e.getMessage(), "error"};
+            return e.getMessage();
         }
     }
     /**
@@ -59,31 +65,425 @@ public class Duke {
      * @throws DukeException
      * @throws IOException
      */
-
     public String handleCommand(String command, String input) throws DukeException, IOException {
         if (input.equals("")) {
-            throw new DukeException("SUI, Invalid Command!");
+            throw new DukeException("SUI, Invalid empty command!");
         }
-
         switch (command) {
         case "mark":
-            return tasks.markTask(input);
+            return markTask(input);
         case "unmark":
-            return tasks.unmarkTask(input);
+            return unmarkTask(input);
         case "list":
             return tasks.getAllToDo();
         case "todo":
-            return tasks.handleTodoTask(input);
+            return handleTodoTask(input);
         case "deadline":
-            return tasks.handleDeadlineTask(input, "user");
+            return handleDeadlineTask(input);
         case "event":
-            return tasks.handleEventTask(input, "user");
+            return handleEventTask(input);
         case "delete":
-            return tasks.deleteTask(input);
+            return deleteTask(input);
         case "find":
-            return tasks.handleFindTask(input);
+            return SearchInTasks.handleFindTask(input, tasks.getTasks());
         default:
             throw new DukeException("SUI, Invalid Command!");
         }
+    }
+    /**
+     * Retrieves a formatted string indicating the success of marking a task.
+     *
+     * @param input  The input by the user.
+     * @return A message confirming the action's success.
+     * @throws DukeException If there's an issue with the task tasks or input.
+     */
+    public String markTask(String input) throws DukeException {
+        String[] parts = input.split(" ");
+        String res = "";
+
+        //No index to mark
+        if (parts.length == 1) {
+            throw new DukeException("SUI, Specify index to mark task!\n");
+        }
+        if (parts.length > 2) {
+            throw new DukeException("SUI, Enter mark command properly!\n");
+        }
+        //No task to mark
+        if (tasks.getSize() == 0) {
+            throw new DukeException("SUI, No tasks! Add more tasks to mark!\n");
+        }
+        if (parts.length == 2) {
+            String sec = parts[1];
+            //index is not valid integer
+            try {
+                int index = Integer.parseInt(sec);
+                //index entered is more than totalTodos or negative index
+                checkIfIndexIsValid(index);
+                res = tasks.getTaskAtIndex(index - 1).setMarked();
+                assert !res.isEmpty() : "Failed to mark task.";
+            } catch (NumberFormatException e) {
+                throw new DukeException("SUI, Enter a valid positive integer after your markcommand!\n");
+            }
+        }
+        return res;
+    }
+    /**
+     * Retrieves a formatted string indicating the success of unmarking a task.
+     *
+     * @param input  The input by the user.
+     * @return A message confirming the action's success.
+     * @throws DukeException If there's an issue with the task tasks or input.
+     */
+    public String unmarkTask(String input) throws DukeException {
+        String[] parts = input.split(" ");
+        String res = "";
+
+        //No index to mark
+        if (parts.length == 1) {
+            throw new DukeException("SUI, Specify index to unmark task!\n");
+        }
+        if (parts.length > 2) {
+            throw new DukeException("SUI, Enter unmark command properly!\n");
+        }
+        //No task to mark
+        if (tasks.getSize() == 0) {
+            throw new DukeException("SUI, No tasks! Add more tasks to unmark!\n");
+        }
+        if (parts.length == 2) {
+            String sec = parts[1];
+            //index is not valid integer
+            try {
+                int index = Integer.parseInt(sec);
+                //index entered is more than totalTodos or negative index
+                checkIfIndexIsValid(index);
+                res = tasks.getTaskAtIndex(index - 1).setUnmarked();
+                assert !res.isEmpty() : "Failed to unmark task.";
+                res = tasks.getTaskAtIndex(index - 1).setUnmarked();
+            } catch (NumberFormatException e) {
+                throw new DukeException("SUI, Enter a valid positive integer after your unmark command!\n");
+            }
+        }
+        return res;
+    }
+    /**
+     * Returns if index is valid or not
+     * @param index index to check
+     * @throws DukeException if it is indeed invalid
+     */
+    public void checkIfIndexIsValid(int index) throws DukeException {
+        if (index > tasks.getSize() || index <= 0) {
+            throw new DukeException("SUI, Enter command with positive index lesser than "
+                    + (tasks.getSize() + 1) + "\n");
+        }
+    }
+    /**
+     * Deletes a task from the task tasks based on the provided index.
+     *
+     * @param input The input of the task to be deleted.
+     * @return A message indicating the success of the deletion.
+     * @throws DukeException If there's an issue with the task tasks or input.
+     */
+    public String deleteTask(String input) throws DukeException {
+        String[] parts = input.split(" ");
+        String res = "";
+
+        //No index to delete
+        if (input.equals("delete") && parts.length == 1) {
+            throw new DukeException("SUI, Specify index to delete task!\n");
+        }
+        //No task to delete
+        if (tasks.getSize() == 0) {
+            throw new DukeException("SUI, No tasks to delete! Add more tasks to delete!\n");
+        }
+        if ((parts[0].equals("delete")) && parts.length == 2) {
+            String sec = parts[1];
+            //index is not valid integer
+            try {
+                int index = Integer.parseInt(sec);
+                String removedTask = tasks.getTaskAtIndex(index - 1).toString();
+                tasks.removeTask(index - 1);
+                res = "SUI, Noted. I've removed this task: \n " + "  " + removedTask + "\n" + tasks.getTaskLeft();
+                assert !res.isEmpty() : "Failed to delete task.";
+            } catch (NumberFormatException e) {
+                throw new DukeException("SUI, Enter a valid positive integer after your mark/unmark command!\n");
+            }
+        }
+
+        return res;
+    }
+    /**
+     * Adds a todo task to the task tasks based on the provided input.
+     *
+     * @param input The user input containing the task description.
+     * @return A message indicating the success of adding the duke.tasks.ToDo task.
+     * @throws DukeException If there's an issue with the input or task description.
+     */
+    public String handleTodoTask(String input) throws DukeException {
+        String task = "";
+        String[] parts = input.split(" ");
+
+        for (int i = 1; i < parts.length; i++) {
+            task += parts[i] + " ";
+        }
+        if (task.equals("")) {
+            throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said?! "
+                    + "Enter again!\n");
+        }
+
+        tasks.addTask(new ToDo(task, TaskType.TODO));
+
+        String str = tasks.getTaskAtIndex(tasks.getSize() - 1).toString();
+        assert !str.isEmpty() : "Failed to add todo task.";
+        String res = "SUI, Got it. I've added this task :\n" + str + "\n";
+        res += tasks.getTaskLeft();
+
+        return res;
+    }
+
+    /**
+     * Adds a duke.tasks.Deadline task to the task tasks based on the provided input.
+     *
+     * @param input The user input containing the task description and deadline.
+     * @return A message indicating the success of adding the duke.tasks.Deadline task.
+     * @throws DukeException If there's an issue with the input, task description, or deadline.
+     */
+    public String handleDeadlineTask(String input) throws DukeException {
+        String[] parts = input.split("/by ");
+        String[] taskArray = parts[0].split(" ");
+        if (parts.length != 2) {
+            throw new DukeException("SUI, Specify by date and time!");
+        }
+        String[] deadlineInfo = parts[1].split(" ");
+
+        if (deadlineInfo.length != 2) {
+            throw new DukeException("SUI, Specify both date and time in the following manner : yyyy-mm-dd hh:mm");
+        }
+        String byDate = deadlineInfo[0];
+        String endTime = deadlineInfo[1];
+
+        DateAndTimeHandler.checkIfDateIsValid(byDate);
+        DateAndTimeHandler.checkIfDeadlineTimelineIsValid(byDate, endTime);
+        String task = "";
+        for (int i = 1; i < taskArray.length; i++) {
+            task += taskArray[i] + " ";
+        }
+        if (task.equals("")) {
+            throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said!! "
+                    + "Enter again!\n");
+        }
+        if (byDate.isEmpty()) {
+            throw new DukeException("SUI, deadline task must have /by date and time\n");
+        }
+
+        tasks.addTask(new Deadline(task, byDate, endTime + ":00", TaskType.DEADLINE));
+
+        String str = tasks.getTaskAtIndex(tasks.getSize() - 1).toString();
+        String res = "SUI, Got it. I've added this task :\n" + str + "\n";
+        res += tasks.getTaskLeft();
+
+        return res;
+    }
+
+    /**
+     * Method to handle deadline task from user
+     * @param input user input
+     * @return string array consisting of the contents of deadline task
+     * @throws DukeException
+     */
+    public String[] handleDeadlineTaskFromUser(String input) throws DukeException {
+        String task = "";
+        String byDate = "";
+        String endTime = "";
+        String[] parts = input.split("/by ");
+        String[] taskArray = parts[0].split(" ");
+        if (parts.length != 2) {
+            throw new DukeException("SUI, Specify by date and time!");
+        }
+        String[] deadlineInfo = parts[1].split(" ");
+
+        if (deadlineInfo.length != 2) {
+            throw new DukeException("SUI, Specify both date and time in the following manner : yyyy-mm-dd hh:mm");
+        }
+        byDate = deadlineInfo[0];
+        endTime = deadlineInfo[1];
+
+        DateAndTimeHandler.checkIfDateIsValid(byDate);
+        DateAndTimeHandler.checkIfDeadlineTimelineIsValid(byDate, endTime);
+
+
+        for (int i = 1; i < taskArray.length; i++) {
+            task += taskArray[i] + " ";
+        }
+
+        return new String[]{task, byDate, endTime};
+    }
+    /**
+     * Method to handle deadline task from file
+     * @param input user input
+     * @return string array consisting of the contents of deadline task
+     * @throws DukeException
+     */
+    public String[] handleDeadlineTaskFromFile(String input) {
+        String task = "";
+        String byDate = "";
+        String endTime = "";
+        String [] parts = input.split("\\(by: ");
+        String[] taskArray = parts[0].split(" ");
+        String[] deadlineInfo = parts[1].split(" ");
+
+        for (int i = 1; i < taskArray.length; i++) {
+            task += taskArray[i] + " ";
+        }
+
+        for (int i = 0; i < 3; i++) {
+            byDate += deadlineInfo[i] + " ";
+        }
+        endTime = deadlineInfo[3];
+        endTime = endTime.substring(0, endTime.length() - 1);
+        byDate = DateAndTimeHandler.convertDateToFormat(byDate.substring(0, 11), "MMM dd yyyy", "MMM dd yyyy");
+        return new String[]{task, byDate, endTime};
+    }
+    /**
+     * Adds an duke.tasks.Event task to the task tasks based on the provided input.
+     * @param input The user input containing the task description and event timings.
+     * @return A message indicating the success of adding the duke.tasks.Event task.
+     * @throws DukeException If there's an issue with the input, task description, or event timings.
+     */
+    public String handleEventTask(String input) throws DukeException {
+        String[] parts = input.split("/from ");
+        if (parts.length != 2) {
+            throw new DukeException("SUI, Specify from and to date and time!");
+        }
+        String[] taskArray = parts[0].split(" ");
+        String[] taskInfo = parts[1].split("/to ");
+
+        if (taskInfo.length != 2) {
+            throw new DukeException("SUI, Specify both date and time for /from and /to in the following manner "
+                    + ": yyyy-mm-dd hh:mm");
+        }
+
+        String[] fromInfo = taskInfo[0].split(" ");
+        String[] toInfo = taskInfo[1].split(" ");
+        if (fromInfo.length != 2) {
+            throw new DukeException("SUI, Specify both date and time for /from in the following manner "
+                    + ": yyyy-mm-dd hh:mm");
+        }
+        if (toInfo.length != 2) {
+            throw new DukeException("SUI, Specify both date and time for /to in the following manner "
+                    + ": yyyy-mm-dd hh:mm");
+        }
+
+        String startDate = fromInfo[0];
+        String startTime = fromInfo[1];
+        String endDate = toInfo[0];
+        String endTime = toInfo[1];
+
+        DateAndTimeHandler.checkIfDateIsValid(startDate);
+        DateAndTimeHandler.checkIfDateIsValid(endDate);
+
+        String task = "";
+        for (int i = 1; i < taskArray.length; i++) {
+            task += taskArray[i] + " ";
+        }
+        if (task.equals("")) {
+            throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said!! "
+                    + "Enter again!\n");
+        }
+
+        if (startDate.isEmpty() || endDate.isEmpty()) {
+            throw new DukeException("SUI, event task must have both /from and /to times\n");
+        }
+
+        tasks.addTask(new Event(task, startDate, endDate, startTime + ":00", endTime + ":00", TaskType.EVENT));
+
+        String str = tasks.getTaskAtIndex(tasks.getSize() - 1).toString();
+        assert !str.isEmpty() : "Failed to add deadline task.";
+        String res = "SUI, Got it. I've added this task :\n" + str + "\n";
+        res += tasks.getTaskLeft();
+
+        return res;
+    }
+    /**
+     * Method to handle event task from user
+     * @param input user input
+     * @return string array consisting of the contents of event task
+     * @throws DukeException
+     */
+    public String[] handleEventFromUser(String input) throws DukeException {
+        String task = "";
+        String[] parts = input.split("/from ");
+        if (parts.length != 2) {
+            throw new DukeException("SUI, Specify from and to date and time!");
+        }
+        String[] taskArray = parts[0].split(" ");
+        String[] taskInfo = parts[1].split("/to ");
+
+        if (taskInfo.length != 2) {
+            throw new DukeException("SUI, Specify both date and time for /from and /to in the following manner "
+                    + ": yyyy-mm-dd hh:mm");
+        }
+
+        String[] fromInfo = taskInfo[0].split(" ");
+        String[] toInfo = taskInfo[1].split(" ");
+        if (fromInfo.length != 2) {
+            throw new DukeException("SUI, Specify both date and time for /from in the following manner "
+                    + ": yyyy-mm-dd hh:mm");
+        }
+        if (toInfo.length != 2) {
+            throw new DukeException("SUI, Specify both date and time for /to in the following manner "
+                    + ": yyyy-mm-dd hh:mm");
+        }
+
+        String startDate = fromInfo[0];
+        String startTime = fromInfo[1];
+        String endDate = toInfo[0];
+        String endTime = toInfo[1];
+
+        DateAndTimeHandler.checkIfDateIsValid(startDate);
+        DateAndTimeHandler.checkIfDateIsValid(endDate);
+
+        for (int i = 1; i < taskArray.length; i++) {
+            task += taskArray[i] + " ";
+        }
+        return new String[] {task, startDate, endDate, startTime, endTime};
+    }
+
+    /**
+     * Method to handle event task from file
+     * @param input user input
+     * @return string array consisting of the contents of event task
+     * @throws DukeException
+     */
+    public String[] handleEventFromFile(String input) {
+        String task = "";
+        String startDate = "";
+        String endDate = "";
+        String startTime = "";
+        String endTime = "";
+        String[] parts = input.split("\\(from: ");
+        String[] taskArray = parts[0].split(" ");
+        String[] taskInfo = parts[1].split("to: ");
+
+        String[] fromInfo = taskInfo[0].split(" ");
+        String[] toInfo = taskInfo[1].split(" ");
+
+        for (int i = 1; i < taskArray.length; i++) {
+            task += taskArray[i] + " ";
+        }
+
+        for (int i = 0; i < 3; i++) {
+            startDate += fromInfo[i] + " ";
+        }
+
+        for (int i = 0; i < 3; i++) {
+            endDate += toInfo[i] + " ";
+        }
+
+        startDate = DateAndTimeHandler.convertDateToFormat(startDate.substring(0, 11), "MMM dd yyyy", "yyyy-MM-dd");
+        endDate = DateAndTimeHandler.convertDateToFormat(endDate.substring(0, 11), "MMM dd yyyy", "yyyy-MM-dd");
+        startTime = fromInfo[3];
+        endTime = toInfo[3];
+        endTime = endTime.substring(0, endTime.length() - 1);
+        return new String[]{task, startDate, endDate, startTime, endTime};
     }
 }
