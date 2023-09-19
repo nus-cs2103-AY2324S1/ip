@@ -2,10 +2,17 @@
 
 Chatbot Alain provides users with a helpful assistant to manage tasks efficiently. This User Guide will help you get familiarized with its functionality.
 
+# Alain frees your mind of having to remember things you need to do. It's,
+* text-based
+* easy to learn
+* FAST SUPER FAST to use
+* allows input with txt files and/or with mannual key-in
+
 ## Table of Contents
 
-- [Features](#features)
-- [Usage](#usage)
+-  [Features](#features)
+    - [x] Managing tasks 
+-  [Usage](#usage)
     - [`list`](#list)
     - [`mark`](#mark-task-number)
     - [`unmark`](#unmark-task-number)
@@ -15,7 +22,6 @@ Chatbot Alain provides users with a helpful assistant to manage tasks efficientl
     - [`delete`](#delete-task-number)
     - [`find`](#find-key-word)
 
-## Features
 
 ### `list`
 
