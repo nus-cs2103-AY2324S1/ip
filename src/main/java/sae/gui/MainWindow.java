@@ -1,4 +1,4 @@
-package sae;
+package sae.gui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import sae.Sae;
+import sae.gui.DialogBox;
 import sae.util.Ui;
 
 import java.util.Objects;
