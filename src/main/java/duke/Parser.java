@@ -12,7 +12,7 @@ import workers.TaskWorker;
 
 /**
  * This class handles the input from the user and parses them and calls the
- * appropriate methods based on the user input,.
+ * appropriate methods based on the user input.
  */
 public class Parser {
 
