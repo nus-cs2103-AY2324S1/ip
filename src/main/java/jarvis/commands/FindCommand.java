@@ -53,7 +53,8 @@ public class FindCommand implements Command {
     private static String getResponse(Ui ui, ArrayList<Task> foundTasks) {
         if (foundTasks.isEmpty()) {
             return ui
-                    .printResponse("No matching task is found, Master. Please check your spelling or use another word");
+                    .printResponse("No matching task is found, Master. "
+                            + "Please check your spelling or use another word");
         } else {
             return ui.printTasks(foundTasks);
         }
