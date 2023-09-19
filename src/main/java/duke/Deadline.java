@@ -1,10 +1,10 @@
 package duke;
 
-import duke.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**Deadline class for task with deadlines
+/**
+ * Deadline class for task with deadlines.
  */
 public class Deadline extends Task {
 
@@ -20,7 +20,7 @@ public class Deadline extends Task {
         super(description);
         //assume user always input date first, only consider with or without time
         this.by = by;
-        String parsed_by[] = by.split("\\s+");
+        String[] parsed_by = by.split("\\s+");
         String byDate = LocalDate.parse(parsed_by[0]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.transformedDate = parsed_by.length > 1 ? byDate + " " + parsed_by[1] : byDate;
     }

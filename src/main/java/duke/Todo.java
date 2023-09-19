@@ -1,11 +1,9 @@
 package duke;
 
-import duke.Task;
-
 /**
  *  Todo class
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * constructor for todo class
      * @param description name of the task
