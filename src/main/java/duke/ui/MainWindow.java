@@ -27,7 +27,9 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
+    // Image taken from https://www.kindpng.com/imgv/iwoxmb_profile-picture-circle-png-transparent-png/
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    // Image generated using Bing Image Creator
     private Image kronosImage = new Image(this.getClass().getResourceAsStream("/images/kronos.png"));
 
     @FXML
