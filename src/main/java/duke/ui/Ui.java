@@ -15,7 +15,7 @@ public class Ui {
      * @return The welcome message as a string.
      */
     public String showWelcomeMessage() {
-        return "Hello! I'm Glenda!\nWhat can I do for you?\n";
+        return "Hello! I'm Glendasaurus!\nWhat can I do for you?\n";
     }
 
     /**
