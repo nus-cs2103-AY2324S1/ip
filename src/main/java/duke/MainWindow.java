@@ -21,13 +21,9 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private TaskList taskList;
     private Storage storage;
-
-    private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/DaDuke.png"));
@@ -39,10 +35,6 @@ public class MainWindow extends AnchorPane {
         this.storage = new Storage("data/duke.txt");
         this.storage.loadTaskFile(taskList);
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.opening, dukeImage));
-    }
-
-    public void setDuke(Duke d) {
-        duke = d;
     }
 
     /**

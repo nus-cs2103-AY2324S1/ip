@@ -30,9 +30,7 @@ public class ParserTest {
 
     @Test
     public void dataToTask_incompleteDescription_fail() {
-        String errorMsg = Ui.divider + "\n"
-                + "☹ OOPS!!! The description of the task is incomplete or incorrect."
-                + "\n" + Ui.divider + "\n";
+        String errorMsg = "☹ OOPS!!! The description of the task is incomplete or incorrect.";
         try {
             String todo = "T | 0 |";
             Parser.dataToTask(todo);

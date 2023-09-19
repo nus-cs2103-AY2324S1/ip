@@ -34,9 +34,7 @@ public class TaskListTest {
             lst.getTask(1);
             fail();
         } catch (InvalidTaskIndexException ex) {
-            String output = Ui.divider + "\n"
-                    + "☹ OOPS!!! You keyed in an invalid task index!"
-                    + "\n" + Ui.divider + "\n";
+            String output = "☹ OOPS!!! You keyed in an invalid task index!";
             assertEquals(output, ex.toString());
         }
     }

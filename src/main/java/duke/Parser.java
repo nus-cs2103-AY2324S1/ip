@@ -15,6 +15,8 @@ import duke.tasks.ToDo;
 import duke.exceptions.IncompleteDescriptionException;
 import duke.exceptions.UnknownCommandException;
 
+import java.util.Arrays;
+
 /**
  * Parses string input from the user.
  */
@@ -60,7 +62,7 @@ public class Parser {
         }
         if (dataArr[1].equals("1")) {
             t.markDone();
-        } else if (dataArr[0].equals("0")) {
+        } else if (dataArr[1].equals("0")) {
             t.unMarkDone();
         } else {
             throw new IncompleteDescriptionException();
