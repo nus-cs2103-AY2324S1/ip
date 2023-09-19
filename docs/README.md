@@ -25,10 +25,10 @@ Example: `todo finish research` - adds a new todo with the given description “
 
 Adds a new deadline task to your list of tasks.
 
-Format: `deadline {DESCRITPION} /by {DUE_DATE_TIME}`
+Format: `deadline {DESCRITPION} /by {DATE_TIME}`
 
 Example:
-- `deadline assignment 1 /by 22/9/2023 2359` - adds a new deadline "assignment 1" with the given description and due date-time.
+- `deadline assignment 1 /by 22/9/2023 2359` - adds a new deadline "assignment 1" with the given description and date-time.
 
 ### Adding an event: `event`
 
@@ -90,7 +90,7 @@ Format: `update {TASK_INDEX}, [NEW_DESCRIPTION], [NEW_DATE_TIME]`
 Example:
 - `update 2, Watch CS2103T lecture` - updates the description of the task at index 2 to “Watch CS2103T lecture”.
 - `update 2, 21/9/2023 2100` - updates the date-time of the task at index 2 to "21 Sep 2023 9:00pm".
-- `update 2, Watch CS2103T lecture` - updates the description and date-time of the task at index 2 to "Watch CS2103T lecture" and "21 Sep 2023 9:00pm" respectively.
+- `update 2, Watch CS2103T lecture, 21/9/2023 2100` - updates the description and date-time of the task at index 2 to "Watch CS2103T lecture" and "21 Sep 2023 9:00pm" respectively.
 
 ### Checking tasks for a specified date: `check`
 
