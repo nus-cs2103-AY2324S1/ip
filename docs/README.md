@@ -1,15 +1,15 @@
 # Glendasaurus User Guide
 
-Glendasaurus is a Personal Assistant Chatbot that helps you keep track of various tasks. 
+Glendasaurus is a Personal Assistant Chatbot that helps you keep track of various tasks!
 
 ## Getting Started
 1. Ensure that you have Java `11` or above installed in your Computer.
-2. Download the latest `glendasaurus.jar` from [here]()
+2. Download the latest `glendasaurus.jar` from [here](https://github.com/GlendaChong/ip/releases)
 3. Copy the file to the folder you want to use as the home folder for Glendasaurus.
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
-5. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing Enter will list all tasks.
+4. Open your command terminal and use the `cd` command to navigate to the home folder for Glendasaurus.
+5. Type `java jar -glendasaurus.jar` and press Enter to execute it. 
+6. You may now begin to use the app!
 6. Refer to the [Features](#features) below for details of each command.
-7. You are now ready to use the app!
 
 ## Features 
 - [Add a `Todo` task](#add-a-todo-task)
