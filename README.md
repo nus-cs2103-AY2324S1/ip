@@ -1,3 +1,5 @@
+[![CI Status](https://github.com/Kurtyjlee/ip/workflows/Java%20CI/badge.svg)](https://github.com/Kurtyjlee/ip/actions)
+
 # Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
