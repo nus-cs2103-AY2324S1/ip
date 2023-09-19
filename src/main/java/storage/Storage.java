@@ -25,7 +25,7 @@ public class Storage {
      * @param listOfTask The task list to save.
      */
     public static void save(ArrayList<Task> listOfTask) throws DukeSaveException {
-        File writeData = new File("./src/data/duke.txt");
+        File writeData = new File("./duke/data/duke.txt");
         try {
             writeData.createNewFile();
             FileWriter writer = new FileWriter(writeData);
@@ -77,10 +77,14 @@ public class Storage {
         assert(startLine > 0);
         assert(errorCarryForward != null);
 
-        File saveData = new File("./src/data/duke.txt");
+        File holderDirectory = new File("./duke");
+        File saveDirectory = new File("./duke/data");
+        File saveData = new File("./duke/data/duke.txt");
         String error = null;
 
         try {
+            holderDirectory.mkdir();
+            saveDirectory.mkdir();
             saveData.createNewFile();
             Scanner readData = new Scanner(saveData);
 

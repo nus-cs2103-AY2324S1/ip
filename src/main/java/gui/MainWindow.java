@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty().multiply(0.99));
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(duke.greet(), luxionImage));
     }
 
