@@ -7,7 +7,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     /**
-     * Construct the Task class.
+     * Constructs the Task class.
      *
      * @param description Description of the task.
      * @param isDone If the task is done.

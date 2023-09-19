@@ -9,7 +9,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Construct the Event class.
+     * Constructs the Event class.
      *
      * @param description Description of the task.
      * @param isDone If the task is done.
