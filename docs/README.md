@@ -43,20 +43,27 @@ Leon is able to detect the following anomalies and raise an error:
 - When the start time of an event is after its end time.
 - When you attempt to create an event that overlaps with another event.
 
+### Check duplicates
+
+Leon will raise an error when you try to create a duplicate task. He doesn't want you to confuse yourself!
+
 ## Usage
 
-### `Keyword` - Describe action
+### `task` - Create a new task
 
-Describe the action and its outcome.
+The user inputs the keyword `task`, followed by the details of the task. The task will then be added to the list.
 
 Example of usage: 
 
-`keyword (optional arguments)`
+User: `task`
+Leon: `Input task details.`
+User: `clean the room`
+Leon: `Don't expect me to clean the room for you!`
 
 Expected outcome:
 
-Description of the outcome.
+Task is added to the list.
 
 ```
-expected output
+Don't expect me to clean the room for you!
 ```
