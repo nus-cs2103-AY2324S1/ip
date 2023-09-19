@@ -22,7 +22,7 @@ public class MarkCommandTest {
 
         Todo toDoTaskCompleted = new Todo("return book");
         toDoTaskCompleted.markTaskCompleted();
-        String successMessage = ui.showMarkMessage(toDoTaskCompleted);
+        String successMessage = "Nice! I've marked this task as done:" + "\n" + toDoTaskCompleted;
 
         assertEquals(successMessage, new MarkCommand(1).execute(taskList, ui));
     }
@@ -36,7 +36,7 @@ public class MarkCommandTest {
         taskList.addTask(toDoTask2);
         Ui ui = new Ui();
         toDoTask.markTaskCompleted();
-        String successMessage = ui.showMarkMessage(toDoTask);
+        String successMessage = "Nice! I've marked this task as done:" + "\n" + toDoTask;
         try {
             assertEquals(successMessage, new MarkCommand(1).execute(taskList, ui));
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class MarkCommandTest {
         taskList.addTask(toDoTask2);
         Ui ui = new Ui();
         toDoTask.markTaskCompleted();
-        String successMessage = ui.showMarkMessage(toDoTask);
+        String successMessage = "Nice! I've marked this task as done:" + "\n" + toDoTask;
         try {
             assertEquals(successMessage, new MarkCommand(3).execute(taskList, ui));
         } catch (Exception e) {

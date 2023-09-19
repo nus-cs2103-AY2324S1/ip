@@ -23,7 +23,7 @@ public class UnmarkCommandTest {
         Ui ui = new Ui();
 
         Todo toDoTaskUncompleted = new Todo("return book");
-        String successMessage = ui.showUnmarkMessage(toDoTaskUncompleted);
+        String successMessage = "OK, I've marked this task as not done yet." + "\n" + toDoTaskUncompleted;
 
         assertEquals(successMessage, new UnmarkCommand(1).execute(taskList, ui));
     }
@@ -37,7 +37,7 @@ public class UnmarkCommandTest {
         taskList.addTask(toDoTask);
         taskList.addTask(toDoTask2);
         Ui ui = new Ui();
-        String successMessage = ui.showUnmarkMessage(toDoTask);
+        String successMessage = "OK, I've marked this task as not done yet." + "\n" + toDoTask ;;
 
         try {
             assertEquals(successMessage, new UnmarkCommand(1).execute(taskList, ui));
@@ -55,7 +55,7 @@ public class UnmarkCommandTest {
         taskList.addTask(toDoTask);
         taskList.addTask(toDoTask2);
         Ui ui = new Ui();
-        String successMessage = ui.showUnmarkMessage(toDoTask);
+        String successMessage = "OK, I've marked this task as not done yet." + "\n" + toDoTask;
 
         try {
             assertEquals(successMessage, new UnmarkCommand(4).execute(taskList, ui));

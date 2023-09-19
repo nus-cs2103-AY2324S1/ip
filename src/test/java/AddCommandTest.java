@@ -17,7 +17,7 @@ public class AddCommandTest {
         ArrayList<String> taskListString = new ArrayList<>();
         TaskList taskList = new TaskList(taskListString);
         Ui ui = new Ui();
-        String successMessage = Messages.TASK_ADDED.getMessage() + "\n" + toDoTask + "\n"
+        String successMessage = "Got it. I've added this task:" + "\n" + toDoTask + "\n"
                 + "Now you have 1 tasks in the list.";
 
         assertEquals(successMessage, new AddCommand(toDoTask).execute(taskList, ui));
