@@ -70,39 +70,44 @@ public class Parser {
      * @return The completion status of the task.
      */
     public static Task parseFileString(String taskData) {
-        String[] parts = taskData.split(" \\| ");
-        String type = parts[0].trim();
-        if (parts.length < 3) {
+        try {
+            String[] parts = taskData.split(" \\| ");
+            String type = parts[0].trim();
+            if (parts.length < 3) {
+                return null;
+            }
+            String isDone = parts[1].trim();
+            String description = parts[2].trim();
+
+            Task task = null;
+
+            switch (type) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                String by = parts[3].trim();
+                task = new Deadline(description, by);
+                break;
+            case "E":
+                String from = parts[3].trim();
+                String to = parts[4].trim();
+                task = new Event(description, from, to);
+                break;
+            default:
+                break;
+            }
+
+            if (isDone.equals("1")) {
+                assert task != null;
+                task.markAsDone();
+            }
+
+            return task;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("File corrupted, please delete duke.txt and retry");
             return null;
         }
-        String isDone = parts[1].trim();
-        String description = parts[2].trim();
-
-        Task task = null;
-
-        switch (type) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            String by = parts[3].trim();
-            task = new Deadline(description, by);
-            break;
-        case "E":
-            String from = parts[3].trim();
-            String to = parts[4].trim();
-            task = new Event(description, from, to);
-            break;
-        default:
-            break;
-        }
-
-        if (isDone.equals("1")) {
-            assert task != null;
-            task.markAsDone();
-        }
-
-        return task;
     }
 
     /**

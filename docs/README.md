@@ -12,7 +12,9 @@
 6. **Packaging**: 📦 Now available as a JAR file for easier distribution.
 
 ## 🔧 Installation:
-Simply download `duke.jar`, move to your desired directory, and run using the command: `java -jar duke.jar`.
+- Simply download `duke.jar`, move to your desired directory, and run using the command: `java -jar duke.jar`.
+- If runtime exceptions occur, please ensure that you have Java 11 installed on your machine, or try again after deleting
+the duke.txt file because the file might be corrupted .
 
 ## 🎮 Commands:
 
