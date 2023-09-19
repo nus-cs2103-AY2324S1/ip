@@ -143,7 +143,7 @@ public class BlipUI {
      * @return String representation of the list of tasks matched
      */
     public static String listTasksMatched(TaskList tasks, String description) {
-        String matchedTasksIntro = "Here are the matching tasks in  your list:";
+        String matchedTasksIntro = "Here are the matching tasks in your list:";
         String noMatchMessage = "There are no matching tasks in the list";
         String matchedTasksList = "";
         if (tasks.size() == 0) {
@@ -182,7 +182,7 @@ public class BlipUI {
      * @return String representation that task has been deleted, with new task list size
      */
     public String deletesTasksMsg(Task task, int size) {
-       return "Ok, I've removed this task:"  + task.toString()
+       return "Ok, I've removed this task: "  + task.toString()
         + "\nNow you have " + size + " tasks in the list.";
     }
 
@@ -193,7 +193,7 @@ public class BlipUI {
      * @return String representation that task has been marked
      */
     public String marksTasksMsg(Task task) {
-        return "Nice! I've marked this task as done:" + task.toString();
+        return "Nice! I've marked this task as done: " + task.toString();
     }
 
     /**
@@ -203,7 +203,7 @@ public class BlipUI {
      * @return String representation that task has been unmarked
      */
     public String unmarksTasksMsg(Task task) {
-        return "Nice! I've marked this task as not done yet:" + task.toString();
+        return "Nice! I've unmarked this task as not done yet: " + task.toString();
     }
 
     /**
@@ -213,7 +213,7 @@ public class BlipUI {
      * @return String representation that task has been set to a new priority
      */
     public String setPriorityMsg(Task task) {
-        return "Nice! I've set the priority of this task:" + task.toString();
+        return "Nice! I've set the priority of this task: " + task.toString();
     }
 
 }
