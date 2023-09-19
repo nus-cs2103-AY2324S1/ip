@@ -38,8 +38,9 @@ public class TaskList implements Serializable {
      * Removes an item from the list of tasks.
      *
      * @param input input from the user.
-     * @throws CringeBotException Lets the user know if task cannot be removed.
+     *
      * @return String representation of the task that has been deleted.
+     * @throws CringeBotException Lets the user know if task cannot be removed.
      */
     public String deleteItem(String input) throws CringeBotException {
 
@@ -59,8 +60,9 @@ public class TaskList implements Serializable {
      *
      * @param task type of task.
      * @param input input from the user.
-     * @throws CringeBotException Lets the user know if the task cannot be added.
+     *
      * @return String representation of the task that has been added.
+     * @throws CringeBotException Lets the user know if the task cannot be added.
      */
     public String addItem(Parser.TaskType task, String input) throws CringeBotException {
 
