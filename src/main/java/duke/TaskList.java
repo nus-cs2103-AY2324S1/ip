@@ -80,24 +80,24 @@ public class TaskList {
      */
     public Task createNewTask(String userInput) throws DukeException {
         Task newTask;
-        String[] arr = userInput.split(" ", 2);
+        String[] inputArray = userInput.split(" ", 2);
 
-        if (arr.length != 2 || arr[1].isEmpty()) {
-            throw new EmptyTaskException(arr[0]);
+        if (inputArray.length != 2 || inputArray[1].isEmpty()) {
+            throw new EmptyTaskException(inputArray[0]);
         } else {
-            if (arr[0].equals("todo")) {
-                newTask = new ToDo(arr[1]);
-            } else if (arr[0].equals("deadline")) {
-                String[] a = arr[1].split(" /by ");
+            if (inputArray[0].equals("todo")) {
+                newTask = new ToDo(inputArray[1]);
+            } else if (inputArray[0].equals("deadline")) {
+                String[] a = inputArray[1].split(" /by ");
                 if (a.length != 2 || a[1].isEmpty()) {
-                    throw new EmptyDateException(arr[0]);
+                    throw new EmptyDateException(inputArray[0]);
                 }
                 newTask = new Deadline(a[0], getDate(a[1]));
             } else {
-                assert arr[0].equals("event") : "The userInput should start with event";
-                String[] a = arr[1].split(" /from ");
+                assert inputArray[0].equals("event") : "The userInput should start with event";
+                String[] a = inputArray[1].split(" /from ");
                 if (a.length != 2 || a[1].isEmpty()) {
-                    throw new EmptyDateException(arr[0]);
+                    throw new EmptyDateException(inputArray[0]);
                 }
 
                 String[] fromto = a[1].split("/to ");

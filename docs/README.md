@@ -4,7 +4,7 @@ Chatty is a task management application, that allows you to keep track of you ta
 
 ## Quick Start
 1. Ensure that you have Java `11` or above stored in your computer
-2. Download the latest `duke.jar` from [here]()
+2. Download the latest `duke.jar` from [here](https://github.com/AlyssaPng/ip/releases/tag/A-Release)
 3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to run the application. The Chatty GUI should appear in a few seconds.
 4. Similarly, you can download the code and run the application on Intellij. Follow the instructions [here](https://alyssapng.github.io/ip/#setting-up-in-intellij)
 5. Type the command in the command box and press Enter to execute it.  e.g. typing `list` and pressing Enter will display all the tasks in the task list.
