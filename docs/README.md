@@ -14,41 +14,45 @@ Format: `todo [DESCRIPTION]`
 
 ### Adding a Event task: `event`
 
-Description of the feature.
+The event feature enables you to add event-based tasks with start and end times.
 
-Format: 'event [DESCRIPTION] /from [DATE_TIME] /to [DATE_TIME]'
+Format: `event [DESCRIPTION] /from [DATE_TIME] /to [DATE_TIME`
 
-Example of usage: 'event car roadshow /from 2023/12/12 1200 /to 2023/12/15 1200'
+Example of usage: `event car roadshow /from 2023/12/12 1200 /to 2023/12/15 1200`
 
 ### Adding a Deadline task: `deadline`
 
-Description of the feature.
+The deadline feature enables you to add tasks that have a specific deadline.
 
-Format: 'deadline [DESCRIPTION] /by [DATE_TIME]'
+Format: `deadline [DESCRIPTION] /by [DATE_TIME]`
 
-Example of usage: 'deadline assignment submission /by 15/10/2023 0800'
+Example of usage: `deadline assignment submission /by 15/10/2023 0800`
 
 ### Listing all tasks: `list`
 
-Description of the feature.
+The list feature displays a comprehensive list of all your tasks.
 
-Format: 'mark'
+Format: `list`
 
 ### Marking a task as done: `mark`
 
-Description of the feature.
+The mark command allows you can mark a task as completed.
 
-Format: 'mark'
+Format: `mark [TASK_INDEX]`
+
+Example of usage: `mark 3`
 
 ### Marking a task as not done: `unmark`
 
-Description of the feature.
+The unmark command allows you can mark a task as not completed.
 
-Format: 'mark'
+Format: `unmark [TASK_INDEX]`
+
+Example of usage: `unmark 2`
 
 ### Deleting a task: `delete`
 
-Description of the feature.
+The delete command allows you to easily remove a task from your list.
 ```
 Format: 'mark'
 ```
