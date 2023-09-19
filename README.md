@@ -71,21 +71,35 @@ Examples:
 * `todo Housework` : Creates a new **Todo** task with the description `Housework`.
 * `todo Create a new recipe` : Creates a new **Todo** task with the description `Create a new recipe`.
 
+Expected Output:
+```
+Got it. I've added this task:
+[T][ ][0] Housework
+Now you have 3 tasks in the list.
+```
+
 <br>
 
 ### Adding a **Deadline** task: `deadline`
 
 Adds a new **Deadline** task to the chatbot with the due date and time. 
 
-Format: `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`
+Format: `deadline [DESCRIPTION] /by [DUE_DATETIME]`
 
 * `[DESCRIPTION]` can have multiple spaces for separating words. 
 * By default, the task is unmarked and has a priority level of 0.
-* Date and time must be given in the exact format `DD/MM/YYYY HHmm`, as described above in the notes.
+* `[DUE_DATETIME]` must be given in the exact format `DD/MM/YYYY HHmm`, as described above in the notes.
 
 Examples: 
 * `deadline Homework assignment /by 20/12/2023 1800` : Creates a new **Deadline** task with the description `Homework assignment`, with due date and time set to 20 Dec 2023 at 18:00.
 * `deadline Cleaning /by 03/08/2023 0900` : Creates a new **Deadline** task with the description `Cleaning`, with due date and time set to 03 Aug 2023 at 09:00.
+
+Expected Output:
+```
+Got it. I've added this task:
+[D][ ][0] Homework assignment (by: Dec 20 2023 18:00)
+Now you have 2 tasks in the list.
+```
 
 <br>
 
@@ -93,15 +107,22 @@ Examples:
 
 Adds a new **Event** task to the chatbot with the starting and ending date and times.
 
-Format: `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`
+Format: `event [DESCRIPTION] /from [START_DATETIME] /to [END_DATETIME]`
 
 * `[DESCRIPTION]` can have multiple spaces for separating words. 
 * By default, the task is unmarked and has a priority level of 0.
-* Date and time must be given in the exact format `DD/MM/YYYY HHmm`, as described above in the notes.
+* `[START_DATETIME]` and `[END_DATETIME]` must be given in the exact format `DD/MM/YYYY HHmm`, as described above in the notes.
 
 Examples: 
 * `event Swimming /from 04/01/2023 0900 /to 04/01/2023 1100` : Creates a new **Event** task with the description `Swimming`, with starting date and time set to 04 Jan 2023 at 09:00, ending date and time set to 04 Jan 2023 at 11:00.
 * `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` : Creates a new **Event** task with the description `Birthday party`, with starting date and time set to 11 Oct 2023 at 18:00, ending date and time set to 11 Oct 2023 at 22:00.
+
+Expected Output:
+```
+Got it. I've added this task:
+[E][ ][0] Swimming (from: Jan 04 2023 09:00 to: Jan 04 2023 11:00)
+Now you have 3 tasks in the list.
+```
 
 <br>
 
@@ -120,6 +141,12 @@ Examples:
 * `mark -1` : Error message displayed saying `OOPS!!! Please provide a valid number within the range.`.
 * `mark 11` : If there are less than 11 tasks, an error message is displayed saying `OOPS!!! Please provide a valid number within the range.`.
 
+Expected Output:
+```
+Nice! I've marked this task as done:
+[T][X][0] Housework
+```
+
 <br>
 
 ### Unmarking a task: `unmark`
@@ -137,6 +164,12 @@ Examples:
 * `unmark -3` : Error message displayed saying `OOPS!!! Please provide a valid number within the range.`.
 * `unmark 15` : If there are less than 15 tasks, an error message is displayed saying `OOPS!!! Please provide a valid number within the range.`.
 
+Expected Output:
+```
+OK, I've marked this task as not done yet:
+[E][ ][0] Swimming (from: Jan 04 2023 09:00 to: Jan 04 2023 11:00)
+```
+
 <br>
 
 ### Deleting a task: `delete`
@@ -153,6 +186,13 @@ Examples:
 * `delete 2` : Deletes the task indexed at 2.
 * `delete -6` : Error message displayed saying `OOPS!!! Please provide a valid number within the range.`.
 * `delete 8` : If there are less than 8 tasks, an error message is displayed saying `OOPS!!! Please provide a valid number within the range.`.
+
+Expected Output:
+```
+Noted. I've removed this task:
+[D][ ][0] Homework assignment (by: Dec 20 2023 18:00)
+Now you have 2 tasks in the list.
+```
 
 <br>
 
@@ -175,6 +215,12 @@ Examples:
 * `priority 1 6` : Error message displayed saying `OOPS!!! Please provide a valid priotity level from 0 to 3.`.
 * `priority 5 -3` : Error message displayed saying `OOPS!!! Please provide a valid priotity level from 0 to 3.`.
 
+Expected Output:
+```
+OK, I've marked this task with priority level 0:
+[E][ ][0] Swimming (from: Jan 04 2023 09:00 to: Jan 04 2023 11:00)
+```
+
 <br>
 
 ### Finding task by keyword: `find`
@@ -193,6 +239,13 @@ Examples:
 * `find Birthday Par` : Returns `Birthday Party`, but not `birthday Party`.
 * `find ck ba` : Returns `Pack bags` and `Crack back`.
 
+Expected Output:
+```
+Here are the matching tasks in your list:
+3. [T][ ][0] Book
+4. [T][ ][0] Booking
+```
+
 <br>
 
 ### Listing all tasks: `list`
@@ -201,6 +254,15 @@ Shows all tasks in the chatbot.
 
 Format: `list`
 
+Expected Output:
+```
+Here are the tasks in your list:
+1. [T][X][0] Housework
+2. [E][ ][0] Swimming (from: Jan 04 2023 09:00 to: Jan 04 2023 11:00)
+3. [T][ ][0] Book
+4. [T][ ][0] Booking
+```
+
 <br>
 
 ### Exiting the app: `bye`
@@ -208,6 +270,11 @@ Format: `list`
 Exits the app.
 
 Format: `bye`
+
+Expected Output:
+```
+Bye. Hope to see you again soon!
+```
 
 <br>
 
@@ -242,8 +309,8 @@ Deleting the `data.txt` file in the same directory as your `smolbrain.jar` file 
 | Action | Format, Example |
 | --- | --- |
 | Add **Todo** | `todo [DESCRIPTION]`<br>e.g. `todo Create a new recipe`|
-| Add **Deadline** | `deadline [DESCRIPTION] /by DD/MM/YYYY HHmm`<br> e.g. `deadline Homework assignment /by 20/12/2023 1800` |
-| Add **Event** | `event [DESCRIPTION] /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`<br> e.g. `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` |
+| Add **Deadline** | `deadline [DESCRIPTION] /by [DUE_DATETIME]`<br> e.g. `deadline Homework assignment /by 20/12/2023 1800` |
+| Add **Event** | `event [DESCRIPTION] /from [START_DATETIME] /to [END_DATETIME] HHmm`<br> e.g. `event Birthday party /from 11/10/2023 1800 /to 11/10/2023 2200` |
 | Mark | `mark [INDEX]`<br> e.g. `mark 2` |
 | Unmark | `unmark [INDEX]`<br> e.g. `unmark 5` |
 | Delete | `delete [INDEX]`<br> e.g. `delete 1` |
