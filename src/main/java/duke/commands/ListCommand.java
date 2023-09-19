@@ -14,7 +14,7 @@ public class ListCommand extends Command {
         try {
             String output = "Here are the tasks in your list:\n";
             for (int i = 0; i < taskList.size(); i++) {
-                output += (i + 1) + "." + taskList.getTask(i) + "\n";
+                output += (i + 1) + ". " + taskList.getTask(i) + "\n";
             }
             return output;
         } catch (InvalidTaskIndexException ex) {

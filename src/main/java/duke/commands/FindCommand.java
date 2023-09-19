@@ -28,7 +28,7 @@ public class FindCommand extends Command {
             }
             return output;
         } catch (InvalidTaskIndexException ex) {
-            return "Something went wrong.";
+            return "Something went wrong, unable to find matching tasks.";
         }
     }
 }

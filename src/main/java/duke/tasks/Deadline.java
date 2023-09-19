@@ -34,11 +34,13 @@ public class Deadline extends Task {
         if (tmp.length <= 1) {
             throw new IncompleteDescriptionException();
         }
+
         String taskName = tmp[0];
         String deadline = tmp[1];
         if (taskName.isBlank() || deadline.isBlank()) {
             throw new IncompleteDescriptionException();
         }
+
         return new Deadline(tmp[0], tmp[1]);
     }
 
