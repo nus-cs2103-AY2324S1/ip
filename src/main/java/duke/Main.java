@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +14,26 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private static Duke duke = new Duke();
+    public static TaskList taskList = Duke.taskList;
+
+
 
     @Override
     public void start(Stage stage) {
         try {
+            Storage storage = new Storage();
+            Storage.createDataLocation();
+            // Load tasks from the data file into the TaskList
+            storage.loadTasksFromFile(taskList);
+            List<Task> allTasks = taskList.getTasks();
+            // Create a user interface
+            Ui ui = new Ui();
+            Parser parser = new Parser();
+            if (allTasks.size() == 0) {
+            parser.run = 1;
+            }
+            System.out.flush();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

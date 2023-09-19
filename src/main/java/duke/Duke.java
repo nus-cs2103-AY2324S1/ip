@@ -74,8 +74,8 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-       return "Duke heard: " + input;
-//            return Parser.parse(input);
+//       return "Duke heard: " + input;
+            return Parser.parse(input);
     }
 }
 

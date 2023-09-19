@@ -48,4 +48,9 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+//            return Parser.parse(input);
+    }
 }

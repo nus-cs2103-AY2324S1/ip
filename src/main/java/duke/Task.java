@@ -186,7 +186,22 @@ public class Task {
      * @param i The index of the task to mark as done.
      * @throws DukeException If the index is invalid.
      */
-    public void mark(int i) throws DukeException {
+//    public void mark(int i) throws DukeException {
+//        if (i > Duke.taskList.getTasks().size() || i <= 0) {
+//            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+//        }
+//        Task markTask = Duke.taskList.getTasks().get(i - 1);
+//        markTask.status = TaskStatus.DONE;
+//
+//        // Update the task description in the file
+//        Storage.updateLineInFile(i, markTask.generateStr());
+//
+//        System.out.println(Ui.horizontalLine + "Nice! I've marked this task as done:\n"
+//                + markTask.toString() + "\n" + Ui.horizontalLine);
+//
+//    }
+
+    public String mark(int i) throws DukeException {
         if (i > Duke.taskList.getTasks().size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
         }
@@ -196,8 +211,8 @@ public class Task {
         // Update the task description in the file
         Storage.updateLineInFile(i, markTask.generateStr());
 
-//        System.out.println(Ui.horizontalLine + "Nice! I've marked this task as done:\n"
-//                + markTask.toString() + "\n" + Ui.horizontalLine);
+        return (Ui.horizontalLine + "Nice! I've marked this task as done:\n"
+                + markTask.toString() + "\n" + Ui.horizontalLine);
 
     }
 
@@ -226,7 +241,20 @@ public class Task {
      * @param i The index of the task to mark as not done.
      * @throws DukeException If the index is invalid.
      */
-    public void unmark(int i) throws DukeException {
+//    public void unmark(int i) throws DukeException {
+//        if (i > Duke.taskList.getTasks().size() || i <= 0) {
+//            throw new DukeException(Ui.horizontalLine
+//                    + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+//        }
+//        Task unmarkTask = Duke.taskList.getTasks().get(i - 1);
+//        unmarkTask.status = TaskStatus.NOT_DONE;
+//        Storage.updateLineInFile(i, unmarkTask.generateStr());
+//        System.out.println(Ui.horizontalLine
+//                + "Ok, I've marked this task as not done yet:\n"
+//                + unmarkTask.toString() + "\n" + Ui.horizontalLine);
+//    }
+
+    public String unmark(int i) throws DukeException {
         if (i > Duke.taskList.getTasks().size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine
                     + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
@@ -234,7 +262,7 @@ public class Task {
         Task unmarkTask = Duke.taskList.getTasks().get(i - 1);
         unmarkTask.status = TaskStatus.NOT_DONE;
         Storage.updateLineInFile(i, unmarkTask.generateStr());
-        System.out.println(Ui.horizontalLine
+        return (Ui.horizontalLine
                 + "Ok, I've marked this task as not done yet:\n"
                 + unmarkTask.toString() + "\n" + Ui.horizontalLine);
     }
@@ -245,7 +273,22 @@ public class Task {
      * @param i The index of the task to delete.
      * @throws DukeException If the index is invalid.
      */
-    public void delete(int i) throws DukeException {
+//    public void delete(int i) throws DukeException {
+//        if (i > Duke.taskList.size() || i <= 0) {
+//            throw new DukeException(Ui.horizontalLine
+//                    + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+//        }
+//        Task deleteTask = Duke.taskList.getTasks().get(i - 1);
+//        counter = counter - 1;
+//        Duke.taskList.deleteTask(i - 1);
+//        Storage.deleteLineFromFile(i);
+//        System.out.println(Ui.horizontalLine
+//                + "Noted. I've removed this task:\n" + deleteTask.toString()
+//                + "\n" + String.format("Now you have %d tasks in the list\n", counter)
+//                + Ui.horizontalLine);
+//    }
+
+    public String delete(int i) throws DukeException {
         if (i > Duke.taskList.size() || i <= 0) {
             throw new DukeException(Ui.horizontalLine
                     + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
@@ -254,7 +297,7 @@ public class Task {
         counter = counter - 1;
         Duke.taskList.deleteTask(i - 1);
         Storage.deleteLineFromFile(i);
-        System.out.println(Ui.horizontalLine
+        return (Ui.horizontalLine
                 + "Noted. I've removed this task:\n" + deleteTask.toString()
                 + "\n" + String.format("Now you have %d tasks in the list\n", counter)
                 + Ui.horizontalLine);

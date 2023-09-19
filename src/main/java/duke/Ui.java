@@ -13,7 +13,7 @@ public class Ui {
     /**
      * A horizontal line used for separating messages.
      */
-    public static String horizontalLine = "_".repeat(60) + "\n";
+    public static String horizontalLine = "_".repeat(40) + "\n";
 
     /**
      * Displays a greeting message when the program starts.
@@ -26,18 +26,28 @@ public class Ui {
     /**
      * Displays a farewell message when the program exits.
      */
-    public static void sayBye() {
-        System.out.println(horizontalLine
+//    public static void sayBye() {
+//        System.out.println(horizontalLine
+//                + "Bye. Hope to see you again soon!\n" + horizontalLine);
+//    }
+
+    public static String sayBye() {
+        return (horizontalLine
                 + "Bye. Hope to see you again soon!\n" + horizontalLine);
     }
+
 
     /**
      * Displays an error message.
      *
      * @param errorMessage The error message to be displayed.
      */
-    public static void showError(String errorMessage) {
-        System.err.println(errorMessage);
+//    public static void showError(String errorMessage) {
+//        System.err.println(errorMessage);
+//    }
+
+    public static String showError(String errorMessage) {
+        return (errorMessage);
     }
 
     /**
@@ -49,12 +59,41 @@ public class Ui {
     public static String readCommand(Scanner sc) {
         return sc.nextLine();
     }
-    
+
+//    public static void displaySearchResults(TaskList taskList, String keyword) {
+//        List<Task> allTasks = taskList.getTasks();
+//        if (allTasks.isEmpty()) {
+//            System.out.println("You have no tasks in your list.\n");
+//            return;
+//        }
+//
+//        TaskList filteredList = new TaskList();
+//        for (Task task : allTasks) {
+//            if (task.contains(keyword)) {
+//                filteredList.addTask(task);
+//            }
+//        }
+//
+//        if (filteredList.getTasks().isEmpty()) {
+//            System.out.println("You have no matching tasks in your list.\n");
+//            return;
+//        }
+//
+//        System.out.println(horizontalLine + "Here are the matching items in your list: \n");
+//        int count = 0;
+//        for (Task t : filteredList.getTasks()) {
+//            System.out.println(++count + ". " + t.toString());
+//        }
+//        System.out.println("\n" + horizontalLine);
+//    }
+
     public static String displaySearchResults(TaskList taskList, String keyword) {
         List<Task> allTasks = taskList.getTasks();
+        StringBuilder resultBuilder = new StringBuilder();
+
         if (allTasks.isEmpty()) {
-            return (horizontalLine + "You have no tasks in your list.\n"
-                    + horizontalLine);
+            resultBuilder.append("You have no tasks in your list.\n");
+            return resultBuilder.toString();
         }
 
         TaskList filteredList = new TaskList();
@@ -65,27 +104,19 @@ public class Ui {
         }
 
         if (filteredList.getTasks().isEmpty()) {
-            return (horizontalLine
-                    + "You have no matching tasks in your list.\n"
-                    + horizontalLine);
+            resultBuilder.append("You have no matching tasks in your list.\n");
+            return resultBuilder.toString();
         }
 
-//        System.out.println(horizontalLine + "Here are the matching items in your list: \n");
-//        int count = 0;
-//        for (Task t : filteredList.getTasks()) {
-//            System.out.println(++count + ". " + t.toString());
-//        }
-//        System.out.println("\n" + horizontalLine);
-        StringBuilder formattedItems = new StringBuilder();
-        formattedItems.append(horizontalLine).append("Here are the matching items in your list: \n");
-
+        resultBuilder.append(horizontalLine).append("Here are the matching items in your list: \n\n");
         int count = 0;
         for (Task t : filteredList.getTasks()) {
-            formattedItems.append(++count).append(". ").append(t.toString()).append("\n");
+            resultBuilder.append(++count).append(". ").append(t.toString()).append("\n");
         }
+        resultBuilder.append("\n").append(horizontalLine);
 
-        formattedItems.append("\n").append(horizontalLine);
-        return formattedItems.toString();
+        return resultBuilder.toString();
     }
+
 
 }
