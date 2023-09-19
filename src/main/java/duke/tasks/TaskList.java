@@ -106,7 +106,7 @@ public class TaskList {
 
         this.tasks.get(index - 1).markDone();
         CliUi.printlns(new String[] { "Nice! I've marked this task as done:", this.tasks.get(index - 1).toString() });
-        return String.format("Nice! I've marked this task as done:%s", this.tasks.get(index - 1));
+        return String.format("Nice! I've marked this task as done:\n%s", this.tasks.get(index - 1));
     }
 
     /**
@@ -124,7 +124,7 @@ public class TaskList {
         this.tasks.get(index - 1).unmarkDone();
         CliUi.printlns(
                 new String[] { "OK, I've marked this task as not done yet:", this.tasks.get(index - 1).toString() });
-        return String.format("OK, I've marked this task as not done yet:%s", this.tasks.get(index - 1));
+        return String.format("OK, I've marked this task as not done yet:\n%s", this.tasks.get(index - 1));
     }
 
     /**
@@ -140,7 +140,7 @@ public class TaskList {
         }
 
         CliUi.printlns(new String[] { "Noted. I've removed this task:", this.tasks.get(index - 1).toString() });
-        String output = String.format("Noted. I've removed this task:%s", this.tasks.get(index - 1));
+        String output = String.format("Noted. I've removed this task:\n%s", this.tasks.get(index - 1));
         this.tasks.remove(index - 1);
         return output;
     }
