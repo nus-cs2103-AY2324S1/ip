@@ -31,7 +31,7 @@ public class ParserTest {
         try {
             Task task = new Parser().parseTask("X|0|test||");
         } catch (DukeException e) {
-            assertEquals(e.toString(), "OOPS!!!");
+            assertEquals(e.getMessage(), "OOPS!!! Invalid task type.");
         }
     }
 }

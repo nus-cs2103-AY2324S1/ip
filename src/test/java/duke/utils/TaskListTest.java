@@ -34,7 +34,7 @@ public class TaskListTest {
         try {
             taskList.deleteTask(2);
         } catch (DukeException e) {
-            assertEquals(e.toString(), "OOPS!!! No such task exists.");
+            assertEquals(e.getMessage(), "OOPS!!! The task number is out of bounds.");
         }
     }
 
@@ -58,7 +58,7 @@ public class TaskListTest {
         try {
             taskList.markTask(2);
         } catch (DukeException e) {
-            assertEquals(e.toString(), "OOPS!!! No such task exists.");
+            assertEquals(e.getMessage(), "OOPS!!! The task number is out of bounds.");
         }
     }
 
@@ -85,7 +85,7 @@ public class TaskListTest {
         try {
             taskList.unmarkTask(2);
         } catch (DukeException e) {
-            assertEquals(e.toString(), "OOPS!!! No such task exists.");
+            assertEquals(e.getMessage(), "OOPS!!! The task number is out of bounds.");
         }
     }
 }
