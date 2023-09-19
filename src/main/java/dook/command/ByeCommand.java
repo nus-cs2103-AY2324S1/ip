@@ -26,6 +26,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(Storage storage, TaskList taskList, Parser parser) throws DookException {
-        return storage.saveTaskList(taskList) + "\nBye! Close the window OR press enter again to exit.";
+        return storage.saveTaskList(taskList) + "\n" + storage.saveAliases(parser) + "\nBye! Close the window OR press enter again to exit.";
     }
 }
