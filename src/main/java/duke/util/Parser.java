@@ -7,6 +7,7 @@ import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.SetPriorityCommand;
 import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 import duke.exception.InvalidArgumentException;
@@ -58,6 +59,12 @@ public class Parser {
                 throw new InvalidArgumentException("'delete {task number}'");
             }
             return new DeleteCommand(Character.getNumericValue(fields[1].charAt(0)));
+        case "priority":
+            if (fields.length != 3) {
+                throw new InvalidArgumentException("'priority {task number} {priority from 1-3}");
+            }
+            return new SetPriorityCommand(Character.getNumericValue(fields[1].charAt(0)),
+                    Character.getNumericValue(fields[2].charAt(0)));
         case "todo":
             String description = userInput.replace("todo", "").trim();
             if (description.isEmpty()) {
