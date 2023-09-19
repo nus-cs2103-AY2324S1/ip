@@ -40,7 +40,7 @@ public class TodoCommand extends Command {
 
         return (
                 String.format(
-                        "Got it, I've added this task:%n %s%nNow you have %d tasks in the list.",
+                        "Got it, I've added this task:\n %s\nNow you have %d tasks in the list.",
                         newTask, tasks.size()));
     }
 }

@@ -36,6 +36,6 @@ public class UnmarkCommand extends Command {
 
         storage.saveToFile(tasks);
 
-        return (String.format("OK! I've marked this task as not done:%n %s", tasks.get(idx - 1)));
+        return (String.format("OK! I've marked this task as not done:\n %s", tasks.get(idx - 1)));
     }
 }

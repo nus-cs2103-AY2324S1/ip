@@ -225,7 +225,7 @@ public class Parser {
             sb.append(", ");
         }
         sb.setLength(sb.length() - 2); //Removes extra ", " at the end
-        String msg = String.format("Invalid Command Keyword!%nHere is a list of valid commands: %s", sb);
+        String msg = String.format("Invalid Command Keyword!\nHere is a list of valid commands: %s", sb);
         return new InvalidCommand(msg);
     }
 

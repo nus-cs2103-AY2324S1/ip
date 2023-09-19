@@ -6,27 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import joe.stubs.TaskStub;
 import joe.tasks.Task;
 
-
 public class TaskListTest {
-
-    private static class TaskStub extends Task {
-        protected TaskStub() {
-            super("");
-        }
-
-        @Override
-        public String toString() {
-            return "toString";
-        }
-
-        @Override
-        public String getDescription() {
-            return "Description";
-        }
-    }
-
     @Test
     public void add_expectedUsage_success() {
         TaskList tasks = new TaskList();
