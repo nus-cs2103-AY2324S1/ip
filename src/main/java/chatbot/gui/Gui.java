@@ -31,10 +31,10 @@ public class Gui {
 
     public void setChatBot(ChatBot chatBot) {
         this.chatBot = chatBot;
-        addChatBotDialog(this.chatBot.greet());
+        addChatBotDialog(this.chatBot.greet(), false);
         String initTaskListResponse = this.chatBot.initTaskList();
         if (initTaskListResponse != ChatBot.INIT_TASKLIST_SUCCESS_STRING) {
-            addChatBotDialog(initTaskListResponse);
+            addChatBotDialog(initTaskListResponse, true);
         };
     }
 
@@ -45,10 +45,10 @@ public class Gui {
         );
     }
 
-    private void addChatBotDialog(String text) {
+    private void addChatBotDialog(String text, boolean isErrorMessage) {
         assert (!text.isEmpty());
         this.chatContainer.getChildren().add(
-                DialogBox.getChatBotDialogBox(text, chatBotImage)
+                DialogBox.getChatBotDialogBox(text, chatBotImage, isErrorMessage)
         );
     }
 
@@ -58,16 +58,16 @@ public class Gui {
             return;
         }
         addUserDialog(this.userInput.getText());
-        addChatBotDialog(getResponse(this.userInput.getText()));
+        getResponse(this.userInput.getText());
         this.userInput.clear();
     }
 
-    private String getResponse(String input) {
+    private void getResponse(String input) {
         assert (!input.isEmpty());
         try {
-            return chatBot.handleCommand(input);
+            addChatBotDialog(chatBot.handleCommand(input), false);
         } catch (ChatBotException e) {
-            return e.toString();
+            addChatBotDialog(e.toString(), true);
         }
 
     }

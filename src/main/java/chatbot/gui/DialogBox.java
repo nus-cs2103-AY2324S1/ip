@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.Node;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -17,6 +19,8 @@ import java.io.IOException;
 public class DialogBox extends HBox {
     @FXML
     private Text text;
+    @FXML
+    private Rectangle box;
     @FXML
     private ImageView profileImage;
 
@@ -32,24 +36,37 @@ public class DialogBox extends HBox {
         }
 
         this.text.setText(label);
+        this.setBoxDimensions();
         this.profileImage.setImage(image);
     }
 
+    private void setBoxDimensions() {
+        this.box.setWidth(this.text.getLayoutBounds().getWidth() + 20);
+        this.box.setHeight(this.text.getLayoutBounds().getHeight() + 20);
+    }
+
     private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
+        this.setAlignment(Pos.CENTER_LEFT);
+        text.setTextAlignment(TextAlignment.LEFT);
         ObservableList<Node> tempList = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tempList);
         this.getChildren().setAll(tempList);
+    }
+
+    private void setBackgroundColor(boolean isErrorMessage) {
+        this.box.setFill(Paint.valueOf(isErrorMessage
+                                        ? "#ff4040"
+                                        : "#ff931f"));
     }
 
     public static DialogBox getUserDialogBox(String label, Image image) {
         return new DialogBox(label, image);
     }
 
-    public static DialogBox getChatBotDialogBox(String label, Image image) {
+    public static DialogBox getChatBotDialogBox(String label, Image image, boolean isErrorMessage) {
         DialogBox tempDB = new DialogBox(label, image);
         tempDB.flip();
-        tempDB.text.setTextAlignment(TextAlignment.LEFT);
+        tempDB.setBackgroundColor(isErrorMessage);
         return tempDB;
     }
 

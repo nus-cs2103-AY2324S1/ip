@@ -20,7 +20,7 @@ import chatbot.tasks.Task;
  * Main ChatBot class which instantiates a ChatBot object that coordinates other components.
  */
 public class ChatBot {
-    static final String NAME = "4F5DA2";
+    static final String NAME = "WX-78";
     static final String LOCAL_DIRECTORY_PATH = "./data";
     static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatbot.txt";
     public static final String INIT_TASKLIST_SUCCESS_STRING = "Init TaskList Success";
@@ -60,7 +60,7 @@ public class ChatBot {
      * @return the String of greeting message
      */
     public String greet() {
-        return "Welcome back, human!\n"
+        return "Welcome back, Wilson!\n"
                 + "I'm your personal chatBot, " + NAME + ".\n"
                 + "What can I do for you today?";
     }

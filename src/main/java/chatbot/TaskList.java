@@ -99,7 +99,7 @@ public class TaskList {
                     i + 1,
                     task.toString()));
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     /**
