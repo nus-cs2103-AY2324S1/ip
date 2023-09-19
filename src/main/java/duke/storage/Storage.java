@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.TaskList;
-import duke.task.Todo;
+import duke.task.*;
+
 /**
  * Stores the list of tasks.
  *
@@ -59,6 +57,8 @@ public class Storage {
                     taskList.add(new Deadline(description.replaceFirst("\\|", "/by")));
                 } else if (type.equalsIgnoreCase("E")) {
                     taskList.add(new Event(description.replaceFirst("\\|", "/from").replaceFirst("\\|", "/to")));
+                } else if (type.equalsIgnoreCase("F")) {
+                    taskList.add(new FixedTask(description.replaceFirst("\\|", "/need")));
                 }
                 if (done.equalsIgnoreCase("X")) {
                     taskList.getTask(taskList.getSize() - 1).mark();
