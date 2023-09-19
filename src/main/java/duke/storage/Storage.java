@@ -1,10 +1,6 @@
 package duke.storage;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,6 +26,7 @@ public class Storage {
      * @param filepath The path to the file that stores the list of tasks in the String format.
      */
     public Storage(String filepath) {
+        assert filepath != ""; // Check that filepath entered is not empty string.
         this.filepath = filepath;
         this.path = Paths.get(this.filepath);
     }
@@ -44,7 +41,6 @@ public class Storage {
         if (!Files.exists(directoryPath)) {
             try {
                 Files.createDirectories(directoryPath);
-                System.out.println("directory created");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -90,7 +86,6 @@ public class Storage {
 
             while ((line = reader.readLine()) != null) {
                 String taskType = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
-
                 // Convert String back to Task object
                 if (taskType.equals("T")) {
                     tasks.add(ToDo.parseFromString(line));
