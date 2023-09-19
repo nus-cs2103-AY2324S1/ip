@@ -1,2 +1,1 @@
-[D][ ] return book (by: sunday)
-[T][ ] read book
+[T][ ] sleep
