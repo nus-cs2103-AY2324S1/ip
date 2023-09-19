@@ -25,37 +25,40 @@ public class Ui {
     /**
      * Prints the greeting message.
      */
-    public void printGreeting() {
+    public String printGreeting() {
         String greeting = String.format("Hello! I'm %s\n", name);
         String inquiry = "What would you like to do?\n";
-        System.out.println(greeting + inquiry);
+        return greeting + inquiry;
         // System.out.println("You have the following buddy.tasks:");
     }
 
     /**
      * Prints the farewell message.
      */
-    public void printFarewell() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+    public String printFarewell() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
-    public void printMessage(String message) {
-        System.out.println(message);
+    public String printMessage(String message) {
+        return message;
     }
 
     /**
      * Prints the list of tasks.
      *
-     * @param list The array list of tasks.
+     * @param list The array list of tasks to be printed.
      */
-    public void printList(ArrayList<Task> list) {
+    public String printList(ArrayList<Task> list) {
         if (list.isEmpty()) {
-            System.out.println("There are currently no tasks in your list.");
+            return "Sorry, no results found.";
         } else {
-            System.out.println("Here are the tasks in your list:");
+            String header = "Here are the matching tasks in your list:\n";
+            String listInString = "";
             for (int i = 0; i < list.size(); i++) {
-                System.out.printf("%d. %s\n", i + 1, list.get(i));
+                int taskIndex = i + 1;
+                listInString += (taskIndex + ". " + list.get(i) + "\n");
             }
+            return header + listInString;
         }
     }
 
@@ -65,10 +68,9 @@ public class Ui {
      * @param task The task that is successfully added.
      * @param tasks The list of tasks that the task is added to.
      */
-    public void printAddSuccessMessage(Task task, TaskList tasks) {
-        System.out.println("Got it. I've added this task:\n"
-                + task.toString());
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+    public String printAddSuccessMessage(Task task, TaskList tasks) {
+        return "Got it. I've added this task:\n" + task.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
@@ -77,25 +79,9 @@ public class Ui {
      * @param deletedTask The task that is successfully deleted.
      * @param tasks The list of tasks that the task is deleted from.
      */
-    public void printDeleteSuccessMessage(Task deletedTask, TaskList tasks) {
-        System.out.println("Noted. I've removed this task:\n" + deletedTask.toString());
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-    }
-
-    /**
-     * Prints the list of tasks filtered using keywords.
-     *
-     * @param list The array list of tasks obtained after filtering by keyword.
-     */
-    public void printFilteredList(ArrayList<Task> list) {
-        if (list.isEmpty()) {
-            System.out.println("Sorry, no results found.");
-        } else {
-            System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.printf("%d. %s\n", i + 1, list.get(i));
-            }
-        }
+    public String printDeleteSuccessMessage(Task deletedTask, TaskList tasks) {
+        return "Noted. I've removed this task:\n" + deletedTask.toString()
+                + "Now you have " + tasks.getSize() + " tasks in the list.";
     }
 
     public String readCommand() {

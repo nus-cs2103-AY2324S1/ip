@@ -29,10 +29,11 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         Event event = new Event(description, eventStart, eventEnd, false);
         tasks.addTask(event);
-        ui.printAddSuccessMessage(event, tasks);
+        String response = ui.printAddSuccessMessage(event, tasks);
         storage.writeToFile(tasks.getAllTasks());
+        return response;
     }
 }

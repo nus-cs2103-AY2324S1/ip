@@ -21,9 +21,11 @@ public class MarkAsUndoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         tasks.markAsNotDone(index);
-        ui.printMessage("OK, I've marked this task as not done yet:\n" + tasks.getTask(index).toString());
+        String response = ui.printMessage("OK, I've marked this task as not done yet:\n"
+                + tasks.getTask(index).toString());
         storage.writeToFile(tasks.getAllTasks());
+        return response;
     }
 }
