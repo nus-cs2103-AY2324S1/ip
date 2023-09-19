@@ -16,11 +16,11 @@ public abstract class Command {
     }
 
     /**
-     * Abstract method that can be called from all Commands.
+     * Executes the command.
      *
      * @param storage  Given storage.
      * @param taskList Given task list.
-     * @param parser
+     * @param parser Given parser.
      * @return Message to be displayed in GUI.
      * @throws DookException Exception thrown by Dook.
      */
