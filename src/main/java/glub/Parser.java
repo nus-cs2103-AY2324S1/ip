@@ -26,7 +26,7 @@ public class Parser {
      */
     public String parse(String input) throws GlubException {
         String args = "";
-        assert input != null: "Input cannot be null";
+        assert input != null : "Input cannot be null";
         String[] parsedCommand = input.split(" ", 2);
         String command = parsedCommand[0];
         if (parsedCommand.length > 1) {

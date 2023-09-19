@@ -190,8 +190,7 @@ public class TaskList {
 
     /**
      * Tags a task in the task list.
-     * @param taskNum Index of task to be tagged.
-     * @param tag Tag string.
+     * @param args String containing the task index and tag.
      * @return Tag UI message.
      * @throws GlubException If index supplied is invalid.
      */
