@@ -434,8 +434,9 @@ public class Parser {
             throw new EmptyDescriptionException();
         }
 
-        boolean containsSlash = userInput.contains("/");
-        if (!containsSlash) {
+        String[] clauses = new String[] {" /name ", " /by ", " /from ", " /to "};
+        boolean containsAtLeastOneClause = Arrays.stream(clauses).anyMatch(userInput::contains);
+        if (!containsAtLeastOneClause) {
             throw new ClauselessUpdateException();
         }
 
