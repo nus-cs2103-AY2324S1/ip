@@ -1,13 +1,13 @@
 package duke;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  * The Parser class handles the parsing of user commands and executes corresponding actions.
@@ -41,6 +41,7 @@ public class Parser {
      */
     public static String executeMarkUnmark(String command, TaskList tasks,
                                          String[] separateCommand) throws DukeException {
+        assert command != null;
         try {
             if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > tasks.getSize()) {
                 throw new DukeException(" OOPS!!! Invalid number");
@@ -72,6 +73,7 @@ public class Parser {
      * @throws DukeException If there is an issue or error encountered during command execution.
      */
     public static String executeCreate(String command, TaskList tasks) throws DukeException {
+        assert command != null;
         String result = "";
         if (command.startsWith("todo")) {
             try {
@@ -133,6 +135,7 @@ public class Parser {
      * @throws DukeException If there is an issue or error encountered during command execution.
      */
     public static String executeDelete(String command, TaskList tasks, String[] separateCommand) throws DukeException {
+        assert command != null;
         String result = "";
         try {
             if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > tasks.getAll().size()) {
@@ -159,6 +162,7 @@ public class Parser {
      * @param tasks   The TaskList object to search for matching tasks.
      */
     public static String executeFind(String command, TaskList tasks) {
+        assert command != null;
         String result = "";
         String keyword = command.substring(5).trim();
         List<Task> matchingTasks = tasks.findTasks(keyword);
@@ -178,6 +182,7 @@ public class Parser {
      * @throws DukeException If there is an issue or error encountered during command execution.
      */
     public static String executeCommand(String command, TaskList tasks) {
+        assert command != null;
         String result = "";
         try {
             String[] separateCommand = command.split(" ");
