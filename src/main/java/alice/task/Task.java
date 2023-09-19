@@ -14,9 +14,9 @@ import alice.exception.DukeException;
  */
 public class Task {
     protected static final String EMPTY_DESCRIPTION_ERROR_MESSAGE =
-        "OOPS!!! The description of a task cannot be empty.";
+        "OOPSIE!!! The description of a task cannot be empty ˃̵ᴗ˂̵";
     protected static final String DATE_TIME_FORMAT_PARSING_ERROR_MESSAGE =
-        "OOPS!!! The date and time must be in the format of YYYY-MM-DD HH:MM.";
+        "OOPSIE!!! The date and time must be in the format of YYYY-MM-DD HH:MM UwU";
     private static final String DATE_TIME_FORMAT = "h:mm a, MMM d yyyy";
     protected String description; // The description of the task.
     protected List<String> tags; // The tags of the task.

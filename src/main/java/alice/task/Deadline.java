@@ -10,7 +10,7 @@ import alice.exception.DukeException;
  */
 public class Deadline extends Task {
     public static final String TASK_LABEL = "D";
-    public static final String MISSING_DEADLINE_ERROR_MESSAGE = "OOPS!!! The deadline of a deadline cannot be empty.";
+    public static final String MISSING_DEADLINE_ERROR_MESSAGE = "Nyaa~, the deadline of a deadline cannot be empty UwU";
 
     protected LocalDateTime by; // The deadline of the task in LocalDateTime format.
 
