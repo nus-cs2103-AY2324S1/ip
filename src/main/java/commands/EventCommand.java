@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import data.TaskList;
 import data.exception.DukeException;
+import data.exception.StorageException;
 import data.tasks.Event;
 import data.tasks.Task;
 import storage.Storage;
@@ -34,7 +35,7 @@ public class EventCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage) throws DukeException {
+            TaskList tasks, Storage storage) throws StorageException {
         Task event = new Event(description, from, to);
         tasks.add(event);
         storage.update(tasks);

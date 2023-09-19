@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import common.DateParser;
 import data.TaskList;
-import data.exception.DukeException;
+import data.exception.StorageException;
 import data.tasks.Deadline;
 import data.tasks.Event;
 import data.tasks.Task;
@@ -125,16 +125,16 @@ public class Storage {
      * is made by the user.
      * 
      * @param tasks The {@link TaskList} containing the new list of tasks.
-     * @throws DukeException Thrown when there's an issue with writing
-     *                       the tasks to file.
+     * @throws StorageException Thrown when there's an issue with writing
+     *                          the tasks to file.
      */
-    public void update(TaskList tasks) throws DukeException {
+    public void update(TaskList tasks) throws StorageException {
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write(tasks.toString());
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("Sorry error with saving tasks!");
+            throw new StorageException("Sorry error with saving tasks!");
         }
     }
 }

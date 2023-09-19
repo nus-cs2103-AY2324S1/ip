@@ -28,7 +28,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public UiMessage execute(TaskList tasks, Storage storage) throws DukeException {
+    public UiMessage execute(TaskList tasks, Storage storage) {
         ArrayList<Task> result = tasks.findTasks(keyword);
 
         int count = result.size();

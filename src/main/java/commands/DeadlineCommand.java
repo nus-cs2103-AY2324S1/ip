@@ -3,7 +3,7 @@ package commands;
 import java.time.LocalDateTime;
 
 import data.TaskList;
-import data.exception.DukeException;
+import data.exception.StorageException;
 import data.tasks.Deadline;
 import data.tasks.Task;
 import storage.Storage;
@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public UiMessage execute(TaskList tasks,
-            Storage storage) throws DukeException {
+            Storage storage) throws StorageException {
         Task dl = new Deadline(description, deadline);
         tasks.add(dl);
         storage.update(tasks);

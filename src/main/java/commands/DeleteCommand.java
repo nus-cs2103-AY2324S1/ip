@@ -1,8 +1,8 @@
 package commands;
 
 import data.TaskList;
-import data.exception.DukeException;
 import data.exception.InvalidParamException;
+import data.exception.StorageException;
 import data.tasks.Task;
 import storage.Storage;
 import ui.UiMessage;
@@ -34,7 +34,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage) throws DukeException {
+            TaskList tasks, Storage storage)
+        throws InvalidParamException, StorageException {
         Task removedTask = tasks.delete(taskIndex - 1);
 
         // Write modified task list to file

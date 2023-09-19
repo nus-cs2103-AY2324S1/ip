@@ -1,8 +1,8 @@
 package commands;
 
 import data.TaskList;
-import data.exception.DukeException;
 import data.exception.InvalidParamException;
+import data.exception.StorageException;
 import data.tasks.Task;
 import storage.Storage;
 import ui.UiMessage;
@@ -39,10 +39,11 @@ public class MarkCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage) throws DukeException {
+            TaskList tasks, Storage storage)
+        throws InvalidParamException, StorageException {
         // User tries to mark/unmark a task that is out of bounds.
         if (taskCount < 1 || taskCount > tasks.getSize()) {
-            throw new DukeException(String.format(
+            throw new InvalidParamException(String.format(
                 "Unable to %s task %d :( You have %d task(s) stored.",
                 isDone ? "mark" : "unmark", taskCount, tasks.getSize()
             ));
