@@ -1,0 +1,45 @@
+list
+hahahhah
+wow so cool
+todo
+deadline
+event
+todo watch lecture
+todo eat lunch
+deadline bake cookies /by tmr
+deadline bake cookies /by 2023-09-03 18:00
+deadline /by 2023-09-03 18:00
+deadline bake cookies /by 2023-20-03 18:00
+deadline bake cookies /by 2023-09-03 29:00
+deadline go fishing /by 2024-02-05
+list
+event math meeting! /from now /to tmr
+event math meeting! /from 2023-08-25 7:00 /to 2023-08-25 23:00
+event math meeting! /from 2023-08-25 07:00 /to 2023-08-25 23:00
+event /from 2023-08-25 7:00 /to 2023-08-25 23:00
+event math meeting! /from 2023-08-25 07:00
+event math meeting! /to 2023-08-25 23:00
+event math meeting! 2023-08-25 7:00 2023-08-25 23:00
+list
+event dinner w choir gals! /from 2023-09-25 23:00 /to 2023-09-25 17:00
+event dinner w choir gals! /from 2023-09-25 17:00 /to 2023-09-25 23:00
+list
+mark 1
+mark 3
+list
+mark 3
+unmark 1
+unmark 4
+list
+delete 1
+delete 7
+list
+bye
+
+
+
+
+
+
+
+

@@ -1,0 +1,4 @@
+T | 0 | buy flour and brown sugar
+D | 1 | bake cookies | 2023-10-01 12:00
+E | 1 | cookie fundraiser | 2023-10-10 11:00 | 2023-10-11 18:00
+D | 0 | ip | 2023-09-22 16:00
