@@ -1,11 +1,16 @@
 package jeo.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import jeo.command.ByeCommand;
 import jeo.command.Command;
+import jeo.command.DeleteCommand;
+import jeo.command.MarkCommand;
+import jeo.command.UnmarkCommand;
 import jeo.exception.JeoException;
 
 public class ParserTest {
@@ -26,6 +31,46 @@ public class ParserTest {
             fail();
         } catch (JeoException e) {
             assertEquals("OOPS!!! The description of the deadline is of wrong format.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parse_inputStartsWithBye_returnCorrectCommand() {
+        try {
+            Command command = Parser.parse("bye");
+            assertTrue(command instanceof ByeCommand);
+        } catch (JeoException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parse_inputStartsWithMark_returnCorrectCommand() {
+        try {
+            Command command = Parser.parse("mark 1");
+            assertTrue(command instanceof MarkCommand);
+        } catch (JeoException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parse_inputStartsWithUnmark_returnCorrectCommand() {
+        try {
+            Command command = Parser.parse("unmark 1");
+            assertTrue(command instanceof UnmarkCommand);
+        } catch (JeoException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parse_inputStartsWithDelete_returnCorrectCommand() {
+        try {
+            Command command = Parser.parse("delete 1");
+            assertTrue(command instanceof DeleteCommand);
+        } catch (JeoException e) {
+            fail();
         }
     }
 }
