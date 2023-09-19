@@ -46,13 +46,11 @@ public class InputParser {
             throw new DukeException("Invalid date, must be of the form dd/mm/yyyy hhmm");
         }
         String newStr = str.substring(0, 13) + ":" + str.substring(13);
-        System.out.println(newStr);
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
             Date d1 = df.parse(newStr);
             return d1;
         } catch (Exception e) {
-            System.out.println(e);
             throw new DukeException("Invalid date");
         }
     }
@@ -69,7 +67,7 @@ public class InputParser {
         String reply = "";
 
         if (input.equals("bye")) {
-            reply = "See you Soon";
+            reply = "exit app";
         }
         //list out each task from duke.ui.Duke.tasks ArrayList
         else if (input.equals("list")) {
@@ -178,7 +176,7 @@ public class InputParser {
                 inputChecker(splitStr, "delete");
                 int index = Integer.parseInt(splitStr[1]);
                 Task item = tasks.remove(index - 1);
-                item.delete();
+                reply += item.delete();
                 if (toStore) {
                     Storage.saveTasks(tasks);
                 }
@@ -193,6 +191,7 @@ public class InputParser {
                 inputChecker(splitStr, "tag");
                 Task item = tasks.get(Integer.parseInt(splitStr[1]) - 1);
                 String[] getTag = input.split("#");
+                inputChecker(getTag, "tag");
                 reply += item.setTag(getTag[1]);
             } catch (DukeException e) {
                 reply += e.getMessage();
