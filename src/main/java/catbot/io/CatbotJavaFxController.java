@@ -1,5 +1,8 @@
 package catbot.io;
 
+import catbot.bot.CommandArgumentStruct;
+import catbot.internal.NamedParameterMap;
+import catbot.internal.Parser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,7 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import catbot.bot.CatBot;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -22,8 +26,10 @@ public class CatbotJavaFxController extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    private final Parser parser = Parser.with(null);
 
-    private CatBot catBot;
+    private Consumer<CommandArgumentStruct> commandConsumer;
+    private StringBuilder queuedAssistantOutput = new StringBuilder();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -33,22 +39,48 @@ public class CatbotJavaFxController extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setCatBot(CatBot catBot) {
-        this.catBot = catBot;
+    void attachConsumerForParsedCommands(Consumer<CommandArgumentStruct> consumer) {
+        this.commandConsumer = consumer;
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
+        if (commandConsumer == null) {
+            return;
+        }
+
+        String input = getUserInput();
+        addUserDialog(input);
+        CommandArgumentStruct command = parseStringToStruct(input);
+        commandConsumer.accept(command);
+        sendAssistantDialogue();
+    }
+
+    private String getUserInput() {
         String input = userInput.getText();
-        String response = input + " wowwee";
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
         userInput.clear();
+        return input;
+    }
+
+    CommandArgumentStruct parseStringToStruct(String commandString) {
+        NamedParameterMap namedParameterMap = parser.parse(commandString);
+        assert namedParameterMap.keySet().size() == 1;
+        for (String command : namedParameterMap.keySet()) {
+            return new CommandArgumentStruct(command, namedParameterMap.get(command));
+        }
+        return null;
+    }
+
+    void addUserDialog(String text) {
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(text, userImage));
+    }
+
+    void queueAssistantDialogue(String text) {
+        queuedAssistantOutput.append("\n").append(text);
+    }
+
+    void sendAssistantDialogue() {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(queuedAssistantOutput.toString(), dukeImage));
+        queuedAssistantOutput = new StringBuilder();
     }
 }

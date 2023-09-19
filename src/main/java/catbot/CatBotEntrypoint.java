@@ -1,15 +1,18 @@
 package catbot;
 
-import catbot.io.CatbotJavaFxIo;
-import javafx.application.Application;
+import catbot.bot.CatBot;
+import catbot.io.CatBotJavaFxIo;
+import catbot.io.UserIo;
+import catbot.task.TaskList;
 
 public class CatBotEntrypoint {
 
     public static void main(String[] args) {
-        //CatBot catBot = new CatBot(new CatbotConsoleIo(), new TaskList("Tasks.txt"));
-        //CatBot catBot = new CatBot(new CatbotJavaFxIo(), new TaskList("Tasks.txt"));
-        //catBot.run();
-        Application.launch(CatbotJavaFxIo.class, args);
+        CatBot catBot = new CatBot(new TaskList("Tasks.txt"));
+        UserIo userIo = new CatBotJavaFxIo();
+        userIo.initialize();
+        catBot.initialize(userIo);
+        userIo.takeoverExecutionLogic(catBot);
     }
 
 }
