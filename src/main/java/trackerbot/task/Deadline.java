@@ -18,7 +18,7 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Constructor for the class.
+     * Constructs a Deadline object from the given string input.
      *
      * @param desc The description of the Deadline task.
      * @param by The String representation of the deadline to parse into a LocalDateTime object.
@@ -50,9 +50,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * toString method of Deadline. <br>
-     * The String representation of To-do appends the [D] tag in front of the Task toString, and
-     * the deadline date to the end of the toString.
+     * Returns the String representation of the Deadline.
+     * <p>This method appends the [D] tag in front of the Task toString, and
+     * the deadline date to the end of the toString.</p>
+     *
      * @return "[D]" prefixed to task.toString(), and "(by: [deadline])" postfixed to task.toString().
      */
     @Override

@@ -33,6 +33,7 @@ public class DialogBox extends HBox {
 
     /**
      * Constructs the DialogBox controller object.
+     *
      * @param text The description to display in the box.
      * @param img The image of the avatar.
      */

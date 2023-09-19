@@ -15,9 +15,7 @@ import trackerbot.utils.Parser;
  */
 public class TaskList {
     /**
-     * Task Array.
-     * The Task List array itself should be immutable, in case we override it
-     * during runtime.
+     * The ArrayList of Tasks to store in the TaskList.
      */
     private final ArrayList<Task> tasks;
 
@@ -42,6 +40,7 @@ public class TaskList {
 
     /**
      * Attempts to toggle the item at index as complete.
+     *
      * @param index The index of the Task in the TaskList, starting from 1.
      * @return The reply String to be passed into Ui.
      * @throws TrackerBotException if the Task specified does not exist, or is
@@ -55,6 +54,7 @@ public class TaskList {
 
     /**
      * Attempts to toggle a collection of tasks in the list as complete.
+     *
      * @param indexes The Set of all indexes to mark in the list.
      * @return The reply String to be passed into Ui.
      */
@@ -79,6 +79,7 @@ public class TaskList {
 
     /**
      * Attempts to toggle the item at index as incomplete.
+     *
      * @param index The index of the Task in the TaskList, starting from 1.
      * @return The reply String to be passed into Ui.
      * @throws TrackerBotException if the Task specified does not exist, or is
@@ -92,6 +93,7 @@ public class TaskList {
 
     /**
      * Attempts to toggle a collection of tasks in the list as incomplete.
+     *
      * @param indexes The Set of all indexes to unmark in the list.
      * @return The reply String to be passed into Ui.
      */
@@ -116,6 +118,7 @@ public class TaskList {
 
     /**
      * Attempts to delete the item at index.
+     *
      * @param index The index of the Task in the TaskList, starting from 1.
      * @return The reply String to be passed into Ui.
      * @throws TrackerBotException if the Task specified does not exist.
@@ -129,6 +132,7 @@ public class TaskList {
 
     /**
      * Attempts to delete a collection of tasks from the list.
+     *
      * @param indexes The Set of all indexes to remove from the list.
      * @return The reply String to be passed into Ui.
      */
@@ -191,6 +195,7 @@ public class TaskList {
 
     /**
      * Returns a UI-friendly String representation of the Task List.
+     *
      * @return A String representation of the Task List, to pass directly into Ui.
      */
     public String list() {
@@ -202,6 +207,7 @@ public class TaskList {
 
     /**
      * Adds the Task directly into TaskList.
+     *
      * <p>This is a method used by Storage.</p>
      * @param task The Task to add into TaskList.
      */
@@ -211,6 +217,7 @@ public class TaskList {
 
     /**
      * Exports all items in the TaskList into a save-compatible String form.
+     *
      * @return The String representation of all the Tasks in the TaskList, in
      *         a save-compatible form.
      */
@@ -225,6 +232,7 @@ public class TaskList {
 
     /**
      * Gets the Task at the provided index.
+     *
      * @param index The index of the list to check.
      * @return The Task object at the index, if it exists, and null otherwise.
      */
@@ -237,6 +245,7 @@ public class TaskList {
 
     /**
      * Gets the String representation of the TaskList.
+     *
      * @return the String representation of the TaskList
      */
     private String getListOfTasks(ArrayList<Task> tasks) {

@@ -4,6 +4,7 @@ package trackerbot.command;
  * Enumerates the possible Command types that exist in the Command class.
  * <p>CommandType should directly mirror the number of nested implementations of the
  * Command subclass, which can be instantiated with Command.of().</p>
+ *
  * @author WZWren
  * @version A-JavaDoc
  * @see trackerbot.command.Command#of
@@ -36,8 +37,8 @@ public enum CommandType {
     private final String keyword;
 
     /**
-     * Constructor for the enum Command.
-     * <p>Enum constructors are implicitly private, so the tag is not included.</p>
+     * Constructs the enum object of Command.
+     *
      * @param keyword The keyword of the task.
      */
     CommandType(String keyword) {
@@ -46,12 +47,19 @@ public enum CommandType {
 
     /**
      * Gets the keyword of the enum CommandType.
+     *
      * @return The associated String keyword with the Command.
      */
     public String getKeyword() {
         return keyword;
     }
 
+    /**
+     * Parses the given string into a valid enum type.
+     *
+     * @param keyword The String to parse into a CommandType.
+     * @return The associated command type with the given keyword.
+     */
     public static CommandType getCommandType(String keyword) {
         CommandType result = CommandType.UNKNOWN;
         for (CommandType command: CommandType.values()) {

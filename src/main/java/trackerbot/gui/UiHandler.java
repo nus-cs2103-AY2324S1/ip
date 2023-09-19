@@ -18,9 +18,10 @@ public class UiHandler {
     private String uiMessage;
 
     /**
-     * Constructor for the class.
+     * Constructs a UIHandler object for the class.
      * <p>This is private, as all instances of Ui should generate the bootup message
      * on creation.</p>
+     *
      * @param appName The name of the instance.
      */
     private UiHandler(String appName) {
@@ -28,8 +29,11 @@ public class UiHandler {
     }
 
     /**
-     * Factory method for UI.
-     * This automatically sets the UiHandler message to be a greeting message.
+     * Constructs a UIHandler object.
+     * <p>Using a factory method for UIHandler allows us to run side effects during the
+     * construction of the method.</p>
+     * <p>This automatically sets the UiHandler message to be a greeting message.</p>
+     *
      * @param appName The name of the instance.
      * @return A new Ui instance.
      */

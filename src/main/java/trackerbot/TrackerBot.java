@@ -26,7 +26,7 @@ public class TrackerBot {
     private UiHandler uiHandler;
 
     /**
-     * Constructor for the TrackerBot instance.
+     * Constructs the TrackerBot instance.
      *
      * @param appName The name of the app to instantiate.
      */
@@ -55,6 +55,7 @@ public class TrackerBot {
 
     /**
      * Saves the tasks in TaskList, if any.
+     *
      * @throws TrackerBotException if the save fails.
      */
     public void handleSave() throws TrackerBotException {

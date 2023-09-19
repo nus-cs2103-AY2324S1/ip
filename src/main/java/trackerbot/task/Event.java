@@ -25,7 +25,7 @@ public class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * Constructor for the class.
+     * Constructs the Event object from the given String input.
      *
      * @param desc The description of the Event task.
      * @param from The String representation of the start date to parse into a LocalDateTime object.
@@ -44,7 +44,7 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a Event using a String array, for use in save parsing.
+     * Constructs the Event object using a String array, for use in save parsing.
      *
      * @param args The arguments for constructing Event, containing isDone status in index
      *             0, description in index 1 and an epoch Date string in index 2 and 3.
@@ -70,9 +70,10 @@ public class Event extends Task {
     }
 
     /**
-     * toString method of Event. <br>
-     * The String representation of To-do appends the [E] tag in front of the Task toString, and
-     * the event period to the end of the toString.
+     * Returns the String representation of the Event object.
+     * <p>This method appends the [E] tag in front of the Task toString, and
+     * the event period to the end of the toString.</p>
+     *
      * @return "[D]" prefixed to task.toString(), and "(from: [start] / to: [end])" postfixed to task.toString().
      */
     @Override
