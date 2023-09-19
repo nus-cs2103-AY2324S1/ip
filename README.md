@@ -9,7 +9,7 @@ Welcome to Zac's chatbot. I can help you record down your tasks, so do check me 
 Prerequisites: JDK 11, update Intellij to the most recent version
 
 1. Locate the `src/main/java/duke.Launcher.java` file, and run it
-2. Or, you can run 'java -ea -jar build/libs/Duke-v0.2.jar' from the root directory to execute the JAR file
+2. Or, you can run `java -ea -jar build/libs/Duke-v0.2.jar` from the root directory to execute the JAR file
 
 ## Features
 
@@ -41,25 +41,3 @@ Prerequisites: JDK 11, update Intellij to the most recent version
    1. `undo`
 1. End the chat 
    1. `bye`
-
-
-<!-- 
-     string.append("Here are examples of things you can do\n");
-     string.append("1. todo <your task>\n");
-     string.append("   eg. todo borrow book\n");
-     string.append("2. deadline <your task> /by <time>\n");
-     string.append("   eg. deadline return book /by sun 1700\n");
-     string.append("3. event <your task> /from <time> /to <time>\n");
-     string.append("   eg. event project meeting /from Mon 2pm /to 4pm\n");
-     string.append("4. list (displays all your tasks)\n");
-     string.append("   eg. list\n");
-     string.append("5. mark <task number> (marks task 1 as completed)\n");
-     string.append("   eg. mark 1\n");
-     string.append("6. unmark <task number>\n");
-     string.append("   eg. unmark 1 (marks task 2 as uncompleted)\n");
-     string.append("7. delete <task number>\n");
-     string.append("   eg. delete 1 (deletes task 1)\n");
-     string.append("8. find <keyword>\n");
-     string.append("   eg. find book (finds all task with description 'book')\n");
-     string.append("9. undo (undo the latest command)\n");
--->
