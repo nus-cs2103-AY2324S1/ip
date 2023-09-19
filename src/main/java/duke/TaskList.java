@@ -92,8 +92,30 @@ public class TaskList {
         }
     }
     public static String taskToBeFound(String findThis) {
+        ArrayList<Task> filteredList = altFindFunctions(findThis);
+        ListIterator<Task> iterFilteredList = filteredList.listIterator();
+        if (filteredList.size() == 0) {
+            return Ui.emptyList();
+        } else {
+            return Ui.findTaskPrint(iterFilteredList);
+        }
+    }
+    public static ArrayList<Task> altFindFunctions(String findThis) {
+        String[] breakDownFindFunction = findThis.split(" ");
         ListIterator<Task> ls = storeTask.listIterator();
         ArrayList<Task> filteredList = new ArrayList<>();
+        switch (breakDownFindFunction.length) {
+        case 1:
+            return normalFind(findThis, ls, filteredList);
+        case 2:
+            return taskFind(breakDownFindFunction, ls, filteredList);
+
+        default:
+            return filteredList;
+        }
+    }
+
+    private static ArrayList<Task> normalFind(String findThis, ListIterator<Task> ls, ArrayList<Task> filteredList) {
         while (ls.hasNext()) {
             Task current = ls.next();
             String currentDescription = current.getDescription();
@@ -101,12 +123,27 @@ public class TaskList {
                 filteredList.add(current);
             }
         }
-        ListIterator<Task> iterFilteredList = filteredList.listIterator();
-        if (filteredList.size() == 0) {
-            return Ui.emptyList();
+        return filteredList;
+    }
+    private static ArrayList<Task> taskFind(String[] breakDownFindFunction, ListIterator<Task> ls, ArrayList<Task> filteredList) {
+        String findFunctionMainType = breakDownFindFunction[0];
+        String findFunctionSubType = breakDownFindFunction[1];
+        if (findFunctionMainType.equals("all")) {
+            return getTasks(ls, filteredList, findFunctionSubType);
         } else {
-            return Ui.findTaskPrint(iterFilteredList);
+            return filteredList;
         }
+    }
+
+    private static ArrayList<Task> getTasks(ListIterator<Task> ls, ArrayList<Task> filteredList, String findFunctionSubType) {
+        while (ls.hasNext()) {
+            Task current = ls.next();
+            String currentTaskType = current.getClass().getSimpleName();
+            if (currentTaskType.contains(findFunctionSubType)) {
+                filteredList.add(current);
+            }
+        }
+        return filteredList;
     }
 
     public static ArrayList<Task> getStoreTask() {
