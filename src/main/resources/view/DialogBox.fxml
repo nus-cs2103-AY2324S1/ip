@@ -9,7 +9,7 @@
     <children>
         <HBox style="-fx-background-color: #79a5ed; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 8px;" HBox.hgrow="ALWAYS">
             <children>
-                <Label fx:id="dialog" style="-fx-text-fill: white;" text="Message Text Here" wrapText="true" HBox.hgrow="ALWAYS">
+                <Label fx:id="dialog" minHeight="-Infinity" style="-fx-text-fill: white;" text="Message Text Here" wrapText="true" HBox.hgrow="ALWAYS">
                     <padding>
                         <Insets left="10.0" right="10.0" top="5.0" bottom="5.0" />
                     </padding>

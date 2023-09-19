@@ -127,8 +127,8 @@ public class Ui {
      * @return The list of tasks as a String.
      */
     public String printTasks(TaskList tasks) {
-        System.out.println("Here are your list of tasks:");
         StringBuilder str = new StringBuilder();
+        str.append("Here are your list of tasks:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             str.append(INDENTATION).append(i + 1).append(" ").append(task).append("\n");
@@ -146,8 +146,8 @@ public class Ui {
      * @return The list of scheduled tasks as a String.
      */
     public String printScheduledTasks(TaskList tasks, LocalDateTime datetime) {
-        System.out.println("Here are your list of tasks:");
         StringBuilder str = new StringBuilder();
+        str.append("Here are your list of tasks:\n");
         int index = 1;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -168,8 +168,8 @@ public class Ui {
      * @return The list of related tasks as a String.
      */
     public String printRelatedTasks(TaskList tasks, String keyword) {
-        System.out.println("Here are your list of tasks:");
         StringBuilder str = new StringBuilder();
+        str.append("Here are your list of tasks:\n");
         int index = 1;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);

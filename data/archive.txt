@@ -2,3 +2,4 @@ D | 0 | return book | 2019-01-01T00:00D | 1 | return book | 2019-01-01T00:00
 D | 1 | return book | 2019-01-01T00:00
 T | 0 | borrow book
 T | 0 | borrow book
+T | 0 | borrow book

@@ -103,6 +103,7 @@ public class Duke {
             return c.execute(tasks, ui, storage);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            
             String unknownCommandReply = "Respironix heard unknown command: " + input + "...";
             unknownCommandReply += ("\n" + new String(e.getMessage().getBytes(), StandardCharsets.UTF_8));
             return unknownCommandReply;
