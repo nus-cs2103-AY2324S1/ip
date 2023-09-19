@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /** Class that deals with making sense of the user command. */
@@ -87,9 +89,17 @@ public class Parser {
             }
         }
 
-        return new Deadline(
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, 1, startIndex - 1)),
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, startIndex, userInputSegmented.length)));
+        try {
+            LocalDate deadline = LocalDate.parse(String.join(" ",
+                    Arrays.copyOfRange(userInputSegmented, startIndex, userInputSegmented.length))
+            );
+            return new Deadline(
+                    String.join(" ", Arrays.copyOfRange(userInputSegmented, 1, startIndex - 1)),
+                    deadline
+            );
+        } catch (DateTimeParseException e) {
+            throw new InvalidTaskException("ERROR: Deadline not in YYYY-MM-DD format");
+        }
     }
 
     private Event parseEventInput(String[] userInputSegmented) throws InvalidTaskException {
@@ -120,11 +130,23 @@ public class Parser {
             }
         }
 
-        return new Event(
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, 1, fromIndex - 1)),
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, fromIndex, toIndex - 1)),
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, toIndex, userInputSegmented.length))
-        );
+        try {
+            LocalDate from = LocalDate.parse(String.join(" ",
+                    Arrays.copyOfRange(userInputSegmented, fromIndex, toIndex - 1))
+            );
+            LocalDate to = LocalDate.parse(String.join(" ",
+                    Arrays.copyOfRange(userInputSegmented, toIndex, userInputSegmented.length))
+            );
+            return new Event(
+                    String.join(" ", Arrays.copyOfRange(userInputSegmented, 1, fromIndex - 1)),
+                    from, to
+            );
+        } catch (DateTimeParseException e) {
+            throw new InvalidTaskException("ERROR: Date not in YYYY-MM-DD format");
+        }
+
+
+
     }
 
     private Todo parseTodoInput(String[] userInputSegmented) {

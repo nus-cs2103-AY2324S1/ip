@@ -9,7 +9,21 @@ public class Event extends Task {
     private LocalDate to;
 
     /**
-     * Class constructor specifying the description of the event task.
+     * Class constructor specifying the description of the event task. It is called when the user adds an event task
+     * into Duke.
+     * @param description the string description of the event.
+     * @param from the string description of the date to begin the event.
+     * @param to the string description of the date to end the event.
+     */
+    public Event(String description, LocalDate from, LocalDate to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
+     * Class constructor specifying the description of the event task. It is called when data is loaded from the
+     * storage.
      * @param description the string description of the event.
      * @param from the string description of the date to begin the event.
      * @param to the string description of the date to end the event.

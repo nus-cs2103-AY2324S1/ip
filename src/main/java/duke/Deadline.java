@@ -8,9 +8,21 @@ public class Deadline extends Task {
     private LocalDate by;
 
     /**
-     * Class constructor specifying the description of the deadline task.
+     * Class constructor specifying the description of the deadline task. It is called when the user adds a deadline
+     * task into Duke.
      * @param description the string description of the task.
-     * @param by the deadline of the task.
+     * @param by the deadline of the task as a LocalDate object.
+     */
+    public Deadline(String description, LocalDate by) {
+        super(description);
+        this.by = by;
+    }
+
+    /**
+     * Class constructor specifying the description of the deadline task. It is called when data is loaded from the
+     * storage.
+     * @param description the string description of the task.
+     * @param by the deadline of the task as a String.
      */
     public Deadline(String description, String by) {
         super(description);

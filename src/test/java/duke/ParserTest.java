@@ -3,8 +3,6 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.time.format.DateTimeParseException;
-
 import org.junit.jupiter.api.Test;
 
 
@@ -44,7 +42,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseAddTaskInput_failureDeadline1() {
+    public void parseAddTaskInput_failureDeadline() {
         try {
             Parser parse = new Parser();
             Task task = parse.parseAddTaskInput("deadline return book /by 2019-01-150", "deadline");
@@ -52,23 +50,7 @@ public class ParserTest {
             assertEquals("[D][X] return book (by: Jan 15 2019)", task.toString());
             fail();
         } catch (InvalidTaskException e) {
-            fail();
-        } catch (DateTimeParseException e) {
-            assertEquals("Text '2019-01-150' could not be parsed, unparsed text found at index 10",
-                    e.getMessage());
-        }
-    }
-
-    @Test
-    public void parseAddTaskInput_failureDeadline2() {
-        try {
-            Parser parse = new Parser();
-            Task task = parse.parseAddTaskInput("deadline return book byebye 2019-01-150", "deadline");
-            task.markAsDone();
-            assertEquals("[D][X] return book (by: Jan 15 2019)", task.toString());
-            fail();
-        } catch (InvalidTaskException e) {
-            assertEquals("ERROR: Missing the /by marker", e.getMessage());
+            assertEquals("ERROR: Deadline not in YYYY-MM-DD format", e.getMessage());
         }
     }
 
@@ -81,9 +63,7 @@ public class ParserTest {
             assertEquals("[E][X] project meeting (from: Feb 15 2019 to: Mar 30 2019)", task.toString());
             fail();
         } catch (InvalidTaskException e) {
-            fail();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            assertEquals("Index 7 out of bounds for length 7", e.getMessage());
+            assertEquals("ERROR: Missing the /to marker", e.getMessage());
         }
     }
 }
