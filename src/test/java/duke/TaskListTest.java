@@ -93,7 +93,7 @@ public class TaskListTest {
     }
     @Test
     public void testUndo() throws DukeException, IOException, ClassNotFoundException {
-        Duke duke = new Duke(Paths.get("data/duke.txt"));
+        Duke duke = new Duke();
         tasks.addTask("T", "todo borrow book");
         tasks.undo(duke.getStorage());
         // Perform assertions or test other functionality here

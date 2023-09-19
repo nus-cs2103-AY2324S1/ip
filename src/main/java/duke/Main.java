@@ -1,8 +1,6 @@
 package duke;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Duke using FXML
  */
 public class Main extends Application {
-    private static Path tempFilePath = Paths.get("./data/temp.txt");
-    private Duke duke = new Duke(tempFilePath);
+    private Duke duke = new Duke();
     private TaskList tasks = duke.getTasks();
     private Storage storage = duke.getStorage();
 

@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +12,6 @@ import java.util.ArrayList;
  */
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
-    private Path undoFilePath = Paths.get("./data/undo.txt");
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -51,7 +49,7 @@ public class TaskList implements Serializable {
     }
     /**
      * Handles the 'find' command, displays the list of Tasks whose description matches the user input
-     * @param userInput the String that the user inputs to find similar Tasks
+     * @param userInput The String that the user inputs to find similar Tasks
      */
     public String findMatchingTasks(String userInput) {
         ArrayList<Task> matchingTaskList = new ArrayList<>();
@@ -65,8 +63,8 @@ public class TaskList implements Serializable {
     }
     /**
      * Adds a Task to TaskList
-     * @param letter The letter corresponding to the first letter of the Task
-     * @param userInput The string corresponding to the chunk of text after the word todo, deadline, or event
+     * @param letter The first letter of the Task
+     * @param userInput The chunk of text after the word todo, deadline, or event
      */
     public String addTask(String letter, String userInput) throws DukeException {
         if (letter.equals("T")) {
@@ -180,7 +178,7 @@ public class TaskList implements Serializable {
      * For example, the input 'event project meeting /from Mon 2pm /to 4pm' will return '4pm'
      *
      * @param userInput The Task description, including the time component
-     * @return The 'to' part of the event
+     * @return The 'to' time component
      * @throws DukeException If user input is invalid
      */
     public static String getTo(String userInput) throws DukeException {
@@ -195,8 +193,6 @@ public class TaskList implements Serializable {
     }
     /**
      * Deletes a Task from TaskList
-     * For example, the input 'delete 3' will delete the duke.Task at position 2 of TaskArray
-     *
      * @param userInput The user input
      */
     public String deleteTask(String userInput) throws DukeException {
@@ -225,7 +221,7 @@ public class TaskList implements Serializable {
      */
     public void undo(Storage storage) throws IOException, ClassNotFoundException {
         try {
-            Path absolutePath = undoFilePath.toAbsolutePath();
+            Path absolutePath = Duke.OLD_TASKLIST_FILE_PATH.toAbsolutePath();
             ObjectInputStream inputStream = new ObjectInputStream(Files.newInputStream(absolutePath));
             @SuppressWarnings("unchecked")
             ArrayList<Task> loadedTasks = (ArrayList<Task>) inputStream.readObject();

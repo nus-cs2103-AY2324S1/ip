@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private LocalDateTime by;
-
     /**
      * Constructor to initialise a Deadline object
      * @param description The Task description
@@ -44,7 +43,7 @@ public class Deadline extends Task {
      * Public constructor that takes in a String time component and calls the private constructor
      * @param description String description
      * @param timeComponent Time component of the Deadline in a form of a string
-     * @return Deadline object
+     * @return Deadline Object
      * @throws DukeException If invalid input for time component
      */
     public static Deadline newDeadline(String description, String timeComponent) throws DukeException {
@@ -82,7 +81,7 @@ public class Deadline extends Task {
         }
     }
     /**
-     * Converts a string to a LocalDateTime
+     * Helper function to convert a string to a LocalDateTime
      *
      * @param userInput The 'by' part of a Deadline Task, e.g. "2/12/2019 1800"
      * @param c Whether the Deadline is put in a '-' format or '/' or neither format

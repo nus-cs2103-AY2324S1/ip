@@ -8,17 +8,10 @@ public class DeadlineTest {
 
     private LocalDateTime date = LocalDateTime.of(2023, 9, 3, 17, 00);
 
-    /**
-     * Tests the localDateToString method
-     */
     @Test
     public void testLocalDateToString() {
         assertEquals("Sep 3 2023 5:00PM", Deadline.localDatetoString(date));
     }
-
-    /**
-     * Tests the toString method for a Deadline object
-     */
     @Test
     public void toString_validTimeInput_success() throws DukeException {
         assertEquals("[D][ ] return book (by: Sep 24 2023 5:00PM)",

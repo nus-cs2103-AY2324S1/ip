@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * One of the Tasks that user's can add into their list
+ * One of the Tasks that users can add to their list
  */
 public class Event extends Task {
     private String from;

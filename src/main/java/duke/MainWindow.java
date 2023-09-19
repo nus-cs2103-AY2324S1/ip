@@ -1,8 +1,6 @@
 package duke;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,7 +24,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private final Path dukeFilePath = Paths.get("./data/duke.txt");
     private Duke duke;
     private TaskList tasks;
     private Storage storage;
@@ -55,7 +52,7 @@ public class MainWindow extends AnchorPane {
     public void showWelcomeMessage() {
         Label dukeText = new Label();
         try {
-            dukeText.setText(Ui.printFileContents(dukeFilePath));
+            dukeText.setText(Ui.printFileContents(Duke.DUKE_FILE_PATH));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

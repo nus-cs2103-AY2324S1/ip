@@ -16,8 +16,8 @@ public class Ui {
 
     /**
      * Prints out all the tasks in TaskList, which are stored in duke.txt
-     * @param filePath The file where the lists of Tasks are stored
-     * @throws FileNotFoundException If the file at this filePath is not found
+     * @param filePath The file where the list of Tasks is stored
+     * @throws FileNotFoundException If the file at this file path is not found
      */
     public static String printFileContents(Path filePath) throws FileNotFoundException {
         StringBuilder string = new StringBuilder();
@@ -92,7 +92,7 @@ public class Ui {
             for (int i = 0; i < tasks.size(); i++) {
                 int num = i + 1;
                 Task curr = tasks.get(i);
-                stringBuilder.append(num + "." + curr.toString() + "\n");
+                stringBuilder.append(num + ". " + curr.toString() + "\n");
             }
         }
         return stringBuilder.toString();

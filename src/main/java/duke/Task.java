@@ -3,9 +3,9 @@ package duke;
 import java.io.Serializable;
 
 /**
- * can be considered an abstract class. Can be either a Todo, Deadline, or Event class
+ * Can be either a Todo, Deadline, or Event object
  */
-public class Task implements Serializable {
+public abstract class Task implements Serializable {
     private boolean isMarked;
     private String description;
 

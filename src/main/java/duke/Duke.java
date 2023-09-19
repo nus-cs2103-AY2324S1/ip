@@ -1,12 +1,10 @@
 package duke;
 
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -18,28 +16,39 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
 /**
- * class where main is run
+ * How do I describe this class? Perhaps the bridge between JavaFX and the rest of the code
  */
 public class Duke extends Application implements Serializable {
-    private static final Path DUKE_FILE_PATH = Paths.get("./data/duke.txt");
+    protected static final Path DUKE_FILE_PATH = Paths.get("./data/duke.txt");
+    /*
+         Text file that contains the *current state* of the TaskList in a human-readable format
+         This file is read in the printFileContents method in Ui.java
+     */
+    protected static final Path CURRENT_TASKLIST_FILE_PATH = Paths.get("./data/temp.txt");
+    /*
+         Text file that contains the *current state* of the TaskList in binary format
+         This file is used to store TaskList contents that will persist with consecutive runs of the application
+     */
+    protected static final Path OLD_TASKLIST_FILE_PATH = Paths.get("./data/undo.txt");
+    /*
+         Text file that contains the *old state* of the OLD TaskList in binary format
+         Contents of this file is read when 'undo' command is called, so as to to obtain the 'old' TaskList
+    */
     private static Storage storage;
     private static TaskList tasks;
-    public Duke() {}
-
     /**
-     * Constructor to initialise the Storage and TaskList objects
-     * @param filePath The relative path to the file that acts as a temporary storage for the ArrayList(Task) object
+     * Creates the relevant database text files
      */
-    public Duke(Path filePath) {
-        storage = new Storage(filePath);
+    public Duke() {
+        storage = new Storage();
         try {
+            createTxtFile(DUKE_FILE_PATH);
+            createTxtFile(CURRENT_TASKLIST_FILE_PATH);
+            createTxtFile(OLD_TASKLIST_FILE_PATH);
             tasks = new TaskList(storage.load());
         } catch (IOException | ClassNotFoundException e) {
-            createTxtFile();
             tasks = new TaskList();
-            System.err.println(e.getMessage());
         }
     }
     @Override
@@ -100,15 +109,16 @@ public class Duke extends Application implements Serializable {
     public Storage getStorage() {
         return storage;
     }
-    /**
-     * This function is called when duke.txt file does not exist, so it is created in this function
-     */
-    public static void createTxtFile() {
+    private static void createTxtFile(Path filePath) {
         try {
-            BufferedWriter writer = Files.newBufferedWriter(DUKE_FILE_PATH);
-            writer.close();
+            File txtFile = new File(filePath.toString());
+            File parentDirectory = txtFile.getParentFile();
+            if (!parentDirectory.exists()) {
+                parentDirectory.mkdirs(); // Create parent directories if they don't exist
+            }
+            txtFile.createNewFile();
         } catch (IOException e) {
-            System.out.println("shag" + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }

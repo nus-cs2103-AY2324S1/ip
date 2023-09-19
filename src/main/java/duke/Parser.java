@@ -3,15 +3,17 @@ package duke;
 import java.io.IOException;
 
 /**
- * This class deals with making sense of the user command
+ * This class deals with making sense of the user command.
  */
 public class Parser {
     /**
-     * Processes the user input and carries out the next steps accordingly
+     * Processes the user input and carries out the next steps accordingly.
+     * The shouldUpdateUndoTxtFile boolean ensures that the 'undo' command ignores commands that are not
+     * worth 'undoing', e.g. 'list' command
      *
-     * @param userInput what the user types in to the console
-     * @param tasks the duke.TaskList
-     * @param storage the duke.Storage
+     * @param userInput User input
+     * @param tasks TaskList
+     * @param storage Storage
      */
     public static String parse(String userInput, TaskList tasks, Storage storage) {
         String output;
