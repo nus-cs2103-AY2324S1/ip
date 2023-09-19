@@ -46,7 +46,7 @@ public class TaskArrayListStorage implements ObjectStorage<ArrayList<Task>> {
             ArrayList<Task> tasks = (ArrayList<Task>) readObject;
             input.close();
             return tasks;
-        } catch (IOException | ClassNotFoundException ignored) {
+        } catch (IOException | ClassNotFoundException ignored) { //noinspection UnnecessarySemicolon
             ;
         }
 

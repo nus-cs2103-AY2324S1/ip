@@ -5,8 +5,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Maps Strings to Strings with limited functionality, suitable to be used as small containers for parameter-argument
- * pairs, but which transitions to a HashMap at scale. todo
+ * Maps Strings to Strings with limited functionality,
+ * suitable to be used as small containers for parameter-argument pairs.
  */
 public class NamedParameterMap {
 

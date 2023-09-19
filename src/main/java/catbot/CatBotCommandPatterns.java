@@ -20,11 +20,8 @@ public abstract class CatBotCommandPatterns {
      * Intended to assert that a CommandPattern does not result in fallthrough behaviour;
      * ie all possible inputs are handled.
      */
-    public static final Consumer<String> NO_DEFAULT = new Consumer<String>() {
-        @Override
-        public void accept(String s) {
-            assert false; //SHOULD NOT BE CALLED
-        }
+    public static final Consumer<String> NO_DEFAULT = s -> {
+        assert false; //SHOULD NOT BE CALLED
     };
     private static final IntegerPatternGenerator integerPatternGenerator = new IntegerPatternGenerator();
     private static final SlashArgumentPatternGenerator slashPatternGenerator = new SlashArgumentPatternGenerator();

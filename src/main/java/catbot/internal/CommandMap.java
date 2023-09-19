@@ -46,7 +46,7 @@ public class CommandMap {
         if (commandMap.containsKey(invocation)) {
             commandMap.get(invocation).run(argument);
         } else if (defaultCommand != null) {
-            defaultCommand.run(invocation); //todo use NamedParameterMap perhaps
+            defaultCommand.run(invocation);
         }
     }
 }

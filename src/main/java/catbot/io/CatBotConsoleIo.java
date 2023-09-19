@@ -36,7 +36,6 @@ public class CatBotConsoleIo implements UserIo {
 
     private Consumer<String> out;
     private Supplier<String> in;
-    private Integer endOfCommand;
     private final Parser parser = Parser.with(null);
     private volatile boolean isStillOpen = true;
 
@@ -88,7 +87,7 @@ public class CatBotConsoleIo implements UserIo {
 
     @Override
     public void takeoverExecutionLogic(Bot bot) {
-        while (isStillOpen) {
+        while (isStillOpen()) {
             bot.run(getNextCommand());
         }
     }

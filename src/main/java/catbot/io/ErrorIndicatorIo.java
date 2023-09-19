@@ -2,7 +2,6 @@ package catbot.io;
 
 import catbot.internal.Bounds;
 import catbot.internal.NamedParameterMap;
-import catbot.task.TaskList;
 
 /**
  * An object that supports interacting with the user to communicate error states.
@@ -29,7 +28,7 @@ public interface ErrorIndicatorIo {
      * Possibly also informs the user of the range of possible indices.
      *
      * @param attemptedIndex integer that was provided, that does not fall within expected bounds.
-     * @param bounds         {@link TaskList.Bounds Bounds} object signifying the minimum and maximum accepted indices.
+     * @param bounds         {@link Bounds Bounds} object signifying the minimum and maximum accepted indices.
      */
     void indicateInvalidIndex(int attemptedIndex, Bounds bounds);
 

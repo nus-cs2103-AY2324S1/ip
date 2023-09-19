@@ -10,7 +10,7 @@ import java.util.Optional;
 import catbot.internal.NamedParameterMap;
 import catbot.io.ErrorIndicatorIo;
 
-public abstract class Task implements Serializable { //todo queued for complete rework
+public abstract class Task implements Serializable {
 
     //region Fields
 
