@@ -12,11 +12,77 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: ''
+      name: 'Todoify',
+      repo: 'https://github.com/wxwern/ip',
+
+      search: {
+        // maximum cache age
+        maxAge: 3600000, // 1 hour
+
+        // Headline depth, 1 - 6
+        depth: 4,
+
+        // whether or not to hide other sidebar content
+        hideOtherSidebarContent: false,
+
+        // To avoid search index collision between multiple websites under the same domain
+        namespace: 'cs2103t-ip',
+      },
     }
   </script>
+  <style>
+    .search {
+      border-bottom: 1px solid #ccc;
+    }
+    .search .matching-post {
+      padding: 0.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+    .search .matching-post h2 {
+      margin: 0.125rem;
+    }
+    .search .matching-post p {
+      margin: 0.125rem;
+    }
+    .sidebar {
+      border-right: 1px solid #ccc;
+    }
+    .markdown-section h1 a,
+    .markdown-section h2 a,
+    .markdown-section h3 a,
+    .markdown-section h4 a,
+    .markdown-section h5 a,
+    .markdown-section h6 a {
+      font-weight: inherit
+    }
+    .markdown-section h1 {
+      font-weight: 900 !important;
+    }
+    .markdown-section h2 {
+      margin-top: 4.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 900 !important;
+      border-bottom: 1px solid #eee;
+    }
+    .markdown-section h3 {
+      margin-top: 4rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700 !important;
+    }
+    .markdown-section h4 {
+      margin-top: 2.5rem;
+      margin-bottom: 0.25rem;
+      font-weight: 600 !important;
+    }
+    .markdown-section h2 + h3,
+    .markdown-section h3 + h4 {
+      margin-top: 1rem !important;
+    }
+  </style>
+
+  </style>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 </body>
 </html>

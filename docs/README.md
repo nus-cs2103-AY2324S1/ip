@@ -9,23 +9,7 @@ Todoify is easy to use for users with experience of the CLI. It:
 - available via your preferred [DE](https://en.wikipedia.org/wiki/Desktop_environment) or even your [terminal](https://en.wikipedia.org/wiki/Computer_terminal).
 - uses Unix- and POSIX-like CLI syntax, so experienced users can pick it up quickly.
 
-## Table of Contents
-
-- [Getting Started](#getting-started)
-- [Features](#features)
-    - [Command-Line Interface (CLI)](#command-line-interface-cli)
-    - [Viewing Help](#viewing-help-help-tutorial)
-    - [Adding a Todo](#adding-a-todo-todo)
-    - [Adding a Deadline](#adding-a-deadline-deadline)
-    - [Adding an Event](#adding-an-event-event)
-    - [List all tasks](#list-all-tasks-list)
-    - [Find tasks](#find-tasks-find-search)
-    - [Completing a task](#completing-a-task-mark-done-complete)
-    - [Revert completing a task](#revert-completing-a-task-unmark-undone-incomplete)
-    - [Deleting a task](#deleting-a-task-delete-remove)
-    - [Closing the conversation](#closing-the-conversation-bye-exit)
-    - [Launch Modes](#launch-modes)
-- [Command Summary](#command-summary)
+?> **Tip:** Use the ***sidebar*** on the left (if hidden, tap the menu button at the bottom left to reveal it) to browse the **Table of Contents**, or even **search for information**!
 
 ## Getting Started
 
@@ -38,12 +22,15 @@ Todoify is easy to use for users with experience of the CLI. It:
 
 ### Command-Line Interface (CLI)
 
-Todoify uses a Command-Line Interface format similar to others on Unix and Linux, but it is not exactly the same.
+Todoify uses a Command-Line Interface format similar to others on Unix and Linux, but it is not exactly the same. Additionally, you "send" your command to the Todoify chatbot, instead of a shell.
 
-As an example, the following is a valid input format.
+#### Example Command Format
+
 ```sh
 commandname long input text --parameter1 first value --parameter2 second value
 ```
+
+The command here is long. On small screens, you might need to scroll horizontally to see all of it.
 
 This evaluates:
 - the command `commandname`,
@@ -51,14 +38,17 @@ This evaluates:
 - while it sets `--parameter1` to `first value`,
 - and sets `--parameter 2` set to `second value`.
 
-#### Format Notes
+#### Detailed Command Formatting Notes
 
 - The first word is always the **command name**.
 - The second word till the last non-"`--`"-prefixed word is the **command input text**.
-- **Parameters** can be rearranged with no issue as they are only identified by name. They must be marked with the prefix `--`.
+- **Parameters** are identified by name and with a `--` prefix. Order of different command parameters are not important, so `--from A --to B` and `--to B --from A` mean the same thing.
 - Any text without the `--` prefix is not considered to be a parameter and is considered part of a contiguous text chunk, so no need to surround text with quotes like in standard shell commands.
 - If duplicate parameters are present, the last value is considered.
-- When a command format description contains stuff in `<>`, it refers to an inline explanatory description that should be replaced with actual command info.
+- There are no methods (yet) to escape the `--` prefix. Hence, your content should not contain a word with said prefix.
+
+#### Miscellaneous
+- In help sheets, when a command format description contains stuff in `<>`, it refers to an inline explanatory description that should be replaced with actual command info.
 
 ### Viewing Help: `help`, `tutorial`
 
@@ -180,7 +170,7 @@ For example:
 - `delete 1` deletes the task numbered 1.
 - `remove 3` removes the task numbered 3.
 
-> **Warning:** Note that deleting a task will change numbering for all tasks after it. Be careful when you are planning to deleting multiple tasks.
+!> **Warning:** Note that deleting a task will change numbering for all tasks after it. Be careful when you are planning to deleting multiple tasks.
 
 ### Closing the conversation: `bye`, `exit`
 
@@ -207,7 +197,7 @@ For very advanced users, you can launch Todoify in both **GUI** and **TUI** mode
 - `java -jar todoify-v1.0.jar --text-ui`, or
 - `java -jar todoify-v1.0.jar -t` as a shortcut.
 
-Please note that you need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
+?> Note that you might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
 
 ## Command Summary
 
