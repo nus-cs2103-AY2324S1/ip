@@ -51,7 +51,7 @@ public abstract class Task {
     }
 
     /**
-     * Check whether the name of the task containing the keyword
+     * Checks whether the name of the task containing the keyword
      *
      * @param keyWord the keyword
      * @return whether the name of the task containing the keyword

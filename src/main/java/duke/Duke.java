@@ -37,7 +37,7 @@ public class Duke {
     }
 
     /**
-     * The main method
+     * Executes the program
      *
      * @param args the input argument
      */
