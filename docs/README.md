@@ -4,7 +4,7 @@ User Interface to allow users to easily visualise their tasks.
 
 ## Quick Start
 1. Ensure you have `Java 11` installed on the computer.
-2. Download `obi_wan.jar` from here.
+2. Download `obi_wan.jar` from [here](https://github.com/Kb-Tay/ip/releases/tag/v0.2).
 3. Save the `.jar` file to a folder you want. `cd` to folder and run the command `java -jar obi_wan.jar`  
 
 ## Features 
