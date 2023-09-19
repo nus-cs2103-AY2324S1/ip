@@ -114,6 +114,10 @@ public class TaskList implements Iterable<Task> {
         tasks.sort((task1, task2) -> {
             if (task1 instanceof Deadline && task2 instanceof Deadline) {
                 return ((Deadline) task1).getDueDate().compareTo(((Deadline) task2).getDueDate());
+            } else if (task1 instanceof Deadline) {
+                return -1;
+            } else if (task2 instanceof Deadline) {
+                return 1;
             }
             return 0;
         });

@@ -12,43 +12,43 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-import duke.exception.EmptyDescriptionException;
+import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
 
 public class ParserTest {
 
     @Test
-    public void testParseListCommand() throws InvalidCommandException, EmptyDescriptionException {
+    public void testParseListCommand() throws DukeException {
         Command command = Parser.parse("list");
         assertTrue(command instanceof ListCommand);
     }
 
     @Test
-    public void testParseDeleteCommand() throws InvalidCommandException, EmptyDescriptionException {
+    public void testParseDeleteCommand() throws DukeException {
         Command command = Parser.parse("delete 1");
         assertTrue(command instanceof DeleteCommand);
     }
 
     @Test
-    public void testParseMarkCommand() throws InvalidCommandException, EmptyDescriptionException {
+    public void testParseMarkCommand() throws DukeException {
         Command command = Parser.parse("mark 1");
         assertTrue(command instanceof MarkCommand);
     }
 
     @Test
-    public void testParseUnmarkCommand() throws InvalidCommandException, EmptyDescriptionException {
+    public void testParseUnmarkCommand() throws DukeException {
         Command command = Parser.parse("unmark 1");
         assertTrue(command instanceof UnmarkCommand);
     }
 
     @Test
-    public void testParseAddCommand() throws InvalidCommandException, EmptyDescriptionException {
+    public void testParseAddCommand() throws DukeException {
         Command command = Parser.parse("todo Test");
         assertTrue(command instanceof AddCommand);
     }
 
     @Test
-    public void testParseExitCommand() throws InvalidCommandException, EmptyDescriptionException {
+    public void testParseExitCommand() throws DukeException {
         Command command = Parser.parse("bye");
         assertTrue(command instanceof ExitCommand);
     }

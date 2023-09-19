@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * Represents an exception that is thrown when a todo task has an empty description.
+ * Represents an exception that is thrown when a task description is empty.
  */
 public class EmptyDescriptionException extends DukeException {
 
@@ -9,6 +9,6 @@ public class EmptyDescriptionException extends DukeException {
      * Constructs a new EmptyDescriptionException with a default error message.
      */
     public EmptyDescriptionException() {
-        super("The description of a todo cannot be empty.");
+        super("The description of a task cannot be empty.");
     }
 }
