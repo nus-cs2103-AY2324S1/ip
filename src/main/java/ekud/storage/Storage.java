@@ -106,10 +106,10 @@ public class Storage {
                 response = numHighPriorityUndoneTasks == 0
                         ? String.format(
                         "[You currently have (%d) unfinished task(s)]",
-                        curTaskIndex - numDoneTasks, numHighPriorityUndoneTasks)
+                        curTaskIndex - numDoneTasks)
                         : String.format(
-                        "[You currently have (%d) unfinished task(s),\n(%d HIGH priority)]",
-                        curTaskIndex - numDoneTasks, numHighPriorityUndoneTasks);
+                        "[You currently have (%d) HIGH priority task(s) out of (%d) unfinished task(s)]",
+                        numHighPriorityUndoneTasks, curTaskIndex - numDoneTasks);
             };
             return response;
         } catch (IOException e) {

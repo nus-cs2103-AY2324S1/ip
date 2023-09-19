@@ -12,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
@@ -27,9 +26,8 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    private static final String USER_DIALOG_BG_COLOR = "#D5FFC9";
-    private static final String DUKE_DIALOG_BG_COLOR = "#DCFFFD";
-
+    private static final String USER_DIALOG_BG_COLOR = "#8FFFA1";
+    private static final String DUKE_DIALOG_BG_COLOR = "#CFBCFF";
 
     private DialogBox(String text, Image img) {
         try {
@@ -62,14 +60,34 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setStyle(String.format("-fx-background-color: %s", USER_DIALOG_BG_COLOR));
+        // Rounded corners styling for the dialog prop, credits to
+        // https://stackoverflow.com/questions/33421353/java-fx-8-dialog-rounded-corners
+        db.dialog.setStyle(String.format(
+                "-fx-background-color: %s; -fx-background-radius: 15 15 15 15;"
+                + "-fx-padding: 12 12 12 12; -fx-margin: 0 100 0 0",
+                USER_DIALOG_BG_COLOR));
+        db.dialog.setMinWidth(50);
+        // Change the alignment of content within props using setAlignment() of the respective prop, credits to
+        // https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=setAlignment(Pos.,shown%20in%20Figure%202%2D5.
+        db.dialog.setAlignment(Pos.CENTER);
+        // Align the user dialog to the center right w.r.t. the dialog box
+        db.setAlignment(Pos.CENTER_RIGHT);
+        // Set left padding in dialog box so user dialog has some space from the left
+        db.setStyle("-fx-padding: 5 5 5 50;");
         return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.setStyle(String.format("-fx-background-color: %s", DUKE_DIALOG_BG_COLOR));
+        db.dialog.setStyle(String.format(
+                "-fx-background-color: %s; -fx-background-radius: 20 20 20 20;"
+                + "-fx-padding: 12 12 12 12; -fx-margin: 0 100 0 0",
+                DUKE_DIALOG_BG_COLOR));
+        // Align the ekud dialog to the bottom left w.r.t the dialog box
+        db.setAlignment(Pos.BOTTOM_LEFT);
+        // Set right padding in dialog box so ekud dialog has some space from the right
+        db.setStyle("-fx-padding: 5 50 5 5;");
         return db;
     }
 }
