@@ -24,6 +24,8 @@ public class Parser {
 
         if (command.equals("bye")) {
             return Command.BYE;
+        } else if (command.equals("help")) {
+            return Command.HELP;
         } else if (command.equals("todo")) {
             return Command.TODO;
         } else if (command.equals("deadline")) {
