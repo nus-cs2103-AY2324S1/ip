@@ -3,7 +3,6 @@ package commands;
 import data.TaskList;
 import data.exception.DukeException;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -14,7 +13,7 @@ import ui.UiMessage;
  */
 public abstract class Command {
     public abstract UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException;
+            TaskList tasks, Storage storage) throws DukeException;
 
     public boolean isExit() {
         return false;

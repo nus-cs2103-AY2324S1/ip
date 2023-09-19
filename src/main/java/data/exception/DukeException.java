@@ -1,10 +1,7 @@
 package data.exception;
 
-import ui.UiCli;
-
 /**
  * The custom {@link Exception} class for Duke.
- * Used by {@link UiCli} to print error messages.
  */
 public class DukeException extends Exception {
     private final String msg;

@@ -3,7 +3,6 @@ package commands;
 import data.TaskList;
 import parser.Parser;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -13,7 +12,7 @@ import ui.UiMessage;
 public class EmptyCommand extends Command {
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) {
+            TaskList tasks, Storage storage) {
         return new UiMessage();
     }
 }

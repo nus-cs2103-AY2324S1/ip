@@ -7,7 +7,6 @@ import data.exception.DukeException;
 import data.tasks.Event;
 import data.tasks.Task;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -35,7 +34,7 @@ public class EventCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
+            TaskList tasks, Storage storage) throws DukeException {
         Task event = new Event(description, from, to);
         tasks.add(event);
         storage.update(tasks);

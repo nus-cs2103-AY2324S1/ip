@@ -5,7 +5,6 @@ import data.exception.DukeException;
 import data.exception.InvalidParamException;
 import data.tasks.Task;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -40,7 +39,7 @@ public class MarkCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
+            TaskList tasks, Storage storage) throws DukeException {
         // User tries to mark/unmark a task that is out of bounds.
         if (taskCount < 1 || taskCount > tasks.getSize()) {
             throw new DukeException(String.format(

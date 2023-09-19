@@ -19,20 +19,19 @@ import common.DateParser;
 import data.exception.DukeException;
 import data.exception.InvalidDateParamException;
 import data.exception.InvalidParamException;
+import data.exception.UnrecognizedCommandException;
 
 /**
  * The Parser class. Handles the parsing of user commands
  * and returns the appropriate {@link Command} class.
- * Throws a {@link DukeException} when the user gives an
- * invalid command.
  */
 public class Parser {
 
     /**
-     * The method parses the user command, splitting it by
-     * space and extracting the first part of the command.
-     * It will match the first part to a set of allowable
-     * commands and return the respective {@link Command} instance.
+     * The method parses the user command and extracts
+     * the first part of the command.
+     * It will match it to a set of allowable commands
+     * and return the respective {@link Command} instance.
      *
      * @param input The user command.
      * @return A {@link Command} instance created according to the user command.
@@ -70,11 +69,7 @@ public class Parser {
         case "find":
             return parseFindCommand(input);
         default:
-            throw new DukeException(new String[] {
-                "Unrecognized command: " + command,
-                "Maybe create a new TODO with "
-                        + "todo read a book"
-            });
+            throw new UnrecognizedCommandException(command);
         }
     }
 
@@ -151,7 +146,8 @@ public class Parser {
      * @throws InvalidDateParamException Thrown when an invalid
      *                                   date is given.
      */
-    private Command parseDeadlineCommand(String input) throws InvalidParamException, InvalidDateParamException {
+    private Command parseDeadlineCommand(String input)
+        throws InvalidParamException, InvalidDateParamException {
         // Split by the "/by" to separate the first and second part.
         String[] parseArr = input.split("/by ");
 
@@ -200,7 +196,8 @@ public class Parser {
      * @throws InvalidDateParamException Thrown when an invalid
      *                                   date is given.
      */
-    private Command parseEventCommand(String input) throws InvalidParamException, InvalidDateParamException {
+    private Command parseEventCommand(String input)
+        throws InvalidParamException, InvalidDateParamException {
         // Split by "/from" to separate the first and (second + third) part.
         String[] parseArr = input.split("/from ");
 

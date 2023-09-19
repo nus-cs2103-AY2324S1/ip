@@ -7,7 +7,6 @@ import data.exception.DukeException;
 import data.tasks.Deadline;
 import data.tasks.Task;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -33,8 +32,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public UiMessage execute(TaskList tasks,
-            Storage storage,
-            UiCli uiCli) throws DukeException {
+            Storage storage) throws DukeException {
         Task dl = new Deadline(description, deadline);
         tasks.add(dl);
         storage.update(tasks);

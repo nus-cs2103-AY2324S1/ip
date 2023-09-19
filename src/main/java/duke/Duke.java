@@ -80,7 +80,7 @@ public class Duke {
             input = uiCli.readInput();
             try {
                 Command c = parser.parse(input);
-                UiMessage result = c.execute(tasks, storage, uiCli);
+                UiMessage result = c.execute(tasks, storage);
                 uiCli.displayMsg(result.getRawStringArr());
                 isExit = c.isExit();
             } catch (DukeException e) {
@@ -96,7 +96,7 @@ public class Duke {
 
     public String getResponse(String input) throws DukeException {
         Command c = parser.parse(input);
-        UiMessage result = c.execute(tasks, storage, uiCli);
+        UiMessage result = c.execute(tasks, storage);
         return result.toString();
     }
 

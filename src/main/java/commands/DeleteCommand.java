@@ -5,7 +5,6 @@ import data.exception.DukeException;
 import data.exception.InvalidParamException;
 import data.tasks.Task;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -35,7 +34,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
+            TaskList tasks, Storage storage) throws DukeException {
         Task removedTask = tasks.delete(taskIndex - 1);
 
         // Write modified task list to file

@@ -5,7 +5,6 @@ import data.exception.DukeException;
 import data.tasks.Task;
 import data.tasks.Todo;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -27,7 +26,7 @@ public class TodoCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
+            TaskList tasks, Storage storage) throws DukeException {
         Task todo = new Todo(description);
         tasks.add(todo);
         storage.update(tasks);
