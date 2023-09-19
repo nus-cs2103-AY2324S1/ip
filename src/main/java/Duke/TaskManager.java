@@ -21,7 +21,6 @@ public class TaskManager {
      *
      * @param taskList the tasks
      */
-
     public TaskManager(ArrayList<Task> taskList) {
         this.tasks = taskList;
     }
@@ -107,5 +106,35 @@ public class TaskManager {
             }
         }
         return tasksFound;
+    }
+
+    /**
+     * Update.
+     *
+     * @param index       the index
+     * @param description the description
+     */
+    public void update(int index, String description) {
+        String[] taskType = description.split(" ", 2);
+        switch (taskType[0]) {
+        case "todo":
+            tasks.set(index, new Todo(taskType[1]));
+            break;
+        case "deadline":
+            String[] fullDesc = taskType[1].split(" /by ");
+            String desc = fullDesc[0];
+            LocalDateTime by = LocalDateTime.parse(fullDesc[1]);
+            tasks.set(index, new Deadline(desc, by));
+            break;
+        case "event":
+            String[] fullDes = taskType[1].split(" /from | /to ");
+            String eventDesc = fullDes[0];
+            LocalDateTime from = LocalDateTime.parse(fullDes[1]);
+            LocalTime to = LocalTime.parse(fullDes[2]);
+            tasks.set(index, new Event(eventDesc, from, to));
+            break;
+        default:
+            break;
+        }
     }
 }
