@@ -210,17 +210,3 @@ Format: `bye`
 Expected outcome:
 
 Program exits successfully.
-
-## Command Summary
-| **Action**   | **Format, Examples**                                          |
-|--------------|---------------------------------------------------------------|
-| **Todo**     | `todo DESCRIPTION`                                            |
-| **Deadline** | `deadline DESCRIPTION /by yyyy-MM-dd HHmm`                    |
-| **Event**    | `event DESCRIPTION /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm` |
-| **List**     | `list`                                                        |
-| **Mark**     | `mark INDEX`                                                  |
-| **Unmark**   | `unmark INDEX`                                                |
-| **Delete**   | `delete INDEX`                                                |
-| **Find**     | `find KEYWORD`                                                |
-| **Sort**     | `sort`                                                        |
-| **Exit**     | `bye`                                                         |
