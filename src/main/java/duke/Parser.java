@@ -3,7 +3,6 @@ package duke;
 import exceptions.DukeException;
 import exceptions.EmptyDescriptionException;
 import exceptions.OutOfRangeException;
-import exceptions.UnknownCommandException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -43,19 +42,23 @@ public class Parser {
         }
     }
 
-    public static String parseEvent(String input, TaskList list) { //add date time formatter
+    public static String parseEvent(String input, TaskList list) {
         try {
             if (input.substring(6).isBlank()) {
                 throw new EmptyDescriptionException();
             }
             String[] split = input.substring(6).split(" /from ");
             String description = split[0];
-            String[] fromto = split[1].split(" /to ");
-            String from = fromto[0];
-            String to = fromto[1];
+            String[] fromTo = split[1].split(" /to ");
+            LocalDate startDate = LocalDate.parse(fromTo[0]);
+            LocalDate endDate = LocalDate.parse(fromTo[1]);
+            String from = startDate.format(DateTimeFormatter.ofPattern("MMM d yyy"));
+            String to = endDate.format(DateTimeFormatter.ofPattern("MMM d yyy"));
             return list.addTask(new Event(description, from, to));
         } catch (DukeException e) {
             return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return "oOps invalid time input";
         }
 
     }

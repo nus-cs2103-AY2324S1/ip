@@ -1,7 +1,2 @@
-T | 0 | read
+T | 1 | read book
 D | 0 | return book | Oct 15 2023
-E | 0 | book event | 2pm | 4pm
-T | 0 | read
-T | 0 | read more
-T | 0 | list
-T | 0 | write

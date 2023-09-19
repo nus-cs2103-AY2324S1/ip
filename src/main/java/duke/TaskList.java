@@ -39,7 +39,7 @@ public class TaskList {
         count++;
         return "Got it. I've added this task:\n"
                        + list.get(count - 1) + "\n"
-                       + "Now you have " + (count - 1) + " tasks in the list.";
+                       + "Now you have " + (count) + " tasks in the list.";
 
     }
 
@@ -49,10 +49,11 @@ public class TaskList {
      * @param index Index of the item to be removed from the list.
      */
     public String deleteTask(int index) {
+        Task deletedTask = list.get(index);
         this.list.remove(index);
         count--;
         return "Noted. I've removed this task:\n"
-                       + list.get(index) + "\n"
+                       + deletedTask + "\n"
                        + "Now you have " + count + " tasks in the list";
     }
 
@@ -81,7 +82,7 @@ public class TaskList {
     public String findTask(String input, TaskList list) {
         int[] indexList = new int[100];
         int counter = 0;
-        StringBuilder tasksFound = new StringBuilder("Here are the matching tasks in your list:");
+        StringBuilder tasksFound = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < count; i++) {
             if (list.getTask(i).toString().contains(input)) {
                 indexList[counter] = i;
