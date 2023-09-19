@@ -27,6 +27,7 @@ Example of usage:
 You will receive a successful message (like below) if done correctly.
 
 `Got it. I've added this task`
+
 -----------------------------------------------------------------------------------------------------
 
 ### 2. Adding a Deadline task `deadline`
@@ -39,6 +40,7 @@ Example of usage:
 You will receive a successful message (like below) if done correctly.
 
 `Got it. I've added this task`
+
 -----------------------------------------------------------------------------------------------------
 
 ### 3. Adding a Event task `event`
@@ -51,6 +53,7 @@ Example of usage:
 You will receive a successful message (like below) if done correctly.
 
 `Got it. I've added this task`
+
 -----------------------------------------------------------------------------------------------------
 
 ### 4. Listing all tasks `list`
@@ -65,6 +68,7 @@ Output (if you have tasks in the list stored) :
 `1. [T][ ] read book`
 
 `2. [D][ ] return book`
+
 -----------------------------------------------------------------------------------------------------
 
 ### 5. Deleting a Task `delete`
@@ -77,6 +81,7 @@ Example usage:
 You will receive a successful message (like below) if done correctly.
 
 `Noted. I've removed this task`
+
 -----------------------------------------------------------------------------------------------------
 
 ### 6. Marking a Task `mark`
@@ -89,6 +94,7 @@ Example usage:
 You will receive a successful message (like below) if done correctly.
 
 `Nice! I've marked this task as done`
+
 -----------------------------------------------------------------------------------------------------
 
 ### 7. Unmarking a Task `unmark`
@@ -101,6 +107,7 @@ Example usage:
 You will receive a successful message (like below) if done correctly.
 
 `OK, I've marked this task as not done yet`
+
 -----------------------------------------------------------------------------------------------------
 
 ### 8. Finding a Task `find`
@@ -113,6 +120,7 @@ Example usage: `find book`
 You will receive a list of all the tasks in list matching `book`
 1. read book
 2. return book
+
 -----------------------------------------------------------------------------------------------------
 
 ### 9. Updating a Task `update`
@@ -128,6 +136,7 @@ Assuming `1. todo read book` in list
 
 output:
 `Task read cinderella has been updated successfully`
+
 -----------------------------------------------------------------------------------------------------
 
 # FAQ
