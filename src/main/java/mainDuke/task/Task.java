@@ -109,7 +109,6 @@ public abstract class Task {
         boolean done = parts[1].equals("1"); // 1 = done, 0 = undone
 
         String description = parts[2];
-        System.out.println("desc : " + description);
         switch (first) {
         case "T":
             task = new Todo(done, "todo " + description);
@@ -129,7 +128,6 @@ public abstract class Task {
         default:
             throw new DukeException("Unable to parse from hard drive");
         }
-        System.out.println("here : " + task);
         return task;
     }
 
@@ -147,7 +145,7 @@ public abstract class Task {
             if (word.startsWith("#")) {
                 tags.add(word);
             } else {
-                filteredText.append(word);
+                filteredText.append(" " + word);
             }
         }
 
