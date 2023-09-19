@@ -66,8 +66,24 @@ Format: `search [KEYWORD_STRING] [TASK_TYPE] (optional)`
 
 Example of usage: `search tuna`, `search tuna event`, `search tuna deadline` 
 
+* `search tuna` search for the keyword "tuna" in all tasks:
+* `search tuna event` - search for the keyword "tuna" in Event tasks:
+* `search tuna deadline` - search for the keyword "tuna" in Deadline tasks:
+
 ### Exit the program: `bye`
 
 The bye command allows you to exit the program.
 
 Format: `bye`
+
+## Command summary
+
+Action | Format, Examples
+--------|------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Clear** | `clear`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Delete** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Search** | `search` e.g., `search tuna event`
+**Bye** | `bye`
