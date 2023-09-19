@@ -60,6 +60,7 @@ public enum DukeExceptionType {
     LIST_NO_RESOURCE_SPECIFIED("You did not specify the resource type!\n\n"
             + "Correct usage: list <resource type>\n"),
     NO_TASK_NUMBER("Please enter the task number."),
+    SAVE_FILE_LOAD_FAILED("Sorry! I was unable to load the save file :("),
     TASK_ALREADY_MARKED("The task number you've entered is already marked as complete."),
     TASK_ALREADY_UNMARKED("The task number you've entered is already unmarked."),
     UNKNOWN_COMMAND("I'm sorry, I don't know what that means :-(\n"
