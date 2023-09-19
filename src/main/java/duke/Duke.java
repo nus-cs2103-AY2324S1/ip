@@ -24,7 +24,6 @@ public class Duke {
      * @param filePath path to read and write files from
      */
     public Duke(String filePath) {
-        System.out.println("test");
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -42,10 +41,16 @@ public class Duke {
      */
     public String getResponse(String input) {
         boolean isExit = false;
+
+        assert input != null;
+        //ensure variables are initialised
+        assert tasklst != null;
+        assert ui != null;
+        assert storage != null;
+
         while (!isExit) {
             try {
                 Command c = Parser.parseUserInput(input);
-                System.out.println(ui);
                 return c.execute(tasklst, ui, storage);
             } catch (DukeException | IOException e) {
                 return e.getMessage();

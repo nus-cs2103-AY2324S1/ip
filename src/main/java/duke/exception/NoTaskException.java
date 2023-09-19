@@ -7,6 +7,6 @@ public class NoTaskException extends DukeException {
      * Constructor of a NoTaskException.
      */
     public NoTaskException() {
-        super("Error! Cannot add an empty todo!");
+        super("Error! Cannot add an empty task!");
     }
 }
