@@ -42,7 +42,7 @@ public class TaskList {
      * @param params Represents the string parameters used to create the new task.
      * @return A new task object.
      */
-    private Task identifyCreateTask(boolean isFromDatabase, String... params) {
+    private Task identifyCreateTask(boolean isFromDatabase, String... params) throws RuntimeException {
         // If the params variable arguments is from the database
         // There is a single digit 0/1 to represent isDone status
         // Needs to move the start index to read arguments for creating the task 1 position back
@@ -64,6 +64,9 @@ public class TaskList {
         case EVENT:
             assert params.length == 4;
             task = new Event(params[startIndex + 1], params[startIndex + 2], params[startIndex + 3]);
+            break;
+        default:
+            assert false : "Should not reach here!";
         }
 
         if (isFromDatabase && isDone) {

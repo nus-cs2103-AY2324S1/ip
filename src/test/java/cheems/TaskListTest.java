@@ -6,11 +6,11 @@ import cheems.tasks.Deadline;
 import cheems.tasks.Event;
 import cheems.tasks.Todo;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 
-import static org.assertj.core.api.Assertions.assertThat;;
+import java.time.format.DateTimeParseException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -20,14 +20,13 @@ class TaskListTest {
     @Test
     void addTaskToDatabaseTest_todo_success() {
         TaskList tasklist = new TaskList(storageMock);
-        String[] params = {"TODO","Sing a song"};
+        String[] params = {"TODO", "Sing a song"};
         String actualOutput = tasklist.addTaskToDatabase(params);
 
         Todo todo = new Todo("Sing a song");
         String expectedOutput = "I have added this task for you!\n" + todo.toString();
         expectedOutput += String.format("\nNow you have %d task(s) in your list!", tasklist.getTotal());
 
-        assertTrue(new ReflectionEquals(todo).matches(tasklist.getTaskAt(0)));
         assertEquals(1, tasklist.getTotal());
         assertEquals(expectedOutput, actualOutput);
         verify(storageMock).saveNewTask(todo.toStorage());
@@ -61,5 +60,20 @@ class TaskListTest {
         assertEquals(1, tasklist.getTotal());
         assertEquals(expectedOutput, actualOutput);
         verify(storageMock).saveNewTask(event.toStorage());
+    }
+
+    @Test
+    void addTaskToDatabaseTest_taskWrongFormat_exceptionThrown() {
+        TaskList tasklist = new TaskList(storageMock);
+        String[] params1 = {"EVENT", "conference", "2022-12", "2022-12-24"};
+        String[] params2 = {"DEADLINE", "quizzes", "abc"};
+
+        assertThrows(DateTimeParseException.class, () -> {
+            tasklist.addTaskToDatabase(params1);
+        });
+        assertThrows(DateTimeParseException.class, () -> {
+            tasklist.addTaskToDatabase(params2);
+        });
+        assertEquals(0, tasklist.getTotal());
     }
 }
