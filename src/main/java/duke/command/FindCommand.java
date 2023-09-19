@@ -5,8 +5,15 @@ import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 
+/**
+ * Executes the command to locate tasks that contain a certain keyword.
+ * This looks for Tasks with the keyword, and will be presented to the user.
+ */
 public class FindCommand implements Command {
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String execute(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         String search = text.substring(5);

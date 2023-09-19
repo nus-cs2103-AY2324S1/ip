@@ -12,7 +12,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private Duke duke = new Duke("src/main/java/duke/data/duke.txt");
+    private Duke duke = new Duke("data/duke.txt");
+
+    public Main() throws DukeException {
+    }
 
     @Override
     public void start(Stage stage) {

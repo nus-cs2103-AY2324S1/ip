@@ -35,6 +35,8 @@ public class UI {
      * Prints a welcome message.
      * This is the first message the user will receive upon
      * using the program.
+     *
+     * @return The welcome message
      */
     public String welcomeMessage() {
         stringBuilder.append((String.format("Hello I'm %s, your personal assistant. \n", UI.name)));
@@ -55,20 +57,28 @@ public class UI {
     }
 
     /**
-     * Sends a message to the user.
-     * Based on the parameter, a message will be
-     * sent to the user.
+     * Stores a message in the string builder.
+     * This adds a string to the string builder.
      *
-     * @param message The message that it to be sent to the user.
+     * @param message The message that is to be stored up in the string builder.
      */
     public void buildMessage(String message) {
         stringBuilder.append(message);
     }
 
+    /**
+     * Sends the string which has been stored in the string builder.
+     *
+     * @return The message that is to be sent to the user.
+     */
     public String sendMessage() {
         return stringBuilder.toString();
     }
 
+    /**
+     * Clears all previous strings that were in the string builder.
+     *
+     */
     public void clearStringBuilder() {
         stringBuilder.setLength(0);
     }

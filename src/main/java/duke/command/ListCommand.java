@@ -5,8 +5,14 @@ import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 
+/**
+ * Executes the command to show all Tasks currently in the TaskList.
+ */
 public class ListCommand implements Command {
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String execute(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         if (list.size() == 0) {

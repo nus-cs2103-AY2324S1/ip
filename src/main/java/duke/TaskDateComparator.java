@@ -2,7 +2,14 @@ package duke;
 
 import java.util.Comparator;
 
+/**
+ * Comparator object which compares two tasks based off the date. The earlier date comes first.
+ */
 public class TaskDateComparator implements Comparator<Task> {
+
+    /**
+     * @inheritDoc
+     */
     @Override
     public int compare(Task firstTask, Task secondTask) {
         if (firstTask instanceof Deadline && secondTask instanceof Deadline) {

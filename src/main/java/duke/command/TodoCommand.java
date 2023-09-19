@@ -4,8 +4,15 @@ import duke.*;
 
 import java.io.IOException;
 
+/**
+ * Executes the creation of a Todo task.
+ * This adds a Todo task to the Tasklist.
+ */
 public class TodoCommand implements Command {
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String execute(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         String description = text.substring(4);

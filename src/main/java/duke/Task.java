@@ -59,6 +59,14 @@ public class Task {
     public Tag getTag() {
         return this.tag;
     }
+
+    /**
+     * Returns the value of the tag.
+     * Each tag, T, D and E are tied to Todo, Deadline, and Event respectively.
+     * For sorting purposes, they are given a value. T with 3, D with 2 and E with 1.
+     * @param task A task object.
+     * @return The integer value of the tag.
+     */
     public static int tagValue(Task task) {
         switch (task.getTag()) {
             case T:

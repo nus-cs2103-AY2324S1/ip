@@ -6,7 +6,15 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Executes the creation of an Event task.
+ * This adds an Event task to the Tasklist.
+ */
 public class EventCommand implements Command {
+
+    /**
+     * @inheritDoc
+     */
     @Override
     public String execute(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         String[] splitText = text.split("/");

@@ -7,8 +7,14 @@ import duke.UI;
 
 import java.io.IOException;
 
+/**
+ * Executes the command to mark the specified Task as complete.
+ */
 public class MarkCommand implements Command {
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String execute(String text, UI ui, TaskList list, Storage storage) throws DukeException {
         try {

@@ -26,7 +26,12 @@ public class Duke {
         ui = new UI("Alfred");
         storage = new Storage(filePath);
         tasks = new TaskList();
-        Storage.preloadFromFile(tasks);
+        try {
+            Storage.preloadFromFile(tasks);
+        } catch (DukeException e) {
+            ui.buildMessage(e.getMessage());
+            ui.sendMessage();
+        }
         parser = new Parser();
 
     }
@@ -38,12 +43,9 @@ public class Duke {
                     String command = ui.readCommand();
                     assert command != null;
                     if (parser.parse(command, ui, tasks, storage).execute(command, ui, tasks, storage).equals
-                            ("Goodbye. Hope to be of service again soon!\n"))
-                    {
-                        isExit = true;
+                            ("Goodbye. Hope to be of service again soon!\n")) {
                         Platform.exit();
                     };
-
                 } catch (DukeException e) {
                     ui.printline();
                     System.out.println(e.getMessage());
@@ -65,7 +67,8 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        Duke duke = new Duke("src/main/java/duke/data/duke.txt");
+//        Duke duke = new Duke("src/main/java/duke/data/duke.txt");
+        Duke duke = new Duke("data/duke.txt");
         duke.run();
     }
 }
