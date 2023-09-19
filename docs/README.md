@@ -55,10 +55,10 @@ The user inputs the keyword `task`, followed by the details of the task. The tas
 
 Example of usage: 
 
-User: `task`
-Leon: `Input task details.`
-User: `clean the room`
-Leon: `Don't expect me to clean the room for you!`
+- User: `task`
+- Leon: `Input task details.`
+- User: `clean the room`
+- Leon: `Don't expect me to clean the room for you!`
 
 Expected outcome:
 
@@ -66,4 +66,23 @@ Task is added to the list.
 
 ```
 Don't expect me to clean the room for you!
+```
+
+### `todo` - Create a new Todo
+
+The user inputs the keyword `todo`, followed by the details of the Todo. The Todo will then be added to the list.
+
+Example of usage: 
+
+- User: `todo`
+- Leon: `Input todo details.`
+- User: `finish cs2103 project`
+- Leon: `Stop talking to me! Go and finish cs2103 project!`
+
+Expected outcome:
+
+Todo is added to the list.
+
+```
+Stop talking to me! Go and finish cs2103 project!
 ```
