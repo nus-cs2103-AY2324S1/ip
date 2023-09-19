@@ -31,6 +31,7 @@ public class EventCommand implements Command {
      * @throws InvalidIndexException      If an invalid index is provided.
      * @throws InvalidTaskFormatException If the task format is invalid.
      */
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage)
             throws InvalidIndexException, InvalidTaskFormatException {
@@ -38,7 +39,7 @@ public class EventCommand implements Command {
             throw new InvalidTaskFormatException(null);
         }
         assert taskList != null && ui != null && storage != null;
-      
+
         int indexOfFrom = userInput.indexOf("from");
         int indexOfTo = userInput.indexOf("to");
         if (indexOfFrom == 1 || indexOfTo == 1 && indexOfFrom >= indexOfTo) {
@@ -64,5 +65,5 @@ public class EventCommand implements Command {
         return ui.printResponse("Yes Master! I've added this task: \n" + "\t" + event.toString() + "\n"
                 + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
     }
-
 }
+

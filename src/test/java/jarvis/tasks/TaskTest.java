@@ -38,6 +38,7 @@ public class TaskTest {
     public void testSetAndGetDueDate() {
         LocalDateTime dueDate = LocalDateTime.of(2023, 9, 30, 12, 0);
         task.setDueDate(dueDate);
-        assertEquals(dueDate, task.getDueDate());
+        LocalDateTime returnedDueDate = task.getDueDate();
+        assertEquals(dueDate, returnedDueDate);
     }
 }

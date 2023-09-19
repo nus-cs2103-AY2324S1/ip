@@ -34,13 +34,11 @@ public class FindCommand implements Command {
             throw new InvalidTaskFormatException(null);
         }
         assert taskList != null && ui != null && storage != null;
-      
         ArrayList<Task> foundTasks = findTasks(taskList);
         return getResponse(ui, foundTasks);
     }
 
     private ArrayList<Task> findTasks(TaskList taskList) {
-        
         int indexOfFind = userInput.indexOf("find");
         String keyword = userInput.substring(indexOfFind + 4).trim().toLowerCase();
 
