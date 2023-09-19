@@ -19,7 +19,7 @@ public class ListOfTask {
     private final Stack<Task> listOfDeletedTask = new Stack<>();
 
     /**
-     * The size of the task list.
+     * Returns the size of the task list.
      *
      * @return Returns the size of the task list.
      */
@@ -39,7 +39,7 @@ public class ListOfTask {
     }
 
     /**
-     * Undo the previous delete command.
+     * Undoes the previous delete command.
      *
      * @param index The index of the task that is to be added back.
      * @return Returns a string showing that the task has been added back.

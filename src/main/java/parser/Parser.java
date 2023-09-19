@@ -27,7 +27,7 @@ public class Parser {
     private String[] phaseParse;
 
     /**
-     * Construct the Parser object.
+     * Constructs the Parser object.
      *
      * @param command The string that needs to be parsed.
      */
@@ -48,89 +48,109 @@ public class Parser {
             return Commands.of(mainCmd);
 
         case TODO: case FIND:
-            if (this.secondString() == null) {
-                throw new DukeException("Please add the task name");
-            } else {
-                return Commands.of(mainCmd, this.secondString());
-            }
+            return parseToDoFind(mainCmd);
 
         case BY: case FROM: case TO:
-            try {
-                String restOfCommand = this.secondString().trim();
-                LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
-                return Commands.of(mainCmd, dateTime);
-            } catch (DateTimeParseException | NullPointerException e) {
-                throw new DukeDateTimeParseException("The format for dates&time is 'dd-MM-yyyy hhmm'");
-            }
+            return parseByFromTo(mainCmd);
 
         case MARK: case UNMARK: case DELETE:
-            try {
-                int index = Integer.parseInt(this.secondString());
-                return Commands.of(mainCmd, index);
-            } catch (NumberFormatException | NullPointerException e) {
-                throw new DukeNumberFormatException("Place a number after the command");
-            }
+            return parseMarkUnmarkDelete(mainCmd);
 
         case DEADLINE:
-            try {
-                String task = this.commandPhaseParse();
-                String command2 = this.phaseTwo();
-
-                if (task == null) {
-                    // No task name
-                    throw new DukeException("Please add the task name");
-                }
-
-                Parser phaseTwo = new Parser(command2);
-                Commands c = phaseTwo.parse();
-
-                if (c.checkCommand(BY)) {
-                    return Commands.of(mainCmd, task, c);
-                } else {
-                    // Wrong format
-                    throw new NullPointerException();
-                }
-            } catch (DukeUnknownCommandException | NullPointerException e) {
-                // Wrong format
-                throw new DukeNullPointerException("The format for the command is: "
-                        + "deadline task /by date&time");
-            }
+            return parseDeadline(mainCmd);
 
         case EVENT:
-            try {
-                String task = this.commandPhaseParse();
-                String secondaryCommand = this.phaseTwo();
-                String tertiaryCommand = this.phaseThree();
-
-                if (task == null) {
-                    throw new DukeException("Please add the task name");
-                }
-
-                Parser phaseTwo = new Parser(secondaryCommand);
-                Commands secCmd = phaseTwo.parse();
-                Parser phaseThree = new Parser(tertiaryCommand);
-                Commands terCmd = phaseThree.parse();
-
-                if (!secCmd.compareTime(terCmd)) {
-                    throw new DukeFromEarlierThanToException("From must be earlier than To");
-                }
-
-                if (secCmd.checkCommand(FROM) && terCmd.checkCommand(TO)) {
-                    return Commands.of(mainCmd, task, secCmd, terCmd);
-                } else {
-                    // Wrong format
-                    throw new NullPointerException();
-                }
-
-            } catch (DukeUnknownCommandException | NullPointerException e) {
-                // Wrong format
-                throw new DukeNullPointerException("The format for the command is: "
-                        + "event task /from startDayDateTime /to endDayDateTime");
-            }
+            return parseEvent(mainCmd);
         default:
             // Default would be unknown command, but that is an exception, thus it will be thrown.
         }
         throw new DukeUnknownCommandException("Unknown command");
+    }
+
+    private Commands parseToDoFind(Commands.CommandEnum mainCmd) throws DukeException {
+        if (this.secondString() == null) {
+            throw new DukeException("Please add the task name");
+        } else {
+            return Commands.of(mainCmd, this.secondString());
+        }
+    }
+
+    private Commands parseByFromTo(Commands.CommandEnum mainCmd) throws DukeException {
+        try {
+            String restOfCommand = this.secondString().trim();
+            LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
+            return Commands.of(mainCmd, dateTime);
+        } catch (DateTimeParseException | NullPointerException e) {
+            throw new DukeDateTimeParseException("The format for dates&time is 'dd-MM-yyyy hhmm'");
+        }
+    }
+
+    private Commands parseMarkUnmarkDelete(Commands.CommandEnum mainCmd) throws DukeException {
+        try {
+            int index = Integer.parseInt(this.secondString());
+            return Commands.of(mainCmd, index);
+        } catch (NumberFormatException | NullPointerException e) {
+            throw new DukeNumberFormatException("Place a number after the command");
+        }
+    }
+
+    private Commands parseDeadline(Commands.CommandEnum mainCmd) throws DukeException {
+        try {
+            String task = this.commandPhaseParse();
+            String command2 = this.phaseTwo();
+
+            if (task == null) {
+                // No task name
+                throw new DukeException("Please add the task name");
+            }
+
+            Parser phaseTwo = new Parser(command2);
+            Commands c = phaseTwo.parse();
+
+            if (c.checkCommand(BY)) {
+                return Commands.of(mainCmd, task, c);
+            } else {
+                // Wrong format
+                throw new NullPointerException();
+            }
+        } catch (DukeUnknownCommandException | NullPointerException e) {
+            // Wrong format
+            throw new DukeNullPointerException("The format for the command is: "
+                    + "deadline task /by date&time");
+        }
+    }
+
+    private Commands parseEvent(Commands.CommandEnum mainCmd) throws DukeException {
+        try {
+            String task = this.commandPhaseParse();
+            String secondaryCommand = this.phaseTwo();
+            String tertiaryCommand = this.phaseThree();
+
+            if (task == null) {
+                throw new DukeException("Please add the task name");
+            }
+
+            Parser phaseTwo = new Parser(secondaryCommand);
+            Commands secCmd = phaseTwo.parse();
+            Parser phaseThree = new Parser(tertiaryCommand);
+            Commands terCmd = phaseThree.parse();
+
+            if (!secCmd.compareTime(terCmd)) {
+                throw new DukeFromEarlierThanToException("From must be earlier than To");
+            }
+
+            if (secCmd.checkCommand(FROM) && terCmd.checkCommand(TO)) {
+                return Commands.of(mainCmd, task, secCmd, terCmd);
+            } else {
+                // Wrong format
+                throw new NullPointerException();
+            }
+
+        } catch (DukeUnknownCommandException | NullPointerException e) {
+            // Wrong format
+            throw new DukeNullPointerException("The format for the command is: "
+                    + "event task /from startDayDateTime /to endDayDateTime");
+        }
     }
 
     private Commands.CommandEnum mainCommand() {
