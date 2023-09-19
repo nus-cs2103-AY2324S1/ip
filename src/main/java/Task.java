@@ -3,10 +3,6 @@ public class Task {
     boolean isDone;
 
     public Task(String task) throws DukeException {
-        //when the command didn't go through any of the given cases
-        if (task == null){
-            throw new DukeException("I'm sorry, but I don't know what that means.");
-        }
         this.task = task;
         this.isDone = false;
     }
@@ -16,8 +12,12 @@ public class Task {
     }
 
     public String getStatus() {
-        String status = "[" + (isDone ? "1" : "0") + "]";
+        String status = "[" + (isDone ? "Yes" : "No") + "]";
         return status + " " + this.getTask();
+    }
+
+    public String getTime() {
+        return null;
     }
 
     public void markItem(Boolean isDone) {
@@ -29,7 +29,7 @@ public class Task {
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(this.getStatus());
-             System.out.println("Undone complete.");
+            System.out.println("Undone complete.");
         }
     }
 

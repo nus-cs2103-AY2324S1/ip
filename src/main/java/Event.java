@@ -6,28 +6,22 @@ public class Event extends Task {
         super(task);
         this.from = from;
         this.to = to;
-
-        // if (task.isBlank() || task.isEmpty()) {
-        //     throw new DukeException("The description of a Event task cannot be empty.");
-        // }
-
-        // if (from.isBlank() || from.isEmpty() || to.isBlank() || to.isEmpty()) {
-        //     throw new DukeException("The time of an Event task cannot be empty.");
-        // }
-    }
-
-    @Override
-    public String toFileString() {
-        if (super.isDone) {
-            return "E | 1 | " + super.task + " | " + this.from + "-" + this.to;
-        } else {
-            return "E | 0 | " + super.task + " | " + this.from + "-" + this.to;
-        }
     }
 
     @Override
     public String getStatus(){
         String time = "(from: " + from + " to: " + to + ")";
         return "[Event]" + super.getStatus() + " " + time;
+    }
+
+    @Override
+    public String getTime() {
+        return this.from + " " + this.to;
+    }
+
+    @Override
+    public String toFileString() {
+        return super.isDone ? ("E | 1 | " + super.task + " | " + this.from + "-" + this.to)
+        : ("E | 0 | " + super.task + " | " + this.from + "-" + this.to);
     }
 }
