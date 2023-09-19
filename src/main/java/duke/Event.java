@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private static final String INPUT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
     private static final String OUTPUT_DATE_TIME_FORMAT = "dd MMM yyyy HH:mm";
-
     static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(INPUT_DATE_TIME_FORMAT);
     static final DateTimeFormatter OUTPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT);
     private final LocalDateTime from;

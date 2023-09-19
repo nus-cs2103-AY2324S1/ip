@@ -5,6 +5,7 @@ import static duke.Storage.saveTasksToFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
@@ -140,7 +141,12 @@ public class Parser {
         if (instructionDetails.equals("")) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
-        taskList.add(new Todo(instructionDetails));
+        if (instructionDetails.contains("/takes")) {
+            String[] todoArr = instructionDetails.split("/takes ");
+            taskList.add(new Todo(todoArr[0], Todo.parseDuration(todoArr[1])));
+        } else {
+            taskList.add(new Todo(instructionDetails));
+        }
         finalText += "Got it. I've added this task: \n";
         finalText += taskList.get(i).toString();
         i++;
