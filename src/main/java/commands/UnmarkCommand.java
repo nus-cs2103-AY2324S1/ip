@@ -11,7 +11,7 @@ import tasks.TaskList;
 /**
  * Represents a type of command that can be read by the chatbot.
  */
-public class UnmarkComment extends Command {
+public class UnmarkCommand extends Command {
 
     private final int index;
 
@@ -19,7 +19,7 @@ public class UnmarkComment extends Command {
      * DeleteCommand constructor that takes in an int.
      * @param index Index of the task to be unmarked.
      */
-    public UnmarkComment(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
 
@@ -33,7 +33,7 @@ public class UnmarkComment extends Command {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is empty, nothing to unmark");
         }
-        if (index >= tasks.getSize()) {
+        if (index >= tasks.getSize() || index <= 0) {
             throw new DukeException("Unmark out of range");
         }
         Task selTask = tasks.getTask(index);

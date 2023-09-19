@@ -254,7 +254,7 @@ public class Parser {
             throw new DukeException("Invalid unmark format");
         }
         int selected = Integer.parseInt(input.substring(7)) - 1;
-        return new UnmarkComment(selected);
+        return new UnmarkCommand(selected);
     }
 
     private Command parseDelete(String input) throws DukeException {

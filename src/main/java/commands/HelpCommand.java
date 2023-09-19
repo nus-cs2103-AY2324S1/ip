@@ -24,7 +24,7 @@ public class HelpCommand extends Command {
                 + MarkCommand.help() + "\n"
                 + TodoCommand.help() + "\n"
                 + TodoTimeCommand.help() + "\n"
-                + UnmarkComment.help() + "\n"
+                + UnmarkCommand.help() + "\n"
                 + HelpCommand.help() + "\n";
     }
 }
