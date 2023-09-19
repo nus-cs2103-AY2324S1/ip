@@ -13,12 +13,16 @@ public class Ui {
     private final int indentSpace;
     private StringBuilder response = new StringBuilder();
 
-    // Default constructor uses default values for length and space.
+    /**
+     * Default constructor uses default values for length and space.
+     */
     public Ui() {
         this(DEFAULT_LENGTH, DEFAULT_SPACE);
     }
 
-    // Constructor with custom values for length and space.
+    /**
+     * Constructor with custom values for length and space.
+     */
     public Ui(int horizontalLineLength, int indentSpace) {
         this.horizontalLineLength = horizontalLineLength;
         this.indentSpace = indentSpace;

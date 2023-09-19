@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
 
     private void displayWelcomeMessage() {
         dialogContainer.getChildren().add(DialogBox.getServerDialog(
-                "Hey there! Welcome to ChatTasker, your personal task manager."
+                "Hey there! This is DaDaYuan, your personal task manager."
                         + "\nWhat can I do for you?", serverImage)
         );
     }

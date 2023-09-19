@@ -1,57 +1,55 @@
 package duke;
 
 import duke.commands.Command;
+import duke.exceptions.FileIoException;
+import duke.exceptions.UnknownCommandException;
 import duke.parsers.CommandParser;
 import duke.io.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * The main Duke class to run
+ * The main Duke class to run.
  */
 public class Duke {
     private final Storage storage;
-    private TaskList list;
+    private TaskList tasks;
     private final Ui ui;
 
     /**
-     * The constructor that takes in a String filePath that specifies the path for the storage file.
+     * Initializes a new Duke instance with a given file path for storage.
      *
-     * @param filePath Specifies the path for the storage file
+     * @param filePath The path for the storage file.
      */
     public Duke(String filePath) {
-        // Initialize the task list
-        this.list = new TaskList();
-        // Initialize the user interface
         this.ui = new Ui();
-        // Initialize the storage object
         this.storage = new Storage(filePath);
-
-
         try {
-            // Attempt to load tasks from storage
-            this.list = this.storage.load();
-        } catch ( e) {
-
-        } catch ( e) {
-
+            this.tasks = storage.load();
+        } catch (UnknownCommandException | FileIoException e) {
+            ui.displayMessageWithBars(e.getMessage());
+            tasks = new TaskList();
+            if (e instanceof FileIoException) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
+    /**
+     * Gets the response from Duke.
+     *
+     * @param input User input.
+     * @return Response from Duke.
+     */
     public String getResponse(String input) {
         try {
-            this.ui.resetResponse();
-
+            ui.resetResponse();
             Command command = CommandParser.parse(input);
-
-            command.execute(this.list, this.ui, this.storage);
-i
-            return this.ui.getResponse();
-        } catch ( e) {
-            // append the error message to the ui's response
-            this.ui.appendResponse(e.getMessage());
-            return this.ui.getResponse();
+            command.execute(tasks, ui, storage);
+        } catch (Exception e) {
+            ui.addToResponse(e.getMessage());
         }
+        return ui.getResponse();
     }
 }
 

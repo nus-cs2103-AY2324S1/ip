@@ -91,5 +91,3 @@ public class DialogBox extends HBox {
         return serverDialogBox;
     }
 }
-
-
