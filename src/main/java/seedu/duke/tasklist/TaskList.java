@@ -69,7 +69,6 @@ public class TaskList {
      * Edit the deadline date of a Deadline Task.
      * @param index the index of the task
      * @param newDeadline the new deadline to change to
-     * @return String representation of the task that was edited.
      * @throws InvalidTaskIndexException thrown when provided index is invalid
      * @throws InvalidDeadlineException thrown when the provided date is invalid
      */
