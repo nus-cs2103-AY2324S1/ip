@@ -78,9 +78,6 @@ public class Parser {
     /**
      * Analyzes an input that is related to creating a new Task.
      * Determines type of task according to what inputs begin with.
-     * Checks if details of tasks keyed in based on format.
-     * Calls respective commands if input is keyed in correct format,
-     * or else throw an exception to tell users what's wrong.
      *
      * @param input The details of the Task
      */
@@ -89,58 +86,105 @@ public class Parser {
             if (command == null) {
                 throw new NullPointerException();
             }
-
-
             if (input.startsWith("todo ")) {
-                String description = input.substring(5);
-                // Checks if there's valid task input after todo
-                if (!description.isBlank()) {
-                    command.addTodoTask(description);
-                } else {
-                    throw new MyBotExceptions.EmptyDetailsException("description", "todo");
-                }
-
+                analyseTodoTaskInput(input);
             } else if (input.startsWith("deadline ")) {
-                // Checks if a deadline is entered for a deadline task
-                if (!input.contains(" /by")) {
-                    throw new MyBotExceptions.InvalidInputException("deadline", "duedate");
-                }
-
-                String description = input.substring(9, input.indexOf(" /by "));
-                String by = (input.substring(input.indexOf(" /by ") + 4)).substring(1);
-
-                // Check if task description/by input is blank
-                if (description.isBlank()) {
-                    throw new MyBotExceptions.EmptyDetailsException("description", "deadline");
-                } else if (by.isBlank()) {
-                    throw new MyBotExceptions.EmptyDetailsException("duedate", "deadline");
-                } else {
-                    command.addDeadlineTask(description, by);
-                }
-
+                analyseDeadlineTaskInput(input);
             } else if ((input.startsWith("event "))) {
+                analyseEventTaskInput(input);
+            }
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-                // Checks if there is a start and end time
-                if (!input.contains(" /from")) {
-                    throw new MyBotExceptions.InvalidInputException("event", "start time");
-                } else if (!input.contains(" /to")) {
-                    throw new MyBotExceptions.InvalidInputException("event", "end time");
-                }
+    /**
+     * Analyzes the input of the todo task.
+     * Checks if details of tasks keyed in based on format.
+     * Calls respective commands if input is keyed in correct format,
+     * or else throw an exception to tell users what's wrong.
+     *
+     * @param input The details of the Task
+     */
+    public void analyseTodoTaskInput(String input) {
+        try {
+            String description = input.substring(5);
+            // Checks if there's valid task input after todo
+            if (!description.isBlank()) {
+                command.addTodoTask(description);
+            } else {
+                throw new MyBotExceptions.EmptyDetailsException("description", "todo");
+            }
+        } catch (MyBotExceptions e) {
+            ui.printException(e);
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-                String description = input.substring(6, input.indexOf(" /from "));
-                String from = (input.substring(input.indexOf(" /from ") + 6, input.indexOf(" /to"))).substring(1);
-                String to = (input.substring(input.indexOf(" /to ") + 4)).substring(1);
+    /**
+     * Analyzes the input of the deadline task.
+     * Checks if details of tasks keyed in based on format.
+     * Calls respective commands if input is keyed in correct format,
+     * or else throw an exception to tell users what's wrong.
+     *
+     * @param input The details of the Task
+     */
+    public void analyseDeadlineTaskInput(String input) {
+        try {
+            // Checks if a deadline is entered for a deadline task
+            if (!input.contains(" /by")) {
+                throw new MyBotExceptions.InvalidInputException("deadline", "duedate");
+            }
 
-                // Checks if any of the start, end or description is empty
-                if (description.isBlank()) {
-                    throw new MyBotExceptions.EmptyDetailsException("description", "event");
-                } else if (from.isBlank()) {
-                    throw new MyBotExceptions.EmptyDetailsException("start time", "event");
-                } else if (to.isBlank()) {
-                    throw new MyBotExceptions.EmptyDetailsException("end time", "event");
-                } else {
-                    command.addEventTask(description, from, to);
-                }
+            String description = input.substring(9, input.indexOf(" /by "));
+            String by = (input.substring(input.indexOf(" /by ") + 4)).substring(1);
+
+            // Check if task description/by input is blank
+            if (description.isBlank()) {
+                throw new MyBotExceptions.EmptyDetailsException("description", "deadline");
+            } else if (by.isBlank()) {
+                throw new MyBotExceptions.EmptyDetailsException("duedate", "deadline");
+            } else {
+                command.addDeadlineTask(description, by);
+            }
+        } catch (MyBotExceptions e) {
+            ui.printException(e);
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Analyzes the input of the event task.
+     * Checks if details of tasks keyed in based on format.
+     * Calls respective commands if input is keyed in correct format,
+     * or else throw an exception to tell users what's wrong.
+     *
+     * @param input The details of the Task
+     */
+    public void analyseEventTaskInput(String input) {
+        try {
+            // Checks if there is a start and end time
+            if (!input.contains(" /from")) {
+                throw new MyBotExceptions.InvalidInputException("event", "start time");
+            } else if (!input.contains(" /to")) {
+                throw new MyBotExceptions.InvalidInputException("event", "end time");
+            }
+
+            String description = input.substring(6, input.indexOf(" /from "));
+            String from = (input.substring(input.indexOf(" /from ") + 6, input.indexOf(" /to"))).substring(1);
+            String to = (input.substring(input.indexOf(" /to ") + 4)).substring(1);
+
+            // Checks if any of the start, end or description is empty
+            if (description.isBlank()) {
+                throw new MyBotExceptions.EmptyDetailsException("description", "event");
+            } else if (from.isBlank()) {
+                throw new MyBotExceptions.EmptyDetailsException("start time", "event");
+            } else if (to.isBlank()) {
+                throw new MyBotExceptions.EmptyDetailsException("end time", "event");
+            } else {
+                command.addEventTask(description, from, to);
             }
         } catch (MyBotExceptions e) {
             ui.printException(e);
