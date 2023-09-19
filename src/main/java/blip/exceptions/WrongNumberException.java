@@ -1,10 +1,15 @@
 package blip.exceptions;
 
 /**
- * The WrongTaskNumberException class is an exception class
- * that is thrown when the index of delete/mark/unmark commands are not valid.
+ * The WrongNumberException class is an exception class
+ * that is thrown when the index of delete/mark/unmark/priority commands are not valid.
  */
 public class WrongNumberException extends Exception{
+    /**
+     * Constructor of WrongNumberException
+     *
+     * @param message
+     */
     public WrongNumberException(String message) {
         super(message);
     }

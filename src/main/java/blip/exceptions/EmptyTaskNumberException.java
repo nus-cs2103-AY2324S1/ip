@@ -7,6 +7,7 @@ package blip.exceptions;
 public class EmptyTaskNumberException extends Exception {
     /**
      * Constructor of EmptyTaskNumberException.
+     *
      * @param message The error message
      */
     public EmptyTaskNumberException(String message) {

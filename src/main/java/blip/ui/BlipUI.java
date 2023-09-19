@@ -33,17 +33,19 @@ public class BlipUI {
     /**
      * Returns the string representation of the empty task number error message.
      *
-     * @return String representation of the empty task number error
+     * @return String to inform user that they have not keyed in the task number
      */
     public String showEmptyTaskNumErr() {
         return "\nOh no! The task number cannot be empty."
-        + "\nPlease key in the task number you would like to mark/unmark/delete.";
+            + "\nPlease key in the task number you would like to mark/unmark/delete/prioritise in the following format."
+            +"\n1. mark/unmark/delete [task number]"
+            + "\n2. priority [task number] [priority level: low/medium/high]";
     }
 
     /**
      * Returns the string representation of the invalid task number error message.
      *
-     * @return String representation of the invalid task number error
+     * @return String to guide user on how to correct themselves upon entering an invalid task number.
      */
     public String showInvalidTaskNumErr() {
         return "Oh no! The task number does not exist."
@@ -52,13 +54,14 @@ public class BlipUI {
     }
 
     /**
-     * Returns the string representation of the empty description error message.
+     * Returns the string representation of the empty description error message, so user can follow the right
+     * format when using Blip.
      *
-     * @return String representation of the empty description error
+     * @return String of usage of the commands that Blip can handle
      */
     public String showEmptyDescErr() {
         return "Oh no! Some command details are empty."
-            + "\nPlease key in the task DESCRIPTION, with DETAILS where applicable."
+            + "\nPlease refer to the following user guide on commands that Blip can handle."
             + "\n1. deadline [task description] /by [yyyy-MM-dd HH:mm] /priority [priority level: low/medium/high]*"
             + "\n2. event [task description] /from [yyyy-MM-dd HH:mm] /to [yyyy-MM-dd HH:mm] " +
                 "/priority [priority level: low/medium/high]*"
@@ -74,9 +77,9 @@ public class BlipUI {
     }
 
     /**
-     * Returns the string representation of the invalid command error message.
+     * Returns the string representation of the invalid command error message so user can correct themselves.
      *
-     * @return String representation of the invalid command error
+     * @return String of the possible commands for Blip to handle
      */
     public String showInvalidCmdErr() {
         return "Oh no! I don't understand what you mean. Please key in the following commands only:"
@@ -105,7 +108,7 @@ public class BlipUI {
     /**
      * Returns the string representation of the date time format error message.
      *
-     * @return String representation of the date time format error
+     * @return String representation of the correct date time format
      */
     public String showDateTimeFormatErr() {
         return "Please format your date time to be yyyy-mm-dd HH:mm";
@@ -117,7 +120,7 @@ public class BlipUI {
      * Returns the string representation of the list of tasks.
      *
      * @param tasks The task list to list out tasks from
-     * @return String representation of the list of tasks matched
+     * @return String representation of the list of tasks
      */
     public static String listsTasksMsg(TaskList tasks) {
         String listIntro = "Here are the tasks in your list:";
@@ -139,7 +142,6 @@ public class BlipUI {
      * @param description The description to match with tasks from task list
      * @return String representation of the list of tasks matched
      */
-
     public static String listTasksMatched(TaskList tasks, String description) {
         String matchedTasksIntro = "Here are the matching tasks in  your list:";
         String noMatchMessage = "There are no matching tasks in the list";
@@ -165,6 +167,7 @@ public class BlipUI {
      *
      * @param task The task that was added to task list
      * @param size The size of the task list after it has added new task
+     * @return String representation that task has been added, with number of tasks in the list now
      */
     public String addsTasksMsg(Task task, int size) {
         return "Alright! I've added this task:\n " + task.toString()
@@ -176,6 +179,7 @@ public class BlipUI {
      *
      * @param task The task that was deleted from task list
      * @param size The size of the task list after it has deleted a task
+     * @return String representation that task has been deleted, with new task list size
      */
     public String deletesTasksMsg(Task task, int size) {
        return "Ok, I've removed this task:"  + task.toString()
@@ -186,6 +190,7 @@ public class BlipUI {
      * Prints the message that task has been marked.
      *
      * @param task The task that was marked as done
+     * @return String representation that task has been marked
      */
     public String marksTasksMsg(Task task) {
         return "Nice! I've marked this task as done:" + task.toString();
@@ -195,15 +200,17 @@ public class BlipUI {
      * Prints the message that task has been unmarked.
      *
      * @param task The task that was unmarked as not done
+     * @return String representation that task has been unmarked
      */
     public String unmarksTasksMsg(Task task) {
         return "Nice! I've marked this task as not done yet:" + task.toString();
     }
 
     /**
-     * Prints the message that task has been set a priority apart from its default.
+     * Prints the message that task has been set a priority apart from its default LOW.
      *
-     * @param task The task that was unmarked as not done
+     * @param task The task whose priority has been set
+     * @return String representation that task has been set to a new priority
      */
     public String setPriorityMsg(Task task) {
         return "Nice! I've set the priority of this task:" + task.toString();

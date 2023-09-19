@@ -21,6 +21,7 @@ public class BlipStorage {
 
     /**
      * Constructor of BlipStorage
+     *
      * @param filePath The data file path for storage
      */
     public BlipStorage(String filePath) {
@@ -30,6 +31,7 @@ public class BlipStorage {
 
     /**
      * Loads data file's tasks.
+     *
      * @return The TaskList of tasks from data file
      * @throws BlipException If there are any loading errors
      */
@@ -59,6 +61,7 @@ public class BlipStorage {
 
     /**
      * Saves list of tasks to data file.
+     *
      * @param tasks The TaskList of tasks to save
      */
     public static void saveToFile(TaskList tasks) {

@@ -6,6 +6,7 @@ import blip.tasks.ToDo;
 import blip.storage.BlipStorage;
 import blip.priority.Priority;
 
+
 /**
  * Represents the to do command to add to do task.
  */
@@ -15,6 +16,9 @@ public class ToDoCommand extends Command {
      */
     String description;
 
+    /**
+     * Priority of the to do task.
+     */
     Priority priority;
 
     /**

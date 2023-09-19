@@ -19,8 +19,6 @@ import blip.commands.InvalidCommand;
 import blip.commands.PriorityCommand;
 import blip.priority.Priority;
 
-
-
 /**
  * Represents a parser that will parse user inputs that are Strings.
  */

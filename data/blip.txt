@@ -1,5 +1,5 @@
 T | 0 | HIGH | cry
-D | 0 | HIGH | eat | 2023-09-15 10:00
+D | 1 | HIGH | eat | 2023-09-15 10:00
 D | 1 | MEDIUM | submit assignment | 2023-09-19 10:20
 D | 1 | LOW | sleep | 2023-09-19 23:30
 E | 1 | HIGH | do CS2103T iP | 2023-09-15 10:00 | 2023-09-16 12:00

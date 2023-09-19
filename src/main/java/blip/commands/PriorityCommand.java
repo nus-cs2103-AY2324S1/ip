@@ -7,6 +7,7 @@ import blip.storage.BlipStorage;
 import blip.exceptions.WrongNumberException;
 import blip.priority.Priority;
 
+
 /**
  * Represents the mark command to mark task as done.
  */
@@ -23,6 +24,7 @@ public class PriorityCommand extends Command {
 
     /**
      * Constructor of MarkCommand.
+     *
      * @param index The index of task to mark as done
      */
     public PriorityCommand(int index, Priority priority) {

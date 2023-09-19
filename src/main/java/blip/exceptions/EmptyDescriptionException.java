@@ -7,6 +7,7 @@ package blip.exceptions;
 public class EmptyDescriptionException extends Exception {
     /**
      * Constructor of EmptyDescriptionException.
+     *
      * @param message The error message
      */
     public EmptyDescriptionException(String message) {

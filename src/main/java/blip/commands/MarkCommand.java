@@ -17,6 +17,7 @@ public class MarkCommand extends Command {
 
     /**
      * Constructor of MarkCommand.
+     *
      * @param index The index of task to mark as done
      */
     public MarkCommand(int index) {
