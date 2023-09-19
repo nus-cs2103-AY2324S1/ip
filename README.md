@@ -1,24 +1,73 @@
-# duke.Duke project template
+# Bob Bot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Features
+1. Help
+1. Adding Task
+1. Deleting Task
+1. Marking Task
+1. Unmarking Task
+1. List out your tasks
+1. Finding tasks by word (regex)
 
-## Setting up in Intellij
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### Help
+Direct users to the user guide.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/duke.Duke.java` file, right-click it, and choose `Run duke.Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Adding Tasks
+Users can add 3 types of tasks (Todo, Deadline and Event) into their task list.
+
+### Deleting Tasks
+Users can delete all of their tasks
+
+### Marking and Unmark task
+User can mark and unmark all of their tasks
+
+### Listing out of tasks
+Users can list out their tasks to visualize it.
+
+### Find tasks via word
+Users can find tasks with word
+
+---
+## Usage
+
+### `help` - Direct users to the Help guide
+To use:
+`help`
+---
+### `todo` -  Creating a Task
+To use:
+`task cook`
+---
+### `deadline` - Creating a Task with Deadline
+To use:
+`deadline Cook /by Later`
+---
+### `event` - Creating a Event with start and end date
+To use:
+`event JCF /from today /to 1 week later`
+---
+### `list` - List out all the task
+To use:
+`list`
+---
+### `find` - find the task by word
+To use:
+`find cat`
+---
+### `mark` - mark task as done
+To use:
+`mark 1`
+---
+### `unmark` - mark task as undone
+To use:
+`unmark 1`
+---
+### `delete` - delete the task
+To use:
+`delete 1`
+---
+### `bye` - exit the program
+To use:
+`bye`
+---
