@@ -11,7 +11,6 @@ import tasks.Events;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.ToDos;
-import ui.Ui;
 
 
 /**
@@ -46,7 +45,7 @@ public class Storage {
      */
     public String load(Parser parser) throws IOException {
         StringBuilder results = new StringBuilder();
-        try (Scanner fileScanner = new Scanner(new File("./src/main/java/OUTPUT.txt"))) {
+        try (Scanner fileScanner = new Scanner(new File("../.././src/main/java/OUTPUT.txt"))) {
             results.append("Your leftover tasks are:\n");
             int i = 0;
             while (fileScanner.hasNextLine()) {
@@ -78,8 +77,8 @@ public class Storage {
                     + "Creating OUTPUT.txt in the given directory now.");
         } finally {
             // Instance of PrintWriter to write new outputs to the file
-            pw = new FileWriter("./src/main/java/OUTPUT.txt", true);
-            archive = new FileWriter("./src/main/java/Archive.txt", true);
+            pw = new FileWriter("../.././src/main/java/OUTPUT.txt", true);
+            archive = new FileWriter("../.././src/main/java/Archive.txt", true);
         }
         return results.toString();
     }

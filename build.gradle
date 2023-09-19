@@ -38,11 +38,11 @@ test {
 }
 
 application {
-    mainClass.set("Corubi")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    archiveFileName = "Corubi.jar"
+    archiveFileName = "GigaChadbot.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

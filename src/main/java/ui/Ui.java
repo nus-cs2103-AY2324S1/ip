@@ -6,8 +6,10 @@ import storage.Storage;
 import tasks.*;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * The Ui class provides methods for interacting with the user.
@@ -194,15 +196,24 @@ public class Ui {
             store.write(newTask);
             result.append("Okay! I have added the following task\n").append(newTask).append("\n");
         } else if (input.toLowerCase().contains("deadline ")) {
-            Task newTask = new Deadlines(parser.taskName(input), parser.taskBy(input), false);
-            tasks.add(newTask);
-            result.append("Okay! I have added the following task\n").append(newTask).append("\n");
-            store.write(newTask);
+            try {
+                Task newTask = new Deadlines(parser.taskName(input), parser.taskBy(input), false);
+                tasks.add(newTask);
+                result.append("Okay! I have added the following task\n").append(newTask).append("\n");
+                store.write(newTask);
+            } catch (DateTimeParseException e) {
+                result.append("Please enter a valid date in the format yyyy-mm-dd\n");
+            }
+
         } else if (input.toLowerCase().contains("event ")) {
-            Task newTask = new Events(parser.taskName(input), parser.taskFrom(input), parser.taskTo(input), false);
-            tasks.add(newTask);
-            result.append("Okay! I have added the following task\n").append(newTask.toString()).append("\n");
-            store.write(newTask);
+            try {
+                Task newTask = new Events(parser.taskName(input), parser.taskFrom(input), parser.taskTo(input), false);
+                tasks.add(newTask);
+                result.append("Okay! I have added the following task\n").append(newTask.toString()).append("\n");
+                store.write(newTask);
+            } catch (DateTimeParseException e) {
+                result.append("Please enter a valid date in the format yyyy-mm-dd\n");
+            }
         } else {
             try {
                 if (!commands.contains(input.split(" ")[0].toLowerCase())) {

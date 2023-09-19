@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import main.Corubi;
+import main.GigaChadBot;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
@@ -27,13 +27,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Corubi corubi;
+    private GigaChadBot corubi;
     private Parser parser = new Parser();
 
 
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/idol.png"));
     private final Image bot = new Image(this.getClass().getResourceAsStream("/images/chad.png"));
-    private final String NAME = "Corubi";
+    private final String NAME = "GigaChadbot";
 
 
     @FXML
@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setBot(Corubi d) throws IOException {
+    public void setBot(GigaChadBot d) throws IOException {
         corubi = d;
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(corubi.getStore().load(parser), bot),
