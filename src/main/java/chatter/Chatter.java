@@ -33,7 +33,7 @@ public class Chatter {
     }
 
     /**
-     * Check the user's commands and calls the appropriate methods according
+     * Checks the user's commands and calls the appropriate methods according
      * to the commands.
      */
     private void run() {

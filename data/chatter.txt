@@ -1,2 +1,6 @@
+T, true, do project
+D, false, do iP, 12/1/2023
 T, false, return book
-D, true, help, tmr
+D, false, hi, tmr
+D, false, return book, 2024-12-27
+E, false, project meeting, 2pm, 3pm

@@ -33,14 +33,14 @@ public abstract class Command {
     }
 
     /**
-     * Set the isExit boolean to true so that the chatbot will exit.
+     * Sets the isExit boolean to true so that the chatbot will exit.
      */
     public void setExit() {
         this.isExit = true;
     }
 
     /**
-     * Abstract method that executes the command
+     * Executes the command.
      *
      * @param tasks chatter.TaskList class storing an ArrayList of chatter.task.Task objects.
      * @param ui chatter.Ui class to handle user interactions.
