@@ -40,7 +40,7 @@ public class TaskList {
      * @param ui the ui to show the added task message to the user
      * @return the response message to the user.
      */
-    public String addTask(Task task, Ui ui) throws DukeException {
+    public Response addTask(Task task, Ui ui) throws DukeException {
         assert task != null : "Task cannot be null";
         assert ui != null : "Ui cannot be null";
         Task[] duplicateTasks = taskList.stream()
@@ -66,7 +66,7 @@ public class TaskList {
      * @return the response message to the user.
      * @throws DukeException if the list is empty
      */
-    public String listTask(Ui ui) throws DukeException {
+    public Response listTask(Ui ui) throws DukeException {
         assert ui != null : "Ui cannot be null";
 
         if (taskList.isEmpty()) {
@@ -90,7 +90,7 @@ public class TaskList {
      * @throws DukeException if the list is empty, or the keyword is invalid
      *                       or there is no task on the given date
      */
-    public String printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
+    public Response printDateTask(Keyword key, LocalDate date, Ui ui) throws DukeException {
         assert key != null : "Keyword cannot be null";
         assert date != null : "Date cannot be null";
         assert ui != null : "Ui cannot be null";
@@ -105,7 +105,7 @@ public class TaskList {
         }
     }
 
-    private String findTaskOnDate(Keyword key, LocalDate date, Ui ui) throws DukeException {
+    private Response findTaskOnDate(Keyword key, LocalDate date, Ui ui) throws DukeException {
         String[] tasksOnDate = taskList.stream()
                 .filter(task -> task.onDate(key, date))
                 .map(Task::toString)
@@ -129,12 +129,14 @@ public class TaskList {
      * @return the response message to the user.
      * @throws DukeException if the index is invalid
      */
-    public String deleteTask(int index, Ui ui) throws DukeException {
+    public Response deleteTask(int index, Ui ui) throws DukeException {
         assert ui != null : "Ui cannot be null";
+        if (taskList.isEmpty()) {
+            throw new DukeException("OOPS!!! There is nothing in the list, yet!");
+        }
 
         if (index >= taskList.size() || index < 0) {
-            String errMessage = listTask(ui)
-                    + String.format("OOPS!!! There is no task %d to delete",
+            String errMessage = String.format("OOPS!!! There is no task %d to delete",
                         index + 1);
             throw new DukeException(errMessage);
         }
@@ -152,7 +154,7 @@ public class TaskList {
      * @return the response message to the user.
      * @throws DukeException if the index is invalid or the keyword is invalid
      */
-    public String markTask(int index, Keyword key, Ui ui) throws DukeException {
+    public Response markTask(int index, Keyword key, Ui ui) throws DukeException {
         assert key != null : "Keyword cannot be null";
         assert ui != null : "Ui cannot be null";
 
@@ -163,10 +165,14 @@ public class TaskList {
         default:
             throw new DukeException("OOPS!!! This is not a valid command.");
         }
+
+        if (taskList.isEmpty()) {
+            throw new DukeException("OOPS!!! There is nothing in the list, yet!");
+        }
+
         boolean isMark = key.equals(Keyword.MARK);
         if (index >= taskList.size() || index < 0) {
-            String errMessage = listTask(ui)
-                    + String.format("OOPS!!! There is no task %d to %s",
+            String errMessage = String.format("OOPS!!! There is no task %d to %s",
                         index + 1,
                         key.getKeyword());
             throw new DukeException(errMessage);
@@ -182,7 +188,7 @@ public class TaskList {
      * @return the response message to the user.
      * @throws DukeException if the list is empty or the task is not found
      */
-    public String findTask(String taskKey, Ui ui) throws DukeException {
+    public Response findTask(String taskKey, Ui ui) throws DukeException {
         assert ui != null : "Ui cannot be null";
 
         if (taskList.isEmpty()) {

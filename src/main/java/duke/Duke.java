@@ -3,6 +3,7 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.util.Parser;
+import duke.util.Response;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -29,7 +30,7 @@ public class Duke {
      *
      * @return Welcome message.
      */
-    public String initialize() {
+    public Response initialize() {
         this.storage = new Storage(FOLD_PATH, DEFAULT_FILE_NAME);
         this.ui = new Ui();
         try {
@@ -37,12 +38,13 @@ public class Duke {
         } catch (DukeException e) {
             storage.createTaskFile();
             taskList = new TaskList();
-            return ui.showLoadingError() + ui.showWelcome();
+            return Response.connectResponses(ui.showLoadingError(), ui.showWelcome());
         }
         try {
             storage.loadAlias();
         } catch (DukeException e) {
-            return ui.showError(e.getMessage()) + ui.showWelcome();
+            return Response.connectResponses(ui.showError(e.getMessage()),
+                    ui.showWelcome());
         }
         return ui.showWelcome();
     }
@@ -53,10 +55,10 @@ public class Duke {
      * @param input User input.
      * @return Response from Duke.
      */
-    public String getResponse(String input) {
+    public Response getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            String response = c.execute(taskList, ui, storage);
+            Response response = c.execute(taskList, ui, storage);
             if (c.isExit()) {
                 System.exit(0);
             }

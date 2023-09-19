@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.util.Response;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -39,5 +40,5 @@ public abstract class Command {
      * @return the response to the user.
      * @throws DukeException If an error occurs during execution.
      */
-    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract Response execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 }

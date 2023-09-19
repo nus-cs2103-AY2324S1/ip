@@ -1,6 +1,7 @@
 package duke.gui;
 
 import duke.Duke;
+import duke.util.Response;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,11 +22,14 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+
     private Duke duke;
     private Image userImage = new Image(this.getClass()
                                             .getResourceAsStream("/images/User.png"));
     private Image botImage = new Image(this.getClass()
-                                            .getResourceAsStream("/images/ChatBot404.png"));
+                                           .getResourceAsStream("/images/ChatBot404.png"));
+    private Image botWaringImage = new Image(this.getClass()
+                                                 .getResourceAsStream("/images/botWarning.png"));
 
     @FXML
     public void initialize() {
@@ -48,10 +52,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        Response response = duke.getResponse(input);
+        Image image = response.isErrorResponse() ? botWaringImage : botImage;
         dialogContainer.getChildren().addAll(
                 UserDialogBox.getUserDialog(input, userImage),
-                BotDialogBox.getBotDialog(response, botImage)
+                BotDialogBox.getBotDialog(response, image)
         );
         userInput.clear();
     }

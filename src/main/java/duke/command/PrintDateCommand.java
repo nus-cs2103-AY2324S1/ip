@@ -3,6 +3,7 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.exception.PrintDateException;
 import duke.util.Keyword;
+import duke.util.Response;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Time;
@@ -37,7 +38,7 @@ public class PrintDateCommand extends Command {
      *                       nothing in the list or if nothing is happening on that date.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public Response execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         assert taskList != null : "taskList should not be null";
         assert ui != null : "ui should not be null";
 

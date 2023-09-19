@@ -37,7 +37,7 @@ public class UserDialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        displayPicture.setClip(new javafx.scene.shape.Circle(35, 35, 35));
+        displayPicture.setClip(new javafx.scene.shape.Circle(25, 25, 25));
     }
 
     /**

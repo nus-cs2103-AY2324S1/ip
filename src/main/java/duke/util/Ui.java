@@ -20,8 +20,8 @@ public class Ui {
      *
      * @return the response message to the user.
      */
-    public String showWelcome() {
-        return String.format("Hello! I'm %s\nWhat can I do for you?", NAME);
+    public Response showWelcome() {
+        return new Response(String.format("Hello! I'm %s\nWhat can I do for you?", NAME));
     }
 
     /**
@@ -29,9 +29,9 @@ public class Ui {
      *
      * @return the response message to the user.
      */
-    public String showLoadingError() {
-        return "OOPS!!!Something terrible happened to the data file.\n"
-                + "Don't worry I will clean up the mess!\n\n";
+    public Response showLoadingError() {
+        return new Response("OOPS!!!Something terrible happened to the data file.\n"
+                + "Don't worry I will clean up the mess!\n\n", true);
     }
 
     /**
@@ -40,8 +40,8 @@ public class Ui {
      * @param message the error message.
      * @return the response message to the user.
      */
-    public String showError(String message) {
-        return String.format("%s\n", message);
+    public Response showError(String message) {
+        return new Response(String.format("%s\n", message), true);
     }
 
     /**
@@ -50,8 +50,8 @@ public class Ui {
      *
      * @return the response message to the user.
      */
-    public String showExit() {
-        return "Bye. Hope to see you again soon!";
+    public Response showExit() {
+        return new Response("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -62,13 +62,13 @@ public class Ui {
      * @param taskListSize the number of tasks in the task list.
      * @return the response message to the user.
      */
-    public String showAddTask(Task task, int taskListSize) {
+    public Response showAddTask(Task task, int taskListSize) {
         assert task != null : "Task should not be null";
 
-        return String.format("Got it. I've added this task:\n"
+        return new Response(String.format("Got it. I've added this task:\n"
                            + "  %s\n"
                            + "Now you have %d tasks in the list.\n",
-                task, taskListSize);
+                task, taskListSize));
     }
 
     /**
@@ -79,13 +79,13 @@ public class Ui {
      * @param taskListSize the number of tasks in the task list.
      * @return the response message to the user.
      */
-    public String showDeleteTask(Task removedTask, int taskListSize) {
+    public Response showDeleteTask(Task removedTask, int taskListSize) {
         assert removedTask != null : "Removed task should not be null";
 
-        return String.format("Noted. I've removed this task:%n"
+        return new Response(String.format("Noted. I've removed this task:%n"
                            + "  %s\n"
                            + "Now you have %d tasks in the list.%n",
-                 removedTask, taskListSize);
+                 removedTask, taskListSize));
     }
 
     /**
@@ -95,11 +95,11 @@ public class Ui {
      * @param task the task to be marked.
      * @return the response message to the user.
      */
-    public String showMarkTask(boolean isMark, String task) {
+    public Response showMarkTask(boolean isMark, String task) {
         String message = isMark
                 ? "Nice! I've marked this task as done:"
                 : "OK, I've marked this task as not done yet:";
-        return String.format("%s\n  %s\n", message, task);
+        return new Response(String.format("%s\n  %s\n", message, task));
     }
 
     /**
@@ -108,8 +108,8 @@ public class Ui {
      * @param keyword the keyword of the command.
      * @return the response message to the user.
      */
-    public String showManipulateAllTask(String keyword) {
-        return String.format("Noted. I will %s all tasks.\n", keyword);
+    public Response showManipulateAllTask(String keyword) {
+        return new Response(String.format("Noted. I will %s all tasks.\n", keyword));
     }
 
     /**
@@ -119,15 +119,15 @@ public class Ui {
      * @param tasks the string representation of the tasks in the task list.
      * @return the response message to the user.
      */
-    public String showListTask(String[] tasks) {
+    public Response showListTask(String[] tasks) {
         assert tasks != null : "Tasks should not be null";
 
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("Here are the tasks in your list:\n");
         IntStream.range(0, tasks.length)
                  .forEach(i ->
-                        strBuilder.append(String.format("%d.%s\n", i + 1, tasks[i])));
-        return strBuilder.toString();
+                        strBuilder.append(String.format("  %d. %s\n", i + 1, tasks[i])));
+        return new Response(strBuilder.toString());
     }
 
     /**
@@ -138,7 +138,7 @@ public class Ui {
      * @param date the String representation of the specified date.
      * @return the response message to the user.
      */
-    public String showPrintDateTask(String[] tasksOnDate, String date) {
+    public Response showPrintDateTask(String[] tasksOnDate, String date) {
         assert tasksOnDate != null : "Tasks on date should not be null";
 
         StringBuilder strBuilder = new StringBuilder();
@@ -146,7 +146,7 @@ public class Ui {
                 tasksOnDate.length, date));
         Arrays.stream(tasksOnDate)
               .forEach(task -> strBuilder.append(String.format("  %s\n", task)));
-        return strBuilder.toString();
+        return new Response(strBuilder.toString());
     }
 
     /**
@@ -159,7 +159,7 @@ public class Ui {
      *                indices of the tasks in tasksFound.
      * @return the response message to the user.
      */
-    public String showFindTask(String[] tasksFound, String[] indices) {
+    public Response showFindTask(String[] tasksFound, String[] indices) {
         assert tasksFound != null : "Tasks found should not be null";
         assert indices != null : "Indices should not be null";
 
@@ -169,7 +169,7 @@ public class Ui {
                  .forEach(i -> strBuilder.append(String.format("%s.%s\n",
                          indices[i],
                          tasksFound[i])));
-        return strBuilder.toString();
+        return new Response(strBuilder.toString());
     }
 
     /**
@@ -196,9 +196,9 @@ public class Ui {
      * @param fileName      the fileName.
      * @return the response message to the user.
      */
-    public String showLoad(boolean isLoadDefault, String fileName) {
-        return String.format("Loading task list from %s...\n\ndone!\n",
-                              isLoadDefault ? "default file" : fileName);
+    public Response showLoad(boolean isLoadDefault, String fileName) {
+        return new Response(String.format("Loading task list from %s...\n\ndone!\n",
+                              isLoadDefault ? "default file" : fileName));
     }
 
     /**
@@ -208,9 +208,9 @@ public class Ui {
      * @param sortType     the sort type.
      * @return the response message to the user.
      */
-    public String showSort(boolean isDefaultSort, String sortType) {
-        return String.format("Sorting task list by %s...\n\ndone!\nType \"list\" to check it out!\n",
-                isDefaultSort ? "name" : sortType);
+    public Response showSort(boolean isDefaultSort, String sortType) {
+        return new Response(String.format("Sorting task list by %s...\n\ndone!\n",
+                isDefaultSort ? "name" : sortType));
     }
 
     /**
@@ -221,12 +221,12 @@ public class Ui {
      * @param aliasTo    the word to be replaced by alias.
      * @return the response message to the user.
      */
-    public String showAlias(boolean isAddAlias, String aliasFrom, String aliasTo) {
+    public Response showAlias(boolean isAddAlias, String aliasFrom, String aliasTo) {
         String message = isAddAlias
                 ? "Nice! I've added this alias: "
                 : "OK, I've removed this alias: ";
-        message += aliasFrom + "->" + aliasTo + "\n";
-        return message;
+        message += aliasFrom + " -> " + aliasTo + "\n";
+        return new Response(message);
     }
 
     /**
@@ -234,10 +234,10 @@ public class Ui {
      *
      * @return the response message to the user.
      */
-    public String showAliasList() {
+    public Response showAliasList() {
         List<String> aliasList = Alias.saveAliasFormat();
         if (aliasList.isEmpty()) {
-            return "There is no alias yet.\n";
+            return new Response("There is no alias yet.\n");
         }
 
         StringBuilder strBuilder = new StringBuilder();
@@ -245,6 +245,6 @@ public class Ui {
         for (String alias : aliasList) {
             strBuilder.append(String.format("  %s", alias));
         }
-        return strBuilder.toString();
+        return new Response(strBuilder.toString());
     }
 }

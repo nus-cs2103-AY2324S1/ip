@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.util.Response;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -33,7 +34,7 @@ public class FindCommand extends Command {
      * @throws DukeException if no tasks are found
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public Response execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         assert taskList != null : "taskList should not be null";
         assert ui != null : "ui should not be null";
 

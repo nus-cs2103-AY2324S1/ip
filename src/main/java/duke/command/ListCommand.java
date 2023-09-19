@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.util.Response;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -28,7 +29,7 @@ public class ListCommand extends Command {
      * @throws DukeException if there is nothing in the list
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public Response execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         assert taskList != null : "taskList should not be null";
         assert ui != null : "ui should not be null";
 

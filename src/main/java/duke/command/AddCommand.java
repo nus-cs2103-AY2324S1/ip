@@ -8,6 +8,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 import duke.util.Keyword;
+import duke.util.Response;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Time;
@@ -44,7 +45,7 @@ public class AddCommand extends Command {
      * @throws DukeException if the command is invalid
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public Response execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         assert taskList != null : "taskList should not be null";
         assert ui != null : "ui should not be null";
         assert storage != null : "storage should not be null";
@@ -79,7 +80,7 @@ public class AddCommand extends Command {
         default:
             throw new DukeException("Sorry, the command is invalid.");
         }
-        String respond = taskList.addTask(task, ui);
+        Response respond = taskList.addTask(task, ui);
         storage.save(taskList.saveTaskList());
         return respond;
     }

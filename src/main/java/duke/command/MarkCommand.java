@@ -3,6 +3,7 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.exception.ManipulateException;
 import duke.util.Keyword;
+import duke.util.Response;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -38,7 +39,7 @@ public class MarkCommand extends Command {
      * @throws DukeException if the command is invalid
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public Response execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         assert taskList != null : "taskList should not be null";
         assert ui != null : "ui should not be null";
         assert storage != null : "storage should not be null";
@@ -56,7 +57,7 @@ public class MarkCommand extends Command {
         } catch (NumberFormatException e) {
             throw new ManipulateException(err, key.getKeyword());
         }
-        String respond = taskList.markTask(taskNum - 1, key, ui);
+        Response respond = taskList.markTask(taskNum - 1, key, ui);
         storage.save(taskList.saveTaskList());
         return respond;
     }

@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.util.Response;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -25,7 +26,7 @@ public class ExitCommand extends Command {
      * @param storage  the storage
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public Response execute(TaskList taskList, Ui ui, Storage storage) {
         assert ui != null : "ui should not be null";
 
         return ui.showExit();
