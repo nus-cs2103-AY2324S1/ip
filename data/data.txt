@@ -1,2 +1,2 @@
-[T] | [X] | finish cs2103t assignments
-[D] | [ ] | submit cs2103t homework  | Dec 12 2003 1200
+[T] | [ ] | homework
+[T] | [ ] | homework

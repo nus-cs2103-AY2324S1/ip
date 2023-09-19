@@ -28,6 +28,7 @@ public class Parser {
      * @return True if the application should continue running; false if it should exit.
      */
     public static String input(String input, TaskList tasks, Ui iu) {
+        assert input != null;
         String[] listOfWords = input.split(" ");
         String firstWord = listOfWords[0];
         try {

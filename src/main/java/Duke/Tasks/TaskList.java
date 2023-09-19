@@ -2,6 +2,9 @@ package Duke.Tasks;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 
 import Duke.Exceptions.DuplicateInput;
 import Duke.Storage;
@@ -11,6 +14,8 @@ import Duke.Exceptions.IncompleteInput;
 public class TaskList {
 
     private ArrayList<Task> storagePile;
+
+    private Set<String> duplicateTasks = new HashSet<>();
 
     /**
      * Constructs a TaskList and loads tasks from storage.
@@ -94,6 +99,7 @@ public class TaskList {
      */
     public void addTask(String item) throws InvalidInput, IncompleteInput, DuplicateInput {
         String firstWord = item.split(" ")[0];
+        String[] listOfWords = item.split(" ");
 
         if (item.split(" ").length == 1) {
             if (firstWord.equals("todo") || firstWord.equals("deadline") || firstWord.equals("event")) {
@@ -102,33 +108,49 @@ public class TaskList {
                 throw new InvalidInput("Invalid");
             }
         }
+        assert listOfWords.length >= 2;
         if (firstWord.equals("todo")) {
             String taskDesc = item.split(" ", 2)[1];
             Task t = new ToDoTask(taskDesc);
-            for (Task task : storagePile) {
-                if (task.equals(t)) {
-                    throw new DuplicateInput("Duplicate");
+            if (duplicateTasks.contains(taskDesc)) {
+                storagePile.add(t);
+            } else {
+                for (Task task : storagePile) {
+                    if (task.equals(t)) {
+                        duplicateTasks.add(taskDesc);
+                        throw new DuplicateInput("Duplicate");
+                    }
                 }
+                storagePile.add(t);
             }
-            storagePile.add(new ToDoTask(taskDesc));
         } else if (firstWord.equals("deadline")) {
             String taskDesc = item.split(" ", 2)[1];
             Task t = new DeadlineTask(taskDesc);
-            for (Task task : storagePile) {
-                if (task.equals(t)) {
-                    throw new DuplicateInput("Duplicate");
+            if (duplicateTasks.contains(taskDesc)) {
+                storagePile.add(t);
+            } else {
+                for (Task task : storagePile) {
+                    if (task.equals(t)) {
+                        duplicateTasks.add(taskDesc);
+                        throw new DuplicateInput("Duplicate");
+                    }
                 }
+                storagePile.add(t);
             }
-            storagePile.add(t);
         } else {
             String taskDesc = item.split(" ", 2)[1];
             Task t = new EventTask(taskDesc);
-            for (Task task : storagePile) {
-                if (t.equals(task)) {
-                    throw new DuplicateInput("Duplicate");
+            if (duplicateTasks.contains(taskDesc)) {
+                storagePile.add(t);
+            } else {
+                for (Task task : storagePile) {
+                    if (task.equals(t)) {
+                        duplicateTasks.add(taskDesc);
+                        throw new DuplicateInput("Duplicate");
+                    }
                 }
+                storagePile.add(t);
             }
-            storagePile.add(t);
         }
         Storage.saveTasks(this);
     }
@@ -142,6 +164,7 @@ public class TaskList {
     public TaskList filterTasksByDescription(String description) {
         TaskList filteredTasks = new TaskList("empty");
         for (Task task : this.storagePile) {
+            assert task != null;
             if (task.matchesDescription(description.trim())) {
                 filteredTasks.storagePile.add(task);
             }

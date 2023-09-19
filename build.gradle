@@ -36,6 +36,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jvmArgs '-ea'
 
     testLogging {
         events "passed", "skipped", "failed"

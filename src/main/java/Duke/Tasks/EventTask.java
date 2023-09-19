@@ -7,8 +7,6 @@ public class EventTask extends Task {
     private String eventStartTime;
     private String eventEndTime;
 
-    private boolean allowDuplicates = false;
-
     public EventTask(String task) {
         super(task);
         String[] inputStringComponents =  task.split("/");
@@ -28,16 +26,16 @@ public class EventTask extends Task {
 
     @Override
     public boolean equals(Object o) {
-        if ((!(o instanceof EventTask)) || allowDuplicates) {
+        if (!(o instanceof EventTask)) {
             return false;
         }
         EventTask obj = (EventTask) o;
         if (obj.taskDescription.equals(this.taskDescription)
                 && obj.eventEndTime.equals(this.eventEndTime)
                 && obj.eventStartTime.equals(this.eventStartTime)) {
-            allowDuplicates = true;
             return true;
         }
         return false;
     }
+
 }

@@ -6,10 +6,14 @@ package Duke.Tasks;
 public class Task {
     private Boolean isDone = false;
 
+    private boolean allowDuplicates = false;
+
     private String task;
 
     public Task(String input) {
+
         task = input;
+        assert isDone == false;
     }
 
     public void markDone() {
@@ -48,5 +52,6 @@ public class Task {
     public boolean equals(Object o) {
         return false;
     };
+
 
 }

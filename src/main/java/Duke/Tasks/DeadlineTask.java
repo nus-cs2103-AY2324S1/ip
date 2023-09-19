@@ -7,7 +7,6 @@ public class DeadlineTask extends Task {
     String taskDescription;
     String deadline;
 
-    private boolean allowDuplicates = false;
     public DeadlineTask(String task) {
         super(task);
         String[] inputStringComponents = task.split("/");
@@ -25,17 +24,15 @@ public class DeadlineTask extends Task {
 
     @Override
     public boolean equals(Object o) {
-        if ((!(o instanceof DeadlineTask)) || allowDuplicates) {
+        if ((!(o instanceof DeadlineTask))) {
             return false;
         }
         DeadlineTask obj = (DeadlineTask) o;
         if (obj.taskDescription.equals(this.taskDescription)
                 && obj.deadline.equals(this.deadline)) {
-            allowDuplicates = true;
             return true;
         }
         return false;
     }
-
 }
 

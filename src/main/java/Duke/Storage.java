@@ -23,6 +23,7 @@ public class Storage {
     private static final String path = "./data/data.txt";
     public static void saveTasks(TaskList x) {
         try {
+            assert x != null;
             File file = new File(path);
             file.getParentFile().mkdirs();
             PrintWriter writer = new PrintWriter(new FileWriter(file));
