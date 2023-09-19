@@ -28,12 +28,12 @@ iPbot supports the following features:
   Example: `todo Buy groceries` (Adds a todo task with the description "Buy groceries")
 
 - **`deadline`**: Add a deadline task.
-  Example: `deadline Submit report /by 2023-09-30 18:00`
-  (Adds a deadline task with the description "Submit report" and due date "2023-09-30 18:00")
+  Example: `deadline Submit report /by 2023-09-30 18:00:00`
+  (Adds a deadline task with the description "Submit report" and due date "2023-09-30 18:00:00")
 
 - **`event`**: Add an event task.
-  Example: `event Team meeting /from 2023-09-25 14:00 /to 2023-09-25 16:00`
-  (Adds an event task with the description "Team meeting," start time "2023-09-25 14:00," and end time "2023-09-25 16:00")
+  Example: `event Team meeting /from 2023-09-25 14:00:00 /to 2023-09-25 16:00:00`
+  (Adds an event task with the description "Team meeting," start time "2023-09-25 14:00:00," and end time "2023-09-25 16:00:00")
 
 - **`help`**: Display a help message.
   Example: `help`
