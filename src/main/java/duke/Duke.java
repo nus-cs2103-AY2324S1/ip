@@ -1,7 +1,6 @@
 package duke;
 import duke.exceptions.DukeException;
 import duke.gui.DialogBox;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,13 +13,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.Stack;
-
 /**
  * duke.Main class for the Duke application.
  * This class handles user interactions and manages tasks using the Archive class.
  */
-public class Duke extends Application{
+public class Duke extends Application {
     private Storage storage;
     private TaskList tasks;
     private ScrollPane scrollPane;
@@ -151,36 +148,41 @@ public class Duke extends Application{
         return response;
     }
 
+    /**
+     * This method performs various tasks based on the input command and arguments.
+     *
+     * @param parsedText An array of strings representing the parsed input command and arguments.
+     * @return A string containing the result of the operation or an error message.
+     * @throws DukeException If an error occurs during task manipulation, a DukeException is thrown.
+     */
     public String manipulateTasks(String[] parsedText) {
         tasks.pushCurr();
         try {
             switch (parsedText[0]) {
-                case "undo" :
-                    return tasks.undo();
-                case "mark":
-                    return tasks.markTask(Integer.parseInt(parsedText[1]));
-                case "unmark":
-                    return tasks.unmarkTask(Integer.parseInt(parsedText[1]));
-                case "delete":
-                    return tasks.deleteTask(Integer.parseInt(parsedText[1]));
-                case "find":
-                    return tasks.find(parsedText[1]);
-                case "list":
-                    return tasks.getAll();
-                case "exception":
-                    return parsedText[1];
-                case "todo":
-                case "deadline":
-                case "event":
-                    return tasks.addTask(parsedText);
-                default:
-                    return "Invalid input";
+            case "undo":
+                return tasks.undo();
+            case "mark":
+                return tasks.markTask(Integer.parseInt(parsedText[1]));
+            case "unmark":
+                return tasks.unmarkTask(Integer.parseInt(parsedText[1]));
+            case "delete":
+                return tasks.deleteTask(Integer.parseInt(parsedText[1]));
+            case "find":
+                return tasks.find(parsedText[1]);
+            case "list":
+                return tasks.getAll();
+            case "exception":
+                return parsedText[1];
+            case "todo":
+            case "deadline":
+            case "event":
+                return tasks.addTask(parsedText);
+            default:
+                return "Invalid input";
             }
         } catch (DukeException e) {
             return e.getMessage();
         }
     }
-
-
 }
 

@@ -1,20 +1,35 @@
 package duke;
 
-import duke.exceptions.*;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.exceptions.DukeException;
+import duke.exceptions.EmptyDeadlineException;
+import duke.exceptions.EmptyEventException;
+import duke.exceptions.EmptyTodoException;
+import duke.exceptions.InvalidFindException;
+import duke.exceptions.InvalidInputException;
+import duke.exceptions.MissingByException;
+import duke.exceptions.MissingFromException;
+import duke.exceptions.MissingTitleException;
+import duke.exceptions.MissingToException;
+import duke.exceptions.OutOfIndexException;
 
+/**
+ * The Parser class is responsible for parsing user input and formatting it into
+ * an array of strings for further processing.
+ */
 public class Parser {
-    public Parser(){}
+    public Parser() {}
 
+    /**
+     * Parses the user input and formats it into an array of strings for further processing.
+     *
+     * @param input The user input string to be parsed.
+     * @param tasks The TaskList object representing the list of tasks.
+     * @return An array of strings containing the parsed command and arguments.
+     * @throws InvalidInputException If the input cannot be parsed or is invalid, an InvalidInputException is thrown.
+     */
     public static String[] parse(String input, TaskList tasks) {
         try {
-            if (input.equals("GET SCHWIFTY")) {
-                System.out.print("I LIKE WHAT YOU'VE GOT. GOOD JOB.");
-                return new String[]{"exit"};
-            } else if (input.equals("list")) {
+            if (input.equals("list")) {
                 return new String[]{"list"};
             } else if (input.startsWith("mark")) {
                 return formatMark(input, tasks);
@@ -41,10 +56,11 @@ public class Parser {
     }
 
     private static String[] formatUndo() {
-        return new String[]{"undo"};
+        return new String[] {"undo"};
     }
 
-    private static String[] formatEvent(String input) throws EmptyEventException, MissingFromException, MissingTitleException, MissingToException {
+    private static String[] formatEvent(String input) throws EmptyEventException, MissingFromException,
+            MissingTitleException, MissingToException {
         int minLength = 7;
         if (input.length() < minLength) {
             throw new EmptyEventException();
@@ -63,14 +79,15 @@ public class Parser {
         }
         String from = input.substring(fromIndex + 6, toIndex - 1);
         String to = input.substring(toIndex + 4);
-        return new String[]{"event", title,from, to};
+        return new String[]{"event", title, from, to};
     }
 
-    private static String[] formatDeadline(String input) throws EmptyDeadlineException, MissingByException, MissingTitleException {
+    private static String[] formatDeadline(String input) throws EmptyDeadlineException,
+            MissingByException, MissingTitleException {
         if (input.length() < 10) {
             throw new EmptyDeadlineException();
         }
-        int byIndex= input.indexOf("/by");
+        int byIndex = input.indexOf("/by");
         if (byIndex == -1) {
             throw new MissingByException();
         }

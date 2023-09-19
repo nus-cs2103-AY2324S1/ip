@@ -65,6 +65,11 @@ public class TaskList {
         previousLists.push(currTasks);
     }
 
+    /**
+     * Undoes the most recent change to the task list, reverting it to a previous state.
+     *
+     * @return A message indicating the result of the undo operation.
+     */
     public String undo() {
         if (this.previousLists.isEmpty()) {
             return "Already at the latest change";
@@ -83,7 +88,6 @@ public class TaskList {
     /**
      * Marks a task as completed based on user input.
      *
-     * @param input The input string containing the task index to mark.
      * @throws OutOfIndexException If the provided index is out of the valid range.
      */
     public String markTask(int index) {
@@ -96,7 +100,6 @@ public class TaskList {
     /**
      * Marks a completed task as incomplete based on user input.
      *
-     * @param input The input string containing the task index to unmark.
      * @throws OutOfIndexException If the provided index is out of the valid range.
      */
     public String unmarkTask(int index) {
@@ -109,7 +112,6 @@ public class TaskList {
     /**
      * Deletes a task based on user input.
      *
-     * @param input The input string containing the task index to delete.
      * @throws OutOfIndexException If the provided index is out of the valid range.
      */
     public String deleteTask(int index) {
@@ -177,7 +179,6 @@ public class TaskList {
     /**
      * Finds tasks in the task list that match the given keyword(s) in their titles.
      *
-     * @param input The input string containing the keyword(s) to search for.
      * @return A list of tasks that match the search criteria.
      * @throws InvalidFindException If the provided search input is too short to be valid.
      */
