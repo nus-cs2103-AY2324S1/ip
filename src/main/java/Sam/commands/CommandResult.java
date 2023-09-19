@@ -2,6 +2,7 @@ package sam.commands;
 
 /**
  * Represents the result of a command execution.
+ * Based on AddressBook2
  */
 public class CommandResult {
 

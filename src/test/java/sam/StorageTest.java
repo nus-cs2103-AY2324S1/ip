@@ -29,10 +29,10 @@ public class StorageTest {
     @BeforeEach
     public void setUp() throws IOException {
         validTasks = new TaskList();
-        validTasks.addTask(new ToDo("buy book"));
-        validTasks.addTask(new Deadline("return book", DateTimeParser.parseDate("2023-11-15 0800")));
-        validTasks.addTask(new Event("pool party", DateTimeParser.parseDate("2019-11-15 0800"),
-                DateTimeParser.parseDate("2023-11-15 0800")));
+        validTasks.addTask(new ToDo("go to zoo"));
+        validTasks.addTask(new Deadline("submit assignment", DateTimeParser.parseDate("2023-11-15 0800")));
+        validTasks.addTask(new Event("holiday in Germany", DateTimeParser.parseDate("2019-11-15 0800"),
+                DateTimeParser.parseDate("2023-12-15 0800")));
         File file = new File(TEST_FILE_VALID);
         File directory = file.getParentFile();
 
@@ -58,10 +58,10 @@ public class StorageTest {
     @Test
     public void saveTasksToHardDisk() throws Exception {
         TaskList tasks = new TaskList();
-        tasks.addTask(new ToDo("buy book"));
-        tasks.addTask(new Deadline("return book", DateTimeParser.parseDate("2023-11-15 0800")));
-        tasks.addTask(new Event("pool party", DateTimeParser.parseDate("2019-11-15 0800"),
-                DateTimeParser.parseDate("2023-11-15 0800")));
+        tasks.addTask(new ToDo("go to zoo"));
+        tasks.addTask(new Deadline("submit assignment", DateTimeParser.parseDate("2023-11-15 0800")));
+        tasks.addTask(new Event("holiday in Germany", DateTimeParser.parseDate("2019-11-15 0800"),
+                DateTimeParser.parseDate("2023-12-15 0800")));
         Storage storage = new Storage(TEST_FILE_TEST);
         storage.saveTasksToFile(tasks);
         String content1 = readFileContent(TEST_FILE_VALID);
