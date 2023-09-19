@@ -1,8 +1,11 @@
 package duke.command;
 
 import duke.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.GobbleMessage;
+
+import java.util.ArrayList;
 
 /**
  * Represents a FindCommand class that deals with the command to find a task.
@@ -28,10 +31,15 @@ public class FindCommand extends Command {
      */
     @Override
     public GobbleMessage execute(TaskList taskList, Storage storage) {
+        ArrayList<Task> tasks = taskList.findTask(this.keyword);
+
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
+
+        for (Task task : tasks) {
+            message.append(task.toString()).append("\n");
+        }
+
         return GobbleMessage.getGobbleDialog(
-                taskList.findTask(this.keyword)
-                        .toString()
-                        .replace("[", "")
-                        .replace("]", ""));
+                message.toString());
     }
 }
