@@ -12,12 +12,15 @@ Too many tasks? Start on one now and get the satisfaction of marking them done.
 View the tasks that are due today, next week, or the next two weeks.
 
 ## Note on command format
-- Words in `UPPER_CASE` are parameters to be supplied by the user.<p>
-e.g. in `todo TASK_INFO`, `TASK_INFO` is a parameter that can be used as `todo bake cookies`.
-- Input dates must be of the format `YYYY-MM-DD HH:mm` format.<p>
-e.g. the `DATE` parameter can be`2023-09-09 07:00`
-- Items in square brackets are optional.<p>
-e.g. in `list [FLAG]`, the `[FLAG]` can be omitted. Hence, `list` is also a valid command that 
+- Words in `UPPER_CASE` are parameters to be supplied by the user.
+    
+    e.g. in `todo TASK_INFO`, `TASK_INFO` is a parameter that can be used as `todo bake cookies`.
+- Input dates must be of the format `YYYY-MM-DD HH:mm` format.
+
+  e.g. the `DATE` parameter can be`2023-09-09 07:00`
+- Items in square brackets are optional.
+
+    e.g. in `list [FLAG]`, the `[FLAG]` can be omitted. Hence, `list` is also a valid command that 
 lists all tasks. 
 
 ## Usage
