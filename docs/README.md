@@ -4,7 +4,7 @@ Glendasaurus is a Personal Assistant Chatbot that helps you keep track of variou
 
 ## Getting Started
 1. Ensure that you have Java `11` or above installed in your Computer.
-2. Download the latest `glendasaurus.jar` from [here](
+2. Download the latest `glendasaurus.jar` from [here]()
 3. Copy the file to the folder you want to use as the home folder for Glendasaurus.
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
 5. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing Enter will list all tasks.
@@ -45,7 +45,7 @@ Now you have 1 task(s) in the list.
 ```
 
 #### Possible Errors
-- If the task description is empty, Glendasaurus will respond with the following message:
+If the task description is empty, Glendasaurus will respond with the following message:
 ``` 
 OOPS!!! The description of a todo cannot be empty.
 ``` 
@@ -71,13 +71,13 @@ Now you have 2 task(s) in the list.
 ```
 
 #### Possible Errors
-- If the task is not in the correct format, Glendasaurus will respond with the following message:
+If the task is not in the correct format, Glendasaurus will respond with the following message:
 
 ```
 OOPS!!! The format of a deadline task is 
 "deadline TASK_DESCRIPTION /by DD/MM/YYYY 24H_TIME\""
 ```
-- If the date/time is not valid, Glendasaurus will respond with the following message:
+If the date/time is not valid, Glendasaurus will respond with the following message:
 
 ```
 OOPS!!! Invalid date or time format in deadline task.
@@ -104,7 +104,7 @@ Now you have 3 task(s) in the list.
 ```
 
 #### Possible Errors
-- If the task is not in the correct format, Glendasaurus will respond with the following message:
+If the task is not in the correct format, Glendasaurus will respond with the following message:
 
 ``` 
 OOPS!!! The format of an event task is "event TASK_DESCRIPTION /from START /to END""
@@ -136,14 +136,14 @@ Now you have 4 task(s) in the list.
 ```
 
 #### Possible Errors
-- If the task is not in the correct format, Glendasaurus will respond with the following message:
+If the task is not in the correct format, Glendasaurus will respond with the following message:
 
 ```
 OOPS!!! The format of an event task is 
 fixedDuration TASK_DESCRIPTION /needs DURATION UNITS(minutes OR hours)
 ```
 
-- If the units is not valid, Glendasaurus will respond with the following message:
+If the units is not valid, Glendasaurus will respond with the following message:
 
 ```
 OOPS!!! The units of a fixed duration task must be either "hours" or "minutes".
@@ -186,14 +186,14 @@ Great! I've completed this task!
 ```
 
 #### Possible Errors
-- If the command is in an invalid format, Glendasaurus will respond with the following message:
+If the command is in an invalid format, Glendasaurus will respond with the following message:
 
  ```
 OOPS!!! The format of unmark command is "unmark TASK_NUMBER". 
 Task number must exist in the task list.
 ```
 
-- If the task number is not valid, Glendasaurus will respond with the following message:
+If the task number is not valid, Glendasaurus will respond with the following message:
 
 ```
 OOPS!!! Task 5 does not exist.
@@ -218,14 +218,14 @@ Okay, I have not yet completed this task:
 ```
 
 #### Possible Errors
-- If the command is in an invalid format, Glendasaurus will respond with the following message:
+If the command is in an invalid format, Glendasaurus will respond with the following message:
 
  ```
 OOPS!!! The format of unmark command is "unmark TASK_NUMBER".
 Task number must exist in the task list.
 ```
 
-- If the task number is not valid, Glendasaurus will respond with the following message:
+If the task number is not valid, Glendasaurus will respond with the following message:
 
 ```
 OOPS!!! Task 5 does not exist.
@@ -245,27 +245,27 @@ If successful, the task will be deleted from the task list.
 Glendasaurus will respond with the following message:
 
 ```
-Noted. I've removed this task:
-[T][X] read book
+Okay, I've removed this task:
+[T][ ] read book
 Now you have 3 task(s) in the list.
 ```
 
 #### Possible Errors
-- If the command is in an invalid format, Glendasaurus will respond with the following message:
+If the command is in an invalid format, Glendasaurus will respond with the following message:
 
  ```
 OOPS!!! The format of delete command is "delete TASK_NUMBER". 
 Task number must exist in the task list.
 ```
 
-- If the task number is not valid, Glendasaurus will respond with the following message:
+If the task number is not valid, Glendasaurus will respond with the following message:
 
 ```
 OOPS!!! Task 5 does not exist.
 ```
 
 ### Find tasks
-Finds tasks that contain the keyword.
+Finds tasks that contain the matching keyword.
 
 #### Usage
 `find [keyword]`
@@ -283,8 +283,15 @@ Here are the matching tasks in your list:
 1. [D][ ] return book (by Sep 18 2020 11:59pm)
 ```
 
+#### Possible Errors
+If the command is in an invalid format, Glendasaurus will respond with the following message:
+```
+OOPS!!! The description of a find command cannot be empty.
+```
+
+
 ### Exit the program
-Exits the program.
+Exits Glendasaurus easily once done!
 
 #### Usage
 `bye`
@@ -313,9 +320,6 @@ The following table provides a quick summary of all the commands that Glendasaru
 | `bye`         | Exits the program.                                                                                                             |
 
 
-
-
-## FAQ
 
 
 
