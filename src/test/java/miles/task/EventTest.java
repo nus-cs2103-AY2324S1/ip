@@ -23,7 +23,7 @@ public class EventTest {
         MilesException expectedException = assertThrows(MilesException.class, () -> {
             Event.splitEventString(testString);
         });
-        String expectedErrorMsg = "OOPS!!! The description of a event cannot be empty.";
+        String expectedErrorMsg = "Hold up... The description of a event cannot be empty.";
         String actualErrorMsg = expectedException.getMessage();
         assertEquals(expectedErrorMsg, actualErrorMsg);
     }
@@ -34,7 +34,7 @@ public class EventTest {
         MilesException expectedException = assertThrows(MilesException.class, () -> {
             Event.splitEventString(testString);
         });
-        String expectedErrorMsg = "OOPS!!! The description of a event cannot be empty.";
+        String expectedErrorMsg = "Hold up... The description of a event cannot be empty.";
         String actualErrorMsg = expectedException.getMessage();
         assertEquals(expectedErrorMsg, actualErrorMsg);
     }

@@ -1,5 +1,6 @@
 package miles;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -60,5 +61,18 @@ public class StorageTest {
         // to clean up the file for future tests
         taskList2 = new TaskList();
         storage.saveFile(taskList2);
+    }
+
+    @Test
+    public void testSaveFileWithIOException() {
+        String directoryPath = "./data";
+        String filePath = "./data/directory-does-not-exist/test.txt";
+        Storage storage = new Storage(filePath, directoryPath);
+        TaskList taskList = new TaskList();
+
+        // IOException which is thrown should already be caught by the saveFile method
+        assertDoesNotThrow(() -> {
+            storage.saveFile(taskList);
+        });
     }
 }
