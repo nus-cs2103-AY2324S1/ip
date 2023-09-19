@@ -23,7 +23,7 @@ public class AddEventCommand extends Command {
      */
     public AddEventCommand(String taskName, String startDate, String endDate) throws DukeException {
         if (taskName.equals("")) {
-            throw new DukeException("☹ OOPS!!! Incorrect description of a deadline.");
+            throw new DukeException("OOPS!!! Incorrect description of a deadline.");
         }
         this.taskName = taskName;
         this.startDate = startDate;

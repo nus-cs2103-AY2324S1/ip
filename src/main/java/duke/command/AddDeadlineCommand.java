@@ -23,7 +23,7 @@ public class AddDeadlineCommand extends Command {
      */
     public AddDeadlineCommand(String taskName, String dueDate) throws DukeException {
         if (taskName.equals("")) {
-            throw new DukeException("☹ OOPS!!! Incorrect description of a deadline.");
+            throw new DukeException("OOPS!!! Incorrect description of a deadline.");
         }
         this.taskName = taskName;
         this.dueDate = dueDate;

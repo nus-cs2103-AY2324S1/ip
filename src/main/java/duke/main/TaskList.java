@@ -81,12 +81,11 @@ public class TaskList {
     public void deleteTask(int number) throws DukeException {
         try {
             this.index = this.taskList.size();
-            assert number < this.index;
             this.taskList.remove(number - 1);
             this.index--;
 
         } catch (IndexOutOfBoundsException | NullPointerException e) {
-            throw new DukeException("☹ OOPS!!! There is no task with this index number.");
+            throw new DukeException("OOPS!!! There is no task with this index number.");
         }
     }
 
@@ -109,7 +108,7 @@ public class TaskList {
         try {
             return this.taskList.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! There is no task with this index number.");
+            throw new DukeException("OOPS!!! There is no task with this index number.");
         }
     }
 
@@ -141,7 +140,7 @@ public class TaskList {
             }
             return tempList;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! There are no tasks in the list.");
+            throw new DukeException("OOPS!!! There are no tasks in the list.");
         }
     }
 
