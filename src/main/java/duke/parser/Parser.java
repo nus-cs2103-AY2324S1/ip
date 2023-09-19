@@ -40,53 +40,21 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         case "event":
-            // Add event task into task list
-            if (!userInput.matches("event .*/from .* /to .*")) {
-                throw new DukeException("OOPS!!! The format of an event task is "
-                        + "\"event TASK_DESCRIPTION /from START /to END\"");
-            }
-
-            String description = splitCommand[1].split("/from")[0].trim();
-            String[] dateAndTime = splitCommand[1].split("/from")[1].split("/to");
-            return new AddCommand(new Event(description, dateAndTime[0], dateAndTime[1]));
+            return parseEventCommand(userInput, splitCommand[1]);
         case "deadline":
-            // Add deadline task into task list
             return parseDeadlineCommand(splitCommand[1]);
         case "todo":
-            // Add to-do task into task list
-            if (!userInput.matches("todo .*")) {
-                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-            }
-            return new AddCommand(new ToDo(splitCommand[1]));
+            return parseTodoCommand(userInput, splitCommand);
         case "fixedDuration":
             return parseFixedDurationTask(splitCommand[1]);
         case "mark":
+            return parseMarkCommand(userInput, splitCommand);
         case "unmark":
+            return parseUnmarkCommand(userInput, splitCommand);
         case "delete":
-            if (!userInput.matches(".* \\d+")) {
-                String errorMessage = String.format(
-                        "OOPS!!! The format of this command is \"%s TASK_NUMBER\". "
-                                + "Task number must exist in the task list.", splitCommand[0]);
-                throw new DukeException(errorMessage);
-            }
-
-            int taskNumber = Integer.parseInt(splitCommand[1]);
-
-            switch (splitCommand[0]) {
-            case "mark":
-                return new MarkCommand(taskNumber);
-            case "unmark":
-                return new UnmarkCommand(taskNumber);
-            case "delete":
-                return new DeleteCommand(taskNumber);
-            default:
-                throw new DukeException();
-            }
+            return parseDeleteCommand(userInput, splitCommand);
         case "find":
-            if (!userInput.matches("find .*")) {
-                throw new DukeException("OOPS!!! The description of a find command cannot be empty.");
-            }
-            return new FindCommand(splitCommand[1]);
+            return parseFindCommand(userInput, splitCommand[1]);
         default:
             throw new DukeException();
         }
@@ -168,5 +136,106 @@ public class Parser {
         }
 
         return new AddCommand(new FixedDurationTask(taskParts[0].trim(), duration, units));
+    }
+
+    /**
+     * Parses a user input string to create an Event object.
+     *
+     * @param userInput The user input string to parse.
+     * @param splitCommand The user input string to parse.
+     * @return A Command object representing the parsed Event.
+     * @throws DukeException If there is an error in the user input or parsing.
+     */
+    public static Command parseEventCommand(String userInput, String splitCommand) throws DukeException {
+        // Add event task into task list
+        if (!userInput.matches("event .*/from .* /to .*")) {
+            throw new DukeException("OOPS!!! The format of an event task is "
+                    + "\"event TASK_DESCRIPTION /from START /to END\"");
+        }
+
+        String description = splitCommand.split("/from")[0].trim();
+        String[] dateAndTime = splitCommand.split("/from")[1].split("/to");
+        return new AddCommand(new Event(description, dateAndTime[0], dateAndTime[1]));
+    }
+
+    /**
+     * Parses a user input string to create a ToDo object.
+     *
+     * @param userInput The user input string to parse.
+     * @param stringCommand The user input string to parse.
+     * @return A Command object representing the parsed ToDo.
+     * @throws DukeException If there is an error in the user input or parsing.
+     */
+    public static Command parseTodoCommand(String userInput, String[] stringCommand) throws DukeException {
+        // Add to-do task into task list
+        if (!userInput.matches("todo .*")) {
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+        }
+        return new AddCommand(new ToDo(stringCommand[1]));
+    }
+
+    /**
+     * Parses a user input string to create a DeleteCommand object.
+     *
+     * @param userInput The user input string to parse.
+     * @param splitCommand The task number to delete.
+     * @return A DeleteCommand object representing the parsed delete command.
+     * @throws DukeException If there is an error in the user input or parsing.
+     */
+    public static Command parseDeleteCommand(String userInput, String[] splitCommand) throws DukeException {
+        if (!userInput.matches(".* \\d+")) {
+            String errorMessage = "OOPS!!! The format of delete command is \"delete TASK_NUMBER\". "
+                            + "Task number must exist in the task list.";
+            throw new DukeException(errorMessage);
+        }
+
+        return new DeleteCommand(Integer.parseInt(splitCommand[1]));
+    }
+
+    /**
+     * Parses a user input string to create a MarkCommand object.
+     *
+     * @param userInput The user input string to parse.
+     * @param splitCommand The task number to mark as done.
+     * @return A MarkCommand object representing the parsed mark command.
+     * @throws DukeException If there is an error in the user input or parsing.
+     */
+    public static Command parseMarkCommand(String userInput, String[] splitCommand) throws DukeException {
+        if (!userInput.matches(".* \\d+")) {
+            String errorMessage = "OOPS!!! The format of mark command is \"mark TASK_NUMBER\". "
+                    + "Task number must exist in the task list.";
+            throw new DukeException(errorMessage);
+        }
+        return new MarkCommand(Integer.parseInt(splitCommand[1]));
+    }
+
+    /**
+     * Parses a user input string to create an UnmarkCommand object.
+     * @param userInput The user input string to parse.
+     * @param splitCommand The task number to mark as undone.
+     * @return An UnmarkCommand object representing the parsed unmark command.
+     * @throws DukeException If there is an error in the user input or parsing.
+     */
+    public static Command parseUnmarkCommand(String userInput, String[] splitCommand) throws DukeException {
+        if (!userInput.matches(".* \\d+")) {
+            String errorMessage = "OOPS!!! The format of unmark command is \"unmark TASK_NUMBER\". "
+                    + "Task number must exist in the task list.";
+            throw new DukeException(errorMessage);
+        }
+        return new UnmarkCommand(Integer.parseInt(splitCommand[1]));
+    }
+
+    /**
+     * Parses a user input string to create a FindCommand object.
+     * @param userInput The user input string to parse.
+     * @param splitCommand The keyword to search for in the task list.
+     * @return A FindCommand object representing the parsed find command.
+     * @throws DukeException If there is an error in the user input or parsing.
+     */
+    public static Command parseFindCommand(String userInput, String splitCommand) throws DukeException {
+        if (!userInput.matches("find .*")) {
+            throw new DukeException("OOPS!!! The description of a find command cannot be empty.");
+        }
+        return new FindCommand(splitCommand);
     }
 }

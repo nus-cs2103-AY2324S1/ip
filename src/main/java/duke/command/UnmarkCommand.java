@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command {
     private final int taskNumber;
 
     /**
-     * Construct an UnmarkCommand object.
+     * Constructs an UnmarkCommand object.
      *
      * @param taskNumber The task number corresponding to the task, to be marked undone.
      */

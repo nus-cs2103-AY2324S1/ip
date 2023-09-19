@@ -12,7 +12,7 @@ public class MarkCommand extends Command {
     private final int taskNumber;
 
     /**
-     * Construcst a MarkCommand object.
+     * Constructs a MarkCommand object.
      *
      * @param taskNumber The task number corresponding to the task, to be marked done.
      */

@@ -1,7 +1,6 @@
-D | 1 | project | 12 Dec 2023 | 7.00PM
-T | 1 | read book
-D | 1 | sleep | 12 Dec 1212 | 12.34PM
-F | 1 | sleep | needs 5 hours
-E | 1 | sep | from now | to then
-F | 1 | okay | needs 2 hours
-T | 1 | read
+E | 0 | AI Workshop | from 22 Aug | to 23 Aug
+D | 0 | CS2103T iP task | 22 Sep 2023 | 11.59PM
+T | 0 | buy groceries
+D | 1 | SEP Application | 24 Sep 2023 | 11.59PM
+D | 0 | ES2660 Presentation | 21 Sep 2023 | 10.00AM
+F | 0 | improve GUI | needs 2 hours
