@@ -13,11 +13,13 @@ import duke.commands.FindCommand;
 import duke.commands.InvalidCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
+import duke.commands.RescheduleCommand;
 import duke.commands.ToDoCommand;
 import duke.commands.UnmarkCommand;
 import duke.exceptions.InvalidDateTimeException;
 import duke.exceptions.InvalidDescriptionException;
 import duke.exceptions.InvalidKeywordException;
+import duke.exceptions.InvalidRescheduleException;
 import duke.exceptions.InvalidTaskIndexException;
 import duke.exceptions.MissingTaskIndexException;
 import duke.storage.Storage;
@@ -62,6 +64,8 @@ public class Parser {
             return new FindCommand(str);
         case "bye":
             return new ByeCommand();
+        case "reschedule":
+            return new RescheduleCommand(str);
         default:
             return new InvalidCommand();
         }
@@ -145,7 +149,7 @@ public class Parser {
      */
     public static Task taskToDelete(String str, TaskList tasks)
             throws InvalidTaskIndexException, MissingTaskIndexException {
-        int parts = str.split (" ").length;
+        int parts = str.split(" ").length;
         if (parts != 2) {
             throw new MissingTaskIndexException("Task Index Missing.");
         }
@@ -158,6 +162,167 @@ public class Parser {
         tasks.deleteTask(taskIndex);
         return toRemove;
     }
+
+    /**
+     * Converts a user input string to a task index for rescheduling.
+     *
+     * @param str The user input string containing the task index.
+     * @param tasks The task list containing the tasks.
+     * @return The task index (0-based) that corresponds to the user input.
+     * @throws InvalidTaskIndexException If the task index is not within the valid range.
+     * @throws MissingTaskIndexException If the task index is missing in the user input.
+     */
+    public static int taskIndexToReschedule(String str, TaskList tasks)
+            throws InvalidTaskIndexException, MissingTaskIndexException {
+        int parts = str.split(" ").length;
+        if (parts < 2) {
+            throw new MissingTaskIndexException("Task Index Missing.");
+        }
+        assert parts == 2 : "parts should be 2";
+        int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+        if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
+            throw new InvalidTaskIndexException("Invalid Task Index.");
+        }
+        return taskIndex;
+    }
+
+    private static String getByDatetime(String userInput) throws InvalidRescheduleException {
+        int parts = userInput.split(" ").length;
+        if (parts != 4) {
+            throw new InvalidRescheduleException("Invalid number of inputs");
+        }
+        String datetime = userInput.split(" ", 3)[2];
+        return datetime;
+    }
+
+    /**
+     * Extracts the new 'by' date from user input for rescheduling.
+     *
+     * @param userInput The user input string.
+     * @return The LocalDate representing the new 'by' date.
+     * @throws InvalidRescheduleException If the input format is invalid.
+     * @throws InvalidDateTimeException If the date and time cannot be parsed.
+     */
+    public static LocalDate getNewByDate(String userInput)
+            throws InvalidRescheduleException, InvalidDateTimeException {
+        try {
+            String datetime = getByDatetime(userInput);
+            LocalDate newByDate = LocalDate.parse(datetime.split(" ")[0]);
+            return newByDate;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Invalid Datetime.");
+        }
+    }
+
+    /**
+     * Extracts the new 'by' time from user input for rescheduling.
+     *
+     * @param userInput The user input string.
+     * @return The LocalDate representing the new 'by' time.
+     * @throws InvalidRescheduleException If the input format is invalid.
+     * @throws InvalidDateTimeException If the date and time cannot be parsed.
+     */
+    public static LocalTime getNewByTime(String userInput)
+            throws InvalidRescheduleException, InvalidDateTimeException {
+        try {
+            String datetime = getByDatetime(userInput);
+            LocalTime newByTime = LocalTime.parse(datetime.split(" ")[1]);
+            return newByTime;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Invalid Datetime.");
+        }
+    }
+
+    private static String getFromDatetime(String userInput) throws InvalidRescheduleException {
+        int parts = userInput.split(" ").length;
+        if (parts != 6) {
+            throw new InvalidRescheduleException("Invalid number of inputs");
+        }
+        String datetime = userInput.split(" ", 3)[2];
+        return datetime;
+    }
+
+    /**
+     * Extracts the new 'from' date from user input for rescheduling.
+     *
+     * @param userInput The user input string.
+     * @return The LocalDate representing the new 'from' date.
+     * @throws InvalidRescheduleException If the input format is invalid.
+     * @throws InvalidDateTimeException If the date and time cannot be parsed.
+     */
+    public static LocalDate getNewFromDate(String userInput)
+            throws InvalidRescheduleException, InvalidDateTimeException {
+        try {
+            String datetime = getFromDatetime(userInput);
+            LocalDate newFromDate = LocalDate.parse(datetime.split(" ")[0]);
+            return newFromDate;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Invalid Datetime");
+        }
+    }
+
+    /**
+     * Extracts the new 'from' time from user input for rescheduling.
+     *
+     * @param userInput The user input string.
+     * @return The LocalDate representing the new 'from' time.
+     * @throws InvalidRescheduleException If the input format is invalid.
+     * @throws InvalidDateTimeException If the date and time cannot be parsed.
+     */
+    public static LocalTime getNewFromTime(String userInput)
+            throws InvalidRescheduleException, InvalidDateTimeException {
+        try {
+            String datetime = getFromDatetime(userInput);
+            LocalTime newFromTime = LocalTime.parse(datetime.split(" ")[1]);
+            return newFromTime;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Invalid Datetime");
+        }
+    }
+
+    /**
+     * Extracts the new 'to' date from user input for rescheduling.
+     *
+     * @param userInput The user input string.
+     * @return The LocalDate representing the new 'to' date.
+     * @throws InvalidRescheduleException If the input format is invalid.
+     * @throws InvalidDateTimeException If the date and time cannot be parsed.
+     */
+    public static LocalDate getNewToDate(String userInput)
+            throws InvalidRescheduleException, InvalidDateTimeException {
+        try {
+            String datetime = getFromDatetime(userInput);
+            LocalDate newToDate = LocalDate.parse(datetime.split(" ")[2]);
+            return newToDate;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Invalid Datetime");
+        }
+    }
+
+    /**
+     * Extracts the new 'to' time from user input for rescheduling.
+     *
+     * @param userInput The user input string.
+     * @return The LocalDate representing the new 'to' time.
+     * @throws InvalidRescheduleException If the input format is invalid.
+     * @throws InvalidDateTimeException If the date and time cannot be parsed.
+     */
+    public static LocalTime getNewToTime(String userInput)
+            throws InvalidRescheduleException, InvalidDateTimeException {
+        try {
+            String datetime = getFromDatetime(userInput);
+            LocalTime newToTime = LocalTime.parse(datetime.split(" ")[3]);
+            return newToTime;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Invalid Datetime");
+        }
+    }
+
+
+
+
+
+
 
     /**
      * Creates a ToDo task based on data from storage.

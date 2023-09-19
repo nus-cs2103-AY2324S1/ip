@@ -3,6 +3,12 @@ package duke.tasks;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidRescheduleException;
+import duke.parser.Parser;
+
+
+
 /**
  * Represents an event task that occurs within a specified time range.
  * This class extends the duke.tasks.Task class and adds the event's start and end times.
@@ -36,6 +42,16 @@ public class Event extends Task {
         this.fromTime = fromTime;
         this.toDate = toDate;
         this.toTime = toTime;
+        this.from = fromDate.toString() + " " + fromTime.toString();
+        this.to = toDate.toString() + " " + toTime.toString();
+    }
+
+    @Override
+    public void reschedule(String newDateTimeString) throws InvalidDateTimeException, InvalidRescheduleException {
+        this.fromDate = Parser.getNewFromDate(newDateTimeString);
+        this.fromTime = Parser.getNewFromTime(newDateTimeString);
+        this.toDate = Parser.getNewToDate(newDateTimeString);
+        this.toTime = Parser.getNewToTime(newDateTimeString);
         this.from = fromDate.toString() + " " + fromTime.toString();
         this.to = toDate.toString() + " " + toTime.toString();
     }

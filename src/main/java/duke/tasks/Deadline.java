@@ -3,6 +3,10 @@ package duke.tasks;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidRescheduleException;
+import duke.parser.Parser;
+
 /**
  * Represents a task with a specific deadline.
  * This class extends the duke.tasks.Task class and adds a deadline to it.
@@ -25,6 +29,13 @@ public class Deadline extends Task {
         super(description);
         this.byDate = byDate;
         this.byTime = byTime;
+        this.by = byDate.toString() + " " + byTime.toString();
+    }
+
+    @Override
+    public void reschedule(String newDateTimeString) throws InvalidDateTimeException, InvalidRescheduleException {
+        this.byDate = Parser.getNewByDate(newDateTimeString);
+        this.byTime = Parser.getNewByTime(newDateTimeString);
         this.by = byDate.toString() + " " + byTime.toString();
     }
 
