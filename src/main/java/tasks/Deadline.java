@@ -48,7 +48,7 @@ public class Deadline extends Task {
     @Override
     public String toText() {
         return "D " + this.getDoneStatus() + " "
-                + this.description + " /"
+                + this.description + " /by "
                 + this.end.toString().replace("T", " ");
     }
 

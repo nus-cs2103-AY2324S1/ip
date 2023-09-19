@@ -1,5 +1,7 @@
 package tasks;
 
+import helpers.ClashDetection;
+
 import java.util.ArrayList;
 
 /**
@@ -41,19 +43,19 @@ public class TaskList {
             String[] parts = line.split(" ", 3);
             if (parts[0].equals("T")) {
 
-                ToDo task = new ToDo(parts[2]);
+                ToDo task = new ToDo(parts[2].trim());
                 this.tasks.add(task);
 
             } else if (parts[0].equals("D")) {
 
                 String[] arr = parts[2].split("/");
-                Deadline task = new Deadline(arr[0], arr[1]);
+                Deadline task = new Deadline(arr[0].trim(), arr[1].trim());
                 this.tasks.add(task);
 
             } else {
 
                 String[] arr = parts[2].split("/");
-                Event task = new Event(arr[0], arr[1], arr[2]);
+                Event task = new Event(arr[0].trim(), arr[1].trim(), arr[2].trim());
                 this.tasks.add(task);
 
             }
@@ -161,10 +163,12 @@ public class TaskList {
     public String addTodoTask(String description) {
 
         ToDo todo = new ToDo(description);
+
         this.tasks.add(todo);
 
         String message = "";
         message += "added new task:\n" + todo + "\n" + getNumTasks();
+
 
         return message;
     }
@@ -197,11 +201,20 @@ public class TaskList {
      */
     public String addEventTask(String description, String start, String end) {
 
-        Event event = new Event(description, start, end);
-        this.tasks.add(event);
 
         String message = "";
+
+        Event event = new Event(description, start, end);
+        ClashDetection clashDetector = new ClashDetection(tasks, event);
+        if (clashDetector.detectClash()) {
+            message += clashDetector.constructClashMessage();
+        }
+        this.tasks.add(event);
+
+
         message += "added new task:\n" + event + "\n" + getNumTasks();
+
+
 
         return message;
     }
