@@ -4,15 +4,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-//repositories {
-//    mavenCentral()
-//}
-//
-//dependencies {
-//    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-//    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-//}
-
 repositories {
     mavenCentral()
 }
@@ -58,8 +49,8 @@ application {
 mainClassName = 'duke.Launcher'
 
 shadowJar {
-    archiveFileName = 'duke.jar'
-    archiveBaseName = "duke"
+    archiveFileName = 'may.jar'
+    archiveBaseName = "may"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
