@@ -103,7 +103,8 @@ public class ChadBod {
 
     private int getTaskNumber(String details) throws NumberFormatException, TaskIndexOutOfBoundsException {
         int taskNumber = Integer.parseInt(details);
-        boolean isValidTaskNumber = (taskNumber > TASKLIST_DISPLAY_OFFSET) && (taskNumber < tasks.getTaskCount());
+        boolean isValidTaskNumber = (taskNumber >= TASKLIST_DISPLAY_OFFSET)
+                    && (taskNumber < tasks.getTaskCount() + TASKLIST_DISPLAY_OFFSET);
         if (!isValidTaskNumber) {
             throw new TaskIndexOutOfBoundsException();
         }

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * The MainWindow class represents a controller for MainWindow and provides the layout for the other controls.
@@ -28,7 +29,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Initializes the MainWindow by displaying a greeting message from ChadBod in the chat interface, as well as
-     * binding the scroll pane's vertical value to the dialog container's height for automatic scrolling.
+     * enabling automatic scrolling.
      */
     @FXML
     public void initialize() {

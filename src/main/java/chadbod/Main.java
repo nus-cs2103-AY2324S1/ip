@@ -21,6 +21,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(MAIN_WINDOW_FXML));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("ChadBod");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setChadBod(chadbod);
             stage.show();
