@@ -1,6 +1,5 @@
 package cheems.functionalities;
 
-import cheems.gui.Main;
 import cheems.tasks.Task;
 import cheems.tasks.Event;
 import cheems.tasks.Todo;
@@ -18,19 +17,19 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
  * Represents a task list directly interacts with the user.
  * Interacts with Storage class as well to retrieve and update information to the text database.
  */
-public class Tasklist {
+public class TaskList {
     private final ArrayList<Task> list = new ArrayList<>();
-    private int total = 0;  // total also indicates the first free slot
+    private int total = 0; // total also indicates the first free slot
     private final Storage storage;
 
-    public Tasklist(Storage storage) {
+    public TaskList(Storage storage) {
         this.storage = storage;
     }
 
     private void checkIndexOutOfBoundsHelper(int index) throws IndexOutOfBoundsException {
         if (index >= total || index < 0) {
-            String errMsg = String.format("Sorry you do not have task #%d, " +
-                    "try \"list\" to check your current list of tasks!", index + 1);
+            String errMsg = String.format("Sorry you do not have task #%d, "
+                    + "try \"list\" to check your current list of tasks!", index + 1);
             throw new IndexOutOfBoundsException(errMsg);
         }
     }
@@ -45,7 +44,7 @@ public class Tasklist {
      */
     private Task identifyCreateTask(boolean isFromDatabase, String... params) {
         // If the params variable arguments is from the database
-        // There is a single digit 0/1 in front to represent isDone status
+        // There is a single digit 0/1 to represent isDone status
         // Needs to move the start index to read arguments for creating the task 1 position back
         int startIndex = 0;
         boolean isDone = false;
@@ -168,14 +167,15 @@ public class Tasklist {
         total--;
         taskListToStorage();
 
-        String resp = "Noted. I've removed this task:\n" +
-                        t +
-                        String.format("\nNow you have %d tasks in your list!", total);
+        String resp = "Noted. I've removed this task:\n"
+                + t
+                + String.format("\nNow you have %d tasks in your list!", total);
         return resp;
     }
 
     /**
-     * Fuzzy match the input with current tasks using the Levenstein algorithm.
+     * Fuzzy match the input with current tasks.
+     * Levenshtein algorithm is used.
      * @param search The array of strings that represents the keyword we need to search for.
      */
     public String findTasks(String search) {

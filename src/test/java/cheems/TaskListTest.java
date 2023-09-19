@@ -1,8 +1,7 @@
 package cheems;
 
 import cheems.functionalities.Storage;
-import cheems.functionalities.Tasklist;
-import cheems.functionalities.textUi;
+import cheems.functionalities.TaskList;
 import cheems.tasks.Deadline;
 import cheems.tasks.Event;
 import cheems.tasks.Todo;
@@ -16,11 +15,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
-class TasklistTest {
+class TaskListTest {
     Storage storageMock = mock(Storage.class);
     @Test
     void addTaskToDatabaseTest_todo_success() {
-        Tasklist tasklist = new Tasklist(storageMock);
+        TaskList tasklist = new TaskList(storageMock);
         String[] params = {"TODO","Sing a song"};
         String actualOutput = tasklist.addTaskToDatabase(params);
 
@@ -36,7 +35,7 @@ class TasklistTest {
 
     @Test
     void addTaskToDatabaseTest_deadline_success() {
-        Tasklist tasklist = new Tasklist(storageMock);
+        TaskList tasklist = new TaskList(storageMock);
         String[] params = {"DEADLINE", "do hw", "2019-12-14"};
         String actualOutput = tasklist.addTaskToDatabase(params);
 
@@ -51,7 +50,7 @@ class TasklistTest {
 
     @Test
     void addTaskToDatabaseTest_event_success() {
-        Tasklist tasklist = new Tasklist(storageMock);
+        TaskList tasklist = new TaskList(storageMock);
         String[] params = {"EVENT", "conference", "2022-12-22", "2022-12-24"};
         String expectedOutput = tasklist.addTaskToDatabase(params);
 

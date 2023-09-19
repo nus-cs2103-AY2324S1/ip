@@ -6,20 +6,20 @@ import java.util.Scanner;
  * Represents the user interface for the application.
  * Handles display and interaction with the user.
  */
-public class textUi {
+public class TextUi {
 
     /**
      * Prints welcome message with logo and greetings.
      */
     public void showWelcomeMsg() {
-        String logo = "\n" +
-                "         __                                             \n" +
-                "        [  |                                            \n" +
-                " .---.   | |--.    .---.   .---.   _ .--..--.    .--.   \n" +
-                "/ /'`\\]  | .-. |  / /__\\\\ / /__\\\\ [ `.-. .-. |  ( (`\\]  \n" +
-                "| \\__.   | | | |  | \\__., | \\__.,  | | | | | |   `'.'.  \n" +
-                "'.___.' [___]|__]  '.__.'  '.__.' [___||__||__] [\\__) ) \n" +
-                "                                                        \n";
+        String logo = "\n"
+                + "         __                                             \n"
+                + "        [  |                                            \n"
+                + " .---.   | |--.    .---.   .---.   _ .--..--.    .--.   \n"
+                + "/ /'`\\]  | .-. |  / /__\\\\ / /__\\\\ [ `.-. .-. |  ( (`\\]  \n"
+                + "| \\__.   | | | |  | \\__., | \\__.,  | | | | | |   `'.'.  \n"
+                + "'.___.' [___]|__]  '.__.'  '.__.' [___||__||__] [\\__) ) \n"
+                + "                                                        \n";
         System.out.println("Hello from");
         System.out.println(logo);
 

@@ -2,8 +2,8 @@ package cheems;
 
 import cheems.exceptions.EmptyArgumentException;
 import cheems.functionalities.Parser;
-import cheems.functionalities.Tasklist;
-import cheems.functionalities.textUi;
+import cheems.functionalities.TaskList;
+import cheems.functionalities.TextUi;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,9 +12,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 class ParserTest {
-    textUi uiMock = mock(textUi.class);
-    Tasklist tasklistMock = mock(Tasklist.class);
-    private Parser parser = new Parser(tasklistMock);
+    TextUi uiMock = mock(TextUi.class);
+    TaskList taskListMock = mock(TaskList.class);
+    private Parser parser = new Parser(taskListMock);
     @Test
     void parseAndExecute_emptyInput_success() throws Exception {
         String actual = parser.parseAndExecute("");
@@ -29,7 +29,7 @@ class ParserTest {
 
         parser.parseAndExecute(input);
 
-        verify(tasklistMock).findTasks("book");
+        verify(taskListMock).findTasks("book");
     }
 
     @Test
@@ -38,7 +38,7 @@ class ParserTest {
 
         parser.parseAndExecute(input);
 
-        verify(tasklistMock).markAsDone(0);
+        verify(taskListMock).markAsDone(0);
     }
 
     @Test
@@ -47,7 +47,7 @@ class ParserTest {
 
         parser.parseAndExecute(input);
 
-        verify(tasklistMock).markAsNotDone(0);
+        verify(taskListMock).markAsNotDone(0);
     }
     @Test
     void parseAndExecute_validDelete_tasklistMethodCalled() {
@@ -55,7 +55,7 @@ class ParserTest {
 
         parser.parseAndExecute(input);
 
-        verify(tasklistMock).delete(0);
+        verify(taskListMock).delete(0);
     }
 
     @Test
@@ -64,7 +64,7 @@ class ParserTest {
 
         parser.parseAndExecute(input);
 
-        verify(tasklistMock).addTaskToDatabase("TODO", "ballet lesson");
+        verify(taskListMock).addTaskToDatabase("TODO", "ballet lesson");
     }
 
     @Test
@@ -73,7 +73,7 @@ class ParserTest {
 
         parser.parseAndExecute(input);
 
-        verify(tasklistMock).addTaskToDatabase("EVENT", "global conference", "2023-04-29", "2023-05-12");
+        verify(taskListMock).addTaskToDatabase("EVENT", "global conference", "2023-04-29", "2023-05-12");
     }
 
     @Test
@@ -82,7 +82,7 @@ class ParserTest {
 
         parser.parseAndExecute(input);
 
-        verify(tasklistMock).addTaskToDatabase("DEADLINE","CS2100 quiz","2023-09-01");
+        verify(taskListMock).addTaskToDatabase("DEADLINE","CS2100 quiz","2023-09-01");
     }
 
     @Test

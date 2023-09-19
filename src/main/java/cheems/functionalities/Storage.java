@@ -62,8 +62,8 @@ public class Storage {
             }
             return output;
         } catch (FileNotFoundException e) {
-            String msg = String.format("I cannot find %s! May be accidental deletion, " +
-                    "try restart cheems.Cheems!", file.getName());
+            String msg = String.format("I cannot find %s! May be accidental deletion, "
+                    + "try restart cheems.Cheems!", file.getName());
             throw new InputOutputException(msg);
         }
     }

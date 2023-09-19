@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import cheems.functionalities.Parser;
 import cheems.functionalities.Storage;
-import cheems.functionalities.Tasklist;
-import cheems.functionalities.textUi;
+import cheems.functionalities.TaskList;
+import cheems.functionalities.TextUi;
 
 /**
  * Represents the main class of the chatbot.
@@ -14,14 +14,14 @@ public class Cheems{
     private final static Scanner scanner = new Scanner(System.in);
     private final Storage storage;
     private final Parser parser;
-    private final Tasklist tasklist;
-    private final textUi ui;
+    private final TaskList tasklist;
+    private final TextUi ui;
     private static final String DATABASE_PATH = "data.txt";
 
     public Cheems() {
-        ui = new textUi();
+        ui = new TextUi();
         storage = new Storage(DATABASE_PATH);
-        tasklist = new Tasklist(storage);
+        tasklist = new TaskList(storage);
         parser = new Parser(tasklist);
     }
 
@@ -53,14 +53,14 @@ public class Cheems{
 
     public String getWelcomeMsg() {
         tasklist.loadTaskFromDatabase();
-        String logo = "\n" +
-                "         __                                             \n" +
-                "        [  |                                            \n" +
-                " .---.   | |--.    .---.   .---.   _ .--..--.    .--.   \n" +
-                "/ /'`\\]  | .-. |  / /__\\\\ / /__\\\\ [ `.-. .-. |  ( (`\\]  \n" +
-                "| \\__.   | | | |  | \\__., | \\__.,  | | | | | |   `'.'.  \n" +
-                "'.___.' [___]|__]  '.__.'  '.__.' [___||__||__] [\\__) ) \n" +
-                "                                                        \n";
+        String logo = "\n"
+                + "         __                                             \n"
+                + "        [  |                                            \n"
+                + " .---.   | |--.    .---.   .---.   _ .--..--.    .--.   \n"
+                + "/ /'`\\]  | .-. |  / /__\\\\ / /__\\\\ [ `.-. .-. |  ( (`\\]  \n"
+                + "| \\__.   | | | |  | \\__., | \\__.,  | | | | | |   `'.'.  \n"
+                + "'.___.' [___]|__]  '.__.'  '.__.' [___||__||__] [\\__) ) \n"
+                + "                                                        \n";
         String hello = "Heyo I'm Cheems! Nice to meet you:)" + "\n" + "Want to get some fries on the pier together?";
 
         String msg = "Hello from" + logo + "\n" + hello;
