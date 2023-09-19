@@ -43,7 +43,7 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-![Screenshot 2023-09-19 at 4.11.33 PM.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2F_m%2Fbyt8czb548ndfyh48rb83d3c0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_EHOsvH%2FScreenshot%202023-09-19%20at%204.11.33%20PM.png)
+![todo image](todo.png)
 
 <br />
 
@@ -70,7 +70,7 @@ Now you have 1 task in the list.
 ```
 `formatted-date`: The deadline in `MMM dd yyyy hh:mm am/pm` format
 
-![Screenshot 2023-09-19 at 4.17.19 PM.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2F_m%2Fbyt8czb548ndfyh48rb83d3c0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_5vcpN2%2FScreenshot%202023-09-19%20at%204.17.19%20PM.png)
+![deadline image](deadline.png)
 
 <br />
 
@@ -97,7 +97,7 @@ Now you have 1 task in the list.
 ```
 `formatted-date`: The deadline in `MMM dd yyyy hh:mm am/pm` format
 
-![Screenshot 2023-09-19 at 4.18.18 PM.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2F_m%2Fbyt8czb548ndfyh48rb83d3c0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_ZqXqFR%2FScreenshot%202023-09-19%20at%204.18.18%20PM.png)
+![event image](event.png)
 
 <br />
 
@@ -117,7 +117,7 @@ Here are the tasks in your list:
     2. [D][] Return book (by: Dec 22 2022 05:30pm)
 ```
 
-![Screenshot 2023-09-19 at 4.18.40 PM.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2F_m%2Fbyt8czb548ndfyh48rb83d3c0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_3KDQEo%2FScreenshot%202023-09-19%20at%204.18.40%20PM.png)
+![list tasks](list.png)
 
 <br />
 
@@ -140,7 +140,7 @@ Nice! I've marked this task as done:
 [D][X] Return book (by: Dec 22 2022 05:30pm)
 ```
 
-![Screenshot 2023-09-19 at 4.22.42 PM.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2F_m%2Fbyt8czb548ndfyh48rb83d3c0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_9cpsjw%2FScreenshot%202023-09-19%20at%204.22.42%20PM.png)
+![mark image](mark.png)
 
 <br />
 
@@ -163,7 +163,7 @@ OK, I've unmarked this task as not done yet:
 [D][] Return book (by: Dec 22 2022 05:30pm)
 ```
 
-![Screenshot 2023-09-19 at 4.23.00 PM.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2F_m%2Fbyt8czb548ndfyh48rb83d3c0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_ymT9lz%2FScreenshot%202023-09-19%20at%204.23.00%20PM.png)
+![unmark image](un********mark.png)
 
 <br />
 
@@ -187,7 +187,7 @@ Noted. I've removed this task:
 Now you have 1 task in the list.
 ```
 
-![Screenshot 2023-09-19 at 4.23.20 PM.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2F_m%2Fbyt8czb548ndfyh48rb83d3c0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_t3XwBH%2FScreenshot%202023-09-19%20at%204.23.20%20PM.png)
+![delete image](delete.png)
 
 <br />
 
@@ -211,7 +211,7 @@ Here are the matching tasks in your list:
     2. [D][] Return book (by: Dec 22 2022 05:30pm)
 ```
 
-![Screenshot 2023-09-19 at 4.23.37 PM.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2F_m%2Fbyt8czb548ndfyh48rb83d3c0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_83jQNt%2FScreenshot%202023-09-19%20at%204.23.37%20PM.png)
+![find image](find.png)
 
 <br />
 
