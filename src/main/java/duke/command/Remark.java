@@ -47,12 +47,12 @@ public class Remark extends Command {
                 Task t = lst.mark(index);
                 assert t != null : "Task should not be null";
                 storage.changeFile(lst);
-                return io.unmark(t);
+                return io.mark(t);
             } else if(!isMark) {
                 Task t = lst.unmark(index);
                 assert t != null : "Task should not be null";
                 storage.changeFile(lst);
-                return io.mark(t);
+                return io.unmark(t);
             } else {
                 throw new DukeException("Error in remark task");
             }
