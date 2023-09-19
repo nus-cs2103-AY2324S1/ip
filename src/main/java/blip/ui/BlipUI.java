@@ -12,7 +12,7 @@ public class BlipUI {
      *
      * @return String representation of the intro message
      */
-    public String showIntro() {
+    public static String showIntro() {
         // Intro message by Blip.
         String intro = "Hello! I'm Blip\n"
                 + "What can I do for you?";

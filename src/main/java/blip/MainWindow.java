@@ -1,5 +1,7 @@
 package blip;
 
+import blip.ui.BlipUI;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -29,6 +31,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(getIntroMessage());
     }
 
     public void setBlip(Blip b) {
@@ -48,5 +51,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+    }
+
+    private DialogBox getIntroMessage() {
+        String intro = BlipUI.showIntro();
+        return DialogBox.getDukeDialog(intro, dukeImage);
     }
 }
