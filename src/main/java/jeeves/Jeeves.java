@@ -22,6 +22,7 @@ import jeeves.task.TaskList;
 import jeeves.task.Todo;
 import jeeves.ui.Ui;
 import jeeves.note.Note;
+import jeeves.note.NoteList;
 
 /**
  * Contains the main method and primary logic for Jeeves.
@@ -30,9 +31,11 @@ public class Jeeves {
 
     private static final String RELATIVE_PATH_DATA_DIRECTORY = "data";
     private static final String RELATIVE_PATH_DATA_FILE = "data/JeevesData.txt";
-
-    private static final Storage storage = new Storage(RELATIVE_PATH_DATA_DIRECTORY, RELATIVE_PATH_DATA_FILE);
+    private static final String RELATIVE_PATH_NOTE_FILE = "data/JeevesNote.txt";
+    private static final Storage storage = new Storage(RELATIVE_PATH_DATA_DIRECTORY, RELATIVE_PATH_DATA_FILE
+                                                , RELATIVE_PATH_NOTE_FILE);
     private static final TaskList tasks = new TaskList(storage.readTasklistFromFile());
+    private static final NoteList notes = new NoteList(storage.readNoteListFromFile());
     private static final Parser parser = new Parser();
 
     /**
@@ -83,6 +86,8 @@ public class Jeeves {
             return tasks.searchFor(tokens.get(1));
         case "note":
             return processNoteCommand(tokens);
+        case "list notes":
+            return processListNotesCommand();
         case "bye":
             processByeCommand();
             break;
@@ -210,15 +215,31 @@ public class Jeeves {
     private static String processNoteCommand(ArrayList<String> tokens) {
         // Adds the Note to the note list
         Note newNote = new Note(tokens.get(1));
+        notes.add(newNote);
         return "Note added to your list:\n"
                     + "    "
                     + newNote
                     + "\n";
     }
+    
+    private static String processListNotesCommand() {
+        // Displays a different message if no notes are being tracked
+        StringBuilder sb = new StringBuilder();
+        if (Note.getNoteCount() == 0) {
+            return "I am not tracking any of your notes, Master";
+        } else {
+            sb.append("This is what I am tracking for you Master:\n");
+        }
+        
+        sb.append(notes.getNotelistDataAsString());
+        return sb.toString();
+    }
 
     private static void processByeCommand() {
         // Before the actual termination of the program, writes the current task list to the external file.
         storage.writeTasklistToFile(tasks.getTaskListDataAsString());
+        // Before the actual termination of the program, writes the current note list to the external file.
+        storage.writeNoteListToFile(notes.getNotelistDataAsString());
 
         // Terminates the application
         System.exit(0);

@@ -37,6 +37,7 @@ public class Parser {
     private static final String FIND_COMMAND = "find";
     private static final String BYE_COMMAND = "bye";
     private static final String NOTE_COMMAND = "note";
+    private static final String LIST_NOTES_COMMAND = "list notes";
 
     /**
      * Constructor for a Parser object.
@@ -77,6 +78,8 @@ public class Parser {
             args.add(BYE_COMMAND);
         } else if (input.startsWith("note ")) {
             args = parseNoteCommand(input);
+        } else if (input.equals(LIST_NOTES_COMMAND)) {
+            args.add(LIST_NOTES_COMMAND);
         } else {
             args.add("invalid_command");
         }
