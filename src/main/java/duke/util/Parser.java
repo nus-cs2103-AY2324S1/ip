@@ -280,7 +280,7 @@ public class Parser {
      * @param userInput The user's input.
      * @throws MissingInputException If the user input is missing required information.
      */
-    private String findByKeyword (String userInput) throws MissingInputException {
+    private String findByKeyword(String userInput) throws MissingInputException {
         checkValidity(userInput, "Keyword cannot be empty.");
 
         String[] inputWords = userInput.split(" ");

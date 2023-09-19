@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+//@@author Win Sheng-reused
+//Reused from https://se-education.org/guides/tutorials/javaFx.html
+// with minor modifications
 public class Main extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -124,3 +127,4 @@ public class Main extends Application {
         userInput.clear();
     }
 }
+//@@author
