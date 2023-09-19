@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
 
     /**
-     * Constructor for this class.
+     * Creates this class.
      */
     public MainWindow() {
     }
@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Display the provided input string as a user dialog.
+     * Displays the provided input string as a user dialog.
      *
      * @param input String to display.
      */
@@ -72,7 +72,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Display the provided input string as a bot dialog.
+     * Displays the provided input string as a bot dialog.
      *
      * @param input String to display.
      */

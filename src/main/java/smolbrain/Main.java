@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     /**
-     * Constructor for this class.
+     * Creates this class.
      */
     public Main() {
     }

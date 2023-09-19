@@ -8,13 +8,13 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * Constructor for this class.
+     * Creates a launcher.
      */
     public Launcher() {
     }
 
     /**
-     * Used to start the program.
+     * Starts the program.
      *
      * @param args String arguments.
      */

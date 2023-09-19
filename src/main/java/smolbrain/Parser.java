@@ -82,15 +82,15 @@ public class Parser {
      */
     public static Task parseDeadline(String[] words) throws MissingDescriptionException, MissingTimeException,
             InvalidDateTimeException {
-        boolean by = false;
+        boolean isBy = false;
         descr = "";
         String byText = "";
         for (int i = 1; i < words.length; i++) {
             if (words[i].equals("/by")) {
-                by = true;
+                isBy = true;
                 continue;
             }
-            if (by) {
+            if (isBy) {
                 byText = byText + words[i] + " ";
             } else {
                 descr = descr + words[i] + " ";
@@ -122,22 +122,22 @@ public class Parser {
      */
     public static Task parseEvent(String[] words) throws MissingDescriptionException, MissingTimeException,
             InvalidDateTimeException {
-        boolean from = false;
-        boolean to = false;
+        boolean isFrom = false;
+        boolean isTo = false;
         descr = "";
         String fromText = "";
         String toText = "";
         for (int i = 1; i < words.length; i++) {
             if (words[i].equals("/from")) {
-                from = true;
+                isFrom = true;
                 continue;
             } else if (words[i].equals("/to")) {
-                to = true;
+                isTo = true;
                 continue;
             }
-            if (to) {
+            if (isTo) {
                 toText = toText + words[i] + " ";
-            } else if (from) {
+            } else if (isFrom) {
                 fromText = fromText + words[i] + " ";
             } else {
                 descr = descr + words[i] + " ";
