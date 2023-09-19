@@ -1,3 +1,4 @@
+# Nicole the Chatbot
 # User Guide
 
 ## Features 
