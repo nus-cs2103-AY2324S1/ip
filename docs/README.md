@@ -10,7 +10,7 @@
 5. [List all tasks](#list-all-tasks-list)
 6. [Mark a task](#mark-a-task-mark)
 7. [Unmark a task](#unmark-a-task-unmark)
-8. [Find a task containing a keyword](#find-a-task-containing-keyword-find)
+8. [Find a task containing a keyword](#find-a-task-containing-a-keyword-find)
 ## Features 
 
 ### Add a Todo task `todo`
