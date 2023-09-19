@@ -23,7 +23,7 @@ public class Ui {
         int len = storedTasks.getLength();
 
         String successfulListMessage = isListCommand
-                ? "Okay! Here's the full list of your added tasks:\n"
+                ? "Okay! Here's the list of your added tasks:\n"
                 : "There you go! Here's the list of matching tasks I found:\n";
 
         String unsuccessfulListMessage = isListCommand
@@ -84,7 +84,7 @@ public class Ui {
     public String printExit() {
         String exit = "Bye! See you soon! :)\n";
         String closingMessage = "I will close automatically in 5 seconds.\n";
-        return String.format("%s %s", exit, closingMessage);
+        return String.format("%s%s", exit, closingMessage);
     }
 
     /**

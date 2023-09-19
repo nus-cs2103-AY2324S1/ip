@@ -2,12 +2,17 @@ package uke;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
+import javax.swing.*;
+import javax.swing.border.Border;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -35,6 +40,9 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(greeting, dukeImage)
         );
+
+        Insets inset = new Insets(0, 0, 20, 0);
+        dialogContainer.setPadding(inset);
     }
 
     public void setDuke(Uke u) {
