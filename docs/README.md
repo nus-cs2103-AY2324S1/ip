@@ -2,28 +2,84 @@
 
 ## Features 
 
-### Feature-ABC
+### Adding a to-do task: `todo`
 
-Description of the feature.
+Adding a to-do task to the task list.
+Format: `todo TASK`
 
-### Feature-XYZ
+Examples:
+- `todo read book`
+- `todo do homework`
 
-Description of the feature.
+### Adding a task with deadline: `deadline` 
 
-## Usage
+Adding a task with deadline to the task list.
+Format: `deadline TASK /by TIME`
 
-### `Keyword` - Describe action
+- `TIME` should be in the format `yyyy-mm-dd`
 
-Describe the action and its outcome.
+Examples:
+- `deadline finish assignment 1 /by 2023-10-15 `
+- `deadline project /by 2023-09-20`
 
-Example of usage: 
+### Adding an event: `event`
 
-`keyword (optional arguments)`
+Adding a event task to the task list.
+Format: `event TASK /from START_TIME /to END_TIME`
 
-Expected outcome:
+- `START_TIME` and `END_TIME` should be in the format `yyyy-mm-dd`
 
-Description of the outcome.
+Examples:
+- `event hackathon /from 2023-10-20 /to 2023-10-21`
+- `event sleep /from 2023-05-25 /to 2023-05-29`
 
-```
-expected output
-```
+### Mark a completed task: `mark`
+
+Mark a selected task as completed.
+Format: `mark INDEX`
+
+- Mark the task at the specified `INDEX` as completed. The index refers to the index number shown in the task list. 
+The index must be a positive integer 1, 2, 3, …
+
+Example:
+- `mark 2`
+
+### Unmark an uncompleted task: `unmark`
+Mark a selected task as completed.
+Format: `unmark INDEX`
+
+- Mark the task at the specified `INDEX` as uncompleted. The index refers to the index number shown in the task list. 
+The index must be a positive integer 1, 2, 3, …​
+
+Example:
+- `unmark 2`
+
+### Find a task: `find`
+List down tasks with the same keyword.
+
+Format: `find TASK`
+
+Examples:
+- `find read`
+- `find homework`
+
+### Edit a task: `edit`
+Edit the description of a task in the list.
+Format: `edit INDEX TASK`
+- Edits the task at the specified `INDEX`The index refers to the index number shown in the displayed person list. 
+The index must be a positive integer 1, 2, 3, ...
+- Description of the task will be updated to `TASK` instead
+
+Examples:
+- `edit 2 write`
+- `edit 3 do work`
+
+### Delete a task: `delete`
+Deletes a selected task.
+Format: `delete INDEX`
+
+- Deletes the task at the specified `INDEX`. The index refers to the index number shown in the task list.
+  The index must be a positive integer 1, 2, 3, …
+
+Example:
+- `delete 2`
