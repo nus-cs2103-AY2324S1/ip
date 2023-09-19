@@ -30,6 +30,16 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        handleDukeTalk(d.getGreetString());
+    }
+
+    /**
+     * Creates a dialog box for Duke, displaying Duke's speech.
+     * @param string Duke's speech string.
+     */
+
+    private void handleDukeTalk(String string) {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(string, dukeImage));
     }
 
     /**
