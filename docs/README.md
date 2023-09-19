@@ -10,7 +10,7 @@
 5. [List all tasks](#list-all-tasks-list)
 6. [Mark a task](#mark-a-task-mark)
 7. [Unmark a task](#unmark-a-task-unmark)
-8. [Find a task containing a keyword](#find-a-task-containing-a-keyword-find)
+8. [Find a task containing a keyword](#-ind-a-task-containing-a-keyword-find)
 ## Features 
 
 ### Add a Todo task `todo`
@@ -85,7 +85,7 @@ SUI, Here are the 2 tasks in your tasklist:
 
 ### Mark a task `mark`
 
-Mark a task as done in the tasklist given an index
+Mark a task as done in the tasklist given an index.
 
 **Example of usage:** `mark 2`
 
@@ -98,7 +98,7 @@ SUI, Nice! I've marked this task as done:
 
 ### Unmark a task `unmark`
 
-mark a task as undone in the tasklist given an index
+Mark a task as undone in the tasklist given an index.
 
 **Example of usage:** `umark 2`
 
@@ -111,7 +111,7 @@ SUI, Nice! I've unmarked this task as done:
 
 ### Find a task containing a keyword `find`
 
-Find a task that has description matching the `keyword` entered by user
+Find a task that has description matching the `keyword` entered by user.
 
 **Example of usage:** `find borrow`
 
