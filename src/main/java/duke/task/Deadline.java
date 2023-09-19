@@ -52,7 +52,7 @@ public class Deadline extends Task {
     @Override
     public String toSaveFormat() {
         return "D | " + completionStatus() + " | " + this.description + " | "
-                + this.dueDate + " " + this.dueTime + " | " + priorityString();
+                + this.dueDate + " " + this.dueTime;
     }
 
     /**

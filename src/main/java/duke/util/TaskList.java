@@ -33,80 +33,42 @@ public class TaskList {
         this.tasks = new ArrayList<>();
         for (String info : fileData) {
             fields = info.split(" \\| ");
+            Task tempT;
             switch (fields[0].trim()) {
             case "T":
                 assert !fields[2].trim().isEmpty() : "task stored has no description";
-                parseToDo(fields);
-
+                System.out.println(fields[2]);
+                if(fields[2].isEmpty()) {
+                    throw new NoTaskException();
+                }
+                tempT = new ToDo(fields[2].trim());
+                if (fields[1].equals("1")) {
+                    tempT.markAsDone();
+                }
+                tasks.add(tempT);
                 break;
             case "D":
                 assert !fields[2].trim().isEmpty() : "task stored has no description";
-                parseDeadline(fields);
+                tempT = new Deadline(fields[2].trim(), fields[3]);
+                if (fields[1].equals("1")) {
+                    tempT.markAsDone();
+                }
+                tasks.add(tempT);
                 break;
             case "E":
                 assert !fields[2].trim().isEmpty() : "task stored has no description";
-                parseEvent(fields);
+                String[] time;
+                time = fields[3].split("->");
+                tempT = new Event(fields[2].trim(), time[0], time[1]);
+                if (fields[1].equals("1")) {
+                    tempT.markAsDone();
+                }
+                tasks.add(tempT);
                 break;
             default:
                 throw new DukeException("Invalid task type found in file");
             }
         }
-    }
-
-    /**
-     * Parses the todo string stored in the file.
-     * @param fields fields from the info stored
-     * @throws NoTaskException error if task found in file is empty
-     */
-    private void parseToDo(String[] fields) throws NoTaskException {
-        Task tempT;
-        if (fields[2].isEmpty() || fields[3].isEmpty()) {
-            throw new NoTaskException();
-        }
-        tempT = new ToDo(fields[2].trim());
-        if (fields[1].equals("1")) {
-            tempT.markAsDone();
-        }
-        tempT.setPriority(getPriority(fields[3].trim()));
-        tasks.add(tempT);
-    }
-
-    /**
-     * Parses the deadline string stored in the file.
-     * @param fields fields from the info stored
-     * @throws NoTaskException error if task found in file is empty
-     */
-    private void parseDeadline(String[] fields) throws DukeException {
-        Task tempT;
-        if (fields[2].isEmpty() || fields[3].isEmpty() || fields[4].isEmpty()) {
-            throw new NoTaskException();
-        }
-        tempT = new Deadline(fields[2].trim(), fields[3]);
-        if (fields[1].equals("1")) {
-            tempT.markAsDone();
-        }
-        tempT.setPriority(getPriority(fields[4].trim()));
-        tasks.add(tempT);
-    }
-
-    /**
-     * Parses the event string stored in the file.
-     * @param fields fields from the info stored
-     * @throws NoTaskException error if task found in file is empty
-     */
-    private void parseEvent(String[] fields) throws DukeException {
-        String[] time;
-        Task tempT;
-        if (fields[2].isEmpty() || fields[3].isEmpty() || fields[4].isEmpty()) {
-            throw new NoTaskException();
-        }
-        time = fields[3].split("->");
-        tempT = new Event(fields[2].trim(), time[0], time[1]);
-        if (fields[1].equals("1")) {
-            tempT.markAsDone();
-        }
-        tempT.setPriority(getPriority(fields[4]));
-        tasks.add(tempT);
     }
 
     /**
@@ -117,7 +79,7 @@ public class TaskList {
      * @throws InvalidTaskNumberException Error when given task number exceeds the number of tasks in the list
      */
     public String markTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > tasks.size()) {
+        if (taskNumber > tasks.size()){
             throw new InvalidTaskNumberException(tasks.size());
         }
         tasks.get(taskNumber - 1).markAsDone();
@@ -212,44 +174,5 @@ public class TaskList {
             }
         }
         return filteredList;
-    }
-
-    /**
-     * Changes priority of a task in the tasklist.
-     * @param taskNumber task number of task to be changed
-     * @param priority priority level to change to
-     * @param ui instance of user interface
-     * @return String to be displayed on UI
-     * @throws InvalidTaskNumberException Error thrown when task number given is outside bounds
-     */
-    public String setPriority(int taskNumber, Priority priority, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > tasks.size()) {
-            throw new InvalidTaskNumberException(tasks.size());
-        } else {
-            Task temp = tasks.get(taskNumber - 1);
-            assert temp != null;
-            temp.setPriority(priority);
-            return ui.showComplete("Noted. I've updated the priority of this task:"
-                    + temp);
-        }
-    }
-
-    /**
-     * Gets priority enum from string saved in the file.
-     * @param priorityString the string saved in the file
-     * @return priority enum of corresponding string
-     */
-    private Priority getPriority(String priorityString) {
-        assert priorityString != null;
-        switch(priorityString) {
-        case "LOW":
-            return Priority.LOW;
-        case "MEDIUM":
-            return Priority.MEDIUM;
-        case "HIGH":
-            return Priority.HIGH;
-        default:
-            return null; //should not hit this case but sets default low
-        }
     }
 }

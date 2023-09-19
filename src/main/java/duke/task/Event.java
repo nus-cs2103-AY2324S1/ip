@@ -60,7 +60,7 @@ public class Event extends Task {
     public String toSaveFormat() {
         return "E | " + super.completionStatus() + " | " + this.description + " | "
                 + this.fromDate + " " + this.fromTime + "->"
-                + this.toDate + " " + this.toTime + " | " + priorityString();
+                + this.toDate + " " + this.toTime;
     }
 
     /**
