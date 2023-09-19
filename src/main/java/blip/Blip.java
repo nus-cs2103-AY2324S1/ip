@@ -72,7 +72,7 @@ public class Blip {
      * @param args CLI Arguments
      */
     public static void main(String[] args) {
-
+        Launcher.main(args);
     }
 
 
