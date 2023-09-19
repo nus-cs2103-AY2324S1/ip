@@ -1,11 +1,9 @@
 package duke;
 
 import static duke.Event.INPUT_DATE_TIME_FORMATTER;
-import static duke.Storage.saveTasksToFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
@@ -92,7 +90,7 @@ public class Parser {
     }
 
     private static void handleExit(ArrayList<Task> taskList, Storage storage) {
-        saveTasksToFile(taskList, String.valueOf(storage.path));
+        storage.saveTasksToFile(taskList);
         Platform.exit();
     }
 

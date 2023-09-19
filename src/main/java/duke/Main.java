@@ -1,8 +1,5 @@
 package duke;
 
-import static duke.Duke.storage;
-import static duke.Storage.loadTasksFromFile;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -17,34 +14,28 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-    private static int index = 0;
     private Duke duke = new Duke();
 
     @Override
     public void start(Stage stage) {
         try {
-            File directory = new File(String.valueOf(storage.path.getParent())); // Get the parent directory
-            assert directory != null : "Directory should not be null.";
-            if (!directory.exists()) {
-                boolean directoryCreated = directory.mkdirs();
-                assert directoryCreated : "Failed to create directory: " + directory.getAbsolutePath();
-                Ui.print("Directory created: " + directory.getAbsolutePath());
-            }
-
-            if (!storage.getFileExists()) {
-                try {
-                    boolean fileCreated = storage.f.createNewFile();
-                    assert fileCreated : "Failed to create file.";
-                    Ui.print("File created: " + storage.path);
-                } catch (IOException e) {
-                    e.printStackTrace();
+            // Ensure the data directory exists
+            File dataDirectory = new File("data");
+            if (!dataDirectory.exists()) {
+                boolean directoryCreated = dataDirectory.mkdirs();
+                if (directoryCreated) {
+                    System.out.println("Data directory created: " + dataDirectory.getAbsolutePath());
+                } else {
+                    System.err.println("Failed to create data directory: " + dataDirectory.getAbsolutePath());
                 }
             }
 
-            if (storage.getFileExists()) {
-                Duke.taskList = loadTasksFromFile(String.valueOf(storage.path));
-                index = Duke.taskList.size(); // Set the list size to the loaded tasks count
-            }
+            // Initialize the storage object
+            Storage storage = new Storage();
+
+            // Load tasks from the file
+            Duke.taskList = storage.loadTasksFromFile();
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
@@ -55,5 +46,9 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
