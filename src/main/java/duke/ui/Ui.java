@@ -160,7 +160,7 @@ public class Ui{
                 + "6. delete<index>: deletes task at <index> in the list\n"
                 + "7. delete all: deletes all tasks in the list\n"
                 + "8. list: shows the existing list of tasks\n"
-                + "9. find <keyword>: returns a new list of tasks containing the matching keyword\n"
+                + "9. find <keyword>: returns a new list of tasks containing the matching keyword in the task description\n"
                 + "10. todo <task>: specify the task to be added in the list with no start or end date\n"
                 + "11. deadline <task> /by <yyyy-MM-dd HHmm>: specify the task to be added with a specific deadline\n"
                 + "12. event <task> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>: specify the event to be added with both start & end dates\n"
