@@ -28,7 +28,7 @@ public class FindCommand extends Command {
     }
     @Override
     public void execute() {
-        if (searchTerm != null && !searchTerm.equals("")) {
+        if (searchTerm != null && !searchTerm.isBlank()) {
             this.storage.search(searchTerm);
         }
 
@@ -36,7 +36,7 @@ public class FindCommand extends Command {
 
     @Override
     public void uiResponse(Ui ui) {
-        if (this.searchTerm == null || this.searchTerm.equals("")) {
+        if (this.searchTerm == null || this.searchTerm.isBlank()) {
             ui.incompleteSearchCommand();
         }
     }

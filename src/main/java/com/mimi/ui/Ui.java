@@ -301,7 +301,7 @@ public class Ui {
     private void configureUserInputField() {
         this.userInputField.setOnAction(
                 e -> {
-                    if (!userInputField.getText().equals("")) {
+                    if (!userInputField.getText().isBlank()) {
                         Label userText = getDialogLabel(userInputField.getText());
                         dialogContainer.getChildren().add(DialogBox.userDialogBox(userText,
                                 new ImageView(this.user)));
@@ -315,7 +315,7 @@ public class Ui {
     private void configureButton() {
         this.sendButton.setOnMouseClicked(
                 e -> {
-                    if (!userInputField.getText().equals("")) {
+                    if (!userInputField.getText().isBlank()) {
                         Label userText = getDialogLabel(userInputField.getText());
                         dialogContainer.getChildren().add(DialogBox.userDialogBox(userText,
                                 new ImageView(this.user)));
@@ -340,7 +340,18 @@ public class Ui {
         showResponse("Sorry, you cannot input a task that is already overdue!");
     }
 
+    /**
+     * Displays a message if there are no tasks that are due soon.
+     */
     public void showAllTasksNonUrgent(String overdueTasks) {
         showResponse("Meow! You have no tasks due/happening soon!\n" + overdueTasks);
+    }
+
+    /**
+     * Displays an error message if the user inputs an empty string for some information.
+     */
+    public void incompleteInformation() {
+        showResponse("Meow! Looks like you did not fill in the name of the task."
+                + " Please try again!");
     }
 }

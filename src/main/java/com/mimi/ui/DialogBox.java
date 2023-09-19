@@ -7,10 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -42,6 +39,7 @@ public class DialogBox extends HBox {
         displayPicture.setClip(clip);
 
         this.setAlignment(Pos.CENTER_RIGHT);
+
         this.getChildren().addAll(this.label, displayPicture);
     }
 
@@ -84,5 +82,6 @@ public class DialogBox extends HBox {
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
     }
+
 
 }

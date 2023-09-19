@@ -43,7 +43,7 @@ public class DeadlineCommand extends Command {
     public void execute() {
         //first check if the command is complete and if the time format is correct.
         if (!this.isCompleteCommand || this.deadlineTime == LocalDateTime.MIN
-            || this.isOverdue()) {
+            || this.isOverdue() || this.taskName.isBlank()) {
             return;
         }
 
@@ -64,6 +64,8 @@ public class DeadlineCommand extends Command {
             ui.wrongTimeFormat();
         } else if (this.isOverdue()) {
             ui.displayOverdue();
+        } else if (this.taskName.isBlank()) {
+            ui.incompleteInformation();
         }
     }
 
