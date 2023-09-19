@@ -12,12 +12,12 @@ import java.util.Locale;
  * It provides methods for managing task details, status and conversions.
  */
 public class Task {
-    private String description;
-    private boolean isDone;
     private static final List<DateTimeFormatter> DATE_FORMATTERS = new ArrayList<>();
 
     private static final List<DateTimeFormatter> DAY_FORMATTERS = new ArrayList<>();
     private static final List<DateTimeFormatter> TIME_FORMATTERS = new ArrayList<>();
+    private String description;
+    private boolean isDone;
 
     static {
         DATE_FORMATTERS.add(DateTimeFormatter.ofPattern("yyyy/MM/d"));
@@ -33,9 +33,9 @@ public class Task {
         DAY_FORMATTERS.add(DateTimeFormatter.ofPattern("E", Locale.ENGLISH));
         DAY_FORMATTERS.add(DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH));
 
-        TIME_FORMATTERS.add(DateTimeFormatter.ofPattern("hmma",Locale.ENGLISH));
-        TIME_FORMATTERS.add(DateTimeFormatter.ofPattern("ha",Locale.ENGLISH));
-        TIME_FORMATTERS.add(DateTimeFormatter.ofPattern("h.mma",Locale.ENGLISH));
+        TIME_FORMATTERS.add(DateTimeFormatter.ofPattern("hmma", Locale.ENGLISH));
+        TIME_FORMATTERS.add(DateTimeFormatter.ofPattern("ha", Locale.ENGLISH));
+        TIME_FORMATTERS.add(DateTimeFormatter.ofPattern("h.mma", Locale.ENGLISH));
 
     }
 
@@ -50,27 +50,26 @@ public class Task {
         this.isDone = false;
     }
 
-
     public String getStatus() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-  
-   public String getStatusFromFile(){
+
+    public String getStatusFromFile() {
         return (isDone ? "Y" : "N");
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public void setTaskDone(){
+    public void setTaskDone() {
         isDone = true;
     }
 
     /**
      * Retrieves tasks status from file.
      */
-    public void taskStatusFromFile(boolean status){
+    public void taskStatusFromFile(boolean status) {
         isDone = status;
     }
 
@@ -97,8 +96,8 @@ public class Task {
             }
         }
 
-        System.out.println("Unrecognised date format: " + date +
-                "\nPlease key in date in format D/MM/YYYY");
+        System.out.println("Unrecognised date format: " + date
+                + "\nPlease key in date in format D/MM/YYYY");
         return null;
     }
 
@@ -118,10 +117,10 @@ public class Task {
             }
         }
 
-        System.out.println("Unrecognised day format: " + day +
-                "\nPlease key in day in format Mon OR Monday " +
-                "\nThe task has been stored without a dueday, " +
-                "remove task and key in correct format to make changes \n");
+        System.out.println("Unrecognised day format: " + day
+                + "\nPlease key in day in format Mon OR Monday "
+                + "\nThe task has been stored without a dueday, "
+                + "remove task and key in correct format to make changes \n");
         return null;
     }
 
@@ -140,10 +139,10 @@ public class Task {
             } catch (Exception ignored) {
             }
         }
-        System.out.println("Unrecognised time format: " + time +
-                "\nPlease key in time in format Hr.MinAM/PM " +
-                "\nThe task has been stored without a due time, " +
-                "remove task and key in correct format to make changes \n");
+        System.out.println("Unrecognised time format: " + time
+                + "\nPlease key in time in format Hr.MinAM/PM "
+                + "\nThe task has been stored without a due time, "
+                + "remove task and key in correct format to make changes \n");
         return null;
     }
 
@@ -164,8 +163,8 @@ public class Task {
      * @return The converted day String.
      */
     public String dayToString(DayOfWeek day) {
-        if(day!=null) {
-            return ", " + day.name().substring(0,1) + day.name().substring(1).toLowerCase() ;
+        if (day != null) {
+            return ", " + day.name().substring(0, 1) + day.name().substring(1).toLowerCase();
         } else {
             return "";
         }
@@ -178,7 +177,7 @@ public class Task {
      * @return The converted time String.
      */
     public String timeToString(LocalTime time) {
-        if(time!=null) {
+        if (time != null) {
             return ", " + time.format(DateTimeFormatter.ofPattern("h.mma")).toUpperCase();
         } else {
             return "";
@@ -191,7 +190,7 @@ public class Task {
      * @return The formatted string representation of the task.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return " [" + getStatus() + "] " + getDescription();
     }
 
@@ -200,7 +199,7 @@ public class Task {
      *
      * @return The formatted string representation of the task for file storage.
      */
-    public String toFileString(){
+    public String toFileString() {
         return "|" + getStatusFromFile() + "|" + getDescription();
     }
 }

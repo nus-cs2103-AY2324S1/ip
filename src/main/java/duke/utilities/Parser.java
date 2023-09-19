@@ -1,6 +1,7 @@
 package duke.utilities;
 
 import duke.commands.Commands;
+import duke.exceptions.*;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -38,7 +39,11 @@ public class Parser {
      * If input is related to modifying existing task, call relevant commands.
      * If is none of the above, throw MyBotExceptions accordingly.
      *
-     * @param input The user input to be analysed
+     * @param input The user input to be analysed.
+     * @throws UnknownCommandException throws this exception users
+     *     input are invalid commands/
+     * @throws InvalidTaskException throws this exception users
+     *      input are not todo/event/deadline task/
      */
     public void analyseInput(String input) {
         try {
@@ -61,12 +66,12 @@ public class Parser {
                 if (taskToAdd != "") {
                     analyseAddTaskInput(taskToAdd);
                 } else {
-                    throw new MyBotExceptions.UnknownCommandException();
+                    throw new UnknownCommandException();
                 }
             } else if (input.isEmpty()) {
-                throw new MyBotExceptions.UnknownCommandException();
+                throw new UnknownCommandException();
             } else if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")) {
-                throw new MyBotExceptions.InvalidTaskException();
+                throw new InvalidTaskException();
             } else {
                 analyseAddTaskInput(input);
             }
@@ -80,6 +85,8 @@ public class Parser {
      * Determines type of task according to what inputs begin with.
      *
      * @param input The details of the Task
+     * @throws NullPointerException throws a NullPointerException when
+     *     command is a null.
      */
     public void analyseAddTaskInput(String input) {
         try {
@@ -105,6 +112,8 @@ public class Parser {
      * or else throw an exception to tell users what's wrong.
      *
      * @param input The details of the Task
+     * @throws EmptyDetailsException throws an Empty details exception, when
+     *     there is a problem with how users' input format
      */
     public void analyseTodoTaskInput(String input) {
         try {
@@ -113,12 +122,10 @@ public class Parser {
             if (!description.isBlank()) {
                 command.addTodoTask(description);
             } else {
-                throw new MyBotExceptions.EmptyDetailsException("description", "todo");
+                throw new EmptyDetailsException("description", "todo");
             }
         } catch (MyBotExceptions e) {
             ui.printException(e);
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -129,12 +136,14 @@ public class Parser {
      * or else throw an exception to tell users what's wrong.
      *
      * @param input The details of the Task
+     * @throws EmptyDetailsException throws a Empty details exception, when
+     *      there is a problem with how users' input format
      */
     public void analyseDeadlineTaskInput(String input) {
         try {
             // Checks if a deadline is entered for a deadline task
             if (!input.contains(" /by")) {
-                throw new MyBotExceptions.InvalidInputException("deadline", "duedate");
+                throw new InvalidInputException("deadline", "duedate");
             }
 
             String description = input.substring(9, input.indexOf(" /by "));
@@ -142,16 +151,14 @@ public class Parser {
 
             // Check if task description/by input is blank
             if (description.isBlank()) {
-                throw new MyBotExceptions.EmptyDetailsException("description", "deadline");
+                throw new EmptyDetailsException("description", "deadline");
             } else if (by.isBlank()) {
-                throw new MyBotExceptions.EmptyDetailsException("duedate", "deadline");
+                throw new EmptyDetailsException("duedate", "deadline");
             } else {
                 command.addDeadlineTask(description, by);
             }
         } catch (MyBotExceptions e) {
             ui.printException(e);
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -162,14 +169,16 @@ public class Parser {
      * or else throw an exception to tell users what's wrong.
      *
      * @param input The details of the Task
+     * @throws EmptyDetailsException throws a Empty details exception, when
+     *      there is a problem with how users' input format
      */
     public void analyseEventTaskInput(String input) {
         try {
             // Checks if there is a start and end time
             if (!input.contains(" /from")) {
-                throw new MyBotExceptions.InvalidInputException("event", "start time");
+                throw new InvalidInputException("event", "start time");
             } else if (!input.contains(" /to")) {
-                throw new MyBotExceptions.InvalidInputException("event", "end time");
+                throw new InvalidInputException("event", "end time");
             }
 
             String description = input.substring(6, input.indexOf(" /from "));
@@ -178,11 +187,11 @@ public class Parser {
 
             // Checks if any of the start, end or description is empty
             if (description.isBlank()) {
-                throw new MyBotExceptions.EmptyDetailsException("description", "event");
+                throw new EmptyDetailsException("description", "event");
             } else if (from.isBlank()) {
-                throw new MyBotExceptions.EmptyDetailsException("start time", "event");
+                throw new EmptyDetailsException("start time", "event");
             } else if (to.isBlank()) {
-                throw new MyBotExceptions.EmptyDetailsException("end time", "event");
+                throw new EmptyDetailsException("end time", "event");
             } else {
                 command.addEventTask(description, from, to);
             }

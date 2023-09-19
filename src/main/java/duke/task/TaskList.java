@@ -101,11 +101,4 @@ public class TaskList {
         tempStoredList.clear();
         tempStoredList.add(taskFullDescription);
     }
-
-    /**
-     * Clears all stored strings in the temporary task list
-     */
-    public void clearTempStoreTask() {
-        tempStoredList.clear();
-    }
 }
