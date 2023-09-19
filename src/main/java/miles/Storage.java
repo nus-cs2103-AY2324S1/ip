@@ -57,7 +57,6 @@ public class Storage {
 
             if (!newFile.exists()) {
                 newFile.createNewFile();
-                System.out.println("created a new file");
                 return new TaskList();
             }
 

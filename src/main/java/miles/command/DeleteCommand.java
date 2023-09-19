@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Return task number from user input.
+     * Returns task number from user input.
      * @param input user input
      * @return      task number
      */

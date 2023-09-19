@@ -8,7 +8,7 @@ import miles.MilesException;
  * Represents a task that has a deadline.
  */
 public class Deadline extends Task {
-    private static String NO_DESC_ERROR_MSG = "OOPS!!! The description of a deadline cannot be empty.";
+    private static String noDescErrorMsg = "Hold up... The description of a deadline cannot be empty.";
     private LocalDateTime deadline;
 
     /**
@@ -41,13 +41,17 @@ public class Deadline extends Task {
      */
     public static String[] splitDeadlineString(String taskString) throws MilesException {
         if (checkTaskNoDescription(taskString, "deadline")) {
-            throw new MilesException(NO_DESC_ERROR_MSG);
+            throw new MilesException(noDescErrorMsg);
         }
 
         // removes "deadline "  from the task string
         String withoutCommand = taskString.substring(9);
         if (checkAllWhiteSpace(withoutCommand)) {
-            throw new MilesException(NO_DESC_ERROR_MSG);
+            throw new MilesException(noDescErrorMsg);
+        }
+
+        if (checkDuplicateParameter(withoutCommand, "/by")) {
+            throw new MilesException("Invalid deadline format: cannot have more than 1 \"/by\".");
         }
 
         String[] strings = withoutCommand.split("/by");
@@ -70,7 +74,7 @@ public class Deadline extends Task {
         String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
-            throw new MilesException(NO_DESC_ERROR_MSG);
+            throw new MilesException(noDescErrorMsg);
         }
 
         return task.trim();
@@ -88,7 +92,7 @@ public class Deadline extends Task {
         String deadline = strings[1];
 
         if (checkAllWhiteSpace(deadline)) {
-            throw new MilesException("OOPS!!! The deadline of a deadline cannot be empty.");
+            throw new MilesException("Hold up... The deadline of a deadline cannot be empty.");
         }
 
         return deadline.trim();
