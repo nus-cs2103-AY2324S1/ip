@@ -12,6 +12,7 @@ User Interface to allow users to easily visualise their tasks.
 > * Words in `UPPER_CASE` are parameters to be supplied by the user. 
 > * Certain commands have additional parameters denoted by `/`. 
 > * Some task have date fields, input format should be `yyyy-dd-MM h:mma`.
+> * Task list will be saved locally on a `data.txt` file. Changes to task list will automatically be saved after each command.
 
 ### List: `List`
 List all tasks in task list. 
