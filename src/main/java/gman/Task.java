@@ -39,15 +39,9 @@ public class Task {
      * Marks an undone Task as done.
      */
     public void mark(){
-        try {
-            if (isDone) {
-                throw new GmanException("Haha nice going... This task is already done, bozo!");
-            }
-            isDone = true;
-            assert this.getStatusIcon().equals("[X]") : "The status icon is wrong!";
-        } catch (GmanException e) {
-            System.out.println(e.getMessage());
-        }
+        isDone = true;
+        assert this.getStatusIcon().equals("[X]") : "The status icon is wrong!";
+
     }
 
 
@@ -55,15 +49,8 @@ public class Task {
      * Marks a done Task as undone.
      */
     public void unmark() {
-        try {
-            if (!isDone) {
-                throw new GmanException("Hey... this task was never done in the first place!");
-            }
-            isDone = false;
-            assert this.getStatusIcon().equals("[]") : "The status icon is wrong!";
-        } catch (GmanException e) {
-            System.out.println(e.getMessage());
-        }
+        isDone = false;
+        assert this.getStatusIcon().equals("[]") : "The status icon is wrong!";
     }
 
 
