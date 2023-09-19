@@ -39,11 +39,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("jeo.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "jeo"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
@@ -52,4 +52,4 @@ run{
     standardInput = System.in
 }
 
-mainClassName = 'duke.Launcher'
+mainClassName = 'jeo.Launcher'
