@@ -1,8 +1,9 @@
 package friday.util;
 
-import friday.task.Note;
-
 import java.util.ArrayList;
+
+import friday.item.Note;
+
 
 /**
  * Represents a list of notes in the Friday application.

@@ -1,7 +1,4 @@
-package friday.task;
-
-
-import friday.task.Task;
+package friday.item;
 
 /**
  * Represents a todo task in Friday.

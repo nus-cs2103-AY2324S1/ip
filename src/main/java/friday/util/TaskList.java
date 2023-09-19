@@ -1,8 +1,9 @@
 package friday.util;
 
-import friday.task.Task;
-
 import java.util.ArrayList;
+
+import friday.item.Task;
+
 
 /**
  * Represents a list of tasks in the Friday application.

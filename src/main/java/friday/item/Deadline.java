@@ -1,4 +1,4 @@
-package friday.task;
+package friday.item;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

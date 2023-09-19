@@ -1,4 +1,4 @@
-package friday.task;
+package friday.item;
 
 /**
  * Represents an event task in the Duke application.
