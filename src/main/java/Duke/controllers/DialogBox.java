@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  * The `DialogBox` class represents a graphical control for displaying a dialog box in a JavaFX application.
@@ -26,7 +27,7 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    static double IMAGE_RADIUS = 400d;
+    static double IMAGE_RADIUS = 300d;
 
     /**
      * Constructs a new `DialogBox` with the specified text and image.
@@ -46,6 +47,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setFont(Font.font("Montserrat", 12));
 
         displayPicture.setImage(img);
     }
