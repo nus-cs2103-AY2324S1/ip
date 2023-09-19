@@ -68,7 +68,7 @@ public class MainWindow extends AnchorPane {
             );
         } catch (DukeException e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(e.toString(), dukeImage)
+                    DialogBox.getDukeDialog(e.getMessage(), dukeImage)
             );
         }
         userInput.clear();

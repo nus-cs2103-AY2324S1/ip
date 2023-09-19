@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import duke.DukeException;
-import duke.DukeMissingTaskException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -58,7 +57,7 @@ public class TaskList {
             task.markAsUndone();
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingTaskException();
+            throw new DukeException("OOPS!!! The task number is out of bounds.");
         }
     }
 
@@ -72,7 +71,7 @@ public class TaskList {
             task.markAsDone();
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingTaskException();
+            throw new DukeException("OOPS!!! The task number is out of bounds.");
         }
     }
 
@@ -127,7 +126,7 @@ public class TaskList {
             tasks.remove(taskNumber - 1);
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingTaskException();
+            throw new DukeException("OOPS!!! The task number is out of bounds.");
         }
     }
 
@@ -159,7 +158,7 @@ public class TaskList {
             task.addTags(tags);
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeMissingTaskException();
+            throw new DukeException("OOPS!!! The task number is out of bounds.");
         }
     }
 

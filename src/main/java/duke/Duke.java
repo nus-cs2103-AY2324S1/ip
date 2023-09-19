@@ -38,13 +38,8 @@ public class Duke {
         String keyword = parser.getCommand();
         Command command = new Command();
         String message = "";
-
-        try {
-            message = retrieveMessage(keyword, command, parser);
-            this.storage.saveTasks(this.tasks.getTasks());
-        } catch (DukeException e) {
-            throw new DukeException();
-        }
+        message = retrieveMessage(keyword, command, parser);
+        this.storage.saveTasks(this.tasks.getTasks());
         assert !message.isEmpty() : "Message should not be empty";
         return message;
     }
@@ -105,7 +100,7 @@ public class Duke {
             break;
         }
         default:
-            throw new DukeInvalidCommandException();
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return message;
     }
