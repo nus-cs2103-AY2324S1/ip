@@ -3,7 +3,7 @@ package tasks;
 /**
  * The Task class represents a basic task with a description and completion status.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -61,6 +61,8 @@ public class Task {
     public boolean containKey(String key) {
         return this.description.contains(key);
     }
+
+    public abstract boolean isNotValid();
 
     /**
      * Returns the string representation of the Task.

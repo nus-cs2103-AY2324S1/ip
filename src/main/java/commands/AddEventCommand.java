@@ -30,6 +30,9 @@ public class AddEventCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        if (task == null || task.isNotValid()) {
+            return "Invalid Input. Please Try Again.";
+        }
         storage.addLine(task.toString()); // Update storage with the new task
         return tasks.add(task); // Add task to the task list
     }

@@ -64,6 +64,11 @@ public class Event extends Task {
         }
     }
 
+    @Override
+    public boolean isNotValid() {
+        return this.description == null || this.end == null || this.start == null;
+    }
+
     /**
      * Returns the string representation of the Event task.
      *

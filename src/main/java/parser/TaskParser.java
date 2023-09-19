@@ -37,49 +37,35 @@ public class TaskParser {
         return null;
     }
 
-    private Deadline parseDeadline(String input) throws InvalidTaskFormatException {
+    private Deadline parseDeadline(String input) {
         Pattern pattern = Pattern.compile("deadline (.+) by: (.+)");
         Matcher matcher = pattern.matcher(input);
-
-        if (matcher.find()) {
-            String taskDescription = matcher.group(1);
-            String deadlineTime = matcher.group(2);
-
-            if (taskDescription.isEmpty()) {
-                throw new InvalidTaskFormatException("The description of a deadline cannot be empty.");
-            }
-
-            return new Deadline(taskDescription, deadlineTime);
-        } else {
-            throw new InvalidTaskFormatException("Invalid deadline format.");
+        if (!matcher.find() || matcher.groupCount() < 2) {
+            return null;
         }
+        String taskDescription = matcher.group(1);
+        String deadlineTime = matcher.group(2);
+        return new Deadline(taskDescription, deadlineTime);
     }
 
-    private Event parseEvent(String input) throws InvalidTaskFormatException {
+    private Event parseEvent(String input) {
         Pattern pattern = Pattern.compile("event (.+) from (.+) to (.+)");
         Matcher matcher = pattern.matcher(input);
 
-        if (matcher.find()) {
-            String eventDescription = matcher.group(1);
-            String startTime = matcher.group(2);
-            String endTime = matcher.group(3);
-
-            if (eventDescription.isEmpty()) {
-                throw new InvalidTaskFormatException("The description of an event cannot be empty.");
-            }
-
-            return new Event(eventDescription, startTime, endTime);
-        } else {
-            throw new InvalidTaskFormatException("Invalid event format.");
+        if (!matcher.find() || matcher.groupCount() < 3) {
+            return null;
         }
+        String eventDescription = matcher.group(1);
+        String startTime = matcher.group(2);
+        String endTime = matcher.group(3);
+
+        return new Event(eventDescription, startTime, endTime);
+
     }
 
     private ToDo parseTodo(String input) throws InvalidTaskFormatException {
         String taskDescription = input.replace("todo", "").trim();
-
-        if (taskDescription.isEmpty()) {
-            throw new InvalidTaskFormatException("The description of a todo cannot be empty.");
-        }
+        if (taskDescription.isEmpty()) return null;
         return new ToDo(taskDescription);
     }
 

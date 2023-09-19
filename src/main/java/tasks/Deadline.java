@@ -56,6 +56,11 @@ public class Deadline extends Task {
         }
     }
 
+    @Override
+    public boolean isNotValid() {
+        return this.description == null || this.parsedBy == null;
+    }
+
     /**
      * Returns the string representation of the Deadline task.
      *

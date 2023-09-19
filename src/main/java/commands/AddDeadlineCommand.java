@@ -30,6 +30,9 @@ public class AddDeadlineCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        if (task == null || task.isNotValid()) {
+            return "Invalid Input. Please Try Again.";
+        }
         storage.addLine(task.toString());
         return tasks.add(task);
     }

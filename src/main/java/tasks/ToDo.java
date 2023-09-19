@@ -25,6 +25,11 @@ public class ToDo extends Task {
         super(des, mark);
     }
 
+    @Override
+    public boolean isNotValid() {
+        return this.description == null;
+    }
+
     /**
      * Returns the string representation of the ToDo task.
      *
