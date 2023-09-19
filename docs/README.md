@@ -14,7 +14,7 @@ Tired is a chatbot created with Java that helps a person keep track of various t
 
 5. Type the command in the command box and press `Send` to execute it.
    
-6. Refer to [Usage](https://github.com/chewjh1234/ip/edit/master/docs/README.md#usage) below for details of each command.
+6. Refer to [Usage](https://github.com/chewjh1234/ip/master/docs/README.md#usage) below for details of each command.
    
 ## Features 
 
