@@ -48,23 +48,6 @@ public class Alpha extends Application{
         fileHandler.checkAndCreate();
     }
 
-    /**
-     * Starts the Alpha ChatBot. Ends when "bye" is input.
-     */
-    /*
-    public void run() {
-        ui.introduce();
-        boolean isExit = false;
-        while (!isExit) {
-            String input = ui.read();
-            Command command = parser.parse(input);
-            command.execute();
-            isExit = command.isExit();
-        }
-        ui.goodbye();
-    }
-     */
-
     @Override
     public void start(Stage stage) {
         Label helloWorld = new Label("Hello World!"); // Creating a new Label control
