@@ -11,7 +11,7 @@ public class Ui {
      * Prints a goodbye message when users close the bot.
      */
     public String bidGoodbye() {
-        return "Bye. Don't come back!";
+        return "Finally. Don't come back!";
     }
 
 

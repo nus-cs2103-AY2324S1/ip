@@ -25,7 +25,8 @@ public class AddEventCommand extends Command {
         storage.writeData(tasks.toWriteString());
         String returnMessage = "Ok. Your tasklist has grown longer with this addition:\n"
                 + event.toString()
-                + "\nYou now have " + tasks.getLength() + " things to do.\n";
+                + "\nYou now have " + tasks.getLength() + " things to do."
+                + "\nI'm sure you're dying to finish them.";
         return returnMessage;
     }
 }

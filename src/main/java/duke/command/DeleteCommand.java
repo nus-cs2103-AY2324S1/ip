@@ -18,7 +18,8 @@ public class DeleteCommand extends Command {
             storage.writeData(tasks.toWriteString());
             return deleteMessage;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Wow, that's a nonexistent task. Check your tasks again with 'list'.");
+            throw new DukeException("Wow, that's a nonexistent task. Knew I shouldn't have put it past you. "
+                    + "Check your tasks again with 'list'.");
         }
     }
 }
