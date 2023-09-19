@@ -19,7 +19,8 @@ import duke.tasklist.TaskList;
  */
 public class Storage {
     private final String FILEPATH;
-    private String home = System.getProperty("user.home");
+    private final String ROOT = System.getProperty("user.dir");
+    String FOLDER_PATH = ROOT + File.separator + "data";
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -37,12 +38,10 @@ public class Storage {
      * @throws DukeException If there is an error while loading tasks.
      */
     public Collection<Task> load() throws DukeException {
-        String projectRoot = System.getProperty("user.dir");
-        String dataFolderPath = projectRoot + File.separator + "data";
-        boolean directoryExists = new java.io.File(dataFolderPath).exists();
+        boolean directoryExists = new java.io.File(FOLDER_PATH).exists();
 
         if (!directoryExists) {
-            File dataFolder = new File(dataFolderPath);
+            File dataFolder = new File(FOLDER_PATH);
             dataFolder.mkdir();
         }
         File f = new File(FILEPATH);
