@@ -16,6 +16,7 @@ public class TagCommand extends Command {
      * Constructs a TagCommand with the given index.
      *
      * @param taskIndex The index (0-based) of the task to be tagged.
+     * @param tags The tags to be added to the task.
      */
     public TagCommand(int taskIndex, String... tags) {
         this.taskIndex = taskIndex;
