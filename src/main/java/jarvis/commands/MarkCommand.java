@@ -23,17 +23,17 @@ public class MarkCommand implements Command {
      * @param taskList The TaskList containing the tasks.
      * @param ui       The Ui for user interface interactions.
      * @param storage  The Storage for saving tasks.
-     * @throws InvalidIndexException If the task index provided in the user input is
-     *                               invalid.
+     * @throws InvalidIndexException If the task index provided in the user input is invalid.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException {
+        assert taskList != null && ui != null && storage != null;
         String[] splitUserInput = userInput.split(" ");
         int index = Integer.parseInt(splitUserInput[1]);
 
         if (userInput.length() <= 4) {
-            return ui.printResponse("Master, please indicate which task you wish to mark DONE?\n"
-                    + "from 1 to " + taskList.getTaskCount());
+            return ui.printResponse("Master, please indicate which task you wish to mark DONE?\n" + "from 1 to "
+                    + taskList.getTaskCount());
         } else if (index >= 1 && index <= taskList.getTaskCount()) {
             Task task = taskList.getTask(index - 1);
             task.markCompleted();

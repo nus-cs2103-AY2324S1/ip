@@ -38,6 +38,7 @@ public class DeadlineCommand implements Command {
         if (userInput.equalsIgnoreCase("deadline")) {
             throw new InvalidTaskFormatException(null);
         }
+        assert taskList != null && ui != null && storage != null;
         int indexOfBy = userInput.indexOf("by");
 
         if (indexOfBy != 1) {

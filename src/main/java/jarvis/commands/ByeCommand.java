@@ -10,8 +10,7 @@ import jarvis.tasks.TaskList;
 public class ByeCommand implements Command {
 
     /**
-     * Executes the bye command by displaying a farewell message, saving tasks, and
-     * exiting the application.
+     * Executes the bye command by displaying a farewell message, saving tasks, and exiting the application.
      *
      * @param taskList The TaskList containing the tasks.
      * @param ui       The Ui for user interface interactions.
@@ -19,8 +18,10 @@ public class ByeCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null && ui != null && storage != null;
         storage.saveTasks(taskList.getTaskList());
         System.exit(0);
+        assert false : "System should be excited";
         return ui.printBye();
     }
 }

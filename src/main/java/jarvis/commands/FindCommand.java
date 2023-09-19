@@ -32,7 +32,7 @@ public class FindCommand implements Command {
         if (userInput.equalsIgnoreCase("event")) {
             throw new InvalidTaskFormatException(null);
         }
-
+        assert taskList != null && ui != null && storage != null;
         int indexOfFind = userInput.indexOf("find");
         String keyword = userInput.substring(indexOfFind + 4).trim();
 
@@ -45,7 +45,8 @@ public class FindCommand implements Command {
             }
         }
         if (foundTasks.isEmpty()) {
-            return ui.printResponse("No matching task is found, Master. Please check your spelling or use another word");
+            return ui
+                    .printResponse("No matching task is found, Master. Please check your spelling or use another word");
         } else {
             return ui.printTasks(foundTasks);
         }
