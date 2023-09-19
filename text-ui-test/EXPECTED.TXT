@@ -1,7 +1,76 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Creating a new file.
+Hello friend :> My name is John, nice to meet you! What do you have to do today?
+Reply John: Got it. I've added this task:
+  [T][ ] borrow book
+Now you have 1 tasks in the list.
+Reply John: Nice! I've marked this task as done:
+[X] borrow book
+Reply John: ☹ OOPS!!! Invalid date/time format. Please use dd/MM/yyyy HHmm
+Reply John: Got it. I've added this task:
+  [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
+Now you have 2 tasks in the list.
+Reply John: Got it. I've added this task:
+  [T][ ] join sports club
+Now you have 3 tasks in the list.
+Reply John: ☹ OOPS!!! You have indicated an invalid number.
+Reply John: Got it. I've added this task:
+  [T][ ] read a book
+Now you have 4 tasks in the list.
+Reply John: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
+3. [T][ ] join sports club
+4. [T][ ] read a book
+Reply John: Got it. I've added this task:
+  [D][ ] return book (by: 04 Dec 2023 7:20 PM)
+Now you have 5 tasks in the list.
+Reply John: ☹ OOPS!!! Invalid date/time format. Please use dd/MM/yyyy HHmm
+Reply John: Got it. I've added this task:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 6 tasks in the list.
+Reply John: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
+3. [T][ ] join sports club
+4. [T][ ] read a book
+5. [D][ ] return book (by: 04 Dec 2023 7:20 PM)
+6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Reply John: ☹ OOPS!!! You have indicated an invalid number.
+Reply John: OK, I've marked this task as not done yet:
+[ ] read a book
+Reply John: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
+3. [T][ ] join sports club
+4. [T][ ] read a book
+5. [D][ ] return book (by: 04 Dec 2023 7:20 PM)
+6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Reply John: ☹ OOPS!!! The description of a todo cannot be empty.
+Reply John: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+Reply John: ☹ OOPS!!! The description of a deadline cannot be empty.
+Reply John: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+Reply John: ☹ OOPS!!! The description of a event cannot be empty.
+Reply John: ☹ OOPS!!! You forgot to indicate the start and/or end date/time.
+Reply John: ☹ OOPS!!! You forgot to indicate the start and/or end date/time.
+Reply John: ☹ OOPS!!! You forgot to indicate the due date/time.
+Reply John: ☹ OOPS!!! You forgot to indicate the due date/time.
+Reply John: Noted. I've removed this task:
+  [T][ ] join sports club
+Now you have 5 tasks in the list.
+Reply John: ☹ OOPS!!! You have indicated an invalid number.
+Reply John: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
+3. [T][ ] read a book
+4. [D][ ] return book (by: 04 Dec 2023 7:20 PM)
+5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Reply John: ☹ OOPS!!! You have indicated an invalid number.
+Reply John: Noted. I've removed this task:
+  [D][ ] return book (by: 04 Dec 2023 7:20 PM)
+Now you have 4 tasks in the list.
+Reply John: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [E][ ] video meeting (from: Aug 6th 2pm to: 4pm)
+3. [T][ ] read a book
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Reply John: Bye for now, hope to see you soon.

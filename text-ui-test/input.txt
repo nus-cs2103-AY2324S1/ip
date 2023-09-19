@@ -1,0 +1,31 @@
+todo borrow book
+mark 1
+deadline return book /by June 6th
+event video meeting /from Aug 6th 2pm /to 4pm
+todo join sports club
+mark 4
+todo read a book
+list
+deadline return book /by 04/12/2023 1920
+deadline return book /by 04/12/2023 1989
+event project meeting /from Mon 2pm /to 4pm
+list
+unmark 9
+unmark 4
+list
+todo
+no work today!
+deadline
+hihihi
+event
+event party
+event party /from 7 /to
+deadline math
+deadline math /by
+delete 3
+delete 8
+list
+delete 6
+delete 4
+list
+bye
