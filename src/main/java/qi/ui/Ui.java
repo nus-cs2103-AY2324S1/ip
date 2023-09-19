@@ -12,7 +12,9 @@ public class Ui {
      */
     public String showWelcome() {
         return "Hello! I'm Qi\n"
-            + "What can I do for you?";
+            + "What can I do for you? \n"
+                + "\nNot sure what to do?\n" +
+                "Type: help";
     }
 
     /**
@@ -98,5 +100,21 @@ public class Ui {
      */
     public String showLoadingError() {
         return "Cannot load file!";
+    }
+
+    public String showGuidance() {
+        String guide = "I am supposed to help you managing your tasks!\n"
+                + "Here is the format of all the command you can use:\n"
+                + "  - To add a todo task: todo TASK_DESCRIPTION\n"
+                + "  - To add a deadline: deadline TASK_DESCRIPTION /by yyyy-mm-dd\n"
+                + "  - To add an event: event TASK_DESCRIPTION /from START_TIME /to END_TIME\n"
+                + "  - To mark a task as done: mark TASK_ID\n"
+                + "  - To unmart a task: unmark TASK_ID\n"
+                + "  - To delete a task: delete TASK_ID\n"
+                + "  - To view all the task in your list: list\n"
+                + "  - To exit the app: bye\n"
+                + "That's all you need to know!\n"
+                + "Hope you a great experience!";
+        return guide;
     }
 }
