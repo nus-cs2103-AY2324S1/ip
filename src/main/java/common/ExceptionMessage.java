@@ -1,7 +1,7 @@
 package common;
 
 /**
- * Utility class for
+ * Utility class for getting the exception messages that Thorndike uses.
  *
  * @author Ho Khee Wei
  */

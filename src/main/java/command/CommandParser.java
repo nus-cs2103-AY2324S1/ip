@@ -86,9 +86,10 @@ public abstract class CommandParser {
 
         case INVALID:
             return new CmdHelp(CommandKeyword.INVALID);
-        }
 
-        return new CmdHelp(CommandKeyword.INVALID);
+        default:
+            return new CmdHelp(CommandKeyword.INVALID);
+        }
     }
 
     /**

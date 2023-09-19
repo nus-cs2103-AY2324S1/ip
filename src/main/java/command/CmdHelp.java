@@ -1,15 +1,10 @@
 package command;
 
 import common.HelpMessage;
-import common.Message;
-import exceptions.InvalidIndexException;
-import storage.Storage;
-import task.Task;
 import task.TaskList;
-import utility.StringUtility;
 
 /**
- * Represents a command print the user guide.
+ * Represents a command to print the guide to the commands.
  *
  * @author Ho Khee Wei
  */
@@ -17,17 +12,17 @@ public class CmdHelp extends Command {
     private CommandKeyword command;
 
     /**
-     * xxxxxx
+     * Constructs a CmdHelp object with a command keyword.
      *
-     * @param index xxxxxxx
+     * @param command The command keyword that the user is requesting help for.
      */
     public CmdHelp(CommandKeyword command) {
         this.command = command;
     }
 
     /**
-     * xxxxxxx
-     * 
+     * Executes the command that prints the help information regarding a command.
+     *
      * @param taskList Not used in this command.
      * @return response to the user.
      */
@@ -70,9 +65,10 @@ public class CmdHelp extends Command {
 
         case INVALID:
             return HelpMessage.INVALID;
-        }
-        return HelpMessage.INVALID;
 
+        default:
+            return HelpMessage.INVALID;
+        }
     }
 
 }
