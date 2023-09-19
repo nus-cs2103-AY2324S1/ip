@@ -1,2 +1,3 @@
-[T][X] return book
-[D][ ] return book (by: 2021-02-22)
+[T][ ] return book
+[T][X] read book
+[D][X] return book (by: Feb 22 2021)

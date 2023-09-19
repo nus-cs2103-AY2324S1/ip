@@ -1,4 +1,4 @@
-package Kevin.Ui;
+package Forgotten.Ui;
 
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ public class Ui {
      */
     public void printGreetMessage() {
         String greet = line + "\n"
-                + "Hello! I'm Kevin.Kevin.\n"
+                + "Hello! I'm Forgotten\n"
                 + "What can I do for you?\n"
                 + line;
         System.out.println(greet);

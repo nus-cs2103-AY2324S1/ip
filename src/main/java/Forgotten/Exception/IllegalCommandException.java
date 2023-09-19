@@ -1,4 +1,4 @@
-package Kevin.Exception;
+package Forgotten.Exception;
 
 public class IllegalCommandException extends Exception {
     public IllegalCommandException(String errorMessage) {

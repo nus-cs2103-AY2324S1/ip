@@ -1,6 +1,6 @@
 package Kevin;
 
-import Kevin.Task.Event;
+import Forgotten.Task.Event;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

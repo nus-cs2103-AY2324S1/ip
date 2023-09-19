@@ -1,12 +1,14 @@
-package Kevin.TaskList;
+package Forgotten.TaskList;
 
-import Kevin.Task.Task;
-import Kevin.Ui.Ui;
-import Kevin.Storage.Storage;
-import Kevin.Task.*;
-import Kevin.Exception.TaskListEmptyException;
-import Kevin.Exception.DescriptionIncompleteException;
-import Kevin.Exception.IllegalCommandException;
+import Forgotten.Storage.Storage;
+import Forgotten.Task.Deadline;
+import Forgotten.Task.Event;
+import Forgotten.Task.Todo;
+import Forgotten.Ui.Ui;
+import Forgotten.Task.Task;
+import Forgotten.Exception.TaskListEmptyException;
+import Forgotten.Exception.DescriptionIncompleteException;
+import Forgotten.Exception.IllegalCommandException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,15 +29,17 @@ public class TaskList {
     /**
      * Lists out all the tasks in the task list.
      */
-    public void listAllTasks() {
+    public String listAllTasks() {
         int count = 1;
-        System.out.println(Ui.line + "\n" + "Here are the tasks in your list:");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the tasks in your list:\n");
         for (Task task: tasks) {
-            String string = String.format("%d.%s", count, task);
-            System.out.println(string);
+            String string = String.format("%d.%s\n", count, task);
+            stringBuilder.append(string);
             count++;
         }
-        System.out.println(Ui.line);
+
+        return stringBuilder.toString();
     }
 
     /**
@@ -43,19 +47,22 @@ public class TaskList {
      * @param taskNumber Index of the task to be deleted.
      * @throws TaskListEmptyException If there is no task in the task list.
      */
-    public void deleteTask(String taskNumber) throws TaskListEmptyException {
+    public String deleteTask(String taskNumber) throws TaskListEmptyException {
+        String string = "";
+
         if (tasks.size() < 1) {
             throw new TaskListEmptyException("OOPS!!! You cannot delete an empty list.");
         }
         int number = Integer.parseInt(taskNumber);
-        System.out.println(Ui.line);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.get(number - 1));
         tasks.remove(number - 1);
         // Update the file
         storage.rewriteFile(this.tasks);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(Ui.line);
+        string += "Noted. I've removed this task:\n"
+                + tasks.get(number - 1)
+                + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
+
+        return string;
     }
 
 
@@ -63,26 +70,27 @@ public class TaskList {
      * This method marks a specific task to be done.
      * @param taskNumber Index of the task to be marked.
      */
-    public void markTaskDone(String taskNumber) {
+    public String markTaskDone(String taskNumber) {
+        String string = "";
         Task currentTask = tasks.get(Integer.parseInt(taskNumber) - 1);
         currentTask.setIsDone();
         storage.rewriteFile(this.tasks);
-        System.out.println(Ui.line);
-        System.out.println("Nice! I've marked this task as done:\n" + currentTask);
-        System.out.println(Ui.line);
+        string += "Nice! I've marked this task as done:\n" + currentTask;
+        return string;
     }
 
     /**
      * This method marks a specific task to be not done.
-     * @param taskNumber Index of the task to be marked.
+     * @param taskNumber Index o f the task to be marked.
      */
-    public void unmarkTaskDone(String taskNumber) {
+    public String unmarkTaskDone(String taskNumber) {
+        String string = "";
         Task currentTask = tasks.get(Integer.parseInt(taskNumber) - 1);
         currentTask.setNotDone();
         System.out.println(Ui.line);
         storage.rewriteFile(this.tasks);
-        System.out.println("Nice! I've unmarked this task as done:\n" + currentTask);
-        System.out.println(Ui.line);
+        string += "Nice! I've unmarked this task as done:\n" + currentTask;
+        return string;
     }
 
     /**
@@ -128,19 +136,17 @@ public class TaskList {
         System.out.println(Ui.line);
     }
 
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
+        StringBuilder stringBuilder = new StringBuilder();
         int count = 1;
-        System.out.println(Ui.line);
-        System.out.println("Here are the matching tasks in your list:");
+        stringBuilder.append("Here are the matching tasks in your list:\n");
         for (Task task: tasks) {
             if (task.getDescription().contains(keyword)) {
-                System.out.println(count + "." + task);
+                String string = count + "." + task + "\n";
+                stringBuilder.append(string);
                 count++;
             }
         }
-        System.out.println(Ui.line);
-    }
-    public ArrayList<Task> getTasks() {
-        return this.tasks;
+        return stringBuilder.toString();
     }
 }
