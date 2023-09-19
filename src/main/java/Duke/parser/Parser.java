@@ -2,6 +2,7 @@ package Duke.parser;
 import core.Duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import Duke.tasks.Deadlines;
 import Duke.tasks.Events;
 import Duke.tasks.Task;
@@ -92,6 +93,49 @@ public class Parser {
         }
     }
 
+    public Task parseEvent(DateTimeFormatter formatter, String[] parts) throws DukeException{
+        if (parts.length < 2) {
+            throw new DukeException("Description for the event cannot be empty.");
+        }
+
+        String[] eventParts = parts[1].split(" /from ", 2);
+        if (eventParts.length < 2) {
+            throw new DukeException("Event timing is missing.");
+        }
+
+        String[] eventTimes = eventParts[1].split(" /to ", 2);
+        if (eventTimes.length < 2) {
+            throw new DukeException("End time for event is missing.");
+        }
+
+        LocalDateTime fromDate = LocalDateTime.parse(eventTimes[0], formatter);
+        LocalDateTime toDate = LocalDateTime.parse(eventTimes[1], formatter);
+
+        return new Events(eventParts[0], fromDate, toDate);
+    }
+
+    public Task parseTodo(String[] parts) throws DukeException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("Description for the todo cannot be empty.");
+        }
+
+        return new ToDos(parts[1]);
+    }
+
+    public Task parseDeadline(DateTimeFormatter formatter, String[] parts) throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("Description for the deadline cannot be empty.");
+        }
+
+        String[] deadlineParts = parts[1].split(" /by ", 2);
+        if (deadlineParts.length < 2) {
+            throw new DukeException("Deadline timing is missing.");
+        }
+
+        LocalDateTime deadlineDate = LocalDateTime.parse(deadlineParts[1], formatter);
+        return new Deadlines(deadlineParts[0], deadlineDate);
+    }
+
     public Task parseTaskFromCommand(String userCommand) throws DukeException {
         String[] parts = userCommand.split(" ", 2);
         String commandType = parts[0].toLowerCase();
@@ -100,46 +144,15 @@ public class Parser {
     
         switch (commandType) {
             case "event":
-                if (parts.length < 2) {
-                    throw new DukeException("Description for the event cannot be empty.");
-                }
-    
-                String[] eventParts = parts[1].split(" /from ", 2);
-                if (eventParts.length < 2) {
-                    throw new DukeException("Event timing is missing.");
-                }
-    
-                String[] eventTimes = eventParts[1].split(" /to ", 2);
-                if (eventTimes.length < 2) {
-                    throw new DukeException("End time for event is missing.");
-                }
-    
-                LocalDateTime fromDate = LocalDateTime.parse(eventTimes[0], formatter);
-                LocalDateTime toDate = LocalDateTime.parse(eventTimes[1], formatter);
-    
-                task = new Events(eventParts[0], fromDate, toDate);
+                task = parseEvent(formatter, parts);
                 break;
     
             case "todo":
-                if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                    throw new DukeException("Description for the todo cannot be empty.");
-                }
-    
-                task = new ToDos(parts[1]);
+                task = parseTodo(parts);
                 break;
     
             case "deadline":
-                if (parts.length < 2) {
-                    throw new DukeException("Description for the deadline cannot be empty.");
-                }
-    
-                String[] deadlineParts = parts[1].split(" /by ", 2);
-                if (deadlineParts.length < 2) {
-                    throw new DukeException("Deadline timing is missing.");
-                }
-    
-                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineParts[1], formatter);
-                task = new Deadlines(deadlineParts[0], deadlineDate);
+                task = parseDeadline(formatter, parts);
                 break;
             default:
                 throw new DukeException("Invalid command. Please enter a valid task type.");

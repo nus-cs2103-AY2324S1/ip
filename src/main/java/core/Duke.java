@@ -29,6 +29,7 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private AnchorPane mainLayout;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -65,24 +66,7 @@ public class Duke extends Application {
         }
         tm = new TaskManager(tasks);
     }
-
-    @Override
-    public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
+    public void formatWindow(Stage stage) {
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
         stage.setResizable(false);
@@ -111,30 +95,57 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-          //Step 3. Add functionality to handle user input.
-    sendButton.setOnMouseClicked((event) -> {
-        dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-        userInput.clear();
-    });
+    public void addHandleUserInputFunctionality() {
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
 
-    userInput.setOnAction((event) -> {
-        dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-        userInput.clear();
-    });
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
 
-    //Scroll down to the end every time dialogContainer's height changes.
-    dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-    //Part 3. Add functionality to handle user input.
-    sendButton.setOnMouseClicked((event) -> {
-        handleUserInput();
-    });
 
-    userInput.setOnAction((event) -> {
-        handleUserInput();
-    });
+        //Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
 
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    public void initializeComponents(Stage stage) {
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    @Override
+    public void start(Stage stage) {
+        initializeComponents(stage);
+        formatWindow(stage);
+        addHandleUserInputFunctionality();
     }
 
     /**
@@ -163,10 +174,6 @@ private void handleUserInput() {
     userInput.clear();
 }
 
-/**
- * You should have your own function to generate a response to user input.
- * Replace this stub with your completed method.
- */
 public String getResponse(String input) {
     String response = "";
     Parser p = new Parser();
@@ -181,13 +188,13 @@ public String getResponse(String input) {
             storage.updateData(tasks);
             break;
         case DELETE:
-            response += (tm.handleDelete(input));
+            response += tm.handleDelete(input);
             break;
         case MARK:
-            response += (tm.handleMark(input));
+            response += tm.handleMark(input);
             break;
         case UNMARK:
-            response += (tm.handleUnmark(input));
+            response += tm.handleUnmark(input);
             break;
         case EVENT:
         case DEADLINE:
@@ -198,14 +205,15 @@ public String getResponse(String input) {
             response += tm.findTasks(input);
             break;
         case ARCHIVE:
+            response += storage.archiveTasksInNewFile(tasks);
             response += tm.clearTasks();
-            storage.clearFile();
+            response += storage.clearFile();
             break;
         case UNKNOWN:
-            response += ("unknown command.");
+            response += "Unknown command. Make sure you speak my language!";
             break;    
         
     }
-    return "Duke heard: " + input + "\n" + response;
+    return "Frodo heard: " + input + "\n" + response;
 }
 }

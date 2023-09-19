@@ -1,6 +1,7 @@
 package Duke.tasks;
 
 import Duke.parser.Parser;
+import Duke.storage.Storage;
 import core.DukeException;
 
 /**
@@ -144,6 +145,6 @@ public class TaskManager {
 
     public String clearTasks() {
         tasks.clear();
-        return "Successfully archived tasks";
+        return "Successfully cleared tasks from current task list";
     }
 }

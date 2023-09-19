@@ -5,18 +5,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Duke.parser.Parser;
 import Duke.tasks.Deadlines;
 import Duke.tasks.Events;
 import Duke.tasks.Task;
 import Duke.tasks.TaskList;
 import Duke.tasks.ToDos;
 import core.DukeException;
+
 public class Storage {
     public static String filePath;
 
@@ -45,6 +46,7 @@ public class Storage {
 
     public List<Task> loadFromFile(String filename) throws FileNotFoundException {
         List<Task> tasks = new ArrayList<>();
+        Parser parser = new Parser();
 
         try {
             Scanner scanner = new Scanner(new File(filename));
@@ -55,7 +57,7 @@ public class Storage {
                     throw new DukeException("Data file is corrupted. Line not in expected format: " + line);
                 }
 
-                Task task = parseTask(line);
+                Task task = parser.parseTaskFromFile(line);
                 tasks.add(task);
             }
             scanner.close();
@@ -72,50 +74,6 @@ public class Storage {
         return line.matches("^[TDE] \\| [01] \\| .+");
     }
 
-    public Task parseTask(String line) throws DukeException {
-        String[] parts = line.split("\\|");
-
-        // Trim spaces for each part
-        for (int i = 0; i < parts.length; i++) {
-            parts[i] = parts[i].trim();
-        }
-
-        // Extract fields
-        Task task = null;
-        String taskType = parts[0];
-        boolean isCompleted = "1".equals(parts[1]);
-        String description = parts[2];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime date = (parts.length >= 4 && !parts[3].isEmpty()) ? LocalDateTime.parse(parts[3], formatter) : null;
-        LocalDateTime startDate = (parts.length >= 5 && !parts[4].isEmpty()) ? LocalDateTime.parse(parts[4], formatter) : null;
-        LocalDateTime endDate = (parts.length == 6 && !parts[5].isEmpty()) ? LocalDateTime.parse(parts[5], formatter) : null;
-
-
-        try {
-            switch (taskType) {
-                case "T":
-                    task = new ToDos(description, isCompleted);
-                    break;
-
-                case "D":
-                    task = new Deadlines(description, date, isCompleted);
-                    break;
-
-                case "E":
-                    System.out.println(endDate);
-                    task = new Events(description, startDate, endDate, isCompleted);
-                    break;
-            }
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-
-        if (task == null) {
-            throw new DukeException("Invalid task format.");
-        }
-
-        return task;
-    }
 
     public void saveToFile(TaskList tasks) throws IOException {
         File directory = new File("./data");
@@ -155,7 +113,7 @@ public class Storage {
         return sb.toString();
     }
 
-    public void archiveAllTasks(TaskList tasks) {
+    public String archiveTasksInNewFile(TaskList tasks) {
         File archiveFile = new File("data/archive.txt");
 
         try {
@@ -165,17 +123,19 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error archiving tasks " + e.getMessage());
+            return "Error archiving tasks " + e.getMessage();
         }
+        return "Successfully archived tasks in a new file";
     }
 
-    public void clearFile() {
+    public String clearFile() {
         try {
             FileWriter fw = new FileWriter("./data", false);
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error clearing main tasks for archive action " + e.getMessage());
+            return "Error clearing main tasks for archive action " + e.getMessage();
         }
+        return "Successfully cleared data from current file.";
     }
 }
