@@ -23,7 +23,7 @@ public class MarkCommand implements Command {
     }
 
     /**
-     * Executes the mark command on the specified TaskList, Storage, and Ui.
+     * Executes the mark command on the specified TaskList and Storage.
      * Marks the task at the specified index as done.
      *
      * @param tasks   The TaskList containing tasks.
