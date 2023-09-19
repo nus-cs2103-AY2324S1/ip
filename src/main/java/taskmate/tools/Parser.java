@@ -1,6 +1,7 @@
 package taskmate.tools;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import taskmate.commands.Command;
@@ -404,25 +405,43 @@ public class Parser {
         }
     }
 
-    private static void checkValidUpdateCommand(String userInput) throws EmptyDescriptionException,
-            ClauselessUpdateException, InvalidCommandTypeException, NotAnIntegerException {
+    /**
+     * Checks the following cases:
+     * 1. The update command starts with the word "update"
+     * 2. The update command has a description
+     * 3. The update command contains a slash (/)
+     * 4. The update command contains an integer after "update "
+     * Throws exception if any of the above are not fulfilled
+     * @param userInput a String object representing the raw update command from the user
+     * @throws InvalidCommandTypeException thrown when case 1 is not satisfied
+     * @throws EmptyDescriptionException thrown when case 2 is not satisfied
+     * @throws ClauselessUpdateException thrown when case 3 is not satisfied
+     * @throws NotAnIntegerException thrown when case 4 is not satisfied
+     */
+    private static void checkValidUpdateCommand(String userInput) throws InvalidCommandTypeException,
+            EmptyDescriptionException, ClauselessUpdateException, NotAnIntegerException {
 
         String[] tokens = userInput.split("\\s+");
 
         boolean isStartingWithUpdate = userInput.startsWith(TaskMate.CommandTypes.update + " ");
-        boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.update.toString().length()).trim().isEmpty();
-        boolean containsSlash = userInput.contains("/");
-        boolean updateIndexIsInteger = checkStringIsInteger(tokens[1]);
+        if (!isStartingWithUpdate) {
+            throw new InvalidCommandTypeException();
+        }
 
+        boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.update.toString().length()).trim().isEmpty();
+        if (hasEmptyQuery) {
+            System.out.println("test"); // todo remove
+            throw new EmptyDescriptionException();
+        }
+
+        boolean containsSlash = userInput.contains("/");
+        if (!containsSlash) {
+            throw new ClauselessUpdateException();
+        }
+
+        boolean updateIndexIsInteger = checkStringIsInteger(tokens[1]);
         if (!updateIndexIsInteger) {
             throw new NotAnIntegerException();
-        } else if (!isStartingWithUpdate) {
-            throw new InvalidCommandTypeException();
-        } else if (hasEmptyQuery) {
-            throw new EmptyDescriptionException();
-        } else if (!containsSlash) {
-            throw new ClauselessUpdateException(); // todo ui new print statement
         }
     }
-
 }
