@@ -15,13 +15,33 @@ And the best part? When you exit the chatbot, your tasks will be saved so you ca
 
 ## Features 
 
-### Feature-ABC
+### Task, ToDo, Deadline, Event
 
-Description of the feature.
+Supports creation of a variety of tasks. You can input a due date and time for Deadlines, and start and end times for Events.
 
-### Feature-XYZ
+### List
 
-Description of the feature.
+View your current tasks and completion status.
+
+### Mark and Unmark
+
+Mark a task as complete, and incomplete, respectively.
+
+### Delete
+
+Delete a task from the list.
+
+### Find
+
+Find all tasks containing a given keyword.
+
+### Detect date and time anomalies
+
+Leon is able to detect the following anomalies and raise an error:
+
+- When the deadline due time, or the event end time, is before the current system time.
+- When the start time of an event is after its end time.
+- When you attempt to create an event that overlaps with another event.
 
 ## Usage
 
