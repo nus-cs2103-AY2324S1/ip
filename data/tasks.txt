@@ -1,5 +1,6 @@
-D | 1 | b | 2023-10-10
-T | 0 | a | 
-T | 0 | c | 
-T | 0 | b | 
-D | 0 | b | 2023-10-11
+T | 0 | Complete A-UserGuide | 
+D | 0 | iP Final Submission | 2023-09-22
+E | 0 | CS2103T Lecture | 2023-09-22 - 2023-09-22
+T | 0 | Buy breakfast | 
+D | 0 | Finish iP | 2023-09-19
+E | 0 | CS2103T Lecture | 2023-09-22 - 2023-09-23

@@ -21,14 +21,14 @@ public abstract class Task {
     }
 
     /**
-     * Method that marks tasks as done
+     * Marks the task as completed by setting its status to 'done'.
      */
     public void markDone() {
         isDone = true;
     }
 
     /**
-     * Method that changes back the task status to not done
+     * Marks the task as not completed by setting its status to 'not done'.
      */
     public void markUndone() {
         isDone = false;

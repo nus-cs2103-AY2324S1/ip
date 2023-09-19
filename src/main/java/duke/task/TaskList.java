@@ -154,12 +154,12 @@ public class TaskList extends ArrayList<Task>{
     }
 
     public boolean containsDuplicate(Task taskToAdd) {
-        boolean flag = false;
+        boolean isDuplicate = false;
         for (Task task : tasks) {
             if (task.isEqual(taskToAdd)) {
-                flag = true;
+                isDuplicate = true;
             }
         }
-        return flag;
+        return isDuplicate;
     }
 }

@@ -170,9 +170,9 @@ public class Duke extends Application {
 
 
     /**
-     * The main method to start the Duke chatbot.
+     * The start method for the Duke chatbot.
      *
-     * @param args Command-line arguments (not used in this application).
+     * @param args
      */
     public static void main(String[] args) {
         new Duke().run();
@@ -197,7 +197,10 @@ public class Duke extends Application {
 
 
     /**
-     * You should have your own function to generate a response to user input.
+     * Generates a response to user input.
+     *
+     * @param input The user input to process.
+     * @return A response to the user's input.
      */
     public String getResponse(String input) {
         try {
