@@ -23,6 +23,7 @@ public class Todo extends Task {
      * Constructor for the Todo class.
      *
      * @param name name of the todo.
+     * @param date date of the todo.
      */
     public Todo(String name, LocalDate date) {
         super(name);

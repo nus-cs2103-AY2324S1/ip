@@ -27,7 +27,7 @@ public class Ui {
     }
 
     /**
-     * Print the items from the list of task.
+     * Prints the items from the list of task.
      *
      * @param tasks takes in the list of tasks.
      * @return items from tasks.
