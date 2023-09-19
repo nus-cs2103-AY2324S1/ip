@@ -1,4 +1,4 @@
-package duke;
+package duke.components;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import duke.components.Parser;
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidEventException;
 import duke.exceptions.InvalidStartEndException;

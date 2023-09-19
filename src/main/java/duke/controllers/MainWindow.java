@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -48,16 +49,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        Pair<String, Boolean> response = duke.getResponse(input);
+        String text = response.getKey();
 
-        if (response.equals("໒(⊙ᴗ⊙)७ Signing off, see you later!")) {
+        if (text.equals("໒(⊙ᴗ⊙)७ Signing off, see you later!")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getButterDialog(response, dukeImage)
         );
         userInput.clear();
     }

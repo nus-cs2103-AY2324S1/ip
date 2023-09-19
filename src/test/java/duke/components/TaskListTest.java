@@ -1,4 +1,4 @@
-package duke;
+package duke.components;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.components.Status;
 import duke.exceptions.InvalidStartEndException;
 import duke.stubs.StorageStub;
 import duke.stubs.TaskListStub;

@@ -7,6 +7,7 @@ import duke.components.Storage;
 import duke.components.TaskList;
 import duke.components.Ui;
 import duke.exceptions.DukeException;
+import javafx.util.Pair;
 
 /**
  * Main class to run BUTTER.
@@ -31,18 +32,19 @@ public class Duke {
     }
 
     /**
-     * Returns the string response from chatbot to user.
+     * Returns a pair of the form [message, isErrorMessage].
+     * isErrorMessage is true if the response from the chatbot is an error message.
      *
      * @param input user input.
      * @return the response to the user's command.
      */
-    public String getResponse(String input) {
+    public Pair<String, Boolean> getResponse(String input) {
         try {
-            return parser.parseInput(input);
+            return new Pair<>(parser.parseInput(input), false);
         } catch (DukeException e) {
-            return e.getMessage();
+            return new Pair<>(e.getMessage(), true);
         } catch (DateTimeParseException e) {
-            return this.ui.showInvalidDateFormat();
+            return new Pair<>(this.ui.showInvalidDateFormat(), true);
         }
     }
 }

@@ -33,7 +33,7 @@
                <children>
                   <javafx.scene.layout.HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="99.0" prefWidth="388.0">
                       <children>
-                          <ImageView fx:id="displayPicture" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                          <ImageView fx:id="displayPicture" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -41,7 +41,7 @@
                               <Image url="@../images/butter.png" />
                            </image>
                         </ImageView>
-                          <Label fx:id="dialog" minHeight="-Infinity" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12;" text="(｡･o･｡)ﾉ Hey there! I'm BUTTER.  How can I help you today?" translateY="12.0" wrapText="true">
+                          <Label fx:id="dialog" minHeight="-Infinity" style="-fx-background-color: #D9DDBB; -fx-background-radius: 12;" text="(｡･o･｡)ﾉ Hey there! I'm BUTTER.  How can I help you today?" translateY="12.0" wrapText="true">
                            <font>
                               <Font size="14.0" />
                            </font>
