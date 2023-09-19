@@ -1,179 +1,192 @@
 package joe;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import joe.tasks.DeadlineTask;
-import joe.tasks.EventTask;
-import joe.tasks.TodoTask;
+import joe.tasks.Task;
+
 
 public class TaskListTest {
+
+    private static class TaskStub extends Task {
+        protected TaskStub() {
+            super("");
+        }
+
+        @Override
+        public String toString() {
+            return "toString";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Description";
+        }
+    }
+
     @Test
-    public void testEmptyListString() {
+    public void add_expectedUsage_success() {
+        TaskList tasks = new TaskList();
+        TaskStub taskStub = new TaskStub();
+        tasks.add(taskStub);
+        assertEquals(taskStub, tasks.get(0));
+    }
+
+    @Test
+    public void get_negativeIndex_exceptionThrown() {
+        TaskList tasks = new TaskList();
+        TaskStub taskStub = new TaskStub();
+        tasks.add(taskStub);
+        assertThrows(IndexOutOfBoundsException.class, () -> tasks.get(-1));
+    }
+
+    @Test
+    public void get_invalidIndex_exceptionThrown() {
+        TaskList tasks = new TaskList();
+        TaskStub taskStub = new TaskStub();
+        tasks.add(taskStub);
+        assertThrows(IndexOutOfBoundsException.class, () -> tasks.get(1));
+    }
+
+    @Test
+    public void remove_negativeIndex_exceptionThrown() {
+        TaskList tasks = new TaskList();
+        TaskStub taskStub = new TaskStub();
+        tasks.add(taskStub);
+        assertThrows(IndexOutOfBoundsException.class, () -> tasks.remove(-1));
+    }
+
+    @Test
+    public void remove_invalidIndex_exceptionThrown() {
+        TaskList tasks = new TaskList();
+        TaskStub taskStub = new TaskStub();
+        tasks.add(taskStub);
+        assertThrows(IndexOutOfBoundsException.class, () -> tasks.remove(1));
+    }
+
+    @Test
+    public void remove_afterAddTask_success() {
+        TaskList tasks = new TaskList();
+        Task oldTaskStub = new TaskStub();
+        tasks.add(oldTaskStub);
+        tasks.remove(0);
+        assertEquals(0, tasks.size());
+        TaskStub newTaskStub = new TaskStub();
+        tasks.add(newTaskStub);
+        assertEquals(newTaskStub, tasks.get(0));
+        assertNotEquals(oldTaskStub, tasks.get(0));
+    }
+
+    @Test
+    public void size_emptyList_zero() {
+        TaskList tasks = new TaskList();
+        assertEquals(0, tasks.size());
+    }
+
+    @Test
+    public void size_afterAddingTwoTasks_two() {
+        TaskList tasks = new TaskList();
+        tasks.add(new TaskStub());
+        tasks.add(new TaskStub());
+        assertEquals(2, tasks.size());
+    }
+
+    @Test
+    public void size_addAndRemoveTask_zero() {
+        TaskList tasks = new TaskList();
+        tasks.add(new TaskStub());
+        tasks.remove(0);
+        assertEquals(0, tasks.size());
+    }
+
+    @Test
+    public void toString_noTasks_noResult() {
         assertEquals("No tasks available.", new TaskList().toString());
     }
 
     @Test
-    public void testUnmarkedString() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    public void toString_multipleTasks_success() {
         TaskList tasks = new TaskList();
-        tasks.add(new TodoTask("Todo"));
-        tasks.add(new DeadlineTask("Deadline", dt));
-        tasks.add(new EventTask("Event", dt, dt));
-        assertEquals(
-                "1. [T][ ] Todo\n"
-                        + "2. [D][ ] Deadline (by: 01 Jan 2000 00:00)\n"
-                        + "3. [E][ ] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)",
-                tasks.toString());
-    }
-
-    @Test
-    public void testMarkedString() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-        TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("Todo");
-        DeadlineTask newDeadline = (new DeadlineTask("Deadline", dt));
-        EventTask newEvent = (new EventTask("Event", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
-        newTodo.markAsDone();
-        newDeadline.markAsDone();
-        newEvent.markAsDone();
-        assertEquals("1. [T][X] Todo\n"
-                        + "2. [D][X] Deadline (by: 01 Jan 2000 00:00)\n"
-                        + "3. [E][X] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)",
-                tasks.toString());
+        tasks.add(new TaskStub());
+        tasks.add(new TaskStub());
+        tasks.add(new TaskStub());
+        assertEquals("1. toString\n"
+                + "2. toString\n"
+                + "3. toString", tasks.toString());
     }
 
     @Test
     public void findByDesc_wordExists_success() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("Todo");
-        DeadlineTask newDeadline = (new DeadlineTask("Deadline", dt));
-        EventTask newEvent = (new EventTask("Event", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
-        TaskList res = tasks.findByDesc("Deadline", false);
-        assertEquals("1. [D][ ] Deadline (by: 01 Jan 2000 00:00)", res.toString());
+        tasks.add(new TaskStub());
+        TaskList res = tasks.findByDesc("desc", false);
+        assertEquals("1. toString", res.toString());
     }
 
     @Test
     public void findByDesc_wordDoesNotExist_noResult() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("Todo");
-        DeadlineTask newDeadline = (new DeadlineTask("Deadline", dt));
-        EventTask newEvent = (new EventTask("Event", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
-        TaskList res = tasks.findByDesc("adlfhasdlkfh", false);
+        tasks.add(new TaskStub());
+        TaskList res = tasks.findByDesc("asdadsda", false);
         assertEquals("No tasks available.", res.toString());
     }
 
     @Test
     public void findByDesc_emptySearchString_allTasks() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("Todo");
-        DeadlineTask newDeadline = (new DeadlineTask("Deadline", dt));
-        EventTask newEvent = (new EventTask("Event", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
+        tasks.add(new TaskStub());
         TaskList res = tasks.findByDesc("", false);
-        assertEquals("1. [T][ ] Todo\n"
-                + "2. [D][ ] Deadline (by: 01 Jan 2000 00:00)\n"
-                + "3. [E][ ] Event (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+        assertEquals("1. toString", res.toString());
     }
 
     @Test
     public void findByDesc_randomCase_success() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("all lower case");
-        DeadlineTask newDeadline = (new DeadlineTask("ALL UPPER CASE", dt));
-        EventTask newEvent = (new EventTask("rAnDoM CaSe", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
-        TaskList res = tasks.findByDesc("cAsE", false);
-        assertEquals("1. [T][ ] all lower case\n"
-                + "2. [D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)\n"
-                + "3. [E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+        tasks.add(new TaskStub());
+        TaskList res = tasks.findByDesc("DeSCrIption", false);
+        assertEquals("1. toString", res.toString());
     }
 
     @Test
-    public void findByDesc_matchingCase_success() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    public void findByDesc_searchToString_noResult() {
         TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("all lower case");
-        DeadlineTask newDeadline = (new DeadlineTask("ALL UPPER CASE", dt));
-        EventTask newEvent = (new EventTask("rAnDoM CaSe", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
-        TaskList res = tasks.findByDesc("CaSe", true);
-        assertEquals("1. [E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
-    }
-
-    @Test
-    public void findByDesc_matchingCase_noResult() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-        TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("all lower case");
-        DeadlineTask newDeadline = (new DeadlineTask("ALL UPPER CASE", dt));
-        EventTask newEvent = (new EventTask("rAnDoM CaSe", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
-        TaskList res = tasks.findByDesc("cAse", true);
+        tasks.add(new TaskStub());
+        TaskList res = tasks.findByDesc("toString", false);
         assertEquals("No tasks available.", res.toString());
     }
 
     @Test
-    public void findAll_taskPrefix_success() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    public void findByDesc_matchingCase_success() {
         TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("all lower case");
-        DeadlineTask newDeadline = (new DeadlineTask("ALL UPPER CASE", dt));
-        EventTask newEvent = (new EventTask("rAnDoM CaSe", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
-        TaskList res = tasks.findAll("[D]");
-        assertEquals("1. [D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)", res.toString());
+        tasks.add(new TaskStub());
+        TaskList res = tasks.findByDesc("Description", true);
+        assertEquals("1. toString", res.toString());
     }
 
     @Test
-    public void findAll_datetime_success() {
-        LocalDateTime dt =
-                LocalDateTime.parse("01/01/2000 0000", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    public void findByDesc_matchingCase_noResult() {
         TaskList tasks = new TaskList();
-        TodoTask newTodo = new TodoTask("all lower case");
-        DeadlineTask newDeadline = (new DeadlineTask("ALL UPPER CASE", dt));
-        EventTask newEvent = (new EventTask("rAnDoM CaSe", dt, dt));
-        tasks.add(newTodo);
-        tasks.add(newDeadline);
-        tasks.add(newEvent);
-        TaskList res = tasks.findAll("Jan 2000");
-        assertEquals("1. [D][ ] ALL UPPER CASE (by: 01 Jan 2000 00:00)\n"
-                + "2. [E][ ] rAnDoM CaSe (from: 01 Jan 2000 00:00 to: 01 Jan 2000 00:00)", res.toString());
+        tasks.add(new TaskStub());
+        TaskList res = tasks.findByDesc("description", true);
+        assertEquals("No tasks available.", res.toString());
+    }
+
+    @Test
+    public void findAll_toString_success() {
+        TaskList tasks = new TaskList();
+        tasks.add(new TaskStub());
+        TaskList res = tasks.findAll("toString");
+        assertEquals("1. toString", res.toString());
+    }
+
+    @Test
+    public void findAll_toStringLowerCase_success() {
+        TaskList tasks = new TaskList();
+        tasks.add(new TaskStub());
+        TaskList res = tasks.findAll("tostring");
+        assertEquals("1. toString", res.toString());
     }
 }
