@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 import javafx.application.Application;
 /**

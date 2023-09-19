@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 public class GmanException extends Exception {
     public GmanException(String message) {

@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 /**
  * An Event Task that contains a description, a from indicator and a to indicator.

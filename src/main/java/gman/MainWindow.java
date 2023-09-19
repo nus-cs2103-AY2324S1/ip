@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

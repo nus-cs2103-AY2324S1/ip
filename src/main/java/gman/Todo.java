@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 /**
  * A Todo Task that contains a description.

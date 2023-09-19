@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

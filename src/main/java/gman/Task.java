@@ -1,4 +1,4 @@
-package duke;
+package gman;
 
 /**
  * Task class that Todo, Event and Deadline inherit from.
