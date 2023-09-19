@@ -87,3 +87,8 @@ Marks a task from the list as incomplete.
 Shows statistics of the tasks in the task list
 
 **Format:** `stats`
+
+### Saying goodbye : `bye`
+Displays a farewell message
+
+**Format:** `bye`
