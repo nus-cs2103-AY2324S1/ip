@@ -3,12 +3,9 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.DukeException;
-import duke.tasks.Task;
 import duke.tasks.Todo;
 
 /**
@@ -35,9 +32,9 @@ public class TaskListTest {
     public void markTask_markTaskAtIndexOutOfBounds_exceptionThrown() {
         try {
             TaskList taskList = new TaskList(new ArrayList<>());
-        } catch(Exception e) {
+        } catch (Exception e) {
             // Attempt to mark a task at an index that is out of bounds
-            assertEquals(e.getMessage(),("You have provided a number out of index of the stored tasks"));
+            assertEquals(e.getMessage(), ("You have provided a number out of index of the stored tasks"));
         }
     }
 
@@ -59,5 +56,5 @@ public class TaskListTest {
         assertEquals(todo2.getIsMarked(), true);
         assertEquals("I HAVE MARKED THIS TASK:[T][X] Task 2", result);
     }
+    //CHECKSTYLE.ON: MethodName
 }
-//CHECKSTYLE.ON: MethodName

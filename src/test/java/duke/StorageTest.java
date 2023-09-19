@@ -13,6 +13,7 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 public class StorageTest {
+    //CHECKSTYLE.OFF: MethodName
     @Test
     public void loadTask_Todo_ValidInput_TaskCreatedAndAddedToList() {
         List<Task> list = new ArrayList<>();
@@ -67,4 +68,5 @@ public class StorageTest {
 
         assertEquals(0, list.size());
     }
+    //CHECKSTYLE.ON: MethodName
 }
