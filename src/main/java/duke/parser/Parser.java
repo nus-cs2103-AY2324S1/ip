@@ -41,7 +41,10 @@ public class Parser {
      * @param userInput The full input string entered by the user.
      * @return A Command object representing the action to be taken.
      */
+
+
     public static Command parse(String userInput) {
+        assert input != null && !input.trim().isEmpty() : "Input cannot be empty."; // Check input is not empty.
         // Extracts the first word (the command word) from the input
         String commandWord = userInput.split(" ")[0].toLowerCase();
 
@@ -60,6 +63,7 @@ public class Parser {
             // Fallthrough
         case "event":
             return Parser.parseEvent(userInput);
+
             // Fallthrough
         case "delete":
             return Parser.parseDelete(userInput);

@@ -38,6 +38,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(this.taskNumber);
+        assert task != null; // Check task is not null.
         task.markDone();
         return ui.showMarkText(task);
     }

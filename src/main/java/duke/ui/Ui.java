@@ -164,6 +164,7 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             int currentNumber = i + 1;
             Task task = tasks.get(currentNumber);
+            assert task != null; // Check task is not null.
             boolean hasKeyWord = task.findKeyWord(keyWord);
 
             if (hasKeyWord) {
