@@ -86,44 +86,76 @@ public class Duke {
             String str = bf.readLine();
             String command = parser.parseCommand(str);
             if (command.equals("list")) {
-                ui.printTaskList(tasks);
+                processList();
             } else if (command.equals("mark")) {
-                int index = parser.parseToIndex();
-                Task curr = tasks.getTask(index);
-                curr.markAsDone();
-                storage.store(tasks);
-                ui.printMark(curr, index);
+                processMark();
             } else if (command.equals("unmark")) {
-                int index = parser.parseToIndex();
-                Task curr = tasks.getTask(index);
-                curr.markAsNotDone();
-                storage.store(tasks);
-                ui.printUnmark(curr, index);
+                processUnmark();
             } else if (command.equals("bye")) {
-                ui.printGoodbyeMessage();
+                processBye();
                 isExit = true;
             } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-                Task curr = parser.parseToTask();
-                if (curr == null) {
-                    continue;
-                }
-                tasks.addTask(curr);
-                storage.store(tasks);
-                ui.printAddTask(curr, tasks.getSize());
+                processAddTask();
             } else if (command.equals("delete")) {
-                int index = parser.parseToIndex();
-                Task curr = tasks.getTask(index);
-                tasks.deleteTask(index);
-                storage.store(tasks);
-                ui.printDelete(curr, tasks.getSize());
+                processDeleteTask();
             } else if (command.equals("find")) {
-                String query = parser.parseQuery();
-                ui.printQueryResult(tasks.searchTask(query));
+                processFind();
             } else {
                 //nothing found
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                processInvalidCommand();
             }
         }
 
+    }
+
+    private static void processInvalidCommand() {
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    private void processFind() {
+        String query = parser.parseQuery();
+        ui.printQueryResult(tasks.searchTask(query));
+    }
+
+    private void processDeleteTask() {
+        int index = parser.parseToIndex();
+        Task curr = tasks.getTask(index);
+        tasks.deleteTask(index);
+        storage.store(tasks);
+        ui.printDelete(curr, tasks.getSize());
+    }
+
+    private void processAddTask() {
+        Task curr = parser.parseToTask();
+        if (curr == null) {
+            return;
+        }
+        tasks.addTask(curr);
+        storage.store(tasks);
+        ui.printAddTask(curr, tasks.getSize());
+    }
+
+    private void processBye() {
+        ui.printGoodbyeMessage();
+    }
+
+    private void processUnmark() {
+        int index = parser.parseToIndex();
+        Task curr = tasks.getTask(index);
+        curr.markAsNotDone();
+        storage.store(tasks);
+        ui.printUnmark(curr, index);
+    }
+
+    private void processMark() {
+        int index = parser.parseToIndex();
+        Task curr = tasks.getTask(index);
+        curr.markAsDone();
+        storage.store(tasks);
+        ui.printMark(curr, index);
+    }
+
+    private void processList() {
+        ui.printTaskList(tasks);
     }
 }
