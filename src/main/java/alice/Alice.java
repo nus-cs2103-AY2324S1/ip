@@ -72,7 +72,7 @@ public class Alice {
             Command command = Parser.parse(input);
             return command.execute(tasks, ui, storage);
         } catch (DukeException e) {
-            return e.getMessage();
+            return ui.showError(e.getMessage());
         }
     }
 

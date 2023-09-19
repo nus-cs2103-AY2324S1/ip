@@ -9,8 +9,8 @@ import alice.ui.Ui;
  * Represents a command issued by the user and to be executed.
  */
 public class Command {
-    public static final String INDEX_NOT_NUMBER_ERROR_MESSAGE = "OOPS!!! The index of a task must be a number.";
-    public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "OOPS!!! I don't know what that means :-(";
+    public static final String INDEX_NOT_NUMBER_ERROR_MESSAGE = "OOPSIE!!! The index of a task must be a number ˃̵ᴗ˂̵";
+    public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "OOPSIE!!! I don't know what that means ˃̵ᴗ˂̵";
     protected boolean isExit = false; // Whether the command is an exit command.
 
     /**

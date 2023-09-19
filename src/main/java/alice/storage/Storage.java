@@ -15,9 +15,9 @@ import alice.exception.DukeException;
  * The tasks are stored in a text file. Each line corresponds to a task.
  */
 public class Storage {
-    public static final String SAVING_ERROR_MESSAGE = "OOPS!!! I have problems saving your tasks.";
+    public static final String SAVING_ERROR_MESSAGE = "Nyaa~, I had some trouble saving your taskies, gomennasai~ UwU";
     public static final String CREATING_FILE_ERROR_MESSAGE =
-        "OOPS!!! I have problems creating the file to save your tasks.";
+        "Nyaa~, I had some trouble creating the file to store your taskies, gomennasai~ UwU";
     private final String filePath; // The path of the file to store the task list.
 
     /**

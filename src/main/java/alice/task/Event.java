@@ -11,7 +11,7 @@ import alice.exception.DukeException;
 public class Event extends Task {
     public static final String TASK_LABEL = "E";
     public static final String MISSING_TIME_ERROR_MESSAGE =
-        "OOPS!!! The start time or end time of an event cannot be empty.";
+        "Nyaa~, the start and end time of an event cannot be empty UwU";
     protected LocalDateTime from; // The start time of the task in LocalDateTime format.
     protected LocalDateTime to; // The end time of the task in LocalDateTime format.
 
