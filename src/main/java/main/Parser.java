@@ -35,35 +35,27 @@ public class Parser {
             return new ListCommand();
         } else if (Parser.isMark(fullCommand)) {
             assert fullCommand.startsWith("mark") : "Should start with mark";
-            Parser.testMarkAndDelete(fullCommand);
             int taskIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
             return new MarkCommand(taskIndex);
         } else if (Parser.isUnmark(fullCommand)) {
             assert fullCommand.startsWith("unmark") : "Should start with unmark";
-            Parser.testMarkAndDelete(fullCommand);
             int taskIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
             return new UnmarkCommand(taskIndex);
         } else if (Parser.isToDo(fullCommand)) {
             assert fullCommand.startsWith("todo") : "Should start with todo";
             String description = fullCommand.substring(4).trim();
-            // test whether the todo is valid
-            Parser.testToDo(description);
-
             return new ToDoCommand(description);
 
         } else if (Parser.isEvent(fullCommand)) {
             assert fullCommand.startsWith("event") : "Should start with event";
-            Parser.testEvent(fullCommand);
             return new EventCommand(fullCommand);
 
         } else if (Parser.isDeadline(fullCommand)) {
             assert fullCommand.startsWith("deadline") : "Should start with deadline";
-            Parser.testDeadline(fullCommand);
             return new DeadlineCommand(fullCommand);
 
         } else if (Parser.isDelete(fullCommand)) {
             assert fullCommand.startsWith("delete") : "Should start with delete";
-            Parser.testMarkAndDelete(fullCommand);
             return new DeleteCommand(fullCommand);
 
         } else if (Parser.isFind(fullCommand)) {
@@ -83,28 +75,64 @@ public class Parser {
         return fullCommand.startsWith("list");
     }
 
-    private static boolean isMark(String fullCommand) {
-        return fullCommand.startsWith("mark");
+    private static boolean isMark(String fullCommand) throws DukeException {
+        boolean isMarkCommand = fullCommand.startsWith("mark");
+        if (isMarkCommand) {
+            testMarkAndDelete(fullCommand);
+        }
+
+        return isMarkCommand;
     }
 
-    private static boolean isUnmark(String fullCommand) {
-        return fullCommand.startsWith("unmark");
+    private static boolean isUnmark(String fullCommand) throws DukeException {
+        boolean isUnmarkCommand = fullCommand.startsWith("unmark");
+
+        if (isUnmarkCommand) {
+            testMarkAndDelete(fullCommand);
+        }
+
+        return isUnmarkCommand;
     }
 
-    private static boolean isToDo(String fullCommand) {
-        return fullCommand.startsWith("todo");
+    private static boolean isToDo(String fullCommand) throws DukeException {
+        boolean isToDoCommand = fullCommand.startsWith("todo");
+        String description = fullCommand.substring(4).trim();
+
+        if (isToDoCommand) {
+            testToDo(description);
+        }
+
+        return isToDoCommand;
     }
 
-    private static boolean isEvent(String fullCommand) {
-        return fullCommand.startsWith("event");
+    private static boolean isEvent(String fullCommand) throws DukeException {
+        boolean isEventCommand = fullCommand.startsWith("event");
+
+        if (isEventCommand) {
+            testEvent(fullCommand);
+        }
+
+        return isEventCommand;
     }
 
-    private static boolean isDeadline(String fullCommand) {
-        return fullCommand.startsWith("deadline");
+    private static boolean isDeadline(String fullCommand) throws DukeException {
+        boolean isDeadlineCommand = fullCommand.startsWith("deadline");
+
+        if (isDeadlineCommand) {
+            testDeadline(fullCommand);
+        }
+
+        return isDeadlineCommand;
     }
 
-    private static boolean isDelete(String fullCommand) {
-        return fullCommand.startsWith("delete");
+    private static boolean isDelete(String fullCommand) throws DukeException {
+        boolean isDeleteCommand = fullCommand.startsWith("delete");
+
+        if (isDeleteCommand) {
+            testMarkAndDelete(fullCommand);
+        }
+
+        return isDeleteCommand;
     }
 
     public static boolean isFind(String fullCommand) {
@@ -136,7 +164,6 @@ public class Parser {
                     " start and end time.");
         }
 
-        String title = list[0].substring(6);
         String start = list[1].substring(5);
         String end = list[2].substring(3);
 
