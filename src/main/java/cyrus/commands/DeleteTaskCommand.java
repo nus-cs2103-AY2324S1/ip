@@ -30,7 +30,7 @@ public class DeleteTaskCommand extends Command {
             return new String[]{
                 "Noted. I've removed this task:",
                 task.toString(),
-                String.format("Now you have %d cyrus.tasks in the list.", this.taskList.size())
+                String.format("Now you have %d tasks in the list.", this.taskList.size())
             };
         } catch (NumberFormatException e) {
             throw new CommandError("Invalid task index: must be integer");
