@@ -2,7 +2,6 @@ package commands;
 
 import data.TaskList;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -14,7 +13,7 @@ public class ListCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) {
+            TaskList tasks, Storage storage) {
         if (tasks.isEmpty()) {
             return new UiMessage(new String[] {
                 "Nothing stored."

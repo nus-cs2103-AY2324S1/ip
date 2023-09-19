@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 import data.TaskList;
 import data.exception.DukeException;
+import data.exception.StorageException;
 import data.tasks.Event;
 import data.tasks.Task;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -15,9 +15,9 @@ import ui.UiMessage;
  * Handles creating a new {@link Event}.
  */
 public class EventCommand extends Command {
-    private String description;
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final String description;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * The constructor method of the EventCommand class.
@@ -35,13 +35,13 @@ public class EventCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
+            TaskList tasks, Storage storage) throws StorageException {
         Task event = new Event(description, from, to);
         tasks.add(event);
         storage.update(tasks);
         return new UiMessage(new String[] {
             "Okie! I've added a new EVENT:",
-            "  " + event.toString(),
+            "  " + event,
             "Total no. of tasks stored: " + tasks.getSize()
         });
     }

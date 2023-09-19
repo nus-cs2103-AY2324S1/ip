@@ -15,12 +15,14 @@ import ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private final Duke duke = new Duke();
+
+    private final static String MAIN_WINDOW_FXML = "/view/MainWindow.fxml";
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(MAIN_WINDOW_FXML));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

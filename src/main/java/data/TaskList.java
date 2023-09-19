@@ -2,7 +2,7 @@ package data;
 
 import java.util.ArrayList;
 
-import data.exception.DukeException;
+import data.exception.InvalidParamException;
 import data.tasks.Task;
 import storage.Storage;
 import ui.UiCli;
@@ -12,7 +12,7 @@ import ui.UiCli;
  * Manages the list of tasks that the user has created.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * The constructor method of the TaskList class.
@@ -76,13 +76,13 @@ public class TaskList {
      * @param taskIndex The index of the task stored.
      * @param isDone Whether the task is being marked as done or not done.
      * @return The task that was marked.
-     * @throws DukeException Thrown when the taskIndex given
-     *                       is negative or out of bounds.
+     * @throws InvalidParamException Thrown when the taskIndex given
+     *                               is negative or out of bounds.
      */
-    public Task mark(int taskIndex, boolean isDone) throws DukeException {
+    public Task mark(int taskIndex, boolean isDone) throws InvalidParamException {
         // User tries to mark/unmark a task that is out of bounds.
         if (taskIndex < 0 || taskIndex >= getSize()) {
-            throw new DukeException(String.format(
+            throw new InvalidParamException(String.format(
                 "Unable to %s task %d :( You have %d task(s) stored.",
                 isDone ? "mark" : "unmark", taskIndex, getSize()
             ));
@@ -102,12 +102,12 @@ public class TaskList {
      * 
      * @param taskIndex The index of the task stored.
      * @return The task that was deleted.
-     * @throws DukeException Thrown when the taskIndex given
-     *      *                is negative or out of bounds.
+     * @throws InvalidParamException Thrown when the taskIndex given
+     *      *                        is negative or out of bounds.
      */
-    public Task delete(int taskIndex) throws DukeException {
+    public Task delete(int taskIndex) throws InvalidParamException {
         if (taskIndex < 0 || taskIndex >= getSize()) {
-            throw new DukeException(String.format(
+            throw new InvalidParamException(String.format(
                 "Unable to "
                         + UiCli.cTxt("delete", UiCli.Color.PURPLE)
                         + " task %d :( You have %d task(s) stored.",

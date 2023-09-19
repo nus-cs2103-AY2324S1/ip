@@ -2,10 +2,10 @@ package commands;
 
 import data.TaskList;
 import data.exception.DukeException;
+import data.exception.StorageException;
 import data.tasks.Task;
 import data.tasks.Todo;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -13,7 +13,7 @@ import ui.UiMessage;
  * Handles creating a new {@link Todo}.
  */
 public class TodoCommand extends Command {
-    private String description;
+    private final String description;
 
     /**
      * The constructor method of the TodoCommand class.
@@ -27,13 +27,13 @@ public class TodoCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
+            TaskList tasks, Storage storage) throws StorageException {
         Task todo = new Todo(description);
         tasks.add(todo);
         storage.update(tasks);
         return new UiMessage(new String[] {
             "Okie! I've added a new TODO:",
-            "  " + todo.toString(),
+            "  " + todo,
             "Total no. of tasks stored: " + tasks.getSize()
         });
     }

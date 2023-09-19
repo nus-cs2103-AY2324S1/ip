@@ -1,13 +1,10 @@
 package data.exception;
 
-import ui.UiCli;
-
 /**
  * The custom {@link Exception} class for Duke.
- * Used by {@link UiCli} to print error messages.
  */
 public class DukeException extends Exception {
-    private String msg;
+    private final String msg;
 
     /**
      * The constructor method of the DukeException class.
@@ -28,11 +25,11 @@ public class DukeException extends Exception {
      *            description of the error.
      */
     public DukeException(String[] msg) {
-        String temp = "";
+        StringBuilder temp = new StringBuilder();
         for (String stub : msg) {
-            temp += String.format("%s\n", stub);
+            temp.append(String.format("%s\n", stub));
         }
-        this.msg = temp.trim().strip();
+        this.msg = temp.toString().trim().strip();
     }
 
     @Override

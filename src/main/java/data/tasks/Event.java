@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import common.DateParser;
 
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     public Event(
             String detail,

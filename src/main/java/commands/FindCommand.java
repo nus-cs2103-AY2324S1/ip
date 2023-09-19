@@ -6,7 +6,6 @@ import data.TaskList;
 import data.exception.DukeException;
 import data.tasks.Task;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -14,7 +13,7 @@ import ui.UiMessage;
  * Finds the list of tasks containing a given keyword.
  */
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * The constructor method of the FindCommand class.
@@ -29,7 +28,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public UiMessage execute(TaskList tasks, Storage storage, UiCli uiCli) throws DukeException {
+    public UiMessage execute(TaskList tasks, Storage storage) {
         ArrayList<Task> result = tasks.findTasks(keyword);
 
         int count = result.size();

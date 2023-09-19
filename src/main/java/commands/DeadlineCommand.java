@@ -3,11 +3,10 @@ package commands;
 import java.time.LocalDateTime;
 
 import data.TaskList;
-import data.exception.DukeException;
+import data.exception.StorageException;
 import data.tasks.Deadline;
 import data.tasks.Task;
 import storage.Storage;
-import ui.UiCli;
 import ui.UiMessage;
 
 /**
@@ -15,8 +14,8 @@ import ui.UiMessage;
  * Handles creating a new {@link Deadline}.
  */
 public class DeadlineCommand extends Command {
-    private String description;
-    private LocalDateTime deadline;
+    private final String description;
+    private final LocalDateTime deadline;
 
     /**
      * The constructor method of the DeadlineCommand class.
@@ -33,8 +32,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public UiMessage execute(TaskList tasks,
-            Storage storage,
-            UiCli uiCli) throws DukeException {
+            Storage storage) throws StorageException {
         Task dl = new Deadline(description, deadline);
         tasks.add(dl);
         storage.update(tasks);
