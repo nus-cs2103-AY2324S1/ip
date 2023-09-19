@@ -40,7 +40,7 @@ public class Main extends Application {
             FilenameDialogController controller = fxmlLoader.<FilenameDialogController>getController();
             controller.populateFilenamesToListView();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Enter Filename");
+            dialogStage.setTitle("Dong");
             dialogStage.initOwner(parentStage);
             dialogStage.setScene(new Scene(root));
             controller.setStage(dialogStage);

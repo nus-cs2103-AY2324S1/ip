@@ -131,6 +131,7 @@ public class TaskList {
      * Clears the task count. Note: This does not clear the task list itself.
      */
     public void clear() {
+        this.taskLists = new ArrayList<>();
         this.taskCount = 0;
     }
 

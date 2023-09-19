@@ -159,6 +159,7 @@ public class Parser {
 
         case CLEAR:
             taskList.clear();
+            addToOutput(ui.clearTaskList(), output);
             break;
 
         case FIND:

@@ -63,19 +63,20 @@ public class Ui {
     }
 
     /**
-     * Prints a dashed line for visual separation in the interface.
-     */
-    public void newDashedLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
      * Informs the user that a task has been deleted.
      *
      * @param content The content of the deleted task.
      */
     public String[] deleteTask(String content) {
         String[] res = {"Noted. I've removed this task:", content};
+        return res;
+    }
+
+    /**
+     * Informs the user that all tasks have been deleted.
+     */
+    public String[] clearTaskList() {
+        String[] res = {"Noted. I've removed all tasks!"};
         return res;
     }
 
