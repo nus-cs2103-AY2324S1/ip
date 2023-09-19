@@ -22,7 +22,7 @@ public class Todo extends Task {
      */
     @Override
     public String convertToString() {
-        return "[T] " + super.convertToString();
+        return "[T] " + super.convertToString() + " (Priority: " + getPriority() + ")";
     }
 
     /**

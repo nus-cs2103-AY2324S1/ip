@@ -63,7 +63,8 @@ public class Event extends Task {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
         return "[E] " + super.convertToString() + " (from:" + convertDateToString(this.startDate)
                 + convertTimeToString(this.startTime) + " to:"
-                + convertDateToString(this.endDate) + convertTimeToString(this.endTime)+ ")";
+                + convertDateToString(this.endDate) + convertTimeToString(this.endTime)+ ")"
+                + " (Priority: " + getPriority() + ")";
     }
 
     private String convertDateToString(LocalDate d) {
@@ -89,7 +90,7 @@ public class Event extends Task {
         assert this.endDate != null : "End date should not be empty";
         return "[E] /" + super.convertToStringInFile() + " / " + convertDateToStringInFile(this.startDate)
                 + convertTimeToStringInFile(this.startTime) + " / " + convertDateToStringInFile(this.endDate)
-                + convertTimeToStringInFile(this.endTime);
+                + convertTimeToStringInFile(this.endTime) + " / " + getPriority();
     }
 
     private String convertDateToStringInFile(LocalDate d) {

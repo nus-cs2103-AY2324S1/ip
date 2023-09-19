@@ -89,8 +89,8 @@ public class Parser {
         case "rank":
             return rankTask(otherWords);
         default:
-            throw new InvalidInputException("OOPS! I do not know what " + firstWord
-                    + " means. Please try again :)");
+            throw new InvalidInputException("OOPS! I do not know what \"" + firstWord
+                    + "\" means. Please try again :)");
         }
 
         return null;
@@ -393,7 +393,7 @@ public class Parser {
         assert tasks != null : "No existing list";
         assert ui != null : "No existing ui";
         return String.join("", ui.sendMessage("Added to list: " + x) + "\n",
-                ui.sendMessage("Now you have " + tasks.size()));
+                ui.sendMessage("Now you have " + tasks.size() + " item(s) in the list"));
     }
 
     /**

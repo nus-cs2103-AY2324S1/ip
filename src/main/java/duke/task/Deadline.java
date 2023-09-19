@@ -45,7 +45,8 @@ public class Deadline extends Task {
     public String convertToString() {
         assert this.endDate != null : "End date should not be empty";
         return "[D] " + super.convertToString() + " (by:"
-                + convertEndDateToString() + convertEndTimeToString() + ")";
+                + convertEndDateToString() + convertEndTimeToString() + ")" + " (Priority: "
+                + getPriority() + ")";
     }
 
     private String convertEndDateToString() {
@@ -69,7 +70,7 @@ public class Deadline extends Task {
     public String convertToStringInFile() {
         assert this.endDate != null : "End date should not be empty";
         return "[D] /" + super.convertToStringInFile() + " / " + this.convertEndDateToStringInFile()
-                + this.convertEndTimeToStringInFile();
+                + this.convertEndTimeToStringInFile() + " / " + getPriority();
     }
 
     private String convertEndDateToStringInFile() {
