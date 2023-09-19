@@ -23,6 +23,14 @@ public class AddTodo extends Command {
         super(str);
     }
 
+    private static final String TODO_PATTERN = " \\S.*";
+
+    private Task addTask(TaskList lst) throws DukeException {
+        Task newTask = lst.addTask(str.substring(1));
+        assert newTask != null : "Task should not be null";
+        return newTask;
+    }
+
     /**
      * Executes the AddTodo command.
      * Parses the input string, adds a new todo task to the task list,
@@ -37,10 +45,8 @@ public class AddTodo extends Command {
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (str.isEmpty() || str.equals(" ")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-        } else if (str.matches(" \\S.*\\s.*")) {
-            Task newTask = lst.addTask(str.substring(1));
-            assert newTask != null : "Task should not be null";
-
+        } else if (str.matches(TODO_PATTERN)) {
+            Task newTask = addTask(lst);
             storage.addToFile(newTask);
             return io.addTask(newTask, lst);
         } else {

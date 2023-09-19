@@ -43,21 +43,22 @@ public class Remark extends Command {
         try {
             int index = CommonMethods.getIndex(str);
             assert index >= 0 : "Index should be non-negative";
+
             if (isMark) {
                 Task t = lst.mark(index);
                 assert t != null : "Task should not be null";
+
                 storage.changeFile(lst);
                 return io.mark(t);
-            } else if(!isMark) {
+            } else {
                 Task t = lst.unmark(index);
                 assert t != null : "Task should not be null";
+
                 storage.changeFile(lst);
                 return io.unmark(t);
-            } else {
-                throw new DukeException("Error in remark task");
             }
-        } catch (IOException ignored) {
-            return ignored.getMessage();
+        } catch (IOException error) {
+            return error.getMessage();
         }
     }
 }

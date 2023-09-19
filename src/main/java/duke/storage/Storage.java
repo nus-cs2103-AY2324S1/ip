@@ -89,18 +89,26 @@ public class Storage {
             throw new DukeException(e.getMessage());
         }
 
-        if (Objects.equals(temp[0], "1")) {
-            t.mark();
-        } else if (!Objects.equals(temp[0], "0")) {
+        hasMarked(temp[0], t);
+        hasSnoozed(temp[1], t);
+
+        return t;
+    }
+
+    private void hasMarked(String strMk, Task task) throws DukeException {
+        if (Objects.equals(strMk, "1")) {
+            task.mark();
+        } else if (!Objects.equals(strMk, "0")) {
             throw new DukeException("Error in marking loading tasks");
         }
+    }
 
-        if (Objects.equals(temp[1], "1")) {
-            t.snooze();
-        } else if (!Objects.equals(temp[1], "0")) {
+    private void hasSnoozed(String strSz, Task task) throws DukeException {
+        if (Objects.equals(strSz, "1")) {
+            task.snooze();
+        } else if (!Objects.equals(strSz, "0")) {
             throw new DukeException("Error in snoozing loading tasks");
         }
-        return t;
     }
 
     /**

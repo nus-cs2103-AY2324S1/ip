@@ -36,8 +36,10 @@ public class Snooze extends Command{
         try {
             int index = CommonMethods.getIndex(str);
             assert index >= 0 : "Index should be non-negative";
+
             Task t = lst.snooze(index);
             assert t != null : "Task should not be null";
+
             storage.changeFile(lst);
             return ui.snooze(t);
         } catch (IOException iE) {

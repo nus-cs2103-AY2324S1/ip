@@ -144,6 +144,13 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Snoozes the task at the specified index and returns it.
+     *
+     * @param index The index of the task to snooze.
+     * @return The snoozed task.
+     * @throws DukeException If there is an error while snoozing the task.
+     */
     public Task snooze(int index) throws DukeException {
         try {
             Task t = get(index - 1);

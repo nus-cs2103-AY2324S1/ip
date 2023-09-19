@@ -15,6 +15,8 @@ import duke.ui.UI;
  */
 public class AddDeadline extends Command {
 
+    private static final String DEADLINE_PATTERN = " \\S.*\\s/by\\s\\d.*";
+
     /**
      * Constructs an AddDeadline command with the given input string.
      *
@@ -24,6 +26,18 @@ public class AddDeadline extends Command {
         super(str);
     }
 
+    private Task addTask(TaskList lst, String[] temp) throws DukeException {
+        try {
+            LocalDate d = LocalDate.parse(temp[1]);
+            Task newTask = lst.addTask(temp[0].substring(1), d);
+            assert newTask != null : "Task should not be null";
+            return newTask;
+        } catch (DateTimeException e) {
+            throw new DukeException(
+                    "Can you follow the following pattern to input the time:\n  "
+                            + "deadline <task name> /by <yyyy-mm-dd>\n");
+        }
+    }
     /**
      * Executes the AddDeadline command.
      * Parses the input string, adds a new deadline task to the task list,
@@ -38,20 +52,11 @@ public class AddDeadline extends Command {
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (str.isEmpty() || str.equals(" ")) {
             throw new DukeException("The description of a deadline cannot be empty.");
-        } else if (str.matches(" \\S.*\\s/by\\s\\d.*")){
+        } else if (str.matches(DEADLINE_PATTERN)){
             String[] temp = str.split(" /by ");
-            try {
-                LocalDate d = LocalDate.parse(temp[1]);
-                Task newTask = lst.addTask(temp[0].substring(1), d);
-                assert newTask != null : "Task should not be null";
-
-                storage.addToFile(newTask);
-                return io.addTask(newTask, lst);
-            } catch (DateTimeException e) {
-                throw new DukeException(
-                        "Can you follow the following pattern to input the time:\n  "
-                                + "deadline <task name> /by <yyyy-mm-dd>\n");
-            }
+            Task newTask = addTask(lst, temp);
+            storage.addToFile(newTask);
+            return io.addTask(newTask, lst);
         } else {
             throw new DukeException(
                     "Can you follow the following pattern to add a task:\n  "
