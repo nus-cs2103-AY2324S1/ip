@@ -29,11 +29,14 @@ public class TodoCommand extends Command {
      */
     @Override
     public void execute() {
+        if (this.taskTodo.isBlank()) {
+            return;
+        }
+
         Todo todo = new Todo(taskTodo);
 
         storage.add(todo);
         readWriteData.write(todo);
-
 
     }
 
@@ -42,5 +45,9 @@ public class TodoCommand extends Command {
      * @param ui Ui class instance
      */
     @Override
-    public void uiResponse(Ui ui) { }
+    public void uiResponse(Ui ui) {
+        if (this.taskTodo.isBlank()) {
+            ui.incompleteInformation();
+        }
+    }
 }

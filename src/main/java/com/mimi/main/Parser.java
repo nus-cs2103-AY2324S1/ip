@@ -130,7 +130,7 @@ public class Parser {
 
         //first remove the event keyword
         int i = temp.indexOf(' ');
-        temp = temp.substring(i + 1);
+        temp = createSubString(temp, i + 1, -2);
 
         //check if the task has specified a start and end time
         if (!temp.contains("/from") || !temp.contains("/to")) {
@@ -140,14 +140,14 @@ public class Parser {
 
         //next isolate the task name
         int j = temp.indexOf("/from");
-        String taskName = temp.substring(0, j - 1);
+        String taskName = createSubString(temp, 0, j - 1);
 
         //next isolate the start date
         int k = temp.indexOf("/to");
-        String startDate = temp.substring(j + 6, k - 1);
+        String startDate = createSubString(temp, j + 6, k - 1);
 
         //next isolate the end date
-        String endDate = temp.substring(k + 4);
+        String endDate = createSubString(temp, k + 4, -2);
 
         try {
             LocalDateTime startTime = LocalDateTime.parse(startDate, Parser.FORMATTER);
@@ -169,7 +169,7 @@ public class Parser {
 
         //first remove the deadline keyword
         int i = temp.indexOf(' ');
-        temp = temp.substring(i + 1);
+        temp = createSubString(temp, i + 1, -2);
 
         //check if the task has specified a deadline time
         if (!temp.contains("/by")) {
@@ -179,10 +179,10 @@ public class Parser {
 
         //next isolate the deadline
         int j = temp.indexOf("/by");
-        String deadline = temp.substring(j + 4);
+        String deadline = createSubString(temp, j + 4, -2);
 
         //next isolate the taskName
-        String taskName = temp.substring(0, j - 1);
+        String taskName = createSubString(temp, 0, j - 1);
 
         try {
             LocalDateTime localDateTime = LocalDateTime.parse(deadline, Parser.FORMATTER);
@@ -235,10 +235,19 @@ public class Parser {
         String temp = input;
         int i = temp.indexOf(' ');
 
-        temp = temp.substring(i + 1);
+        temp = createSubString(temp, i + 1, -2);
 
         return new TodoCommand(temp, storage, readWriteData);
     }
 
+    private String createSubString(String string, int start, int end) {
+        try {
+            return end == -2
+                    ? string.substring(start)
+                    : string.substring(start, end);
+        } catch (StringIndexOutOfBoundsException e) {
+            return "";
+        }
+    }
 
 }

@@ -29,13 +29,12 @@ public class Mimi extends Application implements DataCallback {
     /**
      * Runs the program.
      */
-    public void run() {
+    public void run() throws MimiException {
         this.readWriteData.initialise();
 
         this.ui.initialise();
 
         this.storage.remind();
-
     }
 
 
@@ -83,6 +82,10 @@ public class Mimi extends Application implements DataCallback {
             this.ui.showLoadingError();
         }
 
-        run();
+        try {
+            run();
+        } catch (MimiException e) {
+            ui.showLoadingError();
+        }
     }
 }
