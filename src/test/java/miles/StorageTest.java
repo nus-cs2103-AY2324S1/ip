@@ -64,7 +64,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveFileWithIOException() {
+    public void testSaveFileWithIoException() {
         String directoryPath = "./data";
         String filePath = "./data/directory-does-not-exist/test.txt";
         Storage storage = new Storage(filePath, directoryPath);
