@@ -37,7 +37,7 @@ Got it. I've added this task:
 [T][] play badminton
 Now you have 5 tasks in the list.
 ```
-###
+
 ### 2. `deadline <description> /by <date> (in dd/MM/yyyy HHmm)` - Add a deadline task
 
 This command will add a deadline task to the list.
@@ -55,7 +55,7 @@ Got it. I've added this task:
 [D][] homework (by: 22 Dec 2023 6:00 PM)
 Now you have 5 tasks in the list.
 ```
-###
+
 ### 3. `event <description> /from <start date> /to <end date>` - Add an event task
 
 This command will add an event task to the list.
@@ -73,7 +73,7 @@ Got it. I've added this task:
 [E][] play piano (from: 10pm to: 11pm)
 Now you have 5 tasks in the list.
 ```
-###
+
 ### 4. `list` - View all your tasks
 
 This command will show your full list of tasks which are added.
@@ -94,7 +94,7 @@ Here are the tasks in your list:
 4. [T][X] complete assignment 10
 5. [E][X] play piano (from: 10pm to: 11pm)
 ```
-###
+
 ### 5. `mark <task number>` - Mark completion status of the task listed at that number
 
 This command will mark a task listed at the number specified, showing that it has been completed.
@@ -111,7 +111,7 @@ Task will be successfully marked if the task number specified is valid.
 Nice! I've marked this task as done:
 [X] homework (by: 22 Dec 2023 6:00 PM)
 ```
-###
+
 ### 6. `unmark <task number>` - Unmark completion status of the task listed at that number
 
 This command will unmark a task listed at the number specified, showing that it remains incomplete.
@@ -128,7 +128,7 @@ Task will be successfully unmarked if the task number specified is valid.
 OK, I've marked this task as not done yet:
 [ ] complete assignment 10
 ```
-###
+
 ### 7. `delete <task number>` - Delete the task listed at that number
 
 This command will delete a task listed at the number specified from the user's list.
@@ -146,7 +146,7 @@ Noted. I've removed this task:
 [T][] complete assignment 10
 Now you have 5 tasks in the list.
 ```
-###
+
 ### 8. `find <keyword>` - View tasks containing a specific keyword
 
 This command will show the list of tasks that match the keyword indicated.
@@ -164,7 +164,7 @@ Here are the matching tasks in your list:
 1. [T][X] play badminton
 2. [E][X] play piano (from: 10pm to: 11pm)
 ```
-###
+
 ### 9. `status` - View task completion status and statistics
 
 This command will show the list of completed tasks as well as the percentage of tasks completed. 
@@ -187,7 +187,7 @@ Here are the completed tasks:
 
 Progress: 30.00 % completed, keep it up!
 ```
-###
+
 ### 10. `help` - View list of commands
 
 This command will show the list of available commands and details on how to use them.
@@ -213,7 +213,7 @@ Available commands:
 9. status - Shows your completed tasks and progress statistics.
 10. bye - Exits the application.
 ```
-###
+
 ### 11. `bye` - Exit the application
 
 This command will close the application.
