@@ -100,19 +100,21 @@ public class Duke {
 
     /**
      * Executes single commands.
-     * Single commands consists of: Listing all tasks, Printing goodbye message.
+     * Single commands consists of: Listing all tasks, Printing goodbye message, Printing Help page.
      *
      * @param command Single command of input.
      * @return Response message to be sent by the bot.
      */
     private static String executeSingleCommand(Command command) {
-        assert command == Command.LIST || command == Command.BYE :
+        assert command == Command.HELP || command == Command.LIST || command == Command.BYE :
                 "Command should be a LIST or BYE command";
 
         if (command == Command.LIST) {
             return Ui.getResponse(tasks.toString());
         } else if (command == Command.BYE) {
             return Ui.getExitMessage();
+        } else if (command == Command.HELP) {
+            return Ui.getHelpPage();
         } else {
             return Ui.getResponse("Something went wrong :(");
         }
@@ -156,6 +158,8 @@ public class Duke {
             storage.writeTasks(tasks);
             response = executeSingleCommand(command);
             return response;
+        } else if (command == Command.HELP) {
+            response = executeSingleCommand(command);
         } else if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
             if (command == Command.TODO) {
                 response = addTask(Command.TODO, inputs[1]);
@@ -173,7 +177,7 @@ public class Duke {
         } else if (command == Command.MARK) {
             response = editTask(Command.MARK, Integer.parseInt(inputs[1]));
         } else if (command == Command.UNMARK) {
-            response = Duke.editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
+            response = editTask(Command.UNMARK, Integer.parseInt(inputs[1]));
         } else {
             throw new DukeUnknownCommandException(inputs[0]);
         }
