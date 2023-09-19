@@ -12,6 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 
 /**
@@ -49,7 +51,9 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.LIGHTBLUE, null, null)));
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {

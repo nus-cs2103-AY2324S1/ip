@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setRuiz(ruiz);
             stage.show();
+            stage.setResizable(true);
             fxmlLoader.<MainWindow>getController().greet();
         } catch (IOException e) {
             e.printStackTrace();
