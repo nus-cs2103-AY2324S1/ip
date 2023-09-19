@@ -25,7 +25,7 @@ public class TaskList {
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.list = null;
+        this.list = new ArrayList<Task>();
     }
 
     /**
@@ -58,7 +58,6 @@ public class TaskList {
      * @throws DukeException If the description is empty.
      */
     public ToDo addTodo(String description, ArrayList<Task> list) throws DukeException {
-        assert list != null;
         if (description.isBlank()) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
