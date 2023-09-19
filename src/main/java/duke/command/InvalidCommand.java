@@ -1,8 +1,11 @@
 package duke.command;
 
-import duke.storage.Storage;
 import duke.list.TaskList;
+import duke.storage.Storage;
 
+/**
+ * Subclass of Command class. Creates invalid command with message.
+ */
 public class InvalidCommand extends Command {
     private String commandMessage = "";
     public InvalidCommand() {

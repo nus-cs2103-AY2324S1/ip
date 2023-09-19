@@ -1,7 +1,7 @@
 package duke.command;
 
-import duke.storage.Storage;
 import duke.list.TaskList;
+import duke.storage.Storage;
 
 /**
  * Subclass of Command class. Exits the program with bye message.

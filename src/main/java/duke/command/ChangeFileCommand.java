@@ -4,6 +4,9 @@ import duke.exception.KoraException;
 import duke.list.TaskList;
 import duke.storage.Storage;
 
+/**
+ * Subclass of Command class. Changes the current file directory.
+ */
 public class ChangeFileCommand extends Command {
     private String commandMessage = "";
     private String filePath;

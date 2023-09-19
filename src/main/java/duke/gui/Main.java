@@ -9,9 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-
-
+/**
+ * GUI for Kora using FXML.
+ */
 public class Main extends Application {
 
     private Duke duke = new Duke();

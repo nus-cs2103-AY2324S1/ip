@@ -1,8 +1,11 @@
 package duke.command;
 
-import duke.storage.Storage;
 import duke.list.TaskList;
+import duke.storage.Storage;
 
+/**
+ * Subclass of Command class. List all the tasks in the task list.
+ */
 public class ListCommand extends Command {
     private String commandMessage = "";
 

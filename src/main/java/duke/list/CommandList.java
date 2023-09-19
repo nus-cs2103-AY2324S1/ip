@@ -1,11 +1,12 @@
 package duke.list;
 
-import duke.command.Command;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Command list class that stores command names and types.
+ */
 public class CommandList {
     private HashMap<String, String> commandNameList;
     private HashMap<String, ArrayList<String>> commandTypeList;

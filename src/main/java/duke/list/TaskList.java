@@ -1,11 +1,13 @@
 package duke.list;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.task.Task;
 
+/**
+ * Task list class for storing the current tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 

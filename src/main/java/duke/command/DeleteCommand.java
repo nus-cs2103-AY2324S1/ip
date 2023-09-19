@@ -1,12 +1,15 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.list.TaskList;
 import duke.storage.Storage;
 import duke.task.Task;
-import duke.list.TaskList;
 
+/**
+ * Subclass of Command class. Deletes a task from task list.
+ */
 public class DeleteCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
     private String commandMessage = "";
     public DeleteCommand(String[] details) {
         taskIndex = Integer.valueOf(details[0].replace("delete ", ""));

@@ -1,10 +1,13 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.list.TaskList;
 import duke.storage.Storage;
 import duke.task.Task;
-import duke.list.TaskList;
 
+/**
+ * Subclass of Command class. Mark task to be completed.
+ */
 public class MarkCommand extends Command {
 
     private String commandMessage = "";

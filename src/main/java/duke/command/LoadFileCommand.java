@@ -4,6 +4,9 @@ import duke.exception.KoraException;
 import duke.list.TaskList;
 import duke.storage.Storage;
 
+/**
+ * Subclass of Command class. Loads content of the specified file.
+ */
 public class LoadFileCommand extends Command {
     private String commandMessage = "";
     private String filePath;

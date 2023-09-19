@@ -4,8 +4,8 @@ import duke.command.Command;
 import duke.exception.KoraException;
 import duke.list.CommandList;
 import duke.parser.Parser;
-import duke.storage.Storage;
 import duke.list.TaskList;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 
@@ -14,7 +14,7 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    private final TaskList MainTaskList;
+    private final TaskList mainTaskList;
     private Storage storageTask;
     private Storage storageCommand;
     private Ui ui;
@@ -30,13 +30,13 @@ public class Duke {
     public Duke() {
         ui = new Ui();
 
-        MainTaskList = new TaskList();
+        mainTaskList = new TaskList();
         commandList = new CommandList();
         parser = new Parser(commandList);
         try {
             storageTask = new Storage("./data/savedtask.txt");
             storageCommand = new Storage("./data/savedCommand.txt");
-            MainTaskList.addTaskList(storageTask.loadTask());
+            mainTaskList.addTaskList(storageTask.loadTask());
             commandList.addCommandList(storageCommand.loadCommand());
         } catch (KoraException e) {
             System.out.println(e.getMessage());
@@ -58,7 +58,7 @@ public class Duke {
                 //SetCommand setCommand = (SetCommand) command;
                 command.executeSet(commandList, storageCommand);
             } else {
-                command.execute(MainTaskList, storageTask);
+                command.execute(mainTaskList, storageTask);
             }
             //command.printOutput(command.getCommandMessage());
             return command.getCommandMessage();
@@ -83,7 +83,7 @@ public class Duke {
                 if (command.isSetCommand()) {
                     command.executeSet(commandList, storageCommand);
                 } else {
-                    command.execute(MainTaskList, storageTask);
+                    command.execute(mainTaskList, storageTask);
                 }
                 command.printOutput(command.getCommandMessage());
                 isExit = command.isExit();

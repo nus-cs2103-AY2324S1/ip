@@ -3,6 +3,9 @@ package duke.task;
 import duke.exception.KoraException;
 import duke.parser.DateTimeParser;
 
+/**
+ * Subclass of Task class. Stores information about the deadline task details.
+ */
 public class Deadline extends Task {
     private DateTimeParser dtParser;
     private final String saveString;

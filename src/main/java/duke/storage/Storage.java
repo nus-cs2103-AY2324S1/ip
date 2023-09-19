@@ -4,16 +4,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 import duke.exception.KoraException;
+import duke.list.TaskList;
 import duke.list.CommandList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.list.TaskList;
 import duke.task.ToDo;
 
 
@@ -38,6 +37,10 @@ public class Storage {
         initialiseScanner();
     }
 
+    /**
+     * Initialises scanner.
+     * @throws KoraException
+     */
     public void initialiseScanner() throws KoraException {
         try {
             File f = new File(path);
@@ -70,6 +73,7 @@ public class Storage {
 
     /**
      * Loads tasks from data stored.
+     * @return list of tasks frm the txt file.
      * @throws KoraException When unable to scan.
      */
     public List<Task> loadTask() throws KoraException {
@@ -134,6 +138,11 @@ public class Storage {
         return currentTask;
     }
 
+    /**
+     * Loads command list from the txt file.
+     * @return list of string arrays containing the command details.
+     * @throws KoraException
+     */
     public List<String[]> loadCommand() throws KoraException {
         List<String[]> list = new ArrayList<>();
         String[] array;
@@ -150,6 +159,12 @@ public class Storage {
         }
         return list;
     }
+
+    /**
+     * Saves the current command list to the txt file.
+     * @param commandList that stores all the command names and types.
+     * @throws KoraException
+     */
     public void saveCommand(CommandList commandList) throws KoraException {
         try (FileWriter fw = new FileWriter(path, false)) {
             fw.write(commandList.saveFormat());

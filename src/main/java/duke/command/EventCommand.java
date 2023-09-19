@@ -1,17 +1,21 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.list.TaskList;
 import duke.storage.Storage;
 import duke.task.Event;
 import duke.task.Task;
-import duke.list.TaskList;
 
+/**
+ * Subclass of Command class. Creates event task and executes it.
+ */
 public class EventCommand extends Command {
-    private String taskDetails;
-    private String startTimeDetails;
-    private String endTimeDetails;
+    private final String taskDetails;
+    private final String startTimeDetails;
+    private final String endTimeDetails;
     private Task currentTask;
     private String commandMessage = "";
+
 
     public EventCommand(String[] details) throws KoraException {
         if (details.length != 3) {

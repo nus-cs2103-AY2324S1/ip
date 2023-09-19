@@ -1,10 +1,14 @@
 package duke.parser;
 
-import duke.exception.KoraException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.exception.KoraException;
+
+/**
+ * Parser class for parsing DateTime variables.
+ */
 public class DateTimeParser {
     private DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
     private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

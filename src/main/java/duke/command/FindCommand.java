@@ -1,10 +1,13 @@
 package duke.command;
 
 import duke.exception.KoraException;
+import duke.list.TaskList;
 import duke.storage.Storage;
 import duke.task.Task;
-import duke.list.TaskList;
 
+/**
+ * Subclass of Command class. Find tasks that matches the keyword given by user.
+ */
 public class FindCommand extends Command {
     private String keyword;
     private TaskList newTaskList = new TaskList();

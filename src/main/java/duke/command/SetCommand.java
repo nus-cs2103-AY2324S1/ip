@@ -5,6 +5,9 @@ import duke.list.CommandList;
 import duke.list.TaskList;
 import duke.storage.Storage;
 
+/**
+ * Subclass of Command class. Add a specified command word for specified command type.
+ */
 public class SetCommand extends Command {
     private String commandMessage = "";
 

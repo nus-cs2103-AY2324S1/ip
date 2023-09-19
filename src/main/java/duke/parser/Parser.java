@@ -1,7 +1,20 @@
 package duke.parser;
 
-import duke.command.*;
-
+import duke.command.ByeCommand;
+import duke.command.ChangeFileCommand;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.FindCommand;
+import duke.command.InvalidCommand;
+import duke.command.ListCommand;
+import duke.command.LoadFileCommand;
+import duke.command.MarkCommand;
+import duke.command.SetCommand;
+import duke.command.ToDoCommand;
+import duke.command.UnmarkCommand;
+import duke.command.UnsetCommand;
 import duke.exception.KoraException;
 import duke.list.CommandList;
 
