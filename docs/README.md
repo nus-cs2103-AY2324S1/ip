@@ -66,7 +66,7 @@ Format: `search [KEYWORD_STRING] [TASK_TYPE] (optional)`
 
 Example of usage: `search tuna`, `search tuna event`, `search tuna deadline` 
 
-* `search tuna` search for the keyword "tuna" in all tasks:
+* `search tuna` - search for the keyword "tuna" in all tasks:
 * `search tuna event` - search for the keyword "tuna" in Event tasks:
 * `search tuna deadline` - search for the keyword "tuna" in Deadline tasks:
 
