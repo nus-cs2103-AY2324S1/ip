@@ -8,7 +8,7 @@ import miles.MilesException;
  * Represents a task that has a deadline.
  */
 public class Deadline extends Task {
-    private static String NO_DESC_ERROR_MSG = "OOPS!!! The description of a deadline cannot be empty.";
+    private static String noDescErrorMsg = "Hold up... The description of a deadline cannot be empty.";
     private LocalDateTime deadline;
 
     /**
@@ -41,13 +41,13 @@ public class Deadline extends Task {
      */
     public static String[] splitDeadlineString(String taskString) throws MilesException {
         if (checkTaskNoDescription(taskString, "deadline")) {
-            throw new MilesException(NO_DESC_ERROR_MSG);
+            throw new MilesException(noDescErrorMsg);
         }
 
         // removes "deadline "  from the task string
         String withoutCommand = taskString.substring(9);
         if (checkAllWhiteSpace(withoutCommand)) {
-            throw new MilesException(NO_DESC_ERROR_MSG);
+            throw new MilesException(noDescErrorMsg);
         }
 
         if (checkDuplicateParameter(withoutCommand, "/by")) {
@@ -74,7 +74,7 @@ public class Deadline extends Task {
         String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
-            throw new MilesException(NO_DESC_ERROR_MSG);
+            throw new MilesException(noDescErrorMsg);
         }
 
         return task.trim();
@@ -92,33 +92,11 @@ public class Deadline extends Task {
         String deadline = strings[1];
 
         if (checkAllWhiteSpace(deadline)) {
-            throw new MilesException("OOPS!!! The deadline of a deadline cannot be empty.");
+            throw new MilesException("Hold up... The deadline of a deadline cannot be empty.");
         }
 
         return deadline.trim();
     }
-
-    // /**
-    //  * Returns the number of "/by" in a string. It is used for error checking.
-    //  * 
-    //  * @param taskString the string to be checked
-    //  * @return           the number of "/by" in the string
-    //  */
-    // public static int countNumberOfBys(String taskString) {
-    //     int count = 0;
-    //     int index = 0;
-    //     String substring = "/by";
-
-    //     while (index != -1) {
-    //         index = taskString.indexOf(substring, index);
-    //         if (index != -1) {
-    //             count += 1;
-    //             index += substring.length();
-    //         }
-    //     }
-
-    //     return count;
-    // }
 
     /**
      * Returns a string representing the deadline to be displayed in the user interface.
