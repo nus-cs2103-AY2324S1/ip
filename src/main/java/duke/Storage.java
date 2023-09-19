@@ -53,7 +53,7 @@ public class Storage {
             }
             return tasks;
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! Error loading tasks from the file");
+            throw new DukeException(" OOPS!!! Error loading tasks from the file");
         }
     }
 
@@ -81,7 +81,7 @@ public class Storage {
             String to = parts[4].trim();
             tasks.add(new Event(description, from, to, isDone));
         } else {
-            throw new DukeException("☹ OOPS!!! Invalid task type in file");
+            throw new DukeException(" OOPS!!! Invalid task type in file");
         }
     }
 
@@ -99,7 +99,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("☹ OOPS!!! Error saving tasks to the file");
+            throw new DukeException(" OOPS!!! Error saving tasks to the file");
         }
     }
 }
