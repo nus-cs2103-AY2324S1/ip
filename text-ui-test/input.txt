@@ -1,0 +1,25 @@
+todo borrow book
+deadline return book /by Sunday
+event student life fair /from Mon /to Sun
+mark 1
+mark 2
+unmark 2
+list
+todo eat dinner
+delete 4
+list
+delete 5
+delete
+todo
+deadline
+blah
+deadline go fairprice
+deadlien go fairprice /by
+deadline go fairprice /by
+event go fairprice
+event go fairprice /to /ftrom
+event go fairprice /to sun /from mon
+event go fair price /from sun
+event go fair price /to sun
+list
+bye
