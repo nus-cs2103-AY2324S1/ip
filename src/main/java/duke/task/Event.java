@@ -39,4 +39,25 @@ public class Event extends Task {
                 this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                 this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
+
+    /**
+     * Compares the Event Task to another task.
+     *
+     * @param o the object to be compared.
+     * @return The comparison value.
+     */
+    @Override
+    public int compareTo(Task o) {
+        if (o instanceof ToDo) {
+            return 1;
+        }
+        if (o instanceof Deadline) {
+            return 1;
+        }
+        if (o instanceof Event) {
+            Event event = (Event) o;
+            return this.from.compareTo(event.from);
+        }
+        return 0;
+    }
 }

@@ -8,6 +8,7 @@ import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.SortCommand;
 import duke.command.ToDoCommand;
 import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
@@ -28,6 +29,7 @@ public class Parser {
         MARK,
         UNMARK,
         FIND,
+        SORT,
         TODO,
         DEADLINE,
         EVENT,
@@ -89,6 +91,16 @@ public class Parser {
      */
     private static Command parseFindCommand(String input) throws DukeException {
         return new FindCommand(input.split(" ", 2)[1].trim());
+    }
+
+    /**
+     * Parses Sort Command.
+     *
+     * @return A SortCommand representing the user input.
+     * @throws DukeException If the input is invalid.
+     */
+    private static Command parseSortCommand(String input) throws DukeException {
+        return new SortCommand();
     }
 
     /**
@@ -158,6 +170,8 @@ public class Parser {
                 return parseUnmarkCommand(input);
             case FIND:
                 return parseFindCommand(input);
+            case SORT:
+                return parseSortCommand(input);
             case TODO:
                 return parseToDoCommand(input);
             case DEADLINE:
