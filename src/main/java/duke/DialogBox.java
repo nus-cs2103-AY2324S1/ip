@@ -12,8 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -43,7 +41,22 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        this.setBackground(new Background(new BackgroundFill(backgroundColor, null, null)));
+
+        applyStyling(backgroundColor);
+    }
+
+    private void applyStyling(Color backgroundColor) {
+        dialog.setStyle("-fx-background-color: " + toHex(backgroundColor) + "; "
+                + "-fx-background-radius: 10; "
+                + "-fx-padding: 10px; "
+                + "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 2);");
+    }
+
+    private String toHex(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
     }
 
     /**
