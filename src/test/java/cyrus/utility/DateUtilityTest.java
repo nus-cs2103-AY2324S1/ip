@@ -36,4 +36,10 @@ public class DateUtilityTest {
         var result = DateUtility.toInputFormat(input);
         assertEquals("15/09/2025", result);
     }
+
+    @Test
+    public void testToInputFormatWithNullDateReturnsNull() {
+        var result = DateUtility.toInputFormat(null);
+        assertNull(result);
+    }
 }
