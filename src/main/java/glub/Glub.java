@@ -11,8 +11,9 @@ public class Glub {
     private TaskList taskList;
     /** Parser of the Glub object. */
     private Parser parser;
+
     /**
-     * Create a Glub object with a Storage object to initialise the chatbot.
+     * Creates a Glub object with a Storage object to initialise the chatbot.
      *
      * @param storage The required storage object.
      */

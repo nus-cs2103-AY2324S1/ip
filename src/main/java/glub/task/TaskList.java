@@ -61,9 +61,9 @@ public class TaskList {
     }
 
     /**
-     * Parse dateString into required date format for tasks.
+     * Parses dateString into required date format for tasks.
      * @param dateString Input date string.
-     * @param taskType Type of task to process date for/=.
+     * @param taskType Type of task to process date for.
      * @return Array containing dates.
      * @throws GlubException If task is invalid.
      */

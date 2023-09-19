@@ -22,7 +22,7 @@ public class Parser {
     }
 
     /**
-     * Listen to user input and execute the corresponding command.
+     * Listens to user input and executes the corresponding command.
      */
     public String parse(String input) throws GlubException {
         String args = "";
