@@ -65,6 +65,12 @@ public class Duke extends Application {
      *              the application scene can be set.
      */
     public void startGui(Stage stage) {
+        guiSetRequirement(stage);
+        guiFormatWindow(stage);
+        guiAddFunctionality(stage);
+    }
+
+    private void guiSetRequirement(Stage stage) {
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -75,7 +81,9 @@ public class Duke extends Application {
 
         userInput = new TextField();
         sendButton = new Button("Send");
+    }
 
+    private void guiFormatWindow(Stage stage) {
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
@@ -102,7 +110,7 @@ public class Duke extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
+
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -117,6 +125,21 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        mainLayout.setStyle("-fx-background-color: #121212;");
+        scrollPane.setStyle("-fx-background: #121212; -fx-border-color: #444;");
+        userInput.setStyle("-fx-background-color: #222; -fx-text-fill: #FFF;");
+        sendButton.setStyle("-fx-background-color: #333; -fx-text-fill: #FFF;");
+        dialogContainer.setStyle("-fx-background-color: #121212;");
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Remove Scroll bar.
+        AnchorPane.setRightAnchor(scrollPane, 1.0);
+        AnchorPane.setLeftAnchor(scrollPane, 1.0);
+        userInput.setStyle("-fx-background-color: #222; -fx-text-fill: #FFF; "
+                + "-fx-border-color: #444; -fx-border-width: 1; -fx-border-radius: 5;");
+        sendButton.setStyle("-fx-background-color: #333; -fx-text-fill: #FFF; "
+                + "-fx-border-color: #444; -fx-border-width: 1; -fx-border-radius: 5;");
+    }
+
+    private void guiAddFunctionality(Stage stage) {
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
@@ -140,33 +163,13 @@ public class Duke extends Application {
             handleUserInput();
         });
 
-        // Style GUI
-        mainLayout.setStyle("-fx-background-color: #121212;");
-        scrollPane.setStyle("-fx-background: #121212; -fx-border-color: #444;");
-        userInput.setStyle("-fx-background-color: #222; -fx-text-fill: #FFF;");
-        sendButton.setStyle("-fx-background-color: #333; -fx-text-fill: #FFF;");
-        dialogContainer.setStyle("-fx-background-color: #121212;");
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Remove Scroll bar.
-        AnchorPane.setRightAnchor(scrollPane, 1.0);
-        AnchorPane.setLeftAnchor(scrollPane, 1.0);
-        userInput.setStyle("-fx-background-color: #222; -fx-text-fill: #FFF; "
-                + "-fx-border-color: #444; -fx-border-width: 1; -fx-border-radius: 5;");
-        sendButton.setStyle("-fx-background-color: #333; -fx-text-fill: #FFF; "
-                + "-fx-border-color: #444; -fx-border-width: 1; -fx-border-radius: 5;");
-
         // Show welcome message
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(new Label(ui.showWelcome()), new ImageView(duke))
         );
     }
 
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     *
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
+
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
@@ -175,11 +178,6 @@ public class Duke extends Application {
         return textToAdd;
     }
 
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         ui.readInput(userInput.getText()); // Save to history
@@ -191,10 +189,6 @@ public class Duke extends Application {
         userInput.clear();
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     private String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
@@ -209,10 +203,7 @@ public class Duke extends Application {
         return ui.getLastMsg();
     }
 
-    /**
-     * DialogBox.
-     */
-    public static class DialogBox extends HBox {
+    private static class DialogBox extends HBox {
 
         private Label text;
         private ImageView displayPicture;

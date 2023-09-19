@@ -60,7 +60,6 @@ public class Ui {
      */
     public void respond(String response) {
         history.add(response); // Update History
-        //System.out.println("[Ken]\n" + response);
     }
 
     /**
@@ -70,7 +69,6 @@ public class Ui {
      */
     public void showError(String error) {
         history.add(error); // Update History
-        //System.out.println("OOPS! " + error);
     }
 
     /**
