@@ -12,7 +12,7 @@ public class ListTasksCommand extends Command {
     }
 
     /**
-     * Print the string representation of the {@code TaskList}.
+     * Returns the string representation of the {@code TaskList}.
      */
     @Override
     public String[] execute() {

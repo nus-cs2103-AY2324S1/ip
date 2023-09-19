@@ -18,7 +18,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * To add a {@code Deadline}, must ensure that the deadline has an argument (i.e. name of the
+     * Adds a {@code Deadline}, ensuring that the deadline has an argument (i.e. name of the
      * deadline) and it contains the {@code by} option which corresponds to a valid {@code
      * LocalDate} format which is {@code dd/MM/yyyy}.
      *

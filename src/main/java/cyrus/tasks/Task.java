@@ -24,14 +24,19 @@ public class Task {
     }
 
     /**
-     * Set {@code done} value.
+     * Sets {@code done} value.
      *
-     * @param done value to set to
+     * @param done value to set to.
      */
     public void setDone(boolean done) {
-        this.isDone = done;
+        isDone = done;
     }
 
+    /**
+     * Sets {@code completedDate} value.
+     *
+     * @param completedDate value to set to.
+     */
     public void setCompletedDate(LocalDate completedDate) {
         this.completedDate = completedDate;
     }
@@ -57,7 +62,7 @@ public class Task {
     /**
      * Custom string representation of {@code Task}.
      *
-     * @return string representation of {@code Task}
+     * @return string representation of {@code Task}.
      */
     @Override
     public String toString() {

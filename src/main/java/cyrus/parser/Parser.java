@@ -33,9 +33,9 @@ public class Parser {
      * Dispatches {@code Command} given a {@code taskList} and {@code parseInfo} about the incoming
      * string command.
      *
-     * @param taskList  {@code TaskList} of tasks to provide to the command when running
-     * @param parseInfo {@code ParseInfo} parsed from command
-     * @return appropriate {@code Command}
+     * @param taskList  {@code TaskList} of tasks to provide to the command when running.
+     * @param parseInfo {@code ParseInfo} parsed from command.
+     * @return appropriate {@code Command}.
      */
     public Command dispatchCommand(TaskList taskList, ParseInfo parseInfo) {
         switch (parseInfo.getCommandType()) {
@@ -107,6 +107,12 @@ public class Parser {
         return new ParseInfo(CommandType.fromString(parts[0]), argument, options);
     }
 
+    /**
+     * Checks if {@code part} is a valid option, i.e. starting with {@code OPTION_LEAD}.
+     *
+     * @param part part to validate.
+     * @return if {@code part} is a valid option.
+     */
     private boolean isPartValidOption(String part) {
         return part.startsWith(OPTION_LEAD) && part.length() != 1;
     }

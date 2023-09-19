@@ -17,7 +17,7 @@ public class Event extends Task {
     private final LocalDate to;
 
     /**
-     * Create Event with name and event to and from dates.
+     * Creates Event with name and event to and from dates.
      *
      * @param name name of deadline task.
      * @param from date event starts from.

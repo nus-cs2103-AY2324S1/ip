@@ -1,26 +1,17 @@
 package cyrus.ui;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
 
 import cyrus.Cyrus;
 import cyrus.commands.CommandError;
 import cyrus.commands.CommandType;
 import cyrus.parser.ParseInfo;
-import cyrus.utility.DateUtility;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -32,7 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Entry point for Cyrus Gui.
+ * Main chat window component for Cyrus.
  */
 public class MainWindow extends AnchorPane {
     private static final String USER_TITLE = "User";
@@ -72,14 +63,20 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    public void setCyrus(Cyrus d) {
-        cyrus = d;
+    /**
+     * Sets window's {@code Cyrus} instance.
+     *
+     * @param cyrus {@code Cyrus} instance.
+     */
+    public void setCyrus(Cyrus cyrus) {
+        this.cyrus = cyrus;
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input into {@code userInput} and displays the user's request and bot's response.
+     *
+     * <p>Special case when command is {@code statistics}, that will create a window above the chat to display the
+     * statistics dashboard.</p>
      */
     @FXML
     private void handleUserInput() {
@@ -98,13 +95,28 @@ public class MainWindow extends AnchorPane {
             cyrusResponse = e.getMessage();
             isError = true;
         } finally {
-            putConversation(userText, cyrusResponse, isError);
-            if (parseInfo.getCommandType().equals(CommandType.VIEW_STATISTICS)) {
-                // Open the statistics dashboard
-                openStatisticsDashboard();
-            }
+            handleConversation(userText, cyrusResponse, isError, parseInfo);
         }
-        if (parseInfo.getCommandType() == CommandType.BYE) {
+    }
+
+    /**
+     * Handles the UI transitions given user and bot texts.
+     *
+     * @param userText    user's request.
+     * @param botResponse bot's response.
+     * @param isError     if bot's response should be flagged as an error.
+     * @param parseInfo   parsed details of command.
+     */
+    private void handleConversation(String userText, String botResponse, boolean isError, ParseInfo parseInfo) {
+        putConversation(userText, botResponse, isError);
+
+        if (parseInfo.getCommandType().equals(CommandType.VIEW_STATISTICS)) {
+            // Open the statistics dashboard
+            openStatisticsDashboard();
+        }
+
+        // Special handler because cannot close the window directly
+        if (parseInfo.getCommandType().equals(CommandType.BYE)) {
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
@@ -115,6 +127,13 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Inserts the user request and bot response into the dialog window.
+     *
+     * @param userText  user's request.
+     * @param cyrusText bot's response.
+     * @param isError   if bot's response should be flagged as an error.
+     */
     private void putConversation(String userText, String cyrusText, boolean isError) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDialog(userText, USER_TITLE, userImage),
@@ -123,13 +142,18 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Launches the statistics dashboard.
+     */
     private void openStatisticsDashboard() {
-        var pieChartData = loadTaskDistributionData();
-        var lineChartData = loadWeeklyTaskCompletionRate();
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/StatisticsDashboard.fxml"));
-            fxmlLoader.setController(new StatisticsDashboard(pieChartData, lineChartData));
+            fxmlLoader.setController(
+                    new StatisticsDashboard(
+                            cyrus.getTaskList().getTaskDistribution(),
+                            cyrus.getTaskList().getWeeklyTaskCompletionRate()
+                    )
+            );
             VBox window = fxmlLoader.load();
             Scene scene = new Scene(window);
             Stage stage = new Stage();
@@ -137,41 +161,10 @@ public class MainWindow extends AnchorPane {
             stage.setTitle("Statistics Dashboard");
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.setAlwaysOnTop(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private ObservableList<PieChart.Data> loadTaskDistributionData() {
-        HashMap<String, Long> tasksDistribution = cyrus.getTaskList().getTaskDistribution();
-        var pieChartData = FXCollections.<PieChart.Data>observableArrayList();
-        for (var entry : tasksDistribution.entrySet()) {
-            pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
-        }
-
-        return pieChartData;
-    }
-
-    private XYChart.Series<String, Long> loadWeeklyTaskCompletionRate() {
-        HashMap<LocalDate, Long> weeklyTasksCompletedDistribution = cyrus.getTaskList().getWeeklyTaskCompletionRate();
-        var lineChartData = new XYChart.Series<String, Long>();
-        for (var entry : weeklyTasksCompletedDistribution.entrySet()) {
-            lineChartData.getData().add(
-                    new XYChart.Data<>(DateUtility.toInputFormat(entry.getKey()), entry.getValue())
-            );
-        }
-
-        if (weeklyTasksCompletedDistribution.size() > 0) {
-            var sortedEntries = lineChartData
-                    .getData()
-                    .stream()
-                    .sorted(Comparator.comparing(XYChart.Data::getXValue))
-                    .collect(Collectors.toList());
-            lineChartData.setData(FXCollections.observableArrayList(sortedEntries));
-        }
-
-        return lineChartData;
-    }
 }

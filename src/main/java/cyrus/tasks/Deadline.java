@@ -16,7 +16,7 @@ public class Deadline extends Task {
     private final LocalDate deadline;
 
     /**
-     * Create Deadline with name and deadline date.
+     * Creates Deadline with name and deadline date.
      *
      * @param name     name of deadline task.
      * @param deadline date of deadline.

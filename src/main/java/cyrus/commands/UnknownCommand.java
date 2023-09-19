@@ -12,7 +12,7 @@ public class UnknownCommand extends Command {
     }
 
     /**
-     * Relies on the thrown {@code CommandError}.
+     * Throws {@code CommandError}.
      *
      * @throws CommandError by default
      */

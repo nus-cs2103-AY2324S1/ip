@@ -9,6 +9,11 @@ public class ToDo extends Task {
     @SerializedName("type")
     private static final String TYPE = "todo";
 
+    /**
+     * Creates ToDo with name.
+     *
+     * @param name name of deadline task.
+     */
     public ToDo(String name) {
         super(name);
     }

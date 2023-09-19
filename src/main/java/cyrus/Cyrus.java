@@ -15,7 +15,7 @@ import cyrus.tasks.TaskList;
 
 
 /**
- * Entry point of Cyrus interface.
+ * Central behavior for Cyrus.
  */
 public class Cyrus {
     private final IStorage storage = new FileStorage("data/data.json");
@@ -33,7 +33,7 @@ public class Cyrus {
     }
 
     /**
-     * Executes a given command given the {@code ParseInfo}.
+     * Executes a given command given the {@code ParseInfo} and formats the resulting output.
      *
      * @param parseInfo parsed information of the command.
      * @return {@code String} output of command if successfully executed.
@@ -49,6 +49,11 @@ public class Cyrus {
         return String.join("\n", text);
     }
 
+    /**
+     * Returns {@code TaskList} used in Cyrus instance.
+     *
+     * @return {@code TaskList} used.
+     */
     public TaskList getTaskList() {
         return taskList;
     }

@@ -13,8 +13,7 @@ public class AddTodoCommand extends Command {
     }
 
     /**
-     * To add a {@code ToDo}, must ensure that the todo has an argument (i.e. name of the
-     * deadline).
+     * Adds a {@code ToDo}, ensuring that the todo has an argument (i.e. name of the deadline).
      *
      * @throws CommandError if no arguments are present.
      */

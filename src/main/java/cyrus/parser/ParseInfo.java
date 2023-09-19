@@ -12,7 +12,7 @@ import cyrus.commands.CommandType;
  */
 public class ParseInfo {
     /**
-     * Defaults {@code ParseInfo} for an empty command.
+     * Default {@code ParseInfo} for an empty command.
      */
     public static final ParseInfo EMPTY = new ParseInfo(
             CommandType.UNKNOWN,
@@ -40,19 +40,19 @@ public class ParseInfo {
     /**
      * Returns if parsed command has no argument.
      *
-     * @return true if parsed command has no arguments
+     * @return true if parsed command has no arguments.
      */
     public boolean hasNoArgument() {
-        return this.argument.equals("");
+        return argument.equals("");
     }
 
     /**
      * Returns {@code argument} of the command.
      *
-     * @return argument of command
+     * @return argument of command.
      */
     public String getArgument() {
-        return this.argument;
+        return argument;
     }
 
     /**
@@ -61,15 +61,15 @@ public class ParseInfo {
      * @return Copy of options hashmap.
      */
     public HashMap<String, String> getOptions() {
-        return new HashMap<>(this.options);
+        return new HashMap<>(options);
     }
 
     /**
      * Returns {@code commandType} of the command.
      *
-     * @return command type
+     * @return command type.
      */
     public CommandType getCommandType() {
-        return this.commandType;
+        return commandType;
     }
 }

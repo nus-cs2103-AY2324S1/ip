@@ -48,10 +48,29 @@ public class DialogBox extends VBox {
         dialog.setTextFill(color);
     }
 
+    /**
+     * Generates instance of {@code DialogBox} given arguments.
+     *
+     * @param text text to include in body of {@code DialogBox}.
+     * @param user user's name.
+     * @param img  user's image.
+     * @return {@code DialogBox} instance.
+     */
     public static DialogBox getDialog(String text, String user, Image img) {
         return new DialogBox(text, user, img, Color.BLACK);
     }
 
+    /**
+     * Generates instance of {@code DialogBox} given arguments.
+     *
+     * <p>Supports changing of text color.</p>
+     *
+     * @param text text to include in body of {@code DialogBox}.
+     * @param user user's name.
+     * @param img  user's image.
+     * @param color {@code text} color.
+     * @return {@code DialogBox} instance.
+     */
     public static DialogBox getDialog(String text, String user, Image img, Color color) {
         return new DialogBox(text, user, img, color);
     }

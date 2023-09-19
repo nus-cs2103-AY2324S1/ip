@@ -18,7 +18,7 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * To add an {@code Event}, must ensure that the event has an argument (i.e. name of the
+     * Adds an {@code Event}, ensuring that the event has an argument (i.e. name of the
      * deadline) and it contains a {@code from} and {@code to} option which corresponds to a valid
      * {@code LocalDate} format which is {@code dd/MM/yyyy}.
      *
