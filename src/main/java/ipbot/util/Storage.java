@@ -47,20 +47,20 @@ public class Storage {
     }
 
     /**
-     * Reads the tasks from the tasks save file.
+     * Reads the tasks from the tasks CSV save file.
      *
-     * @return A TaskList containing all the Task in the save file.
+     * @return A TaskList containing all the Task in the CSV save file.
      * @throws TaskFormatException
      * @throws DateTimeParseException
      */
-    public TaskList readTasksFromFile() throws TaskFormatException, DateTimeParseException {
+    public TaskList readTasksFromCSVFile() throws TaskFormatException, DateTimeParseException {
         TaskList taskList = new TaskList();
         try {
             FileReader fr = new FileReader(this.saveFile);
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
-                taskList.addTask(Task.fromString(line));
+                taskList.addTask(Task.fromCommaString(line));
             }
             br.close();
         } catch (FileNotFoundException e) {
@@ -72,15 +72,15 @@ public class Storage {
     }
 
     /**
-     * Writes the tasks to the tasks save file.
+     * Writes the tasks to the tasks CSV save file.
      *
      * @param taskList The TaskList object that contains the tasks to write.
      */
-    public void writeTasksToFile(TaskList taskList) {
+    public void writeTasksToCSVFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(this.saveFile);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(taskList.toString());
+            bw.write(taskList.toCommaString());
             bw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
