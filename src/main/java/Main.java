@@ -16,11 +16,6 @@ import javafx.scene.image.ImageView;
 public class Main extends Application {
 
     private Duke duke = new Duke();
-    private Image backgroundImage;
-
-    @Override public void init() {
-        backgroundImage = new Image("http://www.narniaweb.com/wp-content/uploads/2009/08/NarniaMap.jpg");
-    }
 
     @Override
     public void start(Stage stage) {
