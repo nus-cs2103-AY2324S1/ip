@@ -24,7 +24,8 @@ public class Parser {
      * @return A command object based on the parsed input.
      */
     public static Command parse(String instr) {
-        String keyWord = instr.trim().split(" ")[0];
+        instr = instr.trim();
+        String keyWord = instr.split(" ")[0];
         switch (keyWord) {
         case"":
             return new Unknown("You said nothing!\n");
