@@ -14,15 +14,16 @@ import jarvis.tasks.TaskList;
 /**
  * Represents a command to add a "Deadline" task in the Jarvis app.
  */
+@SuppressWarnings("checkstyle:DeclarationOrder")
 public class DeadlineCommand implements Command {
 
-    private String userInput;
     private static final int COMMAND_LENGTH = 9;
+    private String userInput;
+
 
     public DeadlineCommand(String userInput) {
         this.userInput = userInput;
     }
-
     /**
      * Executes the deadline command by adding a new "Deadline" task to the task
      * list.
@@ -40,7 +41,6 @@ public class DeadlineCommand implements Command {
             throw new InvalidTaskFormatException(null);
         }
         assert taskList != null && ui != null && storage != null;
-      
         int indexOfBy = userInput.indexOf("by");
         if (indexOfBy == 1) {
             throw new InvalidIndexException(null);

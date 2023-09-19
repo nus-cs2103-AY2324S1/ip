@@ -41,7 +41,8 @@ public class Parser {
         return generateCommand(userInput, splitUserInput);
     }
 
-    private static Command generateCommand(String userInput, String[] splitUserInput) throws InvalidCommandException {
+    private static Command generateCommand(String userInput, String[] splitUserInput)
+            throws InvalidCommandException {
         assert userInput != null && !userInput.isEmpty() : "User input should not be null or empty";
         if (userInput.equalsIgnoreCase("bye")) {
             return new ByeCommand();
@@ -73,7 +74,8 @@ public class Parser {
      * @return A LocalDateTime object representing the parsed date and time.
      * @throws InvalidDateTimeFormatException If the input date and time format is invalid.
      */
-    public static LocalDateTime parseStringToDateTime(final String inputDateTime) throws InvalidDateTimeFormatException {
+    public static LocalDateTime parseStringToDateTime(final String inputDateTime)
+            throws InvalidDateTimeFormatException {
         List<String> inputFormats = getInputFormats();
         return generateLocalDateTime(inputDateTime, inputFormats);
     }
@@ -87,7 +89,8 @@ public class Parser {
         return inputFormats;
     }
 
-    private static LocalDateTime generateLocalDateTime(String inputDateTime, List<String> inputFormats) throws InvalidDateTimeFormatException {
+    private static LocalDateTime generateLocalDateTime(String inputDateTime, List<String> inputFormats)
+            throws InvalidDateTimeFormatException {
         LocalDateTime result = null;
         for (String inputFormat : inputFormats) {
             try {
