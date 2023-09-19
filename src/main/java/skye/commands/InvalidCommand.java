@@ -1,8 +1,7 @@
 package skye.commands;
 
-import skye.data.TaskList;
-import skye.data.VenueList;
-import skye.storage.Storage;
+import skye.data.ListManager;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -14,12 +13,12 @@ public class InvalidCommand extends Command {
      * Executes the invalid command in which this case a help message
      * is shown by the UI.
      *
-     * @param taskList TaskList
+     * @param listManager ListManager
      * @param ui UI
-     * @param storage Storage
+     * @param storageManager StorageManager
      */
     @Override
-    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage) {
+    public String execute(ListManager listManager, UI ui, StorageManager storageManager) {
         return ui.showInvalidCommandMsg();
     }
 }

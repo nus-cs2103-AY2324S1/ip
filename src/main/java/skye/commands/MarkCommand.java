@@ -2,11 +2,11 @@ package skye.commands;
 
 import java.io.IOException;
 
+import skye.data.ListManager;
 import skye.data.TaskList;
-import skye.data.VenueList;
 import skye.data.exception.DukeException;
 import skye.data.task.Task;
-import skye.storage.Storage;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -32,18 +32,19 @@ public class MarkCommand extends Command {
      * updating the save file on the specified save directory and showing the task that
      * was marked as completed on the UI.
      *
-     * @param taskList TaskList
+     * @param listManager ListManager
      * @param ui UI
-     * @param storage Storage
+     * @param storageManager StorageManager
      * @throws DukeException Describes the error encountered when executing the command
      * @throws IOException Describes the I/O error encountered in the OS file system
      */
     @Override
-    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage)
+    public String execute(ListManager listManager, UI ui, StorageManager storageManager)
             throws DukeException, IOException {
+        TaskList taskList = listManager.getTaskList();
         Task markedTask = taskList.markTask(taskNumber);
         assert markedTask.isDone();
-        storage.write(taskList.getTasks());
+        storageManager.writeTasks(taskList.getTasks());
         return ui.showMarkedTask(markedTask);
     }
 }

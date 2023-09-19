@@ -2,9 +2,8 @@ package skye.commands;
 
 import java.time.LocalDate;
 
-import skye.data.TaskList;
-import skye.data.VenueList;
-import skye.storage.Storage;
+import skye.data.ListManager;
+import skye.storage.StorageManager;
 import skye.ui.UI;
 
 /**
@@ -22,12 +21,12 @@ public class DueCommand extends Command {
     /**
      * Executes the command to check due tasks
      *
-     * @param taskList TaskList
+     * @param listManager ListManager
      * @param ui UI
-     * @param storage Storage
+     * @param storageManager StorageManager
      */
     @Override
-    public String execute(TaskList taskList, VenueList venueList, UI ui, Storage storage) {
-        return ui.showTasksDueOn(date, taskList.showTasksDueOn(date));
+    public String execute(ListManager listManager, UI ui, StorageManager storageManager) {
+        return ui.showTasksDueOn(date, listManager.getTaskList().showTasksDueOn(date));
     }
 }
