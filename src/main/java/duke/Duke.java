@@ -16,7 +16,7 @@ public class Duke {
      * Constructor for duke.Duke class with no parameters
      */
     public Duke() {
-        storage = new Storage("C:/repos/ip/src/main/java/data/duke.txt");
+        storage = new Storage("./src/main/java/data/duke.txt");
         ui = new Ui();
         try {
             tasks = new TaskList(storage.load());
@@ -79,7 +79,7 @@ public class Duke {
      * @param args Command line arguments
      */
     public static void main(String[] args) {
-        new Duke("C:/repos/ip/src/main/java/data/duke.txt").run();
+        new Duke("./src/main/java/data/duke.txt").run();
     }
 
 }

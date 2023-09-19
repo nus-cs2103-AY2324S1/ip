@@ -2,6 +2,7 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
+import javafx.application.Platform;
 
 
 /**
@@ -162,6 +163,7 @@ public class Parser {
         if (isListCommand(userInput)) {
             return ui.showList(tasks);
         } else if (isExitCommand(userInput)) {
+            Platform.exit();
             return ui.showBye();
         } else if (isFindCommand(userInput)) {
             String keyword = userInput.replaceFirst("find", "").trim();

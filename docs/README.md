@@ -6,7 +6,7 @@ Chatty is a task management application, that allows you to keep track of you ta
 1. Ensure that you have Java `11` or above stored in your computer
 2. Download the latest `duke.jar` from [here]()
 3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to run the application. The Chatty GUI should appear in a few seconds.
-4. Similarly, you can download the code and run the application on Intellij. Follow the instructions [here]()
+4. Similarly, you can download the code and run the application on Intellij. Follow the instructions [here](https://alyssapng.github.io/ip/#setting-up-in-intellij)
 5. Type the command in the command box and press Enter to execute it.  e.g. typing `list` and pressing Enter will display all the tasks in the task list.
 6. Here are example commands:
     1. `todo read book`: Adds a ToDo task with the description: "read book".
@@ -17,7 +17,7 @@ Chatty is a task management application, that allows you to keep track of you ta
     6. `unmark 2`: Marks the second task in the task list as undone.
     7. `mark 3`: Marks the third task in the task list as done.
     8. `find project`: Displays the tasks which description contains the String "project".
-    9. `bye`: End the application.
+    9. `bye`: Exits the application.
 
 ## Setting up in Intellij
 Prerequisites: JDK 11, update Intellij to the most recent version.
@@ -129,10 +129,4 @@ Here are the tasks in your list:
 Exit the application when you are done using it.
 
 Format: `bye`
-
-Example(s):
-- `bye` will return
-```
-Bye. Hope to see you again soon!
-```
 
