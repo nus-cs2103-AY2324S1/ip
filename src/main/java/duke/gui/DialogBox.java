@@ -16,11 +16,9 @@ public class DialogBox extends HBox {
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;
-
         text.setWrapText(true);
         displayPicture.setFitWidth(70.0);
         displayPicture.setFitHeight(70.0);
-
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
     }

@@ -72,7 +72,7 @@ public class AddCommand extends Command {
         } else {
             throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
-        return ui.showAdd(tasks.getTask(tasks.length() - 1), tasks);
+        return ui.showAdd(tasks.getTask(tasks.getSize() - 1), tasks);
     }
 
     /**

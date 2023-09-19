@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (taskIndex < 0 || taskIndex >= tasks.length()) {
+        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
             throw new TaskNotFoundException("Task Not Found :'(");
         }
         Task taskTemp = tasks.getTask(taskIndex);

@@ -39,7 +39,6 @@ public class Main extends Application {
         scrollPane.setPrefSize(435, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
     }
@@ -53,11 +52,13 @@ public class Main extends Application {
     }
 
     private void createDialog() {
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        userInput.setPrefWidth(375.0);
+        sendButton.setPrefWidth(55.0);
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
             userInput.clear();
         });
-
         userInput.setOnAction((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
             userInput.clear();
@@ -66,36 +67,31 @@ public class Main extends Application {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
-
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
-
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(new Label(duke.getIntroduction()), new ImageView(bot))
         );
     }
 
-    @Override
-    public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
+    public void initialize() {
+        this.scrollPane = new ScrollPane();
+        this.dialogContainer = new VBox();
+        this.scrollPane.setContent(dialogContainer);
+        this.userInput = new TextField();
+        this.sendButton = new Button("Send");
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
         scene = new Scene(mainLayout);
-
-        createStage(stage);
         mainLayout.setPrefSize(450.0, 600.0);
-        createScrollPane();
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        userInput.setPrefWidth(375.0);
-        sendButton.setPrefWidth(55.0);
 
+    }
+    @Override
+    public void start(Stage stage) {
+        initialize();
+        createStage(stage);
+        createScrollPane();
         createAnchorPane();
         createDialog();
     }
