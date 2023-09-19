@@ -69,32 +69,29 @@ public class Duke extends Application {
     public void formatWindow(Stage stage) {
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
         mainLayout.setPrefSize(400.0, 600.0);
 
-        scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        AnchorPane.setTopAnchor(scrollPane, 0.0);
+        AnchorPane.setLeftAnchor(scrollPane, 0.0);
+        AnchorPane.setRightAnchor(scrollPane, 0.0);
+        AnchorPane.setBottomAnchor(scrollPane, 40.0);
 
-        userInput.setPrefWidth(325.0);
+        AnchorPane.setLeftAnchor(userInput , 0.0);
+        AnchorPane.setRightAnchor(userInput, 60.0);  // leave space for sendButton
+        AnchorPane.setBottomAnchor(userInput, 0.0);
 
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(sendButton, 0.0);
+        AnchorPane.setRightAnchor(sendButton, 0.0);
     }
 
     public void addHandleUserInputFunctionality() {
