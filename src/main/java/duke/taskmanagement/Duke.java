@@ -1,7 +1,7 @@
 package duke.taskmanagement;
 
 public class Duke {
-    String PATH = "./data/duke.txt";
+    String PATH = "/Users/jjtiong/ip/data/duke.txt";
     private Ui ui = new Ui();
     private TaskList tasks;
     private Storage storage = new Storage(PATH);

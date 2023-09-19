@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskList {
-    final String PATH = "/Users/jjtiong/Desktop/ip/data/duke.txt";
+    final String PATH = "/Users/jjtiong/ip/data/duke.txt";
     private List<Task> listOfTasks = new ArrayList<>();
     private Storage storage;
     private Ui ui;

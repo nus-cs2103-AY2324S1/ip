@@ -5,4 +5,5 @@ T | 1 | cook dinner
 T | 0 | do laundry
 E | 0 | training | Wed 4pm | 7pm
 D | 0 | quiz | Sep 9 2023
-T | 1 | eat
+D | 0 | assign | Mar 20 2023
+E | 0 | Group Meeting | 2023-03-30 2pm | 2023-03-30 4pm
