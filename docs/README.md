@@ -9,6 +9,8 @@ benefits of a Graphical User Interface (GUI)!
 4. Open your terminal. Navigate into the folder the jar file in, and run the command `java -jar duke.jar` to run the 
 application. A GUI similar to the below should appear in a few seconds.
 
+![Screenshot of GUI.](./Ui.png)
+
 ## Features 
 
 ### Viewing help: `help`
