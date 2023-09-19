@@ -43,7 +43,10 @@ public class Storage {
         boolean directoryExistsMac = java.nio.file.Files.exists(path);
 
         if (!directoryExistsWIn && !directoryExistsMac) {
-            throw new DukeException("There is no 'data' folder, please create one");
+            String projectRoot = System.getProperty("user.dir");
+            String dataFolderPath = projectRoot + File.separator + "data";
+            File dataFolder = new File(dataFolderPath);
+            dataFolder.mkdir();
         }
         File f = new File(FILEPATH);
 
