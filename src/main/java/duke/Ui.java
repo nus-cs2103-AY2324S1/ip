@@ -83,12 +83,27 @@ public class Ui {
     public String addedMessage(Task tsk, TaskList lst) {
         return tsk.confirmation(lst.size());
     }
+
+    /**
+     * Gets the input of user
+     * @return Input of user
+     */
     public String getCommand() {
         return this.sc.nextLine();
     }
+
+    /**
+     * Returns bye message to user
+     * @return String instance of bye message
+     */
     public String byeGreetings() {
         return "Bye. Hope to see you again soon!";
     }
+
+    /**
+     * Greets the user with a welcome message
+     * @return String instance of welcome message
+     */
     public String greet() {
         return "Hello from \n " + this.name + "What can I do for you? ";
     }
@@ -107,12 +122,14 @@ public class Ui {
         return s1;
     }
 
+    /**
+     * Prints confirmation message if a task is successfully updated
+     * @param list List of tasks stored in chatbot
+     * @param index Index of task user wishes to update
+     * @return String instance to confirm success
+     */
     public String updatedMessage(TaskList list, int index) {
         return "Task " + "\"" + list.get(index).getName() + "\"" + " has been updated successfully";
     }
 
-    //getter for name
-    public String getName() {
-        return this.name;
-    }
 }

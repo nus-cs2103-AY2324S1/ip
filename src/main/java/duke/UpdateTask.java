@@ -1,9 +1,19 @@
 package duke;
 
-public class UpdateTask extends Command{
+/**
+ * Update Task class that contains index of task to update and details of new Task
+ *
+ * @author wj331
+ */
+public class UpdateTask extends Command {
     private int taskToUpdate;
     private String changeDetails;
 
+    /**
+     * Constructor for UpdateTask
+     * @param taskToUpdate index of task in list to update
+     * @param changeDetails String details of new task to update with
+     */
     public UpdateTask(int taskToUpdate, String changeDetails) {
         this.taskToUpdate = taskToUpdate - 1;
         this.changeDetails = changeDetails;
@@ -17,7 +27,7 @@ public class UpdateTask extends Command{
             }
             task.update(this.changeDetails);
             return ui.updatedMessage(tasks, this.taskToUpdate);
-        } catch (InvalidInputException e){
+        } catch (InvalidInputException e) {
             return e.getMessage();
         }
     }

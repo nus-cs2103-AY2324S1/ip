@@ -8,7 +8,7 @@ import java.util.stream.Stream;
  * TaskList class that contains the list of Tasks
  */
 public class TaskList {
-    List<Task> lst;
+    protected List<Task> lst;
 
     /**
      * Constructor for TaskList object
@@ -43,5 +43,4 @@ public class TaskList {
     public Stream<Task> stream() {
         return this.lst.stream();
     }
-
 }

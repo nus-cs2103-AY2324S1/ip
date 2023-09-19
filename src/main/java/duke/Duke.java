@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,8 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * Duke bot class with a storage, TaskList and Ui
@@ -146,7 +146,7 @@ public class Duke extends Application {
     }
 
     /**
-     * run method to trigger while loop to get responses from user
+     * Runs while loop to get responses from user
      */
     public void run() {
         Ui ui = new Ui();

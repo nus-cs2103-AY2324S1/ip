@@ -20,7 +20,7 @@ public class Event extends Task {
     }
 
     /**
-     * To get details of start time & end time of the event
+     * Gets details of start time & end time of the event
      * @return String that contains the start and end time in a specific format
      */
     public String getDetails() {

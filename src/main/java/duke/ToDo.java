@@ -21,7 +21,7 @@ public class ToDo extends Task {
         return ToDo.SYMBOL + " | " + this.getInt() + " | " + this.getName();
     }
     @Override
-    public void update(String changeDetails) throws InvalidInputException {
+    public void update(String changeDetails) {
         this.setName(changeDetails);
     }
 }

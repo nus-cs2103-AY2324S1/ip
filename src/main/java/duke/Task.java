@@ -10,26 +10,50 @@ public class Task {
     private static final String unCompletedNumber = "0";
     private String name;
     private boolean isCompleted;
+
+    /**
+     * Constructor for Task class
+     * @param name String of the name of the task
+     */
     public Task(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the name of this task
+     * @return String instance of the name of the task
+     */
     //Getters & Setters
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Sets the task as completed
+     */
     public void setCompleted() {
         this.isCompleted = true;
     }
 
+    /**
+     * Sets the task as uncompleted
+     */
     public void setUncompleted() {
         this.isCompleted = false;
     }
 
+    /**
+     * Updates the task to a new task
+     * @param details Full details of the new task
+     * @throws InvalidInputException When new details inserted is of invalid format
+     */
     public void update(String details) throws InvalidInputException {
     }
 
+    /**
+     * Sets name of task to a new name
+     * @param name New name of the task
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -44,9 +68,15 @@ public class Task {
         }
         return Task.UNDONECHECKBOX;
     }
+
+    /**
+     * Returns new format of printing the task depending on type of Task
+     * @return new format of Task
+     */
     public String newFormat() {
         return "";
     }
+
     /**
      * Returns string value of int based on completion
      * @return String value 1 if completed and 0 otherwise

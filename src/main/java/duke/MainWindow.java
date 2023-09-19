@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import jdk.jshell.Diag;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,6 +26,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/clown.png"));
 
+    /**
+     * Initialises the chatbot with a welcome message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -35,6 +37,10 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the bot to Duke
+     * @param d Chatbot we have built
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
