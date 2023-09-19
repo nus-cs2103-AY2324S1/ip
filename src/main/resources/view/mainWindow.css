@@ -1,0 +1,22 @@
+.root {
+    -fx-background: rgb(63, 63, 63);
+}
+
+.button {
+    -fx-background-color: rgb(17, 17, 17);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: rgb(30, 30, 30);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(45, 45, 45);
+}
+
+.label {
+    -fx-text-fill: rgb(230, 230, 230);
+}
