@@ -36,7 +36,6 @@ public class Duke {
 
         return stringBuilder.toString();
     }
-    
     public String getResponse(String input) {
         Parser parser = new Parser(input, this.tasks, this.storage);
         String response = parser.parse();

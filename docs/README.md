@@ -177,6 +177,7 @@ Finds tasks in your tasks list and display the results of it.
 Format: `find KEYWORD`
 
 - Finds tasks in your tasks list that matches the specified `KEYWORD`
+
 > [!NOTE]
 > Tasks with words that contains `KEYWORD` partially are also displayed.
 
