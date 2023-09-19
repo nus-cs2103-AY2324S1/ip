@@ -1,13 +1,13 @@
 package duke.tasks;
 
-import duke.ronaldoSaysDo.TaskType;
 import duke.exceptions.DukeException;
+import duke.ronaldoSaysDo.TaskType;
 
 /**
  * Class to handle the task
  */
 public class Task {
-    private String list;
+    private final String list;
     private boolean isCompleted;
     private TaskType type;
 
@@ -19,6 +19,7 @@ public class Task {
     public Task(String list, TaskType type) {
         this.list = list;
         this.type = type;
+        this.isCompleted = false;
     }
 
     public String getList() {

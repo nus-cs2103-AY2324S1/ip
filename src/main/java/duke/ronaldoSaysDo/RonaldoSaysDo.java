@@ -33,7 +33,7 @@ public class RonaldoSaysDo {
         tasks = new TaskList();
         try {
             tasks = new TaskList(storage.handleReadAllTasksFromFile());
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -158,7 +158,6 @@ public class RonaldoSaysDo {
                 checkIfIndexIsValid(index);
                 res = tasks.getTaskAtIndex(index - 1).setUnmarked();
                 assert !res.isEmpty() : "Failed to unmark task.";
-                res = tasks.getTaskAtIndex(index - 1).setUnmarked();
             } catch (NumberFormatException e) {
                 throw new DukeException("SUI, Enter a valid positive integer after your unmark command!\n");
             }

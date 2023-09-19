@@ -8,8 +8,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.ronaldoSaysDo.TaskType;
 import duke.exceptions.DukeException;
+import duke.ronaldoSaysDo.TaskType;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -35,7 +35,7 @@ public class Storage {
      * The tasks are parsed and passed to respective handler methods.
      * Handles Todo, duke.tasks.Deadline, and duke.tasks.Event tasks stored in the file.
      */
-    public ArrayList<Task> handleReadAllTasksFromFile() throws FileNotFoundException {
+    public ArrayList<Task> handleReadAllTasksFromFile() throws DukeException {
         //Check if file exists
         try {
             new File(filePath);
@@ -84,18 +84,19 @@ public class Storage {
      * @throws DukeException If there is an error while processing a task.
      * @throws IOException   If there is an I/O error during processing.
      */
-    public void convertTaskToList(String taskFromFile) {
+    public void convertTaskToList(String taskFromFile) throws DukeException {
         String taskType = taskFromFile.substring(3, 4);
         String taskDescription = taskFromFile.substring(9);
+        boolean isCompleted = taskFromFile.charAt(6) == 'X';
         switch (taskType) {
         case "T":
-            handleTodoTaskInFile(taskDescription);
+            handleTodoTaskInFile(taskDescription, isCompleted);
             break;
         case "D":
-            handleDeadlineTaskInFile(taskDescription);
+            handleDeadlineTaskInFile(taskDescription, isCompleted);
             break;
         case "E":
-            handleEventTaskInFile(taskDescription);
+            handleEventTaskInFile(taskDescription, isCompleted);
             break;
         default:
             break;
@@ -106,8 +107,11 @@ public class Storage {
      *
      * @param input The user input containing the task description.
      */
-    public void handleTodoTaskInFile(String input) {
+    public void handleTodoTaskInFile(String input, boolean isCompleted) throws DukeException {
         tasks.add(new ToDo(input, TaskType.TODO));
+        if (isCompleted) {
+            tasks.get(tasks.size() - 1).setMarked();
+        }
     }
     /**
      * Handle a deadline task from file
@@ -115,7 +119,7 @@ public class Storage {
      * @param input user input
      * @throws DukeException
      */
-    public void handleDeadlineTaskInFile(String input) {
+    public void handleDeadlineTaskInFile(String input, boolean isCompleted) throws DukeException {
         StringBuilder byDate = new StringBuilder();
         String [] parts = input.split("\\(by: ");
         String task = parts[0];
@@ -129,13 +133,16 @@ public class Storage {
         byDate = new StringBuilder(DateAndTimeHandler.convertDateToFormat(byDate.substring(0, 11),
                 "MMM dd yyyy", "yyyy-MM-dd"));
         tasks.add(new Deadline(task, byDate.toString(), endTime + ":00", TaskType.DEADLINE));
+        if (isCompleted) {
+            tasks.get(tasks.size() - 1).setMarked();
+        }
     }
     /**
      * Handles a event task from file
      * @param input user input
      * @throws DukeException
      */
-    public void handleEventTaskInFile(String input) {
+    public void handleEventTaskInFile(String input, boolean isCompleted) throws DukeException {
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
         String[] parts = input.split("\\(from: ");
@@ -162,5 +169,8 @@ public class Storage {
         endTime = endTime.substring(0, endTime.length() - 1);
         tasks.add(new Event(task.toString(), startDate.toString(), endDate.toString(),
                 startTime + ":00", endTime + ":00", TaskType.EVENT));
+        if (isCompleted) {
+            tasks.get(tasks.size() - 1).setMarked();
+        }
     }
 }
