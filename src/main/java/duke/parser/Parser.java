@@ -107,10 +107,6 @@ public class Parser {
             throw new MissingTaskIndexException("Task Index Missing.");
 
         }
-        int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-        if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
-            throw new InvalidTaskIndexException("Invalid Task Index.");
-        }
         assert parts == 2 : "parts should be 2";
         int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
         if (taskIndex + 1 > tasks.getSize() || taskIndex < 0) {
