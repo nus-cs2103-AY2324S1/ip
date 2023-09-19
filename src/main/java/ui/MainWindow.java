@@ -1,3 +1,4 @@
+package ui;
 
 import common.Message;
 import exceptions.ThorndikeException;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import thorndike.Thorndike;
 
 /**
  * Represents the main graphical user interface window of the application.

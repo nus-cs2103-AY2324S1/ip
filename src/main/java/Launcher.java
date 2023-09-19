@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import ui.Main;
 
 /**
  * Launcher class that run the main application.

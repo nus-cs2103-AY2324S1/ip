@@ -1,3 +1,4 @@
+package thorndike;
 import java.io.IOException;
 
 import command.Command;
