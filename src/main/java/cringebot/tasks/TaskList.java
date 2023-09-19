@@ -39,6 +39,7 @@ public class TaskList implements Serializable {
      *
      * @param input input from the user.
      * @throws CringeBotException Lets the user know if task cannot be removed.
+     * @return String representation of the task that has been deleted.
      */
     public String deleteItem(String input) throws CringeBotException {
 
@@ -59,6 +60,7 @@ public class TaskList implements Serializable {
      * @param task type of task.
      * @param input input from the user.
      * @throws CringeBotException Lets the user know if the task cannot be added.
+     * @return String representation of the task that has been added.
      */
     public String addItem(Parser.TaskType task, String input) throws CringeBotException {
 
@@ -69,28 +71,10 @@ public class TaskList implements Serializable {
 
         switch(task) {
         case DEADLINE:
-            checkEmpty(taskName, "deadline");
-
-            if (splitSentence.length < 2 || !splitSentence[1].contains("by")) {
-                throw new CringeBotException("OOPS!!! Please indicate a deadline with the /by keyword. :(( ");
-            }
-
-            String date = splitSentence[1].replaceAll("by", "").strip();
-            newTask = new Deadline(taskName, date);
+            newTask = addDeadline(splitSentence, taskName);
             break;
         case EVENT:
-            checkEmpty(taskName, "event");
-
-            if (splitSentence.length < 3 || (!splitSentence[1].contains("from") && !splitSentence[2].contains("to"))) {
-                throw new CringeBotException(
-                        "OOPS!!! Please indicate a duration for the event with the /from and /to keywords. :(("
-                );
-            }
-
-            String fromDatetime = splitSentence[1].replaceAll("from", "from:");
-            String toDatetime = splitSentence[2].replaceAll("to", "to:");
-            taskName = String.format("%s (%s %s)", taskName, fromDatetime, toDatetime);
-            newTask = new Event(taskName);
+            newTask = addEvent(splitSentence, taskName);
             break;
         case TODO:
             checkEmpty(taskName, "todo");
@@ -110,10 +94,55 @@ public class TaskList implements Serializable {
     }
 
     /**
+     * Handles adding deadline to the taskList
+     *
+     * @param splitSentence input from the user.
+     * @param taskName content for the task.
+     *
+     * @return Deadline task.
+     * @throws CringeBotException Lets the user know if the description is invalid.
+     */
+    public Deadline addDeadline(String[] splitSentence, String taskName) throws CringeBotException {
+        checkEmpty(taskName, "deadline");
+
+        if (splitSentence.length < 2 || !splitSentence[1].contains("by")) {
+            throw new CringeBotException("OOPS!!! Please indicate a deadline with the /by keyword. :(( ");
+        }
+
+        String date = splitSentence[1].replaceAll("by", "").strip();
+        return new Deadline(taskName, date);
+    }
+
+    /**
+     * Handles adding event to the taskList.
+     *
+     * @param splitSentence array of strings from the user input.
+     * @param taskName content of the task.
+     *
+     * @return Event task.
+     * @throws CringeBotException Lets the user know if the description is invalid.
+     */
+    public Event addEvent(String[] splitSentence, String taskName) throws CringeBotException {
+        checkEmpty(taskName, "event");
+
+        if (splitSentence.length < 3 || (!splitSentence[1].contains("from") && !splitSentence[2].contains("to"))) {
+            throw new CringeBotException(
+                    "OOPS!!! Please indicate a duration for the event with the /from and /to keywords. :(("
+            );
+        }
+
+        String fromDatetime = splitSentence[1].replaceAll("from", "from:");
+        String toDatetime = splitSentence[2].replaceAll("to", "to:");
+        taskName = String.format("%s (%s %s)", taskName, fromDatetime, toDatetime);
+        return new Event(taskName);
+    }
+
+    /**
      * Adds multiple items to the list of tasks.
      *
      * @param task type of task.
      * @param input input from the user.
+     *
      * @return String representation of the task.
      * @throws CringeBotException Lets the user know if the task cannot be added.
      */
@@ -158,6 +187,7 @@ public class TaskList implements Serializable {
      *
      * @param targetDate input date.
      * @param endDate end date.
+     *
      * @return list of dates between the input date and end date.
      */
     public static ArrayList<LocalDate> findWeeklyDates(LocalDate targetDate, LocalDate endDate) {
@@ -172,9 +202,11 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Find all items with the keyword from the list, then prints them.
+     * Finds all items with the keyword from the list, then prints them.
      *
      * @param input input from the user.
+     *
+     * @return String representation of the task.
      */
     public String findItems(String input) {
         assert input != null : "input should not be null";
@@ -195,6 +227,8 @@ public class TaskList implements Serializable {
      *
      * @param status To mark of un mark the task.
      * @param input input from the user.
+     *
+     * @return String representation of the task.
      * @throws CringeBotException Lets the user know if the task cannot be modified.
      */
     public String modifyStatus(Parser.ModifyStatus status, String input) throws CringeBotException {
@@ -219,6 +253,7 @@ public class TaskList implements Serializable {
      * Returns the task when given an index.
      *
      * @param index index of the task.
+     *
      * @return task that has been found.
      */
     public Task getTaskWithIndex(int index) {
@@ -247,6 +282,7 @@ public class TaskList implements Serializable {
      * Gets the index given by from the user input.
      *
      * @param input Input from the user.
+     *
      * @return Index given by the user.
      */
     public int getIndex(String input) {
@@ -265,6 +301,8 @@ public class TaskList implements Serializable {
      * Checks of the index given exceeds the size of the list.
      *
      * @param index index to check.
+     *
+     * @return true if index is out of bounds.
      */
     public boolean checkOutOfBounds(int index) {
         return index > this.tasks.size() - 1;
@@ -289,6 +327,7 @@ public class TaskList implements Serializable {
      * Gets the rest of the sentence, excluding the first word.
      *
      * @param input Input from the user.
+     *
      * @return rest of the sentence.
      */
     public static String getRestOfSentence(String input) {

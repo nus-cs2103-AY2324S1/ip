@@ -8,7 +8,7 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * Main method to run the GUI.
+     * Launches the application.
      *
      * @param args args from the CLI.
      */
