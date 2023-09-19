@@ -2,3 +2,4 @@
 0 todo read book
 0 todo eat banana
 0 todo read magazine
+0 event eat grape /from 2023-12-12 1800 /to 2023-12-12 1900
