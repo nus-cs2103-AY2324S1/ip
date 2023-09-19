@@ -50,7 +50,7 @@ public class Duke {
     /**
      * Gets a response from the Duke chatbot.
      */
-    protected String getResponse(String input) {
+    public String getResponse(String input) {
         return run(input);
     }
 }
