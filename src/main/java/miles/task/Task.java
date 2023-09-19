@@ -61,6 +61,27 @@ public abstract class Task {
     }
 
     /**
+     * Returns a boolean that indicates whether the task has a duplicate parameter.
+     * @param s          the string inputted by the user
+     * @param parameter  the parameter to be checked for duplicates
+     * @return           true if the task has a duplicate parameter, false otherwise
+     */
+    public static boolean checkDuplicateParameter(String s, String parameter) {
+        int count = 0;
+        int index = 0;
+
+        while (index != -1) {
+            index = s.indexOf(parameter, index);
+            if (index != -1) {
+                count += 1;
+                index += parameter.length();
+            }
+        }
+
+        return count > 1;
+    }
+
+    /**
      * Provides a string that contains the status and task to be saved in a file.
      * @return string that contains the status and task to be saved in a file
      */

@@ -50,6 +50,10 @@ public class Deadline extends Task {
             throw new MilesException(NO_DESC_ERROR_MSG);
         }
 
+        if (checkDuplicateParameter(withoutCommand, "/by")) {
+            throw new MilesException("Invalid deadline format: cannot have more than 1 \"/by\".");
+        }
+
         String[] strings = withoutCommand.split("/by");
         if (strings.length == 1) {
             throw new MilesException("Invalid deadline format: missing /by");
@@ -93,6 +97,28 @@ public class Deadline extends Task {
 
         return deadline.trim();
     }
+
+    // /**
+    //  * Returns the number of "/by" in a string. It is used for error checking.
+    //  * 
+    //  * @param taskString the string to be checked
+    //  * @return           the number of "/by" in the string
+    //  */
+    // public static int countNumberOfBys(String taskString) {
+    //     int count = 0;
+    //     int index = 0;
+    //     String substring = "/by";
+
+    //     while (index != -1) {
+    //         index = taskString.indexOf(substring, index);
+    //         if (index != -1) {
+    //             count += 1;
+    //             index += substring.length();
+    //         }
+    //     }
+
+    //     return count;
+    // }
 
     /**
      * Returns a string representing the deadline to be displayed in the user interface.

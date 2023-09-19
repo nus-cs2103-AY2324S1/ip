@@ -19,7 +19,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Extract the keyword from the input string when the command is a "find".
+     * Extracts the keyword from the input string when the command is a "find".
      * @param input the input string
      * @return      the keyword to find
      */

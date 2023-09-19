@@ -8,7 +8,7 @@ import miles.MilesException;
  * Represents a task that starts at a specific time and ends at a specific time.
  */
 public class Event extends Task {
-    private static String noDescErrorMsg = "OOPS!!! The description of a event cannot be empty.";
+    private static String noDescErrorMsg = "Hold up... The description of a event cannot be empty.";
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
@@ -19,8 +19,16 @@ public class Event extends Task {
     public Event(String task) throws MilesException {
         // this constructor is for creating a task with the "event" command
         super(getTask(task));
-        startTime = this.convertToDateTime(this.getStartTime(task));
-        endTime = this.convertToDateTime(getEndTime(task));
+        LocalDateTime t1 = this.convertToDateTime(this.getStartTime(task));
+        LocalDateTime t2 = this.convertToDateTime(getEndTime(task));
+
+        if (checkStartTimeBeforeEndTime(t1, t2)) {
+            startTime = this.convertToDateTime(this.getStartTime(task));
+            endTime = this.convertToDateTime(getEndTime(task));
+        } else {
+            throw new MilesException("Hold up... The start time of a event cannot be the same as or after the end"
+                    + " time.");
+        }
     }
 
     /**
@@ -32,8 +40,15 @@ public class Event extends Task {
     public Event(String task, String startTime, String endTime) throws MilesException {
         // this constructor is for loading the file
         super(task);
-        this.startTime = this.convertToDateTime(startTime);
-        this.endTime = this.convertToDateTime(endTime);
+        LocalDateTime t1 = this.convertToDateTime(startTime);
+        LocalDateTime t2 = this.convertToDateTime(endTime);
+
+        if (checkStartTimeBeforeEndTime(t1, t2)) {
+            this.startTime = t1;
+            this.endTime = t2;
+        } else {
+            throw new MilesException("OOPS!!! The start time of a event cannot be after the end time.");
+        }
     }
 
     /**
@@ -53,6 +68,10 @@ public class Event extends Task {
             throw new MilesException(noDescErrorMsg);
         }
 
+        if (checkDuplicateParameter(withoutCommand, "/from")) {
+            throw new MilesException("Invalid deadline format: cannot have more than 1 \"/from\".");
+        }
+
         String[] eventParts = withoutCommand.split("/from");
         if (eventParts.length == 1) {
             throw new MilesException("Invalid event format: missing /from");
@@ -64,6 +83,11 @@ public class Event extends Task {
 
         // need to split the 2nd element as it contains both the start and end time
         String timePart = eventParts[1];
+
+        if (checkDuplicateParameter(timePart, "/to")) {
+            throw new MilesException("Invalid event format: cannot have more than 1 \"/to\".");
+        }
+
         String[] timeParts = timePart.split("/to");
 
         if (timeParts.length == 1) {
@@ -102,7 +126,7 @@ public class Event extends Task {
         String startTime = strings[1];
 
         if (checkAllWhiteSpace(startTime)) {
-            throw new MilesException("OOPS!!! The start time of a event cannot be empty.");
+            throw new MilesException("Hold up... The start time of a event cannot be empty.");
         }
 
         return startTime.trim();
@@ -119,10 +143,20 @@ public class Event extends Task {
         String endTime = strings[2];
 
         if (checkAllWhiteSpace(endTime)) {
-            throw new MilesException("OOPS!!! The end time of a event cannot be empty.");
+            throw new MilesException("Hold up... The end time of a event cannot be empty.");
         }
 
         return endTime.trim();
+    }
+
+    /**
+     * Checks if the start time is before the end time before initialising the event task.
+     * @param startTime  the start time
+     * @param endTime    the end time
+     * @return           true if the start time is before the end time, false otherwise
+     */
+    public boolean checkStartTimeBeforeEndTime(LocalDateTime startTime, LocalDateTime endTime) {
+        return startTime.compareTo(endTime) < 0;
     }
 
     /**
