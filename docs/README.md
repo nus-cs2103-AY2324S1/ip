@@ -31,6 +31,10 @@ SUI, Now you have 2 tasks in the list.
 
 Adds a deadline task to the task list. The `/by` date should be of the format `yyyy-mm-dd` and time should in 24hr format `hh:mm`.
 
++ Make sure to include the description of the task.
++ Make sure to include /by date and time in the correct format.
++ Ensure that the deadline is past current date and time.
+
 **Example of usage:** `deadline cs2103 iP /by 2023-10-20 09:00`
 
 **Expected outcome:**
@@ -44,6 +48,10 @@ SUI, Now you have 3 tasks in the list.
 ### Add an Event task `event`
 
 Adds a event task to the task list. The `/from` and `/to` date should be of the format `yyyy-mm-dd` and time should in 24hr format `hh:mm`.
+
++ Make sure to include the description of the task.
++ Make sure to include /from and /to date and time in the correct format.
++ Ensure that the deadline is after the start date and time.
 
 **Example of usage:** `event MS event /from 2023-10-20 09:00 /to 2023-10-22 08:00`
 
@@ -120,10 +128,4 @@ Find a task that has description matching the `keyword` entered by user.
 ```
 Here are your results for your search:
 1.[T][ ] borrow book
-```
-
-Description of the outcome.
-
-```
-expected output
 ```
