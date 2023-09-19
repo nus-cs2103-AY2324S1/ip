@@ -8,7 +8,6 @@ Ren is a desktop app for managing tasks with a simple a Graphical User Interface
 If you can type fast, Ren can get your task management done faster than traditional GUI apps.
 
 * Table of Contents
-{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -22,7 +21,7 @@ If you can type fast, Ren can get your task management done faster than traditio
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar Ren.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -32,8 +31,6 @@ If you can type fast, Ren can get your task management done faster than traditio
    * `add todo eat dinner` : Adds a ToDo Task named `eat dinner` to Ren.
 
    * `delete 1` : Deletes the 1st contact shown in the current list.
-
-   * `bye` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -45,7 +42,7 @@ If you can type fast, Ren can get your task management done faster than traditio
 
 Adds a ToDo Task to Ren.
 
-Format: `add todo NAME `
+Format: `add todo NAME`
 
 Examples:
 * `add todo Buy groceries`
@@ -55,7 +52,7 @@ Examples:
 
 Adds a Deadline Task to Ren.
 
-Format: `add deadline NAME /by DATE `
+Format: `add deadline NAME /by DATE`
 
 Examples:
 * `add deadline Buy groceries /by 2020-02-02`
@@ -65,7 +62,7 @@ Examples:
 
 Adds an Event Task to Ren.
 
-Format: `add event NAME /from DATE /to DATE `
+Format: `add event NAME /from DATE /to DATE`
 
 ### Mark an event as completed : `mark`
 
@@ -118,4 +115,3 @@ Examples:
 Exits the app.
 
 Format: `bye`
-
