@@ -1,6 +1,54 @@
-# Duke User Guide
+# Emergency Meeting User Guide
 
-Duke is a command-line task management application that helps you keep track of your tasks. This guide will walk you through the features and usage of Duke.
+Emergency Meeting is a command-line task management application that helps you keep track of your tasks. This guide will walk you through the features and usage of Emergency Meeting. Let's get started! 🚀
+
+**Table of Contents**
+1. [Getting Started](#getting-started)
+2. [Features](#features)
+    - [Add a Todo Task](#add-a-todo-task)
+    - [Add a Deadline Task](#add-a-deadline-task)
+    - [Add an Event Task](#add-an-event-task)
+    - [List Tasks](#list-tasks)
+    - [Mark Task as Done](#mark-task-as-done)
+    - [Unmark Task as Undone](#unmark-task-as-undone)
+    - [Delete Task](#delete-task)
+    - [Find Tasks](#find-tasks)
+    - [Help](#help)
+    - [Exit](#exit)
+
+---
+
+## Getting Started
+
+To use Emergency Meeting, follow these simple steps:
+
+1. **Download and Install Java** ☕
+
+   If you don't have Java installed on your computer, you can download it [here](https://www.oracle.com/java/technologies/javase-downloads.html) and follow the installation instructions.
+
+2. **Download Emergency Meeting JAR File** 📥
+
+   Download the Emergency Meeting JAR file from the `Releases` section of our GitHub repository.
+
+3. **Run Emergency Meeting** 🏃
+
+   Open your command prompt or terminal, navigate to the directory where you saved the JAR file, and run Emergency Meeting by executing the following command:
+
+   ```
+   java -jar emergency-meeting.jar
+   ```
+
+4. **Start Managing Your Tasks** 📋
+
+   With Emergency Meeting up and running, you can start using it to manage your tasks efficiently!
+
+5. **A GUI similar to the one below should appear in a few seconds**
+
+   ![Emergency Meeting UI](Ui.png)
+
+Enjoy using Emergency Meeting to stay organized and boost your productivity! 📅
+
+---
 
 ## Features
 
@@ -14,13 +62,15 @@ Example of usage:
 
 Expected outcome:
 
-Duke will add the todo task and confirm it.
+Emergency Meeting will add the todo task and confirm it.
 
 ```
 Got it. I've added this task:
-[T][✘] Buy groceries
+[T][ ] Buy groceries
 Now you have 1 task in the list.
 ```
+
+---
 
 ### Add a Deadline Task
 
@@ -32,13 +82,15 @@ Example of usage:
 
 Expected outcome:
 
-Duke will add the deadline task and confirm it.
+Emergency Meeting will add the deadline task and confirm it.
 
 ```
 Got it. I've added this deadline task:
-[D][✘] Submit report (by: Oct 01 2023)
+[D][ ] Submit report (by: Oct 01 2023)
 Now you have 2 tasks in the list.
 ```
+
+---
 
 ### Add an Event Task
 
@@ -50,13 +102,15 @@ Example of usage:
 
 Expected outcome:
 
-Duke will add the event task and confirm it.
+Emergency Meeting will add the event task and confirm it.
 
 ```
 Got it. I've added this event task:
-[E][✘] Team meeting (from: Sep 20 2023, to: Sep 21 2023)
+[E][ ] Team meeting (from: Sep 20 2023, to: Sep 21 2023)
 Now you have 3 tasks in the list.
 ```
+
+---
 
 ### List Tasks
 
@@ -68,13 +122,15 @@ Example of usage:
 
 Expected outcome:
 
-Duke will display your list of tasks.
+Emergency Meeting will display your list of tasks.
 
 ```
-1: [T][✘] Buy groceries
-2: [D][✘] Submit report (by: Oct 01 2023)
-3: [E][✘] Team meeting (from: Sep 20 2023, to: Sep 21 2023)
+1: [T][ ] Buy groceries
+2: [D][ ] Submit report (by: Oct 01 2023)
+3: [E][ ] Team meeting (from: Sep 20 2023, to: Sep 21 2023)
 ```
+
+---
 
 ### Mark Task as Done
 
@@ -86,12 +142,14 @@ Example of usage:
 
 Expected outcome:
 
-Duke will mark the task as done and confirm it.
+Emergency Meeting will mark the task as done and confirm it.
 
 ```
 Nice! I've marked this task as done:
-[T][✓] Buy groceries
+[T][X] Buy groceries
 ```
+
+---
 
 ### Unmark Task as Undone
 
@@ -103,12 +161,14 @@ Example of usage:
 
 Expected outcome:
 
-Duke will mark the task as undone and confirm it.
+Emergency Meeting will mark the task as undone and confirm it.
 
 ```
 OK, I've marked this task as not done yet:
-[T][✘] Buy groceries
+[T][ ] Buy groceries
 ```
+
+---
 
 ### Delete Task
 
@@ -120,13 +180,15 @@ Example of usage:
 
 Expected outcome:
 
-Duke will delete the task and confirm it.
+Emergency Meeting will delete the task and confirm it.
 
 ```
 Noted. I've removed this task:
-[T][✘] Buy groceries
+[T][ ] Buy groceries
 Now you have 2 tasks in the list.
 ```
+
+---
 
 ### Find Tasks
 
@@ -138,11 +200,13 @@ Example of usage:
 
 Expected outcome:
 
-Duke will display a list of tasks that match the keyword.
+Emergency Meeting will display a list of tasks that match the keyword.
 
 ```
-1: [D][✘] Submit report (by: Oct 01 2023)
+1: [D][ ] Submit report (by: Oct 01 2023)
 ```
+
+---
 
 ### Help
 
@@ -154,7 +218,7 @@ Example of usage:
 
 Expected outcome:
 
-Duke will display the available commands.
+Emergency Meeting will display the available commands.
 
 ```
 Here are the available commands:
@@ -170,6 +234,8 @@ Here are the available commands:
 10. find <keyword> - Search for tasks with a keyword
 ```
 
+---
+
 ### Exit
 
 You can exit the program at any time.
@@ -180,28 +246,8 @@ Example of usage:
 
 Expected outcome:
 
-Duke will bid you farewell.
+Emergency Meeting will bid you farewell.
 
 ```
 Bye. Hope to see you again soon!
 ```
-
-## Getting Started
-
-To use Duke, follow these steps:
-
-1. Download and install Java on your computer if it's not already installed.
-
-2. Download the Duke JAR file under `Releases`
-
-3. Open your command prompt or terminal and navigate to the directory where you saved the JAR file.
-
-4. Run Duke by executing the following command:
-
-```
-java -jar duke.jar
-```
-
-5. You can now start using Duke by entering the available commands as mentioned above.
-
-Enjoy using Duke to manage your tasks efficiently!
