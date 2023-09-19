@@ -1,5 +1,7 @@
 package alice.ui.components;
 
+import java.util.Objects;
+
 import alice.Alice;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,8 +15,10 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(
+        Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private final Image aliceImage = new Image(
+        Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaAlice.png")));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -30,8 +34,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Alice d) {
-        alice = d;
+    public void setAlice(Alice a) {
+        alice = a;
+        dialogContainer.getChildren().add(
+            DialogBox.getAliceDialog(a.getWelcome(), aliceImage)
+        );
     }
 
     /**
@@ -44,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = alice.getResponse(input);
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(response, dukeImage)
+            DialogBox.getAliceDialog(response, aliceImage)
         );
         userInput.clear();
     }
