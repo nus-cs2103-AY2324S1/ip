@@ -29,7 +29,7 @@ public class Deadline extends Task {
      */
     public String writeFormat() {
         int done = super.isMarked() ? 1 : 0;
-        String formattedDate = byDate.format(super.TIMEFORMAT);
+        String formattedDate = byDate.format(super.timeFormat);
         return "D" + " | " + done + " | " + super.getDescription() + " | " + formattedDate;
     }
 

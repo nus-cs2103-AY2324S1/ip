@@ -35,8 +35,8 @@ public class Event extends Task {
         if (super.isMarked()) {
             done = 1;
         }
-        String formattedDateFrom = from.format(super.TIMEFORMAT);
-        String formattedDateTo = to.format(super.TIMEFORMAT);
+        String formattedDateFrom = from.format(super.timeFormat);
+        String formattedDateTo = to.format(super.timeFormat);
         return "E" + " | " + done + " | " + super.getDescription()
                 + " | " + formattedDateFrom + " | " + formattedDateTo;
     };

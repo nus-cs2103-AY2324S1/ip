@@ -1,24 +1,3 @@
-T | 1 | hi
-T | 0 | hi
-D | 0 | hiii | 2020-02-01 12:00
-E | 1 | hiiii | 2020-01-01 00:00 | 2021-01-01 00:00
-T | 0 | hahahahah
-T | 0 | helloooopsdas
-E | 1 | hi | 2019-02-01 12:00 | 2020-01-01 12:00
-D | 0 | ehqwoeqw | 2020-02-01 01:00
-T | 0 | hii
-E | 0 | go to conver | 2019-02-01 16:00 | 2019-02-01 20:00
-E | 0 | go to concert | 2019-02-01 16:00 | 2019-02-01 20:00
-T | 0 | read
-T | 0 | go to read that shit
-T | 0 | read tmr
-E | 0 | read that | 2019-02-01 12:00 | 2019-03-03 13:00
-T | 0 | hi
-T | 0 | hi
-T | 0 | hi
-T | 0 | hi
-T | 0 | hii
-T | 0 | go to scool
-E | 0 | asdasd | 2019-12-01 12:00 | 2019-12-01 13:00
-T | 0 | hi
-T | 0 | go to school
+T | 1 | finish up cs2103t ip!
+E | 0 | go to bed | 2023-09-19 22:00 | 2023-09-20 10:00
+T | 0 | school
