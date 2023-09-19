@@ -60,7 +60,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     *     * Returns a dialog box consisting of bot text and image.
+     * Returns a dialog box consisting of bot text and image.
      *
      * @param text Text to be printed out
      * @param img Image to be shown in the dialog box
