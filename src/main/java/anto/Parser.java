@@ -53,7 +53,7 @@ public class Parser {
                 return this.deleteCommand(input);
             } else if (input.startsWith("find")) {
                 return this.findCommand(input);
-            } else if (input.startsWith("View schedule")) {
+            } else if (input.startsWith("view schedule")) {
                 return this.viewScheduleCommand(input);
             } else {
                 throw new AntoException("OOPS!!! I'm sorry, but I don't know what that means :(");

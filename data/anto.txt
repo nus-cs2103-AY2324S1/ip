@@ -1,17 +1,13 @@
 D | 1 | Return book | 18-05-2023 18:00
 E | 1 | Book Review Meeting | 18-05-2023 18:00 | 18-05-2023 20:00
-D | 0 | LOL1 | 01-09-2023 00:00
 D | 1 | Borrow book | 01-09-2023 23:59
-T | 0 | Test Test
-T | 0 | Test1
-D | 0 | dl test | 18-05-2001 18:00
-E | 0 | event test | 20-04-2023 16:00 | 20-04-2023 18:00
-T | 0 | Test1231
-T | 0 | Test123
 D | 0 | Book trip | 20-05-2023 18:00
 E | 0 | Meeting | 01-09-2023 18:00 | 01-09-2023 20:00
-T | 0 | Test12313123213
-D | 0 | TestDeadline | 13-09-2023 18:00
-E | 0 | TestBefore | 13-09-2023 12:00 | 13-09-2023 13:00
-E | 0 | TestBeforeBefore | 13-09-2023 08:00 | 13-09-2023 10:00
-E | 0 | TestAfter | 13-09-2023 18:00 | 13-09-2023 20:00
+
+T | 0 | CS2103T iP
+T | 0 | Borrow book
+D | 0 | Return book | 15-05-2023 18:00
+E | 0 | Book Review Meeting | 20-06-2023 18:00 | 20-06-2023 20:00
+
+T | 0 | Read books
+E | 0 | Lunch | 20-06-2023 12:00 | 20-06-2023 14:00
