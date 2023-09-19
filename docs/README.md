@@ -1,13 +1,6 @@
----
-layout: page
-title: Ren User Guide
----
-
 # Ren User Guide
 Ren is a desktop app for managing tasks with a simple a Graphical User Interface (GUI).
 If you can type fast, Ren can get your task management done faster than traditional GUI apps.
-
-* Table of Contents
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -32,7 +25,7 @@ If you can type fast, Ren can get your task management done faster than traditio
 
    * `delete 1` : Deletes the 1st contact shown in the current list.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the Features below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
