@@ -195,4 +195,138 @@ Please input the task number you wish to mark.
 Task 1 set as complete.
 ```
 
+### `unmark` - Mark a task as incomplete
+
+The user inputs the keyword `unmark`, followed by the task number. Leon will then mark the corresponding task as incomplete.
+
+Example of usage:
+
+- User: `unmark`
+- Leon: `Please input the task number you wish to unmark.` (List of tasks will be provided for reference)
+- User: `1`
+- Leon: `Task 1 set as incomplete.`
+
+Expected outcome:
+
+The task is marked as incomplete.
+
+Leon will raise an error if:
+
+- There are no tasks in the list.
+- The task number input is invalid or outside the range 1 < taskNumber < totalNumberOfTasks.
+- The corresponding task is already marked as incomplete.
+
+```
+unmark
+
+Please input the task number you wish to unmark.
+1. [X] clean the room
+2. [T] [ ] finish cs2103 project
+3. [D] [ ] CS2100 Assignment (by: Fri, 22 Sep 2023, 23:59)
+4. [E] [ ] Career Fair (from: 01 Oct 2023 11:00 to: 01 Oct 2023 17:00)
+
+1
+
+Task 1 set as incomplete.
+```
+
+### `delete` - Delete a task
+
+The user inputs the keyword `delete`, followed by the task number. Leon will then delete the corresponding task from the list.
+
+Example of usage:
+
+- User: `delete`
+- Leon: `Please input the task number you wish to delete.` (List of tasks will be provided for reference)
+- User: `1`
+- Leon: `Task 1 deleted successfully. You now have 3 tasks.`
+
+Expected outcome:
+
+The task is deleted from the list.
+
+Leon will raise an error if:
+
+- There are no tasks in the list.
+- The task number input is invalid or outside the range 1 < taskNumber < totalNumberOfTasks.
+
+```
+delete
+
+Please input the task number you wish to delete.
+1. [ ] clean the room
+2. [T] [ ] finish cs2103 project
+3. [D] [ ] CS2100 Assignment (by: Fri, 22 Sep 2023, 23:59)
+4. [E] [ ] Career Fair (from: 01 Oct 2023 11:00 to: 01 Oct 2023 17:00)
+
+1
+
+Task 1 deleted successfully.
+You now have 3 tasks.
+```
+
+### `find` or `search` - Find all tasks containing a given keyword
+
+The user inputs either the keyword `find` or `search`. Leon will the prompt the user to input a keyword. Then, Leon will return a list of all the tasks containing the keyword (case sensitive).
+
+Example of usage:
+
+- User: `find`
+- Leon: `Please input search keyword.`
+- User: `project`
+- Leon: (Returns all tasks containing keyword `project`)
+
+Expected outcome:
+
+A list of all tasks containing the given keyword is returned.
+
+Leon will raise an error if:
+
+- There are no tasks in the list.
+- The search keyword is empty.
+
+```
+find
+
+Please input search keyword.
+
+project
+
+Here are the matching tasks in your list:
+1. [T] [ ] finish cs2103 project
+```
+
+### `commands` - View all user commands and functions
+
+When Leon is not currently executing a command, the user may input `command`. Leon will then provide the user with all the available commands, and their respective functions.
+
+Example execution:
+```
+commands
+
+task - Create a new task
+todo - Create a new todo
+deadline - Create a new deadline
+event - Create a new event
+list - View your current tasks and completion status
+mark - Mark a task as complete
+unmark - Mark a task as incomplete
+delete - Delete a task
+search - Find all tasks containing a given keyword
+bye - Exit the program
+```
+
+### `bye` - Exit the program
+
+When the user inputs `bye`, the chatbot will close. All existing tasks will be saved, and the user will be able to access them (including mark, unmark and delete) the next time they open the chatbot.
+
+
+## Frequently Asked Questions
+
+**Q: I can't create a Task, even though I filled in all fields.**
+A: Before you create a Task, you may wish to execute the `list` command and make sure that there are no existing tasks of the same name, especially if it was saved from a previous session. In the case of Deadlines and Events, please check that your date and time inputs are of the form `YYYY-MM-DD` and `HH:MM` respectively.
+
+**Q: When I run the `find` command, I can't see the list of tasks with the keyword, even though I typed it correctly.**
+A: Currently, the keyword is case-sensitive, i.e. the keyword `finish` will correctly return a task named `finish assignment`, but the keyword `Finish` will return nothing. We are working on allowing non-case-sensitive inputs in a future update to enhance the user experience.
+
 
