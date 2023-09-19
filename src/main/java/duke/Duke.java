@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.FileNotFoundException;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.ui.Ui;
@@ -24,8 +26,7 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError();
+        } catch (FileNotFoundException e) {
             tasks = new TaskList();
         }
     }
@@ -46,5 +47,9 @@ public class Duke {
 
     public boolean isExit() {
         return isExit;
+    }
+
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
     }
 }

@@ -14,14 +14,7 @@ public class Ui {
      * Prints the welcome message.
      */
     public String showWelcome() {
-        String logo = "    ___    _   ___   ________  __      ____      __________  ____  _   __\n"
-                + "   /   |  / | / / | / / __ \\ \\/ /     / __ \\    /_  __/ __ \\/ __ \\/ | / /\n"
-                + "  / /| | /  |/ /  |/ / / / /\\  /_____/ / / /_____/ / / /_/ / / / /  |/ / \n"
-                + " / ___ |/ /|  / /|  / /_/ / / /_____/ /_/ /_____/ / / _, _/ /_/ / /|  /  \n"
-                + "/_/  |_/_/ |_/_/ |_/\\____/ /_/      \\____/     /_/ /_/ |_|\\____/_/ |_/   \n";
-        String horizontalLine = "__________________________________________________________________________";
-        return horizontalLine + logo + "Hello! I'm ANNOY-O-TRON!\nWhat can I do for you?\n"
-                + horizontalLine;
+        return "Hello! I'm ANNOY-O-TRON!\nWhat can I do for you?\n";
     }
 
     /**
@@ -29,13 +22,6 @@ public class Ui {
      */
     public String showBye() {
         return "Bye. Hope to see you again soon!";
-    }
-
-    /**
-     * Prints the error message when loading tasks from file.
-     */
-    public String showLoadingError() {
-        return "Error loading tasks from file.";
     }
 
     /**

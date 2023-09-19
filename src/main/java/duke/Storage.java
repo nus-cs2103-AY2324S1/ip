@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import duke.exception.InvalidCommandException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -51,19 +50,19 @@ public class Storage {
      * Loads the task data from the file.
      *
      * @return List of tasks loaded from the file.
-     * @throws InvalidCommandException If the task data in the file is invalid.
+     * @throws FileNotFoundException If the file is not found.
      */
-    public List<Task> load() throws InvalidCommandException {
+    public List<Task> load() throws FileNotFoundException {
         List<Task> list = new ArrayList<>();
         File file = new File(filePath);
         try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
                 Task task = parseFromFile(line);
-                list.add(task);
+                if (task != null) {
+                    list.add(task);
+                }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
         }
         assert list != null : "Task list should not be null";
         return list;
@@ -89,9 +88,8 @@ public class Storage {
      *
      * @param line The line of task data to be parsed.
      * @return TA Task object corresponding to the given line.
-     * @throws InvalidCommandException If the task data in the file is invalid.
      */
-    private static Task parseFromFile(String line) throws InvalidCommandException {
+    private static Task parseFromFile(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -115,7 +113,7 @@ public class Storage {
             task = new Event(description, from, to);
             break;
         default:
-            throw new InvalidCommandException();
+            return null;
         }
 
         if (isDone) {
