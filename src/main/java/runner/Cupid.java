@@ -1,4 +1,4 @@
-package Runner;
+package runner;
 
 import functions.Parser;
 import functions.Storage;

@@ -1,4 +1,4 @@
-package Runner;
+package runner;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
