@@ -37,7 +37,10 @@ public class Parser {
      */
     public static Command parseCommand(final String userInput) throws InvalidCommandException {
         String[] splitUserInput = userInput.split(" ");
+        return generateCommand(userInput, splitUserInput);
+    }
 
+    private static Command generateCommand(String userInput, String[] splitUserInput) throws InvalidCommandException {
         if (userInput.equalsIgnoreCase("bye")) {
             return new ByeCommand();
         } else if (userInput.equalsIgnoreCase("list")) {
@@ -69,13 +72,21 @@ public class Parser {
      * @throws InvalidDateTimeFormatException If the input date and time format is
      *                                        invalid.
      */
-    public static LocalDateTime parseDateTime(final String inputDateTime) throws InvalidDateTimeFormatException {
+    public static LocalDateTime parseStringToDateTime(final String inputDateTime) throws InvalidDateTimeFormatException {
+        List<String> inputFormats = getInputFormats();
+        return generateLocalDateTime(inputDateTime, inputFormats);
+    }
+
+    private static List<String> getInputFormats() {
         List<String> inputFormats = new ArrayList<>();
         inputFormats.add(Ui.getDefaultDateTimeFormat());
         inputFormats.add("dd MMM yyyy HHmm");
         inputFormats.add("yyyy-MM-dd HHmm");
         inputFormats.add("dd/MM/yyyy HHmm");
+        return inputFormats;
+    }
 
+    private static LocalDateTime generateLocalDateTime(String inputDateTime, List<String> inputFormats) throws InvalidDateTimeFormatException {
         LocalDateTime result = null;
         for (String inputFormat : inputFormats) {
             try {
@@ -113,13 +124,13 @@ public class Parser {
                 return new Todo(taskDetails, isCompleted);
             case "D":
                 String deadlineByString = splitLine[3].trim();
-                LocalDateTime formattedDeadlineBy = parseDateTime(deadlineByString);
+                LocalDateTime formattedDeadlineBy = parseStringToDateTime(deadlineByString);
                 return new Deadline(taskDetails, formattedDeadlineBy, isCompleted);
             case "E":
                 String fromTime = splitLine[3].trim();
                 String toTime = splitLine[4].trim();
-                LocalDateTime formattedFromTime = parseDateTime(fromTime);
-                LocalDateTime formattedToTime = parseDateTime(toTime);
+                LocalDateTime formattedFromTime = parseStringToDateTime(fromTime);
+                LocalDateTime formattedToTime = parseStringToDateTime(toTime);
                 return new Event(taskDetails, formattedFromTime, formattedToTime, isCompleted);
             default:
                 throw new InvalidTaskFormatException("Unknown Task Type: " + taskType);

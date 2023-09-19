@@ -28,19 +28,24 @@ public class MarkCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException {
-        String[] splitUserInput = userInput.split(" ");
-        int index = Integer.parseInt(splitUserInput[1]);
-
         if (userInput.length() <= 4) {
             return ui.printResponse("Master, please indicate which task you wish to mark DONE?\n"
                     + "from 1 to " + taskList.getTaskCount());
-        } else if (index >= 1 && index <= taskList.getTaskCount()) {
-            Task task = taskList.getTask(index - 1);
-            task.markCompleted();
-            storage.saveTasks(taskList.getTaskList());
-            return ui.printTaskStatus(task);
-        } else {
+        }
+
+        String[] splitUserInput = userInput.split(" ");
+        int index = Integer.parseInt(splitUserInput[1]);
+        if (index < 1 && index > taskList.getTaskCount()) {
             throw new InvalidIndexException(null);
         }
+
+        return markTask(taskList, ui, storage, index);
+    }
+
+    private static String markTask(TaskList taskList, Ui ui, Storage storage, int index) {
+        Task task = taskList.getTask(index - 1);
+        task.markCompleted();
+        storage.saveTasks(taskList.getTaskList());
+        return ui.printTaskStatus(task);
     }
 }

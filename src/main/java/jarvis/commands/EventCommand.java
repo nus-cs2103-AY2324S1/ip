@@ -37,27 +37,31 @@ public class EventCommand implements Command {
         if (userInput.equalsIgnoreCase("event")) {
             throw new InvalidTaskFormatException(null);
         }
+
         int indexOfFrom = userInput.indexOf("from");
         int indexOfTo = userInput.indexOf("to");
-
-        if (indexOfFrom != 1 || indexOfTo != 1 && indexOfFrom < indexOfTo) {
-            try {
-                String taskTitle = userInput.substring(6, indexOfFrom).trim();
-                String fromDateTime = userInput.substring(indexOfFrom + 4, indexOfTo).trim();
-                String toDateTime = userInput.substring(indexOfTo + 2).trim();
-                LocalDateTime formattedFromTime = Parser.parseDateTime(fromDateTime);
-                LocalDateTime formattedToTime = Parser.parseDateTime(toDateTime);
-                Event event = new Event(taskTitle, formattedFromTime, formattedToTime, false);
-                taskList.addTask(event);
-                storage.saveTasks(taskList.getTaskList());
-                return ui.printResponse("Yes Master! I've added this task: \n" + "\t" + event.toString() + "\n"
-                        + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
-            } catch (InvalidDateTimeFormatException e) {
-                return e.getMessage();
-            }
-        } else {
+        if (indexOfFrom == 1 || indexOfTo == 1 && indexOfFrom >= indexOfTo) {
             throw new InvalidIndexException(null);
         }
+        try {
+            return setEvent(taskList, ui, storage, indexOfFrom, indexOfTo);
+        } catch (InvalidDateTimeFormatException e) {
+            return e.getMessage();
+        }
+    }
+
+    private String setEvent(TaskList taskList, Ui ui, Storage storage, int indexOfFrom, int indexOfTo)
+            throws InvalidDateTimeFormatException {
+        String taskTitle = userInput.substring(6, indexOfFrom).trim();
+        String fromDateTime = userInput.substring(indexOfFrom + 4, indexOfTo).trim();
+        String toDateTime = userInput.substring(indexOfTo + 2).trim();
+        LocalDateTime formattedFromTime = Parser.parseStringToDateTime(fromDateTime);
+        LocalDateTime formattedToTime = Parser.parseStringToDateTime(toDateTime);
+        Event event = new Event(taskTitle, formattedFromTime, formattedToTime, false);
+        taskList.addTask(event);
+        storage.saveTasks(taskList.getTaskList());
+        return ui.printResponse("Yes Master! I've added this task: \n" + "\t" + event.toString() + "\n"
+                + "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
     }
 
 }
