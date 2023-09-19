@@ -179,14 +179,26 @@ public class Parser {
 
     private static HashMap<String, String> getChangesToUpdate(String userInput) {
         HashMap<String, String> changesMap = new HashMap<>();
-        String[] changes = userInput.split("/");
 
-        int startIndex = 1; // Skip "update XX "
-        for (int i = startIndex; i < changes.length; i += 1) {
-            String attributeChangeString = changes[i];
-            String attribute = "/" + attributeChangeString.split("\\s+")[0];
-            String change = attributeChangeString.substring(attribute.length()).trim();
-            changesMap.put(attribute, change);
+        // Use a regular expression to match "update <number> "
+        String pattern = "^update\\s\\d+\\s";
+        String changesAsString = userInput.replaceFirst(pattern, "");
+
+        // Extract the user-specified changes and store them in changesMap
+        String[] tokens = changesAsString.split("\\s+");
+        String[] clauses = new String[] {"/name", "/by", "/from", "/to"};
+        String currentClause = null;
+        for (String token : tokens) {
+            boolean equalsAtLeastOneClause = Arrays.asList(clauses).contains(token);
+            if (equalsAtLeastOneClause) {
+                currentClause = token.trim();
+            } else {
+                if (!changesMap.containsKey(currentClause)) {
+                    changesMap.put(currentClause, "");
+                }
+                String newValue = changesMap.get(currentClause) + " " + token;
+                changesMap.put(currentClause, newValue.trim());
+            }
         }
 
         return changesMap;
