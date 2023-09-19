@@ -37,8 +37,7 @@ public class Duke {
         Parser parser = new Parser(input);
         String keyword = parser.getCommand();
         Command command = new Command();
-        String message = "";
-        message = retrieveMessage(keyword, command, parser);
+        String message = retrieveMessage(keyword, command, parser);
         this.storage.saveTasks(this.tasks.getTasks());
         assert !message.isEmpty() : "Message should not be empty";
         return message;

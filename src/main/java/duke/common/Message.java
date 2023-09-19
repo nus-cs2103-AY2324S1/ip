@@ -4,7 +4,7 @@ package duke.common;
  * Represents a message.
  */
 public abstract class Message {
-    public static final String GREET = "Hello from Duke!";
+    public static final String GREET = "Hello from Dog!";
     public static final String FAREWELL = "Bye. Hope to see you again soon! \uD83D\uDD19 \uD83D\uDD1B \uD83D\uDD1D";
     public static final String LIST_TASKS = "Here are the tasks in your list:\n";
     public static final String UNMARK_TASK = "OK, I've marked this task as not done yet:\n";
