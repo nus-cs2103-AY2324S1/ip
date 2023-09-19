@@ -25,7 +25,7 @@ public class TaskList {
     public TaskList(ArrayList<String[]> inputList) {
         tasks = new ArrayList<>();
         for (String[] line : inputList) {
-            assert (line[0] == "T" || line[0] == "D" || line[0] == "E") : "save file in incorrect format";
+            assert (line[0].equals("T") || line[0].equals("D") || line[0].equals("E")) : "save file in incorrect format";
             switch (line[0]) {
             case "T":
                 ToDo t = new ToDo(line[2]);
@@ -126,6 +126,16 @@ public class TaskList {
      */
     public int getLength() {
         return tasks.size();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder returnMessage = new StringBuilder();
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task t = tasks.get(i-1);
+            returnMessage.append(i).append(". ").append(t.toString()).append("\n");
+        }
+        return returnMessage.toString().trim();
     }
 
     /**
