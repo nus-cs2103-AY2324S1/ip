@@ -1,36 +1,39 @@
 package duke;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
  * Deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
-    private String dukeFilePath = "./data/duke.txt";
+    private Path dukeFilePath = Paths.get("./data/duke.txt");
+
     /*
          txt file that contains the contents of the TaskList in a human-readable format
          this file is read in the printFileContents method in Ui.java
      */
-    private String tempFilePath;
+    private Path tempFilePath;
     /*
-         "data/temp.txt"
+         "./data/temp.txt"
          txt file that contains the contents of the TaskList in binary format
          this file is used to store TaskList contents that will persist with consecutive runs of the application
      */
-    private String undoFilePath = "./data/undo.txt";
+    private Path undoFilePath = Paths.get("./data/undo.txt");
+
     /*
          txt file that contains the contents of the OLD TaskList in binary format
          contents of this file is read when 'undo' command is called, so the old TaskList will be obtained
     */
-    public Storage(String filePath) {
+    public Storage(Path filePath) {
         this.tempFilePath = filePath;
     }
 
@@ -42,7 +45,7 @@ public class Storage {
      * @throws IOException            If unable to find temp.txt file
      */
     public ArrayList<Task> load() throws ClassNotFoundException, IOException {
-        ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(tempFilePath));
+        ObjectInputStream inputStream = new ObjectInputStream(Files.newInputStream(tempFilePath));
         /*
             The only object that is written to OutputStream is the ArrayList<duke.Task>, as shown in the
             updateFile method in duke.Duke.java. Thus, only an object of run type ArrayList<duke.Task> can be
@@ -66,18 +69,15 @@ public class Storage {
                 copyTempToUndo();
                 // copies the contents of temp.txt to undo.txt BEFORE temp.txt is updated to reflect new TaskList
             }
-            try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(tempFilePath))) {
+            try (ObjectOutputStream outputStream = new ObjectOutputStream(Files.newOutputStream(tempFilePath))) {
                 outputStream.writeObject(tasks.getTasks());
                 // writes the ArrayList(Task) object to the OutputStream
 
-                FileWriter fw = new FileWriter(dukeFilePath);
-                // ^ the above line is ABSOLUTELY NECESSARY!!! do not delete
-                // Clears the existing content by opening in write mode and immediately closing
-                fw = new FileWriter(dukeFilePath, true);
+                BufferedWriter writer = Files.newBufferedWriter(dukeFilePath);
                 for (int i = 0; i < tasks.getSize(); i++) {
-                    fw.write(tasks.getTaskByIndex(i).toFileString() + "\n");
+                    writer.write(tasks.getTaskByIndex(i).toFileString() + "\n");
                 }
-                fw.close();
+                writer.close();
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -90,14 +90,13 @@ public class Storage {
      * @throws IOException If unable to locate source/destination files
      */
     private void copyTempToUndo() throws IOException {
-        InputStream is = new FileInputStream(tempFilePath);
-        OutputStream os = new FileOutputStream(undoFilePath);
+        InputStream is = Files.newInputStream(tempFilePath);
+        OutputStream os = Files.newOutputStream(undoFilePath);
         byte[] buffer = new byte[1024];
         int length;
         while ((length = is.read(buffer)) > 0) {
             os.write(buffer, 0, length);
         }
-
         is.close();
         os.close();
     }
@@ -108,14 +107,13 @@ public class Storage {
      * @throws IOException If source or destination files cannot be found
      */
     public void copyUndoToTemp() throws IOException {
-        InputStream is = new FileInputStream(undoFilePath);
-        OutputStream os = new FileOutputStream(tempFilePath);
+        InputStream is = Files.newInputStream(undoFilePath);
+        OutputStream os = Files.newOutputStream(tempFilePath);
         byte[] buffer = new byte[1024];
         int length;
         while ((length = is.read(buffer)) > 0) {
             os.write(buffer, 0, length);
         }
-
         is.close();
         os.close();
     }

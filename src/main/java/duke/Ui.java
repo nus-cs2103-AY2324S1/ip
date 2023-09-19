@@ -1,7 +1,9 @@
 package duke;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,15 +19,19 @@ public class Ui {
      * @param filePath The file where the lists of Tasks are stored
      * @throws FileNotFoundException If the file at this filePath is not found
      */
-    public static String printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // opens the duke.txt file
-        Scanner s = new Scanner(f); // reads the contents of the duke.txt file
+    public static String printFileContents(Path filePath) throws FileNotFoundException {
         StringBuilder string = new StringBuilder();
-        string.append("Hi, I am " + NAME + "!\nHere are the tasks in your list:\n");
-        while (s.hasNext()) {
-            string.append(s.nextLine() + "\n");
+        try {
+            Scanner s = new Scanner(Files.newBufferedReader(filePath)); // reads the contents of the duke.txt file
+            string.append("Hi, I am " + NAME + "!\nHere are the tasks in your list:\n");
+            while (s.hasNext()) {
+                string.append(s.nextLine() + "\n");
+            }
+            string.append("Type 'help' to see the list of things you can do");
+            return string.toString();
+        } catch (IOException e) {
+            System.err.println(e + " error printing file contents");
         }
-        string.append("Type 'help' to see the list of things you can do");
         return string.toString();
     }
 

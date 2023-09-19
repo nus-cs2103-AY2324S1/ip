@@ -2,6 +2,7 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -92,7 +93,7 @@ public class TaskListTest {
     }
     @Test
     public void testUndo() throws DukeException, IOException, ClassNotFoundException {
-        Duke duke = new Duke("data/duke.txt");
+        Duke duke = new Duke(Paths.get("data/duke.txt"));
         tasks.addTask("T", "todo borrow book");
         tasks.undo(duke.getStorage());
         // Perform assertions or test other functionality here

@@ -2,10 +2,12 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 public class StorageTest {
-    private String tempFilePath = "data/temp.txt";
+    private Path tempFilePath = Paths.get("data/temp.txt");
     private Storage storage = new Storage(tempFilePath);
 
     /**

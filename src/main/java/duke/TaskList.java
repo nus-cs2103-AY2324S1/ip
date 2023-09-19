@@ -1,9 +1,11 @@
 package duke;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  */
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
-    private String undoFilePath = "./data/undo.txt";
+    private Path undoFilePath = Paths.get("./data/undo.txt");
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -223,7 +225,8 @@ public class TaskList implements Serializable {
      */
     public void undo(Storage storage) throws IOException, ClassNotFoundException {
         try {
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(undoFilePath));
+            Path absolutePath = undoFilePath.toAbsolutePath();
+            ObjectInputStream inputStream = new ObjectInputStream(Files.newInputStream(absolutePath));
             @SuppressWarnings("unchecked")
             ArrayList<Task> loadedTasks = (ArrayList<Task>) inputStream.readObject();
             tasks.clear();

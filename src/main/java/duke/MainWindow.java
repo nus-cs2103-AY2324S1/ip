@@ -1,6 +1,8 @@
 package duke;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private final String DUKE_FILE_PATH = "./data/duke.txt";
+    private final Path dukeFilePath = Paths.get("./data/duke.txt");
     private Duke duke;
     private TaskList tasks;
     private Storage storage;
@@ -53,8 +55,8 @@ public class MainWindow extends AnchorPane {
     public void showWelcomeMessage() {
         Label dukeText = new Label();
         try {
-            dukeText.setText(Ui.printFileContents(DUKE_FILE_PATH));
-        } catch (FileNotFoundException e) {
+            dukeText.setText(Ui.printFileContents(dukeFilePath));
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         if (onlyContainsIntroMessage(dukeText.getText())) {
@@ -67,7 +69,7 @@ public class MainWindow extends AnchorPane {
     }
     private static boolean onlyContainsIntroMessage(String text) {
         String[] lines = text.split("\n");
-        return lines.length == 3;
+        return lines.length <= 3;
     }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to

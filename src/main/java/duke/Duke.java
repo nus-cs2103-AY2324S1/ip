@@ -1,8 +1,12 @@
 package duke;
 
-import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,7 +23,7 @@ import javafx.stage.Stage;
  * class where main is run
  */
 public class Duke extends Application implements Serializable {
-    private static final String DUKE_FILE_PATH = "./data/duke.txt";
+    private static final Path DUKE_FILE_PATH = Paths.get("./data/duke.txt");
     private static Storage storage;
     private static TaskList tasks;
     public Duke() {}
@@ -28,7 +32,7 @@ public class Duke extends Application implements Serializable {
      * Constructor to initialise the Storage and TaskList objects
      * @param filePath The relative path to the file that acts as a temporary storage for the ArrayList(Task) object
      */
-    public Duke(String filePath) {
+    public Duke(Path filePath) {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
@@ -101,8 +105,8 @@ public class Duke extends Application implements Serializable {
      */
     public static void createTxtFile() {
         try {
-            FileWriter fw = new FileWriter(DUKE_FILE_PATH);
-            fw.close();
+            BufferedWriter writer = Files.newBufferedWriter(DUKE_FILE_PATH);
+            writer.close();
         } catch (IOException e) {
             System.out.println("shag" + e.getMessage());
         }
