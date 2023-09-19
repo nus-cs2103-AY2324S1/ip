@@ -35,6 +35,7 @@ public class Deadline extends Task {
      *
      * @param newTitle The new title for the Deadline task.
      */
+
     @Override
     public void editTitle(String newTitle) {
         this.title = newTitle;
@@ -89,7 +90,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        if (this.done) {
+        if (this.isDone) {
             return "D | 1 | " + this.title + " | " + this.deadline;
         }
         return "D | 0 | " + this.title + " | " + this.deadline;
@@ -103,7 +104,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String s = String.format("| DUE: %s |", this.deadline);
-        if (this.done) {
+        if (this.isDone) {
             return "[D] " + "[X] " + this.title + " " + s;
         }
         return "[D] " + "[ ] " + this.title + " " + s;

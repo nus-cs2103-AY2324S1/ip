@@ -85,7 +85,7 @@ public class ToDo extends Task {
 
     @Override
     public String toFileString() {
-        if (this.done) {
+        if (this.isDone) {
             return "T | 1 | " + this.title;
         }
         return "T | 0 | " + this.title;
@@ -98,7 +98,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[T] " + "[X] " + this.title;
         }
         return "[T] " + "[ ] " + this.title;

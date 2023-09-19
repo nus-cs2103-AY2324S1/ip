@@ -111,7 +111,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        if (this.done) {
+        if (this.isDone) {
             return "D | 1 | " + this.title + " | " + this.start +
                     " - " + this.end;
         }
@@ -128,7 +128,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String s = String.format("| FROM: %s TO: %s |", start, end);
-        if (this.done) {
+        if (this.isDone) {
             return "[E] " + "[X] " + this.title + " " + s;
         }
         return "[E] " + "[ ] " + this.title + " " + s;

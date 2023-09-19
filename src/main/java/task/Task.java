@@ -13,7 +13,7 @@ public abstract class Task {
     /**
      * Constructs a Task object with the specified done status.
      *
-     * @param done The done status of the task.
+     * @param isDone The done status of the task.
      */
     public Task(boolean isDone) {
         this.isDone = isDone;
@@ -32,6 +32,7 @@ public abstract class Task {
     public void markUndone() {
         this.isDone = false;
     }
+
 
     /**
      * Checks if title of task contains the query.
