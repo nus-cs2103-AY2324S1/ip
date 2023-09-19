@@ -133,7 +133,7 @@ public class Ui {
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("ATTENTIONNNNNNNNNNNN!!! You have task(s) that are due/going to happen "
+        stringBuilder.append("ATTENTIONNNNNNNNNNNN!!! You have task(s) that are due/upcoming "
                         + "within 7 days:\n");
 
         for (int i = 0; i < dueTasks.size(); i++) {
