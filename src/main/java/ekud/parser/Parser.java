@@ -224,15 +224,19 @@ public class Parser {
      * @throws EkudIllegalArgException
      */
     private String parseAndChangePriority(String userArgs, TaskList taskList) throws EkudIllegalArgException {
-        String[] prioArgs = userArgs.split(" ");
-        int taskNum = this.parseTaskNum(prioArgs[0], taskList.getSize());
-        Priority priority = Priority.getPriority(prioArgs[1]);
-        if (priority == null) {
-            throw new EkudIllegalArgException(
-                    "Priority formatted wrongly\n"
-                            + "-> Ensure 'priority <taskNum> <high/mid/low>' is followed\n"
-                            + "-> For example: prio 3 high");
+        try {
+            String[] prioArgs = userArgs.split(" ");
+            int taskNum = this.parseTaskNum(prioArgs[0], taskList.getSize());
+            Priority priority = Priority.getPriority(prioArgs[1]);
+            if (priority == null) {
+                throw new EkudIllegalArgException(
+                        "Priority formatted wrongly\n"
+                                + "-> Ensure 'priority <taskNum> <high/medium/low>' is followed\n"
+                                + "-> For example: priority 3 high");
+            }
+            return taskList.changePriority(priority, taskNum - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new EkudIllegalArgException("Please input a priority level to change to :[");
         }
-        return taskList.changePriority(priority, taskNum - 1);
     }
 }
