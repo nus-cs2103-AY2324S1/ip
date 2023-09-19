@@ -2,6 +2,13 @@
 Duke is a desktop application for managing your tasks via a Command Lind Interface (CLI) while still having the 
 benefits of a Graphical User Interface (GUI)!
 
+## Quick Start
+1. Ensure you have Java 11 installed in your computer. Else, you can install it from oracle. 
+2. Download the latest duke.jar from release tab in this repo. 
+3. Move file to the folder you want to use as the home folder for your Duke. 
+4. Open your terminal. Navigate into the folder the jar file in, and run the command `java -jar duke.jar` to run the 
+application. A GUI similar to the below should appear in a few seconds.
+
 ## Features 
 
 ### Viewing help: `help`
@@ -113,14 +120,3 @@ Deleted the task (description)
 ### Exiting the program: bye
 Exits the program after 1.5seconds.
 Format: `bye`
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
