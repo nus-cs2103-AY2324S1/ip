@@ -1,7 +1,172 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello! I'm LilBro!
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Checking for a save file...
+____________________________________________________________
+____________________________________________________________
+...No saved tasks found.
+Creating new save file for you...
+____________________________________________________________
+____________________________________________________________
+Save file empty, you're good to go.
+____________________________________________________________
+____________________________________________________________
+OK, ready to roll
+____________________________________________________________
+____________________________________________________________
+Not sure what you're blabbering on about, please use a valid command.
+____________________________________________________________
+____________________________________________________________
+You have no tasks so far.
+____________________________________________________________
+____________________________________________________________
+You've specified an invalid task number. Check your task list again with the "list" command.
+____________________________________________________________
+____________________________________________________________
+You didn't specify a task to do. Check that you're doing "todo {description}".
+____________________________________________________________
+____________________________________________________________
+You didn't specify a task to do. Check that you're doing "todo {description}".
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} /by {yyyy-MM-dd HH:mm}".
+____________________________________________________________
+____________________________________________________________
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} /by {yyyy-MM-dd HH:mm}".
+____________________________________________________________
+____________________________________________________________
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} /by {yyyy-MM-dd HH:mm}".
+____________________________________________________________
+____________________________________________________________
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} /by {yyyy-MM-dd HH:mm}".
+____________________________________________________________
+____________________________________________________________
+Your date seems to be formatted wrongly. Please follow this format: yyyy-MM-dd HH:mm.
+____________________________________________________________
+____________________________________________________________
+Your date seems to be formatted wrongly. Please follow this format: yyyy-MM-dd HH:mm.
+____________________________________________________________
+____________________________________________________________
+Your date seems to be formatted wrongly. Please follow this format: yyyy-MM-dd HH:mm.
+____________________________________________________________
+____________________________________________________________
+Your date seems to be formatted wrongly. Please follow this format: yyyy-MM-dd HH:mm.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] return book (by: Tue 29 Aug 2023 11:11)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} /from {yyyy-MM-dd HH:mm} /to {yyyy-MM-dd HH:mm}".
+____________________________________________________________
+____________________________________________________________
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} /from {yyyy-MM-dd HH:mm} /to {yyyy-MM-dd HH:mm}".
+____________________________________________________________
+____________________________________________________________
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} /from {yyyy-MM-dd HH:mm} /to {yyyy-MM-dd HH:mm}".
+____________________________________________________________
+____________________________________________________________
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} /from {yyyy-MM-dd HH:mm} /to {yyyy-MM-dd HH:mm}".
+____________________________________________________________
+____________________________________________________________
+Your date seems to be formatted wrongly. Please follow this format: yyyy-MM-dd HH:mm.
+____________________________________________________________
+____________________________________________________________
+Your date seems to be formatted wrongly. Please follow this format: yyyy-MM-dd HH:mm.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] project meeting (from: Tue 29 Aug 2023 11:11 to: Wed 30 Aug 2023 11:11)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] join sports club
+Now you have 4 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+No tasks found containing your query.
+____________________________________________________________
+____________________________________________________________
+Nice! I've found some related tasks:
+3. [E][ ] project meeting (from: Tue 29 Aug 2023 11:11 to: Wed 30 Aug 2023 11:11)
+____________________________________________________________
+____________________________________________________________
+Nice! I've found some related tasks:
+1. [T][ ] read book
+2. [D][ ] return book (by: Tue 29 Aug 2023 11:11)
+5. [T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[T][X] read book
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[T][X] join sports club
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][ ] return book (by: Tue 29 Aug 2023 11:11)
+3. [E][ ] project meeting (from: Tue 29 Aug 2023 11:11 to: Wed 30 Aug 2023 11:11)
+4. [T][X] join sports club
+5. [T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[T][ ] read book
+____________________________________________________________
+____________________________________________________________
+Stop trolling me bro. Please enter a numeric index.
+____________________________________________________________
+____________________________________________________________
+You've specified an invalid task number. Check your task list again with the "list" command.
+____________________________________________________________
+____________________________________________________________
+You've specified an invalid task number. Check your task list again with the "list" command.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] return book (by: Tue 29 Aug 2023 11:11)
+3. [E][ ] project meeting (from: Tue 29 Aug 2023 11:11 to: Wed 30 Aug 2023 11:11)
+4. [T][X] join sports club
+5. [T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+[T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+You've specified an invalid task number. Check your task list again with the "list" command.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] return book (by: Tue 29 Aug 2023 11:11)
+3. [E][ ] project meeting (from: Tue 29 Aug 2023 11:11 to: Wed 30 Aug 2023 11:11)
+4. [T][X] join sports club
+____________________________________________________________
+____________________________________________________________
+Before you go, let me save your tasks...
+____________________________________________________________
+____________________________________________________________
+...Successfully saved your tasks!
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
