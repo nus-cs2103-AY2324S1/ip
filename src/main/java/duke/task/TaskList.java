@@ -67,6 +67,35 @@ public class TaskList {
                 + size + taskInTotal + "\n\"Be here now.\"";
     }
 
+    private Task addTask(String description) {
+        Pattern pattern = Pattern.compile("(TODO|DEADLINE|EVENT) \\| (0|1) \\| (.+)");
+        Matcher matcher = pattern.matcher(description);
+        if (!matcher.find()) {
+            return null;
+        }
+        TaskType taskType = TaskType.valueOf(matcher.group(1));
+        boolean isDone = matcher.group(2).equals("1");
+        String taskDescription = matcher.group(3);
+        switch (taskType) {
+        case TODO:
+            return new ToDo(taskDescription, isDone);
+        case DEADLINE:
+            Matcher deadlineMatcher = Pattern.compile("(.+) \\| (.+)").matcher(taskDescription);
+            if (!deadlineMatcher.find()) {
+                return null;
+            }
+            return new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2), isDone);
+        case EVENT:
+            Matcher eventMatcher = Pattern.compile("(.+) \\| (.+) \\| (.+)").matcher(taskDescription);
+            if (!eventMatcher.find()) {
+                return null;
+            }
+            return new Event(eventMatcher.group(1), eventMatcher.group(2), eventMatcher.group(3), isDone);
+        default:
+            return null;
+        }
+    }
+
     /**
      * Returns the string representation of tasks in a list.
      */
@@ -187,6 +216,11 @@ public class TaskList {
         return result + "\"One thing at a time.\"";
     }
 
+    /**
+     * Adds tasks from the file.
+     * @param file
+     * @throws Exception
+     */
     public void addTasks(File file) throws Exception {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
@@ -198,32 +232,4 @@ public class TaskList {
         }
     }
 
-    private Task addTask(String description) {
-        Pattern pattern = Pattern.compile("(TODO|DEADLINE|EVENT) \\| (0|1) \\| (.+)");
-        Matcher matcher = pattern.matcher(description);
-        if (!matcher.find()) {
-            return null;
-        }
-        TaskType taskType = TaskType.valueOf(matcher.group(1));
-        boolean isDone = matcher.group(2).equals("1");
-        String taskDescription = matcher.group(3);
-        switch (taskType) {
-        case TODO:
-            return new ToDo(taskDescription, isDone);
-        case DEADLINE:
-            Matcher deadlineMatcher= Pattern.compile("(.+) \\| (.+)").matcher(taskDescription);
-            if (!deadlineMatcher.find()) {
-                return null;
-            }
-            return new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2), isDone);
-        case EVENT:
-            Matcher eventMatcher = Pattern.compile("(.+) \\| (.+) \\| (.+)").matcher(taskDescription);
-            if (!eventMatcher.find()) {
-                return null;
-            }
-            return new Event(eventMatcher.group(1), eventMatcher.group(2), eventMatcher.group(3), isDone);
-        default:
-            return null;
-        }
-    }
 }

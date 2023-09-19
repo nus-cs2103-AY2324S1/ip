@@ -58,7 +58,8 @@ public class Parser {
             boolean isDone = markMatcher.group(1).equals("mark");
             return this.tasks.markTask(taskIndex, isDone);
         } else if (taskMatcher.matches()) {
-            return this.tasks.addTask(TaskType.valueOf(taskMatcher.group(1).toUpperCase()), taskMatcher.group(2).trim());
+            return this.tasks.addTask(TaskType.valueOf(taskMatcher.group(1).toUpperCase()),
+                    taskMatcher.group(2).trim());
         } else if (repeat.equals("list") || repeat.equals("List")) {
             return this.tasks.getTasks();
         } else if (repeat.equals("reminder")) {
