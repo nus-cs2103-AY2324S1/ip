@@ -53,7 +53,7 @@ public class TaskList {
 
         int taskIndex = Integer.parseInt(taskNumber) - 1;
 
-        if (taskIndex >= tasklist.size()) {
+        if (taskIndex >= tasklist.size() || taskIndex < 0) {
             throw new DukeException("Task number out of range: please enter a valid task number");
         }
         return taskIndex;
@@ -137,7 +137,7 @@ public class TaskList {
     public String listContent() {
         String listOfContents = "Sure, here are the list of tasks:\n";
         if (tasklist.isEmpty()) {
-            return ("Oops! It seems you do not have anything in your task list");
+            return ("Oops! It seems you do not have anything in your task list \n");
         }
         for (int i = 0; i < tasklist.size(); i++) {
             listOfContents = listOfContents + ((i + 1) + ": " + tasklist.get(i).toString() + "\n");

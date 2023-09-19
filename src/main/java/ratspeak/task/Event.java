@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * represents an event.
- * It has a start date and end date.
+ * it has a start date and end date.
  */
 public class Event extends Task {
     private final LocalDate deadlineDate;
@@ -47,15 +47,15 @@ public class Event extends Task {
 
 
     private static LocalDate parseEndDate(String task) throws DukeException {
-        parseTaskName(task);
-        parseStartDate(task);
-        String [] taskSplit = task.split("/from", 2);
-        String taskTimeRange = taskSplit[1].trim();
-        String [] parseTimeRange = taskTimeRange.split("/to", 2);
         try {
+            parseTaskName(task);
+            parseStartDate(task);
+            String [] taskSplit = task.split("/from", 2);
+            String taskTimeRange = taskSplit[1].trim();
+            String [] parseTimeRange = taskTimeRange.split("/to", 2);
             return LocalDate.parse(parseTimeRange[1].trim());
-        } catch (DateTimeParseException e) {
-            throw new DukeException("wrong date time format for end date: Use YYYY-MM-DD\n");
+        } catch (Exception e) {
+            throw new DukeException("wrong date time format for end date: Use /to YYYY-MM-DD\n");
         }
     }
 

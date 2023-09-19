@@ -13,10 +13,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Storage {
-
-    private static final String home = System.getProperty("user.home");
-    private static final String DATA_FILE_PATH = home + "/data/duke.txt";
-    private static final String DIRECTORY_PATH = home + "/data";
+    private static final String DATA_FILE_PATH = "./data/RatSpeak.txt";
+    private static final String DIRECTORY_PATH = "./data";
 
     /**
      * writes to hard disk
