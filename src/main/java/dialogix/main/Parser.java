@@ -42,7 +42,7 @@ class Parser {
         case "find":
             return createFindCommand(commandArgument);
         default:
-            throw new DialogixException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DialogixException("I'm sorry. I do not understand your command. Please try again.");
         }
     }
 
@@ -104,7 +104,7 @@ class Parser {
             SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             return dateFormatter.parse(date);
         } catch (ParseException e) {
-            throw new DialogixException("An error occurred while parsing date: " + e);
+            throw new DialogixException("There is an error with this date input: " + e);
         }
     }
 
@@ -127,14 +127,14 @@ class Parser {
 
     private static int validateDoneOrDeleteIndex(String doneInput) throws DialogixException {
         if (doneInput.isEmpty() || isNotNumeric(doneInput)) {
-            throw new DialogixException("OOPS!!! The index to remove cannot be blank or not an integer.");
+            throw new DialogixException("Your task index should be an integer!");
         }
         return Integer.parseInt(doneInput);
     }
 
     private static int validateUndo(String undoInput) throws DialogixException {
         if (undoInput.isEmpty() || isNotNumeric(undoInput)) {
-            throw new DialogixException("OOPS!!! The number of steps to undo cannot be blank or not an integer.");
+            throw new DialogixException("Your task index should be an integer!");
         }
         return Integer.parseInt(undoInput);
     }
@@ -145,13 +145,13 @@ class Parser {
 
     private static void validateTodo(String todo) throws DialogixException {
         if (todo.isEmpty()) {
-            throw new DialogixException("OOPS!!! The description of a todo cannot be empty.");
+            throw new DialogixException("Your todo should have a description!");
         }
     }
 
     private static void validateFindInput(String toFind) throws DialogixException {
         if (toFind.isEmpty()) {
-            throw new DialogixException("OOPS!!! The provided filter for find cannot be empty.");
+            throw new DialogixException("You cannot find an empty content. Please try again!");
         }
     }
 
@@ -170,8 +170,7 @@ class Parser {
             splitInput[i] = splitInput[i].trim();
         }
         if (splitInput.length != 2 || splitInput[0].isBlank() || splitInput[1].isBlank()) {
-            throw new DialogixException("OOPS!!! I had trouble processing that input.\n"
-                    + "Please make sure that the task description and dates are not empty!");
+            throw new DialogixException("Your task description and dates should not be empty!");
         }
         return splitInput;
     }

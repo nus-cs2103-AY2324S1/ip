@@ -122,7 +122,7 @@ public class Storage {
             }
             bw.close();
         } catch (IOException e) {
-            throw new DialogixException("An IOException occurred. " + e);
+            throw new DialogixException("There is an error of saving: " + e);
         }
     }
 }

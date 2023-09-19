@@ -43,9 +43,9 @@ public class Ui {
      * @param size Current size of list after addition.
      */
     public void printAddSuccessMessage(Task task, int size) {
-        addToOutput("Got it. I've added this task:\n");
+        addToOutput("Yeah. I have added the task\n");
         addToOutput("\t" + task + "\n");
-        addToOutput("Now you have " + size + " tasks in the list.\n");
+        addToOutput("Now you have " + size + " tasks in your list.\n");
     }
 
     /**
@@ -55,9 +55,9 @@ public class Ui {
      * @param size Current size of list after deletion.
      */
     public void printDeleteSuccessMessage(Task task, int size) {
-        addToOutput("Noted. I've removed this task:\n");
+        addToOutput("I have removed task:\n");
         addToOutput("\t" + task + "\n");
-        addToOutput("Now you have " + size + " tasks in the list.\n");
+        addToOutput("Now you have " + size + " tasks in your list.\n");
     }
 
     /**
@@ -80,7 +80,7 @@ public class Ui {
      *
      */
     public void printExitMessage() {
-        addToOutput("Bye. Hope to see you again soon!");
+        addToOutput("Bye bye. Dialogix hopes to see you soon.");
     }
 
     /**
@@ -98,7 +98,7 @@ public class Ui {
      * @param matchingTasks The list of tasks that match the search criteria.
      */
     public void showSearchResults(List<Task> matchingTasks) {
-        System.out.println("Here are the matching tasks in your list:");
+        System.out.println("Here are some tasks that I can find for you: ");
         for (int i = 0; i < matchingTasks.size(); i++) {
             System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
         }

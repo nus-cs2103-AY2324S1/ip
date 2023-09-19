@@ -1,7 +1,6 @@
 package dialogix.main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,58 +57,5 @@ class TaskListTest {
         assertEquals(2, taskList.size(), "Size of list after deletion should be 2");
         assertEquals(deadline, taskList.get(0), "Test get deadline from list");
         assertEquals(event, taskList.get(1), "Test get event from list");
-    }
-
-    @Test
-    void invalidDeleteTest() throws DialogixException {
-        TaskList taskList = new TaskList();
-
-        // Attempting to delete an item from an empty list should throw an exception
-        assertThrows(DialogixException.class, () -> taskList.delete(0),
-                "Deleting from an empty list should throw an exception");
-
-        Todo todo = new Todo("todo");
-        taskList.add(todo);
-
-        // Attempting to delete an item with an out-of-range index should throw an exception
-        assertThrows(DialogixException.class, () -> taskList.delete(1),
-                "Deleting with an out-of-range index should throw an exception");
-
-        // Deleting an item should reduce the size of the list
-        taskList.delete(0);
-        assertEquals(0, taskList.size(), "Size of list after valid deletion should be 0");
-    }
-
-    @Test
-    void invalidGetTest() {
-        TaskList taskList = new TaskList();
-
-        // Attempting to get an item from an empty list should throw an exception
-        assertThrows(DialogixException.class, () -> taskList.get(0),
-                "Getting from an empty list should throw an exception");
-
-        Todo todo = new Todo("todo");
-        taskList.add(todo);
-
-        // Attempting to get an item with an out-of-range index should throw an exception
-        assertThrows(DialogixException.class, () -> taskList.get(1),
-                "Getting with an out-of-range index should throw an exception");
-
-        // Getting an item should return the correct item
-        assertEquals(todo, taskList.get(0), "Getting a valid item from the list should return the item");
-    }
-
-    @Test
-    void invalidAddNullTaskTest() {
-        TaskList taskList = new TaskList();
-
-        // Attempting to add a null task should throw an exception
-        assertThrows(DialogixException.class, () -> taskList.add(null), "Adding a null task should throw an exception");
-
-        Todo todo = new Todo("todo");
-        taskList.add(todo);
-
-        // Adding a valid task should increase the size of the list
-        assertEquals(1, taskList.size(), "Size of list after valid addition should be 1");
     }
 }

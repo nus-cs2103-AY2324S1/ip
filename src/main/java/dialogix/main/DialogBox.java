@@ -46,18 +46,6 @@ class DialogBox extends HBox {
         setMinHeight(Region.USE_PREF_SIZE);
         displayPicture.setImage(img);
     }
-
-    /**
-     * Flips the dialog box to change the position of the ImageView and text.
-     * This method is used to distinguish between user and bot messages.
-     */
-    private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
-    }
-
     /**
      * Creates and returns a user dialog box with the specified text content and image.
      *
@@ -78,7 +66,10 @@ class DialogBox extends HBox {
      */
     static DialogBox getDialogixDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
+        ObservableList<Node> tmp = FXCollections.observableArrayList(db.getChildren());
+        Collections.reverse(tmp);
+        db.getChildren().setAll(tmp);
+        db.setAlignment(Pos.TOP_LEFT);
         return db;
     }
 }

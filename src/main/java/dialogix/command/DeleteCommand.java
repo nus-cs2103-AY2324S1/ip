@@ -47,8 +47,8 @@ public class DeleteCommand extends Command {
      */
     private void isDeleteValid(int size) throws DialogixException {
         if (taskIndex < 0 || taskIndex >= size) {
-            throw new DialogixException("OOPS!!! The index to remove cannot be less than 0 or "
-                    + "greater than the length of the list.");
+            throw new DialogixException("Your task index should not be less than 0 or \"\n"
+                    + "greater than the length of your current list.");
         }
     }
 }

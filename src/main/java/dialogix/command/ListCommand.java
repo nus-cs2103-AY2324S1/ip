@@ -19,6 +19,6 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DialogixException {
-        ui.printList(tasks.getAllTasks(), "Here are the tasks in your list:");
+        ui.printList(tasks.getAllTasks(), "Here are your tasks in the list:");
     }
 }

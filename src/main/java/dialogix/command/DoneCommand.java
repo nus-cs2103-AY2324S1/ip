@@ -33,7 +33,7 @@ public class DoneCommand extends Command {
         isDoneValid(tasks.size());
         tasks.addToStack();
         tasks.markTaskAsDone(taskIndex);
-        ui.printMessage("Nice! I've marked this task as done:\n\t\t" + tasks.get(taskIndex));
+        ui.printMessage("Got it. I have marked the task as done:\n\t\t" + tasks.get(taskIndex));
         storage.save(tasks.getAllTasks());
     }
 
@@ -45,8 +45,8 @@ public class DoneCommand extends Command {
      */
     private void isDoneValid(int size) throws DialogixException {
         if (taskIndex < 0 || taskIndex >= size) {
-            throw new DialogixException("OOPS!!! The index to mark as done cannot be less than 0 or "
-                    + "greater than the length of the list.");
+            throw new DialogixException("Your task index should not be less than 0 or \"\n"
+                    + "greater than the length of your current list.");
         }
     }
 }

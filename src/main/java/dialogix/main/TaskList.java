@@ -94,7 +94,7 @@ public class TaskList {
      */
     public void add(Task task) throws IllegalArgumentException {
         if (task == null) {
-            throw new IllegalArgumentException("Task cannot be null.");
+            throw new IllegalArgumentException("Task cannot be empty.");
         }
         tasks.add(task);
     }
@@ -108,8 +108,8 @@ public class TaskList {
     public void delete(int index) throws DialogixException {
         validateIndex(index);
         if (index < 0 || index >= tasks.size()) {
-            throw new DialogixException("OOPS!!! The index to remove cannot be less than 0 or "
-                    + "greater than the length of the list.");
+            throw new DialogixException("Your task index should not be less than 0 or "
+                    + "greater than the length of your current list.");
         }
         tasks.remove(index);
     }
@@ -132,7 +132,7 @@ public class TaskList {
      */
     public ArrayList<Task> find(String toFind) throws IllegalArgumentException {
         if (toFind.isBlank()) {
-            throw new IllegalArgumentException("Search criteria cannot be blank.");
+            throw new IllegalArgumentException("Search criteria cannot be empty.");
         }
 
         ArrayList<Task> filteredTasks = new ArrayList<>();
@@ -146,7 +146,7 @@ public class TaskList {
 
     private void validateIndex(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= tasks.size()) {
-            throw new IndexOutOfBoundsException("Index is out of range.");
+            throw new IndexOutOfBoundsException("Your index is out of range.");
         }
     }
 }
