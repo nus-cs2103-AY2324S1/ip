@@ -1,8 +1,9 @@
 # ANNOY-O-TRON User Guide
 
 ### Table of Contents
-- [Getting Started](#Getting-Started)
-- [Features](#Features)
+- [Getting Started](#getting-started)
+- [Features](#features)
+
 ---
 ## Getting Started
 1. Ensure you have Java `11` installed in your Computer.
@@ -38,14 +39,14 @@ You can manage your tasks efficiently using the following commands:
 #### Delete Tasks
 - **Delete**: Remove tasks from your list
 
-### Find Tasks
+#### Find Tasks
 - **Find**: Search for existing tasks in your task list using keywords
 
-### Mark Tasks as Done
+#### Mark Tasks as Done
 - **Done**: Mark tasks as completed
 - **Undone**: Mark tasks as not completed yet
 
-### Sort Deadlines
+#### Sort Deadlines
 - **Sort**: Organize your deadlines in chronological order
 
 ### Save Tasks
