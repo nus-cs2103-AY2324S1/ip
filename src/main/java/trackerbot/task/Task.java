@@ -25,8 +25,8 @@ public abstract class Task {
      * @param desc The description of the task to create.
      */
     protected Task(String desc) {
-        this.description = desc;
-        this.isDone = false;
+        description = desc;
+        isDone = false;
     }
 
     /**
@@ -37,8 +37,8 @@ public abstract class Task {
      *             0 and description in index 1.
      */
     protected Task(String[] args) {
-        this.description = args[1];
-        this.isDone = args[0].equals("1");
+        description = args[1];
+        isDone = args[0].equals("1");
     }
 
     /**

@@ -56,17 +56,17 @@ public class Event extends Task {
         super(args);
         LocalDateTime[] fromToPair = TaskDateHandler.convertSaveToDate(args[2], args[3]);
         assert fromToPair.length == 2 : "input conversion to date failed without exception";
-        this.from = fromToPair[0];
-        this.to = fromToPair[1];
+        from = fromToPair[0];
+        to = fromToPair[1];
 
-        assert this.to.isAfter(this.from) : "start date should be earlier than end date";
+        assert to.isAfter(from) : "start date should be earlier than end date";
     }
 
     @Override
     public String toSaveString() {
         return "E|" + getSaveInfo() + "|"
-                + this.from.toEpochSecond(ZoneOffset.UTC) + "|"
-                + this.to.toEpochSecond(ZoneOffset.UTC);
+                + from.toEpochSecond(ZoneOffset.UTC) + "|"
+                + to.toEpochSecond(ZoneOffset.UTC);
     }
 
     /**
@@ -79,7 +79,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + TaskDateHandler.convertDateToUi(this.from)
-                + " | to: " + TaskDateHandler.convertDateToUi(this.to) + ")";
+                + " (from: " + TaskDateHandler.convertDateToUi(from)
+                + " | to: " + TaskDateHandler.convertDateToUi(to) + ")";
     }
 }

@@ -41,12 +41,12 @@ public class Deadline extends Task {
      */
     protected Deadline(String[] args) throws TrackerBotException {
         super(args);
-        this.by = TaskDateHandler.convertSaveToDate(args[2]);
+        by = TaskDateHandler.convertSaveToDate(args[2]);
     }
 
     @Override
     public String toSaveString() {
-        return "D|" + getSaveInfo() + "|" + this.by.toEpochSecond(ZoneOffset.UTC);
+        return "D|" + getSaveInfo() + "|" + by.toEpochSecond(ZoneOffset.UTC);
     }
 
     /**
@@ -58,6 +58,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + TaskDateHandler.convertDateToUi(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + TaskDateHandler.convertDateToUi(by) + ")";
     }
 }
