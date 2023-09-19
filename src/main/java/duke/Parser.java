@@ -33,6 +33,9 @@ public class Parser {
             assert tasks.printList() != null;
             return Ui.line() + "H...here are the tasks in your list:\n" + tasks.printList() + Ui.line();
         }
+        if (echo.equals("help")) {
+            return printHelp();
+        }
 
         try {
             String[] parts = echo.split(" ");
@@ -233,5 +236,20 @@ public class Parser {
             }
         }
         return Ui.line() + "Here are the matching tasks in your list:\n" + store.printList() + Ui.line();
+    }
+
+    public String printHelp() {
+        return Ui.line() + "Here are the commands for Bocchi-chan:\n"
+                + "help: Prints out the help page for various commands.\n"
+                + "list: Prints out your list of tasks.\n"
+                + "todo <task>: Adds the <task> into the list of tasks as a task to do.\n"
+                + "event <task> /from <time> /to <time>: Adds the <task> into the list \n"
+                + "of tasks as an event with a duration.\n"
+                + "deadline /by <yyyy-mm-dd>: Adds the <task> into the list of tasks\n"
+                + "with a specific deadline.\n"
+                + "mark <number>: Marks task <number> in the list of tasks as done.\n"
+                + "unmark <number>: Unmarks task <number> in the list of tasks and it becomes undone.\n"
+                + "find <keyword>: Finds the task with the exact <keyword> inputted.\n"
+                + "bye: Bocchi chan says bye to you♥\n";
     }
 }
