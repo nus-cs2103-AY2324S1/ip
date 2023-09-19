@@ -104,6 +104,7 @@ public class TaskList {
      * @return A Pair, consisting of the marked task, and a boolean representing whether the task was unmarked before.
      */
     public Pair<Task, Boolean> markTask(int index) {
+        assert 0 <= index && index < tasks.size() : "Invalid index";
         boolean wasNotMarked = tasks.get(index).markDone();
         return new Pair<>(tasks.get(index), wasNotMarked);
     }
@@ -115,6 +116,7 @@ public class TaskList {
      * @return A Pair, consisting of the unmarked task, and a boolean representing whether the task was marked before.
      */
     public Pair<Task, Boolean> unmarkTask(int index) {
+        assert 0 <= index && index < tasks.size() : "Invalid index";
         boolean wasNotUnmarked = tasks.get(index).unmarkDone();
         return new Pair<>(tasks.get(index), wasNotUnmarked);
     }
@@ -190,6 +192,7 @@ public class TaskList {
      * @return The task that was deleted.
      */
     public Task deleteTask(int index) {
+        assert 0 <= index && index < tasks.size() : "Invalid index";
         Task task = tasks.remove(index);
         return task;
     }

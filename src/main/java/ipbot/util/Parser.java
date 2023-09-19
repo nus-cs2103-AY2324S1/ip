@@ -17,6 +17,7 @@ public class Parser {
      * @return The task index to use if the index argument given is valid. -1 otherwise.
      */
     public static int checkIndexArg(String indexArg, int lstSize){
+        assert indexArg != null : "Index argument is null";
         if (!indexArg.matches("^\\d+$")) {
             return -1;
         }
@@ -35,6 +36,7 @@ public class Parser {
      * The String is the command String, while the Map contains the arguments given by the user.
      */
     public static Pair<String, Map<String, String>> parseCommand(String command) {
+        assert command != null : "Command is null";
         int commandEndIndex = command.indexOf(" ");
         if (commandEndIndex == -1) {
             commandEndIndex = command.length();

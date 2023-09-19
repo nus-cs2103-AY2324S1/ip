@@ -30,6 +30,8 @@ public class MainWindowController {
 
     @FXML
     public void initialize() {
+        assert this.scrollPane != null : "Scroll pane component not found";
+        assert this.dialogContainer != null : "Dialog container component not found";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -43,6 +45,9 @@ public class MainWindowController {
      */
     @FXML
     private void handleUserInput() {
+        assert this.userInput != null : "User input component not found";
+        assert this.duke != null : "Duke not set";
+        assert this.dialogContainer != null : "Dialog container component not found";
         String userText = this.userInput.getText();
         String botText = duke.getResponse(this.userInput.getText());  // TODO: Check if duke is not set
         this.dialogContainer.getChildren().addAll(
@@ -53,6 +58,7 @@ public class MainWindowController {
     }
 
     public void sendWelcome() {
+        assert this.dialogContainer != null : "Dialog container component not found";
         this.dialogContainer.getChildren().add(DialogBox.getBotDialog(WELCOME_MESSAGE, botImage));
     }
 }

@@ -68,6 +68,7 @@ public class Task {
      * @throws DateTimeParseException
      */
     public static Task fromString(String string) throws TaskFormatException, DateTimeParseException {
+        assert string != null : "String representation of Task is null";
         String[] args = string.split(",");
         if (args.length < 2) {
             throw new TaskFormatException("Task string is too short!");
