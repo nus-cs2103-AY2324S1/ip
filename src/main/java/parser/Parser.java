@@ -303,8 +303,9 @@ public class Parser {
         if (input.charAt(5) != ' ') {
             throw new DukeException("Invalid command");
         }
-        if (!input.contains("to") || !input.contains("from")) {
-            throw new DukeException("Event does not contain to or from");
+        Pattern eventPattern = Pattern.compile("\\s/from.+/to.+");
+        if (!eventPattern.matcher(input).find()) {
+            throw new DukeException("Invalid event format");
         }
         Parser parser = new Parser("E");
         ArrayList<String> texts = parser.convertTaskInput(input);
@@ -318,8 +319,9 @@ public class Parser {
         if (input.charAt(8) != ' ') {
             throw new DukeException("Invalid command");
         }
-        if (!input.contains("/by")) {
-            throw new DukeException("Deadline does not contain /by");
+        Pattern deadlinePattern = Pattern.compile("\\s/by.+");
+        if (!deadlinePattern.matcher(input).find()) {
+            throw new DukeException("Invalid deadline format");
         }
         Parser parser = new Parser("D");
         ArrayList<String> texts = parser.convertTaskInput(input);
@@ -334,8 +336,9 @@ public class Parser {
         if (input.charAt(8) != ' ') {
             throw new DukeException("Invalid command");
         }
-        if (!input.contains("/for")) {
-            throw new DukeException("TodoTime does not contain /for");
+        Pattern todoTimePattern = Pattern.compile("\\s/for.+");
+        if (!todoTimePattern.matcher(input).find()) {
+            throw new DukeException("Invalid todotime format");
         }
         Parser parser = new Parser("TT");
         ArrayList<String> texts = parser.convertTaskInput(input);

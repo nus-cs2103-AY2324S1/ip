@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class CustomDate {
      * @param text Date, time in string.
      * @return LocaleDateTime from the string.
      */
-    public LocalDateTime strToDateTime(String text) {
+    public LocalDateTime strToDateTime(String text) throws DukeException {
         Parser p = new Parser();
         ArrayList<String> texts = p.splitter(text, "/");
         ArrayList<String> yearNTime = p.splitter(texts.get(2), " ");
@@ -24,8 +25,12 @@ public class CustomDate {
         String mon = addZeroFront(texts.get(1));
         String day = addZeroFront(texts.get(0));
         String time = formatTime(yearNTime.get(1));
-        LocalDateTime dOne = LocalDateTime.parse(year + "-" + mon + "-" + day + "T" + time);
-        return dOne;
+        try {
+            LocalDateTime dOne = LocalDateTime.parse(year + "-" + mon + "-" + day + "T" + time);
+            return dOne;
+        } catch (DateTimeParseException e) {
+            throw new DukeException("The date or time given does not make sense");
+        }
     }
 
     /**

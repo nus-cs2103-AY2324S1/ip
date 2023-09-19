@@ -15,10 +15,7 @@ import tasks.TaskList;
  */
 public class DeadlineCommand extends Command {
 
-    private ArrayList<String> texts;
-
-    public DeadlineCommand() {
-    }
+    private final ArrayList<String> texts;
 
     /**
      * DeadlineCommand constructor that takes in an ArrayList.
