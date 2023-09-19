@@ -96,7 +96,6 @@ public class Parser {
             return toReturn;
         } catch (TaskException | InvalidCommandException | EmptyDescriptionException
                  | NotIntegerException | MissingKeywordException e) {
-            // System.out.println(e.getMessage());
             return e.getMessage();
         }
     }
@@ -115,8 +114,6 @@ public class Parser {
             throw new NotIntegerException();
         }
         int taskIndex = Integer.parseInt(parts[1]);
-        // error of out of bounds handled in TaskList itself
-        // since the size is better/ easier to get in TaskList class
         return taskList.deleteTask(taskIndex);
     }
 
@@ -187,7 +184,6 @@ public class Parser {
             LocalDateTime date = LocalDateTime.parse(dateString.trim(), timeFormat);
             Task deadlineTask = new Deadline(details, date, false);
             toReturn = taskList.addTask(deadlineTask);
-            // return toReturn;
         } catch (DateTimeParseException e) {
             System.out.println("Error: Invalid date format. Please use the format yyyy-MM-dd HH:mm");
         }
@@ -311,8 +307,6 @@ public class Parser {
         if (keywords.length == 1) {
             return tokens[1];
         }
-        // last case if there are 2 keywords, such as /from and /to
-        // -> return the in between of these 2 keywords
         String[] tokensAfterSecondKeyword = tokens[1].split(keywords[1]);
         if (tokensAfterSecondKeyword[0].isBlank()) {
             throw new EmptyDescriptionException("Details after " + keywords[0] + " cannot be empty");

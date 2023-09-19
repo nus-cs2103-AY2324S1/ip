@@ -38,8 +38,6 @@ public class Storage {
      */
     public void writeFile(TaskList taskList) {
         try {
-            // don't have to handle case of file path not existing as
-            // during readFile (which occurs at start of script, checks if filepath exists)
             File file = new File(filePath);
             FileWriter writer = new FileWriter(file);
             for (Task task : taskList.returnTaskList()) {
@@ -58,7 +56,6 @@ public class Storage {
      * @throws IOException throws any error
      */
     public List<Task> readFile() throws IOException {
-        // TaskList taskList = new TaskList(ui); // Create an empty task list
         List<Task> taskList = new ArrayList<>();
         try {
             File myData = new File(filePath);
@@ -67,8 +64,6 @@ public class Storage {
                 String line = scanner.nextLine();
                 Task task = parseTaskFromLine(line);
                 if (task != null) {
-                    // this adds to taskList without printing anything
-                    //taskList.addAvailTasks(task);
                     taskList.add(task);
                 }
             }
@@ -105,7 +100,6 @@ public class Storage {
             LocalDateTime from = LocalDateTime.parse(parts[3], timeFormat);
             LocalDateTime to = LocalDateTime.parse(parts[4], timeFormat);
             return new Event(description, from, to, isMarked);
-        // Add cases for other task types (e.g., Event) as needed
         default:
             return null; // Unknown task type, skip
         }

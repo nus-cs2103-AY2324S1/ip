@@ -7,8 +7,9 @@ public class EmptyDescriptionException extends Exception {
     private String message;
 
     /**
-     * Exception for empty description in user input
-     * @param message error message
+     * Constructor for empty description in user input
+     *
+     * @param message error message to parse into parent class
      */
     public EmptyDescriptionException(String message) {
         super("EmptyDescriptionException: " + message + "\n");

@@ -27,7 +27,6 @@ public class Duke {
         this.ui = new Ui();
         try {
             this.taskList = new TaskList(storage.readFile(), ui);
-            //this.taskList = storage.readFile(this.ui);
         } catch (IOException e) {
             System.out.println(e);
         }
