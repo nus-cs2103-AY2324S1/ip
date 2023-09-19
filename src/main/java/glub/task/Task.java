@@ -11,7 +11,7 @@ public class Task {
     private String task;
     /** Status of task. */
     private boolean isDone;
-    private String tag;
+    private String tag = " ";
 
     /**
      * Constructor of a task with a tag.
@@ -54,7 +54,7 @@ public class Task {
     }
 
     public String getTag() {
-        return !tag.equals("") ? "#" + tag : tag;
+        return tag.equals(" ") ? tag : "#" + tag;
     }
     public void setDone() {
         this.isDone = true;
@@ -91,6 +91,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s \t%s", getDoneIcon(), task, getTag());
+        return String.format("[%s]%s", getDoneIcon(), task);
     }
 }

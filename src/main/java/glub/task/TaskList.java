@@ -40,24 +40,24 @@ public class TaskList {
         for (int i = 0; i < taskDetails.size(); i++) {
             String task = taskDetails.get(i);
             String[] data = task.split("\\|");
-            String tag = data[2];
+            String tag = data[3];
             boolean isDone = data[1].equals("X");
             switch (data[0]) {
             case "T":
-                addTask(String.format("%s", data[3]), "todo", isDone, tag);
+                addTask(String.format("%s", data[2]), "todo", isDone, tag);
                 break;
             case "D":
-                addTask(String.format("%s /by %s", data[3], data[4]),
+                addTask(String.format("%s /by %s", data[2], data[4]),
                         "deadline", isDone, tag);
                 break;
             case "E":
-                addTask(String.format("%s /from %s /to %s", data[3], data[4], data[5]),
+                addTask(String.format("%s /from %s /to %s", data[2], data[4], data[5]),
                         "event", isDone, tag);
                 break;
             default:
             }
         }
-
+        storage.saveTasks(this.taskList);
     }
 
     /**
@@ -110,7 +110,7 @@ public class TaskList {
             String[] deadlinePortions = task.split("/");
             String deadlineDesc = deadlinePortions[0];
             try {
-                LocalDateTime deadlineDateTime = parseTaskDateTime(deadlinePortions[0], "deadline")[0];
+                LocalDateTime deadlineDateTime = parseTaskDateTime(deadlinePortions[1], "deadline")[0];
                 taskList.add(new Deadline(deadlineDesc, isDone, tag, deadlineDateTime));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
@@ -136,7 +136,6 @@ public class TaskList {
         default:
             throw new GlubException("Oops! Task not recognised!");
         }
-        storage.saveTasks(this.taskList);
     }
 
     /**
