@@ -29,7 +29,7 @@ public class Storage {
             }
             filewriter.close();
         } catch (IOException e) {
-            throw new DukeException();
+            throw new DukeException("OOPS!!! The file cannot be created.");
         }
     }
 
@@ -50,7 +50,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException();
+            throw new DukeException("OOPS!!! The file cannot be loaded.");
         }
         return tasks;
     }

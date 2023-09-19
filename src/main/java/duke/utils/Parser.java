@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import duke.Duke;
 import duke.DukeException;
-import duke.DukeInvalidCommandException;
-import duke.DukeMissingArgumentException;
-import duke.DukeMissingTaskException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -32,13 +30,11 @@ public class Parser {
      * @return The command keyword.
      */
     public String getCommand() {
-        String keyword = "";
         try {
-            keyword = inputArray.get(0).toUpperCase();
+            return inputArray.get(0).toUpperCase();
         } catch (IllegalArgumentException e) {
             return "";
         }
-        return keyword;
     }
 
     /**
@@ -50,9 +46,9 @@ public class Parser {
         try {
             return Integer.parseInt(this.inputArray.get(1));
         } catch (NumberFormatException e) {
-            throw new DukeMissingArgumentException("The task number must be an integer.");
+            throw new DukeException("OOPS!!! The task number must be an integer.");
         } catch (NullPointerException e) {
-            throw new DukeMissingTaskException();
+            throw new DukeException("OOPS!!! The task number cannot be empty.");
         }
     }
 
@@ -63,7 +59,7 @@ public class Parser {
      */
     public String getContentForTodo() throws DukeException {
         if (this.inputArray.size() <= 1) {
-            throw new DukeMissingArgumentException("The description of a todo cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         }
         return String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
     }
@@ -75,7 +71,7 @@ public class Parser {
      */
     public String[] getContentForDeadline() throws DukeException {
         if (this.inputArray.size() <= 1) {
-            throw new DukeMissingArgumentException("The description of a deadline cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
         }
         String input = String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
         return input.split(" /by ");
@@ -88,18 +84,18 @@ public class Parser {
      */
     public String[] getContentForEvent() throws DukeException {
         if (this.inputArray.size() <= 1) {
-            throw new DukeMissingArgumentException("The description of an event cannot be empty.");
+            throw new DukeException("OOPS!!! The description of an event cannot be empty.");
         }
         String input = String.join(" ", this.inputArray.subList(1, this.inputArray.size()));
 
         String[] split = input.split(" /from ");
         if (split.length != 2) {
-            throw new DukeMissingArgumentException("The start and end time of an event cannot be empty.");
+            throw new DukeException("OOPS!!! The start and end time of an event cannot be empty.");
         }
 
         String[] split2 = split[1].split(" /to ");
         if (split2.length != 2) {
-            throw new DukeMissingArgumentException("The start and end time of an event cannot be empty.");
+            throw new DukeException("OOPS!!! The start and end time of an event cannot be empty.");
         }
         return new String[] {split[0], split2[0], split2[1]};
     }
@@ -115,7 +111,7 @@ public class Parser {
         try {
             return LocalDateTime.parse(dateTime, formatter);
         } catch (Exception e) {
-            throw new DukeMissingArgumentException("The date and time must be in the format yyyy-MM-dd HHmm.");
+            throw new DukeException("OOPS!!! The date and time must be in the format yyyy-MM-dd HHmm.");
         }
     }
 
@@ -124,7 +120,7 @@ public class Parser {
             String[] tmp = inputArray.toArray(new String[inputArray.size() - 1]);
             return Arrays.copyOfRange(tmp, 1, tmp.length);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException();
+            throw new DukeException("OOPS!!! The search term cannot be empty.");
         }
     }
 
@@ -133,7 +129,7 @@ public class Parser {
             String[] tmp = inputArray.toArray(new String[inputArray.size() - 1]);
             return Arrays.copyOfRange(tmp, 2, tmp.length);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException();
+            throw new DukeException("OOPS!!! The tag cannot be empty.");
         }
     }
 
@@ -191,11 +187,11 @@ public class Parser {
                 break;
             }
             default:
-                throw new DukeInvalidCommandException();
+                throw new DukeException("OOPS!!! Invalid task type.");
             }
             return task;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException();
+            throw new DukeException("OOPS!!! The task is not in the correct format.");
         }
 
     }
