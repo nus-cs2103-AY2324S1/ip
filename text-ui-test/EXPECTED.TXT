@@ -1,7 +1,104 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Greetings, puny mortal. This is 
+ ___  __    ________  ________  ________   ________  ________      
+|\  \|\  \ |\   __  \|\   __  \|\   ___  \|\   __  \|\   ____\     
+\ \  \/  /|\ \  \|\  \ \  \|\  \ \  \\ \  \ \  \|\  \ \  \___|_    
+ \ \   ___  \ \   _  _\ \  \\\  \ \  \\ \  \ \  \\\  \ \_____  \   
+  \ \  \\ \  \ \  \\  \\ \  \\\  \ \  \\ \  \ \  \\\  \|____|\  \  
+   \ \__\\ \__\ \__\\ _\\ \_______\ \__\\ \__\ \_______\____\_\  \ 
+    \|__| \|__|\|__|\|__|\|_______|\|__| \|__|\|_______|\_________\
+                                                       \|_________|
+The Lord of Time. 
+What foolish errand do you seek to accomplish with my immense powers?
+
+____________________________________________________________
+
+
+____________________________________________________________
+
+This task has been reluctantly bestowed upon your ever-growing list:
+
+[T][ ] ToDo1
+Congratulations, your pile of tasks has swelled to a whopping 1.
+
+____________________________________________________________
+
+Text 'deadlineDate' could not be parsed at index 0
+
+____________________________________________________________
+
+Do not test my patience, mortal. Speak clearly.
+
+____________________________________________________________
+
+Text 'startTime' could not be parsed at index 0
+
+____________________________________________________________
+
+Do not test my patience, mortal. Speak clearly.
+
+____________________________________________________________
+
+
+____________________________________________________________
+
+You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
+
+1. [T][ ] ToDo1
+
+____________________________________________________________
+
+
+____________________________________________________________
+
+Astonishingly enough, you have managed to triumph over this mind-bogglingly simple task:
+
+[T][X] ToDo1
+
+____________________________________________________________
+
+
+____________________________________________________________
+
+You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
+
+1. [T][X] ToDo1
+
+____________________________________________________________
+
+You have no such task, mortal.
+
+____________________________________________________________
+
+You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
+
+1. [T][X] ToDo1
+
+____________________________________________________________
+
+You have no such task, mortal.
+
+____________________________________________________________
+
+You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
+
+1. [T][X] ToDo1
+
+____________________________________________________________
+
+You have no such task, mortal.
+
+____________________________________________________________
+
+You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:
+
+1. [T][X] ToDo1
+
+____________________________________________________________
+
+
+____________________________________________________________
+
+Is that all? I have better things to do than to listen to lesser beings. Farewell.
+
+____________________________________________________________
 
