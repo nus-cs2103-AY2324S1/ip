@@ -12,17 +12,7 @@ public class Event extends Task {
             String detail,
             LocalDateTime from,
             LocalDateTime to) {
-        super(detail);
-        this.from = from;
-        this.to = to;
-    }
-
-    public Event(
-            String detail,
-            LocalDateTime from,
-            LocalDateTime to,
-            boolean isDone) {
-        super(detail, isDone);
+        super(detail, from);
         this.from = from;
         this.to = to;
     }

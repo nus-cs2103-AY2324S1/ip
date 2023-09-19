@@ -1,6 +1,8 @@
 package data;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import data.exception.InvalidParamException;
 import data.tasks.Task;
@@ -66,6 +68,7 @@ public class TaskList {
      */
     public void add(Task task) {
         this.tasks.add(task);
+        Collections.sort(tasks);
         assert this.tasks.contains(task);
     }
 
@@ -108,9 +111,7 @@ public class TaskList {
     public Task delete(int taskIndex) throws InvalidParamException {
         if (taskIndex < 0 || taskIndex >= getSize()) {
             throw new InvalidParamException(String.format(
-                "Unable to "
-                        + UiCli.cTxt("delete", UiCli.Color.PURPLE)
-                        + " task %d :( You have %d task(s) stored.",
+                "Unable to delete task %d :( You have %d task(s) stored.",
                 taskIndex + 1, getSize()
             ));
         }
@@ -123,7 +124,7 @@ public class TaskList {
     /**
      * Returns the string representation of the TaskList.
      * Contains string representations of all {@link Task} stored
-     * which is suitable for {@link Storage} to write to memory.
+     * which is suitable to write to a persistent file.
      *
      * @param keyword The keyword to be used to find tasks
      *                containing it.

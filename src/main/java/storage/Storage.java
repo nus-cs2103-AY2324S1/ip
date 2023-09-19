@@ -90,33 +90,39 @@ public class Storage {
         String taskType = parse[0];
         boolean isDone = parse[1].equals("1");
 
+        Task newTask = null;
+
         // Create task based on type given
         switch(taskType) {
         case "T":
-            return new Todo(parse[2], isDone);
+            newTask = new Todo(parse[2]);
+            break;
         case "D":
-            if (parse.length < 4) {
-                break;
+            if (parse.length >= 4) {
+                newTask = new Deadline(
+                    parse[2],
+                    DateParser.parseDateString(parse[3])
+                );
             }
-            return new Deadline(
-                parse[2],
-                DateParser.parseDateString(parse[3]),
-                isDone
-            );
+            break;
         case "E":
-            if (parse.length < 5) {
-                break;
+            if (parse.length >= 5) {
+                newTask = new Event(
+                    parse[2],
+                    DateParser.parseDateString(parse[3]),
+                    DateParser.parseDateString(parse[4])
+                );
             }
-            return new Event(
-                parse[2],
-                DateParser.parseDateString(parse[3]),
-                DateParser.parseDateString(parse[4]),
-                isDone
-            );
+            break;
         default:
             return null;
         }
-        return null;
+
+        if (isDone) {
+            assert newTask != null;
+            newTask.mark();
+        }
+        return newTask;
     }
 
     /**
