@@ -34,7 +34,7 @@ A todo task with the specified description will be added to the list.
 
 ```
 Got it. I've added this task:
-[T][] play badminton
+ [T][] play badminton
 Now you have 5 tasks in the list.
 ```
 
@@ -52,7 +52,7 @@ A deadline task with the specified deadline (in dd/MM/yyyy HHmm) will be added t
 
 ```
 Got it. I've added this task:
-[D][] homework (by: 22 Dec 2023 6:00 PM)
+ [D][] homework (by: 22 Dec 2023 6:00 PM)
 Now you have 5 tasks in the list.
 ```
 
@@ -70,7 +70,7 @@ An event task with the specified start and end date/time will be added to the li
 
 ```
 Got it. I've added this task:
-[E][] play piano (from: 10pm to: 11pm)
+ [E][] play piano (from: 10pm to: 11pm)
 Now you have 5 tasks in the list.
 ```
 
@@ -126,7 +126,7 @@ Task will be successfully unmarked if the task number specified is valid.
 
 ```
 OK, I've marked this task as not done yet:
-[ ] complete assignment 10
+[] complete assignment 10
 ```
 
 ### 7. `delete <task number>` - Delete the task listed at that number
@@ -143,7 +143,7 @@ Task will be successfully deleted if the task number specified is valid, and the
 
 ```
 Noted. I've removed this task:
-[T][] complete assignment 10
+ [T][] complete assignment 10
 Now you have 5 tasks in the list.
 ```
 
@@ -185,7 +185,7 @@ Here are the completed tasks:
 2. [T][X] play badminton
 3. [E][X] play piano (from: 10pm to: 11pm)
 
-Progress: 30.00 % completed, keep it up!
+Progress: 60.00 % completed, keep it up!
 ```
 
 ### 10. `help` - View list of commands
