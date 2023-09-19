@@ -1,3 +1,0 @@
-T | 1 | borrow book
-D | 0 | Assignment Submission | Sep 20 2023 12.00PM
-E | 0 | Dinner | Sep 22 2023 7.00PM-Sep 15 2023 9.00PM

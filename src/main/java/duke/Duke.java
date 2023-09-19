@@ -46,9 +46,15 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            String action = c.execute(tasks, ui, storage);
+
+            ui.printAction(action);
+            storage.writeFile(tasks);
+            return action;
         } catch (DukeException e) {
             return ui.showErrorMessage(e);
+        } catch (IOException e) {
+            return ui.showWritingError();
         }
     }
 

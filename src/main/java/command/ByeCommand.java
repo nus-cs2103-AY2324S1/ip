@@ -1,7 +1,5 @@
 package command;
 
-import java.io.IOException;
-
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -12,12 +10,6 @@ import duke.Ui;
 public class ByeCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage store) {
-        try {
-            store.writeFile(tasks);
-        } catch (IOException e) {
-            ui.showWritingError();
-        }
-
         return ui.endBot();
     }
 

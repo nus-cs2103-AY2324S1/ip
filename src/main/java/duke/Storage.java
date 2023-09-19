@@ -57,6 +57,8 @@ public class Storage {
                 addFileTask(taskList, s.nextLine());
             }
         } else {
+            File dirs = new File(filePath + "/../");
+            dirs.mkdir();
             f.createNewFile();
         }
 

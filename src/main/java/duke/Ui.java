@@ -10,6 +10,8 @@ import exception.DukeException;
 public class Ui {
 
     private static final String NAME = "Obi-wan Kenobi";
+
+    private static final String DIVIDER = "-----------------------";
     private final PrintStream out;
 
     /**
@@ -24,7 +26,9 @@ public class Ui {
      * Generates and prints welcome message when Chat Bot is started.
      */
     public String startBot() {
-        return "Hello There! I am " + NAME + "\nWhat can I do for you?\n";
+        String greeting = "Hello There! I am " + NAME + "\nWhat can I do for you?\n";
+        out.println(greeting + DIVIDER);
+        return greeting;
     }
 
     /**
@@ -51,10 +55,22 @@ public class Ui {
     }
 
     /**
-     * Print error message when writing to file.
+     * Prints error message when writing to file.
      */
-    public void showWritingError() {
-        out.println("Unable to write to file");
+    public String showWritingError() {
+        String error = "Unable to write to file";
+        out.println(error);
+        return error;
+    }
+
+    /**
+     * Prints to user the action of command executed.
+     *
+     * @param input The description of command executed.
+     */
+    public void printAction(String input) {
+        out.println(input);
+        out.println(DIVIDER);
     }
 
 }
