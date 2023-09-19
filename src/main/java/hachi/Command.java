@@ -1,6 +1,6 @@
 package hachi;
 
-import exceptions.HachiException;
+import hachi.exceptions.HachiException;
 
 /**
  * Parent abstract command class.

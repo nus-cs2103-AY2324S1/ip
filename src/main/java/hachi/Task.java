@@ -29,7 +29,7 @@ public class Task {
     }
 
     /**
-     * Method to be overriden by tasks that have dates. For tasks without, always returns false.
+     * Checks if date given is within the range of the task.
      *
      * @return false
      */

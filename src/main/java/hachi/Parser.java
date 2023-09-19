@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import exceptions.DateFormatWrongException;
-import exceptions.HachiException;
-import exceptions.InvalidCommandException;
-import exceptions.NumberOutOfBoundsException;
+import hachi.exceptions.DateFormatWrongException;
+import hachi.exceptions.HachiException;
+import hachi.exceptions.InvalidCommandException;
+import hachi.exceptions.NumberOutOfBoundsException;
 
 /**
  * Provides all the parsing methods for the other classes to parse user commands.

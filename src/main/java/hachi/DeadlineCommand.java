@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
-import exceptions.DateFormatWrongException;
-import exceptions.EmptyDeadlineException;
-import exceptions.EmptyTaskException;
-import exceptions.HachiException;
-import exceptions.NoDeadlineException;
+import hachi.exceptions.DateFormatWrongException;
+import hachi.exceptions.EmptyDeadlineException;
+import hachi.exceptions.EmptyTaskException;
+import hachi.exceptions.HachiException;
+import hachi.exceptions.NoDeadlineException;
 
 /**
  * Represents the "deadline" command.

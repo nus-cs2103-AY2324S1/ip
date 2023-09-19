@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import exceptions.HachiException;
+import hachi.exceptions.HachiException;
 
 /**
  * Handles all the tasks related to saving and loading data from the local storage.

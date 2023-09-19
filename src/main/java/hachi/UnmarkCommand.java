@@ -1,9 +1,9 @@
 package hachi;
 
-import exceptions.EmptyNumberException;
-import exceptions.HachiException;
-import exceptions.InvalidArgumentException;
-import exceptions.TooManyArgumentsException;
+import hachi.exceptions.EmptyNumberException;
+import hachi.exceptions.HachiException;
+import hachi.exceptions.InvalidArgumentException;
+import hachi.exceptions.TooManyArgumentsException;
 
 /**
  * Represents the "unmark" command.

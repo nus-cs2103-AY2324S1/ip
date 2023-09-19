@@ -2,7 +2,7 @@ package hachi;
 
 import java.util.ArrayList;
 
-import exceptions.HachiException;
+import hachi.exceptions.HachiException;
 
 /**
  * Represents the "find" command.

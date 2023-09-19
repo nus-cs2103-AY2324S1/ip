@@ -1,6 +1,6 @@
 package hachi;
 
-import exceptions.HachiException;
+import hachi.exceptions.HachiException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,39 +26,58 @@ public class JavaFx extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-
     private Hachi hachi;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/person.png"));
     private Image hachiImage = new Image(this.getClass().getResourceAsStream("/images/akita.png"));
+    private final double DEFAULT_WIDTH = 400.0;
+    private final double DEFAULT_HEIGHT = 600.0;
 
     @Override
     public void start(Stage stage) {
+        // creating all the required variables
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
-
         userInput = new TextField();
         sendButton = new Button("Send");
         hachi = new Hachi();
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        helloWorld.setFont(new Font("Arial", 24));
-        Scene scene = new Scene(mainLayout); // Setting the scene to be our Label
+        scene = new Scene(mainLayout); // Setting the scene to be our layout
 
         stage.setScene(scene); // Setting the stage to show our screen
         stage.show(); // Render the stage.
 
         stage.setTitle("Hachi");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinHeight(DEFAULT_HEIGHT);
+        stage.setMinWidth(DEFAULT_WIDTH);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        setDimensions(mainLayout);
 
-        scrollPane.setPrefSize(385, 535);
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        // Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+
+    /**
+     * Sets the dimensions of the application window.
+     */
+    private void setDimensions(AnchorPane layout) {
+        layout.setPrefSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
+        double scrollPaneWidth = 385;
+        double scrollPaneHeight = 535;
+        scrollPane.setPrefSize(scrollPaneWidth, scrollPaneHeight);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -78,17 +97,6 @@ public class JavaFx extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        // Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     /**
@@ -99,8 +107,8 @@ public class JavaFx extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getHachiDialog(dukeText, new ImageView(hachiImage))
+                DialogBox.getUserDialog(userText, user),
+                DialogBox.getHachiDialog(dukeText, hachiImage)
         );
         userInput.clear();
     }

@@ -1,6 +1,6 @@
 package hachi;
 
-import exceptions.HachiException;
+import hachi.exceptions.HachiException;
 
 /**
  * A task list app that allows the user to add Todos, Deadlines, and Events.

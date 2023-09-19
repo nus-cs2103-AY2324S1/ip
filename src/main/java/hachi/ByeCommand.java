@@ -1,7 +1,7 @@
 package hachi;
 
-import exceptions.HachiException;
-import exceptions.TooManyArgumentsException;
+import hachi.exceptions.HachiException;
+import hachi.exceptions.TooManyArgumentsException;
 
 /**
  * Represents the "bye" command.

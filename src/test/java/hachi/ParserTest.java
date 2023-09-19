@@ -1,6 +1,6 @@
 package hachi;
 
-import exceptions.HachiException;
+import hachi.exceptions.HachiException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

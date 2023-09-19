@@ -1,7 +1,7 @@
 package hachi;
 
-import exceptions.EmptyTaskException;
-import exceptions.HachiException;
+import hachi.exceptions.EmptyTaskException;
+import hachi.exceptions.HachiException;
 
 /**
  * Represents the "todo" command.

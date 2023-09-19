@@ -3,7 +3,7 @@ package hachi;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import exceptions.DateWrongOrderException;
+import hachi.exceptions.DateWrongOrderException;
 
 /**
  * Represents a Event object, extending the Task object.

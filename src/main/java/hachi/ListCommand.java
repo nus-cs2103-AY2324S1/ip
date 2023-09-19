@@ -1,8 +1,8 @@
 package hachi;
 
-import exceptions.HachiException;
-import exceptions.InvalidArgumentException;
-import exceptions.TooManyArgumentsException;
+import hachi.exceptions.HachiException;
+import hachi.exceptions.InvalidArgumentException;
+import hachi.exceptions.TooManyArgumentsException;
 
 /**
  * Represents the "list" command.
@@ -27,9 +27,9 @@ public class ListCommand extends Command {
     public String execute() throws HachiException {
         String[] arguments = getArguments();
         checkArgumentLength(arguments.length);
-        if (!arguments[0].isEmpty() && !arguments[0].equals("sort")) {
+        if (arguments.length > 0 && !arguments[0].equals("sort")) {
             throw new InvalidArgumentException(COMMAND_WORD);
-        } else if (!arguments[1].isEmpty() && arguments[1].equals("name")) {
+        } else if (arguments.length > 1 && arguments[1].equals("name")) {
             taskList.sort((x, y) -> x.compareName(y));
         }
         return taskList.toString();

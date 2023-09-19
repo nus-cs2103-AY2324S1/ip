@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
-import exceptions.DateFormatWrongException;
-import exceptions.EmptyTaskException;
-import exceptions.EventDateException;
-import exceptions.HachiException;
+import hachi.exceptions.DateFormatWrongException;
+import hachi.exceptions.EmptyTaskException;
+import hachi.exceptions.EventDateException;
+import hachi.exceptions.HachiException;
 
 /**
  * Represents the "event" command.

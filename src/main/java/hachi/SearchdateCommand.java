@@ -3,9 +3,9 @@ package hachi;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import exceptions.DateFormatWrongException;
-import exceptions.HachiException;
-import exceptions.TooManyArgumentsException;
+import hachi.exceptions.DateFormatWrongException;
+import hachi.exceptions.HachiException;
+import hachi.exceptions.TooManyArgumentsException;
 
 /**
  * Represents the "search-date" command.
