@@ -121,44 +121,45 @@ public class Storage {
      *              change the status to done.
      */
     public void changeToDone(int index) {
-                List<String> lines = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
 
-                try {
-                    BufferedReader reader = new BufferedReader(new FileReader(filePath));
-
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        lines.add(line);
-                    }
-                    reader.close();
-
-                    if (index >= 0 && index-1 < lines.size()) {
-                        String lineToModify = lines.get(index-1);
-                        String[] parts = lineToModify.split(" \\| ");
-
-                        if (parts.length >= 2) {
-                            parts[1] = "1"; // Change "0" to "1" for isDone status
-                            lineToModify = String.join(" | ", parts);
-                            lines.set(index-1, lineToModify);
-
-                            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-
-                            for (String updatedLine : lines) {
-                                writer.write(updatedLine);
-                                writer.newLine();
-                            }
-
-                            writer.close();
-                        } else {
-                            System.out.println("Invalid line format.");
-                        }
-                    } else {
-                        System.out.println("Invalid line index.");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
             }
+            reader.close();
+            markToDoneRead(index, lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void markToDoneRead(int index, List<String> lines) throws IOException {
+        if (index >= 0 && index - 1 < lines.size()) {
+            String lineToModify = lines.get(index - 1);
+            String[] parts = lineToModify.split(" \\| ");
+
+            if (parts.length >= 2) {
+                parts[1] = "1"; // Change "0" to "1" for isDone status
+                lineToModify = String.join(" | ", parts);
+                lines.set(index - 1, lineToModify);
+
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+
+                for (String updatedLine : lines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+                }
+                writer.close();
+            } else {
+                System.out.println("Invalid line format.");
+            }
+        } else {
+            System.out.println("Invalid line index.");
+        }
+    }
 
     /**
      * To modify the text file as the user modify the
@@ -177,31 +178,34 @@ public class Storage {
                 lines.add(line);
             }
             reader.close();
-
-            if (index >= 0 && index-1 < lines.size()) {
-                String lineToModify = lines.get(index-1);
-                String[] parts = lineToModify.split(" \\| ");
-
-                if (parts.length >= 2) {
-                    parts[1] = "0"; // Change "0" to "1" for isDone status
-                    lineToModify = String.join(" | ", parts);
-                    lines.set(index-1, lineToModify);
-
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-
-                    for (String updatedLine : lines) {
-                        writer.write(updatedLine);
-                        writer.newLine();
-                    }
-                    writer.close();
-                } else {
-                    System.out.println("Invalid line format.");
-                }
-            } else {
-                System.out.println("Invalid line index.");
-            }
+            markToUndoneRead(index, lines);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void markToUndoneRead(int index, List<String> lines) throws IOException {
+        if (index >= 0 && index-1 < lines.size()) {
+            String lineToModify = lines.get(index-1);
+            String[] parts = lineToModify.split(" \\| ");
+
+            if (parts.length >= 2) {
+                parts[1] = "0"; // Change "0" to "1" for isDone status
+                lineToModify = String.join(" | ", parts);
+                lines.set(index-1, lineToModify);
+
+                BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+
+                for (String updatedLine : lines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+                }
+                writer.close();
+            } else {
+                System.out.println("Invalid line format.");
+            }
+        } else {
+            System.out.println("Invalid line index.");
         }
     }
 
