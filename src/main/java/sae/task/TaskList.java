@@ -49,6 +49,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a range of tasks from the task list, specified by their indices (inclusive).
+     *
+     * @param start The index of the first task to delete (0-based).
+     * @param end   The index of the last task to delete (0-based).
+     * @return A response message indicating the deleted tasks or an error message if the range is invalid.
+     */
     public String deleteTask(int start, int end) {
         ArrayList<Task> deletedTasks = new ArrayList<>();
         if (start >= 0 && end < tasks.size()) {
