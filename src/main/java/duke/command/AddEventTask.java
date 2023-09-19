@@ -29,6 +29,9 @@ public class AddEventTask extends AddTask {
             String[] timings = split[1].split("/to", 2);
             LocalDate start = DateParser.parseDate(timings[0]);
             LocalDate end = DateParser.parseDate(timings[1]);
+            if (start.isAfter(end)) {
+                throw new IllegalArgumentException("OOPS!!! Make sure the start date is before the end date.");
+            }
             Task eventTask = new Event(event, false, start, end);
             this.list.store(eventTask);
             return this.ui.showTaskAdded(eventTask, this.list.length());

@@ -25,9 +25,9 @@ public class ToDo extends Task {
         String updateType = splits[0];
         String description = splits.length > 1 ? splits[1] : "";
         if (description.isEmpty() || !updateType.equals("/description")) {
-            throw new IllegalArgumentException("OOPS!!! " +
-                    "Update of todo task description must in format " +
-                    "/description <description>");
+            throw new IllegalArgumentException("OOPS!!! "
+                    + "Update of todo task description must in format "
+                    + "/description <description>");
         }
         this.description = description;
         return "Ok, I've updated the todo task to the following:\n" + this;
