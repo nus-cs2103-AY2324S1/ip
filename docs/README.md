@@ -1,8 +1,6 @@
-# User Guide
+# User Guide for Duke
 
 ## Features 
-
-###
 
 Duke allows you to add and manage tasks of various types, including Todos, Events, and Deadlines.
 
@@ -10,9 +8,7 @@ Duke provides a user-friendly interface for interacting with your task list. You
 
 ## Usage
 
-### 
-
-Example of usage: 
+### Example of usage: 
 
 `list`
 
