@@ -1,24 +1,55 @@
-# Duke project template
+# Kimochi Usagi きもちうさぎ bot 
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Description
+The kimochi Usagi bot is a cute little rabbit, who wants to help you to remember tasks
 
-## Setting up in Intellij
+## Types of tasks
+- **todo** tasks are tasks with no time limit. They just have to be done.
+- **deadline** tasks are tasks with a deadline (date). Ensure that the date is formatted as dd/mm/YYYY
+- **event** tasks are tasks with a start and end datetime. Ensure that the date time is in the format of YYYY-MM-DDTHH:MM 
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- **bye** Saves tasks to a json file, and exists the chat bot
+  ```
+  bye
+  ```
+- **list** all current tasks
+  ```
+  list
+  ```
+- **mark** marks the selected task as done (specify its index in the list)
+  ```
+  mark 1
+  ```
+- **unmark** marks the selected task as un-done (specify its index in the list)
+  ```
+  unmark 1
+  ```
+- **todo** Add a todo task to the bot. (specify the task name after the command)
+  ```
+  todo some code
+  ```
+- **delete** a specific task (specify its index in the list)
+  ```
+  delete 1
+  ```
+- **event** add a event (specify its start and end date time)
+  ```
+  event code stuff /from 2012-01-01T01:03 /to 2012-01-01T04:30
+  ```
+- **deadline** add a deadline (specify the dead date)
+  ```
+  deadline code /by 02/11/1999
+  ```
+- **find** Find a tasks whose names loosely matches the given name 
+  ```
+  find wow
+  ```
+- **free** Find the earliest timeslot with x number of hours
+  ```
+  free 4
+  ```
+  
+  
+  
