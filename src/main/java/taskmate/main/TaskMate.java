@@ -3,6 +3,7 @@ package taskmate.main;
 import java.io.IOException;
 
 import taskmate.commands.Command;
+import taskmate.exceptions.ClauselessUpdateException;
 import taskmate.exceptions.EmptyByException;
 import taskmate.exceptions.EmptyFromException;
 import taskmate.exceptions.EmptyToException;
@@ -32,7 +33,7 @@ public class TaskMate {
      * An enum that represents the different command types which TaskMate supports
      */
     public enum CommandTypes {
-        list, bye, todo, deadline, event, mark, unmark, delete, help, find
+        list, bye, todo, deadline, event, mark, unmark, delete, help, find, update
     }
 
     private final Ui ui;
@@ -85,9 +86,8 @@ public class TaskMate {
     }
 
     private void handleException(Exception e) {
-        if (e instanceof InvalidCommandTypeException
-                | e instanceof InvalidDescriptionException) {
-            ui.printInvalidCommandTypeExceptionResponse();
+        if (e instanceof ClauselessUpdateException) {
+            ui.printClauselessUpdateExceptionResponse();
         } else if (e instanceof EmptyByException) {
             ui.printEmptyByExceptionResponse();
         } else if (e instanceof InvalidByException) {
@@ -108,6 +108,10 @@ public class TaskMate {
             ui.printNoDataResponse();
         } else if (e instanceof FileCorruptedException) {
             ui.printFileCorruptedResponse((FileCorruptedException) e);
+        } else if (e instanceof InvalidCommandTypeException | e instanceof InvalidDescriptionException) {
+            ui.printInvalidCommandTypeExceptionResponse();
+        } else {
+            ui.printInvalidCommandTypeExceptionResponse();
         }
     }
 

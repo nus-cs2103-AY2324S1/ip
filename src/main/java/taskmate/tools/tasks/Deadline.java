@@ -2,13 +2,17 @@ package taskmate.tools.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+
+import taskmate.exceptions.InvalidByException;
+import taskmate.exceptions.InvalidDeadlineUpdateException;
 
 /**
  * The Deadline class is a child class of the Task class that represents a 'Deadline' type task specified by the user.
  */
 public class Deadline extends Task {
 
-    private final LocalDate by;
+    private LocalDate by;
 
     /**
      * Deadline constructor that allows the developer to specify the name of the task, and a date that represents
@@ -62,6 +66,44 @@ public class Deadline extends Task {
 
     String getBy() {
         return this.by.toString();
+    }
+
+    @Override
+    public HashMap<String, String> update(HashMap<String, String> changes) throws InvalidDeadlineUpdateException,
+            InvalidByException {
+        HashMap<String, String> successfulUpdates = new HashMap<>();
+
+        // Check if update command is valid
+        for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
+            String attribute = attributeValuePair.getKey();
+            String newValue = attributeValuePair.getValue();
+            if (!attribute.equals("/name") & !attribute.equals("/by")) {
+                throw new InvalidDeadlineUpdateException();
+            } else if (attribute.equals("/by") & !super.checkValidDateFormat(newValue)) {
+                throw new InvalidByException();
+            }
+        }
+
+        for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
+            String attribute = attributeValuePair.getKey();
+            String newValue = attributeValuePair.getValue();
+            if (attribute.equals("/name")) {
+                setName(newValue);
+                successfulUpdates.put("name", newValue);
+            } else if (attribute.equals("/by")) {
+                setBy(newValue);
+                successfulUpdates.put("by", newValue);
+            }
+        }
+        return successfulUpdates;
+    }
+
+    private void setName(String newName) {
+        this.name = newName;
+    }
+
+    private void setBy(String newBy) {
+        this.by = LocalDate.parse(newBy);
     }
 
     @Override

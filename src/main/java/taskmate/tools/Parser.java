@@ -1,7 +1,8 @@
 package taskmate.tools;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import taskmate.commands.Command;
 import taskmate.commands.DeadlineCommand;
@@ -14,6 +15,8 @@ import taskmate.commands.ListCommand;
 import taskmate.commands.MarkCommand;
 import taskmate.commands.TodoCommand;
 import taskmate.commands.UnmarkCommand;
+import taskmate.commands.UpdateCommand;
+import taskmate.exceptions.ClauselessUpdateException;
 import taskmate.exceptions.EmptyByException;
 import taskmate.exceptions.EmptyDescriptionException;
 import taskmate.exceptions.EmptyFromException;
@@ -54,7 +57,7 @@ public class Parser {
      */
     public static Command parse(String userInput) throws InvalidCommandTypeException, EmptyDescriptionException,
             EmptyByException, InvalidByException, InvalidToException, EmptyToException, InvalidFromException,
-            EmptyFromException, NotAnIntegerException {
+            EmptyFromException, NotAnIntegerException, ClauselessUpdateException {
 
         userInput = userInput.trim(); // remove trailing whitespaces
 
@@ -101,10 +104,17 @@ public class Parser {
             checkValidDeleteCommand(userInput);
             int indexToDelete = getIndexToDelete(userInput);
             return new DeleteCommand(indexToDelete);
+        // find query
         } else if (commandType.equals(TaskMate.CommandTypes.find.toString())) {
             checkValidFindCommand(userInput);
             String query = getFindQuery(userInput);
             return new FindCommand(query);
+        // update i <attribute> <change> <attribute> <change> ...
+        } else if (commandType.equals(TaskMate.CommandTypes.update.toString())) {
+            checkValidUpdateCommand(userInput);
+            int indexToUpdate = getIndexToUpdate(userInput);
+            HashMap<String, String> changes = getChangesToUpdate(userInput);
+            return new UpdateCommand(indexToUpdate, changes);
         // Invalid input
         } else {
             throw new InvalidCommandTypeException();
@@ -155,6 +165,43 @@ public class Parser {
                         .trim());
         indexToDelete -= 1;
         return indexToDelete;
+    }
+
+    private static int getIndexToUpdate(String userInput) {
+        int indexToUpdate = Integer.parseInt(
+                userInput
+                        .substring(TaskMate.CommandTypes.update.toString().length())
+                        .trim()
+                        .split("\\s+")[0]);
+        indexToUpdate -= 1;
+        return indexToUpdate;
+    }
+
+    private static HashMap<String, String> getChangesToUpdate(String userInput) {
+        HashMap<String, String> changesMap = new HashMap<>();
+
+        // Use a regular expression to match "update <number> "
+        String pattern = "^update\\s\\d+\\s";
+        String changesAsString = userInput.replaceFirst(pattern, "");
+
+        // Extract the user-specified changes and store them in changesMap
+        String[] tokens = changesAsString.split("\\s+");
+        String[] clauses = new String[] {"/name", "/by", "/from", "/to"};
+        String currentClause = null;
+        for (String token : tokens) {
+            boolean equalsAtLeastOneClause = Arrays.asList(clauses).contains(token);
+            if (equalsAtLeastOneClause) {
+                currentClause = token.trim();
+            } else {
+                if (!changesMap.containsKey(currentClause)) {
+                    changesMap.put(currentClause, "");
+                }
+                String newValue = changesMap.get(currentClause) + " " + token;
+                changesMap.put(currentClause, newValue.trim());
+            }
+        }
+
+        return changesMap;
     }
 
     private static String getFindQuery(String userInput) {
@@ -229,11 +276,10 @@ public class Parser {
         } else if (!userInput.contains("/by ")) {
             throw new EmptyByException();
         } else {
-            try {
-                String delimiter = "/by ";
-                String byInput = userInput.substring(userInput.indexOf(delimiter) + delimiter.length());
-                LocalDate.parse(byInput);
-            } catch (DateTimeParseException e) {
+            String delimiter = "/by ";
+            String byInput = userInput.substring(userInput.indexOf(delimiter) + delimiter.length());
+            boolean isValidDateFormat = checkValidDateFormat(byInput);
+            if (!isValidDateFormat) {
                 throw new InvalidByException();
             }
         }
@@ -261,21 +307,18 @@ public class Parser {
             throw new EmptyToException();
         } else {
             // Testing from clause
-            try {
-                System.out.println(userInput);
-                String fromInput = userInput.substring(userInput.indexOf(fromDelimiter) + fromDelimiter.length(),
-                        userInput.indexOf(toDelimiter)).trim();
-                LocalDate.parse(fromInput);
-            } catch (DateTimeParseException e) {
+            String fromInput = userInput.substring(userInput.indexOf(fromDelimiter) + fromDelimiter.length(),
+                    userInput.indexOf(toDelimiter)).trim();
+            boolean isValidDateFormat = checkValidDateFormat(fromInput);
+            if (!isValidDateFormat) {
                 throw new InvalidFromException();
             }
 
             // Testing to clause
-            try {
-                String toInput = userInput.substring(userInput.indexOf(toDelimiter) + toDelimiter.length())
-                        .trim();
-                LocalDate.parse(toInput);
-            } catch (DateTimeParseException e) {
+            String toInput = userInput.substring(userInput.indexOf(toDelimiter) + toDelimiter.length())
+                    .trim();
+            isValidDateFormat = checkValidDateFormat(toInput);
+            if (!isValidDateFormat) {
                 throw new InvalidToException();
             }
         }
@@ -353,6 +396,15 @@ public class Parser {
         return true;
     }
 
+    private static boolean checkValidDateFormat(String dateString) {
+        try {
+            LocalDate.parse(dateString);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private static void checkValidFindCommand(String userInput) throws EmptyDescriptionException,
             InvalidCommandTypeException {
         boolean isStartingWithFind = userInput.startsWith(TaskMate.CommandTypes.find + " ");
@@ -365,4 +417,44 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks the following cases:
+     * 1. The update command starts with the word "update"
+     * 2. The update command has a description
+     * 3. The update command contains a slash (/)
+     * 4. The update command contains an integer after "update "
+     * Throws exception if any of the above are not fulfilled
+     * @param userInput a String object representing the raw update command from the user
+     * @throws InvalidCommandTypeException thrown when case 1 is not satisfied
+     * @throws EmptyDescriptionException thrown when case 2 is not satisfied
+     * @throws ClauselessUpdateException thrown when case 3 is not satisfied
+     * @throws NotAnIntegerException thrown when case 4 is not satisfied
+     */
+    private static void checkValidUpdateCommand(String userInput) throws InvalidCommandTypeException,
+            EmptyDescriptionException, ClauselessUpdateException, NotAnIntegerException {
+
+        String[] tokens = userInput.split("\\s+");
+
+        boolean isStartingWithUpdate = userInput.startsWith(TaskMate.CommandTypes.update + " ");
+        if (!isStartingWithUpdate) {
+            throw new InvalidCommandTypeException();
+        }
+
+        boolean hasEmptyQuery = userInput.substring(TaskMate.CommandTypes.update.toString().length()).trim().isEmpty();
+        if (hasEmptyQuery) {
+            System.out.println("test"); // todo remove
+            throw new EmptyDescriptionException();
+        }
+
+        String[] clauses = new String[] {" /name ", " /by ", " /from ", " /to "};
+        boolean containsAtLeastOneClause = Arrays.stream(clauses).anyMatch(userInput::contains);
+        if (!containsAtLeastOneClause) {
+            throw new ClauselessUpdateException();
+        }
+
+        boolean updateIndexIsInteger = checkStringIsInteger(tokens[1]);
+        if (!updateIndexIsInteger) {
+            throw new NotAnIntegerException();
+        }
+    }
 }

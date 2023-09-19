@@ -1,6 +1,7 @@
 package taskmate.tools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import taskmate.exceptions.FileCorruptedException;
@@ -117,6 +118,17 @@ public class Ui {
         message += "Deleting Tasks:\n";
         message += "1. delete <integer>\n\n";
 
+        message += "Updating Tasks:\n";
+        message += "1. update <integer> <TAG> <newValue> ...\n\n";
+        message += "TAG\n";
+        message += "Todo Task: /name\n";
+        message += "Deadline Task: /name OR /by\n";
+        message += "Event Task: /name OR /from OR /to\n\n";
+        message += "newValue\n";
+        message += "/name: name of task\n";
+        message += "/by, /from, /to: must be of the form 'YYYY-mm-dd'\n";
+        message += "...: More '<TAG> <newValue>' pairs\n\n";
+
         message += "Others:\n";
         message += "1. Quit: bye\n";
         message += "2. Manual: help\n\n";
@@ -194,7 +206,7 @@ public class Ui {
     }
 
     public void printNotAnIntegerExceptionResponse() {
-        printMessage("Please enter a valid integer (E.g. mark 1, unmark 8, delete 3)");
+        printMessage("Please enter a valid integer (E.g. mark 1, unmark 8, delete 3, update 2 <TAG> <newValue>...)");
     }
 
     public void printFileNotFoundResponse(String filePath) {
@@ -232,5 +244,60 @@ public class Ui {
 
     public void printFileCorruptedResponse(FileCorruptedException e) {
         printMessage(e.getMessage());
+    }
+
+    /**
+     * The chatbot's reply upon successful updating of a task is printed out to `System.out`.
+     * @param updateIndex An int index in the task list that is updated
+     * @param successfulChanges An ArrayList of successful updates
+     */
+    public void printSuccessfulUpdateResponse(int updateIndex, HashMap<String, String> successfulChanges) {
+        StringBuilder message = new StringBuilder("Updates successfully made to task " + updateIndex + ":\n");
+        for (HashMap.Entry<String, String> attributeValuePair : successfulChanges.entrySet()) {
+            String attribute = attributeValuePair.getKey();
+            String newValue = attributeValuePair.getValue();
+            message.append(attribute)
+                    .append(": ")
+                    .append(newValue)
+                    .append("\n");
+        }
+        printMessage(message.toString());
+    }
+
+    /**
+     * Prints message when unsuccessful update to Todo task is made
+     */
+    public void printInvalidTodoUpdateException() {
+        String message = "Invalid update to Todo task!\n";
+        message += "Syntax (for Todo tasks): update <integer> /name <newName>";
+        printMessage(message);
+    }
+
+    /**
+     * Prints message when unsuccessful update to Deadline task is made
+     */
+    public void printInvalidDeadlineUpdateException() {
+        String message = "Invalid update to Deadline task!\n";
+        message += "Syntax (for Deadline tasks): update <integer> /name <newName> /by <YYYY-mm-dd>";
+        printMessage(message);
+    }
+
+    /**
+     * Prints message when unsuccessful update to Event task is made
+     */
+    public void printInvalidEventUpdateException() {
+        String message = "Invalid update to Event task!\n";
+        message += "Syntax (for Event tasks): update <integer> /name <newName> /from <YYYY-mm-dd> /to <YYYY-mm-dd>";
+        printMessage(message);
+    }
+
+    /**
+     * Prints message when the user makes an update command without any clauses
+     * Possible clauses: /name, /by, /from, /to
+     */
+    public void printClauselessUpdateExceptionResponse() {
+        String message = "Invalid update command format!\n";
+        message += "Syntax for update command: update <integer> <TAG> <newValue> ...";
+        printMessage(message);
     }
 }

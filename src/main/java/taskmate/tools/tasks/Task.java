@@ -1,12 +1,23 @@
 package taskmate.tools.tasks;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+
+import taskmate.exceptions.InvalidByException;
+import taskmate.exceptions.InvalidDeadlineUpdateException;
+import taskmate.exceptions.InvalidEventUpdateException;
+import taskmate.exceptions.InvalidFromException;
+import taskmate.exceptions.InvalidToException;
+import taskmate.exceptions.InvalidTodoUpdateException;
+
+
 /**
  * The Task class is an abstract class that represents a task specified by the user. It can be of type `Todo`,
  * `Deadline`, or `Event`.
  */
 public abstract class Task {
 
-    protected final String name;
+    protected String name;
     protected boolean isDone;
 
     /**
@@ -68,6 +79,8 @@ public abstract class Task {
      */
     abstract String getTaskType();
 
+
+
     /**
      * Formats the Task instance in a way that is written to the disk. The format is as follows:
      * "[A][B] `name` ..."
@@ -86,5 +99,18 @@ public abstract class Task {
      *         information is explained above.
      */
     public abstract String formatTaskForSaving();
+    public abstract HashMap<String, String> update(HashMap<String, String> changes) throws InvalidTodoUpdateException,
+            InvalidDeadlineUpdateException, InvalidEventUpdateException, InvalidByException, InvalidFromException,
+            InvalidToException;
 
+    protected boolean checkValidDateFormat(String dateString) {
+        try {
+            LocalDate.parse(dateString);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
+
+
