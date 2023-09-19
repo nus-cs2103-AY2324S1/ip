@@ -35,4 +35,25 @@ public class Deadline extends Task {
         return String.format("[D]%s (by: %s)", super.toString(),
                 this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
+
+    /**
+     * Compares the Deadline Task to another task.
+     *
+     * @param o the object to be compared.
+     * @return The comparison value.
+     */
+    @Override
+    public int compareTo(Task o) {
+        if (o instanceof ToDo) {
+            return 1;
+        }
+        if (o instanceof Deadline) {
+            Deadline deadline = (Deadline) o;
+            return this.by.compareTo(deadline.by);
+        }
+        if (o instanceof Event) {
+            return -1;
+        }
+        return 0;
+    }
 }

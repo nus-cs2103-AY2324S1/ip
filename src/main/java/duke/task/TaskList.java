@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents a list of tasks.
@@ -63,5 +64,12 @@ public class TaskList {
      */
     public int getCountTasks() {
         return this.tasks.size();
+    }
+
+    /**
+     * Sorts the deadline tasks chronologically.
+     */
+    public void sort() {
+        Collections.sort(this.tasks);
     }
 }

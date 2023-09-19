@@ -5,7 +5,7 @@ package duke.task;
  *
  * @author Joseph Oliver Lim
  */
-public class Task {
+public abstract class Task implements Comparable<Task> {
     protected String description;
     protected boolean isDone;
 

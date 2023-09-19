@@ -106,6 +106,19 @@ public class Ui {
     }
 
     /**
+     * Returns the tasks that has been sorted.
+     *
+     * @param tasks A list of tasks that has been sorted.
+     * @return A String to be shown to the user.
+     */
+    public String sortTasks(TaskList tasks) {
+        String output = "";
+        output += "Here are the tasks that has been sorted:" + "\n";
+        output += taskList(tasks, tasks.getCountTasks());
+        return output;
+    }
+
+    /**
      * Returns an error message from the DukeException.
      *
      * @param e DukeException which error message is to be printed.
