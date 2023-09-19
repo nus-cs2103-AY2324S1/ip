@@ -57,6 +57,7 @@ public class Parser {
         case "BYE":
             return parseExitCommand(command);
         default:
+            assert false : commandType;
             throw new URChatBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
@@ -67,7 +68,7 @@ public class Parser {
      * @param time Time in the format of "yyyy-MM-dd HH:mm" or "yyyy-MM-dd" or "HH:mm."
      * @return a String of time in the format of "MMM d yyyy HH:mm" or "MMM d yyyy" or "HH:mm"
      */
-    public static String changeTimeFormat(String time) {
+    private static String changeTimeFormat(String time) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime d = LocalDateTime.parse(time, formatter);
@@ -127,17 +128,21 @@ public class Parser {
 
         return new EventCommand(task, timeFrom, timeTo);
     }
-
+  
     private static Command parseClearCommand(String command) {
+        assert !command.isBlank(): "Command should not be blank!";
         return new ClearCommand(command);
     }
     private static Command parseListCommand(String command) {
+        assert !command.isBlank(): "Command should not be blank!";
         return new ListCommand(command);
     }
+
     private static Command parseNumericCommand(String command, String commandName) throws URChatBotException {
         int value;
         try {
             value = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+            assert value > -1: "Task number should be more than -1!";
         } catch (NumberFormatException e) {
             throw new URChatBotException("OOPS!!! Please provide a valid numeric value for the " + commandName + " command.");
         }
@@ -159,7 +164,10 @@ public class Parser {
     }
 
     private static Command parsePrintCommand(String command) throws URChatBotException {
+        assert !command.isBlank(): "Command should not be blank!";
+
         String date = extractTask(command, "print");
+
         String formattedDate = changeTimeFormat(date);
         if (formattedDate == null) {
             throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'.");

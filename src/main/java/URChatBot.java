@@ -23,8 +23,10 @@ public class URChatBot{
      * @param filePath Path to store users' tasklist.
      */
     public URChatBot(String filePath) {
+        //Setting up the bot
         ui = new Ui();
         storage = new Storage(filePath);
+        //Load tasks
         try {
             tasks = new TaskList(storage.load());
         } catch (URChatBotException e) {
