@@ -18,12 +18,16 @@ public class FindWorker extends TaskWorker {
         assert inputParts != null;
         int count = 1;
         String keyword = inputParts[1].toLowerCase();
-        String output = "Here are the matching tasks in your list:\n";
+        String output = "Here are the matching tasks in your list:\n";;
 
         for (Task task : taskList) {
             if (task.getDescription().toLowerCase().contains(keyword)) {
                 output += count++ + ". " + task + "\n";
             }
+        }
+
+        if (output == "Here are the matching tasks in your list:\n") {
+            return "No matching tasks found";
         }
 
         return output;

@@ -26,22 +26,20 @@ public class AddWorker extends TaskWorker {
             switch (inputParts[0]) {
             case "todo":
                 creator = new CreateTodoTask();
-                assert creator != null;
                 newTask = creator.create(content, taskList);
                 break;
             case "deadline":
                 creator = new CreateDeadlineTask();
-                assert creator != null;
                 newTask = creator.create(content, taskList);
                 break;
             case "event":
                 creator = new CreateEventTask();
-                assert creator != null;
                 newTask = creator.create(content, taskList);
                 break;
             default:
                 throw new IrisException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+            assert creator != null;
             taskList.add(newTask);
             return "Got it. I've added this task:\n" + newTask
                     + "\nNow you have " + taskList.size()

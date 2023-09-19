@@ -7,7 +7,16 @@ import tasks.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles the creation of Todo objects.
+ */
 public class CreateTodoTask extends CreateTask {
+    /**
+     * This method creates an Todo object.
+     * @param content
+     * @param taskList
+     * @return A new Todo object using the inputs.
+     */
     @Override
     public Todo create(String content, ArrayList<Task> taskList) {
         TodoDuplicateDetector todoDuplicateDetector = new TodoDuplicateDetector();

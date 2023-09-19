@@ -8,7 +8,16 @@ import tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles the creation of Deadline objects.
+ */
 public class CreateDeadlineTask extends CreateTask{
+    /**
+     * The method creates a Deadline object.
+     * @param content
+     * @param taskList
+     * @return a new Deadline object.
+     */
     @Override
     public Deadline create(String content, ArrayList<Task> taskList) {
         DeadlineContentSplitter splitter = new DeadlineContentSplitter(content);

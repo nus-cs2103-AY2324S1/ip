@@ -5,7 +5,7 @@ package tasks;
  */
 public class Task {
     protected String description;
-    protected boolean done;
+    protected boolean isDone;
 
     /**
      * Constructor of Task class.
@@ -13,7 +13,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -29,19 +29,18 @@ public class Task {
      * This method changes the isDone field to true.
      */
     public void markDone() {
-        done = true;
+        isDone = true;
     }
 
     /**
      * This method changes the isDone field to false.
      */
     public void markUndone() {
-
-        done = false;
+        isDone = false;
     }
 
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
     /**
@@ -50,7 +49,7 @@ public class Task {
      */
     public String getStatusIcon() {
 
-        return (done ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     @Override

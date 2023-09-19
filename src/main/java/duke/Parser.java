@@ -28,41 +28,36 @@ public class Parser {
         String command = inputParts[0];
         TaskWorker worker;
         String output;
-
         switch (command) {
         case "list":
             worker = new ListWorker();
             output = worker.work(taskList);
-            assert !output.isEmpty();
-            return output;
+            break;
         case "mark":
             worker = new MarkWorker();
             output = worker.work(inputParts, taskList, true);
-            assert !output.isEmpty();
-            return output;
+            break;
         case "unmark":
             worker = new MarkWorker();
             output = worker.work(inputParts, taskList, false);
-            assert !output.isEmpty();
-            return output;
+            break;
         case "delete":
             worker = new DeleteWorker();
             output = worker.work(inputParts, taskList);
-            assert !output.isEmpty();
-            return output;
+            break;
         case "find":
             worker = new FindWorker();
             output = worker.work(inputParts, taskList);
-            assert !output.isEmpty();
-            return output;
+            break;
         case "bye":
             System.exit(0);
         default:
             worker = new AddWorker();
             output = worker.work(inputParts, taskList);
-            assert !output.isEmpty();
-            return output;
+            break;
         }
+        assert !output.isEmpty();
+        return output;
     }
 
 }

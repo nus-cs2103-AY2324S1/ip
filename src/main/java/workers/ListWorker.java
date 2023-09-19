@@ -23,6 +23,9 @@ public class ListWorker extends TaskWorker {
                 output += count++ + ". " + task + "\n";
             }
         }
+        if (output == "") {
+            return "You have no tasks scheduled.";
+        }
         return output;
     }
 }
