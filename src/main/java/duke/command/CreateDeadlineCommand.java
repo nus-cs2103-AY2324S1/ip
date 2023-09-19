@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Storage;
 import duke.Ui;
 import duke.task.Deadline;
 import duke.task.TaskList;
@@ -18,9 +19,17 @@ public class CreateDeadlineCommand extends Command {
     public CreateDeadlineCommand(String task, LocalDate by) {
         this.task = new Deadline(task,by);
     }
+
+    /**
+     * Creates a deadline in the TaskList.
+     *
+     * @param list TaskList to be modified.
+     * @return prompt for creating deadline.
+     */
     @Override
     public String execute(TaskList list) {
         list.add(task);
+        Storage.instance.save(list);
         return Ui.instance.createTaskPrompt(task);
     }
 

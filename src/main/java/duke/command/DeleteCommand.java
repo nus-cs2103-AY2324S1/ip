@@ -17,10 +17,17 @@ public class DeleteCommand extends Command {
         index = i;
     }
 
+    /**
+     * Deletes selected task from TaskList.
+     *
+     * @param list TaskList to be modified.
+     * @return prompt for deleting task.
+     */
     @Override
     public String execute(TaskList list) {
         Task temp = list.getList().get(index);
         list.delete(index);
+        Storage.instance.save(list);
         return Ui.instance.deletePrompt(temp);
     }
 

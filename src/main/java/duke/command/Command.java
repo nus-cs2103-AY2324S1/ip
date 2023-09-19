@@ -4,16 +4,16 @@ import duke.task.TaskList;
 
 /**
  * Command encapsulates information for execution to be done
- * according to user's input
+ * according to user's input.
  *
  * @author Lian Zhi Xuan
  */
 public abstract class Command {
 
     /**
-     * Executes the instruction in command
+     * Executes the instruction in command.
      *
-     * @param list
+     * @param list TaskList to be modified.
      */
     public abstract String execute(TaskList list);
 

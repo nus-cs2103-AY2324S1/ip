@@ -15,6 +15,7 @@ import java.io.*;
  */
 public class Storage {
 
+    public static Storage instance = new Storage();
     private static final String fileName = "ChewieBrain.json";
 
     private static final Gson gson = new Gson();
@@ -24,7 +25,7 @@ public class Storage {
     private SaveData save;
 
     /**
-     * Save the user's task list into a json file
+     * Saves the user's task list into a json file.
      *
      * @param list user's task list
      */
@@ -46,9 +47,9 @@ public class Storage {
     }
 
     /**
-     * Loads save file into program when program initialize
+     * Loads save file into program when program initialize.
      *
-     * @param list
+     * @param list TaskList to load our save.
      */
     public void load(TaskList list) {
         try {
@@ -64,10 +65,10 @@ public class Storage {
     }
 
     /**
-     * Overloaded method of load
+     * Overloaded method of load.
      *
-     * @param list
-     * @param filePath
+     * @param list TaskList to load our save.
+     * @param filePath filePath to load from.
      */
     public void load(TaskList list, String filePath) {
         try {
@@ -100,9 +101,9 @@ public class Storage {
     }
 
     /**
-     * To check if program runs on a new save
+     * Checks if program runs on a new save.
      *
-     * @return is the program initialized with a new Save
+     * @return is the program initialized with a new Save.
      */
     public boolean isNewSave() {
         return isNewSave;

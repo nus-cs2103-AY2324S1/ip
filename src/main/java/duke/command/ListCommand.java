@@ -10,6 +10,12 @@ import duke.task.TaskList;
  */
 public class ListCommand extends Command{
 
+    /**
+     * Returns the entire list of tasks.
+     *
+     * @param list TaskList to be modified.
+     * @return string representation of the list.
+     */
     @Override
     public String execute(TaskList list) {
         return Ui.instance.listPrompt(list);

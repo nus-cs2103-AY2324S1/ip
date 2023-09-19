@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.Duke;
+import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
@@ -17,9 +18,16 @@ public class MarkCommand extends Command {
         index = i;
     }
 
+    /**
+     * Marks selected task as done.
+     *
+     * @param list TaskList to be modified.
+     * @return prompt for marking the task.
+     */
     @Override
     public String execute(TaskList list) {
         list.mark(index);
+        Storage.instance.save(list);
         return Ui.instance.markPrompt(list.getList().get(index));
     }
 

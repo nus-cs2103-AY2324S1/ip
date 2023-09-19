@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
@@ -15,9 +16,16 @@ public class UnmarkCommand extends Command{
         index = i;
     }
 
+    /**
+     * Unmarks selected task as done.
+     *
+     * @param list TaskList to be modified.
+     * @return prompt for marking the task.
+     */
     @Override
     public String execute(TaskList list) {
         list.unmark(index);
+        Storage.instance.save(list);
         return Ui.instance.unmarkPrompt(list.getList().get(index));
     }
 

@@ -1,8 +1,14 @@
 package duke.command;
 
+import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
 
+/**
+ * Command to create a assign tag.
+ *
+ * @author Lian Zhi Xuan
+ */
 public class AssignTagCommand extends Command{
 
     private String tag;
@@ -14,9 +20,16 @@ public class AssignTagCommand extends Command{
         tag = t;
     }
 
+    /**
+     * Assigns tag to selected task.
+     *
+     * @param list TaskList to be modified.
+     * @return prompt when assigning tag.
+     */
     @Override
     public String execute(TaskList list) {
         list.assignTaskWithTag(index,tag);
+        Storage.instance.save(list);
         return Ui.instance.assignTagPrompt(list.getList().get(index));
     }
 }

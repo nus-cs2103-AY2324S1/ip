@@ -10,6 +10,13 @@ import duke.task.TaskList;
  * @author Lian Zhi Xuan
  */
 public class TerminateCommand extends Command {
+
+    /**
+     * Terminates duke.
+     *
+     * @param list TaskList to be modified.
+     * @return ending prompt.
+     */
     @Override
     public String execute(TaskList list) {
         Storage storage = new Storage();

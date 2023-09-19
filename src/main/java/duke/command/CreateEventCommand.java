@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Storage;
 import duke.Ui;
 import duke.task.Events;
 import duke.task.TaskList;
@@ -7,7 +8,7 @@ import duke.task.TaskList;
 import java.time.LocalDate;
 
 /**
- * Command to create event task
+ * Command to create event task.
  *
  * @author Lian Zhi Xuan
  */
@@ -19,9 +20,16 @@ public class CreateEventCommand extends Command {
         this.task = new Events(task, from, to);
     }
 
+    /**
+     * Creates a event in TaskList.
+     *
+     * @param list TaskList to be modified.
+     * @return prompt for creating event.
+     */
     @Override
     public String execute(TaskList list) {
         list.add(task);
+        Storage.instance.save(list);
         return Ui.instance.createTaskPrompt(task);
     }
 

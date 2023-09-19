@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * Interpret input of user and gives out corresponding commands
+ * Interprets input of user and gives out corresponding commands
  *
  * @author Lian Zhi Xuan
  */

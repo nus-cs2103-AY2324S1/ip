@@ -18,9 +18,9 @@ public class Ui {
     private String currInput = "";
 
     /**
-     * Displays message of creating Task
+     * Displays message of creating Task.
      *
-     * @param task
+     * @param task task to crete prompt form.
      */
     public String createTaskPrompt (Task task) {
 
@@ -29,6 +29,11 @@ public class Ui {
         return result;
     }
 
+    /**
+     * Displays message of assigning tag to task.
+     *
+     * @param task task to crete prompt form.
+     */
     public String assignTagPrompt(Task task) {
         String result = "Chewie gotcha, tag added to task :\n";
         result += task.getStatus() + task.getTaskName() + " " + tagPrompt(task);
@@ -36,6 +41,11 @@ public class Ui {
         return result;
     }
 
+    /**
+     * Displays message of removing tag from task.
+     *
+     * @param task task to crete prompt form.
+     */
     public String removeTagPrompt(Task task) {
         String result = "Chewie gotcha, tag removed from task :\n";
         result += task.getStatus() + task.getTaskName() + " " + tagPrompt(task);
@@ -43,6 +53,11 @@ public class Ui {
         return result;
     }
 
+    /**
+     * Displays list of tasks with the tag.
+     *
+     * @param tasks tasks to crete prompt form.
+     */
     public String findTaskWithTagPrompt(Task[] tasks) {
          String result = "Chewie found these tasks with the tag :\n";
 
@@ -53,6 +68,11 @@ public class Ui {
         return result;
     }
 
+    /**
+     * Displays message of assigning tag to task.
+     *
+     * @param task task to crete prompt form.
+     */
     private String tagPrompt(Task task) {
         String result = "( ";
         for (String t :task.getTags()) {
@@ -61,9 +81,9 @@ public class Ui {
         return result + ")";
     }
     /**
-     * Display the message of marking a task
+     * Displays the message of marking a task.
      *
-     * @param task task created
+     * @param task task created.
      */
     public String markPrompt(Task task) {
         String result = "Rrrruuuurrr, Chewie has marked the task.\n";
@@ -75,7 +95,7 @@ public class Ui {
     /**
      * Displays the message of unmarking a task.
      *
-     * @param task task created
+     * @param task task created.
      */
     public String unmarkPrompt(Task task) {
         String result = "Rrrruuuurrr, Chewie has unmarked the task.\n";
@@ -84,9 +104,9 @@ public class Ui {
     }
 
     /**
-     * Display the message of deleting a task
+     * Displays the message of deleting a task.
      *
-     * @param task task created
+     * @param task task created.
      */
     public String deletePrompt(Task task) {
         String result = "Chewie gotcha, task removed:\n" + task.getStatus()
@@ -97,9 +117,9 @@ public class Ui {
     }
 
     /**
-     * Display list of task
+     * Displays list of task.
      *
-     * @param taskList user's task list
+     * @param taskList user's task list.
      */
     public String listPrompt(TaskList taskList) {
         List<Task> list = taskList.getList();
@@ -115,6 +135,11 @@ public class Ui {
         return result;
     }
 
+    /**
+     * Displays list of tasks with selected keyword.
+     *
+     * @param list tasks to crete prompt from.
+     */
     public String findPrompt(Task[] list) {
         if (list.length == 0) {
             return "Chewie found nothing. ";
@@ -133,7 +158,7 @@ public class Ui {
     }
 
     /**
-     * Display the starting message of the program
+     * Displays the starting message of the program.
      *
      */
     public String startPrompt() {
@@ -141,7 +166,7 @@ public class Ui {
     }
 
     /**
-     * Display ending message of program
+     * Displays ending message of program.
      *
      */
     public String endPrompt() {
@@ -149,7 +174,7 @@ public class Ui {
     }
 
     /**
-     * Display error message to user
+     * Displays error message to user.
      *
      * @param e error encountered
      */
@@ -158,7 +183,7 @@ public class Ui {
     }
 
     /**
-     * Display wrong date format message
+     * Displays wrong date format message.
      *
      */
     public String wrongDateFormatPrompt() {
@@ -166,9 +191,9 @@ public class Ui {
     }
 
     /**
-     * Record the input into Ui instance
+     * Records the input into Ui instance.
      *
-     * @param text
+     * @param text input from user.
      */
     public void setCurrInput(String text) {
         this.currInput = text;

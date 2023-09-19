@@ -10,18 +10,18 @@ import java.util.ArrayList;
 public class Task {
 
     private String name;
-    private boolean done;
+    private boolean isDone  ;
 
     private ArrayList<String> tags;
 
     public Task(String task) {
         name = task;
-        done = false;
+        isDone = false;
         tags = new ArrayList<>();
     }
 
     /**
-     * Show the type of task
+     * Shows the type of task
      *
      * @return a string indicating its type
      */
@@ -43,7 +43,7 @@ public class Task {
      *
      */
     public void mark() {
-        done = true;
+        isDone = true;
     }
 
     /**
@@ -51,26 +51,26 @@ public class Task {
      *
      */
     public void unmark() {
-        done = false;
+        isDone = false;
     }
 
     /**
-     * Check if the task is done
+     * Checks if the task is done
      *
      * @return true if task is done
      */
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
 
     /**
-     * Return the string representation of isDone()
+     * Returns the string representation of isDone()
      *
      * @return a string marker indicating status of task
      */
     public String getStatus() {
-        return done ? "[X]" : "[ ]";
+        return isDone ? "[X]" : "[ ]";
     }
 
     public ArrayList<String> getTags() {
@@ -98,7 +98,7 @@ public class Task {
     public boolean equals(Object o){
         if (o instanceof Task) {
             Task temp = (Task)o;
-            return this.name.equals(temp.getTaskName()) && this.done == temp.isDone();
+            return this.name.equals(temp.getTaskName()) && this.isDone == temp.isDone();
         }
         return false;
     }
