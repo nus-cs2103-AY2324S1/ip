@@ -31,7 +31,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList taskList = new TaskList();
-        for (int i = 0; i < tasks.length(); i++) {
+        for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.getTask(i).contains(keyword)) {
                 taskList.add(tasks.getTask(i));
             }

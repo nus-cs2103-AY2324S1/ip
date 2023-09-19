@@ -61,7 +61,7 @@ public class Storage {
                     taskList.add(new Event(description.replaceFirst("\\|", "/from").replaceFirst("\\|", "/to")));
                 }
                 if (done.equalsIgnoreCase("X")) {
-                    taskList.getTask(taskList.length() - 1).mark();
+                    taskList.getTask(taskList.getSize() - 1).mark();
                 }
 
             }
@@ -80,7 +80,7 @@ public class Storage {
     public void writeFile(TaskList tasks) throws DukeException {
         try {
             FileWriter fileWriter = new FileWriter(this.FILE);
-            for (int i = 0; i < tasks.length(); i++) {
+            for (int i = 0; i < tasks.getSize(); i++) {
                 fileWriter.write(tasks.getTaskInput(i) + "\n");
             }
             fileWriter.close();
