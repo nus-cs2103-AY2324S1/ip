@@ -43,7 +43,7 @@ public class FindCommand implements Command {
         ArrayList<Task> tasks = taskList.getTaskList();
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
-            String taskTitle = task.getTitle();
+            String taskTitle = task.getTitle().toLowerCase();
             if (taskTitle.contains(keyword)) {
                 foundTasks.add(task);
             }
