@@ -6,15 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ErrorCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
@@ -76,8 +68,29 @@ public class Parser {
         case "find":
             return Parser.parseFind(userInput);
             // Fallthrough
+            case "update":
+                return Parser.parseUpdate(input);
         default:
             return new ErrorCommand("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    /**
+     * Parses the user input and returns an update command object.
+     *
+     * @param userInput The full input string entered by the user.
+     * @return An updateCommand object that updates the specified field with the new Value.
+     */
+    public static Command parseUpdate(String userInput) {
+        try {
+            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+            String field = userInput.split(" ", 4)[2];
+            String newValue = userInput.split(" ", 4)[3];
+            return new UpdateCommand(taskNumber, field, newValue);
+        } catch (IllegalArgumentException e) {
+            return new ErrorCommand("☹ OOPS!!! The format of your update is invalid.");
+        } catch (IndexOutOfBoundsException e) {
+            return new ErrorCommand("☹ OOPS!!! There are wrong number of fields given");
         }
     }
 
@@ -277,6 +290,7 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             return new ErrorCommand("☹ OOPS!!! You did not specify "
                     + "your key word you are finding for.");
+
         }
     }
 }

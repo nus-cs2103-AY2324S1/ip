@@ -182,5 +182,13 @@ public class Ui {
         System.out.println(SPACE);
         return result;
     }
+
+    public String showUpdateText(TaskList tasks, int taskNumber) {
+        System.out.println(SPACE);
+        System.out.println("Noted. I've updated task number" + taskNumber + ".\n");
+        System.out.println(tasks.get(taskNumber).toString());
+        System.out.println(SPACE);
+        return "Noted. I've updated this task.\n" + tasks.get(taskNumber).toString();
+    }
 }
 

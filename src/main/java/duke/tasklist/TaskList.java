@@ -2,6 +2,8 @@ package duke.tasklist;
 
 import java.util.ArrayList;
 
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 
 /**
@@ -68,6 +70,32 @@ public class TaskList {
         return this.taskList.get(index);
     }
 
-
-
+    /**
+     * Updates a specific field of a task in the task list with a new value.
+     *
+     * @param taskNum The number of the task in the task list to update
+     * @param field the field of the task to update; should be one of "taskDescription", "/by", "/from", or "/to"
+     * @param newValue the new value to set for the specified field
+     */
+    public void updateTask(int taskNum, String field, String newValue) {
+        Task task = this.taskList.get(taskNum - 1);
+        if (field.equals("taskDescription")) {
+            task.updateTaskName(newValue);
+        } else if (field.equals("/by")) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                deadline.updateDueDate(newValue);
+            }
+        } else if (field.equals("/from")) {
+            if (task instanceof Event) {
+                Event event = (Event) task;
+                event.updateStartDate(newValue);
+            }
+        } else if (field.equals("/to")) {
+            if (task instanceof Event) {
+                Event event = (Event) task;
+                event.updateDueDate(newValue);
+            }
+        }
+    }
 }
