@@ -7,13 +7,13 @@ package jeoe.Exceptions;
  * @author Joe Chua
  * @version Week-6
  */
-public class InitializationException extends Exception {
+public class CorruptDataException extends Exception {
 
     /**
-     * Constructor for a InitializationException object.
+     * Constructor for a CorruptDataException object.
      * @param input The string input by the user to be included in the error message.
      */
-    public InitializationException(String input) {
-        super("Initialization exception thrown");
+    public CorruptDataException(String input) {
+        super("Corrupt data exception thrown");
     }
 }

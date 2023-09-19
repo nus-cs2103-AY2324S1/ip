@@ -12,7 +12,7 @@ import jeoe.Tasks.TaskManager;
  * It is meant to execute the creation of a Deadline object.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class DeadlineCommand extends Command {
 
@@ -49,16 +49,20 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        String deadlineDescription = this.deadlineArr[0];
-        String by = convertToIso8601(this.deadlineArr[1]); // need to add the T in
-        Deadline deadline = new Deadline(deadlineDescription, LocalDateTime.parse(by));
+        try {
+            String deadlineDescription = this.deadlineArr[0];
+            String by = convertToIso8601(this.deadlineArr[1]); // need to add the T in
+            Deadline deadline = new Deadline(deadlineDescription, LocalDateTime.parse(by));
 
-        // add to the storage in Task & save into HDD
-        taskManager.addTask(deadline);
-        storageManager.save(taskManager.getTasks());
+            // add to the storage in Task & save into HDD
+            taskManager.addTask(deadline);
+            storageManager.save(taskManager.getTasks());
 
-        // add to the reply
-        ui.displayReply(deadline.replyString(taskManager.getTasksSize()));
+            // add to the reply
+            ui.displayReply(deadline.replyString(taskManager.getTasksSize()));
+        } catch (Exception e) {
+            ui.displayReply("deadline command is invalid, please try again");
+        }
     }
 
     /**
@@ -70,15 +74,19 @@ public class DeadlineCommand extends Command {
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
     public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        String deadlineDescription = this.deadlineArr[0];
-        String by = convertToIso8601(this.deadlineArr[1]); // need to add the T in
-        Deadline deadline = new Deadline(deadlineDescription, LocalDateTime.parse(by));
+        try {
+            String deadlineDescription = this.deadlineArr[0];
+            String by = convertToIso8601(this.deadlineArr[1]); // need to add the T in
+            Deadline deadline = new Deadline(deadlineDescription, LocalDateTime.parse(by));
 
-        // add to the storage in Task & save into HDD
-        taskManager.addTask(deadline);
-        storageManager.save(taskManager.getTasks());
+            // add to the storage in Task & save into HDD
+            taskManager.addTask(deadline);
+            storageManager.save(taskManager.getTasks());
 
-        // add to the reply
-        return ui.getReply(deadline.replyString(taskManager.getTasksSize()));
+            // add to the reply
+            return ui.getReply(deadline.replyString(taskManager.getTasksSize()));
+        } catch (Exception e) {
+            return ui.getReply("deadline command is invalid, please try again");
+        }
     }
 }

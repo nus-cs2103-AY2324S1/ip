@@ -10,7 +10,7 @@ import jeoe.Tasks.TaskManager;
  * It is meant to execute the creation of an Event object.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class EventCommand extends Command {
 
@@ -36,18 +36,22 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        String eventDescription = eventArr[0];
-        String[] eventArr2 = eventArr[1].split(" /to "); // eventArr2 have the from & to
-        String from = eventArr2[0];
-        String to = eventArr2[1];
-        Event event = new Event(eventDescription, from, to);
+        try {
+            String eventDescription = eventArr[0];
+            String[] eventArr2 = eventArr[1].split(" /to "); // eventArr2 have the from & to
+            String from = eventArr2[0];
+            String to = eventArr2[1];
+            Event event = new Event(eventDescription, from, to);
 
-        // add to storage
-        taskManager.addTask(event);
-        storageManager.save(taskManager.getTasks());
+            // add to storage
+            taskManager.addTask(event);
+            storageManager.save(taskManager.getTasks());
 
-        // add to the reply
-        ui.displayReply(event.replyString(taskManager.getTasksSize()));
+            // add to the reply
+            ui.displayReply(event.replyString(taskManager.getTasksSize()));
+        } catch (Exception e) {
+            ui.displayReply("event command is invalid, please try again");
+        }
     }
 
     /**
@@ -59,17 +63,21 @@ public class EventCommand extends Command {
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
     public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        String eventDescription = eventArr[0];
-        String[] eventArr2 = eventArr[1].split(" /to "); // eventArr2 have the from & to
-        String from = eventArr2[0];
-        String to = eventArr2[1];
-        Event event = new Event(eventDescription, from, to);
+        try {
+            String eventDescription = eventArr[0];
+            String[] eventArr2 = eventArr[1].split(" /to "); // eventArr2 have the from & to
+            String from = eventArr2[0];
+            String to = eventArr2[1];
+            Event event = new Event(eventDescription, from, to);
 
-        // add to storage
-        taskManager.addTask(event);
-        storageManager.save(taskManager.getTasks());
+            // add to storage
+            taskManager.addTask(event);
+            storageManager.save(taskManager.getTasks());
 
-        // add to the reply
-        return ui.getReply(event.replyString(taskManager.getTasksSize()));
+            // add to the reply
+            return ui.getReply(event.replyString(taskManager.getTasksSize()));
+        } catch (Exception e) {
+            return ui.getReply("event command is invalid, please try again");
+        }
     }
 }

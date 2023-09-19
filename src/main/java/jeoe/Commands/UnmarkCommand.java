@@ -1,5 +1,6 @@
 package jeoe.Commands;
 
+import jeoe.Exceptions.IndexOutOfBoundsException;
 import jeoe.Others.StorageManager;
 import jeoe.Others.Ui;
 import jeoe.Tasks.TaskManager;
@@ -9,12 +10,15 @@ import jeoe.Tasks.TaskManager;
  * It is meant to un-mark a task as done in the list of tasks.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class UnmarkCommand extends Command {
 
     /** Index in the task list to un-mark a task. */
     private int idxUnmark;
+
+    /** validity of command. */
+    private boolean isValid = true;
 
     /**
      * Constructor for a UnmarkCommand object.
@@ -22,7 +26,11 @@ public class UnmarkCommand extends Command {
      */
     UnmarkCommand(String input) {
         super(false);
-        idxUnmark = Integer.parseInt(input.split(" ")[1]) - 1;
+        try {
+            idxUnmark = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (Exception e) {
+            isValid = false;
+        }
     }
 
     /**
@@ -35,16 +43,25 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        // add to the storage in Task & save into HDD
-        taskManager.unmark(idxUnmark);
-        storageManager.save(taskManager.getTasks());
+        try {
+            if (!isValid) {
+                throw new Exception("unmark command is invalid, please try again");
+            }
+            // add to the storage in Task & save into HDD
+            taskManager.unmark(idxUnmark);
+            storageManager.save(taskManager.getTasks());
 
-        // format the reply
-        String reply = "OK, I've marked this task as not done yet:\n"
-                + taskManager.getTask(idxUnmark).toString() + "\n";
+            // format the reply
+            String reply = "OK, I've marked this task as not done yet:\n"
+                    + taskManager.getTask(idxUnmark).toString() + "\n";
 
-        // add to the reply
-        ui.displayReply(reply);
+            // add to the reply
+            ui.displayReply(reply);
+        } catch (IndexOutOfBoundsException e) {
+            ui.displayReply(e.getMessage());
+        } catch (Exception e) {
+            ui.displayReply(e.getMessage());
+        }
     }
 
     /**
@@ -56,15 +73,25 @@ public class UnmarkCommand extends Command {
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
     public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        // add to the storage in Task & save into HDD
-        taskManager.unmark(idxUnmark);
-        storageManager.save(taskManager.getTasks());
+        try {
+            if (!isValid) {
+                throw new Exception("unmark command is invalid, please try again");
+            }
+            // add to the storage in Task & save into HDD
+            taskManager.unmark(idxUnmark);
+            storageManager.save(taskManager.getTasks());
 
-        // format the reply
-        String reply = "OK, I've marked this task as not done yet:\n"
-                + taskManager.getTask(idxUnmark).toString() + "\n";
+            // format the reply
+            String reply = "OK, I've marked this task as not done yet:\n"
+                    + taskManager.getTask(idxUnmark).toString() + "\n";
 
-        // add to the reply
-        return ui.getReply(reply);
+            // add to the reply
+            return ui.getReply(reply);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getReply(e.getMessage());
+        } catch (Exception e) {
+            return ui.getReply(e.getMessage());
+        }
+
     }
 }

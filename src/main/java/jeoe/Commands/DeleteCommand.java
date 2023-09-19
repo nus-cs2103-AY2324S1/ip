@@ -1,5 +1,6 @@
 package jeoe.Commands;
 
+import jeoe.Exceptions.IndexOutOfBoundsException;
 import jeoe.Others.StorageManager;
 import jeoe.Others.Ui;
 import jeoe.Tasks.Task;
@@ -10,12 +11,15 @@ import jeoe.Tasks.TaskManager;
  * It is meant to execute the deletion of a task.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class DeleteCommand extends Command {
 
     /** Index in task list to delete task. */
     private int idxDel;
+
+    /** validity of command. */
+    private boolean isValid = true;
 
     /**
      * Constructor for a DeleteCommand object.
@@ -23,7 +27,12 @@ public class DeleteCommand extends Command {
      */
     DeleteCommand(String input) {
         super(false);
-        idxDel = Integer.parseInt(input.split(" ")[1]) - 1;
+        try {
+            idxDel = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (Exception e) {
+            // if the delete command is not valid
+            isValid = false;
+        }
     }
 
     /**
@@ -37,15 +46,25 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskManager taskManager, Ui ui, StorageManager storageManager) {
         // add to the storage in Task & save into HDD
-        Task t = taskManager.deleteIndex(idxDel);
-        storageManager.save(taskManager.getTasks());
+        try {
+            if (!isValid) {
+                throw new Exception("delete command is invalid, please try again");
+            }
 
-        // format the reply
-        String reply = "Noted. I've removed this task:\n" + t.toString() + "\n"
-                + "Now you have " + taskManager.getTasksSize() + " tasks in the list.\n";
+            Task t = taskManager.deleteIndex(idxDel);
+            storageManager.save(taskManager.getTasks());
 
-        // add to the reply
-        ui.displayReply(reply);
+            // format the reply
+            String reply = "Noted. I've removed this task:\n" + t.toString() + "\n"
+                    + "Now you have " + taskManager.getTasksSize() + " tasks in the list.\n";
+
+            // add to the reply
+            ui.displayReply(reply);
+        } catch (IndexOutOfBoundsException e) {
+            ui.displayReply(e.getMessage());
+        } catch (Exception e) {
+            ui.displayReply(e.getMessage());
+        }
     }
 
     /**
@@ -57,15 +76,24 @@ public class DeleteCommand extends Command {
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
     public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        // add to the storage in Task & save into HDD
-        Task t = taskManager.deleteIndex(idxDel);
-        storageManager.save(taskManager.getTasks());
+        try {
+            if (!isValid) {
+                throw new Exception("delete command is invalid, please try again");
+            }
+            // add to the storage in Task & save into HDD
+            Task t = taskManager.deleteIndex(idxDel);
+            storageManager.save(taskManager.getTasks());
 
-        // format the reply
-        String reply = "Noted. I've removed this task:\n" + t.toString() + "\n"
-                + "Now you have " + taskManager.getTasksSize() + " tasks in the list.\n";
+            // format the reply
+            String reply = "Noted. I've removed this task:\n" + t.toString() + "\n"
+                    + "Now you have " + taskManager.getTasksSize() + " tasks in the list.\n";
 
-        // add to the reply
-        return ui.getReply(reply);
+            // add to the reply
+            return ui.getReply(reply);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getReply(e.getMessage());
+        } catch (Exception e) {
+            return ui.getReply(e.getMessage());
+        }
     }
 }

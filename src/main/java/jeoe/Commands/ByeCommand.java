@@ -8,7 +8,7 @@ import jeoe.Tasks.TaskManager;
  * This class encapsulates a command that ends the Jeoe chatbot.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class ByeCommand extends Command {
 
@@ -42,6 +42,7 @@ public class ByeCommand extends Command {
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
     public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
+        System.exit(0);
         return ui.getReply(ui.getEndString());
     }
 }

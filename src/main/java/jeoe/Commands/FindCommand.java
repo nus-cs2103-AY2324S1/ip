@@ -14,7 +14,7 @@ import jeoe.Tasks.TaskManager;
  * with description matching the user input, and ran checkstyle on my current code.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class FindCommand extends Command {
 

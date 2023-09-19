@@ -58,7 +58,8 @@ public class Jeoe {
             ui = new Ui();
             storageManager = new StorageManager(filePath); // loading tasks & saving tasks
             // contains list of task, and has operations to add/delete tasks
-            taskManager = new TaskManager(storageManager.load()); // load passes the string for TM to add task to arr
+            taskManager = new TaskManager(storageManager.load(), filePath);
+            // load passes the string for TM to add task to arr
 
             ui.showOpenString(); // leave it here so i know that program did get initialize
         } catch (Exception e) {

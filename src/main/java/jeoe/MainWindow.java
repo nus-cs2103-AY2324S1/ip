@@ -56,6 +56,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getJeoeDialog(response, dukeImage)
         );
         userInput.clear();
-
     }
 }

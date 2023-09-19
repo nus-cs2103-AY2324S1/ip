@@ -1,5 +1,6 @@
 package jeoe.Commands;
 
+import jeoe.Exceptions.IndexOutOfBoundsException;
 import jeoe.Others.StorageManager;
 import jeoe.Others.Ui;
 import jeoe.Tasks.TaskManager;
@@ -9,20 +10,27 @@ import jeoe.Tasks.TaskManager;
  * It is meant to mark a task as done in the list of tasks.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class MarkCommand extends Command {
 
     /** Index in the task list to mark a task. */
     private int idxMark;
 
+    /** validity of command. */
+    private boolean isValid = true;
     /**
      * Constructor for a MarkCommand object.
      * @param input The string input by the user to parse into a command.
      */
     MarkCommand(String input) {
         super(false);
-        idxMark = Integer.parseInt(input.split(" ")[1]) - 1;
+        try {
+            idxMark = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (Exception e) {
+            // if the delete command is not valid
+            isValid = false;
+        }
     }
 
     /**
@@ -35,15 +43,24 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        // add to the storage in Task & save into HDD
-        taskManager.mark(idxMark);
-        storageManager.save(taskManager.getTasks());
+        try {
+            if (!isValid) {
+                throw new Exception("mark command is invalid, please try again");
+            }
+            // add to the storage in Task & save into HDD
+            taskManager.mark(idxMark);
+            storageManager.save(taskManager.getTasks());
 
-        // format the reply
-        String reply = "Nice! I've marked this task as done:\n" + taskManager.getTask(idxMark).toString() + "\n";
+            // format the reply
+            String reply = "Nice! I've marked this task as done:\n" + taskManager.getTask(idxMark).toString() + "\n";
 
-        // add to the reply
-        ui.displayReply(reply);
+            // add to the reply
+            ui.displayReply(reply);
+        } catch (IndexOutOfBoundsException e) {
+            ui.displayReply(e.getMessage());
+        } catch (Exception e) {
+            ui.displayReply(e.getMessage());
+        }
     }
 
     /**
@@ -55,14 +72,23 @@ public class MarkCommand extends Command {
      * @param storageManager Storage manager handling storing & deletion of tasks.
      */
     public String executeAndReply(TaskManager taskManager, Ui ui, StorageManager storageManager) {
-        // add to the storage in Task & save into HDD
-        taskManager.mark(idxMark);
-        storageManager.save(taskManager.getTasks());
+        try {
+            if (!isValid) {
+                throw new Exception("mark command is invalid, please try again");
+            }
+            // add to the storage in Task & save into HDD
+            taskManager.mark(idxMark);
+            storageManager.save(taskManager.getTasks());
 
-        // format the reply
-        String reply = "Nice! I've marked this task as done:\n" + taskManager.getTask(idxMark).toString() + "\n";
+            // format the reply
+            String reply = "Nice! I've marked this task as done:\n" + taskManager.getTask(idxMark).toString() + "\n";
 
-        // add to the reply
-        return ui.getReply(reply);
+            // add to the reply
+            return ui.getReply(reply);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getReply(e.getMessage());
+        } catch (Exception e) {
+            return ui.getReply(e.getMessage());
+        }
     }
 }

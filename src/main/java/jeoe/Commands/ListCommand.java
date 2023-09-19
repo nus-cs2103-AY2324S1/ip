@@ -12,7 +12,7 @@ import jeoe.Tasks.TaskManager;
  * It is meant to display a list view of all the tasks currently stored.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class ListCommand extends Command {
 

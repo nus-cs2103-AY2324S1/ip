@@ -19,7 +19,7 @@ public class TodoCommandTest {
             String filePath = System.getProperty("user.dir") + "/storage/testTaskListData.txt";
             sm = new StorageManager(filePath);
             sm.deleteAllInFile();
-            tm = new TaskManager(sm.load());
+            tm = new TaskManager(sm.load(), filePath);
             TodoCommand todoTest = new TodoCommand("todo test");
             todoTest.execute(tm, ui, sm);
             assertEquals("1. [T][ ] test\n", tm.toString());

@@ -12,7 +12,7 @@ import jeoe.Tasks.TaskManager;
  * It is meant to sort the current list of tasks.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class SortCommand extends Command {
 

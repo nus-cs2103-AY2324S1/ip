@@ -5,7 +5,7 @@ package jeoe.Exceptions;
  * It is an exception thrown when no command was inputted by the user.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class NoCommandException extends RunException {
 

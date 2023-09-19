@@ -10,7 +10,7 @@ import jeoe.Tasks.Todo;
  * It is meant to execute the creation of a Todo object.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class TodoCommand extends Command {
 
@@ -24,6 +24,9 @@ public class TodoCommand extends Command {
     TodoCommand(String input) {
         super(false);
         this.todoDescription = input.replaceFirst("todo ", "");
+        if (input.length() < 5) {
+            this.todoDescription = input.replaceFirst("todo", "");
+        }
     }
 
     /**

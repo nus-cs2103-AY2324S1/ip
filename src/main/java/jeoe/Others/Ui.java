@@ -28,6 +28,36 @@ public class Ui {
         return scanner.nextLine();
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+    // when it switched to GUI
+    /** Returns the opening string of the Jeoe program. */
+    public String getOpeningString() {
+        String openingStr = " Hello! I'm JEOE\n"
+                + " What can I do for you?\n"
+                + " type :\n"
+                + " list => to list out items in storage\n"
+                + " _Anything else_ => store in storage\n";
+        return openingStr;
+    }
+
+    /** Returns the ending string of the Jeoe program. */
+    public String getEndString() {
+        String endStr = " Bye. Hope to see you again soon!\n";
+        return endStr;
+    }
+
+    /**
+     * Returns an output message to the user base on the input reply.
+     *
+     * @param reply Input reply by the execution of a command.
+     */
+    public String getReply(String reply) {
+        return "Jeoe :\n"
+                + reply;
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+    // for CLI program
     /** Displays the opening string of the Jeoe program. */
     public void showOpenString() {
         String openingStr = "____________________________________________________________\n"
@@ -58,33 +88,5 @@ public class Ui {
         System.out.println("____________________________________________________________\n"
                 + reply
                 + "____________________________________________________________\n");
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-    // when it switched to GUI
-    /** Returns the opening string of the Jeoe program. */
-    public String getOpeningString() {
-        String openingStr = " Hello! I'm JEOE\n"
-                + " What can I do for you?\n"
-                + " type :\n"
-                + " list => to list out items in storage\n"
-                + " _Anything else_ => store in storage\n";
-        return openingStr;
-    }
-
-    /** Returns the ending string of the Jeoe program. */
-    public String getEndString() {
-        String endStr = " Bye. Hope to see you again soon!\n";
-        return endStr;
-    }
-
-    /**
-     * Returns an output message to the user base on the input reply.
-     *
-     * @param reply Input reply by the execution of a command.
-     */
-    public String getReply(String reply) {
-        return "Jeoe :\n"
-                + reply;
     }
 }
