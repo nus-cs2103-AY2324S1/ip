@@ -1,6 +1,6 @@
 # User Guide
 
-2 Dudes personal assistant chatbot to help you keep track of your tasks.
+Violet is your personal assistant chatbot to help you keep track of your tasks.
 
 ## Features 
 
