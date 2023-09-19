@@ -4,4 +4,4 @@ D | 1 | sleep | 12 Dec 1212 | 12.34PM
 F | 1 | sleep | needs 5 hours
 E | 1 | sep | from now | to then
 F | 1 | okay | needs 2 hours
-F | 1 | sleep | needs 2 minutes
+T | 1 | read

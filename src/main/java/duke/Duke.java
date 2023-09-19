@@ -52,10 +52,29 @@ public class Duke {
         try {
             assert input != null : "Input cannot be null";
             Command c = Parser.parse(input);
+            if (c.isExit()) {
+                exitAfterDelay(); // Exit the application after a delay with the exit message
+            }
             return c.execute(tasks, ui, storage);
         } catch (DukeException e) {
             return ui.showErrorMessage(e.getMessage());
         }
+    }
+
+    /**
+     * Initiates the exit process with a delay and a custom exit message.
+     */
+    private void exitAfterDelay() {
+        Thread exitThread = new Thread(() -> {
+            try {
+                ui.showGoodbyeMessage();
+                Thread.sleep(500);
+                System.exit(0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        exitThread.start();
     }
 }
 
