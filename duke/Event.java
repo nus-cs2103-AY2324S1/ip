@@ -2,6 +2,7 @@ package duke;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Event extends Task {
 
@@ -23,14 +24,16 @@ public class Event extends Task {
     @Override
     public String toString() {
         String status = "[" + getStatusIcon() + "] ";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
         if (fromDateTime != null && toDateTime != null) {
             return " " + "[E]" + status + description +
-                    " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
-                    " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+                    " (from: " + fromDateTime.format(formatter) +
+                    " to: " + toDateTime.format(formatter) + ")";
         } else {
             return " " + "[E]" + status + description +
-                    " (from: " + fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
-                    " to: " + toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                    " (from: " + fromDate.format(dateTimeFormatter) +
+                    " to: " + toDate.format(dateTimeFormatter) + ")";
         }
     }
 }

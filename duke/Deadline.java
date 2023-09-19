@@ -2,6 +2,7 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.util.Locale;
 
 public class Deadline extends Task {
 
@@ -18,7 +19,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String status = "[" + getStatusIcon() + "] ";
-        return " " + "[D]" + status + description + " (by: " +
-                dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
+        return " " + "[D]" + status + description + " (by: " + dateTime.format(formatter) + ")";
     }
 }
