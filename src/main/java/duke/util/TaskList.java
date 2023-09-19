@@ -36,7 +36,9 @@ public class TaskList {
             Task tempT;
             switch (fields[0].trim()) {
             case "T":
-                if (fields[2].isEmpty()) {
+                assert !fields[2].trim().isEmpty() : "task stored has no description";
+                System.out.println(fields[2]);
+                if(fields[2].isEmpty()) {
                     throw new NoTaskException();
                 }
                 tempT = new ToDo(fields[2].trim());
@@ -46,6 +48,7 @@ public class TaskList {
                 tasks.add(tempT);
                 break;
             case "D":
+                assert !fields[2].trim().isEmpty() : "task stored has no description";
                 tempT = new Deadline(fields[2].trim(), fields[3]);
                 if (fields[1].equals("1")) {
                     tempT.markAsDone();
@@ -53,6 +56,7 @@ public class TaskList {
                 tasks.add(tempT);
                 break;
             case "E":
+                assert !fields[2].trim().isEmpty() : "task stored has no description";
                 String[] time;
                 time = fields[3].split("->");
                 tempT = new Event(fields[2].trim(), time[0], time[1]);
@@ -62,6 +66,7 @@ public class TaskList {
                 tasks.add(tempT);
                 break;
             default:
+                throw new DukeException("Invalid task type found in file");
             }
         }
     }
@@ -74,7 +79,7 @@ public class TaskList {
      * @throws InvalidTaskNumberException Error when given task number exceeds the number of tasks in the list
      */
     public String markTask(int taskNumber, Ui ui) throws InvalidTaskNumberException {
-        if (taskNumber > tasks.size()) {
+        if (taskNumber > tasks.size()){
             throw new InvalidTaskNumberException(tasks.size());
         }
         tasks.get(taskNumber - 1).markAsDone();
@@ -120,6 +125,7 @@ public class TaskList {
             throw new InvalidTaskNumberException(tasks.size());
         } else {
             Task temp = tasks.remove(taskNumber - 1);
+            assert temp != null;
             return ui.showComplete("Noted. I've removed this task:"
                     + temp
                     + "Now you have " + this.tasks.size() + " task(s) in the list");
@@ -133,6 +139,7 @@ public class TaskList {
     public ArrayList<String> toWriteFormat() {
         ArrayList<String> taskStrings = new ArrayList<>();
         for (Task task : tasks) {
+            assert task != null;
             taskStrings.add(task.toSaveFormat());
         }
         return taskStrings;

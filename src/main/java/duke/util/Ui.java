@@ -66,15 +66,15 @@ public class Ui {
      * @param tasks Arraylist of string of formatted tasks to be displayed
      */
     public String showTasks(ArrayList<String> tasks) {
+        assert tasks != null : "should display no tasks instead of calling this method";
         int count = 1;
-        String s = " ";
+        String s = "";
         for (String task : tasks) {
             s += count + ". " + task + "\n";
             count++;
         }
         System.out.println(s);
         return s;
-
     }
 
     /**
