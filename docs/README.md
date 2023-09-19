@@ -2,13 +2,13 @@
 
 ## Overview
 
-### **Taskmaster** is chatbot that is designed to help you manage your task better. Using commands, you can manage 3 different types of task; Todos, Deadlines and Events.
+### **Taskmaster** is chatbot that is designed to help you manage your task better. Using commands, you can manage 3 different types of task: Todos, Deadlines and Events. Taskmaster automatically saves your tasks in a file when you exit the program so that your tasks can be accessed again when you use Taskmaster in the future.
 
 ## Features 
 
 Generally, if the command requires you to indicate a time/date, you can either input it as:
 - Normal date / time eg. 3pm, 2 Dec
-- YYYY-MM-DD Date format eg. 2023-10-30
+- YYYY-MM-DD DateTime format eg. 2023-10-30
 
 ### List out all tasks `list`
 Displays all current tasks.
@@ -127,6 +127,19 @@ Find all deadlines and events that has `duedate` as their `datetime` and `start`
 Displays all tasks that has name matching keyword.
 `1: [D][] project work (by Oct 11 2023)
 2: [E][] student fair (from: Oct 11 2023 to Oct 12 2023)`
+
+### Exit the program: `bye`
+Closes the program and saves all tasks inside a data.txt file. Note that that newly added tasks will not be saved if Taskmaster is forcefully closed (not using `bye` command).
+
+**Example usage:**
+
+`bye`
+
+**Expected outcome:**
+
+Taskmaster GUI closes.
+
+
 
 
 
