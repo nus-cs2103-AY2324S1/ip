@@ -49,20 +49,6 @@ User can see saved their changes into notebook.txt.
 
 ## Usage
 
-### `add [task description]`
-
-- **Action:** Add a new task with the provided description.
-- **Example:**
-  add read book
-
-markdown
-Copy code
-- **Expected Outcome:**
-  added: read book
-
-markdown
-Copy code
-
 ### `list`
 
 - **Action:** Shows all tasks added by the user.
