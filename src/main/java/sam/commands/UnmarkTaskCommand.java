@@ -17,7 +17,7 @@ public class UnmarkTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": mark the tasks identified by the index number as incomplete.\n"
             + "Parameters: INDEX\n"
-            + "Example: " + COMMAND_WORD + "1";
+            + "Example: " + COMMAND_WORD + " 1";
     private Integer index;
 
     public UnmarkTaskCommand(Integer index) {

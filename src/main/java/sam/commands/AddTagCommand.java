@@ -1,6 +1,7 @@
 package sam.commands;
 
 import sam.constants.Message;
+import sam.exceptions.DukeException;
 import sam.services.Storage;
 import sam.services.TaskList;
 import sam.services.Ui;
@@ -28,10 +29,13 @@ public class AddTagCommand extends Command {
     @Override
     public CommandResult execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            tasks.getTask(index).addTag(description);
+            tasks.addTagToTask(index, description);
             ui.printMessage(Message.TAG_TASK, "\t" + tasks.getTask(index));
             storage.saveTasksToFile(tasks);
             return new CommandResult(Message.TAG_TASK, "\t" + tasks.getTask(index));
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+            return new IncorrectCommand(e.getMessage()).execute(tasks, ui, storage);
         } catch (IOException e) {
             ui.showError(Message.FAILED_TO_SAVE + e.getMessage());
             return new IncorrectCommand(Message.FAILED_TO_SAVE

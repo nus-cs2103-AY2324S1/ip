@@ -101,6 +101,18 @@ public class TaskList {
     }
 
     /**
+     * Mark a specific task as done according to their index number in the task list.
+     *
+     * @param index the index number of the task in the task list
+     */
+    public void addTagToTask(int index, String description) throws DukeException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new DukeException(Message.TASK_LIST_INVALID_INDEX);
+        }
+        tasks.get(index).addTag(description);
+    }
+
+    /**
      * Delete a specific task according to their index number in the task list.
      *
      * @param index the index number of the task in the task list
