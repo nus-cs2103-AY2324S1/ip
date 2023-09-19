@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.IOException;
+
 import duke.exception.DukeException;
 
 /**
@@ -15,8 +17,8 @@ public class Duke {
     /**
      * Constructor for duke.Duke class with no parameters
      */
-    public Duke() {
-        storage = new Storage("./src/main/java/data/duke.txt");
+    public Duke() throws IOException {
+        storage = new Storage("./data/duke.txt");
         ui = new Ui();
         try {
             tasks = new TaskList(storage.load());
@@ -30,7 +32,7 @@ public class Duke {
      *
      * @param filePath The filepath where task data is stored.
      */
-    public Duke(String filePath) {
+    public Duke(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -67,9 +69,13 @@ public class Duke {
     public String runInput(String userInput) {
         try {
             assert !tasks.equals(null) : "Tasks should not be null";
-            return Parser.parseInput(userInput, this.tasks, this.ui);
+            String output = Parser.parseInput(userInput, this.tasks, this.ui);
+            storage.writefile(this.tasks);
+            return output;
         } catch (DukeException e) {
             return e.getMessage();
+        } catch (IOException e) {
+            return "File Not Found";
         }
     }
 
@@ -78,8 +84,8 @@ public class Duke {
      *
      * @param args Command line arguments
      */
-    public static void main(String[] args) {
-        new Duke("./src/main/java/data/duke.txt").run();
+    public static void main(String[] args) throws IOException {
+        new Duke("./data/duke.txt").run();
     }
 
 }

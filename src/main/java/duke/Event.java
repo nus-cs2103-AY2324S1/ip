@@ -67,4 +67,14 @@ public class Event extends Task {
         }
         return false;
     }
+
+    /**
+     * Returns a String representation of Event task in file format.
+     *
+     * @return The String representation of task to be saved into a file.
+     */
+    @Override
+    public String toFileFormat() {
+        return "E" + super.toFileFormat() + " | " + from + " | " + to;
+    }
 }

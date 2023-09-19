@@ -39,4 +39,14 @@ public class ToDo extends Task {
         }
         return false;
     }
+    /**
+     * Returns a String representation of Deadline task.
+     *
+     * @return The String representation of task to be saved into a file.
+     */
+    @Override
+    public String toFileFormat() {
+        return "T" + super.toFileFormat();
+    }
+
 }

@@ -2,6 +2,8 @@ package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,17 +29,29 @@ public class Storage {
     }
 
     /**
+     * Saves the new task list into the given .txt file.
+     *
+     * @param tasks the updated task list.
+     * @throws IOException if there is issue writing into file.
+     */
+    public void writefile(TaskList tasks) throws IOException {
+        FileWriter fw = new FileWriter(this.filepath);
+        fw.write(tasks.toFileString());
+        fw.close();
+    }
+
+    /**
      * Loads tasks from the file using the file path.
      *
      * @return An ArrayList of tasks loaded from the file.
      * @throws DukeException If there is an issue loading tasks or parsing the file.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws DukeException, IOException {
         ArrayList<String> dataArray = new ArrayList<>();
         ArrayList<Task> taskList = new ArrayList<>();
+        File file = new File(this.filepath);
 
         try {
-            File file = new File(this.filepath);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
@@ -51,8 +65,11 @@ public class Storage {
                 taskList.add(loadData(item));
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("File Not Found: " + this.filepath);
+            File dir = new File(filepath + "/../");
+            dir.mkdir();
+            file.createNewFile();
         }
+
 
         return taskList;
     }

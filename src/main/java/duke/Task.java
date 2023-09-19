@@ -40,6 +40,13 @@ public abstract class Task {
     }
 
     /**
+     * An accessor method to retrieve the status of the task to load into file.
+     */
+    public String getFileStatusIcon() {
+        return (isDone ? "1" : "0"); // mark done task with X
+    }
+
+    /**
      * An accessor method to retrieve the description of the task.
      *
      */
@@ -56,6 +63,11 @@ public abstract class Task {
     @Override
     public String toString() {
         return ("[" + getStatusIcon() + "] " + this.description);
+    }
+
+
+    public String toFileFormat() {
+        return (" | " + getFileStatusIcon() + " | " + this.description);
     }
 
     /**

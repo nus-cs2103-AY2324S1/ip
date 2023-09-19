@@ -255,4 +255,17 @@ public class TaskList {
 
         return taskList;
     }
+
+    /**
+     * Returns a string representation of the task list in file format.
+     *
+     * @return The string representation of the task list in file format.
+     */
+    public String toFileString() {
+        String taskList = "";
+        for (int j = 0; j < this.tasks.size(); j++) {
+            taskList += (this.tasks.get(j).toFileFormat() + "\n");
+        }
+        return taskList;
+    }
 }
