@@ -7,8 +7,9 @@ benefits of a Graphical User Interface (GUI)!
 2. Download the latest duke.jar from release tab in this repo. 
 3. Move file to the folder you want to use as the home folder for your Duke. 
 4. Open your terminal. Navigate into the folder the jar file in, and run the command `java -jar duke.jar` to run the 
-application. A GUI similar to the below should appear in a few seconds.
+application.
 
+![Screenshot of GUI.](./Ui.png)
 ## Features 
 
 ### Viewing help: `help`
