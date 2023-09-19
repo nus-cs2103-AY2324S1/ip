@@ -76,7 +76,6 @@ public class MainWindow extends AnchorPane {
     private void addMessages(GobbleMessage... messages) {
         assert messages != null : "Messages should not be null";
         assert messages.length > 0 : "Messages should not be empty";
-        
         for (GobbleMessage message : messages) {
             dialogContainer.getChildren().add(message);
         }
