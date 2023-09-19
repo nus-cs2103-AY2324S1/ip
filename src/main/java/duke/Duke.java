@@ -1,7 +1,6 @@
 package duke;
 
 import duke.command.Command;
-import duke.command.SetCommand;
 import duke.exception.KoraException;
 import duke.list.CommandList;
 import duke.parser.Parser;
@@ -15,7 +14,7 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    private final TaskList taskList;
+    private final TaskList MainTaskList;
     private Storage storageTask;
     private Storage storageCommand;
     private Ui ui;
@@ -30,14 +29,15 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        storageTask = new Storage("./data/savedtask.txt");
-        storageCommand = new Storage("./data/savedCommand.txt");
-        taskList = new TaskList();
+
+        MainTaskList = new TaskList();
         commandList = new CommandList();
         parser = new Parser(commandList);
         try {
-            storageTask.loadTask(taskList);
-            storageCommand.loadCommand(commandList);
+            storageTask = new Storage("./data/savedtask.txt");
+            storageCommand = new Storage("./data/savedCommand.txt");
+            MainTaskList.addTaskList(storageTask.loadTask());
+            commandList.addCommandList(storageCommand.loadCommand());
         } catch (KoraException e) {
             System.out.println(e.getMessage());
         }
@@ -51,11 +51,14 @@ public class Duke {
     public String getResponse(String userInput) {
         try {
             Command command = parser.parse(userInput);
+            if (command.isFileCommand()) {
+                storageTask = new Storage(command.getFilePath());
+            }
             if (command.isSetCommand()) {
                 //SetCommand setCommand = (SetCommand) command;
                 command.executeSet(commandList, storageCommand);
             } else {
-                command.execute(taskList, storageTask);
+                command.execute(MainTaskList, storageTask);
             }
             //command.printOutput(command.getCommandMessage());
             return command.getCommandMessage();
@@ -74,10 +77,13 @@ public class Duke {
             Command command;
             try {
                 command = parser.parse(userInput);
+                if (command.isFileCommand()) {
+                    storageTask = new Storage(command.getFilePath());
+                }
                 if (command.isSetCommand()) {
                     command.executeSet(commandList, storageCommand);
                 } else {
-                    command.execute(taskList, storageTask);
+                    command.execute(MainTaskList, storageTask);
                 }
                 command.printOutput(command.getCommandMessage());
                 isExit = command.isExit();

@@ -3,6 +3,7 @@ package duke.list;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TaskList {
@@ -44,6 +45,13 @@ public class TaskList {
             output = output + "\n" + tasks.get(i).saveFormat();
         }
         return output;
+    }
+
+    public void clearTasks() {
+        tasks.clear();
+    }
+    public void addTaskList(List<Task> list) {
+        tasks.addAll(list);
     }
     @Override
     public String toString() {

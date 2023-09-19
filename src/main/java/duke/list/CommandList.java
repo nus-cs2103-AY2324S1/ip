@@ -4,6 +4,7 @@ import duke.command.Command;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CommandList {
     private HashMap<String, String> commandNameList;
@@ -23,6 +24,8 @@ public class CommandList {
         addCommandName("unmark", "unmark");
         addCommandName("set", "set");
         addCommandName("unset", "unset");
+        addCommandName("load", "load");
+        addCommandName("change", "change");
     }
 
     public void addCommandName(String commandType, String commandName) {
@@ -76,5 +79,13 @@ public class CommandList {
             output = output + "\n";
         }
         return output;
+    }
+
+    public void addCommandList(List<String[]> list) {
+        int size = list.size();
+        for (String[] command : list) {
+            saveCommand(command);
+        }
+
     }
 }
