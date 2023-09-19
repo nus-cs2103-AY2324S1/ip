@@ -148,10 +148,13 @@ public class Parser {
                     LocalDateTime firstDate = parseDate(filteredDetails.get(2)
                     .replace("/from", ""));
                     return new UpdateCommand(index, details, firstDate, true);
-                } else {
+                } else if (filteredDetails.get(2).startsWith("/to")) {
                     LocalDateTime secondDate = parseDate(filteredDetails.get(2)
                     .replace("/to", ""));
                     return new UpdateCommand(index, details, secondDate, false);
+                } else {
+                    LocalDateTime date = parseDate(filteredDetails.get(2).replace("/by", ""));
+                    return new UpdateCommand(index, details, date, false);
                 }
             }
     }
