@@ -11,14 +11,13 @@ import java.util.regex.Pattern;
  */
 public class Deadline extends Task {
 
-    protected String byDescription;
     protected LocalDate by;
 
     /**
      * Constructs a deadline task with by date and description. Transforms the by date to LocalDate.
      * @param description
      * @param by
-     * @throws DateTimeParseException
+     * @throws DateTimeParseException if the date format is invalid or the date is before today.
      */
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
@@ -26,10 +25,12 @@ public class Deadline extends Task {
         Pattern pattern = Pattern.compile("(\\d{4}-\\d{2}-\\d{2})");
         Matcher matcher = pattern.matcher(by);
         if (!matcher.find()) {
-            this.byDescription = by;
+            throw new DateTimeParseException("date format is invalid", by, matcher.start());
         } else {
             this.by = LocalDate.parse(matcher.group(1));
-            this.byDescription = by.replaceFirst(matcher.group(1), "");
+            if (this.by.isBefore(LocalDate.now())) {
+                throw new DateTimeParseException("date is before today", by, matcher.start());
+            }
         }
         assert this.description != null : "description should not be null";
     }
@@ -52,9 +53,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return this.by != null ? "[D]" + super.toString() + " (by: "
-                + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " |" + this.byDescription + ")"
-                : "[D]" + super.toString() + " (by: " + this.byDescription + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**
@@ -63,8 +63,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toTxt() {
-        return this.by != null ? super.toTxt() + this.description + " | " + this.by + this.byDescription : super.toTxt()
-                + this.description + " | " + this.byDescription;
+        return super.toTxt() + this.description + " | " + this.by;
     }
 
     public LocalDate getByDate() {

@@ -13,8 +13,6 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke;
-
     @Override
     public void start(Stage stage) {
         try {
@@ -24,7 +22,7 @@ public class Main extends Application {
             stage.setMaxWidth(415);
             stage.setMinWidth(415);
             stage.setScene(scene);
-            this.duke = new Duke(stage);
+            Duke duke = new Duke(stage);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             assert stage != null : "stage should not be null";
             stage.show();

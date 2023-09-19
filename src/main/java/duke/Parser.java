@@ -37,7 +37,7 @@ public class Parser {
      * @throws DukeException if the user input is invalid.
      */
     public String parse(String... inputs) throws DukeException {
-        String repeat = inputs[0];
+        String repeat = inputs[0].trim();
         Pattern markPattern = Pattern.compile("(mark|unmark|delete) (\\d+)");
         Matcher markMatcher = markPattern.matcher(repeat);
         Pattern taskPattern = Pattern.compile("(todo|deadline|event) (.+)");
@@ -58,7 +58,7 @@ public class Parser {
             boolean isDone = markMatcher.group(1).equals("mark");
             return this.tasks.markTask(taskIndex, isDone);
         } else if (taskMatcher.matches()) {
-            return this.tasks.addTask(TaskType.valueOf(taskMatcher.group(1).toUpperCase()), taskMatcher.group(2));
+            return this.tasks.addTask(TaskType.valueOf(taskMatcher.group(1).toUpperCase()), taskMatcher.group(2).trim());
         } else if (repeat.equals("list") || repeat.equals("List")) {
             return this.tasks.getTasks();
         } else if (repeat.equals("reminder")) {

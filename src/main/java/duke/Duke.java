@@ -3,7 +3,6 @@ package duke;
 import duke.task.TaskList;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -23,10 +22,11 @@ public class Duke {
     public Duke(Stage stage) {
         this.stage = stage;
         storage = new Storage("data/duke.txt");
+        tasks = new TaskList();
         try {
-            tasks = new TaskList(storage.loadFile());
-        } catch (FileNotFoundException e) {
-            tasks = new TaskList();
+            tasks.addTasks(storage.loadFile());
+        } catch (Exception e) {
+            // do nothing, no file to load
         }
         parser = new Parser(tasks);
     }
@@ -60,10 +60,10 @@ public class Duke {
             warning = "⚠ Oops! Need description for the todo:(";
             break;
         case "deadline error":
-            warning = "⚠ Oops! Need description and formatted by date for the deadline:(";
+            warning = "⚠ Oops! Need description and valid by date for the deadline:(";
             break;
         case "event error":
-            warning = "⚠ Oops! Need description, from and to date for the event:(";
+            warning = "⚠ Oops! Need description, valid from and to dates for the event:(";
             break;
         case "task not found":
             warning = "⚠ Oops! Cannot find task:(";

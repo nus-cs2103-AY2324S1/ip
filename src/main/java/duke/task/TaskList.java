@@ -1,10 +1,13 @@
 package duke.task;
 
 import duke.DukeException;
+
+import java.io.File;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,10 +19,6 @@ public class TaskList {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
-    }
-
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
     }
 
     /**
@@ -72,6 +71,9 @@ public class TaskList {
      * Returns the string representation of tasks in a list.
      */
     public String getTasks() {
+        if (tasks.isEmpty()) {
+            return "You have no tasks!\n\"Enjoy today.\"";
+        }
         String result = "Here are your tasks:\n";
         for (int i = 0; i < tasks.size(); i++) {
             result += (i + 1) + " " + tasks.get(i) + "\n";
@@ -110,15 +112,15 @@ public class TaskList {
 
     /**
      * Finds tasks that contain the keyword.
-     * @param task keyword.
+     * @param keyword
      * @return Strings of valid tasks.
      * @throws DukeException if no task is found.
      */
-    public String findTask(String task) throws DukeException {
+    public String findTask(String keyword) throws DukeException {
         ArrayList<Task> foundedTasks = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(task)) {
-                foundedTasks.add(tasks.get(i));
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                foundedTasks.add(task);
             }
         }
         if (foundedTasks.isEmpty()) {
@@ -152,18 +154,14 @@ public class TaskList {
 
     /**
      * Returns the reminder of upcoming deadlines.
-     * @return
      */
     public String getReminder() {
         String result = "Upcoming deadlines:\n";
         ArrayList<Deadline> deadlines = new ArrayList<>();
-        System.out.println(tasks);
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).taskType == TaskType.DEADLINE && !tasks.get(i).isDone) {
-                System.out.println("yes");
-                System.out.println(tasks.get(i));
-                Deadline task = (Deadline) tasks.get(i);
-                deadlines.add(task);
+        for (Task task: tasks) {
+            if (task.taskType == TaskType.DEADLINE && !task.isDone) {
+                Deadline deadline = (Deadline) task;
+                deadlines.add(deadline);
             }
         }
 
@@ -183,12 +181,49 @@ public class TaskList {
             }
         });
 
-        System.out.println(deadlines);
-        System.out.println(deadlines.size());
-
         for (int i = 0; i < deadlines.size(); i++) {
             result += (i + 1) + " " + deadlines.get(i) + "\n";
         }
         return result + "\"One thing at a time.\"";
+    }
+
+    public void addTasks(File file) throws Exception {
+        Scanner s = new Scanner(file);
+        while (s.hasNext()) {
+            Task task = addTask(s.nextLine());
+            if (task == null) {
+                continue;
+            }
+            this.tasks.add(task);
+        }
+    }
+
+    private Task addTask(String description) {
+        Pattern pattern = Pattern.compile("(TODO|DEADLINE|EVENT) \\| (0|1) \\| (.+)");
+        Matcher matcher = pattern.matcher(description);
+        if (!matcher.find()) {
+            return null;
+        }
+        TaskType taskType = TaskType.valueOf(matcher.group(1));
+        boolean isDone = matcher.group(2).equals("1");
+        String taskDescription = matcher.group(3);
+        switch (taskType) {
+        case TODO:
+            return new ToDo(taskDescription, isDone);
+        case DEADLINE:
+            Matcher deadlineMatcher= Pattern.compile("(.+) \\| (.+)").matcher(taskDescription);
+            if (!deadlineMatcher.find()) {
+                return null;
+            }
+            return new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2), isDone);
+        case EVENT:
+            Matcher eventMatcher = Pattern.compile("(.+) \\| (.+) \\| (.+)").matcher(taskDescription);
+            if (!eventMatcher.find()) {
+                return null;
+            }
+            return new Event(eventMatcher.group(1), eventMatcher.group(2), eventMatcher.group(3), isDone);
+        default:
+            return null;
+        }
     }
 }
