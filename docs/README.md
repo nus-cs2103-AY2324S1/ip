@@ -1,4 +1,4 @@
-# User Guide
+# Sunacchi User Guide
 Welcome to Sunacchi! Sunacchi is a command-line task 
 management application that helps you keep track of 
 your tasks. 
