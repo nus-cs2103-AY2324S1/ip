@@ -3,27 +3,59 @@ package task;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * The type Task.
+ */
 public class Task {
+    /**
+     * The Description.
+     */
     protected String description;
+    /**
+     * The Is done.
+     */
     protected boolean isDone;
 
+    /**
+     * Instantiates a new Task.
+     *
+     * @param description the description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Gets status icon.
+     *
+     * @return the status icon
+     */
     public String getStatusIcon() {
         return (isDone ? "[X] " + description
                        : "[ ] " + description );
     }
 
+    /**
+     * Mark as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Unmark.
+     */
     public void unmark() {
         this.isDone = false;
     }
+
+    /**
+     * Parse from string task.
+     *
+     * @param input the input
+     * @return the task
+     */
     public static Task parseFromString(String input) {
         String[] parts = input.split(" \\| ");
         String type = parts[0];

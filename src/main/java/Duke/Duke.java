@@ -1,9 +1,6 @@
 package duke;
 
 import command.UserInterface;
-import java.util.Scanner;
-
-
 
 /**
  * Duke is main class that controls the whole flow of the chatbot which makes of other classes like
@@ -14,6 +11,7 @@ public class Duke {
     private Storage storage;
     private TaskManager taskManager;
     private UserInterface userInterface;
+    private Parser parser;
 
     /**
      * Constructor which instantiates a new Duke.
@@ -24,22 +22,7 @@ public class Duke {
         userInterface = new UserInterface();
         storage = new Storage("data/duke.txt");
         taskManager = new TaskManager(storage.load());
-    }
-    /**
-     * Run method is where the whole chatbot starts from loading the file to saving changes to the file.
-     */
-    public void run() {
-        userInterface.showWelcomeMessage();
-        Scanner sc = new Scanner(System.in);
-        String command = sc.nextLine();
-
-        while(!command.equals("bye")) {
-            Parser.parseCommand(command, taskManager, userInterface, storage);
-            command = sc.nextLine();
-        }
-
-        userInterface.showGoodbyeMessage();
-        userInterface.showCommandLine();
+        parser = new Parser(taskManager, userInterface, storage);
     }
 
     /**
@@ -47,19 +30,8 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Nila: \n" + Parser.parseCommand(input, taskManager, userInterface, storage);
+        return "Nila: \n" + parser.parseCommand(input);
     }
-
-
-
-    /**
-     * main method which is the entry point of chatbot.
-     *
-     * @param args the input arguments
-     */
-//    public static void main(String[] args) {
-//        new Duke("data/duke.txt").run();
-//    }
 
 
 }

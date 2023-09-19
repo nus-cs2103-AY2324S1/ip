@@ -14,6 +14,7 @@ public class Todo extends Task{
         super(description);
     }
 
+
     @Override
     public String getStatusIcon() {
         return "[T]" + super.getStatusIcon();

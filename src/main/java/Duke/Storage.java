@@ -21,7 +21,6 @@ public class Storage {
      * @param filepath the filepath
      */
     public Storage(String filepath){
-
         this.filepath = filepath;
     }
 
