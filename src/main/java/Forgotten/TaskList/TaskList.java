@@ -54,13 +54,13 @@ public class TaskList {
             throw new TaskListEmptyException("OOPS!!! You cannot delete an empty list.");
         }
         int number = Integer.parseInt(taskNumber);
+        string += "Noted. I've removed this task:\n"
+                + tasks.get(number - 1)
+                + "\n";
         tasks.remove(number - 1);
         // Update the file
         storage.rewriteFile(this.tasks);
-        string += "Noted. I've removed this task:\n"
-                + tasks.get(number - 1)
-                + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.";
+        string += "Now you have " + tasks.size() + " tasks in the list.";
 
         return string;
     }
@@ -99,7 +99,8 @@ public class TaskList {
      * @throws DescriptionIncompleteException If the description does not follow the command.
      * @throws IllegalCommandException If an undefined command is entered.
      */
-    public void addNewTask(String userInput) throws DescriptionIncompleteException, IllegalCommandException {
+    public String addNewTask(String userInput) throws DescriptionIncompleteException, IllegalCommandException {
+        String string = "";
         String[] splitMessage = userInput.split(" ", 2);
         String instruction = splitMessage[0];
         Task task = null;
@@ -130,10 +131,11 @@ public class TaskList {
         } catch (IOException error) {
             System.out.println(error.getMessage());
         }
-        System.out.println(Ui.line);
-        System.out.println("Got it. I've added this task:\n" + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(Ui.line);
+
+        string += "Got it. I've added this task:\n"
+                + task + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
+        return string;
     }
 
     public String findTask(String keyword) {

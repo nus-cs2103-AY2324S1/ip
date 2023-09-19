@@ -96,7 +96,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             for (Task task: tasks) {
-                fileWriter.write(task.toString() + "\n");
+                fileWriter.write(task.toFileString() + "\n");
             }
             fileWriter.close();
         } catch (IOException exception) {
