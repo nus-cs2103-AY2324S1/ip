@@ -1,4 +1,5 @@
 package duke.command;
+
 import duke.TaskList;
 import duke.Ui;
 
@@ -13,7 +14,7 @@ public class ListCommand extends Command {
      * @param ui the ui that handles successful/unsuccessful messages
      */
 
-    public String execute(TaskList taskList, Ui ui){
+    public String execute(TaskList taskList, Ui ui) {
         return ui.showListMessage(taskList);
     }
 }

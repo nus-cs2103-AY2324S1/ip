@@ -1,9 +1,12 @@
 package duke.command;
+
+
+import duke.DukeException;
 import duke.TaskList;
 import duke.Ui;
-import duke.DukeException;
-import duke.task.Task;
 import duke.messages.ErrorMessages;
+import duke.task.Task;
+
 
 /**
  * A command that unmarks a specified task
@@ -12,7 +15,7 @@ import duke.messages.ErrorMessages;
 public class UnmarkCommand extends Command {
     protected int taskNumber;
 
-    public UnmarkCommand(int taskNumber){
+    public UnmarkCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
 
@@ -26,13 +29,13 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList taskList, Ui ui) throws DukeException {
         try {
             Task taskToBeUnmarked = taskList.getTask(this.taskNumber - 1);
-            if (!taskToBeUnmarked.isTaskCompleted()){
+            if (!taskToBeUnmarked.getTaskStatus()) {
                 throw new DukeException("Task has already been marked as uncompleted.");
             } else {
                 taskToBeUnmarked.markTaskUncompleted();
                 return ui.showUnmarkMessage(taskToBeUnmarked);
             }
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeException(ErrorMessages.INVALID_TASK_NUMBER.getMessage());
         }
 

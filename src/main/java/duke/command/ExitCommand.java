@@ -1,4 +1,5 @@
 package duke.command;
+
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
@@ -13,10 +14,10 @@ public class ExitCommand extends Command {
      * @param taskList the existing task list of the user.
      * @param ui the ui that handles successful/unsuccessful messages
      */
-    public String execute(TaskList taskList, Ui ui){
+    public String execute(TaskList taskList, Ui ui) {
         try {
             new Storage("data/duke.txt").update(taskList, "data/duke.txt");
-        } catch (DukeException e){
+        } catch (DukeException e) {
             return e.getMessage();
         }
         return ui.showExitMessage();

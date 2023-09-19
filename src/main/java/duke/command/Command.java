@@ -1,7 +1,9 @@
 package duke.command;
+
+import duke.DukeException;
 import duke.TaskList;
 import duke.Ui;
-import duke.DukeException;
+
 
 /**
  * Represents a command to be executed on the task list.
@@ -9,5 +11,4 @@ import duke.DukeException;
 public abstract class Command {
 
     public abstract String execute(TaskList taskList, Ui ui) throws DukeException;
-
 }

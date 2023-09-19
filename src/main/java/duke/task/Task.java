@@ -5,35 +5,38 @@ package duke.task;
  */
 
 public class Task {
-    protected String name;
-    protected boolean status;
+    protected String description;
+    protected boolean isTaskCompleted;
 
-    //Constructors
-    public Task(String name) {
-        this.name = name;
-        this.status = false;
+    /**
+     * Constructor
+     * @param description task description
+     */
+    public Task(String description) {
+        this.description = description;
+        this.isTaskCompleted = false;
     }
 
-    public String getName() {
-        return this.name;
+    public String getDescription() {
+        return this.description;
     }
-    public boolean isTaskCompleted() {
-        return this.status;
+    public boolean getTaskStatus() {
+        return this.isTaskCompleted;
     }
 
     public void markTaskCompleted() {
-        this.status = true;
+        this.isTaskCompleted = true;
     }
     public void markTaskUncompleted() {
-        this.status = false;
+        this.isTaskCompleted = false;
     }
 
     @Override
-    public String toString(){
-        if (this.status){
-            return "[X] " + this.name;
+    public String toString() {
+        if (this.isTaskCompleted) {
+            return "[X] " + this.description;
         } else {
-            return "[ ] " + this.name;
+            return "[ ] " + this.description;
         }
     }
 }

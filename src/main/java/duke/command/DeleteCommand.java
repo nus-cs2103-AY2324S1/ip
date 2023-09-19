@@ -1,9 +1,10 @@
 package duke.command;
+
+import duke.DukeException;
 import duke.TaskList;
 import duke.Ui;
-import duke.DukeException;
-import duke.task.Task;
 import duke.messages.ErrorMessages;
+import duke.task.Task;
 
 /**
  * Represents a command that deletes a task from the existing task list.
@@ -11,8 +12,8 @@ import duke.messages.ErrorMessages;
 public class DeleteCommand extends Command {
     protected int taskNumber;
 
-    public DeleteCommand(int taskNumber){
-        this.taskNumber = taskNumber ;
+    public DeleteCommand(int taskNumber) {
+        this.taskNumber = taskNumber;
     }
 
     /**
@@ -21,12 +22,12 @@ public class DeleteCommand extends Command {
      * @param ui the ui that handles successful/unsuccessful messages
      * @throws DukeException if the task number provided is not in the bounds of the list, an error is thrown
      */
-    public String execute (TaskList taskList, Ui ui) throws DukeException {
-        try{
+    public String execute(TaskList taskList, Ui ui) throws DukeException {
+        try {
             Task taskToBeDeleted = taskList.getTask(taskNumber - 1);
             taskList.removeTask(taskNumber);
             return ui.showDeletedMessage(taskToBeDeleted, taskList);
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             // Check if task number is within the size of task list.
             throw new DukeException(ErrorMessages.INVALID_TASK_NUMBER.getMessage());
         }

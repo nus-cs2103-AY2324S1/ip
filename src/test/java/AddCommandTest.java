@@ -1,18 +1,17 @@
-import duke.TaskList;
-import duke.Ui;
-import duke.command.AddCommand;
-import duke.messages.Messages;
-import duke.task.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
+import duke.TaskList;
+import duke.Ui;
+import duke.command.AddCommand;
+import duke.task.Todo;
 
 public class AddCommandTest {
     @Test
-    public void execute_addToDo_success() {
+    public void executeAddToDoSuccess() {
         Todo toDoTask = new Todo("return book");
         ArrayList<String> taskListString = new ArrayList<>();
         TaskList taskList = new TaskList(taskListString);

@@ -1,15 +1,16 @@
-import duke.task.Event;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import duke.task.Event;
 
 public class EventTest {
 
     @Test
-    public void EventStringConversion() {
+    public void eventStringConversion() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
         LocalDateTime startDate = LocalDateTime.parse("2023-08-31 2PM", formatter);
         LocalDateTime endDate = LocalDateTime.parse("2023-09-01 1PM", formatter);

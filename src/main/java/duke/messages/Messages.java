@@ -14,13 +14,13 @@ public enum Messages {
     DATE_FORMAT("yyyy-MM-dd ha"),
     FOUND_TASKS("Here are the matching tasks in your list");
 
-    private final String MESSAGE;
+    private final String message;
 
     Messages(String message) {
-        this.MESSAGE = message;
+        this.message = message;
     }
 
     public String getMessage() {
-        return this.MESSAGE;
+        return this.message;
     }
 }

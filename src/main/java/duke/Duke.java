@@ -1,20 +1,24 @@
 package duke;
 
-import duke.command.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.command.Command;
+import duke.command.ExitCommand;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
 
 /**
  * Main class of the application.
@@ -37,18 +41,22 @@ public class Duke extends Application {
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/Bulbasaur.png"));
     private final Image duke = new Image(this.getClass().getResourceAsStream("/images/Charmander.png"));
 
-    public Duke() throws IOException {
+    public Duke() {
         this("data/duke.txt");
     }
 
-    public Duke (String filePath){
+    /**
+     * Constructor
+     * @param filePath String representation of filepath
+     */
+    public Duke(String filePath) {
         this.filePath = filePath;
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        try{
+        try {
             ArrayList<String> taskStringList = this.storage.load();
             this.taskList = new TaskList(taskStringList);
-        } catch (DukeException e){
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
 
@@ -73,20 +81,20 @@ public class Duke extends Application {
                 if (c instanceof ExitCommand) {
                     break;
                 }
-            } catch (DukeException e){
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }
         File file = new File(this.filePath);
         boolean isFileDeleted = file.delete();
-        if (isFileDeleted){
+        if (isFileDeleted) {
             storage.update(this.taskList, this.filePath);
         }
         scanner.close();
     }
 
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) {
         String welcomeMessage = "Hi I'm Chad! What can I do for you? ";
         displayMessage(welcomeMessage);
         scrollPane = new ScrollPane();
@@ -156,19 +164,6 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-    /**
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -193,12 +188,12 @@ public class Duke extends Application {
         try {
             Command c = parser.parse(input);
             return c.execute(taskList, ui);
-        } catch (DukeException e){
+        } catch (DukeException e) {
             return e.getMessage();
         }
     }
 
-    private void displayMessage(String message){
+    private void displayMessage(String message) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Welcome");
@@ -208,7 +203,7 @@ public class Duke extends Application {
         });
     }
 
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) throws DukeException {
         new Duke().run();
     }
 }

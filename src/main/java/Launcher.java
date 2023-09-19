@@ -1,9 +1,16 @@
 import duke.Duke;
-import duke.MainWindow;
 import javafx.application.Application;
 
+/**
+ * Class to launch GUI app
+ */
 public class Launcher {
-    public static void main(String[] args){
+
+    /**
+     * Launches GUI app
+     * @param args
+     */
+    public static void main(String[] args) {
         Application.launch(Duke.class, args);
     }
 }

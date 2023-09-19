@@ -1,20 +1,22 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 import duke.TaskList;
 import duke.Ui;
 import duke.messages.ErrorMessages;
 import duke.task.Task;
-import java.util.ArrayList;
+
 
 /**
  * A command that lists all task associated with the keyword inputted by the user
  */
 
-public class FindCommand extends Command{
-    String keyword ;
-    public FindCommand(String input){
-        this.keyword = input ;
+public class FindCommand extends Command {
+    private final String keyword;
+    public FindCommand(String input) {
+        this.keyword = input;
     }
 
     /**
@@ -25,15 +27,14 @@ public class FindCommand extends Command{
      */
     public String execute(TaskList taskList, Ui ui) throws DukeException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : taskList.getTaskList()){
-            if (task.getName().contains(this.keyword)){
+        for (Task task : taskList.getTaskList()) {
+            if (task.getDescription().contains(this.keyword)) {
                 matchingTasks.add(task);
             }
         }
-        if (matchingTasks.isEmpty()){
+        if (matchingTasks.isEmpty()) {
             throw new DukeException(ErrorMessages.KEYWORD_NOT_FOUND.getMessage());
-        }
-        else {
+        } else {
             return ui.showFoundMessages(matchingTasks);
         }
     }
