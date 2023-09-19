@@ -53,25 +53,21 @@ Example of usage: `unmark 2`
 ### Deleting a task: `delete`
 
 The delete command allows you to easily remove a task from your list.
-```
-Format: 'mark'
-```
+
+Format: `delete [TASK_INDEX]`
+
+Example of usage: `delete 5`
+
 ### Searching for a task: `search`
 
-Description of the feature.
+The search feature allows you to find specific tasks based on a keyword. You can also narrow your search by specifying a task type (optional).
 
-Format: 'mark'
+Format: `search [KEYWORD_STRING] [TASK_TYPE] (optional)`
 
-## Usage
+Example of usage: `search tuna`, `search tuna event`, `search tuna deadline` 
 
-### `Keyword` - Describe action
+### Exit the program: `bye`
 
-Describe the action and its outcome.
+The bye command allows you to exit the program.
 
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
+Format: `bye`
