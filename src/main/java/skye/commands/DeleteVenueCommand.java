@@ -13,7 +13,7 @@ import skye.ui.UI;
  * Represents a command to delete a venue.
  */
 public class DeleteVenueCommand extends DeleteCommand {
-    public static final String RESOURCE = "venue";
+    public static final String RESOURCE = "venues";
 
     /**
      * Instantiates the delete command for deleting a venue.

@@ -3,6 +3,7 @@ package skye.ui;
 import java.time.LocalDate;
 import java.util.List;
 
+import skye.data.exception.DukeExceptionType;
 import skye.data.task.Task;
 import skye.data.venue.Venue;
 
@@ -23,7 +24,7 @@ public class UI {
     }
 
     /**
-     * Display the error message when writing to the save file has failed.
+     * Display the error message when reading or writing to the save file has failed.
      */
     public String showLoadingError() {
         String message = "Sorry! I was unable to load the save file :(";
@@ -143,8 +144,7 @@ public class UI {
      * @return Invalid command message
      */
     public String showInvalidCommandMsg() {
-        String message = "I'm sorry, I don't know what that means :-(";
-        return message;
+        return DukeExceptionType.UNKNOWN_COMMAND.getMessage();
     }
 
     /**

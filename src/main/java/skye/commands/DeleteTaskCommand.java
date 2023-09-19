@@ -14,7 +14,7 @@ import skye.ui.UI;
  */
 public class DeleteTaskCommand extends DeleteCommand {
 
-    public static final String RESOURCE = "task";
+    public static final String RESOURCE = "tasks";
 
     /**
      * Instantiates the delete command for deleting tasks

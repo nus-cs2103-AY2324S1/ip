@@ -309,8 +309,7 @@ public class Parser {
     private Command prepareDeleteCommand(String args) throws DukeException {
         Matcher matcher = DELETE_SPECIFIC_FORMAT.matcher(args);
         if (!matcher.matches()) {
-            int taskIndex = parseArgsAsTaskNumber(args);
-            return new DeleteTaskCommand(taskIndex);
+            throw new DukeException(DukeExceptionType.DELETE_INVALID_FORMAT);
         } else {
             String resource = matcher.group("resource").trim();
             int index = parseArgsAsTaskNumber(matcher.group("index").trim());
@@ -320,7 +319,7 @@ public class Parser {
             case DeleteTaskCommand.RESOURCE:
                 return new DeleteTaskCommand(index);
             default:
-                throw new DukeException("Unknown resource specified.");
+                throw new DukeException(DukeExceptionType.UNKNOWN_RESOURCE_TYPE);
             }
         }
     }
@@ -351,29 +350,36 @@ public class Parser {
         if (matcher.matches()) {
             String resource = matcher.group("resource").trim();
             String query = matcher.group("query").trim();
+
+            if (query.isEmpty()) {
+                throw new DukeException(DukeExceptionType.FIND_NO_KEYWORD);
+            }
+
             switch (resource) {
             case FindVenuesCommand.RESOURCE:
                 return new FindVenuesCommand(query);
             case FindTasksCommand.RESOURCE:
                 return new FindTasksCommand(query);
             default:
-                throw new DukeException("Unknown resource specified.");
+                throw new DukeException(DukeExceptionType.UNKNOWN_RESOURCE_TYPE);
             }
         } else {
-            String keyword = args.trim();
-            if (keyword.isEmpty()) {
-                throw new DukeException(DukeExceptionType.FIND_NO_KEYWORD);
-            }
-            return new FindTasksCommand(keyword);
+            throw new DukeException(DukeExceptionType.FIND_NO_RESOURCE_SPECIFIED);
         }
     }
 
-    private Command prepareListCommand(String arguments) {
+    private Command prepareListCommand(String arguments) throws DukeException {
         String resource = arguments.trim();
-        if (resource.equals(ListVenuesCommand.RESOURCE)) {
-            return new ListVenuesCommand();
-        } else {
+        if (resource.isEmpty()) {
+            throw new DukeException(DukeExceptionType.LIST_NO_RESOURCE_SPECIFIED);
+        }
+        switch (resource) {
+        case ListTasksCommand.RESOURCE:
             return new ListTasksCommand();
+        case ListVenuesCommand.RESOURCE:
+            return new ListVenuesCommand();
+        default:
+            throw new DukeException(DukeExceptionType.UNKNOWN_RESOURCE_TYPE);
         }
     }
 }

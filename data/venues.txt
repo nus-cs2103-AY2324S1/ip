@@ -1,2 +1,2 @@
-V | SR1 | Computing Drive | 250 | 10.99
-V | LT19 | Business Link | 300 | 12.99
+V | SR1 | Computing Drive | 250 | 10.990000
+V | LT19 | Business Link | 300 | 12.990000
