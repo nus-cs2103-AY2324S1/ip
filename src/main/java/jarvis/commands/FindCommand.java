@@ -1,6 +1,7 @@
 package jarvis.commands;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import jarvis.exceptions.InvalidTaskFormatException;
 import jarvis.gui.Ui;
@@ -38,17 +39,12 @@ public class FindCommand implements Command {
 
     private ArrayList<Task> findTasks(TaskList taskList) {
         int indexOfFind = userInput.indexOf("find");
-        String keyword = userInput.substring(indexOfFind + 4).trim();
+        String keyword = userInput.substring(indexOfFind + 4).trim().toLowerCase();
 
-        ArrayList<Task> tasks = taskList.getTaskList();
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            String taskTitle = task.getTitle().toLowerCase();
-            if (taskTitle.contains(keyword)) {
-                foundTasks.add(task);
-            }
-        }
-        return foundTasks;
+        return taskList.getTaskList()
+                .stream()
+                .filter(task -> task.getTitle().toLowerCase().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private static String getResponse(Ui ui, ArrayList<Task> foundTasks) {
