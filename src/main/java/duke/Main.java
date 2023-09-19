@@ -23,6 +23,7 @@ import java.util.List;
 //Reused from https://se-education.org/guides/tutorials/javaFx.html
 // with minor modifications
 public class Main extends Application {
+    private Duke duke = new Duke();
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -31,8 +32,6 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-    private Duke duke = new Duke();
     Ui ui = duke.getUi();
 
     @Override

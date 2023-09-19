@@ -36,6 +36,8 @@ public class Storage {
         File file = new File(filePath);
 
         if (!file.exists()) {
+            File dataDir = new File("data");
+            dataDir.mkdirs();
             file.createNewFile();
         } else {
             FileReader reader = new FileReader(filePath);
