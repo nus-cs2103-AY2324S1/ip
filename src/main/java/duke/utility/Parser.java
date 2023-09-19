@@ -109,6 +109,15 @@ public class Parser {
                     + "Format: deadline <task name> /by <date>");
         }
 
+        String[] taskInformation = input.split(" /");
+        String by = taskInformation[1].replace("by ", "");
+
+
+        if (DateParser.isInvalidDateTime(by)) {
+            throw new DukeException("☹ OOPS!!! The format of the date time is invalid. "
+                    + "Format: YYYY-MM-DD HH:MM");
+        }
+
         return input.replace("deadline", "");
     }
 
@@ -147,6 +156,15 @@ public class Parser {
         if (!isFromIndexBeforeToIndex || !isFromIndexValid || !isToIndexValid) {
             throw new DukeException("☹ OOPS!!! The format of a event is invalid. Format: event <task name> "
                     + "/from <date> /to <date>");
+        }
+
+        String[] taskInformation = input.split(" /");
+        String from = taskInformation[1].replace("from ", "");
+        String to = taskInformation[2].replace("to ", "");
+
+        if (DateParser.isInvalidDateTime(from) || DateParser.isInvalidDateTime(to)) {
+            throw new DukeException("☹ OOPS!!! The format of the date time is invalid. "
+                    + "Format: YYYY-MM-DD HH:MM");
         }
 
         return input.replace("event", "");

@@ -18,13 +18,7 @@ public class DateParser {
      * @return A LocalDateTime object representing the parsed date and time.
      */
     public static LocalDateTime convertStringToDateTime(String datetime) {
-        try {
-            return LocalDateTime.parse(datetime, DATE_TIME_FORMATTER);
-        } catch (DateTimeParseException e) {
-            e.printStackTrace();
-            System.out.println("Invalid date format. Please enter in the format 01-01-2001 01:01");
-        }
-        return null;
+        return LocalDateTime.parse(datetime, DATE_TIME_FORMATTER);
     }
 
     /**
@@ -35,5 +29,20 @@ public class DateParser {
      */
     public static String convertDateTimeToString(LocalDateTime datetime) {
         return datetime.format(DATE_TIME_FORMATTER);
+    }
+
+    /**
+     * Checks if a date and time string is in the wrong format.
+     *
+     * @param datetime The date and time string to be checked.
+     * @return false if the date and time string is in the correct format, true otherwise.
+     */
+    public static boolean isInvalidDateTime(String datetime) {
+        try {
+            LocalDateTime.parse(datetime, DATE_TIME_FORMATTER);
+            return false;
+        } catch (DateTimeParseException e) {
+            return true;
+        }
     }
 }
