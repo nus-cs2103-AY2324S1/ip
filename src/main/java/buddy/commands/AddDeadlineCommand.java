@@ -26,10 +26,11 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         Deadline deadline = new Deadline(description, deadlineDate, false);
         tasks.addTask(deadline);
-        ui.printAddSuccessMessage(deadline, tasks);
+        String response = ui.printAddSuccessMessage(deadline, tasks);
         storage.writeToFile(tasks.getAllTasks());
+        return response;
     }
 }

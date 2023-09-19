@@ -22,10 +22,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         Task deletedTask = tasks.getTask(index);
         tasks.deleteTask(index);
-        ui.printDeleteSuccessMessage(deletedTask, tasks);
+        String response = ui.printDeleteSuccessMessage(deletedTask, tasks);
         storage.writeToFile(tasks.getAllTasks());
+        return response;
     }
 }

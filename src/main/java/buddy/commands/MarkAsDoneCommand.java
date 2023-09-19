@@ -21,9 +21,11 @@ public class MarkAsDoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         tasks.markAsDone(index);
-        ui.printMessage("NICE! I've marked this task as done:\n" + tasks.getTask(index).toString());
+        String response = ui.printMessage("NICE! I've marked this task as done:\n"
+                + tasks.getTask(index).toString());
         storage.writeToFile(tasks.getAllTasks());
+        return response;
     }
 }

@@ -9,7 +9,8 @@ import buddy.utils.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printList(tasks.getAllTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String response = ui.printList(tasks.getAllTasks());
+        return response;
     }
 }

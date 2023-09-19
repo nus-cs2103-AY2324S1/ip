@@ -22,10 +22,11 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         Todo todo = new Todo(description, false);
         tasks.addTask(todo);
-        ui.printAddSuccessMessage(todo, tasks);
+        String response = ui.printAddSuccessMessage(todo, tasks);
         storage.writeToFile(tasks.getAllTasks());
+        return response;
     }
 }

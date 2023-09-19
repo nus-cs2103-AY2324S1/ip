@@ -22,7 +22,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        ui.printFilteredList(tasks.findTask(this.keyword).getAllTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+        String response = ui.printList(tasks.findTask(this.keyword).getAllTasks());
+        return response;
     }
 }
