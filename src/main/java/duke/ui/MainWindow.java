@@ -1,9 +1,7 @@
 package duke.ui;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import duke.Duke;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -63,14 +63,9 @@ public class MainWindow extends AnchorPane {
 
         // Closes the GUI
         if (input.toLowerCase().equals("bye")) {
-            TimerTask exitTask = new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.exit();
-                }
-            };
-            Timer timer = new Timer("Delay");
-            timer.schedule(exitTask, 1200L);
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> Platform.exit());
+            pause.play();
         }
 
         userInput.clear();
