@@ -8,7 +8,7 @@ import duke.ui.GobbleMessage;
 /**
  * Represents a AddCommand class that deals with the command to add a task.
  */
-public class TodoCommand extends Command {
+public class TaskCommand extends Command {
     private final Task task;
 
     /**
@@ -16,7 +16,7 @@ public class TodoCommand extends Command {
      *
      * @param task Task to be added.
      */
-    public TodoCommand(Task task) {
+    public TaskCommand(Task task) {
         this.task = task;
     }
 

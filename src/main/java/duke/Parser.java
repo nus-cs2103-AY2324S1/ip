@@ -9,7 +9,7 @@ import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
-import duke.command.TodoCommand;
+import duke.command.TaskCommand;
 import duke.command.UnmarkCommand;
 import duke.task.DeadlineTask;
 import duke.task.EventTask;
@@ -40,11 +40,11 @@ public class Parser {
         case "UNMARK":
             return new UnmarkCommand(getTaskNumber(userInput));
         case "TODO":
-            return new TodoCommand(parseTodo(userInput));
+            return new TaskCommand(parseTodo(userInput));
         case "DEADLINE":
-            return new TodoCommand(parseDeadline(userInput));
+            return new TaskCommand(parseDeadline(userInput));
         case "EVENT":
-            return new TodoCommand(parseEvent(userInput));
+            return new TaskCommand(parseEvent(userInput));
         case "FIND":
             return new FindCommand(getKeyword(userInput));
         case "DELETE":
