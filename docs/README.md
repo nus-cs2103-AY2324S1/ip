@@ -28,18 +28,20 @@ Too many Tasks to do? Easily find the task that you're looking for 😲
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` - Add a todo task
 
-Describe the action and its outcome.
+follow `todo` with the task to be done, and simply click enter.
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo run`
 
 Expected outcome:
 
-Description of the outcome.
+Bart will send a message confirming the addition of the task to your list of tasks, as well as the current number of tasks you have in the list.
 
 ```
-expected output
+Got it! I've added this task:
+[T][] run
+You now have 1 task(s) in the list
 ```
