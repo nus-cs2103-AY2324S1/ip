@@ -24,6 +24,7 @@ public class CyrusChat extends Application {
             scene.getStylesheets().add(this.getClass().getResource("/style/styles.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
+            primaryStage.setTitle("Cyrus");
             fxmlLoader.<MainWindow>getController().setCyrus(CYRUS);
             primaryStage.show();
         } catch (IOException e) {
