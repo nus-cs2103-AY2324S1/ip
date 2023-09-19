@@ -1,7 +1,7 @@
 package chadbod;
 
 /**
- * Represents a parsed user command, containing the command type and its details.
+ * The ParsedCommand class represents a parsed user command, containing the command type and its details.
  */
 public class ParsedCommand {
     private final Command command;

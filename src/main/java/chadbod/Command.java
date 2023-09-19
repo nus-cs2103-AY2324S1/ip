@@ -1,7 +1,7 @@
 package chadbod;
 
 /**
- * Enumeration representing various commands that can be used in the ChadBod application.
+ * The Command Enumeration represents various commands that can be used in the ChadBod application.
  */
 public enum Command {
     BYE("bye", "bb"),

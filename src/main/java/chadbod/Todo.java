@@ -1,11 +1,11 @@
 package chadbod;
 
 /**
- * Represents a to-do task in the ChadBod application, extending the Task class.
+ * The Todo class represents a to-do task in the ChadBod application, extending the Task class.
  */
 public class Todo extends Task {
     /**
-     * Constructor for the Todo class.
+     * Constructs an instance of the Todo class.
      *
      * @param description The description of the to-do task.
      */

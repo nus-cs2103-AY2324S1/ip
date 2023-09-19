@@ -3,14 +3,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a deadline task in the ChadBod application, extending the Task class.
+ * The Deadline class represents a deadline task in the ChadBod application, extending the Task class.
  */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
     /**
-     * Constructor for the Deadline class.
+     * Constructs an instance of the Deadline class.
      *
      * @param description the description of the deadline task.
      */

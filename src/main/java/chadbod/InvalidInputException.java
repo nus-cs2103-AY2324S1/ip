@@ -1,7 +1,8 @@
 package chadbod;
 
 /**
- * Custom exception class for handling invalid user input exceptions in the ChadBod application.
+ * The InvalidInputException class represents a custom exception class for handling invalid user input exceptions
+ * in the ChadBod application.
  */
 public class InvalidInputException extends ChadBodException {
     public InvalidInputException() {

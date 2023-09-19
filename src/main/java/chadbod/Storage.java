@@ -16,7 +16,7 @@ public class Storage {
     private String filePath;
 
     /**
-     * Constructor for Storage class.
+     * Constructs an instance of the Storage class.
      *
      * @param filePath The path to the file where tasks will be stored.
      */
@@ -25,7 +25,7 @@ public class Storage {
     }
 
     /**
-     * Save the tasks from a TaskList to a file.
+     * Saves the tasks from a TaskList to a file.
      *
      * @param tasks The TaskList containing tasks to be saved.
      * @throws ChadBodException If there is an error while saving tasks to the file.
@@ -50,7 +50,7 @@ public class Storage {
     }
 
     /**
-     * Load tasks from a file and return them in a TaskList.
+     * Loads tasks from a file and return them in a TaskList.
      *
      * @return A TaskList containing tasks loaded from the file.
      * @throws ChadBodException If there is an error while loading tasks from the file.

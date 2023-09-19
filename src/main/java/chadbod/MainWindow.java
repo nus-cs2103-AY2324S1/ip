@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * This class represents a controller for MainWindow. Provides the layout for the other controls.
+ * The MainWindow class represents a controller for MainWindow and provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -42,11 +42,6 @@ public class MainWindow extends AnchorPane {
     public void setChadBod(ChadBod d) {
         chadBod = d;
     }
-
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing ChadBod's reply and then appends them
-     * to the dialog container. Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();

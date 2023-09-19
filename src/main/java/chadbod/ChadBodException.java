@@ -1,6 +1,6 @@
 package chadbod;
 /**
- * The class ChadBodException represents a custom exception class for handling ChadBod-related
+ * The ChadBodException class represents a custom exception class for handling ChadBod-related
  * exceptions.
  */
 public class ChadBodException extends Exception {

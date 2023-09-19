@@ -7,7 +7,7 @@ package chadbod;
 public class Parser {
 
     /**
-     * Parse the user input into a ParsedCommand object.
+     * Returns a ParseCommand object after parsing the user input.
      *
      * @param userInput The user input to be parsed.
      * @return A ParsedCommand object containing the parsed command and details.

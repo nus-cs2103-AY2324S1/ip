@@ -3,7 +3,7 @@ package chadbod;
 import java.time.LocalDateTime;
 
 /**
- * Abstract class representing a task in the ChadBod application.
+ * The Task class is an abstract class representing a task in the ChadBod application.
  */
 public abstract class Task {
     protected String description;
@@ -29,14 +29,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void markDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as not done.
+     * Marks the task as not done.
      */
     public void markUndone() {
         this.isDone = false;
@@ -53,7 +53,7 @@ public abstract class Task {
     }
 
     /**
-     * Create a Task object from a given string.
+     * Creates a Task object from a given string.
      *
      * @param line The string representation of the task.
      * @return The Task object created from the string, or null if parsing fails.
@@ -93,7 +93,7 @@ public abstract class Task {
     }
 
     /**
-     * Check if the task description contains a specific keyword.
+     * Checks if the task description contains a specific keyword.
      *
      * @param keyword The keyword to search for in the task description.
      * @return True if the keyword is found, false otherwise.
