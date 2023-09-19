@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Represents the Uke chatbot.
@@ -94,6 +96,9 @@ public class Uke {
      */
     public String handleExit() throws UkeException {
         storage.update(tasks);
+        new Timer().schedule(new TimerTask() {
+            public void run () { Platform.exit(); }
+        }, 5000);
         return ui.printExit();
     }
 

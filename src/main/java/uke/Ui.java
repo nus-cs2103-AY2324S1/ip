@@ -24,7 +24,7 @@ public class Ui {
 
         String successfulListMessage = isListCommand
                 ? "Okay! Here's the full list of your added tasks:\n"
-                : "Here's the list of matching tasks I found:\n";
+                : "There you go! Here's the list of matching tasks I found:\n";
 
         String unsuccessfulListMessage = isListCommand
                 ? "No tasks found! :("
@@ -47,7 +47,7 @@ public class Ui {
      * @param t Task that was marked as done.
      */
     public String printMark(Task t) {
-        return "The following task has been marked as done:\n" + t;
+        return "Okay! I have marked the following task as DONE:\n" + t;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Ui {
      * @param t Task that was marked as undone.
      */
     public String printUnmark(Task t) {
-        return "The following task has been marked as undone:\n" + t;
+        return "Okay! I have marked the following task as UNDONE:\n" + t;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Ui {
      * @param t Task that was deleted.
      */
     public String printDelete(Task t, TaskList tl) {
-        return String.format("The following task has been successfully deleted:\n%s\n%s", t, printNumberOfTasks(tl)) ;
+        return String.format("Okay! The following task has been successfully deleted:\n%s\n%s", t, printNumberOfTasks(tl)) ;
     }
 
     /**
@@ -82,8 +82,9 @@ public class Ui {
      * Prints the exit message.
      */
     public String printExit() {
-        String exit = "Bye. See you soon! :)\n";
-        return exit;
+        String exit = "Bye! See you soon! :)\n";
+        String closingMessage = "I will close automatically in 5 seconds.\n";
+        return String.format("%s %s", exit, closingMessage);
     }
 
     /**
@@ -101,7 +102,7 @@ public class Ui {
      * @param t Task that was added.
      */
     public String printAdd(Task t, TaskList tl) {
-        return String.format("The following task has been successfully added:\n%s\n%s", t, printNumberOfTasks(tl)) ;
+        return String.format("Okay! The following task has been successfully added:\n%s\n%s", t, printNumberOfTasks(tl)) ;
     }
 
     public String printSchedule(LocalDate date, TaskList tasks) {
@@ -111,10 +112,10 @@ public class Ui {
         String displayedDate = date.format(dateTimeFormatter);
 
         if (len == 0) {
-            return String.format("Your schedule for %s is currently empty!", displayedDate);
+            return String.format("Your schedule for %s is currently empty! Add some tasks? :(", displayedDate);
         }
 
-        String schedule = String.format("Here's your schedule for %s :\n", displayedDate);
+        String schedule = String.format("Okay! :) Here's your schedule for %s:\n", displayedDate);
 
         for (int i = 0; i < len; i++) {
             schedule += tasks.getTask(i) + "\n";
