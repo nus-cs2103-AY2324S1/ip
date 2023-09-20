@@ -1,0 +1,15 @@
+list
+todo create task
+deadline finish ip by monday
+deadline finish ip /by monday
+events attend talk from 2pm /to 4pm
+event attend talk from 2pm /to 4pm
+event attend talk /from 2pm /to 4pm
+list
+mark 3
+mark 1
+list
+unmark 3
+delete 1
+list
+bye
