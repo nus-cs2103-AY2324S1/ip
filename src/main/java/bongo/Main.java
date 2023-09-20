@@ -25,6 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBongo(bongo);
             stage.show();
+            stage.setTitle("Bongo");
         } catch (IOException e) {
             e.printStackTrace();
         }
