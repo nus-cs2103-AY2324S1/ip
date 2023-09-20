@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Barbie barbie = new Barbie();
+    private Barbie barbie;
 
     /**
      * The main entry point for all JavaFX applications. The start method is called after the init method has returned, and after the system is ready for the application to begin running.
@@ -30,6 +30,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            fxmlLoader.<StageController>getController().setBarbie(barbie);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

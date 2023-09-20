@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -37,7 +38,7 @@ public class StageController {
     @FXML
     private VBox scheduleContainer;
 
-    private Barbie barbie = new Barbie();
+    private Barbie barbie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Elizabeth.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Barbie.png"));
@@ -86,8 +87,15 @@ public class StageController {
             ScheduleBox box = new ScheduleBox(task);
             boxList.add(box);
         }
+        if (todaysList.size() == 0) {
+            scheduleContainer.getChildren().add(new Label("No tasks today!"));
+        }
         scheduleContainer.getChildren().addAll(boxList);
 
+    }
+
+    public void setBarbie(Barbie b) {
+        barbie = b;
     }
 
 }
