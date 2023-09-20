@@ -122,6 +122,6 @@ will start a new session.
 
 ### 🔐 Saving the data
 
-Data are saved in the hard disk automatically after exiting the program. There is no need to save manually.
+Data are saved in the hard disk automatically after every action. There is no need to save manually.
 
 
