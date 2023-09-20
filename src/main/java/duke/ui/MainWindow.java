@@ -4,7 +4,6 @@ import static duke.common.Messages.MESSAGE_FIRST_PROMPT;
 import static duke.common.Messages.MESSAGE_WELCOME;
 
 import duke.Duke;
-import duke.TaskList;
 import duke.storage.DukeStorageException;
 import duke.storage.Storage;
 import javafx.fxml.FXML;
@@ -15,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -52,7 +50,7 @@ public class MainWindow extends AnchorPane {
                 showMessage(String.format(
                         "%s task%s loaded from %s",
                         tasksLoaded,
-                        (tasksLoaded == 1) ? "" : "s",
+                        tasksLoaded == 1 ? "" : "s",
                         Storage.DEFAULT_STORAGE_PATH));
             }
         } catch (DukeStorageException e) {

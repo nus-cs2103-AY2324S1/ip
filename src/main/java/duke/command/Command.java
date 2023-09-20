@@ -1,8 +1,6 @@
 package duke.command;
 
 import duke.Duke;
-import duke.TaskList;
-import duke.storage.Storage;
 
 /**
  * Represents an executable command.

@@ -1,18 +1,18 @@
 package duke.command;
 
-import duke.Duke;
-import duke.TaskList;
-import duke.storage.DukeStorageException;
-import duke.storage.Storage;
-import duke.tasks.Deadline;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.Duke;
+import duke.storage.DukeStorageException;
+import duke.storage.Storage;
+import duke.tasks.Deadline;
 
 public class DeadlineCommandTest {
     @Test

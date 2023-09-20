@@ -1,12 +1,10 @@
 package duke.command;
 
-import duke.TaskList;
-import duke.storage.DukeStorageException;
-import duke.storage.Storage;
-
 import java.io.IOException;
 
-import static duke.common.Messages.MESSAGE_FIRST_PROMPT;
+import duke.TaskList;
+import duke.storage.Storage;
+
 
 /**
  * Represents a command to load from a specified file.
@@ -34,15 +32,15 @@ public class LoadCommand extends Command {
             TaskList tasks = storage.load();
             this.duke.setTaskList(tasks);
             if (tasks.size() == 0) {
-                return new String[]{
-                        String.format("No stored tasks found from %s", fileToLoad),
+                return new String[]{String.format(
+                        "No stored tasks found from %s", fileToLoad),
                         "Loading an empty task list."
                 };
             } else {
                 return new String[]{String.format(
                         "%s task%s loaded from %s",
                         tasks.size(),
-                        (tasks.size() == 1) ? "" : "s",
+                        tasks.size() == 1 ? "" : "s",
                         fileToLoad
                 )};
             }
