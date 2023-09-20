@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Alyssa");
             fxmlLoader.<MainWindow>getController().setAlyssa(alyssa);
             stage.show();
         } catch (IOException e) {
