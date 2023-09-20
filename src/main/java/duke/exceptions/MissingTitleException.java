@@ -4,7 +4,8 @@ package duke.exceptions;
 public class MissingTitleException extends DukeException {
 
     /**
-     * Constructor for Exceptions.MissingTitleException.
+     * Constructor for MissingTitleException.
+     *
      * @param message Exception message.
      */
     public MissingTitleException(String message) {
@@ -13,6 +14,7 @@ public class MissingTitleException extends DukeException {
 
     /**
      * Returns the description of the exception.
+     *
      * @return Description of exception.
      */
     @Override

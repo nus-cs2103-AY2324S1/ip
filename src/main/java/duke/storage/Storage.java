@@ -17,6 +17,7 @@ public class Storage {
 
     /**
      * Reads the previously saved list of tasks and returns it in a list of task descriptions.
+     *
      * @return A list of task descriptions.
      */
     public List<String> readTaskFile() {
@@ -39,6 +40,7 @@ public class Storage {
 
     /**
      * Reads the previously saved list of notes and returns it in a list of note descriptions.
+     *
      * @return A list of note descriptions.
      */
     public List<String> readNoteFile() {
@@ -61,6 +63,7 @@ public class Storage {
 
     /**
      * Writes a string of tasks to a file.
+     *
      * @param fw File to be written in.
      * @param tasks Tasks to be written.
      * @throws IOException If an I/O error occurs.
@@ -72,6 +75,7 @@ public class Storage {
 
     /**
      * Updates the local file with the new list of tasks.
+     *
      * @param tasks List of task descriptions.
      * @return The status of whether the save was successful or not.
      */

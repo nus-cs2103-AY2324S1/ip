@@ -12,6 +12,7 @@ public class DukeDateFormat {
 
     /**
      * Converts a string to LocalDate.
+     *
      * @param dateInput String representation of date.
      * @return The LocalDate representation of date.
      */
@@ -26,6 +27,7 @@ public class DukeDateFormat {
 
     /**
      * Converts a date to String.
+     *
      * @param date LocalDate representation of date.
      * @return The string representation of date.
      */

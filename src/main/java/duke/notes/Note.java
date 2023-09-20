@@ -1,5 +1,6 @@
 package duke.notes;
 
+/** Encapsulates a note with a description. */
 public class Note {
 
     private String text;

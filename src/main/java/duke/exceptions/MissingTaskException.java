@@ -3,7 +3,8 @@ package duke.exceptions;
 /** Encapsulates exceptions due to missing task in the task list. */
 public class MissingTaskException extends DukeException {
     /**
-     * Constructor for Exceptions.MissingTaskException.
+     * Constructor for MissingTaskException.
+     *
      * @param message Exception message.
      */
     public MissingTaskException(String message) {
@@ -12,6 +13,7 @@ public class MissingTaskException extends DukeException {
 
     /**
      * Returns the description of the exception.
+     *
      * @return Description of exception.
      */
     @Override

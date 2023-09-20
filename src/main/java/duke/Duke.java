@@ -60,7 +60,7 @@ public class Duke {
         }
     }
 
-    private String taskActions(String input, Commands command) throws DukeException{
+    private String taskActions(String input, Commands command) throws DukeException {
         switch(command) {
         case UNMARK:
         case MARK:
@@ -79,6 +79,7 @@ public class Duke {
 
     /**
      * Returns the response to the user's input
+     *
      * @param input The user's input
      * @return Toothless' response
      */

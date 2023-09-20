@@ -14,6 +14,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event.
+     *
      * @param taskName Name of event.
      * @param from Date where event starts.
      * @param to Date where event ends.
@@ -27,6 +28,7 @@ public class Event extends Task {
 
     /**
      * Returns duration of the event.
+     *
      * @return Duration of event.
      */
     private String getDuration() {
@@ -35,6 +37,7 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of the status of the event.
+     *
      * @return Status of the event.
      */
     @Override
@@ -44,6 +47,7 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return String representation of the task.
      */
     @Override

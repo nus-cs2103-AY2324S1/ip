@@ -4,7 +4,8 @@ package duke.exceptions;
 public class InvalidInputException extends DukeException {
 
     /**
-     * Constructor for Exceptions.InvalidInputException.
+     * Constructor for InvalidInputException.
+     *
      * @param message Exception message.
      */
     public InvalidInputException(String message) {
@@ -13,6 +14,7 @@ public class InvalidInputException extends DukeException {
 
     /**
      * Returns the description of the exception.
+     *
      * @return Description of exception.
      */
     @Override
