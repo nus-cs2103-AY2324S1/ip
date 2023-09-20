@@ -3,6 +3,10 @@ package pardiyem.task;
 import java.util.ArrayList;
 
 public class TaskList {
+    private static final String UNABLE_TO_FIND_MSG =
+            "Mi dispiace, I cannot find any tasks matching your description";
+    private static final String INVALID_INDEX_MSG =
+            "Whoops, that number is not an index in the list. Please select a valid index";
     protected final ArrayList<Task> taskList;
 
     public TaskList() {
@@ -32,6 +36,10 @@ public class TaskList {
         return taskList.get(i);
     }
 
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
     /**
      * Utility method to add a Task object to the taskList
      *
@@ -50,46 +58,65 @@ public class TaskList {
         return taskList.size();
     }
 
-    public boolean inRange(int i) {
-        return i >= 0 && i < taskList.size();
+    public boolean isInRange(int i) {
+        return i >= 0 && i < size();
     }
 
     /**
      * Utility method to delete a task in the taskList
      *
-     * @param i the index of the Task object to be deleted
+     * @param ind the index of the Task object to be deleted
      * @return status message to indicate the completion of the operation
      * @throws ArrayIndexOutOfBoundsException if the given index is not within the bounds of the taskList
      */
-    public String delete(int i) {
-        if (!inRange(i)) {
-            throw new ArrayIndexOutOfBoundsException(
-                    "Whoops, that number is not an index in the list. Please select a valid index");
+    public String delete(int ind) {
+        if (!isInRange(ind)) {
+            throw new ArrayIndexOutOfBoundsException(INVALID_INDEX_MSG);
         }
-        Task curr = taskList.get(i);
-        taskList.remove(i);
+        Task curr = taskList.get(ind);
+        taskList.remove(ind);
         return String.format("Noted. I've removed this task:\n%s\nNow you have %d task(s) on the list",
                 curr.toString(), taskList.size());
     }
 
+    public String findAndList(String desc) {
+        if (desc.isEmpty()) {
+            throw new IllegalArgumentException("Whoops, the description cannot be blank");
+        }
+
+        TaskList out = new TaskList();
+
+        for (int i = 0; i < this.size(); i++) {
+            Task curr = this.getTask(i);
+            if (curr.getDescription().contains(desc)) {
+                out.add(curr);
+            }
+        }
+
+        if (out.isEmpty()) {
+            return UNABLE_TO_FIND_MSG;
+        }
+
+        return out.toString();
+    }
+
     public String mark(int i) {
-        if (!inRange(i)) {
-            throw new ArrayIndexOutOfBoundsException(
-                    "Whoops, that number is not an index in the list. Please select a valid index");
+        if (!isInRange(i)) {
+            throw new ArrayIndexOutOfBoundsException(INVALID_INDEX_MSG);
         }
         return String.format("%s\n%s",
-                taskList.get(i).markAsDone(),
-                taskList.get(i).toString());
+                getTask(i).markAsDone(),
+                getTask(i).toString());
     }
 
     public String unmark(int i) {
-        if (!inRange(i)) {
-            throw new ArrayIndexOutOfBoundsException(
-                    "Whoops, that number is not an index in the list. Please select a valid index");
+        if (!isInRange(i)) {
+            throw new ArrayIndexOutOfBoundsException(INVALID_INDEX_MSG);
         }
+
         return String.format("%s\n%s",
-                taskList.get(i).markAsUndone(),
-                taskList.get(i).toString());
+                getTask(i).markAsUndone(),
+                getTask(i).toString());
     }
 
     @Override

@@ -7,6 +7,7 @@ import pardiyem.task.TaskList;
  * Represents a command that ends the running of the program
  */
 public class ByeCommand extends Command {
+    private static final String BYE_MSG = "Ciao! See you again!";
     /**
      * A constructor for the ByeCommand class
      *
@@ -38,7 +39,7 @@ public class ByeCommand extends Command {
      * @param storage the Storage object that will handle the saving to the data file
      */
     public String execute(TaskList taskList, Storage storage) {
-        return "Ciao! See you again!";
+        return BYE_MSG;
     };
 
     /**

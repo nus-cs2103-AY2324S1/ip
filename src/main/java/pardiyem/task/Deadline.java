@@ -9,6 +9,12 @@ public class Deadline extends Task {
 
     protected LocalTime doByTime;
     protected LocalDate doByDate;
+    private static final String EMPTY_DEADLINE_ERROR =
+            "Whoops, a deadline needs to have a non-empty do by description";
+    private static final String DEADLINE_FORMAT_ERROR =
+            "Whoops, you forgot to indicate the deadline by using \"/by *insert deadline*\"";
+
+    private static final int BY_ARG_PREFIX_LENGTH = 4;
 
     /**
      * A constructor to the Deadline class. Parses the do-by string argument into date and time format
@@ -21,19 +27,18 @@ public class Deadline extends Task {
     public Deadline(String description, String doBy, boolean isDone) throws IllegalArgumentException {
         super(description, isDone);
         if (doBy.isEmpty()) {
-            throw new IllegalArgumentException("Whoops, a deadline needs to have a non-empty do by description");
+            throw new IllegalArgumentException(EMPTY_DEADLINE_ERROR);
         }
         int ind = doBy.indexOf(" ");
         try {
-            if (ind == -1) {
+            if (ind == INVALID_INDEX) {
                 this.doByDate = LocalDate.parse(doBy);
             } else {
                 this.doByDate = LocalDate.parse(doBy.substring(0, ind));
                 this.doByTime = LocalTime.parse(doBy.substring(ind + 1));
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException(
-                    "Please input your time in the format of either \"YYYY-MM-DD\" or \"YYYY-MM-DD HH:MM:SS\"");
+            throw new IllegalArgumentException(DATETIME_FORMAT_ERROR);
         }
     }
 
@@ -56,12 +61,11 @@ public class Deadline extends Task {
     private static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
          int i = desc.indexOf("/by");
         if (i == -1) {
-            throw new IllegalArgumentException(
-                    "Whoops, you forgot to indicate the deadline by using \"/by *insert deadline*\"");
+            throw new IllegalArgumentException(DEADLINE_FORMAT_ERROR);
         }
         ArrayList<String> out = new ArrayList<String>();
         out.add(i == 0 ? "" : desc.substring(0, i - 1));
-        out.add(desc.substring(i + 4));
+        out.add(desc.substring(i + BY_ARG_PREFIX_LENGTH));
         return out;
     }
 
