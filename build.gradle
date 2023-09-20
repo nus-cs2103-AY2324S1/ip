@@ -1,3 +1,4 @@
+//fixed some bug by referencing jx124 reply for the #141 issue
 plugins {
     id 'java'
     id 'application'
@@ -9,14 +10,29 @@ repositories {
     mavenCentral()
 }
 
+javafx {
+    version = '17'
+    modules = [ 'javafx.controls','javafx.graphics', 'javafx.fxml' ]
+}
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-}
 
-javafx {
-    version = "17.0.8"
-    modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.fxml' ]
+    String javaFxVersion = '17.0.7'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
 test {
@@ -43,8 +59,6 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-
-
-run {
+run{
     standardInput = System.in
 }
