@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("miles.Miles")
+    mainClass.set("miles.Launcher")
 }
 
 checkstyle {

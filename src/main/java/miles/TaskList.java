@@ -44,7 +44,7 @@ public class TaskList {
     public Task deleteTask(int taskNum) throws MilesException {
         assert taskNum >= 0 && taskNum < this.taskList.size()
                 : "Task number should be above 0 and below the size of the task list.";
-        if (taskNum <= 0 || taskNum > this.taskList.size()) {
+        if (taskNum < 0 || taskNum > this.taskList.size()) {
             throw new MilesException("No such task to delete!");
         }
 
