@@ -83,7 +83,60 @@ Expected outcome:
 The Chatbot will reply that the task has been inserted
 
 ```
+
+### `deadline` - Starts a process to add a Deadline entry into the list
+
+All the user has to type is "deadline", no arguments required.
+Further follow-up actions are required to complete the insertion of the task as instructed by the chatbot.
+<br>
+Follow-up actions required:
+1. Type in name of the task
+2. Type in date of deadline
+3. (Optional) Type in time of deadline
+
+
+Format: deadline`
+
+Example of usage (4-steps): 
+
+User types `deadline`
+
+Expected outcome:
+
+The Chatbot will prompt for the name of the task.
+
+```
+So you want to add a task with deadline.Tell me what's the task.
+```
+
+User types in the `name of task`
+
+Expected outcome:
+
+The Chatbot will prompt for the deadline date
+
+```
+Now indicate the deadline date.
+```
+
+User types in the `date of deadline`
+
+Expected outcome:
+
+The Chatbot will prompt for the deadline time
+
+```
+Indicate a start time ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time.
+```
+
+User types in the `time of deadline` or `skip`
+
+Expected outcome:
+
+The Chatbot will reply that the task has been inserted
+
+```
 Got it. I've added this task:
-[T][] Read Book
-Now you have 5 tasks in the list
+[D][] Finish CS2100 Assignment (by: 18-Sep-2023)
+Now you have 2 tasks in the list
 ```
