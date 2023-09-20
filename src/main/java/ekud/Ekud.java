@@ -11,17 +11,22 @@ import ekud.ui.Launcher;
  * Represents the Ekud chatbot which encompasses the main functionality of this program.
  */
 public class Ekud {
-    // TaskList object to store and manipulate all of user's tasks, as well as
-    // handle invalid inputs
+    /**
+     * TaskList object to store and manipulate all of user's tasks.
+     */
     private final TaskList taskList;
-    // Storage object to handle loading / saving of tasks between the tasks
-    // in TaskList and the tasks stored on the hard disk
+    /**
+     * Storage object to handle loading / saving of tasks between the tasks
+     * in TaskList and the tasks stored on the hard disk.
+     */
     private final Storage storage;
-    // Whether the chatbot is currently active or not (to handle main commands)
+    /**
+     * Chatbot status on whether it is currently active or not (to handle main commands).
+     */
     private boolean isActive;
 
     /**
-     * Constructor for the ekud.Ekud chatbot to intitialise its taskList.
+     * Constructor for the chatbot to intitialise its taskList.
      */
     public Ekud() {
         this.taskList = new TaskList();
