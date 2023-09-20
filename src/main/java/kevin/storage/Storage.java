@@ -66,7 +66,7 @@ public class Storage {
             StringBuffer buffer = new StringBuffer();
             String toBeReplaced = "";
             for (int i = 0; i < index; i++) {
-                toBeReplaced = sc.nextLine() + System.lineSeparator();
+                toBeReplaced = "delete " + sc.nextLine() + System.lineSeparator();
                 buffer.append(toBeReplaced);
             }
             while (sc.hasNextLine()) {
