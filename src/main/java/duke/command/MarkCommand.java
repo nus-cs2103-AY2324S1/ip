@@ -21,6 +21,8 @@ public class MarkCommand extends Command {
      * @return the response to the user.
      */
     public String[] execute() {
+        assert taskNumToMark >= 0 && taskNumToMark < tasks.size() : "Task number is not valid";
+
         try {
             String[] response = new String[2];
             Task task = this.tasks.get(taskNumToMark);
