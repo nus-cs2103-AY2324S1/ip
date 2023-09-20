@@ -79,6 +79,7 @@ public class Parser {
                 throw new InvalidTaskException(" " + input + " ");
             }
         }
+        javafx.application.Platform.exit();
         return ui.bye();
     }
 
@@ -92,7 +93,6 @@ public class Parser {
      */
     private static String list(TaskList tasks, Ui ui) throws NoTasksException, LemonException {
         if (tasks.getTasksSize() < 1) {
-            System.out.println("No tasks??");
             throw new NoTasksException("");
         }
         return ui.listAll(tasks);
@@ -191,7 +191,7 @@ public class Parser {
     }
 
     /**
-     * To add a event task.
+     * To add an event task.
      * @param input user's input after command "event"
      * @param tasks TaskList of user's tasks
      * @param tasksData Storage of user's tasks.

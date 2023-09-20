@@ -52,9 +52,7 @@ public class ParserTest {
         try {
             Parser.parseTasks("??", tasks, storage, ui);
         } catch (Exception e) {
-            assertEquals(":( OPPS!!! I'm sorry, but I don't know what ?? means :-( \n "
-                    + "Please add todo/ deadline / event before your task description~ or other commands "
-                    + "like mark, unmark & delete", e.getMessage());
+            assertEquals(":( OPPS!!! I'm sorry, but I don't know what ?? means :-(" , e.getMessage());
         }
     }
 
