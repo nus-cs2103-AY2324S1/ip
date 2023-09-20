@@ -31,30 +31,30 @@ public class Storage {
     public ArrayList<Task> load() throws InvalidDataFormatException {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        String folderPath = "./data/";
-        String filePath = "./data/dookie.txt";
+        // Convert the filePath string to a Path object
+        Path filePath = Paths.get(this.filePath);
+
+        // Get the folder path
+        Path folderPath = filePath.getParent();
 
         try {
             // Check if the folder exists, create if not
-            Path folder = Paths.get(folderPath);
-            if (!Files.exists(folder)) {
-                Files.createDirectories(folder);
+            if (!Files.exists(folderPath)) {
+                Files.createDirectories(folderPath);
             }
 
-
             // Check if the file exists, create if not
-            Path file = Paths.get(filePath);
-            if (!Files.exists(file)) {
-                Files.createFile(file);
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
             }
 
             // If the dooike.txt file is empty, return an empty task arraylist
-            if (Files.size(file) == 0) {
+            if (Files.size(filePath) == 0) {
                 return tasks;
             }
 
             // Throws StreamCorruptedException when data format is unserializable
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filePath));
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(this.filePath));
             tasks = (ArrayList<Task>) inputStream.readObject();
 
             // Throws exception if data in dookie.txt is not an ArrayList<Task>

@@ -21,8 +21,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Dookie dookie;
 

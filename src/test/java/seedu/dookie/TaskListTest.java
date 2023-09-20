@@ -29,13 +29,14 @@ public class TaskListTest {
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("./data/dookie.txt"));
             currentTasks = (ArrayList<Task>) inputStream.readObject();
 
+            // The expected output
             String correctList = "1.[T][ ] borrow books ";
             String currentList = "";
 
             // Obtain the string representing the current tasks in the tasklist
             for (int i = 0; i < currentTasks.size(); i++) {
-                currentList += i + 1 + "." + currentTasks.get(i).getTaskType() + currentTasks.get(i).getStatusIcon() + " " + currentTasks.get(i).name +
-                        " " + currentTasks.get(i).getTimeInfo();
+                currentList += i + 1 + "." + currentTasks.get(i).getTaskType() + currentTasks.get(i).getStatusIcon() +
+                        " " + currentTasks.get(i).name + " " + currentTasks.get(i).getTimeInfo();
             }
 
             assertEquals(correctList, currentList);
@@ -66,13 +67,14 @@ public class TaskListTest {
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("./data/dookie.txt"));
             currentTasks = (ArrayList<Task>) inputStream.readObject();
 
+            // The expected output
             String correctList = "1.[T][X] borrow books ";
             String currentList = "";
 
             // Obtain the string representing the current tasks in the tasklist
             for (int i = 0; i < currentTasks.size(); i++) {
-                currentList += i + 1 + "." + currentTasks.get(i).getTaskType() + currentTasks.get(i).getStatusIcon() + " " + currentTasks.get(i).name +
-                        " " + currentTasks.get(i).getTimeInfo();
+                currentList += i + 1 + "." + currentTasks.get(i).getTaskType() + currentTasks.get(i).getStatusIcon() +
+                        " " + currentTasks.get(i).name + " " + currentTasks.get(i).getTimeInfo();
             }
 
             assertEquals(correctList, currentList);
