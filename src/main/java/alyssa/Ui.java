@@ -15,7 +15,7 @@ public class Ui {
     /**
      * Returns a goodbye message.
      */
-    protected String goodbye() {
+    protected String sayGoodbye() {
         return "Bye. Hope to see you again soon! Subsequent messages entered will cause the program to close.";
     }
     /**

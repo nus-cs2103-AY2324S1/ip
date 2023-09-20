@@ -25,7 +25,7 @@ public class Alyssa {
         this.taskList = new TaskList(storage.loadTasks());
     }
     private String handleGoodbye() {
-        return ui.goodbye();
+        return ui.sayGoodbye();
     }
     private String handleListing() {
         return taskList.listTasks();
