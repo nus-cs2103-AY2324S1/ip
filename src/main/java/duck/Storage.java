@@ -32,6 +32,7 @@ public class Storage {
      * @throws DuckException If there are problems accessing or writing to the file.
      */
     public void updateTasks(TaskList tasks) throws DuckException {
+        assert tasks != null : "TaskList should not be null.";
         try {
             FileWriter writer = new FileWriter(filePath);
             for (int i = 0; i < tasks.getTaskCount(); i++) {
@@ -75,7 +76,6 @@ public class Storage {
         return tasks;
     }
 
-    
     /**
      * Appends instead of rewriting the file.
      * 
@@ -83,6 +83,7 @@ public class Storage {
      * @throws DuckException If there are problems accessing or writing to the file.
      */
     public void addTask(Task newTask) throws DuckException {
+        assert newTask != null : "Task should not be null.";
         try {
             FileWriter writer = new FileWriter(filePath, true);
             writer.write(newTask.stringify() + "\n");
@@ -99,6 +100,7 @@ public class Storage {
      * @throws DuckException If there are problems accessing, reading or writing to the file.
      */
     public void deleteTask(int index) throws DuckException {
+        assert index >= 0 : "Index should be non-negative.";
         ArrayList<String> history = new ArrayList<>();
         try {
             Scanner fileScanner = new Scanner(new File(filePath));
