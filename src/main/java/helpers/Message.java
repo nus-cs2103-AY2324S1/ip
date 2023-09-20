@@ -14,7 +14,7 @@ import tasks.Task;
 public class Message {
     final boolean isDebug = true;
     /**
-     * Method to show message that task has been marked
+     * Shows message that task has been marked
      *
      * @param task Task to mark as done
      * @return String of message
@@ -24,7 +24,7 @@ public class Message {
     }
 
     /**
-     * Method to show message that task has been unmarked
+     * Shows message that task has been unmarked
      *
      * @param task Task to unmarked as done
      * @return String of message
@@ -34,7 +34,7 @@ public class Message {
     }
 
     /**
-     * Method to show message that task has been deleted
+     * Show messages that task has been deleted
      *
      * @param taskList List of tasks
      * @param task     Task to be deleted

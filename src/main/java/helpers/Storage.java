@@ -65,7 +65,6 @@ public class Storage {
             while ((readLine = bufferedReader.readLine()) != null) {
                 //E | 0 | project meeting | 2pm | 4pm
                 String[] lines = readLine.split(" \\| ");
-                //System.out.println(Arrays.toString(lines));
                 String type = lines[0];
                 try {
                     switch (type) {
