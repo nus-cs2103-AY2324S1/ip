@@ -1,5 +1,21 @@
 package duke;
-import java.io.*;
+
+/**
+ * The Duke class represents a command-line chatbot that allows users to manage their tasks. Users can interact
+ * with Duke by providing various commands to add, list, mark, unmark, delete, and save tasks. Duke also stores
+ * tasks in a file for persistence across sessions.
+ *
+ * Duke supports the following commands:
+ * - "bye": Exits the chatbot and saves the task list to a file.
+ * - "list": Lists all tasks in the current task list.
+ * - "mark <task_id>": Marks a task as done by its ID.
+ * - "unmark <task_id>": Unmarks a previously marked task.
+ * - "todo <description>": Adds a to-do task with a description.
+ * - "event <description> /from <datetime> /to <datetime>": Adds an event task with a description, start date, and end date.
+ * - "deadline <description> /by <datetime>": Adds a deadline task with a description and due date.
+ * - "delete <task_id>": Deletes a task by its ID.
+ */
+
 
 public class Duke {
     private final String filePath = "./data/duke.txt";
@@ -8,18 +24,24 @@ public class Duke {
     private TaskList taskList;
     private Parser parser;
 
+    /**
+     * Constructor for Duke. It loads TaskLists from file and if failed, create a new TaskList.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
         try {
             taskList = new TaskList(storage.load());
-        } catch (IOException e) {
+        } catch (CustomException e) {
             System.out.println("load error");
             taskList = new TaskList();
         }
     }
 
+    /**
+     * Runs the Duke chatbot.
+     */
     public void run() {
         ui.greeting();
         try {
@@ -35,7 +57,7 @@ public class Duke {
                         ui.closeScanner();
                         try {
                             storage.save(taskList.getTaskArrayList());
-                        } catch (IOException ioException) {
+                        } catch (CustomException e) {
                             System.out.println("save error");
                         }
                         return;
@@ -95,14 +117,14 @@ public class Duke {
                 }
                 try {
                     storage.save(taskList.getTaskArrayList());
-                } catch (IOException ioException) {
+                } catch (CustomException e) {
                     System.out.println("save error");
                 }
             }
         } catch (Exception e) {
             try {
                 storage.save(taskList.getTaskArrayList());
-            } catch (IOException ioException) {
+            } catch (CustomException customException) {
                 System.out.println("save error");
             }
         }

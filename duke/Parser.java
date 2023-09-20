@@ -3,10 +3,27 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Parser class provides methods for parsing user input and converting date/time strings into
+ * LocalDateTime or LocalDate objects. It also has methods for creating different types of tasks
+ * based on user input.
+ */
+
 public class Parser {
+
+    /**
+     * Enum representing the types of commands that the parser can recognize.
+     */
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, INVALID
     }
+
+    /**
+     * Parses a user command to determine its CommandType.
+     *
+     * @param command The user command to be parsed.
+     * @return The CommandType representing the parsed command.
+     */
     public CommandType parseCommandType(String command) {
         if (command.equals("bye")) {
             return CommandType.BYE;
@@ -28,6 +45,13 @@ public class Parser {
             return CommandType.INVALID;
         }
     }
+
+    /**
+     * Parses a date/time string and converts it into a LocalDateTime object. Supports two date/time formats.
+     *
+     * @param dateTimeString The date/time string to be parsed.
+     * @return The LocalDateTime object representing the parsed date/time.
+     */
     public LocalDateTime parseCustomDateTime(String dateTimeString) {
         // Try parsing with "dd/MM/yyyy HHmm" format
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -48,6 +72,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date string and converts it into a LocalDate object. Supports two date formats.
+     *
+     * @param dateString The date string to be parsed.
+     * @return The LocalDate object representing the parsed date.
+     */
     public LocalDate parseCustomDate(String dateString) {
         // Try parsing with "dd/MM/yyyy" format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -67,6 +97,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a Deadline task based on a description and a date/time string.
+     *
+     * @param description    The description of the Deadline task.
+     * @param dateTimeString The date/time string for the task's deadline.
+     * @return The created Deadline task or null if parsing fails.
+     */
     public Deadline addDeadlineTask(String description, String dateTimeString) {
         LocalDateTime dateTime = parseCustomDateTime(dateTimeString);
         LocalDate date = parseCustomDate(dateTimeString);
@@ -81,6 +118,14 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Creates an Event task based on a description and two date/time strings for start and end times.
+     *
+     * @param description The description of the Event task.
+     * @param from        The date/time string for the event's start time.
+     * @param to          The date/time string for the event's end time.
+     * @return The created Event task or null if parsing fails.
+     */
     public Event addEventTask(String description, String from, String to) {
         LocalDateTime fromDateTime = parseCustomDateTime(from);
         LocalDate fromDate = parseCustomDate(from);
@@ -99,6 +144,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Creates a ToDo task based on a description.
+     *
+     * @param description The description of the ToDo task.
+     * @return The created ToDo task.
+     */
     public ToDo addTodoTask(String description) {
         return new ToDo(description);
     }

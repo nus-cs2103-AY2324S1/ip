@@ -2,17 +2,32 @@ package duke;
 import java.util.ArrayList;
 import java.io.Serializable;
 
+/**
+ * The TaskList class represents a list of tasks. It provides methods for adding, listing, deleting, and
+ * marking tasks as done or undone. TaskList can also be serialized to save and load tasks from a file.
+ */
 public class TaskList implements Serializable {
     private ArrayList<Task> taskArrayList;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.taskArrayList = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the given list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the TaskList with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.taskArrayList = tasks;
     }
 
+    /**
+     * Lists all tasks in the TaskList, displaying their descriptions and statuses.
+     */
     public void listTasks() {
         for (int i = 0; i < taskArrayList.size(); i++) {
             Task task = taskArrayList.get(i);
@@ -20,6 +35,12 @@ public class TaskList implements Serializable {
         }
     }
 
+    /**
+     * Deletes a task from the TaskList by its ID.
+     *
+     * @param id The ID of the task to be deleted.
+     * @return A message indicating the result of the deletion.
+     */
     public String deleteTask(int id) {
         if (id >= 1 && id <= taskArrayList.size()) {
             Task task = taskArrayList.remove(id - 1);
@@ -30,12 +51,24 @@ public class TaskList implements Serializable {
         }
     }
 
+    /**
+     * Adds a task to the TaskList.
+     *
+     * @param task The task to be added.
+     * @return A message indicating the result of the addition.
+     */
     public String addTask(Task task) {
         taskArrayList.add(task);
         return "Got it. I've added this task:\n" + taskArrayList.get(taskArrayList.size() - 1).toString()
                     + "\nNow you have " + taskArrayList.size() + " tasks in the list.";
     }
 
+    /**
+     * Marks a task as done by its ID.
+     *
+     * @param id The ID of the task to be marked as done.
+     * @return A message indicating the result of marking the task as done.
+     */
     public String markTaskAsDone(int id) {
         if (id >= 1 && id <= taskArrayList.size()) {
             Task task = taskArrayList.get(id - 1);
@@ -50,6 +83,12 @@ public class TaskList implements Serializable {
         }
     }
 
+    /**
+     * Marks a task as undone (not done) by its ID.
+     *
+     * @param id The ID of the task to be marked as undone.
+     * @return A message indicating the result of marking the task as undone.
+     */
     public String unmarkTask(int id) {
         if (id >= 1 && id <= taskArrayList.size()) {
             Task task = taskArrayList.get(id - 1);
@@ -64,6 +103,11 @@ public class TaskList implements Serializable {
         }
     }
 
+    /**
+     * Retrieves the ArrayList of tasks contained in the TaskList.
+     *
+     * @return The ArrayList of tasks.
+     */
     protected ArrayList<Task> getTaskArrayList() {
         return this.taskArrayList;
     }

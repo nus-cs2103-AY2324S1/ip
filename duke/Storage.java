@@ -2,14 +2,30 @@ package duke;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles the loading and saving of tasks to a file. It provides methods to load tasks from
+ * a specified file and save tasks to that file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws IOException {
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return An ArrayList of tasks loaded from the file. If the file doesn't exist or an error occurs during
+     *         loading, an empty ArrayList is returned.
+     * @throws CustomException If an error occurs during loading, including I/O errors or corrupted files.
+     */
+    public ArrayList<Task> load() throws CustomException {
         ArrayList<Task> tasks;
 
         File file = new File(filePath);
@@ -21,7 +37,8 @@ public class Storage {
             } catch (IOException | ClassNotFoundException e) {
                 // Handle exceptions, e.g., if the file is corrupted
                 tasks = new ArrayList<>();
-                e.printStackTrace();
+                // Throw a CustomException with a custom error message
+                throw new CustomException("Error loading tasks from file: " + e.getMessage());
             }
         } else {
             tasks = new ArrayList<>();
@@ -29,7 +46,13 @@ public class Storage {
         return tasks;
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException {
+    /**
+     * Saves the provided ArrayList of tasks to the specified file.
+     *
+     * @param tasks The ArrayList of tasks to be saved to the file.
+     * @throws CustomException If an error occurs during saving, including I/O errors or directory creation errors.
+     */
+    public void save(ArrayList<Task> tasks) throws CustomException {
         File file = new File(filePath);
         File directory = file.getParentFile();
 
@@ -50,13 +73,14 @@ public class Storage {
                 oos.writeObject(tasks);
             } catch (IOException e) {
                 System.out.println("Error saving tasks to file!");
-                e.printStackTrace();
+                // Throw a CustomException with a custom error message
+                throw new CustomException("Error saving tasks to file: " + e.getMessage());
             }
         } catch (IOException e) {
             System.out.println("Error creating the file or directory!");
-            e.printStackTrace();
+            // Throw a CustomException with a custom error message
+            throw new CustomException("Error creating file or directory: " + e.getMessage());
         }
     }
-
 }
 
