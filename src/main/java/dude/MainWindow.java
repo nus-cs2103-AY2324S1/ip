@@ -42,13 +42,23 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    //@@author
+
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Dude's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
+        // read user input
         String input = userInput.getText();
+
+        // ignore empty user input
+        if (input.isBlank()) {
+            return;
+        }
+
+        // handle user input
         String response = dude.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
@@ -57,5 +67,3 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 }
-
-//@@author
