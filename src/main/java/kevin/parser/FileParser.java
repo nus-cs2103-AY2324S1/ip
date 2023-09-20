@@ -39,30 +39,23 @@ public class FileParser {
             }
             args.add(querySplit[2]);
         } else if (command == Command.DEADLINE) {
-            String[] argumentSplit = querySplit[2].split(" - ");
-            if (argumentSplit.length != 2) {
+            String[] argumentSplit = querySplit[2].split(" - ", 2);
+            if (argumentSplit.length < 2) {
                 throw new KevinException(String.format(new StringBuilder().append("Deadline command needs to ")
                         .append("follow \"Deadline - {isDone} - {deadline name} - {deadline date}\".").toString()));
             }
             args.add(argumentSplit[0]);
             args.add(argumentSplit[1]);
         } else if (command == Command.EVENT) {
-            String[] argumentGetName = querySplit[2].split(" - ", 3);
-            if (argumentGetName.length != 2) {
+            String[] argumentSplit = querySplit[2].split(" - ", 3);
+            if (argumentSplit.length < 3) {
                 throw new KevinException(new StringBuilder().append("Event command needs to follow ")
                         .append("\"Event - {isDone} - {deadline name} - {event start time} - {event end time}\".")
                         .toString());
             }
-            String[] argumentGetDate = argumentGetName[2].split(" - ", 2);
-            if (argumentGetDate.length != 2) {
-                throw new KevinException(new StringBuilder().append("Event command needs to follow ")
-                        .append("\"Event - {isDone} -{deadline name} - {event start time} - {event end time}\".")
-                        .toString());
-            }
-            args.add(argumentGetName[0]);
-            args.add(argumentGetName[1]);
-            args.add(argumentGetDate[0]);
-            args.add(argumentGetDate[1]);
+            args.add(argumentSplit[0]);
+            args.add(argumentSplit[1]);
+            args.add(argumentSplit[2]);
         }
         return new QueryObject(command, args);
     }

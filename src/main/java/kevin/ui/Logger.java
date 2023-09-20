@@ -4,15 +4,7 @@ package kevin.ui;
  * A class responsible to output to the console.
  */
 public class Logger {
-    public static final String BOT_NAME = new StringBuilder()
-            .append("\n")
-            .append(" _   __ _____ _   _ _____ _   _ \n")
-            .append("| | / /|  ___| | | |_   _| \\ | |\n")
-            .append("| |/ / | |__ | | | | | | |  \\| |\n")
-            .append("|    \\ |  __|| | | | | | | . ` |\n")
-            .append("| |\\  \\| |___\\ \\_/ /_| |_| |\\  |\n")
-            .append("\\_| \\_/\\____/ \\___/ \\___/\\_| \\_/\n")
-            .toString();
+    public static final String BOT_NAME = "Kevin";
     /**
      * Prints the text wrapped in horizontal lines.
      * @param str
@@ -25,7 +17,7 @@ public class Logger {
      * Prints the hello message when the program first runs.
      */
     public static String hello() {
-        String welcomeMessage = "Hello! I'm" + BOT_NAME + "\n" + "What can I do for you?";
+        String welcomeMessage = "Hello! I'm " + BOT_NAME + "!\n" + "What can I do for you?";
         return welcomeMessage;
     }
 
