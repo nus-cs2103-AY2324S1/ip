@@ -33,30 +33,28 @@ public abstract class Task {
     public static Task decode(String encodedTask) {
         Pattern pattern = Pattern.compile("^(?<type>.)\\|(?<mark>.)\\|(?<taskString>.+)$");
         Matcher matcher = pattern.matcher(encodedTask);
-        matcher.matches();
+        if (!matcher.matches()) {
+            return null;
+        }
         String type = matcher.group("type");
         String mark = matcher.group("mark");
         String input = matcher.group("taskString");
         Task task;
-        switch (type) {
-        case "T":
-            task = Parser.parseTodo(input);
-            break;
-        case "D":
-            try {
+        try {
+            switch (type) {
+            case "T":
+                task = Parser.parseTodo(input);
+                break;
+            case "D":
                 task = Parser.parseDeadline(input);
-            } catch (DukeParseException e) {
-                return null;
-            }
-            break;
-        case "E":
-            try {
+                break;
+            case "E":
                 task = Parser.parseEvent(input);
-            } catch (DukeParseException e) {
+                break;
+            default:
                 return null;
             }
-            break;
-        default:
+        } catch (DukeParseException e) {
             return null;
         }
         if (mark.equals("1")) {
