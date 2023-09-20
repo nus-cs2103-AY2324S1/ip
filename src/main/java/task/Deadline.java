@@ -61,6 +61,7 @@ public class Deadline extends Task {
         formatters.add(DateTimeFormatter.ofPattern("yyyy/MMM/dd HH:mm"));
         formatters.add(DateTimeFormatter.ofPattern("yyyy/MMM/dd HH:mm:ss"));
         formatters.add(DateTimeFormatter.ofPattern("yyyy/MMM/dd HH:mm:ss.SSS"));
+        formatters.add(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
 
         deadlineString = deadlineString.trim();
         if (!deadlineString.contains(":")) { // No time
@@ -105,10 +106,10 @@ public class Deadline extends Task {
      */
     public boolean isOverdue() {
         if (isDateTime) {
-            if (deadlineDateTime.isAfter(LocalDateTime.now())) {
-                return false;
-            } else {
+            if (deadlineDateTime.isBefore(LocalDateTime.now()) && !this.isDone) {
                 return true;
+            } else {
+                return false;
             }
         } else {
             return false;
@@ -124,10 +125,10 @@ public class Deadline extends Task {
     public boolean isDueBy(LocalDateTime localDateTime) {
         if (isDateTime) {
             try {
-                if (deadlineDateTime.isAfter(localDateTime)) {
-                    return false;
-                } else {
+                if (deadlineDateTime.isBefore(localDateTime) && !this.isDone) {
                     return true;
+                } else {
+                    return false;
                 }
             } catch (Exception e) {
                 return false;

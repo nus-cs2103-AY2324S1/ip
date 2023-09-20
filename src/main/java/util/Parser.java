@@ -168,7 +168,7 @@ public class Parser {
                 } else {
                     String startString = restOfCommand.substring(fromIndex, toIndex).trim();
                     toIndex = restOfCommand.indexOf("/to") + "/to".length();
-                    String endString = restOfCommand.substring(toIndex);
+                    String endString = restOfCommand.substring(toIndex).trim();
                     return tasks.event(description, startString, endString);
                 }
             }
