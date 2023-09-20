@@ -61,6 +61,6 @@ public abstract class Task implements Serializable {
         } else {
             marked = " ";
         }
-        return String.format("[%s][%s] %s",this.oneLetterAbbrev, marked, this.taskName);
+        return String.format("[%s][%s] %s", this.oneLetterAbbrev, marked, this.taskName);
     }
 }

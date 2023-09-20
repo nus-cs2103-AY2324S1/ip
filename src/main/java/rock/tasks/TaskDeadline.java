@@ -41,8 +41,8 @@ public class TaskDeadline extends Task {
     public boolean equals(Object o) {
         if (o instanceof TaskDeadline) {
             TaskDeadline t = (TaskDeadline) o;
-            return this.getName().equals(t.getName()) &&
-                    this.getDate().equals(t.getDate());
+            return this.getName().equals(t.getName())
+                    && this.getDate().equals(t.getDate());
         } else {
             return false;
         }

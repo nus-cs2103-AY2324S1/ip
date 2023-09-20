@@ -10,7 +10,7 @@ import rock.storage.exceptions.StorageException;
 import rock.tasks.TaskList;
 
 /**
-` * Rock is the name of and the main program used
+ * Rock is the name of and the main program used
  * to run the bot for ip.
  * @author Alvis Ng (supermii2)`
  */
@@ -72,11 +72,7 @@ public class Rock {
      * Saves the existing task list
     */
     public void saveFile() {
-        try {
-            storage.saveSaveFile(taskList);
-        } catch (StorageException e) {
-
-        }
+        this.saveFile(taskList);
     }
 
     /**
@@ -86,7 +82,9 @@ public class Rock {
     public void saveFile(TaskList tl) {
         try {
             storage.saveSaveFile(tl);
-        } catch (StorageException e) {}
+        } catch (StorageException e) {
+
+        }
     }
 
     /**

@@ -1,20 +1,26 @@
 package rock.ui;
 
-import rock.client.Response;
-import rock.client.Rock;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import rock.client.Response;
+import rock.client.Rock;
 
+/**
+ * Represents the graphical user interface
+ * for the bot to interact with user
+ *
+ * @author Alvis Ng (supermii2)
+ */
 public class Gui extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -110,6 +116,11 @@ public class Gui extends Application {
         return rock.getResponse(input);
     }
 
+    /**
+     * Sends a warning to the GUI
+     * when there is a problem with saving
+     * @param response Message containing error
+     */
     public void sendWarning(Response response) {
         assert response.isError() : "Warnings cannot be normal messages";
         Label responseText = new Label(response.getMessage());
