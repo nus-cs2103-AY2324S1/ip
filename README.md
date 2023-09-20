@@ -1,24 +1,159 @@
-# duke.duke project template
+# ElonBot Project Template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+ElonBot is your personal task management bot! He can help you keep track of tasks to be done, deadlines and upcoming
+events.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### Listing all tasks
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/duke.duke.java` file, right-click it, and choose `Run duke.duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Lists all tasks you have entered.
+
+Command format: `list`
+
+Example usage:
+
+```
+list
+```
+
+### Adding a Todo Task
+
+Add a Todo task.
+A todo task only has a name.
+
+Command format: `todo %TASK_NAME%`
+
+Example usage:
+
+```agsl
+todo Go to the hospital // %TASK_NAME% = Go to the hospital
+todo Complete CS2100 Assignment // %TASK_NAME% = Complete CS2100 Assignment
+```
+
+### Add a Deadline Task
+
+Add a deadline task.
+A deadline task has a set deadline for the task.
+
+Command format: `deadline %TASK_NAME% /by %DEADLINE%`
+
+where `%DEADLINE%` is of the following format:
+
+- yyyy-MM-dd HH:mm
+
+Example usage:
+
+```agsl
+deadline Submit iP /by 2023-01-01 10:00 // %DEADLINE% = 2023-01-01 10:00
+```
+
+### Add an Event Task
+
+Add an event.
+An event has a name, a start time, and an end time.
+
+Command format: `event %TASK_NAME% /from %START_TIME% /to %END_TIME%`
+
+where `%START_TIME%` and `%END_TIME%` is of the following format:
+
+- yyyy-MM-dd HH:mm
+
+Example usage:
+
+```agsl
+event Group Meeting /from 2023-01-01 12:00 /to 2023-01-01 13:00 
+// %START_TIME% = 2023-01-01 12:00, %END_TIME = 2023-01-01 13:00
+```
+
+### Mark a Task as done
+
+Marks a task as completed. 
+Displays a [X] next to the name to indicate that it is done.
+
+Command format: `mark %TASK_ID%`
+
+where Task ID is a unique number to each task and can be seen when typing `list`.
+
+Example usage:
+
+```agsl
+mark 1 // %TASK_ID% = 1. Marks the task with ID 1 as done.
+```
+
+### Mark a Task as undone
+
+Marks a task as not completed.
+Removes the [X] and replaces it with a [ ] next to the name to indicate that it is undone.
+
+Command format: `unmark %TASK_ID%`
+
+where Task ID is a unique number to each task and can be seen when typing `list`.
+
+Example usage:
+
+```agsl
+unmark 1 // %TASK_ID% = 1. Marks the task with ID 1 as undone.
+```
+
+### Delete a Task
+
+Deletes a task from the list.
+
+Command format: `delete %TASK_ID%`
+
+where Task ID is a unique number to each task and can be seen when typing `list`.
+
+Example usage:
+
+```agsl
+delete 1 // %TASK_ID% = 1. Deletes the task with ID 1.
+```
+
+### Find a Task
+
+Find a task by task name, based on a search query provided by the user.
+
+Command format: `find %SEARCH%`
+
+where search is any string input by the user.
+
+Example usage:
+
+```agsl
+find CS2100 // %SEARCH% = CS2100. Finds all tasks with CS2100 in the name.
+```
+
+## Sort tasks
+
+Sort tasks in one of 4 sorting methods, either:
+1. by ID
+2. by Name
+3. by Type (Event, Deadline, Todo)
+4. by Deadline Date
+
+and in either 
+1. Ascending order
+2. Descending order.
+
+The sort order is saved, so when you next type `list`, you will see the last chosen sorting order.
+
+Command format: `sort %SORT_TYPE% %SORT_ORDER%`
+
+where `%SORT_TYPE%` is either
+1. id
+2. name
+3. type
+4. deadline
+
+and `%SORT_ORDER%` is either
+1. asc
+2. desc
+
+Example Usage:
+
+```agsl
+sort name asc // %SORT_TYPE% = name, %SORT_ORDER% = asc. Sorts by name, ascending
+sort deadline desc // %SORT_TYPE% = deadline, %SORT_ORDER% = desc. Sorts by deadline, descending.
+```
+
