@@ -11,7 +11,7 @@ public class TagCommand extends Command{
     private String tag;
 
     /**
-     * Create the tag command class.
+     * Creates the tag command class.
      *
      * @param taskIndex Index of the task to be tagged.
      * @param tag String to be tagged to the task.
@@ -22,7 +22,7 @@ public class TagCommand extends Command{
     }
 
     /**
-     * Tag the task and update the user, task list and save file.
+     * Tags the task and update the user, task list and save file.
      *
      * @param tasks List of all the task.
      * @param ui UI for printing result to user.

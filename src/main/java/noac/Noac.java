@@ -13,7 +13,9 @@ public class Noac{
     private TaskList tasks;
     private Ui ui;
 
-
+    /**
+     * Creates a new Noac class and set the filePath.
+     */
     public Noac() {
         this("data/tasks.txt");
     }
@@ -49,7 +51,6 @@ public class Noac{
             return ui.showErrorMessage(e);
         }
     }
-
 
 }
 

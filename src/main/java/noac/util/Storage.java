@@ -55,7 +55,7 @@ public class Storage {
                 String[] fileLineInput = scanner.nextLine().split("\\|");
                 String taskType = fileLineInput[0];
 
-                handleDifferentTask(taskType, fileLineInput, returnList);
+                returnList = handleDifferentTask(taskType, fileLineInput, returnList);
             }
 
         } catch (IOException e) {
@@ -93,15 +93,12 @@ public class Storage {
             case "T":
                 returnList = handleCaseTodo(fileLineInput, returnList);
                 break;
-
             case "D":
                 returnList = handleCaseDeadline(fileLineInput, returnList);
                 break;
-
             case "E":
                 returnList = handleCaseEvent(fileLineInput, returnList);
                 break;
-
             default:
                 throw new NoacException("OOPS!!! Corrupted Save file");
         }

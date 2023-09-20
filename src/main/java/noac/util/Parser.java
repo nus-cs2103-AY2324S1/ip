@@ -15,7 +15,6 @@ public class Parser {
     private static final String MARK_COMMAND = "mark";
     private static final String DEFAULT_TIME = "0000";
 
-
     /**
      * Parse the user input and return the relevant command given by the user.
      *
@@ -155,7 +154,7 @@ public class Parser {
     }
 
     private static Command handleCaseEvent(String[] userInputArr) throws NoacException {
-        String descript = "";
+        String description = "";
         String from = "";
         String to = "";
         String status = "event";
@@ -171,7 +170,7 @@ public class Parser {
             }
 
             if (status.equals("event")) {
-                descript += userInputArr[i] + " ";
+                description += userInputArr[i] + " ";
             } else if (status.equals("from")) {
                 from += userInputArr[i] + " ";
             } else if (status.equals("to")) {
@@ -182,19 +181,19 @@ public class Parser {
         if (!status.equals("to")) {
             throw new NoacException("OOPS!!! The input must contain the command /from and /to \nin this order");
         }
-        if (descript.length() == 0 || from.length() == 0 || to.length() == 0) {
+        if (description.length() == 0 || from.length() == 0 || to.length() == 0) {
             throw new NoacException("OOPS!!! The description, from and to of a event cannot \nbe empty!");
         }
 
         assert from.length() > 1 : "from too short";
         assert to.length() > 1 : "to too short";
-        assert descript.length() > 1 : "descript too short";
+        assert description.length() > 1 : "descript too short";
 
         from = from.substring(0, from.length() - 1);
         to = to.substring(0, to.length() - 1);
-        descript = descript.substring(0, descript.length() - 1);
+        description = description.substring(0, description.length() - 1);
 
-        return new EventCommand(descript, parseDate(from), parseDate(to));
+        return new EventCommand(description, parseDate(from), parseDate(to));
 
     }
 
@@ -208,7 +207,7 @@ public class Parser {
 
         int taskNo = Integer.parseInt(userInputArr[1]) - 1;
 
-         return new DeleteCommand(taskNo);
+        return new DeleteCommand(taskNo);
     }
 
     private static Command handleCaseOn(String[] userInputArr) throws NoacException {
@@ -256,6 +255,5 @@ public class Parser {
 
         return new TagCommand(taskNo, userInputArr[2]);
     }
-
 
 }

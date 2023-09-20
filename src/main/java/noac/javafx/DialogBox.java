@@ -48,10 +48,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a new user DialogBox.
+     *
+     * @param text Text to be displayed in the dialog box
+     * @param img Images to be shown in the dialog box.
+     * @return The new DialogBox.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a new NOAC DialogBox.
+     *
+     * @param text Text to be displayed in the dialog box
+     * @param img Images to be shown in the dialog box.
+     * @return The new DialogBox.
+     */
     public static DialogBox getNoacDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

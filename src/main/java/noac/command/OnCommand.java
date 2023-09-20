@@ -38,7 +38,6 @@ public class OnCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-
         ArrayList<Task> taskArrayList = getTasksOnDate(this.localDate, tasks);
 
         return ui.showTasksOnDate(taskArrayList);
@@ -52,7 +51,6 @@ public class OnCommand extends Command {
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.getTask(i) instanceof Deadline) {
-
                 String deadlineByFormattedDate = ((Deadline) tasks.getTask(i)).getBy()
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
@@ -60,7 +58,6 @@ public class OnCommand extends Command {
                     taskArrayList.add(tasks.getTask(i));
                 }
             } else if (tasks.getTask(i) instanceof Event) {
-
                 String eventFromFormattedDate = ((Event) tasks.getTask(i)).getFrom()
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 String eventToFormattedDate = ((Event) tasks.getTask(i)).getTo()
@@ -72,7 +69,6 @@ public class OnCommand extends Command {
                 }
             }
         }
-
         return taskArrayList;
     }
 }

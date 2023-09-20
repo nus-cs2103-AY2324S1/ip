@@ -23,7 +23,7 @@ public class Task {
     }
 
     /**
-     * Return 'X' for done task and space for undone task for printing to user.
+     * Returns 'X' for done task and space for undone task for printing to user.
      *
      * @return The string as described.
      */
@@ -32,14 +32,14 @@ public class Task {
     }
 
     /**
-     * Set isDone to true to mark the task as done.
+     * Sets isDone to true to mark the task as done.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * Set isDone to false to mark the task as undone.
+     * Sets isDone to false to mark the task as undone.
      */
     public void unmarkAsDone() {
         isDone = false;
@@ -79,6 +79,9 @@ public class Task {
     }
 
     public String tagsToString() {
+        if(tags.isEmpty()) {
+            return " ";
+        }
         return String.join(" ", tags);
     }
 

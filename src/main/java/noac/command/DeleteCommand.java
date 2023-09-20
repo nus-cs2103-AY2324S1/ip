@@ -32,7 +32,6 @@ public class DeleteCommand  extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NoacException {
-
         if (taskIndex + 1 > tasks.size() ||  taskIndex < 0) {
             throw new NoacException("OOPS!!! Please enter a task in your list!");
         }

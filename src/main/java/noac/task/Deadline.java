@@ -43,7 +43,6 @@ public class Deadline extends Task {
     public String printToFile() {
         String formattedBy = this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
 
-
         return "D|" + super.printToFile() + "|"
                 + formattedBy + "|" + tagsToString();
     }

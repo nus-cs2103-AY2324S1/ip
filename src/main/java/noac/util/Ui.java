@@ -15,14 +15,12 @@ public class Ui {
      * @return The message to be displayed to the user.
      */
     public static String showWelcomeMessage() {
-
-        String welcomeMessage =
+        String returnMessage =
                 "Hello! I'm NOAC\n" +
                 "What can I do for you?\n";
 
-        return welcomeMessage;
+        return returnMessage;
     }
-
 
     /**
      * Print the bye message.
@@ -30,9 +28,9 @@ public class Ui {
      * @return The message to be displayed to the user.
      */
     public String showByeMessage() {
-        String byeMessage =  "Bye. Hope to see you again soon!\n" ;
+        String returnMessage =  "Bye. Hope to see you again soon!\n" ;
 
-        return byeMessage;
+        return returnMessage;
     }
 
     /**
@@ -92,9 +90,7 @@ public class Ui {
      * @return The message to be displayed to the user.
      */
     public String showAddTask(Task task, int listSize) {
-        String returnMessage = "";
-
-        returnMessage += "Got it. I've added this task:\n";
+        String returnMessage =  "Got it. I've added this task:\n";
         returnMessage += task.toString() + "\n";
         returnMessage +=  "Now you have " + listSize + " tasks in the list.\n";
 
@@ -110,8 +106,7 @@ public class Ui {
      * @return The message to be displayed to the user.
      */
     public String showDeleteTask(Task task, int listSize) {
-        String returnMessage = "";
-        returnMessage += "Noted. I've removed this task:\n";
+        String returnMessage = "Noted. I've removed this task:\n";
         returnMessage += task.toString() + "\n";
 
         returnMessage += "Now you have " + listSize + " tasks in the list.\n";
@@ -127,8 +122,7 @@ public class Ui {
      * @return The message to be displayed to the user.
      */
     public String showTasksOnDate(ArrayList<Task> tasks) {
-        String returnMessage = "";
-        returnMessage += "The tasks on this date are:\n";
+        String returnMessage =  "The tasks on this date are:\n";
 
         for(int i = 0 ; i < tasks.size(); i++) {
             returnMessage += tasks.get(i).toString() + "\n";
@@ -144,13 +138,11 @@ public class Ui {
      * @return The message to be displayed to the user.
      */
     public String showFind(ArrayList<Task> tasks) {
-        String returnMessage = "";
-
         if (tasks.size() == 0) {
-            return returnMessage + "There are no matching tasks in your list. :(\n";
+            return "There are no matching tasks in your list. :(";
         }
 
-        returnMessage += "Here are the matching tasks in your list:\n";
+        String returnMessage = "Here are the matching tasks in your list:\n";
 
         for(int i = 0 ; i < tasks.size(); i++) {
             returnMessage += tasks.get(i).toString() + "\n";
@@ -167,10 +159,8 @@ public class Ui {
      * @return The message to be displayed to the user.
      */
     public String showTagTask(Task task, String tag) {
-        String returnMessage = "";
-        returnMessage += task.toString() + " has been tagged with " + tag;
+        String returnMessage = task.toString() + " has been tagged with " + tag;
 
         return returnMessage;
     }
-
 }

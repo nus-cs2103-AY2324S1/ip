@@ -15,6 +15,9 @@ public class Main extends Application {
 
     private Noac noac = new Noac();
 
+    /**
+     * Set up and show the JavaFX stage.
+     */
     @Override
     public void start(Stage stage) {
         try {

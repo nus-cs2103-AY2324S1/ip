@@ -10,7 +10,14 @@ import noac.util.Ui;
  */
 public class ExitCommand extends Command {
 
-    private boolean isExit = true;
+
+    /**
+     * Creates the Exit Command and set the boolean isExit to true.
+     */
+    public ExitCommand() {
+        super();
+        super.isExit = true;
+    }
 
     /**
      * Execute the bye command, show the bye message.
@@ -33,6 +40,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public boolean isExit() {
-        return isExit;
+        return super.isExit;
     }
 }

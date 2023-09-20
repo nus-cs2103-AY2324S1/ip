@@ -11,7 +11,7 @@ import noac.util.Ui;
  */
 public abstract class Command {
 
-    private boolean isExit = false;
+    protected boolean isExit = false;
 
     /**
      * Abstracts execute functions with the relevant parameters.

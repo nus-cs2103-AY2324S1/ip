@@ -13,7 +13,7 @@ public class TodoCommand extends Command {
     private String description;
 
     /**
-     * Create the TodoCommand.
+     * Creates the TodoCommand.
      *
      * @param description The description for the To Do.
      */
@@ -22,7 +22,7 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Create a To Do, store it in Tasklist and save it.
+     * Creates a To Do, store it in Tasklist and save it.
      *
      * @param tasks List of all the task.
      * @param ui UI for printing result to user.
@@ -31,7 +31,6 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage){
-
         Todo t = new Todo(this.description);
 
         tasks.addTask(t);
