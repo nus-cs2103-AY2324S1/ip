@@ -8,17 +8,27 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 /**
  * The Dialog class control represents a dialog box consisting of an ImageView
  * to represent the speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    public static final int MESSAGE_BOX_WIDTH = 400;
+    public static final int ARC_VALUE = 40;
     @FXML
     private Label dialog;
     @FXML
@@ -27,10 +37,10 @@ public class DialogBox extends HBox {
     /**
      * Creates a new instance of DialogBox with the specified text and image.
      *
-     * @param text The text content of the dialog box.
-     * @param img  The image to be displayed in the dialog box.
+     * @param message The text content of the dialog box.
+     * @param img     The image to be displayed in the dialog box.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String message, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/views/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -40,8 +50,7 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
-        displayPicture.setImage(img);
+        buildDialogBox(message, img);
     }
 
     /**
@@ -76,6 +85,42 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
+    }
+
+    @FXML
+    private void buildDialogBox(String message, Image img) {
+        Text text = createText(message);
+        Rectangle messageBox = createMessageBox(text);
+        Circle circleImage = new Circle(0, 0, 30);
+        circleImage.setFill(new ImagePattern(img));
+        StackPane dialogBox = new StackPane(messageBox, text);
+        this.getChildren().addAll(dialogBox, circleImage);
+    }
+
+    private Text createText(String string) {
+        assert string != null : "String to be converted cannot be null";
+        return wrapText(new Text(string));
+    }
+
+    private Rectangle createMessageBox(Text text) {
+        assert text != null : "Text cannot be null.";
+
+        Text wrappedText = wrapText(text);
+        double messageBubbleHeight = wrappedText.getBoundsInLocal().getHeight() + 40;
+        Rectangle messageBox = new Rectangle(MESSAGE_BOX_WIDTH, messageBubbleHeight);
+        messageBox.setFill(Color.WHITE);
+        messageBox.setArcWidth(ARC_VALUE);
+        messageBox.setArcHeight(ARC_VALUE);
+        return messageBox;
+    }
+
+    private Text wrapText(Text text) {
+        TextFlow textFlow = new TextFlow();
+        textFlow.getChildren().add(text);
+        textFlow.setPrefWidth(MESSAGE_BOX_WIDTH - 100); // Adjust the width as needed
+        text.setTextOrigin(VPos.TOP);
+        text.setWrappingWidth(MESSAGE_BOX_WIDTH - 100); // Adjust the width as needed
+        return text;
     }
 }
 

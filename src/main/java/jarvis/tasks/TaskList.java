@@ -2,6 +2,8 @@ package jarvis.tasks;
 
 import java.util.ArrayList;
 
+import jarvis.parser.DeadlineComparator;
+
 /**
  * Represents a list of tasks in the Jarvis application.
  * Provides methods for managing and retrieving tasks.
@@ -72,6 +74,12 @@ public class TaskList {
      */
     public int getTaskCount() {
         return taskList.size();
+    }
+
+    public ArrayList<Task> sortTasks() {
+        ArrayList<Task> tasks = this.taskList;
+        tasks.sort(new DeadlineComparator());
+        return tasks;
     }
 
     /**

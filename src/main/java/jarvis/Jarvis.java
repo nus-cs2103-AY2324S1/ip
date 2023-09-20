@@ -35,6 +35,7 @@ public class Jarvis {
      */
     public String respond(final String userInput) {
         try {
+            assert userInput != null : "Command/User Input cannot be null";
             Command command = Parser.parseCommand(userInput);
             return command.execute(taskList, ui, storage);
         } catch (JarvisException e) {

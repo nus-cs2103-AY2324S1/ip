@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * The MainWindow class controls the main GUI window of the Jarvis app. It controls the user interface
@@ -54,7 +55,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void startIntro() {
         String intro = ui.printIntro();
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(intro, jarvisImage));
+        dialogContainer.getChildren().addAll(DialogBox.getJarvisDialog(intro, jarvisImage));
     }
 
     /**

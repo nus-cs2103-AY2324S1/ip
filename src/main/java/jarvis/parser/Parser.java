@@ -13,6 +13,7 @@ import jarvis.commands.EventCommand;
 import jarvis.commands.FindCommand;
 import jarvis.commands.ListCommand;
 import jarvis.commands.MarkCommand;
+import jarvis.commands.SortCommand;
 import jarvis.commands.TodoCommand;
 import jarvis.commands.UnmarkCommand;
 import jarvis.exceptions.InvalidCommandException;
@@ -48,6 +49,8 @@ public class Parser {
             return new ByeCommand();
         } else if (userInput.equalsIgnoreCase("list")) {
             return new ListCommand();
+        } else if (splitUserInput[0].startsWith("sort")) {
+            return new SortCommand();
         } else if (splitUserInput[0].startsWith("mark")) {
             return new MarkCommand(userInput);
         } else if (splitUserInput[0].equalsIgnoreCase("unmark")) {
@@ -122,7 +125,7 @@ public class Parser {
             String taskType = splitLine[0].trim();
             boolean isCompleted = Integer.parseInt(splitLine[1].trim()) == 1;
             String taskDetails = splitLine[2].trim();
-            assert taskDetails.isEmpty() : "Task should have description";
+            assert !taskDetails.isEmpty() : "Task should have description " + taskDetails;
 
             switch (taskType) {
             case "T":
