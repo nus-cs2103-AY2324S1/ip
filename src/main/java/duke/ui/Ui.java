@@ -8,16 +8,16 @@ public class Ui {
     public Ui() {
     }
     public String greet() {
-        return "Hello! I'm Charlie\n"
-                + "What can I do for you?\n";
+        return "Good day! I'm Charlie\n"
+                + "What can I do for you today?\n";
     }
 
     public String exitBot() {
-        return "Bye. Hope to see you again soon!\n";
+        return "Goodbye! Let's hang out again soon!\n";
     }
 
     public String printMarkedMessage(Task task) {
-        return "Nice! I've marked this task as done:\n"
+        return "Good job! I've marked this task as done:\n"
                 + task.toString() + "\n";
     }
 
@@ -33,15 +33,15 @@ public class Ui {
     }
 
     public String printDeletedMessage(Task task, int size) {
-        return "Noted. I've removed this task:\n"
+        return "What a shame. I've removed this task:\n"
                 + task
                 + "\nNow you have " + size + " tasks in the list.";
     }
     public String invalidTaskNumber() {
-        return "☹ OOPS!!! The task number is invalid.\n";
+        return "☹ OOPS!! You must've given me a wrong task number.\n";
     }
     public String printBotErrorMsg() {
-        return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+        return "Drats! I don't know what that means ☹";
     }
 
     public String printBotMessage(String msg) {
