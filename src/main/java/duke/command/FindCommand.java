@@ -27,7 +27,7 @@ public class FindCommand extends Command {
             response = new String[filteredTasks.size() + 1];
             response[0] = "Here are the matching tasks in your list:";
             for (int i = 1; i <= filteredTasks.size(); i++) {
-                response[i] = (i + ". " + this.duke.getTasks().get(i));
+                response[i] = (i + ". " + filteredTasks.get(i));
             }
         }
         return response;
