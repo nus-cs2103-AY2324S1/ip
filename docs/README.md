@@ -1,5 +1,14 @@
 # CR7 Chatbot User Guide
 
+## UI 
+
+![Ui](https://github.com/kohkaijie/ip/assets/122248866/875338bb-c5a8-4d75-96d7-e8e3a55bb39c)
+
+## Setup Instructions
+1. Download the CR7.jar file onto your desktop.
+2. Open your command-line interface and 'cd' to the folder where the jar file is located.
+3. Run 'java -jar CR7.jar' and wait for the chatbot to open.
+
 ## Features 
 
 ### Adding and Deleting of new tasks
