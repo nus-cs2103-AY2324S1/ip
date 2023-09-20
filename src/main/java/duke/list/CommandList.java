@@ -28,9 +28,13 @@ public class CommandList {
         addCommandName("load", "load");
         addCommandName("change", "change");
         addCommandName("help", "help");
+        addCommandName("display", "display");
     }
 
     public void addCommandName(String commandType, String commandName) {
+        if (commandNameList.containsKey(commandName)) {
+            return;
+        }
         commandNameList.put(commandName, commandType);
         ArrayList<String> nameList;
         if (commandTypeList.containsKey(commandType)) {

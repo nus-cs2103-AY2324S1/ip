@@ -1,13 +1,15 @@
-set/ set/ set
-change/ change/ change
-list/ list/ list
-delete/ delete/ delete
-unset/ unset/ unset
-unmark/ unmark/ unmark
-bye/ bye/ bye/ b
-todo/ todo/ todo/ td
-load/ load/ load
-find/ find/ find
-event/ event/ event
-deadline/ deadline/ deadline
-mark/ mark/ mark
+set/ set
+change/ change
+display/ display
+list/ list
+delete/ delete
+unset/ unset
+unmark/ unmark
+bye/ bye
+todo/ todo
+help/ help
+load/ load
+find/ find
+event/ event
+deadline/ deadline
+mark/ mark

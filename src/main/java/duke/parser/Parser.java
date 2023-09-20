@@ -10,6 +10,7 @@ import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.InvalidCommand;
 import duke.command.ListCommand;
+import duke.command.ListNameCommand;
 import duke.command.LoadFileCommand;
 import duke.command.MarkCommand;
 import duke.command.SetCommand;
@@ -86,6 +87,9 @@ public class Parser {
                     break;
                 case "help":
                     command = new HelpCommand();
+                    break;
+                case "display":
+                    command = new ListNameCommand();
                     break;
                 default:
                     command = new InvalidCommand();

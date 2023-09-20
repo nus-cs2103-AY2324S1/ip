@@ -7,7 +7,7 @@ public class HelpCommand extends Command {
     private String commandMessage = "";
 
     /**
-     * Class constructor of ByeCommand.
+     * Class constructor of HelpCommand.
      */
     public HelpCommand() {
     }
@@ -50,6 +50,7 @@ public class HelpCommand extends Command {
                 + "delete 'task_number' - to delete the specified task from current task list \n"
                 + "=== === === === === === === === === === === === === === \n"
                 + "\n=== === === === command related commands === === === === \n"
+                + "display - to see the list of command names for each command type \n"
                 + "set 'new_command_name' 'command_type' - to add new name to specified command \n"
                 + "unset 'command_name' 'command_type' - to delete the specified command name \n"
                 + "=== === === === === === === === === === === === === === \n"
