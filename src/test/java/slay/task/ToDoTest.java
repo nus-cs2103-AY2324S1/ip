@@ -8,6 +8,6 @@ public class ToDoTest {
     @Test
     public void getEncodedString() {
         ToDo todo = new ToDo("test_todo");
-        assertEquals("T | 0 | test_todo", todo.getEncodedString());
+        assertEquals("T | 0 | null | test_todo", todo.getEncodedString());
     }
 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,7 +43,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_inValidIndex_throwException() {
+    public void execute_invalidIndex_throwException() {
         DeleteCommand deleteCommand = new DeleteCommand(0);
         deleteCommand.setData(this.originalTaskList);
         CommandResult result = deleteCommand.execute();
