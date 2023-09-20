@@ -7,6 +7,9 @@ import catbot.task.Task;
 import catbot.task.TaskList;
 import javafx.application.Application;
 
+/**
+ * UserIo that operates through JavaFX.
+ */
 public class CatBotJavaFxIo implements UserIo {
 
     //region Constants
@@ -23,11 +26,11 @@ public class CatBotJavaFxIo implements UserIo {
     //endregion
 
     //region Fields
+    private static CatBotJavaFxIo lastApplicationLaunchPoint;
 
     private CatbotJavaFxController controller;
     private volatile boolean isStillOpen = true;
     private Bot bot;
-    static CatBotJavaFxIo lastApplicationLaunchPoint;
 
     //endregion
 
@@ -133,6 +136,13 @@ public class CatBotJavaFxIo implements UserIo {
     }
 
     @Override
+    public void displayTaskListWithoutNumber(TaskList taskList) {
+        for (String taskString : taskList.getTaskStrings()) {
+            send(String.format("- " + taskString));
+        }
+    }
+
+    @Override
     public void displayTaskAdded(TaskList taskList) {
         int index = taskList.size() - 1;
         send("Added: " + (index + 1) + ". " + taskList.getTask(index));
@@ -151,6 +161,10 @@ public class CatBotJavaFxIo implements UserIo {
     //endregion
 
     //region Internal Helper
+
+    static CatBotJavaFxIo getLastApplicationLaunchPoint() {
+        return lastApplicationLaunchPoint;
+    }
 
     private void send(String s) {
         controller.queueAssistantDialogue(s);

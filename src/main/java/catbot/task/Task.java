@@ -10,6 +10,10 @@ import java.util.Optional;
 import catbot.internal.NamedParameterMap;
 import catbot.io.ErrorIndicatorIo;
 
+/**
+ * Abstract object representing an entry in a TaskList.
+ * Intended to represent a single task that needs to be done by the user.
+ */
 public abstract class Task implements Serializable {
 
     //region Fields
@@ -61,6 +65,13 @@ public abstract class Task implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    /**
+     * Replaces relevant information in the task with the new values provided by the NamedParameterMap.
+     *
+     * @param map map containing new arguments to override previous values.
+     */
+    public abstract void edit(NamedParameterMap map);
 
     //endregion
 
@@ -148,7 +159,9 @@ public abstract class Task implements Serializable {
         try {
             return Optional.of(LocalDate.parse(val));
         } catch (DateTimeParseException ignored) {
-            elseMap.addNamedParameter(arg, val);
+            if (elseMap != null) {
+                elseMap.addNamedParameter(arg, val);
+            }
             return Optional.empty();
         }
     }

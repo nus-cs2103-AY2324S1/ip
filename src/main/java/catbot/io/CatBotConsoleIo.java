@@ -6,12 +6,17 @@ import java.util.function.Supplier;
 
 import catbot.bot.Bot;
 import catbot.bot.CommandArgumentStruct;
-import catbot.internal.Parser;
 import catbot.internal.Bounds;
 import catbot.internal.NamedParameterMap;
+import catbot.internal.Parser;
 import catbot.task.Task;
 import catbot.task.TaskList;
 
+/**
+ * UserIo that works exclusively through text.
+ * Intended for use with a command-line interface.
+ */
+@SuppressWarnings("unused")
 public class CatBotConsoleIo implements UserIo {
 
     //region Constants
@@ -43,10 +48,19 @@ public class CatBotConsoleIo implements UserIo {
 
     //region Constructors
 
+    /**
+     * Constructor for CatBotConsoleIo, that initializes with Scanner(System.in) and System.out::print.
+     */
     public CatBotConsoleIo() {
         this(new Scanner(System.in)::nextLine, System.out::print);
     }
 
+    /**
+     * Constructor for CatBotConsoleIo.
+     *
+     * @param in  Supplier to get user input from.
+     * @param out Consumer to send CatBot replies to.
+     */
     public CatBotConsoleIo(Supplier<String> in, Consumer<String> out) {
         setIn(in);
         setOut(out);
@@ -163,6 +177,13 @@ public class CatBotConsoleIo implements UserIo {
         }
         for (String taskString : taskList.getTaskStrings()) {
             send(String.format("%" + intlen + "d", i++) + ". " + taskString);
+        }
+    }
+
+    @Override
+    public void displayTaskListWithoutNumber(TaskList taskList) {
+        for (String taskString : taskList.getTaskStrings()) {
+            send(String.format("- " + taskString));
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import catbot.internal.Bounds;
+import catbot.internal.NamedParameterMap;
 
 /**
  * Object to manage a list of Tasks.
@@ -97,6 +98,18 @@ public class TaskList {
     @SuppressWarnings("SpellCheckingInspection")
     public void unmarkTask(int index) {
         tasks.get(index).setUndone();
+        update();
+    }
+
+    /**
+     * Edits the task at the given index based on the parameters and arguments provided through a NamedParameterMap.
+     *
+     * @param index the index of the task to edit.
+     * @param map   map that contains new values for parameters.
+     *              valid parameters result in their arguments replacing previous values in the task.
+     */
+    public void editTask(int index, NamedParameterMap map) {
+        tasks.get(index).edit(map);
         update();
     }
 
