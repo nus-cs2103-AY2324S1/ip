@@ -29,7 +29,7 @@ public class TaskList {
      * Constructor for TaskList.
      */
     public TaskList() {
-        this.taskArray = new ArrayList<>();
+        taskArray = new ArrayList<>();
     }
 
     private LocalDateTime findDateFormatInput(String input) throws DukeException {
@@ -55,7 +55,7 @@ public class TaskList {
      */
     public void addTodoTask(String description) {
         assert description != null && !description.isEmpty();
-        this.taskArray.add(new Todo(description.trim()));
+        taskArray.add(new Todo(description.trim()));
     }
 
     /**
@@ -79,13 +79,13 @@ public class TaskList {
         assert action.equals("mark") || action.equals("unmark");
         try {
             if (action.equals("mark")) {
-                stringBuilder.append(Ui.getTaskMarked(this.taskArray.get(taskNum - 1).isDone));
-                this.taskArray.get(taskNum - 1).markDone();
+                stringBuilder.append(Ui.getTaskMarked(taskArray.get(taskNum - 1).isDone));
+                taskArray.get(taskNum - 1).markDone();
             } else {
-                stringBuilder.append(Ui.getTaskNotMarked(!this.taskArray.get(taskNum - 1).isDone));
-                this.taskArray.get(taskNum - 1).markNotDone();
+                stringBuilder.append(Ui.getTaskNotMarked(!taskArray.get(taskNum - 1).isDone));
+                taskArray.get(taskNum - 1).markNotDone();
             }
-            stringBuilder.append(this.taskArray.get(taskNum - 1).toString());
+            stringBuilder.append(taskArray.get(taskNum - 1).toString());
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new DukeException("WARBLE WARBLE! This task number does not exist!");
         }
@@ -104,7 +104,7 @@ public class TaskList {
         if (action.equals("deadline")) {
             try {
                 String dateTime = remainLine[1].substring(3);
-                this.taskArray.add(new Deadline(remainLine[0], findDateFormatInput(dateTime)));
+                taskArray.add(new Deadline(remainLine[0], findDateFormatInput(dateTime)));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("BEEPBEEP! You forgot to give a \"/by date/time\" for the deadline!");
             }
@@ -115,7 +115,7 @@ public class TaskList {
             try {
                 String[] splitTo = remainLine[1].split("/to ", 2);
                 String fromDateTime = splitTo[0].substring(5, splitTo[0].length() - 1);
-                this.taskArray.add(new Event(remainLine[0],
+                taskArray.add(new Event(remainLine[0],
                         findDateFormatInput(fromDateTime), findDateFormatInput(splitTo[1])));
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("BEEPBEEP! You forget to give a \"/to date/time\" for the event!");
@@ -134,9 +134,9 @@ public class TaskList {
      */
     public void deleteTasks(int taskNum, StringBuilder stringBuilder) throws DukeException {
         try {
-            Task taskDeleted = this.taskArray.get(taskNum - 1);
-            this.taskArray.remove(taskNum - 1);
-            stringBuilder.append(Ui.deleteTaskOutput(taskDeleted.toString(), this.taskArray.size()));
+            Task taskDeleted = taskArray.get(taskNum - 1);
+            taskArray.remove(taskNum - 1);
+            stringBuilder.append(Ui.deleteTaskOutput(taskDeleted.toString(), taskArray.size()));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("WARBLE WARBLE, this task number does not exist!");
         }
@@ -151,9 +151,9 @@ public class TaskList {
         assert keyword != null;
 
         ArrayList<Task> foundTasksArray = new ArrayList<>();
-        for (int i = 0; i < this.taskArray.size(); i++) {
-            if (this.taskArray.get(i).toString().toUpperCase().contains(keyword)) {
-                foundTasksArray.add(this.taskArray.get(i));
+        for (int i = 0; i < taskArray.size(); i++) {
+            if (taskArray.get(i).toString().toUpperCase().contains(keyword)) {
+                foundTasksArray.add(taskArray.get(i));
             }
         }
         stringBuilder.append(Ui.showTaskList(foundTasksArray, true));
@@ -162,10 +162,10 @@ public class TaskList {
     public void doReminder(StringBuilder stringBuilder) {
         ArrayList<Task> dueTasks = new ArrayList<>();
 
-        for (int i = 0; i < this.taskArray.size(); i++) {
-            if ((this.taskArray.get(i) instanceof Deadline || this.taskArray.get(i) instanceof Event)
-                    && this.taskArray.get(i).isWithinDue()) {
-                dueTasks.add(this.taskArray.get(i));
+        for (int i = 0; i < taskArray.size(); i++) {
+            if ((taskArray.get(i) instanceof Deadline || taskArray.get(i) instanceof Event)
+                    && taskArray.get(i).isWithinDue()) {
+                dueTasks.add(taskArray.get(i));
             }
         }
 

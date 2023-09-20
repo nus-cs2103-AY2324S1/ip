@@ -34,14 +34,11 @@ public class Storage {
 
     private boolean hasDirectory() {
         File f = new File("./data");
-        if (f.exists() && f.isDirectory()) {
-            return true;
-        }
-        return false;
+        return f.exists() && f.isDirectory();
     }
 
     private boolean createFile() throws DukeException {
-        File f = new File(this.filePath);
+        File f = new File(filePath);
         try {
             return f.createNewFile();
         } catch (IOException e) {
@@ -50,7 +47,7 @@ public class Storage {
         }
     }
     private Scanner getFile() throws DukeException {
-        File f = new File(this.filePath);
+        File f = new File(filePath);
         try {
             return new Scanner(f);
         } catch (FileNotFoundException e) {
@@ -86,7 +83,7 @@ public class Storage {
      */
     public void addLineToFile(TaskList taskList) throws DukeException {
         try {
-            FileWriter fw = new FileWriter(this.filePath, true);
+            FileWriter fw = new FileWriter(filePath, true);
             if (taskList.taskArray.size() == 1) {
                 fw.write(taskList.taskArray.get(0).convertToSaveFormat());
             } else {
@@ -106,7 +103,7 @@ public class Storage {
      */
     public void rewriteFile(TaskList taskList) throws DukeException {
         try {
-            FileWriter fw = new FileWriter(this.filePath);
+            FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < taskList.taskArray.size(); i++) {
                 if (i != taskList.taskArray.size() - 1) {
                     fw.write(taskList.taskArray.get(i).convertToSaveFormat() + "\n");

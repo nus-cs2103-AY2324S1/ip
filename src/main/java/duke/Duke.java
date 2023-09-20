@@ -37,7 +37,7 @@ public class Duke {
         return stringBuilder.toString();
     }
     public String getResponse(String input) {
-        Parser parser = new Parser(input, this.tasks, this.storage);
+        Parser parser = new Parser(input, tasks, storage);
         String response = parser.parse();
 
         assert !response.isEmpty();
@@ -61,7 +61,7 @@ public class Duke {
     }
 
     public Ui getUi() {
-        return this.ui;
+        return ui;
     }
 
     private void doDirectory(StringBuilder stringBuilder) {

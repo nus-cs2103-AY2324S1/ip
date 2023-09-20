@@ -8,7 +8,7 @@ public class Parser {
     private TaskList taskList;
     private Storage storage;
     private String userInput;
-    private boolean isBye;
+    private boolean isGoodbye;
 
 
     /**
@@ -22,14 +22,14 @@ public class Parser {
         this.taskList = taskList;
         this.userInput = userInput;
         this.storage = storage;
-        this.isBye = false;
+        isGoodbye = false;
     }
 
     /**
      * Checks the user input and perform the corresponding action based on the input.
      */
     public String parse() {
-        String[] input = this.userInput.trim().split(" ", 2);
+        String[] input = userInput.trim().split(" ", 2);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             switch (input[0]) {
@@ -72,18 +72,18 @@ public class Parser {
     }
 
     public boolean isBye() {
-        return this.isBye;
+        return isGoodbye;
     }
 
     private void listCommand(StringBuilder stringBuilder) {
-        stringBuilder.append(this.taskList.listTasks(this.taskList, false));
+        stringBuilder.append(taskList.listTasks(taskList, false));
     }
 
     private void markUnmarkCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
             int taskNum = Integer.parseInt(input[1]);
-            storage.rewriteFile(this.taskList);
-            this.taskList.markOrUnmarkTask(input[0], taskNum, stringBuilder);
+            storage.rewriteFile(taskList);
+            taskList.markOrUnmarkTask(input[0], taskNum, stringBuilder);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("BEEPBEEP! You forgot to give a task number!");
         } catch (NumberFormatException e) {
@@ -93,14 +93,14 @@ public class Parser {
 
     private void byeCommand(StringBuilder stringBuilder) {
         stringBuilder.append(Ui.getGoodbyeMessage());
-        this.isBye = true;
+        isGoodbye = true;
     }
 
     private void toDoCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
-            this.taskList.addTodoTask(input[1]);
-            stringBuilder.append(Ui.addTaskOutput(this.taskList));
-            storage.addLineToFile(this.taskList);
+            taskList.addTodoTask(input[1]);
+            stringBuilder.append(Ui.addTaskOutput(taskList));
+            storage.addLineToFile(taskList);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("BEEPBEEP! You forgot to give a description!");
         }
@@ -109,9 +109,9 @@ public class Parser {
     private void deadlineEventCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
             String[] remainLine = input[1].split(" /", 2);
-            this.taskList.addDeadlineOrEventTask(input[0], remainLine);
-            stringBuilder.append(Ui.addTaskOutput(this.taskList));
-            storage.addLineToFile(this.taskList);
+            taskList.addDeadlineOrEventTask(input[0], remainLine);
+            stringBuilder.append(Ui.addTaskOutput(taskList));
+            storage.addLineToFile(taskList);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("BEEPBEEP! You forgot to give a description or date/time!");
         }
@@ -120,8 +120,8 @@ public class Parser {
     private void deleteCommand(String[] input, StringBuilder stringBuilder) throws DukeException {
         try {
             int taskNum = Integer.parseInt(input[1]);
-            this.taskList.deleteTasks(taskNum, stringBuilder);
-            storage.rewriteFile(this.taskList);
+            taskList.deleteTasks(taskNum, stringBuilder);
+            storage.rewriteFile(taskList);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("BEEPBEEP! You forgot to give a task number!");
         } catch (NumberFormatException e) {
@@ -134,13 +134,13 @@ public class Parser {
             if (input[1].isEmpty()) {
                 throw new ArrayIndexOutOfBoundsException();
             }
-            this.taskList.findTasks(input[1].trim().toUpperCase(), stringBuilder);
+            taskList.findTasks(input[1].trim().toUpperCase(), stringBuilder);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("BEEPBEEP! You forgot to give a keyword for me to search!");
         }
     }
 
     private void remindCommand(StringBuilder stringBuilder) {
-        this.taskList.doReminder(stringBuilder);
+        taskList.doReminder(stringBuilder);
     }
 }

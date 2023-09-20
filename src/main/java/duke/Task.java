@@ -20,7 +20,7 @@ public class Task {
         assert description != null;
 
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -39,15 +39,15 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
     public void markDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Task {
      * @return a string consisting of the string representation that will be written into a file.
      */
     public String convertToSaveFormat() {
-        return (isDone ? "X" : " ") + " | " + this.description;
+        return (isDone ? "X" : " ") + " | " + description;
     }
 
     /**
