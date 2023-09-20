@@ -6,7 +6,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.io.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,11 +74,11 @@ public class Storage {
         if (taskType.equals("T")) {
             tasks.add(new ToDo(description, isDone));
         } else if (taskType.equals("D")) {
-            LocalDate by = LocalDate.parse(parts[3].trim());
+            LocalDateTime by = LocalDateTime.parse(parts[3].trim());
             tasks.add(new Deadline(description, by, isDone));
         } else if (taskType.equals("E")) {
-            String from = parts[3].trim();
-            String to = parts[4].trim();
+            LocalDateTime from = LocalDateTime.parse((parts[3].trim()));
+            LocalDateTime to = LocalDateTime.parse(parts[4].trim());
             tasks.add(new Event(description, from, to, isDone));
         } else {
             throw new DukeException(" OOPS!!! Invalid task type in file");

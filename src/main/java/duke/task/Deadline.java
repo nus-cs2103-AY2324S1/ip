@@ -1,6 +1,6 @@
 package duke.task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * It contains a description and a deadline (by when the task should be completed).
  */
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected LocalDateTime by;
 
     /**
      * Constructs a new Deadline task with the provided description and deadline.
@@ -16,7 +16,7 @@ public class Deadline extends Task {
      * @param description The description of the Deadline task.
      * @param by          The deadline for completing the task.
      */
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -28,7 +28,7 @@ public class Deadline extends Task {
      * @param by          The deadline for completing the task.
      * @param isDone      The completion status of the task.
      */
-    public Deadline(String description, LocalDate by, boolean isDone) {
+    public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, isDone);
         this.by = by;
     }
@@ -40,7 +40,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        String status = isDone ? "1" : "0"; // Using isDone directly for readability
+        String status = isDone ? "1" : "0";
         return "D | " + status + " | " + description + " | " + by;
     }
 
@@ -51,6 +51,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 }

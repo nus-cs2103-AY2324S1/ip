@@ -4,10 +4,10 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import javafx.application.Platform;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
 /**
  * The Parser class handles the parsing of user commands and executes corresponding actions.
@@ -21,12 +21,7 @@ public class Parser {
      * @return A string containing the list of tasks.
      */
     public static String executeList(TaskList tasks) {
-        StringBuilder result = new StringBuilder(" Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.getAll().size(); i++) {
-            result.append(" ").append(i + 1).append(".").append(tasks.getAll().get(i).toString()).append("\n");
-        }
-        Ui.showMessage(result.toString());
-        return result.toString();
+        return Ui.getAllTasksMessage(tasks);
     }
 
     /**
@@ -36,31 +31,32 @@ public class Parser {
      * @param tasks           The TaskList object containing tasks.
      * @param separateCommand An array containing command and task number.
      * @return A string containing the result of marking or unmarking a task.
-     * @throws DukeException If there is an issue or error encountered during command execution.
+     * @throws InvalidNumberException If there is an issue with index of task accessed.
      */
     public static String executeMarkUnmark(String command, TaskList tasks,
                                            String[] separateCommand) throws DukeException {
         assert command != null;
+        String result = "";
+
         try {
             if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > tasks.getSize()) {
-                throw new DukeException(" OOPS!!! Invalid number");
+                throw new InvalidNumberException();
             }
-            StringBuilder result = new StringBuilder();
+
             int taskNumber = Integer.parseInt(separateCommand[1]);
             Task task = tasks.getTask(taskNumber - 1);
             if (command.startsWith("mark") || command.startsWith("m")) {
-                tasks.getTask(taskNumber - 1).markAsDone();
-                result.append(" Nice! I've marked this task as done:\n");
+                task.markAsDone();
+                result = Ui.getMarkMessage(task);
             } else if (command.startsWith("unmark") || command.startsWith("um")) {
-                tasks.getTask(taskNumber - 1).markAsUndone();
-                result.append(" OK, I've marked this task as not done yet:\n");
+                task.markAsUndone();
+                result = Ui.getUnmarkMessage(task);
             }
-            result.append("   ").append(task.toString()).append("\n");
-            Ui.showMessage(result.toString());
-            return result.toString();
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(" OOPS!!! Invalid number");
+            throw new InvalidNumberException();
         }
+
+        return result;
     }
 
     /**
@@ -69,49 +65,49 @@ public class Parser {
      * @param command The user command to execute ('create').
      * @param tasks   The TaskList object containing tasks.
      * @return A string containing the result of creating a task.
-     * @throws DukeException If there is an issue or error encountered during command execution.
+     * @throws UnknownCommandMessageException If there is an unknown command.
      */
     public static String executeCreate(String command, TaskList tasks) throws DukeException {
         assert command != null;
-        StringBuilder result = new StringBuilder();
-        if (command.startsWith("todo") || command.startsWith("t")) {
-            createTodo(command, tasks);
-        } else if (command.startsWith("deadline") || command.startsWith("d")) {
-            createDeadline(command, tasks);
-        } else if (command.startsWith("event") || command.startsWith("e")) {
-            createEvent(command, tasks);
+        Task task;
+
+        if (command.startsWith("todo") || command.startsWith("t ")) {
+            task = createTodo(command);
+        } else if (command.startsWith("deadline") || command.startsWith("d ")) {
+            task = createDeadline(command);
+        } else if (command.startsWith("event") || command.startsWith("e ")) {
+            task = createEvent(command);
         } else {
-            throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new UnknownCommandMessageException();
         }
-        Task task = tasks.getTask(tasks.getSize() - 1);
-        result.append(" Got it. I've added this task:\n")
-                .append("   ").append(task.toString()).append("\n")
-                .append(" Now you have ").append(tasks.getSize()).append(" tasks in the list.");
-        Ui.showMessage(result.toString());
-        return result.toString();
+
+        tasks.addTask(task);
+        return Ui.getAddTaskMessage(tasks, task);
     }
 
     /**
      * Creates a new Todo task and adds it to the TaskList.
      *
      * @param command The user command containing the Todo task description.
-     * @param tasks   The TaskList object to add the task to.
-     * @throws DukeException If there is an issue or error encountered during task creation.
+     * @throws EmptyDescriptionException If there is no description during task creation.
      */
-    public static void createTodo(String command, TaskList tasks) throws DukeException {
+    public static Task createTodo(String command) throws DukeException {
         try {
             String description;
+
             if (command.startsWith("todo")) {
                 description = command.substring(5);
             } else {
                 description = command.substring(2);
             }
+
             if (description.length() == 0) {
-                throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
+                throw new EmptyDescriptionException("todo");
             }
-            tasks.addTask(new ToDo(description));
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
+
+            return new ToDo(description);
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            throw new EmptyDescriptionException("todo");
         }
     }
 
@@ -119,29 +115,32 @@ public class Parser {
      * Creates a new Deadline task and adds it to the TaskList.
      *
      * @param command The user command containing the Deadline task description and deadline date.
-     * @param tasks   The TaskList object to add the task to.
-     * @throws DukeException If there is an issue or error encountered during task creation.
+     * @throws EmptyDescriptionException If there is no description during task creation.
+     * @throws InvalidDateException      If there is an invalid date during task creation.
      */
-    public static void createDeadline(String command, TaskList tasks) throws DukeException {
+    public static Task createDeadline(String command) throws DukeException {
         try {
             String[] parts = command.split("/by");
             String description;
+
             if (command.startsWith("deadline")) {
                 description = parts[0].substring(9).trim();
             } else {
-                description = parts[0].substring(2).trim();
+                description = parts[0].substring(1).trim();
             }
+
             if (description.length() == 0) {
-                throw new DukeException(" OOPS!!! The description of a deadline cannot be empty.");
+                throw new EmptyDescriptionException("deadline");
             }
+
             try {
-                LocalDate by = LocalDate.parse(parts[1].trim());
-                tasks.addTask(new Deadline(description, by));
+                LocalDateTime by = LocalDateTime.parse(parts[1].trim());
+                return new Deadline(description, by);
             } catch (DateTimeParseException e) {
-                throw new DukeException(" OOPS!!! Invalid date format.");
+                throw new InvalidDateException();
             }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException(" OOPS!!! The description of a deadline cannot be empty.");
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            throw new EmptyDescriptionException("deadline");
         }
     }
 
@@ -149,27 +148,35 @@ public class Parser {
      * Creates a new Event task and adds it to the TaskList.
      *
      * @param command The user command containing the Event task description, start, and end times.
-     * @param tasks   The TaskList object to add the task to.
-     * @throws DukeException If there is an issue or error encountered during task creation.
+     * @throws EmptyDescriptionException If there is no description during task creation.
+     * @throws InvalidDateException      If there is an invalid date during task creation.
      */
-    public static void createEvent(String command, TaskList tasks) throws DukeException {
+    public static Task createEvent(String command) throws DukeException {
         try {
             String[] parts = command.split("/from");
             String description;
+
             if (command.startsWith("event")) {
                 description = parts[0].substring(6).trim();
             } else {
                 description = parts[0].substring(2).trim();
             }
+
             if (description.length() == 0) {
-                throw new DukeException(" OOPS!!! The description of an event cannot be empty.");
+                throw new EmptyDescriptionException("event");
             }
+
             String[] timeParts = parts[1].split("/to");
-            String start = timeParts[0].trim();
-            String end = timeParts[1].trim();
-            tasks.addTask(new Event(description, start, end));
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException(" OOPS!!! The description of an event cannot be empty.");
+
+            try {
+                LocalDateTime start = LocalDateTime.parse(timeParts[0].trim());
+                LocalDateTime end = LocalDateTime.parse(timeParts[1].trim());
+                return new Event(description, start, end);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateException();
+            }
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            throw new EmptyDescriptionException("event");
         }
     }
 
@@ -179,27 +186,24 @@ public class Parser {
      * @param command The user command to execute ('delete').
      * @param tasks   The TaskList object containing tasks.
      * @return A string containing the result of deleting a task.
-     * @throws DukeException If there is an issue or error encountered during command execution.
+     * @throws InvalidNumberException If there is an issue with index of task accessed.
      */
     public static String executeDelete(String command, TaskList tasks, String[] separateCommand) throws DukeException {
         assert command != null;
-        StringBuilder result = new StringBuilder();
+
         try {
             if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > tasks.getAll().size()) {
-                throw new DukeException(" OOPS!!! Invalid number");
+                throw new InvalidNumberException();
             }
+
             int taskNumber = Integer.parseInt(separateCommand[1]);
-            Task task = tasks.getTask(taskNumber - 1);
-            if (command.startsWith("delete") || command.startsWith("del")) {
-                result.append(" Noted. I've removed this task:\n")
-                        .append("   ").append(task.toString()).append("\n");
-                tasks.removeTask(taskNumber - 1);
-            }
-            Ui.showMessage(result.toString());
+            Task oldTask = tasks.getTask(taskNumber - 1);
+            tasks.removeTask(taskNumber - 1);
+
+            return Ui.getDeleteMessage(oldTask);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(" OOPS!!! Invalid number");
+            throw new InvalidNumberException();
         }
-        return result.toString();
     }
 
     /**
@@ -208,23 +212,75 @@ public class Parser {
      * @param command The user command to execute ('find').
      * @param tasks   The TaskList object to search for matching tasks.
      * @return A string containing the matching tasks.
+     * @throws UnknownCommandMessageException If there is an unknown command.
+     * @throws NoSearchParameterException     If there is no search parameter during find operation.
      */
-    public static String executeFind(String command, TaskList tasks) {
+    public static String executeFind(String command, TaskList tasks) throws DukeException {
         assert command != null;
-        StringBuilder result = new StringBuilder();
-        String keyword;
-        if (command.startsWith("find")) {
-            keyword = command.substring(5).trim();
-        } else {
-            keyword = command.substring(2).trim();
+
+        try {
+            String keyword;
+
+            if (command.startsWith("find")) {
+                keyword = command.substring(5).trim();
+            } else if (command.startsWith("f ")) {
+                keyword = command.substring(2).trim();
+            } else {
+                throw new UnknownCommandMessageException();
+            }
+
+            if (keyword.equals("")) {
+                throw new NoSearchParameterException();
+            }
+
+            TaskList matchingTasks = new TaskList(tasks.findTasks(keyword));
+
+            return Ui.getFindMessage(matchingTasks);
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            throw new NoSearchParameterException();
         }
-        List<Task> matchingTasks = tasks.findTasks(keyword);
-        result.append(" Here are the matching tasks in your list:\n");
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            result.append(" ").append(i + 1).append(".").append(matchingTasks.get(i).toString()).append("\n");
-        }
-        Ui.showMessage(result.toString());
-        return result.toString();
+    }
+
+    /**
+     * Checks if the input command is related to marking or unmarking a task as done.
+     *
+     * @param command The user command to check.
+     * @return True if the command is a mark or unmark command, false otherwise.
+     */
+    private static boolean isMarkUnmarkCommand(String command) {
+        return command.startsWith("mark") || command.startsWith("unmark")
+                || command.startsWith("m") || command.startsWith("um");
+    }
+
+    /**
+     * Checks if the input command is related to creating a new task (e.g., todo, deadline, event).
+     *
+     * @param command The user command to check.
+     * @return True if the command is a create task command, false otherwise.
+     */
+    private static boolean isCreateCommand(String command) {
+        return command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")
+                || command.startsWith("t") || command.startsWith("d") || command.startsWith("e");
+    }
+
+    /**
+     * Checks if the input command is related to deleting a task.
+     *
+     * @param command The user command to check.
+     * @return True if the command is a delete command, false otherwise.
+     */
+    private static boolean isDeleteCommand(String command) {
+        return command.startsWith("delete") || command.startsWith("del");
+    }
+
+    /**
+     * Checks if the input command is related to searching for tasks.
+     *
+     * @param command The user command to check.
+     * @return True if the command is a find command, false otherwise.
+     */
+    private static boolean isFindCommand(String command) {
+        return command.startsWith("find") || command.startsWith("f");
     }
 
     /**
@@ -236,28 +292,28 @@ public class Parser {
      */
     public static String executeCommand(String command, TaskList tasks) {
         assert command != null;
-        StringBuilder result = new StringBuilder();
+        String result = "";
         try {
             String[] separateCommand = command.split(" ");
             if (command.equals("list") || command.equals("ls")) {
-                result.append(Parser.executeList(tasks));
-            } else if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("m")
-                    || command.startsWith("um")) {
-                result.append(Parser.executeMarkUnmark(command, tasks, separateCommand));
-            } else if (command.startsWith("delete") || command.startsWith("del")) {
-                result.append(Parser.executeDelete(command, tasks, separateCommand));
-            } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")
-                    || command.startsWith("t") || command.startsWith("d") || command.startsWith("e")) {
-                result.append(Parser.executeCreate(command, tasks));
-            } else if (command.startsWith(("find")) || command.startsWith("f")) {
-                result.append(Parser.executeFind(command, tasks));
+                result = executeList(tasks);
+            } else if (isMarkUnmarkCommand(command)) {
+                result = executeMarkUnmark(command, tasks, separateCommand);
+            } else if (isDeleteCommand(command)) {
+                result = executeDelete(command, tasks, separateCommand);
+            } else if (isCreateCommand(command)) {
+                result = executeCreate(command, tasks);
+            } else if (isFindCommand(command)) {
+                result = executeFind(command, tasks);
+            } else if (command.equals("goodbye")) {
+                Ui.goodbye();
+                Platform.exit();
             } else {
-                result.append(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+                result = Ui.getUnknownCommandMessage();
             }
         } catch (DukeException e) {
-            result.append(e.getMessage());
-            return result.toString();
+            return e.getMessage();
         }
-        return result.toString();
+        return result;
     }
 }

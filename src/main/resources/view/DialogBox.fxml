@@ -10,7 +10,7 @@
     <children>
         <Label fx:id="dialog" graphicTextGap="10.0" text="Label" wrapText="true">
             <font>
-                <Font name="Georgia" size="14.0"/>
+                <Font name="Georgia" size="12.0"/>
             </font>
         </Label>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true"/>
