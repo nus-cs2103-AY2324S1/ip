@@ -43,8 +43,8 @@ public class EventCommand extends Command {
      * @param endDate EndDate of event.
      * @return Whether it is an anomaly.
      */
-    public boolean isAnomaly(TaskList tasks, LocalDateTime startDate, LocalDateTime endDate) {
-        boolean isAnomaly = false;
+    public boolean isClash(TaskList tasks, LocalDateTime startDate, LocalDateTime endDate) {
+        boolean isClash = false;
         EventList eventList = new EventList(tasks);
         eventList.sort();
         for (Events event : eventList.getEventList()) {
@@ -52,11 +52,22 @@ public class EventCommand extends Command {
                     && startDate.compareTo(event.getEndDate()) < 0)
                     || (endDate.compareTo(event.getStartDate()) > 0
                     && endDate.compareTo(event.getEndDate()) < 0)) {
-                isAnomaly = true;
+                isClash = true;
                 break;
             }
         }
-        return isAnomaly;
+        return isClash;
+    }
+
+    /**
+     * Checks whether the timing of the event is valid by comparing the start time with
+     * the current time
+     *
+     * @param startTime the starting time of the event
+     * @return whether the timing is after current time, and hence whether its valid
+     */
+    public boolean isValid(LocalDateTime startTime) {
+        return LocalDateTime.now().compareTo(startTime) < 0;
     }
 
     /**
@@ -72,9 +83,13 @@ public class EventCommand extends Command {
             Events newTask = new Events(getDescription(task, input),
                     getStartDate(input), getEndDate(task, input));
 
-            if (isAnomaly(taskList, newTask.getStartDate(), newTask.getEndDate())) {
+            if (isClash(taskList, newTask.getStartDate(), newTask.getEndDate())) {
                 throw new DukeException("Invalid event date entered. There is a clash with "
                         + "another event.");
+            }
+
+            if (!isValid(newTask.getStartDate())) {
+                throw new DukeException("Invalid event date entered. Timing must be after current timing");
             }
 
             taskList.addTask(newTask);

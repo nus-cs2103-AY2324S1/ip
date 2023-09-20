@@ -11,20 +11,14 @@ public class HelpCommand extends Command {
     @Override
     public String execute() {
         String commands = (
-                        "I currently can record 3 types of tasks. tasks to do, tasks with deadlines and events \n"
-                        + "Here is how you can record down your events.\n"
-                        + "To record tasks to do, simply begin your command with \"todo\" "
-                        + "followed by a space and the task you need to do.\n"
-                        + "To record tasks with deadlines, simply begin your command with \"deadlines\" "
-                        + "followed by the task, / and then the due date in DD/MM/YYYY HHmm format.\n"
-                        + "To record events, simply begin your command with \"events\" followed by the event, "
-                        + " \"/from\" and start time , "
-                        + "then \"/to\" with the end time. All times must be in DD/MM/YYYY HHmm format \n"
-                        + "To view your list of events, type list. \n" + "To mark your events as done or undone, "
-                        + "followed by the index of the task \n"
-                        + "To delete tasks from the list, type delete task number, such as delete 2 \n"
-                        + "You can even filter the list to find certain tasks. Just type \"find\" followed "
-                        + "by the keyword you want to search"
+                        "These are the commands I can take in \n\n"
+                        + "To record tasks type \"todo TASKNAME\" \n\n"
+                        + "To record tasks with deadlines, type \"deadline TASKNAME /by DD/MM/YYYY HHmm\" \n\n"
+                        + "To record events, type \"events TASKNAME /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm\" , \n\n"
+                        + "To view your list of events, type list. \n\n"
+                        + "To mark your events as done or undone, type \"mark INDEX\" or \"unmark INDEX\"\n\n"
+                        + "To delete tasks from the list, type \"delete INDEX\" \n\n"
+                        + "To search for tasks with a keyword, type \"find KEYWORD\"\n\n"
                         + "Lastly, to exit the chatBot, type \"bye\" \n"
         );
         System.out.println(commands);

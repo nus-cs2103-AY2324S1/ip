@@ -1,6 +1,7 @@
 package duke.commands;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import duke.exception.DukeException;
@@ -34,6 +35,17 @@ public class DeadlineCommand extends Command {
     }
 
     /**
+     * Checks whether the timing of the event is valid by comparing the deadline with
+     * the current time
+     *
+     * @param deadline the deadline of the task
+     * @return whether the timing is after current time, and hence whether its valid
+     */
+    public boolean isValid(LocalDateTime deadline) {
+        return LocalDateTime.now().compareTo(deadline) < 0;
+    }
+
+    /**
      * Execute the command itself.
      *
      * @throws DukeException When there is an error saving.
@@ -44,6 +56,11 @@ public class DeadlineCommand extends Command {
 
         try {
             Deadlines newTask = new Deadlines(getDescription(task, input), getEndDate(task, input));
+
+            if (!isValid(newTask.getDeadline())) {
+                throw new DukeException("Invalid event date entered. Timing must be after current timing");
+            }
+
             taskList.addTask(newTask);
             assert taskList.contains(newTask);
             storage.save(taskList);
@@ -52,6 +69,8 @@ public class DeadlineCommand extends Command {
             return ui.printError(e.getMessage());
         } catch (DateTimeParseException e) {
             return ui.printInvalidTimeError();
+        } catch (DukeException e) {
+            return ui.printError(e.getMessage());
         }
     }
 }
