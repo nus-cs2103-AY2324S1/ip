@@ -8,18 +8,18 @@ traditional GUI apps.
 
 ## Features 
 
-### Viewing help: `help`
-### Adding tasks: `todo` `deadline` `event`
-### Mark and Unmark tasks: `mark` `unmark`
-### Listing all tasks: `list`
-### Deleting tasks: `delete`
-### Print deadline or event on a date: `print_date`
-### Finding tasks by keyword: `find`
-### Loading tasks: `load`
-### Sorting tasks: `sort`
-### Making aliases: `alias`
-### Saving the data
-### Exiting the program: `bye`
+### [Viewing help: `help`](#viewing-help-help)
+### [Adding tasks: `todo` `deadline` `event`](#adding-tasks-todo-deadline-event)
+### [Mark and Unmark tasks: `mark` `unmark`](#mark-and-unmark-tasks-mark-unmark)
+### [Listing all tasks: `list`](#listing-all-tasks-list)
+### [Deleting tasks: `delete`](#deleting-tasks-delete)
+### [Print deadline or event on a date: `print_date`](#print-deadline-or-event-on-a-date-print_date)
+### [Finding tasks by keyword: `find`](#finding-tasks-by-keyword-find)
+### [Loading tasks: `load`](#loading-tasks-load)
+### [Sorting tasks: `sort`](#sorting-tasks-sort)
+### [Making aliases: `alias`](#making-aliases-alias)
+### [Saving the data](#saving-the-data)
+### [Exiting the program: `bye`](#exiting-the-program-bye)
 
 ## Usage
 
@@ -265,14 +265,14 @@ remember the aliases and use them in the future.
 * `alias`
 * `alias <from>`
 * `alias <from> <to>`\
-Here `<from>` is what can be used inplace of `to`.\
+Here `<from>` is what can be used inplace of `to`.
 
 #### Example of usage:
 
 * `alias` Shows all the current aliases.
 * `alias t todo` Makes the alias `t` for `todo`.\
 Now instead of typing `todo` you can type `t`.
-* `alias t` Removes the alias for `t`.\
+* `alias t` Removes the alias for `t`.
 
 Note: You cannot make an alias for an existing alias.
 For example: `alias td todo` then `alias t td` are not allowed.
