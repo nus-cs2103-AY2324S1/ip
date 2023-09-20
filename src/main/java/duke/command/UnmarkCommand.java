@@ -31,6 +31,10 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
         this.unmarkedTask = taskList.getTask(this.index - 1);
+        if (!this.unmarkedTask.isDoneGetter()) {
+            return "JonBird:\n\tYou have already marked this task as undone:"
+                    + "\n\t\t" + taskList.getTask(this.index - 1).printTask();
+        }
         taskList.getTask(this.index - 1).markAsUndone();
         if (write) {
             commandList.addCommand(this);

@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.main.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 
 /**
@@ -22,24 +21,21 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
-        TaskList tempList = new TaskList();
-        for (Task task : taskList.getTaskList()) {
-            String description = task.getDescription().toLowerCase();
-            if (description.contains(this.keywords)) {
-                tempList.addTask(task);
-            }
-        }
-        return this.printCommand(tempList);
+        return this.printCommand(taskList);
     }
 
     @Override
-    public String printCommand(TaskList filteredTaskList) {
-        String result = "JonBird:\n\tHere are the tasks in your list:";
-        for (int i = 0; i < filteredTaskList.size(); i++) {
-            result += "\n\t\t" + (i + 1) + ". " + filteredTaskList.getTask(i).printTask();
+    public String printCommand(TaskList taskList) {
+        String result = "JonBird:\n\tHere are the matched tasks in your list:";
+        for (int i = 0; i < taskList.size(); i++) {
+            String description = taskList.getTask(i).getDescription().toLowerCase();
+            if (description.contains(this.keywords)) {
+                result += "\n\t\t" + (i + 1) + ". " + taskList.getTask(i).printTask();
+            }
         }
         return result;
     }
+
     @Override
     public boolean isContinue() {
         return true;

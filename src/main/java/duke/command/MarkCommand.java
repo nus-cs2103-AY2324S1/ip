@@ -31,6 +31,10 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
         this.markedTask = taskList.getTask(this.index - 1);
+        if (this.markedTask.isDoneGetter()) {
+            return "JonBird:\n\tYou have already marked this task as done:"
+                    + "\n\t\t" + taskList.getTask(this.index - 1).printTask();
+        }
         taskList.getTask(this.index - 1).markAsDone();
         if (write) {
             commandList.addCommand(this);
