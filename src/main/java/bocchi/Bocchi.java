@@ -1,8 +1,6 @@
 package bocchi;
 
 import exceptions.BocchiException;
-
-import java.io.FileNotFoundException;
 import javafx.scene.layout.VBox;
 import parser.Parser;
 import storage.BocchiLoader;

@@ -1,10 +1,10 @@
 package storage;
 
-import task.Task;
-import task.TaskList;
-
 import java.io.FileWriter;
 import java.io.IOException;
+
+import task.Task;
+import task.TaskList;
 
 /**
  * Class to saved data to file

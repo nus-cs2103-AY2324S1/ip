@@ -1,5 +1,9 @@
 package storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -7,9 +11,6 @@ import task.TaskList;
 import task.Todo;
 import ui.Ui;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * Class to load in saved data

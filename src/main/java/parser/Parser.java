@@ -55,11 +55,12 @@ public class Parser {
             );
             task = new Event(eventTokens[0], eventTokens[1], eventTokens[2]);
             break;
-        // Todo is the default case
-        default:
+        case "todo":
             task = new Todo(input);
+            break;
+        default:
+            throw new InvalidInputException();
         }
-        
         if (taskList.hasConflict(task)) {
             throw new EventConflictException();
         }
@@ -157,7 +158,9 @@ public class Parser {
             taskList = deleteTask(Integer.parseInt(tokens[1]), taskList);
             break;
         case "todo":
+            // Fallthrough
         case "deadline":
+            // Fallthrough
         case "event":
             // tokens[1] which is the remaining input is parsed based on the action
             if (tokens.length == 1) {
@@ -168,7 +171,6 @@ public class Parser {
         default:
             throw new InvalidInputException();
         }
-
         return taskList;
     }
 

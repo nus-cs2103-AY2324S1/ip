@@ -81,6 +81,7 @@ public abstract class Task {
         Task t = (Task) other;
         return this.name.equals(t.name) && (this.taskId == t.taskId);
     }
+
     /**
      * Returns the name of task to be done.
      *

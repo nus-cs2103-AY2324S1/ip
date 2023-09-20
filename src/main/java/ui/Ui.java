@@ -56,8 +56,8 @@ public class Ui {
     public void addTaskSuccessful(Task task, TaskList taskList) {
         this.outputDialogueBox(
                 String.format(
-                        "Got it. I've added this task: %s\n" +
-                                "Now you have %d tasks in the list.",
+                        "Got it. I've added this task: %s\n"
+                                + "Now you have %d tasks in the list.",
                         task, taskList.size()
                 )
         );
@@ -69,8 +69,8 @@ public class Ui {
     public void deleteTaskSuccessful(Task task, TaskList taskList) {
         this.outputDialogueBox(
                 String.format(
-                        "Noted. I've removed this task: %s\n" +
-                                "Now you have %d tasks in the list.",
+                        "Noted. I've removed this task: %s\n"
+                                + "Now you have %d tasks in the list.",
                         task, taskList.size()
                 )
         );

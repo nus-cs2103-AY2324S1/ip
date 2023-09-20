@@ -14,6 +14,7 @@ import javafx.stage.Stage;
  * Controller for gui.MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/larry.png"));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -22,11 +23,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Bocchi bocchi;
     private Stage stage;
-
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/larry.png"));
 
     @FXML
     public void initialize() {
