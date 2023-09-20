@@ -35,16 +35,17 @@ public class Duke {
      */
     public void run() throws DukeException, IOException {
         ui.welcome();
-        while (true) {
+        boolean isLoop = true;
+        while (isLoop) {
             String command = ui.readCommand();
+
             if (command.equals("bye")) {
-                ui.bye();
-                break;
+                isLoop = false;
             }
+
             Command c = Parser.parse(command);
             c.execute(tasks, ui, storage);
         }
-
     }
 
     public static void main(String[] args) throws DukeException {

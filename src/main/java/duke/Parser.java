@@ -1,12 +1,17 @@
 package duke;
 
-import commands.*;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.FindCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.PostponeCommand;
+import commands.RescheduleCommand;
+import commands.ToDoCommand;
+import commands.UnmarkCommand;
 
 /**
  * Parser class that makes sense of user command and executes appropriate actions.
@@ -16,6 +21,8 @@ public class Parser {
     public static Command parse(String command) throws DukeException{
         if (command.equals("list")) {
             return new ListCommand();
+        } else if (command.equals("bye")) {
+            return new ByeCommand();
         }
 
         String commandIdentifier = command.substring(0, command.indexOf(" "));

@@ -18,7 +18,6 @@ public class PostponeCommand extends Command {
     private LocalDateTime newDeadline;
     private final DateTimeFormatter DEADLINE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
 
-
     public PostponeCommand(String[] taskInfo) {
         this.indexToPostpone = java.lang.Integer.parseInt(taskInfo[0].substring(0, 1)) - 1;
         this.newDeadlineInStr = taskInfo[1].substring("by ".length());

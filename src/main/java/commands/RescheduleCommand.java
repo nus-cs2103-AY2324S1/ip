@@ -19,6 +19,7 @@ public class RescheduleCommand extends Command {
     private LocalTime newTo;
     private final DateTimeFormatter FROM_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
     private final DateTimeFormatter TO_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
+
     public RescheduleCommand(String[] taskInfo) {
         this.indexToReschedule = java.lang.Integer.parseInt(taskInfo[0].substring(0,1)) - 1;
         this.newFromInStr = taskInfo[1].substring("from ".length(), "from ".length() + "yyyyMMdd HHmm".length());
