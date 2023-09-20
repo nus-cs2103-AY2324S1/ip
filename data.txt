@@ -1,0 +1,10 @@
+1|EVENT|Cybersecurity Conference v2.0|2023-10-01|2023-10-03
+0|DEADLINE|IT2900 Reflection|2023-09-25
+1|TODO|Grab lunch with Cici
+0|TODO|Have thanksgiving dinner with family
+0|EVENT|Technical talk|2023-10-09|2023-10-10
+0|DEADLINE|homework|2023-09-20
+0|TODO|buy groceries
+0|TODO|be happy
+0|TODO|by happy /by tmr
+0|EVENT|have meeting|2019-10-24|2020-10-10

@@ -1,0 +1,82 @@
+.text-area {
+    -fx-border-color: #f6f7f2;
+    -fx-border-radius: 20;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-box-border: transparent;
+    -fx-background-color: beige;
+}
+
+.message-text {
+    -fx-border-radius: 20;
+    -fx-background-color: #ffffff;
+    -fx-border-color: "#f6f7f2";
+}
+
+.chat {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.display-picture {
+    -fx-border-radius: 50%;
+}
+
+
+
+.scroll-pane {
+    -fx-background: #f7f7f2;
+}
+
+.blue-background {
+    -fx-background-color: #8dc6ff;
+    -fx-background-radius: 1.0em;
+}
+
+.lavender-background {
+    -fx-background-color: #E6E6FA;
+    -fx-background-radius: 1.0em;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:vertical .track-background {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color : #c1c0b9;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2em;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.scroll-bar:vertical:focused {
+    -fx-background-color: transparent;
+}
