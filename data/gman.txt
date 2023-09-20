@@ -1,4 +1,0 @@
-T | X |  this
-D | X |  have fun  | 2019-10-15
-T | O |  this and that
-E | O |  this  | now  | then

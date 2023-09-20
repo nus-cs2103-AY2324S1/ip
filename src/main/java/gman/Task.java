@@ -20,8 +20,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return this.getStatusIcon() + this.description; //checking if this is even used. its alw overridden.
-        //return "[" + this.getStatusIcon() + "] " + this.description;
+        return this.getStatusIcon() + this.description;
     }
 
 
