@@ -28,12 +28,24 @@ public class Gui {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sends opening message from ChampionSOS and sends reminders if any.
+     *
+     * @param d ChampionSOS bot to be set.
+     */
     public void setDuke(Duke d) {
         duke = d;
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! I'm ChampionSOS\nWhat can I do for you?", DUKE_IMAGE),
-                DialogBox.getDukeDialog(this.duke.getReminders(), DUKE_IMAGE)
-        );
+        String reminders = this.duke.getReminders();
+        if (reminders.length() == 0) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog("Hello! I'm ChampionSOS\nWhat can I do for you?", DUKE_IMAGE)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog("Hello! I'm ChampionSOS\nWhat can I do for you?", DUKE_IMAGE),
+                    DialogBox.getDukeDialog(reminders, DUKE_IMAGE)
+            );
+        }
     }
 
     /**

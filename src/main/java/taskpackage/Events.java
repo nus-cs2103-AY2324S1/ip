@@ -34,6 +34,9 @@ public class Events extends Task {
         try {
             this.from = LocalDate.parse(from.substring(5).replaceAll("\\s", ""));
             this.to = LocalDate.parse(to.substring(3));
+            if (ChronoUnit.DAYS.between(this.from, this.to) < 0) {
+                throw new DukeException(" OOPS!! The start date must be before the end date.");
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(" OOPS!!! There are missing details for the event.");
         } catch (DateTimeParseException e) {
