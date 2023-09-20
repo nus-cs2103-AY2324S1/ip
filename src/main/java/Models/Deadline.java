@@ -6,7 +6,8 @@ import static LogicHandlers.Parsers.DateTimeParser.parseDateTimeForOutput;
 import static LogicHandlers.Parsers.DateTimeParser.parseStringFromDateTime;
 
 public class Deadline extends Task {
-    LocalDateTime endTime;
+    private LocalDateTime endTime;
+
     public Deadline(String name, Boolean marked, LocalDateTime endTime) {
         super(name, marked);
         this.endTime = endTime;

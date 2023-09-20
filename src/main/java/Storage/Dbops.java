@@ -120,7 +120,9 @@ public class Dbops {
      * @param taskArray The TaskArray to load the tasks from.
      */
     public static void saveTasksToFile(TaskArray taskArray) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Dbops.FILEPATH + Dbops.FILENAME))) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(Dbops.FILEPATH + Dbops.FILENAME));
+
             for (Task task : taskArray) {
                 // Format and write each task to the file
                 writer.write(task.getTaskDetails());

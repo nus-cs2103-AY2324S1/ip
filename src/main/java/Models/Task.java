@@ -1,8 +1,8 @@
 package Models;
 
 public class Task {
-    Boolean isMarked;
-    String name;
+    protected Boolean isMarked;
+    protected String name;
 
     public Task(String name, Boolean marked) {
         this.name = name;
