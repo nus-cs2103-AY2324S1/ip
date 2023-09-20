@@ -164,8 +164,6 @@ public class Parser {
         String[] data = input.split(" ");
 
         switch (data[0]) {
-//        case "bye":
-//            return "bye";
         case "list":
             return ui.showList(list);
         case "find":
