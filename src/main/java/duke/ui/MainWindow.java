@@ -37,21 +37,8 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
-
-        showMessage(MESSAGE_WELCOME, MESSAGE_FIRST_PROMPT);
-
-        try {
-            int tasksLoaded = duke.loadTasks();
-            if (tasksLoaded == 0) {
-                showMessage(String.format("No stored tasks found from %s", Storage.DEFAULT_STORAGE_PATH),
-                        "Starting from an empty task list.");
-            } else {
-                showMessage(String.format("Tasks loaded from %s", Storage.DEFAULT_STORAGE_PATH));
-            }
-        } catch (DukeStorageException e) {
-            showMessage(String.format("Error loading tasks from %s", Storage.DEFAULT_STORAGE_PATH),
-                    "Starting from an empty task list.");
-        }
+        showMessage(MESSAGE_WELCOME);
+        showMessage("Is there any specific data file you would like to use? If none, just hit enter:");
     }
 
     /**

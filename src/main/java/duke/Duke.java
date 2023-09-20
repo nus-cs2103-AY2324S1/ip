@@ -9,12 +9,15 @@ import duke.storage.DukeStorageException;
 import duke.storage.Storage;
 import javafx.application.Platform;
 
+import static duke.common.Messages.MESSAGE_FIRST_PROMPT;
+
 /**
  * The main class for the Duke chatbot.
  */
 public class Duke {
-    private final Storage storage;
     private final Parser parser;
+    private boolean isAwaitingDataFilePath;
+    private Storage storage;
     private TaskList tasks;
 
     /**
@@ -22,8 +25,8 @@ public class Duke {
      * Sets up the relevant components required.
      */
     public Duke() {
-        storage = new Storage();
         parser = new Parser();
+        isAwaitingDataFilePath = true;
     }
 
     /**
@@ -49,6 +52,35 @@ public class Duke {
      * @return the response from Duke
      */
     public String[] getResponse(String input) {
+        if (isAwaitingDataFilePath) {
+            isAwaitingDataFilePath = false;
+            if (input.isEmpty()) {
+                input = Storage.DEFAULT_STORAGE_PATH;
+            }
+            storage = new Storage(input);
+            try {
+                int tasksLoaded = loadTasks();
+                if (tasksLoaded == 0) {
+                    return new String[]{
+                            String.format("No stored tasks found from %s", input),
+                            "Starting from an empty task list.",
+                            MESSAGE_FIRST_PROMPT
+                    };
+                } else {
+                    return new String[]{
+                            String.format("Tasks loaded from %s", input),
+                            MESSAGE_FIRST_PROMPT
+                    };
+                }
+            } catch (DukeStorageException e) {
+                return new String[]{
+                        String.format("Error loading tasks from %s", input),
+                        "Starting from an empty task list.",
+                        MESSAGE_FIRST_PROMPT
+                };
+            }
+        }
+
         Command command = parser.parseCommand(input);
         command.setData(tasks);
         String[] response = command.execute();
