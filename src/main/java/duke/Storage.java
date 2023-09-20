@@ -25,6 +25,9 @@ public class Storage {
 
     private File file;
 
+    /**
+     * Storage class handles loading tasks from file and saving tasks in the file.
+     */
     public Storage(String filepath) {
         try {
             file = new File(filepath);
@@ -42,9 +45,9 @@ public class Storage {
      */
     public static void writeToFile(ArrayList<Task> taskList) {
         try {
-            File file = new File("./data/duke.txt");
+            File file = new File("./zac.txt");
             file.createNewFile();
-            FileWriter fileWriter = new FileWriter("./data/duke.txt");
+            FileWriter fileWriter = new FileWriter("./zac.txt");
             for (Task task : taskList) {
                 fileWriter.write(task + "\n");
             }

@@ -1,9 +1,18 @@
 package duke.task;
 
+
+/**
+ * The Task class represents a generic task with a description and completion status.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a new Task given description.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

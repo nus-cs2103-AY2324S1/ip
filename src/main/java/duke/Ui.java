@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Ui class handles interactions with the user through the console.
+ * It provides methods for reading user input, greeting the user, and displaying information.
+ */
 public class Ui {
 
     /**

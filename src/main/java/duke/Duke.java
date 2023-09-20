@@ -4,13 +4,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * The Duke class represents a simple task management application.
+ * It initializes necessary components and controls the main application flow.
+ */
 public class Duke {
     private final Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructs a Duke object and reads tasks from the file.
+     */
     public Duke() {
         ui = new Ui();
-        String FILE_PATH = "data/duke.txt";
+        String FILE_PATH = "./duke.txt";
         Storage storage = new Storage(FILE_PATH);
 
         try {

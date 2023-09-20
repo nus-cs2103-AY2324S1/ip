@@ -11,6 +11,12 @@ public class TimeInterval {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    /**
+     * Constructs a now TimeInterval given start and end time.
+     *
+     * @param from The start time of the event as a LocalDateTime object.
+     * @param to   The end time of the event as a LocalDateTime object.
+     */
     public TimeInterval(LocalDateTime from, LocalDateTime to) {
         this.from = from;
         this.to = to;

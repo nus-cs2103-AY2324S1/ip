@@ -8,14 +8,23 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * FreeTimeFinder allows the user to find the next free timeslot.
+ */
 public class FreeTimeFinder {
+    /**
+     * Find the next free timeslot
+     *
+     * @param tasks The current TaskList to operate on.
+     */
     public static void findFreeTime(TaskList tasks) {
         TimeInterval freeTime = null;
         List<TimeInterval> intervals;
         List<Event> events = tasks.getEvents();
-        intervals = events.stream().map(event -> new TimeInterval(event.getFrom(), event.getTo())).collect(Collectors.toList());
+        intervals = events.stream().map(event ->
+                new TimeInterval(event.getFrom(), event.getTo())).collect(Collectors.toList());
         // Sort the intervals based on their start times
-        intervals.sort(Comparator.comparing(a -> a.getFrom()));
+        intervals.sort(Comparator.comparing(TimeInterval::getFrom));
 
         LocalDateTime currentEnd = LocalDateTime.now();
 
