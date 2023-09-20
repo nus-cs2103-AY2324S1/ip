@@ -6,12 +6,10 @@ management more interesting.
 
 ## Features 
 
-> [!NOTE]
 > Words in `UPPER_CASE` are the parameters to be supplied by the user.
 >
 > e.g. in `todo TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-> [!NOTE]
 > Items in square brackets are optional.
 > 
 > e.g. `tag INDEX [TAG]` can be used as `tag 1 urgent` or `tag 1`.
