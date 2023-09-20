@@ -9,10 +9,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Bocchi using FXML.
  */
 public class Main extends Application {
 
+    /**
+     * Starts the Bocchi GUI application.
+     *
+     * @param stage The primary stage for the GUI application.
+     */
     @Override
     public void start(Stage stage) {
         try {

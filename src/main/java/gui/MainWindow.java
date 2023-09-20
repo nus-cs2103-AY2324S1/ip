@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Controller for gui.MainWindow. Provides the layout for the other controls.
+ * Controller for the main GUI window of the Bocchi application. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/larry.png"));
@@ -26,19 +26,28 @@ public class MainWindow extends AnchorPane {
     private Bocchi bocchi;
     private Stage stage;
 
+    /**
+     * Initializes the controller.
+     * Binds the vertical scroll position of the scrollPane to the height of the dialogContainer.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets up the Bocchi instance and associates it with the current stage.
+     *
+     * @param stage The primary stage for the application.
+     */
     public void setBocchi(Stage stage) {
         this.bocchi = new Bocchi(dialogContainer);
         this.stage = stage;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input, displays it in a dialog box, and processes the user's request using the Bocchi instance.
+     * Clears the user input field after processing.
      */
     @FXML
     private void handleUserInput() {

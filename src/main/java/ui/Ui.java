@@ -7,51 +7,67 @@ import javafx.scene.layout.VBox;
 import task.Task;
 import task.TaskList;
 
+/**
+ * The User Interface (UI) class responsible for displaying messages and dialogues in the application.
+ */
 public class Ui {
     private static final String LINE_BREAK = "___________________________________________________";
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/larry.png"));
     private final Image bocchiImage = new Image(this.getClass().getResourceAsStream("/images/dorito.png"));
     private final VBox dialogContainer;
 
+    /**
+     * Constructs a Ui object with the specified dialog container.
+     *
+     * @param dialogContainer The container where dialog boxes will be displayed.
+     */
     public Ui(VBox dialogContainer) {
         this.dialogContainer = dialogContainer;
     }
 
+    /**
+     * Outputs a dialogue box with the given message.
+     *
+     * @param message The message to be displayed.
+     */
     private void outputDialogueBox(String message) {
         DialogBox dialogBox = DialogBox.getBocchiDialog(message, bocchiImage);
         dialogContainer.getChildren().add(dialogBox);
     }
 
     /**
-     * Outputs greeting message.
+     * Displays a greeting message when the application starts.
      */
     public void greet() {
         this.outputDialogueBox("Hello! I'm bocchi.Bocchi\nWhat can I do for you?");
     }
 
     /**
-     * Outputs exit message.
+     * Displays an exit message when the user exits the application.
      */
     public void exit() {
         this.outputDialogueBox("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Outputs successful loading of data message.
+     * Displays a message indicating successful loading of data.
      */
     public void loadSuccessful() {
         this.outputDialogueBox("Previous data has been loaded");
     }
 
     /**
-     * Outputs unsuccessful loading of data message.
+     * Displays a message indicating unsuccessful loading of data.
      */
     public void loadUnsuccessful() {
         this.outputDialogueBox("No previous data found");
     }
 
     /**
-     * Outputs successful addition of task message.
+     * Displays a message indicating successful addition of a task.
+     *
+     * @param task     The task that was added.
+     * @param taskList The updated task list.
      */
     public void addTaskSuccessful(Task task, TaskList taskList) {
         this.outputDialogueBox(
@@ -64,7 +80,10 @@ public class Ui {
     }
 
     /**
-     * Outputs successful deletion of task message.
+     * Displays a message indicating successful deletion of a task.
+     *
+     * @param task     The task that was deleted.
+     * @param taskList The updated task list.
      */
     public void deleteTaskSuccessful(Task task, TaskList taskList) {
         this.outputDialogueBox(
@@ -77,7 +96,10 @@ public class Ui {
     }
 
     /**
-     * Outputs successful marking of task message.
+     * Displays a message indicating successful marking of a task as done.
+     *
+     * @param taskNumber The task number that was marked as done.
+     * @param taskList   The updated task list.
      */
     public void markTaskSuccessful(int taskNumber, TaskList taskList) {
         this.outputDialogueBox(
@@ -89,7 +111,10 @@ public class Ui {
     }
 
     /**
-     * Outputs successful unmarking of task message.
+     * Displays a message indicating successful unmarking of a task.
+     *
+     * @param taskNumber The task number that was unmarked.
+     * @param taskList   The updated task list.
      */
     public void unmarkTaskSuccessful(int taskNumber, TaskList taskList) {
         this.outputDialogueBox(
@@ -99,11 +124,20 @@ public class Ui {
                 )
         );
     }
-
+    /**
+     * Displays a list of tasks.
+     *
+     * @param taskList The list of tasks to be displayed.
+     */
     public void displayTasks(TaskList taskList) {
         this.outputDialogueBox(taskList.toString());
     }
 
+    /**
+     * Displays an exception message.
+     *
+     * @param e The exception containing the error message.
+     */
     public void exception(BocchiException e) {
         this.outputDialogueBox(e.getMessage());
     }

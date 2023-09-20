@@ -7,29 +7,50 @@ import task.Task;
 import task.TaskList;
 
 /**
- * Class to saved data to file
+ * Class responsible for saving data to a file.
  */
 public class BocchiSaver {
     private static final String DEFAULT_PATH = "./data/bocchi.txt";
     private final TaskList taskList;
     private final String path;
 
+    /**
+     * Constructs a BocchiSaver with the provided TaskList and the default file path.
+     *
+     * @param taskList The TaskList to be saved.
+     */
     public BocchiSaver(TaskList taskList) {
         this.taskList = taskList;
         this.path = DEFAULT_PATH;
     }
 
+    /**
+     * Constructs a BocchiSaver with the provided TaskList and a specified file path.
+     *
+     * @param taskList The TaskList to be saved.
+     * @param path     The path to the file where data will be saved.
+     */
     public BocchiSaver(TaskList taskList, String path) {
         this.taskList = taskList;
         this.path = path;
     }
 
+    /**
+     * Writes text data to a file at the specified file path.
+     *
+     * @param filePath  The path to the file.
+     * @param textToAdd The text data to be written to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Saves the TaskList to the specified file path.
+     */
     public void saveTaskList() {
         try {
             StringBuilder dataToSave = new StringBuilder();

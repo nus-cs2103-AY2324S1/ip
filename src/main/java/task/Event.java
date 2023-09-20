@@ -3,18 +3,18 @@ package task;
 import java.time.LocalDateTime;
 
 /**
- * Class to handle event tasks
+ * Class representing an event task.
  */
 public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
 
     /**
-     * Overloaded constructor for Event class
+     * Constructs an Event task with the specified name, start time, and end time.
      *
-     * @param name name of event
-     * @param start start time of event
-     * @param end end time of event
+     * @param name  The name of the event task.
+     * @param start The start time of the event task in string format (to be parsed).
+     * @param end   The end time of the event task in string format (to be parsed).
      */
     public Event(String name, String start, String end) {
         super(name);
@@ -23,12 +23,12 @@ public class Event extends Task {
     }
 
     /**
-     * Overloaded constructor for Event class
+     * Constructs an Event task with the specified name, start time, end time, and marked status.
      *
-     * @param name name of event
-     * @param start start time of event
-     * @param end end time of event
-     * @param marked boolean value of marked
+     * @param name   The name of the event task.
+     * @param start  The start time of the event task in string format (to be parsed).
+     * @param end    The end time of the event task in string format (to be parsed).
+     * @param marked The marked status of the event task.
      */
     public Event(String name, String start, String end, Boolean marked) {
         super(name, marked);
@@ -65,9 +65,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the name of task with start and end times.
+     * Returns a string representation of the Event task, including its name, start time, and end time.
      *
-     * @return Task.Task to be done
+     * @return The string representation of the Event task.
      */
     @Override
     public String toString() {

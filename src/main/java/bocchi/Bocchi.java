@@ -10,7 +10,7 @@ import ui.Ui;
 
 
 /**
- * Class for running the task manager
+ * Class to run an instance of Bocchi
  */
 public class Bocchi {
     private final Ui ui;
@@ -19,6 +19,8 @@ public class Bocchi {
 
     /**
      * Initializes the program
+     *
+     * @param dialogContainer The container for displaying dialog message.
      */
     public Bocchi(VBox dialogContainer) {
         this.ui = new Ui(dialogContainer);
@@ -28,8 +30,10 @@ public class Bocchi {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes user input and returns a response.
+     *
+     * @param input The user's input.
+     * @return True if the program should terminate, false otherwise.
      */
     public boolean getResponse(String input) {
         if (parser.isTerminated(input)) {

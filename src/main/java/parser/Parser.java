@@ -20,6 +20,11 @@ public class Parser {
     private static final String LINE_BREAK = "___________________________________________________";
     private final Ui ui;
 
+    /**
+     * Creates a new Parser instance.
+     *
+     * @param ui The user interface component for displaying messages.
+     */
     public Parser(Ui ui) {
         this.ui = ui;
     }
@@ -129,12 +134,12 @@ public class Parser {
     }
 
     /**
-     * Returns an updated task list based on user's input
+     * Processes the user's input command and updates the task list accordingly.
      *
-     * @param command User input
-     * @param taskList Current task list
-     * @return Task list
-     * @throws BocchiException Exception thrown with invalid inputs
+     * @param command  The user's input command.
+     * @param taskList The current list of tasks.
+     * @return The updated task list.
+     * @throws BocchiException An exception thrown for invalid inputs.
      */
     public TaskList process(String command, TaskList taskList) throws BocchiException {
         // This splits the input string into two to isolate the first token as an action
@@ -174,6 +179,12 @@ public class Parser {
         return taskList;
     }
 
+    /**
+     * Checks if the user's input command indicates termination of the program.
+     *
+     * @param command The user's input command.
+     * @return True if the program should terminate, false otherwise.
+     */
     public boolean isTerminated(String command) {
         return command.equals("bye");
     }

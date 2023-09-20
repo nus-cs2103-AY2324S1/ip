@@ -3,7 +3,7 @@ package task;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Super class for all tasks used in Bocchi
+ * Superclass for all tasks used in Bocchi.
  */
 public abstract class Task {
     protected static final DateTimeFormatter INPUT_FORMATTER =
@@ -15,6 +15,12 @@ public abstract class Task {
     private final boolean isMarked;
     private final int taskId;
 
+    /**
+     * Constructs a Task with the given name and marked status.
+     *
+     * @param name   The name of the task.
+     * @param marked The marked status of the task.
+     */
     public Task(String name, boolean marked) {
         this.name = name;
         this.isMarked = marked;
@@ -22,6 +28,11 @@ public abstract class Task {
         taskCount++;
     }
 
+    /**
+     * Constructs an unmarked Task with the given name.
+     *
+     * @param name The name of the task.
+     */
     public Task(String name) {
         this(name, false);
     }
@@ -29,30 +40,30 @@ public abstract class Task {
     /**
      * Marks the task.
      *
-     * @return Marked task
+     * @return A marked task.
      */
     abstract Task mark();
 
     /**
      * Unmarks the task.
      *
-     * @return Unmarked task
+     * @return An unmarked task.
      */
     abstract Task unmark();
 
     /**
-     * Returns the name of the task
+     * Returns the name of the task.
      *
-     * @return Name of task
+     * @return Name of task.
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Creates the string to be saved into the save file
+     * Creates the string representation to be saved into the save file.
      *
-     * @return String to be saved
+     * @return String representation to be saved.
      */
     public String saveTask() {
         return String.format("%s | %s", this.isMarked ? "1" : "0", this.name);
@@ -62,14 +73,16 @@ public abstract class Task {
      * Checks if this task has a conflict with another task.
      *
      * @param t The task to check for conflicts with.
-     * @return true if there is a conflict, false otherwise.
+     * @return True if there is a conflict, False otherwise.
      */
+    abstract boolean hasConflictWith(Task t);
 
-    public boolean hasConflictWith(Task t) {
-        return false;
-    }
-
-
+    /**
+     * Checks if two tasks are equal based on their names and task IDs.
+     *
+     * @param other The object to compare to this task.
+     * @return true if the tasks are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -83,9 +96,9 @@ public abstract class Task {
     }
 
     /**
-     * Returns the name of task to be done.
+     * Returns a string representation of the task, including its name and marked status.
      *
-     * @return Name of task to be done
+     * @return The string representation of the task.
      */
     @Override
     public String toString() {

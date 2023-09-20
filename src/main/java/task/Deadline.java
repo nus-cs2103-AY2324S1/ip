@@ -3,16 +3,29 @@ package task;
 import java.time.LocalDateTime;
 
 /**
- * Class to handle deadline tasks
+ * Class representing a task with a deadline.
  */
 public class Deadline extends Task {
     private final LocalDateTime deadline;
 
+    /**
+     * Constructs a Deadline task with the specified name and deadline.
+     *
+     * @param name     The name of the task.
+     * @param deadline The deadline of the task in string format (to be parsed).
+     */
     public Deadline(String name, String deadline) {
         super(name);
         this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
+    /**
+     * Constructs a Deadline task with the specified name, deadline, and marked status.
+     *
+     * @param name     The name of the task.
+     * @param deadline The deadline of the task in string format (to be parsed).
+     * @param marked   The marked status of the task.
+     */
     public Deadline(String name, String deadline, Boolean marked) {
         super(name, marked);
         this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
@@ -23,7 +36,7 @@ public class Deadline extends Task {
      * Always returns false as a conflict cannot be encountered with a Deadline Task
      *
      * @param t The task to check for conflicts with.
-     * @return {@code false} No conflicts with deadline tasks
+     * @return False since there are no conflicts with deadline tasks
      */
     @Override
     public boolean hasConflictWith(Task t) {

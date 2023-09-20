@@ -13,10 +13,21 @@ public class InvalidSyntaxException extends BocchiException {
     static final String UNEXPECTED_ERROR_IN_ERROR_MSG =
             "Unexpected error occurred in exceptions.InvalidSyntaxException!";
 
+    /**
+     * Constructs a new InvalidSyntaxException with a specific task type.
+     *
+     * @param taskType The type of task (e.g., "deadline", "event").
+     */
     public InvalidSyntaxException(String taskType) {
         super(generateErrorMessage(taskType));
     }
 
+    /**
+     * Generates an appropriate error message based on the task type.
+     *
+     * @param taskType The type of task (e.g., "deadline", "event").
+     * @return The generated error message.
+     */
     private static String generateErrorMessage(String taskType) {
         switch (taskType) {
         case "deadline":
