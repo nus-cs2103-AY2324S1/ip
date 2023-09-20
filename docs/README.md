@@ -20,7 +20,7 @@ Chatty is a task management application, that allows you to keep track of you ta
     9. `bye`: Exits the application.
 
 ## Things to Note: 
-1. Chatty automatically saves your task list into a `./data/duke.txt` file which is updated everytime your task list is updated.
+1. Chatty automatically saves your task list into a `./data/duke.txt` file which is updated everytime task list is changed.
    1. `./data/duke.txt` file is located in the same directory as your `duke.jar` file
 2. Chatty will tell you if you have already added a task into you task list, preventing duplicates!
 
@@ -54,11 +54,12 @@ Format: `deadline DESCRIPTION /by BY`
 * `DESCRIPTION` is the description of the deadline task.
 * `BY` is the due date of the deadline task consisting of:
     * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * Time(optional): Sting, HHmm
+    * Time(optional): String, HHmm
 
 Example(s):
 - `deadline return book /by 2/12/2019 1800`
 - `deadline finish lab /by 4/12/2019`
+- `deadline finish homework /by Sunday`
 
 ### Adding Event Task: `event`
 Add a Event task to the task list with a description, start date and end date.
@@ -67,7 +68,7 @@ Format: `event DESCRIPTION /from FROM /to TO`
 * `DESCRIPTION` is the description of the event task.
 * `FROM` is the start date of the event task consisting of:
     * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * Time(optional): Sting, HHmm
+    * Time(optional): String, HHmm
 * `TO` is the end date of the event task consisting of:
     * **Time**: String, HHmm
 
