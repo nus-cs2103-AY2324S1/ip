@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Blip blip;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaBlipUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaBlip.png"));
+    private Image blipImage = new Image(this.getClass().getResourceAsStream("/images/DaBlip.png"));
 
     @FXML
     public void initialize() {
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String response = blip.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, blipImage)
         );
         userInput.clear();
     }
