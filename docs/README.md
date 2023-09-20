@@ -24,6 +24,7 @@ Rat is your personal task manager that your tasks and notes.
 - [Delete a note](#delete-a-note)
 - [Save all data](#save-all-data)
 - [Exit the program](#exit-the-program)
+
 #### [Summary](#summary)
 
 ## Announcements
@@ -62,11 +63,24 @@ The application should launch in a separate window, like this:
 ### Types of Tasks
 | Task Name | Name | Completion | Start Time | End Time | Remarks                                                 |
 |-----------|:----:|:----------:|:----------:|:--------:|---------------------------------------------------------|
-| To do     |  ✅   |     ✅      |            |          | A todo task has only a name                             |   
-| Deadline  |  ✅   |     ✅      |     ✅      |          | A deadline task has both a name and a time              |   
-| Event     |  ✅   |     ✅      |     ✅      |    ✅     | An event task has a name, a start time, and an end time |  
+| To do     |  x   |     x      |            |          | A todo task has only a name                             |   
+| Deadline  |  x   |     x      |     x      |          | A deadline task has both a name and a time              |   
+| Event     |  x   |     x      |     x      |    x     | An event task has a name, a start time, and an end time | 
+A task is represented as `[type][done] name`. 
+
+`[type]` denotes the type of task, i.e. `[T]` for `todo`, `[D]` for `deadline`, and `[E]` for `event`.
+
+`[done]` denotes the completion status of the task, i.e. `[]` for not done, and `[X]` for done.
+
+`name` denotes the name of the task.
+
 ### Notes
 Notes consist of only its body text.
+
+A note is represented as `[Note] body`.
+
+`body` denotes the body text of the note.
+
 ### Formatting Date and Time
 #### Input Date and Time
 `Rat` takes in dates and times in the format `DD/MM/YYYY HH:mm`.
