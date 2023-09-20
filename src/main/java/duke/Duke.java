@@ -76,7 +76,7 @@ public class Duke {
     }
 
     /**
-     * Main entry point of the Duke application.
+     * Serves as the main entry point of the Duke application.
      *
      * @param args Command line arguments.
      */
