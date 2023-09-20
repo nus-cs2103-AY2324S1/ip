@@ -97,49 +97,24 @@ public class Storage {
             try {
                 scanner = new Scanner(dataFile);
                 while (scanner.hasNextLine()) {
-                    System.out.println("checking line by line");
                     String[] input = scanner.nextLine().split(" \\| ");
                     String taskType = input[0];
                     System.out.println(taskType);
                     switch(taskType) {
                     case "T":
-                        boolean isDoneT = checkDone(input[1]);
-                        String descriptionT = input[2];
-                        Task toAddTaskT = new Todo(descriptionT, isDoneT);
-                        tasks.add(toAddTaskT);
-                        System.out.println("Added" + descriptionT);
+                        addT(tasks, input);
                         break;
                     case "D":
-                        boolean isDoneD = checkDone(input[1]);
-                        String descriptionD = input[2];
-                        String by = input [3];
-                        try {
-                            Task toAddTaskD = new Deadline(descriptionD, by, isDoneD);
-                            tasks.add(toAddTaskD);
-                            System.out.println("Added" + descriptionD);
-                        } catch (InvalidDeadlineException e) {
-                            System.out.println(e.getMessage());
-                        }
+                        addD(tasks, input);
                         break;
                     case "E":
-                        boolean isDoneE = checkDone(input[1]);
-                        String descriptionE = input[2];
-                        String fromE = input[3];
-                        String toE = input[4];
-                        try {
-                            Task toAddTaskE = new Event(descriptionE, fromE, toE, isDoneE);
-                            tasks.add(toAddTaskE);
-                            System.out.println("Added" + descriptionE);
-                        } catch (InvalidEventException e) {
-                            System.out.println(e.getMessage());
-                        }
+                        addE(tasks, input);
                         break;
                     default:
                         throw new LemonException("Failure to load file!");
                     }
                 }
             } catch (FileNotFoundException e) {
-                System.out.println("File not foudn grrr");
                 throw new LemonException("Storage file not available!");
             }
         }
@@ -150,6 +125,51 @@ public class Storage {
         return isDone.equals("1");
     }
 
+    /**
+     * Loads a todo task by adding to the arraylist of tasks
+     * @param tasks ArrayList of tasks that was stored previously
+     * @param input String representation of the todo task stored in Storage.
+     */
+    private static void addT(ArrayList<Task> tasks, String[] input) {
+        boolean isDoneT = checkDone(input[1]);
+        String descriptionT = input[2];
+        Task toAddTaskT = new Todo(descriptionT, isDoneT);
+        tasks.add(toAddTaskT);
+    }
 
+    /**
+     * Loads a deadline task by adding to the arraylist of tasks
+     * @param tasks ArrayList of tasks that was stored previously
+     * @param input String representation of the deadline task stored in Storage.
+     */
+    private static void addD(ArrayList<Task> tasks, String[] input) {
+        boolean isDoneD = checkDone(input[1]);
+        String descriptionD = input[2];
+        String by = input[3];
+        try {
+            Task toAddTaskD = new Deadline(descriptionD, by, isDoneD);
+            tasks.add(toAddTaskD);
+        } catch (InvalidDeadlineException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Loads an event task by adding to the arraylist of tasks
+     * @param tasks ArrayList of tasks that was stored previously
+     * @param input String representation of the event task stored in Storage.
+     */
+    private static void addE(ArrayList<Task> tasks, String[] input) {
+        boolean isDoneE = checkDone(input[1]);
+        String descriptionE = input[2];
+        String fromE = input[3];
+        String toE = input[4];
+        try {
+            Task toAddTaskE = new Event(descriptionE, fromE, toE, isDoneE);
+            tasks.add(toAddTaskE);
+        } catch (InvalidEventException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

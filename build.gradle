@@ -46,16 +46,21 @@ test {
     }
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 application {
-    mainClass.set("seedu.duke.Main")
+    mainClass.set("seedu.duke.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "lemon"
+    archiveBaseName = "lemon-ip"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
