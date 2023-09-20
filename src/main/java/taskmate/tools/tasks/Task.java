@@ -99,6 +99,14 @@ public abstract class Task {
      *         information is explained above.
      */
     public abstract String formatTaskForSaving();
+
+    protected abstract void checkValidUpdate(HashMap<String, String> changes) throws InvalidTodoUpdateException,
+            InvalidDeadlineUpdateException, InvalidByException, InvalidEventUpdateException, InvalidFromException,
+            InvalidToException;
+
+    protected abstract HashMap<String, String> setUpdatesAndReturnSuccessfulUpdates(HashMap<String, String> changes) throws
+            InvalidDeadlineUpdateException, InvalidEventUpdateException;
+
     public abstract HashMap<String, String> update(HashMap<String, String> changes) throws InvalidTodoUpdateException,
             InvalidDeadlineUpdateException, InvalidEventUpdateException, InvalidByException, InvalidFromException,
             InvalidToException;

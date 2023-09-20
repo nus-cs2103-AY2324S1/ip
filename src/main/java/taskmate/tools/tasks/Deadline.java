@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import taskmate.exceptions.InvalidByException;
 import taskmate.exceptions.InvalidDeadlineUpdateException;
+import taskmate.exceptions.InvalidEventUpdateException;
+import taskmate.exceptions.InvalidTodoUpdateException;
 
 /**
  * The Deadline class is a child class of the Task class that represents a 'Deadline' type task specified by the user.
@@ -71,28 +73,46 @@ public class Deadline extends Task {
     @Override
     public HashMap<String, String> update(HashMap<String, String> changes) throws InvalidDeadlineUpdateException,
             InvalidByException {
-        HashMap<String, String> successfulUpdates = new HashMap<>();
 
         // Check if update command is valid
+        checkValidUpdate(changes);
+
+        // Set updates if update command is valid
+        return setUpdatesAndReturnSuccessfulUpdates(changes);
+
+    }
+
+    protected void checkValidUpdate(HashMap<String, String> changes) throws InvalidDeadlineUpdateException,
+            InvalidByException {
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
             String newValue = attributeValuePair.getValue();
-            if (!attribute.equals("/name") & !attribute.equals("/by")) {
+            boolean isName = attribute.equals("/name");
+            boolean isBy = attribute.equals("/by");
+            if (!isName & !isBy) {
                 throw new InvalidDeadlineUpdateException();
-            } else if (attribute.equals("/by") & !super.checkValidDateFormat(newValue)) {
+            } else if (isBy & !super.checkValidDateFormat(newValue)) {
                 throw new InvalidByException();
             }
         }
+    }
 
+    protected HashMap<String, String> setUpdatesAndReturnSuccessfulUpdates(HashMap<String, String> changes) throws
+            InvalidDeadlineUpdateException {
+        HashMap<String, String> successfulUpdates = new HashMap<>();
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
             String newValue = attributeValuePair.getValue();
-            if (attribute.equals("/name")) {
+            boolean isName = attribute.equals("/name");
+            boolean isBy = attribute.equals("/by");
+            if (isName) {
                 setName(newValue);
                 successfulUpdates.put("name", newValue);
-            } else if (attribute.equals("/by")) {
+            } else if (isBy) {
                 setBy(newValue);
                 successfulUpdates.put("by", newValue);
+            } else {
+                throw new InvalidDeadlineUpdateException(); // Happens when user gives datetime in incorrect format
             }
         }
         return successfulUpdates;
