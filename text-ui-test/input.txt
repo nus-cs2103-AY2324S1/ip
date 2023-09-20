@@ -1,0 +1,42 @@
+todo read book
+deadline finish project /by August 23rd
+event project meeting /from June 6th 3pm /to 5pm
+list
+deadline return book /by Sunday
+event study /from Monday 9am /to 10am
+mark 2
+list
+mark 3
+list
+unmark 2
+list
+unmark 3
+list
+mark
+unmark
+mark 10
+todo
+deadline
+event
+deadline do something
+event do something
+event do something /from 2pm
+delete 1
+delete 4
+delete 2
+delete 10
+delete not a number
+event do something /from /to
+event do something /from /to 2pm
+event do something /from 2pm /to
+event do some
+deadline do something /by
+deadline /by do something
+todo
+event do something   /from    /to
+deadline do something2 /by
+deadline     /by 4pm
+event       /from 2pm /to 3pm
+event study/from2pm/to3pm
+deadline submit assignment/by 3pm
+bye
