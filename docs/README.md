@@ -80,7 +80,7 @@ Examples:
 
 ### Update a task: ```update```
 
-Marks a task as not done.
+Updates a task's details.
 
 Format: ```update [index] /[field] [values]```
 
