@@ -27,6 +27,9 @@ public class TaskList {
     private int numIncompleteTasks = 0;
     private final int indexOfTaskName = 7; // start index of task name (e.g. index of "read book" in "[T][X] read book")
 
+    public TaskList() {
+    }
+
     /**
      * Constructs a TaskList object with the contents of the saved task file read from a Storage object.
      * @param contentsFromDisk A String object containing the saved task file contents
