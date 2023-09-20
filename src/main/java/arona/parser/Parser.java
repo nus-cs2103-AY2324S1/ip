@@ -176,7 +176,7 @@ public class Parser {
             return LocalDate.parse(dateStr);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentAronaException(
-                    "Whoopsie! The deadline seems a bit confused. Please use a 'YYYY-MM-DD' format to set it.");
+                    "Whoopsie! The deadline seems a bit confused. Please use a valid 'YYYY-MM-DD' format to set it.");
         }
     }
 

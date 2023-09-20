@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Arona arona = new Arona("/data/arona.txt");
+    private Arona arona = new Arona("./src/main/java/arona/data/arona.txt");
 
     /**
      * The entry point for the JavaFX application.
@@ -30,7 +30,7 @@ public class Main extends Application {
             Image appIcon = new Image("/images/arona.png");
             stage.getIcons().add(appIcon);
 
-            stage.setTitle("Arona - Your Virtual Assistant");
+            stage.setTitle("A.R.O.N.A - Your Virtual Assistant");
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);

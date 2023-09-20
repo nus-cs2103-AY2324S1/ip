@@ -63,8 +63,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText().toLowerCase().trim();
         if (input.equals("bye")) {
+            DialogBox goodbyeDialog = DialogBox.getAronaDialog("Goodbye. See you soon!", aronaImage);
+            goodbyeDialog.setMessageType(DialogBox.MessageType.ARONA);
+
             dialogContainer.getChildren().add(
-                    DialogBox.getAronaDialog("Goodbye. See you soon!", aronaImage));
+                    goodbyeDialog);
 
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> Platform.exit());
