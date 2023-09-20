@@ -58,7 +58,7 @@ shadowJar {
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 
-    archiveFileName = 'Launcher.jar'
+    archiveFileName = 'Scarlet.jar'
 }
 
 run{
