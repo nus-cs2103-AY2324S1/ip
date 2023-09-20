@@ -70,7 +70,7 @@ public class TaskList {
     }
 
     /**
-     * Return a list tasks on a given date.
+     * Returns a list tasks on a given date.
      *
      * @param date Date of interest to search for.
      * @return List of tasks on the given date.
@@ -86,7 +86,7 @@ public class TaskList {
     }
 
     /**
-     * Return a list tasks on a given date.
+     * Returns a list tasks on a given date.
      *
      * @param keyword The keyword to match with in the task name.
      * @return List of tasks on the given date.
