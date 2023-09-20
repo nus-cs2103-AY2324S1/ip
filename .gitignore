@@ -5,5 +5,8 @@ build/
 # Tests
 tests/ACTUAL.txt
 
+# VSCode
+bin/
+
 # App
 data/
