@@ -43,13 +43,14 @@ test {
 }
 
 application {
-    mainClass.set("seedu.gman.Main")
+    mainClass.set("gman.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "gman"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = "gman.jar"
 }
 
 run{
