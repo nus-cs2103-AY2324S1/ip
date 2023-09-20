@@ -34,6 +34,7 @@ public class Task {
 
     /**
      * Returns the task's description.
+     * @return Task's description
      */
     public String getTaskDescription() {
         return this.taskDescription;

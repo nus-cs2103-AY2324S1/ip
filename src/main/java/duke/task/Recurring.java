@@ -14,7 +14,7 @@ public class Recurring extends Task {
     }
 
     /**
-     * Retrieve the recurrence of the Recurring task.
+     * Returns the recurrence of the Recurring task.
      * @return A String representation of the recurrence of the Recur.
      */
     public String getRecurrence() {

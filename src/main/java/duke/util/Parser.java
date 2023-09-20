@@ -7,6 +7,7 @@ public class Parser {
 
     /**
      * Parses new tasks by removing the type of tasks.
+     * @return An array of Strings.
      */
     public String[] parseNewTaskByType(String task) {
         assert (task != null) : "The Task to be parsed by type cannot be null.";
@@ -16,6 +17,7 @@ public class Parser {
 
     /**
      * Parses new tasks by separating the task description and dates.
+     * @return An array of Strings.
      */
     public String[] parseNewTaskByDate(String task) {
         assert (task != null) : "The Deadline or Event to be parsed by date cannot be null.";
