@@ -1,29 +1,111 @@
-# User Guide
+# **Friday Chatbot User Guide**
 
-## Features 
+Friday Chatbot is a powerful assistant designed to manage tasks and notes, optimized for a Graphical User Interface (GUI). Navigate through your notes and tasks with ease!
 
-### Feature-ABC
+---
 
-Description of the feature.
+## **Table of Contents**
 
-### Feature-XYZ
+1. [General Commands](#general-commands)
+2. [Task Commands](#task-commands)
+3. [Note Commands](#note-commands)
 
-Description of the feature.
+---
 
-## Usage
+## **General Commands**
 
-### `Keyword` - Describe action
+### **Greetings**
+FRIDAY responds to all the greetings below:
+* **Hello / Hi / Hey**
+    
 
-Describe the action and its outcome.
+* **Thanks**
+     
 
-Example of usage: 
+* **What Friday Can Do**
+   
 
-`keyword (optional arguments)`
+* **Goodbye**
 
-Expected outcome:
+---
 
-Description of the outcome.
+## **Task Commands**
 
-```
-expected output
-```
+
+
+### **Listing Tasks**
+Displays all your tasks.
+
+Example of usage:
+`list`
+
+### **Marking a Task as Done**
+Celebrate your achievements by marking tasks as done.
+
+Example of usage:
+`mark [TASK_NUMBER]`
+
+
+### **Unmarking a Task**
+Unmarks a task.
+
+Example of usage:
+`unmark [TASK_NUMBER]`
+
+
+### **Deleting a Task**
+Remove tasks that you no longer need.
+Example of usage:
+`delete [TASK_NUMBER]`
+
+### **Finding Tasks**
+Locate tasks based on keywords.
+Example of usage:
+`find [KEYWORD]`
+
+
+### **Adding a Todo**
+Got a new task? Add it in.
+
+Example of usage:
+`todo [task description]`
+
+### **Setting a Deadline**
+Keep track of important deadlines.
+
+Example of usage:
+`deadline [TASK_DESCRIPTION] /by [DATE]`
+
+
+### **Scheduling an Event**
+Never miss an event again.
+
+Example of usage:
+`event [TASK_DESCRIPTION] /from [START_TIME] /to [END_TIME]`
+
+ 
+
+## **Note Commands**
+
+### **Listing Notes**
+
+Example of usage:
+`note list`
+
+### **Adding a Note**
+Jot down important notes.
+
+Example of usage:
+`note add [NOTE_CONTENT]`
+
+
+### **Deleting a Note**
+Remove notes that are no longer relevant.
+
+Example of usage:
+`note delete [NOTE_NUMBER]`
+
+---
+
+Friday Chatbot makes task and note management a breeze. Happy organizing!
+
