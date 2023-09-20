@@ -14,7 +14,7 @@ import duke.data.task.builder.TaskBuilder;
 public class Store {
     private static Store store = new Store();
     Tasklist tasks = new Tasklist();
-    String fileName = "duke.txt";
+    String fileName = "./src/main/java/duke/data/duke.txt";
     TaskBuilder taskBuilder = new TaskBuilder();
 
     private Store() {
