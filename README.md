@@ -93,7 +93,8 @@ Format: ```find KEYWORD```
 
 Examples:
 ```find meeting```
-![<img width="383" alt="find command example" src="https://github.com/Angelyxx/ip/assets/73735276/6b280df6-140d-4b64-aba5-1e33dac4b4be">]
+
+<img width="383" alt="find command example" src="https://github.com/Angelyxx/ip/assets/73735276/6b280df6-140d-4b64-aba5-1e33dac4b4be">
 
 ### Delete a specific task: ```delete```
 Deletes an existing task.
@@ -104,5 +105,5 @@ Examples:
 ```delete 3```
 
 ### Exiting the program: ```exit``` or ```bye```
-Exits the duke chatbot
+Exits the duke chatbot.
 Format: ```exit``` or ```bye```
