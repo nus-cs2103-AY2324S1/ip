@@ -4,10 +4,10 @@ It provides features for adding, deleting, listing, marking tasks as complete or
 Duke simplifies task management, making it easier to stay organized and on top of your responsibilities.
 ## Features 
 
-### Sexy GUI
+### GUI
 Duke has a gorgeous GUI for you to use
 
-![Sexy GUI.png](Ui.png)
+![GUI.png](Ui.png)
 ### Add Tasks
 
 The "Add Tasks" feature allows you to add new tasks to your task list in Duke. 
@@ -48,7 +48,9 @@ You can use keywords to filter and locate tasks that match your search criteria.
 
 To add a to-do task, use the following command:
 
-`todo <task_description>`
+```
+todo <task_description>
+```
 
 Expected outcome:
 
@@ -64,7 +66,9 @@ Now you have X tasks in the list.
 
 To add a deadline task, use the following command:
 
-`deadline <task_description> /by <deadline_date>`
+```
+deadline <task_description> /by <deadline_date>
+```
 
 * `<deadline_date>` should be formatted `YYYY-MM-DD HH:MM`
 
@@ -82,7 +86,9 @@ Now you have X tasks in the list.
 
 To add an event task, use the following command:
 
-`event <task_description> /by <start_date> /to <end_date>`
+```
+event <task_description> /by <start_date> /to <end_date>
+```
 
 * `<start_date>` should be formatted `YYYY-MM-DD HH:MM`
 * `<end_date>` should be formatted `YYYY-MM-DD HH:MM`
@@ -101,7 +107,9 @@ Now you have X tasks in the list.
 
 To delete a task, use the following command:
 
-`delete <task_index>`
+```
+delete <task_index>
+```
 
 Expected outcome:
 
@@ -117,7 +125,9 @@ Now you have X tasks in the list.
 
 To list all tasks, simply enter:
 
-`list`
+```
+list
+```
 
 Expected outcome:
 
@@ -133,7 +143,9 @@ Here are the tasks in your list:
 
 To mark a task as complete, use the following command:
 
-`mark <task_index>`
+```
+mark <task_index>
+```
 
 Expected outcome:
 
@@ -148,7 +160,9 @@ Got it! I've marked this task as complete!
 
 To mark a task as incomplete, use the following command:
 
-`unmark <task_index>`
+```
+unmark <task_index>
+```
 
 Expected outcome:
 
@@ -163,7 +177,9 @@ Got it! I've marked this task as incomplete!
 
 To find tasks that contain a specific keyword, use the following command:
 
-`find <keyword>`
+```
+find <keyword>
+```
 
 Expected outcome:
 
