@@ -23,6 +23,7 @@ public class TaskDateHandler {
 
     /**
      * Converts the Input String into a LocalDateTime object.
+     *
      * @param input The input String to parse into a Date object.
      *              The String should be in the format: [d/M/yyyy HHmm]<br>
      *              The year and time are optional. If not given, the year is assumed
@@ -51,6 +52,7 @@ public class TaskDateHandler {
      * <p>The inputs should be in the format: [d/M/yyyy HHmm]</p>
      * <p>The year and time are optional. If not given, the year is assumed
      * to be the current year, and the time is assumed to be 0000.</p>
+     *
      * @param fromStr The start date input String to parse into a Date object.
      * @param toStr The end date input String to parse into a Date object.
      * @return A LocalDateTime array of length 2, parsed from the input Strings
@@ -71,6 +73,7 @@ public class TaskDateHandler {
 
     /**
      * Converts the Save String into a LocalDateTime object.
+     *
      * @param input The input String to parse into a Date object.
      *              The String should be in epoch timestamp format.
      * @return The LocalDateTime object from the parsed String
@@ -90,6 +93,7 @@ public class TaskDateHandler {
 
     /**
      * Converts the start date and end save date input into a pair of LocalDateTime.
+     *
      * <p>The String should be in epoch timestamp format.</p>
      * @param fromStr The start date input String to parse into a Date object.
      * @param toStr The end date input String to parse into a Date object.
@@ -111,6 +115,7 @@ public class TaskDateHandler {
 
     /**
      * Converts the LocalDateTime object into a UI-friendly String format.
+     *
      * @param date The LocalDateTime to parse as a String.
      * @return The parsed String, in [dd MMM yyyy, EEE @ hh:mma] format.
      */

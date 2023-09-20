@@ -62,6 +62,7 @@ public class Parser {
      * Parses the user input arising from the add keyword.
      * <p>This method further parses the user input during the add command,
      * to differentiate between the Task types.</p>
+     *
      * @param type The enumerated type of Command to add into the Task.
      * @param commandField The description of the Command.
      * @return A corresponding subclass of Task.

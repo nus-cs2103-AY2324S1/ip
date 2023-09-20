@@ -10,7 +10,8 @@ package trackerbot.task;
  */
 public class Todo extends Task {
     /**
-     * Constructor for the class.
+     * Constructs a To-do object from the given String input.
+     *
      * @param desc The description of the To-do task.
      */
     public Todo(String desc) {
@@ -21,6 +22,7 @@ public class Todo extends Task {
      * Constructs a To-do using a String array, for use in save parsing.
      * <p>As To-do serves as a basic abstraction of the Task, the constructor directly calls
      * super to generate the object.</p>
+     *
      * @param args The arguments for constructing a To-do, containing isDone status in index
      *             0 and description in index 1.
      */
@@ -34,8 +36,9 @@ public class Todo extends Task {
     }
 
     /**
-     * toString method of To-do. <br>
-     * The String representation of To-do appends the [T] tag in front of the Task toString.
+     * Returns the String representation of the To-do object.
+     * <p>This method appends the [T] tag in front of the Task toString.</p>
+     *
      * @return "[T]" appended to Task.toString().
      */
     @Override

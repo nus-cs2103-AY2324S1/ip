@@ -9,6 +9,7 @@ import trackerbot.task.TaskList;
  * <p> Command nests its child classes inside its abstraction, as there is
  * a small number of available commands that can be called through the UI. </p>
  * <p>Every nested Command should be assigned a corresponding CommandType enum.</p>
+ *
  * @author WZWren
  * @version A-CodeQuality
  */
@@ -31,7 +32,7 @@ public abstract class Command {
     public abstract void executeAsMassOp(TaskList tasks, UiHandler uiHandler) throws TrackerBotException;
 
     /**
-     * Factory method for Command.
+     * Constructs a subtype of Command from the given keyword and command fields.
      * <p>Depending on the keyword passed in, the method will generate an
      * appropriate instance of a subtype of Command. Currently, this method can generate
      * these subtypes:</p>
@@ -44,6 +45,7 @@ public abstract class Command {
      *     <li>ExitCommand, to tell the Tracker to exit.</li>
      *     <li>UnknownCommand, which will throw an error on execute.</li>
      * </ul>
+     *
      * @param keyword The keyword passed in by the user input.
      * @param commandField The description of the user input.
      * @return Some subtype of Command related to keyword.

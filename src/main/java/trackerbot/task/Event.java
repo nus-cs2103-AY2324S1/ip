@@ -25,7 +25,7 @@ public class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * Constructor for the class.
+     * Constructs the Event object from the given String input.
      *
      * @param desc The description of the Event task.
      * @param from The String representation of the start date to parse into a LocalDateTime object.
@@ -44,7 +44,7 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a Event using a String array, for use in save parsing.
+     * Constructs the Event object using a String array, for use in save parsing.
      *
      * @param args The arguments for constructing Event, containing isDone status in index
      *             0, description in index 1 and an epoch Date string in index 2 and 3.
@@ -56,29 +56,30 @@ public class Event extends Task {
         super(args);
         LocalDateTime[] fromToPair = TaskDateHandler.convertSaveToDate(args[2], args[3]);
         assert fromToPair.length == 2 : "input conversion to date failed without exception";
-        this.from = fromToPair[0];
-        this.to = fromToPair[1];
+        from = fromToPair[0];
+        to = fromToPair[1];
 
-        assert this.to.isAfter(this.from) : "start date should be earlier than end date";
+        assert to.isAfter(from) : "start date should be earlier than end date";
     }
 
     @Override
     public String toSaveString() {
         return "E|" + getSaveInfo() + "|"
-                + this.from.toEpochSecond(ZoneOffset.UTC) + "|"
-                + this.to.toEpochSecond(ZoneOffset.UTC);
+                + from.toEpochSecond(ZoneOffset.UTC) + "|"
+                + to.toEpochSecond(ZoneOffset.UTC);
     }
 
     /**
-     * toString method of Event. <br>
-     * The String representation of To-do appends the [E] tag in front of the Task toString, and
-     * the event period to the end of the toString.
+     * Returns the String representation of the Event object.
+     * <p>This method appends the [E] tag in front of the Task toString, and
+     * the event period to the end of the toString.</p>
+     *
      * @return "[D]" prefixed to task.toString(), and "(from: [start] / to: [end])" postfixed to task.toString().
      */
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + TaskDateHandler.convertDateToUi(this.from)
-                + " | to: " + TaskDateHandler.convertDateToUi(this.to) + ")";
+                + " (from: " + TaskDateHandler.convertDateToUi(from)
+                + " | to: " + TaskDateHandler.convertDateToUi(to) + ")";
     }
 }

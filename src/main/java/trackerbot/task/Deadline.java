@@ -18,7 +18,7 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Constructor for the class.
+     * Constructs a Deadline object from the given string input.
      *
      * @param desc The description of the Deadline task.
      * @param by The String representation of the deadline to parse into a LocalDateTime object.
@@ -41,22 +41,23 @@ public class Deadline extends Task {
      */
     protected Deadline(String[] args) throws TrackerBotException {
         super(args);
-        this.by = TaskDateHandler.convertSaveToDate(args[2]);
+        by = TaskDateHandler.convertSaveToDate(args[2]);
     }
 
     @Override
     public String toSaveString() {
-        return "D|" + getSaveInfo() + "|" + this.by.toEpochSecond(ZoneOffset.UTC);
+        return "D|" + getSaveInfo() + "|" + by.toEpochSecond(ZoneOffset.UTC);
     }
 
     /**
-     * toString method of Deadline. <br>
-     * The String representation of To-do appends the [D] tag in front of the Task toString, and
-     * the deadline date to the end of the toString.
+     * Returns the String representation of the Deadline.
+     * <p>This method appends the [D] tag in front of the Task toString, and
+     * the deadline date to the end of the toString.</p>
+     *
      * @return "[D]" prefixed to task.toString(), and "(by: [deadline])" postfixed to task.toString().
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + TaskDateHandler.convertDateToUi(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + TaskDateHandler.convertDateToUi(by) + ")";
     }
 }
