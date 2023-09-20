@@ -1,4 +1,6 @@
 package commands;
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 import ui.Ui;
@@ -6,6 +8,7 @@ import main.Duke;
 import storage.Storage;
 import actions.TaskList;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
@@ -76,6 +79,80 @@ public class Commands {
         } catch (Duke.DukeException e) {
             return  e.getMessage() + "\n";
         }
+    }
+
+    public String deadlineCommand(String[] inputArray) {
+        try {
+            if (inputArray.length < 2 || inputArray[1].isEmpty()) {
+                throw new Duke.DukeException("Hey! You forgot what you needed to do?");
+            }
+
+            String[] details = inputArray[1].split(" /by ", 2);
+
+            if (details.length < 2) {
+                throw new Duke.DukeException("Umm you forgot the deadline! Remember to use /by before the deadline!");
+            }
+            Deadline newDeadline = new Deadline(details[0], details[1]);
+            tasklist.chadAddList(newDeadline);
+            storage.writeFile(chad.taskArrayList);
+            return ui.displayChadAddListOutput(newDeadline.toString());
+
+        } catch (Duke.DukeException e) {
+            return e.getMessage() + "\n";
+        } catch (DateTimeParseException e) {
+            return "Make sure the date format is: d MMM yyyy";
+        }
+    }
+
+    public String eventCommand(String[] inputArray) {
+        try {
+            if (inputArray.length < 2 || inputArray[1].isEmpty()) {
+                throw new Duke.DukeException("Hey! You forgot what you needed to do?");
+            }
+            String[] details = inputArray[1].split(" /from ", 2);
+            if (details.length < 2) {
+                throw new Duke.DukeException("Hey you are missing the start date! Remember to use /from before the deadline!");
+            }
+            String[] timings = details[1].split(" /to ", 0);
+            if (timings.length < 2) {
+                throw new Duke.DukeException("The end date is missing! Do better! Use /to!");
+            }
+            Event newEvent = new Event(details[0], timings[0], timings[1]);
+            tasklist.chadAddList(newEvent);
+            storage.writeFile(chad.taskArrayList);
+            return ui.displayChadAddListOutput(newEvent.toString());
+
+        } catch (Duke.DukeException e) {
+            return e.getMessage() + "\n";
+        } catch (DateTimeParseException e) {
+            return "Make sure the date format is: d MMM yyyy";
+        }
+    }
+
+    public String deleteCommand(String[] inputArray) {
+        try {
+            Integer index = Integer.valueOf(inputArray[1]);
+            String name = tasklist.chadRemoveList(index);
+            storage.writeFile(chad.taskArrayList);
+            return ui.displayChadRemoveOutput(name, chad.taskArrayList.size());
+
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "The task index is invalid! Try again!";
+        }
+
+    }
+
+    public String editCommand(String[] inputArray) {
+        try {
+            String[] details = inputArray[1].split(" ", 4);
+            String s = tasklist.updateTask(details);
+            storage.writeFile(chad.taskArrayList);
+            return s;
+
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Check your command! The command is 'edit (index of task) (type of task: T D E) (command: /name /by /from /to) (update)'";
+        }
+
     }
 
 

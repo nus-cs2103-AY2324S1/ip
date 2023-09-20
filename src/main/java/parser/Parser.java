@@ -30,128 +30,6 @@ public class Parser {
     /**
      * Takes in a String array of the instructions from user
      * Runs the applicable methods based on the instruction from user
-     * For Duke Class (TextUI)
-     *
-     * @param inputArray array of string from the input of user
-     * @return false if user gives command to stop bot, else returns true
-     */
-    public boolean inputParse(String[] inputArray) {
-
-        if (inputArray[0].equals("bye")) {
-            ui.chadBye();
-            return false;
-
-        } else if (inputArray[0].equals("list")) {
-            ui.chadListTask(chad.taskArrayList);
-
-        } else if (inputArray[0].equals("mark")) {
-            try {
-                Integer index = Integer.valueOf(inputArray[1]);
-                tasklist.chadMarkTask(index);
-                ui.chadMarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
-                        chad.taskArrayList.get(index - 1).getMark());
-                storage.writeFile(chad.taskArrayList);
-
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    System.out.println("The task index is invalid! Try again!");
-            }
-
-        } else if (inputArray[0].equals("unmark")) {
-            try {
-
-                Integer index = Integer.valueOf(inputArray[1]);
-                tasklist.chadUnmarkTask(index);
-                ui.chadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
-                        chad.taskArrayList.get(index - 1).getMark());
-
-                storage.writeFile(chad.taskArrayList);
-
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("The task index is invalid! Try again!");
-            }
-
-        } else if (inputArray[0].equals("find")) {
-            String name = inputArray[1];
-            tasklist.chadFindTask(name);
-
-        } else if (inputArray[0].equals("todo")) {
-            try {
-                if (inputArray.length == 1 || inputArray[1].isEmpty()) {
-                    throw new Duke.DukeException("Hey! You forgot what you needed to do?");
-                }
-                Todo newTodo = new Todo(inputArray[1]);
-                tasklist.chadAddList(newTodo);
-                ui.chadAddListOutput(newTodo.toString());
-                storage.writeFile(chad.taskArrayList);
-            } catch (Duke.DukeException e) {
-                System.out.println(e.getMessage() + "\n");
-            }
-
-        } else if (inputArray[0].equals("deadline")) {
-            try {
-                if (inputArray.length < 2 || inputArray[1].isEmpty()) {
-                    throw new Duke.DukeException("Hey! You forgot what you needed to do?");
-                }
-
-                String[] details = inputArray[1].split(" /by ", 2);
-
-                if (details.length < 2) {
-                    throw new Duke.DukeException("Umm you forgot the deadline! Remember to use /by before the deadline!");
-                }
-                Deadline newDeadline = new Deadline(details[0], details[1]);
-                tasklist.chadAddList(newDeadline);
-                ui.chadAddListOutput(newDeadline.toString());
-                storage.writeFile(chad.taskArrayList);
-            } catch (Duke.DukeException e) {
-                System.out.println(e.getMessage() + "\n");
-            } catch (DateTimeParseException e) {
-                System.out.println("Make sure the date format is: d MMM yyyy");
-            }
-
-        } else if (inputArray[0].equals("event")) {
-            try {
-                if (inputArray.length < 2 || inputArray[1].isEmpty()) {
-                    throw new Duke.DukeException("Hey! You forgot what you needed to do?");
-                }
-                String[] details = inputArray[1].split(" /from ", 2);
-                if (details.length < 2) {
-                    throw new Duke.DukeException("Hey you are missing the start date! Remember to use /from before the deadline!");
-                }
-                String[] timings = details[1].split(" /to ", 0);
-                if (timings.length < 2) {
-                    throw new Duke.DukeException("The end date is missing! Do better! Use /to!");
-                }
-                System.out.println(timings[0]);
-                System.out.println(timings[1]);
-                Event newEvent = new Event(details[0], timings[0], timings[1]);
-                tasklist.chadAddList(newEvent);
-                ui.chadAddListOutput(newEvent.toString());
-                storage.writeFile(chad.taskArrayList);
-            } catch (Duke.DukeException e) {
-                System.out.println(e.getMessage() + "\n");
-            } catch (DateTimeParseException e) {
-                System.out.println("Make sure the date format is: d MMM yyyy");
-            }
-        } else if (inputArray[0].equals("delete")) {
-            try {
-                Integer index = Integer.valueOf(inputArray[1]);
-                String name = tasklist.chadRemoveList(index);
-                ui.chadRemoveOutput(name, chad.taskArrayList.size());
-                storage.writeFile(chad.taskArrayList);
-
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("The task index is invalid! Try again!");
-            }
-
-        } else {
-            ui.chadOutput("Hmm? You are not making sense!");
-        }
-        return true;
-    }
-
-    /**
-     * Takes in a String array of the instructions from user
-     * Runs the applicable methods based on the instruction from user
      * For Main Class (GUI)
      *
      * @param inputArray array of string from the input of user
@@ -159,110 +37,43 @@ public class Parser {
      */
     public String displayInputParse(String[] inputArray) {
 
-        String output = "";
+        String command = inputArray[0];
 
-        if (inputArray[0].equals("bye")) {
-            output = commands.byeCommand();
+        switch (command) {
 
-        } else if (inputArray[0].equals("list")) {
-            output = commands.listCommand();
+        case "bye":
+            return commands.byeCommand();
 
-        } else if (inputArray[0].equals("mark")) {
+        case "list":
+            return commands.listCommand();
 
-            output = commands.markCommand(inputArray);
+        case "mark":
+            return commands.markCommand(inputArray);
 
-            assert false: "Code should not reach here";
+        case "unmark":
+            return commands.unmarkCommand(inputArray);
 
-        } else if (inputArray[0].equals("unmark")) {
+        case "find":
+            return commands.findCommand(inputArray);
 
-            output = commands.unmarkCommand(inputArray);
+        case "todo":
+            return commands.todoCommand(inputArray);
 
-            assert false: "Code should not reach here";
+        case "deadline":
+            return commands.deadlineCommand(inputArray);
 
-        } else if (inputArray[0].equals("find")) {
+        case "event":
+            return commands.eventCommand(inputArray);
 
-            output = commands.findCommand(inputArray);
+        case "delete":
+            return commands.deleteCommand(inputArray);
 
-        } else if (inputArray[0].equals("todo")) {
+        case "edit":
+            return commands.editCommand(inputArray);
 
-            output = commands.todoCommand(inputArray);
-
-            assert false: "Code should not reach here";
-
-        } else if (inputArray[0].equals("deadline")) {
-            try {
-                if (inputArray.length < 2 || inputArray[1].isEmpty()) {
-                    throw new Duke.DukeException("Hey! You forgot what you needed to do?");
-                }
-
-                String[] details = inputArray[1].split(" /by ", 2);
-
-                if (details.length < 2) {
-                    throw new Duke.DukeException("Umm you forgot the deadline! Remember to use /by before the deadline!");
-                }
-                Deadline newDeadline = new Deadline(details[0], details[1]);
-                tasklist.chadAddList(newDeadline);
-                storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadAddListOutput(newDeadline.toString());
-
-            } catch (Duke.DukeException e) {
-                output =  e.getMessage() + "\n";
-            } catch (DateTimeParseException e) {
-                output =  "Make sure the date format is: d MMM yyyy";
-            }
-            assert false: "Code should not reach here";
-
-        } else if (inputArray[0].equals("event")) {
-            try {
-                if (inputArray.length < 2 || inputArray[1].isEmpty()) {
-                    throw new Duke.DukeException("Hey! You forgot what you needed to do?");
-                }
-                String[] details = inputArray[1].split(" /from ", 2);
-                if (details.length < 2) {
-                    throw new Duke.DukeException("Hey you are missing the start date! Remember to use /from before the deadline!");
-                }
-                String[] timings = details[1].split(" /to ", 0);
-                if (timings.length < 2) {
-                    throw new Duke.DukeException("The end date is missing! Do better! Use /to!");
-                }
-                Event newEvent = new Event(details[0], timings[0], timings[1]);
-                tasklist.chadAddList(newEvent);
-                storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadAddListOutput(newEvent.toString());
-
-            } catch (Duke.DukeException e) {
-                return e.getMessage() + "\n";
-            } catch (DateTimeParseException e) {
-                return "Make sure the date format is: d MMM yyyy";
-            }
-            assert false: "Code should not reach here";
-
-        } else if (inputArray[0].equals("delete")) {
-            try {
-                Integer index = Integer.valueOf(inputArray[1]);
-                String name = tasklist.chadRemoveList(index);
-                storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadRemoveOutput(name, chad.taskArrayList.size());
-
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                output = "The task index is invalid! Try again!";
-            }
-            assert false : "Code should not reach here";
-
-        } else if (inputArray[0].equals("edit")) {
-            try {
-                String[] details = inputArray[1].split(" ", 4);
-                output = tasklist.updateTask(details);
-                storage.writeFile(chad.taskArrayList);
-
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                output =  "Check your command! The command is 'edit (index of task) (type of task: T D E) (command: /name /by /from /to) (update)'";
-            }
-
-        } else {
-            output = ui.displayChadOutput("Hmm? You are not making sense!");
+        default:
+            return ui.displayChadOutput("Hmm? You are not making sense!");
         }
-        return output;
     }
 }
 

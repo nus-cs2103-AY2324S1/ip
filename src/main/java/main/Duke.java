@@ -34,27 +34,6 @@ public class Duke {
     }
 
     /**
-     * Runs Chadbot which includes created and initialising all directories,
-     * files and objects
-     */
-    public void run() {
-        ui.chadGreet();
-        storage.makeNewDirectory();
-        storage.makeNewFile();
-        storage.loadFile(taskArrayList);
-
-        Scanner scanObj = new Scanner(System.in);
-        boolean check = true;
-
-        while (check) {
-            String input = scanObj.nextLine();
-            String[] inputArray = input.split(" ", 2);
-            check = parser.inputParse(inputArray);
-        }
-        scanObj.close();
-    }
-
-    /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
@@ -77,8 +56,7 @@ public class Duke {
 
 
     public static void main (String[]args) {
-        Duke chad = new Duke();
-        chad.run();
+
     }
 
 }
