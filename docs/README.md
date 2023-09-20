@@ -1,4 +1,4 @@
-# User Guide
+# PaimonBot's User Guide
 
 PaimonBot is your friendly and ever-curious companion in the digital world. She's here 
 to assist travellers in **managing their tasks** (todos, deadlines and events). 
