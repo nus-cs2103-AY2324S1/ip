@@ -6,19 +6,19 @@ import jo.TaskList;
 import jo.Ui;
 
 /**
- * The `SearchCommand` class represents a command for searching tasks containing a specified keyword.
+ * The `FindCommand` class represents a command for searching tasks containing a specified keyword.
  */
 
-public class SearchCommand extends Command {
+public class FindCommand extends Command {
 
     private String keyword;
 
     /**
-     * Constructs a `SearchCommand` object with the specified keyword to be used for task search.
+     * Constructs a `FindCommand` object with the specified keyword to be used for task search.
      *
      * @param keyword The keyword to search for within task descriptions.
      */
-    public SearchCommand(String keyword) {
+    public FindCommand(String keyword) {
         this.keyword = keyword;
     }
     /**

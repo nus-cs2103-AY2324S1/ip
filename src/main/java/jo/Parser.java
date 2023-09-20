@@ -9,9 +9,9 @@ import jo.command.CheckCommand;
 import jo.command.Command;
 import jo.command.DeleteCommand;
 import jo.command.ExitCommand;
+import jo.command.FindCommand;
 import jo.command.ListCommand;
 import jo.command.MarkCommand;
-import jo.command.SearchCommand;
 import jo.task.Deadline;
 import jo.task.Event;
 import jo.task.Task;
@@ -79,7 +79,7 @@ public class Parser {
         },
         find {
             public Command perform(String input) {
-                return new SearchCommand(input);
+                return new FindCommand(input);
             }
         };
 

@@ -61,22 +61,22 @@ public class TaskList {
     }
 
     /**
-     * Searches for tasks with a specific deadline in the `TaskList`.
+     * Checks for tasks with a specific deadline in the `TaskList`.
      *
      * @param deadline The deadline to search for.
      * @return An ArrayList of tasks matching the specified deadline and are not marked as done.
      */
-    public ArrayList<Task> search(LocalDate deadline) {
+    public ArrayList<Task> check(LocalDate deadline) {
         ArrayList<Task> resultList = new ArrayList<>();
         for (Task t : this.tList) {
             if (t instanceof Deadline) {
                 Deadline task = (Deadline) t;
-                if (task.getDeadline().equals(deadline) && !task.getIsDone()) {
+                if (task.getDeadline().equals(deadline)) {
                     resultList.add(task);
                 }
             } else if (t instanceof Event) {
                 Event task = (Event) t;
-                if (task.getDeadline().equals(deadline) && !task.getIsDone()) {
+                if (task.getEndDate().equals(deadline) || task.getStartDate().equals(deadline)) {
                     resultList.add(task);
                 }
             }
@@ -92,9 +92,12 @@ public class TaskList {
      */
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> resultList = new ArrayList<>();
+        String[] keywords = keyword.trim().split(" ");
         for (Task t : this.tList) {
-            if (t.getDescription().contains(keyword)) {
-                resultList.add(t);
+            for (String word : keywords) {
+                if (t.getDescription().toLowerCase().contains(word.toLowerCase())) {
+                    resultList.add(t);
+                }
             }
         }
         return resultList;
