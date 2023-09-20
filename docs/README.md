@@ -13,9 +13,9 @@ Example of usage:
 
 Expected outcome:
 
-Got it! I've added this task:
-[T][ ] Homework
-Now you have 1 task in the list.
+Got it! I've added this task:  
+[T][ ] Homework  
+Now you have 1 task in the list.  
 
  <br />
 
@@ -46,8 +46,8 @@ Example of usage:
 Expected outcome:
 
 Got it! I've added this task:  
-[E][ ] CS2103T Team Meeting (from Sep 21 2023, 21:00 to Sep 21 2023, 22:00)
-Now you have 3 tasks in the list.
+[E][ ] CS2103T Team Meeting (from Sep 21 2023, 21:00 to Sep 21 2023, 22:00)  
+Now you have 3 tasks in the list.  
 
  <br />
 
@@ -60,10 +60,10 @@ Example of usage:
 `list`
 
 Expected outcome:
-Here are the tasks in your list:  
-1. [T][ ] Homework
-2. [D][ ] CS2103T assignment (by: Sep 21 2023, 23:59)
-3. [E][ ] CS2103T Team Meeting (from Sep 21 2023, 21:00 to Sep 21 2023, 22:00)
+Here are the tasks in your list:   
+1. [T][ ] Homework  
+2. [D][ ] CS2103T assignment (by: Sep 21 2023, 23:59)  
+3. [E][ ] CS2103T Team Meeting (from Sep 21 2023, 21:00 to Sep 21 2023, 22:00)  
 
  <br />
 
@@ -76,8 +76,8 @@ Example of usage:
 `mark 1`
 
 Expected outcome:  
-Nice! I've marked this task as done:
-[T][X] Homework
+Nice! I've marked this task as done:  
+[T][X] Homework  
 
  <br />
 
@@ -90,8 +90,8 @@ Example of usage:
 `umark 1`
 
 Expected outcome:  
-Nice! I've marked this task as not done yet:
-[T][ ] Homework
+Nice! I've marked this task as not done yet:  
+[T][ ] Homework  
 
  <br />
 
@@ -103,9 +103,9 @@ Example of usage:
 
 `delete 1`
 
-Expected outcome:
-Noted. I've removed this task:
-[T][ ] Homework
+Expected outcome:  
+Noted. I've removed this task:  
+[T][ ] Homework  
 
  <br />
 
@@ -117,10 +117,10 @@ Example of usage:
 
 `find CS2103T`
 
-Expected outcome:
-Here are the matching tasks in your list:
-1. [D][ ] CS2103T assignment (by: Sep 21 2023, 23:59)
-2. [E][ ] CS2103T Team Meeting (from Sep 21 2023, 21:00 to Sep 21 2023, 22:00)
+Expected outcome:  
+Here are the matching tasks in your list:  
+1. [D][ ] CS2103T assignment (by: Sep 21 2023, 23:59)  
+2. [E][ ] CS2103T Team Meeting (from Sep 21 2023, 21:00 to Sep 21 2023, 22:00)  
 
  <br />
 
@@ -132,6 +132,6 @@ Example of usage:
 
 `update 1 /by 22-09-2023 23:59`
 
-Expected outcome:
-That task has been updated:
-[D][ ] CS2103T assignment (by: Sep 22 2023, 23:59)
+Expected outcome:  
+That task has been updated:  
+[D][ ] CS2103T assignment (by: Sep 22 2023, 23:59)  
