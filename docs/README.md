@@ -1,5 +1,7 @@
-# :cat: *MeowBot* :cat:
+# *MeowBot* 
 # User Guide for new users
+
+# Starting off
 
 ## Features 
 
