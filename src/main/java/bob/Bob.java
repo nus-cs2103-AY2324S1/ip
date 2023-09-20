@@ -86,6 +86,8 @@ public class Bob {
                 return ui.deleteTask(tasks, parser.getDeleteDigit(input));
             } else if (parser.isFind(input)) {
                 return ui.findTask(tasks, parser.findKeyword(input));
+            } else if (parser.isReschedule(input)) {
+                return ui.rescheduleTask(tasks, input);
             } else if (input.equals("bye")) {
                 return ui.printGoodbye();
             } else if (input.equals("list")) {

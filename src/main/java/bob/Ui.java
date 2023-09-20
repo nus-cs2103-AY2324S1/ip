@@ -136,8 +136,8 @@ public class Ui {
     private static String printRescheduleMessage(TaskList list, int rescheduleNo) {
         String response = "Okeyy. I've rescheduled this task:\n";
         response += list.get(rescheduleNo - 1).toString();
-        System.out.println(response);
 
+        System.out.println(response);
         return response;
     }
 
