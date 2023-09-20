@@ -97,9 +97,12 @@ public class Parser {
         if (content == null) {
             throw new MondayException("Mark requires a index to mark the task as completed.");
         }
-        int index = Integer.parseInt(content);
-
-        return taskList.mark(index);
+        try {
+            int index = Integer.parseInt(content);
+            return taskList.mark(index);
+        } catch (NumberFormatException e) {
+            throw new MondayException("Mark can only take in number as the index.");
+        }
     }
 
     /**
@@ -114,9 +117,12 @@ public class Parser {
             throw new MondayException("UnMark requires a index to mark the task as uncompleted.");
         }
 
-        int index = Integer.parseInt(content);
-
-        return taskList.unMark(index);
+        try {
+            int index = Integer.parseInt(content);
+            return taskList.unMark(index);
+        } catch (NumberFormatException e) {
+            throw new MondayException("UnMark can only take in number as the index.");
+        }
     }
 
     /**
@@ -199,9 +205,13 @@ public class Parser {
         if (content == null) {
             throw new MondayException("Delete requires a index to delete the task");
         }
-        int index = Integer.parseInt(content);
 
-        return taskList.delete(index);
+        try {
+            int index = Integer.parseInt(content);
+            return taskList.delete(index);
+        } catch (NumberFormatException e) {
+            throw new MondayException("Delete can only take in number as the index.");
+        }
     }
 
     /**
