@@ -66,16 +66,24 @@ Format: `todo`
 
 Example of usage: 
 
-1. User types `todo`
-<br>
+User types `todo`
+
 Expected outcome:
 
 The Chatbot will instruct users on follow up actions to create a ToDo task
 
 ```
-Here are the tasks in your list:
-1. [T][] Read Book
-2. [D][X] Finish CS2100 Assignment (by: 18-Sep-2023 1300)
-3. [D][X] Finish CS2103T ip (by: 22-Sep-2023)
-4. [E][] NUSBS Dharma Camp (from: 1-Jul-2024 to: 2-Jul-2024)
+So you want to add a ToDo task.Tell me what's the task.
+```
+
+User types in the name of the task
+
+Expected outcome:
+
+The Chatbot will reply that the task has been inserted
+
+```
+Got it. I've added this task:
+[T][] Read Book
+Now you have 5 tasks in the list
 ```
