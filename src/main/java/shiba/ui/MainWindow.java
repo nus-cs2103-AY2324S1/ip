@@ -24,6 +24,7 @@ public class MainWindow extends Application {
     private static final int WINDOW_HEIGHT_CORRECTION = 40;
     private static MainWindow singleton;
 
+    private Shiba shiba;
     private DialogBox dialogBox;
     private Timer timer;
     private CommandInput userInput;
@@ -52,7 +53,6 @@ public class MainWindow extends Application {
         primaryStage.getScene().setOnKeyPressed(new KeyInputHandler(this::sendInput));
         timer = new Timer();
 
-        primaryStage.setTitle(Shiba.getInstance().getName());
         primaryStage.setResizable(true);
         primaryStage.setMinHeight(800 + WINDOW_HEIGHT_CORRECTION);
         primaryStage.setMinWidth(500);
@@ -62,7 +62,10 @@ public class MainWindow extends Application {
         assert singleton == null : "Multiple instances of MainWindow detected!";
         singleton = this;
 
-        Shiba.getInstance().start();
+        shiba = new Shiba("SHIBA-BOT", "./shibaData/tasks.txt");
+        shiba.start();
+
+        primaryStage.setTitle(shiba.getName());
     }
 
     /**
@@ -116,7 +119,7 @@ public class MainWindow extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Shiba.getInstance().processUserInput(input);
+                shiba.processUserInput(input);
             }
         }, 1500);
     }

@@ -29,6 +29,10 @@ public class EventTask extends ShibaTask {
         super(name, TaskType.EVENT);
         startTime = new DateOptionalTime(from);
         endTime = new DateOptionalTime(to);
+
+        if (startTime.compareTo(endTime) > 0) {
+            throw new InvalidCommandException("Start time cannot be after end time!");
+        }
     }
 
     /**

@@ -1,10 +1,10 @@
 package shiba.commands;
 
+import java.util.Random;
+
 import shiba.exceptions.ShibaException;
 import shiba.tasks.PersistentTaskList;
 import shiba.ui.Replier;
-
-import java.util.Random;
 
 /**
  * Represents a command that gives SHIBA-BOT a nose boop.

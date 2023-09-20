@@ -32,8 +32,8 @@ public class Replier {
     /**
      * Prints the unknown command message.
      */
-    public static void printUnknownCommand() {
-        printWithNoIndents("Woof! I don't know what that command is!");
+    public static void printUnknownCommand(String command) {
+        printWithNoIndents("Woof! I don't know what command \"" + command + "\" is!");
         replyError();
     }
 
