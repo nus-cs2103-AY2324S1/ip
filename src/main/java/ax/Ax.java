@@ -83,13 +83,14 @@ public class Ax extends Application {
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Ax");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
         mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.prefWidthProperty().bind(mainLayout.widthProperty());
+        scrollPane.prefHeightProperty().bind(mainLayout.heightProperty());
+//        scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -99,7 +100,7 @@ public class Ax extends Application {
         // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.prefWidthProperty().bind(scrollPane.widthProperty());
 
         sendButton.setPrefWidth(55.0);
 
