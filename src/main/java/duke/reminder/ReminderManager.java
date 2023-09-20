@@ -1,6 +1,9 @@
 package duke.reminder;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import duke.tasks.Task;
 import javafx.application.Platform;
@@ -25,6 +28,19 @@ public class ReminderManager extends Thread {
         this.mutex = mutex;
     }
 
+    public void start() {
+        // Start the ReminderManager thread itself
+        super.start();
+
+        // Also start a scheduler to wake up the ReminderManager occasionally
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            synchronized (mutex) {
+                mutex.notifyAll();
+            }
+        }, 0, 10, TimeUnit.MINUTES);  // Wakes up every 10 minutes
+    }
+
     @Override
     public void run() {
         while (true) {
@@ -41,8 +57,7 @@ public class ReminderManager extends Thread {
 
                 // Wait until it's time for the next task
                 long timeUntilNextTask = nextTask.getDueTime() - System.currentTimeMillis();
-                // Extra check if the task a doesn't have a duetime(ie Todo), remove it from the
-                // queue
+                // Extra check if the task a doesn't have a duetime(ie Todo), remove it from the queue
                 if (nextTask.getDueTime() < 0) {
                     taskQueue.poll();
                     continue;
@@ -50,7 +65,6 @@ public class ReminderManager extends Thread {
 
                 if (timeUntilNextTask > 0) {
                     try {
-                        System.out.println("Waiting");
                         mutex.wait(timeUntilNextTask);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -66,7 +80,6 @@ public class ReminderManager extends Thread {
 
                         alert.showAndWait();
                     });
-                    System.out.println("REMOVED" + taskQueue);
                     taskQueue.poll(); // Remove the task that was just notified
                 }
             }
