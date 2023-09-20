@@ -136,13 +136,13 @@ Example:
 ___
 
 ## Command Summary
-| Action            | Format                                                                                |
-|-------------------|---------------------------------------------------------------------------------------|
-| **Add**           | `todo TODO`<br/>`deadline DEADLINE /by DUEDATE`<br/>`event EVENT /from START /to END` |
-| **Delete**        | `delete INDEX`                                                                        |
-| **Find**          | `find KEYWORD`                                                                        |
-| **Help**          | `help`                                                                                |
-| **List**          | `list`                                                                                |
+|      Action       | Format                                                                                |
+|:-----------------:|:--------------------------------------------------------------------------------------|
+|      **Add**      | `todo TODO`<br/>`deadline DEADLINE /by DUEDATE`<br/>`event EVENT /from START /to END` |
+|    **Delete**     | `delete INDEX`                                                                        |
+|     **Find**      | `find KEYWORD`                                                                        |
+|     **Help**      | `help`                                                                                |
+|     **List**      | `list`                                                                                |
 | **Mark / Unmark** | `mark INDEX`<br/> `unmark INDEX`                                                      |
-| **Reminder**      | `reminder`                                                                            |
-| **Remind**        | `remind INDEX`                                                                        |
+|   **Reminder**    | `reminder`                                                                            |
+|    **Remind**     | `remind INDEX`                                                                        |
