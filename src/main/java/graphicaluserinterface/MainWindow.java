@@ -2,6 +2,8 @@ package graphicaluserinterface;
 
 import duke.Duke;
 import duke.ui.Ui;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -82,7 +85,11 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (input.equals("bye")) {
-            System.exit(0);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+                System.exit(0);
+            }));
+            timeline.setCycleCount(1);
+            timeline.play();
         }
     }
 }

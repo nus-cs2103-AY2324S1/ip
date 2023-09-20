@@ -16,5 +16,6 @@ public class Ui {
     public static final String MESSAGE_WELCOME = "Hello! I'm David\nWhat can I do for you?";
 
     /** The message displayed when the user exits the application. */
-    public static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
+    public static final String MESSAGE_GOODBYE = "Bye. I am saving your tasks! Hope to see you again soon!\n"
+            + "I will close in 3 seconds.";
 }
