@@ -1,6 +1,6 @@
-# DEVYBOT User Guide
+# DevyBot User Guide
 
-DEVYBOT is a powerful task-tracking chatbot designed to help you manage your tasks efficiently. This user guide outlines the various features and how to use them effectively.
+DevyBot is a powerful task-tracking chatbot designed to help you manage your tasks efficiently. This user guide outlines the various features and how to use them effectively.
 
 ## Features
 
@@ -9,10 +9,8 @@ DEVYBOT is a powerful task-tracking chatbot designed to help you manage your tas
      - Format: `todo DESCRIPTION`
    - b. Event Task:
      - Format: `event DESCRIPTION /from STARTDATE /end ENDDATE`
-     - Date format must be in either `d/M/yyyy HHmm`.
    - c. Deadline Task:
      - Format: `deadline DESCRIPTION /by DATE`
-     - Date format must be in either `d/M/yyyy HHmm` or `d/MM/yyyy`.
 
 2. **Marking/Unmarking Tasks**
    - Keep track of tasks as completed or not.
@@ -46,7 +44,7 @@ DEVYBOT is a powerful task-tracking chatbot designed to help you manage your tas
   - Expected Outcome: DEVYBOT adds the Todo task and displays a success message.
   
   ```
-  Task added:
+  Got it. I've added this task:
   [T][ ] Read a book
   ```
 
@@ -54,55 +52,88 @@ DEVYBOT is a powerful task-tracking chatbot designed to help you manage your tas
 ### `deadline` - Adding a Deadline Task
 - Format: `deadline DESCRIPTION /by DATE`
 - Example: `deadline Submit report /by 10/12/2023 1500`
+- Date format must be in either `d/M/yyyy HHmm` or `d/MM/yyyy`.
 - Expected Outcome: DEVYBOT adds the Deadline task and displays a success message.
 
 ```
-Task added:
-[D][ ] Submit report (by: Oct 12 2023 1500)
+Got it. I've added this task:
+[D][ ] Submit report (by: Oct 12 2023 3:00 PM)
 ```
+
+### `event` - Adding an Event Task
+- Format: `deadline DESCRIPTION /from STARTDATE /to ENDDATE`
+- Example: `event Birthday party /from 1/3/2023 1000 /to 3/4/2023 2300`
+- Date format must be in either `d/M/yyyy HHmm`.
+- Expected Outcome: DEVYBOT adds the Deadline task and displays a success message.
+
+```
+Got it. I've added this task:
+[E][ ] Birthday party (from: Mar 01 2023 10:00 AM to: Apr 03 2023 1100PM)
+```
+
 
 ### `mark` - Marking a Task as Done
 - Format: `mark INDEX`
 - Example: `mark 1`
+- The index **must be a positive integer** 1, 2, 3, ...
 - Expected Outcome: DEVYBOT marks the specified task as done and displays a success message.
 ```
-Task marked as done:
+Nice! I've marked this task as done:
+[T][X] Read a book
+```
+
+### `unmark` - unmarking an existing task in the list
+- Format: `unmark INDEX`
+- Example: `unmark 1`
+- The index **must be a positive integer** 1, 2, 3, ...
+- Expected Outcome: DEVYBOT unmarks the specified task as done and displays a success message.
+```
+Nice! I've unmarked this task as done:
 [T][X] Read a book
 ```
 
 ### `delete` - Deleting a Task
 - Format: `delete INDEX`
 - Example: `delete 2`
+- The index **must be a positive integer** 1, 2, 3, ...
 - Expected Outcome: DEVYBOT deletes the specified task and updates the task list.
 Task deleted:
 ```
-[E][ ] Attend conference (from: Jan 1 2023 0900 to: Jan 2 2023 1800)
+Noted, I've removed this task:
+[D][ ] Submit Report (by: Dec 10 2023, 3:00PM)
 ```
 
 ### `list` - Viewing All Tasks
 - Format: `list`
 - Expected Outcome: DEVYBOT displays all tasks in the task list with their details.
-Here are your tasks:
 
 ```
+Here are the tasks in your list:
 [T][ ] Read a book
-[D][ ] Submit report (by: Oct 12 2023 1500)
+[D][ ] Submit report (by: Oct 12 2023 3:00 PM)
 ```
 
 
 ### `find` - Finding Tasks
 - Format: `find KEYWORD`
 - Example: `find book`
-- Expected Outcome: DEVYBOT displays tasks containing the keyword.
+- Expected Outcome: Give users a way to find a task by searching for a keyword.
 
 ```
-Tasks found:
+Here are the matching tasks in your list:
 [T][ ] Read a book
 ```
 
 ### `search` - Searching Tasks
 - Format: `search DETAIL`
+- Example: `search oct`
 - DEVYBOT provides search functionality, allowing you to search through existing tasks by keywords, descriptions, and dates.
+
+```
+Here are the matching tasks in your list:
+[D][] Pay bills (by: Oct 01 2023 10:00 AM)
+```
+
 
 ### `bye` - Exiting the Program
 - Format: `bye`
