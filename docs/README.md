@@ -80,7 +80,7 @@ User types in the `name of task`
 
 Expected outcome:
 
-The Chatbot will reply that the task has been inserted
+The Chatbot will respond that the task has been inserted
 
 ```
 Got it. I've added this task:
