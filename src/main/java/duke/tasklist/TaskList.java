@@ -80,10 +80,10 @@ public class TaskList extends ArrayList<Task> {
             if (t.mark()) {
                 return t;
             } else {
-                throw new DukeException("OOPS!!! This task has already be marked!\n");
+                throw new DukeException("This task has already be marked!\n");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! There is no such a task\n");
+            throw new DukeException("There is no such a task\n");
         }
     }
 
@@ -100,10 +100,10 @@ public class TaskList extends ArrayList<Task> {
             if (t.unmark()) {
                 return t;
             } else {
-                throw new DukeException("OOPS!!! This task hasn't be marked yet!\n");
+                throw new DukeException("This task hasn't be marked yet!\n");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! There is no such a task\n");
+            throw new DukeException("There is no such a task\n");
         }
     }
 
@@ -136,7 +136,7 @@ public class TaskList extends ArrayList<Task> {
             remove(index - 1);
             return t;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! There is no such a task\n");
+            throw new DukeException("There is no such a task\n");
         }
     }
 
@@ -153,10 +153,10 @@ public class TaskList extends ArrayList<Task> {
             if (t.snooze()) {
                 return t;
             } else {
-                throw new DukeException("OOPS!!! This task has already be snoozed!\n");
+                throw new DukeException("This task has already be snoozed!\n");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!!! There is no such a task\n");
+            throw new DukeException("There is no such a task\n");
         }
     }
 }
