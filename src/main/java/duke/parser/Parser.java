@@ -7,6 +7,7 @@ import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.InvalidCommand;
 import duke.command.ListCommand;
 import duke.command.LoadFileCommand;
@@ -82,6 +83,9 @@ public class Parser {
                     break;
                 case "change":
                     command = new ChangeFileCommand(userInput);
+                    break;
+                case "help":
+                    command = new HelpCommand();
                     break;
                 default:
                     command = new InvalidCommand();
