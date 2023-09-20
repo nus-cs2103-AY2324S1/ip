@@ -29,6 +29,13 @@ public class Ui {
                 + "Bye. Hope to see you again soon!\n" + horizontalLine);
     }
 
+    /**
+     * Displays search results based on a keyword in the task list.
+     *
+     * @param taskList The task list to search within.
+     * @param keyword  The keyword to search for in task descriptions.
+     * @return A formatted string containing matching tasks or appropriate messages.
+     */
     public static String displaySearchResults(TaskList taskList, String keyword) {
         List<Task> allTasks = taskList.getTasks();
         StringBuilder resultBuilder = new StringBuilder();

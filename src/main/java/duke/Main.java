@@ -20,7 +20,7 @@ public class Main extends Application {
     public static TaskList taskList = Duke.taskList;
     
     /**
-     * The main entry point of the Duke GUI application.
+     * Forms the main entry point of the Duke GUI application.
      *
      * @param stage The primary stage for the application.
      */

@@ -48,10 +48,20 @@ public class TaskList {
     }
 
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param task The task to be deleted.
+     */
     public void deleteTask(Task task) {
         allTasks.remove(task);
     }
 
+    /**
+     * Gets the number of tasks in the task list.
+     *
+     * @return The number of tasks in the task list.
+     */
     public int size() {
         return allTasks.size();
     }
