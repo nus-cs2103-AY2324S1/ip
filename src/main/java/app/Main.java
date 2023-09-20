@@ -51,6 +51,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("Bloop Bloop");
             stage.setScene(scene);
+            stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             fxmlLoader.<MainWindow>getController().showWelcome();
             stage.show();
