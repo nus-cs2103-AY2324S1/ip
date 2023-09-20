@@ -35,7 +35,7 @@ public class TaskList {
                 String[] split = details.split(" /by ");
                 if (split.length != 2) {
                     throw new InvalidArgumentException("☹ OOPS!!! The deadline format is incorrect. "
-                            + "It should be: deadline <name> /by <date> <time>");
+                            + "It should be: deadline <name> /by <DD/MM/YYY> <HH:MM>");
                 }
                 String taskName = split[0];
                 String dateTime = split[1];
@@ -49,7 +49,7 @@ public class TaskList {
                 String[] secondSplit = firstSplit[firstSplit.length - 1].split(" /to ");
                 if (firstSplit.length != 2 || secondSplit.length != 2) {
                     throw new InvalidArgumentException("☹ OOPS!!! The event format is incorrect. "
-                            + "It should be: event <name> /from <date> <time> /to <date> <time>");
+                            + "It should be: event <name> /from <DD/MM/YYY> <HH:MM> /to <DD/MM/YYY> <HH:MM>");
                 }
                 String taskName = firstSplit[0];
                 String startDateTime = secondSplit[0];
