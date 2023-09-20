@@ -1,10 +1,10 @@
 package duke.ui;
 
-import duke.alias.AliasMap;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+
+import duke.alias.AliasMap;
 
 /**
  * The `Ui` class is responsible for the interactions with the user.
@@ -145,6 +145,15 @@ public class Ui {
      */
     public String addAlias(String alias, String fullCommand) {
         return talk("Got it. I've created a new alias `"
+                + alias + "` for the command `" + fullCommand + "`.");
+    }
+
+    /**
+     * Prints out the success message upon deleting an alias.
+     *
+     */
+    public String deleteAlias(String alias, String fullCommand) {
+        return talk("OK, I've deleted the alias `"
                 + alias + "` for the command `" + fullCommand + "`.");
     }
 

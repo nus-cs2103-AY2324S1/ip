@@ -8,6 +8,7 @@ import duke.alias.AliasMap;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.alias.AddAliasCommand;
+import duke.command.alias.DeleteAliasCommand;
 import duke.command.alias.ListAliasCommand;
 import duke.command.task.DeadlineTaskCommand;
 import duke.command.task.DeleteTaskCommand;
@@ -205,6 +206,13 @@ public class Parser {
             alias = aliasDescription[0].trim();
             fullCommand = aliasDescription[1].trim();
             return new AddAliasCommand(alias, fullCommand);
+        case "alias_delete":
+            if (commandArr.length < 2) {
+                throw new DukeException("OOPS!!! Please provide me with the alias to delete.");
+            }
+            String aliasToDelete = commandArr[1].trim();
+            return new DeleteAliasCommand(aliasToDelete);
+
         case "alias_list":
             return new ListAliasCommand();
         default:
