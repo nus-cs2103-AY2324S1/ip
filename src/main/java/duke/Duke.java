@@ -11,10 +11,10 @@ import java.io.IOException;
 public class Duke {
     private static final String SAVING_ERROR_MSG = "⚠ Oops! Something wrong when closing:(";
     private static final String BYE_MSG = "Bye!\n\"Beware the barrenness of a busy life.\"";
-    private Parser parser;
-    private Storage storage;
-    private TaskList tasks;
-    private Stage stage;
+    private final Parser parser;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Stage stage;
 
     /**
      * Initializes the chat robot. Establishes task list and parser.
@@ -40,12 +40,15 @@ public class Duke {
     public String getResponse(String input) {
         try {
             String output = parser.parse(input);
+            this.storage.save(this.tasks);
             if (!parser.isRunning()) {
                 return exit();
             }
             return output;
         } catch (DukeException e) {
             return handleException(e);
+        } catch (IOException e) {
+            return handleException(new DukeException("saving error"));
         }
     }
 
@@ -80,6 +83,9 @@ public class Duke {
             break;
         case "undefined":
             warning = "⚠ Sorry! I am not able to understand you. Try another language:D";
+            break;
+        case "saving error":
+            warning = SAVING_ERROR_MSG;
             break;
         default:
             warning = "⚠ Oops! Something went wrong:(";
