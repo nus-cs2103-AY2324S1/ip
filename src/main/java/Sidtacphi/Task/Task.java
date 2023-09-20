@@ -1,6 +1,8 @@
 package Sidtacphi.Task;
 
 import java.io.IOException;
+import java.util.Objects;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
@@ -71,5 +73,15 @@ public class Task {
         jsonGenerator.writeStringField("name", name);
         jsonGenerator.writeBooleanField("isCompleted", isCompleted);
         jsonGenerator.writeEndObject();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Task)) {
+            return false;
+        }
+
+        Task task = (Task) obj;
+        return Objects.equals(task.getName(), name) && task.isCompleted() == isCompleted;
     }
 }

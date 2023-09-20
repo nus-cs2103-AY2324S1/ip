@@ -1,6 +1,7 @@
 package Sidtacphi.Task;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -38,5 +39,14 @@ public class Todo extends Task {
         jsonGenerator.writeStringField("name", super.getName());
         jsonGenerator.writeBooleanField("isCompleted", super.isCompleted());
         jsonGenerator.writeEndObject();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Todo)) {
+            return false;
+        } 
+        Todo task = (Todo) obj;
+        return Objects.equals(task.getName(), super.getName()) && task.isCompleted() == super.isCompleted();
     }
 }
