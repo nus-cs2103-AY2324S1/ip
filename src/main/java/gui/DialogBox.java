@@ -52,7 +52,9 @@ public class DialogBox extends HBox {
      * Creates a DialogBox form the user.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var ndb = new DialogBox(text, img);
+        ndb.setStyle("-fx-background-color: lightpink; -fx-background-radius: 20 20 20 20;");
+        return ndb;
     }
 
     /**
@@ -61,6 +63,7 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setStyle("-fx-background-color: lightblue; -fx-background-radius: 20 20 20 20;");
         return db;
     }
 }
