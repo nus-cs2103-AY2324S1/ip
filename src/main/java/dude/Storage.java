@@ -34,19 +34,19 @@ public class Storage {
     }
 
     /**
-     * Create new empty save file at SAVE_FILE_PATH if it does not already exist.
+     * Creates new empty save file at SAVE_FILE_PATH if it does not already exist.
      *
      * @throws SaveFileException If file cannot be created.
      */
     public void createSaveFile() throws SaveFileException {
         File saveFile = new File(filePath);
         File parent = saveFile.getParentFile();
-        // check & create parent dir(s)
+        // check parent dir(s) & create if not already present
         if (parent != null && !parent.exists()) {
             parent.mkdirs();
         }
         try {
-            // create save file
+            // create save file if not already present
             saveFile.createNewFile();
         } catch (IOException e) {
             throw new SaveFileException("Error creating save file: " + e.getMessage());
@@ -98,10 +98,13 @@ public class Storage {
      * @throws SaveFileException If there is an error saving the file.
      */
     public void save(ArrayList<Task> tasks) throws SaveFileException {
+        // generate text data from tasks list
         StringBuilder s = new StringBuilder();
         for (int i = 1; i <= tasks.size(); i++) {
             s.append(tasks.get(i - 1).toData());
         }
+
+        // write text data to file
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write(s.toString());

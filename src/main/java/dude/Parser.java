@@ -40,6 +40,7 @@ public class Parser {
      * @throws InvalidDateTimeArgumentException If datetime cannot be parsed from the string.
      */
     public static LocalDateTime parseDateTime(String dateTimeString) throws InvalidDateTimeArgumentException {
+        // expected format: dd/MM/yyyy hh:mm
         String[] splitDateTime = dateTimeString.split(" ", 2);
         try {
             String dateString = splitDateTime[0];
@@ -68,18 +69,15 @@ public class Parser {
     public static int parseTaskIndex(String input) throws InvalidTaskIndexException, TaskIndexMissingException {
         String[] splitInput = input.split(" ", 3);
         if (splitInput.length < 2) {
+            // task number not specified
             throw new TaskIndexMissingException();
-        } else {
-            String specifiedTask = splitInput[1];
-            try {
-                return Integer.parseInt(specifiedTask);
-            } catch (IndexOutOfBoundsException e) {
-                // task number not specified
-                throw new TaskIndexMissingException();
-            } catch (NumberFormatException e) {
-                // cannot parse number from input
-                throw new InvalidTaskIndexException(specifiedTask);
-            }
+        }
+        String specifiedTask = splitInput[1];
+        try {
+            return Integer.parseInt(specifiedTask);
+        } catch (NumberFormatException e) {
+            // cannot parse number from input
+            throw new InvalidTaskIndexException(specifiedTask);
         }
     }
 
@@ -99,7 +97,6 @@ public class Parser {
         String description = splitInput[1].trim();
         Task task = new ToDoTask(description);
         return new AddTaskCommand(task);
-
     }
 
     /**
@@ -124,6 +121,8 @@ public class Parser {
             // deadline not specified
             throw new TaskDeadlineMissingException();
         }
+
+        // convert command segments into data
         String description = splitDeadline[0].trim();
         String deadlineArg = splitDeadline[1].trim();
         LocalDateTime deadline = parseDateTime(deadlineArg);
@@ -158,6 +157,8 @@ public class Parser {
             // end date not specified
             throw new EventEndMissingException();
         }
+
+        // convert command segments into data
         String description = splitStart[0].trim();
         String startArg = splitEnd[0].trim();
         LocalDateTime start = parseDateTime(startArg);
@@ -220,6 +221,7 @@ public class Parser {
             case find:
                 return parseFind(input);
             default:
+                // command not implemented
                 throw new InvalidCommandException();
             }
         } catch (IllegalArgumentException e) {

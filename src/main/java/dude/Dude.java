@@ -8,10 +8,6 @@ import dude.task.TaskList;
  * Dude (Duke, but renamed).
  */
 public class Dude {
-    private String filePath;
-    private Storage storage;
-    private TaskList tasks;
-
     private static final String LOGO =
             " _|    _| _    O\n" +
                     "(_||_|(_|(/_  /İ\\\n" +
@@ -19,6 +15,9 @@ public class Dude {
     private static final String HELLO_MSG = LOGO +
             "Hello! I'm dude.\n" +
             "What can I do for you?";
+    private final String filePath;
+    private Storage storage;
+    private TaskList tasks;
 
     /**
      * Constructor for Dude.
@@ -32,7 +31,6 @@ public class Dude {
     /**
      * Initializes Dude.
      *
-     * @throws DudeException If there is an error starting Dude.
      * @return Output to send to chat.
      */
     public String initialize() {

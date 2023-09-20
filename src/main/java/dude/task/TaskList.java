@@ -34,7 +34,7 @@ public class TaskList {
     }
 
     /**
-     * Add task to tasks list.
+     * Adds task to tasks list.
      *
      * @param task Task to add.
      */
@@ -43,7 +43,7 @@ public class TaskList {
     }
 
     /**
-     * Remove task from tasks list.
+     * Removes task from tasks list.
      *
      * @param index 1-based index of task to remove.
      * @return Removed task.
@@ -58,7 +58,7 @@ public class TaskList {
     }
 
     /**
-     * Get number of tasks.
+     * Gets number of tasks.
      *
      * @return Number of tasks.
      */
@@ -67,7 +67,7 @@ public class TaskList {
     }
 
     /**
-     * Get task from list.
+     * Gets task from list.
      *
      * @param index 1-based index of task to get.
      * @throws InvalidTaskIndexException If task number does not exist.
@@ -105,6 +105,7 @@ public class TaskList {
      * @return String list of tasks with given keyword.
      */
     public String displaySearch(String substring) {
+        // filter list of tasks and adds matching tasks to string list
         StringBuilder tasksList = new StringBuilder(SEARCH_RESULTS_PREFIX);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -116,6 +117,8 @@ public class TaskList {
                 tasksList.append(taskStr);
             }
         }
+
+        // check if any tasks found
         if (tasksList.toString().equals(SEARCH_RESULTS_PREFIX)) {
             return String.format(NO_SEARCH_RESULTS_MSG, substring);
         } else {
@@ -133,12 +136,13 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return emptyTaskList;
         }
+
         StringBuilder tasksList = new StringBuilder(taskListPrefix);
         for (int i = 0; i < tasks.size(); i++) {
             String taskNumberPrefix = String.format("%3s-", i + 1);
             Task task = tasks.get(i);
             assert task != null : "Task should not be null.";
-            String taskStr = taskNumberPrefix + task.toString() + "\n";
+            String taskStr = taskNumberPrefix + task + "\n";
             tasksList.append(taskStr);
         }
         return tasksList.toString();

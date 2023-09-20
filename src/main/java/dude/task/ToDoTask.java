@@ -38,14 +38,16 @@ public class ToDoTask extends Task {
        completed: 1, incomplete: 0
        todo: T || 1/0 || description
      */
+        // read sections from text
         String[] splitData = data.split(DELIMITER_REGEX, 3);
-
         if (splitData.length < 3) {
             throw new InvalidTaskDataException();
         }
         String taskType = splitData[0];
         String taskCompleted = splitData[1];
         String taskDescription = splitData[2];
+
+        // convert text to properties
         if (!taskCompleted.equals("1") && !taskCompleted.equals("0")) {
             throw new InvalidTaskDataException();
         }
