@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group 'org.example'
@@ -8,6 +10,11 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+javafx {
+    version = "17.0.7"
+    modules = [ 'javafx.controls' ]
 }
 
 dependencies {
@@ -29,7 +36,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-
 test {
     useJUnitPlatform()
 }
@@ -37,6 +43,8 @@ test {
 shadowJar {
     archiveFileName = 'noel.jar'
     manifest {
-        attributes 'Main-Class': 'noelPackage.Noel'
+        attributes 'Main-Class': 'noelPackage.gui.Main'
     }
 }
+
+mainClassName = 'noelPackage.gui.Main'

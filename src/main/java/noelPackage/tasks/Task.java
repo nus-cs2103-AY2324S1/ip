@@ -65,32 +65,32 @@ public class Task {
         return "";
     }
 
-    private void markPrintHelper(String message) {
-        String filler = "____________________________________________________________";
-        System.out.println(filler);
-        System.out.println(message);
-        System.out.println(this);
-        System.out.println(filler);
+    private String markPrintHelper(String message) {
+        StringBuilder result = new StringBuilder();
+        result.append(message).append(this);
+        return result.toString();
     }
 
     /**
      * Marks the task as done
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
         if (!Noel.updateFromFile) {
-            markPrintHelper(" Nice! I've marked this task as done:");
+            return markPrintHelper(" Nice! I've marked this task as done:");
         }
+        return null;
     }
 
     /**
      * Marks the task as un-done
      */
-    public void markAsUnDone() {
+    public String markAsUnDone() {
         this.isDone = false;
         if (!Noel.updateFromFile) {
-            markPrintHelper(" OK, I've marked this task as not done yet:");
+            return markPrintHelper(" OK, I've marked this task as not done yet:");
         }
+        return null;
     }
 
     public Boolean searchTaskName(String searchName) {

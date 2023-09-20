@@ -276,18 +276,18 @@ public class Tasklist {
     /**
      * Prints the current task list to the console.
      */
-    public void printTaskList(){
+    public String printTaskList(){
+        StringBuilder result = new StringBuilder("");
         if (checkEmpty()) {
-            System.out.println("List is empty!");
+            result.append("List is empty!");
         } else {
-            String filler = "____________________________________________________________";
-            System.out.println(filler);
+
             int maxLength = taskList.size();
             for (int i = 0; i < maxLength; i++) {
-                System.out.println(i + 1 + ". " + taskList.get(i));
+                result.append(i).append(1).append(". ").append(taskList.get(i)).append("\n");
             }
-            System.out.println(filler);
         }
+        return result.toString();
     }
 
     /**
@@ -306,8 +306,8 @@ public class Tasklist {
      * Marks a task as done.
      * @param index The index of the task to mark as done.
      */
-    public void markAsDone(int index) {
-        taskList.get(index).markAsDone();
+    public String markAsDone(int index) {
+        return taskList.get(index).markAsDone();
     }
 
     /**

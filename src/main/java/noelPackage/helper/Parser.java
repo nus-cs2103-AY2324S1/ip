@@ -4,14 +4,7 @@ import noelPackage.tasks.Task;
 
 public class Parser {
 
-    /**
-     * The task list to manipulate.
-     */
     private final Tasklist tasks;
-
-    /**
-     * The storage manager to persist tasks.
-     */
     private final Storage storage;
 
     /**
