@@ -1,8 +1,6 @@
 package nexus;
 
 import java.io.File;
-import java.util.Objects;
-import java.util.Scanner;
 
 import nexus.components.Parser;
 import nexus.components.Storage;
@@ -23,44 +21,12 @@ public class Nexus {
     private Ui ui;
 
     /**
-     * Create ChatBot from given data path.
-     *
-     * @param path String.
-     */
-    public Nexus(String path) {
-        this.storage = new Storage(path);
-        this.ui = new Ui();
-        this.list = new TaskList(storage.loadTasks());
-    }
-
-    /**
      * Create ChatBot from default data path.
      */
     public Nexus() {
         this.storage = new Storage(FILEPATH);
         this.ui = new Ui();
         this.list = new TaskList(storage.loadTasks());
-    }
-
-    /**
-     * Start the bot.
-     */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = scanner.nextLine();
-                String response = Parser.parseInput(ui, storage, this.list, input);
-                if (Objects.equals(response, "bye")) {
-                    isExit = true;
-                }
-            } catch (InvalidInputException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        scanner.close();
-        System.out.println(ui.showBye());
     }
 
     /**
@@ -77,9 +43,4 @@ public class Nexus {
     public String greetUser() {
         return ui.showWelcome();
     }
-
-    public static void main(String[] args) {
-        new Nexus(FILEPATH).run();
-    }
 }
-
