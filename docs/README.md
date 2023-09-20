@@ -15,7 +15,11 @@ Deleting tasks away from Meowbot
 
 ### Listing tasks with date marked
 
-Shows the tasks as well as the deadlines you set for them :+1:
+Shows the tasks as well as the deadlines you set for them 
+
+### Finding tasks from keyword
+
+MeowBot can also find tasks from a specified keyword!
 
 ## Usage
 
