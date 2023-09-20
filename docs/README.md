@@ -7,7 +7,7 @@ CringeBot is a basic CLI-style task manager that helps you keep track of your ta
 3. Copy the file to the folder you want to use as the home folder for your CringeBot.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](Ui.png)
 5. Type the command in the command box and press Enter to execute it. Some examples you can try:
      * `todo read book` : Adds a todo task named `read book` to the task list.
      * `list` : Lists all tasks.
