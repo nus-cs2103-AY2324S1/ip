@@ -38,6 +38,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Used for testing
+     */
+    public void reset() {
+        tasks = new TaskList();
+    }
+
     public String getResponse(String command) {
         try {
             Command c = Parser.parseCommand(command);
