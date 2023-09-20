@@ -54,7 +54,7 @@ public class Deadline extends Task {
     }
 
     private static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
-        int i = desc.indexOf("/by");
+         int i = desc.indexOf("/by");
         if (i == -1) {
             throw new IllegalArgumentException(
                     "Whoops, you forgot to indicate the deadline by using \"/by *insert deadline*\"");

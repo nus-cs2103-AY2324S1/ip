@@ -2,7 +2,6 @@ package pardiyem.command;
 
 import pardiyem.storage.Storage;
 import pardiyem.task.TaskList;
-import pardiyem.ui.Ui;
 
 public class ListCommand extends Command {
     /**
@@ -30,10 +29,9 @@ public class ListCommand extends Command {
 
     /**
      * Inherited method to execute a command.
-     * Will show the full tasklist to the user
+     * Will show the full taskList to the user
      *
      * @param taskList the TaskList object to modify
-     * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
     public String execute(TaskList taskList, Storage storage) {
