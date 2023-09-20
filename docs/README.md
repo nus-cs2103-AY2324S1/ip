@@ -1,7 +1,7 @@
 # ToDoIst User Guide
 
 TodoIst is a desktop app for managing your tasks. 
-
+![Ui.png](Ui.png)
 _Keep track of your tasks using ToDoIst!_
 
 ## Features
