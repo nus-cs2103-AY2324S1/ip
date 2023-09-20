@@ -1,9 +1,9 @@
 package duke;
-
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * The Duke class represents a simple chatbot application that helps manage tasks.
@@ -11,45 +11,79 @@ import java.util.List;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
-    private String filePath;
-
     /**
      * Constructs a new Duke chatbot instance with a specified file path for data storage.
-     *
-     * @param filePath The file path to load and save task data.
      */
-    public Duke(String filePath) {
-        ui = new Ui();
-        this.filePath = filePath;
-        storage = new Storage(filePath);
+    public Duke() {
+        storage = new Storage("./data/duke.txt");
         try {
+            // Initialize the tasks by loading data from storage.
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            Ui.showLoadingError(e);
+            // If there's an error loading tasks, create a new empty task list.
             List<Task> newTaskList = new ArrayList<>();
             tasks = new TaskList(newTaskList);
         }
     }
 
     /**
+     * Gets the storage instance.
+     *
+     * @return The storage instance.
+     */
+    public Storage getStorage() {
+        return this.storage;
+    }
+
+    /**
+     * Gets the task list.
+     *
+     * @return The task list.
+     */
+    public TaskList getTasks() {
+        return this.tasks;
+    }
+
+    /**
+     * Generates a response to user input.
+     *
+     * @param input The user's input.
+     * @return A response generated based on the user's input.
+     */
+    public String getResponse(String input) {
+        String result = "";
+        try {
+            // Parse the user's input and update the result and storage accordingly.
+            result += Parser.parseCommand(input, tasks);
+            storage.writeLine(tasks);
+        } catch (DukeException e) {
+            Ui.showLoadingError(e);
+        }
+        return result;
+    }
+
+    /**
      * Runs the Duke chatbot.
      */
     public void run() {
-        ui.showWelcomeMessage();
-        String command = ui.readCommand();
-        while (!Parser.isExitCommand(command)) {
+        Ui.showWelcomeMessage();
+        Scanner scanner = new Scanner(System.in);
+        String command = scanner.nextLine();
+        while (!command.equals("bye")) {
+            Ui.showLine();
+            String result = Parser.parseCommand(command, tasks);
+            Ui.showMessage(result);
             try {
-                Parser.parseCommand(command, filePath, tasks);
+                storage.writeLine(tasks);
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+                Ui.showError(e.getMessage());
             }
-            command = ui.readCommand();
+            Ui.showLine();
+            command = scanner.nextLine();
         }
-        ui.showByeMessage();
-        ui.closeScanner();
+        Ui.showByeMessage();
+        scanner.close();
     }
 
     /**
@@ -58,6 +92,6 @@ public class Duke {
      * @param args Command-line arguments (unused).
      */
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke().run();
     }
 }
