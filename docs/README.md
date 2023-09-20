@@ -86,6 +86,17 @@ Example of usage:
 
 `delete 1`
 
+### `find` - find a task with a keyword
+
+Shows all tasks that includes the keyword
+
+Format of command:  
+`find (keyword)`
+
+Example of usage:
+
+`find book`
+
 
 ### `list` - view all tasks
 
