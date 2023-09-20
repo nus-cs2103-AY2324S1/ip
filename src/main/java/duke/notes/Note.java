@@ -14,6 +14,6 @@ public class Note {
     }
     @Override
     public String toString() {
-        return "/NOTE" + text;
+        return "note " + text;
     }
 }
