@@ -39,8 +39,12 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    public void setKevin(Kevin d) {
-        kevin = d;
+    /**
+     * Set Kevin to the correct object.
+     * @param k This is the Kevin object.
+     */
+    public void setKevin(Kevin k) {
+        kevin = k;
     }
 
     /**

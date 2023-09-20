@@ -60,7 +60,7 @@ public class FileStorage {
     }
 
     /**
-     * Delete a specific line.
+     * Deletes a specific line.
      * @param index This is the line number to be deleted.
      * @throws KevinException On the detection of errors.
      */

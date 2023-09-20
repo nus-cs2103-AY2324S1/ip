@@ -1,9 +1,10 @@
 package kevin.tasklist;
 
-import kevin.exception.KevinException;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import kevin.exception.KevinException;
+
 
 /**
  * A class where Kevin stores the list of Task and the actions done to the tasks based on the command.
@@ -105,7 +106,7 @@ public class TaskList {
     }
 
     /**
-     * Delete the task according the index given to be done.
+     * Deletes the task according the index given to be done.
      * @param deleteIndex This is the index of the task in the TaskList to be deleted.
      * @return Returns the deleted Task.
      */
