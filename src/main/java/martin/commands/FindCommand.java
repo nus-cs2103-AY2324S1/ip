@@ -1,5 +1,6 @@
 package martin.commands;
 
+import martin.exceptions.NoTaskFoundException;
 import martin.task.Task;
 
 import java.util.ArrayList;
@@ -27,9 +28,10 @@ public class FindCommand implements Command {
      * Finds tasks that match the given keyword.
      *
      * @return A formatted string listing all the tasks that match the keyword.
+     * @throws NoTaskFoundException If no tasks match the keyword.
      */
     @Override
-    public String execute() {
+    public String execute() throws NoTaskFoundException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         String keyword = input.substring(5);
 
@@ -37,6 +39,10 @@ public class FindCommand implements Command {
             if (task.contains(keyword)) {
                 matchingTasks.add(task);
             }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            throw new NoTaskFoundException("No tasks found that match the keyword: " + keyword);
         }
 
         StringBuilder result = new StringBuilder();
@@ -47,4 +53,3 @@ public class FindCommand implements Command {
         return result.toString().trim();
     }
 }
-
