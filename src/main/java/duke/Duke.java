@@ -70,7 +70,7 @@ public class Duke {
         try {
             assert !tasks.equals(null) : "Tasks should not be null";
             String output = Parser.parseInput(userInput, this.tasks, this.ui);
-            storage.writefile(this.tasks);
+            storage.saveData(this.tasks);
             return output;
         } catch (DukeException e) {
             return e.getMessage();

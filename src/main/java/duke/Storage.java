@@ -34,10 +34,10 @@ public class Storage {
      * @param tasks the updated task list.
      * @throws IOException if there is issue writing into file.
      */
-    public void writefile(TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter(this.filepath);
-        fw.write(tasks.toFileString());
-        fw.close();
+    public void saveData(TaskList tasks) throws IOException {
+        FileWriter fileWriter = new FileWriter(this.filepath);
+        fileWriter.write(tasks.toFileFormat());
+        fileWriter.close();
     }
 
     /**
@@ -65,8 +65,8 @@ public class Storage {
                 taskList.add(loadData(item));
             }
         } catch (FileNotFoundException e) {
-            File dir = new File(filepath + "/../");
-            dir.mkdir();
+            File newFile = new File(filepath + "/../");
+            newFile.mkdir();
             file.createNewFile();
         }
 

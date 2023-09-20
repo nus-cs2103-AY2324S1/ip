@@ -261,7 +261,7 @@ public class TaskList {
      *
      * @return The string representation of the task list in file format.
      */
-    public String toFileString() {
+    public String toFileFormat() {
         String taskList = "";
         for (int j = 0; j < this.tasks.size(); j++) {
             taskList += (this.tasks.get(j).toFileFormat() + "\n");

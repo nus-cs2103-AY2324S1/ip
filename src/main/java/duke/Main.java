@@ -20,7 +20,7 @@ public class Main extends Application {
      * @param stage the primary stage for this application, onto which
      */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         try {
             this.duke = new Duke();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));

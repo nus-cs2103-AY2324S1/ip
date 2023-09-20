@@ -65,7 +65,11 @@ public abstract class Task {
         return ("[" + getStatusIcon() + "] " + this.description);
     }
 
-
+    /**
+     * Returns a String repreentation of tasks in file format
+     *
+     * @return The String representation of the task to save in a file.
+     */
     public String toFileFormat() {
         return (" | " + getFileStatusIcon() + " | " + this.description);
     }
