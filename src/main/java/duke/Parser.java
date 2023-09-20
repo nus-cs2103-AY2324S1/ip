@@ -63,6 +63,12 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! An error occurred while parsing your command.");
         }
     }
+    /**
+     * Returns the corresponding CommandType enum value for the given user input.
+     *
+     * @param userInput The user input.
+     * @return The corresponding CommandType enum value.
+     */
     private static CommandType getCommandType(String userInput) {
         userInput = userInput.trim().toLowerCase();
 
@@ -88,12 +94,22 @@ public class Parser {
             return CommandType.UNKNOWN;
         }
     }
-
+    /**
+     * Performs the corresponding actions for the exit command.
+     *
+     * @param taskList The list of tasks.
+     * @param storage The storage object.
+     */
     private static void handleExit(ArrayList<Task> taskList, Storage storage) {
         storage.saveTasksToFile(taskList);
         Platform.exit();
     }
-
+    /**
+     * Performs the corresponding actions for the list command.
+     *
+     * @param taskList The list of tasks.
+     * @param i The current index of tasks in the list.
+     */
     private static String handleList(ArrayList<Task> taskList, int i) {
         String finalText = "";
         if (taskList.isEmpty()) {
@@ -106,7 +122,12 @@ public class Parser {
         }
         return finalText;
     }
-
+    /**
+     * Performs the corresponding actions for the mark command.
+     *
+     * @param taskList The list of tasks.
+     * @param instructionDetails The details of the instruction.
+     */
     private static String handleMark(ArrayList<Task> taskList, String instructionDetails) {
         String finalText = "";
         Task curr = taskList.get(Integer.parseInt(instructionDetails) - 1);
@@ -114,7 +135,12 @@ public class Parser {
         finalText = "Nice! I've marked this task as done: \n" + "[X] " + curr.getDescription();
         return finalText;
     }
-
+    /**
+     * Performs the corresponding actions for the unmark command.
+     *
+     * @param taskList The list of tasks.
+     * @param instructionDetails The details of the instruction.
+     */
     private static String handleUnmark(ArrayList<Task> taskList, String instructionDetails) {
         String finalText = "";
         Task curr = taskList.get(Integer.parseInt(instructionDetails) - 1);
@@ -122,7 +148,13 @@ public class Parser {
         finalText = "OK, I've marked this task as not done yet: \n" + "[ ] " + curr.getDescription();
         return finalText;
     }
-
+    /**
+     * Performs the corresponding actions for the delete command.
+     *
+     * @param taskList The list of tasks.
+     * @param instructionDetails The details of the instruction.
+     * @param i The current index of tasks in the list.
+     */
     private static String handleDelete(ArrayList<Task> taskList, String instructionDetails, int i) {
         String finalText = "";
         Task curr = taskList.get(Integer.parseInt(instructionDetails) - 1);
@@ -133,6 +165,13 @@ public class Parser {
         finalText += "\nNow you have " + i + " tasks in the list.";
         return finalText;
     }
+    /**
+     * Performs the corresponding actions for the todo command.
+     *
+     * @param taskList The list of tasks.
+     * @param instructionDetails The details of the instruction.
+     * @param i The current index of tasks in the list.
+     */
     private static String handleTodo(ArrayList<Task> taskList, String instructionDetails, int i) throws
             DukeException {
         String finalText = "";
@@ -151,6 +190,13 @@ public class Parser {
         finalText += "\nNow you have " + i + " tasks in the list.";
         return finalText;
     }
+    /**
+     * Performs the corresponding actions for the deadline command.
+     *
+     * @param taskList The list of tasks.
+     * @param instructionDetails The details of the instruction.
+     * @param i The current index of tasks in the list.
+     */
     private static String handleDeadline(ArrayList<Task> taskList, String instructionDetails, int i) throws
             DukeException {
         String finalText = "";
@@ -171,7 +217,13 @@ public class Parser {
         finalText += "\nNow you have " + i + " tasks in the list.";
         return finalText;
     }
-
+    /**
+     * Performs the corresponding actions for the event command.
+     *
+     * @param taskList The list of tasks.
+     * @param instructionDetails The details of the instruction.
+     * @param i The current index of tasks in the list.
+     */
     private static String handleEvent(ArrayList<Task> taskList, String instructionDetails, int i) throws
             DukeException {
         String finalText = "";
@@ -190,7 +242,12 @@ public class Parser {
         finalText += "\nNow you have " + i + " tasks in the list.";
         return finalText;
     }
-
+    /**
+     * Performs the corresponding actions for the search command.
+     *
+     * @param taskList The list of tasks.
+     * @param instructionDetails The details of the instruction.
+     */
     private static String handleSearch(ArrayList<Task> taskList, String instructionDetails) {
         String finalText = "";
         String searchTerm = instructionDetails;

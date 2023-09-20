@@ -73,6 +73,11 @@ public class DialogBox extends HBox {
      * A launcher class to workaround classpath issues.
      */
     public static class Launcher {
+        /**
+         * Launches the application.
+         *
+         * @param args The command-line arguments.
+         */
         public static void main(String[] args) {
             Application.launch(Main.class, args);
         }
