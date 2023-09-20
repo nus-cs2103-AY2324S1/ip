@@ -27,7 +27,6 @@ public class Storage {
         this.filePath = filePath;
         try {
             File file = new File(filePath);
-            assert file != null : "File object cannot be null."; // Assumption: File should not be null
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();

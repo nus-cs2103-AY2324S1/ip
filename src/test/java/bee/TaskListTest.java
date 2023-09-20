@@ -21,7 +21,7 @@ public class TaskListTest {
 
     @Test
     public void addTaskTest() {
-        TaskList tasks = new TaskList(new ArrayList<>(0), new Storage(""));
+        TaskList tasks = new TaskList(new ArrayList<>(0), new Storage("/"));
         try {
             tasks.createTask(Parser.TaskClass.TODO, "return books");
         } catch (BeeException e) {
@@ -32,7 +32,7 @@ public class TaskListTest {
     }
     @Test
     public void deleteTaskTest() {
-        TaskList tasks = new TaskList(new ArrayList<>(0), new Storage(""));
+        TaskList tasks = new TaskList(new ArrayList<>(0), new Storage("/"));
         try {
             tasks.createTask(Parser.TaskClass.TODO, "return books");
         } catch (BeeException e) {
