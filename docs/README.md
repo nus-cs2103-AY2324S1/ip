@@ -2,7 +2,7 @@
 
 Welcome to **Todoify** - a simple CLI task tracking desktop app.
 
-![Todoify Screenshot](Ui.png)
+![Todoify Screenshot](Ui.png ':size=400')
 
 Todoify is easy to use for users with experience of the CLI. It:
 - has a chatbot-like interface
@@ -49,6 +49,41 @@ This evaluates:
 
 #### Miscellaneous
 - In help sheets, when a command format description contains stuff in `<>`, it refers to an inline explanatory description that should be replaced with actual command info.
+
+### Launch Modes
+
+For very advanced users, you can launch Todoify in both **GUI** and **TUI** modes. While the former requires a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), the latter can operate on headless systems like a server or a [headless Raspberry Pi](https://learn.sparkfun.com/tutorials/headless-raspberry-pi-setup/all).
+
+**To launch in GUI mode**, either:
+
+- Navigate to where the JAR file is stored in your file manager, then double-click the JAR file.
+- Navigate to the directory of the JAR file in your terminal via `cd`, then run: `java -jar todoify-v1.0.jar`.
+- You will see the following:
+    ![Todoify Screenshot](first-launch.png ':size=400')
+
+**To launch in TUI mode**, navigate to the directory of the JAR file in your terminal, then run:
+
+- `java -jar todoify-v1.0.jar --text-ui`, or
+- `java -jar todoify-v1.0.jar -t` as a shortcut.
+- You will see the following:
+    ```shell
+    $ java -jar todoify-v1.0.jar -t
+    [Todoify]:
+      Hello! I'm Todoify, your friendly task helper.
+
+    [Todoify]:
+      You have no tasks right now! :)
+
+    [Todoify]:
+      What can I do for you?
+
+    [You]:
+     >
+    ```
+
+?> Note that you might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
+
+## Commands
 
 ### Viewing Help: `help`, `tutorial`
 
@@ -182,22 +217,6 @@ It has two distinct behaviours depending on your [Launch Mode](#launch-modes):
 
 - In the **GUI**, this halts further input. It does not close the app, so you can refer to a read-only transcript of your conversation. To restart, you must close and reopen the app.
 - In the **TUI**, this exits the program. You can use your terminal scrollback if you need to refer to the transcript.
-
-### Launch Modes
-
-For very advanced users, you can launch Todoify in both **GUI** and **TUI** modes. While the former requires a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), the latter can operate on headless systems like a server or a [headless Raspberry Pi](https://learn.sparkfun.com/tutorials/headless-raspberry-pi-setup/all).
-
-**To launch in GUI mode**, either:
-
-- Navigate to where the JAR file is stored in your file manager, then double-click the JAR file.
-- Navigate to the directory of the JAR file in your terminal, then run: `java -jar todoify-v1.0.jar`.
-
-**To launch in TUI mode**, navigate to the directory of the JAR file in your terminal, then run:
-
-- `java -jar todoify-v1.0.jar --text-ui`, or
-- `java -jar todoify-v1.0.jar -t` as a shortcut.
-
-?> Note that you might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
 
 ## Command Summary
 

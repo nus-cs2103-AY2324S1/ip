@@ -19,7 +19,7 @@ Prerequisites: JDK 11, update IntelliJ to the most recent version.
 
    - GUI
 
-      ![](docs/Ui.png)
+      ![](docs/first-launch.png)
 
    - TUI
    
@@ -28,7 +28,7 @@ Prerequisites: JDK 11, update IntelliJ to the most recent version.
         Hello! I'm Todoify, your friendly task helper.
 
       [Todoify]:
-        You've 5 tasks in your list right now! :)
+        You have no tasks right now! :)
 
       [Todoify]:
         What can I do for you?
