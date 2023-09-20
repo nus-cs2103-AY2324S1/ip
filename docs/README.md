@@ -188,4 +188,4 @@ Expected outcome:
 
 `Bye! Hope to see you again.`
 
-Now you're ready to make the most of Anya and efficiently manage your tasks. Enjoy using the chatbot!
+### Now you're ready to make the most of Anya and efficiently manage your tasks. Enjoy using the chatbot!
