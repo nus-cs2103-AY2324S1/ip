@@ -20,7 +20,6 @@ via a graphical interface.
 - [Command summary](#command-summary-anchor)
 
 
----
 ## Quick start <a id="quick-start-anchor"></a>
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -43,7 +42,7 @@ Some example commands you can try:
 
 Refer to the Features below for details of each command.
 
----
+
 ## Features <a id="features-anchor"></a>
 
 >ℹ️ Notes about the command format:
@@ -169,18 +168,19 @@ Advanced users are welcome to update data directly by editing that data file.
 >❗️Caution: If your changes to the data file makes its format invalid, Jeoe 
 > will discard all data and start with an empty data file at the next run. 
 > Hence, it is recommended to take a backup of the file before editing it.
----
+
+
 ## FAQ <a id="faq-anchor"></a>
 Q: How do I transfer my data to another Computer?
 A: Install the app in the other computer and overwrite the empty data
 file it creates with the file that contains the data of your previous 
 Jeoe chatbot home folder.
 
----
+
 ## Known issues <a id="known-issues-anchor"></a>
 1. when executing the bye command, the GUI seems to abruptly close without printing anything as a reply. This is perfectly normal and the closing of the window signifies the end of the program
 
----
+
 ## Command summary <a id="command-summary-anchor"></a>
 | Action       | Format, Examples                                                                      |
 |--------------|---------------------------------------------------------------------------------------|
