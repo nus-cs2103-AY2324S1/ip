@@ -44,7 +44,7 @@ public class Ui {
      * @return
      */
     public String showAddTask(Task task, int tasksSize) {
-        return "Got it. I've added this task:\n" +
+        return "OOGA BOOGA!!! I've added this task:\n" +
                 task +
                 "\nNow you have " + tasksSize + " tasks in the list.\n";
     }
