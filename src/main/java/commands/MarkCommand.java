@@ -6,6 +6,9 @@ import duke.Ui;
 
 import java.io.IOException;
 
+/**
+ * MarkCommand class for the command that asks to mark a task as done
+ */
 public class MarkCommand extends Command {
 
     private int indexToMark;

@@ -7,6 +7,9 @@ import duke.Ui;
 
 import java.io.IOException;
 
+/**
+ * DeleteCommand class for the command that asks to delete a task
+ */
 public class DeleteCommand extends Command {
 
     private int indexToDelete;

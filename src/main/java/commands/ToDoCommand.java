@@ -8,6 +8,9 @@ import duke.ToDo;
 
 import java.io.IOException;
 
+/**
+ * ToDoCommand class for the command that asks to create a new todo.
+ */
 public class ToDoCommand extends Command {
 
     private Task toDoToAdd;

@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * RescheduleCommand task for command that asks to reschedule an event
+ */
 public class RescheduleCommand extends Command {
 
     private int indexToReschedule;
