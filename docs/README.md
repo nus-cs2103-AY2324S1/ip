@@ -126,8 +126,10 @@ Example:
 
 `list sortBy description asc`
 
+`list sortBy description desc`
+
 Expected outcome:
-All tasks are shown in alphabetical order.
+All tasks are shown in ascending or descending alphabetical order.
 
 ### `bye` - Exiting the Program
 
