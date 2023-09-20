@@ -9,6 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Controller for duke.ui.MainWindow. Provides the layout for the other controls.
  */
@@ -66,5 +71,15 @@ public class MainWindow extends AnchorPane {
                 dukeDialog
         );
         userInput.clear();
+        boolean isGoodbye = input.toLowerCase().equals("bye");
+        if (isGoodbye) {
+            exitDukeAfterDelay(1);
+        }
+    }
+
+    private void exitDukeAfterDelay(int numSeconds) {
+        this.duke.goodbye();
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.schedule(() -> System.exit(0), numSeconds, TimeUnit.SECONDS);
     }
 }

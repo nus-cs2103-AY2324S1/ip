@@ -37,6 +37,8 @@ public class Parser {
                 output.append(handleDelete(input, taskList));
             } else if (input.startsWith("find")) {
                 output.append(handleFind(input, taskList));
+            } else if (input.startsWith("bye")) {
+                output.append("Goodbye");
             } else {
                 throw new UnknownCommandException();
             }

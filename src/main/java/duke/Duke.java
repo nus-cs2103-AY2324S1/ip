@@ -35,6 +35,13 @@ public class Duke {
     }
 
     /**
+     * Returns the goodbye message.
+     */
+    public String goodbye() {
+        return Ui.getGoodbyeMessage();
+    }
+
+    /**
      * Returns the bot's response to the GUI.
      * @param input the user's input
      * @return the bot's response
