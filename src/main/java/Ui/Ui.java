@@ -168,10 +168,10 @@ public class Ui {
     public String showStatistics(Statistics statistics) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the task statistics:\n");
-        output.append("Tasks completed last week: " + statistics.getTasksCompletedThisWeek() + "\n");
+        output.append("Tasks completed this week: " + statistics.getTasksCompletedThisWeek() + "\n");
         output.append(String.format("%.2f%% completed this week\n", statistics.getPercentageCompletedThisWeek()));
         output.append("Total tasks completed: " + statistics.getTotalTasksCompleted() + "\n");
-        output.append(String.format("%.2f%% total completed\n", statistics.getPercentageTotalCompleted()));
+        output.append(String.format("%.2f%% total tasks completed\n", statistics.getPercentageTotalCompleted()));
         return output.toString();
     }
 }
