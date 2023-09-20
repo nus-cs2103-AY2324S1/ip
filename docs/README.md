@@ -133,4 +133,4 @@ Example:
 | **List**          | `list`                                                                                |
 | **Mark / Unmark** | `mark INDEX`<br/> `unmark INDEX`                                                      |
 | **Reminder**      | `reminder`                                                                            |
-| **Remind**        | `remind INDEX`                                                                         |
+| **Remind**        | `remind INDEX`                                                                        |
