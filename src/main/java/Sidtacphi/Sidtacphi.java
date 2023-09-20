@@ -18,9 +18,9 @@ public class Sidtacphi {
      * @param args
      */
     public static void main(String[] args) {
-        taskList = Storage.readJson(taskList);
+        taskList = Storage.readJson("./cache/tasks.json");
         startBot();
-        Storage.saveAsJson(taskList);
+        Storage.saveAsJson(taskList, "./cache/tasks.json");
         stopBot();
     }
 

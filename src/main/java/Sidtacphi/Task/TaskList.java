@@ -202,4 +202,29 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("\nSidtacphi: Removed \"" + task + "\".");
         System.out.println("Sidtacphi: You now have " + this.size() + " tasks in your list.");
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TaskList)) {
+            System.out.println("hi1");
+            return false;
+        }
+        TaskList taskList = (TaskList) obj;
+
+        if (taskList.size() != this.size()) {
+            System.out.println("hi2");
+            return false;
+        }
+
+        for (int i = 0; i < this.size(); i++) {
+            System.out.println("hi3");
+            if (!this.get(i).equals(taskList.get(i))) {
+                System.out.println("task1: " + this.get(i));
+                System.out.println("task2: " + taskList.get(i));
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

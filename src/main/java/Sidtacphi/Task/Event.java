@@ -2,6 +2,7 @@ package Sidtacphi.Task;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -22,6 +23,14 @@ public class Event extends Task {
         super(name);
         this.start = start;
         this.end = end;
+    }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+    public LocalDate getEnd() {
+        return end;
     }
 
     /**
@@ -46,5 +55,15 @@ public class Event extends Task {
         jsonGenerator.writeStringField("start", start.toString());
         jsonGenerator.writeStringField("end", end.toString());
         jsonGenerator.writeEndObject();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        } 
+        Event task = (Event) obj;
+        return Objects.equals(task.getName(), super.getName()) && task.isCompleted() == super.isCompleted() 
+                && Objects.equals(task.getStart(), start) && Objects.equals(task.getEnd(), end);
     }
 }

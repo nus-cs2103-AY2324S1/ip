@@ -2,6 +2,7 @@ package Sidtacphi.Task;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -20,6 +21,10 @@ public class Deadline extends Task {
     public Deadline(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
     }
 
     /**
@@ -43,5 +48,15 @@ public class Deadline extends Task {
         jsonGenerator.writeBooleanField("isCompleted", super.isCompleted());
         jsonGenerator.writeStringField("deadline", deadline.toString());
         jsonGenerator.writeEndObject();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Deadline)) {
+            return false;
+        } 
+        Deadline task = (Deadline) obj;
+        return Objects.equals(task.getName(), super.getName()) && task.isCompleted() == super.isCompleted() 
+                && Objects.equals(deadline, task.getDeadline());
     }
 }
