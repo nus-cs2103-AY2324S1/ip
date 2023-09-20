@@ -71,7 +71,7 @@ public class Duke {
     }
 
     /**
-     * Greets and calls run and finally says goodbye.
+     * Runs the duke chatbot.
      *
      * @param args Not used currently.
      */
