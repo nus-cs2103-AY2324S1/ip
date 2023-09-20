@@ -72,7 +72,7 @@ public class Storage {
                 // else do nothing, specifying that the task is invalid.
                 System.out.println("The task " + line + " is invalid and is ignored!");
             }
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | DukeException e) {
             // do nothing, specifying that the task is invalid.
             System.out.println("The task " + line + " is invalid and is ignored!");
         }
