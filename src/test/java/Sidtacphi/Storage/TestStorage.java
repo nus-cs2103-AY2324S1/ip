@@ -26,21 +26,24 @@ public class TestStorage {
             TaskList taskList = new TaskList();
             taskList.addTask(TaskType.DEADLINE, "deadline return book /by 2023-06-01");
             Storage.saveAsJson(taskList, "./src/test/java/Sidtacphi/Storage/tasks-temp.json");
+
             Stream<String> stream = Files.lines(path, StandardCharsets.UTF_8);
             stream.forEach(s -> contentBuilder.append(s));
             savedJsonString = contentBuilder.toString();
+
             Files.deleteIfExists(path);
+
+            assertEquals("[{\"type\":\"deadline\",\"name\":\"return book\",\"isCompleted\":false,\"deadline\":\"2023-06-01\"}]",
+                savedJsonString);
         } catch (IOException ioException) {
             System.out.println(ioException);
+            System.out.println("Improperly written testSaveAsJson");
             assertEquals(0, 1);
         } catch (SidException sidException) {
             System.out.println(sidException);
+            System.out.println("Improperly written testSaveAsJson");
             assertEquals(0, 1);
         }
-
-        assertEquals("[{\"type\":\"deadline\",\"name\":\"return book\",\"isCompleted\":false,\"deadline\":\"2023-06-01\"}]",
-            savedJsonString);
-
     }
 
     @Test
@@ -51,14 +54,19 @@ public class TestStorage {
             TaskList taskList1 = new TaskList();
             taskList1.addTask(TaskType.DEADLINE, "deadline return book /by 2023-06-01");
             Storage.saveAsJson(taskList1, "./src/test/java/Sidtacphi/Storage/tasks-temp.json");
+            
             TaskList taskList2 = Storage.readJson("./src/test/java/Sidtacphi/Storage/tasks-temp.json");
+
             Files.deleteIfExists(path);
+
             assertEquals(taskList1, taskList2);
         } catch (IOException ioException) {
             System.out.println(ioException);
+            System.out.println("Improperly written testReadJson");
             assertEquals(0, 1);
         } catch (SidException sidException) {
             System.out.println(sidException);
+            System.out.println("Improperly written testReadJson");
             assertEquals(0, 1);
         }
     }
