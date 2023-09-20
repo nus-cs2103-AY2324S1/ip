@@ -32,14 +32,12 @@ public class CarbonBot {
     public CarbonBot(String filePath, MainWindow mainWindow) {
         this.ui = new Ui(mainWindow);
         this.storage = new Storage(filePath);
-
         try {
             this.tasks = storage.getTasks();
         } catch (CarbonStorageException | CarbonDataFileException ex) {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
         }
-
 
         this.ui.showGreetings();
     }

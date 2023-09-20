@@ -35,6 +35,8 @@ public class Storage {
      * @throws CarbonStorageException If an IO error is encountered while writing to the disk.
      */
     public void saveTasks(TaskList tasks) throws CarbonStorageException {
+        createFileIfNotExists();
+
         try {
             this.write(tasks.serialize());
         } catch (IOException | SecurityException ex) {
@@ -47,6 +49,8 @@ public class Storage {
      * @throws CarbonStorageException If an IO error is encountered while reading from the disk.
      */
     public TaskList getTasks() throws CarbonStorageException, CarbonDataFileException {
+        createFileIfNotExists();
+
         List<String> lines;
         try {
             lines = this.load();
@@ -100,20 +104,25 @@ public class Storage {
      * @throws IOException If the data could not be written to the file.
      */
     public void write(String data) throws IOException, SecurityException {
-        // Create the file, and its directories if it does not already exist
-        File file = new File(filePath);
-        if (!file.exists()) {
-            // Creates the required directories
-            file.getParentFile().mkdirs();
-            // Creates the specified file at the file path
-            file.createNewFile();
-            assert file.exists();
-        }
-
         // Writes the data to the file
         // FileWriter will be closed even if exception occurs during write()
-        try (FileWriter fw = new FileWriter(file)) {
+        try (FileWriter fw = new FileWriter(new File(filePath))) {
             fw.write(data);
+        }
+    }
+
+    private void createFileIfNotExists() throws CarbonStorageException {
+        // Create new file if it does not already exist
+        File file = new File(filePath);
+        if (file.exists()) {
+            return;
+        }
+        try {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            assert file.exists();
+        } catch (IOException ioe) {
+            throw new CarbonStorageException("Could not create new file at the specified location.");
         }
     }
 }
