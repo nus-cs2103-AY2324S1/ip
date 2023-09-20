@@ -40,7 +40,7 @@ Expected Output from GUI:
 ```
 Got it. I've added this task:
 [T][ ] Get a haircut
-Now you have x tasks in the list. _(x is for the total number of tasks in the list)_
+Now you have 1 task in the list. 
 ```
 
 ### `deadline` - Adds a deadline task to the task list. Has to be followed up with a String.
@@ -62,7 +62,7 @@ Expected Output from GUI:
 ```
 Got it. I've added this task:
 [D][ ] Submit CS2100 Assignment (by: Sep 10 2023)
-Now you have x tasks in the list. _(x is for the total number of tasks in the list)_
+Now you have 2 tasks in the list. 
 ```
 
 ### `event` - Adds an event task to the task list. Has to be followed up with a String.
@@ -85,7 +85,7 @@ Expected Output from GUI:
 ```
 Got it. I've added this task:
 [E][ ] Sheares Hall Marathon Training (from: Monday to: Wednesday)
-Now you have x tasks in the list. _(x is for the total number of tasks in the list)_
+Now you have 3 tasks in the list. 
 ```
 
 ### `list` - Lists out all tasks in the task list. Should not be followed up with anything.
