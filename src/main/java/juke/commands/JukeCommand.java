@@ -65,7 +65,7 @@ public abstract class JukeCommand extends JukeObject {
         case "list":
             return JukeCommand.list(args, taskList);
         case "bye":
-            return new JukeExitCommand();
+            return JukeCommand.exit(args);
         case "mark":
             return JukeCommand.mark(args, taskList);
         case "unmark":
@@ -95,13 +95,28 @@ public abstract class JukeCommand extends JukeObject {
      * @param taskList {@code TaskList} object which manages all tasks
      * @return {@code JukePrintCommand} object
      */
-    public static JukePrintCommand list(String[] args, TaskList taskList) {
+    private static JukePrintCommand list(String[] args, TaskList taskList) {
         if (args.length != 1) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your list command!",
                                                           "list");
         }
 
         return new JukePrintCommand(taskList);
+    }
+
+    /**
+     * Creates a {@code JukeExitCommand} object. Command will exit Juke.
+     *
+     * @param args Parsed arguments
+     * @return {@code JukeExitCommand} object
+     */
+    private static JukeExitCommand exit(String[] args) {
+        if (args.length != 1) {
+            throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your bye command!",
+                                                          "bye");
+        }
+
+        return new JukeExitCommand();
     }
 
     /**
