@@ -7,13 +7,22 @@ public class Parser {
     //return "" to continue without action, any other command to fit
     private String command;
     private String[] parsedStr;
+
+    /**
+     * Constructor for parser
+     */
+
+    public Parser() {
+        this.command = "";
+    }
+
     /**
      * Parse the fullCommand and get the type of the command
      * @param fullCommmand everything the user entered in a line
      * @return type of the command
      */
     public String parseCommand(String fullCommmand) {
-        String[] parsedStr = fullCommmand.split("\\s+");
+        parsedStr = fullCommmand.split("\\s+");
         this.parsedStr = parsedStr;
         if (parsedStr[0].equals("f")) {
             return processFind();
@@ -31,7 +40,7 @@ public class Parser {
             return processDeadline();
         } else if (parsedStr[0].equals("ev")) {
             return processEvent();
-        } else if (parsedStr[0].equals("dlt")) {
+        } else if (parsedStr[0].equals("dd")) {
             return processDelete();
         }
         return processInvalid();
@@ -145,7 +154,7 @@ public class Parser {
      */
     public Task parseToTask() {
         //rely on last method, last method must be called before this
-        assert (this.command.equals("todo"));
+        assert (this.command.length() > 0);
         if (this.command.equals("todo")) {
             return getTodo();
         } else if (command.equals("deadline")) {
