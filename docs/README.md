@@ -218,16 +218,16 @@ Anto data are saved automatically as a txt file `[JAR file location]/data/anto.t
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Anto home folder.
 
 ## Command summary
-| Action        | Format                                 | Example                                                               |
-|---------------|----------------------------------------|-----------------------------------------------------------------------|
-| list          | list                                   | list                                                                  |
-| todo          | todo NAME                              | todo Borrow book                                                      |
-| deadline      | deadline NAME /by DATETIME             | deadline Return book /by 15-05-2023 18:00                             |
-| event         | event NAME /from DATETIME /to DATETIME | event Book Review Meeting /from 20-06-2023 18:00 /to 20-06-2023 20:00 |    
-| mark          | mark INDEX                             | mark 3                                                                |
-| unmark        | unmark INDEX                           | unmark 3                                                              |
-| delete        | delete INDEX                           | delete 4                                                              |
-| find          | find KEYWORDS                          | find book                                                             |
-| view schedule | view schedule DATE                     | view schedule 20-09-2023                                              |
-| bye           | bye                                    | bye                                                                   |
+Action        | Format                                  | Example
+--------------|-----------------------------------------|-----------------------------------------------------------------------
+list          | list                                    | list
+todo          | todo NAME                               | todo Borrow book
+deadline      | deadline NAME /by DATETIME              | deadline Return book /by 15-05-2023 18:00
+event         | event NAME /from DATETIME /to DATETIME  | event Book Review Meeting /from 20-06-2023 18:00 /to 20-06-2023 20:00
+mark          | mark INDEX                              | mark 3
+unmark        | unmark INDEX                            | unmark 3
+delete        | delete INDEX                            | delete 4
+find          | find KEYWORDS                           | find book
+view schedule | view schedule DATE                      | view schedule 20-09-2023
+bye           | bye                                     | bye
 
