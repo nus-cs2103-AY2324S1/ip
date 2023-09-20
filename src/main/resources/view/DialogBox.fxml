@@ -4,13 +4,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="true" />
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true"  />
+        <StackPane>
+            <Label fx:id="dialog" text="Label" wrapText="true" />
+        </StackPane>
+        <ImageView fx:id="displayPicture" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true">
+            <clip>
+                <Circle radius="45.0" centerX="45.0" centerY="45.0" />
+            </clip>
+        </ImageView>
     </children>
     <padding>
-        <Insets bottom="20.0" left="10.0" right="10.0" top="15.0" />
+        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
     </padding>
+    <spacing>10.0</spacing>
 </fx:root>

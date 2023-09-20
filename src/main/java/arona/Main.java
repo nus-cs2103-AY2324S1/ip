@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Arona arona = new Arona("./src/main/java/arona/data/arona.txt");
+    private Arona arona = new Arona("/data/arona.txt");
 
     /**
      * The entry point for the JavaFX application.
@@ -34,6 +34,9 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+
+            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+
             fxmlLoader.<MainWindow>getController().setArona(arona);
             stage.show();
         } catch (IOException e) {

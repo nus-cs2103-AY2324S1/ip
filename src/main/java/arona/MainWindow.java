@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private Arona arona;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    private Image aronaImage = new Image(this.getClass().getResourceAsStream("/images/arona_Icon.png"));
+    private Image aronaImage = new Image(this.getClass().getResourceAsStream("/images/arona_icon.jpg"));
 
 
     /**
@@ -40,6 +40,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         DialogBox welcomeDialog = DialogBox.getAronaDialog("Hello! I'm Arona, your Virtual Assistant.", aronaImage);
+        welcomeDialog.setMessageType(DialogBox.MessageType.ARONA);
         dialogContainer.getChildren().add(welcomeDialog);
     }
 
@@ -71,11 +72,26 @@ public class MainWindow extends AnchorPane {
 
             return;
         }
-        String response = arona.getResponse(input);
+
+        // Add a 0.5-second delay before displaying Arona's response
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        userDialog.setMessageType(DialogBox.MessageType.USER);
+
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAronaDialog(response, aronaImage)
+                userDialog
         );
+
+        PauseTransition responseDelay = new PauseTransition(Duration.seconds(0.5));
+        responseDelay.setOnFinished(event -> {
+            String response = arona.getResponse(input);
+            DialogBox aronaDialog = DialogBox.getAronaDialog(response, aronaImage);
+
+            aronaDialog.setMessageType(DialogBox.MessageType.ARONA);
+            dialogContainer.getChildren().addAll(
+                    aronaDialog
+            );
+        });
         userInput.clear();
+        responseDelay.play();
     }
 }

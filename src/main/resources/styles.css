@@ -1,0 +1,19 @@
+/* User message style */
+.user-dialog-box {
+    -fx-background-color: #DCF8C6;
+    -fx-background-radius: 5;
+    -fx-border-color: #DCF8C6;
+    -fx-border-radius: 5;
+    -fx-padding: 8px;
+}
+
+/* Arona message style */
+.arona-dialog-box {
+    -fx-background-color: #ADD8E6;
+    -fx-background-radius: 5;
+    -fx-border-color: #ADD8E6;
+    -fx-border-radius: 5;
+    -fx-padding: 8px;
+}
+
+
