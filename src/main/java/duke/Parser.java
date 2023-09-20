@@ -100,20 +100,24 @@ public class Parser {
     protected Task parseTask(String input) throws TimeParsingException, CommandDetailException {
         String[] splitInput = input.split(" ", 2);
         String command = splitInput[0].toLowerCase();
-        //assert splitInput.length > 1 : "Command should have a command word";
 
         try {
             switch (command) {
             case "todo":
+                //assert splitInput.length == 2 : "ToDo should have a description";
                 return new ToDo(splitInput[1]);
             case "deadline": {
+                //assert splitInput.length == 2 : "Deadline should have a description";
                 String[] deadlineParts = splitInput[1].split(" /by ", 2);
+                //assert deadlineParts.length == 2 : "Deadline should have a time";
                 return new Deadline(deadlineParts[0], deadlineParts[1]);
             }
             case "event": {
                 String[] eventParts = splitInput[1].split(" /from ", 2);
+                //assert eventParts.length == 2 : "Event should have a time";
                 String eventName = eventParts[0];
                 String[] eventTimes = eventParts[1].split(" /to ", 2);
+                //assert eventTimes.length == 2 : "Event should have a start and end time";
                 return new Event(eventName, eventTimes[0], eventTimes[1]);
             }
             default:
