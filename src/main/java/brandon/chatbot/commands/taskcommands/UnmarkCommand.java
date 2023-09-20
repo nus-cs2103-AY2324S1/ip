@@ -1,7 +1,9 @@
-package brandon.chatbot.commands;
+package brandon.chatbot.commands.taskcommands;
 
 import java.io.IOException;
 
+import brandon.chatbot.commands.Command;
+import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.common.DukeIndexOutOfBoundsException;
 
 /**

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import brandon.chatbot.commands.Command;
-import brandon.chatbot.commands.UnknownCommand;
+import brandon.chatbot.commands.generalcommands.UnknownCommand;
 import brandon.chatbot.parser.Parser;
 public class ParseTest {
     @Test

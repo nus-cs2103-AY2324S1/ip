@@ -1,20 +1,16 @@
 package brandon.chatbot.parser;
 
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import brandon.chatbot.commands.AddDeadlineCommand;
-import brandon.chatbot.commands.AddEventCommand;
-import brandon.chatbot.commands.AddTodoCommand;
+import brandon.chatbot.commands.taskcommands.*;
+import brandon.chatbot.tag.Tag;
 import brandon.chatbot.commands.Command;
-import brandon.chatbot.commands.DeleteCommand;
-import brandon.chatbot.commands.ExitCommand;
-import brandon.chatbot.commands.FindCommand;
-import brandon.chatbot.commands.HelpCommand;
-import brandon.chatbot.commands.ListCommand;
-import brandon.chatbot.commands.MarkCommand;
-import brandon.chatbot.commands.UnknownCommand;
-import brandon.chatbot.commands.UnmarkCommand;
+import brandon.chatbot.commands.generalcommands.ExitCommand;
+import brandon.chatbot.commands.generalcommands.HelpCommand;
+import brandon.chatbot.commands.generalcommands.UnknownCommand;
 import brandon.chatbot.common.DukeException;
 
 /**
@@ -22,11 +18,21 @@ import brandon.chatbot.common.DukeException;
  */
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final Pattern TODO_FIND_ARGS_FORMAT = Pattern.compile("(?<name>.*)");
-    public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)/by(?<deadline>[^/]+)");
-    public static final Pattern EVENT_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)"
+    public static final Pattern TASK_FIND_ARGS_FORMAT = Pattern.compile("(?<title>[^#]+)?(?<tags>.*)");
+    public static final Pattern TODO_ARGS_FORMAT = Pattern.compile("(?<title>[^#]+)(?<tags>.*)");
+
+    public static final Pattern TAG_ARGS_FORMAT = Pattern.compile("(#(?<tag>[^#]+))");
+    public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile(
+            "(?<title>[^/]+)"
+            + "/by(?<deadline>[^#]+)"
+            + "(?<tags>.*)"
+    );
+    public static final Pattern EVENT_ARGS_FORMAT = Pattern.compile(
+            "(?<title>[^/]+)"
             + "/from(?<from>[^/]+)"
-            + "/to(?<to>[^/]+)");
+            + "/to(?<to>[^#]+)"
+            + "(?<tags>.*)"
+    );
 
     /**
      * Parses the user input string and returns a command according to it.
@@ -76,28 +82,54 @@ public class Parser {
      * @return the command that finds the task with the given name.
      */
     private Command prepareFind(String arg) {
-        final Matcher matcher = TODO_FIND_ARGS_FORMAT.matcher(arg.trim());
+        final Matcher matcher = TASK_FIND_ARGS_FORMAT.matcher(arg.trim());
         if (!matcher.matches()) {
             return new UnknownCommand();
         }
 
-        return new FindCommand(matcher.group("name").strip());
+        String title = matcher.group("title");
+        String tagArgs = matcher.group("tags");
+        Optional<ArrayList<Tag>> tags = Optional.ofNullable(parseTags(tagArgs));
+        if (tags.isPresent()) {
+            return new FindTaskByTagCommand(title, tags.get());
+        }
+        return new FindCommand(title);
+
     }
 
     private Command prepareTodo(String args) {
-        final Matcher matcher = TODO_FIND_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = TODO_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
+            System.out.println("not working at all!");
             return new UnknownCommand();
         }
-
         try {
-            String grp = matcher.group("name");
-            return new AddTodoCommand(grp);
-        } catch (DukeException e) {
-            return new UnknownCommand(e.getMessage());
+            String title = matcher.group("title");
+            String tagArgs = matcher.group("tags");
+            Optional<ArrayList<Tag>> tags = Optional.ofNullable(parseTags(tagArgs));
+            return new AddTodoCommand(title, tags);
+        } catch (Exception e) {
+            return new UnknownCommand();
         }
     }
+
+
+    private ArrayList<Tag> parseTags(String tagArgs) {
+        ArrayList<Tag> tags = new ArrayList<>();
+        Matcher m = TAG_ARGS_FORMAT.matcher(tagArgs);
+        while(m != null && m.find()) {
+            tags.add(new Tag(m.group().strip()));
+        }
+//        printTags(tags);
+        return tags.size() > 0 ? tags : null;
+    }
+//
+//    private void printTags(ArrayList<Tag> tags) {
+//        for (Tag i: tags) {
+//            System.out.println("this is one of the tags:" + i);
+//        }
+//    }
 
     private Command prepareDeadline(String args) {
         final Matcher matcher = DEADLINE_ARGS_FORMAT.matcher(args.trim());
@@ -107,7 +139,11 @@ public class Parser {
         }
 
         try {
-            return new AddDeadlineCommand(matcher.group("name"), matcher.group("deadline").strip());
+            String title = matcher.group("title");
+            String deadline = matcher.group("deadline");
+            String tagArgs = matcher.group("tags");
+            Optional<ArrayList<Tag>> tags = Optional.ofNullable(parseTags(tagArgs));
+            return new AddDeadlineCommand(title, deadline.strip(), tags);
         } catch (DukeException e) {
             return new UnknownCommand(e.getMessage());
         }
@@ -121,11 +157,12 @@ public class Parser {
         }
 
         try {
-            return new AddEventCommand(
-                    matcher.group("name"),
-                    matcher.group("from").strip(),
-                    matcher.group("to").strip()
-            );
+            String title = matcher.group("title");
+            String from = matcher.group("from").strip();
+            String to = matcher.group("to").strip();
+            String tagArgs = matcher.group("tags");
+            Optional<ArrayList<Tag>> tags = Optional.ofNullable(parseTags(tagArgs));
+            return new AddEventCommand(title, from, to, tags);
         } catch (DukeException e) {
             return new UnknownCommand();
         }

@@ -2,7 +2,7 @@ package brandon.chatbot.ui;
 
 import brandon.chatbot.DialogBox;
 import brandon.chatbot.Duke;
-import brandon.chatbot.commands.HelpCommand;
+import brandon.chatbot.commands.generalcommands.HelpCommand;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

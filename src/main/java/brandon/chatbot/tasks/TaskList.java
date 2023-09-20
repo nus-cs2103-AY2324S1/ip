@@ -1,8 +1,10 @@
 package brandon.chatbot.tasks;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import brandon.chatbot.common.DukeIndexOutOfBoundsException;
+import brandon.chatbot.tag.Tag;
 
 /**
  * Represents a list of tasks to be stored by the user.
@@ -22,8 +24,9 @@ public class TaskList {
      *
      * @param newTask to add to the task list.
      */
-    public void addTask(Task newTask) {
+    public TaskList addTask(Task newTask) {
         tasks.add(newTask);
+        return this;
     }
 
     /**
@@ -68,8 +71,38 @@ public class TaskList {
         target.setDone(false);
     }
 
+    public TaskList findTask(String title) {
+        TaskList newList = new TaskList();
+        for (Task task : tasks) {
+            if (task.toString().contains(title)) {
+                newList.addTask(task);
+            }
+        }
+
+        return newList;
+    }
+
+    public boolean isEmpty() {
+        return tasks.isEmpty() || tasks == null;
+    }
+
+    public TaskList appendTaskList(TaskList targetTaskList) {
+        this.tasks.addAll(targetTaskList.getList());
+        return this;
+    }
+
+    public TaskList filterTaskWithTag(Tag tag) {
+        tasks = (ArrayList<Task>) tasks.stream()
+                .filter(task -> {
+                    return task.hasTag(tag);
+                })
+                .collect(Collectors.toList());
+        return this;
+    }
+
     public ArrayList<Task> getList() {
         return tasks;
     }
+
 }
 

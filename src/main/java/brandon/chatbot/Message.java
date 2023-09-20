@@ -1,4 +1,4 @@
-package brandon.chatbot.commands;
+package brandon.chatbot;
 
 import brandon.chatbot.tasks.Task;
 import brandon.chatbot.tasks.TaskList;
@@ -6,14 +6,9 @@ import brandon.chatbot.tasks.TaskList;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Represents a command that lists the tasks in TaskList.
- */
-public class ListCommand extends Command {
-    public static final String LIST_SUCCESS = "ok... I'm listing..";
+public class Message {
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
-
-    public String showTasks(TaskList tasks) {
+    public static String showTasks(TaskList tasks) {
         final ArrayList<String> formattedTasks = new ArrayList<>();
         for (Task t : tasks.getList()) {
             formattedTasks.add(t.getStatus());
@@ -33,10 +28,5 @@ public class ListCommand extends Command {
 
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
-    }
-
-    @Override
-    public CommandResult execute() {
-        return new CommandResult(LIST_SUCCESS + "\n" + showTasks(tasks));
     }
 }

@@ -10,7 +10,9 @@
         <Label fx:id="dialog"
                text="Label"
                wrapText="true"
-               style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid; -fx-min-width: 280; -fx-max-width: 280; -fx-min-height: 99.0;"/>
+               maxWidth="-Infinity"
+               minHeight="-Infinity"
+               style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid; -fx-min-width: 280; -fx-max-width: 280; -fx-min-height: 99.0"/>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>

@@ -3,7 +3,10 @@ package brandon.chatbot.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Optional;
 
+import brandon.chatbot.tag.Tag;
 import brandon.chatbot.common.DukeException;
 
 /**
@@ -19,8 +22,8 @@ public class Deadline extends Task {
      * @param deadline of the Deadline task.
      * @throws DukeException if the parameters are invalid.
      */
-    public Deadline(String title, String deadline) throws DukeException {
-        super(title);
+    public Deadline(String title, String deadline, Optional<ArrayList<Tag>> tags) throws DukeException {
+        super(title, tags);
         if (deadline.isBlank()) {
             throw new DukeException("    Deadline cannot be blank...\n--------------------------------");
         }
