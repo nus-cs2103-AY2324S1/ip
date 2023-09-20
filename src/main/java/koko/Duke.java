@@ -38,14 +38,6 @@ public class Duke {
         }
     }
 
-    /**
-     * Main method for running the Duke chatbot.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
-    }
 
     /**
      * Handles user input, parses it and dispatches the command to perform the appropriate actions.
