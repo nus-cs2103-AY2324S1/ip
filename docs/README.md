@@ -27,7 +27,6 @@ you need them.
 
 
 ## Usage
-***
 ### 1. `☑️todo `
 
 Adds a todo task to your list of tasks.
