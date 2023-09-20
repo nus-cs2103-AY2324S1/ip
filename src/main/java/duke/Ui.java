@@ -10,15 +10,6 @@ import duke.task.Task;
 public class Ui {
 
     /**
-     * Displays an error message for loading the storage file.
-     *
-     * @return The error message for loading the storage file.
-     */
-    public String showLoadingError() {
-        return "Error loading storage file";
-    }
-
-    /**
      * Displays the welcome message when the program starts.
      *
      * @return The welcome message.

@@ -59,44 +59,55 @@ public class Storage {
             String line;
             try {
                 while ((line = reader.readLine()) != null) {
-                    if (line.startsWith("T")) {
-                        String[] inputs = line.split(" \\| ", 4);
-                        boolean isDone = inputs[1].equals("1");
-                        ToDo todo = new ToDo(inputs[2], isDone, inputs[3]);
-                        dukeList.add(todo);
-                    }
-                    if (line.startsWith("D")) {
-                        String[] inputs = line.split(" \\| ", 5);
-                        boolean isDone = inputs[1].equals("1");
-                        LocalDate b;
-                        try {
-                            b = DateParserService.parseDate(inputs[4]);
-                        } catch (DateTimeParseException e) {
-                            throw new DukeException("Invalid date format");
-                        }
-                        Deadline deadline = new Deadline(inputs[2], isDone, inputs[3], b);
-                        dukeList.add(deadline);
-                    }
-                    if (line.startsWith("E")) {
-                        String[] inputs = line.split(" \\| ", 6);
-                        boolean isDone = inputs[1].equals("1");
-                        LocalDate f;
-                        LocalDate t;
-                        try {
-                            f = DateParserService.parseDate(inputs[4]);
-                            t = DateParserService.parseDate(inputs[5]);
-                        } catch (DateTimeParseException e) {
-                            throw new DukeException("Invalid date format");
-                        }
-                        Event event = new Event(inputs[2], isDone, inputs[3], f, t);
-                        dukeList.add(event);
-                    }
+                    parseInput(line, dukeList);
                 }
             } catch (IOException e) {
                 throw new DukeException("Error reading file.");
             }
         }
         return dukeList;
+    }
+
+    /**
+     * Parses a line of input from the file and adds it as a task to the given ArrayList.
+     *
+     * @param line     The line of input to parse.
+     * @param dukeList The ArrayList to which the parsed task will be added.
+     * @throws DukeException If there is an error while parsing the input line.
+     */
+    public void parseInput(String line, ArrayList<Task> dukeList) throws DukeException {
+        if (line.startsWith("T")) {
+            String[] inputs = line.split(" \\| ", 4);
+            boolean isDone = inputs[1].equals("1");
+            ToDo todo = new ToDo(inputs[2], isDone, inputs[3]);
+            dukeList.add(todo);
+        }
+        if (line.startsWith("D")) {
+            String[] inputs = line.split(" \\| ", 5);
+            boolean isDone = inputs[1].equals("1");
+            LocalDate b;
+            try {
+                b = DateParserService.parseDate(inputs[4]);
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Invalid date format");
+            }
+            Deadline deadline = new Deadline(inputs[2], isDone, inputs[3], b);
+            dukeList.add(deadline);
+        }
+        if (line.startsWith("E")) {
+            String[] inputs = line.split(" \\| ", 6);
+            boolean isDone = inputs[1].equals("1");
+            LocalDate f;
+            LocalDate t;
+            try {
+                f = DateParserService.parseDate(inputs[4]);
+                t = DateParserService.parseDate(inputs[5]);
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Invalid date format");
+            }
+            Event event = new Event(inputs[2], isDone, inputs[3], f, t);
+            dukeList.add(event);
+        }
     }
 
     /**
